@@ -1,0 +1,525 @@
+
+## Authorization word != state field (55)
+  - 00.00.00.syntax/00.axioms/01.md: auth=lock state=live
+  - 00.00.00.syntax/00.axioms/02.md: auth=lock state=live
+  - 00.00.00.syntax/00.axioms/03.md: auth=lock state=live
+  - 00.00.00.syntax/00.axioms/04.md: auth=lock state=live
+  - 00.00.00.syntax/0001.rules/01.md: auth=lock state=live
+  - 00.00.00.syntax/0001.rules/02.md: auth=lock state=live
+  - 00.00.00.syntax/0001.rules/03.md: auth=lock state=live
+  - 00.00.00.syntax/0001.rules/04.md: auth=lock state=live
+  - 00.00.00.syntax/0001.rules/08.md: auth=lock state=live
+  - 00.00.00.syntax/0002.schema/03.md: auth=lock state=live
+  - 00.00.00.syntax/0002.schema/04.md: auth=lock state=live
+  - 00.00.00.syntax/0002.schema/08.md: auth=lock state=live
+  - 00.00.00.syntax/0003.operate/03.md: auth=lock state=live
+  - 00.00.00.syntax/0003.operate/04.md: auth=lock state=live
+  - 00.00.00.syntax/0003.operate/08.md: auth=lock state=live
+  - 00.00.00.syntax/0004.user/01.md: auth=lock state=live
+  - 00.00.00.syntax/0004.user/02.md: auth=lock state=live
+  - 00.00.00.syntax/0004.user/03.md: auth=lock state=live
+  - 00.00.00.syntax/0004.user/04.md: auth=lock state=live
+  - 00.00.00.syntax/0004.user/08.md: auth=lock state=live
+  - 00.00.00.syntax/0005.ticket/02.md: auth=lock state=live
+  - 00.00.00.syntax/0005.ticket/03.md: auth=lock state=live
+  - 00.00.00.syntax/0005.ticket/04.md: auth=lock state=live
+  - 00.00.00.syntax/0005.ticket/08.md: auth=lock state=live
+  - 00.00.00.syntax/0006.note/02.md: auth=lock state=live
+  - 00.00.00.syntax/0006.note/03.md: auth=lock state=live
+  - 00.00.00.syntax/0006.note/04.md: auth=lock state=live
+  - 00.00.00.syntax/0006.note/08.md: auth=lock state=live
+  - 00.00.00.syntax/0007.reserved/01.md: auth=lock state=live
+  - 00.00.00.syntax/0007.reserved/08.md: auth=lock state=live
+  - 00.00.00.syntax/0008.map/02.md: auth=lock state=live
+  - 00.00.00.syntax/0008.map/03.md: auth=lock state=live
+  - 00.00.00.syntax/0008.map/04.md: auth=lock state=live
+  - 00.00.00.syntax/0008.map/08.md: auth=lock state=live
+  - 00.00.00.syntax/0010.about/01.md: auth=lock state=live
+  - 00.00.00.syntax/0010.about/08.md: auth=lock state=live
+  - 00.00.00.syntax/0012.gravity/01.md: auth=lock state=live
+  - 00.00.00.syntax/0012.gravity/02.md: auth=lock state=live
+  - 00.00.00.syntax/0012.gravity/03.md: auth=lock state=live
+  - 00.00.00.syntax/0012.gravity/04.md: auth=lock state=live
+  - 00.00.00.syntax/0012.gravity/06.md: auth=lock state=live
+  - 00.00.00.syntax/0013.triangulate/01.md: auth=lock state=live
+  - 00.00.00.syntax/0013.triangulate/02.md: auth=lock state=live
+  - 00.00.00.syntax/0013.triangulate/03.md: auth=lock state=live
+  - 00.00.00.syntax/0013.triangulate/04.md: auth=lock state=live
+  - 00.00.00.syntax/0013.triangulate/06.md: auth=lock state=live
+  - 00.00.00.syntax/0014.design/01.md: auth=lock state=live
+  - 00.00.00.syntax/0014.design/02.md: auth=lock state=live
+  - 00.00.00.syntax/0014.design/03.md: auth=lock state=live
+  - 00.00.00.syntax/0014.design/04.md: auth=lock state=live
+  - 00.00.00.syntax/0014.design/08.md: auth=lock state=live
+  - 00.00.00.syntax/0016.compose/01.md: auth=lock state=live
+  - 00.00.00.syntax/0016.compose/08.md: auth=lock state=live
+  - 00.00.01.law/0012.dictionary/07.sample.md: auth=draft state=sample
+  - 00.00.01.law/0036.colab/06.md: auth=lock state=live
+
+## header vs footer state mismatch (19)
+  - 00.00.00.syntax/00.axioms/01.md: header=lock footer=approved
+  - 00.00.00.syntax/00.axioms/02.md: header=lock footer=approved
+  - 00.00.00.syntax/00.axioms/03.md: header=lock footer=approved
+  - 00.00.00.syntax/00.axioms/04.md: header=lock footer=approved
+  - 00.00.00.syntax/0001.rules/01.md: header=lock footer=approved
+  - 00.00.00.syntax/0001.rules/02.md: header=lock footer=approved
+  - 00.00.00.syntax/0001.rules/03.md: header=lock footer=approved
+  - 00.00.00.syntax/0001.rules/04.md: header=lock footer=approved
+  - 00.00.00.syntax/0010.about/01.md: header=lock footer=approved
+  - 00.00.00.syntax/0010.about/08.md: header=lock footer=approved
+  - 00.00.00.syntax/0013.triangulate/01.md: header=lock footer=approved
+  - 00.00.00.syntax/0013.triangulate/02.md: header=lock footer=approved
+  - 00.00.00.syntax/0013.triangulate/03.md: header=lock footer=approved
+  - 00.00.00.syntax/0013.triangulate/04.md: header=lock footer=approved
+  - 00.00.00.syntax/0014.design/01.md: header=lock footer=approved
+  - 00.00.00.syntax/0014.design/02.md: header=lock footer=approved
+  - 00.00.00.syntax/0014.design/03.md: header=lock footer=approved
+  - 00.00.00.syntax/0014.design/04.md: header=lock footer=approved
+  - 00.00.01.law/0025.clean/02.md: header=draft footer=approved
+
+## stale address: NNNN.name points at a different concept (69)
+  - 00.00.00.syntax/00.axioms/06.md: cites 0016.composition, but 0016 is now ['compose', 'compose']
+  - 00.00.00.syntax/0003.operate/06.md: cites 0003.clerk, but 0003 is now ['operate', 'operate']
+  - 00.00.00.syntax/0003.operate/06.md: cites 0010.clerk, but 0010 is now ['about', 'about', 'learned']
+  - 00.00.00.syntax/0016.compose/06.md: cites 0016.composition, but 0016 is now ['compose', 'compose']
+  - 00.00.01.law/0000.invariant/06.md: cites 0000.desk, but 0000 is now ['invariant', 'invariant']
+  - 00.00.01.law/0000.invariant/06.md: cites 0000.desk-retired, but 0000 is now ['invariant', 'invariant']
+  - 00.00.01.law/0000.invariant/06.md: cites 0000.desk, but 0000 is now ['invariant', 'invariant']
+  - 00.00.01.law/0000.invariant/06.md: cites 0000.desk, but 0000 is now ['invariant', 'invariant']
+  - 00.00.01.law/0000.invariant/06.md: cites 0000.desk, but 0000 is now ['invariant', 'invariant']
+  - 00.00.01.law/0000.invariant/08.md: cites 0000.desk-retired, but 0000 is now ['invariant', 'invariant']
+  - 00.00.01.law/0006.note/08.md: cites 0016.write, but 0016 is now ['compose', 'compose']
+  - 00.00.01.law/0016.compose/06.md: cites 0016.composition, but 0016 is now ['compose', 'compose']
+  - 00.00.01.law/0021.write/06.md: cites 0016.write, but 0016 is now ['compose', 'compose']
+  - 00.00.01.law/0021.write/06.md: cites 0012.walk, but 0012 is now ['dictionary', 'gravity', 'law']
+  - 00.00.01.law/0021.write/06.md: cites 0024.write, but 0024 is now ['crawl', 'version']
+  - 00.00.01.law/0023.promote/06.md: cites 0026.promote, but 0026 is now ['law-crawl', 'strike']
+  - 00.00.01.law/0024.version/06.md: cites 0018.promote, but 0018 is now ['seqaddr', 'stream']
+  - 00.00.01.law/0024.version/06.md: cites 0019.migration, but 0019 is now ['seqaddr']
+  - 00.00.01.law/0024.version/06.md: cites 0021.version, but 0021 is now ['walk-batch', 'write']
+  - 00.00.01.law/0025.clean/06.md: cites 0000.desk-retired, but 0000 is now ['invariant', 'invariant']
+  - 00.00.01.law/0025.clean/06.md: cites 0007.unset, but 0007 is now ['reserved', 'reserved']
+  - 00.00.01.law/0025.clean/06.md: cites 0029.clean, but 0029 is now ['climb', 'walk']
+  - 00.00.01.law/0026.strike/06.md: cites 0035.strike, but 0035 is now ['halt', 'packet-week']
+  - 00.00.01.law/0027.migration/06.md: cites 0007.unset, but 0007 is now ['reserved', 'reserved']
+  - 00.00.01.law/0028.crawl/06.md: cites 0022.crawl, but 0022 is now ['approve', 'seqaddr-002']
+  - 00.00.01.law/0029.walk/05.01.md: cites 0000.desk, but 0000 is now ['invariant', 'invariant']
+  - 00.00.01.law/0029.walk/06.md: cites 0000.desk, but 0000 is now ['invariant', 'invariant']
+  - 00.00.01.law/0029.walk/06.md: cites 0000.desk, but 0000 is now ['invariant', 'invariant']
+  - 00.00.01.law/0029.walk/06.md: cites 0000.desk-retired, but 0000 is now ['invariant', 'invariant']
+  - 00.00.01.law/0029.walk/06.md: cites 0000.desk, but 0000 is now ['invariant', 'invariant']
+  - 00.00.01.law/0029.walk/06.md: cites 0038.walk, but 0038 is now ['return']
+  - 00.00.01.law/0029.walk/06.md: cites 0038.walk, but 0038 is now ['return']
+  - 00.00.01.law/0032.climb/06.md: cites 0052.climb, but 0052 is now ['shelf']
+  - 00.00.01.law/0033.point/01.md: cites 0038.pack, but 0038 is now ['return']
+  - 00.00.01.law/0033.point/04.md: cites 0038.pack, but 0038 is now ['return']
+  - 00.00.01.law/0033.point/06.md: cites 0036.point, but 0036 is now ['colab']
+  - 00.00.01.law/0033.point/08.md: cites 0036.point, but 0036 is now ['colab']
+  - 00.00.01.law/0035.halt/06.md: cites 0037.halt, but 0037 is now ['pack']
+  - 00.00.01.law/0035.halt/08.md: cites 0037.halt, but 0037 is now ['pack']
+  - 00.00.01.law/0036.colab/06.md: cites 0011.colab, but 0011 is now ['contents', 'remain']
+  - 00.00.01.law/0036.colab/06.md: cites 0028.colab, but 0028 is now ['crawl', 'rhyme']
+  - 00.00.01.law/0037.pack/06.md: cites 0031.pack, but 0031 is now ['sim', 'worldcraft-origin']
+  - 00.00.01.law/0038.return/06.md: cites 0032.return, but 0032 is now ['climb', 'walk-not-place']
+  - 00.00.01.law/0039.report/06.md: cites 0033.report, but 0033 is now ['point', 'sentinels-from-world']
+  - 00.00.01.law/0040.lead/01.md: cites 0017.sync, but 0017 is now ['method']
+  - 00.00.01.law/0040.lead/06.md: cites 0017.sync, but 0017 is now ['method']
+  - 00.00.01.law/0040.lead/06.md: cites 0023.lead, but 0023 is now ['promote', 'version']
+  - 00.00.01.law/0040.lead/08.md: cites 0016.write, but 0016 is now ['compose', 'compose']
+  - 00.00.01.law/0050.band.structure/08.md: cites 0053.bands, but 0053 is now ['emit']
+  - 00.00.01.law/0051.desk/06.md: cites 0058.desk, but 0058 is now ['custody']
+  - 00.00.01.law/0052.shelf/06.md: cites 0059.shelf, but 0059 is now ['rhyme']
+  - 00.00.01.law/0054.book/06.md: cites 0060.book, but 0060 is now ['drafting']
+  - 00.00.01.law/0055.page/06.md: cites 0061.page, but 0061 is now ['coldboot']
+  - 00.00.01.law/0057.bands/06.md: cites 0053.bands, but 0053 is now ['emit']
+  - 00.00.01.law/0058.custody/06.md: cites 0056.custody, but 0056 is now ['band']
+  - 00.00.01.law/0059.rhyme/06.md: cites 0051.rhyme, but 0051 is now ['desk']
+  - 00.00.14.notes/0001.notes/08.md: cites 0016.write, but 0016 is now ['compose', 'compose']
+  - 00.00.14.notes/0019.seqaddr/00.md: cites 0011.seqaddr, but 0011 is now ['contents', 'remain']
+  - 00.00.14.notes/0021.walk-batch/00.md: cites 0000.desk, but 0000 is now ['invariant', 'invariant']
+  - 00.00.14.notes/0022.seqaddr-002/00.md: cites 0011.seqaddr, but 0011 is now ['contents', 'remain']
+  - 00.00.14.notes/0022.seqaddr-002/00.md: cites 0010.address, but 0010 is now ['about', 'about', 'learned']
+  - 00.00.14.notes/0023.version/00.md: cites 0013.version, but 0013 is now ['concordance', 'schema', 'triangulate']
+  - 00.00.14.notes/0026.law-crawl/00.md: cites 0010.address, but 0010 is now ['about', 'about', 'learned']
+  - 00.00.14.notes/0028.rhyme/00.md: cites 0051.rhyme, but 0051 is now ['desk']
+  - 00.00.14.notes/0028.rhyme/00.md: cites 0002.rhyme, but 0002 is now ['form', 'schema', 'schema']
+  - 00.00.14.notes/0029.climb/00.md: cites 0052.climb, but 0052 is now ['shelf']
+  - 00.00.14.notes/REG.md: cites 0016.map-retire, but 0016 is now ['compose', 'compose']
+  - 00.00.14.notes/REG.md: cites 0022.seqaddr-, but 0022 is now ['approve', 'seqaddr-002']
+  - 00.readme.md: cites 0024.write, but 0024 is now ['crawl', 'version']
+
+## possible stale prose pointer (word near number) (224)
+  - 00.00.00.syntax/00.axioms/06.md: "taken on 0013" -> 0013 is ['concordance', 'schema', 'triangulate']
+  - 00.00.00.syntax/00.md: "lives on page `0014`" -> 0014 is ['clerk-user', 'design', 'design']
+  - 00.00.00.syntax/0001.rules/01.006.md: "lives on page `0014`" -> 0014 is ['clerk-user', 'design', 'design']
+  - 00.00.00.syntax/0001.rules/01.006.md: "address is law `0018`" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.00.syntax/0001.rules/01.006.md: "live on law `0018`" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.00.syntax/0001.rules/01.md: "lives on page `0014`" -> 0014 is ['clerk-user', 'design', 'design']
+  - 00.00.00.syntax/0001.rules/01.md: "address is law `0018`" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.00.syntax/0001.rules/01.md: "live on law `0018`" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.00.syntax/0001.rules/04.002.md: "sentence on page `0014`" -> 0014 is ['clerk-user', 'design', 'design']
+  - 00.00.00.syntax/0001.rules/04.002.md: "address is law `0018`" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.00.syntax/0001.rules/04.md: "sentence on page `0014`" -> 0014 is ['clerk-user', 'design', 'design']
+  - 00.00.00.syntax/0001.rules/04.md: "address is law `0018`" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.00.syntax/0001.rules/06.md: "card is law 0024" -> 0024 is ['crawl', 'version']
+  - 00.00.00.syntax/0001.rules/06.md: "proof on law 0018" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.00.syntax/0002.schema/01.004.md: "order is page 0014" -> 0014 is ['clerk-user', 'design', 'design']
+  - 00.00.00.syntax/0002.schema/01.md: "order is page 0014" -> 0014 is ['clerk-user', 'design', 'design']
+  - 00.00.00.syntax/0002.schema/04.md: "jump is page `0001`" -> 0001 is ['law', 'notes', 'rules']
+  - 00.00.00.syntax/0003.operate/01.005.md: "lives on page 0014" -> 0014 is ['clerk-user', 'design', 'design']
+  - 00.00.00.syntax/0003.operate/01.md: "lives on page 0014" -> 0014 is ['clerk-user', 'design', 'design']
+  - 00.00.00.syntax/0003.operate/04.md: "lives on page `0014`" -> 0014 is ['clerk-user', 'design', 'design']
+  - 00.00.00.syntax/0003.operate/04.md: "twin is law page `0003`" -> 0003 is ['operate', 'operate']
+  - 00.00.00.syntax/0008.map/05.md: "body is law 0008" -> 0008 is ['map', 'map']
+  - 00.00.00.syntax/0010.about/01.002.md: "lives on page `0014`" -> 0014 is ['clerk-user', 'design', 'design']
+  - 00.00.00.syntax/0010.about/01.002.md: "address is law `0018`" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.00.syntax/0010.about/01.md: "lives on page `0014`" -> 0014 is ['clerk-user', 'design', 'design']
+  - 00.00.00.syntax/0010.about/01.md: "address is law `0018`" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.00.syntax/0012.gravity/06.md: "hole on 0013" -> 0013 is ['concordance', 'schema', 'triangulate']
+  - 00.00.00.syntax/0013.triangulate/01.002.md: "scan is law `0018`" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.00.syntax/0013.triangulate/01.md: "scan is law `0018`" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.00.syntax/0013.triangulate/04.002.md: "scan is law 0018" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.00.syntax/0013.triangulate/04.md: "scan is law 0018" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.00.syntax/0013.triangulate/06.md: "scan is law 0018" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.00.syntax/0014.design/01.004.md: "climb is law `0018`" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.00.syntax/0014.design/01.004.md: "climb is 0018" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.00.syntax/0014.design/01.005.md: "climb is law 0018" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.00.syntax/0014.design/01.006.md: "climb is law 0018" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.00.syntax/0014.design/01.md: "climb is law 0018" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.00.syntax/0014.design/01.md: "stopped at 0001" -> 0001 is ['law', 'notes', 'rules']
+  - 00.00.00.syntax/0014.design/03.002.md: "climb is law 0018" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.00.syntax/0014.design/03.003.md: "climb is law 0018" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.00.syntax/0014.design/03.md: "climb is law 0018" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.00.syntax/0014.design/04.002.md: "climb is law 0018" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.00.syntax/0014.design/04.003.md: "climb is law 0018" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.00.syntax/0014.design/04.md: "climb is law 0018" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.00.syntax/0014.design/06.md: "seat is 0001" -> 0001 is ['law', 'notes', 'rules']
+  - 00.00.01.law/0000.invariant/01.md: "counted is page `0018`" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.01.law/0000.invariant/06.md: "climb is `0018`" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.01.law/0000.invariant/06.md: "cite is 0026" -> 0026 is ['law-crawl', 'strike']
+  - 00.00.01.law/0000.invariant/06.md: "count is 0011" -> 0011 is ['contents', 'remain']
+  - 00.00.01.law/0000.invariant/08.md: "address is page `0018`" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.01.law/0000.invariant/08.md: "Promote is page `0026`" -> 0026 is ['law-crawl', 'strike']
+  - 00.00.01.law/0001.law/01.md: "map is page 0011" -> 0011 is ['contents', 'remain']
+  - 00.00.01.law/0001.law/01.md: "card is law 0021" -> 0021 is ['walk-batch', 'write']
+  - 00.00.01.law/0001.law/04.md: "map is page 0011" -> 0011 is ['contents', 'remain']
+  - 00.00.01.law/0001.law/06.md: "work is page `0006`" -> 0006 is ['note', 'note']
+  - 00.00.01.law/0001.law/06.md: "points at page `0011`" -> 0011 is ['contents', 'remain']
+  - 00.00.01.law/0001.law/06.md: "parked at `0018`" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.01.law/0001.law/06.md: "syntax at page `0011`" -> 0011 is ['contents', 'remain']
+  - 00.00.01.law/0001.law/06.md: "band on `0011`" -> 0011 is ['contents', 'remain']
+  - 00.00.01.law/0001.law/06.md: "measure on `0011`" -> 0011 is ['contents', 'remain']
+  - 00.00.01.law/0001.law/06.md: "Rhyme is `0051`" -> 0051 is ['desk']
+  - 00.00.01.law/0001.law/06.md: "files on `0002`" -> 0002 is ['form', 'schema', 'schema']
+  - 00.00.01.law/0001.law/06.md: "card is law 0024" -> 0024 is ['crawl', 'version']
+  - 00.00.01.law/0001.law/08.md: "map is page 0011" -> 0011 is ['contents', 'remain']
+  - 00.00.01.law/0002.schema/01.md: "Format is page 0003" -> 0003 is ['operate', 'operate']
+  - 00.00.01.law/0002.schema/01.md: "lives on page 0010" -> 0010 is ['about', 'about', 'learned']
+  - 00.00.01.law/0002.schema/01.md: "check is page 0006" -> 0006 is ['note', 'note']
+  - 00.00.01.law/0002.schema/01.md: "walk is syntax 0014" -> 0014 is ['clerk-user', 'design', 'design']
+  - 00.00.01.law/0002.schema/01.md: "settled on page 0003" -> 0003 is ['operate', 'operate']
+  - 00.00.01.law/0002.schema/01.md: "map is page 0011" -> 0011 is ['contents', 'remain']
+  - 00.00.01.law/0002.schema/01.md: "Rhyme is page 0051" -> 0051 is ['desk']
+  - 00.00.01.law/0002.schema/01.md: "card is law 0021" -> 0021 is ['walk-batch', 'write']
+  - 00.00.01.law/0002.schema/01.md: "draft is 0060" -> 0060 is ['drafting']
+  - 00.00.01.law/0002.schema/04.md: "Coldboot is page 0003" -> 0003 is ['operate', 'operate']
+  - 00.00.01.law/0002.schema/04.md: "check is page 0006" -> 0006 is ['note', 'note']
+  - 00.00.01.law/0002.schema/04.md: "walk is syntax 0014" -> 0014 is ['clerk-user', 'design', 'design']
+  - 00.00.01.law/0002.schema/04.md: "settled on page 0003" -> 0003 is ['operate', 'operate']
+  - 00.00.01.law/0002.schema/04.md: "map is page 0011" -> 0011 is ['contents', 'remain']
+  - 00.00.01.law/0002.schema/04.md: "Rhyme is page 0051" -> 0051 is ['desk']
+  - 00.00.01.law/0002.schema/06.md: "work is page `0006`" -> 0006 is ['note', 'note']
+  - 00.00.01.law/0002.schema/06.md: "coldboot is page `0003`" -> 0003 is ['operate', 'operate']
+  - 00.00.01.law/0002.schema/06.md: "Rhyme is page `0051`" -> 0051 is ['desk']
+  - 00.00.01.law/0002.schema/06.md: "Rhyme is 0051" -> 0051 is ['desk']
+  - 00.00.01.law/0002.schema/06.md: "Coldboot is page 0003" -> 0003 is ['operate', 'operate']
+  - 00.00.01.law/0002.schema/06.md: "pointed at 0011" -> 0011 is ['contents', 'remain']
+  - 00.00.01.law/0002.schema/06.md: "card is law 0024" -> 0024 is ['crawl', 'version']
+  - 00.00.01.law/0002.schema/06.md: "draft is 0060" -> 0060 is ['drafting']
+  - 00.00.01.law/0003.operate/06.md: "lives on 0012" -> 0012 is ['dictionary', 'gravity', 'law']
+  - 00.00.01.law/0003.operate/08.md: "walk is syntax 0014" -> 0014 is ['clerk-user', 'design', 'design']
+  - 00.00.01.law/0004.user/01.md: "map is page 0001" -> 0001 is ['law', 'notes', 'rules']
+  - 00.00.01.law/0004.user/04.md: "map is page 0001" -> 0001 is ['law', 'notes', 'rules']
+  - 00.00.01.law/0005.ticket/06.md: "point at 0003" -> 0003 is ['operate', 'operate']
+  - 00.00.01.law/0008.map/01.md: "grammar is 0018" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.01.law/0008.map/01.md: "address is page 0018" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.01.law/0008.map/02.md: "reading is 0018" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.01.law/0008.map/04.md: "chart is page 0011" -> 0011 is ['contents', 'remain']
+  - 00.00.01.law/0008.map/04.md: "address is page 0018" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.01.law/0008.map/04.md: "walk is syntax 0014" -> 0014 is ['clerk-user', 'design', 'design']
+  - 00.00.01.law/0008.map/06.md: "map is 0011" -> 0011 is ['contents', 'remain']
+  - 00.00.01.law/0008.map/06.md: "belong on 0018" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.01.law/0008.map/06.md: "row is 0056" -> 0056 is ['band']
+  - 00.00.01.law/0008.map/06.md: "stays on 0001" -> 0001 is ['law', 'notes', 'rules']
+  - 00.00.01.law/0010.about/01.md: "walk is syntax 0014" -> 0014 is ['clerk-user', 'design', 'design']
+  - 00.00.01.law/0010.about/01.md: "door is 0020" -> 0020 is ['band.behavior', 'walk']
+  - 00.00.01.law/0010.about/01.md: "map is 0011" -> 0011 is ['contents', 'remain']
+  - 00.00.01.law/0010.about/01.md: "walk is syntax 0014" -> 0014 is ['clerk-user', 'design', 'design']
+  - 00.00.01.law/0010.about/01.md: "address is 0018" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.01.law/0010.about/04.md: "walk is syntax 0014" -> 0014 is ['clerk-user', 'design', 'design']
+  - 00.00.01.law/0010.about/04.md: "door is 0020" -> 0020 is ['band.behavior', 'walk']
+  - 00.00.01.law/0010.about/06.md: "stays on syntax 0014" -> 0014 is ['clerk-user', 'design', 'design']
+  - 00.00.01.law/0010.about/06.md: "Behavior is 0020" -> 0020 is ['band.behavior', 'walk']
+  - 00.00.01.law/0011.contents/06.md: "Behavior is 0020" -> 0020 is ['band.behavior', 'walk']
+  - 00.00.01.law/0011.contents/08.md: "child is 0013" -> 0013 is ['concordance', 'schema', 'triangulate']
+  - 00.00.01.law/0012.dictionary/01.md: "point is 0013" -> 0013 is ['concordance', 'schema', 'triangulate']
+  - 00.00.01.law/0012.dictionary/01.md: "now is 0013" -> 0013 is ['concordance', 'schema', 'triangulate']
+  - 00.00.01.law/0012.dictionary/06.md: "point is `0013`" -> 0013 is ['concordance', 'schema', 'triangulate']
+  - 00.00.01.law/0012.dictionary/07.sample.md: "stays on 0013" -> 0013 is ['concordance', 'schema', 'triangulate']
+  - 00.00.01.law/0014.design/01.md: "Desk is 0058" -> 0058 is ['custody']
+  - 00.00.01.law/0014.design/01.md: "Shelf is 0059" -> 0059 is ['rhyme']
+  - 00.00.01.law/0014.design/01.md: "parent is 0050" -> 0050 is ['band.structure']
+  - 00.00.01.law/0014.design/06.md: "pointed at syntax 0014" -> 0014 is ['clerk-user', 'design', 'design']
+  - 00.00.01.law/0014.design/06.md: "walk is syntax 0014" -> 0014 is ['clerk-user', 'design', 'design']
+  - 00.00.01.law/0018.seqaddr/01.md: "reserved is 0000" -> 0000 is ['invariant', 'invariant']
+  - 00.00.01.law/0018.seqaddr/01.md: "draft is 0060" -> 0060 is ['drafting']
+  - 00.00.01.law/0018.seqaddr/06.md: "draft is 0060" -> 0060 is ['drafting']
+  - 00.00.01.law/0018.seqaddr/06.md: "pointed at 0026" -> 0026 is ['law-crawl', 'strike']
+  - 00.00.01.law/0020.band.behavior/04.md: "Lifecycle is 0021" -> 0021 is ['walk-batch', 'write']
+  - 00.00.01.law/0020.band.behavior/04.md: "Inspect is 0028" -> 0028 is ['crawl', 'rhyme']
+  - 00.00.01.law/0020.band.behavior/04.md: "Resolve is 0032" -> 0032 is ['climb', 'walk-not-place']
+  - 00.00.01.law/0020.band.behavior/06.md: "Parent is 0010" -> 0010 is ['about', 'about', 'learned']
+  - 00.00.01.law/0021.write/01.md: "draft is 0060" -> 0060 is ['drafting']
+  - 00.00.01.law/0021.write/02.md: "owner is 0022" -> 0022 is ['approve', 'seqaddr-002']
+  - 00.00.01.law/0021.write/06.md: "filed on `0012`" -> 0012 is ['dictionary', 'gravity', 'law']
+  - 00.00.01.law/0021.write/06.md: "card is law 0024" -> 0024 is ['crawl', 'version']
+  - 00.00.01.law/0021.write/06.md: "draft is 0060" -> 0060 is ['drafting']
+  - 00.00.01.law/0022.approve/01.md: "draft is 0060" -> 0060 is ['drafting']
+  - 00.00.01.law/0022.approve/06.md: "draft is 0060" -> 0060 is ['drafting']
+  - 00.00.01.law/0023.promote/06.md: "stays on `0019`" -> 0019 is ['seqaddr']
+  - 00.00.01.law/0023.promote/06.md: "draft is 0060" -> 0060 is ['drafting']
+  - 00.00.01.law/0024.version/01.md: "draft is 0060" -> 0060 is ['drafting']
+  - 00.00.01.law/0024.version/06.md: "parked at `0018`" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.01.law/0024.version/06.md: "parked at `0018" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.01.law/0024.version/08.md: "address is 0018" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.01.law/0025.clean/01.md: "draft is 0060" -> 0060 is ['drafting']
+  - 00.00.01.law/0025.clean/06.md: "promote is 0018" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.01.law/0025.clean/06.md: "promote is 0026" -> 0026 is ['law-crawl', 'strike']
+  - 00.00.01.law/0025.clean/08.md: "address is 0018" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.01.law/0026.strike/01.md: "parent is 0020" -> 0020 is ['band.behavior', 'walk']
+  - 00.00.01.law/0027.migration/01.md: "address is 0018" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.01.law/0027.migration/01.md: "draft is 0060" -> 0060 is ['drafting']
+  - 00.00.01.law/0027.migration/06.md: "live on `0011`" -> 0011 is ['contents', 'remain']
+  - 00.00.01.law/0027.migration/08.md: "address is 0018" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.01.law/0029.walk/01.md: "draft is 0060" -> 0060 is ['drafting']
+  - 00.00.01.law/0029.walk/06.md: "template is `0000" -> 0000 is ['invariant', 'invariant']
+  - 00.00.01.law/0029.walk/06.md: "points at 0000" -> 0000 is ['invariant', 'invariant']
+  - 00.00.01.law/0030.method/01.md: "draft is 0060" -> 0060 is ['drafting']
+  - 00.00.01.law/0030.method/01.md: "chain on 0016" -> 0016 is ['compose', 'compose']
+  - 00.00.01.law/0030.method/06.md: "stays on syntax 0016" -> 0016 is ['compose', 'compose']
+  - 00.00.01.law/0030.method/06.md: "stays on 0016" -> 0016 is ['compose', 'compose']
+  - 00.00.01.law/0031.sim/01.md: "Parent is 0050" -> 0050 is ['band.structure']
+  - 00.00.01.law/0032.climb/06.md: "is on `0001`" -> 0001 is ['law', 'notes', 'rules']
+  - 00.00.01.law/0032.climb/08.md: "live on `0051`" -> 0051 is ['desk']
+  - 00.00.01.law/0033.point/01.md: "Parent is 0020" -> 0020 is ['band.behavior', 'walk']
+  - 00.00.01.law/0033.point/01.md: "Point at 0028" -> 0028 is ['crawl', 'rhyme']
+  - 00.00.01.law/0033.point/04.md: "Point at 0028" -> 0028 is ['crawl', 'rhyme']
+  - 00.00.01.law/0034.slot/01.md: "width is law 0018" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.01.law/0034.slot/01.md: "door is 0020" -> 0020 is ['band.behavior', 'walk']
+  - 00.00.01.law/0034.slot/01.md: "slot is 0038" -> 0038 is ['return']
+  - 00.00.01.law/0034.slot/04.md: "points at law 0018" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.01.law/0034.slot/04.md: "width is law 0018" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.01.law/0034.slot/04.md: "door is 0020" -> 0020 is ['band.behavior', 'walk']
+  - 00.00.01.law/0034.slot/04.md: "slot is 0038" -> 0038 is ['return']
+  - 00.00.01.law/0035.halt/01.md: "Parent is 0020" -> 0020 is ['band.behavior', 'walk']
+  - 00.00.01.law/0037.pack/01.md: "draft is 0060" -> 0060 is ['drafting']
+  - 00.00.01.law/0037.pack/06.md: "draft is 0060" -> 0060 is ['drafting']
+  - 00.00.01.law/0040.lead/01.md: "Sync is `0017" -> 0017 is ['method']
+  - 00.00.01.law/0040.lead/01.md: "live on `0005`" -> 0005 is ['ticket', 'ticket']
+  - 00.00.01.law/0040.lead/01.md: "dumped on `0005`" -> 0005 is ['ticket', 'ticket']
+  - 00.00.01.law/0040.lead/02.md: "list on 0005" -> 0005 is ['ticket', 'ticket']
+  - 00.00.01.law/0040.lead/06.md: "dumped on `0005`" -> 0005 is ['ticket', 'ticket']
+  - 00.00.01.law/0050.band.structure/01.md: "start at 0051" -> 0051 is ['desk']
+  - 00.00.01.law/0050.band.structure/04.md: "start at 0051" -> 0051 is ['desk']
+  - 00.00.01.law/0056.band/01.md: "Behavior is 0020" -> 0020 is ['band.behavior', 'walk']
+  - 00.00.01.law/0056.band/01.md: "Structure is 0050" -> 0050 is ['band.structure']
+  - 00.00.01.law/0057.bands/01.md: "Behavior is 0020" -> 0020 is ['band.behavior', 'walk']
+  - 00.00.01.law/0057.bands/01.md: "Structure is 0050" -> 0050 is ['band.structure']
+  - 00.00.01.law/0057.bands/04.md: "Behavior is 0020" -> 0020 is ['band.behavior', 'walk']
+  - 00.00.01.law/0057.bands/04.md: "Structure is 0050" -> 0050 is ['band.structure']
+  - 00.00.01.law/0059.rhyme/01.md: "measure is page `0011`" -> 0011 is ['contents', 'remain']
+  - 00.00.01.law/0059.rhyme/01.md: "start at `0020`" -> 0020 is ['band.behavior', 'walk']
+  - 00.00.01.law/0059.rhyme/01.md: "climb is `0052`" -> 0052 is ['shelf']
+  - 00.00.01.law/0059.rhyme/02.md: "measure is 0011" -> 0011 is ['contents', 'remain']
+  - 00.00.01.law/0059.rhyme/02.md: "starts at `0020`" -> 0020 is ['band.behavior', 'walk']
+  - 00.00.01.law/0059.rhyme/06.md: "points at `0007" -> 0007 is ['reserved', 'reserved']
+  - 00.00.01.law/0059.rhyme/06.md: "measure is 0018" -> 0018 is ['seqaddr', 'stream']
+  - 00.00.01.law/0060.drafting/04.md: "parent is 0050" -> 0050 is ['band.structure']
+  - 00.00.01.law/0061.coldboot/01.md: "start at 0051" -> 0051 is ['desk']
+  - 00.00.01.law/0061.coldboot/01.md: "open is 0061" -> 0061 is ['coldboot']
+  - 00.00.01.law/0110.sweep/01.md: "lives on page `0014`" -> 0014 is ['clerk-user', 'design', 'design']
+  - 00.00.14.notes/0002.form/00.md: "start at `0010`" -> 0010 is ['about', 'about', 'learned']
+  - 00.00.14.notes/0013.schema/00.md: "starts at `0010`" -> 0010 is ['about', 'about', 'learned']
+  - 00.00.14.notes/0018.stream/00.md: "written on `0001" -> 0001 is ['law', 'notes', 'rules']
+  - 00.00.14.notes/0019.seqaddr/00.md: "stays on `0001" -> 0001 is ['law', 'notes', 'rules']
+  - 00.00.14.notes/0021.walk-batch/00.md: "points at `0012`" -> 0012 is ['dictionary', 'gravity', 'law']
+  - 00.00.14.notes/0021.walk-batch/00.md: "point at `0012`" -> 0012 is ['dictionary', 'gravity', 'law']
+  - 00.00.14.notes/0021.walk-batch/00.md: "and on `0012`" -> 0012 is ['dictionary', 'gravity', 'law']
+  - 00.00.14.notes/0022.seqaddr-002/00.md: "points at `0011" -> 0011 is ['contents', 'remain']
+  - 00.00.14.notes/0023.version/00.md: "point at `0013`" -> 0013 is ['concordance', 'schema', 'triangulate']
+  - 00.00.14.notes/0023.version/00.md: "is on `0002" -> 0002 is ['form', 'schema', 'schema']
+  - 00.00.14.notes/0024.crawl/00.md: "not on `0001" -> 0001 is ['law', 'notes', 'rules']
+  - 00.00.14.notes/0027.schema-crawl/00.md: "are on `0011`" -> 0011 is ['contents', 'remain']
+  - 00.00.14.notes/0028.rhyme/00.md: "Rhyme is `0051`" -> 0051 is ['desk']
+  - 00.00.14.notes/0028.rhyme/00.md: "point at `0010`" -> 0010 is ['about', 'about', 'learned']
+  - 00.00.14.notes/0028.rhyme/00.md: "and at `0051`" -> 0051 is ['desk']
+  - 00.00.14.notes/0029.climb/00.md: "points at `0052`" -> 0052 is ['shelf']
+  - 00.00.14.notes/0029.climb/00.md: "points at `0051`" -> 0051 is ['desk']
+  - 00.00.14.notes/0033.sentinels-from-world/00.md: "face is 0052" -> 0052 is ['shelf']
+  - 00.00.14.notes/REG.md: "Starts at 0010" -> 0010 is ['about', 'about', 'learned']
+  - 00.readme.md: "lives on page `0014`" -> 0014 is ['clerk-user', 'design', 'design']
+  - 00.readme.md: "Colab is page `0028`" -> 0028 is ['crawl', 'rhyme']
+  - 00.readme.md: "Triangulation is syntax `0013`" -> 0013 is ['concordance', 'schema', 'triangulate']
+  - 00.readme.md: "works is page `0018`" -> 0018 is ['seqaddr', 'stream']
+  - 00.start.md: "lives on page `0014`" -> 0014 is ['clerk-user', 'design', 'design']
+  - 00.start.md: "order is syntax page `0014`" -> 0014 is ['clerk-user', 'design', 'design']
+
+## no Authorization header (63)
+  - 00.00.00.syntax/0010.about/06.md
+  - 00.00.00.syntax/0014.design/06.md
+  - 00.00.01.law/0001.law/05.plan.md
+  - 00.00.01.law/0002.schema/05.plan.md
+  - 00.00.01.law/0003.operate/05.01.md
+  - 00.00.01.law/0003.operate/05.plan.md
+  - 00.00.01.law/0003.operate/06.md
+  - 00.00.01.law/0004.user/01.md
+  - 00.00.01.law/0007.reserved/05.plan.md
+  - 00.00.01.law/0008.map/05.plan.md
+  - 00.00.01.law/0010.about/05.01.md
+  - 00.00.01.law/0010.about/05.plan.md
+  - 00.00.01.law/0011.contents/05.plan.md
+  - 00.00.01.law/0014.design/05.plan.md
+  - 00.00.01.law/0014.design/06.md
+  - 00.00.01.law/0015.grammar/05.plan.md
+  - 00.00.01.law/0016.compose/05.plan.md
+  - 00.00.01.law/0018.seqaddr/05.01.md
+  - 00.00.01.law/0018.seqaddr/05.plan.md
+  - 00.00.01.law/0020.band.behavior/06.md
+  - 00.00.01.law/0021.write/05.01.md
+  - 00.00.01.law/0022.approve/06.md
+  - 00.00.01.law/0023.promote/05.01.md
+  - 00.00.01.law/0023.promote/05.02.md
+  - 00.00.01.law/0023.promote/05.plan.md
+  - 00.00.01.law/0024.version/05.01.md
+  - 00.00.01.law/0025.clean/05.01.md
+  - 00.00.01.law/0025.clean/05.plan.md
+  - 00.00.01.law/0026.strike/06.md
+  - 00.00.01.law/0027.migration/05.01.md
+  - 00.00.01.law/0027.migration/05.plan.md
+  - 00.00.01.law/0028.crawl/06.md
+  - 00.00.01.law/0029.walk/05.01.md
+  - 00.00.01.law/0029.walk/05.plan.md
+  - 00.00.01.law/0031.sim/06.md
+  - 00.00.01.law/0032.climb/05.01.md
+  - 00.00.01.law/0032.climb/05.plan.md
+  - 00.00.01.law/0033.point/06.md
+  - 00.00.01.law/0034.slot/06.md
+  - 00.00.01.law/0035.halt/06.md
+  - 00.00.01.law/0036.colab/05.03.md
+  - 00.00.01.law/0037.pack/06.md
+  - 00.00.01.law/0038.return/06.md
+  - 00.00.01.law/0039.report/06.md
+  - 00.00.01.law/0040.lead/05.01.md
+  - 00.00.01.law/0040.lead/05.plan.md
+  - 00.00.01.law/0051.desk/06.md
+  - 00.00.01.law/0052.shelf/06.md
+  - 00.00.01.law/0053.emit/01.md
+  - 00.00.01.law/0054.book/06.md
+  - 00.00.01.law/0055.page/06.md
+  - 00.00.01.law/0056.band/06.md
+  - 00.00.01.law/0058.custody/06.md
+  - 00.00.01.law/0059.rhyme/05.01.md
+  - 00.00.01.law/0059.rhyme/05.plan.md
+  - 00.00.01.law/0060.drafting/01.md
+  - 00.00.01.law/0061.coldboot/06.md
+  - 00.00.01.law/0106.emit/06.md
+  - 00.00.14.notes/0001.notes/01.md
+  - 00.00.14.notes/0001.notes/08.md
+  - 00.00.14.notes/0002.form/01.md
+  - 00.00.14.notes/0010.learned/00.md
+  - 00.00.14.notes/0011.remain/00.md
+
+## keyword != folder title (10)
+  - 00.00.00.syntax/0016.compose/05.md: keyword=composition folder=compose
+  - 00.00.00.syntax/0016.compose/06.md: keyword=composition folder=compose
+  - 00.00.01.law/0000.invariant/02.md: keyword=desk, shelf, book, page only. A face inherits it. Do not repeat it on 02-09. folder=invariant
+  - 00.00.14.notes/0012.law/00.md: keyword=law-note folder=law
+  - 00.00.14.notes/0013.schema/00.md: keyword=schema-note folder=schema
+  - 00.00.14.notes/0019.seqaddr/00.md: keyword=seqaddr-note folder=seqaddr
+  - 00.00.14.notes/0023.version/00.md: keyword=version-note folder=version
+  - 00.00.14.notes/0024.crawl/00.md: keyword=crawl-note folder=crawl
+  - 00.00.14.notes/0028.rhyme/00.md: keyword=rhyme-note folder=rhyme
+  - 00.00.14.notes/0029.climb/00.md: keyword=climb-note folder=climb
+
+## overflow/unprompted carried? (colab/return/emit/report/lead/pack faces) (32)
+  - 00.00.01.law/0036.colab/01.md: overflow=yes unprompted=yes
+  - 00.00.01.law/0036.colab/02.md: overflow=NO unprompted=NO
+  - 00.00.01.law/0036.colab/03.md: overflow=NO unprompted=NO
+  - 00.00.01.law/0036.colab/04.md: overflow=NO unprompted=NO
+  - 00.00.01.law/0036.colab/05.03.md: overflow=NO unprompted=NO
+  - 00.00.01.law/0036.colab/06.md: overflow=yes unprompted=NO
+  - 00.00.01.law/0036.colab/08.md: overflow=NO unprompted=NO
+  - 00.00.01.law/0037.pack/01.md: overflow=NO unprompted=NO
+  - 00.00.01.law/0037.pack/02.md: overflow=NO unprompted=NO
+  - 00.00.01.law/0037.pack/06.md: overflow=NO unprompted=NO
+  - 00.00.01.law/0038.return/01.md: overflow=NO unprompted=NO
+  - 00.00.01.law/0038.return/02.md: overflow=NO unprompted=NO
+  - 00.00.01.law/0038.return/06.md: overflow=NO unprompted=NO
+  - 00.00.01.law/0039.report/01.md: overflow=NO unprompted=NO
+  - 00.00.01.law/0039.report/02.md: overflow=NO unprompted=NO
+  - 00.00.01.law/0039.report/06.md: overflow=NO unprompted=NO
+  - 00.00.01.law/0040.lead/01.md: overflow=yes unprompted=NO
+  - 00.00.01.law/0040.lead/02.md: overflow=yes unprompted=NO
+  - 00.00.01.law/0040.lead/03.md: overflow=NO unprompted=NO
+  - 00.00.01.law/0040.lead/04.md: overflow=NO unprompted=NO
+  - 00.00.01.law/0040.lead/05.01.md: overflow=NO unprompted=NO
+  - 00.00.01.law/0040.lead/05.md: overflow=NO unprompted=NO
+  - 00.00.01.law/0040.lead/05.plan.md: overflow=NO unprompted=NO
+  - 00.00.01.law/0040.lead/06.md: overflow=NO unprompted=NO
+  - 00.00.01.law/0040.lead/08.md: overflow=NO unprompted=NO
+  - 00.00.01.law/0053.emit/01.md: overflow=NO unprompted=NO
+  - 00.00.01.law/0053.emit/02.md: overflow=NO unprompted=NO
+  - 00.00.01.law/0053.emit/04.md: overflow=NO unprompted=NO
+  - 00.00.01.law/0053.emit/08.md: overflow=NO unprompted=NO
+  - 00.00.01.law/0106.emit/01.md: overflow=yes unprompted=NO
+  - 00.00.01.law/0106.emit/02.md: overflow=yes unprompted=yes
+  - 00.00.01.law/0106.emit/06.md: overflow=NO unprompted=NO
+
+## REG row with no folder (syntax) (1)
+  - 0009 0009.retire
+
+## law 00.order lists folder not in archive (29)
+  - 0009.retire
+  - 0100.band.temp
+  - 0101.sync.temp
+  - 0102.local.temp
+  - 0104.align
+  - 0137.prime
+  - 0138.sweep-clean
+  - 0139.align-0018
+  - 0140.commit-syntax
+  - 0141.behavior-structure-test
+  - 0142.solo-pass
+  - 0143.why.test
+  - 0144.temp-home.test
+  - 0145.retire-name.test
+  - 0146.double-slot.test
+  - 0147.note-travel.test
+  - 0148.example.test
+  - 0149.self-attack.test
+  - 0150.apply-pass
+  - 0151.prime-solo.test
+  - 0152.week-report
+  - 0153.week-report-10-01
+  - 0154.sweep-score.park
+  - 0155.update-clean.park
+  - 0156.fold-04.park
+  - 0157.commands-draft.park
+  - 0158.band.temp.old
+  - 0159.commands-door.temp
+  - 0160.structure-door.temp
+
+## law folder not in 00.order (3)
+  - 0053.emit
+  - 0060.drafting
+  - 0061.coldboot

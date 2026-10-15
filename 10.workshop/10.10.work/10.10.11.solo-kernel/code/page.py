@@ -1,0 +1,157 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""page.py — make one page folder in the lowest open slot.
+
+Law 0055. A page is PPPP.title. Face 01 binds.
+The slot comes from slot.py. This program does not mint a page
+in the template law book or in the sample copy of that book.
+"""
+# ## notes
+# born: 2026-10-14
+# source: grok-prime, law band 0000-0100
+# who: grok-prime
+
+from __future__ import annotations
+
+import re
+import sys
+import tempfile
+from pathlib import Path
+
+from desk import need
+from face import die, make_new, refuse_kernel_write
+from slot import next_member, next_open, taken_names
+
+KEY_RE = re.compile(r"^[A-Za-z][A-Za-z0-9.-]*$")
+COPY_BOOKS = {"00.00.01.law", "00.00.00.syntax"}
+
+
+def refuse_copy(book: Path) -> None:
+    refuse_kernel_write(book)
+    if book.name in COPY_BOOKS:
+        die("a page is not minted in this book")
+
+
+def place_page(book: Path, number: str, keyword: str, who: str, why: str, cite: str, body: str) -> Path:
+    refuse_copy(book)
+    if not re.fullmatch(r"\d{4}", number):
+        die("page number is four digits")
+    if not KEY_RE.fullmatch(keyword):
+        die("title needs a word")
+    if not book.is_dir():
+        die("book folder is missing")
+    page = book / f"{number}.{keyword}"
+    if page.exists():
+        die("slot is taken")
+    page.mkdir()
+    try:
+        make_new(page, "01", who, why, cite, body)
+    except SystemExit:
+        if page.is_dir() and not any(page.iterdir()):
+            page.rmdir()
+        raise
+    return page
+
+
+def make_open(book: Path, start: int, keyword: str, who: str, why: str, cite: str, body: str) -> Path:
+    slot = next_open(start, taken_names(book))
+    return place_page(book, slot, keyword, who, why, cite, body)
+
+
+def make_page(book: Path, door: int, keyword: str, who: str, why: str, cite: str, body: str) -> Path:
+    refuse_copy(book)
+    if not book.is_dir():
+        die("book folder is missing")
+    if not KEY_RE.fullmatch(keyword):
+        die("title needs a word")
+    slot = next_member(door, taken_names(book))
+    page = book / f"{slot}.{keyword}"
+    if page.exists():
+        die("slot is taken")
+    page.mkdir()
+    try:
+        make_new(page, "01", who, why, cite, body)
+    except SystemExit:
+        if page.is_dir() and not any(page.iterdir()):
+            page.rmdir()
+        raise
+    return page
+
+
+def check(ok: bool, name: str) -> None:
+    if not ok:
+        die(f"test failed: {name}")
+
+
+def cmd_test() -> None:
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        book = root / "10.workshop" / "10.10.work" / "10.10.99.trial"
+        book.mkdir(parents=True)
+        (book / "0010.about").mkdir()
+        (book / "0011.contents").mkdir()
+        (book / "0016.old.09").mkdir()
+        made = make_page(book, 10, "trial", "grok-prime", "A page.", "2.8", "## Job\n\nMade here.\n")
+        check(made.name == "0012.trial", "lowest slot")
+        check((made / "01.001.draft.md").is_file(), "face 01 binds")
+        text = (made / "01.001.draft.md").read_text(encoding="utf-8")
+        check("PPPP: 0012" in text and "keyword: trial" in text, "page address")
+        check("state: draft" in text, "state draft")
+        second = make_page(book, 10, "next", "grok-prime", "A page.", "2.8", "## Job\n\nNext.\n")
+        check(second.name == "0013.next", "next slot")
+        try:
+            make_page(book, 21, "nope", "grok-prime", "A page.", "2.8", "## Job\n\nNo.\n")
+            die("test accepted a door")
+        except SystemExit as exc:
+            check("door ends in 0" in str(exc), "door stops")
+        copy = root / "10.workshop" / "10.10.work" / "10.10.11.solo-kernel" / "sample" / "00.00.01.law"
+        copy.mkdir(parents=True)
+        (copy / "0010.about").mkdir()
+        try:
+            make_page(copy, 10, "mint", "grok-prime", "A page.", "2.8", "## Job\n\nNo.\n")
+            die("test minted in the law copy")
+        except SystemExit as exc:
+            check("not minted" in str(exc), "law copy stays")
+            check(not (copy / "0011.mint").exists(), "no folder left behind")
+        work = root / "10.workshop" / "10.10.work" / "10.10.99.open"
+        work.mkdir()
+        for number in range(1001, 1010):
+            (work / f"{number:04d}.item").mkdir()
+        try:
+            make_page(work, 1000, "more", "grok-prime", "A page.", "2.8", "## Job\n\nNo.\n")
+            die("test found a slot in a full decade")
+        except SystemExit as exc:
+            check("no slot" in str(exc), "full decade stops")
+        opened = make_open(work, 1001, "more", "grok-prime", "A page.", "2.8", "## Job\n\nYes.\n")
+        check(opened.name == "1010.more", "open band passes the decade")
+    print("test: pass")
+
+
+def main(argv: list[str] | None = None) -> None:
+    args = list(sys.argv[1:] if argv is None else argv)
+    if not args:
+        die("use test, or make BOOK DOOR KEYWORD --who TEXT --why TEXT --cite TEXT --body-file PATH")
+    if args[0] == "test":
+        cmd_test()
+        return
+    if args[0] == "make":
+        if len(args) < 10 or "--who" not in args or "--why" not in args or "--cite" not in args or "--body-file" not in args:
+            die("make BOOK DOOR KEYWORD --who TEXT --why TEXT --cite TEXT --body-file PATH")
+        who = need(args, "--who")
+        body = Path(args[args.index("--body-file") + 1]).read_text(encoding="utf-8")
+        made = make_page(
+            Path(args[1]),
+            int(args[2]),
+            args[3],
+            who,
+            args[args.index("--why") + 1],
+            args[args.index("--cite") + 1],
+            body,
+        )
+        print(f"page: {made.name}")
+        return
+    die("use test, or make BOOK DOOR KEYWORD --who TEXT --why TEXT --cite TEXT --body-file PATH")
+
+
+if __name__ == "__main__":
+    main()

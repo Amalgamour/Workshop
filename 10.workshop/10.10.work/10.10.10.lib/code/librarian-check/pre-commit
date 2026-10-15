@@ -1,0 +1,6 @@
+#!/bin/sh
+# git pre-commit hook: blocks a commit when reworked pages have ERROR findings.
+# Install: cp pre-commit <kernel-repo>/.git/hooks/pre-commit && chmod +x it. Set LCHECK and DESK below.
+LCHECK="${LCHECK:-$HOME/librarian-check/lcheck.py}"
+DESK="${DESK:-00.00.00.kernel.draft}"
+python3 "$LCHECK" "$DESK" --brief || { echo "librarian-check: errors on reworked pages. Fix, or commit with --no-verify and note why."; exit 1; }

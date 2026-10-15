@@ -1,0 +1,54 @@
+{
+  "who": "example-worker",
+  "why": "Make the request reviewable before a model acts.",
+  "cite": "2.8",
+  "overview": "Two demonstration requests; neither is released or executed.",
+  "items": [
+    {
+      "id": 1,
+      "title": "Decide the source pointer.",
+      "command": "point",
+      "issue": "The route needs an exact section, rather than a remembered description.",
+      "recommend": "Point to the existing Routing section.",
+      "ask": "Confirm the exact destination for the proposed pointer.",
+      "target": "source.md",
+      "scale": 3,
+      "sources": [
+        {
+          "path": "source.md",
+          "section": "Routing"
+        }
+      ],
+      "parameters": {
+        "proposed_destination": "source.md \u2014 section Routing",
+        "local_difference": "Only the pointer is proposed; do not duplicate the source body."
+      },
+      "done": "After a Director decision, the resulting pointer resolves to Routing; this batch alone changes no pointer."
+    },
+    {
+      "id": 2,
+      "title": "Preserve the routing decision.",
+      "command": "note",
+      "issue": "A future worker needs the reason for the selected pointer.",
+      "recommend": "Keep the Director decision and its why in the eventual designated record.",
+      "ask": "Confirm the proposed note and preservation destination.",
+      "target": "source.md",
+      "scale": 4,
+      "depends_on": [
+        1
+      ],
+      "sources": [
+        {
+          "path": "source.md",
+          "section": "Record"
+        }
+      ],
+      "parameters": {
+        "record_text": "Proposed note: the exact source remains authoritative; the local page points.",
+        "record_destination": "source.md \u2014 section Record (demo only; append mechanic requires a later release).",
+        "reason_to_preserve": "Retain the reasoning, not merely a completed checkbox."
+      },
+      "done": "The Director confirms the destination and decision to preserve; record creation is a later released act."
+    }
+  ]
+}

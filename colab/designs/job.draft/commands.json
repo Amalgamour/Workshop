@@ -1,0 +1,124 @@
+{
+  "status": "proposal",
+  "revision": "0.1",
+  "boundary": "These are request-construction contracts. They do not replace behavior law or execute verbs.",
+  "common_requires": [
+    "id",
+    "title",
+    "command",
+    "issue",
+    "recommend",
+    "ask",
+    "target",
+    "scale",
+    "sources",
+    "done"
+  ],
+  "commands": {
+    "point": {
+      "purpose": "Request an exact source/section relationship or a correction to that relationship.",
+      "requires": [
+        "relationship",
+        "proposed_destination",
+        "local_difference"
+      ],
+      "hold": "Do not copy the governing body, invent a missing source, or treat routing as permission to change a seat.",
+      "basis": "Proposal informed by 05.09 and law 0033.point (signed test, not authority to execute)."
+    },
+    "note": {
+      "purpose": "Request preservation of a specific explanation, uncertainty, or Director decision.",
+      "requires": [
+        "record_text",
+        "record_destination",
+        "reason_to_preserve"
+      ],
+      "hold": "Preserve history; a note does not approve a draft or release another item.",
+      "basis": "Proposal informed by face 06 and 05.08/05.09 usage; placement/append mechanic still needs law."
+    },
+    "redraft": {
+      "purpose": "Request a coherent replacement draft from named current material and decisions.",
+      "requires": [
+        "input_faces",
+        "decisions",
+        "output_plan",
+        "preserve",
+        "alignment_checks"
+      ],
+      "hold": "No seat replacement, signature, approval, or lock. Read named predecessors and governing sources first.",
+      "basis": "Law 0021.write Order/Name and 05.09. Unsigned amendment versus a new version is stated in output_plan."
+    },
+    "fix": {
+      "purpose": "Request a bounded correction to a demonstrated defect.",
+      "requires": [
+        "defect",
+        "desired_behavior",
+        "output_plan",
+        "verification"
+      ],
+      "hold": "Not a general redesign; name patch versus draft and its authority before acting.",
+      "basis": "Law 0021.write Fix. Current local dev exceptions must be reopened, not inferred from this contract."
+    },
+    "patch": {
+      "purpose": "Request a small dated change where an explicit current rule allows that edit.",
+      "requires": [
+        "exact_change",
+        "patch_basis",
+        "verification"
+      ],
+      "hold": "No broad rewrite. A stated patch_basis is a claim to review, not verified authorization.",
+      "basis": "Law 0021.write Patch and current dev exceptions; prototype does not choose between conflicting policies."
+    },
+    "check": {
+      "purpose": "Request inspection against named criteria and a report of the differences.",
+      "requires": [
+        "criteria",
+        "inspection_scope",
+        "report_destination"
+      ],
+      "hold": "Read-only inspection. No automatic correction or approval.",
+      "basis": "Proposal inspection contract; checker README is mechanics, not a grant of permission."
+    },
+    "strike": {
+      "purpose": "Request marking an exact obsolete sentence while preserving the record.",
+      "requires": [
+        "exact_sentence",
+        "reason_obsolete",
+        "replacement_reference"
+      ],
+      "hold": "No deletion of history; do not expand a strike into a rewrite.",
+      "basis": "Law 0026.strike Job."
+    },
+    "sign": {
+      "purpose": "Request a signature decision for explicitly identified draft files.",
+      "requires": [
+        "draft_files",
+        "readiness_evidence",
+        "requested_actor"
+      ],
+      "hold": "No signing by this tool. Signature does not seat or approve. Assigned role requires current governing authority.",
+      "basis": "Law 0021.write Name and current axioms Hats/Marks. Repository AGENTS prohibits this worker signing."
+    },
+    "approve": {
+      "purpose": "Request the Director approval decision for named signed drafts and their transition plan.",
+      "requires": [
+        "signed_files",
+        "readiness_evidence",
+        "transition_plan",
+        "requested_actor"
+      ],
+      "hold": "No approval or renames by this tool. No inferred approval from a reply or signature.",
+      "basis": "Law 0022.approve Seat/Halt; Director decision."
+    },
+    "clean": {
+      "purpose": "Request a bounded cleanup review with recoverable evidence and named exclusions.",
+      "requires": [
+        "snapshot",
+        "cleanup_scope",
+        "preserve",
+        "open_work_check"
+      ],
+      "hold": "No deletion or cleanup by this tool; no snapshot means no clean; open higher drafts require a hold.",
+      "basis": "Law 0025.clean Snapshot/Open/Notes."
+    }
+  }
+}
