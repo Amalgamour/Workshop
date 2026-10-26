@@ -1,0 +1,42 @@
+import snapshots: exit 0: complete: 890 row(s), 890 written this run, journal D:\Git\lib-build\labs\bootstrap-establish-pass01\evidence\step03\journal-snapshots.json
+import selected: exit 0: complete: 81 row(s), 81 written this run, journal D:\Git\lib-build\labs\bootstrap-establish-pass01\evidence\step03\journal-selected.json
+import p1: exit 0: complete: 22 row(s), 22 written this run, journal D:\Git\lib-build\labs\bootstrap-establish-pass01\evidence\step03\journal-p1.json
+import claude: exit 0: complete: 2 row(s), 2 written this run, journal D:\Git\lib-build\labs\bootstrap-establish-pass01\evidence\step03\journal-claude.json
+gitbytes attrs custody-imports.tsv: exit 0: pass attrs: 995 row(s)
+gitbytes worktree custody-imports.tsv: exit 0: pass worktree: 995 row(s)
+gitbytes index custody-imports.tsv: exit 1: Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\bootstrap-git-bytes-pass01\gitbytes.py", line 152, in <module>
+    main()
+    ~~~~^^
+  File "D:\Git\lib-build\labs\bootstrap-git-bytes-pass01\gitbytes.py", line 143, in main
+    bad = {"attrs": cmd_attrs, "worktree": cmd_worktree, "index": cmd_index}[a.cmd](a.repo, rs)
+  File "D:\Git\lib-build\labs\bootstrap-git-bytes-pass01\gitbytes.py", line 76, in cmd_index
+    out = git(repo, "ls-files", "-s", "-z", "--", *[r["path"] for r in rs]) if rs else b""
+          ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\bootstrap-git-bytes-pass01\gitbytes.py", line 23, in git
+    r = subprocess.run(["git", "-C", str(repo), "--literal-pathspecs", *a], capture_output=True, input=input)
+  File "C:\Users\misg\AppData\Local\Python\pythoncore-3.14-64\Lib\subprocess.py", line 555, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Python\pythoncore-3.14-64\Lib\subprocess.py", line 1039, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                        pass_fds, cwd, env,
+                        ^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+                        gid, gids, uid, umask,
+                        ^^^^^^^^^^^^^^^^^^^^^^
+                        start_new_session, process_group)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Python\pythoncore-3.14-64\Lib\subprocess.py", line 1553, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+                             # no special security
+                             ^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+                             cwd,
+                             ^^^^
+                             startupinfo)
+                             ^^^^^^^^^^^^
+FileNotFoundError: [WinError 206] The filename or extension is too long
+STOP: gitbytes index failed: D:\Git\lib-build\labs\bootstrap-establish-pass01\evidence\step03\custody-imports.tsv

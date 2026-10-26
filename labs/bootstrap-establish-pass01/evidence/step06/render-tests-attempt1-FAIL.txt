@@ -1,0 +1,23 @@
+test_malformed_records_refuse (__main__.Render.test_malformed_records_refuse) ... 
+  test_malformed_records_refuse (__main__.Render.test_malformed_records_refuse) (case='empty value') ... FAIL
+test_missing_inputs_refuse (__main__.Render.test_missing_inputs_refuse) ... ok
+test_tampered_view_cannot_change_the_assignment (__main__.Render.test_tampered_view_cannot_change_the_assignment) ... ok
+test_two_processes_identical (__main__.Render.test_two_processes_identical) ... ok
+
+======================================================================
+FAIL: test_malformed_records_refuse (__main__.Render.test_malformed_records_refuse) (case='empty value')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\bootstrap-establish-pass01\test_render_live.py", line 72, in test_malformed_records_refuse
+    self.refused(run("render", "--root", str(self.root)), words[name])
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\bootstrap-establish-pass01\test_render_live.py", line 31, in refused
+    self.assertEqual(r.returncode, 2, r.stdout + r.stderr)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 2 : rendered D:\Git\lib-build\labs\bootstrap-git-bytes-pass01\scratch\render-tests\test_malformed_recor-ne2gvra5\00.kernel\00.live.md (f2b5c8d0525adab4fcbea0a70577eceb93e0a60d3c2d26e974e5b39dfdb578b9)
+
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.496s
+
+FAILED (failures=1)
