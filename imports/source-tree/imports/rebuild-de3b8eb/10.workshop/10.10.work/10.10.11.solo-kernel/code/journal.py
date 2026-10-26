@@ -1,0 +1,1106 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""journal.py — stand a desk from a user's brief.
+
+The brief is the user's ask. This program writes the desk, the shelf, and the book.
+A book gains pages 0010 through 0014.
+Work starts at 1000 and does not stop at the end of a decade.
+"""
+# ## notes
+# born: 2026-10-14
+# source: grok-prime, user journal
+# who: grok-prime
+# next_member stops when a decade is full. The open band uses next_open.
+# face.py writes FF.VVV.draft.md. A slice is 03.10.md. This program writes the slice.
+# The dictionary stores the word, the brand, and the meaning. It does not store the page.
+# The concordance names one page. The slice is the list. It is not a second place.
+# born: 2026-10-22
+# source: director, >run.0513.05.15, and 0114.test-desk/05.06.return.md #05
+# who: grok-builder
+# When a book has no concordance, lookup reads one private meaning on a stood page.
+# One word, one page. A missing word stays missing. Lookup does not write a concordance.
+
+from __future__ import annotations
+
+import os
+import re
+import sys
+import tempfile
+from datetime import date
+from pathlib import Path
+
+from door import render_sentinel, write_door, write_furniture
+from face import EM, die, make_new, page_rows, parse_name, kind_of, show_path
+from menu import make_menu
+from nav import (
+    SOLO_ROOT,
+    face_file,
+    findings,
+    furniture_text,
+    page_dir,
+    walk_desk,
+    walk_path,
+)
+from page import make_open, make_page, place_page
+
+KEY_RE = re.compile(r"^[A-Za-z][A-Za-z0-9.-]*$")
+PAGE_RE = re.compile(r"^\d{4}\.[A-Za-z][A-Za-z0-9.-]*$")
+FENCE_RE = re.compile(r"```text\n(.*?)```", re.S)
+SLICE_RE = re.compile(r"03\.\d{2}\.md")
+HEADER_KEYS = ("desk", "shelf", "book", "user", "brand", "who", "why", "note", "ask", "use")
+USE = SOLO_ROOT / "use"
+GUIDE = SOLO_ROOT / "drill" / "10.trial" / "10.10.shelf" / "10.10.10.guide"
+SYNTAX = SOLO_ROOT / "sample" / "00.00.00.syntax"
+LAW = SOLO_ROOT / "sample" / "00.00.01.law"
+
+SOLO_WORDS = (
+    ("compute", "What this book runs.", "0600.compute"),
+    ("face", "A drafted face on a page.", "0601.face"),
+    ("syntax", "The sample of structure.", "0602.syntax"),
+    ("law", "Behavior held in the sample.", "0603.law"),
+    ("keep", "Pages worth holding.", "0604.keep"),
+    ("band", "The walk across numbered doors.", "0605.band"),
+    ("desk", "A stood place with a book.", "0606.desk"),
+)
+GUIDE_WORDS = (
+    ("about", "How to read a page in this book.", "0010.about"),
+    ("contents", "The bands this book uses.", "0011.contents"),
+    ("dictionary", "The words this book keeps.", "0012.dictionary"),
+    ("concordance", "The place of each word.", "0013.concordance"),
+    ("design", "Where the designs for this book sit.", "0014.design"),
+)
+
+
+class Term:
+    def __init__(self, term: str, meaning: str, entry: str) -> None:
+        self.term = term
+        self.meaning = meaning
+        self.entry = entry
+
+
+class Brief:
+    def __init__(self, fields: dict[str, str], terms: list[Term]) -> None:
+        self.fields = fields
+        self.terms = terms
+
+    def __getattr__(self, name: str) -> str:
+        if name in self.fields:
+            return self.fields[name]
+        raise AttributeError(name)
+
+
+def keyword_of(term: str) -> str:
+    key = "-".join(term.lower().split())
+    if not KEY_RE.fullmatch(key):
+        die("title needs a word")
+    return key
+
+
+def parse_brief(text: str) -> Brief:
+    text = text.replace("\r\n", "\n").replace("\r", "\n")
+    lines = text.split("\n")
+    fields: dict[str, str] = {}
+    index = 0
+    while index < len(lines) and not lines[index].startswith("term:"):
+        line = lines[index].strip()
+        index += 1
+        if not line or ":" not in line:
+            continue
+        key, val = line.split(":", 1)
+        fields[key.strip()] = val.strip()
+    for key in HEADER_KEYS:
+        if not fields.get(key):
+            die(f"brief lacks {key}")
+    for key in ("desk", "shelf", "book"):
+        if not KEY_RE.fullmatch(fields[key]):
+            die("title needs a word")
+    terms: list[Term] = []
+    while index < len(lines):
+        if not lines[index].startswith("term:"):
+            index += 1
+            continue
+        term = lines[index].split(":", 1)[1].strip()
+        meaning = ""
+        entry = ""
+        index += 1
+        while index < len(lines) and lines[index].strip():
+            line = lines[index]
+            if line.startswith("meaning:"):
+                meaning = line.split(":", 1)[1].strip()
+            elif line.startswith("entry:"):
+                entry = line.split(":", 1)[1].strip()
+            index += 1
+        if not term:
+            die("a term lacks a name")
+        if not meaning:
+            die("a term lacks a meaning")
+        if not entry:
+            die("a term lacks an entry")
+        terms.append(Term(term, meaning, entry))
+    if not terms:
+        die("brief has no term")
+    return Brief(fields, terms)
+
+
+def check_terms(terms: list[Term]) -> None:
+    folded = [term.term.lower() for term in terms]
+    if len(set(folded)) != len(folded):
+        die("a term is repeated")
+    for name in folded:
+        for other in folded:
+            if name != other and name in other:
+                die("a term sits inside another term")
+    for term in terms:
+        own = term.term.lower()
+        meaning = term.meaning.lower()
+        entry = term.entry.lower()
+        if "|" in term.meaning or "|" in term.entry or "|" in term.term:
+            die("a bar is in the text")
+        if re.search(r"\d{4}", term.meaning):
+            die("a meaning stores a page")
+        if own not in entry:
+            die("entry misses its term")
+        for other in folded:
+            if other == own:
+                continue
+            if other in meaning:
+                die("meaning names another term")
+            if other in entry:
+                die("entry names another term")
+
+
+def check_cards(body: str) -> None:
+    in_bands = False
+    seen = False
+    for line in body.splitlines():
+        if line.startswith("## "):
+            in_bands = line[3:].strip() == "Bands"
+            continue
+        if not in_bands or not line.strip():
+            continue
+        if ":" not in line:
+            die("a band card needs a label")
+        _label, sentence = line.split(":", 1)
+        if len(sentence.split()) != 5:
+            die("a card is five words")
+        seen = True
+    if not seen:
+        die("a card is five words")
+
+
+def bound_slice(count: int, index: int) -> str:
+    if count > 20:
+        die("a slice past twenty words breaks")
+    if index > 9:
+        die("the next break is 03.20")
+    return f"03.{10 + index:02d}.md"
+
+
+def chunk(lines: list[str]) -> list[list[str]]:
+    if not lines:
+        die("a slice is empty")
+    parts = [lines[i:i + 20] for i in range(0, len(lines), 20)]
+    if len(parts) > 10:
+        die("the next break is 03.20")
+    return parts
+
+
+def render_slice(page: Path, filename: str, why: str, cite: str, who: str, rows: list[str], note: str) -> str:
+    number, keyword, addr = page_rows(page)
+    day = date.today().isoformat()
+    stem = filename[:-3] if filename.endswith(".md") else filename
+    body = "\n".join(rows)
+    return (
+        f"# {stem}\n\n"
+        "version: 001\n"
+        f"Authorization: draft {EM} {day}\n"
+        f"who: {who}\n"
+        "state: draft\n"
+        "Face: 03\n"
+        f"PPPP: {number}\n"
+        + "\n".join(addr)
+        + "\n"
+        f"keyword: {keyword}\n"
+        f"why: {why}\n\n"
+        f"cite: {cite}\n\n"
+        f"```text\n{body}\n```\n\n"
+        "### notes\n"
+        f"born: {day}\n"
+        f"{note}\n"
+    )
+
+
+def write_slice_files(page: Path, lines: list[str], why: str, cite: str, who: str, note: str) -> list[Path]:
+    made = []
+    for index, part in enumerate(chunk(lines)):
+        name = bound_slice(len(part), index)
+        dest = page / name
+        if dest.exists():
+            die("slice is already here")
+        text = render_slice(page, name, why, cite, who, part, note)
+        dest.write_bytes(text.replace("\r\n", "\n").encode("utf-8"))
+        made.append(dest)
+    return made
+
+
+def fence_lines(path: Path) -> list[str]:
+    hit = FENCE_RE.search(path.read_text(encoding="utf-8"))
+    if not hit:
+        return []
+    return [line for line in hit.group(1).splitlines() if line.strip()]
+
+
+def slice_files(page: Path) -> list[Path]:
+    return sorted(path for path in page.glob("03.*.md") if path.is_file() and SLICE_RE.fullmatch(path.name))
+
+
+def parse_dict_line(line: str) -> tuple[str, str, str]:
+    parts = [part.strip() for part in line.split("|")]
+    if len(parts) != 3 or not all(parts):
+        die("a slice row is word, brand, meaning")
+    return parts[0], parts[1], parts[2]
+
+
+def parse_point_line(line: str) -> tuple[str, str]:
+    if line.count(":") != 1:
+        die("a point names a page")
+    word, place = line.split(":", 1)
+    word, place = word.strip(), place.strip()
+    if not word or not PAGE_RE.fullmatch(place):
+        die("a point names a page")
+    return word, place
+
+
+def dict_rows(book: Path) -> list[tuple[str, str, str]]:
+    page = page_dir(book, "0012")
+    if page is None:
+        die("dictionary is missing")
+    rows = []
+    for path in slice_files(page):
+        rows.extend(parse_dict_line(line) for line in fence_lines(path))
+    return rows
+
+
+def point_rows(book: Path) -> list[tuple[str, str]]:
+    page = page_dir(book, "0013")
+    if page is None:
+        die("concordance is missing")
+    rows = []
+    for path in slice_files(page):
+        rows.extend(parse_point_line(line) for line in fence_lines(path))
+    return rows
+
+
+def entry_of(page: Path) -> str:
+    path = face_file(page, "01")
+    if path is None:
+        die("face 01 is missing")
+    grab = False
+    out = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if line.startswith("## "):
+            if grab:
+                break
+            grab = line[3:].strip() == "Entry"
+            continue
+        if grab:
+            out.append(line)
+    return "\n".join(out).strip()
+
+
+def append_row(page: Path, line: str, why: str, cite: str, who: str, note: str) -> None:
+    files = slice_files(page)
+    if not files:
+        write_slice_files(page, [line], why, cite, who, note)
+        return
+    last = files[-1]
+    have = fence_lines(last)
+    if len(have) >= 20:
+        name = bound_slice(1, len(files))
+        dest = page / name
+        text = render_slice(page, name, why, cite, who, [line], note)
+        dest.write_bytes(text.replace("\r\n", "\n").encode("utf-8"))
+        return
+    text = last.read_text(encoding="utf-8")
+    close = text.rfind("```")
+    if close < 0:
+        die("a slice has no text block")
+    text = text[:close] + line + "\n" + text[close:]
+    last.write_bytes(text.replace("\r\n", "\n").encode("utf-8"))
+
+
+def add_word(book: Path, term: str, brand: str, meaning: str, place: str, who: str) -> None:
+    if not who.strip():
+        die("who is required")
+    existing = dict_rows(book)
+    points = point_rows(book)
+    if any(word.lower() == term.lower() for word, _brand, _meaning in existing):
+        die("the word is already here")
+    if any(word.lower() == term.lower() for word, _place in points):
+        die("the word is already here")
+    if any(got == place for _word, got in points):
+        die("the place is already used")
+    folder = book / place
+    if not folder.is_dir():
+        die("the place is missing")
+    face = face_file(folder, "01")
+    if face is None or term.lower() not in face.read_text(encoding="utf-8").lower():
+        die("the place does not name the word")
+    terms = [Term(word, gloss, word) for word, _brand, gloss in existing]
+    terms.append(Term(term, meaning, term))
+    check_terms(terms)
+    if not KEY_RE.fullmatch(brand):
+        die("title needs a word")
+    dict_page = page_dir(book, "0012")
+    conc_page = page_dir(book, "0013")
+    if dict_page is None or conc_page is None:
+        die("dictionary is missing")
+    append_row(
+        dict_page,
+        f"{term} | {brand} | {meaning}",
+        "A slice. The word, the brand, and a short meaning. Not the page.",
+        "5.8",
+        who,
+        "The template brand is still undefined. This row stores the brand this book uses. This slice does not store the page.",
+    )
+    append_row(
+        conc_page,
+        f"{term}: {place}",
+        "A slice. One word, one page.",
+        "5.8",
+        who,
+        "One word, one page. The slice is the list. It is not a second place.",
+    )
+
+
+def words_on_face(text: str) -> list[tuple[str, str, str]]:
+    """word, brand, meaning from one ## Words section. Other sections stay unread."""
+    grab = False
+    rows: list[tuple[str, str, str]] = []
+    word = ""
+    brand = ""
+    meaning = ""
+
+    def keep() -> None:
+        if word:
+            rows.append((word, brand, meaning))
+
+    for line in text.splitlines():
+        if line.startswith("## "):
+            if grab:
+                break
+            grab = line[3:].strip() == "Words"
+            continue
+        if not grab:
+            continue
+        if line.startswith("word:"):
+            keep()
+            word = line.split(":", 1)[1].strip()
+            brand = ""
+            meaning = ""
+        elif word and line.startswith("brand:"):
+            brand = line.split(":", 1)[1].strip()
+        elif word and line.startswith("meaning:"):
+            meaning = line.split(":", 1)[1].strip()
+    keep()
+    return rows
+
+
+def stood_rows(book: Path) -> list[tuple[str, str, str, str]]:
+    """Private meanings already on a stood page. A stood page has face 01 and face 08."""
+    if not book.is_dir():
+        die("book folder is missing")
+    found = []
+    for page in sorted(path for path in book.iterdir() if path.is_dir()):
+        if face_file(page, "01") is None or face_file(page, "08") is None:
+            continue
+        face = face_file(page, "01")
+        if face is None:
+            continue
+        for word, brand, meaning in words_on_face(face.read_text(encoding="utf-8")):
+            found.append((word, brand, meaning, page.name))
+    return found
+
+
+def lookup_stood(book: Path, term: str) -> dict[str, str]:
+    """One word, one page, from a stood page. A missing word stays missing."""
+    rows = [row for row in stood_rows(book) if row[0].lower() == term.lower()]
+    if len(rows) != 1:
+        die("the word is not one place")
+    word, brand, meaning, place = rows[0]
+    if not meaning:
+        die("the meaning is missing")
+    folder = book / place
+    return {
+        "term": word,
+        "brand": brand,
+        "meaning": meaning,
+        "place": place,
+        "entry": entry_of(folder),
+    }
+
+
+def lookup(book: Path, term: str) -> dict[str, str]:
+    if page_dir(book, "0013") is None:
+        return lookup_stood(book, term)
+    words = [row for row in dict_rows(book) if row[0].lower() == term.lower()]
+    places = [row for row in point_rows(book) if row[0].lower() == term.lower()]
+    if len(words) != 1 or len(places) != 1:
+        die("the word is not one place")
+    word, brand, meaning = words[0]
+    place = places[0][1]
+    folder = book / place
+    if not folder.is_dir():
+        die("the place is missing")
+    face = face_file(folder, "01")
+    if face is None or word.lower() not in face.read_text(encoding="utf-8").lower():
+        die("the place does not name the word")
+    return {
+        "term": word,
+        "brand": brand,
+        "meaning": meaning,
+        "place": place,
+        "entry": entry_of(folder),
+    }
+
+
+def next_desk(parent: Path) -> str:
+    used = set()
+    if parent.is_dir():
+        for path in parent.iterdir():
+            if not path.is_dir():
+                continue
+            parsed = parse_name(path.name)
+            if parsed and kind_of(parsed[0]) == "desk":
+                used.add(int(parsed[0][0]))
+    for number in range(10, 100):
+        if number not in used:
+            return f"{number:02d}"
+    die("no desk slot")
+
+
+def refuse_if_stood(folder: Path) -> None:
+    if folder.exists():
+        die("desk is already stood")
+
+
+def chain_names(book: Path) -> tuple[str, str]:
+    return book.parent.parent.name, book.parent.name
+
+
+def about_body(book_name: str, kind_line: str, first_line: str) -> str:
+    return (
+        "## How\n\n"
+        "A page is a folder, PPPP.title.\n"
+        "Face 01 binds. Face 03 is the menu. Face 04 is the person read.\n"
+        "Open the face the job names. A missing face stays missing.\n\n"
+        "## This book\n\n"
+        f"This book is `{book_name}`.\n"
+        f"{kind_line}\n"
+        f"{first_line}\n"
+    )
+
+
+def contents_body(cards: list[tuple[str, str]], desk_name: str, shelf_name: str) -> str:
+    lines = ["## Bands", ""]
+    for label, sentence in cards:
+        lines.append(f"{label}: {sentence}")
+    lines.extend([
+        "",
+        "## Chain",
+        "",
+        f"The desk is `{desk_name}`. The shelf is `{shelf_name}`. This book is the child.",
+        "",
+    ])
+    body = "\n".join(lines)
+    check_cards(body)
+    return body
+
+
+def dictionary_body(brand: str) -> str:
+    return (
+        "## How\n\n"
+        "The word lives here with the brand and a short meaning.\n"
+        "The page number does not live here.\n"
+        "A slice holds twenty words. The files are `03.10` and up.\n"
+        "A slice past twenty words breaks.\n\n"
+        "## Brand\n\n"
+        "The template brand is still undefined.\n"
+        f"This book uses the brand `{brand}`.\n"
+    )
+
+
+def concordance_body() -> str:
+    return (
+        "## How\n\n"
+        "One word, one place.\n"
+        "The place is a page. It is not a sentence.\n"
+        "The slice lists the words. It does not store a second place.\n\n"
+        "## Points\n\n"
+        "The points are the slices. Each line names one page.\n"
+    )
+
+
+def design_body() -> str:
+    return (
+        "## Design\n\n"
+        "Read this page first.\n"
+        "The designs for the 00 files are on the template, syntax page `0014`, face `01` and face `02`.\n"
+        "This page points there. It does not copy them.\n"
+    )
+
+
+def job_body(why: str, detail: str) -> str:
+    return f"## Job\n\nWhy: {why}\n\nBody: {detail}\n"
+
+
+def entry_body(term: Term) -> str:
+    return f"## Entry\n\n{term.entry}\n\n## Term\n\nThe word is {term.term}.\n"
+
+
+def person_body(term: Term) -> str:
+    return f"## Entry\n\n{term.entry}\n"
+
+
+def use_body(text: str) -> str:
+    return (
+        "## Use\n\n"
+        f"{text}\n\n"
+        "## Terms\n\n"
+        "These words already have their own pages.\n"
+        "This page does not move them.\n"
+    )
+
+
+def work_body(names: list[str]) -> str:
+    lines = ["## Band", "", "This door is `1000`. The journal pages follow it.", "", "## Pages", ""]
+    lines.extend(names)
+    lines.append("")
+    return "\n".join(lines)
+
+
+def write_named(book: Path, number: str, keyword: str, who: str, why: str, cite: str, face01: str, face04: str) -> Path | None:
+    if page_dir(book, number):
+        return None
+    page = place_page(book, number, keyword, who, why, cite, face01)
+    make_new(page, "04", who, why, cite, face04)
+    make_menu(page, who)
+    return page
+
+
+def write_words(book: Path, words: tuple[tuple[str, str, str], ...], brand: str, who: str) -> None:
+    terms = [Term(word, meaning, word) for word, meaning, _place in words]
+    check_terms(terms)
+    dict_page = page_dir(book, "0012")
+    conc_page = page_dir(book, "0013")
+    if dict_page is None or conc_page is None:
+        die("dictionary is missing")
+    if slice_files(dict_page) or slice_files(conc_page):
+        return
+    for _word, _meaning, place in words:
+        if not (book / place).is_dir():
+            die("the place is missing")
+    write_slice_files(
+        dict_page,
+        [f"{word} | {brand} | {meaning}" for word, meaning, _place in words],
+        "A slice. The word, the brand, and a short meaning. Not the page.",
+        "5.8",
+        who,
+        "The template brand is still undefined. This row stores the brand this book uses. This slice does not store the page.",
+    )
+    write_slice_files(
+        conc_page,
+        [f"{word}: {place}" for word, _meaning, place in words],
+        "A slice. One word, one page.",
+        "5.8",
+        who,
+        "One word, one page. The slice is the list. It is not a second place.",
+    )
+
+
+def function_pages(book: Path, who: str, brand: str, kind_line: str, first_line: str, cards: list[tuple[str, str]]) -> None:
+    desk_name, shelf_name = chain_names(book)
+    write_named(
+        book, "0010", "about", who,
+        "How to read a page in this book.", "2.8",
+        about_body(book.name, kind_line, first_line),
+        job_body("because a reader needs the short form.", "Read face 01 section How, then section This book."),
+    )
+    write_named(
+        book, "0011", "contents", who,
+        "The bands this book uses.", "2.8",
+        contents_body(cards, desk_name, shelf_name),
+        job_body("because the bands come after the book exists.", "Read the five-word cards. The long list stays on the band door."),
+    )
+    write_named(
+        book, "0012", "dictionary", who,
+        "The word lives here. Face 03 has a local variant.", "5.8",
+        dictionary_body(brand),
+        job_body("because the word needs a brand and a meaning.", "The page number stays off this page."),
+    )
+    write_named(
+        book, "0013", "concordance", who,
+        "The child of the dictionary. One word, one place.", "5.8",
+        concordance_body(),
+        job_body("because one word has one page.", "The slice lists the words. It does not add a place."),
+    )
+    write_named(
+        book, "0014", "design", who,
+        "Where the designs for this book are.", "2.8",
+        design_body(),
+        job_body("because the design already has a home.", "Open the template page. Do not copy it into this book."),
+    )
+
+
+def rel_book(desk: Path, law_book: Path) -> str:
+    return Path(os.path.relpath(law_book.resolve(), desk.resolve())).as_posix()
+
+
+def write_container(folder: Path, keyword: str, why: str, rows: list[str], sentinel: list[str], permission: list[str], authority: list[str], not_this: list[str], who: str) -> None:
+    if not who.strip():
+        die("who is required")
+    write_door(folder, render_sentinel(keyword, why, rows, sentinel, permission, authority, not_this, who))
+
+
+def build(parent: Path, text: str, law_book: Path) -> Path:
+    parent = Path(parent)
+    law_book = Path(law_book)
+    brief = parse_brief(text)
+    check_terms(brief.terms)
+    if not law_book.is_dir() or not (law_book / "00.md").is_file():
+        die("law book is missing")
+    parent.mkdir(parents=True, exist_ok=True)
+    desk_no = next_desk(parent)
+    desk = parent / f"{desk_no}.{brief.desk}"
+    refuse_if_stood(desk)
+    shelf = desk / f"{desk_no}.10.{brief.shelf}"
+    book = shelf / f"{desk_no}.10.10.{brief.book}"
+    book.mkdir(parents=True)
+    write_container(
+        desk, brief.desk, "Desk sentinel. Permission to exist.",
+        [f"desk: {desk.name}"],
+        [
+            "`00` is the highest position on this desk. This file is that position.",
+            "There is no shelf sentinel. Shelf number `00` does not exist.",
+            "This desk does not mint a second law.",
+        ],
+        [
+            "This file holds the permission for this desk to exist, where that authority comes from, and how this desk controls its space.",
+            "The owner address is `00.00.00.kernel`. A sitting name is not this address.",
+            "A book carries its own `00.md`. This file does not replace a book sentinel.",
+            "This file is not the proof. The proof is `address.proof`.",
+        ],
+        [
+            "Local: this file.",
+            f"The user is {brief.user}. The brand is {brief.brand}.",
+            "Kernel: `00.00.00.kernel`. That is the owner address.",
+            "Start is `00.start`. `00.live` names the law book.",
+        ],
+        ["`00.start`, `00.about`, `00.readme`, and `00.live` are furniture. They are not books."],
+        brief.who,
+    )
+    write_furniture(desk, "00.start.md", furniture_text(
+        "00.start", "The run for this desk.",
+        "## Run\n\nOpen `00.about`. If unsure, open `00.readme`.\n"
+        "The walk is template syntax page `0014`, face `01`, section Order.\n"
+        "This file keeps that pointer. It does not copy the route.\n"
+        "`00.live` names the law book. It is not a step.\n",
+        brief.who,
+    ))
+    write_furniture(desk, "00.about.md", furniture_text(
+        "00.about", "Why this desk exists.",
+        f"## Why\n\n{brief.why}\n\n## Ask\n\n{brief.ask}\n\n## Note\n\n{brief.note}\n",
+        brief.who,
+    ))
+    write_furniture(desk, "00.readme.md", furniture_text(
+        "00.readme", "How to find.",
+        f"## Find\n\nThe shelf is `{shelf.name}`. The book is `{book.name}`.\n"
+        "Open `0010`, then `0011`, then `0012`, then `0013`, then `0014`.\n"
+        "The work door is `1000`.\n"
+        "The law book is the path in `00.live`.\n",
+        brief.who,
+    ))
+    write_furniture(desk, "00.live.md", furniture_text(
+        "00.live", "Which law book this desk climbs. Desk only.",
+        f"book: {rel_book(desk, law_book)}\nowner: 00.00.00.kernel\nsitting: {show_path(desk)}\n",
+        brief.who,
+    ))
+    write_container(
+        shelf, brief.shelf, "Shelf sentinel. Permission to exist.",
+        [f"desk: {desk.name}", f"shelf: {shelf.name}"],
+        [
+            f"This file is the sentinel of shelf `{shelf.name}`.",
+            "It is not shelf number `00`. Shelf number `00` does not exist.",
+        ],
+        [
+            "This file is the permission for this shelf to exist.",
+            "Books sit beside this file. A shelf with no book is not finished.",
+        ],
+        ["Local: this file.", f"Parent: desk `{desk.name}`."],
+        ["This file is not a book sentinel."],
+        brief.who,
+    )
+    write_container(
+        book, brief.book, "Book sentinel. What this is, the first page, and what this is not.",
+        [f"desk: {desk.name}", f"shelf: {shelf.name}", f"book: {book.name}"],
+        [
+            f"This is the book sentinel of `{book.name}`. It proves the book.",
+            "The first page to open is `0010`, title about.",
+            "This is not a page. This is not the desk walk. This is not the proof. The proof is address.proof.",
+        ],
+        [
+            "This file is the permission for this book to exist.",
+            f"The parent shelf is `{shelf.name}`. The desk is `{desk.name}`.",
+            "This book controls its pages. It does not control the desk.",
+        ],
+        [
+            "Local: this file.",
+            f"Parent: shelf `{shelf.name}`, desk `{desk.name}`.",
+            "Kernel: `00.00.00.kernel`. That is the owner address. This sitting is not that address.",
+            "This book is not law.",
+        ],
+        [
+            "This file is not the template sentinel.",
+            "This file is not `00.start`. A book does not get a start file.",
+        ],
+        brief.who,
+    )
+    function_pages(
+        book, brief.who, brief.brand,
+        f"It is the journal of {brief.user}.",
+        "The first page of the work is `1001`.",
+        [
+            ("About", "About pages name this book."),
+            ("Work", "Work door lists the journal."),
+        ],
+    )
+    made = []
+    for term in brief.terms:
+        page = make_open(book, 1001, keyword_of(term.term), brief.who, term.meaning, "ned", entry_body(term))
+        make_new(page, "04", brief.who, term.meaning, "ned", person_body(term))
+        made.append((term, page.name))
+    use_page = make_open(
+        book, 1001, "sunday", brief.who, "The Sunday use of the journal.", "ned", use_body(brief.use),
+    )
+    make_new(use_page, "04", brief.who, "The Sunday use of the journal.", "ned", f"## Use\n\n{brief.use}\n")
+    write_words(book, tuple((term.term, term.meaning, name) for term, name in made), brief.brand, brief.who)
+    names = [name for _term, name in made] + [use_page.name]
+    write_named(
+        book, "1000", "work", brief.who,
+        "The open band of this journal.", "2.8",
+        work_body(names),
+        job_body("because the work door lists the journal.", "Read the page names. Do not retarget a word."),
+    )
+    return desk
+
+
+def fill_solo() -> list[str]:
+    book = SOLO_ROOT
+    function_pages(
+        book, "grok-prime", "solo",
+        "It holds the compute band and the user work under `use/`.",
+        "The first page to open is `0600`, title compute.",
+        [
+            ("About", "About pages name this book."),
+            ("Compute", "Compute band starts at 0600."),
+            ("Work", "User work sits under use."),
+        ],
+    )
+    write_words(book, SOLO_WORDS, "solo", "grok-prime")
+    return [f"filled: {book.name}"]
+
+
+def fill_guide() -> list[str]:
+    book = GUIDE
+    who = "grok-prime"
+    write_named(
+        book, "0012", "dictionary", who,
+        "The word lives here. Face 03 has a local variant.", "5.8",
+        dictionary_body("guide"),
+        job_body("because the word needs a brand and a meaning.", "The page number stays off this page."),
+    )
+    write_named(
+        book, "0013", "concordance", who,
+        "The child of the dictionary. One word, one place.", "5.8",
+        concordance_body(),
+        job_body("because one word has one page.", "The slice lists the words. It does not add a place."),
+    )
+    write_words(book, GUIDE_WORDS, "guide", who)
+    return [f"filled: {book.name}"]
+
+
+def fill() -> list[str]:
+    wrote = fill_solo() + fill_guide()
+    if (SYNTAX / "0010.about").exists() or (SYNTAX / "0012.dictionary").exists():
+        die("the syntax sample was touched")
+    return wrote
+
+
+def stand(brief_path: Path) -> Path:
+    refuse_if_stood(USE / "10.ned")
+    text = Path(brief_path).read_text(encoding="utf-8")
+    return build(USE, text, LAW)
+
+
+def check(ok: bool, name: str) -> None:
+    if not ok:
+        die(f"test failed: {name}")
+
+
+def mini_brief(count: int) -> str:
+    lines = [
+        "desk: ned",
+        "shelf: cabin",
+        "book: journal",
+        "user: Ned Carr",
+        "brand: ned",
+        "who: ned-carr",
+        "why: A journal.",
+        "note: Test terms.",
+        "ask: Stand the desk.",
+        "use: Line k01. Also k02.",
+        "",
+    ]
+    for number in range(1, count + 1):
+        term = f"k{number:02d}"
+        lines.extend([f"term: {term}", f"meaning: Gloss {term}.", f"entry: Line {term}.", ""])
+    return "\n".join(lines)
+
+
+def stub_law(folder: Path) -> None:
+    folder.mkdir(parents=True, exist_ok=True)
+    if not (folder / "00.md").exists():
+        write_door(folder, render_sentinel(
+            "law",
+            "Book sentinel.",
+            ["book: 00.00.01.law"],
+            ["This is the book sentinel of `00.00.01.law`. It proves the book."],
+            ["This file is the permission for this sample to exist."],
+            ["Kernel: `00.00.00.kernel`."],
+            ["This file is not the template sentinel."],
+            "grok-prime",
+        ))
+    for number, keyword in (
+        ("0010", "about"),
+        ("0011", "contents"),
+        ("0012", "dictionary"),
+        ("0013", "concordance"),
+        ("0014", "design"),
+    ):
+        page = folder / f"{number}.{keyword}"
+        page.mkdir(exist_ok=True)
+        face = page / "01.md"
+        if not face.exists():
+            face.write_bytes(f"# 01\n\n## Job\n\n{keyword}.\n".encode("utf-8"))
+
+
+def assert_clean(desk: Path) -> None:
+    lines = walk_desk(desk)
+    check(not findings(lines), "clean walk " + "; ".join(findings(lines)))
+
+
+def assert_journal(book: Path, brief: Brief) -> None:
+    rows = dict_rows(book)
+    points = point_rows(book)
+    check(len(rows) == len(brief.terms), "every term is one row")
+    check(len(points) == len(brief.terms), "every term is one point")
+    by_word = {word.lower(): (brand, meaning) for word, brand, meaning in rows}
+    by_place = {word.lower(): place for word, place in points}
+    seen_places = set()
+    for term in brief.terms:
+        brand, meaning = by_word[term.term.lower()]
+        check(brand == brief.brand, "brand")
+        check(meaning == term.meaning, "meaning")
+        check(not re.search(r"\d{4}", meaning), "meaning stores no page")
+        place = by_place[term.term.lower()]
+        check(place not in seen_places, "one page for the word")
+        seen_places.add(place)
+        check(entry_of(book / place) == term.entry, "entry")
+    use_pages = [path.name for path in book.iterdir() if path.is_dir() and path.name.endswith(".sunday")]
+    check(len(use_pages) == 1, "one use page")
+    check(use_pages[0] not in seen_places, "use is not a second place")
+    use_text = face_file(book / use_pages[0], "01").read_text(encoding="utf-8")
+    check(brief.use in use_text, "use text")
+    work = page_dir(book, "1000")
+    check(work is not None, "work door")
+    listed = face_file(work, "01").read_text(encoding="utf-8")
+    for place in list(seen_places) + use_pages:
+        check(place in listed, "work door lists the page")
+    slices = slice_files(page_dir(book, "0012"))
+    for path in slices:
+        check(len(fence_lines(path)) <= 20, "slice cap")
+
+
+def cmd_test() -> None:
+    try:
+        parse_brief("desk: ned\nshelf: cabin\nbook: journal\nuser: Ned\nbrand: ned\nwho: ned-carr\nwhy: A.\nnote: B.\nask: C.\nuse: D.\n\nterm: one\nmeaning: A gloss.\n\n")
+        die("test kept a term with no entry")
+    except SystemExit as exc:
+        check("lacks an entry" in str(exc), "entry required")
+    bad = [
+        Term("green bell", "The dock bell is not this.", "The green bell rang."),
+        Term("dock bell", "The bell on the wall.", "The dock bell rang."),
+    ]
+    try:
+        check_terms(bad)
+        die("test kept a meaning that names another term")
+    except SystemExit as exc:
+        check("meaning names another term" in str(exc), "meaning stops")
+    try:
+        bound_slice(21, 0)
+        die("test kept a long slice")
+    except SystemExit as exc:
+        check("twenty" in str(exc), "slice cap stops")
+    try:
+        bound_slice(1, 10)
+        die("test opened 03.20")
+    except SystemExit as exc:
+        check("03.20" in str(exc), "next break stops")
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        solo = root / "10.workshop" / "10.10.work" / "10.10.11.solo-kernel"
+        solo.mkdir(parents=True)
+        law = solo / "sample" / "00.00.01.law"
+        stub_law(law)
+        band = solo / "10.10.99.band"
+        band.mkdir()
+        for number in range(1001, 1010):
+            (band / f"{number:04d}.item").mkdir()
+        try:
+            make_page(band, 1000, "more", "grok-prime", "A page.", "2.8", "## Job\n\nNo.\n")
+            die("test found a slot in a full decade")
+        except SystemExit as exc:
+            check("no slot" in str(exc), "full decade stops")
+        opened = make_open(band, 1001, "more", "grok-prime", "A page.", "2.8", "## Job\n\nYes.\n")
+        check(opened.name == "1010.more", "open band passes the decade")
+        print("gap: make_page on a full decade stops: no slot")
+        print("fix: make_open returned 1010.more")
+        short = build(solo / "use-short", mini_brief(21), law)
+        short_book = short / "10.10.cabin" / "10.10.10.journal"
+        try:
+            make_new(page_dir(short_book, "0012"), "03.10", "ned-carr", "A slice.", "5.8", "## Job\n\nNo.\n")
+            die("test wrote a slice through the face maker")
+        except SystemExit as exc:
+            check("face is 01 through 08" in str(exc), "face maker does not write a slice")
+        first = (page_dir(short_book, "0012") / "03.10.md").read_text(encoding="utf-8")
+        second = (page_dir(short_book, "0012") / "03.11.md").read_text(encoding="utf-8")
+        check("k21" not in first and "k20" in first and "k21" in second, "slice break")
+        print("gap: face maker does not write 03.10")
+        print("fix: slice 03.10.md is on the dictionary page")
+        extra = make_open(short_book, 1001, "extra", "ned-carr", "One more word.", "ned", "## Entry\n\nLine extra.\n\n## Term\n\nThe word is extra.\n")
+        add_word(short_book, "extra", "ned", "One more word.", extra.name, who="ned-carr")
+        check(lookup(short_book, "extra")["place"] == extra.name, "added word")
+        assert_clean(short)
+        brief_path = USE / "ned-carr.brief.md"
+        if not brief_path.is_file():
+            die("brief is missing")
+        brief = parse_brief(brief_path.read_text(encoding="utf-8"))
+        check(len(brief.terms) == 50, "fifty terms")
+        check(brief.terms[0].term == "slack water", "first term text")
+        check(brief.terms[20].term == "red paint", "slice boundary term")
+        check(brief.terms[-1].term == "oilskin cuff", "last term text")
+        full = build(solo / "use-full", brief_path.read_text(encoding="utf-8"), law)
+        book = full / "10.10.cabin" / "10.10.10.journal"
+        assert_journal(book, brief)
+        assert_clean(full)
+        check(lookup(book, "slack water")["place"] == "1001.slack-water", "first place")
+        check(lookup(book, "oilskin cuff")["place"] == "1050.oilskin-cuff", "last place")
+        check((book / "1051.sunday").is_dir(), "sunday page")
+        check("1051.sunday" not in {place for _word, place in point_rows(book)}, "sunday stays off the concordance")
+        dict_page = page_dir(book, "0012")
+        check("red paint" not in (dict_page / "03.10.md").read_text(encoding="utf-8"), "twentieth ends the first slice")
+        check("red paint" in (dict_page / "03.11.md").read_text(encoding="utf-8"), "twenty first starts the next slice")
+        check(not (dict_page / "03.13.md").exists(), "three slices")
+        for word in ("slack water", "green bell", "lamp out", "quiet hour", "sunday copy"):
+            check(lookup(book, word)["place"] != "1051.sunday", "use does not retarget")
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        book = root / "10.10.99.words"
+        book.mkdir()
+        page = book / "0116.words"
+        page.mkdir()
+        (page / "08.md").write_bytes(b"# 08\n\n## Relationships\n\nthis: 0116.words\n")
+        (page / "01.md").write_bytes(
+            b"# 01\n\n## Difference\n\nNot a word.\n\n## Words\n\n"
+            b"word: readfirst\nbrand:\nmeaning: Open the note first.\n"
+            b"example:\nsee:\nowner: this words page\n"
+        )
+        loose = book / "0117.loose"
+        loose.mkdir()
+        (loose / "01.md").write_bytes(
+            b"# 01\n\n## Words\n\nword: readfirst\nbrand:\nmeaning: Not stood.\n"
+        )
+        found = lookup(book, "readfirst")
+        check(found["term"] == "readfirst", "stood term")
+        check(found["meaning"] == "Open the note first.", "stood meaning")
+        check(found["place"] == "0116.words", "stood place")
+        try:
+            lookup(book, "missingword")
+            die("test found a missing word")
+        except SystemExit as exc:
+            check("not one place" in str(exc), "missing word stays missing")
+        other = book / "0118.other"
+        other.mkdir()
+        (other / "08.md").write_bytes(b"# 08\n\n## Relationships\n\nthis: 0118.other\n")
+        (other / "01.md").write_bytes(
+            b"# 01\n\n## Words\n\nword: readfirst\nbrand:\nmeaning: A second place.\n"
+        )
+        try:
+            lookup(book, "readfirst")
+            die("test accepted two places")
+        except SystemExit as exc:
+            check("not one place" in str(exc), "second place is a hole")
+    print("test: pass")
+
+
+def cmd_fill() -> None:
+    for line in fill():
+        print(line)
+    for folder in (SOLO_ROOT, GUIDE):
+        lines = walk_path(folder)
+        print("\n".join(lines))
+        if findings(lines):
+            sys.exit(1)
+    print("fill: pass")
+
+
+def cmd_stand(path: Path) -> None:
+    desk = stand(path)
+    lines = walk_desk(desk)
+    print("\n".join(lines))
+    if findings(lines):
+        sys.exit(1)
+    print(f"stood: {show_path(desk)}")
+
+
+def cmd_lookup(book: Path, term: str) -> None:
+    found = lookup(book, term)
+    for key in ("term", "brand", "meaning", "place", "entry"):
+        print(f"{key}: {found[key]}")
+
+
+def main(argv: list[str] | None = None) -> None:
+    args = list(sys.argv[1:] if argv is None else argv)
+    if not args:
+        die("use test, fill, stand BRIEF, or lookup BOOK TERM")
+    if args[0] == "test":
+        cmd_test()
+        return
+    if args[0] == "fill":
+        cmd_fill()
+        return
+    if args[0] == "stand":
+        if len(args) < 2:
+            die("stand BRIEF")
+        cmd_stand(Path(args[1]))
+        return
+    if args[0] == "lookup":
+        if len(args) < 3:
+            die("lookup BOOK TERM")
+        cmd_lookup(Path(args[1]), " ".join(args[2:]))
+        return
+    die("use test, fill, stand BRIEF, or lookup BOOK TERM")
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,152 @@
+# librarian-check rules config.
+# Each rule: severity = "error" | "warn" | "info" | "off"; "source" cites the kernel page the rule comes from.
+# version: 001
+# Authorization: draft — 2026-10-18
+# who: grok-builder
+# state: draft
+# Face: 02
+# PPPP: 0304
+# desk: 10.workshop
+# shelf: 10.10.work
+# book: 10.10.12.rebuild
+# keyword: check
+# why: The checker rules, ported unchanged.
+#
+# cite: 3.1
+# source path: 10.workshop/10.10.work/10.10.10.lib/code/librarian-check/rules.toml
+# source hash: 9b0ccf6efc93664585d074375398b898bb54c3ff3b74880219ca5e006b83f1e8
+# Severity is what the rule reports on REWORKED pages. On PENDING pages everything is counted, not listed (unless --all).
+
+[scope]
+law_book = "00.00.01.law"
+syntax_book = "00.00.00.syntax"
+history_books = ["00.00.14.notes"]     # history: pointer rules skipped
+reworked_max_page = 30                 # law pages 0000-0030 are reworked; >0030 are pending
+syntax_reworked = true                 # whole syntax book counts as reworked
+history_faces = ["06"]                 # notes are history (law 0006); pointer/drift rules skipped
+work_faces = ["05"]                    # tasks/tickets (law 0005); pointer rules downgraded to info
+
+[rules.face-name]
+severity = "error"
+source = "law 0018 Envelope/Seat; law 0001 Face name; law 0005 Task/Ticket"
+summary = "Face file is FF.md (seat), FF.VVV.md (draft), FF.VVV.09.md (retired), or 05.NN.md (task 01-49 / ticket 50-99). FF is 01-08."
+
+[rules.face-00-on-page]
+severity = "error"
+source = "law 0000 face 01 'A page does not get face 00'"
+summary = "A page has no 00.md."
+
+[rules.face-07-filled]
+severity = "warn"
+source = "law 0007 face 01 'A filled face 07 is a halt until a locked rule names a job'"
+summary = "Face 07 should be absent."
+
+[rules.live-needs-01]
+severity = "error"
+source = "law 0001 'A live page must have face 01'"
+summary = "A page with any seated face must have 01.md."
+
+[rules.stamp-missing]
+severity = "warn"
+source = "law 0000 face 02 'stamp face: version | Authorization | Face | PPPP | book | why'; law 0024 'A face with no version line cannot be ranked'"
+summary = "Seated/draft faces 01-04 and 08 carry the face stamp."
+
+[rules.stamp-mismatch]
+severity = "error"
+source = "law 0018 (coordinate is the key); law 0000 face 02 stamp"
+summary = "PPPP, Face, book in the header must match the folder and file."
+
+[rules.status-vocab]
+severity = "error"
+source = "syntax 00.axioms face 01 Marks: draft, signed, approved, lock"
+summary = "Authorization is one of draft/signed/approved/lock."
+
+[rules.status-header-state]
+severity = "warn"
+source = "syntax 00.axioms Marks; law 0022 'header must say approved'"
+summary = "Authorization and state: fields agree (lock pairs with live or approved)."
+
+[rules.status-footer]
+severity = "error"
+source = "syntax 00.axioms Marks (draft < signed < approved < lock)"
+summary = "Header status older than the 'last change' footer (e.g. header draft, footer approved)."
+
+[rules.status-footer-lock]
+severity = "info"
+source = "syntax 00.axioms Marks"
+summary = "Header lock, footer still says approved (lock not recorded in footer)."
+
+[rules.seat-is-draft]
+severity = "error"
+source = "law 0021 face 02 'onto the seat: align, then sign, then approve'; law 0022"
+summary = "A seat (FF.md) stamped draft. Drafts live at FF.VVV."
+
+[rules.draft-version]
+severity = "error"
+source = "law 0024 Number; law 0018 Envelope"
+summary = "Draft FF.VVV header version must equal VVV."
+
+[rules.stale-draft]
+severity = "warn"
+source = "law 0021/0022 'approve renames. it does not copy'; law 0024 'A lower FF.VVV is not the work'"
+summary = "A non-retired draft at or below the seat version still sits beside the seat (should be FF.VVV.09 or gone)."
+
+[rules.same-version-differs]
+severity = "error"
+source = "law 0024 Number; axiom 8 Record"
+summary = "Draft and seat carry the same version but different body text: the seat was edited without a version bump or dated patch (law 0021 patch: dated on the active face)."
+
+[rules.cite-format]
+severity = "error"
+source = "syntax 00.axioms face 01 Chain: one-digit axioms 1-9, dot chains, comma pieces"
+summary = "cite: is a chain like 1.7.9 or 1,1.2 using digits 1-9."
+
+[rules.dangling-page]
+severity = "error"
+source = "axiom 7 Missing ('A required absence is a defect. Report it.'); axiom 1 Authority"
+summary = "A pointer (page/law/syntax NNNN or NNNN.title) names a page that does not exist."
+
+[rules.stale-address]
+severity = "error"
+source = "law 0018 'A title ... is unique under its parent'; axiom 6 Lineage; cold review C.1 'stale valid address returns the wrong concept'"
+summary = "A pointer pairs a number with a title that now lives at a different number."
+
+[rules.reassigned-number]
+severity = "warn"
+source = "axiom 6 Lineage; moves ledger (moves.toml)"
+summary = "Bare pointer to a number that was reassigned (per moves ledger) with no current title nearby. Check it."
+
+[rules.twin-heading]
+severity = "info"
+source = "law 0001 twin; law 0004 'Any section on face 01 or face 02 should have a section here... It is not required.'"
+summary = "A ## heading on face 01 has no matching heading/word on face 04."
+
+[rules.carry-terms]
+severity = "error"
+source = "law 0036 face 01 Overflow/Unprompted; law 0040 'Dropping a one-sided finding'; law 0006 'Overflow lands on the page it is about'"
+summary = "Terms marked must-carry on face 01 are missing from the named faces."
+
+[rules.register]
+severity = "error"
+source = "syntax 0014 00.REG.md 'One row per page... A missing row means the page is missing'"
+summary = "Syntax REG rows and page folders agree."
+
+[rules.order]
+severity = "warn"
+source = "law 00.order (draft) 'The book list in number order'"
+summary = "Law 00.order and law folders agree."
+
+[rules.sentinel]
+severity = "error"
+source = "syntax 0014 00.md 'If it is missing, the container is not real'"
+summary = "Each book has 00.md."
+
+# Terms that must travel from face 01 to the listed faces when face 01 has them.
+[carry]
+terms = ["overflow", "unprompted"]
+faces = ["02", "04"]
+
+[rules.work-file-name]
+severity = "info"
+source = "law 0005 (tasks 05.01-05.49, tickets 05.50-05.99)"
+summary = "Work file named outside the 05.NN ranges (e.g. 05.plan.md). A recurring convention; consider writing it into law 0005."
