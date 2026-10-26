@@ -20,7 +20,8 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[2]
 PY = sys.executable
 LIBRARIAN = REPO / "app" / "librarian.py"
-RUNNER = REPO / "00.kernel/00.00.01.law/0302.run/02.run.002.py"
+RUNNER_002 = REPO / "00.kernel/00.00.01.law/0302.run/02.run.002.py"
+RUNNER = REPO / "00.kernel/00.00.01.law/0302.run/02.run.003.py"
 PAYLOAD = REPO / "00.kernel/00.00.10.work/0504.app-entry/fixtures/02.inventory.py"
 CARD = REPO / "00.kernel/00.00.10.work/0504.app-entry/fixtures/02.md"
 SAMPLE = REPO / "00.kernel/00.00.10.work/0504.app-entry/fixtures/sample-book"
@@ -33,6 +34,8 @@ SCHEMA = "00.kernel/00.00.10.work/0410.imports/01.md#assignment-record version 1
 PINNED = {
     "00.kernel/00.00.01.law/0302.run/02.run.001.py":
         "af207d4d4f68ddcc2c22b7b1dced081b29dcbbfa6675d152ff7efa37871dcb8c",
+    "00.kernel/00.00.01.law/0302.run/02.run.002.py":
+        "4a962d3a6edd26428b75e27ad82113708e510a1e770522d34b9e8bb11ec2b0f4",
     "00.kernel/00.00.01.law/0302.run/02.md":
         "95062ea60f8b923c3bda1cf603f394e54e56d961f42af13c9520031bf13bb95f",
     "00.kernel/00.00.10.work/0502.workflow-start/05.01.md":
@@ -52,9 +55,12 @@ MUTABLE_GUARDS = (
     "00.kernel/00.00.10.work/0401.goal/06.01.md",
     "00.kernel/00.live.md",
     "00.kernel/00.00.01.law/0302.run/02.run.002.py",
+    "00.kernel/00.00.01.law/0302.run/02.run.003.py",
     "app/development-workspace.json",
     "app/librarian.py",
     "app/context.py",
+    "app/README.md",
+    "README.md",
     "labs/bootstrap-establish-pass01/write_contents.py",
 )
 
@@ -178,13 +184,18 @@ def plant(root: Path, state: str = "released", **overrides: str) -> None:
 
 
 def plant_runner(root: Path, config_text: str | None = None) -> None:
-    dest = root / "00.kernel/00.00.01.law/0302.run/02.run.002.py"
+    text = CONFIG.read_bytes() if config_text is None else lf(config_text)
+    config = json.loads(text.decode("utf-8"))
+    rel = str(config["runner"]["path"]).replace("\\", "/")
+    dest = root / rel
     dest.parent.mkdir(parents=True, exist_ok=True)
-    dest.write_bytes(RUNNER.read_bytes())
+    dest.write_bytes((REPO / rel).read_bytes())
+    legacy = root / "00.kernel/00.00.01.law/0302.run/02.run.002.py"
+    if legacy.resolve() != dest.resolve():
+        legacy.parent.mkdir(parents=True, exist_ok=True)
+        legacy.write_bytes(RUNNER_002.read_bytes())
     (root / "app").mkdir(parents=True, exist_ok=True)
-    (root / "app/development-workspace.json").write_bytes(
-        CONFIG.read_bytes() if config_text is None else lf(config_text)
-    )
+    (root / "app/development-workspace.json").write_bytes(text)
 
 
 def make_fixture(root: Path, state: str = "released", **overrides: str) -> str:
@@ -199,7 +210,6 @@ def make_fixture(root: Path, state: str = "released", **overrides: str) -> str:
         "schema": "librarian-fixture",
         "version": 1,
         "identity": "0504-inventory-pass01",
-        "allowed_root": ".",
         "compute_page": "0310.inventory",
         "inventory_book": "00.00.20.sample",
         "output": "output/inventory.json",
@@ -218,6 +228,12 @@ def test_pins() -> None:
     for rel, digest in PINNED.items():
         if sha(REPO / rel) != digest:
             raise AssertionError(rel)
+    config = json.loads(CONFIG.read_text(encoding="utf-8"))
+    selected = config["runner"]["path"].replace("\\", "/")
+    if selected != "00.kernel/00.00.01.law/0302.run/02.run.003.py":
+        raise AssertionError("runner selection is not the explicit 003 path")
+    if sha(REPO / selected) != config["runner"]["sha256"]:
+        raise AssertionError("configured runner hash does not match 003")
     SUITE.ok("pinned sources still match the manifest")
 
 
@@ -273,13 +289,15 @@ def test_operation() -> None:
     try:
         copied = relocated / "fixture"
         shutil.copytree(scratch, copied)
-        junk = copied / "00.kernel/00.00.01.law/0302.run/02.run.002.py"
-        junk.parent.mkdir(parents=True, exist_ok=True)
-        junk.write_bytes(b"not-the-runner\n")
+        for name in ("02.run.002.py", "02.run.003.py", "02.run.009.py"):
+            junk = copied / "00.kernel/00.00.01.law/0302.run" / name
+            junk.parent.mkdir(parents=True, exist_ok=True)
+            junk.write_bytes(b"not-the-runner\n")
         other = Path(tempfile.mkdtemp(prefix="librarian-0504-other-"))
         try:
             proc = run([
                 "test-run", "--root", str(copied),
+                "--container", str(copied),
                 "--candidate", CANDIDATE, "--sha256", digest,
             ], cwd=other)
             if proc.returncode != 0:
@@ -312,20 +330,21 @@ def test_live_roots() -> None:
         expect_stop(name, proc, "fixture root is the live workspace")
     proc = run(["run", "--root", str(REPO), "--test"])
     expect_stop("normal run", proc, "normal run is not activated")
-    direct = subprocess.run(
-        [PY, "-B", str(RUNNER), "run"],
-        cwd=str(FOREIGN),
-        env={**os.environ, "PYTHONDONTWRITEBYTECODE": "1"},
-        capture_output=True,
-        text=True,
-        encoding="utf-8",
-        timeout=30,
-    )
-    SUITE.log.append(f"$ {PY} -B {RUNNER} run")
-    SUITE.log.append(direct.stderr)
-    if direct.returncode != 2 or "normal run is not activated" not in direct.stderr:
-        raise AssertionError(direct.stderr)
-    SUITE.refusal("direct runner refuses")
+    for label, path in (("002", RUNNER_002), ("003", RUNNER)):
+        direct = subprocess.run(
+            [PY, "-B", str(path), "run"],
+            cwd=str(FOREIGN),
+            env={**os.environ, "PYTHONDONTWRITEBYTECODE": "1"},
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            timeout=30,
+        )
+        SUITE.log.append(f"$ {PY} -B {path} run")
+        SUITE.log.append(direct.stderr)
+        if direct.returncode != 2 or "normal run is not activated" not in direct.stderr:
+            raise AssertionError(direct.stderr)
+        SUITE.refusal(f"direct runner {label} refuses")
     if snap(MUTABLE_GUARDS) != before:
         raise AssertionError("a refused command wrote a guarded file")
     if list((REPO / "00.kernel/00.00.01.law/0302.run").rglob("__pycache__")):
@@ -352,10 +371,10 @@ def test_authorization() -> None:
     plant_runner(released)
     (released / "00.kernel/00.00.01.law/0302.run/02.run.009.py").write_bytes(b"higher-version\n")
     proc = run(["where", "--root", str(released)])
-    if proc.returncode != 0 or "02.run.002.py" not in proc.stdout:
+    if proc.returncode != 0 or "02.run.003.py" not in proc.stdout:
         raise AssertionError(proc.stdout + proc.stderr)
-    if "02.run.009.py" in proc.stdout or "higher-version" in proc.stdout:
-        raise AssertionError("highest version was selected")
+    if "02.run.002.py" in proc.stdout or "02.run.009.py" in proc.stdout or "higher-version" in proc.stdout:
+        raise AssertionError("a runner was selected by version instead of the configured path")
     SUITE.ok("accepted context can be inspected and does not select a higher version")
     proc = run([
         "test-run", "--root", str(root), "--candidate", CANDIDATE, "--sha256", digest, "--test",
@@ -573,6 +592,19 @@ def test_config_and_record() -> None:
     (unknown / "app/development-workspace.json").write_bytes(lf(text))
     expect_stop("unknown config key", run(["validate", "--root", str(unknown)]), "unknown key")
 
+    widened = base / "widened"
+    widened_config = json.loads(CONFIG.read_text(encoding="utf-8"))
+    widened_config["fixture_containers"] = list(widened_config["fixture_containers"]) + ["app"]
+    (widened / "app").mkdir(parents=True)
+    (widened / "app/development-workspace.json").write_bytes(
+        lf(json.dumps(widened_config, indent=2) + "\n")
+    )
+    expect_stop(
+        "config cannot widen fixture containers",
+        run(["validate", "--root", str(widened)]),
+        "fixture containers are not the designated pair",
+    )
+
     record = base / "record"
     plant(record, "released")
     plant_runner(record)
@@ -648,6 +680,192 @@ def test_config_and_record() -> None:
     )
 
 
+def test_app01() -> None:
+    readme = REPO / "app/README.md"
+    before = readme.read_bytes()
+    digest = sha(PAYLOAD)
+    planted = REPO / "app/fixture.json"
+    try:
+        planted.write_bytes(lf(json.dumps({
+            "schema": "librarian-fixture",
+            "version": 1,
+            "identity": "0504-inventory-pass01",
+            "allowed_root": ".",
+            "compute_page": "0310.inventory",
+            "inventory_book": "00.00.20.sample",
+            "output": "README.md",
+            "required_face": "01.md",
+            "payload_sha256": digest,
+        }) + "\n"))
+        proc = run([
+            "test-run", "--root", str(REPO / "app"),
+            "--candidate", CANDIDATE, "--sha256", digest,
+        ])
+        expect_stop(
+            "source folder app is not a fixture container",
+            proc,
+            "fixture root is not a designated container",
+        )
+    finally:
+        if planted.exists():
+            planted.unlink()
+    if readme.read_bytes() != before:
+        readme.write_bytes(before)
+        raise AssertionError("app/README.md changed")
+
+    proc = run([
+        "test-run", "--root", str(REPO / "00.kernel/00.00.10.work/0504.app-entry"),
+        "--candidate", CANDIDATE, "--sha256", digest,
+    ])
+    expect_stop(
+        "source page is not a fixture container",
+        proc,
+        "fixture root is the live workspace",
+    )
+
+    named = REPO / "app/scratch/app01-allowed"
+    if named.exists():
+        shutil.rmtree(named)
+    make_fixture(named)
+    raw = json.loads((named / "fixture.json").read_text(encoding="utf-8"))
+    raw["allowed_root"] = "."
+    raw["output"] = "README.md"
+    (named / "fixture.json").write_bytes(lf(json.dumps(raw, indent=2) + "\n"))
+    proc = run([
+        "test-run", "--root", str(named),
+        "--candidate", CANDIDATE, "--sha256", digest,
+    ])
+    expect_stop("fixture allowed_root is not authority", proc, "unknown key: allowed_root")
+    if (named / "README.md").exists() or (named / "output/inventory.json").exists():
+        raise AssertionError("rejected fixture metadata wrote an output")
+
+    external = Path(tempfile.mkdtemp(prefix="librarian-0502-ext-"))
+    try:
+        proc = run([
+            "test-run", "--root", str(external),
+            "--candidate", CANDIDATE, "--sha256", digest,
+        ])
+        expect_stop(
+            "external container was not named",
+            proc,
+            "external fixture container was not named",
+        )
+        proc = run([
+            "test-run", "--root", str(external),
+            "--container", str(REPO),
+            "--candidate", CANDIDATE, "--sha256", digest,
+        ])
+        expect_stop(
+            "external container overlaps the workspace",
+            proc,
+            "external container overlaps the workspace",
+        )
+        proc = run([
+            "test-run", "--root", str(external),
+            "--container", str(Path(REPO.anchor)),
+            "--candidate", CANDIDATE, "--sha256", digest,
+        ])
+        expect_stop(
+            "filesystem root is not a container",
+            proc,
+            "fixture container is a filesystem root",
+        )
+    finally:
+        shutil.rmtree(external, ignore_errors=True)
+    proc = run([
+        "test-run", "--root", str(Path(REPO.anchor)),
+        "--candidate", CANDIDATE, "--sha256", digest,
+    ])
+    expect_stop(
+        "fixture root is a filesystem root",
+        proc,
+        "fixture container is a filesystem root",
+    )
+
+    link_parent = Path(tempfile.mkdtemp(prefix="librarian-0502-link-"))
+    link = link_parent / "alias"
+    try:
+        made = subprocess.run(
+            ["cmd", "/c", "mklink", "/J", str(link), str(REPO / "app")],
+            capture_output=True, text=True, encoding="utf-8", errors="replace",
+        )
+        if made.returncode != 0 or not link.exists():
+            SUITE.skip("container alias", (made.stderr or made.stdout or "mklink failed").strip())
+        else:
+            proc = run([
+                "test-run", "--root", str(link),
+                "--candidate", CANDIDATE, "--sha256", digest,
+            ])
+            expect_stop(
+                "junction to app is not a container",
+                proc,
+                "fixture root is not a designated container",
+            )
+    finally:
+        if link.exists():
+            os.rmdir(link)
+        shutil.rmtree(link_parent, ignore_errors=True)
+
+    box = Path(tempfile.mkdtemp(prefix="librarian-0502-box-"))
+    alias = box / "alias"
+    try:
+        make_fixture(box)
+        data = json.loads((box / "fixture.json").read_text(encoding="utf-8"))
+        data["output"] = "alias/README.md"
+        (box / "fixture.json").write_bytes(lf(json.dumps(data, indent=2) + "\n"))
+        made = subprocess.run(
+            ["cmd", "/c", "mklink", "/J", str(alias), str(REPO / "app")],
+            capture_output=True, text=True, encoding="utf-8", errors="replace",
+        )
+        if made.returncode != 0 or not alias.exists():
+            SUITE.skip("output alias", (made.stderr or made.stdout or "mklink failed").strip())
+        else:
+            proc = run([
+                "test-run", "--root", str(box),
+                "--container", str(box),
+                "--candidate", CANDIDATE, "--sha256", digest,
+            ])
+            expect_stop("junction output leaves the container", proc, "path escapes the root")
+    finally:
+        if alias.exists():
+            os.rmdir(alias)
+        shutil.rmtree(box, ignore_errors=True)
+
+    probe = REPO / "00.kernel/00.00.10.work/0504.app-entry/fixtures/probe-0502"
+    originals = [
+        REPO / "00.kernel/00.00.10.work/0504.app-entry/fixtures/02.inventory.py",
+        REPO / "00.kernel/00.00.10.work/0504.app-entry/fixtures/02.md",
+        REPO / "00.kernel/00.00.10.work/0504.app-entry/fixtures/expected-inventory.json",
+    ]
+    pinned = {path: path.read_bytes() for path in originals}
+    try:
+        if probe.exists():
+            shutil.rmtree(probe)
+        probe_digest = make_fixture(probe)
+        proc = run([
+            "test-run", "--root", str(probe),
+            "--candidate", CANDIDATE, "--sha256", probe_digest,
+        ])
+        if proc.returncode != 0:
+            raise AssertionError(proc.stderr)
+        got = json.loads((probe / "output/inventory.json").read_text(encoding="utf-8"))
+        expected = json.loads(EXPECTED.read_text(encoding="utf-8"))
+        if got != expected:
+            raise AssertionError("page-fixtures inventory differed")
+        SUITE.ok("designated page fixtures container")
+    finally:
+        if probe.exists():
+            shutil.rmtree(probe)
+    for path, data in pinned.items():
+        if path.read_bytes() != data:
+            path.write_bytes(data)
+            raise AssertionError(f"{path.name} changed")
+    if readme.read_bytes() != before:
+        readme.write_bytes(before)
+        raise AssertionError("app/README.md changed during APP-01 checks")
+    SUITE.ok("protected source bytes stayed unchanged")
+
+
 def main() -> None:
     scratch = REPO / "app" / "scratch"
     if scratch.exists():
@@ -661,6 +879,7 @@ def main() -> None:
         ("live roots", test_live_roots),
         ("authorization", test_authorization),
         ("boundaries", test_boundaries),
+        ("app-01", test_app01),
         ("reparse", test_reparse),
         ("config and record", test_config_and_record),
     ):

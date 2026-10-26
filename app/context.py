@@ -2,6 +2,11 @@
 
 This module reads the assignment record and the local development configuration.
 It never reads 00.kernel/00.live.md as an input. A path that names that view is refused.
+
+A fixture file cannot name its writable container. Inside this workspace, test-run
+may use only the configured containers. An external container must be named on
+the command and must stay disjoint from the workspace. These checks are not an
+operating-system sandbox.
 """
 
 from __future__ import annotations
@@ -39,6 +44,7 @@ CONFIG_KEYS = (
     "workflow_space",
     "runtime_book",
     "runtime_space",
+    "fixture_containers",
     "runner",
 )
 RUNNER_KEYS = ("path", "sha256")
@@ -46,7 +52,6 @@ FIXTURE_KEYS = (
     "schema",
     "version",
     "identity",
-    "allowed_root",
     "compute_page",
     "inventory_book",
     "output",
@@ -58,6 +63,11 @@ RUNNER_NAME_RE = re.compile(r"^02\.[A-Za-z_][A-Za-z0-9_]*\.(\d{3})\.py$")
 ACTIVE_NAME_RE = re.compile(r"^02\.[A-Za-z_][A-Za-z0-9_]*\.py$")
 HEX64 = re.compile(r"^[0-9a-f]{64}$")
 SEGMENT = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
+# Workspace fixture roots are these directories only. The fixture file cannot add one.
+DESIGNATED_CONTAINERS = (
+    "app/scratch",
+    "00.kernel/00.00.10.work/0504.app-entry/fixtures",
+)
 
 
 class Stop(Exception):
@@ -95,9 +105,12 @@ def is_inside(child: Path, parent: Path) -> bool:
 
 
 def overlaps_live(fixture_root: Path, code_root: Path, config: dict) -> bool:
-    live_book = (code_root / config["desk"] / config["work_book"]).resolve()
     if norm(fixture_root.resolve()) == norm(code_root.resolve()):
         return True
+    # This page's fixtures sit in the work book and are a designated container.
+    if inside_designated(fixture_root, code_root):
+        return False
+    live_book = (code_root / config["desk"] / config["work_book"]).resolve()
     if is_inside(fixture_root, live_book) or is_inside(live_book, fixture_root):
         return True
     return False
@@ -185,6 +198,7 @@ def load_config(path: Path) -> dict:
         "workflow_space": _space(_string(raw, "workflow_space", "config"), "workflow space"),
         "runtime_book": _segment(_string(raw, "runtime_book", "config"), "runtime book"),
         "runtime_space": _space(_string(raw, "runtime_space", "config"), "runtime space"),
+        "fixture_containers": _containers(raw),
     }
     if config["work_book"] == config["runtime_book"]:
         stop("job book and runtime book must differ")
@@ -227,7 +241,6 @@ def load_fixture(path: Path) -> dict:
         "schema": FIXTURE_SCHEMA,
         "version": 1,
         "identity": identity,
-        "allowed_root": _string(raw, "allowed_root", "fixture"),
         "compute_page": compute_page,
         "inventory_book": _segment(_string(raw, "inventory_book", "fixture"), "inventory book"),
         "output": _string(raw, "output", "fixture"),
@@ -464,16 +477,108 @@ def report_lines(resolved: Resolved) -> list[str]:
     ]
 
 
+def _containers(raw: dict) -> list[str]:
+    got = raw["fixture_containers"]
+    if isinstance(got, bool) or not isinstance(got, list):
+        stop("config field has the wrong type: fixture_containers")
+    if any(isinstance(item, bool) or not isinstance(item, str) for item in got):
+        stop("config field has the wrong type: fixture_containers")
+    if got != list(DESIGNATED_CONTAINERS):
+        stop("fixture containers are not the designated pair")
+    return list(got)
+
+
+def is_filesystem_root(path: Path) -> bool:
+    try:
+        resolved = path.resolve()
+    except OSError:
+        stop("fixture container is a filesystem root")
+    if resolved.parent == resolved:
+        return True
+    anchor = Path(resolved.anchor)
+    return norm(resolved) == norm(anchor)
+
+
+def _explicit_dir(text: str) -> Path:
+    path = Path(text)
+    if not path.is_dir():
+        stop("explicit container is missing")
+    try:
+        return path.resolve()
+    except OSError:
+        stop("explicit container is missing")
+
+
+def inside_designated(fixture_root: Path, code_root: Path) -> bool:
+    try:
+        root_r = fixture_root.resolve()
+        code_r = code_root.resolve()
+    except OSError:
+        return False
+    return any(is_inside(root_r, resolve_under(code_r, rel)) for rel in DESIGNATED_CONTAINERS)
+
+
+def select_container(fixture_root: Path, code_root: Path, explicit: str | None) -> Path:
+    """Pick the writable container without reading fixture metadata."""
+    try:
+        root_r = fixture_root.resolve()
+        code_r = code_root.resolve()
+    except OSError:
+        stop("fixture container is a filesystem root")
+    if is_filesystem_root(root_r):
+        stop("fixture container is a filesystem root")
+    containers = [resolve_under(code_r, rel) for rel in DESIGNATED_CONTAINERS]
+    if is_inside(root_r, code_r):
+        matches = [item for item in containers if is_inside(root_r, item)]
+        if len(matches) != 1:
+            stop("fixture root is not a designated container")
+        container = matches[0]
+        if explicit is not None:
+            named = _explicit_dir(explicit)
+            if norm(named) != norm(container):
+                stop("explicit container does not match the designated container")
+        return container
+    if explicit is None:
+        stop("external fixture container was not named")
+    container = _explicit_dir(explicit)
+    if is_filesystem_root(container):
+        stop("fixture container is a filesystem root")
+    if is_inside(container, code_r) or is_inside(code_r, container):
+        stop("external container overlaps the workspace")
+    if not is_inside(root_r, container):
+        stop("fixture root is outside the named container")
+    return container
+
+
+def guard_workspace_path(path: Path, code_root: Path) -> None:
+    """A resolved workspace path must remain inside a designated container."""
+    try:
+        resolved = path.resolve()
+        code_r = code_root.resolve()
+    except OSError:
+        stop("path resolves to a source tree")
+    if not is_inside(resolved, code_r):
+        return
+    containers = [resolve_under(code_r, rel) for rel in DESIGNATED_CONTAINERS]
+    if not any(is_inside(resolved, item) for item in containers):
+        stop("path resolves to a source tree")
+
+
 def check_allowed_root(fixture_root: Path, fixture: dict) -> None:
-    allowed = fixture["allowed_root"]
-    if allowed == ".":
-        return
-    if re.match(r"^[A-Za-z]:", allowed) or allowed.startswith("\\\\"):
-        try:
-            allowed_path = Path(allowed).resolve()
-        except OSError:
-            stop("fixture allowed root does not match")
-        if norm(allowed_path) != norm(fixture_root.resolve()):
-            stop("fixture allowed root does not match")
-        return
-    stop("fixture allowed root does not match")
+    if "allowed_root" in fixture:
+        stop("fixture cannot designate its own root")
+    named = fixture.get("designated_container")
+    if not isinstance(named, str) or not named.strip():
+        stop("fixture container was not designated")
+    try:
+        container = Path(named).resolve()
+        root_r = fixture_root.resolve()
+    except OSError:
+        stop("fixture root is outside the designated container")
+    if is_filesystem_root(container) or is_filesystem_root(root_r):
+        stop("fixture container is a filesystem root")
+    if not is_inside(root_r, container):
+        stop("fixture root is outside the designated container")
+    output = resolve_under(root_r, fixture["output"])
+    if not is_inside(output, container):
+        stop("output is outside the designated container")

@@ -2,7 +2,8 @@
 """Development entry. where and validate resolve context and do not execute a candidate.
 
 test-run executes one fixture payload through the pinned runner candidate.
-run is refused. A --test flag does not authorize the live work book.
+The writable container is designated before fixture metadata is read.
+run is refused. A --test flag does not authorize a fixture root.
 """
 
 from __future__ import annotations
@@ -76,21 +77,31 @@ def main(argv: list[str] | None = None) -> None:
         root = directory(take(args, "--root"))
         candidate = take(args, "--candidate")
         payload_sha256 = take(args, "--sha256").lower()
+        explicit = take(args, "--container") if "--container" in args else None
         if args:
             stop("unknown argument")
-        del test_flag  # present or absent, the live root stays refused
+        del test_flag  # present or absent, it does not designate a container
         config = context.load_config(code_root / "app" / "development-workspace.json")
+        if context.is_filesystem_root(root):
+            stop("fixture container is a filesystem root")
         if context.overlaps_live(root, code_root, config):
             stop("fixture root is the live workspace")
+        container = context.select_container(root, code_root, explicit)
+        context.guard_workspace_path(root, code_root)
         fixture = context.load_fixture(root / "fixture.json")
+        fixture["designated_container"] = str(container)
         context.check_allowed_root(root, fixture)
         if not context.HEX64.fullmatch(payload_sha256):
             stop("payload hash is not sha256")
+        payload = context.resolve_under(root, candidate)
+        output = context.resolve_under(root, fixture["output"])
+        context.guard_workspace_path(payload, code_root)
+        context.guard_workspace_path(output, code_root)
         context.validate_context(root, config, execute=True, runner_root=code_root)
         runner_path = context.resolve_under(code_root, config["runner"]["path"])
         if context.sha256_file(runner_path) != config["runner"]["sha256"]:
             stop("runner hash does not match")
-        runner = load_module(runner_path, "librarian_runner_002")
+        runner = load_module(runner_path, "librarian_runner_003")
         runner.perform(
             context,
             code_root=code_root,
