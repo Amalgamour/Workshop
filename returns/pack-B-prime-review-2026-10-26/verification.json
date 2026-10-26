@@ -1,0 +1,64 @@
+{
+  "head": "befac9fe0dacdae15522187a14a887dadad571bc",
+  "tracked_files_byte_exact_vs_HEAD": 1562,
+  "index_equals_HEAD": true,
+  "gitlinks": 0,
+  "provenance_import_rows": 995,
+  "manifest_checks": [
+    {
+      "path": "packs/lib-build-bootstrap-pass01-2026-10-26/workspace-baseline.tsv",
+      "rows": 39
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0410.imports/manifests/step03-custody-imports.tsv",
+      "rows": 995
+    },
+    {
+      "path": "labs/bootstrap-establish-pass01/evidence/step07/manifest-new-files.tsv",
+      "rows": 174
+    },
+    {
+      "path": "labs/bootstrap-establish-pass01/evidence/step07/manifest-self.tsv",
+      "rows": 1
+    },
+    {
+      "path": "labs/bootstrap-establish-pass01/evidence/step07/manifest-final.tsv",
+      "rows": 8
+    }
+  ],
+  "old_checkouts_unchanged_vs_pre_B": true,
+  "rerun_suites": [
+    {
+      "suite": "test_gitbytes.py",
+      "exit": 0,
+      "output_tail": "local_override_refused (__main__.Gate.test_6_local_override_refused) ... ok\r\n\r\n----------------------------------------------------------------------\r\nRan 6 tests in 2.868s\r\n\r\nOK\r\n"
+    },
+    {
+      "suite": "test_import_blobs.py",
+      "exit": 0,
+      "output_tail": "st_restart_with_journal (__main__.Imports.test_restart_with_journal) ... ok\r\n\r\n----------------------------------------------------------------------\r\nRan 6 tests in 3.338s\r\n\r\nOK\r\n"
+    },
+    {
+      "suite": "test_render_live.py",
+      "exit": 0,
+      "output_tail": "o_processes_identical (__main__.Render.test_two_processes_identical) ... ok\r\n\r\n----------------------------------------------------------------------\r\nRan 4 tests in 0.839s\r\n\r\nOK\r\n"
+    }
+  ],
+  "renderer_live_check": "check: 00.kernel/00.live.md matches the record",
+  "context_validation_boundary": {
+    "undeclared_workflow_space": "accepted by syntax parser; no cross-reference validation",
+    "missing_book": "accepted by syntax parser; no cross-reference validation",
+    "nonexistent_work_item": "accepted by syntax parser; no cross-reference validation"
+  },
+  "workspace_status_after_review_checks": "clean",
+  "remote_verified_separately": true,
+  "scope": "independent local verification plus copied-fixture tests; no production or candidate execution",
+  "remote_refs": {
+    "refs/heads/workshop": "befac9fe0dacdae15522187a14a887dadad571bc",
+    "refs/heads/main": "14676ca3c01833cc1b472198e62e3451ef706ec3",
+    "refs/heads/rebuild": "de3b8ebc3df3e1da28c4d675963699644b78afab",
+    "refs/heads/archive/lib-build-bootstrap-2026-10-26": "fe42b017b5e8c288f70878d696cb227b09ab5a8e",
+    "refs/heads/archive/librarian-worktree-2026-10-26": "e8b1a994da07000fa576fd771e455a94718ed431",
+    "refs/heads/archive/rebuild-worktree-2026-10-26": "586cfa4ae055c29a98c1106bb70143901c57cc11"
+  }
+}

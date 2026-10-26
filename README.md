@@ -12,6 +12,8 @@
 4. **What was imported, and its status:** [`0410.imports`](00.kernel/00.00.10.work/0410.imports/01.md). **Open findings:** [`0611.findings`](00.kernel/00.00.10.work/0611.findings/01.md).
 5. **The bootstrap record**, with the packs, their outcomes and the evidence: [`0501.bootstrap`](00.kernel/00.00.10.work/0501.bootstrap/01.md).
 
+**New jobs** in this line are page-local batches in the work book `00.kernel/00.00.10.work/`. Read the batch, its `01.md` and its `06.01.md`. The current batch is [`0502.workflow-start/05.01.md`](00.kernel/00.00.10.work/0502.workflow-start/05.01.md). Its return and the Prime review stay on that file. Root [`packs/`](packs) and [`returns/`](returns) keep the bootstrap history. They are not a second copy of a new job.
+
 `00.kernel/00.live.md` is a derived view of the record, rebuilt by a development renderer. If it disagrees with `06.01.md`, the record wins, and the view should be regenerated.
 
 ## The desk and its books

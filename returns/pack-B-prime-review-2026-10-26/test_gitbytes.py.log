@@ -1,0 +1,71 @@
+test_1_normalization_caught_at_index (__main__.Gate.test_1_normalization_caught_at_index) ... ERROR
+test_2_tracked_custody_exact_everywhere (__main__.Gate.test_2_tracked_custody_exact_everywhere) ... ERROR
+test_3_wrong_index_with_correct_worktree (__main__.Gate.test_3_wrong_index_with_correct_worktree) ... ERROR
+test_4_mismatching_commit (__main__.Gate.test_4_mismatching_commit) ... ERROR
+test_5_fresh_clone_autocrlf (__main__.Gate.test_5_fresh_clone_autocrlf) ... ERROR
+test_6_local_override_refused (__main__.Gate.test_6_local_override_refused) ... ERROR
+
+======================================================================
+ERROR: test_1_normalization_caught_at_index (__main__.Gate.test_1_normalization_caught_at_index)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\librarian\temp\pack-B-prime-review-2026-10-26\fixture-workspace\labs\bootstrap-git-bytes-pass01\test_gitbytes.py", line 53, in setUp
+    self.repo.mkdir()
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'D:\\librarian\\temp\\pack-B-prime-review-2026-10-26\\fixture-workspace\\labs\\bootstrap-git-bytes-pass01\\scratch\\test_1_normalization_c-qlnyawh6\\repo'
+
+======================================================================
+ERROR: test_2_tracked_custody_exact_everywhere (__main__.Gate.test_2_tracked_custody_exact_everywhere)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\librarian\temp\pack-B-prime-review-2026-10-26\fixture-workspace\labs\bootstrap-git-bytes-pass01\test_gitbytes.py", line 53, in setUp
+    self.repo.mkdir()
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'D:\\librarian\\temp\\pack-B-prime-review-2026-10-26\\fixture-workspace\\labs\\bootstrap-git-bytes-pass01\\scratch\\test_2_tracked_custody-2zb_yg3z\\repo'
+
+======================================================================
+ERROR: test_3_wrong_index_with_correct_worktree (__main__.Gate.test_3_wrong_index_with_correct_worktree)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\librarian\temp\pack-B-prime-review-2026-10-26\fixture-workspace\labs\bootstrap-git-bytes-pass01\test_gitbytes.py", line 53, in setUp
+    self.repo.mkdir()
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'D:\\librarian\\temp\\pack-B-prime-review-2026-10-26\\fixture-workspace\\labs\\bootstrap-git-bytes-pass01\\scratch\\test_3_wrong_index_wit-ym69w568\\repo'
+
+======================================================================
+ERROR: test_4_mismatching_commit (__main__.Gate.test_4_mismatching_commit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\librarian\temp\pack-B-prime-review-2026-10-26\fixture-workspace\labs\bootstrap-git-bytes-pass01\test_gitbytes.py", line 53, in setUp
+    self.repo.mkdir()
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'D:\\librarian\\temp\\pack-B-prime-review-2026-10-26\\fixture-workspace\\labs\\bootstrap-git-bytes-pass01\\scratch\\test_4_mismatching_com-x0tqrwgw\\repo'
+
+======================================================================
+ERROR: test_5_fresh_clone_autocrlf (__main__.Gate.test_5_fresh_clone_autocrlf)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\librarian\temp\pack-B-prime-review-2026-10-26\fixture-workspace\labs\bootstrap-git-bytes-pass01\test_gitbytes.py", line 53, in setUp
+    self.repo.mkdir()
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'D:\\librarian\\temp\\pack-B-prime-review-2026-10-26\\fixture-workspace\\labs\\bootstrap-git-bytes-pass01\\scratch\\test_5_fresh_clone_aut-0j0qv_es\\repo'
+
+======================================================================
+ERROR: test_6_local_override_refused (__main__.Gate.test_6_local_override_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\librarian\temp\pack-B-prime-review-2026-10-26\fixture-workspace\labs\bootstrap-git-bytes-pass01\test_gitbytes.py", line 53, in setUp
+    self.repo.mkdir()
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'D:\\librarian\\temp\\pack-B-prime-review-2026-10-26\\fixture-workspace\\labs\\bootstrap-git-bytes-pass01\\scratch\\test_6_local_override_-x67cx6gp\\repo'
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.012s
+
+FAILED (errors=6)
