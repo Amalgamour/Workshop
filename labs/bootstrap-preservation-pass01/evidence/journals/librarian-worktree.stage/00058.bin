@@ -1,0 +1,87 @@
+# 01
+
+version: 001
+Authorization: draft — 2026-10-17
+who: grok-prime
+state: draft
+Face: 01
+PPPP: 0611
+desk: 10.workshop
+shelf: 10.10.work
+book: 10.10.11.solo-kernel
+keyword: caller
+why: An act names its calling.
+
+cite: 2.8
+
+## Job
+
+An act names a calling.
+The calling has four parts: who answers, who does, who checks, and what is given first.
+An act with no calling is not run. Compute kicks it back.
+The three hands are compute, model, and user.
+The user is the director on this desk. Authority stays with a person who can assume the risk.
+
+## Compute
+
+Compute is the mechanical hand.
+It works from consistent rules and from the books the desk is holding.
+It does not guess.
+When the rules and the books decide the act, compute does it.
+A miss goes to the model with a top list, so the model can pick without interrupting the user.
+A miss by the model goes to the user. Authority stops with the user.
+A later fork is for compute only when the specification is exact.
+It stamps the header, the version, the address, and the hash.
+It takes the next free slot. It builds a menu from headings that are already written.
+Derived faces are compute's work. They can be written without a user check.
+A derived face records its author: compute, model, or user. A model author says so.
+If a derived face is missing or not working, the miss goes up for a check.
+The director answers the rules for derived faces.
+It stops when two faces disagree.
+It may write `status: closed` while `reply:` is still blank.
+After a run, the model supplies the status. Compute writes what was done on each `#NN` before it closes the task.
+
+## Model
+
+The model fills the why and the body.
+It may propose. It may write the next face 06 note.
+The header `who` is the writer. `caller:` is a line on the ask.
+The pages live in RAM with compute. The model requests what it needs, in a compact form, from compute.
+Before the model starts, compute hands it a cold boot for the book it is using.
+Each book is a local environment. Pages `0001` through `0009` are reserved so a book can port a rule from the kernel and apply a local change.
+The model writes the work it did on `status:`.
+`reply:` is the user only.
+A prime may answer a worker inside its grant on `status:`. That line is never a reply.
+
+## User
+
+The user is the person who can assume the risk.
+Right now that person is the director.
+The hand on a desk is whoever holds that desk.
+The kernel and the workshop stay with the director.
+Sign is a compute and model step. It checks that the page is finished and functional.
+In dev mode, that check keeps the work from moving on without the director.
+Approve, lock, and promote stay with the user.
+A reply is for the user. A release is for the user.
+Handing an act down to a model is local work. The user engages that mode. Compute activates it. The shape of that mode is still open.
+
+## Place
+
+`caller:` sits on the ask.
+The calling is read from the command list: who answers, who does, who checks.
+Every write is stamped with its hand.
+Where this rule is seated is still open.
+
+## Open
+
+An author line on each section is still open.
+How a power user differs from an average user is still open.
+The sign line in `AGENTS` is still open.
+What `>keep` means is still open.
+
+## Pair
+
+Law `0040` says the director answers by number. This page uses that.
+Law `0056` was not edited.
+Page `0100.model` is the model door after a full band. It is a different page.
+

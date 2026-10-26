@@ -1,0 +1,54 @@
+from pathlib import Path
+import importlib.util, json, hashlib, subprocess, os, re, io, contextlib
+OUT=Path(__file__).resolve().parent
+ROOT=Path(r'D:\Git\Librarian-rebuild')
+BOOK=ROOT/'10.workshop/10.10.work/10.10.12.rebuild'
+code=BOOK/'0305.clerk/02.clerk.py'
+spec=importlib.util.spec_from_file_location('assessment_clerk',code)
+m=importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
+root=OUT/'probe-fixture'
+book=root/'10.workshop/10.10.work/10.10.12.rebuild'
+dev=book/'0498.assessment-probe'; dev.mkdir(parents=True,exist_ok=True)
+(dev/'01.md').write_text('# 01\n\nstate: draft\n\n## Job\n\nUnreleased proposal.\n',encoding='utf-8')
+pack=book/'0598.assessment-probe'; pack.mkdir(parents=True,exist_ok=True)
+target=dev/'01.md'
+p=pack/'05.01.draft.md'
+text='''# 05.01
+
+state: draft
+task: 01
+PPPP: 0598
+keyword: assessment-probe
+
+Overview:
+Read first: 0498.assessment-probe/01.md.
+Do: Revise the existing development page.
+Stop if: the target is absent.
+File: the return.
+Start the return with Did, Blocked, Need.
+
+#01 >build revise the development page
+reason: From 0498.assessment-probe/01.md #01.
+recommend: Revise the existing development page.
+path: 0498.assessment-probe/01.md
+Ask: >build Revise the page.
+reply:
+'''
+p.write_bytes(text.encode('utf-8'))
+reasons=m.lint_reasons(p)
+results={'probe':'Pack has an existing development target outside draft law, no released dev decision, no dev #01, no decision reply, no dev 06.NN read-first. Does readiness lint reject it?', 'reasons':reasons, 'passes':not reasons, 'fixture':str(p),'clerk_sha256':hashlib.sha256(code.read_bytes()).hexdigest()}
+printed=io.StringIO()
+with contextlib.redirect_stdout(printed):
+    m.cmd_lint(p)
+results['lint_command_output']=printed.getvalue()
+results['pack_unchanged']=p.read_bytes()==text.encode('utf-8')
+listing=(BOOK/'0011.contents/01.md').read_text(encoding='utf-8-sig').split('## Note',1)[0]
+listed=set(re.findall(r'(?m)^(\d{4}\.[\w.-]+)\s*$', listing))
+actual={x.name for x in BOOK.iterdir() if x.is_dir() and re.match(r'^\d{4}\.',x.name)}
+results['contents_unlisted']=sorted(actual-listed)
+results['contents_listed_missing']=sorted(listed-actual)
+results['loader_0302_present']=(BOOK/'0302.run/02.run.py').is_file()
+results['loader_0202_present']=(BOOK/'0202.run/02.run.py').is_file()
+results['evidence_hashes']={str(x.relative_to(ROOT)):hashlib.sha256(x.read_bytes()).hexdigest() for x in [code,BOOK/'0303.jobs/02.jobs.py',BOOK/'0202.run/02.run.py',BOOK/'0011.contents/01.md',ROOT/'AGENTS.md',ROOT/'10.workshop/00.start.md',ROOT/'10.workshop/00.readme.md']}
+(OUT/'probes.json').write_text(json.dumps(results,ensure_ascii=False,indent=2),encoding='utf-8')
+print(json.dumps(results,ensure_ascii=False,indent=2))

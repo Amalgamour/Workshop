@@ -1,0 +1,208 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""clerk.004.py — write the next face 06 slot.
+
+Seat: clerk.py. clerk.002.py appends into one file. This version does not.
+The first note is 06.md with version 001. A later note is 06.VVV.md.
+An earlier 06 file is not opened for writing.
+It does not sign, approve, promote, or edit either kernel.
+"""
+# ## notes
+# born: 2026-10-17
+# source: director, compute band 0600-0699
+# who: grok-prime
+# version: 004
+# The seat stays clerk.py. clerk.002.py stays the appender.
+# 2026-10-17: version 001 is 06.md. A later slot is 06.VVV.md. A .draft tail stops.
+
+from __future__ import annotations
+
+import re
+import sys
+import tempfile
+from pathlib import Path
+
+SOLO_CODE = Path(__file__).resolve().parents[2] / "10.10.11.solo-kernel" / "code"
+sys.path.insert(0, str(SOLO_CODE))
+
+from face import face_filename, header_text, page_rows  # noqa: E402
+
+CHECK_KERNEL = "00.00.00.kernel"
+DRAFT_KERNEL = "00.00.00.kernel.draft"
+SOLO = "10.10.11.solo-kernel"
+SLOT_BARE = "06.md"
+SLOT_NUM = re.compile(r"^06\.(\d{3})\.md$")
+FORBIDDEN = re.compile(r"(?i)^this (draft|page|file) (governs|replaces) the kernel\.?$")
+
+
+def die(msg: str) -> None:
+    sys.exit(f"stop: {msg}")
+
+
+def parts_of(path: Path) -> list[str]:
+    return [parent.name for parent in (path.resolve(), *path.resolve().parents)]
+
+
+def guard(page: Path) -> None:
+    names = parts_of(page)
+    if CHECK_KERNEL in names or DRAFT_KERNEL in names:
+        die("the kernel stays unread as a write")
+    if SOLO not in names:
+        die("a note lands in the solo book")
+
+
+def clean(text: str) -> str:
+    return text.replace("\r\n", "\n").replace("\r", "\n").strip("\n")
+
+
+def slot_number(name: str) -> int | None:
+    if name == SLOT_BARE:
+        return 1
+    hit = SLOT_NUM.fullmatch(name)
+    if not hit:
+        return None
+    number = int(hit.group(1))
+    if number == 1:
+        die("version 001 is FF.md")
+    return number
+
+
+def next_slot(page: Path) -> str:
+    used = set()
+    for path in page.iterdir():
+        if not path.is_file():
+            continue
+        if re.fullmatch(r"06\.\d{3}\.draft\.md", path.name):
+            die("a draft is FF.VVV.md")
+        number = slot_number(path.name)
+        if number is not None:
+            used.add(number)
+    for number in range(1, 1000):
+        if number not in used:
+            return f"{number:03d}"
+    die("no slot")
+
+
+def note_file(page: Path, who: str, why: str, cite: str, body: str) -> Path:
+    who = " ".join(who.split())
+    why = " ".join(why.split())
+    cite = " ".join(cite.split())
+    body = clean(body)
+    if not who:
+        die("who is required")
+    if not why:
+        die("why is required")
+    if not cite:
+        die("cite is required")
+    if not body:
+        die("note is empty")
+    for line in body.splitlines():
+        if line.startswith("## "):
+            die("the note body has no heading")
+        if FORBIDDEN.match(line.strip()):
+            die("the note claims the kernel")
+    if not page.is_dir():
+        die("page folder is missing")
+    guard(page)
+    for path in page.iterdir():
+        if path.is_file() and slot_number(path.name) is not None and body in path.read_text(encoding="utf-8"):
+            die("the note is already there")
+    slot = next_slot(page)
+    dest = page / face_filename("06", slot)
+    if dest.exists():
+        die("slot is taken")
+    number, keyword, rows = page_rows(page)
+    text = header_text("06", number, keyword, rows, slot, who, why, cite, None)
+    text += "## Note\n\n" + body + "\n"
+    if "\r" in text:
+        die("note keeps lf")
+    dest.write_bytes(text.encode("utf-8"))
+    return dest
+
+
+def check(ok: bool, name: str) -> None:
+    if not ok:
+        die(f"test failed: {name}")
+
+
+def cmd_test() -> None:
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        book = root / "10.workshop" / "10.10.work" / SOLO
+        page = book / "0610.note-slot"
+        page.mkdir(parents=True)
+        first = page / "06.md"
+        first.write_bytes(b"# 06\n\nstate: draft\n\n## Note\n\nAlready here.\n")
+        before = first.read_bytes()
+        made = note_file(
+            page,
+            "grok-prime",
+            "The next slot.",
+            "2.8",
+            "born: 2026-10-17\nsource: test\nThe first file stays.",
+        )
+        check(made.name == "06.002.md", "next slot")
+        check("\nversion: 002\n" in made.read_text(encoding="utf-8"), "slot version")
+        fresh = book / "0611.fresh"
+        fresh.mkdir()
+        opened = note_file(fresh, "grok-prime", "First slot.", "2.8", "born: 2026-10-17\nsource: test\nThe first slot.")
+        check(opened.name == "06.md", "first slot is 06.md")
+        check("\nversion: 001\n" in opened.read_text(encoding="utf-8"), "first slot version")
+        check(first.read_bytes() == before, "first file stays")
+        check(b"\r" not in made.read_bytes(), "lf")
+        check("The first file stays." in made.read_text(encoding="utf-8"), "note body")
+        try:
+            note_file(page, "grok-prime", "The next slot.", "2.8", "The first file stays.")
+            die("test wrote the note twice")
+        except SystemExit as exc:
+            check("already there" in str(exc), "second note stops")
+        try:
+            note_file(page, "grok-prime", "The next slot.", "2.8", "## Note\n\nNo.\n")
+            die("test accepted a heading")
+        except SystemExit as exc:
+            check("no heading" in str(exc), "heading stops")
+        blocked = root / DRAFT_KERNEL / "00.00.01.law" / "0000.invariant"
+        blocked.mkdir(parents=True)
+        try:
+            note_file(blocked, "grok-prime", "No.", "2.8", "No.\n")
+            die("test wrote the kernel")
+        except SystemExit as exc:
+            check("kernel stays" in str(exc), "kernel write stops")
+        outside = root / "10.workshop" / "10.10.work" / "10.10.10.lib" / "0001.law"
+        outside.mkdir(parents=True)
+        try:
+            note_file(outside, "grok-prime", "No.", "2.8", "No.\n")
+            die("test wrote outside the solo book")
+        except SystemExit as exc:
+            check("solo book" in str(exc), "outside stops")
+    print("test: pass")
+
+
+def main(argv: list[str] | None = None) -> None:
+    args = list(sys.argv[1:] if argv is None else argv)
+    if not args:
+        die("use test, or note PAGE --who TEXT --why TEXT --cite TEXT --body-file PATH")
+    if args[0] == "test":
+        cmd_test()
+        return
+    if args[0] == "note":
+        if (
+            len(args) < 8
+            or "--who" not in args
+            or "--why" not in args
+            or "--cite" not in args
+            or "--body-file" not in args
+        ):
+            die("note PAGE --who TEXT --why TEXT --cite TEXT --body-file PATH")
+        who = args[args.index("--who") + 1]
+        why = args[args.index("--why") + 1]
+        cite = args[args.index("--cite") + 1]
+        body = Path(args[args.index("--body-file") + 1]).read_text(encoding="utf-8")
+        made = note_file(Path(args[1]), who, why, cite, body)
+        print(f"note: {made.name}")
+        return
+    die("use test, or note PAGE --who TEXT --why TEXT --cite TEXT --body-file PATH")
+
+
+if __name__ == "__main__":
+    main()

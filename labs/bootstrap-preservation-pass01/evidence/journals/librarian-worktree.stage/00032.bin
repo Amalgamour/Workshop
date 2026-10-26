@@ -1,0 +1,376 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""clerk.003.py — add a sample page a cold model can open.
+
+Seat: clerk.py. Notes: clerk.002.py. This file does not replace either.
+It writes in the solo sample only. It refuses both kernels.
+It does not sign, approve, promote, or edit a kernel seat.
+A carried syntax page keeps the seat's meaning. Page 0011 stays a hole.
+A new law page in the sample is work at 1000 or above.
+"""
+# ## notes
+# born: 2026-10-15
+# source: director, sample kernel work list #14
+# who: grok-prime
+# version: 003
+
+from __future__ import annotations
+
+import re
+import sys
+import tempfile
+from datetime import date
+from pathlib import Path
+
+SOLO_CODE = Path(__file__).resolve().parents[2] / "10.10.11.solo-kernel" / "code"
+sys.path.insert(0, str(SOLO_CODE))
+
+from face import EM, face_filename, make_new, sha256, show_path  # noqa: E402
+from reader import claim_higher  # noqa: E402
+from desk import DRAFT_KERNEL, repo_root, solo_root  # noqa: E402
+
+CHECK_KERNEL = "00.00.00.kernel"
+SOLO = "10.10.11.solo-kernel"
+WALK = ("0010.about", "0012.gravity", "0013.triangulate", "0014.design", "00.axioms")
+FACE_FILE = re.compile(r"^0[1-8]\.md$")
+FIELD_RE = re.compile(r"^[A-Za-z][A-Za-z0-9 ._-]*:\s*")
+VERSION_RE = re.compile(r"^version:[ \t]*(\d+)[ \t]*$")
+
+
+def die(msg: str) -> None:
+    sys.exit(f"stop: {msg}")
+
+
+def parts_of(path: Path) -> list[str]:
+    return [parent.name for parent in (path.resolve(), *path.resolve().parents)]
+
+
+def split_header(text: str) -> tuple[str, str]:
+    lines = text.splitlines(keepends=True)
+    seen_title = False
+    end = len(lines)
+    for index, line in enumerate(lines):
+        raw = line.strip()
+        if raw == "":
+            continue
+        if not seen_title and re.fullmatch(r"# \d{2}", raw):
+            seen_title = True
+            continue
+        if raw.startswith("## ") or raw.startswith("```") or raw.startswith("### "):
+            end = index
+            break
+        if FIELD_RE.match(raw):
+            continue
+        end = index
+        break
+    return "".join(lines[:end]), "".join(lines[end:])
+
+
+def render_draft(raw: bytes, source: Path, who: str) -> tuple[str, str]:
+    text = raw.replace(b"\r\n", b"\n").replace(b"\r", b"\n").decode("utf-8")
+    header, body = split_header(text)
+    old = None
+    for line in header.splitlines():
+        hit = VERSION_RE.match(line)
+        if hit:
+            old = hit.group(1)
+            break
+    new = f"{(int(old) + 1) if old else 2:03d}"
+    source_lines = [
+        f"version: {new}",
+        f"source path: {show_path(source)}",
+        f"source version: {old or 'none'}",
+        f"source hash: {sha256(raw)}",
+    ]
+    out: list[str] = []
+    inserted = False
+    had_auth = False
+    had_state = False
+    had_who = False
+    for line in header.splitlines():
+        if VERSION_RE.match(line):
+            out.extend(source_lines)
+            inserted = True
+            continue
+        if line.startswith("Authorization:"):
+            out.append(f"Authorization: draft {EM} {date.today().isoformat()}")
+            had_auth = True
+            continue
+        if line.startswith("state:"):
+            out.append("state: draft")
+            had_state = True
+            continue
+        if line.startswith("who:"):
+            out.append(f"who: {who}")
+            had_who = True
+            continue
+        out.append(line)
+    if not inserted:
+        at = 1 if out and out[0].startswith("# ") else 0
+        out[at:at] = source_lines
+    if not had_auth:
+        out.insert(2 if len(out) > 2 else len(out), f"Authorization: draft {EM} {date.today().isoformat()}")
+    if not had_state:
+        out.append("state: draft")
+    if not had_who:
+        placed = False
+        for index, line in enumerate(out):
+            if line.startswith("Authorization:"):
+                out.insert(index + 1, f"who: {who}")
+                placed = True
+                break
+        if not placed:
+            out.append(f"who: {who}")
+    drafted = "\n".join(out).rstrip("\n") + "\n"
+    if body:
+        if not drafted.endswith("\n\n"):
+            drafted += "\n"
+        drafted += body if body.endswith("\n") else body + "\n"
+    return new, drafted
+
+
+def clear_folder(folder: Path) -> None:
+    if not folder.is_dir():
+        return
+    for child in folder.iterdir():
+        if child.is_file():
+            child.unlink()
+    folder.rmdir()
+
+
+def carry_one(source: Path, dest_book: Path, who: str) -> str:
+    who = " ".join(who.split())
+    if not who:
+        die("who is required")
+    names = parts_of(source)
+    if DRAFT_KERNEL not in names or "00.00.00.syntax" not in names:
+        die("carry reads the syntax draft")
+    if CHECK_KERNEL in names and DRAFT_KERNEL not in names:
+        die("the kernel stays unread as a write")
+    if source.name.startswith("0011"):
+        die("0011 stays a hole")
+    dest_names = parts_of(dest_book)
+    if CHECK_KERNEL in dest_names or DRAFT_KERNEL in dest_names:
+        die("the kernel stays unread as a write")
+    if SOLO not in dest_names or "sample" not in dest_names:
+        die("a carried page lands in the solo sample")
+    if dest_book.name != "00.00.00.syntax":
+        die("a carried page lands in the syntax sample")
+    if not source.is_dir():
+        die("source page is missing")
+    dest = dest_book / source.name
+    if dest.exists():
+        die("the sample page is already there")
+    faces = [
+        path for path in sorted(source.iterdir())
+        if path.is_file() and FACE_FILE.fullmatch(path.name) and not path.name.startswith("07")
+    ]
+    if not faces:
+        die("the source has no face")
+    if any(path.name.startswith("07") for path in source.iterdir() if path.is_file()):
+        pass
+    dest.mkdir()
+    try:
+        for face in faces:
+            raw = face.read_bytes()
+            version, text = render_draft(raw, face, who)
+            if face.name == "01.md":
+                bad = claim_higher(text)
+                if bad:
+                    die(bad)
+            if "\r" in text:
+                die("the draft is not LF")
+            (dest / face_filename(face.name[:2], version)).write_bytes(text.encode("utf-8"))
+    except SystemExit:
+        clear_folder(dest)
+        raise
+    return dest.name
+
+
+def carry_walk(who: str) -> list[str]:
+    root = repo_root()
+    source_root = root / DRAFT_KERNEL / "00.00.00.syntax"
+    dest = solo_root() / "sample" / "00.00.00.syntax"
+    made = []
+    for name in WALK:
+        made.append(carry_one(source_root / name, dest, who))
+    return made
+
+
+def guard_face(page: Path, face_no: str) -> None:
+    if not re.fullmatch(r"0[1-8]", face_no):
+        die("face is 01 through 08")
+    if face_no == "07":
+        die("face 07 stays absent")
+    if face_no == "06":
+        die("a note is clerk.002")
+    names = parts_of(page if page.exists() else page.parent)
+    if CHECK_KERNEL in names or DRAFT_KERNEL in names:
+        die("the kernel stays unread as a write")
+    if SOLO not in names or "sample" not in names:
+        die("a page lands in the solo sample")
+    book = page.parent
+    if book.name == "00.00.00.syntax":
+        die("a page is not minted in this book")
+    if book.name == "00.00.01.law":
+        number = page.name.split(".", 1)[0]
+        if not re.fullmatch(r"\d{4}", number):
+            die("page number is four digits")
+        if number.endswith("0"):
+            die("a door is not a member")
+        if int(number) < 1000:
+            die("work starts at 1000")
+
+
+def write_face(page: Path, face_no: str, who: str, why: str, cite: str, body: str) -> Path:
+    who = " ".join(who.split())
+    if not who:
+        die("who is required")
+    guard_face(page, face_no)
+    created = False
+    if not page.exists():
+        if not page.parent.is_dir():
+            die("book folder is missing")
+        page.mkdir()
+        created = True
+    try:
+        return make_new(page, face_no, who, why, cite, body)
+    except SystemExit:
+        if created:
+            clear_folder(page)
+        raise
+
+
+def check(ok: bool, name: str) -> None:
+    if not ok:
+        die(f"test failed: {name}")
+
+
+def cmd_test() -> None:
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        syntax = root / DRAFT_KERNEL / "00.00.00.syntax"
+        seat = syntax / "0012.gravity"
+        seat.mkdir(parents=True)
+        raw = (
+            "# 01\r\n\r\n"
+            "version: 002\r\n"
+            "Authorization: approved \u2014 2026-10-12\r\n"
+            "state: approved\r\n"
+            "Face: 01\r\n"
+            "PPPP: 0012\r\n"
+            "book: 00.00.00.syntax\r\n"
+            "keyword: gravity\r\n"
+            "why: Route.\r\n"
+            "cite: 5\r\n\r\n"
+            "## Gravity\r\n\r\n"
+            "The seat body.\r\n"
+        ).encode("utf-8")
+        (seat / "01.md").write_bytes(raw)
+        (seat / "03.md").write_bytes(
+            b"# 03\n\nversion: 002\nAuthorization: approved - 2026-10-12\n"
+            b"state: approved\nFace: 03\nPPPP: 0012\nbook: 00.00.00.syntax\n"
+            b"keyword: gravity\nwhy: Route.\n\ncite: 5\n\n```text\nneed the rule\n```\n"
+        )
+        (seat / "07.md").write_bytes(b"# 07\n\nstate: approved\n\n## No\n\nAbsent.\n")
+        sample = root / "10.workshop" / "10.10.work" / SOLO / "sample" / "00.00.00.syntax"
+        sample.mkdir(parents=True)
+        made = carry_one(seat, sample, "grok-prime")
+        check(made == "0012.gravity", "carried name")
+        draft = sample / "0012.gravity" / "01.003.md"
+        text = draft.read_text(encoding="utf-8")
+        check("The seat body." in text, "seat body")
+        check("source hash: " + sha256(raw) in text, "source hash")
+        check("state: draft" in text and "state: approved" not in text, "state draft")
+        check(text.index("who: grok-prime") < text.index("Face:"), "who sits in the stamp")
+        check("```text" in (sample / "0012.gravity" / "03.003.md").read_text(encoding="utf-8"), "menu fence")
+        check(not (sample / "0012.gravity" / "07.md").exists(), "face 07 stays absent")
+        check(b"\r" not in draft.read_bytes(), "lf write")
+        check((seat / "01.md").read_bytes() == raw, "seat unchanged")
+        try:
+            carry_one(seat, sample, "grok-prime")
+            die("test replaced a sample page")
+        except SystemExit as exc:
+            check("already there" in str(exc), "second carry stops")
+        hole = syntax / "0011.contents"
+        hole.mkdir()
+        (hole / "01.md").write_bytes(b"# 01\n\nversion: 001\nstate: approved\n\n## Job\n\nNo.\n")
+        try:
+            carry_one(hole, sample, "grok-prime")
+            die("test minted 0011")
+        except SystemExit as exc:
+            check("0011 stays" in str(exc), "hole stays")
+            check(not (sample / "0011.contents").exists(), "no hole folder")
+        blocked = root / DRAFT_KERNEL / "00.00.00.syntax"
+        try:
+            carry_one(seat, blocked, "grok-prime")
+            die("test wrote the kernel")
+        except SystemExit as exc:
+            check("kernel stays" in str(exc), "kernel write stops")
+        law = root / "10.workshop" / "10.10.work" / SOLO / "sample" / "00.00.01.law"
+        law.mkdir()
+        page = law / "1001.accounting"
+        made_face = write_face(page, "04", "grok-prime", "A person read.", "2.8", "## Date format\n\nDay first.\n")
+        check(made_face.name == "04.md", "face 04")
+        check(not (page / "01.md").exists(), "face 01 stays absent until asked")
+        added = write_face(page, "02", "grok-prime", "The card.", "2.8", "## Date format\n\nDD-MM-YYYY.\n")
+        check(added.name == "02.md", "face 02 added")
+        try:
+            write_face(law / "0017.sync", "01", "grok-prime", "No.", "2.8", "## Job\n\nNo.\n")
+            die("test minted below 1000")
+        except SystemExit as exc:
+            check("work starts at 1000" in str(exc), "reserved band stays")
+        try:
+            write_face(law / "1000.door", "01", "grok-prime", "No.", "2.8", "## Job\n\nNo.\n")
+            die("test minted a door")
+        except SystemExit as exc:
+            check("door is not a member" in str(exc), "door stays")
+        try:
+            write_face(page, "07", "grok-prime", "No.", "2.8", "## No\n\nNo.\n")
+            die("test wrote face 07")
+        except SystemExit as exc:
+            check("face 07 stays absent" in str(exc), "face 07 stops")
+        try:
+            write_face(sample / "0015.extra", "01", "grok-prime", "No.", "2.8", "## Job\n\nNo.\n")
+            die("test minted in the syntax sample")
+        except SystemExit as exc:
+            check("not minted" in str(exc), "syntax mint stops")
+        kernel_page = root / DRAFT_KERNEL / "00.00.01.law" / "1001.accounting"
+        kernel_page.mkdir(parents=True)
+        try:
+            write_face(kernel_page, "04", "grok-prime", "No.", "2.8", "## Date format\n\nNo.\n")
+            die("test wrote the kernel page")
+        except SystemExit as exc:
+            check("kernel stays" in str(exc), "kernel page stops")
+    print("test: pass")
+
+
+def main(argv: list[str] | None = None) -> None:
+    args = list(sys.argv[1:] if argv is None else argv)
+    if not args:
+        die("use test, carry --who TEXT, or face PAGE FF --who TEXT --why TEXT --cite TEXT --body-file PATH")
+    if args[0] == "test":
+        cmd_test()
+        return
+    if args[0] == "carry":
+        if "--who" not in args:
+            die("carry --who TEXT")
+        who = args[args.index("--who") + 1]
+        for name in carry_walk(who):
+            print(f"carry: {name}")
+        return
+    if args[0] == "face":
+        if len(args) < 8 or "--who" not in args or "--why" not in args or "--cite" not in args or "--body-file" not in args:
+            die("face PAGE FF --who TEXT --why TEXT --cite TEXT --body-file PATH")
+        who = args[args.index("--who") + 1]
+        why = args[args.index("--why") + 1]
+        cite = args[args.index("--cite") + 1]
+        body = Path(args[args.index("--body-file") + 1]).read_text(encoding="utf-8")
+        made = write_face(Path(args[1]), args[2], who, why, cite, body)
+        print(f"face: {made.name}")
+        return
+    die("use test, carry --who TEXT, or face PAGE FF --who TEXT --why TEXT --cite TEXT --body-file PATH")
+
+
+if __name__ == "__main__":
+    main()

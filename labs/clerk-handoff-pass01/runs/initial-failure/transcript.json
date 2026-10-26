@@ -1,0 +1,82 @@
+[
+  {
+    "step": 1,
+    "command": [
+      "init"
+    ],
+    "exit": 0,
+    "stdout": "{\n  \"job\": \"job-001\",\n  \"goal\": \"Count lines containing at least one non-whitespace character.\",\n  \"closed\": false,\n  \"events\": 2,\n  \"actions\": [\n    {\n      \"id\": \"build-1\",\n      \"role\": \"builder\",\n      \"state\": \"pending\",\n      \"availability\": \"ready\"\n    }\n  ]\n}\n",
+    "stderr": ""
+  },
+  {
+    "step": 2,
+    "command": [
+      "role",
+      "--role",
+      "builder"
+    ],
+    "exit": 0,
+    "stdout": "{\n  \"role\": \"builder\",\n  \"work\": \"build-1\",\n  \"outcome\": \"built\",\n  \"artifact\": {\n    \"path\": \"artifacts/counter-1.py\",\n    \"sha256\": \"d62504471b2103440b926ce9968d309e72dda787b3c89c7fe7908cf20cd1558f\"\n  },\n  \"tests\": {\n    \"passed\": true,\n    \"cases\": [\n      {\n        \"input\": \"apple\\n\\npear\\n\",\n        \"expected\": 2,\n        \"actual\": 2\n      }\n    ]\n  }\n}\n",
+    "stderr": ""
+  },
+  {
+    "step": 3,
+    "command": [
+      "live"
+    ],
+    "exit": 0,
+    "stdout": "{\n  \"job\": \"job-001\",\n  \"goal\": \"Count lines containing at least one non-whitespace character.\",\n  \"closed\": false,\n  \"events\": 5,\n  \"actions\": [\n    {\n      \"id\": \"build-1\",\n      \"role\": \"builder\",\n      \"state\": \"returned\",\n      \"availability\": \"returned\"\n    },\n    {\n      \"id\": \"review-1\",\n      \"role\": \"colab\",\n      \"state\": \"pending\",\n      \"availability\": \"ready\"\n    }\n  ]\n}\n",
+    "stderr": ""
+  },
+  {
+    "step": 4,
+    "command": [
+      "role",
+      "--role",
+      "colab"
+    ],
+    "exit": 0,
+    "stdout": "{\n  \"role\": \"colab\",\n  \"work\": \"review-1\",\n  \"outcome\": \"changes\",\n  \"artifact\": {\n    \"path\": \"artifacts/review-1.json\",\n    \"sha256\": \"13d6f916797372b7f99d729399a7b3cabc26638fcc7bc90fdce122beff8bcc57\"\n  },\n  \"tests\": {\n    \"passed\": false,\n    \"cases\": [\n      {\n        \"input\": \"apple\\n\\npear\\n\",\n        \"expected\": 2,\n        \"actual\": 2\n      },\n      {\n        \"input\": \" \\n\\t\\n\",\n        \"expected\": 0,\n        \"actual\": 2\n      },\n      {\n        \"input\": \"\",\n        \"expected\": 0,\n        \"actual\": 0\n      },\n      {\n        \"input\": \" apple \\n pear\",\n        \"expected\": 2,\n        \"actual\": 2\n      }\n    ]\n  }\n}\n",
+    "stderr": ""
+  },
+  {
+    "step": 5,
+    "command": [
+      "role",
+      "--role",
+      "builder"
+    ],
+    "exit": 0,
+    "stdout": "{\n  \"role\": \"builder\",\n  \"work\": \"build-2\",\n  \"outcome\": \"built\",\n  \"artifact\": {\n    \"path\": \"artifacts/counter-2.py\",\n    \"sha256\": \"0a7e71426b9fbaa47fa92d5a3df1faa05a19e79452b77e2cf7c8879dc50ff2da\"\n  },\n  \"tests\": {\n    \"passed\": true,\n    \"cases\": [\n      {\n        \"input\": \"apple\\n\\npear\\n\",\n        \"expected\": 2,\n        \"actual\": 2\n      }\n    ]\n  }\n}\n",
+    "stderr": ""
+  },
+  {
+    "step": 6,
+    "command": [
+      "role",
+      "--role",
+      "colab"
+    ],
+    "exit": 0,
+    "stdout": "{\n  \"role\": \"colab\",\n  \"work\": \"review-2\",\n  \"outcome\": \"accepted\",\n  \"artifact\": {\n    \"path\": \"artifacts/review-2.json\",\n    \"sha256\": \"c6736e528bde77cfc047cfd6bed5b1c70c4283d9af7a7291ec11e905fc82ac44\"\n  },\n  \"tests\": {\n    \"passed\": true,\n    \"cases\": [\n      {\n        \"input\": \"apple\\n\\npear\\n\",\n        \"expected\": 2,\n        \"actual\": 2\n      },\n      {\n        \"input\": \" \\n\\t\\n\",\n        \"expected\": 0,\n        \"actual\": 0\n      },\n      {\n        \"input\": \"\",\n        \"expected\": 0,\n        \"actual\": 0\n      },\n      {\n        \"input\": \" apple \\n pear\",\n        \"expected\": 2,\n        \"actual\": 2\n      }\n    ]\n  }\n}\n",
+    "stderr": ""
+  },
+  {
+    "step": 7,
+    "command": [
+      "live"
+    ],
+    "exit": 0,
+    "stdout": "{\n  \"job\": \"job-001\",\n  \"goal\": \"Count lines containing at least one non-whitespace character.\",\n  \"closed\": true,\n  \"events\": 14,\n  \"actions\": [\n    {\n      \"id\": \"build-1\",\n      \"role\": \"builder\",\n      \"state\": \"returned\",\n      \"availability\": \"returned\"\n    },\n    {\n      \"id\": \"review-1\",\n      \"role\": \"colab\",\n      \"state\": \"returned\",\n      \"availability\": \"returned\"\n    },\n    {\n      \"id\": \"build-2\",\n      \"role\": \"builder\",\n      \"state\": \"returned\",\n      \"availability\": \"returned\"\n    },\n    {\n      \"id\": \"review-2\",\n      \"role\": \"colab\",\n      \"state\": \"returned\",\n      \"availability\": \"returned\"\n    }\n  ]\n}\n",
+    "stderr": ""
+  },
+  {
+    "step": 8,
+    "command": [
+      "audit"
+    ],
+    "exit": 0,
+    "stdout": "{\n  \"passed\": true,\n  \"issues\": [],\n  \"events\": 14,\n  \"route\": [\n    [\n      \"build-1\",\n      \"builder\",\n      \"built\"\n    ],\n    [\n      \"review-1\",\n      \"colab\",\n      \"changes\"\n    ],\n    [\n      \"build-2\",\n      \"builder\",\n      \"built\"\n    ],\n    [\n      \"review-2\",\n      \"colab\",\n      \"accepted\"\n    ]\n  ],\n  \"final_state\": \"closed\",\n  \"boundary\": \"real persistence/routing; scripted roles, not live models\"\n}\n",
+    "stderr": ""
+  }
+]

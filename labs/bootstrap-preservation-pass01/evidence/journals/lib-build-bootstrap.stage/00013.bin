@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "test_exit": 1,
+  "processes": 8,
+  "audit": {
+    "passed": false
+  },
+  "role_fixture": "Scripted Python actors, not live models",
+  "manual_work_item_paths_given_to_roles": 0,
+  "launcher_role_schedule": [
+    "builder",
+    "colab",
+    "builder",
+    "colab"
+  ],
+  "limitation": "The launcher opens each role process. No model wakeup, autonomous scheduler, semantic AI review, or Director authentication is implemented."
+}

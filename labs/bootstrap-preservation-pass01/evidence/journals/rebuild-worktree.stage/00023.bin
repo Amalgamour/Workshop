@@ -1,0 +1,36 @@
+from pathlib import Path
+import os, subprocess, json, hashlib, datetime, sys
+
+ROOT = Path(r'D:\Git\Librarian-rebuild')
+BOOK = ROOT / '10.workshop/10.10.work/10.10.12.rebuild'
+OUT = Path(__file__).resolve().parent
+PYTHON = Path(r'C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe')
+OUT.mkdir(parents=True, exist_ok=True)
+(OUT / 'scratch').mkdir(exist_ok=True)
+env = dict(os.environ, PYTHONUTF8='1', PYTHONDONTWRITEBYTECODE='1', CLERK_MODE='dev', TMP=str(OUT/'scratch'), TEMP=str(OUT/'scratch'))
+cases = [
+    ('loader-test', BOOK/'0202.run/02.run.py', ['test']),
+    ('clerk-test', BOOK/'0305.clerk/02.clerk.py', ['test']),
+    ('jobs-test', BOOK/'0303.jobs/02.jobs.py', ['test']),
+    ('loader-clerk-help', BOOK/'0202.run/02.run.py', ['clerk', '--help']),
+    ('loader-check-help', BOOK/'0202.run/02.run.py', ['check', '--help']),
+]
+if '--extra' in sys.argv:
+    cases = [
+        ('timer-test', BOOK/'0114.test-desk/timer.py', ['test']),
+        ('words-test', BOOK/'0116.words/words.py', ['test']),
+        ('pdf-test', BOOK/'0114.test-desk/pdf.py', ['test']),
+        ('check-working-draft', BOOK/'0202.run/02.run.py', ['check', str(ROOT/'00.00.00.kernel.draft'), '--json', str(OUT/'working-draft-check.json')]),
+        ('check-clean-kernel', BOOK/'0202.run/02.run.py', ['check', str(ROOT/'00.kernel'), '--json', str(OUT/'clean-kernel-check.json')]),
+    ]
+results = []
+for name, script, args in cases:
+    try:
+        result = subprocess.run([str(PYTHON), '-B', '-X', 'utf8', str(script), *args], cwd=ROOT, env=env, capture_output=True, text=True, encoding='utf-8', timeout=90)
+        record = {'name':name, 'script':str(script), 'args':args, 'exit':result.returncode, 'stdout':result.stdout, 'stderr':result.stderr, 'sha256':hashlib.sha256(script.read_bytes()).hexdigest()}
+    except subprocess.TimeoutExpired as exc:
+        record = {'name':name,'exit':'timeout','stdout':str(exc.stdout),'stderr':str(exc.stderr)}
+    results.append(record)
+    (OUT/(name+'.txt')).write_text(json.dumps(record,ensure_ascii=False,indent=2),encoding='utf-8')
+    print(name, 'exit=', record['exit'], '\n', record.get('stdout','')[-2500:], record.get('stderr','')[-2000:], flush=True)
+(OUT/('extra-checks.json' if '--extra' in sys.argv else 'checks.json')).write_text(json.dumps(results,ensure_ascii=False,indent=2),encoding='utf-8')

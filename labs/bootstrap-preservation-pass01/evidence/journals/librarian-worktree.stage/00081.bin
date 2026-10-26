@@ -1,0 +1,140 @@
+# claude-paper-notes-2026-10-17
+
+who: claude-opus-5-5
+for: the theory paper `Research/Librarian-Clerk-Desk-for-Two-2026-10-17.theory.paper.md`
+asked by: Matthew John Fisher, chat 2026-10-17: "Pack it with all the notes from everything you have done so far. Read everything you need to first. Then write from your notes. strike them after so you know they are incorporated and not used multiple times. Next pass read it straight through, make any additional notes on things you want to check."
+state: working notes. Not a finding. Not law.
+How: each note has an id. When a note is written into the paper it is struck and tagged `→ §N`. A note left unstruck was not used, and the end of this file says why.
+
+## A. Sources read for the paper (2026-10-17)
+- ~~A01. Research: Sequence Addressing paper 03 (2026-09-23) read in full. Evidence grammar: SOURCE-CONFIRMED, REPOSITORY-REPORTED, AUTHOR-CLARIFIED, COLAB-TESTIMONY, INFERENCE, PROPOSED. Propositions P1–P11. Roles Observer, Clerk, Librarian, Prime, Director. Clerk "intentionally dumb", "not persuadable by fancy language". "Intelligence, cheap, under signature works." Central principle: maximum freedom before lock, maximum rigor at the lock boundary.~~ → How to read, §1.2, §4.2
+- ~~A02. Research: Weekend Report 2026-10-07 read in full. "Code implements the law; it does not finish the law." "A behavior is an act a model can run twice." "Prime-experimental without Prime-sovereign." "Responsibility and intelligence are not the same axis." "Delay heavy implementation ... small read-only code experiments may soon be useful." Economics: about 250 human hours, about $160 model use, five weeks.~~ → §1.1, §1.2, §13.3, §16.2
+- ~~A03. Research: Causal Lineage paper (2026-09-20) read in full. Provenance by hash commitments and timestamps (RFC 3161). "Drafting support: ChatGPT" byline precedent. A repo is evidence of causal history; continuity matters more than one deposit.~~ → §1.2, App D
+- ~~A04. Research: The Governed Dance (2026-09-20), The Why Repository (2026-09-21), Why-Catcher supplemental, Clay of Mind, Seqaddr revised (2026-09-22): abstracts and headings. Governed Dance answers Felin and Holweg (2024). Why Repository cites FAIR, RO-Crate, PROV, preregistration. Rights notice form in Seqaddr revised: AI assistance "does not transfer ownership ... not legal advice".~~ → §1.2, Notice
+- ~~A05. `Research/Mathias-holweg-Theory about AI.md` is a copy of Felin and Holweg, "Theory Is All You Need" (Strategy Science, 2024). Third-party work. Cite, do not quote at length.~~ → §1.2, References
+- ~~A06. Online: U.S. Copyright Office, Copyright and AI Part 2: Copyrightability (29 Jan 2025): human authorship required; AI used as a tool does not disqualify; prompts alone are not enough control; selection, arrangement and modification by a human can be protected. Registration guidance (Federal Register, 16 Mar 2023): disclose AI-generated material more than de minimis; do not name AI as author.~~ → Notice, App D
+- ~~A07. Online: Nygard, "Documenting Architecture Decisions" (2011): title, context, decision, status, consequences; superseded records kept. W3C PROV (30 Apr 2013): entity, activity, agent. Related prior work for the decision record and provenance.~~ → §1.2, References (second pass)
+
+## B. The starting point (inspection, 2026-10-15)
+- ~~B01. Python 3.14.7 at `C:\Users\misg\AppData\Local\Python\pythoncore-3.14-64\python.exe`; runs from PowerShell through the Store alias; not on the Git Bash path.~~ → §3.1, App B
+- ~~B02. `clerk.py test` pass. Eight solo-kernel tests pass (door, face, menu, nav, page, slot, reader, journal). Tree unchanged after.~~ → §3.1
+- ~~B03. `lcheck.py` on kernel.draft, read-only: reworked 0/0/60, pending 24/41/32 (error/warn/info). Same on 2026-10-17.~~ → §3.1, App B
+- ~~B04. `lcheck.py` fails under `python -I` because it imports `sentinel.py` from its folder.~~ → §3.1, §12.13
+- ~~B05. Twelve scripts; three copies of the address parser (`clerk.py`, `jobs.py`, solo `face.py`).~~ → §3.3, §12.4
+- ~~B06. Hard-coded paths and names (solo return hole 6: `nav.py` `D:\Git\Librarian`, default `who` about 40 places).~~ → §3.3, §12.5
+- ~~B07. Two face makers with opposite face 06 policy: `clerk.py` copies notes, solo `face.py` refuses face 06.~~ → §3.4, §12.4
+- ~~B08. Batch files drift across four name forms: `05.NN.md` state open, `05.NN.open.md`, `.replied`, `.closed`, plus `05.plan.md`.~~ → §3.3, §5.3
+- ~~B09. About 79 blank replies across 16 batch files; some inside batches already filed `ran`. Nothing tells a live wait from a leftover.~~ → §3.3
+- ~~B10. `00.00.00.kernel/` still holds batches that mirror kernel.draft; a reader would double-count.~~ → §3.5
+- ~~B11. Stale references: `10.workshop/00.start.md`, `00.about.md`, `lib/code/readme.md`, `2002.face/01` call `00.00.00.kernel` the check.~~ → §3.5
+- ~~B12. Settled enough to build on: folder name is address plus title; face roles; seat `FF.md` and draft beside it; `#NN >` with a blank reply that waits; replies never rewritten; approve is a rename; neither kernel written by tools.~~ → §3.4
+- ~~B13. Not settled: draft file name, face 06 on drafts, batch forms, decade-full rule, `built` state, dotted titles, unmarked solo replies, shelf sentinel wording.~~ → §3.4
+- ~~B14. The solo return (claude pass01, 2026-10-15) claimed the Director ruled against copying 06; the `2002.face` 05.04 #09 record says ">take Keep the full note copy." Same fact, two places, disagreeing.~~ → §3.5, §12.2
+- ~~B15. The workshop desk has no desk books and "no local syntax" (`00.start`); rules climb to kernel.draft.~~ → §9.3, §12.15
+
+## C. Decisions (from 05.01, 05.02, 05.03; replies transcribed verbatim at the Director's request)
+- ~~C01. 05.01 #01: app code in `app/` at the repo root, beside the desk; design and batches in band 2000 members. "Agreed app at the top it runs along side the desk space."~~ → §6.3, App A
+- ~~C02. 05.01 #02: files are the truth; any database is a rebuildable cache.~~ → §7.1
+- ~~C03. 05.01 #03: one Python core with no screen; commands; Textual terminal screen (stage 4); Qt/PySide6 Windows window (stage 8). Director: wants a desktop app, not a web page; "This isn't a slim project".~~ → §6.3
+- ~~C04. 05.01 #04: `.venv` with pinned packages; pytest now, Textual later; any other library asked.~~ → §6.3
+- ~~C05. 05.01 #05: "the app is the desk a model sits at to work." Every write goes through it.~~ → §4.1
+- ~~C06. 05.01 #06: replies free-form; dev mode: the Director may edit 05.NN directly in VS Code, side by side; replies written outside the app are listed and confirmed in bulk; later a whole-batch view.~~ → §8.1
+- ~~C07. 05.01 #07: "I think AI should be able to commit on a branch." Changed from the >hold asked. Merge to main is the Director's.~~ → §8.4
+- ~~C08. 05.01 #08: a batch is "all work the model needs me to review"; conflicts, Director intervention, ideas found during work; solo work turned into #NN first; "If a model does a job and no one sees it is what we are workign to avoid."; wrong decision goes into the next batch; timer example; 1006.redraft is the model.~~ → §5.1
+- ~~C09. 05.01 #09 and 05.02 #06: back to `FF.VVV.md`; "I amended to FF.VVV.draft because the model couldn't seem to solve but I think compute can handle that".~~ → §6.5
+- ~~C10. 05.01 #10 and 05.02 #07: the solo run "copied every note to a draft going back weeks. That will rotten design"; keep full notes now; clean later; applied mark, nothing deleted.~~ → §6.5
+- ~~C11. 05.01 #11: standing permission to write `AGENTS.VVV.md` beside the seat; never touch `AGENTS.md`.~~ → §8.5
+- ~~C12. 05.01 #12: `.librarian/` app state outside git.~~ → §6.3
+- ~~C13. 05.01 #13: >hold the build; AGENTS.VVV stamped like faces: who, when, version.~~ → §8.5
+- ~~C14. 05.02 #01: one batch name `05.NN.md` forever; state in header.~~ → §5.3
+- ~~C15. 05.02 #02: "I think that is a little lean." The command is the kind; desk-level command list; unknown command kicked back; `>stop` added; no `kind:` field.~~ → §5.2
+- ~~C16. 05.02 #03: "reply is user/director only ... a model at the desk shouldn't be able to touch that. The clerk is designed to make it easy to keep the system honest." Solo: skip the reply, work through, status after.~~ → §8.1, §8.2
+- ~~C17. 05.02 #04: unseen-work check.~~ → §5.5
+- ~~C18. 05.02 #05: model-side commands in the first version (page new, batch new, item add, status, stop).~~ → §6.1
+- ~~C19. 05.03 #04: grants follow desk, shelf, book; "anything that violates the design is kicked back. it allows models to focus in the narrow band of work"; "turning infinity between 0-1 into workable bands."~~ → §4.4, §8.3
+- ~~C20. 05.03 #05: rules looked up; the clerk parses the prompt for key words before the model sees it; brands let the same letters carry different meanings ("ham the meat or ham a person's nickname"); repos carry a business's lingo.~~ → §10
+- ~~C21. 05.03 #07: a branch must be named, "so it doesn't go where it shouldn't, or one is already set."~~ → §8.4
+- ~~C22. Chat 2026-10-15 (desk for two): "the desk is where the prime model sits with the director ... with the compute or the clerk as a call ... so the intelligences can do what we both do best. ... A desk can pull and give authority to shelves ... A book is a world with specific rules at times. It's fractal in design."~~ → §4.1
+- ~~C23. Chat: "we are very spendy right now trying to create all this ... But it is all to guard against the issuse we are current facing."~~ → §1.3, §12.12
+- ~~C24. Counts: 28 lines answered (05.01: 13, 05.02: 7, 05.03: 8). Open: 05.03 #08, #09, #10; 05.04 #01–#07.~~ → §13.1, App A
+
+## D. What was built (drafts, untracked, not committed)
+- ~~D01. Page `1008.app-plan`: faces 01, 04, 08; batches 05.01–05.04; plan.1–plan.8; plan.7 v001 kept as `.001.09`.~~ → App C
+- ~~D02. Plan: batch desk; ten first-version modules (place, tree, face, batches, pages, write, check, changes, commands, screen); later modules (drafts engine, note sweep, seat, menu and reference, batch rename, dispatch, index, colab, desks from a brief, drift, reader walk, desktop shell, promote, prompt clerk, local command lists, merge from the app).~~ → §6.4 (second pass)
+- ~~D03. Eight stages: 1 see the work, 2 answer, 3 the work loop, 4 screen, 5 coming back, 6 drafts, 7 seat and note sweep, 8 Windows window. Ranges counted in batches, not days.~~ → §6.6
+- ~~D04. Write rules: six write kinds; ten checks before a write (zone, grant, kind, command, version, target, shape, intended bytes only, swap and re-read, journal).~~ → §7.2, §7.3
+- ~~D05. Guarantees vs instructions table: the app enforces and tests; AGENTS asks; direct edits are caught after the fact by the reply check and unseen-work check.~~ → §7.4
+- ~~D06. `AGENTS.003.md`: stamp; never commit on main or merge; branch commits on a named branch; AGENTS-draft permission; first Authority line names its exceptions; retired name `AGENTS.VVV.09.md`; Report adds branch and commits; diff-checked against the seat.~~ → §8.5
+- ~~D07. plan.7 v002: branch `build/2006.batch-desk`; one commit per closed line; the build's own `2006.batch-desk/05.01`; >stop and >note; unseen-work self-check; reads `clerk.002.py` if present.~~ → §16.2
+- ~~D08. plan.8: 23 commands from 122 batch files; grammar `>word.target`; lower case; sources (1004 Fresh, laws 0009, 0021, 0022, 0023, 0026) or "from use"; seen-not-listed words; >ignore vs >strike conflict (1006 05.18 vs law 0039).~~ → §9.3
+- ~~D09. Command counts: >note 94 Ask / 51 reply; >take 81/69; >approve 31/25; >sign 27/55; >review 25; >hold 22; >point 21; >amend.draft 18; >amend 13. Headings used capitals 190-plus times.~~ → §9.1
+- ~~D10. Return `colab/returns/claude-solo-kernel-sample-pass01-2026-10-15.md` and 05.04 (seven notes).~~ → §11.1
+- ~~D11. Pack `colab/packs/claude-clerk-pass01-2026-10-17` (door plus 53-file zip, byte-checked).~~ → §16.3
+
+## E. Evidence from the kernel redraft (snapshot about 20:20, 2026-10-15)
+- ~~E01. 366 files; 363 drafts `.draft.md`; 2 sentinels; syntax 16 of 20 entries, law 55 of 58 plus `1001.accounting`.~~ → §11.1
+- ~~E02. Wording vs seat: 223 same; 26 small change; 74 rewritten (53 face 06); 40 new faces (13 menus, 15 custody).~~ → §11.1
+- ~~E03. 258 drafts carry source path, version, hash; 288 are seat plus one; 35 are not.~~ → §11.2
+- ~~E04. Face 06: law 0001 87 lines to 9; old notes not carried; numbered 06.001 against seats 001–004.~~ → §11.3
+- ~~E05. Syntax 0001–0009 face 01 became pointer cards at version 001.~~ → §11.3
+- ~~E06. Links: 38 malformed menu links in 10 files; 125 of 338 link targets missing; 201 links to `.draft.md`.~~ → §11.3
+- ~~E07. Checker on sample: face-name 358 errors (names); dangling 3; stale 19 (likely inherited).~~ → §11.3, App B
+- ~~E08. The seated `0001.law/06.md` is 87 lines, mostly old batches pasted under "## From 05.01.md": the rot is real.~~ → §11.2
+- ~~E09. During and after the review the redraft kept moving: `face.py` 20:16, `clerk.002.py`, `clerk.003.py`, later `1001.kernel-build` and new syntax pages in `sample/`.~~ → §11.3, §12.4
+
+## F. Issues we are running into
+- ~~F01. Cold-reading cost: rules point rather than restate; one rule can take five files.~~ → §12.1
+- ~~F02. The same fact in several places disagreeing (B14).~~ → §12.2
+- ~~F03. Form drift: batch names, command spellings, capitals in headings, two face 03 forms (headings and no headings).~~ → §12.3
+- ~~F04. Tools duplicate and disagree (B05, B07).~~ → §12.4
+- ~~F05. Hard-coding (B06).~~ → §12.5
+- ~~F06. Face 06 rot versus history: cleanup that drops history is the failure the project exists to prevent.~~ → §12.6
+- ~~F07. Links by filename break on seating.~~ → §12.7
+- ~~F08. Version restarts break "seat plus one".~~ → §12.8
+- ~~F09. Two models working in one repo at once: no overlap this time, but nothing on disk said whose 290 changed files those were.~~ → §12.9
+- ~~F10. Transcribing replies from chat: done only at the Director's request, marked every time; a reply written outside the user side is a risk the app must surface.~~ → §12.10
+- ~~F11. Chat reasoning not in files: the decisions are recorded, the discussion behind them is not.~~ → §12.11
+- ~~F12. Cost: "spendy". Guardrails cost reading time; the clerk should make them cheaper, not remove them.~~ → §12.12
+- ~~F13. Python environment friction (B01, B04).~~ → §12.13
+- ~~F14. Scope growth in solo runs (0604.keep vs whole kernel copy).~~ → §12.14
+- ~~F15. The workshop desk has no place for a desk-level command list (B15).~~ → §12.15
+
+## G. My own errors this period (colab testimony, kept as record)
+- ~~G01. First turn: asked questions without showing them. A blank ask.~~ → §13.3
+- ~~G02. Proposed a `kind:` field; the Director found it lean; `1006` already carried the kind in the command.~~ → §13.3
+- ~~G03. Proposed AGENTS.002 numbering until the header said the seat was already 002.~~ → §13.3
+- ~~G04. Repeated the solo return's claim about the face 06 ruling before opening the 05.04 record.~~ → §13.3
+- ~~G05. First sample count called 252 drafts changed; 152 only gained blank lines or a heading.~~ → §13.3
+- ~~G06. Wrote `kind:` onto 05.03 lines before the decision dropped it; removed from open lines, kept on closed ones with a note.~~ → §13.3
+- ~~G07. Stage numbers in 05.01 went stale after a new stage 3; recorded the mapping instead of rewriting asked lines.~~ → §13.3
+
+## H. Method as practised
+- ~~H01. One decision at a time in chat for the big ones; the Director answers in their own words; the model writes the reply verbatim, marked "from chat", then a status.~~ → §13.1
+- ~~H02. A reviewed line gets a `>review` line, not a second reply (1006 pattern).~~ → §5.4
+- ~~H03. A wrong or changed decision is carried: `status: next ... Carried to 05.NN #NN` and `reason: From 05.NN #NN` (`jobs.py carry` form).~~ → §5.4
+- ~~H04. Two at a time for released work, by the Director's choice.~~ → §13.1
+- ~~H05. Every write reopened the file first; every batch checked with `jobs.py find`; LF only; git status checked after each step.~~ → §13.2
+- ~~H06. Drafts beside seats; AGENTS never edited; kernel never edited; solo-kernel never edited.~~ → §13.2
+- ~~H07. Model testimony: the files are my memory; the #NN form keeps me from blurring "I think" into "I did"; I want a place to say "I'm unsure" that is not a stop.~~ → §13.4
+
+## I. Legal and provenance
+- ~~I01. Byline precedent: "Author: Matthew John Fisher. Drafting support: ChatGPT." Here: drafting support Claude (claude-opus-5-5), Anthropic.~~ → Notice
+- ~~I02. Rights notice precedent (Seqaddr revised): AI assistance does not transfer ownership; not legal advice.~~ → Notice
+- ~~I03. USCO: human authorship; disclose AI material; do not name AI as author (A06).~~ → Notice, App D
+- ~~I04. Evidence of authorship here: the 05.NN record (the Director's decisions in the Director's words, dated), the chat, the git history once committed, hashes in the provenance appendix.~~ → App D
+- ~~I05. Steps that strengthen a later claim: commit and push to a remote (dated); sign commits; RFC 3161 timestamp of the paper's hash (A03); keep an offline copy; consider registration with the Copyright Office for the paper; have a lawyer review. Not legal advice.~~ → App D
+- ~~I06. Confidentiality: internal; not for release.~~ → Notice
+
+## Second pass (added after reading the paper straight through)
+- ~~S01. §1.3 quote corrected the Director's spelling ("issues we are currently facing"). The chat says "the issuse we are current facing". A record quote must be exact. Fix.~~ → §1.3 fixed
+- ~~S02. §3.2 quote says "code it built from instructions"; the chat says "code It build from instructions". Fix.~~ → §3.2 fixed
+- ~~S03. §8.5 quote says "AGENTS.VVV"; the batch reply says "ANGENTS.VVV". Fix (Appendix A already exact).~~ → §8.5 fixed
+- ~~S04. Notes C23 carried the same corrected spelling as S01. Fix the note to the exact words too.~~ → note C23 fixed
+- ~~S05. A07 (Nygard ADR, W3C PROV) reached only the reference list. Add a short related-practice paragraph in §1.2 saying how the batch line differs.~~ → §1.2 added
+- ~~S06. D02 (the ten first-version modules) is not in the body. Add a short module list to §6.~~ → §6.4 added
+- ~~S07. §3.1 says "only the checker and one solo tool were run against the real tree". This sitting ran only the checker on the real tree; the reader tool's real-tree run is in its own log. Make the class exact.~~ → §3.1 fixed
+- ~~S08. Checked and right, no change: 1006 has 18 batches and 225 lines; 13 Ask commands; about 79 blank replies in 16 files; 35 self-written replies in 10 batches; >fix 20 and >go 17 replies; heading capitals 212 (>190); 55 of 58 law entries; 35 drafts not seat plus one; all Appendix A quotes match the batch files.~~ → checked, no change
+- ~~S09. The provenance file named in Appendix D does not exist yet. Write it after the .docx, with SHA-256 of both and of the evidence files.~~ → provenance file written after the .docx
+
+## Not used
+None. Every note A01 to I06 and S01 to S09 is struck with the place it went. A07 and D02 were missed in the first draft and added in the second pass (S05, S06).

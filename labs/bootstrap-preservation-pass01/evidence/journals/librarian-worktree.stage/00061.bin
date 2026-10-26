@@ -1,0 +1,181 @@
+# 05.02
+
+Authorization: signed — 2026-10-17
+who: claude-opus-5-5
+created: 2026-10-17
+written: 2026-10-17 13:36:31
+state: ran
+task: 02
+Face: 05
+PPPP: 0611
+desk: 10.workshop
+shelf: 10.10.work
+book: 10.10.11.solo-kernel
+keyword: caller
+why: Batch. The questions that settle the division of hands: who answers, who does, who checks, and what the clerk gives first. A blank reply does not release a line.
+
+cite: 3.1
+
+Overview:
+You named three pieces: mechanical, model, man. Mechanical is compute. Every act needs to know its calling so the app knows who is responsible and where.
+Face `04` holds a first proposal: a table of acts, with which hand answers, which does, and which checks. These lines ask you to settle it piece by piece.
+`#01` and `#02` set the frame. `#03` to `#09` say what each hand may answer. `#10` and `#11` are the order and the hand-over. `#12` to `#14` are where it is written and where it lives.
+Learned:
+Law `0001` already gives each section an owner class (kernel-only, desk-local, book-local). That says who authorized a rule. The calling is a different question: which hand acts and which answers. They should not share a name.
+Approve shows the shape: the person answers, compute does the rename, compute checks. One act, three hands.
+How: One question is one #NN. The recommend and the Ask name the same command. Your reply may take, change, hold or reject.
+Scale: here, how much goes wrong if the default is wrong. 1 work could be lost or authority taken. 2 a stage is redone. 3 a batch is redone. 4 wording or taste. 5 nothing breaks.
+
+#01 >decide the names of the three hands
+placed: 2026-10-17
+issue: You wrote mechanical, model, man. The kernel says "human directs. model reasons. compute maintains." (axiom 3). The plan says clerk, prime, Director. One set of words should name the hands everywhere, and the person hand needs a name that also fits a user's own desk.
+recommend: I think we should >take compute, model, person. Compute is the clerk. Model covers the prime, workers and colabs. Person is whoever holds the desk: on this desk, the Director.
+path: `1009.calling/04.md`, The three hands
+scale: 4
+Ask: >decide Name the hands. My default is compute, model, person.
+
+reply: I like your list, just amend to compute, model, user  it makes is more aligned with industry. >decided
+status: closed. >decided. The hands are compute, model, user. Faces 01 and 04 renamed person to user.
+
+#02 >take a calling has four parts
+placed: 2026-10-17
+issue: "Who is allowed to answer" and "who does it" are often different hands. Approve: you answer, compute renames, compute checks.
+recommend: I think we should >take. Every act names four things: who answers, who does, who checks, and what is given first. An act with no calling is not run; the clerk kicks it back.
+path: `1009.calling/04.md`, A calling has four parts
+scale: 2
+Ask: >take Answers, does, checks, given first. No calling, no run.
+
+reply: >take
+status: closed. >take. A calling names who answers, who does, who checks, and what is given first. No calling, no run. Face 04.
+
+#03 >take compute answers alone only when the files decide
+placed: 2026-10-17
+issue: You asked whether compute can solve on its own. It can, but only where nothing needs judgment. If compute guesses, it becomes a pseudo-model (Sequence Addressing §17.9).
+recommend: I think we should >take. Compute answers alone only when the files fully determine the answer. Two candidates, a missing piece, or a rule that needs reading means compute hands the question to the model, with what it found. It never picks.
+path: `1009.calling/04.md`, The order of escalation
+scale: 2
+Ask: >take Compute answers alone only when the files decide. Otherwise it hands up.
+
+reply: compute shouldn't guess, it should have a consist rules from which is completes all its work frome.  This will likely expand in time.  We will likely have forks in time that compute can choice based on exact specifications.  But if it's a miss it elevates to model then if that is a miss it goes to user.  That is our path.  First the compute using the desk to solve from the books it's holding, then it moves to the model to reason a path from a top list the compute hands so the model can pick outside of interupting the user.  Then the user is asked because all authority stops with them. if this aligns >take
+status: closed. >take, with your refinement: compute works from consistent rules and chooses forks by exact specification; on a miss it hands the model a top list; on a model miss the user is asked; all authority stops with the user. Face 04, The path of a question.
+
+#04 >decide what compute does alone
+placed: 2026-10-17
+issue: Face `04` lists the compute-alone acts: header, stamp, address, version, slot, hash, source block, links, custody `08`, menu `03`, next `#NN` and `05.NN`, running the checker, finding what waits and unseen work, and refusing a bad write. `2004.approve` asks a related open question: whether faces compute derives (`02`, `03`, `08`) wait for your approval.
+recommend: I think we should >take the list, and treat derived faces as compute-alone with a review you can do in bulk, not one approval each. That answers `2004.approve` the same way.
+path: `1009.calling/04.md`, First proposal; `10.workshop/10.10.work/10.10.10.lib/2004.approve/01.md`
+scale: 3
+Ask: >decide Confirm the compute-alone list, and whether derived faces need your approval.
+
+reply:derived faces should be handled by the compute.  as the dev I'll answer them.  We design and implement the rules for derived faces, who authored them, model, compute, or user.  If it's the model it should state it was the author.  So derived faces can be authoried without a user check, but if it's not working and missing elevate brings it for a check.  does this make sense if yes. >take
+status: closed. >take. Derived faces are handled by compute without a user check; each records its author (compute, model or user); a miss escalates for a check. Face 04, Authors on what is derived. The open question on 2004.approve is noted on 05.02 #07; 2004.approve was not written.
+
+#05 >decide what a model may answer by itself
+placed: 2026-10-17
+issue: You asked "Can a model answer?" Face `04` proposes yes for: the why and body of a face, the issue, recommend and Ask of a line, a `>note` or `>stop`, a status, and choosing to point at an existing page instead of writing a new one. Its answer is reviewed after the work in solo mode, or before it, as a proposal, without a grant.
+recommend: I think we should >take that list. A model's answer is never a reply, an approval, a merge or a grant.
+path: `1009.calling/04.md`, First proposal
+scale: 2
+Ask: >decide Confirm what a model may answer, and that its answers are reviewed.
+
+reply:Face 04 can contain things that aren't the user, the model would take them and package them into format the compute eats and applies to the face.  We use our author for each section so we know who did it.  we can have multiple.  So a section might include a model summary with some user's most important words as a quote snippet.  Does this make sense? 
+status: next. Your reply asks "Does this make sense?" and adds an author on each section. It does make sense. The by: line is proposed for your take. Carried to 05.02 #01.
+
+#06 >decide what only the person answers
+placed: 2026-10-17
+issue: You asked what should be user authority only. Face `04` proposes: reply, sign, approve, retire, lock, promote, merge into `main`, give or withdraw a grant, a conflict between two faces, seating `AGENTS`, a kernel change, a new library, and anything that costs money.
+recommend: I think we should >take that list as person-only to answer. The doing can still be compute's or a model's after your reply.
+path: `1009.calling/04.md`, First proposal
+scale: 1
+Ask: >decide Confirm the person-only list.
+
+reply:We need to divide this. sign, approve, lock, is the way a face gets reviewed by the user.  Sign is the model's task with the compute to verify it's a finished and functional page.  Then it can be reviewed and approved for serious work a power user.  Average users would just have it done without commands and just talk.  With compute and model knowing the librarian system behind the scenes.  Does this make sense?  >keep 
+status: next. >keep, read as "keep the proposal" for approve, lock, promote and the rest of the user-only list. Sign moved out of that list by #07. The power user and average user split is carried to 05.02 #02. The meaning of >keep is asked on 05.02 #06; if the reading is wrong, the run is corrected there. Carried to 05.02 #02.
+
+#07 >decide whose hand signs
+placed: 2026-10-17
+issue: Your ruling on the solo return: "Signed is the legal level a prime can take work too at least for now." AGENTS says never sign. The batches show `>sign` asked of you 27 times and used in your replies 55 times, after which the model stamped `signed`.
+recommend: I think we should >take: you answer `>sign`, and the model stamps it. A model never signs its own work without your reply. If you want a model to sign inside a grant without asking, that is a grant, by #09.
+path: `1009.calling/04.md`, First proposal; `AGENTS.md`, Authority
+scale: 2
+Ask: >decide Sign is answered by you and stamped by the model, unless a grant says otherwise.
+
+reply: Sign is a compute/model step to make sure the page work is ready.  Its mostly for us in dev-mode so nothing moves forward without me.  Over page 1000 that is a different space where it's mostly recording the conversation with some limited work the user might use to save work.  if that makes senes >take
+status: next. >take. Sign is a compute and model readiness step; approve, lock and promote stay the user's. Face 04 and the command list (plan.8) updated. AGENTS.003 still says never sign: amendment asked on 05.02 #03. The space above page 1000 is carried with 05.02 #02. Carried to 05.02 #03.
+
+#08 >decide whether a model may answer another model
+placed: 2026-10-17
+issue: A worker's `>stop` or a colab's finding may be answerable by the prime without you. But a model's answer must never look like your reply.
+recommend: I think we should >take: a prime may answer a worker's `>stop` or `>note` inside the prime's own grant. It writes a status, never a reply, and the line still shows for your review. Outside its grant, the prime carries the line up to you.
+path: `1009.calling/04.md`, The order of escalation
+scale: 2
+Ask: >decide A prime may answer a worker inside its grant, as a status, never as a reply.
+
+reply: yes agreed, models get the status: where after they run a 05.NN they supply the status to communicate for compute to write what was done with each 05.NN #NN before the compute closes the ticket/task. >keep
+status: closed. >keep, read as agreed. The model supplies the status for each #NN; compute writes it and closes the line. A model answering another model does it as a status, never a reply. Face 04, Status.
+
+#09 >decide what you may hand down by grant
+placed: 2026-10-17
+issue: Some person-only acts could be handed to a model inside a place you choose. For example, a model could approve drafts inside a sandbox book of its own. Others should never be handed down.
+recommend: I think we should >take two lists. Handed down by grant, inside the granted shelf or book only: sign, approve and retire there, and answering workers there. Never handed down: merge into `main`, grants themselves, `AGENTS`, the kernel, money.
+path: `1009.calling/04.md`, The order of escalation
+scale: 1
+Ask: >decide Which person-only acts a grant may hand down, and which never.
+
+reply:Yes that is local work, where a model has authority to act to a greater degree, this needs to be solved. person-only with the clerk knowing how to activate it so user can engage the mode.  >take
+status: next. >take. Handing an act down is local work; engaging it is user-only; the clerk activates it. Face 04, The local mode. The shape "needs to be solved": carried to 05.02 #04. Carried to 05.02 #04.
+
+#10 >take the order of escalation
+placed: 2026-10-17
+issue: Without one order, each hand guesses when to pass a question on.
+recommend: I think we should >take: compute first, then model, then person. When compute cannot decide, it hands the model a `>note` with what it found. When the model cannot decide, or the answer is outside its grant, it writes `>stop`. Your reply ends the climb. Nothing climbs down without a grant.
+path: `1009.calling/04.md`, The order of escalation
+scale: 2
+Ask: >take Compute, then model, then person. Up by note and stop. Down only by grant.
+
+reply: >take
+status: closed. >take. Compute, then model, then user; down only by the local mode. Face 04.
+
+#11 >decide what the clerk gives the model first
+placed: 2026-10-17
+issue: You asked what should be given to the model first. Face `04` proposes: the line or job, face `01` of the page, the rules looked up book to kernel, the model's grant, the brands for the job's words, what already exists to point to, and the line's last status.
+recommend: I think we should >take that packet. It is the start of the prompt clerk (`1008.app-plan 05.03 #05`), and every act's calling names its packet.
+path: `1009.calling/04.md`, What the clerk gives the model first
+scale: 3
+Ask: >decide Confirm what the clerk hands the model before it starts.
+
+reply: Yes the clerk hands the model a cold boot routine for that book it's using.  Each book a local environment, it's why 0001-0009 are reserved so if a localization needs to modify something it ports in from the kernel then applies the localized rule changes.  if aligned >confirmed
+status: closed. >confirmed. The clerk hands the model a cold-boot routine for its book; 0001 to 0009 port from the kernel and take local changes. Face 04, What the clerk gives the model first.
+
+#12 >decide how the calling is written down
+placed: 2026-10-17
+issue: A new field on every line would repeat the `kind:` mistake (`1008.app-plan 05.02 #02`). The command already names the act.
+recommend: I think we should >take: the calling sits on the desk command list, with three columns per command (answers, does, checks). A line's calling is read from its command. Every write is also stamped with the hand that made it: `who: clerk`, the model's id, or your name.
+path: `1008.app-plan/plan.8.command-list.md`; `1009.calling/04.md`, How it is written down
+scale: 3
+Ask: >decide The calling lives on the command list, and every write is stamped with its hand.
+
+reply:> >take
+status: closed. >take. The calling is on the desk command list: every command in plan.8 now has answers / does / checks. Every write is stamped with its hand. Face 04.
+
+#13 >decide who is the person hand on a user's desk
+placed: 2026-10-17
+issue: On this desk the person is you. On a user's own desk (the solo-kernel `use/10.ned` journal is one) the person may be the user. The kernel and the workshop stay yours either way.
+recommend: I think we should >take: the person hand is whoever holds that desk. A user answers on their own desk. You answer on the workshop desk and the kernel, and you can see every desk.
+path: `10.workshop/10.10.work/10.10.11.solo-kernel/use/10.ned/`
+scale: 2
+Ask: >decide The person hand is whoever holds the desk. The kernel and the workshop stay yours.
+
+reply:>take
+status: closed. >take. The user hand is whoever holds the desk; the workshop desk and the kernel stay the Director's. Face 04.
+
+#14 >decide where the division lives once settled
+placed: 2026-10-17
+issue: Axiom 3 is kernel law. The per-act table is new. The workshop desk has no desk book of its own (`1008.app-plan 05.03 #09` asks the same about the command list).
+recommend: I think we should >hold the home until #01 to #13 are answered, then place the calling together with the command list, wherever `05.03 #09` seats it. Until then this page is the draft.
+path: `1009.calling/`; `1008.app-plan 05.03 #09`
+scale: 3
+Ask: >hold Seat the calling with the command list, after these lines are answered.
+
+reply: You should be able to answer in the next pass >hold
+status: next. >hold, with "You should be able to answer in the next pass". The answer is on 05.02 #05. Carried to 05.02 #05.

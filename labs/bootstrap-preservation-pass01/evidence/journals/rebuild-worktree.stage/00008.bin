@@ -1,0 +1,59 @@
+[
+  {
+    "name": "loader-test",
+    "script": "D:\\Git\\Librarian-rebuild\\10.workshop\\10.10.work\\10.10.12.rebuild\\0202.run\\02.run.py",
+    "args": [
+      "test"
+    ],
+    "exit": 0,
+    "stdout": "pass: runs exit\npass: runs and uses\npass: runs quiet\npass: writes nothing\npass: missing face exit\npass: missing face\npass: missing face writes nothing\npass: missing page exit\npass: missing page\npass: missing page writes nothing\npass: name.py exit\npass: name.py\npass: name.py before missing\npass: name.py did not run\npass: name.py writes nothing\npass: no stamp exit\npass: no stamp\npass: no stamp did not run\npass: no stamp writes nothing\npass: missing card exit\npass: missing card\npass: missing card writes nothing\npass: two pages exit\npass: two pages\npass: two pages did not run\npass: two pages writes nothing\npass: loader test\n",
+    "stderr": "",
+    "sha256": "af207d4d4f68ddcc2c22b7b1dced081b29dcbbfa6675d152ff7efa37871dcb8c"
+  },
+  {
+    "name": "clerk-test",
+    "script": "D:\\Git\\Librarian-rebuild\\10.workshop\\10.10.work\\10.10.12.rebuild\\0305.clerk\\02.clerk.py",
+    "args": [
+      "test"
+    ],
+    "exit": 0,
+    "stdout": "cold: pass\ntest: pass\n",
+    "stderr": "",
+    "sha256": "678536e29947c94f41045a921837c9303f32c4e1ae3bbce7f39053b754987637"
+  },
+  {
+    "name": "jobs-test",
+    "script": "D:\\Git\\Librarian-rebuild\\10.workshop\\10.10.work\\10.10.12.rebuild\\0303.jobs\\02.jobs.py",
+    "args": [
+      "test"
+    ],
+    "exit": 0,
+    "stdout": "copy: 0107.workflow/05.03.return.md\n#01 Build timer\nask: >build\nmark: 05.03.return.md #01\nclosed: 05.03.md\nreturn: 0107.workflow/05.03.return.md\nnotes: none\nclosed: 05.04.md\nreturn: 0107.workflow/05.04.return.md\nnotes: none\ncopy: 0107.workflow/05.05.return.md\n#01 Build timer\nask: >build\nmark: 05.05.return.md #01\nclosed: 05.05.md\nreturn: 0107.workflow/05.05.return.md\nnotes: none\nclosed: 05.01.closed.md\nready: 05.04.pack.md\nRead first: 0407.workflow/01.md\nRead first: 0407.workflow/06.03.md\npack: 0507.workflow 05.04\nready: 05.04.pack.md\nRead first: 0407.workflow/01.md\nRead first: 0407.workflow/06.03.md\npack: 0507.workflow 05.04\ncopy: 0107.workflow/05.10.return.md\n#01 Add lead\nask: >build\nlead: 05.10.return.md\nmark: 05.10.return.md #01\nclosed: 05.10.md\nreturn: 0107.workflow/05.10.return.md\nnotes: none\ncold: pass\ntest: pass\n",
+    "stderr": "",
+    "sha256": "7b39308592b63f080820de907eed996e6e9ac30c5b90e9502c628578fc1c3547"
+  },
+  {
+    "name": "loader-clerk-help",
+    "script": "D:\\Git\\Librarian-rebuild\\10.workshop\\10.10.work\\10.10.12.rebuild\\0202.run\\02.run.py",
+    "args": [
+      "clerk",
+      "--help"
+    ],
+    "exit": 0,
+    "stdout": "usage: clerk.py [-h]\n                {drop,draft,derive,revise,versions,import,seat,live,lint,test}\n                ...\n\nPlace a section on a face. Does not sign.\n\npositional arguments:\n  {drop,draft,derive,revise,versions,import,seat,live,lint,test}\n\noptions:\n  -h, --help            show this help message and exit\n",
+    "stderr": "",
+    "sha256": "af207d4d4f68ddcc2c22b7b1dced081b29dcbbfa6675d152ff7efa37871dcb8c"
+  },
+  {
+    "name": "loader-check-help",
+    "script": "D:\\Git\\Librarian-rebuild\\10.workshop\\10.10.work\\10.10.12.rebuild\\0202.run\\02.run.py",
+    "args": [
+      "check",
+      "--help"
+    ],
+    "exit": 0,
+    "stdout": "usage: 02.lcheck.py [-h] [--config CONFIG] [--moves MOVES] [--all] [--brief]\n                    [--json JSON] [--md MD] [--write-moves WRITE_MOVES]\n                    [--fix-sentinel]\n                    desk\n\npositional arguments:\n  desk\n\noptions:\n  -h, --help            show this help message and exit\n  --config CONFIG\n  --moves MOVES\n  --all\n  --brief               short model-facing card: reworked errors only\n  --json JSON\n  --md MD\n  --write-moves WRITE_MOVES\n                        derive a moves ledger from stale NNNN.title pointers\n                        and write it\n  --fix-sentinel        write a missing book 00.md from the syntax 0014 card,\n                        then lint\n",
+    "stderr": "",
+    "sha256": "af207d4d4f68ddcc2c22b7b1dced081b29dcbbfa6675d152ff7efa37871dcb8c"
+  }
+]

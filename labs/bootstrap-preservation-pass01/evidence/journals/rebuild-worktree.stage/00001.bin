@@ -1,0 +1,133 @@
+# 04
+
+version: 001
+Authorization: draft — 2026-10-25
+who: codex
+state: draft
+Face: 04
+PPPP: 1001
+desk: 10.workshop
+shelf: 10.10.work
+book: 10.10.12.rebuild
+keyword: assessment
+why: Assessment of current capability, gaps, evidence, and a bounded integration milestone.
+
+## Assessment
+
+There has been functional progress. This is not yet a coherent, independently usable rebuilt kernel or a finished application. The strongest delivered work is a set of tested construction and workflow tools. The main deficit is connecting them into one discoverable, policy-consistent, end-to-end workflow.
+
+The initial checkout at D:\Git\Librarian is not the active rebuild. The assessed checkout is D:\Git\Librarian-rebuild, branch rebuild. The two contain substantially different versions of this book. Judging the first copy alone would miss much of this week's work.
+
+This page is an assessment requested by the Director on 2026-10-25. It is not law, an approval, a promote, or permission to repair other pages. Existing source pages and Director replies have not been edited. The review batch proposes follow-up work; it is not a released builder pack.
+
+## What works now
+
+All six selected self-test suites passed when rerun: loader, Clerk, Jobs, timer, words, and PDF. Loader routing to Clerk and the checker also works through the actual loader in 0202.run. Temporary-fixture access required a sandbox escalation; that environment failure is not counted as a product defect.
+
+| Capability | Evidence and practical limit |
+|---|---|
+| Addressed module loading | 0202.run/02.run.py test passes, including missing-face, missing-card, unstamped-code, duplicate-page, and no-write checks. It routes actual Clerk and checker help successfully. It is not yet seated at the documented 0302 path. |
+| Construct and revise face sections | Clerk test passes. Commands include drop, draft, derive, revise, versions, import, seat, live, and lint. These are prototype operations with specific guards, not a complete implementation of every face contract. |
+| Preserve source information on imports | Import/seating tests pass for their supported cases; source version/hash/address information is carried. This is meaningful improvement over manual reconstruction. |
+| Work batches and return records | Jobs test passes, covering tested pack/copy/mark/hand/close paths and a fresh-process cycle. This is a working file-based protocol, not an autonomous scheduler. |
+| Resume information | Clerk live reads/writes a four-line last/when/goal/pages record. It is currently hard-coded to the draft law book. A memory of a task is not proof that the task finished. |
+| Timer experiment | timer.py test passes. It supplies persistent timer operations; it is outside the compute loader's seated module set. |
+| User-defined words | words.py test and fresh-process test pass. It stores and retrieves user meanings. It is not the complete dictionary/concordance service. |
+| Notes to PDF | pdf.py test and fresh-process test pass. It exports existing note faces without modifying them in the tested cases. It is not a complete app interface. |
+
+Test logs and source hashes are in evidence/. These are existing suites plus targeted independent probes; passing them does not establish every application-level guarantee.
+
+## What is not functional yet
+
+A fresh worker is still presented with competing entry routes and kernel locations. The candidate 00.kernel tree is partial by design, while the tools and boot instructions continue to depend on 00.00.00.kernel.draft. The face-law omissions explicitly ordered in 0411 and 0413 are not treated as accidental deletions.
+
+There is no demonstrated single supported entry that starts from the repository door, identifies its working reference, finds the current work, executes a useful user operation through compute, closes the loop, and resumes correctly in another process without remembered paths or a manual bypass.
+
+The candidate kernel cannot currently be certified with this checker as a completed replacement. The loader is still in the code band. Experimental application modules remain separate scripts. Pack readiness checks do not yet establish all the conditions claimed in their design. The inspected tree does not provide a completed graphical or packaged application.
+
+These are different completion levels: useful tools exist; a complete Clerk, a coherent kernel release, and a usable application are not established by that fact alone.
+
+## F01 — The advertised pack gate accepts an unreleased and out-of-scope task
+
+Priority: high. Reproduced in an isolated fixture; no actual pack was promoted or run.
+
+Contract: 0417.pack-lint/01.md lines 34–36 require a released matching dev decision, matching 04NN/01.md and 04NN/06.NN read-first material, and writes limited to the draft law book.
+
+Probe: create 0498.assessment-probe/01.md containing only an unreleased proposal; no #01 decision, no Director reply, no 06.NN. Create 0598.assessment-probe/05.01.draft.md with a syntactically complete Overview, a read-first pointer to that 01.md, and a task to revise that development page itself. This target exists but is outside the stated draft-law write scope.
+
+Actual result: lint_reasons returns []. cmd_lint prints pass, writes a note, and prints request: promote. The pack bytes remain unchanged. The Director still has to approve; this is a false assurance from lint, not automatic execution.
+
+Cause visible in 0305.clerk/02.clerk.py: matching dev-file existence is checked around lines 1235–1241, but release evidence is not resolved. Any existing path can satisfy path_exists around lines 1120–1151. A Read first line is required, but not both required matching files. forbidden recognizes two closed kernel names rather than enforcing the positively allowed write scope.
+
+Repair to propose: state the exact readiness guarantees, resolve cited decisions and their disposition, distinguish read sources from write targets, and enforce the named scope. If release evidence remains a human/model check, label it unverified instead of implying it passed. Add negative tests for each omitted condition as well as one valid released case. Do not make a new natural-language permission guesser or automatically grant approvals.
+
+## F02 — A cold start is routed to old work
+
+Priority: high for usability. Verified by reading the actual entry files.
+
+10.workshop/00.start.md line 10 still enters 10.10.10.lib. 10.workshop/00.readme.md names 10.10.12.rebuild but line 12 sends the worker to 10.10.10.lib/1000.band.active. That old active page still names 1006.redraft. AGENTS.md line 4 also says its own version 003 is a draft beside version 002 and not in force, despite being the named AGENTS.md entry.
+
+Historical Note sections should be preserved. The defect here includes current Run and Find text, not merely old wording retained as history. Their conflicting routes require a warm worker to compensate.
+
+Repair to propose: one Director-reviewed current boot profile specifying checkout, branch, working reference, candidate reference, current work book, and exact runnable tool entry. Make the active sections agree; preserve predecessor decisions separately. Do not resolve a kernel authority conflict merely by taking whichever file looks newer.
+
+Acceptance: a reader following the current entry instructions reaches this book and the intended queue without a remembered path, and can explain why the older copies are not the active work.
+
+## F03 — Current contents omit the work needed to continue
+
+Priority: high for continuation. Verified by comparing live Pages rows, excluding ## Note history, with actual folders.
+
+0011.contents/01.md says a page not listed stays missing, but omits 17 existing folders before this assessment was added. These include 0412.testing, 0413.law-align, 0414.test-desk, 0415.queue, 0417.pack-lint, 0517.pack-lint, 0518.overflow-clean, and their newer returns. The exact list is in evidence/probes.json.
+
+Repair to propose: derive the current inventory from existing folders or validate it automatically on creation/rename. Keep a dated inventory distinct from the current navigation surface. Do not silently create missing pages or revise historical notes to make the comparison pass.
+
+Acceptance: current contents resolve every existing active member exactly once, or explicitly state their bounded scope. A newly created assessment page must be discoverable without requiring the Director to remember its location. This review creates its own page but does not silently edit the existing contents seat.
+
+## F04 — Running path, approval state, and checker contract are not joined
+
+Priority: integration blocker, not permission to bypass approval.
+
+The loader exists at 0202.run/02.run.py. 0402.run advertises 0302.run/02.run.py, which does not exist. Its own Not section correctly says it awaits approval. Clerk version 009 and Jobs version 010 also carry draft states. This can be lawful development activity, but it is not the completed compute deployment described to a new user.
+
+The working draft checker rerun exits 1: reworked 1 error, 0 warnings, 60 informational; pending 31 errors, 41 warnings, 32 informational. The single reworked error is 00.00.01.law/0011.contents/02.005.md, header draft versus approved footer. Information and pending findings must not be presented as a clean pass.
+
+The same checker on 00.kernel reports reworked 179 errors/13 warnings/13 informational and pending 62 errors/16 warnings/8 informational. Many errors are seat-is-draft on intentionally drafted scaffolds. These counts are evidence that this validator is not a release certificate for that candidate as it stands; they are not 241 independently confirmed semantic defects. The book explicitly permits first-version FF.md with state draft, which conflicts with a blanket seat-is-draft failure. That validator/specification mismatch needs a decision rather than a blind restamp.
+
+Repair to propose: prepare one narrow deployment/review packet naming exact loader and module versions, supported development command, remaining checks, law changes if any, and Director decisions required. Make the checker understand the agreed draft/release contract without weakening unrelated checks. Do not approve or promote automatically.
+
+## F05 — Tests prove components more strongly than they prove a cold workflow
+
+Priority: high for judging whether the week delivered usable progress.
+
+All six selected suites pass. That is a real gain. Several cold: pass messages, however, are subprocess tests of one tool or fixture. 0114.test-desk/05.13.return.md reports a cold pass after revising startup paths and also records that the work door still names the old book and concordance lookup still stops. Both facts can be true because the test boundary was narrower than the full workflow.
+
+Repair to propose: preserve component tests and add one integration acceptance scenario. In an isolated checkout, follow only the supplied entry, use the declared loader, resolve a user's concrete job, construct a stamped ordinary page, save a decision/note, create and return a bounded batch, close it under the applicable authority, and resume from a second process. Check actual artifact content and current navigation at each step. Include a refusal for an unreleased job or changed source. Record every manual path, interpreter intervention, and unmet dependency.
+
+The pass condition is one useful task completed through the supported route with no unrecorded manual workaround. A fresh-model walk is an additional test, distinct from starting Python twice. Do not call either a full independent coldboot unless the test actually exercised that boundary.
+
+## Why progress feels stalled
+
+The history records substantial work through October 24. The reviewer found 219 commits touching this book dated October 17–24, but commits are activity evidence, not productivity units. The stronger evidence is that tools now execute and their selected tests pass.
+
+The recent loop repeatedly repairs a pack shape, a particular path, an allowed desk filename, or a repeated overflow item. Each can be useful, but the Director still lacks a short demonstration showing that the whole route works. Additional queue automation can increase throughput through the same unresolved boundaries.
+
+My judgment: the implementation has advanced; usable integration has lagged. First close one complete supported route. Then expand throughput. A queue bot is not a substitute for that acceptance result. The Director's October 24 decision to retain promotion is respected; fewer idle minutes is not authority to remove that step.
+
+## Recommended order for Prime review
+
+1. Reproduce F01 and identify what lint currently guarantees. Preserve the failing fixture before changing code.
+2. Prepare one compact Director decision/review surface for the boot/deployment/checker contract in F02–F04. Reuse existing decisions; do not ask the Director to decide the same point twice. Distinguish already-authorized repairs from new choices.
+3. After the required release, align current entry and inventory, implement the missing readiness checks, and run the single acceptance workflow in F05.
+4. Report: what a user can now complete, how to reproduce it, what remains blocked, and which exact authority or dependency causes the block.
+5. Resume queue automation and broader kernel import after that measurable milestone, or explain a concrete dependency that requires a different order.
+
+Do not start another wholesale kernel rewrite from this assessment. Do not convert a missing intentional scaffold into a defect. Do not describe component test passes as a finished app. Keep Director replies and historical notes intact.
+
+## Scope and snapshot
+
+Assessed 2026-10-25, branch rebuild, HEAD 0e8e70468a0eacf5ff8a568aa1af36a8c7c2dcf9. This is a review of the current local worktree, with hashes for key sources in evidence/probes.json. The original main checkout was inspected only to establish the location mismatch. The prior October 15 solo-kernel review is a historical baseline, not the current source of truth.
+
+No source-code repair, source-page rewrite, promotion, approval, commit, or merge was performed. A new assessment page and evidence were added at the Director's request. Checks wrote their logs to the review workspace; negative probes wrote only isolated fixture data.
+
+The old main copy had no app source files in its app/src or app/lib folders during this inspection. No complete application UI, packaging, multi-user policy, or production-scale durability was established. Those are not prerequisites for acknowledging that the current CLI tools work in their tested scope.
+

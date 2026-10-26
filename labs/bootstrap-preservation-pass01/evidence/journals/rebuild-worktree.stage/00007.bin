@@ -1,0 +1,14 @@
+{
+  "name": "check-working-draft",
+  "script": "D:\\Git\\Librarian-rebuild\\10.workshop\\10.10.work\\10.10.12.rebuild\\0202.run\\02.run.py",
+  "args": [
+    "check",
+    "D:\\Git\\Librarian-rebuild\\00.00.00.kernel.draft",
+    "--json",
+    "D:\\librarian\\temp\\kernel-assessment-2026-10-25\\working-draft-check.json"
+  ],
+  "exit": 1,
+  "stdout": "# librarian-check report\n\n| tier | error | warn | info |\n|---|---|---|---|\n| reworked | 1 | 0 | 60 |\n| pending | 31 | 41 | 32 |\n\n## REWORKED pages\nrule counts: status-footer error=1, dangling-page info=18, stale-address info=15, twin-heading info=12, work-file-name info=15\n\n### error (1)\n- [status-footer] `00.00.01.law/0011.contents/02.005.md`: header draft, footer \"last change ... approved\"\n\n### info: 60 (use --all to list)\n\n## PENDING pages\nrule counts: carry-terms error=5, seat-is-draft error=23, stale-address error=1, stamp-mismatch error=2, dangling-page warn=2, order warn=31, stale-address warn=1, stamp-missing warn=7, dangling-page info=3, stale-address info=4, twin-heading info=22, work-file-name info=3\n(pending pages: counts only; use --all to list)\n\n",
+  "stderr": "",
+  "sha256": "af207d4d4f68ddcc2c22b7b1dced081b29dcbbfa6675d152ff7efa37871dcb8c"
+}

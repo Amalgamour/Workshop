@@ -1,0 +1,45 @@
+# 01
+
+Authorization: draft — 2026-10-15
+who: claude-opus-5-5
+state: draft
+Face: 01
+PPPP: 1008
+desk: 10.workshop
+shelf: 10.10.work
+book: 10.10.10.lib
+keyword: app-plan
+why: The plan to build Librarian as an application. A draft for the Director. It permits nothing.
+
+cite: 3.8
+
+## Job
+This page holds the development plan for the Librarian application.
+Face `04` is the overview. The parts are `plan.1` through `plan.8`. Face `05` holds the decisions.
+The build happens in band `2000` members and in `app/`. Not on this page.
+
+## Holds
+The first version is the batch desk. A batch is the review queue: all model work, stops, conflicts and findings are `#NN` lines on a `05.NN`, so no work goes unseen.
+Your side: see the lines that need you, stops first; reply; review solo work; see what changed and what no batch names.
+The model side: start a page in an authorized band, write `01`, open a batch, add lines, report status, stop.
+The files are the truth. Any index is a cache.
+`reply:` is the Director's, from the user side of the desk only. In solo work a model skips the reply, works under a grant that covers its shelf or book, and writes the status after.
+Models commit on work branches. Merging into `main` is the Director's.
+The command on a line is its kind, from a desk command list. A command not on the list, or a write outside a grant, is kicked back.
+The first version writes neither kernel.
+`00.00.00.kernel` is not read. `00.00.00.kernel.draft` is the reference. `10.10.11.solo-kernel` is read before building what it already does.
+
+## State
+`05.01` and `05.02` are answered: every line has the Director's reply, transcribed from chat, and a status. Carried lines go to `05.03`.
+`05.03` is open: the work that follows, and the desk, shelf and book design.
+`AGENTS.003.md` is drafted beside the seat for review.
+
+## Not
+Not law. Not a kernel edit. Not a release. A line here is released only by a reply on `05.01` or `05.02`.
+Not a change to any existing page or script.
+
+### notes
+born: 2026-10-15
+source: director, planning job. "Inspect the project and produce a development plan." Answers on 2026-10-15: plan in a new lib member; planning job may write only there; both code shelves have value; terminal now, Windows desktop app later; `00.00.00.kernel` is very stale, use the draft, use solo-kernel as a reference, read what exists before building.
+born: 2026-10-15
+source: director, chat. A batch is all work the model needs reviewed: conflicts, Director intervention, ideas found during work. Solo models turn their work into `#NN` first. A stop escalates to the Director. A wrong decision goes into the next `05.NN`. `1006.redraft` is the model of a page of work. Draft name back to `FF.VVV`. Face `06` keeps the full note copy for now and is cleaned later. The chat answers were transcribed onto `05.01` at the Director's request and the plan was revised to the batch desk.

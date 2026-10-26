@@ -1,0 +1,63 @@
+{
+  "reviewer": "Codex Prime",
+  "disposition": "Pack A preservation accepted; helper not approved as general production runtime",
+  "independent_checks": {
+    "main-worktree": {
+      "commit": "e8b1a994da07000fa576fd771e455a94718ed431",
+      "preserved_rows": 90,
+      "evidence_rows": 12,
+      "extra_changed_paths": 0
+    },
+    "rebuild-worktree": {
+      "commit": "586cfa4ae055c29a98c1106bb70143901c57cc11",
+      "preserved_rows": 28,
+      "evidence_rows": 12,
+      "extra_changed_paths": 0
+    },
+    "bootstrap": {
+      "commit": "fe42b017b5e8c288f70878d696cb227b09ab5a8e",
+      "preserved_rows": 49,
+      "evidence_rows": 12,
+      "extra_changed_paths": 0
+    }
+  },
+  "remote_refs_checked_live": true,
+  "source_rows": 167,
+  "workspace_baseline_rows": 39,
+  "old_checkout_fingerprints_and_status_file_hashes": "match captured before state at review",
+  "journals": [
+    {
+      "name": "lib-build-bootstrap-evidence.json",
+      "rows": 13
+    },
+    {
+      "name": "lib-build-bootstrap.json",
+      "rows": 49
+    },
+    {
+      "name": "librarian-worktree-evidence.json",
+      "rows": 13
+    },
+    {
+      "name": "librarian-worktree.json",
+      "rows": 90
+    },
+    {
+      "name": "rebuild-worktree-evidence.json",
+      "rows": 13
+    },
+    {
+      "name": "rebuild-worktree.json",
+      "rows": 28
+    }
+  ],
+  "test_suite": "builder evidence: 19 passed, 1 skipped; not rerun by Prime",
+  "remaining": [
+    "staged and committed blob-byte check needed before future copies are committed",
+    "tracked .gitattributes policy needed in Pack B",
+    "returns/ supersedes notes/returns/ by Director instruction",
+    "exclude generated nested clone/test repositories from workspace Git",
+    "archive helper remains pre-F1; verifier currently local evidence only"
+  ],
+  "pack_B_started_by_prime": false
+}

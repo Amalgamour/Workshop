@@ -1,0 +1,161 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""clerk.002.py — append one note on a sample face 06.
+
+Seat: clerk.py. This file does not replace it.
+clerk.py refuses a note, and its dev mode writes kernel.draft.
+This version writes one face 06 note in the solo sample.
+It does not sign, approve, promote, or edit either kernel.
+"""
+# ## notes
+# born: 2026-10-15
+# source: director, sample kernel work list
+# who: grok-prime
+# version: 002
+# The seat stays clerk.py. The next note command lives here.
+
+from __future__ import annotations
+
+import re
+import sys
+import tempfile
+from pathlib import Path
+
+CHECK_KERNEL = "00.00.00.kernel"
+DRAFT_KERNEL = "00.00.00.kernel.draft"
+SOLO = "10.10.11.solo-kernel"
+NOTE_RE = re.compile(r"^06(?:\.(\d{3}))?\.md$")
+STATE_RE = re.compile(r"(?m)^state:[ \t]*(\S+)[ \t]*$")
+FORBIDDEN = re.compile(r"(?i)^this (draft|page|file) (governs|replaces) the kernel\.?$")
+
+
+def die(msg: str) -> None:
+    sys.exit(f"stop: {msg}")
+
+
+def parts_of(path: Path) -> list[str]:
+    return [parent.name for parent in (path.resolve(), *path.resolve().parents)]
+
+
+def guard(page: Path) -> None:
+    names = parts_of(page)
+    if CHECK_KERNEL in names or DRAFT_KERNEL in names:
+        die("the kernel stays unread as a write")
+    if SOLO not in names or "sample" not in names:
+        die("a note lands in the solo sample")
+
+
+def face_06(page: Path) -> Path:
+    if not page.is_dir():
+        die("page folder is missing")
+    found = []
+    for path in page.iterdir():
+        if not path.is_file():
+            continue
+        if re.fullmatch(r"06\.\d{3}\.draft\.md", path.name):
+            die("a draft is FF.VVV.md")
+        hit = NOTE_RE.fullmatch(path.name)
+        if not hit:
+            continue
+        if hit.group(1) == "001":
+            die("version 001 is FF.md")
+        found.append(path)
+    if len(found) != 1:
+        die(f"face 06 count is {len(found)}")
+    return found[0]
+
+
+def append_note(page: Path, who: str, body: str) -> Path:
+    who = " ".join(who.split())
+    body = body.replace("\r\n", "\n").replace("\r", "\n").strip("\n")
+    if not who:
+        die("who is required")
+    if not body:
+        die("note is empty")
+    for line in body.splitlines():
+        if line.startswith("## "):
+            die("the note body has no heading")
+        if FORBIDDEN.match(line.strip()):
+            die("the note claims the kernel")
+    guard(page)
+    dest = face_06(page)
+    text = dest.read_text(encoding="utf-8").replace("\r\n", "\n").replace("\r", "\n")
+    state = STATE_RE.search(text)
+    if state is None or state.group(1) != "draft":
+        die("the face is not a draft")
+    if body in text:
+        die("the note is already there")
+    if not text.endswith("\n"):
+        text += "\n"
+    if not text.endswith("\n\n"):
+        text += "\n"
+    dest.write_bytes((text + "## Note\n\n" + body + "\n").encode("utf-8"))
+    return dest
+
+
+def check(ok: bool, name: str) -> None:
+    if not ok:
+        die(f"test failed: {name}")
+
+
+def cmd_test() -> None:
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        page = root / "10.workshop" / "10.10.work" / SOLO / "sample" / "00.00.01.law" / "0000.invariant"
+        page.mkdir(parents=True)
+        face = page / "06.md"
+        face.write_bytes(b"# 06\n\nstate: draft\n\n## Note\n\nAlready here.\n")
+        made = append_note(page, "grok-prime", "born: 2026-10-15\nsource: test\nA cold read stops here.")
+        check(made == face, "same face 06")
+        text = face.read_text(encoding="utf-8")
+        check(text.count("## Note") == 2, "note appended")
+        check("A cold read stops here." in text, "note body")
+        check(b"\r" not in face.read_bytes(), "lf")
+        try:
+            append_note(page, "grok-prime", "born: 2026-10-15\nsource: test\nA cold read stops here.")
+            die("test wrote the note twice")
+        except SystemExit as exc:
+            check("already there" in str(exc), "second note stops")
+        try:
+            append_note(page, "grok-prime", "## Note\n\nNo.\n")
+            die("test accepted a heading")
+        except SystemExit as exc:
+            check("no heading" in str(exc), "heading stops")
+        blocked = root / DRAFT_KERNEL / "00.00.01.law" / "0000.invariant"
+        blocked.mkdir(parents=True)
+        (blocked / "06.md").write_bytes(b"# 06\n\nstate: draft\n\n")
+        try:
+            append_note(blocked, "grok-prime", "No.\n")
+            die("test wrote the kernel")
+        except SystemExit as exc:
+            check("kernel stays" in str(exc), "kernel write stops")
+        bare = root / "10.workshop" / "10.10.work" / SOLO / "sample" / "00.00.01.law" / "0001.law"
+        bare.mkdir()
+        try:
+            append_note(bare, "grok-prime", "No.\n")
+            die("test wrote without face 06")
+        except SystemExit as exc:
+            check("face 06 count" in str(exc), "missing 06 stops")
+    print("test: pass")
+
+
+def main(argv: list[str] | None = None) -> None:
+    args = list(sys.argv[1:] if argv is None else argv)
+    if not args:
+        die("use test, or note PAGE --who TEXT --body-file PATH")
+    if args[0] == "test":
+        cmd_test()
+        return
+    if args[0] == "note":
+        if len(args) < 6 or "--who" not in args or "--body-file" not in args:
+            die("note PAGE --who TEXT --body-file PATH")
+        who = args[args.index("--who") + 1]
+        body = Path(args[args.index("--body-file") + 1]).read_text(encoding="utf-8")
+        made = append_note(Path(args[1]), who, body)
+        print(f"note: {made.name}")
+        return
+    die("use test, or note PAGE --who TEXT --body-file PATH")
+
+
+if __name__ == "__main__":
+    main()

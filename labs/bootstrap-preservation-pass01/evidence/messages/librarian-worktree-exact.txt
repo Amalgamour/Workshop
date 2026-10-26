@@ -1,0 +1,7 @@
+Store exact bytes for 4 CRLF files in archive/librarian-worktree-2026-10-26
+
+Pack A #04 found them stored as LF: the repository has "* text=auto eol=lf" in .gitattributes and Git for Windows sets core.autocrlf=true. Re-added only manifest and archive-evidence paths, with a local, uncommitted .git/info/attributes "* -text". .gitattributes is not changed on this branch.
+
+Model: claude-opus-5-5
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>

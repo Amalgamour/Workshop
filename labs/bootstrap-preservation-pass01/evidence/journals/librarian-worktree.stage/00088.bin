@@ -1,0 +1,74 @@
+# claude-solo-kernel-sample-pass01-2026-10-15
+
+return: review of `10.workshop/10.10.work/10.10.11.solo-kernel/sample/`, the kernel redraft
+model: claude (Opus 5.5), claude-opus-5-5
+asked by: the Director, in chat on 2026-10-15: "check out 10.10.11.solo.kernel/sample ... I would like your opinion and assessment before we continue." Filing asked: "In both" (this return, and `1008.app-plan/05.04`).
+state: return. Not a promote. Not a signature. No file in `solo-kernel/` or either kernel was edited.
+verified: run. Python 3.14.7. Read-only scripts compared each sample draft with its seat in `00.00.00.kernel.draft`; `lcheck.py` default run (read-only) on `sample/`. Snapshot about 20:20 on 2026-10-15. The redraft model was still working (`face.py` changed 20:16; `clerk.003.py` appeared during the review). Anything later is not in this return.
+not a pack: no pack was built for this. The target was the folder on disk.
+
+## What it is
+366 files: 363 drafts `FF.VVV.draft.md` and two book sentinels `00.md`.
+Syntax: 16 of the 20 entries in kernel.draft. Missing: `00.REG.md`, `00.retire.09`, `0016.compose`, `0017.dev`.
+Law: 55 of the 58 entries, plus a new `1001.accounting`. Missing: `00.axioms`, `00.order.md`, `00.retire.09`.
+Also inside: `00.00.01.law.zip`.
+
+Wording compared with the seat (headers and blank lines ignored):
+| result | drafts |
+| --- | --- |
+| same wording, new stamp | 223 |
+| small change, 3 lines or fewer | 26 |
+| rewritten | 74, of which 53 are face `06` |
+| new face, no seat in kernel.draft | 40, mostly `03` (13) and `08` (15) |
+
+Stamps: 258 drafts carry `source path`, `source version`, `source hash`. 288 are seat version plus one. 35 are not.
+Checker on `sample/` (default run): face-name error 358 (every `.draft.md` name), dangling-page 3, stale-address 19. The last two look inherited from kernel.draft; not traced one by one.
+
+## Scores (5 no break, 4 wording, 3 a careful sitting survives, 2 two lawful lines, 1 a literal walk halts)
+| part | score | why |
+| --- | --- | --- |
+| stamp and source block | 5 | path, version and byte hash on 258 drafts; drift can be proven |
+| faces 01, 02, 04, 08 copied | 4 | wording kept; names and links are the faults (holes 3, 4) |
+| new faces 03 and 08 | 3 | pages completed; 38 malformed menu links (hole 3) |
+| face 06 | 2 | the old notes are dropped and the version restarts (hole 1) |
+| syntax 0001 to 0009 face 01 | 2 | replaced by pointer cards that defer to the seat they would replace (hole 2) |
+| links | 1 | 125 of 338 link targets are missing in the sample; a literal walk halts (hole 3) |
+| file names | 3 | one form throughout, but not the form now chosen (hole 4) |
+| 1001.accounting | 3 | a business rule in kernel law, purpose unstated (hole 5) |
+| completeness and scope | 3 | wider than `0604.keep`, yet missing `00.REG` and `00.axioms` (hole 6) |
+
+## What works (evidence)
+1. Provenance. Every one of the 258 stamped drafts names its seat by path, version and hash. That is the clerk's job done at scale. The face engine in the app plan (stage 6) should take this block from `face.py`.
+2. Faithful copy. 223 drafts keep the seat's wording. Law was not quietly rewritten.
+3. Completion. Missing menus (`03`) and custody cards (`08`) were added.
+4. Self-report. Face `06` notes name the sample's own faults: "A cold model cannot open that link", and on the menu-heading question, "This page does not pick".
+5. Evidence for the cleanup. The seated `0001.law/06.md` is 87 lines, mostly whole old batches pasted under "## From 05.01.md". The rot the Director named is real.
+
+## Holes
+1. Face `06` history dropped. 53 face-06 drafts replace the old notes with a few new ones (law `0001`: 87 lines to 9; law `0023`: 35 to 5). They are numbered `06.001` against seats at 001 to 004, so an approve would seat a lower version. Against `1008.app-plan/05.02` #07, taken 2026-10-15: full copy now, an `applied:` mark later, nothing deleted. The old notes would survive in `00.retire.09` only through the approve rename.
+2. Syntax `0001` to `0009` face `01` became pointer cards (Source, Scope, Difference, Reason, Authority: "The kernel seat governs. This draft does not replace it."), numbered 001. As drafts beside those seats, an approve would replace the rules with a card pointing at the replaced seat. They read as cold-reading cards for a user journal, a different job from a kernel redraft.
+3. Links. 38 menu links in 10 face-03 files lack the closing `)`, e.g. `[01 — conditions](01.005.draft.md#authority;`. 125 of 338 links point at files that are not in the sample, mostly seat names such as `01.md`. 201 links point at `.draft.md` names that break when a draft is seated. Which program wrote the malformed menus was not checked.
+4. Names. All drafts are `FF.VVV.draft.md`. `1008.app-plan/05.02` #06 (2026-10-15) returns to `FF.VVV.md`. The checker reports 358 face-name errors for this alone.
+5. `1001.accounting` in law book `00.00.01.law`: a date rule (DD-MM-YYYY) on a user-band page inside kernel law. Its face `01` gives the rule but not why it is in the kernel.
+6. Scope. `0604.keep` names face `01` of ten pages to keep. The sample copies nearly every page and face. The batch that widened it was not traced. It still omits syntax `00.REG.md` (the find), `0016.compose`, `0017.dev`, and law `00.axioms`, `00.order.md`.
+7. Moving target. Code still changing; a zip inside `sample/`; `0604.keep/05.01.md` says a line that will run "has a reply and a status first", the run's own reply, against `1008.app-plan/05.02` #03 (reply is the Director's only).
+
+## Factfind (opinion on how to solve, here and nowhere else)
+- The machinery is the valuable part. As a new kernel the sample is not ready to seat, mainly because one folder holds three jobs: a faithful redraft (largely right), a face 06 cleanup (right goal, a method that drops history), and cold-reading cards plus new pages (a separate thing).
+- Hole 1 is the one that matters most. Losing the why is the failure this project exists to prevent. Mark and retire; do not drop. Version is always seat plus one.
+- Holes 2 and 5: move the pointer cards and `1001.accounting` out of `sample/` (for example to `use/`), or record on each why it belongs.
+- Holes 3 and 4: switch to `FF.VVV.md`, fix the menu bug at its source, and stop writing file links by hand; derive them at seat time (`2003.reference`).
+- Hole 7: let the redraft finish and commit it on its own named branch (allowed once `AGENTS.003` is seated), so it can be reviewed apart from other work.
+- The app's planned checks would have caught most of these mechanically: version not seat plus one, missing link targets, malformed links, an old name form, files outside the job's scope.
+
+## Overflow
+- The 19 stale-address and 3 dangling-page findings were not traced to confirm each is inherited.
+- Only these were read in full: syntax `0001.rules/01`, law `0001.law/03` and `06`, `0000.invariant/01`, `0021.write/01`, `0055.page/02`, `1001.accounting/01`. The rest were measured by script.
+- `drill/`, `use/` and the code changes after 20:16 were not reviewed.
+
+## Unsure
+- Whether the syntax pointer cards were meant as kernel drafts at all. If they are cards for `use/`, hole 2 is a placement question, not a fault.
+- Whether a later batch released the wider scope (hole 6).
+
+## One line
+I would have measured wording and blank lines separately from the start; my first count called 252 drafts changed when 152 of them only gained blank lines or a heading.

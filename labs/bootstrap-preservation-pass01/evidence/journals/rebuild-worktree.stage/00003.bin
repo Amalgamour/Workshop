@@ -1,0 +1,36 @@
+# 06.01
+
+version: 001
+Authorization: draft — 2026-10-25
+who: codex
+state: draft
+Face: 06
+PPPP: 1001
+desk: 10.workshop
+shelf: 10.10.work
+book: 10.10.12.rebuild
+keyword: assessment
+why: Working notes, audit trail, and limits of the assessment.
+
+## Record
+
+1. Located D:\Git\Librarian and read AGENTS plus workshop entry files. This contained an old skeleton of 10.10.12.rebuild. The dev decision named a separate worktree.
+2. Located D:\Git\Librarian-rebuild and confirmed branch history through 2026-10-24. No tracked changes were present before the review.
+3. Read the rebuild sentinel, project and testing designs, recent queue, latest return, compute cards, and relevant implementation paths.
+4. Ran loader, Clerk, and Jobs self-tests. Initial sandbox runs failed accessing TemporaryDirectory fixtures. Reran with reviewed elevation; all passed. Do not classify the initial permission failure as a source defect.
+5. Ran timer, words, and PDF self-tests; all passed. Ran actual loader help routes successfully.
+6. Ran read-only checker against the working draft and candidate tree. Preserved raw JSON and output; distinguished checker-contract mismatches and intentional partial state from confirmed semantic holes.
+7. Built the F01 negative fixture. First wrote a Windows CRLF file, which failed the Overview regex. Rewrote the fixture as LF, matching current generated packs. It then passed despite missing release evidence and its off-scope target. The line-ending sensitivity is an observation, not the main finding.
+8. Exercised cmd_lint itself: pass, note, request: promote. Verified original pack bytes unchanged. No real pack or source was changed.
+9. Compared active contents rows before ## Note history with actual folders: 17 were unlisted. Kept history out of the comparison to avoid false missing-page findings.
+10. Selected 1001 as the first unoccupied number strictly above 1000 in this book. This assessment does not pretend to be one of the matched 01NN–05NN implementation slices. The Director requested a user page above 1000.
+
+## Limits
+
+Focused capability assessment, not a full semantic audit of every face. Tests share assumptions with their authors. No independent production soak test, graphical UI test, concurrent-writer test, transactional recovery test, or fresh-model end-to-end run was performed.
+
+The prior review's malformed links and numbering findings were not mechanically assumed to remain in every current face. This review is grounded in today's worktree. No speculation about model effort or hours is treated as measured output.
+
+## Review conclusion
+
+Useful components have advanced. The next demonstration should join entry, scoped readiness, execution, return, and resume. Fewer local edits and more named end-to-end acceptance evidence would make the progress visible to the Director.

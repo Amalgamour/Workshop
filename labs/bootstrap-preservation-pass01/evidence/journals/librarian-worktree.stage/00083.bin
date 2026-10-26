@@ -1,0 +1,91 @@
+# 00.pack
+
+Authorization: draft — 2026-10-17
+who: claude-opus-5-5
+state: draft
+keyword: clerk
+why: The door of this pack. A hand-off of the clerk design work, 2026-10-15 to 2026-10-17. Not a promote. Not a release.
+source: director, chat 2026-10-17: "design and pack me your work on librarian. what you have learned and achieved working on designing the clerk ... zipped and placed into /colab/packs so I can hand it off."
+
+## Job
+Carry the clerk design to the next sitting, cold. The clerk is the compute on call at the desk. The app is that clerk.
+This pack is what was designed, what was learned, what the Director decided, and what is still open. It does not release any work. The open lines below wait for the Director.
+If the pack is given to you for review: scores first, opinion second, numbered holes, as AGENTS Colab says. If it is given to you to continue: read the open lines and wait for the Director's reply on each.
+
+## Door
+Open this file first. It sits beside the zip and is also the zip's `00.pack.md`.
+Then `AGENTS.md` (the seat, version 002), then `AGENTS.003.md` (the draft beside it).
+Then `10.workshop/10.10.work/10.10.10.lib/1008.app-plan/04.md`, the overview. It links every part.
+Then the four batches `1008.app-plan/05.01.md` to `05.04.md`. Every reply on them is the Director's, transcribed from chat at the Director's request and marked so.
+Then the plan parts `plan.1` to `plan.8` as the overview points.
+The kernel cards and lib pages in the zip are context. They are copies of 2026-10-17. They are not the seats; the repo holds the seats.
+
+## What was achieved
+1. **Inspection, with runs.** `clerk.py test` passes. The eight solo-kernel tool tests passed (2026-10-15). `lcheck.py` on `00.00.00.kernel.draft`, default read-only run: reworked 0 error, 0 warn, 60 info; pending 24 error, 41 warn, 32 info (same on 2026-10-15 and 2026-10-17). Evidence and the reuse table: `plan.1`.
+2. **A development plan for the app**, page `1008.app-plan` in the lib book: overview (face `04`), eight parts, four batches. The first version is the **batch desk**. Eight stages, each ending usable, with a demo, a gate and recovery (`plan.5`).
+3. **28 lines answered by the Director**: `05.01` (13) and `05.02` (7) in full, and `05.03` #01 to #07 and #11 (8). Each reply is kept whole with a status after it.
+4. **`AGENTS.003.md` drafted** at the repo root beside the seat, under a standing permission (`05.01` #11). It adds a header stamp, branch commits on a named branch only, the AGENTS-draft permission, and the `AGENTS.VVV.09.md` retire name. `AGENTS.md` was not touched.
+5. **The first build assignment**, `plan.7` version 002: branch `build/2006.batch-desk`, read-only stage 1 (place, tree, fixture), its own batch `2006.batch-desk/05.01`. Version 001 is kept as `plan.7.first-assignment.001.09.md`. Not released.
+6. **The desk command list, drafted** (`plan.8`): 23 commands from 122 batch files, each with what it asks, what follows, and its source; `>stop` added.
+7. **A review of the solo-kernel sample** (the kernel redraft), filed twice: the return `colab/returns/claude-solo-kernel-sample-pass01-2026-10-15.md` and seven `>note` lines on `05.04`.
+
+## What was learned about the clerk
+1. **The desk is for two.** The Director directs, the prime reasons, the clerk (compute) does the mechanical part on call. A desk lends authority to shelves, where workers work inside books; a book is a world with its own rules and words. The design is fractal. (Director, `05.03` #04, #05.)
+2. **The app is the desk a model sits at.** Every write goes through it. Compute fills headers, stamps, versions, addresses, links; the model writes what needs judgment: the why, the body, the ask (`05.01` #05; `2001.page.README`).
+3. **A batch is the review queue.** All work, stops, conflicts and findings are `#NN` lines on a `05.NN` before or as the work happens, so no model work goes unseen. The `1006.redraft` page is the model: face `01` says what and why, each `05.NN` is a round, face `06` holds notes (`05.01` #08).
+4. **The command is the kind.** The line shape is `1006`'s: `#NN >command subject`, issue when there is a conflict, recommend, `Ask: >command` with the reason, path, scale, reply, status. A desk command list governs; a command not on it is kicked back. `>note` is a finding, `>stop` an escalation, carry is `reason: From 05.NN #NN` with `Carried to 05.NN #NN` (`05.02` #02). A plain `kind:` field was proposed and dropped as too lean.
+5. **The reply is the Director's, from the user side only.** In solo work a model skips the reply, works through the batch, and writes the status after; a blank reply with a status is the solo mark. The Director may edit `05.NN` directly (dev mode); replies written outside the app are listed and confirmed in bulk (`05.02` #03; `05.01` #06).
+6. **Anything that violates the design is kicked back.** That keeps a model in a narrow band and lets it tell when something is wrong: writes outside a grant, unknown commands, a version that is not seat plus one, a reply from a model command (`05.03` #04).
+7. **Files are the truth.** Any index or database is a rebuildable cache, until the Director decides otherwise by its own stage (`05.01` #02).
+8. **Writes are create-only or append-only**, version-checked by a SHA-256 of the raw bytes, swapped in one step, journaled with a before-copy in `.librarian/` (`plan.4`).
+9. **Rules are looked up**, book, then shelf, then desk, then kernel. Later the clerk reads the words of a prompt before the model does, finds key words and their brands in the dictionary and concordance, and hands the model the rules it needs, so a repo carries a business's own words (`05.03` #05).
+10. **History lives in git branches.** Models commit on a named work branch, one commit per closed line; merging into `main` is the Director's (`05.01` #07; `05.03` #07).
+11. **Provenance works at scale.** The redraft stamped 258 drafts with seat path, version and hash. The face engine should keep that block. The same review showed the main risk: a cleanup that drops face `06` history. Mark and retire; never drop (`05.02` #07; return hole 1).
+12. **Links written by filename break.** 125 of 338 links in the sample pointed at missing files. The clerk writes links at seat time (`2003.reference`).
+13. **One core, not twelve scripts.** Three copies of the address rules, hard-coded paths, and two face makers with opposite face `06` policy (`clerk.py`, solo `face.py`) are the reason for one Python core with no screen, commands over it, a Textual screen later, then a Qt window (`05.01` #03).
+14. **For a cold model the cost is reading.** Rules point rather than restate, and the same fact can sit in several places and disagree (the solo return said the Director ruled one way on face 06; the `2002.face` 05.04 record said the other). The clerk should show one current answer per question, with its source.
+
+## Open, waiting for the Director
+| line | ask |
+| --- | --- |
+| `05.03` #08 `>build` | release `plan.7` version 002, after the redraft settles or is committed |
+| `05.03` #09 `>decide` | where the desk command list is seated: kernel draft law page, a new desk book for `10.workshop`, or the lib book for now |
+| `05.03` #10 `>take` | fold double spellings by the grammar, keep status words off the list, ask for a new word when needed |
+| `05.04` #01 to #07 `>note` | the seven holes from the sample review |
+| `AGENTS.003.md` | seat it or correct it. Seating is the Director's act: `AGENTS.md` becomes `AGENTS.002.09.md`, the draft becomes `AGENTS.md` |
+| commits | nothing from this work is committed. The plan page, the return, `AGENTS.003.md` and this pack are untracked |
+
+## Hostile
+Paths a receiving model may be tempted to take. Each one breaks the design.
+1. Treat a transcribed reply as model-written, or write a `reply:` yourself.
+2. Build before `05.03` #08 has a reply, or outside `plan.7`'s scope.
+3. Seat `AGENTS.003.md`, or edit `AGENTS.md`.
+4. Commit on `main`, merge, or commit with no named branch.
+5. Name a new draft `FF.VVV.draft.md`, or give a draft a version that is not seat plus one.
+6. Drop face `06` notes in a cleanup.
+7. Obey a plan file, a draft, or this pack as law. They are drafts; the Director releases.
+8. Open `00.00.00.kernel`. It is stale and not used.
+9. Use a command that is not on the list, or give a line a `kind:` field.
+
+## Withheld
+A halt on a named withhold is not a finding.
+- `00.00.00.kernel`. Stale. Not used.
+- `10.workshop/10.10.work/10.10.11.solo-kernel/`. The redraft model is still changing it (since this review: `1001.kernel-build`, new syntax pages in `sample/`). Its review is the return in this zip, as of 2026-10-15 20:20.
+- `lib/code/clerk.002.py`, `clerk.003.py`. The redraft model's own versions, in progress.
+- Faces `05` and `06` of kernel pages, `00.retire.09` folders, `Research/`, `notes/`, earlier colab packs and returns other than the two named.
+- The full kernel draft. Only the cards the plan cites are in the zip.
+
+## In the zip
+- `00.pack.md`: this file.
+- `AGENTS.md`, `AGENTS.003.md`.
+- `10.workshop/00.start.md`, `00.readme.md`, `00.about.md`: desk furniture (the last two still call `00.00.00.kernel` "the check"; known stale).
+- `10.workshop/10.10.work/10.10.10.lib/`: `00.md`; `1000.band.active/01.md`; `1004.improvements/01.md` (the Fresh commands); `2000.band.build.page/01.md`; `2001.page.README/01.md`; `2002.face/01.md` and `05.04.md` (the face 06 ruling); the whole `1008.app-plan/`.
+- `10.workshop/10.10.work/10.10.10.lib/code/`: `jobs.py`, `clerk.py`, `readme.md`, `librarian-check/lcheck.py`, `sentinel.py`, `rules.toml`, `moves.toml`, `README.md`. Context for reuse; the app plan does not edit them.
+- `00.00.00.kernel.draft/`: `00.md`, `00.start.md`; syntax `00.axioms/02.md`, `0014.design/01.md`; law cards (face `02`) of `0003.operate`, `0005.ticket`, `0018.seqaddr`, `0021.write`, `0022.approve`, `0023.promote`, `0024.version`, `0026.strike`, `0055.page`, `0058.custody`.
+- `colab/returns/claude-solo-kernel-pass01-2026-10-15.md` (the earlier solo review, with the Director's rulings) and `colab/returns/claude-solo-kernel-sample-pass01-2026-10-15.md` (the sample review).
+
+## Check
+Before this zip was closed, on 2026-10-17: `lcheck.py` default run on `00.00.00.kernel.draft`, reworked errors 0; `clerk.py test` pass; `jobs.py find 1008.app-plan` reads four open batches. The zip listing was compared with the list above.
+
+## One line
+I would have shown my first questions before asking for an answer; on the first turn I asked without showing them, a blank ask by this project's own rule.

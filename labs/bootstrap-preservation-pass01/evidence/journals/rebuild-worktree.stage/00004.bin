@@ -1,0 +1,42 @@
+# 08
+
+version: 001
+Authorization: draft — 2026-10-25
+who: codex
+state: draft
+Face: 08
+PPPP: 1001
+desk: 10.workshop
+shelf: 10.10.work
+book: 10.10.12.rebuild
+keyword: assessment
+why: Source custody and evidence for this review.
+
+## Snapshot
+
+checkout: D:\Git\Librarian-rebuild
+branch: rebuild
+head: 0e8e70468a0eacf5ff8a568aa1af36a8c7c2dcf9
+date: 2026-10-25
+scope: assessment, not repair
+
+## Sources
+
+- AGENTS.md, especially its state line and boot section.
+- 10.workshop/00.start.md and 00.readme.md, current Run/Find sections.
+- This book's 00.md; 0011.contents/01.md; 0402.run/01.md; 0412.testing/01.md; 0414.test-desk; 0415.queue/06.25.md; 0417.pack-lint/01.md and 06.02.md.
+- This book's 0114.test-desk/05.13.return.md and 0118.overflow-clean/05.01.return.md.
+- Actual loader 0202.run/02.run.py, Clerk 0305.clerk/02.clerk.py, Jobs 0303.jobs/02.jobs.py, and the checker card/configuration.
+- 00.kernel candidate and 00.00.00.kernel.draft working reference. Different readiness and contracts are explicitly distinguished.
+
+## Evidence
+
+- [Independent probes and source hashes](evidence/probes.json)
+- [Main module test runs](evidence/checks.json)
+- [Application experiments and checker runs](evidence/extra-checks.json)
+- [Working-draft checker details](evidence/working-draft-check.json)
+- [Candidate checker details](evidence/clean-kernel-check.json)
+- [Reproduction script](evidence/probe.py)
+- [Rebuild history](evidence/history.txt)
+
+Scripts name the assessed Windows checkout; adjust ROOT and OUT for another isolated checkout. They are review fixtures, not seated compute. The negative fixture never requests production execution. Tests must have a writable temporary directory.

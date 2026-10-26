@@ -1,0 +1,36 @@
+{
+  "state": "packing checks only; no execution release or migration",
+  "preservation_rows": 167,
+  "preservation_groups": {
+    "P1": 22,
+    "P2": 3,
+    "P3": 9,
+    "P4": 47,
+    "P5": 8,
+    "P6": 1,
+    "P7": 28,
+    "P8": 39,
+    "P9": 10
+  },
+  "workspace_baseline_files": 39,
+  "snapshot_rows": 890,
+  "snapshot_tiers": {
+    "minimum": 688,
+    "later": 202
+  },
+  "selected_reference_rows": 81,
+  "runtime_candidate_rows": 8,
+  "checks": [
+    "all preservation sources length and SHA-256 verified",
+    "all 890 snapshot blob bytes SHA-256 verified from local Git objects",
+    "package inputs copied byte-exact",
+    "destination duplicate checks passed"
+  ],
+  "not_done": [
+    "tools built or tested",
+    "archive branches or pushes",
+    "git init",
+    "desk creation",
+    "runtime activation"
+  ]
+}

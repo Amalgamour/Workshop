@@ -1,0 +1,62 @@
+# 04
+
+Authorization: draft — 2026-10-15
+who: claude-opus-5-5
+state: draft
+Face: 04
+PPPP: 1008
+desk: 10.workshop
+shelf: 10.10.work
+book: 10.10.10.lib
+keyword: app-plan
+why: The person read. The plan to turn Librarian into a working app, in one page.
+
+cite: 3.8
+
+## Start here
+This page is the overview. Each part below holds its own detail once. Read this, then answer the decisions on `05.01.md` and `05.02.md`.
+
+| part | what it answers |
+| --- | --- |
+| [plan.1 starting point](plan.1.starting-point.md) | What works today, what was run, what to reuse, what is missing, what is settled, what is not |
+| [plan.2 first version](plan.2.first-version.md) | The first usable app, one session with it, the screen, storage, and working beside models |
+| [plan.3 modules](plan.3.modules.md) | The ten pieces of the first version, the diagram, and the later pieces |
+| [plan.4 source of truth](plan.4.source-of-truth.md) | Where everything lives, the checks before a write, recovery, and guarantees against instructions |
+| [plan.5 stages](plan.5.stages.md) | Eight stages, each with a demo, a gate, effort, and recovery |
+| [plan.6 cycle](plan.6.cycle.md) | The loop for every batch, what the model does alone, what comes to you, the defaults |
+| [plan.7 first assignment](plan.7.first-assignment.md) | The exact first job, version 002, released on `05.03` #08 |
+| [plan.8 command list](plan.8.command-list.md) | The desk command list, drafted: every command once, what it asks, what follows, its source |
+| [05.01](05.01.md) | Thirteen decisions. `#08`, `#09`, `#10` carry your chat answers and move to `05.02` |
+| [05.02](05.02.md) | Seven decisions from your chat answers: one batch name, the command is the kind, solo mode, unseen work, the model side, `FF.VVV`, notes. All answered |
+| [05.03](05.03.md) | The work that follows (plan rewrite, `AGENTS.003.md`, first assignment, command list) and your desk, shelf and book design |
+| [05.04](05.04.md) | Seven notes from the review of the solo-kernel sample; the evidence is the return `colab/returns/claude-solo-kernel-sample-pass01-2026-10-15.md` |
+
+## Where we are
+Librarian already has working parts. The checker runs. The clerk and the eight solo-kernel tools pass their own tests (run on 2026-10-15). `jobs.py` already reads and files your `#NN` batches. What does not exist is one program: the pieces are twelve scripts with three copies of the address rules, hard-coded paths, and two face makers that disagree. And nothing gives you a view of your own work. About 79 blank replies sit in 16 batch files today, and you find them by opening folders.
+
+## What we build first
+**The batch desk.** A batch (`05.NN`) is the review queue: all model work, every stop, every conflict, every idea found on the way is a `#NN` line, so nothing a model does goes unseen. `1006.redraft` is the model of it.
+
+- **Your side:** one screen that shows every line that needs you across the tree, stops first, then waiting lines, then solo work to review. It opens the page each line is about, takes your reply, and writes it safely. Next time it tells you what changed, and flags any changed file no batch line names.
+- **The model side:** commands a model uses to start a page in an authorized band, write its `01`, open a `05.NN`, add lines, report status, and stop with an escalation. Your timer example is four commands.
+
+`reply:` stays yours. In solo work a model skips the reply, works through the batch under a grant, and writes the status after; a blank reply with a status waits for your review. Models commit on work branches; merging into `main` is yours. The app never writes either kernel. Every write checks the file has not changed since it was read, appends rather than rewrites, keeps an undo copy, and is recorded.
+
+It starts as commands in a terminal, becomes a full-screen terminal app at stage 4, and moves into a Windows window at stage 8, all on the same core. The files stay the truth throughout. Git stays your history and your commits.
+
+## Why this first
+- It is your real daily work, so it is useful the day it works.
+- It needs only the parts of the kernel that are already settled: addresses, faces, and the `#NN` / reply form.
+- It only creates new files or appends lines; it never rewrites what is written, so it is safe to trust early.
+- Everything later (drafts, approve, the Windows app) sits on the same core: tree, faces, batches, safe writes. Nothing built here is thrown away.
+
+## What you will be able to do when stages 1 to 5 are done
+Open `librarian`. See where models stopped, what waits on you, and what solo work needs review, across every book. Read each line beside the page it names. Reply without opening a file. Undo a reply. Give a model a job and watch it start its page, write its plan as `#NN` lines, and report. Come back the next day and see what the workers did, what changed in git, what no batch explains, what the checker says, and whether anyone touched your replies.
+
+## What waits
+Drafts as `FF.VVV.md` (stage 6), sign, approve and the note sweep (stage 7), the Windows window (stage 8), then search, dispatch to models, and colab. The order and the reasons are in plan.5.
+
+## Assumptions made
+- Python 3.14.7, as installed on WHITE01, is the runtime.
+- `00.00.00.kernel` is never read. `00.00.00.kernel.draft` is the reference. `10.10.11.solo-kernel` is a reference to read before building anything it already does.
+- The plan's own files (`plan.N.*.md`) sit inside this page. They are not faces. The `plan.` prefix keeps the tools from reading them as faces.

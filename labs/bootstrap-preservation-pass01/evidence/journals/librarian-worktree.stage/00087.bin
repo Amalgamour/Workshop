@@ -1,0 +1,229 @@
+# lib-build: setup and selective migration proposal
+
+who: claude-opus-5-5 (Colab)
+for: Codex (Prime) and the Director
+date: 2026-10-26
+state: proposal. Read-only review: nothing was created, edited, committed or pushed.
+sources: `D:\Git\Librarian` at `main` `38a037e` (working tree), `D:\Git\Librarian-rebuild` at `rebuild` `de3b8eb`, `origin/main` `14676ca`, Worldcraft `origin/main` `1d88c20`.
+
+## 0. Facts found
+
+- `D:\Git\lib-build` **does not exist**.
+- **The two old checkouts:**
+
+  | Checkout | Branch | Commit | State |
+  |---|---|---|---|
+  | `D:\Git\Librarian` | `main` | `38a037e` | One commit behind `origin/main` `14676ca`; 829 uncommitted changes |
+  | `D:\Git\Librarian-rebuild` | `rebuild` | `de3b8eb` (= `origin/rebuild`) | Only Codex's `1001.assessment/` is untracked |
+
+- **The merge base of `main` and `rebuild` is `38a037e`.**
+- **`14676ca` was committed straight to `main` by grok-prime.** It adds `reports/librarian-handoff-2026-10-24.md`, against `AGENTS.md` 003, which says never commit on `main`.
+- **Some Director decisions exist only as untracked files:** `10.10.10.lib/1008.app-plan/` and `1009.calling/` in `D:\Git\Librarian`. They hold the Director's replies on the app (app at the top, `.librarian/`, files are the truth, core Python with no screen, `.venv`, branch commits). They aren't on any branch or on GitHub. This is the highest preservation risk.
+- **The kernel draft has two revisions.**
+  - `main` (`38a037e`): the working tree there matches it, with no uncommitted kernel edits.
+  - `rebuild` (`de3b8eb`): 19 more changed files, from Grok's law-align work. Among them, four syntax faces were marked "approved" on 2026-10-24: `0001.rules/01.008`, `0003.operate/01.007`, `0003.operate/04.004`, `0014.design/04.005`. Every commit carries the Director's git name, so who approved them can't be verified.
+- **Tests, run in a throwaway clone of `de3b8eb` on Python 3.14:**
+  - These pass: the loader (27 checks), `clerk test` and `check --help` through the loader, `jobs.py test` run directly, and `face`, `slot`, `page`, `door` and `journal` test.
+  - `jobs` fails through the loader: the card line `lifecycle:` is refused.
+  - `lcheck` on the kernel draft finds 1 reworked error (`0011.contents/02.005.md` status-footer).
+  - Worldcraft `sync/test_sync.py` (`origin/main` `1d88c20`): 27 tests pass.
+
+## 1. Proposed workspace
+
+### Folder tree and addresses
+
+```text
+D:\Git\lib-build\                       git worktree of Amalgamour/Librarian, branch workshop
+├─ README.md                            door for people
+├─ AGENTS.md                            the one boot file (CLAUDE.md and GROK.md are pointers carrying the same block)
+├─ .gitignore                           .librarian/  __pycache__/  out/
+├─ 00.kernel\                           desk 00, owner address 00.00.00.kernel
+│  ├─ 00.md 00.start.md 00.about.md 00.readme.md 00.live     desk files (law 0051); 00.live written by compute only
+│  ├─ 00.00.00.syntax\                  book: syntax
+│  ├─ 00.00.01.law\                     book: law (role definitions land here, draft)
+│  └─ 00.00.10.work\                    book: work (decision D1)
+│     ├─ 00.md 0010.about 0011.contents 0014.design 0056.band
+│     ├─ 0100.band.returns   01NN       builder returns
+│     ├─ 0200.band.code      02NN       code being written
+│     ├─ 0300.band.compute   03NN       running modules: 0302.run 0303.jobs 0304.check 0305.clerk 0306.slot 0307.face
+│     ├─ 0400.band.dev       04NN       designs, Director decisions, goal, seat assignments
+│     ├─ 0500.band.packs     05NN       packs
+│     └─ 0600.band.notes     06NN       findings, carried threads
+├─ app\                                 app shell, "at the top, alongside the desk" (1008 05.01 #01)
+│  ├─ librarian.py                      the one supported entry
+│  └─ tests\                            integration and acceptance tests
+└─ .librarian\                          app state, journal, last-visit; outside git (1008 05.01 #12)
+```
+
+**Why the desk is `00`.** The Director wants one desk holding syntax, law and work. Kernel law makes a desk's own books the shelf-00 books (`DD.00.BB`, in `00.00.00.kernel.draft/00.md`). At desk 10, syntax and law would be local overrides of a kernel living somewhere else, which means two desks. Desk 00 also keeps every existing reference to `00.00.00` and `00.00.01` valid.
+
+**Why the work book is `10`.** Law `0054.book` says a book takes "the first open slot from 10 up". But law `0018.seqaddr` (Walk) says "Desk books are 00 and 01", and Grok's draft `00.kernel/00.md` says "No real work is placed here". So the address needs the Director's ruling (D1).
+
+### Code, ownership and the entry
+
+**Where code lives.**
+- A module's code sits physically on its compute page, as `02.name.py`. This is the Director's decision from `rebuild/00.md`, Faces, and `0300.band.compute/05.01`.
+- The page number is the owning lane (one number, one name).
+- `app/` holds no module logic. It has the entry shim and the integration tests.
+
+**Tests.**
+- A module's self-test stays inside it, as `<module> test`, following the existing convention.
+- Tests that cross modules go in `app/tests`.
+
+**Generated output.** `.librarian/`, `__pycache__/` and `out/`, none of them committed.
+
+**The one supported entry.** `python app/librarian.py <module> <command> [args]`, for example `python app/librarian.py jobs find 0401.goal`.
+1. It walks up from the current folder to `00.kernel/00.md`.
+2. It runs the loader at `00.00.10.work/0302.run/02.run.py`.
+
+The loader is imported to `0302` as a draft. Importing isn't seating, and this also removes the `0202`/`0302` mismatch that Codex found (`1001.assessment` F04).
+
+### Branch, checkout and starting commit
+
+**Setup.** `git worktree add D:\Git\lib-build -b workshop 14676ca`, starting from `origin/main`.
+
+**What that commit brings:**
+- The full tree as recorded in `1ea63a8`: both kernels, `10.workshop` as of then, zips, `Research`, `colab`.
+- `README.md` (`38a037e`).
+- Grok's handoff report.
+- History shared with `rebuild`. That lets imports come straight from commits (`git show de3b8eb:<path>`), and makes the later merge into `main` an ordinary merge.
+
+**First commit on `workshop`: clear the floor.** Remove the inherited tree from this branch only. It stays in `main`'s history, on `rebuild`, and under the archive tags. Then import selectively.
+
+**Why not an orphan branch.** It would make the later merge into `main` an unrelated-history merge.
+
+## 2. Selective migration inventory
+
+### Minimum to start useful work
+
+Paths are relative to `10.workshop/10.10.work/` unless they start at the repo root. "Rev" is the commit to import from.
+
+| # | Source @ rev, sha256 | Purpose | Destination | Evidence | Defects / path assumptions | Action |
+|---|---|---|---|---|---|---|
+| M1 | `00.00.00.kernel.draft/00.00.00.syntax` @ `38a037e` or `de3b8eb` (D2) | syntax book | `00.kernel/00.00.00.syntax` | `lcheck`: 1 reworked error | 190 files; leave out `*.09*`, zips, `_snapshot`, `downloads` (keeps 103) | **keep**, active seats only |
+| M2 | `00.00.00.kernel.draft/00.00.01.law` @ same rev | law book | `00.kernel/00.00.01.law` | same | 444 files, keeps 381; `00.live` lives here today | **keep**, minus retired and zips; `00.live` moves to the desk |
+| M3 | `rebuild/0202.run/02.run.py` @ `de3b8eb`, `af207d4d` | loader | `0302.run/` plus a card `02.md` | 27 checks pass; runs clerk | page has no card (`0102` #04); reported to change directory before checks read desk paths (`0104` #04) | **adapt**: card, address |
+| M4 | `rebuild/0305.clerk/02.clerk.py`, `678536e2` (lib `clerk.py` `0ee0b804` plus stamp, byte-equal) | faces: drop, draft, revise, live, lint | `0305.clerk/` | `clerk test` passes through the loader | `DRAFT_KERNEL = "00.00.00.kernel.draft"` (8 places); tests tied to rebuild pages (`0415.queue`, `02.clerk.002`–`009`); `live` tied to the law book; lint false pass (F01); 1,051 → 2,724 lines | **adapt**: kernel location parameter, re-home its tests; no `.002`–`.009` copies |
+| M5 | `rebuild/0303.jobs/02.jobs.py`, `7b393085` (lib `jobs.py` `4fabe6e9` plus stamp) | batches: find, piece, status, ran, lifecycle | `0303.jobs/` | direct test passes | card refused (`lifecycle:`), so card rule B applies; `open` writes `05.NN.open.md` and `who: grok-prime` (`0102` #03); `ran` can't file a work batch | **adapt**: card per rule B |
+| M6 | `rebuild/0304.check/` (`lcheck` `35129397`, `sentinel` `985cc2b5`, `rules.toml`, `moves.toml`) | checker | `0304.check/` | runs through the loader | can't read a book on a shelf (`0101` #08); stamp inside the docstring (`0104` #05); seat-is-draft conflicts with first-version `FF.md` (F04) | **adapt**; the rules are not weakened |
+| M7 | `10.10.11.solo-kernel/code/face.py`, `6760ea78` | new face with full stamp | `0307.face/` | test passes | its header differs from `clerk drop` (51 drift findings) | **adapt**; one stamp function comes later |
+| M8 | **Decisions register:** verbatim replies with path@rev from `1008.app-plan` 05.01 and 05.03 (untracked), `1009.calling` (untracked), `rebuild` `0300/05.01`, `0401/05.01`–`05.03`, `0409.goal` Decisions, `AGENTS.md` 003 notes | carry decisions forward without copying history | `0408.decisions` | source files read | 1008 and 1009 must be preserved first (D3) | **keep** verbatim, as a register; records stay at source |
+| M9 | `rebuild` band doors and `00.md` (Bands, Matching, Faces, Batches) @ `de3b8eb` | work-book rules | `00.00.10.work/00.md` and band doors | in use for a week | `D:\` text still sits in revise notes; build door renamed `0100.band.returns` | **adapt**: active text only, no notes |
+| M10 | `AGENTS.md` 003 | boot and authority | new `AGENTS.md` draft, version 004, for the Director to seat | — | still says "draft… not in force" (F02) | **adapt** |
+
+### Later, not in the first setup
+
+| Item | Kind | Action |
+|---|---|---|
+| Worldcraft `sync/sync.py` @ `1d88c20` (`fa4fe629`, 27 tests pass) | executable, prior experience | the base for the clerk's status half: throwaway-worktree testing, owners, tickets with a failing check, `--mark`, `--publish`, header-block check |
+| `slot.py` `0f176a5e` | executable | defer to D4: its hash differs from the design hash `6e7aac75` (`0106` #02) |
+| solo-kernel `door`, `page`, `journal`, `menu`, `nav`, `reader`, `desk` | experimental reader and app pieces | defer; tests pass but they aren't required |
+| labs `timer`, `words`, `pdf` (`0114`, `0116`) | experimental | defer |
+| `0418` lifecycle, Grok's `00.kernel` candidate, `0409.goal` lanes | proposed rules | re-propose in the new work book; don't import as law |
+| ran batches, returns `0101`–`0106` (25 lines unreviewed), queue `06.NN`, face 06 | historical records | stay in `rebuild`, under its tag; their open defects go into the findings band |
+| `1001.assessment` F01–F05 | findings | into `06NN` findings, cited |
+
+## 3. Draft role contracts
+
+**Where they live.**
+- **Role definitions:** one law page, `00.00.01.law/0041.seat`, draft, which the Director approves. It sits next to 0036 colab through 0040 lead, which already cover pack and return.
+- **Who sits where:** a work page, `0402.seats`, dated and set by the Director. The clerk reads it to route. A model never assigns itself.
+
+**Director**
+- **Does:** sets course and resources, approves, seats, locks, and merges into `main`.
+- **Decides:** anything. Writes grants, scoped and revocable.
+- **From the clerk:** decision requests, approval and seat requests, escalations.
+- **To the clerk:** replies, verbatim, and grants.
+- **Escalation:** none above. Holds the consequences.
+
+**Prime**
+- **Does:** turns decisions into designs and packs, checks readiness, closes returns inside its grant, keeps the goal page true.
+- **Decides:** pack shape, order, readiness, closing returns with no open questions, small fixes inside its grant.
+- **From the clerk:** releases, returns, findings, `>stop` lines.
+- **To the clerk:** packs (state ready), statuses, decision requests.
+- **Escalates when:** a new design choice comes up, a shared door would change, something falls outside the grant, or two faces disagree.
+
+**Colab**
+- **Does:** independent review and lane design, from a different model family than the work it reviews.
+- **Decides:** its own findings, and designs inside a lane the Director gives it.
+- **From the clerk:** review requests, packed pages.
+- **To the clerk:** findings (a ticket with a failing check, or a face 06 opinion) and lane designs.
+- **Escalates when:** a finding contradicts a decision, or it's tempted to obey a draft as live.
+- **Never:** gives orders.
+
+**Builder**
+- **Does:** runs ready packs inside its lane's folders, tests, commits on its lane branch, and returns.
+- **Decides:** how to carry out a task.
+- **From the clerk:** ready packs.
+- **To the clerk:** return lines, `>note` and `>stop`, and a final `>review`.
+- **Escalates when:** a tool refuses, a hash differs, a step is outside its folders, or a rule is missing.
+- **Never:** writes a status or edits a shared door.
+
+Bots come later.
+
+## 4. Bootstrap checks
+
+1. **A fresh worker finds the desk and books.**
+   - In a fresh clone under `%TEMP%`, `python app/librarian.py where` prints desk `00.kernel`, the three books, the goal page, and the four lines of `00.live`. An acceptance test asserts this.
+   - A header-block check on `AGENTS.md`, `CLAUDE.md` and `GROK.md`, modelled on Worldcraft sync's S9.
+   - One cold-model walk: given only `AGENTS.md`, it names the desk, the books and the current work.
+2. **Compute runs without old absolute paths.**
+   - A gate over tracked code and entry files that refuses drive letters (`[A-Z]:\`), `kernel.draft` and `10.10.12.rebuild`, with an allow-list for history.
+   - Every test runs from a clone on another path, and from a working folder that isn't the root.
+3. **Current work can be recovered.**
+   - Process 1 opens a batch, adds a line and a status, and compute writes `00.live`.
+   - A fresh process 2 reads `00.live` and runs `jobs find`, and must get the same last, goal and pages. (This is Codex's F05 scenario.)
+4. **An imported tool behaves as expected.**
+   - Each import has a provenance record: source path, commit, and the sha256 before stamping.
+   - The bytes below the stamp equal the source, except for listed adaptations.
+   - Its own `test` passes through the loader.
+   - A golden run on a fixture (for example, a copy of `0501.project`) matches the old output except where paths were adapted.
+5. **The old workspaces stay untouched.**
+   - Before and after each step, record `git status --porcelain`, `HEAD` and `git stash list` for both old checkouts; they must be identical.
+   - Imports come only through `git show <rev>:<path>` inside `lib-build`, never by copying from a working tree. The one exception is 1008 and 1009, after D3 preserves them.
+
+## 5. Setup plan
+
+| # | Step | Result | Verify |
+|---|---|---|---|
+| 1 | The Director preserves the uncommitted material (D3) | 1008, 1009, the solo-kernel redraft and `1001.assessment` on a pushed archive branch | `git ls-remote` shows it; file counts match |
+| 2 | Tag `archive/rebuild-de3b8eb` and `archive/main-14676ca`, and push | fixed reference points | tags on the remote |
+| 3 | Create the `workshop` worktree from `14676ca` | `D:\Git\lib-build` exists | check 5 is clean |
+| 4 | Clear the floor | empty branch apart from README and AGENTS | `git ls-files` is minimal; history intact |
+| 5 | Import M1–M2 unchanged at the D2 revision | the kernel books | file list against the source; `lcheck` counts recorded |
+| 6 | Import M3–M7 with provenance, then adapt | compute at `0302`–`0307` | check 4; check 2's gate |
+| 7 | Entry `app/librarian.py`, work-book skeleton, M8–M9 | the desk runs | checks 1 and 3 |
+| 8 | Role drafts (`0041.seat`, `0402.seats`) and the `AGENTS` 004 draft | seats written | the Director reviews |
+| 9 | Push `workshop` and give a remote worker one task | remote worker loop | its return lands through the entry |
+
+## 6. Decisions only the Director can make
+
+| | Decision | Recommendation |
+|---|---|---|
+| D1 | Desk and work book address (`0018` Walk against `0054`; Grok's `00.kernel` draft) | desk `00.kernel` with `00.00.10.work` |
+| D2 | Kernel revision to import: `38a037e`, or `de3b8eb` with Grok's 19 edits and four faces marked approved | `38a037e`, and review the 19 as a finding, unless the Director did those approvals himself |
+| D3 | How to preserve the uncommitted work in both old checkouts | an archive branch (not `main`), committed by the Director or at his word |
+| D4 | Which `slot.py` source is the true one (`0f176a5e` or `6e7aac75`) | defer slot; decide when it's packed |
+| D5 | Compute in the work book's band 0300 now, or in the law book as part of the kernel | the work book now; revisit once compute is accepted |
+| D6 | Grok's direct commit `14676ca` on `main` | keep it as a record, and restate the rule |
+| D7 | Role homes: a law page for definitions, a work page for assignments | as proposed |
+
+**Already decided, so reused rather than asked again:**
+- AI commits only on named branches; only the Director merges into `main`
+- layered review; card rule B
+- files are the truth; app at the top; `.librarian/`; core Python with no screen; `.venv`
+- `FF.md` and `FF.VVV`; `02.name.py`; one number, one name
+- batch states open, ready, ran; work is released by dev decisions
+
+**Routine, not decisions:**
+- a `Model:` line in every commit
+- `.gitignore`
+- no full-copy code versions in the tree (git holds them)
+- stamp lines after the coding line, never inside a docstring
+
+## Overflow
+
+- Returns `0101`–`0106` on `rebuild` still have 25 unreviewed lines. Two of their blocks are the earlier prime's (Claude's) own mistakes: `slot.py` was never copied onto the branch, and the old `D:\` paths are still in revise notes, where they read like a live rule.
+- `0418.kernel-lifecycle` and `0519.kernel-lifecycle` were opened on 2026-10-26 with mismatched numbers (18 is overflow-clean in the other bands).
+
+One thing I'd have written differently: I'd have preserved 1008 and 1009 the day they were written. The Director's app decisions shouldn't have sat untracked for eleven days.

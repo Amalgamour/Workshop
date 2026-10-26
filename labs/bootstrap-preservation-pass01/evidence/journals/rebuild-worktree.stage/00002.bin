@@ -1,0 +1,48 @@
+# 05.01
+
+version: 001
+Authorization: draft — 2026-10-25
+who: codex
+state: open
+Face: 05
+PPPP: 1001
+desk: 10.workshop
+shelf: 10.10.work
+book: 10.10.12.rebuild
+keyword: assessment
+why: Proposed Prime review tasks. Open, not released for execution.
+
+Overview:
+Read 04.md and PACK.md. This is an assessment review queue, not a ready builder pack. The Director authorized this assessment and the creation of this page; fixes to other pages are proposals until their authority is established.
+
+#01 >review reproduce the readiness gap
+overview: A pack with no released decision and an out-of-scope target passes lint.
+issue: F01 on face 04.
+why: A readiness label should state which conditions it actually verified.
+ask: Reproduce evidence/probe.py in an isolated fixture, preserve its result, and propose the smallest fix with negative acceptance tests.
+path: 0305.clerk/02.clerk.py; 0417.pack-lint/01.md
+reply:
+
+#02 >review join the current entry and deployment contract
+overview: Entry, contents, candidate kernel, and runnable module locations disagree or remain awaiting release.
+issue: F02, F03, F04 on face 04.
+why: A cold worker needs a supported route that does not depend on Prime's memory.
+ask: Prepare one compact decision and repair plan, citing existing releases and listing only genuinely new Director decisions. Do not promote or rewrite seats from this review line.
+path: AGENTS.md; 10.workshop/00.start.md; 10.workshop/00.readme.md; 0011.contents; 0402.run
+reply:
+
+#03 >review prove one complete usable task
+overview: Components pass; the end-to-end milestone is not demonstrated.
+issue: F05 on face 04.
+why: Functional progress should be visible as work a user can complete.
+ask: Propose and then, when released, run the bounded acceptance workflow in F05. Return exact commands, artifact checks, cold-model versus fresh-process boundaries, and remaining blocks.
+path: 0412.testing; 0414.test-desk; 04.md
+reply:
+
+#04 >review reconcile queue and open approvals
+overview: The queue still says it awaits a return already on disk, and recent returns request approvals.
+issue: 0415.queue/06.25.md waits for 0118.overflow-clean/05.01.return.md, which exists.
+why: An old out/waiting view hides actual progress and the next real dependency.
+ask: Reconcile actual pack/return files, retain historical queue notes, and prepare an exact pending-approval list. Respect 0417/06.02: the Director still promotes.
+path: 0415.queue; 0118.overflow-clean/05.01.return.md; 0417.pack-lint/06.02.md
+reply:

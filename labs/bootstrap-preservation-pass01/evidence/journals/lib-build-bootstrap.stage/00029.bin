@@ -1,0 +1,32 @@
+{
+  "source": {
+    "path": "artifacts/counter-1.py",
+    "sha256": "d62504471b2103440b926ce9968d309e72dda787b3c89c7fe7908cf20cd1558f"
+  },
+  "outcome": "changes",
+  "tests": {
+    "passed": false,
+    "cases": [
+      {
+        "input": "apple\n\npear\n",
+        "expected": 2,
+        "actual": 2
+      },
+      {
+        "input": " \n\t\n",
+        "expected": 0,
+        "actual": 2
+      },
+      {
+        "input": "",
+        "expected": 0,
+        "actual": 0
+      },
+      {
+        "input": " apple \n pear",
+        "expected": 2,
+        "actual": 2
+      }
+    ]
+  }
+}

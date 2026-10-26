@@ -1,0 +1,129 @@
+# 04
+
+Authorization: draft — 2026-10-17
+who: claude-opus-5-5
+state: draft
+Face: 04
+PPPP: 1009
+desk: 10.workshop
+shelf: 10.10.work
+book: 10.10.10.lib
+keyword: calling
+why: The person read. Why every act needs a calling, and what each hand does, as settled on 05.01.
+
+cite: 3.1
+
+## Why this is needed
+Axiom 3 already says it in one line: "human directs. model reasons. compute maintains." What was not written is the same thing **per act**. Each worker worked out, act by act, whether compute may do something alone, whether a model may decide it, or whether it waits for the user, and the solo run showed what happens when nothing says so: the run answered its own lines.
+
+With a calling on every act, the clerk can enforce it. An act done by the wrong hand is kicked back, like a write outside a grant (`1008.app-plan 05.03 #04`). The model never guesses who answers, and the record always shows which hand did what.
+
+## The three hands
+Named on `05.01 #01`: compute, model, user, "more aligned with industry".
+
+| hand | who | what it is good at | what it must never do |
+| --- | --- | --- | --- |
+| compute | the clerk (the app) | exact, repeatable work from consistent rules | guess, judge, interpret a reply |
+| model | the prime, a worker, a colab | reasoning, drafting, finding, recommending, picking from a list compute hands it | write a reply, approve, merge, grant itself authority |
+| user | whoever holds the desk; on this desk, the Director | deciding under uncertainty, owning the risk | (nothing is barred; all authority stops with the user) |
+
+"Responsibility and intelligence are not the same axis" (Weekend Report, 2026-10-07). A model may be the most capable hand on a question and still not be the one that answers it.
+
+On a user's own desk, the user answers there. The workshop desk and the kernel stay the Director's (`05.01 #13`).
+
+## A calling has four parts
+Taken on `05.01 #02`. For every act:
+1. **Answers:** which hand decides that the act happens, or what its outcome is.
+2. **Does:** which hand carries it out.
+3. **Checks:** which hand verifies it before it lands. This is almost always compute.
+4. **Given first:** what the clerk hands the doer before it starts.
+
+An act with no calling is not run. The clerk kicks it back.
+
+## The path of a question
+Taken on `05.01 #03` and `#10`. In the Director's words: "First the compute using the desk to solve from the books it's holding, then it moves to the model to reason a path from a top list the compute hands so the model can pick outside of interupting the user. Then the user is asked because all authority stops with them."
+1. **Compute first.** Compute does not guess. It works from consistent rules, and those rules will grow. Where a rule has forks, compute chooses by exact specification. If the rules give no answer, that is a miss.
+2. **On a miss, the model.** Compute hands the model a **top list**: the candidates it found, ranked, with what it knows about each. The model reasons a path and picks, without interrupting the user. If the model also misses (nothing fits, the answer is outside its grant, or it is unsure), it writes `>stop` (blocked) or `>note` (found, not blocking).
+3. **Then the user.** All authority stops with the user. The user's reply ends the climb.
+
+Nothing climbs **down** on its own. An act moves to a lower hand only through the local mode (below), which only the user can engage.
+
+## Authors on what is derived
+Taken on `05.01 #04`. Compute handles derived faces (`02`, `03`, `08`, and links) without a user check. Each derived piece records its author: compute, model, or user. A model that authors something says so. If a derived face does not work, or something it needs is missing, the miss escalates for a check, by the path above. The Director, as dev, designs and answers the rules compute derives from.
+
+## Authors on sections
+Taken on `05.02 #01`. Each section carries one line under its heading, `by:`, naming its authors in order, for example `by: model claude-opus-5-5, user` for a model summary that quotes the user. Compute writes the line from who made the write. A quote keeps the user as its author inside the section. The header `who:` stays as the face's last writer. Later, the checker flags a section with no `by:`.
+
+## Sign, approve, lock
+Taken on `05.01 #07`. **Sign is a compute and model step:** the model finishes the page, and compute verifies it is finished and functional. Sign means "ready". It exists mostly for dev mode, "so nothing moves forward without me": approve, lock and promote stay the user's. `AGENTS.003.md` was amended to match (`05.02 #03`).
+
+## Two modes
+Taken on `05.02 #02`: "power user below page 1000".
+- **Dev mode** (power user), on the workshop desk and on pages below `1000`: commands; sign, approve and lock; every line reviewed.
+- **Talk mode** (average user), on pages `1000` and above: the user talks. The model records the conversation and does limited work to save it, "mostly recording the conversation with some limited work the user might use to save work". Compute and the model run the system behind the scenes. The user is asked only when authority is needed.
+
+The mode is set per desk, by the user. Where a calling differs between the modes, the table carries it per mode. The clerk reads the mode before it decides whether to ask.
+
+## Status
+Taken on `05.01 #08`. After a model runs a `05.NN`, it supplies the status for each `#NN`: what was done. Compute writes that status and closes the line. A model answering another model's line does it the same way, as a status, never as a reply.
+
+## The local mode
+Taken on `05.01 #09`; shaped on `05.02 #04`. Handing a user-only act down to a model is **local work**: a place where a model has authority to act to a greater degree.
+- **Engaged** by the user only, with one line at the desk: `#NN >grant local <shelf or book>`, listing the acts handed down (for example sign, approve and retire there, and answering workers there).
+- **Activated** by the clerk, which records it and shows it on the home screen while it is on. Compute checks every write in that place against the active grant.
+- **Ended** when the user withdraws it, or when its end date passes.
+- **Never handed down:** merge into `main`, grants, `AGENTS`, the kernel, money.
+
+## What the clerk gives the model first
+Confirmed on `05.01 #11`. **The clerk hands the model a cold-boot routine for the book it is using.** Each book is a local environment. Pages `0001` through `0009` are reserved for this: a localization ports a page in from the kernel, then applies its local rule changes. The cold boot carries:
+- the line or job
+- face `01` of the page
+- the book's rules, kernel pages ported and localized
+- the model's grant
+- the brands for the job's words
+- what already exists to point to
+- the last status on the line
+
+## The table, by act
+| act | answers | does | checks |
+| --- | --- | --- | --- |
+| header, stamp, address, version number, slot | compute | compute | compute |
+| hash, source block | compute | compute | compute |
+| derived faces: links, custody `08`, menu `03`, card `02` | compute (author recorded) | compute | compute; a miss escalates |
+| next `#NN` and next `05.NN` number | compute | compute | compute |
+| run the checker; find what waits; find unseen work | compute | compute | compute |
+| refuse a write (zone, grant, command, version, calling) | compute | compute | compute |
+| a choice compute cannot make from its rules | model, from compute's top list | model | compute |
+| the why and the body of a face | model | model | compute (shape), then user (review) |
+| issue, recommend, Ask on a line | model | model | compute (command on the list) |
+| `>note` a finding; `>stop` an escalation | model | model | compute |
+| status: what was done | model (supplies it) | compute (writes it, closes the line) | compute |
+| commit on a named branch when a line closes | model (closing the line) | compute | compute |
+| point to an existing page instead of writing a new one | model | model | compute (the page exists) |
+| sign (ready) | model | model | compute (finished and functional) |
+| reply | user | user | compute (blank before, user side only) |
+| approve, retire | user | compute (rename) | compute |
+| lock, promote | user | compute | compute |
+| merge into `main` | user | user (or compute on a button) | compute |
+| engage the local mode (`>grant local`); give or withdraw a grant | user | compute (activates, writes it) | compute |
+| two faces disagree | user | model files the hole | compute |
+| seat `AGENTS`, change the kernel, add a library, spend money | user | per job | compute |
+
+## How it is written down
+Taken on `05.01 #12`. The calling sits on the **desk command list**, with columns per command (answers, does, checks). A line's calling is read from its command. Every write is stamped with the hand that made it: `who: clerk` for compute, the model's id, or the user's name.
+
+## Where it lives
+Taken on `05.02 #05`. The rule (three hands, four parts, the climb, the two modes, the local mode) goes onto law `0003.operate` in `00.00.00.kernel.draft`, and the command list with its calling columns goes beside it as a law page of its own. Both go by a job to the coding prime: ticket `05.50` on this page. Each book ports both through its `0001` to `0009` and localizes them. Until the coding prime's drafts are seated, this page and `1008.app-plan/plan.8` are the drafts the clerk reads.
+
+## Replies: keep, take, and roll over
+Taken on `05.02 #06` and `#07`.
+- **`>keep`** accepts the proposal together with the amendments written in the reply. If the amendments align, the line is kept and closed. If they need changing, the line rolls over into the next batch.
+- **`>take`** is the recommendation plus any overflow the reply adds, to lock in the idea.
+- In both, if the model can work with the reply, it moves the line forward with a status and finishes the `#NN`. If anything is missed, it rolls over into the next `05.NN`.
+- `>decided` and `>confirmed` in a reply read as `>take`. Replies stay free-form and are not kicked back.
+
+### notes
+born: 2026-10-17
+source: director, `>run.05.02` on 1009.calling. Added authors on sections (#01), the two modes (#02), the AGENTS amendment (#03), the shape of the local mode (#04), where the calling lives (#05), and the meaning of keep and take (#06, #07). Nothing is still open on this face; the coding prime's ticket is 05.50.
+born: 2026-10-17
+source: director, `>run.1009.05.01`. Rewritten from the first proposal after the replies on 05.01: "person" became "user" (#01); the path of a question, with compute's forks and top list (#03); authors on derived faces (#04); sign as a compute and model step (#07); status written by compute (#08); the local mode (#09); the cold-boot routine (#11). The first proposal is not kept as a separate file: it was an unreleased draft, and its content is quoted on 05.01's lines.

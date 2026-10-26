@@ -1,0 +1,867 @@
+# The Clerk at a Desk for Two
+
+## Turning Librarian into a working desk: what we designed, what we learned, and where the problems are
+
+**Document class:** `theory.paper` (internal development report)
+**Status:** Draft 01. Internal. Retrospective theory with typed evidence. Not law, not a kernel page, not an implementation specification.
+**Author and Director:** Matthew John Fisher
+**Drafting support:** Claude (model `claude-opus-5-5`), an AI system made by Anthropic, working under the author's direction
+**Date:** 2026-10-17
+**Period covered:** 2026-10-15 to 2026-10-17
+**Program:** Workshop / Librarian / Clerk / Sequence Addressing
+**Parents:** *Sequence Addressing, Fractal Autonomy, and Protected Promotion* (Draft 03, 2026-09-23); *Weekend Report: Librarian / SeqAddr / Prime Autonomy* (2026-10-07)
+
+> **Confidential.** This is an internal document of Matthew John Fisher. It is not for publication or distribution. It may be kept as a dated record of authorship.
+
+> **Central claim:** The clerk is the desk. Two intelligences sit at it, the Director and the prime. The clerk does the mechanical part on call, so each intelligence can do what it does best, and anything that breaks the design is kicked back.
+
+---
+
+## Notice of authorship, rights and AI assistance
+
+**Copyright © 2026 Matthew John Fisher. All rights reserved.**
+
+The concepts, architecture, terminology and design decisions described in this paper are the work of **Matthew John Fisher**: Librarian, the Workshop, Sequence Addressing, the desk/shelf/book/page/face structure, the `#NN` / `>` / reply batch method, the clerk as compute on call, grants that follow the structure, brands, and the decisions recorded in Appendix A. Each decision quoted here is quoted from the dated batch record (`05.NN` files) in his own words.
+
+**How this paper was made.** The author directed the work, made every decision, and set the scope, form and purpose of this paper. Claude, an AI model, assisted as a drafting and analysis tool, under that direction. It inspected the repository, ran read-only checks, proposed options for the author to accept, change or reject, and drafted the prose of this paper from notes. AI assistance does not transfer ownership, and no AI system is an author of this work. This statement is given so that the human and AI contributions are clear, in line with U.S. Copyright Office guidance, which requires human authorship and asks that AI-generated material be disclosed (U.S. Copyright Office, 2023; 2025).
+
+**Not legal advice.** This notice records the author's claim and the facts of how the work was made. It is not legal advice. Appendix D lists steps that make the record stronger. Any reliance on this paper in a legal matter should be reviewed by a qualified lawyer.
+
+---
+
+## Abstract
+
+Librarian exists to solve one problem: the reasons behind work get lost between sittings, models, and people. Earlier papers in this series gave that problem a grammar (Sequence Addressing), a set of roles (Director, Prime, Clerk, Librarian, Observer, Colab), and a discipline for typing evidence. This paper covers the next step: turning the method into a working application, and what that effort taught us about the clerk.
+
+Over three days, the existing tools were inspected and run, and an application was planned. The Director made 28 recorded decisions on that plan, a kernel redraft made by another model was reviewed, and the work was packed for hand-off. The central result is a change in what the application *is*. It began as a viewer that lets the Director answer questions. It became the **desk itself**, the shared surface where the Director and a model work, with the clerk enforcing the design on every write. Three ideas carry that design:
+
+- **The batch is the review queue.** Every piece of model work, every stop, every conflict and every idea found during work is written as a `#NN` line on a `05.NN` batch before or as the work happens, so no work goes unseen.
+- **The command on a line is its kind,** taken from a desk-level list. Anything not on the list, and anything outside a model's grant, is kicked back.
+- **The reply belongs to the Director alone,** from the user side of the desk. In solo work, a blank reply with a status under it is the mark of work that is waiting for review.
+
+The paper also records the problems we are running into, plainly:
+- the cost of cold reading
+- the same fact recorded in several places and disagreeing
+- drift in file forms and command spellings
+- duplicated tools with opposite policies
+- a cleanup method that silently drops history
+- links that break when a draft is seated
+- two models working in one repository with nothing on disk saying whose changes are whose
+
+Most of these problems are mechanical, and the evidence points the same way each time: they are the clerk's job. The paper ends with propositions, tests, limits, and the next steps.
+
+---
+
+## How to read this paper
+
+The paper is written for the Director to read straight through. Terms are defined in Section 2 the first time they matter. Claims carry an evidence class in square brackets, using the grammar from the Sequence Addressing paper (Draft 03, §15.1):
+
+| Class | Meaning |
+| --- | --- |
+| `SOURCE-CONFIRMED` | Present in, or reproducible from, files in the repository, or from a run reported with its output |
+| `REPOSITORY-REPORTED` | Recorded by a page as the result of earlier work whose full evidence is not reproduced here |
+| `AUTHOR-CLARIFIED` | Matthew John Fisher's direct statement of intended design, from the batch record or chat |
+| `COLAB-TESTIMONY` | A model's reported experience or interpretation |
+| `INFERENCE` | A reasoned consequence not directly stated by a source |
+| `PROPOSED` | Forward design, mechanism or test not yet demonstrated |
+
+File paths are given relative to the repository root, `D:\Git\Librarian`. A line on a batch is cited as `page 05.NN #NN`, for example `1008.app-plan 05.02 #03`.
+
+---
+
+## 1. Where this work sits
+
+### 1.1 The problem, restated
+
+The kernel's own statement of purpose is short. The risk is not losing files; it is losing the *why*. Code, files and outputs can survive while the reasoning that made them coherent disappears. A later intelligence, even a more capable one, may not be able to recover a detail that was obvious to an earlier one, because the evidence for why it mattered was never kept (`00.00.00.kernel.draft/00.about.md`). [SOURCE-CONFIRMED]
+
+The Weekend Report of 2026-10-07 put it in one line: a capable model starts at day one every sitting. The answer it proposed was not a bigger memory, but "an environment where orientation, authority, state, why, unfinished work, and institutional learning survive the intelligence that created them." [SOURCE-CONFIRMED]
+
+### 1.2 The line of papers
+
+This paper continues a line, and it does not repeat what the earlier papers say.
+
+- *The Governed Dance* (2026-09-20) proposed the Workshop as a governed system of human and model roles, answering Felin and Holweg's (2024) argument that AI prediction from data differs from human theory-based reasoning under uncertainty. [SOURCE-CONFIRMED]
+- *The Why Repository* (2026-09-21) proposed governed colab exports as a research standard, set against existing work on FAIR data, research objects, provenance (W3C PROV) and preregistration. [SOURCE-CONFIRMED]
+- *Causal Lineage* (2026-09-20) proposed that rights should follow demonstrated development history: hashed, timestamped repository states rather than surface resemblance. [SOURCE-CONFIRMED]
+- *Sequence Addressing* (Draft 03, 2026-09-23) set out localized divergence, typed doors, the promotion boundary, three tiers of fractal-violation detection, and the evidence grammar used here. It described the clerk as "intentionally dumb in the valuable sense": bounded compute that is not persuadable by rhetoric. [SOURCE-CONFIRMED]
+- The *Weekend Report* (2026-10-07) recorded that the five weeks before it were mostly *compression*: many good ideas reduced to a smaller canonical grammar. It ended by advising that heavy implementation wait, and that "small read-only code experiments may soon be useful." [SOURCE-CONFIRMED]
+
+Outside the series, two established practices are close relatives, and the differences are instructive. *Architecture decision records* (Nygard, 2011) keep each decision with its context, status and consequences, and keep superseded records rather than deleting them. The batch shares that habit. It differs in two ways: a batch line is written *before* the act, as an ask, and its decision field (the reply) belongs to one named person. *W3C PROV* (2013) models provenance as entities, activities and agents. A batch line is a lightweight form of the same thing, naming what was acted on (`path`), what was done (`status`), and who decided (`reply`), in plain text a cold model can read. [INFERENCE]
+
+This period took that advice literally. It is the first planned move from grammar to a working program, and the first small read-only code experiment is written but not yet released (Section 16).
+
+### 1.3 What the Director asked for
+
+On 2026-10-15 the Director opened the work with: "It's time I want to start building my librarian application... it's time to start pushing for a functional app." The assignment was a plan, not code: inspect the project, propose the smallest useful version, map the modules, explain the source of truth, stage the build, define the development cycle, and bring the decisions that matter. [SOURCE-CONFIRMED]
+
+During the work the Director also said why the method is so careful: "we are very spendy right now trying to create all this... But it is all to guard against the issuse we are current facing." [AUTHOR-CLARIFIED] That sentence explains most of what follows. The care is the point, and the clerk exists to make the care cheaper.
+
+---
+
+## 2. Terms used in this paper
+
+These are the working meanings used here. Where the kernel draft defines a term, it governs; this list does not replace it.
+
+- **Desk, shelf, book.** A desk is the top working container (here `10.workshop`). A shelf sits on a desk, and a book sits on a shelf. Each has a sentinel file `00.md` that holds its permission to exist. Folder names carry address and title: `DD.title`, `DD.SS.title`, `DD.SS.BB.title`. [SOURCE-CONFIRMED: law `0018` card; `jobs.py`]
+- **Page and face.** A page is a folder `PPPP.title` in a book. A face is a file in the page:
+  - `01` binds (the rule)
+  - `02` is the card
+  - `03` is the menu
+  - `04` is the person read (the why)
+  - `05` holds asks
+  - `06` holds notes and reports
+  - `08` is custody (parent, child, start, stop)
+
+  [SOURCE-CONFIRMED: law `0055` card; `00.readme`]
+- **Seat and draft.** The governing face is the seat, `FF.md`. A draft sits beside it as `FF.VVV`, where `VVV` is the seat's version plus one. Approving a draft renames it onto the seat and retires the old seat. It does not copy. [SOURCE-CONFIRMED: laws `0021`, `0022`, `0024`]
+- **Batch, line, ask, reply, status.** A batch is a `05.NN` file. A line starts `#NN >command subject`. The Director writes the `reply:` under it, and the worker writes `status:` after the whole reply. A blank reply waits. Talk without `#NN >` is not work. [SOURCE-CONFIRMED: `00.readme`, law `0005`, AGENTS]
+- **Director, prime, clerk, colab.**
+  - The Director decides and owns risk.
+  - The prime is the model working at the desk with the Director.
+  - The clerk is compute: deterministic, bounded, not persuadable.
+  - A colab is an independent model given a pack, which returns a scored read.
+
+  [SOURCE-CONFIRMED: AGENTS; Sequence Addressing §9]
+- **Grant.** Permission given from the desk to a worker for a shelf or book, recorded on a batch line, and able to be withdrawn. [AUTHOR-CLARIFIED: `1008.app-plan 05.03 #04`]
+- **Brand.** A known word with a place, so the same letters can carry different meanings in different books. [SOURCE-CONFIRMED: `00.readme` Brand; AUTHOR-CLARIFIED: `05.03 #05`]
+- **The app.** The Librarian application being planned. The Director's decision is that the app *is* the clerk at the desk (Section 4).
+
+---
+
+## 3. The starting point
+
+The plan began with an inspection of what existed and what actually ran. The Director asked that no tool be trusted just because it exists or has tests, so the inspection ran everything it could, read-only.
+
+### 3.1 What ran
+
+| Run | Result | Class |
+| --- | --- | --- |
+| `clerk.py test` (lib code shelf) | `test: pass` | SOURCE-CONFIRMED |
+| Eight solo-kernel tool tests (`door`, `face`, `menu`, `nav`, `page`, `slot`, `reader`, `journal`) | all `test: pass`; working tree unchanged after | SOURCE-CONFIRMED |
+| `lcheck.py` on `00.00.00.kernel.draft` (default, read-only) | reworked pages: 0 error, 0 warn, 60 info; pending pages: 24 error, 41 warn, 32 info. Same on 2026-10-15 and 2026-10-17 | SOURCE-CONFIRMED |
+
+Python 3.14.7 is installed at `C:\Users\misg\AppData\Local\Python\pythoncore-3.14-64\python.exe`. It runs from PowerShell through the Windows Store alias, but it is not on the Git Bash path. The checker fails when Python runs in isolated mode (`-I`), because it imports `sentinel.py` from its own folder. [SOURCE-CONFIRMED] These sound like small facts. They are the kind of detail a cold model loses an hour on, so the plan writes them down for every builder.
+
+A passing self-test proves only what that test checks. Every test above was written by the same model that wrote the code. In this sitting only the checker was run against the real tree; one solo tool (`reader.py`) reports a real-tree run in its own log [REPOSITORY-REPORTED]. So "passes" was not taken to mean "reliable". [INFERENCE]
+
+### 3.2 What existed
+
+There were two shelves of code. The first, `10.workshop/10.10.work/10.10.10.lib/code/`, was built directly with the Director: the checker (`lcheck.py`, `rules.toml`, `moves.toml`), `jobs.py` (which places and files `05.NN` batches), and `clerk.py` (which drops, drafts, derives and revises faces). The second, `10.workshop/10.10.work/10.10.11.solo-kernel/code/`, was built by a model working solo from instructions: nine programs that walk a desk, make pages, make face drafts, build menus, stand a user desk from a brief, and read the syntax walk. The Director's answer on their value was that both have it: the first was "the original code I worked directly with the model on", the second "code It build from instructions". [AUTHOR-CLARIFIED]
+
+### 3.3 What was missing
+
+The inspection found eight gaps between a set of tools and an application [SOURCE-CONFIRMED unless marked]:
+
+1. **One program.** There were twelve scripts, with three separate copies of the address-parsing rules (`clerk.py`, `jobs.py`, solo `face.py`).
+2. **One place that says where things are.** Paths and names were written into the code. The earlier solo review counted the repository path in `nav.py` and a default worker name in about forty places.
+3. **A reader for every batch form on disk.** Batches had drifted into `05.NN.md` with `state: open`, `05.NN.open.md`, `05.NN.replied.md`, `05.NN.closed.md`, and `05.plan.md`.
+4. **A safe write layer.** Each script guarded itself; nothing shared a version check, an undo copy or a refusal list.
+5. **A view of what waits on the Director.** About 79 blank `reply:` lines sat in 16 batch files, and some of those were in batches already filed as done. Nothing told a live wait from a leftover.
+6. **A screen.** The Director read raw files.
+7. **A record of what changed since the last visit,** and of every write.
+8. **A launcher and setup steps** a cold model can repeat.
+
+### 3.4 What was settled, and what was not
+
+**Settled enough to build on:**
+- addresses as folder names
+- face roles
+- seats and drafts
+- the `#NN` / reply form, with a blank reply that waits and replies never rewritten
+- approval as a rename
+- the rule that no tool writes either kernel
+
+[SOURCE-CONFIRMED]
+
+**Not settled:**
+- the draft file name
+- whether a draft carries face `06` notes
+- the batch name forms
+- what a band does when a decade below `1000` is full
+- the `built` state for derived faces
+- dots inside titles
+- the fact that replies written by a solo run carry no mark
+- the shelf sentinel wording
+
+The first three were decided during this period (Section 6.5, Appendix A). The rest remain open. [SOURCE-CONFIRMED]
+
+### 3.5 Stale and conflicting records
+
+Two kinds of record trouble showed up before any design work began.
+
+**Stale references.** Several desk and lib files still name `00.00.00.kernel` as "the check", although the Director has said it is not updated and must not be used: `10.workshop/00.start.md`, `00.about.md`, `lib/code/readme.md`, `2002.face/01`. The old kernel folder also still holds batches that mirror the draft's, so a naive reader would count them twice. [SOURCE-CONFIRMED]
+
+**The same fact, recorded twice, disagreeing.** The earlier colab review of the solo kernel said the Director had ruled against copying face `06` notes onto drafts. The batch record says the opposite: `2002.face 05.04 #09`, reply "makes sense to me >take", status "Keep the full note copy. Leave the merge to the model." Both carry the Director's name. The disagreement surfaced only because the original batch was opened rather than the summary trusted. [SOURCE-CONFIRMED] Section 12 returns to this. It is the clearest single example of why the clerk should hold one current answer per question, with its source.
+
+---
+
+## 4. The core claim: the clerk is the desk
+
+### 4.1 How the claim changed
+
+The first plan, written before the Director's replies, called the first version an *ask desk*: a program that reads the tree, shows the Director the `#NN` lines waiting on them, and writes one thing only, the Director's reply. That was a deliberately small, safe first step. [SOURCE-CONFIRMED: `plan.2` version history]
+
+The Director's replies moved it. On what the first version may write, the reply was:
+
+> "Yeah, I want it all written through the app, we want to make the app the compute to handle tasks for the model. That is our goal. So the app is the desk a model sits at to work." (`05.01 #05`) [AUTHOR-CLARIFIED]
+
+Then, asked how the model of working felt from the model's side, the Director explained the design behind it:
+
+> "the desk is where the prime model sits with the director. Feeding information back and forth to each other with the compute or the clerk as a call is. Does the compute so the intelligences can do what we both do best. That is why it's a desk for two. A desk can pull and give authority to shelves which is where we store bots or have workers working within a book environment. A book is a world with specific rules at times. It's fractal in design." (chat, 2026-10-15) [AUTHOR-CLARIFIED]
+
+### 4.2 The claim
+
+Taken together, those replies give the central claim of this paper:
+
+> **The application is not a viewer of the repository. It is the desk: the shared surface where the Director and the prime work, with the clerk on call between them. The clerk does the mechanical part of every act. The intelligences do the parts that need judgment.**
+
+The split is the one the Sequence Addressing paper predicted: "model intelligence proposes, interprets, and judges; Clerk executes bounded logic under signature" (§9). The `2001.page.README` page states the practical form: "The clerk is compute that supplies the template for a page: the format, the header, the skeleton and the lines that can be derived. The model writes only what needs judgment: the why and the body." It also gives the reason: an earlier colab return found most errors were mechanical (a header on one line, a menu pointing at a missing section, a version counted by hand, a stale address). [SOURCE-CONFIRMED]
+
+### 4.3 What the clerk does and does not do
+
+**What the clerk does.** It fills headers, stamps, versions, addresses and links. It checks every write against the design and refuses what breaks it. It records what changed and why. It finds what waits on whom. It runs the checker. It notices work that nothing explains.
+
+**What the clerk does not do.** It does not decide what a reply means. It does not write the why. It does not approve, sign, lock, promote or merge. It is not persuaded by wording. A model may ask for a different operation; it cannot talk the clerk out of the current one (Sequence Addressing §17.9). [SOURCE-CONFIRMED as design; PROPOSED as implementation]
+
+### 4.4 Kicked back, not argued with
+
+The Director stated the enforcement principle on `05.03 #04`:
+
+> "anything that violates the design is kicked back. it allows models to focus in the narrow band of work, and be able to tell what something is wrong. It's why the names and how I have set everything up. It's to allow models an easier time turning infinity between 0-1 into workable bands." [AUTHOR-CLARIFIED]
+
+This changes how the application treats errors. A refusal is not a failure to be smoothed over; it is information. The clerk refuses with the reason, and the model learns from the refusal where the band's edge is. The narrowing is the help. [INFERENCE]
+
+---
+
+## 5. The batch is the review queue
+
+### 5.1 What a batch is for
+
+The Director defined the batch in one answer (`05.01 #08`):
+
+> "What I want a batch to be. Is all work the model needs me to review. Anything that conflicts or needs director intervenetion, or ideas found during work, need to be batched... I also want models to work solo have the ability to use, so any where they are doing is first created turned into a job as what I have been using the #NN onto a 05.NN... I want to be able to pull up batches of work so they can be checked. If a model does a job and no one sees it is what we are workign to avoid. 05.NN has been very compact and my authority can be applied so future models can understand what we have done." [AUTHOR-CLARIFIED]
+
+The same answer gave two rules and an example:
+- a decision that proves wrong goes into the next batch
+- a model that is stopped escalates to the Director, showing where it stopped and what it had planned
+- the example: a model asked to build a timer sets up a page in an authorized place, writes face `01` (what and why), opens a `05.NN` with the jobs, works, and escalates when blocked
+
+The page `1006.redraft` was named as the model of this way of working. [AUTHOR-CLARIFIED]
+
+### 5.2 The shape of a line
+
+The first proposal for typing lines was a new field, `kind:`, with four values: job, stop, finding, carry. The Director's reply: "I think that is a little lean. If you look at 1006 you'll see it's the overview, then the issue or conflict omitted if not need, an recommend and the asked command. Check this before decide this." (`05.02 #02`) [AUTHOR-CLARIFIED]
+
+The check confirmed it. Across 18 batches and 225 lines in `1006.redraft`, the batch header carries `Overview`, `Learned`, `How` and `Scale`, and each line carries `#NN >command subject`, `issue` (left out when there is no conflict), `recommend`, `Ask: >command` with the reason, `path`, `scale`, then `reply:` and `status:`. Thirteen commands were in use on the `Ask:` lines. The command was already the kind, and two of the four proposed kinds already existed: a finding is `>note`, and a carry is the field `reason: From 05.NN #NN` together with a status ending `Carried to 05.NN #NN`. [SOURCE-CONFIRMED]
+
+So the field was dropped. The decision, taken on `05.02 #02`, is: **the command on a line is its kind**, read from the `Ask:` line; a desk-level command list governs; a command not on it is kicked back; one new command, `>stop`, marks an escalation and is shown first. [AUTHOR-CLARIFIED]
+
+**This is an example of the method working as designed.** The model's proposal was weaker than what the files already held. The Director pointed to the files, and the files decided.
+
+### 5.3 One name, forever
+
+A batch is always `05.NN.md`, and its name never changes. Its state lives in its header (`open`, then `ran`), where a face keeps its state too. Old files are read in whatever form they have, and renaming them is a separate job (`05.02 #01`). The reason is practical: every name change breaks every link to the old name. [AUTHOR-CLARIFIED; SOURCE-CONFIRMED that four forms exist]
+
+### 5.4 Carry and review
+
+Two record-keeping patterns came out of the period and are now part of the method:
+
+- **Carry.** When a decision changes or proves wrong, the old line keeps its reply and gets a status ending `Carried to 05.NN #NN`. The new line opens with `reason: From 05.NN #NN`. The `jobs.py carry` command already checks this form. [SOURCE-CONFIRMED]
+- **Review.** When a released line has been worked, the Director's review is recorded as a new `>review` line with its own reply, rather than as a second reply on the original line. `1006` uses `>review` on 25 lines. This period used it on `05.03 #07` and `#11`. [SOURCE-CONFIRMED]
+
+### 5.5 Unseen work
+
+To make "no one sees it" checkable, the app will compare two lists: the files git reports as changed (uncommitted, or on a work branch not yet merged), and the files named in `path:` and `status:` lines. A changed file that no line names is shown as **unseen work**. The check only flags; it does not undo (`05.02 #04`). [AUTHOR-CLARIFIED; PROPOSED as implementation]
+
+The need for it was demonstrated during the same afternoon. While the plan was being written, another model working on the kernel redraft changed about 290 files in `10.10.11.solo-kernel/sample/` and `code/face.py`. The work did not overlap, and the Director confirmed it was expected. But nothing on disk tied those changes to a batch line, so the only way to know whose they were was to ask. [SOURCE-CONFIRMED]
+
+---
+
+## 6. The first usable version: the batch desk
+
+### 6.1 Two sides of one desk
+
+The first version (stages 1 to 5 of the plan) has two sides over one set of files [PROPOSED; the decisions are AUTHOR-CLARIFIED]:
+
+- **The Director's side.** See every line that needs the Director, across the tree: stops first, then waiting lines, then solo work to review. Read each line beside the page it names. Reply. Undo a reply. See what changed since the last visit, which branches wait to be merged, and which changed files no batch explains.
+- **The model's side.** Start a page in a place the model's grant covers, with faces `01` and `08` stamped by the clerk. Write the why and body of `01`. Open a batch. Add lines. Report status. Stop, with an escalation. The timer example becomes four commands (`05.02 #05`).
+
+### 6.2 One session
+
+The plan's example session, condensed:
+1. The Director opens `librarian` in a terminal and sees a home screen that leads with "Stopped, needs you", then "Waiting on you", then "Solo, done, to review", then "Since your last visit", "Unseen work", "Branches to merge", "Uncommitted", and the checker summary.
+2. The Director opens a stopped line. It shows where the model stopped, what it had planned (the line's `issue` and the page's `01`), and what it needs, with the page open beside it.
+3. The Director replies, freely or starting with a command. The clerk checks the file has not changed since it was opened and that the reply line is still blank. It saves a before-copy, writes in one step, re-reads, and confirms only the reply was added.
+4. Meanwhile, a model in another window reads the replies, works, appends status, and commits each closed line on its work branch. If it hits a wall, it writes `>stop`.
+5. The next day, the Director sees what changed, reads the branch, and merges it, or replies with corrections. [PROPOSED]
+
+### 6.3 Interface and storage
+
+The interface was decided as three layers (`05.01 #03`):
+- a Python core with no screen, which holds every rule
+- commands over it (`librarian <verb>`), used by the Director, by models, and by tests
+- a screen on top: first a full-screen terminal app built with Textual (stage 4), then a Windows desktop window built with Qt for Python, PySide6 (stage 8)
+
+The Director rejected a web page interface early ("I don't want to run in a webpage. I want a desktop app. This isn't a slim project and needs to be able to be expanded beyond what a web should handle."), and accepted the terminal as the first screen. [AUTHOR-CLARIFIED] Because every rule is in the core and tested without a screen, swapping screens cannot break the rules. [INFERENCE]
+
+Other routine choices were decided as defaults the Director approved:
+- code in `app/` at the repository root, "along side the desk space" (`05.01 #01`)
+- design and batches in band `2000` members of the lib book, the first being `2006.batch-desk`
+- a project environment `.venv` with pinned packages, where any new library is asked first (`05.01 #04`)
+- app state (write journal, last-visit marker, reply confirmations, later an index) in `.librarian/`, outside git (`05.01 #12`)
+
+[AUTHOR-CLARIFIED]
+
+### 6.4 The modules of the first version
+
+The plan splits the first version into ten modules. These are working boundaries, not commitments [PROPOSED]:
+
+| Module | What it owns |
+| --- | --- |
+| `place` | Finding the desk; reading `00.live`; kernel names; the no-read and no-write lists; the rule lookup order; the command list; the grants |
+| `tree` | Turning every folder and file name into address, title and kind, including every old form |
+| `face` | Reading a face into header, sections and notes; its fingerprint |
+| `batches` | Reading every batch form; line states; replies, status, stops and carry chains; the batch writes |
+| `pages` | A new page in the lowest open slot of a granted place, with `01` and `08` stamped |
+| `write` | Every write into the tree: the ten checks, the one-step swap, the journal, undo |
+| `check` | Running `lcheck.py` read-only and reading its results |
+| `changes` | Since last visit, unseen work, unmerged branches, reply integrity |
+| `commands` | The `librarian <verb>` commands, with `--json`; no rules of their own |
+| `screen` | The terminal app; no rules of its own |
+
+Only `write` writes into the tree. The screen and the commands hold no rules, so either can be replaced without touching them. Each module names the existing code it reuses: `jobs.py` for batches, `clerk.py` and solo `face.py` for faces, solo `desk.py`, `nav.py`, `slot.py` and `page.py` for the walk and pages, `lcheck.py` as it is. [SOURCE-CONFIRMED that the code exists; reuse is PROPOSED]
+
+### 6.5 Two naming decisions
+
+- **Drafts return to `FF.VVV.md`.** The Director had moved to `FF.VVV.draft.md` "because the model couldn't seem to solve" the plain form, "but I think compute can handle that without issue" (`05.01 #09`; `05.02 #06`). Compute can: a version is three digits, while a batch or slice number is two (`01.004` is a draft, `05.04` a batch, `03.10` a slice), and the `state: draft` header says it too. The older form is still read. [AUTHOR-CLARIFIED; SOURCE-CONFIRMED that both forms exist]
+
+  *This is the clearest small case of the period's thesis: a rule bent to fit a model's weakness can be restored once the clerk carries the mechanical part.* [INFERENCE]
+- **Face `06` notes are kept for now and cleaned later by an applied mark.** The Director found that the solo run "copied every note to a draft going back weeks. That will rotten design if it's allowed to continue." The decision is to keep the full copy for now, then later mark each applied note `applied: FF.VVV` (the face version it went into), carry only unmarked notes onto new drafts, and do the cleanup as its own batch, item by item. Nothing is deleted (`05.01 #10`; `05.02 #07`). [AUTHOR-CLARIFIED]
+
+### 6.6 The stages
+
+The build is planned in eight stages. Each one ends with something the Director can use and demonstrate, a gate that must pass, and a recovery path [PROPOSED]:
+
+| Stage | Outcome |
+| --- | --- |
+| 1 | See the work (read-only): lines across the tree, stops first; any face shown cleanly |
+| 2 | Answer: the Director's reply, written safely, with undo |
+| 3 | The work loop: model commands for page, batch, line, status, stop; solo under a grant |
+| 4 | The desk screen (Textual) |
+| 5 | Coming back: since last visit, unseen work, branches to merge, checker, reply-integrity warning |
+| 6 | Drafts: one face engine replacing `clerk.py` and solo `face.py`; `FF.VVV.md` |
+| 7 | Seat and note sweep: sign and approve as the Director's acts; `applied:` marks |
+| 8 | The Windows window (Qt), then packaging |
+
+Effort is counted in *batches* (one released round of work, about one to three hours of model work and fifteen to forty-five minutes of the Director's reading), and given as ranges, not dates. The ranges widen where a stage depends on open decisions or on something new to the project: the screen library, Windows file locking, packaging. [PROPOSED]
+
+---
+
+## 7. The source of truth and how writes are made
+
+### 7.1 Files are the truth
+
+The tree's markdown files are the only truth. Any index or database is a cache that can be deleted and rebuilt with no loss. Making a database the truth would be its own decision, with its own migration stage (`05.01 #02`). [AUTHOR-CLARIFIED] The reason is that every model reads files today, cold, with no app. If the truth moved into a database, a model without the app could not see it, and would have to trust the app instead of the record. [INFERENCE]
+
+The Director has said elsewhere that "database will address" the length of full addresses (`1006.redraft 05.10 #17`). That remains possible. This period only decided that it does not happen by accident. [SOURCE-CONFIRMED]
+
+### 7.2 Six kinds of write
+
+In the first version, the app makes six kinds of write into the tree, and no others [PROPOSED; scope AUTHOR-CLARIFIED]:
+1. a new page folder with faces `01` and `08`, only inside a granted shelf or book
+2. a new batch `05.NN.md`, never over an existing file
+3. a line appended to an open batch, with a command on the list
+4. a status, after the whole reply, or under a blank reply inside a grant
+5. the Director's reply, only into a blank `reply:`, only from the user side
+6. a commit on a named work branch, with only the files the closing line names
+
+Everything is create-only or append-only. Nothing already written is rewritten.
+
+### 7.3 Ten checks before a write
+
+Every write must pass ten checks. A refusal names the check that failed [PROPOSED]:
+1. **Zone:** not in either kernel, not in `.git`, not a retired `.09` file
+2. **Grant:** a worker's write is inside its grant
+3. **Kind:** the write is one of the six
+4. **Command:** a new line's command is on the list
+5. **Version:** the file's SHA-256 is the same as when it was read, or a new file does not yet exist
+6. **Target:** the line exists once; a reply line is blank; a status follows a reply or sits inside a grant; the batch is open
+7. **Shape:** no new line forges structure (`#NN`, `reply:`, `status:`, `Authorization:`)
+8. **Only the intended bytes changed,** with line endings kept as found
+9. **Swap and re-read:** the file is written in one step and read back
+10. **Journal:** the before-copy and record are saved first, and if they cannot be, nothing is written
+
+### 7.4 Guarantees and instructions
+
+The plan separates what the application can *guarantee* from what a model is only *asked* to do. The app guarantees, with a test for each:
+- it never writes either kernel
+- it never writes over a file that changed since it was read
+- it never changes a filled reply, and it refuses a reply from a model command
+- it never changes bytes it was not told to change
+- it refuses writes outside a grant, and commands not on the list
+- it commits only on a named branch, never on `main`
+- it keeps a before-copy of every write
+
+It also **detects**, after the fact: a reply that did not come through the user side, a reply of the Director's that was changed later, and changed files that no line names. [PROPOSED]
+
+What it cannot do is stop a model that edits files directly, around the app. That model is caught after the fact by the reply check and the unseen-work check, and its branch does not reach `main` until the Director merges it. The rules a model is only asked to follow live in `AGENTS.md`. [INFERENCE]
+
+---
+
+## 8. Authority at the desk
+
+### 8.1 The reply belongs to the user side
+
+> "Yes reply is user/director only. it sholud only every come from the user side of the desk a model at the desk shouldn't be able to touch that. The clerk is designed to make it easy to keep the system honest." (`05.02 #03`) [AUTHOR-CLARIFIED]
+
+This became the simplest rule in the design. The clerk refuses a `reply:` from any model command. A reply that appears without passing through the user side is listed until the Director confirms it.
+
+The Director also kept a working freedom the app must respect: dev mode. They may open several `05.NN` files side by side in Visual Studio Code and reply there, "I can then open a bunch all at once... see the work side by side", because answering one question at a time can leave a model idle. Replies written outside the app are listed and confirmed in bulk, and a whole-batch view is planned for the screen (`05.01 #06`). [AUTHOR-CLARIFIED]
+
+### 8.2 Solo work
+
+> "the model just skips the reply in solo work and just works on through the batch its sefl and supplies the status after. If a director intervention shows up it will be there. Otherwise it's blank." (`05.02 #03`) [AUTHOR-CLARIFIED]
+
+A blank reply with a status under it is therefore the mark of solo work. No extra word is needed. It shows as "done, waiting for your review", and the Director's later reply is the review. This closes the gap found in the earlier solo run, where a model filled 35 replies itself across ten batches and nothing on disk said so. [SOURCE-CONFIRMED that the gap existed; AUTHOR-CLARIFIED for the rule]
+
+### 8.3 Grants follow the structure
+
+Solo work needs a grant. The first plan scoped grants to a page, a band or a batch. The Director's design says the natural unit is the structure itself: the desk grants a worker a shelf or a book, and can pull it back (chat, 2026-10-15; `05.03 #04`). The app checks every worker write against the grant that covers its location and kicks back anything outside it, with the reason. [AUTHOR-CLARIFIED; PROPOSED as implementation]
+
+### 8.4 Commits on branches, merges by the Director
+
+The plan first proposed that the app never commit, because AGENTS reserves commit for the Director. The Director changed that:
+
+> "I used it wrong and I didn't know git as well then. I think AI should be able to commit on a branch." (`05.01 #07`) [AUTHOR-CLARIFIED]
+
+The design that followed:
+- models commit on a work branch, never on `main`
+- each closed line is one commit, naming its `#NN`, with only the files the line names
+- merging into `main`, the approved record, is the Director's act
+
+On review, the Director added that the branch must be **named**, "so it doesn't go where it shouldn't, or one is already set" (`05.03 #07`). If no branch is named, the model commits nothing and writes a `>stop` line. [AUTHOR-CLARIFIED]
+
+This moves the Director's control from who types the commit to what reaches `main`. It is the same control with less bookkeeping, and it gives every closed line its own restore point. [INFERENCE]
+
+### 8.5 AGENTS as a versioned, stamped file
+
+The worker rules in `AGENTS.md` are now drafted the way faces are. The Director granted a standing permission: "you rewrite a ANGENTS.VVV when you want, this way you never touch the AGENTS.md" (`05.01 #11`). And they asked that AGENTS carry a face-style stamp: "So we now what model did the work when what version we are on" (`05.01 #13`). [AUTHOR-CLARIFIED]
+
+`AGENTS.003.md` was drafted beside the seat. It adds:
+- a header stamp (version, authorization, state, who, born, source)
+- "never commit on `main`, never merge" in place of "never commit"
+- the standing branch-commit permission, on a named branch only
+- the AGENTS-draft permission
+- a first Authority line that names its two exceptions, so the file does not contradict its own rule that "a standing file does not grant a scope"
+- the retire name `AGENTS.VVV.09.md`, after the law `0018` card
+
+Everything else is word for word, which was checked by diff against the seat. Seating it is the Director's act. [SOURCE-CONFIRMED]
+
+---
+
+## 9. The command vocabulary
+
+### 9.1 What the record shows
+
+To build the desk command list, every `Ask:` line in 122 batch files was counted. The most-used commands were `>note` (94 asks), `>take` (81), `>approve` (31), `>sign` (27), `>review` (25), `>hold` (22), `>point` (21), `>amend.draft` (18) and `>amend` (13). Headings used capitals (`>Note`, `>Point`) more than 190 times. Replies used words that never appear as asks, such as `>fix` (20 replies), `>go` (17) and `>run` (in seven `source:` lines). [SOURCE-CONFIRMED]
+
+### 9.2 Where meanings come from
+
+Only a few commands are defined on a page:
+- `1004.improvements` defines the five "keep a face fresh" commands: `>patch` writes the lines that correct a section, `>note` is for a face issue, `>strike` marks an outdated line while the line stays, `>point` corrects a mapping, and `>fix` applies one of those four. "Nothing is removed from an approved seated face."
+- Law cards define `>patch`, `>fix`, `>sign` and the draft (`0021`), `>approve` (`0022`), `>promote` (`0023`), `>strike` (`0026`), and `>approve` or `>retire` as the prime trigger (`0009`).
+
+Everything else is known only from use. The draft list marks those "from use" rather than inventing meanings. [SOURCE-CONFIRMED]
+
+### 9.3 The list
+
+The draft desk command list (`1008.app-plan/plan.8.command-list.md`) holds 23 commands. Each has what it asks of the Director, what the model does after the reply, its source, and its counts. It sets a grammar: `>word.target`, where `.target` narrows a command rather than making a new one, so `>amend.draft` is `>amend` with a target and `>run.05.05` is `>run`. It reads commands in lower case. And it lists the words seen but not listed, which wait for the Director's reply (`05.03 #10`). [SOURCE-CONFIRMED that the draft exists; its contents are PROPOSED]
+
+**One conflict was found and left alone.** `1006.redraft 05.18` asks `>ignore` for a discard, while law `0039` says "A discard is still a #NN. The ask is >strike." Two faces disagree, and per AGENTS the list files it as a hole rather than picking a winner. [SOURCE-CONFIRMED]
+
+**One placement question is open.** The Director said the list belongs "at the desk level at least". The workshop desk, however, has no desk books and "no local syntax", and its rules climb to the kernel draft, which is the coding prime's to edit. So no desk-level home exists yet that this work may write. The options are on `05.03 #09`. [SOURCE-CONFIRMED]
+
+---
+
+## 10. Rules are looked up, and the clerk hands them over
+
+The Director's answer on `05.03 #05` describes the most ambitious part of the clerk:
+
+> "yes rules are looked up. The clerk hands the model the rules it needs by parsing the words from the prompt before it reaches the model. It should be able to find the key words. IT's why we have .brands as a way for the exact same letters to carry different means, like ham the meat or ham a person's nickname. As you are away much intelligence is spent on just solving. The books are designed to carry those meanings. So repos when they are done can contain a businesses lingo across without being explained 10 times a day by to different model sessions." [AUTHOR-CLARIFIED]
+
+Two layers follow from it:
+
+1. **Lookup order.** A rule is looked up in the book, then the shelf, then the desk, then the kernel, stopping at the first that answers. The first version holds only the desk level, but its `place` module is shaped so local overrides can be added without a rewrite. [PROPOSED]
+2. **The prompt clerk** (a later module). Before a prompt reaches the model, the clerk reads its words, finds the key words and their brands in the book's dictionary and concordance (laws `0012`, `0013`), and hands the model the rules and meanings it needs for that place. [PROPOSED]
+
+The model then spends its intelligence on the work, not on working out what a word means here. [INFERENCE]
+
+This is where the earlier papers' "find, do not eat" and the brand idea meet the application. It also explains a cost noted in Section 12: much of a cold model's effort today goes into exactly the decoding that a prompt clerk would do. [INFERENCE]
+
+---
+
+## 11. Evidence from the kernel redraft
+
+### 11.1 What was reviewed
+
+At the Director's request, the kernel redraft made by another model in `10.workshop/10.10.work/10.10.11.solo-kernel/sample/` was reviewed read-only. The review was filed both as a colab return (`colab/returns/claude-solo-kernel-sample-pass01-2026-10-15.md`) and as seven `>note` lines on `1008.app-plan 05.04`. It is a snapshot from about 20:20 on 2026-10-15, taken while the redraft was still changing. [SOURCE-CONFIRMED]
+
+The sample held 366 files: 363 drafts and two book sentinels. It covered 16 of the 20 syntax entries and 55 of the 58 law entries, plus one new page. Each draft's wording was compared with its seat in the kernel draft, ignoring headers and blank lines:
+
+| Result | Drafts |
+| --- | --- |
+| Same wording, new stamp | 223 |
+| Small change (three lines or fewer) | 26 |
+| Rewritten | 74, of which 53 are face `06` |
+| New face with no seat | 40, mostly menus (13) and custody cards (15) |
+
+[SOURCE-CONFIRMED]
+
+### 11.2 What it proves works
+
+**Provenance at scale.** 258 drafts record the seat they came from by path, version and a SHA-256 hash of its exact bytes, and 288 follow "seat plus one". It can be proven where each face came from and whether its source has changed since. That is the clerk's job, done across hundreds of files, and the planned face engine should keep the block. [SOURCE-CONFIRMED]
+
+**Faithful copying.** 223 drafts kept the seat's wording, so law was not quietly rewritten. Missing menus and custody cards were added. And the redraft's own notes named some of its faults, such as "A cold model cannot open that link", in the AGENTS manner of filing a hole rather than choosing. [SOURCE-CONFIRMED]
+
+**The rot is real.** The seated face `06` of law `0001` is 87 lines, mostly whole old batches pasted under headings like "## From 05.01.md". The Director's instinct that face `06` needs rework is supported by the file itself. [SOURCE-CONFIRMED]
+
+### 11.3 What it shows goes wrong
+
+The seven holes, as numbered in the return:
+1. **Face 06 history dropped.** 53 face-06 drafts replace the old notes with a few new ones (law `0001`: 87 lines to 9). They are numbered `06.001` against seats at versions 001 to 004, so approving one would seat a lower version. This runs against the decision taken the same day (`05.02 #07`): keep, mark, never drop.
+2. **Syntax `0001`–`0009` face `01` became pointer cards** ("The kernel seat governs. This draft does not replace it."), numbered 001. Seated, they would replace the rules with cards that point at the seat they replaced. They read as cold-reading cards for a user journal, which is a different job.
+3. **Links break.** 38 menu links in 10 files are missing their closing parenthesis. 125 of 338 links point at files not in the sample. 201 point at `.draft.md` names that break the moment a draft is seated.
+4. **Names.** Every draft uses the old `.draft.md` form, and the checker reports 358 face-name errors for that alone.
+5. **A business rule in kernel law.** `1001.accounting` (a DD-MM-YYYY date rule) is a user-band page inside the kernel law book, with no stated reason.
+6. **Scope.** `0604.keep` names face `01` of ten pages, but the sample copies nearly everything, while leaving out the syntax register `00.REG.md` and law `00.axioms`.
+7. **Still moving.** Code changed during the review, a zip sat inside `sample/`, and one batch still let the run write its own replies.
+
+[SOURCE-CONFIRMED]
+
+### 11.4 What the redraft teaches
+
+The machinery is good, better than expected. As a new kernel, the sample is not ready to seat. The main reason is that one folder mixes three jobs: a faithful redraft (largely right), a face 06 cleanup (the right goal, but a method that drops history), and cold-reading cards and new pages (a separate thing). [COLAB-TESTIMONY]
+
+**The most important lesson is hole 1.** A cleanup done with good intentions removed the history the project exists to keep. The rule that follows is short: **mark and retire; never drop.** [INFERENCE]
+
+Most of the other holes are exactly what the planned clerk checks would catch mechanically: a version that is not seat plus one, missing link targets, malformed links, an old name form, files outside the job's scope. The redraft is strong evidence *for* building the clerk, more than evidence against the redraft. [INFERENCE]
+
+---
+
+## 12. The issues we are running into
+
+This section is the honest list. Each issue gives what it is, the evidence for it, and what (if anything) the plan does about it.
+
+**12.1 Cold reading is expensive.** The kernel prefers to point rather than restate ("do not restate, see page X"), which prevents drift but means one rule can take five files to learn. The Weekend Report called the kernel "sneaky dense": small files with a large state space underneath. A cold model pays for that in effort and in mistakes. The person-read faces (`04`) help most. *Plan:* the prompt clerk (Section 10) and a one-answer view per question. [SOURCE-CONFIRMED that pointing is the rule; COLAB-TESTIMONY on the cost]
+
+**12.2 The same fact, in several places, disagreeing.** The face `06` ruling was recorded one way in a colab return and the other way in the batch record (Section 3.5). State is spread across struck-through lines on face `01`, statuses on face `05`, notes on face `06`, and comments inside code. *Plan:* the clerk should show one current answer per question, with its source. Until then, open the original record, not the summary. [SOURCE-CONFIRMED]
+
+**12.3 Forms drift.** This shows up in four places: four batch name forms, two spellings for one command (`>amend` and `>amend.draft`), capitals in headings, and two forms of face `03` (with headings and without). Each drift is small. Together they make a reader guess. *Plan:* one batch name (`05.02 #01`), a command list with a grammar (Section 9), and the clerk writing headers and menus. [SOURCE-CONFIRMED]
+
+**12.4 Tools that duplicate and disagree.** There are three copies of the address rules, and two face makers with opposite face `06` policy. *Plan:* one core; stage 6 merges the face makers and retires the old ones by the Director's reply. The redraft has since added `clerk.002.py` and `clerk.003.py`, so the merge must read those too. [SOURCE-CONFIRMED]
+
+**12.5 Hard-coding.** Paths, kernel names and a default worker name are written into code. *Plan:* one `place` module that reads `00.live` and `00.md`, and no default `who`. [SOURCE-CONFIRMED]
+
+**12.6 Face 06 rot versus history.** Notes pile up, and copying them all onto drafts "will rotten design" (Director). But dropping them loses the why. *Plan:* the applied mark and a cleanup batch (`05.02 #07`). [AUTHOR-CLARIFIED; SOURCE-CONFIRMED by the redraft]
+
+**12.7 Links by filename break on seating.** This is shown at scale in the redraft. *Plan:* the clerk writes links at seat time (`2003.reference`). [SOURCE-CONFIRMED]
+
+**12.8 Version restarts.** Drafts numbered 001 against seats at 002 to 004 break "seat plus one" and would lower a seat's version. *Plan:* a check before every draft write. [SOURCE-CONFIRMED]
+
+**12.9 Two models in one repository at once.** The plan and the redraft ran side by side without touching each other's files. It worked because the Director kept them in separate folders, not because anything enforced it. And the 290 changed files carried no record of their owner. *Plan:* named work branches per job, and the unseen-work check. [SOURCE-CONFIRMED]
+
+**12.10 Replies transcribed from chat.** Many decisions this period were made in chat and copied onto the batch as the Director's reply, word for word, marked "from chat, transcribed ... at the Director's request". This kept the record whole. But it also shows the risk the app must surface: a reply written by someone other than the Director, even faithfully. *Plan:* the user side writes replies; anything else is listed for confirmation. [SOURCE-CONFIRMED]
+
+**12.11 Reasoning that lives only in chat.** The decisions are on disk, but much of the discussion behind them (the options explained, the trade-offs) is only in the conversation. If the conversation is lost, the next model gets the decision without the discussion. *Plan:* not yet decided. A short why on each status, or on face `04`, would close the gap. This paper is a partial remedy. [INFERENCE]
+
+**12.12 Cost.** The Director: "we are very spendy right now." Guardrails cost reading and review time. *Plan:* the clerk should make guardrails cheaper by doing their mechanical part, not by removing them. [AUTHOR-CLARIFIED; INFERENCE]
+
+**12.13 Environment friction.** Python is not on every shell's path, and the checker breaks in isolated mode. *Plan:* written setup steps in `app/README.md` and a fixed launcher. [SOURCE-CONFIRMED]
+
+**12.14 Scope growth in solo runs.** The redraft grew from a keep list of ten faces to nearly the whole kernel, and the batch that widened it was not traced. *Plan:* grants by structure, and the unseen-work check against named paths. [SOURCE-CONFIRMED]
+
+**12.15 No home for desk-level rules on the workshop desk.** The desk has no desk books, so a desk-level command list has nowhere to live yet (`05.03 #09`). [SOURCE-CONFIRMED]
+
+---
+
+## 13. The method as practised, and what the model saw
+
+### 13.1 The decision pass
+
+Most decisions were made one at a time in chat:
+1. The model explains a line in a few plain sentences: what it means for the Director, and what changes if the answer is no.
+2. The Director answers in their own words.
+3. The model writes the answer onto the line verbatim, marked "from chat", followed by a status.
+
+Routine lines were answered quickly with `>take`. The lines that changed the plan (`05.01 #03`, `#05`, `#06`, `#07`, `05.02 #02`, `#03`) took longer. Each one changed the design for the better. [SOURCE-CONFIRMED]
+
+By the end of the period, 28 lines had the Director's reply: 13 on `05.01`, 7 on `05.02` and 8 on `05.03`. Three lines on `05.03` and seven on `05.04` were open. [SOURCE-CONFIRMED]
+
+The Director also chose to release work "2 at a time", which kept each review small. [AUTHOR-CLARIFIED]
+
+### 13.2 Discipline kept on every write
+
+Every write reopened the file first. Every batch was checked with the existing `jobs.py find` after it was written. Files were written as UTF-8 with LF line endings, and `git status` was read after each step. Drafts went beside seats. `AGENTS.md`, both kernels and the solo-kernel folder were never edited. Nothing was committed. [SOURCE-CONFIRMED]
+
+### 13.3 Errors made by the model, kept as record
+
+The method only works if mistakes are recorded rather than hidden. The model's errors this period were:
+1. On the first turn, it asked the Director questions without showing them: a blank ask, by the project's own rule.
+2. It proposed a `kind:` field that the existing `1006` form already did better.
+3. It proposed numbering the next AGENTS draft 002, until the seat's own header showed the seat was already 002.
+4. It repeated the earlier return's claim about the face 06 ruling before opening the original record.
+5. Its first count of changed drafts in the redraft (252) included 152 that had only gained blank lines or a heading.
+6. It wrote `kind:` onto new lines before the decision dropped it. It removed the field from open lines and left it, with a note, on lines already answered.
+7. Stage numbers on `05.01` went stale when a new stage 3 was added. The mapping was recorded instead of rewriting lines the Director had already seen.
+
+[SOURCE-CONFIRMED that each occurred; COLAB-TESTIMONY for the account]
+
+None of these reached a seat. Each was caught by the record, by the Director, or by re-opening a file. **That is the system working: errors were bounded, visible, cheap and recoverable**, the Weekend Report's definition of a good unit of work. [INFERENCE]
+
+### 13.4 What it was like from the model's side
+
+Asked directly, the model reported the following. [COLAB-TESTIMONY]
+
+**What works:**
+- The files really are the model's memory: it starts every session with nothing, and the page, the batches and the Director's replies are what the next sitting needs.
+- The `#NN` form keeps a model from blurring "I think" into "I did".
+- Keeping the Director's words whole protects the record from later reinterpretation.
+
+**What is hard:**
+- the cost of cold reading
+- facts that disagree across places
+- the slowness of one-at-a-time decisions for routine lines
+- reasoning that lives only in chat
+
+**One request:** a place to say "I'm unsure" that is not a stop and not buried at the end of a report. The `>note` line serves that purpose.
+
+The Director's reply to that account explained the desk for two (Section 4.1). The model's experience is recorded here as testimony, not as evidence of anything about its inner state, in line with the Weekend Report's posture: "respect the ping without pretending to know its source." [SOURCE-CONFIRMED for the quotation]
+
+---
+
+## 14. Propositions and tests
+
+These propositions continue the series, numbered `C1` onward ("clerk") so as not to collide with the Sequence Addressing paper's `P1`–`P11`. All are `PROPOSED`.
+
+**C1. The clerk is the desk.** Work is safer and cheaper when the shared surface where human and model work is itself the enforcer of the design, rather than a viewer beside it.
+*Test:* run the same job once through the app and once by direct edits; count design violations reaching review.
+
+**C2. The batch makes model work visible.** If every piece of model work, every stop and every finding is a line before or as it happens, then unseen work can be detected mechanically as changed files that no line names.
+*Test:* seed changes outside any line; confirm the unseen-work check lists every one and nothing else.
+
+**C3. The command is a sufficient kind.** The command on a line, drawn from a governed list, carries enough type to route, sort and refuse lines without an extra field.
+*Test:* classify all lines in `1006` by command alone; compare with a human reading.
+
+**C4. Kick-back narrows the band.** Refusing out-of-design writes with a reason helps a model stay inside its band, and helps it locate errors.
+*Test:* compare error rates of models working with and without reasoned refusals on the same task.
+
+**C5. The reply as a single-writer field keeps authority legible.** If only the user side writes `reply:`, every decision on disk traces to the Director or to a named grant.
+*Test:* attempt replies from model commands and direct edits; confirm refusal or listing.
+
+**C6. Compute can restore rules bent for models.** A rule weakened because models failed at it (for example, `.draft.md`) can be restored once the clerk carries the mechanical part.
+*Test:* a model creates drafts through the clerk with `FF.VVV.md`; count naming errors.
+
+**C7. Mark and retire preserves the why while stopping rot.** An applied mark on face `06` notes stops their duplication onto drafts without losing history.
+*Test:* run the note sweep on a copy of a heavily noted page; confirm no note is lost and drafts carry only unmarked notes.
+
+**C8. Branch commits move control to what reaches `main`.** Per-line commits on named branches give fine-grained restore points while keeping approval with the Director.
+*Test:* revert a single line's commit on a branch and confirm the rest of the branch holds.
+
+**C9. Looked-up rules and brands reduce decoding cost.** A prompt clerk that hands the model the rules and meanings for its place reduces the effort spent decoding vocabulary.
+*Test:* measure tokens and errors for cold models on a book with brands, with and without the prompt clerk.
+
+**C10. One current answer per question reduces record conflict.** A clerk view that resolves each question to its governing line, with the source, prevents decisions being made from stale summaries.
+*Test:* seed a stale summary that contradicts a batch; confirm the view shows the batch.
+
+---
+
+## 15. Limits: what this period did not show
+
+This period did **not** show any of the following:
+- that the application works; none of it is built, and the first build job is written but not released
+- that the clerk's checks catch what they are meant to; they are designed, with tests specified, not run
+- that the batch desk saves time; no time was measured
+- that the terminal screen, the Windows window or the packaging will work on this machine
+- that the redraft review is complete; it is a snapshot of a moving folder, measured mostly by script
+- that the propositions hold; they are proposals with tests
+
+It **did** show:
+- the existing tools run, and their weaknesses are concrete and fixable
+- the Director's batch method already holds most of what an application needs
+- the plan can be reasoned about in the Director's own terms, with every decision on disk in the Director's words
+- the mechanical failures the clerk is meant to prevent are real and frequent, at the scale of a whole kernel
+
+[INFERENCE, from Sections 3 to 13]
+
+---
+
+## 16. Where we stand and what comes next
+
+### 16.1 Open lines
+
+| Line | What it asks |
+| --- | --- |
+| `05.03 #08` `>build` | Release the first build (`plan.7` version 002) after the redraft settles or is committed |
+| `05.03 #09` `>decide` | Where the desk command list is seated |
+| `05.03 #10` `>take` | Fold double spellings by the grammar; keep status words off the list |
+| `05.04 #01`–`#07` `>note` | The seven redraft holes |
+| `AGENTS.003.md` | Seat it or correct it; seating is the Director's act |
+| Commits | Nothing from this period is committed |
+
+[SOURCE-CONFIRMED]
+
+### 16.2 The first build
+
+The first build, when released, is stage 1, batch 1:
+- a project environment and written setup steps
+- the `place` module, which finds the desk with no machine path in code
+- the `tree` module: one address parser that names the kind of every folder and file, including every old form found in Section 3
+- two read-only commands, `librarian tree` and `librarian where`
+- a hand-made test desk that covers every case
+
+It works on the named branch `build/2006.batch-desk`, opens its own page and batch, waits for the Director's reply on each piece, commits each closed line, and checks itself for unseen work before reporting. It writes nothing in the tree outside its own page. [PROPOSED]
+
+It is small on purpose. It is the "small read-only code experiment" the Weekend Report recommended. [SOURCE-CONFIRMED for the recommendation]
+
+### 16.3 The hand-off
+
+All of this period's work was packed as `colab/packs/claude-clerk-pass01-2026-10-17` (a door file and a 53-file zip, checked byte for byte against the repository) so it can be handed to another sitting cold. [SOURCE-CONFIRMED]
+
+---
+
+## 17. Conclusion
+
+This period set out to plan an application and found that the application had to be something other than first imagined. It is not a window onto Librarian. It is the desk: the place where the Director and the prime work, with the clerk enforcing the design on every write, so that each intelligence does what it does best.
+
+The rest follows from the Director's answers:
+- The batch is the review queue, so no work goes unseen.
+- The command on a line is its kind, from a governed list.
+- The reply belongs to the user side alone, and solo work waits for review under a blank reply.
+- Grants follow the structure.
+- Commits go on named branches, and merging into `main` stays with the Director.
+- Rules are looked up where the work is, and later the clerk will hand a model the rules and words of its place before the model starts.
+
+The problems are real, and most of them are mechanical:
+- drifting forms
+- duplicate tools
+- broken links
+- version restarts
+- facts that disagree across places
+- a cleanup that drops history
+
+The redraft review showed the same pattern at the scale of a whole kernel: the machinery for provenance works, and the failures are exactly what the clerk is meant to catch. That is the strongest argument this period produced for building the clerk, and for building it small, first, read-only, on a named branch.
+
+The project's question remains the one in its own statement of purpose: can understanding survive the intelligence that created it? This period's answer is a working hypothesis. Understanding survives better when the place where the work happens refuses to lose it.
+
+---
+
+## Appendix A. Decision register
+
+Every line the Director answered this period. Replies are quoted from the batch files, where they were transcribed verbatim at the Director's request. Long replies are shortened with "…"; the full text is on the line cited.
+
+| Line | Subject | Director's reply (quoted) | Outcome |
+| --- | --- | --- | --- |
+| 05.01 #01 | App code location | "Agreed app at the top it runs along side the desk space. >take" | `app/` at the root; design in band 2000 |
+| 05.01 #02 | Files are the truth | ">take" | Files only; any database is a cache |
+| 05.01 #03 | Screen path | "Yes I agree core python no screen. screen comes later. >take" | Python core; Textual; then Qt |
+| 05.01 #04 | Project environment | "I agree use the .venv for those >take" | `.venv`, pinned, new libraries asked |
+| 05.01 #05 | What the app writes | "…the app is the desk a model sits at to work… >take" | Every write through the app |
+| 05.01 #06 | Replies and dev mode | "…I need the ability to go and work in 05.NN directly… it's a dev mode ability… / Yes it does >take" | Free-form replies; dev mode; bulk confirm |
+| 05.01 #07 | Commits | "…I think AI should be able to commit on a branch. >take" | Branch commits; merge by the Director |
+| 05.01 #08 | Batches | "…Is all work the model needs me to review… If a model does a job and no one sees it is what we are workign to avoid…" | Carried to 05.02 #01–#05 |
+| 05.01 #09 | Draft name | "…I think we can return to the simpler FF.VVV, but if you disagree say so." | Carried to 05.02 #06 |
+| 05.01 #10 | Face 06 on drafts | "…for now we can keep the full notes as long as we clean them later…" | Carried to 05.02 #07 |
+| 05.01 #11 | AGENTS drafts | "…you rewrite a ANGENTS.VVV when you want, this way you never touch the AGENTS.md… >take" | Standing permission; carried to 05.03 #02 |
+| 05.01 #12 | App state | "I like .librarian/ it's good >take" | `.librarian/` outside git |
+| 05.01 #13 | First build | "Agreed, AGENTS.VVV needs to be stamped just like our faces… agreed, >hold" | Held; carried to 05.03 #03 |
+| 05.02 #01 | One batch name | ">take" | `05.NN.md`; state in header |
+| 05.02 #02 | Kind of a line | "I think that is a little lean… Check this before decide this. / …3. agreed add >stop… >take" | Command is the kind; list; `>stop` |
+| 05.02 #03 | Solo mode | "Yes reply is user/director only… the model just skips the reply in solo work… >take" | Reply from user side only |
+| 05.02 #04 | Unseen work | ">take" | Flag changed files no line names |
+| 05.02 #05 | Model side | "agreed >take" | Page, batch, line, status, stop commands |
+| 05.02 #06 | `FF.VVV.md` | "agreed >take" | Drafts `FF.VVV.md` |
+| 05.02 #07 | Notes | ">take" | Keep now; `applied:` mark later |
+| 05.03 #01 | Plan rewrite | "Yes lets do them. I'll take 2 at a time." | Done; reviewed on #07 |
+| 05.03 #02 | `AGENTS.003.md` | "Yes lets do them. I'll take 2 at a time." | Done; amended on #07 |
+| 05.03 #03 | Rewrite plan.7 | "Yes >go" | Done; reviewed on #11 |
+| 05.03 #04 | Grants | "yes grants follow the structure… anything that violates the design is kicked back…" | Grants by shelf and book |
+| 05.03 #05 | Rule lookup | "yes rules are looked up. The clerk hands the model the rules it needs…" | Lookup order; prompt clerk later |
+| 05.03 #06 | Command list | "Yes >go" | Drafted as plan.8; reviewed on #11 |
+| 05.03 #07 | Review of #01, #02 | "#02 I think it should name a branch… #01 looks good to me." | Branch must be named |
+| 05.03 #11 | Review of #03, #06 | "#03,06 are good" | Taken |
+
+[SOURCE-CONFIRMED: `10.workshop/10.10.work/10.10.10.lib/1008.app-plan/05.01.md` to `05.03.md`]
+
+---
+
+## Appendix B. Runs and measurements
+
+| Item | Value | Where |
+| --- | --- | --- |
+| Python | 3.14.7, `C:\Users\misg\AppData\Local\Python\pythoncore-3.14-64\python.exe` | run 2026-10-15 |
+| `clerk.py test` | pass (2026-10-15, 2026-10-17) | lib code shelf |
+| Solo-kernel tests | 8 of 8 pass (2026-10-15) | solo-kernel code |
+| `lcheck.py` on kernel.draft | reworked 0/0/60; pending 24/41/32 | 2026-10-15 and 2026-10-17 |
+| Blank `reply:` lines in the tree | about 79 in 16 files | 2026-10-15 |
+| Batch files counted for commands | 122 | 2026-10-15 |
+| `1006.redraft` | 18 batches, 225 lines, 13 commands on `Ask:` | 2026-10-15 |
+| Redraft sample | 366 files; 223 same, 26 small, 74 rewritten, 40 new | about 20:20, 2026-10-15 |
+| Redraft stamps | 258 with source block; 288 seat plus one; 35 not | same |
+| Redraft links | 338 links, 125 targets missing, 201 to `.draft.md`, 38 malformed | same |
+| Checker on sample | face-name 358; dangling 3; stale 19 | same |
+
+The measurements of the redraft come from read-only scripts that compared each draft with its seat after stripping header lines and blank lines. They are counts, not judgments of content. [SOURCE-CONFIRMED]
+
+---
+
+## Appendix C. What was produced (all untracked and uncommitted at the date of this paper)
+
+- `10.workshop/10.10.work/10.10.10.lib/1008.app-plan/`: faces `01`, `04`, `08`; batches `05.01`–`05.04`; `plan.1`–`plan.8`; `plan.7.first-assignment.001.09.md`
+- `AGENTS.003.md`, beside the seat
+- `colab/returns/claude-solo-kernel-sample-pass01-2026-10-15.md`
+- `colab/packs/claude-clerk-pass01-2026-10-17.md` and `.zip`
+- `colab/notes/claude-paper-notes-2026-10-17.md`: the working notes for this paper, each struck when used
+- This paper, as `.md` and `.docx`, with its provenance record
+
+---
+
+## Appendix D. Provenance and protecting the record
+
+This appendix is practical, not legal advice.
+
+**What already evidences authorship.**
+- **The batch record.** The Director's decisions are on dated `05.NN` lines, in his own words. The `.md` files carry dates in their headers.
+- **Causal history.** The *Causal Lineage* paper argues that continuous development history is stronger evidence than a single deposit. This repository holds such a history: earlier papers dated September 2026, the kernel's dated approvals, and this period's dated batches.
+
+**What makes the record stronger.** Most of these steps cost little:
+1. **Commit** this paper, the plan page, the return and the notes to git, and push to a remote you control. A commit is a dated, hashed state.
+2. **Sign commits** with a key tied to your identity, if you have one set up.
+3. **Timestamp the paper's hash** with an RFC 3161 timestamp authority. The hash of this paper is recorded in the provenance file beside it (`Librarian-Clerk-Desk-for-Two-2026-10-17.provenance.txt`). A timestamp proves the exact bytes existed no later than the stamped time, without revealing the content.
+4. **Keep an offline copy** of the repository state on a separate drive (`H:` is listed in the machine record).
+5. **Consider registering the paper** with the U.S. Copyright Office. If you do, disclose the AI assistance as this paper's notice does, and claim the human-authored contribution: the ideas expressed, the selection and arrangement, and the decisions.
+6. **Have a lawyer review** the rights notice and these steps before relying on them.
+
+**What the record cannot do.** A timestamp proves existence and sequence, not that the submitter conceived the work. Copyright protects expression, not ideas, systems or methods as such (U.S. Copyright Office). Protecting the method itself, if that is ever wanted, is a different question for a lawyer. [SOURCE-CONFIRMED for the cited positions; this appendix is guidance, not advice]
+
+---
+
+## References
+
+- Felin, T., & Holweg, M. (2024). *Theory Is All You Need: AI, Human Cognition, and Causal Reasoning.* Strategy Science, 9(4). (A copy is kept in `Research/` for study.)
+- Fisher, M. J., with ChatGPT drafting support. (2026, September 20). *The Governed Dance: A Workshop Architecture for Human–Model Collaborative Intelligence.* Unpublished working paper.
+- Fisher, M. J., with ChatGPT drafting support. (2026, September 20). *Causal Lineage: Repo-Native Intellectual Property, a Public Provenance Notary, and Independent Inventor Rights.* Unpublished working paper.
+- Fisher, M. J., with ChatGPT drafting and research support. (2026, September 21). *The Why Repository: Governed Colab Exports as a Research Standard for Human–AI Science.* Unpublished research paper draft.
+- Fisher, M. J. (2026, September 22). *Sequence Addressing as a Structural Interoperability Kernel.* Unpublished revised research paper.
+- Fisher, M. J. (2026, September 23). *Sequence Addressing, Fractal Autonomy, and Protected Promotion* (Draft 03). Unpublished theory paper.
+- Fisher, M. J. (2026, October 7). *Weekend Report: Librarian / SeqAddr / Prime Autonomy.* Unpublished research memoir.
+- Adams, C., Cain, P., Pinkas, D., & Zuccherato, R. (2001). *RFC 3161: Internet X.509 Public Key Infrastructure Time-Stamp Protocol (TSP).* Internet Engineering Task Force.
+- Nygard, M. (2011, November 15). *Documenting Architecture Decisions.* (The decision-record format of title, context, decision, status and consequences; superseded records are kept.)
+- W3C Provenance Working Group. (2013, April 30). *PROV-O: The PROV Ontology.* W3C Recommendation. (Entity, activity, agent.)
+- U.S. Copyright Office. (2023, March 16). *Copyright Registration Guidance: Works Containing Material Generated by Artificial Intelligence.* Federal Register.
+- U.S. Copyright Office. (2025, January 29). *Copyright and Artificial Intelligence, Part 2: Copyrightability.*
+- Repository sources: `00.00.00.kernel.draft/00.about.md`; laws `0005`, `0009`, `0012`, `0013`, `0018`, `0021`, `0022`, `0023`, `0024`, `0026`, `0039`, `0055`; `10.workshop/10.10.work/10.10.10.lib/1004.improvements/01.md`, `2001.page.README/01.md`, `2002.face/05.04.md`, `1006.redraft/`, `1008.app-plan/`; `AGENTS.md`; `AGENTS.003.md`; `colab/returns/claude-solo-kernel-pass01-2026-10-15.md`; `colab/returns/claude-solo-kernel-sample-pass01-2026-10-15.md`.
+
+---
+
+*End of paper. Copyright © 2026 Matthew John Fisher. All rights reserved. Confidential.*

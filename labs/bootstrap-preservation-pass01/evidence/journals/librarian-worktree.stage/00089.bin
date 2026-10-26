@@ -1,0 +1,67 @@
+# 05.02
+
+Authorization: draft — 2026-10-17
+who: claude-opus-5-5
+created: 2026-10-17 14:51:21
+written: 2026-10-17 14:51:21
+state: open
+task: 02
+Face: 05
+PPPP: 0401
+desk: 10.workshop
+shelf: 10.10.work
+book: 10.10.12.rebuild
+keyword: project
+why: Batch. What must be settled before 0501.stand-book can be handed to the builder, and how a batch shows it is ready. A blank reply does not release a line.
+
+cite: 3.4.8
+
+Overview:
+`05.01` ran. Its #04 and #05 were carried here: the imports need compute that does not exist yet.
+The prime tested the tools `0501` names on this book's layout, in a temp folder, on 2026-10-17. `face.py new` writes a correct first face (`FF.md`, full stamp). `clerk.py drop` and `revise` add and change sections. No tool imports a face from another book into a page with no prior face as `FF.md`.
+`#02` and `#03` are the two things the builder needs before it can commit anything. `#04` is how a batch shows it is ready for a worker.
+Learned:
+A batch's name never changes (`10.workshop/10.10.work/10.10.10.lib/1008.app-plan/05.02.md` #01). Readiness belongs in the header, like open and ran.
+How: One decision is one #NN. The recommend and the Ask name the same command. Your reply may take, change, hold or reject.
+Scale: 1 a literal walk halts. 2 two lawful lines. 3 a careful sitting survives. 4 wording. 5 no break.
+
+#01 >decide the import compute
+placed: 2026-10-17
+reason: From 05.01 #04 and #05.
+issue: An import brings a face from another book into a page here. Your rule: a face with no prior version takes the seat as `FF.md`. Tested: `clerk.py draft` and `face.py draft` both write `01.003.md` (source version plus one) into an empty page; `clerk.py draft` also drops the `who:` line and copies the source page's face `06` notes; `face.py draft` refuses a draft as its source, and every page in the solo sample is a draft.
+recommend: I think we should >decide a change to the clerk, made after it is ported: in `0305.clerk`, the worker writes `02.clerk.002.py` (the next version beside the seat, by `0300.band.compute/05.01.md` #01) whose `draft --from` does this when the page has no prior face: writes `FF.md` with `version: 001`; keeps `who:`; accepts a seat or a draft as source; records `source path`, `source version` and `source hash`; does not carry face `06` notes, which stay on their own page. Its test proves each. Then `0501` #04 and #05 run with it. Order: `0502` #01 (loader) and #04 (clerk port), then this change, then `0501` #04 and #05.
+path: `10.workshop/10.10.work/10.10.12.rebuild/0305.clerk/`; `10.workshop/10.10.work/10.10.12.rebuild/0501.stand-book/05.01.md` #04, #05
+scale: 1
+Ask: >decide Change the ported clerk as 02.clerk.002.py so an import into an empty page is FF.md with its source block.
+
+reply: agreed all imports are to be aligned if import can't do this leave it with its .VVV and write a new seated draft.  recommend >take. 
+
+#02 >decide how the builder may commit
+placed: 2026-10-17
+issue: The builder boots from `AGENTS.md` (version 002), which says "Never commit". `0501` says commit on branch `rebuild`. The branch-commit permission is in `AGENTS.003.md`, which is not seated.
+recommend: I think we should >decide to seat `AGENTS.003.md` before the run: `AGENTS.md` becomes `AGENTS.002.09.md` and `AGENTS.003.md` becomes `AGENTS.md`. That is your act. Branch commits on a named branch are then the standing rule, and the builder needs no special words. Other ways: your reply on each `0501` task says commit on `rebuild` is allowed for this job; or no commits this run, and the files are committed afterwards.
+path: `AGENTS.md`; `AGENTS.003.md`
+scale: 2
+Ask: >decide Seat AGENTS.003 before the run, grant commits in the replies, or no commits this run.
+
+reply: AGENTS.003 is now seated. 
+
+#03 >decide where the builder works
+placed: 2026-10-17
+issue: If the builder runs `git checkout rebuild` in `D:\Git\Librarian`, the redraft model's uncommitted work in the solo kernel moves with it. The prime committed onto `rebuild` without switching, with git's lower-level commands; that is many steps for a builder to get right.
+recommend: I think we should >decide a separate worktree: `git worktree add D:\Git\Librarian-rebuild rebuild`. The builder writes and commits there, on `rebuild`. `D:\Git\Librarian` stays on `main` for the redraft model. Your review copy of the book is then in `D:\Git\Librarian-rebuild`; the untracked copy in this folder is left until you merge. Other ways: wait until the redraft model is done and switch this folder; or the builder commits without switching, as the prime did.
+path: `D:\Git\Librarian-rebuild`
+scale: 2
+Ask: >decide A worktree for rebuild, switch this folder after the redraft, or commit without switching.
+
+reply: I agree branch Librarian-rebuild for gitworktree. >approved
+
+#04 >decide how a batch shows it is ready for a worker
+placed: 2026-10-17
+issue: You asked whether a `.ready` tail would let you see it in dev mode. A batch's name never changes (`1008.app-plan 05.02` #01), and its state already lives in the header (`open`, then `ran`).
+recommend: I think we should >decide a header state, not a tail: `state: ready`, between `open` and `ran`. The prime sets it only after a readiness check, and the batch's Overview names which lines are ready and which still wait, with why. The check: every line to be run has your reply; every `Waits on` is met; every tool a task names was tested on this book's layout; the commit permission and the place to work are settled. A worker runs only a batch in `state: ready`, and only its ready lines. `jobs.py find` already prints the state, so `state ready` shows in dev mode. Later, a `ready` command in the ported `jobs` does the check; today's `jobs.py ready` renames a batch to `05.NN.replied.md`, the old form, and is not used.
+path: `10.workshop/10.10.work/10.10.12.rebuild/0501.stand-book/05.01.md`; `10.workshop/10.10.work/10.10.10.lib/code/jobs.py` (`ready`)
+scale: 2
+Ask: >decide Readiness is state: ready in the header, set after the prime's check. No .ready tail.
+
+reply: agreed add the ready state >take
