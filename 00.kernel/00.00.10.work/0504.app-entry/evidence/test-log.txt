@@ -1,0 +1,396 @@
+PASS pinned sources still match the manifest
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py where --root D:\Git\lib-build
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 0
+stdout:
+desk: 00.kernel
+work_book: 00.00.10.work
+workflow_space: 0
+current_work: 00.kernel/00.00.10.work/0504.app-entry/05.01.md
+pack: 00.kernel/00.00.10.work/0504.app-entry/05.01.md
+assignment_state: returned
+runtime_book: 00.00.01.law
+runtime_space: 0
+runtime_band: 0300-0399
+runner: 00.kernel/00.00.01.law/0302.run/02.run.002.py
+runner_sha256: 4a962d3a6edd26428b75e27ad82113708e510a1e770522d34b9e8bb11ec2b0f4
+
+stderr:
+
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py validate --root D:\Git\lib-build
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 0
+stdout:
+desk: 00.kernel
+work_book: 00.00.10.work
+workflow_space: 0
+current_work: 00.kernel/00.00.10.work/0504.app-entry/05.01.md
+pack: 00.kernel/00.00.10.work/0504.app-entry/05.01.md
+assignment_state: returned
+runtime_book: 00.00.01.law
+runtime_space: 0
+runtime_band: 0300-0399
+runner: 00.kernel/00.00.01.law/0302.run/02.run.002.py
+runner_sha256: 4a962d3a6edd26428b75e27ad82113708e510a1e770522d34b9e8bb11ec2b0f4
+validate: pass
+
+stderr:
+
+PASS real workspace where and validate
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py test-run --root D:\Git\lib-build\app\scratch\fixture --candidate 00.kernel/00.00.01.law/0310.inventory/02.inventory.py --sha256 dd6a78b5a3781fe840e68950805b9838e569095d15dac3c678f00782341ed69b
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 0
+stdout:
+desk: 00.kernel
+work_book: 00.00.10.work
+workflow_space: 0
+current_work: 00.kernel/00.00.10.work/0504.app-entry/05.01.md
+pack: 00.kernel/00.00.10.work/0504.app-entry/05.01.md
+assignment_state: released
+runtime_book: 00.00.01.law
+runtime_space: 0
+runtime_band: 0300-0399
+runner: 00.kernel/00.00.01.law/0302.run/02.run.002.py
+runner_sha256: 4a962d3a6edd26428b75e27ad82113708e510a1e770522d34b9e8bb11ec2b0f4
+fixture: 0504-inventory-pass01
+runner_resolved: D:\Git\lib-build\00.kernel\00.00.01.law\0302.run\02.run.002.py
+payload: 00.kernel/00.00.01.law/0310.inventory/02.inventory.py
+payload_sha256: dd6a78b5a3781fe840e68950805b9838e569095d15dac3c678f00782341ed69b
+output: output/inventory.json
+output_sha256: 1b465c3517a5b4575a3ff5b2cdbeeb37220d83b262afb5f69864b292093e13c0
+result: pass
+
+stderr:
+
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py test-run --root C:\Users\misg\AppData\Local\Temp\librarian-0504-reloc-5_nvx8wf\fixture --candidate 00.kernel/00.00.01.law/0310.inventory/02.inventory.py --sha256 dd6a78b5a3781fe840e68950805b9838e569095d15dac3c678f00782341ed69b
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-other-l_1mgm0d
+exit: 0
+stdout:
+desk: 00.kernel
+work_book: 00.00.10.work
+workflow_space: 0
+current_work: 00.kernel/00.00.10.work/0504.app-entry/05.01.md
+pack: 00.kernel/00.00.10.work/0504.app-entry/05.01.md
+assignment_state: released
+runtime_book: 00.00.01.law
+runtime_space: 0
+runtime_band: 0300-0399
+runner: 00.kernel/00.00.01.law/0302.run/02.run.002.py
+runner_sha256: 4a962d3a6edd26428b75e27ad82113708e510a1e770522d34b9e8bb11ec2b0f4
+fixture: 0504-inventory-pass01
+runner_resolved: D:\Git\lib-build\00.kernel\00.00.01.law\0302.run\02.run.002.py
+payload: 00.kernel/00.00.01.law/0310.inventory/02.inventory.py
+payload_sha256: dd6a78b5a3781fe840e68950805b9838e569095d15dac3c678f00782341ed69b
+output: output/inventory.json
+output_sha256: 1b465c3517a5b4575a3ff5b2cdbeeb37220d83b262afb5f69864b292093e13c0
+result: pass
+
+stderr:
+
+PASS fixture inventory from a foreign cwd and a relocated root
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py test-run --root D:\Git\lib-build --candidate 00.kernel/00.00.01.law/0310.inventory/02.inventory.py --sha256 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa --test
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 2
+stdout:
+
+stderr:
+stop: fixture root is the live workspace
+
+REFUSAL test-run on the real workspace
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py test-run --root D:\Git\lib-build\00.kernel\00.00.10.work --candidate 00.kernel/00.00.01.law/0310.inventory/02.inventory.py --sha256 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa --test
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 2
+stdout:
+
+stderr:
+stop: fixture root is the live workspace
+
+REFUSAL test-run on the real work book
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py run --root D:\Git\lib-build --test
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 2
+stdout:
+
+stderr:
+stop: normal run is not activated
+
+REFUSAL normal run
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\00.kernel\00.00.01.law\0302.run\02.run.002.py run
+stop: normal run is not activated
+
+REFUSAL direct runner refuses
+PASS refused commands left the guarded files unchanged
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py test-run --root D:\Git\lib-build\app\scratch\accepted --candidate 00.kernel/00.00.01.law/0310.inventory/02.inventory.py --sha256 dd6a78b5a3781fe840e68950805b9838e569095d15dac3c678f00782341ed69b
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 2
+stdout:
+
+stderr:
+stop: assignment is not a fresh execution release
+
+REFUSAL accepted assignment is not a fresh release
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py where --root D:\Git\lib-build\app\scratch\released-validate
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 0
+stdout:
+desk: 00.kernel
+work_book: 00.00.10.work
+workflow_space: 0
+current_work: 00.kernel/00.00.10.work/0504.app-entry/05.01.md
+pack: 00.kernel/00.00.10.work/0504.app-entry/05.01.md
+assignment_state: accepted
+runtime_book: 00.00.01.law
+runtime_space: 0
+runtime_band: 0300-0399
+runner: 00.kernel/00.00.01.law/0302.run/02.run.002.py
+runner_sha256: 4a962d3a6edd26428b75e27ad82113708e510a1e770522d34b9e8bb11ec2b0f4
+
+stderr:
+
+PASS accepted context can be inspected and does not select a higher version
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py test-run --root D:\Git\lib-build\app\scratch\accepted --candidate 00.kernel/00.00.01.law/0310.inventory/02.inventory.py --sha256 dd6a78b5a3781fe840e68950805b9838e569095d15dac3c678f00782341ed69b --test
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 2
+stdout:
+
+stderr:
+stop: assignment is not a fresh execution release
+
+REFUSAL accepted fixture with --test is not a fresh release
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py validate --root D:\Git\lib-build\app\scratch\boundary\missing-book
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 2
+stdout:
+
+stderr:
+stop: work book is missing
+
+REFUSAL missing work book
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py validate --root D:\Git\lib-build\app\scratch\boundary\missing-item
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 2
+stdout:
+
+stderr:
+stop: work item is missing: 00.kernel/00.00.10.work/0504.app-entry/missing.md
+
+REFUSAL missing work item
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py validate --root D:\Git\lib-build\app\scratch\boundary\space
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 2
+stdout:
+
+stderr:
+stop: workflow space is not the declared space
+
+REFUSAL undeclared workflow space
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py validate --root D:\Git\lib-build\app\scratch\boundary\mapping
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 2
+stdout:
+
+stderr:
+stop: record book is not the configured work book
+
+REFUSAL wrong job book
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py validate --root D:\Git\lib-build\app\scratch\boundary\same-book
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 2
+stdout:
+
+stderr:
+stop: job book and runtime book must differ
+
+REFUSAL job book mapped onto the runtime book
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py validate --root D:\Git\lib-build\app\scratch\boundary\ambiguous
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 2
+stdout:
+
+stderr:
+stop: more than one compute page for run
+
+REFUSAL ambiguous compute title
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py validate --root D:\Git\lib-build\app\scratch\boundary\escape
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 2
+stdout:
+
+stderr:
+stop: path escapes the root
+
+REFUSAL path escape
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py test-run --root D:\Git\lib-build\app\scratch\boundary\outside-payload --candidate 00.kernel/00.00.20.sample/0101.present/02.inventory.py --sha256 dd6a78b5a3781fe840e68950805b9838e569095d15dac3c678f00782341ed69b
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 2
+stdout:
+
+stderr:
+stop: payload is outside its compute page
+
+REFUSAL payload outside its compute page
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py test-run --root D:\Git\lib-build\app\scratch\boundary\wrong-hash --candidate 00.kernel/00.00.01.law/0310.inventory/02.inventory.py --sha256 bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 2
+stdout:
+
+stderr:
+stop: payload hash does not match the fixture
+
+REFUSAL wrong payload hash
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py test-run --root D:\Git\lib-build\app\scratch\boundary\tampered-payload --candidate 00.kernel/00.00.01.law/0310.inventory/02.inventory.py --sha256 cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 2
+stdout:
+
+stderr:
+stop: payload hash does not match
+
+REFUSAL payload bytes do not match the declared hash
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py test-run --root D:\Git\lib-build\app\scratch\boundary\climb --candidate 00.kernel/00.00.01.law/0410.inventory/02.inventory.py --sha256 dd6a78b5a3781fe840e68950805b9838e569095d15dac3c678f00782341ed69b
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 2
+stdout:
+
+stderr:
+stop: no compute page for inventory
+
+REFUSAL compute page outside the band is not climbed to
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py test-run --root D:\Git\lib-build\app\scratch\boundary\duplicate-title --candidate 00.kernel/00.00.01.law/0310.inventory/02.inventory.py --sha256 dd6a78b5a3781fe840e68950805b9838e569095d15dac3c678f00782341ed69b
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 2
+stdout:
+
+stderr:
+stop: more than one compute page for inventory
+
+REFUSAL two compute pages for one keyword
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py validate --root D:\Git\lib-build\app\scratch\reparse
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 2
+stdout:
+
+stderr:
+stop: path escapes the root
+
+REFUSAL reparse escape
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py validate --root D:\Git\lib-build\app\scratch\config\empty
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 2
+stdout:
+
+stderr:
+stop: missing config
+
+REFUSAL missing config
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py validate --root D:\Git\lib-build\app\scratch\config\bad-json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 2
+stdout:
+
+stderr:
+stop: config is not json
+
+REFUSAL malformed config
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py validate --root D:\Git\lib-build\app\scratch\config\dup
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 2
+stdout:
+
+stderr:
+stop: repeats a key: schema
+
+REFUSAL duplicate config key
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py validate --root D:\Git\lib-build\app\scratch\config\type
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 2
+stdout:
+
+stderr:
+stop: config field has the wrong type: version
+
+REFUSAL config version type
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py validate --root D:\Git\lib-build\app\scratch\config\unknown
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 2
+stdout:
+
+stderr:
+stop: config has an unknown key: extra
+
+REFUSAL unknown config key
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py validate --root D:\Git\lib-build\app\scratch\config\record
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 2
+stdout:
+
+stderr:
+stop: record line 1 is not 'key: value'
+
+REFUSAL malformed record
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py validate --root D:\Git\lib-build\app\scratch\config\repeated
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 2
+stdout:
+
+stderr:
+stop: record repeats a key: desk
+
+REFUSAL duplicate record key
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py validate --root D:\Git\lib-build\app\scratch\config\completed
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 2
+stdout:
+
+stderr:
+stop: assignment_state is not a known state
+
+REFUSAL invalid assignment state
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py validate --root D:\Git\lib-build\app\scratch\config\cr
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 2
+stdout:
+
+stderr:
+stop: record has CR line endings
+
+REFUSAL record carriage return
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py where --root D:\Git\lib-build\app\scratch\config\view
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 2
+stdout:
+
+stderr:
+stop: assignment record is the derived view
+
+REFUSAL assignment path is the derived view
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py where --root D:\Git\lib-build\app\scratch\config\tampered-view
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 0
+stdout:
+desk: 00.kernel
+work_book: 00.00.10.work
+workflow_space: 0
+current_work: 00.kernel/00.00.10.work/0504.app-entry/05.01.md
+pack: 00.kernel/00.00.10.work/0504.app-entry/05.01.md
+assignment_state: waiting
+runtime_book: 00.00.01.law
+runtime_space: 0
+runtime_band: 0300-0399
+runner: 00.kernel/00.00.01.law/0302.run/02.run.002.py
+runner_sha256: 4a962d3a6edd26428b75e27ad82113708e510a1e770522d34b9e8bb11ec2b0f4
+
+stderr:
+
+PASS tampered 00.live does not change context
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py validate --root D:\Git\lib-build\app\scratch\config\wrong-runner
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0504-cwd-ei09zs2s
+exit: 2
+stdout:
+
+stderr:
+stop: runner hash does not match
+
+REFUSAL wrong runner hash
+PASS guarded bytes were unchanged by the suite
+PASS no bytecode was written into the books or app
