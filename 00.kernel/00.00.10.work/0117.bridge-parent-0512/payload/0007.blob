@@ -1,0 +1,240 @@
+{
+  "schema": "concurrency05.12-verification",
+  "date": "2026-10-27",
+  "claim_head": "81f690a71af373cefed79d58bcf5d70360585c28",
+  "pins": {
+    "manifest": "00.kernel/00.00.10.work/0504.app-entry/evidence/pack05.12/source-manifest.json",
+    "manifest_sha256": "7b99759597c10e874050d5ea425ce6cadc2f009a4aeee0f1a6cd3020e22e1694",
+    "manifest_bytes": 2874,
+    "schema": "prime-pack-sources/1",
+    "sources": 13,
+    "bad": 0,
+    "checked_before_product_edit": true
+  },
+  "unchanged": {
+    "labs/return-capture-pass01/return_capture.py": {
+      "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+      "bytes": 45767,
+      "newline": "lf"
+    },
+    "0117.bridge-parent-0512/reservation.json": {
+      "sha256": "7710ba34edfe039e7cc74dc0e9c90a6392c4f799a214c255992a4a0fe07930df",
+      "bytes": 853,
+      "newline": "lf"
+    },
+    "app/clerk_seam.py": {
+      "sha256": "038962090cc2a18973fc87635625becee1719ed8f7a23ae980a58cfcb0e10159",
+      "bytes": 31663,
+      "newline": "lf"
+    },
+    "app/context.py": {
+      "sha256": "5b1a31d47bb9f9b465a8492541467abbd9bd3a99ae524be7aa0dbffe2380eb9f",
+      "bytes": 22063,
+      "newline": "lf"
+    },
+    "app/librarian.py": {
+      "sha256": "98a0a4a93b05f16f293d38d2b27ea4001be61c34ff8b575a1a6746b0e260ba8e",
+      "bytes": 7488,
+      "newline": "lf"
+    },
+    "app/tests/test_clerk_seam.py": {
+      "sha256": "3b6bf7f9521255e89ffdade01d3a2ef522a9b95afed8f78c2f6d1106b93fc464",
+      "bytes": 54277,
+      "newline": "lf"
+    },
+    "app/tests/test_worker_bridge.py": {
+      "sha256": "e89e73995e3a97d79e51f48dc44da6fa151e4168ce1163ef44cebdcdad2a0fd8",
+      "bytes": 44208,
+      "newline": "lf"
+    },
+    "0504.app-entry/05.11.md": {
+      "sha256": "e098d3e23b38984771c4bf82ee1d6f7342d98e1e00a1dc829550d9556ae6ed32",
+      "bytes": 6125,
+      "newline": "lf"
+    },
+    "evidence/repair05.11/tests.txt": {
+      "sha256": "e090627388438528aefe86d6676aedee5afe909093c3e4c4bff260dcc266e545",
+      "bytes": 16188,
+      "newline": "crlf"
+    },
+    "evidence/prime-review05.11/verification.json": {
+      "sha256": "ae50b7d562ee2e66d51f59d50ea8aeefbf5e041bf851285036c2a700e7fbbcae",
+      "bytes": 4630,
+      "newline": "crlf"
+    },
+    "evidence/prime-review05.11/review.md": {
+      "sha256": "91f0842a34815c9eddab60b96908425c4691c667b99063374f5b27b551be68f6",
+      "bytes": 1831,
+      "newline": "lf"
+    }
+  },
+  "before": {
+    "path": "evidence/concurrency05.12/before/worker_bridge.py",
+    "sha256": "657a4dfcd72dcd040a12d506ba5e2b6f7a50a8d7bd38364d42753e7b48bdd975",
+    "bytes": 34227
+  },
+  "reproduction": {
+    "when": "after the product edit, on the preserved before bytes",
+    "loaded_from": "evidence/concurrency05.12/before/worker_bridge.py",
+    "script_exit": 0,
+    "helper_raises": true,
+    "exception": "FileExistsError",
+    "detail": "[WinError 183] Cannot create a file when that file already exists: bridge0512-repro-nws5pwzn\\shared-parent",
+    "site": "before/worker_bridge.py line 131 path.mkdir",
+    "hook": [
+      "other-caller",
+      "mkdir"
+    ],
+    "remains_dir": true,
+    "note": "The script catches FileExistsError. Exit 0 is the harness. The unfixed helper raises."
+  },
+  "original_failed_concurrent": {
+    "path": "evidence/repair05.11/tests.txt",
+    "sha256": "e090627388438528aefe86d6676aedee5afe909093c3e4c4bff260dcc266e545",
+    "bytes": 16188,
+    "reexecuted": false,
+    "exit": 1,
+    "pass": 42,
+    "expected_refusal": 19,
+    "skip": 1,
+    "fail": 1,
+    "site": "worker_bridge.py line 131 path.mkdir for bridge/delivery, before any outbox copy",
+    "same_bytes_rerun_does_not_close_CS02": true,
+    "prime_verification_sha256": "ae50b7d562ee2e66d51f59d50ea8aeefbf5e041bf851285036c2a700e7fbbcae",
+    "prime_key": "independent_CS02_shared_parent_race"
+  },
+  "product": {
+    "app/worker_bridge.py": {
+      "sha256": "29f29223f63146198be01f1a4015bb5f1a9143875a13b28db3b6dd7b117a208e",
+      "bytes": 34532,
+      "newline": "lf"
+    },
+    "app/tests/test_bridge_dirs.py": {
+      "sha256": "5f8c145fbf4f6b6a227cd102f1b9cc788ec786aa8f73398849155933bd3c5fe9",
+      "bytes": 7996,
+      "newline": "lf"
+    },
+    "app/README.md": {
+      "sha256": "b615b9441e654eaa46de0be6abb1f53bb6f86316884c479e089adaa6b00c7611",
+      "bytes": 13658,
+      "newline": "lf"
+    },
+    "exist_ok": false,
+    "exclusive_dir_changed": false,
+    "file_exists_is_not_success": true
+  },
+  "page_before_return_pointer": {
+    "path": "0504.app-entry/05.12.md",
+    "sha256": "9098c94cffb3efcdef543896493ab2fec559237c7fe29b55d98a00b21f9f7dcd",
+    "bytes": 4974,
+    "state": "claimed",
+    "note": "The return pointer is written only after verify exit 0. This file is not a capture artifact."
+  },
+  "suites": {
+    "disposable_copy": "C:/Users/misg/AppData/Local/Temp/bridge0512-repo",
+    "robocopy_exit": 1,
+    "ran_once_each": true,
+    "preliminary_live_dirs": {
+      "exit": 0,
+      "pass": 2,
+      "expected_refusal": 4,
+      "skip": 0,
+      "fail": 0,
+      "role": "same bytes before the copy; the disposable run is the recorded proof"
+    },
+    "dirs": {
+      "exit": 0,
+      "pass": 2,
+      "expected_refusal": 4,
+      "skip": 0,
+      "fail": 0,
+      "accepted": "raced ordinary parent",
+      "refused_and_retained": [
+        "raced file",
+        "raced junction",
+        "occupied per-delivery directory",
+        "raced per-delivery directory"
+      ],
+      "different_delivery_created_once": true
+    },
+    "seam": {
+      "exit": 0,
+      "pass": 44,
+      "expected_refusal": 19,
+      "skip": 1,
+      "fail": 0,
+      "skip_detail": "dangling file symlink: WinError 1314",
+      "partial_io_passed": [
+        "partial write returns attention",
+        "later call keeps the partial outbox",
+        "create failure returns attention",
+        "later call copies after a failed create",
+        "flush failure returns attention",
+        "later call returns after flush without a new launch",
+        "fsync failure returns attention",
+        "later call returns after fsync without a new launch",
+        "read-back failure returns attention",
+        "later call returns after read-back without a new launch",
+        "clerk-oserror stays uncertain",
+        "later call inspects clerk-oserror and does not relaunch",
+        "clerk-timeout stays uncertain",
+        "later call inspects clerk-timeout and does not relaunch"
+      ],
+      "a1": {
+        "receipt": "267aa90c126cf73b508b7feacc5ba678788e3d5bfcc8be345e00a19b5b570432",
+        "artifact": "0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6",
+        "launches": 1,
+        "replay": "already-recorded"
+      },
+      "a15": "one launch and one Clerk return; later identical call is already-recorded and writes nothing further"
+    },
+    "worker_bridge": {
+      "exit": 0,
+      "pass": 38,
+      "expected_refusal": 27,
+      "skip": 1,
+      "fail": 0,
+      "skip_detail": "pre-planted file symlink: WinError 1314: A required privilege is not held by the client"
+    }
+  },
+  "unproved": "Two overlapping worker launches for different delivery names were not run. The exclusive check creates the second directory only after the raced name has refused, and it starts no worker.",
+  "not_run": [
+    "labs/worker-bridge-pass01/tests/test_pass03.py",
+    "whole-core suites",
+    "app/tests/test_entry.py"
+  ],
+  "limits": "No new lock, queue, or exactly-once guarantee. No live model, arbitrary command, network, or real store. TIMEOUT_S was not changed.",
+  "artifacts": {
+    "app/worker_bridge.py": {
+      "sha256": "29f29223f63146198be01f1a4015bb5f1a9143875a13b28db3b6dd7b117a208e",
+      "bytes": 34532,
+      "newline": "lf"
+    },
+    "app/tests/test_bridge_dirs.py": {
+      "sha256": "5f8c145fbf4f6b6a227cd102f1b9cc788ec786aa8f73398849155933bd3c5fe9",
+      "bytes": 7996,
+      "newline": "lf"
+    },
+    "app/README.md": {
+      "sha256": "b615b9441e654eaa46de0be6abb1f53bb6f86316884c479e089adaa6b00c7611",
+      "bytes": 13658,
+      "newline": "lf"
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/06.12.md": {
+      "sha256": "578d18cbe9f4d8eb1c87e9180dd49cf1723b43ac3695dff442356ad82b83511f",
+      "bytes": 6287,
+      "newline": "lf"
+    },
+    "evidence/concurrency05.12/before/worker_bridge.py": {
+      "sha256": "657a4dfcd72dcd040a12d506ba5e2b6f7a50a8d7bd38364d42753e7b48bdd975",
+      "bytes": 34227,
+      "newline": "lf"
+    },
+    "evidence/concurrency05.12/tests.txt": {
+      "sha256": "d87eba937cb64af1f9e611391da1912af4951699e8021ba1230b7a25e7fff3a1",
+      "bytes": 10625,
+      "newline": "crlf"
+    }
+  },
+  "omitted_from_this_file": "This file does not store its own sha256."
+}

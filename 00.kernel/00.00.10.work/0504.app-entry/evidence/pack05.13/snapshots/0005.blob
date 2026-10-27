@@ -1,0 +1,18 @@
+{
+  "schema": "librarian-worker-bridge",
+  "version": 1,
+  "_note": "PROPOSED app/worker-bridge.json for the next slice. Hashes are the Prime-accepted pass 03 lab files. Loaded only by app/worker_bridge.py; context.py's config schema is not changed.",
+  "bridge_dir": "labs/worker-bridge-pass01",
+  "files": {
+    "bridge/__init__.py": "50f501a7eb4c1a8cef91317ca0dbc5222d63a9c2221ca9fdcbb90e5afc6cd7d1",
+    "bridge/canon.py": "6c1a761db08b60b381c1ea6e5d9516a80f7ce7d389bdb42797e394d31488d60d",
+    "bridge/ids.py": "8913d0c2c569a1c0b5748f3f4d597a9bc57a498fa6b952b817790c399356ed66",
+    "bridge/envelope.py": "2b7b352b64a541a5f86a5b5abab2affddf82303a4bdb5c7246e20eb04b59a2d0",
+    "bridge/verify.py": "8ffe8cac0f57399956f103da1d47a9d7a23faaed79682f4973b4cdeffc163f2f",
+    "bridge/adapter.py": "27d683b494c13bd120d5099f863bb68ab96c6d458dd2a7641c0129122b89c9de",
+    "profiles.json": "407804f5bb2ece553f61adef9bb424cfbfd33615b10dcd0144d734ea4fc6b59d",
+    "fixtures/worker_fixture.py": "0d519c8b0eeb7106321748c88fed0dca0d855f2cc85a3904ada9aacc149d7cad"
+  },
+  "allowed_kinds": ["protocol test worker"],
+  "container_subdir": "bridge"
+}

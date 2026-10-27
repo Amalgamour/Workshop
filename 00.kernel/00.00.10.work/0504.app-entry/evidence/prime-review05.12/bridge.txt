@@ -1,0 +1,12 @@
+
+STDERR
+Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_worker_bridge.py", line 97, in <module>
+    (FOREIGN / "note.txt").write_bytes(b"do-not-read\n")
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1036, in write_bytes
+    with self.open(mode='wb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\misg\\AppData\\Local\\Temp\\librarian-0505-cwd-w7f3i4sz\\note.txt'

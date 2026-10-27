@@ -1,0 +1,242 @@
+0504.app-entry/05.12 shared bridge parent proof
+date: 2026-10-27
+recorder: Grok 4.7 (xAI)
+python: C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B
+PYTHONDONTWRITEBYTECODE=1
+No product suite was rerun after a failure. The before-code result below is the unfixed helper.
+
+before-code reproduction
+source: 00.kernel/00.00.10.work/0504.app-entry/evidence/concurrency05.12/before/worker_bridge.py
+sha256: 657a4dfcd72dcd040a12d506ba5e2b6f7a50a8d7bd38364d42753e7b48bdd975
+bytes: 34227
+command: C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B C:\Users\misg\AppData\Local\Temp\repro0512.py
+cwd: D:\Git\lib-build
+The script loads that before file, not the live tree. It catches FileExistsError, so process exit 0 is the harness. The helper still raises.
+exit: 0
+
+stdout:
+absent-before False
+other-created True
+EXC FileExistsError
+DETAIL [WinError 183] Cannot create a file when that file already exists: 'C:\\Users\\misg\\AppData\\Local\\Temp\\bridge0512-repro-nws5pwzn\\shared-parent'
+TRACE
+remains-dir True
+hook ['other-caller', 'mkdir']
+
+stderr:
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\repro0512.py", line 42, in <module>
+    bridge._ensure_plain_dir(Ctx(), parent, "shared parent")
+  File "D:\Git\lib-build\00.kernel\00.00.10.work\0504.app-entry\evidence\concurrency05.12\before\worker_bridge.py", line 131, in _ensure_plain_dir
+    path.mkdir()
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+  File "C:\Users\misg\AppData\Local\Temp\repro0512.py", line 37, in hooked
+    return real(path, mode, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'C:\\Users\\misg\\AppData\\Local\\Temp\\bridge0512-repro-nws5pwzn\\shared-parent'
+
+original failed concurrent run, not re-executed
+file: 00.kernel/00.00.10.work/0504.app-entry/evidence/repair05.11/tests.txt
+sha256: e090627388438528aefe86d6676aedee5afe909093c3e4c4bff260dcc266e545
+bytes: 16188
+first seam suite: python -B app/tests/test_clerk_seam.py
+cwd: C:\Users\misg\AppData\Local\Temp\seam0511-repo
+exit: 1
+summary: pass 42 expected-refusal 19 skip 1 fail 1
+site: app/worker_bridge.py line 131 path.mkdir, through librarian.py main, seam.perform, worker_bridge.perform, _new_delivery, _ensure_plain_dir
+exception: FileExistsError [WinError 183] for bridge/delivery, before any outbox copy
+path: C:\Users\misg\AppData\Local\Temp\seam0510-finhhsrg\container\fixture\bridge\delivery
+A later same-bytes rerun in that transcript exited 0 and does not close CS-02.
+Prime probe: evidence/prime-review05.11/verification.json sha256 ae50b7d562ee2e66d51f59d50ea8aeefbf5e041bf851285036c2a700e7fbbcae, key independent_CS02_shared_parent_race, FileExistsError [WinError 183] at worker_bridge.py line 131.
+
+disposable copy
+robocopy D:\Git\lib-build C:\Users\misg\AppData\Local\Temp\bridge0512-repo /E /XJ /NFL /NDL /NJH /NJS /XD .git __pycache__
+robocopy exit: 1
+exit class 0-7 is success. .git was not copied.
+Each suite ran once, sequentially, from that copy.
+command: C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B app/tests/test_bridge_dirs.py
+exit: 0
+
+stdout:
+PASS raced ordinary parent is a plain directory
+REFUSAL raced file parent is refused and retained
+REFUSAL raced junction parent is refused and retained
+REFUSAL occupied per-delivery directory is refused
+REFUSAL raced per-delivery directory stays exclusive
+PASS a different delivery directory is created once
+summary pass 2 expected-refusal 4 skip 0 fail 0
+
+stderr:
+(empty)
+
+command: C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B app/tests/test_clerk_seam.py
+exit: 0
+
+stdout:
+REFUSAL normal run is not activated
+PASS A1 clerk-deliver returns the collected artifact
+PASS A1 replay is already-recorded and launches nothing
+REFUSAL returned replay still checks the actor
+DEMO receipt 267aa90c126cf73b508b7feacc5ba678788e3d5bfcc8be345e00a19b5b570432
+DEMO artifact 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6
+DEMO launches 1
+DEMO replay already-recorded
+PASS A1 reviewer inbox, verify, and one launch
+PASS B1 a later call is the one launch
+PASS B3 repeat copies without a second launch
+PASS B4 repeat returns the existing copy
+PASS B5 repeat is already-recorded
+PASS in-process interruption hooks keep the partial stores
+PASS B2 uncertain launch is not a Clerk return
+PASS B2 recover then deliver does not launch
+PASS bridge-recover stays outside clerk-deliver
+REFUSAL A9 unclaimed job
+REFUSAL A9 wrong actor
+REFUSAL A9 missing link
+REFUSAL A9 link hash does not match the job
+REFUSAL A9 store outside the container
+REFUSAL A9 link job does not match the bridge job
+REFUSAL A10 stale instructions before delivery
+PASS A10 stale instructions after delivery
+PASS A10 setup return
+PASS A10 returned replay still checks instructions
+REFUSAL A11 Clerk returned under another delivery
+REFUSAL A11 provenance job hash still binds the link
+PASS A7 different outbox bytes stay
+PASS A7 changed bridge output is not copied
+REFUSAL A8 malformed receipt is refused
+REFUSAL A8 receipt without request_sha256 is refused
+REFUSAL B1a claim without an outbox
+PASS B5a setup return
+PASS B5a witness mismatch stays attention
+PASS artifact-changed setup return
+PASS returned replay sees a changed outbox
+PASS A13 uncollected is exit 3
+PASS A13 collected failed is exit 3
+PASS A13 crash is exit 4
+PASS A13 timeout is exit 4
+REFUSAL A12 scratch store is inside Git
+REFUSAL A12 unknown flag
+REFUSAL A12 test flag is not a grant
+REFUSAL A14 clerk pin mismatch starts no subprocess
+PASS occupied junction stays
+PASS occupied hardlink stays
+SKIP dangling file symlink: WinError 1314
+PASS partial write returns attention
+PASS later call keeps the partial outbox
+PASS create failure returns attention
+PASS later call copies after a failed create
+PASS flush failure returns attention
+PASS later call returns after flush without a new launch
+PASS fsync failure returns attention
+PASS later call returns after fsync without a new launch
+PASS read-back failure returns attention
+PASS later call returns after read-back without a new launch
+PASS clerk-oserror stays uncertain
+PASS later call inspects clerk-oserror and does not relaunch
+PASS clerk-timeout stays uncertain
+PASS later call inspects clerk-timeout and does not relaunch
+REFUSAL unknown io fault is refused
+PASS A15 later call is already-recorded
+PASS A15 one launch and one return
+PASS guarded bytes were unchanged
+PASS no bytecode was written into the books or app
+summary pass 44 expected-refusal 19 skip 1 fail 0
+
+stderr:
+(empty)
+
+command: C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B app/tests/test_worker_bridge.py
+exit: 0
+
+stdout:
+PASS pinned lab and example bytes
+PASS bridge-test collected the count
+PASS fresh-process status reads the receipt
+PASS identical replay does not launch again
+PASS replay does not recreate the output directory
+PASS external container collected
+PASS external fresh status
+PASS external replay
+PASS status after accepted and current-work change
+PASS status after returned
+PASS bad-hash
+PASS missing-artifact
+PASS escape
+PASS garbage
+PASS partial
+PASS bad-shape
+PASS dup-keys
+PASS crash
+PASS output-limit
+PASS timeout stays uncertain
+PASS timeout replay does not relaunch
+PASS inherited pipes stay incomplete
+PASS conflict setup collected
+REFUSAL conflicting delivery does not claim there was no launch
+PASS interrupted receipt stays uncertain
+PASS recover rebuilds the receipt without a launch
+PASS second recover reads the stored receipt
+PASS launch without an attempt stays uncertain
+PASS unknown delivery is not collected
+PASS accepted-not-launched setup
+PASS accepted-not-launched stays not collected
+PASS bad provenance setup
+REFUSAL bad stored provenance
+REFUSAL escaping stored path
+REFUSAL unreleased new work
+REFUSAL unknown backend
+REFUSAL work_ref is not current work
+REFUSAL bad limits
+REFUSAL job path escape
+REFUSAL normal run
+REFUSAL live workspace
+REFUSAL pre-planted per-delivery directory
+REFUSAL pre-planted hard link
+REFUSAL pre-planted store
+REFUSAL pre-planted junction
+SKIP pre-planted file symlink: WinError 1314: A required privilege is not held by the client
+PASS correlation setup collected
+REFUSAL missing request hash is not a wildcard
+REFUSAL replay refuses a bad stored receipt
+REFUSAL recover refuses a bad stored receipt
+REFUSAL correct hash does not excuse wrong ids
+REFUSAL replay refuses wrong ids
+REFUSAL recover refuses wrong ids
+REFUSAL unsupported receipt schema
+REFUSAL non-object receipt
+REFUSAL replay refuses a non-object receipt
+REFUSAL malformed receipt
+REFUSAL recover refuses a malformed receipt
+PASS status still reads a consistent receipt
+PASS replay still does not launch
+REFUSAL pin mismatch before import
+REFUSAL wrong kind
+PASS launch-failed is not collected
+PASS accepted bridge 30 tests in an isolated copy
+PASS guarded bytes were unchanged
+PASS no bytecode was written into the books or app
+summary pass 38 expected-refusal 27 skip 1 fail 0
+
+stderr:
+(empty)
+
+preliminary live smoke, same product bytes, before the copy
+command: C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\tests\test_bridge_dirs.py
+cwd: the live tree
+exit: 0
+summary: pass 2 expected-refusal 4 skip 0 fail 0
+The disposable run above is the recorded proof. This smoke had no failure.
+
+skips retained
+seam: SKIP dangling file symlink: WinError 1314
+worker bridge: SKIP pre-planted file symlink: WinError 1314: A required privilege is not held by the client
+A privilege failure is a skip. It is not a pass.
+
+not proved
+Two overlapping worker launches for different delivery names were not run.
+test_bridge_dirs.py creates a second exclusive directory only after the raced name has refused, and it does not start a worker.
+Same-delivery overlap is the seam concurrent case: A15 one launch and one return, then a later identical call already-recorded with no second launch and no further Clerk write.
+No exactly-once claim. No live model, arbitrary command, network, or real store.
+pass03 and whole-core suites were not run. No failure in this slice required them.

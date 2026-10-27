@@ -1,0 +1,75 @@
+FAIL plain: Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_bridge_dirs.py", line 133, in check
+    fn(home)
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_bridge_dirs.py", line 148, in test_plain_parent_race
+    bridge._ensure_plain_dir(Ctx(), path, "shared parent")
+  File "D:\librarian\temp\review-g1-sof08\lib\app\worker_bridge.py", line 140, in _ensure_plain_dir
+    path.mkdir()
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_bridge_dirs.py", line 119, in hooked
+    plant(real)
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_bridge_dirs.py", line 145, in plant
+    real(path)
+PermissionError: [WinError 5] Access is denied: 'C:\\Users\\misg\\AppData\\Local\\Temp\\bridge0512-slfds8hq\\shared-parent'
+
+FAIL file: Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_bridge_dirs.py", line 133, in check
+    fn(home)
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_bridge_dirs.py", line 166, in test_file_parent_race
+    bridge._ensure_plain_dir(Ctx(), path, "shared parent")
+  File "D:\librarian\temp\review-g1-sof08\lib\app\worker_bridge.py", line 140, in _ensure_plain_dir
+    path.mkdir()
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_bridge_dirs.py", line 119, in hooked
+    plant(real)
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_bridge_dirs.py", line 162, in plant
+    path.write_bytes(payload)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1036, in write_bytes
+    with self.open(mode='wb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\misg\\AppData\\Local\\Temp\\bridge0512-uapluzvs\\shared-parent'
+
+FAIL junction: Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_bridge_dirs.py", line 133, in check
+    fn(home)
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_bridge_dirs.py", line 181, in test_junction_parent_race
+    target.mkdir()
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'C:\\Users\\misg\\AppData\\Local\\Temp\\bridge0512-rlhf60ro\\junction-target'
+
+FAIL occupied: Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_bridge_dirs.py", line 133, in check
+    fn(home)
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_bridge_dirs.py", line 210, in test_exclusive_occupied
+    path.mkdir()
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'C:\\Users\\misg\\AppData\\Local\\Temp\\bridge0512-4x676yhe\\bridge-0001'
+
+FAIL exclusive-race: Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_bridge_dirs.py", line 133, in check
+    fn(home)
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_bridge_dirs.py", line 234, in test_exclusive_race
+    bridge._exclusive_dir(Ctx(), path, "per-delivery directory")
+  File "D:\librarian\temp\review-g1-sof08\lib\app\worker_bridge.py", line 151, in _exclusive_dir
+    os.mkdir(path)
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_bridge_dirs.py", line 119, in hooked
+    plant(real)
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_bridge_dirs.py", line 229, in plant
+    real(path)
+PermissionError: [WinError 5] Access is denied: 'C:\\Users\\misg\\AppData\\Local\\Temp\\bridge0512-nkdjdn_8\\bridge-0001'
+
+summary pass 0 expected-refusal 0 skip 0 fail 5
+
+STDERR
+Access is denied.
+Access is denied.
+Access is denied.
+Access is denied.
+Access is denied.

@@ -1,0 +1,110 @@
+{
+  "g1": {
+    "dirs": {
+      "exit": 1,
+      "tail": " mkdir\n    os.mkdir(self, mode)\nPermissionError: [WinError 5] Access is denied: 'C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\bridge0512-4x676yhe\\\\bridge-0001'\n\nFAIL exclusive-race: Traceback (most recent call last):\n  File \"D:\\librarian\\temp\\review-g1-sof08\\lib\\app\\tests\\test_bridge_dirs.py\", line 133, in check\n    fn(home)\n  File \"D:\\librarian\\temp\\review-g1-sof08\\lib\\app\\tests\\test_bridge_dirs.py\", line 234, in test_exclusive_race\n    bridge._exclusive_dir(Ctx(), path, \"per-delivery directory\")\n  File \"D:\\librarian\\temp\\review-g1-sof08\\lib\\app\\worker_bridge.py\", line 151, in _exclusive_dir\n    os.mkdir(path)\n  File \"D:\\librarian\\temp\\review-g1-sof08\\lib\\app\\tests\\test_bridge_dirs.py\", line 119, in hooked\n    plant(real)\n  File \"D:\\librarian\\temp\\review-g1-sof08\\lib\\app\\tests\\test_bridge_dirs.py\", line 229, in plant\n    real(path)\nPermissionError: [WinError 5] Access is denied: 'C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\bridge0512-nkdjdn_8\\\\bridge-0001'\n\nsummary pass 0 expected-refusal 0 skip 0 fail 5\nAccess is denied.\nAccess is denied.\nAccess is denied.\nAccess is denied.\nAccess is denied.\n"
+    },
+    "seam": {
+      "exit": 1,
+      "tail": "ts\\test_clerk_seam.py\", line 501, in close_worlds\n    raise held\n  File \"D:\\librarian\\temp\\review-g1-sof08\\lib\\app\\tests\\test_clerk_seam.py\", line 496, in close_worlds\n    world.assert_held()\n  File \"D:\\librarian\\temp\\review-g1-sof08\\lib\\app\\tests\\test_clerk_seam.py\", line 295, in assert_held\n    if self.outside.read_bytes() != self.outside_bytes:\n       ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\pathlib.py\", line 1019, in read_bytes\n    with self.open(mode='rb') as f:\n         ^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\seam0510-e9l99rd8\\\\outside.txt'\n\nPASS guarded bytes were unchanged\nPASS no bytecode was written into the books or app\nsummary pass 2 expected-refusal 1 skip 0 fail 25\n"
+    },
+    "bridge": {
+      "exit": 1,
+      "tail": "Traceback (most recent call last):\n  File \"D:\\librarian\\temp\\review-g1-sof08\\lib\\app\\tests\\test_worker_bridge.py\", line 97, in <module>\n    (FOREIGN / \"note.txt\").write_bytes(b\"do-not-read\\n\")\n  File \"C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\pathlib.py\", line 1036, in write_bytes\n    with self.open(mode='wb') as f:\n         ^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 13] Permission denied: 'C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\librarian-0505-cwd-w7f3i4sz\\\\note.txt'\n"
+    }
+  },
+  "sof": {
+    "exit": 1,
+    "tail": "xtra element 0:\n'partial_write'\n\n- ['partial_write']\n+ [] : [\"[WinError 5] Access is denied: 'C:\\\\\\\\Users\\\\\\\\misg\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\sof-pass06-test_staging_directories-vg3wq9pk\\\\\\\\instance'\"]\n\n======================================================================\nFAIL: test_v2_loop_is_unchanged (test_pass08.Pass08Tests.test_v2_loop_is_unchanged)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"D:\\librarian\\temp\\review-g1-sof08\\sof\\labs\\gm-setup-pass02\\tests\\test_pass08.py\", line 162, in test_v2_loop_is_unchanged\n    self.assertEqual(created[\"findings\"], [], created[\"reasons\"])\nAssertionError: Lists differ: ['partial_write'] != []\n\nFirst list contains 1 additional elements.\nFirst extra element 0:\n'partial_write'\n\n- ['partial_write']\n+ [] : [\"[WinError 5] Access is denied: 'C:\\\\\\\\Users\\\\\\\\misg\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\sof-pass08-test_v2_loop_is_unchange-_1x_2084\\\\\\\\campaign'\"]\n\n----------------------------------------------------------------------\nRan 68 tests in 4.627s\n\nFAILED (failures=40, errors=53)\n"
+  },
+  "capture": {
+    "exit": 0,
+    "tail": "reservation 7710ba34edfe039e7cc74dc0e9c90a6392c4f799a214c255992a4a0fe07930df\nmanifest e4711db1848acb5f8c736aef4782b002da87cc4ba017dca44d563f954e307c68\nreceipt 408e3cdfe4f9c95558513718c00f464498207ce568265e40f3650e384a3d677e\npayload 0001.blob 29f29223f63146198be01f1a4015bb5f1a9143875a13b28db3b6dd7b117a208e\npayload 0002.blob 5f8c145fbf4f6b6a227cd102f1b9cc788ec786aa8f73398849155933bd3c5fe9\npayload 0003.blob b615b9441e654eaa46de0be6abb1f53bb6f86316884c479e089adaa6b00c7611\npayload 0004.blob 578d18cbe9f4d8eb1c87e9180dd49cf1723b43ac3695dff442356ad82b83511f\npayload 0005.blob 657a4dfcd72dcd040a12d506ba5e2b6f7a50a8d7bd38364d42753e7b48bdd975\npayload 0006.blob d87eba937cb64af1f9e611391da1912af4951699e8021ba1230b7a25e7fff3a1\npayload 0007.blob 32fe27604260196954c472a31278e38895c9299f4747644094ea12d0fc1c528e\nresult complete\nnot approved\nnot accepted\nnot published\n"
+  },
+  "inspect": {
+    "exit": 0,
+    "tail": "245fb2f2e5710eb54c6134053\"},\"source_commit\":null,\"submission_id\":\"grok-1-0504-0512\"},\"member\":\"0117.bridge-parent-0512\",\"problems\":[],\"reservation\":{\"destination\":{\"member\":\"0117\",\"name\":\"bridge-parent-0512\",\"path\":\"0117.bridge-parent-0512\"},\"expected_outputs\":[\"app/worker_bridge.py\",\"app/tests/test_bridge_dirs.py\",\"app/README.md\",\"00.kernel/00.00.10.work/0504.app-entry/06.12.md\",\"00.kernel/00.00.10.work/0504.app-entry/evidence/concurrency05.12/before/worker_bridge.py\",\"00.kernel/00.00.10.work/0504.app-entry/evidence/concurrency05.12/tests.txt\",\"00.kernel/00.00.10.work/0504.app-entry/evidence/concurrency05.12/verification.json\"],\"origin\":{\"batch\":\"05.12\",\"book\":\"00.00.10.work\",\"page\":\"0504.app-entry\"},\"release\":\"Reservation only. Director release must be recorded on 0504.app-entry/05.12.\",\"reservation_sha256\":\"7710ba34edfe039e7cc74dc0e9c90a6392c4f799a214c255992a4a0fe07930df\",\"reserved_at\":\"2026-10-27T21:25:40.048340Z\",\"reviewer\":\"Codex Prime\",\"submission_id\":\"grok-1-0504-0512\",\"submitter\":\"Grok Builder 1\",\"supersedes\":null},\"schema\":\"return-capture-inspection/1\",\"status\":\"complete\"}\n"
+  },
+  "manifest": {
+    "captured_at": "2026-10-27T21:39:15.515348Z",
+    "kind": "manifest",
+    "omitted": [],
+    "required": [
+      "app/worker_bridge.py",
+      "app/tests/test_bridge_dirs.py",
+      "app/README.md",
+      "00.kernel/00.00.10.work/0504.app-entry/06.12.md",
+      "00.kernel/00.00.10.work/0504.app-entry/evidence/concurrency05.12/before/worker_bridge.py",
+      "00.kernel/00.00.10.work/0504.app-entry/evidence/concurrency05.12/tests.txt",
+      "00.kernel/00.00.10.work/0504.app-entry/evidence/concurrency05.12/verification.json"
+    ],
+    "reservation_sha256": "7710ba34edfe039e7cc74dc0e9c90a6392c4f799a214c255992a4a0fe07930df",
+    "retrospective": false,
+    "return": {
+      "bytes": 2781,
+      "includes_prime_review": false,
+      "sha256": "be561e085f8f341145ed4b44752210ae9ee4f61245fb2f2e5710eb54c6134053"
+    },
+    "schema": "return-capture/1",
+    "source_commit": null,
+    "sources": [
+      {
+        "bytes": 34532,
+        "logical": "app/worker_bridge.py",
+        "payload": "0001.blob",
+        "sha256": "29f29223f63146198be01f1a4015bb5f1a9143875a13b28db3b6dd7b117a208e"
+      },
+      {
+        "bytes": 7996,
+        "logical": "app/tests/test_bridge_dirs.py",
+        "payload": "0002.blob",
+        "sha256": "5f8c145fbf4f6b6a227cd102f1b9cc788ec786aa8f73398849155933bd3c5fe9"
+      },
+      {
+        "bytes": 13658,
+        "logical": "app/README.md",
+        "payload": "0003.blob",
+        "sha256": "b615b9441e654eaa46de0be6abb1f53bb6f86316884c479e089adaa6b00c7611"
+      },
+      {
+        "bytes": 6287,
+        "logical": "00.kernel/00.00.10.work/0504.app-entry/06.12.md",
+        "payload": "0004.blob",
+        "sha256": "578d18cbe9f4d8eb1c87e9180dd49cf1723b43ac3695dff442356ad82b83511f"
+      },
+      {
+        "bytes": 34227,
+        "logical": "00.kernel/00.00.10.work/0504.app-entry/evidence/concurrency05.12/before/worker_bridge.py",
+        "payload": "0005.blob",
+        "sha256": "657a4dfcd72dcd040a12d506ba5e2b6f7a50a8d7bd38364d42753e7b48bdd975"
+      },
+      {
+        "bytes": 10625,
+        "logical": "00.kernel/00.00.10.work/0504.app-entry/evidence/concurrency05.12/tests.txt",
+        "payload": "0006.blob",
+        "sha256": "d87eba937cb64af1f9e611391da1912af4951699e8021ba1230b7a25e7fff3a1"
+      },
+      {
+        "bytes": 8681,
+        "logical": "00.kernel/00.00.10.work/0504.app-entry/evidence/concurrency05.12/verification.json",
+        "payload": "0007.blob",
+        "sha256": "32fe27604260196954c472a31278e38895c9299f4747644094ea12d0fc1c528e"
+      }
+    ],
+    "submission_id": "grok-1-0504-0512"
+  },
+  "package_files": {
+    "01.md": "08a1a176eb7c3c6e86ac7cc2d253bd5ee4f97188cf82d68e9f6328c7ac4844cb",
+    "manifest.json": "e4711db1848acb5f8c736aef4782b002da87cc4ba017dca44d563f954e307c68",
+    "receipt.json": "408e3cdfe4f9c95558513718c00f464498207ce568265e40f3650e384a3d677e",
+    "reservation.json": "7710ba34edfe039e7cc74dc0e9c90a6392c4f799a214c255992a4a0fe07930df",
+    "return.md": "be561e085f8f341145ed4b44752210ae9ee4f61245fb2f2e5710eb54c6134053",
+    "payload/0001.blob": "29f29223f63146198be01f1a4015bb5f1a9143875a13b28db3b6dd7b117a208e",
+    "payload/0002.blob": "5f8c145fbf4f6b6a227cd102f1b9cc788ec786aa8f73398849155933bd3c5fe9",
+    "payload/0003.blob": "b615b9441e654eaa46de0be6abb1f53bb6f86316884c479e089adaa6b00c7611",
+    "payload/0004.blob": "578d18cbe9f4d8eb1c87e9180dd49cf1723b43ac3695dff442356ad82b83511f",
+    "payload/0005.blob": "657a4dfcd72dcd040a12d506ba5e2b6f7a50a8d7bd38364d42753e7b48bdd975",
+    "payload/0006.blob": "d87eba937cb64af1f9e611391da1912af4951699e8021ba1230b7a25e7fff3a1",
+    "payload/0007.blob": "32fe27604260196954c472a31278e38895c9299f4747644094ea12d0fc1c528e"
+  }
+}

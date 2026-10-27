@@ -123,12 +123,25 @@ def _lexists(path: Path) -> bool:
     return True
 
 
+def _ordinary_dir(path: Path) -> bool:
+    if _is_link(path) or not path.is_dir():
+        return False
+    try:
+        resolved = path.resolve()
+        parent = path.parent.resolve()
+    except OSError:
+        return False
+    return resolved.parent == parent
+
+
 def _ensure_plain_dir(context, path: Path, label: str) -> None:
-    if _lexists(path):
-        if _is_link(path) or not path.is_dir():
-            context.stop(f"{label} is not a plain directory")
-        return
-    path.mkdir()
+    if not _lexists(path):
+        try:
+            path.mkdir()
+        except FileExistsError:
+            pass
+    if not _ordinary_dir(path):
+        context.stop(f"{label} is not a plain directory")
 
 
 def _exclusive_dir(context, path: Path, label: str) -> None:

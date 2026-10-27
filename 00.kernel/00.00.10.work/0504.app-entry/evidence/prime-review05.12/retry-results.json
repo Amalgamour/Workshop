@@ -1,0 +1,20 @@
+{
+  "g1": {
+    "dirs": {
+      "exit": 0,
+      "tail": "PASS raced ordinary parent is a plain directory\nREFUSAL raced file parent is refused and retained\nREFUSAL raced junction parent is refused and retained\nREFUSAL occupied per-delivery directory is refused\nREFUSAL raced per-delivery directory stays exclusive\nPASS a different delivery directory is created once\nsummary pass 2 expected-refusal 4 skip 0 fail 0\n"
+    },
+    "seam": {
+      "exit": 0,
+      "tail": "ut a new launch\nPASS fsync failure returns attention\nPASS later call returns after fsync without a new launch\nPASS read-back failure returns attention\nPASS later call returns after read-back without a new launch\nPASS clerk-oserror stays uncertain\nPASS later call inspects clerk-oserror and does not relaunch\nPASS clerk-timeout stays uncertain\nPASS later call inspects clerk-timeout and does not relaunch\nREFUSAL unknown io fault is refused\nPASS A15 later call is already-recorded\nPASS A15 one launch and one return\nPASS guarded bytes were unchanged\nPASS no bytecode was written into the books or app\nsummary pass 44 expected-refusal 19 skip 1 fail 0\n"
+    },
+    "bridge": {
+      "exit": 0,
+      "tail": "ceipt\nREFUSAL correct hash does not excuse wrong ids\nREFUSAL replay refuses wrong ids\nREFUSAL recover refuses wrong ids\nREFUSAL unsupported receipt schema\nREFUSAL non-object receipt\nREFUSAL replay refuses a non-object receipt\nREFUSAL malformed receipt\nREFUSAL recover refuses a malformed receipt\nPASS status still reads a consistent receipt\nPASS replay still does not launch\nREFUSAL pin mismatch before import\nREFUSAL wrong kind\nPASS launch-failed is not collected\nPASS accepted bridge 30 tests in an isolated copy\nPASS guarded bytes were unchanged\nPASS no bytecode was written into the books or app\nsummary pass 38 expected-refusal 27 skip 1 fail 0\n"
+    }
+  },
+  "sof": {
+    "exit": 1,
+    "tail": "ts.test_live_prose_edits_do_not_change_the_checkpoint_packet)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"D:\\librarian\\temp\\review-g1-sof08\\sof\\labs\\gm-setup-pass02\\tests\\test_pass04.py\", line 316, in test_live_prose_edits_do_not_change_the_checkpoint_packet\n    self.assertEqual(proc.returncode, 0, proc.stderr + proc.stdout)\n                                         ~~~~~~~~~~~~^~~~~~~~~~~~~\nTypeError: can only concatenate str (not \"NoneType\") to str\n\n----------------------------------------------------------------------\nRan 68 tests in 44.650s\n\nFAILED (errors=2, skipped=3)\n"
+  }
+}

@@ -1,0 +1,9 @@
+PASS raced ordinary parent is a plain directory
+REFUSAL raced file parent is refused and retained
+REFUSAL raced junction parent is refused and retained
+REFUSAL occupied per-delivery directory is refused
+REFUSAL raced per-delivery directory stays exclusive
+PASS a different delivery directory is created once
+summary pass 2 expected-refusal 4 skip 0 fail 0
+
+STDERR

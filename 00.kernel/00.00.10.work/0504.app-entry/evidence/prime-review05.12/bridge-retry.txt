@@ -1,0 +1,69 @@
+PASS pinned lab and example bytes
+PASS bridge-test collected the count
+PASS fresh-process status reads the receipt
+PASS identical replay does not launch again
+PASS replay does not recreate the output directory
+PASS external container collected
+PASS external fresh status
+PASS external replay
+PASS status after accepted and current-work change
+PASS status after returned
+PASS bad-hash
+PASS missing-artifact
+PASS escape
+PASS garbage
+PASS partial
+PASS bad-shape
+PASS dup-keys
+PASS crash
+PASS output-limit
+PASS timeout stays uncertain
+PASS timeout replay does not relaunch
+PASS inherited pipes stay incomplete
+PASS conflict setup collected
+REFUSAL conflicting delivery does not claim there was no launch
+PASS interrupted receipt stays uncertain
+PASS recover rebuilds the receipt without a launch
+PASS second recover reads the stored receipt
+PASS launch without an attempt stays uncertain
+PASS unknown delivery is not collected
+PASS accepted-not-launched setup
+PASS accepted-not-launched stays not collected
+PASS bad provenance setup
+REFUSAL bad stored provenance
+REFUSAL escaping stored path
+REFUSAL unreleased new work
+REFUSAL unknown backend
+REFUSAL work_ref is not current work
+REFUSAL bad limits
+REFUSAL job path escape
+REFUSAL normal run
+REFUSAL live workspace
+REFUSAL pre-planted per-delivery directory
+REFUSAL pre-planted hard link
+REFUSAL pre-planted store
+REFUSAL pre-planted junction
+SKIP pre-planted file symlink: WinError 1314: A required privilege is not held by the client
+PASS correlation setup collected
+REFUSAL missing request hash is not a wildcard
+REFUSAL replay refuses a bad stored receipt
+REFUSAL recover refuses a bad stored receipt
+REFUSAL correct hash does not excuse wrong ids
+REFUSAL replay refuses wrong ids
+REFUSAL recover refuses wrong ids
+REFUSAL unsupported receipt schema
+REFUSAL non-object receipt
+REFUSAL replay refuses a non-object receipt
+REFUSAL malformed receipt
+REFUSAL recover refuses a malformed receipt
+PASS status still reads a consistent receipt
+PASS replay still does not launch
+REFUSAL pin mismatch before import
+REFUSAL wrong kind
+PASS launch-failed is not collected
+PASS accepted bridge 30 tests in an isolated copy
+PASS guarded bytes were unchanged
+PASS no bytecode was written into the books or app
+summary pass 38 expected-refusal 27 skip 1 fail 0
+
+STDERR

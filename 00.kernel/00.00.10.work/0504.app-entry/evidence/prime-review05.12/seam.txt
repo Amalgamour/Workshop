@@ -1,0 +1,517 @@
+FAIL run: Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 1262, in check
+    fn()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 505, in test_run_refused
+    proc = run(["run", "--root", str(REPO)])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 130, in run
+    cwd=str(foreign()),
+            ^^^^^^^^^
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 123, in foreign
+    (FOREIGN / "note.txt").write_bytes(b"do-not-read\n")
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1036, in write_bytes
+    with self.open(mode='wb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\misg\\AppData\\Local\\Temp\\librarian-0510-cwd-gkoq2flg\\note.txt'
+
+FAIL success: Traceback (most recent call last):
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-b423hdw5\\router\\instructions'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 1262, in check
+    fn()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 510, in test_success_and_replay
+    world = World()
+            ^^^^^^^
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 262, in __init__
+    self._plant(backend, timeout_s)
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 266, in _plant
+    self.instructions.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-b423hdw5\\router'
+
+FAIL success cleanup: Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 1267, in check
+    close_worlds()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 501, in close_worlds
+    raise held
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 496, in close_worlds
+    world.assert_held()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 295, in assert_held
+    if self.outside.read_bytes() != self.outside_bytes:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-b423hdw5\\outside.txt'
+
+FAIL interrupts: Traceback (most recent call last):
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-xxu_hekw\\router\\instructions'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 1262, in check
+    fn()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 596, in test_interrupts
+    launch = World()
+             ^^^^^^^
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 262, in __init__
+    self._plant(backend, timeout_s)
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 266, in _plant
+    self.instructions.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-xxu_hekw\\router'
+
+FAIL interrupts cleanup: Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 1267, in check
+    close_worlds()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 501, in close_worlds
+    raise held
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 496, in close_worlds
+    world.assert_held()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 295, in assert_held
+    if self.outside.read_bytes() != self.outside_bytes:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-xxu_hekw\\outside.txt'
+
+FAIL recover: Traceback (most recent call last):
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-nb33dc86\\router\\instructions'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 1262, in check
+    fn()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 648, in test_uncertain_then_recover
+    world = World()
+            ^^^^^^^
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 262, in __init__
+    self._plant(backend, timeout_s)
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 266, in _plant
+    self.instructions.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-nb33dc86\\router'
+
+FAIL recover cleanup: Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 1267, in check
+    close_worlds()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 501, in close_worlds
+    raise held
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 496, in close_worlds
+    world.assert_held()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 295, in assert_held
+    if self.outside.read_bytes() != self.outside_bytes:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-nb33dc86\\outside.txt'
+
+FAIL claim: Traceback (most recent call last):
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-55ywwr93\\router\\instructions'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 1262, in check
+    fn()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 711, in test_wrong_claim_and_link
+    queued = World()
+             ^^^^^^^
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 262, in __init__
+    self._plant(backend, timeout_s)
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 266, in _plant
+    self.instructions.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-55ywwr93\\router'
+
+FAIL claim cleanup: Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 1267, in check
+    close_worlds()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 501, in close_worlds
+    raise held
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 496, in close_worlds
+    world.assert_held()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 295, in assert_held
+    if self.outside.read_bytes() != self.outside_bytes:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-55ywwr93\\outside.txt'
+
+FAIL stale: Traceback (most recent call last):
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-4k268fkc\\router\\instructions'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 1262, in check
+    fn()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 751, in test_stale_instructions
+    before = World()
+             ^^^^^^^
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 262, in __init__
+    self._plant(backend, timeout_s)
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 266, in _plant
+    self.instructions.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-4k268fkc\\router'
+
+FAIL stale cleanup: Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 1267, in check
+    close_worlds()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 501, in close_worlds
+    raise held
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 496, in close_worlds
+    world.assert_held()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 295, in assert_held
+    if self.outside.read_bytes() != self.outside_bytes:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-4k268fkc\\outside.txt'
+
+FAIL conflict: Traceback (most recent call last):
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-5hpi4qhu\\router\\instructions'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 1262, in check
+    fn()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 784, in test_conflicts_and_bytes
+    conflict = World()
+               ^^^^^^^
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 262, in __init__
+    self._plant(backend, timeout_s)
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 266, in _plant
+    self.instructions.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-5hpi4qhu\\router'
+
+FAIL conflict cleanup: Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 1267, in check
+    close_worlds()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 501, in close_worlds
+    raise held
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 496, in close_worlds
+    world.assert_held()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 295, in assert_held
+    if self.outside.read_bytes() != self.outside_bytes:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-5hpi4qhu\\outside.txt'
+
+FAIL receipt: Traceback (most recent call last):
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-1zd9ns1d\\router\\instructions'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 1262, in check
+    fn()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 861, in test_receipt_and_damage
+    malformed = World()
+                ^^^^^^^
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 262, in __init__
+    self._plant(backend, timeout_s)
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 266, in _plant
+    self.instructions.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-1zd9ns1d\\router'
+
+FAIL receipt cleanup: Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 1267, in check
+    close_worlds()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 501, in close_worlds
+    raise held
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 496, in close_worlds
+    world.assert_held()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 295, in assert_held
+    if self.outside.read_bytes() != self.outside_bytes:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-1zd9ns1d\\outside.txt'
+
+FAIL outcomes: Traceback (most recent call last):
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-4v5ilndl\\router\\instructions'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 1262, in check
+    fn()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 917, in test_worker_outcomes
+    uncollected = World(backend="fixture-missing-artifact")
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 262, in __init__
+    self._plant(backend, timeout_s)
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 266, in _plant
+    self.instructions.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-4v5ilndl\\router'
+
+FAIL outcomes cleanup: Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 1267, in check
+    close_worlds()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 501, in close_worlds
+    raise held
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 496, in close_worlds
+    world.assert_held()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 295, in assert_held
+    if self.outside.read_bytes() != self.outside_bytes:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-4v5ilndl\\outside.txt'
+
+REFUSAL A12 scratch store is inside Git
+FAIL placement: Traceback (most recent call last):
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-exwepnnd\\router\\instructions'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 1262, in check
+    fn()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 998, in test_placement_and_pin
+    unknown = World()
+              ^^^^^^^
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 262, in __init__
+    self._plant(backend, timeout_s)
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 266, in _plant
+    self.instructions.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-exwepnnd\\router'
+
+FAIL placement cleanup: Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 1267, in check
+    close_worlds()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 501, in close_worlds
+    raise held
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 496, in close_worlds
+    world.assert_held()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 295, in assert_held
+    if self.outside.read_bytes() != self.outside_bytes:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-exwepnnd\\outside.txt'
+
+FAIL occupied: Traceback (most recent call last):
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-vojuaefv\\router\\instructions'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 1262, in check
+    fn()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 1044, in test_occupied_paths
+    linked = World()
+             ^^^^^^^
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 262, in __init__
+    self._plant(backend, timeout_s)
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 266, in _plant
+    self.instructions.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-vojuaefv\\router'
+
+FAIL occupied cleanup: Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 1267, in check
+    close_worlds()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 501, in close_worlds
+    raise held
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 496, in close_worlds
+    world.assert_held()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 295, in assert_held
+    if self.outside.read_bytes() != self.outside_bytes:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-vojuaefv\\outside.txt'
+
+FAIL io: Traceback (most recent call last):
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-dn0x54hk\\router\\instructions'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 1262, in check
+    fn()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 1118, in test_io_failures
+    partial = World()
+              ^^^^^^^
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 262, in __init__
+    self._plant(backend, timeout_s)
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 266, in _plant
+    self.instructions.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-dn0x54hk\\router'
+
+FAIL io cleanup: Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 1267, in check
+    close_worlds()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 501, in close_worlds
+    raise held
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 496, in close_worlds
+    world.assert_held()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 295, in assert_held
+    if self.outside.read_bytes() != self.outside_bytes:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-dn0x54hk\\outside.txt'
+
+FAIL concurrent: Traceback (most recent call last):
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-e9l99rd8\\router\\instructions'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 1262, in check
+    fn()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 1223, in test_concurrent
+    world = World()
+            ^^^^^^^
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 262, in __init__
+    self._plant(backend, timeout_s)
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 266, in _plant
+    self.instructions.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Access is denied: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-e9l99rd8\\router'
+
+FAIL concurrent cleanup: Traceback (most recent call last):
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 1267, in check
+    close_worlds()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 501, in close_worlds
+    raise held
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 496, in close_worlds
+    world.assert_held()
+  File "D:\librarian\temp\review-g1-sof08\lib\app\tests\test_clerk_seam.py", line 295, in assert_held
+    if self.outside.read_bytes() != self.outside_bytes:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-e9l99rd8\\outside.txt'
+
+PASS guarded bytes were unchanged
+PASS no bytecode was written into the books or app
+summary pass 2 expected-refusal 1 skip 0 fail 25
+
+STDERR
