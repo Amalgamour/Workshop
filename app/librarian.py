@@ -2,6 +2,7 @@
 """Development entry. where and validate resolve context and do not execute a candidate.
 
 test-run executes one fixture payload through the pinned runner candidate.
+bridge-test, bridge-status, and bridge-recover are the fixture-only worker exchange.
 The writable container is designated before fixture metadata is read.
 run is refused. A --test flag does not authorize a fixture root.
 """
@@ -54,7 +55,14 @@ def directory(text: str) -> Path:
 
 def main(argv: list[str] | None = None) -> None:
     args = list(sys.argv[1:] if argv is None else argv)
-    if not args or args[0] not in ("where", "validate", "test-run"):
+    if not args or args[0] not in (
+        "where",
+        "validate",
+        "test-run",
+        "bridge-test",
+        "bridge-status",
+        "bridge-recover",
+    ):
         stop("normal run is not activated")
     command = args.pop(0)
     code_root = Path(__file__).resolve().parent.parent
@@ -70,6 +78,36 @@ def main(argv: list[str] | None = None) -> None:
             if command == "validate":
                 lines.append("validate: pass")
             sys.stdout.write("\n".join(lines) + "\n")
+            return
+        if command in ("bridge-test", "bridge-status", "bridge-recover"):
+            if "--test" in args:
+                args.remove("--test")
+            root = directory(take(args, "--root"))
+            explicit = take(args, "--container") if "--container" in args else None
+            job = delivery = recovery = None
+            if command == "bridge-test":
+                job = take(args, "--job")
+            elif command == "bridge-status":
+                delivery = take(args, "--delivery")
+            else:
+                delivery = take(args, "--delivery")
+                recovery = take(args, "--recovery-request")
+            if args:
+                stop("unknown argument")
+            bridge = load_module(Path(__file__).resolve().parent / "worker_bridge.py", "librarian_worker_bridge")
+            report = bridge.perform(
+                context,
+                command,
+                code_root,
+                root,
+                job_rel=job,
+                delivery=delivery,
+                recovery_rel=recovery,
+                explicit=explicit,
+            )
+            sys.stdout.write(report.text)
+            if report.code != 0:
+                raise SystemExit(report.code)
             return
         test_flag = "--test" in args
         if test_flag:

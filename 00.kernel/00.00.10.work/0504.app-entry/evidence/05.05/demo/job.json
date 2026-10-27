@@ -1,0 +1,13 @@
+{
+  "schema": "librarian-bridge-job",
+  "version": 1,
+  "delivery_id": "bridge-0001",
+  "job_id": "job-count-lines",
+  "role": "builder",
+  "work_ref": "00.kernel/00.00.10.work/0501.fixture/05.01.md",
+  "backend": "fixture-ok",
+  "inputs": [
+    {"name": "text", "path": "input.txt", "sha256": "f1f6c82d215ccf38a9d5eafce281febb2c971dc71ae7a15bbe0c1c81458d69c8", "bytes": 22}
+  ],
+  "limits": {"timeout_s": 20, "max_stdout_bytes": 100000, "max_stderr_bytes": 100000}
+}

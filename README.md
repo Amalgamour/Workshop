@@ -34,7 +34,7 @@ Beside the desk:
 | `returns/` | Builder returns and Prime reviews. |
 | `labs/` | Experiments and the development tooling these packs used, with their evidence. |
 | `notes/` | Temporary working notes from before the desk existed. |
-| `app/` | Development entry `app/librarian.py`. `where` and `validate` resolve context and run nothing. `test-run` runs one fixture inventory. `run` refuses. Nothing is seated. |
+| `app/` | Development entry `app/librarian.py`. `where` and `validate` resolve context and run nothing. `test-run` runs one fixture inventory. `bridge-test`, `bridge-status`, and `bridge-recover` run one fixture protocol-test exchange through the pinned lab. `run` refuses. Nothing is seated. |
 
 ## Imported instructions are reference, not boot
 
@@ -52,9 +52,4 @@ Old boot files (`00.start.md`, `00.readme.md`, `AGENTS.md` and others under `imp
 `.gitattributes` keeps `/imports`, `/labs`, `/notes`, `/packs`, `/returns` and `/00.kernel` byte-exact (`-text`). New app and control text is LF. `.gitignore` excludes only generated scratch repositories. See `0410.imports`, and addendum 001 #B-A03, for how every Git boundary was checked.
 
 ## Development status — 2026-10-27
-The app entry and worker bridge are separate development components. The bridge
-lab passed Prime's 30-test verification; fixture-only integration is designed but
-not implemented. The app's original source-folder overwrite is fixed; AR-01's
-hard-link route blocks integration pending 0504/05.04. No model connection is active.
-The advisory book checker is accepted on 0502/05.03. The Observer's first manual
-review and Prime responses are 0502/06.02. No continuous Observer process exists.
+The development entry can hash-check `0302.run/02.run.003.py` and run one fixture inventory. It can also submit one fixture job to the accepted local process adapter, print a verified artifact and a durable receipt, read that receipt from a fresh process, and replay the same job without a second launch. The worker kind is `protocol test worker`. Collection is not approval. No model connection is active. The lab at `labs/worker-bridge-pass01` is unchanged. `run` refuses. AR-01's pre-existing output name is still refused before an inventory payload runs. The advisory book checker is accepted on 0502/05.03. The Observer's first manual review and Prime responses are 0502/06.02. No continuous Observer process exists. Nothing is seated or activated.
