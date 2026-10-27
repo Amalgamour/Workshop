@@ -1,0 +1,56 @@
+{
+ "schema": "prime-boot-design-examples/1",
+ "note": "Design examples for 0507.prime-support/05.06. Items marked hypothetical are constructed packets, not tool output. Real items cite pinned bytes (pack05.06 unless stated).",
+ "examples": [
+  {
+   "id": "E1-clean-orientation",
+   "kind": "hypothetical",
+   "request": {"schema": "prime-boot-request/1", "boot_id": "fixture-boot-1", "attempt": 1, "previous_attempt": null,
+               "workspace": "<fixture repo>", "branch": "main", "commit": "<fixture HEAD>", "role": "Prime", "model": "<label>",
+               "book": "00.kernel/00.00.10.work", "registry": {"path": "<fixture lanes.json>", "sha256": "<hash>"}, "members": [], "packet_cap": 12},
+   "compute": {"B0": "HEAD == commit; worktree clean", "B4_attention0": "unseen: lane fixture: <page>/05.01.md", "conflicts": []},
+   "answers": {"O1": "<page>/05.01.md@<commit>#<sha>", "O2": {"release": "Release: fixture.", "claim": "Claim: fixture.", "return": "execution: returned", "review": "PENDING."}},
+   "checks": {"O1": "matches attention[0]", "O2": "all field values match cited bytes", "citations": "all inside packet"},
+   "outcome_if_judge_passes": "oriented"
+  },
+  {
+   "id": "E2-stale-or-contradictory-assignment",
+   "kind": "real pinned bytes",
+   "sources": [
+    {"path": "00.kernel/00.00.10.work/0401.goal/06.01.md", "sha256": "1ee161c5497212eccfcc13d6703e94df7b8c05d31e1dae00e978ac321d7978bc", "pinned_in": "pack05.01",
+     "reads": "current_work 0504.app-entry/05.06.md; assignment_state waiting; updated 2026-10-27"},
+    {"path": "00.kernel/00.00.10.work/0401.goal/01.md", "sha256": "42e5a587bda3d795fdccd2289697200e0f3820bd1e544f47345ccc5a95d6f5db", "pinned_in": "pack05.06",
+     "reads": "Latest correction review: 'App receipt correction accepted in fixture-only scope'; also contains mojibake U+00E2 U+20AC (3 lines)"},
+    {"path": "00.kernel/00.00.10.work/0408.seats/01.md", "sha256": "dbf2399d528586afd48b51be5b6b6901e568937733295fb8b4390b25249a02e4", "pinned_in": "pack05.06",
+     "reads": "Builder cell scoped to 0504.app-entry/05.01"}
+   ],
+   "expected_boot_behaviour": "O1 must report the contradiction (canonical says 05.06 waiting; goal text says 05.06 accepted) and cite both; compute flags a conflict; no source is rewritten; lane choice is a Director/Prime decision (U03). The mojibake is reported as an encoding fault, not read as text.",
+   "outcome": "partial at best until the owner resolves which record is current"
+  },
+  {
+   "id": "E3-new-sealed-return",
+   "kind": "real member",
+   "member": "0107.clerk-types-0505",
+   "receipt_sha256": "5fbddb14f4a086223efb4cb094816af21d4fb7585e54c87221fb7d50f2db8e18",
+   "pointer_page": {"path": "00.kernel/00.00.10.work/0507.prime-support/05.05.md", "sha256": "d545d523b5f1900c23887930f520223170e23a1d209eadb713465bcc45836f23"},
+   "expected_boot_behaviour": "B5 runs return_capture.py verify --member 0107.clerk-types-0505 (integrity: result complete; not approved/accepted/published). The subject is (book, 0107.clerk-types-0505, receipt sha). The 05.05 Return pointer is read only as a pointer to that member; the submission is the member's return.md. Review status comes from the 05.05 Review section (here: Prime 'Accepted for the fixture-only registered Clerk intake adapter'), cited, not inferred from the receipt."
+  },
+  {
+   "id": "E4-missing-tool-pin",
+   "kind": "real dependency state",
+   "source": {"path": "00.kernel/00.00.10.work/0508.return-capture/05.04.md", "sha256": "d0fcd073565a4b59b0a743a615991b66df08fd73fa44b133001cafa84b9f6041", "reads": "Release: PENDING. Claim: PENDING."},
+   "expected_boot_behaviour": "No accepted return_inspect.py hash exists. B5 records member identity 'unknown; dependency return_inspect missing'; it does not import a changing file or guess a hash. O5 can cite this page as the missing dependency. Integrity via verify still runs.",
+   "outcome_effect": "does not by itself block orientation; blocks any step needing structured member fields"
+  },
+  {
+   "id": "E5-unresolved-director-decision",
+   "kind": "real decision state",
+   "sources": [
+    {"path": "00.kernel/00.00.10.work/0507.prime-support/05.05.md", "sha256": "d545d523b5f1900c23887930f520223170e23a1d209eadb713465bcc45836f23",
+     "reads": "Prime review, snapshot lines 86-87 (wrapped): 'Registered scope only, no real registry/store or automatic routing installed.'"}
+   ],
+   "decision": "M01 (real intake store location) and M02 (page conventions) remain deferred (0507 05.01 Prime review, as recorded on 06.02/05.01).",
+   "expected_boot_behaviour": "The boot can use only a disposable or explicitly named intake store; O4 must state that a real store is not authorized; the item is listed under unresolved with its owner (Director). No default store is invented."
+  }
+ ]
+}

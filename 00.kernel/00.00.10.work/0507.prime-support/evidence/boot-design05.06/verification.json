@@ -1,0 +1,44 @@
+{
+ "schema": "verification/0507-05.06",
+ "batch": "00.kernel/00.00.10.work/0507.prime-support/05.06.md",
+ "kind": "design only; no code, registry, boot-log installation or model call",
+ "workshop_head_at_claim": "3db0957a6bf8870ff6ac5978fffa152aed06972d",
+ "inputs": {
+  "pack": "evidence/pack05.06/source-manifest.json",
+  "sources": 12, "bad": 0,
+  "live_differs_from_snapshot": ["00.kernel/00.00.10.work/00.md", "00.kernel/00.00.10.work/0100.band.returns/01.md"],
+  "capture_helper_sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+  "extra_dated_source": {"path": "00.kernel/00.00.10.work/0401.goal/06.01.md", "sha256": "1ee161c5497212eccfcc13d6703e94df7b8c05d31e1dae00e978ac321d7978bc", "pinned_in": "evidence/pack05.01"}
+ },
+ "verified_readings": [
+  {"claim": "prime_support.py, clerk_adapter.py and return_capture.py are the cited hashes", "how": "pack05.06 pins match snapshots and live"},
+  {"claim": "0507/05.05 snapshot carries Prime's acceptance of the fixture-only Clerk adapter", "how": "grep of snapshot 0004 (d545d523…): 'Accepted for the fixture-only registered Clerk intake adapter'"},
+  {"claim": "0508/05.04 is a draft with Release PENDING", "how": "grep of snapshot 0010 (d0fcd073…): 'Release: PENDING. Claim: PENDING.'"},
+  {"claim": "goal page says app receipt correction accepted and contains mojibake", "how": "grep of snapshot 0006 (42e5a587…): phrase found once; 'â€' on 3 lines"},
+  {"claim": "canonical record names 0504/05.06 waiting", "how": "pack05.01 input 0401.goal/06.01.md (1ee161c5…) read"},
+  {"claim": "seats Builder cell scoped to 0504.app-entry/05.01", "how": "grep of snapshot 0005 (dbf2399d…)"},
+  {"claim": "member 0107.clerk-types-0505 receipt sha256 5fbddb14…", "how": "sha256 of live receipt.json, captured in batch 05.05 and fresh-verified then"},
+  {"claim": "05.NN Return pointer holds member, receipt hash and verify result only", "how": "05.05 batch instruction text in snapshot 0004 lines 55-60 and 0100 door snapshot 0009"}
+ ],
+ "unexecuted_design_claims": [
+  "the boot request/record formats (prime-boot-request/1, prime-boot/1)",
+  "steps B0-B10, the packet builder, the citation checker, the outcome rule",
+  "the orientation exercise O1-O6 and its compute/judge split",
+  "the member-return subject kind and the return_inspect consumer contract",
+  "the prime-boot-pass01 CLI and its tests"
+ ],
+ "built_vs_proposed": {
+  "built_accepted": ["prime_support.py status/scan/ack/ack-clerk/show (fixture lab)", "clerk_adapter.py (fixture lab)", "return_capture.py capture/verify"],
+  "built_hash_not_in_pack": ["published-book contents checker (check_book.py)"],
+  "draft_dependency": ["return_inspect.py (0508/05.04)"],
+  "missing_proposed": ["prime_boot.py prepare/check/judge/show", "boot request and attempt record", "member-return intake subject kind"]
+ },
+ "unresolved": [
+  {"id": "U01", "question": "where boot attempt records live", "owner": "Director/Prime"},
+  {"id": "U02", "question": "who judges and whether one judge suffices", "owner": "Director"},
+  {"id": "U03", "question": "multi-lane current assignment, or which record names Prime's lane", "owner": "Director"},
+  {"id": "U04", "question": "packet size cap", "owner": "Prime"},
+  {"id": "U05", "question": "whether law 0063 must be seated before a boot counts as Prime", "owner": "Director"}
+ ],
+ "limits": ["free-text understanding is judged, not mechanically proved", "labels are not authentication", "no hash is known yet for return_inspect.py or the contents checker in this pack", "examples E1 is hypothetical; E2-E5 cite pinned bytes"]
+}

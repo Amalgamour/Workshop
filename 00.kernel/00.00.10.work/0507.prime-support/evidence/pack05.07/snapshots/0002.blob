@@ -1,0 +1,62 @@
+# Notes — the smallest recorded Prime boot (batch 05.06)
+Date: 2026-10-27
+Recorder: claude-opus-5-5, Colab, design executor
+State: written before the design. Design only: no code, registry, boot-log installation or model call. Earlier notes 06.01-06.06 stay as they are.
+
+## Inputs (pack05.06, 12 of 12 pins match)
+I01. Built and accepted (fixture/lab scope):
+- prime_support.py 700d60d2… (status, scan, ack, ack-clerk, show);
+- clerk_adapter.py 2f30ba75… (registered Clerk jobs; accepted on 05.05, snapshot d545d523…);
+- return_capture.py 8f3da5c6… (reserve, capture, verify).
+I02. Records:
+- seats 0408/01.md dbf2399d…;
+- goal 0401/01.md 42e5a587…;
+- the assignment schema in 0410/01.md 082314ff…;
+- the book entry 00.md 44de8c36…;
+- the returns-band door 0100/01.md 014cf035….
+I03. Draft dependency: 0508/05.04 (d0fcd073…) asks Grok-2 for `return_inspect.py inspect --book --member --json` (return-capture-inspection/1). Release is PENDING. It is not built, accepted or pinned.
+I04. One extra pinned source, from an earlier pack: the canonical assignment 0401/06.01.md as packed in pack05.01 (1ee161c5…). 0401/06.01 is not in pack05.06. It is used only as a dated example.
+I05. Live 00.md and the 0100 door have changed since the pack. The snapshots are the inputs.
+
+## Observations from the pinned bytes
+F01. **Stale or contradictory furniture:**
+- the canonical record (1ee161c5…) says current_work 0504/05.06, `waiting` on its release;
+- the goal page (42e5a587…) says "App receipt correction accepted" and names later batches;
+- the seats page still scopes the Builder cell to `0504.app-entry/05.01`, while two Grok builders run bounded batches.
+A boot must report these, not resolve them.
+F02. 0401/01.md contains `â€”` three times. That is a mojibake encoding fault: AGENTS says to read it as an encoding fault, not as text. It is a cold-reader hazard.
+F03. Member returns (0100 band): integrity comes from `return_capture.py verify --member` (exit 0, "result complete" plus "not approved, not accepted, not published"). The 05.NN "Return pointer" holds only the member, the receipt hash and the verify result. It is a pointer, not the submission. The submission is `return.md` inside the member, bound by the receipt.
+F04. There is no machine-readable "current assignment" for parallel lanes. 0401/06.01 describes one lane. Status already reports conflicts. Choosing a lane is judgment.
+F05. check_book.py (the published-book checker) is described as accepted in the goal-page text. Its code and hash are not in this pack, so it is a pin-gated dependency here.
+
+## Decisions (routine)
+D01. A boot is one attempt record:
+- inputs are explicit (workspace, branch, commit, role label, model label, registry and its hash, member list);
+- compute runs fixed, read-only, pin-checked steps;
+- one bounded packet;
+- the model's structured answers;
+- compute checks of the identity fields;
+- a judge's verdict on the explanations;
+- explicit unresolved items.
+D02. Compute verifies identities, paths, hashes and fields. It never grades meaning. A judge (Prime-observer or Director) grades explanations.
+D03. Outcome vocabulary: `oriented`, `partial` or `not-oriented`. Anything short of oriented blocks dependent execution. Read-only investigation is still allowed.
+D04. A missing answer or gap names a remediation reference (path@commit#sha) or a question to the owner, and leads to a new attempt that links the old one. Nothing becomes a pass by default.
+D05. The six-item orientation exercise is small and fixed for the first slice. It is not a universal exam.
+D06. Member subjects need the draft inspector. Until it is accepted and pinned, members are integrity-only (verify exit 0), with identity `unknown`, and the boot reports the dependency as missing.
+
+## Unresolved, preserved for Prime/Director
+U01. Where boot records live (external store, or the work book). This parallels M01.
+U02. Who judges, and whether one judge is enough.
+U03. Whether 0401/06.01 should become multi-lane, or which record names Prime's current lane.
+U04. The packet size cap.
+U05. Whether law 0063 (role Prime) must be seated before a boot counts as "Prime" rather than "a model reading as Prime".
+
+## Reread (after BOOT.md, examples.json, verification.json)
+R01. Every real citation in the examples was re-checked against the snapshot bytes (verification.json `verified_readings`). One quote wraps across snapshot lines 86-87 of 0004, and the example now says so.
+R02. Built versus proposed is stated three times (BOOT §1, the step table, verification `built_vs_proposed`), and the three agree. The draft inspector has no guessed hash anywhere.
+R03. Accounted:
+- I01-I05: BOOT §1;
+- F01-F05: BOOT §1-2 and examples E2-E5;
+- D01-D06: BOOT §2-4;
+- U01-U05: BOOT §1 and verification `unresolved`.
+No code was written. No model was run.

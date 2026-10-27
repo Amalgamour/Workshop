@@ -1,0 +1,53 @@
+{
+  "kind": "independent design/source/capture verification; no runtime tests or model boot claimed",
+  "input_snapshot_rows": 12,
+  "example_citations_verified": [
+    {
+      "example": "E2-stale-or-contradictory-assignment",
+      "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+      "sha256": "1ee161c5497212eccfcc13d6703e94df7b8c05d31e1dae00e978ac321d7978bc"
+    },
+    {
+      "example": "E2-stale-or-contradictory-assignment",
+      "path": "00.kernel/00.00.10.work/0401.goal/01.md",
+      "sha256": "42e5a587bda3d795fdccd2289697200e0f3820bd1e544f47345ccc5a95d6f5db"
+    },
+    {
+      "example": "E2-stale-or-contradictory-assignment",
+      "path": "00.kernel/00.00.10.work/0408.seats/01.md",
+      "sha256": "dbf2399d528586afd48b51be5b6b6901e568937733295fb8b4390b25249a02e4"
+    },
+    {
+      "example": "E3-new-sealed-return",
+      "path": "00.kernel/00.00.10.work/0507.prime-support/05.05.md",
+      "sha256": "d545d523b5f1900c23887930f520223170e23a1d209eadb713465bcc45836f23"
+    },
+    {
+      "example": "E4-missing-tool-pin",
+      "path": "00.kernel/00.00.10.work/0508.return-capture/05.04.md",
+      "sha256": "d0fcd073565a4b59b0a743a615991b66df08fd73fa44b133001cafa84b9f6041"
+    },
+    {
+      "example": "E5-unresolved-director-decision",
+      "path": "00.kernel/00.00.10.work/0507.prime-support/05.05.md",
+      "sha256": "d545d523b5f1900c23887930f520223170e23a1d209eadb713465bcc45836f23"
+    }
+  ],
+  "examples": 5,
+  "capture_verify": {
+    "exit": 0,
+    "stdout": "reservation ba79e6658e96ee5392de311b636dc115611a8a50a44f79dbc6b212fa645397b2\nmanifest e88418998748443b8f557c8f95c9e3ff2879349069e945cca35eeb1479b47687\nreceipt 82181fe291e336eca5de73b3bc2797f9a73f4298463b8a2aff443d2d365ec7da\npayload 0001.blob 9c63eab5593a283d8ca04af53af31dd1fe2032dc6ca3ae638f03177e1589e66a\npayload 0002.blob f88d9095526ca24e2bef5bcedf54dcc369c67b784a5aa3862a4885091c634ae1\npayload 0003.blob 49dc7d87f523a5cbcb60f22a131a56594c453beaae14cc32587e99937c9c511a\npayload 0004.blob 56d984dd501e2642c4053f266d7e827c1460079ac28b9204b3eb90c172e15d51\nresult complete\nnot approved\nnot accepted\nnot published\n",
+    "stderr": ""
+  },
+  "declared_outputs_match": 4,
+  "checker_sha256": "fc16d2f68a3645050b6766ce18ce55f8169a0e2bad52d3392b4d059c629073a4",
+  "implementation_requirements": [
+    "Create attempt request/intent before fallible preparation; record failed and partial boots too",
+    "Attention ordering is advisory; compute checks a target is a valid cited choice, not that it equals attention[0]",
+    "A complete bounded packet may honestly report no unknown found; never force an invented missing dependency",
+    "Differentiate committed Git sources from dirty/live/store observations; reject false commit attribution",
+    "Missing material needs recorded absence evidence; do not demand a citation to a nonexistent blob",
+    "Receipt completion does not assert that external review/publication never occurred; tool scope is limited",
+    "The packet must carry retrievable exact material, not only hashes/filenames; bounded expansion and overflow explicit"
+  ]
+}
