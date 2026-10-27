@@ -1,0 +1,114 @@
+{
+  "schema": "return-capture-source-plan/1",
+  "source_commit": "75ae515d826482113c4126274d015de112aa249b",
+  "origin": {
+    "book": "00.00.10.work",
+    "page": "0505.observer-design",
+    "batch": "05.01"
+  },
+  "submission_id": "historical-0505-0501-75ae515",
+  "member": "0115.observer-pilot-0501",
+  "retrospective": true,
+  "includes_prime_review": false,
+  "return_includes_prime_review_set": false,
+  "export_tool": "git cat-file blob",
+  "export_directory": "C:\\Users\\misg\\AppData\\Local\\Temp\\rc0506-export",
+  "flat": true,
+  "live_files_used_as_source": false,
+  "historical_request_executed": false,
+  "return": {
+    "git_path": "00.kernel/00.00.10.work/0505.observer-design/05.01.md",
+    "git_spec": "75ae515d826482113c4126274d015de112aa249b:00.kernel/00.00.10.work/0505.observer-design/05.01.md",
+    "export_name": "return-0505.observer-design-05.01.md",
+    "sha256": "952fb8a774cb174fe1b96ddbfdc9bc9df42a2f0e18e42557d21da02a52f2fea3",
+    "bytes": 3216,
+    "live_matches_commit": true
+  },
+  "payloads": [
+    {
+      "git_path": "00.kernel/00.00.10.work/0505.observer-design/01.md",
+      "git_spec": "75ae515d826482113c4126274d015de112aa249b:00.kernel/00.00.10.work/0505.observer-design/01.md",
+      "logical": "00.kernel/00.00.10.work/0505.observer-design/01.md",
+      "relative": "companion-0505.observer-design-01.md",
+      "mapping": "companion-0505.observer-design-01.md|00.kernel/00.00.10.work/0505.observer-design/01.md",
+      "sha256": "2a9c65992d569f54f27d798c58e681b3afed644cd443e1c21d0f0e42693eb3de",
+      "bytes": 16251,
+      "reason": "Path named by the page and present in the originating book at the inventory commit.",
+      "live_matches_commit": true
+    },
+    {
+      "git_path": "00.kernel/00.00.10.work/0502.workflow-start/05.01.md",
+      "git_spec": "75ae515d826482113c4126274d015de112aa249b:00.kernel/00.00.10.work/0502.workflow-start/05.01.md",
+      "logical": "00.kernel/00.00.10.work/0502.workflow-start/05.01.md",
+      "relative": "companion-0502.workflow-start-05.01.md",
+      "mapping": "companion-0502.workflow-start-05.01.md|00.kernel/00.00.10.work/0502.workflow-start/05.01.md",
+      "sha256": "7f43ea75f0fc6f01229e0171312bc1f42a067df7a27e9689eab602d5f1bcfe17",
+      "bytes": 20298,
+      "reason": "Path named by the page and present at the inventory commit. It is a cited dependency, not a claim that this return reproduces that other batch.",
+      "live_matches_commit": true
+    },
+    {
+      "git_path": "00.kernel/00.00.10.work/0505.observer-design/templates/role-observer.md",
+      "git_spec": "75ae515d826482113c4126274d015de112aa249b:00.kernel/00.00.10.work/0505.observer-design/templates/role-observer.md",
+      "logical": "00.kernel/00.00.10.work/0505.observer-design/templates/role-observer.md",
+      "relative": "companion-0505.observer-design-templates-role-observer.md",
+      "mapping": "companion-0505.observer-design-templates-role-observer.md|00.kernel/00.00.10.work/0505.observer-design/templates/role-observer.md",
+      "sha256": "e49f10a9e6daed2e93122d338a60290073f66d21fb24aa6be7dc4a29ea8682e7",
+      "bytes": 2997,
+      "reason": "Path named by the page and present in the originating book at the inventory commit.",
+      "live_matches_commit": true
+    },
+    {
+      "git_path": "00.kernel/00.00.10.work/0502.workflow-start/06.02.md",
+      "git_spec": "75ae515d826482113c4126274d015de112aa249b:00.kernel/00.00.10.work/0502.workflow-start/06.02.md",
+      "logical": "00.kernel/00.00.10.work/0502.workflow-start/06.02.md",
+      "relative": "companion-0502.workflow-start-06.02.md",
+      "mapping": "companion-0502.workflow-start-06.02.md|00.kernel/00.00.10.work/0502.workflow-start/06.02.md",
+      "sha256": "4bb3101fd9f91243c97f24dfe35e6c8ce2d3e881115d8bba9122d7b61cd377a6",
+      "bytes": 25057,
+      "reason": "Path named by the page and present at the inventory commit. It is a cited dependency, not a claim that this return reproduces that other batch.",
+      "live_matches_commit": true
+    },
+    {
+      "git_path": "00.kernel/00.00.10.work/0505.observer-design/templates/review-record.md",
+      "git_spec": "75ae515d826482113c4126274d015de112aa249b:00.kernel/00.00.10.work/0505.observer-design/templates/review-record.md",
+      "logical": "00.kernel/00.00.10.work/0505.observer-design/templates/review-record.md",
+      "relative": "companion-0505.observer-design-templates-review-record.md",
+      "mapping": "companion-0505.observer-design-templates-review-record.md|00.kernel/00.00.10.work/0505.observer-design/templates/review-record.md",
+      "sha256": "1e84077338c00d74061ff4f56a22bf1efeb2ef4b4a515b3b8d9c76def556e461",
+      "bytes": 2068,
+      "reason": "Path named by the page and present in the originating book at the inventory commit.",
+      "live_matches_commit": true
+    }
+  ],
+  "command": {
+    "cwd": "D:\\Git\\lib-build",
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-B",
+      "labs/return-capture-pass01/return_capture.py",
+      "capture",
+      "--book",
+      "D:/Git/lib-build/00.kernel/00.00.10.work",
+      "--submission",
+      "historical-0505-0501-75ae515",
+      "--return-file",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\rc0506-export\\return-0505.observer-design-05.01.md",
+      "--source-root",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\rc0506-export",
+      "--artifact",
+      "companion-0505.observer-design-01.md|00.kernel/00.00.10.work/0505.observer-design/01.md",
+      "--artifact",
+      "companion-0502.workflow-start-05.01.md|00.kernel/00.00.10.work/0502.workflow-start/05.01.md",
+      "--artifact",
+      "companion-0505.observer-design-templates-role-observer.md|00.kernel/00.00.10.work/0505.observer-design/templates/role-observer.md",
+      "--artifact",
+      "companion-0502.workflow-start-06.02.md|00.kernel/00.00.10.work/0502.workflow-start/06.02.md",
+      "--artifact",
+      "companion-0505.observer-design-templates-review-record.md|00.kernel/00.00.10.work/0505.observer-design/templates/review-record.md",
+      "--retrospective",
+      "--source-commit",
+      "75ae515d826482113c4126274d015de112aa249b"
+    ]
+  }
+}

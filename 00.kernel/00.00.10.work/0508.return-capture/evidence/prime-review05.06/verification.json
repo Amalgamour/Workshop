@@ -1,0 +1,157 @@
+{
+  "kind": "independent exact historical blob and current-report custody verification; no product suite rerun",
+  "historical_source_commit": "75ae515d826482113c4126274d015de112aa249b",
+  "source_page_match": true,
+  "five_companion_blobs_match": true,
+  "origin_flags_match": true,
+  "current_report_separate_nonretrospective": true,
+  "current_report_not_self_receipt_bound": true,
+  "records": [
+    {
+      "member": "0115.observer-pilot-0501",
+      "files": {
+        "01.md": {
+          "sha256": "6b4c0462b1990229aed0ed2276497da57b860461e70f903e26d1b4b4cc4c5cd1",
+          "bytes": 343
+        },
+        "manifest.json": {
+          "sha256": "ed6975e3b96561b939f6e6a4c69785da7bfbb9991f12bb40aa4c353103bb6386",
+          "bytes": 1715
+        },
+        "receipt.json": {
+          "sha256": "fa0776c4474165287711ac284d655b4a6dd50ad7721ebbec0d914ea72ae81da0",
+          "bytes": 311
+        },
+        "reservation.json": {
+          "sha256": "a9b2327d95561761f294a290713e1ea67a3808aedc8f324c40e6093ffead8a0c",
+          "bytes": 841
+        },
+        "return.md": {
+          "sha256": "952fb8a774cb174fe1b96ddbfdc9bc9df42a2f0e18e42557d21da02a52f2fea3",
+          "bytes": 3216
+        },
+        "payload/0001.blob": {
+          "sha256": "2a9c65992d569f54f27d798c58e681b3afed644cd443e1c21d0f0e42693eb3de",
+          "bytes": 16251
+        },
+        "payload/0002.blob": {
+          "sha256": "7f43ea75f0fc6f01229e0171312bc1f42a067df7a27e9689eab602d5f1bcfe17",
+          "bytes": 20298
+        },
+        "payload/0003.blob": {
+          "sha256": "e49f10a9e6daed2e93122d338a60290073f66d21fb24aa6be7dc4a29ea8682e7",
+          "bytes": 2997
+        },
+        "payload/0004.blob": {
+          "sha256": "4bb3101fd9f91243c97f24dfe35e6c8ce2d3e881115d8bba9122d7b61cd377a6",
+          "bytes": 25057
+        },
+        "payload/0005.blob": {
+          "sha256": "1e84077338c00d74061ff4f56a22bf1efeb2ef4b4a515b3b8d9c76def556e461",
+          "bytes": 2068
+        }
+      },
+      "calls": [
+        {
+          "command": [
+            "D:\\Git\\lib-build\\labs\\return-capture-pass01\\return_capture.py",
+            "verify",
+            "--book",
+            "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+            "--member",
+            "0115.observer-pilot-0501"
+          ],
+          "exit": 0,
+          "stdout": "reservation a9b2327d95561761f294a290713e1ea67a3808aedc8f324c40e6093ffead8a0c\nmanifest ed6975e3b96561b939f6e6a4c69785da7bfbb9991f12bb40aa4c353103bb6386\nreceipt fa0776c4474165287711ac284d655b4a6dd50ad7721ebbec0d914ea72ae81da0\npayload 0001.blob 2a9c65992d569f54f27d798c58e681b3afed644cd443e1c21d0f0e42693eb3de\npayload 0002.blob 7f43ea75f0fc6f01229e0171312bc1f42a067df7a27e9689eab602d5f1bcfe17\npayload 0003.blob e49f10a9e6daed2e93122d338a60290073f66d21fb24aa6be7dc4a29ea8682e7\npayload 0004.blob 4bb3101fd9f91243c97f24dfe35e6c8ce2d3e881115d8bba9122d7b61cd377a6\npayload 0005.blob 1e84077338c00d74061ff4f56a22bf1efeb2ef4b4a515b3b8d9c76def556e461\nresult complete\nnot approved\nnot accepted\nnot published\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "D:\\Git\\lib-build\\labs\\return-capture-pass01\\return_inspect.py",
+            "inspect",
+            "--book",
+            "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+            "--member",
+            "0115.observer-pilot-0501",
+            "--json"
+          ],
+          "exit": 0,
+          "stdout": "{\"book\":\"D:\\\\Git\\\\lib-build\\\\00.kernel\\\\00.00.10.work\",\"capture\":{\"captured_at\":\"2026-10-27T21:24:28.431910Z\",\"manifest_sha256\":\"ed6975e3b96561b939f6e6a4c69785da7bfbb9991f12bb40aa4c353103bb6386\",\"origin\":{\"batch\":\"05.01\",\"book\":\"00.00.10.work\",\"page\":\"0505.observer-design\"},\"payloads\":[{\"bytes\":16251,\"logical\":\"00.kernel/00.00.10.work/0505.observer-design/01.md\",\"payload\":\"0001.blob\",\"sha256\":\"2a9c65992d569f54f27d798c58e681b3afed644cd443e1c21d0f0e42693eb3de\"},{\"bytes\":20298,\"logical\":\"00.kernel/00.00.10.work/0502.workflow-start/05.01.md\",\"payload\":\"0002.blob\",\"sha256\":\"7f43ea75f0fc6f01229e0171312bc1f42a067df7a27e9689eab602d5f1bcfe17\"},{\"bytes\":2997,\"logical\":\"00.kernel/00.00.10.work/0505.observer-design/templates/role-observer.md\",\"payload\":\"0003.blob\",\"sha256\":\"e49f10a9e6daed2e93122d338a60290073f66d21fb24aa6be7dc4a29ea8682e7\"},{\"bytes\":25057,\"logical\":\"00.kernel/00.00.10.work/0502.workflow-start/06.02.md\",\"payload\":\"0004.blob\",\"sha256\":\"4bb3101fd9f91243c97f24dfe35e6c8ce2d3e881115d8bba9122d7b61cd377a6\"},{\"bytes\":2068,\"logical\":\"00.kernel/00.00.10.work/0505.observer-design/templates/review-record.md\",\"payload\":\"0005.blob\",\"sha256\":\"1e84077338c00d74061ff4f56a22bf1efeb2ef4b4a515b3b8d9c76def556e461\"}],\"receipt_sha256\":\"fa0776c4474165287711ac284d655b4a6dd50ad7721ebbec0d914ea72ae81da0\",\"reservation_sha256\":\"a9b2327d95561761f294a290713e1ea67a3808aedc8f324c40e6093ffead8a0c\",\"retrospective\":true,\"return\":{\"bytes\":3216,\"includes_prime_review\":false,\"sha256\":\"952fb8a774cb174fe1b96ddbfdc9bc9df42a2f0e18e42557d21da02a52f2fea3\"},\"source_commit\":\"75ae515d826482113c4126274d015de112aa249b\",\"submission_id\":\"historical-0505-0501-75ae515\"},\"member\":\"0115.observer-pilot-0501\",\"problems\":[],\"reservation\":{\"destination\":{\"member\":\"0115\",\"name\":\"observer-pilot-0501\",\"path\":\"0115.observer-pilot-0501\"},\"expected_outputs\":[\"00.kernel/00.00.10.work/0505.observer-design/01.md\",\"00.kernel/00.00.10.work/0502.workflow-start/05.01.md\",\"00.kernel/00.00.10.work/0505.observer-design/templates/role-observer.md\",\"00.kernel/00.00.10.work/0502.workflow-start/06.02.md\",\"00.kernel/00.00.10.work/0505.observer-design/templates/review-record.md\"],\"origin\":{\"batch\":\"05.01\",\"book\":\"00.00.10.work\",\"page\":\"0505.observer-design\"},\"release\":\"Reservation only; retrospective capture execution requires Director release of 0508/05.06.\",\"reservation_sha256\":\"a9b2327d95561761f294a290713e1ea67a3808aedc8f324c40e6093ffead8a0c\",\"reserved_at\":\"2026-10-27T21:20:18.059324Z\",\"reviewer\":\"Codex Prime\",\"submission_id\":\"historical-0505-0501-75ae515\",\"submitter\":\"Codex Prime (historical source)\",\"supersedes\":null},\"schema\":\"return-capture-inspection/1\",\"status\":\"complete\"}\n",
+          "stderr": ""
+        }
+      ],
+      "unchanged_by_verify_inspect": true
+    },
+    {
+      "member": "0116.backfill-run-0506",
+      "files": {
+        "01.md": {
+          "sha256": "c8bfa4635e096fc6f1449e799988be1bcb25fececbd3e87f1b41b551366b43b8",
+          "bytes": 328
+        },
+        "manifest.json": {
+          "sha256": "233b98f6d9e34e058214999aafe5a2960ab9ef4146137649477bc82406c28140",
+          "bytes": 1544
+        },
+        "receipt.json": {
+          "sha256": "931fb7f4104066a9e54525b2cf1bb648d2eabdfb6f31054ee6b226ce67b169d9",
+          "bytes": 299
+        },
+        "reservation.json": {
+          "sha256": "2d05f24ffafad8cda469c5fcb8ac05608523044f773340254b11ab04524915c2",
+          "bytes": 800
+        },
+        "return.md": {
+          "sha256": "5dbdda600d1fb177ec96c66392271fa62e30844a8922b59556f51508e88aeb8a",
+          "bytes": 3567
+        },
+        "payload/0001.blob": {
+          "sha256": "92abadad90b02e48ab5303a6e27e9fd864633388e26d0f8067621af7a8baa5e5",
+          "bytes": 5251
+        },
+        "payload/0002.blob": {
+          "sha256": "ac371fa38567fefe2e98b71a3101e773e5cc08e0e209c4deb375e5e63dc73d0a",
+          "bytes": 6170
+        },
+        "payload/0003.blob": {
+          "sha256": "d6005149eed12a61ccf6167e18b51cdb1ef918499324237422a9a5bf6bc2fdf1",
+          "bytes": 6795
+        },
+        "payload/0004.blob": {
+          "sha256": "fde6bfd68e466689978114195f916505669b821d4a4e9a93594ad94ee5dfae9a",
+          "bytes": 5968
+        }
+      },
+      "calls": [
+        {
+          "command": [
+            "D:\\Git\\lib-build\\labs\\return-capture-pass01\\return_capture.py",
+            "verify",
+            "--book",
+            "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+            "--member",
+            "0116.backfill-run-0506"
+          ],
+          "exit": 0,
+          "stdout": "reservation 2d05f24ffafad8cda469c5fcb8ac05608523044f773340254b11ab04524915c2\nmanifest 233b98f6d9e34e058214999aafe5a2960ab9ef4146137649477bc82406c28140\nreceipt 931fb7f4104066a9e54525b2cf1bb648d2eabdfb6f31054ee6b226ce67b169d9\npayload 0001.blob 92abadad90b02e48ab5303a6e27e9fd864633388e26d0f8067621af7a8baa5e5\npayload 0002.blob ac371fa38567fefe2e98b71a3101e773e5cc08e0e209c4deb375e5e63dc73d0a\npayload 0003.blob d6005149eed12a61ccf6167e18b51cdb1ef918499324237422a9a5bf6bc2fdf1\npayload 0004.blob fde6bfd68e466689978114195f916505669b821d4a4e9a93594ad94ee5dfae9a\nresult complete\nnot approved\nnot accepted\nnot published\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "D:\\Git\\lib-build\\labs\\return-capture-pass01\\return_inspect.py",
+            "inspect",
+            "--book",
+            "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+            "--member",
+            "0116.backfill-run-0506",
+            "--json"
+          ],
+          "exit": 0,
+          "stdout": "{\"book\":\"D:\\\\Git\\\\lib-build\\\\00.kernel\\\\00.00.10.work\",\"capture\":{\"captured_at\":\"2026-10-27T21:26:23.945527Z\",\"manifest_sha256\":\"233b98f6d9e34e058214999aafe5a2960ab9ef4146137649477bc82406c28140\",\"origin\":{\"batch\":\"05.06\",\"book\":\"00.00.10.work\",\"page\":\"0508.return-capture\"},\"payloads\":[{\"bytes\":5251,\"logical\":\"00.kernel/00.00.10.work/0508.return-capture/06.07.md\",\"payload\":\"0001.blob\",\"sha256\":\"92abadad90b02e48ab5303a6e27e9fd864633388e26d0f8067621af7a8baa5e5\"},{\"bytes\":6170,\"logical\":\"00.kernel/00.00.10.work/0508.return-capture/evidence/backfill05.06/source-plan.json\",\"payload\":\"0002.blob\",\"sha256\":\"ac371fa38567fefe2e98b71a3101e773e5cc08e0e209c4deb375e5e63dc73d0a\"},{\"bytes\":6795,\"logical\":\"00.kernel/00.00.10.work/0508.return-capture/evidence/backfill05.06/capture-log.txt\",\"payload\":\"0003.blob\",\"sha256\":\"d6005149eed12a61ccf6167e18b51cdb1ef918499324237422a9a5bf6bc2fdf1\"},{\"bytes\":5968,\"logical\":\"00.kernel/00.00.10.work/0508.return-capture/evidence/backfill05.06/verification.json\",\"payload\":\"0004.blob\",\"sha256\":\"fde6bfd68e466689978114195f916505669b821d4a4e9a93594ad94ee5dfae9a\"}],\"receipt_sha256\":\"931fb7f4104066a9e54525b2cf1bb648d2eabdfb6f31054ee6b226ce67b169d9\",\"reservation_sha256\":\"2d05f24ffafad8cda469c5fcb8ac05608523044f773340254b11ab04524915c2\",\"retrospective\":false,\"return\":{\"bytes\":3567,\"includes_prime_review\":false,\"sha256\":\"5dbdda600d1fb177ec96c66392271fa62e30844a8922b59556f51508e88aeb8a\"},\"source_commit\":null,\"submission_id\":\"grok-2-0508-0506\"},\"member\":\"0116.backfill-run-0506\",\"problems\":[],\"reservation\":{\"destination\":{\"member\":\"0116\",\"name\":\"backfill-run-0506\",\"path\":\"0116.backfill-run-0506\"},\"expected_outputs\":[\"00.kernel/00.00.10.work/0508.return-capture/06.07.md\",\"00.kernel/00.00.10.work/0508.return-capture/evidence/backfill05.06/source-plan.json\",\"00.kernel/00.00.10.work/0508.return-capture/evidence/backfill05.06/capture-log.txt\",\"00.kernel/00.00.10.work/0508.return-capture/evidence/backfill05.06/verification.json\"],\"origin\":{\"batch\":\"05.06\",\"book\":\"00.00.10.work\",\"page\":\"0508.return-capture\"},\"release\":\"Reservation only. Director release must be recorded on 0508.return-capture/05.06.\",\"reservation_sha256\":\"2d05f24ffafad8cda469c5fcb8ac05608523044f773340254b11ab04524915c2\",\"reserved_at\":\"2026-10-27T21:20:18.075328Z\",\"reviewer\":\"Codex Prime\",\"submission_id\":\"grok-2-0508-0506\",\"submitter\":\"Grok Builder 2\",\"supersedes\":null},\"schema\":\"return-capture-inspection/1\",\"status\":\"complete\"}\n",
+          "stderr": ""
+        }
+      ],
+      "unchanged_by_verify_inspect": true
+    }
+  ]
+}
