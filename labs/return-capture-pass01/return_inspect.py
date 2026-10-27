@@ -226,14 +226,14 @@ def inspect_loaded(module, book: str, member: str) -> dict:
     member_path = book_path / member
     if not module.within(member_path, book_path):
         return blank(book_text, member_text, "refused", ["member path is outside the book"])
+    number = int(match.group(1))
+    if not (module.MEMBER_MIN <= number <= module.MEMBER_MAX):
+        return blank(book_text, member_text, "refused", ["member is outside the return band"])
     if not os.path.lexists(member_path):
         return blank(book_text, member_text, "missing", ["member is absent"])
     problem = module.plain_dir_problem(member_path)
     if problem:
         return blank(book_text, member_text, "refused", [f"member is {problem}"])
-    number = int(match.group(1))
-    if not (module.MEMBER_MIN <= number <= module.MEMBER_MAX):
-        return blank(book_text, member_text, "refused", ["member is outside the return band"])
     try:
         module.reject_reparse_parents(member_path)
     except module.Refusal as exc:

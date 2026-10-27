@@ -1,0 +1,77 @@
+# 05 — Correct inspection band diagnostics and worked origin example
+version: 001
+Authorization: draft — 2026-10-27
+who: Codex Prime
+state: released by the Director 2026-10-27; claimed by Grok Builder 2
+Face: 05
+PPPP: 0508
+book: 00.00.10.work
+
+## Assignment
+Executor: Grok Builder 2. Reviewer: Codex Prime.
+Release: Director, this session, 2026-10-27. Claim: Grok Builder 2, this page only.
+Workspace D:/Git/lib-build, branch workshop. Verify exact input snapshots in
+evidence/pack05.05/source-manifest.json. Bounded RI-01/02 only. No shared Git writes.
+
+## #01 — Notes and range gate
+Notes FIRST on 06.06.md. Preserve inspector/tests source-before under
+evidence/correction05.05/before/. Reproduce Prime's absent out-of-band results.
+Move the existing MEMBER_MIN/MAX validation ahead of existence classification,
+so out-of-band member names refuse consistently whether present or absent.
+Keep 0101–0199 range, the seven-key projection schema and valid statuses/exits.
+Do not change return_capture.py, its tests, its pin, validator or writer semantics.
+Product edits: return_inspect.py, its tests and a bounded additive README correction.
+
+## #02 — Correct the illustrative origin metadata
+Preserve the original inspection05.04/CONTRACT.md unchanged. Write a corrected
+CONTRACT.md under correction05.05/ with a fresh helper-generated synthetic example:
+origin.book=00.00.10.work, origin.page=0508.return-capture, origin.batch=05.04.
+All example hashes must come from that exact disposable capture, not edits to
+hash strings around changed metadata. Clearly distinguish validated metadata
+shape from proof of its semantic truth; caller labels/releases confer no authority.
+No historical live member changes, schema fork or new origin-normalization code.
+
+## #03 — Verify the narrow correction
+Add meaningful absent/existing out-of-band CLI cases (0100,0200,9999), each
+refused/exit2/null capture with unchanged bytes. Boundary valid0101/0199 must
+retain correct reserved/missing/complete behavior. Run the inspection suite once
+on disposable code; repeat only if a failure/change warrants it. Fresh-process
+complete read and receipt-damaged read still agree with accepted verification.
+Record first results/failures/skips and commands in tests.txt; exact hashes,
+source-before, example verification and remaining limits in verification.json.
+No unrelated core/app/Clerk/Prime suite reruns, Git/network subprocesses in the
+product, allocation/backfill/repair behavior, live-member test writers or tool
+integration. Reread and disposition notes. No active boot prototype/SoF changes.
+
+## #04 — Capture the return locally
+Verify unchanged capture helper SHA-256 8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac. Write dedicated
+evidence/correction05.05/submission.md starting Did, Blocked, Need; complete the
+reservation's nine required outputs. Use reserved 0114.inspection-range-0505, then run:
+
+```text
+python -B labs/return-capture-pass01/return_capture.py capture --book "D:/Git/lib-build/00.kernel/00.00.10.work" --submission grok-2-0508-0505 --return-file "D:/Git/lib-build/00.kernel/00.00.10.work/0508.return-capture/evidence/correction05.05/submission.md" --source-root "D:/Git/lib-build" --artifact "labs/return-capture-pass01/return_inspect.py|labs/return-capture-pass01/return_inspect.py" --artifact "labs/return-capture-pass01/tests/test_return_inspect.py|labs/return-capture-pass01/tests/test_return_inspect.py" --artifact "labs/return-capture-pass01/README.md|labs/return-capture-pass01/README.md" --artifact "00.kernel/00.00.10.work/0508.return-capture/06.06.md|00.kernel/00.00.10.work/0508.return-capture/06.06.md" --artifact "00.kernel/00.00.10.work/0508.return-capture/evidence/correction05.05/CONTRACT.md|00.kernel/00.00.10.work/0508.return-capture/evidence/correction05.05/CONTRACT.md" --artifact "00.kernel/00.00.10.work/0508.return-capture/evidence/correction05.05/tests.txt|00.kernel/00.00.10.work/0508.return-capture/evidence/correction05.05/tests.txt" --artifact "00.kernel/00.00.10.work/0508.return-capture/evidence/correction05.05/verification.json|00.kernel/00.00.10.work/0508.return-capture/evidence/correction05.05/verification.json" --artifact "00.kernel/00.00.10.work/0508.return-capture/evidence/correction05.05/before/return_inspect.py|00.kernel/00.00.10.work/0508.return-capture/evidence/correction05.05/before/return_inspect.py" --artifact "00.kernel/00.00.10.work/0508.return-capture/evidence/correction05.05/before/test_return_inspect.py|00.kernel/00.00.10.work/0508.return-capture/evidence/correction05.05/before/test_return_inspect.py"
+python -B labs/return-capture-pass01/return_capture.py verify --book "D:/Git/lib-build/00.kernel/00.00.10.work" --member 0114.inspection-range-0505
+```
+
+Keep source/submission/evidence. Append only member, receipt hash and fresh verify
+result below. A partial/refused capture stays explicit; no overwrite, deletion
+or silent allocation around it. Prime reviews and publishes separately. No
+self-acceptance, app activation, shared Git commits/pushes or further scope.
+
+## Return pointer
+Member: 0114.inspection-range-0505
+Receipt: febf3577b77a8f004f462fc06ea00051d9c7e165e00085db1bb744f9d3a1362a
+Verification: result complete. Not approved. Not accepted. Not published. Exit 0.
+
+## Review — Codex Prime
+Accepted, 2026-10-27. RI-01 and RI-02 closed.
+Independent suite:13 passed,one privilege skip. Six additional absent/existing
+out-of-band probes now refuse consistently with null capture and no writes.
+Fresh capture verification of 0114 passes; all nine declared outputs match.
+The corrected example's canonical reservation/manifest/receipt hash graph checks.
+The original temp fixture is unavailable; no original-filesystem claim is made.
+Core and original contract bytes remain unchanged. Full review/evidence:
+evidence/prime-review05.05/. Reader pin: 947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b.
+This is an accepted read interface, not automatic installation into another
+builder's active work. Publication evidence is separate in publication.json.
+

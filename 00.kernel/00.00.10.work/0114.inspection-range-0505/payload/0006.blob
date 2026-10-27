@@ -1,0 +1,34 @@
+# Inspection tests — 0508.return-capture/05.05
+
+Command: `python -B labs/return-capture-pass01/tests/test_return_inspect.py -v`
+Working directory: `D:/Git/lib-build`. Python 3.14. No shared Git write.
+
+One run after the band check moved ahead of existence classification. Exit 0. Fourteen tests ran. Thirteen passed and one skipped. No failure, so the suite was not repeated.
+
+The skip is WinError 1314 while creating a directory symlink. That case stays a skip. Hard-linked payload bytes were tested in their own test.
+
+Before this run, the pinned inspector was read against an empty disposable book. Absent `0100.door`, `0200.outside`, and `9999.outside` each returned exit 1, status `missing`, problem `member is absent`, and `capture` null. Those paths were still absent. Existing directories of the same names already returned exit 2, status `refused`, problem `member is outside the return band`.
+
+## Corrected run
+
+```text
+test_band_edges_keep_reserved_missing_and_complete (__main__.InspectTests.test_band_edges_keep_reserved_missing_and_complete) ... ok
+test_cli_syntax_uses_stderr (__main__.InspectTests.test_cli_syntax_uses_stderr) ... ok
+test_complete_agrees_with_public_verify_and_changes_nothing (__main__.InspectTests.test_complete_agrees_with_public_verify_and_changes_nothing) ... ok
+test_fresh_process_complete_missing_and_receipt_damage (__main__.InspectTests.test_fresh_process_complete_missing_and_receipt_damage) ... ok
+test_git_backed_book_is_unchanged (__main__.InspectTests.test_git_backed_book_is_unchanged) ... ok
+test_hard_linked_payload_is_incomplete (__main__.InspectTests.test_hard_linked_payload_is_incomplete) ... ok
+test_mutations_keep_capture_null (__main__.InspectTests.test_mutations_keep_capture_null) ... ok
+test_out_of_band_refuses_absent_and_existing (__main__.InspectTests.test_out_of_band_refuses_absent_and_existing) ... ok
+test_partial_before_receipt (__main__.InspectTests.test_partial_before_receipt) ... ok
+test_path_escape_and_unreadable_member (__main__.InspectTests.test_path_escape_and_unreadable_member) ... ok
+test_pin_gate_and_inspector_imports (__main__.InspectTests.test_pin_gate_and_inspector_imports) ... ok
+test_reserved_missing_and_empty_are_not_complete (__main__.InspectTests.test_reserved_missing_and_empty_are_not_complete) ... ok
+test_symlink_member_is_refused_or_skipped (__main__.InspectTests.test_symlink_member_is_refused_or_skipped) ... skipped "symlink privilege: [WinError 1314] A required privilege is not held by the client: 'C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\rc-inspect-sgswrw0d\\\\book\\\\0101.alpha' -> 'C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\rc-inspect-sgswrw0d\\\\book\\\\0102.link'"
+test_wrong_helper_hash_does_not_execute (__main__.InspectTests.test_wrong_helper_hash_does_not_execute) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 16.291s
+
+OK (skipped=1)
+```

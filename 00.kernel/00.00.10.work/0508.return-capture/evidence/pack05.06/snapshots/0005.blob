@@ -1,0 +1,66 @@
+{
+  "suite": {
+    "exit": 0,
+    "tail": "tTests.test_pin_gate_and_inspector_imports) ... ok\ntest_reserved_missing_and_empty_are_not_complete (__main__.InspectTests.test_reserved_missing_and_empty_are_not_complete) ... ok\ntest_symlink_member_is_refused_or_skipped (__main__.InspectTests.test_symlink_member_is_refused_or_skipped) ... skipped \"symlink privilege: [WinError 1314] A required privilege is not held by the client: 'C:\\\\\\\\Users\\\\\\\\misg\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\rc-inspect-f2j3rsc0\\\\\\\\book\\\\\\\\0101.alpha' -> 'C:\\\\\\\\Users\\\\\\\\misg\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\rc-inspect-f2j3rsc0\\\\\\\\book\\\\\\\\0102.link'\"\ntest_wrong_helper_hash_does_not_execute (__main__.InspectTests.test_wrong_helper_hash_does_not_execute) ... ok\n\n----------------------------------------------------------------------\nRan 14 tests in 23.979s\n\nOK (skipped=1)\n"
+  },
+  "independent_range_probes": [
+    {
+      "member": "0100.door",
+      "exists": false,
+      "exit": 2,
+      "status": "refused",
+      "unchanged": true
+    },
+    {
+      "member": "0100.door",
+      "exists": true,
+      "exit": 2,
+      "status": "refused",
+      "unchanged": true
+    },
+    {
+      "member": "0200.outside",
+      "exists": false,
+      "exit": 2,
+      "status": "refused",
+      "unchanged": true
+    },
+    {
+      "member": "0200.outside",
+      "exists": true,
+      "exit": 2,
+      "status": "refused",
+      "unchanged": true
+    },
+    {
+      "member": "9999.outside",
+      "exists": false,
+      "exit": 2,
+      "status": "refused",
+      "unchanged": true
+    },
+    {
+      "member": "9999.outside",
+      "exists": true,
+      "exit": 2,
+      "status": "refused",
+      "unchanged": true
+    }
+  ],
+  "capture_verify": {
+    "exit": 0,
+    "stdout": "reservation ae2b0981db70c6d2d6b46436b98fb994593aab88bd38629417abd8ea38e47a10\nmanifest d12359b1aaae8431a53de3d83be0ddd11c8a32e307c2bfe661bc94f4f703474e\nreceipt febf3577b77a8f004f462fc06ea00051d9c7e165e00085db1bb744f9d3a1362a\npayload 0001.blob 947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b\npayload 0002.blob 45abbbe6f1402d2f775332c30b70f2a638128f1c5d3a886e6714d17c4f2c0f37\npayload 0003.blob 2a72d2d961d417fdb06e2fc8a9430270971df74351343bf7488cabd10a1a9ebd\npayload 0004.blob 5712c2986d28f32e80ed1e7dc4a51dc0e8cd311ceb5105c0f19979078c22e6ad\npayload 0005.blob 20ca12577129885747e2b90f280b79b81b41561aa023f394e2c95fa837a68a5b\npayload 0006.blob f9928caa023faeca1883eeee95d52cb3c3bd4928d25aca11617009a37ebf8548\npayload 0007.blob 1e8acdf19e64a036e01184d665eba3f95bdd5758b4a35568db0ae7e9312d9986\npayload 0008.blob 0066bc87f60c95371a6421313b81c8d5d05e551a50bd6f090cef33188b22f534\npayload 0009.blob ab9bea08ddbc24e51272228d2f9a89eaee9f522372f507a0cc71a96090d7a9be\nresult complete\nnot approved\nnot accepted\nnot published\n"
+  },
+  "declared_outputs_match": 9,
+  "example": {
+    "origin": {
+      "book": "00.00.10.work",
+      "page": "0508.return-capture",
+      "batch": "05.04"
+    },
+    "fixture_available": false,
+    "canonical_projection_hash_graph_verified": true
+  },
+  "core_and_original_contract_unchanged": true,
+  "inspector_sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+}

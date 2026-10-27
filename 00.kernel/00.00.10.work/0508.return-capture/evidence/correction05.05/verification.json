@@ -1,0 +1,162 @@
+{
+  "schema": "return-capture-inspection-correction/1",
+  "helper_sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+  "helper_bytes": 45767,
+  "helper_unchanged": true,
+  "capture_tests_sha256": "842547f798288af6b82baeedd2adf48d59c0723e3756dfecef8c4fcafc5bc2ba",
+  "capture_tests_bytes": 42348,
+  "command": "python -B labs/return-capture-pass01/tests/test_return_inspect.py -v",
+  "runs": [
+    {
+      "label": "corrected",
+      "tests": 14,
+      "passed": 13,
+      "skipped": 1,
+      "failed": 0,
+      "exit": 0,
+      "seconds": 16.291,
+      "note": "Only run. The skip is WinError 1314 on a directory symlink."
+    }
+  ],
+  "skip": "WinError 1314 creating a directory symlink. Hard links were tested without that privilege.",
+  "prime_absent_reproduction": [
+    {
+      "member": "0100.door",
+      "exit": 1,
+      "status": "missing",
+      "capture": null,
+      "problems": [
+        "member is absent"
+      ]
+    },
+    {
+      "member": "0200.outside",
+      "exit": 1,
+      "status": "missing",
+      "capture": null,
+      "problems": [
+        "member is absent"
+      ]
+    },
+    {
+      "member": "9999.outside",
+      "exit": 1,
+      "status": "missing",
+      "capture": null,
+      "problems": [
+        "member is absent"
+      ]
+    }
+  ],
+  "source_before": {
+    "return_inspect.py": {
+      "sha256": "0066bc87f60c95371a6421313b81c8d5d05e551a50bd6f090cef33188b22f534",
+      "bytes": 11402
+    },
+    "test_return_inspect.py": {
+      "sha256": "ab9bea08ddbc24e51272228d2f9a89eaee9f522372f507a0cc71a96090d7a9be",
+      "bytes": 23129
+    }
+  },
+  "original_contract": {
+    "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/inspection05.04/CONTRACT.md",
+    "sha256": "2a37dc0720067f1380f00a63a8501fa9ac36f52e9bda6a63356ee6654fd4734c",
+    "bytes": 7305,
+    "unchanged": true
+  },
+  "example": {
+    "origin": {
+      "book": "00.00.10.work",
+      "page": "0508.return-capture",
+      "batch": "05.04"
+    },
+    "member": "0101.alpha",
+    "submission_id": "example-inspect",
+    "verify_exit": 0,
+    "inspect_exit": 0,
+    "reserved_exit": 1,
+    "reserved_status": "reserved",
+    "reserved_at": "2026-10-27T21:12:00.440248Z",
+    "captured_at": "2026-10-27T21:12:02.637419Z",
+    "reservation_sha256": "ed5fafc4a4f4597dc241996794c6043eb6787d35f61a8a2037b8453220050669",
+    "manifest_sha256": "a86053d3c94bf6a384b12e37b9483448d792738b61ddb23fd434de78cba14057",
+    "receipt_sha256": "fd822d4260c7329f3171d26dafbfb8a6ca19e4373d24bfa70b430778a7668d9c",
+    "return_sha256": "e1d4ac07dade356a40ea3da83f437c1ae36d3d89bd8718601600925bc842223b",
+    "return_bytes": 5,
+    "payload_sha256": "389ed6887e49a315f706f6c2b931b1dcf0d797c91437124f32eb98555c669758",
+    "payload_bytes": 5,
+    "includes_prime_review": false,
+    "retrospective": false,
+    "source_commit": null,
+    "schema": "return-capture-inspection/1",
+    "disposable_book": "C:\\Users\\misg\\AppData\\Local\\Temp\\rc0505-example-mkli0198\\book",
+    "book_in_example": "<absolute book path>",
+    "labels_are_shape_not_proof": true
+  },
+  "fresh_process": {
+    "complete_exit": 0,
+    "missing_member": "0199.missing",
+    "missing_exit": 1,
+    "receipt_damaged_status": "incomplete",
+    "receipt_damaged_exit": 2,
+    "receipt_damaged_capture": null
+  },
+  "band": {
+    "min": 101,
+    "max": 199,
+    "checked_before_existence": true,
+    "absent_and_existing_refused": [
+      "0100.door",
+      "0200.outside",
+      "9999.outside"
+    ],
+    "edges_retained": [
+      "0101",
+      "0199"
+    ]
+  },
+  "public_verify_agreement": "verify exit 0 for a complete observation; verify exit 2 for reserved, missing, incomplete, refused, and receipt-damaged reads.",
+  "git_backed_books": "A regular checkout and a linked worktree were read. HEAD, index, and refs were unchanged.",
+  "live_members_used": false,
+  "limits": [
+    "Directory symlink creation raises WinError 1314 and that one test skips.",
+    "The capture helper, its tests, and its writer semantics were not edited.",
+    "No origin-normalization code was added. Caller origin labels are validated shape, not historical proof.",
+    "The original inspection05.04 contract remains the submitted example.",
+    "This reservation authorizes no further allocation, backfill, repair, or acceptance."
+  ],
+  "outputs": {
+    "return_inspect.py": {
+      "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+      "bytes": 11402
+    },
+    "test_return_inspect.py": {
+      "sha256": "45abbbe6f1402d2f775332c30b70f2a638128f1c5d3a886e6714d17c4f2c0f37",
+      "bytes": 29472
+    },
+    "README.md": {
+      "sha256": "2a72d2d961d417fdb06e2fc8a9430270971df74351343bf7488cabd10a1a9ebd",
+      "bytes": 11164
+    },
+    "06.06.md": {
+      "sha256": "5712c2986d28f32e80ed1e7dc4a51dc0e8cd311ceb5105c0f19979078c22e6ad",
+      "bytes": 6219
+    },
+    "CONTRACT.md": {
+      "sha256": "20ca12577129885747e2b90f280b79b81b41561aa023f394e2c95fa837a68a5b",
+      "bytes": 7295
+    },
+    "tests.txt": {
+      "sha256": "f9928caa023faeca1883eeee95d52cb3c3bd4928d25aca11617009a37ebf8548",
+      "bytes": 2922
+    },
+    "before/return_inspect.py": {
+      "sha256": "0066bc87f60c95371a6421313b81c8d5d05e551a50bd6f090cef33188b22f534",
+      "bytes": 11402
+    },
+    "before/test_return_inspect.py": {
+      "sha256": "ab9bea08ddbc24e51272228d2f9a89eaee9f522372f507a0cc71a96090d7a9be",
+      "bytes": 23129
+    }
+  }
+}
