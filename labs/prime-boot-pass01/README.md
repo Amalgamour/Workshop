@@ -69,3 +69,24 @@ The hashes are fixed in `PINS`. A tool is checked before every launch, and a mis
 | clerk_adapter.py | 2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4 |
 | check_book.py | fc16d2f68a3645050b6766ce18ce55f8169a0e2bad52d3392b4d059c629073a4 |
 | return_capture.py | 8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac |
+
+## Validation and replay (05.08, PB-06 and PB-07)
+
+The contract addendum is `00.kernel/00.00.10.work/0507.prime-support/evidence/repair05.08/CONTRACT.md`.
+
+**Exit codes, every command**
+
+| exit | meaning |
+|---|---|
+| 0 | the stage completed with a positive result |
+| 1 | the stage completed with a recorded negative result: `partial`, checks failed, or not oriented |
+| 2 | refused (nothing new recorded), or prepare failed at a stage and recorded that failure, as in 05.07 |
+| 3 | incomplete: an identical replay found raw input but no readable terminal record |
+
+**Shape validation.** Answers, judgements, and the registry and tool-report fields that this lab reads itself are type-checked before use. Wrong-shaped JSON never ends in a traceback. It is recorded as a failure, and the raw bytes are kept.
+- Answers: `22.checks.json` gets `status: failed`, and the failing item is marked `phase: shape`.
+- Judgements: `31.judgement.json` gets `status: failed`, and `39.outcome.json` gets `not-oriented` with `judgement: invalid`. No supplied grade is used.
+
+**Replay.** An identical second `check` or `judge` reads the stage's terminal record, `22` or `39`, and reports `already-recorded: …`. If that record is missing or unreadable, it reports `incomplete: …; start a new linked attempt` with exit 3. Replay never writes, repairs or completes a stage. Different bytes still refuse with `conflict`.
+
+**show.** `show` names the stage: interrupted, prepare-failed, awaiting-answers, check-incomplete, checked, judgement-incomplete or outcome. `--json` adds `stage` and `complete`. Only a readable `39` gives an outcome. A raw file on its own never does.

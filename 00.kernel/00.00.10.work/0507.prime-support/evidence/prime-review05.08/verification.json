@@ -1,0 +1,31 @@
+{
+  "tests": {
+    "exit": 0,
+    "tail": "_way) ... ok\ntest_21_answer_envelope_variants (__main__.TestValidationAndReplay.test_21_answer_envelope_variants) ... ok\ntest_22_judgement_variants_record_invalid_and_never_orient (__main__.TestValidationAndReplay.test_22_judgement_variants_record_invalid_and_never_orient) ... ok\ntest_23_inspected_registry_and_report_shapes (__main__.TestValidationAndReplay.test_23_inspected_registry_and_report_shapes) ... ok\ntest_24_missing_or_partial_check_record_replays_as_incomplete (__main__.TestValidationAndReplay.test_24_missing_or_partial_check_record_replays_as_incomplete) ... ok\ntest_25_missing_or_partial_outcome_never_orients_from_raw_bytes (__main__.TestValidationAndReplay.test_25_missing_or_partial_outcome_never_orients_from_raw_bytes) ... ok\ntest_26_completed_replays_report_their_recorded_state (__main__.TestValidationAndReplay.test_26_completed_replays_report_their_recorded_state) ... ok\n\n----------------------------------------------------------------------\nRan 26 tests in 116.040s\n\nOK\n"
+  },
+  "demo": {
+    "exit": 0,
+    "tail": "json 05.book.json 06.records.json 07.status.json 08.members.json 09.packet.json 10.stability.json 19.prepare-outcome.json 20.answers.raw 21.answers.json 22.checks.json 30.judgement.raw 31.judgement.json 39.outcome.json\nauthority none; orientation grants no new work authority\n\nattempt 1 files: 00.intent.json 00.request.raw 01.request.json 02.links.json 03.tools.json 04.git.json 05.book.json 06.records.json 07.status.json 08.members.json 09.packet.json 10.stability.json 19.prepare-outcome.json 20.answers.raw 21.answers.json 22.checks.json 30.judgement.raw 31.judgement.json 39.outcome.json\nattempt 2 files: 00.intent.json 00.request.raw 01.request.json 02.links.json 03.tools.json 04.git.json 05.book.json 06.records.json 07.status.json 08.members.json 09.packet.json 10.stability.json 19.prepare-outcome.json 20.answers.raw 21.answers.json 22.checks.json 30.judgement.raw 31.judgement.json 39.outcome.json\n\nNo model was called. Answers and judgements are fixtures. Orientation is not authority.\n"
+  },
+  "capture": {
+    "exit": 0
+  },
+  "inspect": {
+    "exit": 0
+  },
+  "package_files": {
+    "01.md": "44f931a9c0a924e662c45a04cea23064e9d7faef9e8afc477ac48ec495c6f1cd",
+    "manifest.json": "80a4b1105d4a028ce91f96865833e175350ea9145b21641938542cd57e5d08bc",
+    "receipt.json": "110faf546dcf87e7e8d774fc041f401abe7fd3d2cfd1e7e7c8fddffbdd3c6c8d",
+    "reservation.json": "d0238a2dfc2df821bcd0975922898c465d49ee3792f38a789645fa89a4e8c860",
+    "return.md": "668929c06ce945bf4aafac3a3b8468ad47ce8455429667b33369d7d7b706ad05",
+    "payload/0001.blob": "0b83797538189626642b2b686065b874342f0a27a21138e58e8243cfc513c6c3",
+    "payload/0002.blob": "d0ff7165e2ecf5fda5ef90fdabce8f724adf52ec2bcdf72631275515ae1771cd",
+    "payload/0003.blob": "468ae5e482ec4f0cbcafd9abd89f9a5db9f89272c90e40e7354e2ff370dcf482",
+    "payload/0004.blob": "a8648918cc59168f09a6f748ca42ca38c37f1cc81e692efd45b531099d21f3cd",
+    "payload/0005.blob": "421c432a958e24749b74eaeb3c593dd7f0987a10174b00d9397966aa10943587",
+    "payload/0006.blob": "2c80fab386b1b5f6314814baf498f53a3b7dc98005f47325417cfc0ebd8e69d9",
+    "payload/0007.blob": "461497495fdc615581655aad868c54c5b0570c8d665ad4fa166e8f2e6fdc4d55"
+  },
+  "exact_payloads": 7
+}

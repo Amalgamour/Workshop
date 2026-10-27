@@ -1,0 +1,56 @@
+# Notes — boot validation and truthful stage retries (batch 05.08)
+Date: 2026-10-27
+Recorder: claude-opus-5-5, Colab, executor
+State: written before the contract and the code. 06.01-06.08 stay as they are. Input: prime-review05.07/review.md (54d36e87…), which holds acceptance pending PB-06 and PB-07, and probes/results.json (45cb756e…).
+
+## Inputs
+I01. pack05.08: 9 of 9 snapshots match their pins, and live matches all 9, at workshop c387027.
+- prime_boot.py c3c194fc…, README b616777e…, tests b2e23fba…, demo 6755577c…;
+- the 05.07 CONTRACT d946e48b…;
+- the review and probes;
+- return_capture 8f3da5c6…;
+- reservation 0123 d0238a2d….
+I02. Before-bytes: evidence/repair05.08/before/ holds prime_boot.py, README.md and test_prime_boot.py, unchanged.
+I03. Reproduction, done before any code change, in disposable fixtures with tool c3c194fc…:
+- answers with O1 `citations: null` give TypeError, exit 1, and leave only 20.answers.raw. The identical retry gives exit 0 `already-recorded`.
+- a judgement with `grades.O1 = {}` gives TypeError, exit 1, and leaves only 30.judgement.raw. The identical retry gives exit 0 `already-recorded`.
+- Both attempts `show` "prepared; not oriented (no judgement)". This third gap is in the same family: show does not tell a broken stage from a clean waiting one.
+
+## Diagnosis
+D01, PB-06. In check_answers, the O1 path iterates `item["citations"]` after the citation check has only recorded an error. In judge, the validation chain tests `g in GRADES` (a set) on an unvalidated value, so an unhashable value raises. Two related cases:
+- judge raises an unrecorded Refusal for a malformed judgement, and lets a strict-JSON StageFailure escape, without any failure record;
+- prepare reads registry `lanes` with `.get` before the accepted tool validates the registry, so a non-dict lane or non-list lanes raises an uncaught TypeError. That lands as an "interruption", which it is not.
+D02, PB-07. The retry branches in check and judge test only whether the raw file exists and its bytes are identical. They never read the stage's terminal record (22 or 39).
+
+## Choices (routine)
+C01. Shape before use: every supplied value is type-checked before it is iterated, tested for membership, sorted or dereferenced. Each answer item is checked in two phases: shape first, and the semantic checks only if the shape passes. No broad `except`. Only StageFailure is turned into a record, so a real code defect still raises.
+C02. Terminal records:
+- check's terminal record is 22.checks.json, with status ok or failed;
+- judge's terminal record is 39.outcome.json;
+- a malformed judgement writes 31.judgement.json with `status: failed` and 39 `not-oriented` with `judgement: invalid`, because no grade was accepted. That is compute's own state, not a grade.
+C03. Replay of identical bytes reads the terminal record:
+- completed ok gives exit 0 `already-recorded: …`;
+- completed negative gives exit 1 `already-recorded: …`;
+- a missing or unreadable terminal record gives the new exit 3 `incomplete: …; start a new linked attempt`.
+Replay never writes. Different bytes still give exit 2 conflict.
+C04. Exit semantics, documented: 0 completed positive, 1 completed negative, 2 refused, 3 incomplete stage.
+C05. show names the stage state explicitly: awaiting answers, check incomplete, checks failed, checked and awaiting judgement, judgement incomplete, or the outcome. Only 39 can give an outcome.
+C06. Registry and tool-report shapes that prime_boot reads itself are checked before use, with a StageFailure naming the shape: registry, lanes and lanes[].clerk_jobs; the status report's lanes, files, conflicts and attention; check_book's findings. The full registry validation stays with prime_support.
+C07. The demo is unchanged; the retry interface adds exit 3 and changes no demo step.
+
+## Disposition (reread in full after the code and tests)
+- I01-I03: stand. The reproduction before the code change is kept in repair05.08/tests.txt, with the tool hash c3c194fc….
+- D01: fixed.
+  - Answer items are checked for shape before any semantic check (`answer_shape`).
+  - The judgement is type-checked before any set membership test (`judgement_problem`).
+  - Invalid JSON and wrong shapes in a judgement now write a failed 31 and an invalid, not-oriented 39.
+  - The registry, the status report, the check_book findings and the previous intent are shape-checked.
+- D02: fixed. Replay reads 22 and 39. `judge` also refuses when 22 is readable but its status is neither ok nor failed. Writing the tests found this gap, and it is fixed in the same pass.
+- C01-C06: carried as written.
+- C07: the demo needed no change. Its bytes are unchanged (6755577c…), and both demo modes ran.
+- Three existing assertions changed with the documented interface, each to an exact new string or state of the same or greater strength:
+  - test_12 now checks the show state "failed at book; not oriented" and the stage "prepare-failed";
+  - test_14 now expects "already-recorded: checks ok";
+  - test_15 now checks "awaiting answers" and "checks ok; awaiting judgement", and an invalid grade is now exit 1 with a recorded invalid outcome where it was exit 2 with no record.
+  No existing check was removed.
+- Not done, and outside scope: no inspector or Clerk integration, no live registry, no model, no cleanup of the 56 old temp folders.

@@ -1,0 +1,267 @@
+{
+ "schema": "repair05.08-verification",
+ "batch": "0507.prime-support/05.08",
+ "who": "claude-opus-5-5",
+ "date": "2026-10-27",
+ "workshop_at_claim": "c3870275ec491d39137be8e9d1aee96e6a8fc1f3",
+ "workshop_head_at_verification": "1567d029731691995b7167751d6035e77e74a76f",
+ "pack05.08": "9 of 9 snapshots match pins and live",
+ "before": {
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/repair05.08/before/prime_boot.py": "c3c194fc897e2108b0d67305345122363a68bc085051d92ba04c3c0f543e1582",
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/repair05.08/before/README.md": "b616777e5058b652f6c3bffe11ccf85fc63273a6e07872ed8e2d210b884f59e1",
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/repair05.08/before/test_prime_boot.py": "b2e23fba99bd11afe2c66537fae63ef2cfad4e29578a77f4f229508a01da0a8f"
+ },
+ "pins": {
+  "labs/prime-support-pass01/prime_support.py": {
+   "expected": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70",
+   "live": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70",
+   "match": true
+  },
+  "labs/prime-support-pass01/clerk_adapter.py": {
+   "expected": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4",
+   "live": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4",
+   "match": true
+  },
+  "labs/book-orientation-pass01/check_book.py": {
+   "expected": "fc16d2f68a3645050b6766ce18ce55f8169a0e2bad52d3392b4d059c629073a4",
+   "live": "fc16d2f68a3645050b6766ce18ce55f8169a0e2bad52d3392b4d059c629073a4",
+   "match": true
+  },
+  "labs/return-capture-pass01/return_capture.py": {
+   "expected": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+   "live": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+   "match": true
+  }
+ },
+ "pins_in_code_unchanged": true,
+ "demo_unchanged": true,
+ "probes": {
+  "before": {
+   "tool_sha256": "c3c194fc897e2108b0d67305345122363a68bc085051d92ba04c3c0f543e1582",
+   "bad_citations": {
+    "exit": 1,
+    "stdout": "",
+    "stderr_tail": [
+     "TypeError: 'NoneType' object is not iterable"
+    ]
+   },
+   "bad_citations_retry": {
+    "exit": 0,
+    "stdout": "already-recorded\n",
+    "stderr_tail": []
+   },
+   "p1_files": [
+    "00.intent.json",
+    "00.request.raw",
+    "01.request.json",
+    "02.links.json",
+    "03.tools.json",
+    "04.git.json",
+    "05.book.json",
+    "06.records.json",
+    "07.status.json",
+    "08.members.json",
+    "09.packet.json",
+    "10.stability.json",
+    "19.prepare-outcome.json",
+    "20.answers.raw"
+   ],
+   "p1_show": "attempt C:\\Users\\misg\\AppData\\Local\\Temp\\pb-records-62m1r0_s\\p1\nstate prepared; not oriented (no judgement)\nfiles 00.intent.json 00.request.raw 01.request.json 02.links.json 03.tools.json 04.git.json 05.book.json 06.records.json 07.status.json 08.members.json 09.packet.json 10.stability.json 19.prepare-outcome.json 20.answers.raw\nauthority none; orientation grants no new work authority\n",
+   "bad_grade": {
+    "exit": 1,
+    "stdout": "",
+    "stderr_tail": [
+     "TypeError: cannot use 'dict' as a set element (unhashable type: 'dict')"
+    ]
+   },
+   "bad_grade_retry": {
+    "exit": 0,
+    "stdout": "already-recorded\n",
+    "stderr_tail": []
+   },
+   "p2_files": [
+    "00.intent.json",
+    "00.request.raw",
+    "01.request.json",
+    "02.links.json",
+    "03.tools.json",
+    "04.git.json",
+    "05.book.json",
+    "06.records.json",
+    "07.status.json",
+    "08.members.json",
+    "09.packet.json",
+    "10.stability.json",
+    "19.prepare-outcome.json",
+    "20.answers.raw",
+    "21.answers.json",
+    "22.checks.json",
+    "30.judgement.raw"
+   ],
+   "p2_show": "attempt C:\\Users\\misg\\AppData\\Local\\Temp\\pb-records-62m1r0_s\\p2\nstate prepared; not oriented (no judgement)\nfiles 00.intent.json 00.request.raw 01.request.json 02.links.json 03.tools.json 04.git.json 05.book.json 06.records.json 07.status.json 08.members.json 09.packet.json 10.stability.json 19.prepare-outcome.json 20.answers.raw 21.answers.json 22.checks.json 30.judgement.raw\nauthority none; orientation grants no new work authority\n"
+  },
+  "after": {
+   "tool_sha256": "4ef26c2f65c2a3b249a363c3a09f1016d84999c13618d0220e30c66adea36cc8",
+   "bad_citations": {
+    "exit": 1,
+    "stdout": "checks failed\nO1 fail: O1 citations must be a list of strings\nO2 ok\nO3 ok\nO4 ok\nO5 ok\nO6 ok\n",
+    "stderr_tail": []
+   },
+   "bad_citations_retry": {
+    "exit": 1,
+    "stdout": "already-recorded: checks failed\n",
+    "stderr_tail": []
+   },
+   "p1_files": [
+    "00.intent.json",
+    "00.request.raw",
+    "01.request.json",
+    "02.links.json",
+    "03.tools.json",
+    "04.git.json",
+    "05.book.json",
+    "06.records.json",
+    "07.status.json",
+    "08.members.json",
+    "09.packet.json",
+    "10.stability.json",
+    "19.prepare-outcome.json",
+    "20.answers.raw",
+    "21.answers.json",
+    "22.checks.json"
+   ],
+   "p1_show": "attempt C:\\Users\\misg\\AppData\\Local\\Temp\\pb-records-yooklgsx\\p1\nstate prepared; checks failed; awaiting judgement; not oriented\nfiles 00.intent.json 00.request.raw 01.request.json 02.links.json 03.tools.json 04.git.json 05.book.json 06.records.json 07.status.json 08.members.json 09.packet.json 10.stability.json 19.prepare-outcome.json 20.answers.raw 21.answers.json 22.checks.json\nauthority none; orientation grants no new work authority\n",
+   "bad_grade": {
+    "exit": 1,
+    "stdout": "judgement invalid: judgement grades.O1 must be one of pass, gap, wrong\noutcome not-oriented\nauthority none; orientation grants no new work authority\n",
+    "stderr_tail": []
+   },
+   "bad_grade_retry": {
+    "exit": 1,
+    "stdout": "already-recorded: outcome not-oriented\nauthority none; orientation grants no new work authority\n",
+    "stderr_tail": []
+   },
+   "p2_files": [
+    "00.intent.json",
+    "00.request.raw",
+    "01.request.json",
+    "02.links.json",
+    "03.tools.json",
+    "04.git.json",
+    "05.book.json",
+    "06.records.json",
+    "07.status.json",
+    "08.members.json",
+    "09.packet.json",
+    "10.stability.json",
+    "19.prepare-outcome.json",
+    "20.answers.raw",
+    "21.answers.json",
+    "22.checks.json",
+    "30.judgement.raw",
+    "31.judgement.json",
+    "39.outcome.json"
+   ],
+   "p2_show": "attempt C:\\Users\\misg\\AppData\\Local\\Temp\\pb-records-yooklgsx\\p2\nstate not-oriented; judgement invalid\nfiles 00.intent.json 00.request.raw 01.request.json 02.links.json 03.tools.json 04.git.json 05.book.json 06.records.json 07.status.json 08.members.json 09.packet.json 10.stability.json 19.prepare-outcome.json 20.answers.raw 21.answers.json 22.checks.json 30.judgement.raw 31.judgement.json 39.outcome.json\nauthority none; orientation grants no new work authority\n"
+  }
+ },
+ "tests": {
+  "count": 26,
+  "existing": 18,
+  "added": 8,
+  "skips": 0,
+  "runs": [
+   {
+    "run": "run1",
+    "mode": "dev",
+    "suite": "18 existing, unchanged",
+    "result": "FAILED (failures=3): test_12, test_14, test_15 interface strings",
+    "retained": true
+   },
+   {
+    "run": "run2",
+    "mode": "dev",
+    "result": "FAILED (failures=1): test_24 clone link artifact",
+    "retained": true
+   },
+   {
+    "run": "run3",
+    "mode": "dev",
+    "result": "OK",
+    "warnings": 0
+   },
+   {
+    "run": "run4",
+    "mode": "default",
+    "result": "OK"
+   },
+   {
+    "run": "run5",
+    "mode": "dev",
+    "where": "disposable copy of the four labs",
+    "result": "OK"
+   }
+  ]
+ },
+ "variant_tables": {
+  "answers_nested": 55,
+  "answer_envelopes": 9,
+  "judgement_nested": 32,
+  "judgement_raw": 5,
+  "registry_shapes": 8,
+  "tool_report_shapes": 7,
+  "partial_check_records": 3,
+  "partial_outcomes": 3
+ },
+ "changed_existing_assertions": {
+  "test_12": "show state 'failed' -> 'failed at book; not oriented' plus stage 'prepare-failed'",
+  "test_14": "'already-recorded' -> 'already-recorded: checks ok'",
+  "test_15": "show 'not oriented (no judgement)' -> 'awaiting answers' / 'checks ok; awaiting judgement'; invalid grade exit 2 with no record -> exit 1 with failed 31 and invalid not-oriented 39"
+ },
+ "exit_semantics": {
+  "0": "completed positive",
+  "1": "completed negative",
+  "2": "refused or prepare stage failure",
+  "3": "incomplete stage on identical replay"
+ },
+ "demo": [
+  "demo1 dev ok",
+  "demo2 default ok",
+  "demo3 copy default ok"
+ ],
+ "not_done": [
+  "no live integration",
+  "no inspector or Clerk integration",
+  "no model",
+  "no shared Git stage/commit/push",
+  "no other-lane changes",
+  "no cleanup of the 56 old temp folders"
+ ],
+ "outputs": {
+  "labs/prime-boot-pass01/prime_boot.py": {
+   "sha256": "0b83797538189626642b2b686065b874342f0a27a21138e58e8243cfc513c6c3",
+   "bytes": 40494
+  },
+  "labs/prime-boot-pass01/README.md": {
+   "sha256": "d0ff7165e2ecf5fda5ef90fdabce8f724adf52ec2bcdf72631275515ae1771cd",
+   "bytes": 5161
+  },
+  "labs/prime-boot-pass01/tests/test_prime_boot.py": {
+   "sha256": "468ae5e482ec4f0cbcafd9abd89f9a5db9f89272c90e40e7354e2ff370dcf482",
+   "bytes": 48421
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/06.09.md": {
+   "sha256": "a8648918cc59168f09a6f748ca42ca38c37f1cc81e692efd45b531099d21f3cd",
+   "bytes": 5373
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/repair05.08/CONTRACT.md": {
+   "sha256": "421c432a958e24749b74eaeb3c593dd7f0987a10174b00d9397966aa10943587",
+   "bytes": 4771
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/repair05.08/tests.txt": {
+   "sha256": "2c80fab386b1b5f6314814baf498f53a3b7dc98005f47325417cfc0ebd8e69d9",
+   "bytes": 29784
+  }
+ },
+ "variant_tables_check": "the first four counts are len() of the test module tables; the last four are the literal case dicts in test_23, test_24 and test_25"
+}

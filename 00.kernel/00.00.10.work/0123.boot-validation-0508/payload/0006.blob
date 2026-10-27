@@ -1,0 +1,524 @@
+# tests.txt — repair05.08 (0507.prime-support 05.08, PB-06 and PB-07)
+
+Commands:
+- python -B [-X dev] labs/prime-boot-pass01/tests/test_prime_boot.py [-v]
+- python -B [-X dev] labs/prime-boot-pass01/demo.py
+- python -B scratchpad/d0508/repro.py
+Python 3.14.7, Windows. Every run is kept in order, failures included; no run was discarded. There are no skips.
+No model was called. Answers and judgements are fixtures. The absolute temp paths in the transcripts are disposable fixtures.
+The 56 old pb-* temp folders from 05.07 were not touched (count 56 before and after).
+
+## repro-before: the two Prime probes against the unrepaired tool (c3c194fc…), disposable fixture (scratchpad repro.py)
+```
+{
+ "tool_sha256": "c3c194fc897e2108b0d67305345122363a68bc085051d92ba04c3c0f543e1582",
+ "bad_citations": {
+  "exit": 1,
+  "stdout": "",
+  "stderr_tail": [
+   "TypeError: 'NoneType' object is not iterable"
+  ]
+ },
+ "bad_citations_retry": {
+  "exit": 0,
+  "stdout": "already-recorded\n",
+  "stderr_tail": []
+ },
+ "p1_files": [
+  "00.intent.json",
+  "00.request.raw",
+  "01.request.json",
+  "02.links.json",
+  "03.tools.json",
+  "04.git.json",
+  "05.book.json",
+  "06.records.json",
+  "07.status.json",
+  "08.members.json",
+  "09.packet.json",
+  "10.stability.json",
+  "19.prepare-outcome.json",
+  "20.answers.raw"
+ ],
+ "p1_show": "attempt C:\\Users\\misg\\AppData\\Local\\Temp\\pb-records-62m1r0_s\\p1\nstate prepared; not oriented (no judgement)\nfiles 00.intent.json 00.request.raw 01.request.json 02.links.json 03.tools.json 04.git.json 05.book.json 06.records.json 07.status.json 08.members.json 09.packet.json 10.stability.json 19.prepare-outcome.json 20.answers.raw\nauthority none; orientation grants no new work authority\n",
+ "bad_grade": {
+  "exit": 1,
+  "stdout": "",
+  "stderr_tail": [
+   "TypeError: cannot use 'dict' as a set element (unhashable type: 'dict')"
+  ]
+ },
+ "bad_grade_retry": {
+  "exit": 0,
+  "stdout": "already-recorded\n",
+  "stderr_tail": []
+ },
+ "p2_files": [
+  "00.intent.json",
+  "00.request.raw",
+  "01.request.json",
+  "02.links.json",
+  "03.tools.json",
+  "04.git.json",
+  "05.book.json",
+  "06.records.json",
+  "07.status.json",
+  "08.members.json",
+  "09.packet.json",
+  "10.stability.json",
+  "19.prepare-outcome.json",
+  "20.answers.raw",
+  "21.answers.json",
+  "22.checks.json",
+  "30.judgement.raw"
+ ],
+ "p2_show": "attempt C:\\Users\\misg\\AppData\\Local\\Temp\\pb-records-62m1r0_s\\p2\nstate prepared; not oriented (no judgement)\nfiles 00.intent.json 00.request.raw 01.request.json 02.links.json 03.tools.json 04.git.json 05.book.json 06.records.json 07.status.json 08.members.json 09.packet.json 10.stability.json 19.prepare-outcome.json 20.answers.raw 21.answers.json 22.checks.json 30.judgement.raw\nauthority none; orientation grants no new work authority\n"
+}
+```
+
+## repro-after: the same probes after the repair
+```
+{
+ "tool_sha256": "4ef26c2f65c2a3b249a363c3a09f1016d84999c13618d0220e30c66adea36cc8",
+ "bad_citations": {
+  "exit": 1,
+  "stdout": "checks failed\nO1 fail: O1 citations must be a list of strings\nO2 ok\nO3 ok\nO4 ok\nO5 ok\nO6 ok\n",
+  "stderr_tail": []
+ },
+ "bad_citations_retry": {
+  "exit": 1,
+  "stdout": "already-recorded: checks failed\n",
+  "stderr_tail": []
+ },
+ "p1_files": [
+  "00.intent.json",
+  "00.request.raw",
+  "01.request.json",
+  "02.links.json",
+  "03.tools.json",
+  "04.git.json",
+  "05.book.json",
+  "06.records.json",
+  "07.status.json",
+  "08.members.json",
+  "09.packet.json",
+  "10.stability.json",
+  "19.prepare-outcome.json",
+  "20.answers.raw",
+  "21.answers.json",
+  "22.checks.json"
+ ],
+ "p1_show": "attempt C:\\Users\\misg\\AppData\\Local\\Temp\\pb-records-yooklgsx\\p1\nstate prepared; checks failed; awaiting judgement; not oriented\nfiles 00.intent.json 00.request.raw 01.request.json 02.links.json 03.tools.json 04.git.json 05.book.json 06.records.json 07.status.json 08.members.json 09.packet.json 10.stability.json 19.prepare-outcome.json 20.answers.raw 21.answers.json 22.checks.json\nauthority none; orientation grants no new work authority\n",
+ "bad_grade": {
+  "exit": 1,
+  "stdout": "judgement invalid: judgement grades.O1 must be one of pass, gap, wrong\noutcome not-oriented\nauthority none; orientation grants no new work authority\n",
+  "stderr_tail": []
+ },
+ "bad_grade_retry": {
+  "exit": 1,
+  "stdout": "already-recorded: outcome not-oriented\nauthority none; orientation grants no new work authority\n",
+  "stderr_tail": []
+ },
+ "p2_files": [
+  "00.intent.json",
+  "00.request.raw",
+  "01.request.json",
+  "02.links.json",
+  "03.tools.json",
+  "04.git.json",
+  "05.book.json",
+  "06.records.json",
+  "07.status.json",
+  "08.members.json",
+  "09.packet.json",
+  "10.stability.json",
+  "19.prepare-outcome.json",
+  "20.answers.raw",
+  "21.answers.json",
+  "22.checks.json",
+  "30.judgement.raw",
+  "31.judgement.json",
+  "39.outcome.json"
+ ],
+ "p2_show": "attempt C:\\Users\\misg\\AppData\\Local\\Temp\\pb-records-yooklgsx\\p2\nstate not-oriented; judgement invalid\nfiles 00.intent.json 00.request.raw 01.request.json 02.links.json 03.tools.json 04.git.json 05.book.json 06.records.json 07.status.json 08.members.json 09.packet.json 10.stability.json 19.prepare-outcome.json 20.answers.raw 21.answers.json 22.checks.json 30.judgement.raw 31.judgement.json 39.outcome.json\nauthority none; orientation grants no new work authority\n"
+}
+```
+
+## run1: the 18 existing tests, unchanged, against the repaired code, dev mode (RETAINED FAILURES: 3 intended interface changes, test_12, test_14 and test_15)
+```
+...........F.FF...
+======================================================================
+FAIL: test_12_failed_preparation_is_kept_and_a_retry_links_it (__main__.TestPrimeBoot.test_12_failed_preparation_is_kept_and_a_retry_links_it)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\prime-boot-pass01\tests\test_prime_boot.py", line 431, in test_12_failed_preparation_is_kept_and_a_retry_links_it
+    self.assertEqual(json.loads(show)["state"], "failed")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'failed at book; not oriented' != 'failed'
+- failed at book; not oriented
++ failed
+
+
+======================================================================
+FAIL: test_14_immutable_retry_and_conflict (__main__.TestPrimeBoot.test_14_immutable_retry_and_conflict)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\prime-boot-pass01\tests\test_prime_boot.py", line 459, in test_14_immutable_retry_and_conflict
+    self.assertEqual(out, "already-recorded\n")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'already-recorded: checks ok\n' != 'already-recorded\n'
+- already-recorded: checks ok
+?                 -----------
++ already-recorded
+
+
+======================================================================
+FAIL: test_15_no_orientation_without_judgement_and_grades_shape_outcome (__main__.TestPrimeBoot.test_15_no_orientation_without_judgement_and_grades_shape_outcome)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\prime-boot-pass01\tests\test_prime_boot.py", line 475, in test_15_no_orientation_without_judgement_and_grades_shape_outcome
+    self.assertIn("prepared; not oriented (no judgement)", out)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'prepared; not oriented (no judgement)' not found in 'attempt C:\\Users\\misg\\AppData\\Local\\Temp\\pb-records-121u6mrj\\a1\nstate prepared; awaiting answers; not oriented\nfiles 00.intent.json 00.request.raw 01.request.json 02.links.json 03.tools.json 04.git.json 05.book.json 06.records.json 07.status.json 08.members.json 09.packet.json 10.stability.json 19.prepare-outcome.json\nauthority none; orientation grants no new work authority\n'
+
+----------------------------------------------------------------------
+Ran 18 tests in 66.293s
+
+FAILED (failures=3)
+```
+
+## run2: the expanded suite, dev mode, -v (RETAINED FAILURE: test_24 linked a cloned attempt whose intent names the source attempt; a test artifact, fixed by preparing a real attempt)
+```
+test_01_clean_boot_oriented_with_exact_committed_text (__main__.TestPrimeBoot.test_01_clean_boot_oriented_with_exact_committed_text) ... ok
+test_02_bad_citations_and_field_values_fail_checks (__main__.TestPrimeBoot.test_02_bad_citations_and_field_values_fail_checks) ... ok
+test_03_known_conflict_must_be_acknowledged (__main__.TestPrimeBoot.test_03_known_conflict_must_be_acknowledged) ... ok
+test_04_non_first_valid_target_and_out_of_scope_target (__main__.TestPrimeBoot.test_04_non_first_valid_target_and_out_of_scope_target) ... ok
+test_05_no_missing_dependency_and_absence_evidence (__main__.TestPrimeBoot.test_05_no_missing_dependency_and_absence_evidence) ... ok
+test_06_wrong_or_missing_tool_pin_never_launches (__main__.TestPrimeBoot.test_06_wrong_or_missing_tool_pin_never_launches) ... ok
+test_07_dirty_bytes_are_observed_apart_from_committed_bytes (__main__.TestPrimeBoot.test_07_dirty_bytes_are_observed_apart_from_committed_bytes) ... ok
+test_08_head_or_ref_change (__main__.TestPrimeBoot.test_08_head_or_ref_change) ... ok
+test_09_packet_overflow_is_recorded_not_truncated (__main__.TestPrimeBoot.test_09_packet_overflow_is_recorded_not_truncated) ... ok
+test_10_malformed_or_duplicate_inputs (__main__.TestPrimeBoot.test_10_malformed_or_duplicate_inputs) ... ok
+test_11_invalid_linked_or_occupied_destinations (__main__.TestPrimeBoot.test_11_invalid_linked_or_occupied_destinations) ... ok
+test_12_failed_preparation_is_kept_and_a_retry_links_it (__main__.TestPrimeBoot.test_12_failed_preparation_is_kept_and_a_retry_links_it) ... ok
+test_13_stage_interruption_is_retained (__main__.TestPrimeBoot.test_13_stage_interruption_is_retained) ... ok
+test_14_immutable_retry_and_conflict (__main__.TestPrimeBoot.test_14_immutable_retry_and_conflict) ... ok
+test_15_no_orientation_without_judgement_and_grades_shape_outcome (__main__.TestPrimeBoot.test_15_no_orientation_without_judgement_and_grades_shape_outcome) ... ok
+test_16_clerk_jobs_unsupported (__main__.TestPrimeBoot.test_16_clerk_jobs_unsupported) ... ok
+test_17_members_integrity_only (__main__.TestPrimeBoot.test_17_members_integrity_only) ... ok
+test_18_sources_and_git_metadata_unchanged_no_writes_outside_records (__main__.TestPrimeBoot.test_18_sources_and_git_metadata_unchanged_no_writes_outside_records) ... ok
+test_19_exact_prime_probes (__main__.TestValidationAndReplay.test_19_exact_prime_probes) ... ok
+test_20_nested_answer_variants_fail_in_a_controlled_way (__main__.TestValidationAndReplay.test_20_nested_answer_variants_fail_in_a_controlled_way) ... ok
+test_21_answer_envelope_variants (__main__.TestValidationAndReplay.test_21_answer_envelope_variants) ... ok
+test_22_judgement_variants_record_invalid_and_never_orient (__main__.TestValidationAndReplay.test_22_judgement_variants_record_invalid_and_never_orient) ... ok
+test_23_inspected_registry_and_report_shapes (__main__.TestValidationAndReplay.test_23_inspected_registry_and_report_shapes) ... ok
+test_24_missing_or_partial_check_record_replays_as_incomplete (__main__.TestValidationAndReplay.test_24_missing_or_partial_check_record_replays_as_incomplete) ... FAIL
+test_25_missing_or_partial_outcome_never_orients_from_raw_bytes (__main__.TestValidationAndReplay.test_25_missing_or_partial_outcome_never_orients_from_raw_bytes) ... ok
+test_26_completed_replays_report_their_recorded_state (__main__.TestValidationAndReplay.test_26_completed_replays_report_their_recorded_state) ... ok
+
+======================================================================
+FAIL: test_24_missing_or_partial_check_record_replays_as_incomplete (__main__.TestValidationAndReplay.test_24_missing_or_partial_check_record_replays_as_incomplete)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\prime-boot-pass01\tests\test_prime_boot.py", line 739, in test_24_missing_or_partial_check_record_replays_as_incomplete
+    self.assertEqual(self.stage(d2, "02.links.json")["previous_attempt_id"], "ci")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'base' != 'ci'
+- base
++ ci
+
+
+----------------------------------------------------------------------
+Ran 26 tests in 147.656s
+
+FAILED (failures=1)
+```
+
+## run3: the expanded suite, dev mode, -v, in-place lab
+```
+test_01_clean_boot_oriented_with_exact_committed_text (__main__.TestPrimeBoot.test_01_clean_boot_oriented_with_exact_committed_text) ... ok
+test_02_bad_citations_and_field_values_fail_checks (__main__.TestPrimeBoot.test_02_bad_citations_and_field_values_fail_checks) ... ok
+test_03_known_conflict_must_be_acknowledged (__main__.TestPrimeBoot.test_03_known_conflict_must_be_acknowledged) ... ok
+test_04_non_first_valid_target_and_out_of_scope_target (__main__.TestPrimeBoot.test_04_non_first_valid_target_and_out_of_scope_target) ... ok
+test_05_no_missing_dependency_and_absence_evidence (__main__.TestPrimeBoot.test_05_no_missing_dependency_and_absence_evidence) ... ok
+test_06_wrong_or_missing_tool_pin_never_launches (__main__.TestPrimeBoot.test_06_wrong_or_missing_tool_pin_never_launches) ... ok
+test_07_dirty_bytes_are_observed_apart_from_committed_bytes (__main__.TestPrimeBoot.test_07_dirty_bytes_are_observed_apart_from_committed_bytes) ... ok
+test_08_head_or_ref_change (__main__.TestPrimeBoot.test_08_head_or_ref_change) ... ok
+test_09_packet_overflow_is_recorded_not_truncated (__main__.TestPrimeBoot.test_09_packet_overflow_is_recorded_not_truncated) ... ok
+test_10_malformed_or_duplicate_inputs (__main__.TestPrimeBoot.test_10_malformed_or_duplicate_inputs) ... ok
+test_11_invalid_linked_or_occupied_destinations (__main__.TestPrimeBoot.test_11_invalid_linked_or_occupied_destinations) ... ok
+test_12_failed_preparation_is_kept_and_a_retry_links_it (__main__.TestPrimeBoot.test_12_failed_preparation_is_kept_and_a_retry_links_it) ... ok
+test_13_stage_interruption_is_retained (__main__.TestPrimeBoot.test_13_stage_interruption_is_retained) ... ok
+test_14_immutable_retry_and_conflict (__main__.TestPrimeBoot.test_14_immutable_retry_and_conflict) ... ok
+test_15_no_orientation_without_judgement_and_grades_shape_outcome (__main__.TestPrimeBoot.test_15_no_orientation_without_judgement_and_grades_shape_outcome) ... ok
+test_16_clerk_jobs_unsupported (__main__.TestPrimeBoot.test_16_clerk_jobs_unsupported) ... ok
+test_17_members_integrity_only (__main__.TestPrimeBoot.test_17_members_integrity_only) ... ok
+test_18_sources_and_git_metadata_unchanged_no_writes_outside_records (__main__.TestPrimeBoot.test_18_sources_and_git_metadata_unchanged_no_writes_outside_records) ... ok
+test_19_exact_prime_probes (__main__.TestValidationAndReplay.test_19_exact_prime_probes) ... ok
+test_20_nested_answer_variants_fail_in_a_controlled_way (__main__.TestValidationAndReplay.test_20_nested_answer_variants_fail_in_a_controlled_way) ... ok
+test_21_answer_envelope_variants (__main__.TestValidationAndReplay.test_21_answer_envelope_variants) ... ok
+test_22_judgement_variants_record_invalid_and_never_orient (__main__.TestValidationAndReplay.test_22_judgement_variants_record_invalid_and_never_orient) ... ok
+test_23_inspected_registry_and_report_shapes (__main__.TestValidationAndReplay.test_23_inspected_registry_and_report_shapes) ... ok
+test_24_missing_or_partial_check_record_replays_as_incomplete (__main__.TestValidationAndReplay.test_24_missing_or_partial_check_record_replays_as_incomplete) ... ok
+test_25_missing_or_partial_outcome_never_orients_from_raw_bytes (__main__.TestValidationAndReplay.test_25_missing_or_partial_outcome_never_orients_from_raw_bytes) ... ok
+test_26_completed_replays_report_their_recorded_state (__main__.TestValidationAndReplay.test_26_completed_replays_report_their_recorded_state) ... ok
+
+----------------------------------------------------------------------
+Ran 26 tests in 137.623s
+
+OK
+```
+
+## run4: the expanded suite, default mode, -v, in-place lab
+```
+test_01_clean_boot_oriented_with_exact_committed_text (__main__.TestPrimeBoot.test_01_clean_boot_oriented_with_exact_committed_text) ... ok
+test_02_bad_citations_and_field_values_fail_checks (__main__.TestPrimeBoot.test_02_bad_citations_and_field_values_fail_checks) ... ok
+test_03_known_conflict_must_be_acknowledged (__main__.TestPrimeBoot.test_03_known_conflict_must_be_acknowledged) ... ok
+test_04_non_first_valid_target_and_out_of_scope_target (__main__.TestPrimeBoot.test_04_non_first_valid_target_and_out_of_scope_target) ... ok
+test_05_no_missing_dependency_and_absence_evidence (__main__.TestPrimeBoot.test_05_no_missing_dependency_and_absence_evidence) ... ok
+test_06_wrong_or_missing_tool_pin_never_launches (__main__.TestPrimeBoot.test_06_wrong_or_missing_tool_pin_never_launches) ... ok
+test_07_dirty_bytes_are_observed_apart_from_committed_bytes (__main__.TestPrimeBoot.test_07_dirty_bytes_are_observed_apart_from_committed_bytes) ... ok
+test_08_head_or_ref_change (__main__.TestPrimeBoot.test_08_head_or_ref_change) ... ok
+test_09_packet_overflow_is_recorded_not_truncated (__main__.TestPrimeBoot.test_09_packet_overflow_is_recorded_not_truncated) ... ok
+test_10_malformed_or_duplicate_inputs (__main__.TestPrimeBoot.test_10_malformed_or_duplicate_inputs) ... ok
+test_11_invalid_linked_or_occupied_destinations (__main__.TestPrimeBoot.test_11_invalid_linked_or_occupied_destinations) ... ok
+test_12_failed_preparation_is_kept_and_a_retry_links_it (__main__.TestPrimeBoot.test_12_failed_preparation_is_kept_and_a_retry_links_it) ... ok
+test_13_stage_interruption_is_retained (__main__.TestPrimeBoot.test_13_stage_interruption_is_retained) ... ok
+test_14_immutable_retry_and_conflict (__main__.TestPrimeBoot.test_14_immutable_retry_and_conflict) ... ok
+test_15_no_orientation_without_judgement_and_grades_shape_outcome (__main__.TestPrimeBoot.test_15_no_orientation_without_judgement_and_grades_shape_outcome) ... ok
+test_16_clerk_jobs_unsupported (__main__.TestPrimeBoot.test_16_clerk_jobs_unsupported) ... ok
+test_17_members_integrity_only (__main__.TestPrimeBoot.test_17_members_integrity_only) ... ok
+test_18_sources_and_git_metadata_unchanged_no_writes_outside_records (__main__.TestPrimeBoot.test_18_sources_and_git_metadata_unchanged_no_writes_outside_records) ... ok
+test_19_exact_prime_probes (__main__.TestValidationAndReplay.test_19_exact_prime_probes) ... ok
+test_20_nested_answer_variants_fail_in_a_controlled_way (__main__.TestValidationAndReplay.test_20_nested_answer_variants_fail_in_a_controlled_way) ... ok
+test_21_answer_envelope_variants (__main__.TestValidationAndReplay.test_21_answer_envelope_variants) ... ok
+test_22_judgement_variants_record_invalid_and_never_orient (__main__.TestValidationAndReplay.test_22_judgement_variants_record_invalid_and_never_orient) ... ok
+test_23_inspected_registry_and_report_shapes (__main__.TestValidationAndReplay.test_23_inspected_registry_and_report_shapes) ... ok
+test_24_missing_or_partial_check_record_replays_as_incomplete (__main__.TestValidationAndReplay.test_24_missing_or_partial_check_record_replays_as_incomplete) ... ok
+test_25_missing_or_partial_outcome_never_orients_from_raw_bytes (__main__.TestValidationAndReplay.test_25_missing_or_partial_outcome_never_orients_from_raw_bytes) ... ok
+test_26_completed_replays_report_their_recorded_state (__main__.TestValidationAndReplay.test_26_completed_replays_report_their_recorded_state) ... ok
+
+----------------------------------------------------------------------
+Ran 26 tests in 138.419s
+
+OK
+```
+
+## run5: the expanded suite, dev mode, on a disposable copy of the four labs (scratchpad copy/labs)
+```
+..........................
+----------------------------------------------------------------------
+Ran 26 tests in 132.356s
+
+OK
+```
+
+## demo1: the existing demo, dev mode, in-place
+```
+fixture repository C:\Users\misg\AppData\Local\Temp\pb-st-dv7m_zc0\work
+records root C:\Users\misg\AppData\Local\Temp\pb-records-__ps90vh
+
+== attempt 1: prepare (max_refs 5)
+attempt C:\Users\misg\AppData\Local\Temp\pb-records-__ps90vh\a1
+prepare partial: 1 source(s) omitted by the caps
+reported conflicts: [
+ "canonical says waiting for 00.kernel/00.00.10.work/0599.fixture-lane/05.01.md; published page shows a return (execution unknown)",
+ "canonical says waiting for 00.kernel/00.00.10.work/0599.fixture-lane/05.01.md; local page shows a return (execution unknown)",
+ "canonical says waiting for 00.kernel/00.00.10.work/0599.fixture-lane/05.01.md; worktree page shows a return (execution unknown)"
+]
+
+== attempt 1: check (fixture answers)
+checks failed
+O1 fail: O1 must acknowledge every reported conflict (0..2)
+O2 ok
+O3 ok
+O4 ok
+O5 ok
+O6 ok
+
+== attempt 1: judge (fixture judgement)
+outcome not-oriented
+authority none; orientation grants no new work authority
+
+== attempt 1: show
+attempt C:\Users\misg\AppData\Local\Temp\pb-records-__ps90vh\a1
+state not-oriented
+files 00.intent.json 00.request.raw 01.request.json 02.links.json 03.tools.json 04.git.json 05.book.json 06.records.json 07.status.json 08.members.json 09.packet.json 10.stability.json 19.prepare-outcome.json 20.answers.raw 21.answers.json 22.checks.json 30.judgement.raw 31.judgement.json 39.outcome.json
+authority none; orientation grants no new work authority
+
+== attempt 2: prepare (links attempt 1, max_refs 12)
+attempt C:\Users\misg\AppData\Local\Temp\pb-records-__ps90vh\a2
+prepare prepared
+link: {
+ "previous_attempt": "C:\\Users\\misg\\AppData\\Local\\Temp\\pb-records-__ps90vh\\a1",
+ "previous_attempt_id": "a1",
+ "previous_attempt_number": 1,
+ "previous_intent_sha256": "41d2e827ef3108a0077ab0e907ca6c5eaaa48556470e67703f8208213b771024",
+ "previous_outcome_present": true,
+ "stage": "links"
+}
+
+== attempt 2: check
+checks ok
+O1 ok
+O2 ok
+O3 ok
+O4 ok
+O5 ok
+O6 ok
+
+== attempt 2: judge
+outcome oriented
+authority none; orientation grants no new work authority
+
+== attempt 2: show
+attempt C:\Users\misg\AppData\Local\Temp\pb-records-__ps90vh\a2
+state oriented
+files 00.intent.json 00.request.raw 01.request.json 02.links.json 03.tools.json 04.git.json 05.book.json 06.records.json 07.status.json 08.members.json 09.packet.json 10.stability.json 19.prepare-outcome.json 20.answers.raw 21.answers.json 22.checks.json 30.judgement.raw 31.judgement.json 39.outcome.json
+authority none; orientation grants no new work authority
+
+attempt 1 files: 00.intent.json 00.request.raw 01.request.json 02.links.json 03.tools.json 04.git.json 05.book.json 06.records.json 07.status.json 08.members.json 09.packet.json 10.stability.json 19.prepare-outcome.json 20.answers.raw 21.answers.json 22.checks.json 30.judgement.raw 31.judgement.json 39.outcome.json
+attempt 2 files: 00.intent.json 00.request.raw 01.request.json 02.links.json 03.tools.json 04.git.json 05.book.json 06.records.json 07.status.json 08.members.json 09.packet.json 10.stability.json 19.prepare-outcome.json 20.answers.raw 21.answers.json 22.checks.json 30.judgement.raw 31.judgement.json 39.outcome.json
+
+No model was called. Answers and judgements are fixtures. Orientation is not authority.
+```
+
+## demo2: the existing demo, default mode, in-place
+```
+fixture repository C:\Users\misg\AppData\Local\Temp\pb-st-y0wiay48\work
+records root C:\Users\misg\AppData\Local\Temp\pb-records-i1p7mw1u
+
+== attempt 1: prepare (max_refs 5)
+attempt C:\Users\misg\AppData\Local\Temp\pb-records-i1p7mw1u\a1
+prepare partial: 1 source(s) omitted by the caps
+reported conflicts: [
+ "canonical says waiting for 00.kernel/00.00.10.work/0599.fixture-lane/05.01.md; published page shows a return (execution unknown)",
+ "canonical says waiting for 00.kernel/00.00.10.work/0599.fixture-lane/05.01.md; local page shows a return (execution unknown)",
+ "canonical says waiting for 00.kernel/00.00.10.work/0599.fixture-lane/05.01.md; worktree page shows a return (execution unknown)"
+]
+
+== attempt 1: check (fixture answers)
+checks failed
+O1 fail: O1 must acknowledge every reported conflict (0..2)
+O2 ok
+O3 ok
+O4 ok
+O5 ok
+O6 ok
+
+== attempt 1: judge (fixture judgement)
+outcome not-oriented
+authority none; orientation grants no new work authority
+
+== attempt 1: show
+attempt C:\Users\misg\AppData\Local\Temp\pb-records-i1p7mw1u\a1
+state not-oriented
+files 00.intent.json 00.request.raw 01.request.json 02.links.json 03.tools.json 04.git.json 05.book.json 06.records.json 07.status.json 08.members.json 09.packet.json 10.stability.json 19.prepare-outcome.json 20.answers.raw 21.answers.json 22.checks.json 30.judgement.raw 31.judgement.json 39.outcome.json
+authority none; orientation grants no new work authority
+
+== attempt 2: prepare (links attempt 1, max_refs 12)
+attempt C:\Users\misg\AppData\Local\Temp\pb-records-i1p7mw1u\a2
+prepare prepared
+link: {
+ "previous_attempt": "C:\\Users\\misg\\AppData\\Local\\Temp\\pb-records-i1p7mw1u\\a1",
+ "previous_attempt_id": "a1",
+ "previous_attempt_number": 1,
+ "previous_intent_sha256": "007b56784a34968c552afba41255be77eb6d7c758409cec913950e0a04d79916",
+ "previous_outcome_present": true,
+ "stage": "links"
+}
+
+== attempt 2: check
+checks ok
+O1 ok
+O2 ok
+O3 ok
+O4 ok
+O5 ok
+O6 ok
+
+== attempt 2: judge
+outcome oriented
+authority none; orientation grants no new work authority
+
+== attempt 2: show
+attempt C:\Users\misg\AppData\Local\Temp\pb-records-i1p7mw1u\a2
+state oriented
+files 00.intent.json 00.request.raw 01.request.json 02.links.json 03.tools.json 04.git.json 05.book.json 06.records.json 07.status.json 08.members.json 09.packet.json 10.stability.json 19.prepare-outcome.json 20.answers.raw 21.answers.json 22.checks.json 30.judgement.raw 31.judgement.json 39.outcome.json
+authority none; orientation grants no new work authority
+
+attempt 1 files: 00.intent.json 00.request.raw 01.request.json 02.links.json 03.tools.json 04.git.json 05.book.json 06.records.json 07.status.json 08.members.json 09.packet.json 10.stability.json 19.prepare-outcome.json 20.answers.raw 21.answers.json 22.checks.json 30.judgement.raw 31.judgement.json 39.outcome.json
+attempt 2 files: 00.intent.json 00.request.raw 01.request.json 02.links.json 03.tools.json 04.git.json 05.book.json 06.records.json 07.status.json 08.members.json 09.packet.json 10.stability.json 19.prepare-outcome.json 20.answers.raw 21.answers.json 22.checks.json 30.judgement.raw 31.judgement.json 39.outcome.json
+
+No model was called. Answers and judgements are fixtures. Orientation is not authority.
+```
+
+## demo3: the existing demo, default mode, disposable copy
+```
+fixture repository C:\Users\misg\AppData\Local\Temp\pb-st-lkvrysgz\work
+records root C:\Users\misg\AppData\Local\Temp\pb-records-rn6xxd9l
+
+== attempt 1: prepare (max_refs 5)
+attempt C:\Users\misg\AppData\Local\Temp\pb-records-rn6xxd9l\a1
+prepare partial: 1 source(s) omitted by the caps
+reported conflicts: [
+ "canonical says waiting for 00.kernel/00.00.10.work/0599.fixture-lane/05.01.md; published page shows a return (execution unknown)",
+ "canonical says waiting for 00.kernel/00.00.10.work/0599.fixture-lane/05.01.md; local page shows a return (execution unknown)",
+ "canonical says waiting for 00.kernel/00.00.10.work/0599.fixture-lane/05.01.md; worktree page shows a return (execution unknown)"
+]
+
+== attempt 1: check (fixture answers)
+checks failed
+O1 fail: O1 must acknowledge every reported conflict (0..2)
+O2 ok
+O3 ok
+O4 ok
+O5 ok
+O6 ok
+
+== attempt 1: judge (fixture judgement)
+outcome not-oriented
+authority none; orientation grants no new work authority
+
+== attempt 1: show
+attempt C:\Users\misg\AppData\Local\Temp\pb-records-rn6xxd9l\a1
+state not-oriented
+files 00.intent.json 00.request.raw 01.request.json 02.links.json 03.tools.json 04.git.json 05.book.json 06.records.json 07.status.json 08.members.json 09.packet.json 10.stability.json 19.prepare-outcome.json 20.answers.raw 21.answers.json 22.checks.json 30.judgement.raw 31.judgement.json 39.outcome.json
+authority none; orientation grants no new work authority
+
+== attempt 2: prepare (links attempt 1, max_refs 12)
+attempt C:\Users\misg\AppData\Local\Temp\pb-records-rn6xxd9l\a2
+prepare prepared
+link: {
+ "previous_attempt": "C:\\Users\\misg\\AppData\\Local\\Temp\\pb-records-rn6xxd9l\\a1",
+ "previous_attempt_id": "a1",
+ "previous_attempt_number": 1,
+ "previous_intent_sha256": "dc13b70f130b2ab8206c0d670ed5f3bb5968709409b610e39cd13bbdce87bae4",
+ "previous_outcome_present": true,
+ "stage": "links"
+}
+
+== attempt 2: check
+checks ok
+O1 ok
+O2 ok
+O3 ok
+O4 ok
+O5 ok
+O6 ok
+
+== attempt 2: judge
+outcome oriented
+authority none; orientation grants no new work authority
+
+== attempt 2: show
+attempt C:\Users\misg\AppData\Local\Temp\pb-records-rn6xxd9l\a2
+state oriented
+files 00.intent.json 00.request.raw 01.request.json 02.links.json 03.tools.json 04.git.json 05.book.json 06.records.json 07.status.json 08.members.json 09.packet.json 10.stability.json 19.prepare-outcome.json 20.answers.raw 21.answers.json 22.checks.json 30.judgement.raw 31.judgement.json 39.outcome.json
+authority none; orientation grants no new work authority
+
+attempt 1 files: 00.intent.json 00.request.raw 01.request.json 02.links.json 03.tools.json 04.git.json 05.book.json 06.records.json 07.status.json 08.members.json 09.packet.json 10.stability.json 19.prepare-outcome.json 20.answers.raw 21.answers.json 22.checks.json 30.judgement.raw 31.judgement.json 39.outcome.json
+attempt 2 files: 00.intent.json 00.request.raw 01.request.json 02.links.json 03.tools.json 04.git.json 05.book.json 06.records.json 07.status.json 08.members.json 09.packet.json 10.stability.json 19.prepare-outcome.json 20.answers.raw 21.answers.json 22.checks.json 30.judgement.raw 31.judgement.json 39.outcome.json
+
+No model was called. Answers and judgements are fixtures. Orientation is not authority.
+```

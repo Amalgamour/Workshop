@@ -428,7 +428,7 @@ class TestPrimeBoot(Fixture):
         self.assertEqual(names, ["00.intent.json", "00.request.raw", "01.request.json", "02.links.json", "03.tools.json",
                                  "04.git.json", "05.book.json", "19.prepare-outcome.json"])
         _, show = self.cli("show", "--attempt", d, "--json", code=0)
-        self.assertEqual(json.loads(show)["state"], "failed")
+        self.assertEqual((json.loads(show)["state"], json.loads(show)["stage"]), ("failed at book; not oriented", "prepare-failed"))
         code, out = self.cli("check", "--attempt", d, "--answers", self.write_json("a.json", {}), code=2)
         self.assertIn("nothing to check", out)
         before = tree_digest(d)
@@ -456,7 +456,7 @@ class TestPrimeBoot(Fixture):
         self.cli("check", "--attempt", d, "--answers", a, code=0)
         before = tree_digest(d)
         _, out = self.cli("check", "--attempt", d, "--answers", a, code=0)
-        self.assertEqual(out, "already-recorded\n")
+        self.assertEqual(out, "already-recorded: checks ok\n")
         other = self.good_answers(d)
         other["answers"]["O1"]["text"] = "different"
         _, out = self.cli("check", "--attempt", d, "--answers", self.write_json("b.json", other), code=2)
@@ -472,12 +472,12 @@ class TestPrimeBoot(Fixture):
     def test_15_no_orientation_without_judgement_and_grades_shape_outcome(self):
         d, _, _ = self.prepare(self.request(), code=0)
         _, out = self.cli("show", "--attempt", d, code=0)
-        self.assertIn("prepared; not oriented (no judgement)", out)
+        self.assertIn("state prepared; awaiting answers; not oriented", out)
         code, out = self.cli("judge", "--attempt", d, "--judgement", self.write_json("j0.json", self.judgement(d)), code=2)
         self.assertIn("needs checked answers", out)
         self.cli("check", "--attempt", d, "--answers", self.write_json("a.json", self.good_answers(d)), code=0)
         _, out = self.cli("show", "--attempt", d, code=0)
-        self.assertIn("not oriented (no judgement)", out)
+        self.assertIn("state prepared; checks ok; awaiting judgement; not oriented", out)
         self.cli("judge", "--attempt", d, "--judgement", self.write_json("j.json", self.judgement(
             d, grade="gap", remediation=[{"kind": "question", "detail": "which lane owns 05.02?"}])), code=1)
         out39 = self.stage(d, "39.outcome.json")
@@ -489,8 +489,11 @@ class TestPrimeBoot(Fixture):
         self.cli("check", "--attempt", d3, "--answers", self.write_json("a3.json", self.good_answers(d3)), code=0)
         bad = self.judgement(d3)
         bad["grades"]["O1"] = "excellent"
-        _, out = self.cli("judge", "--attempt", d3, "--judgement", self.write_json("b3.json", bad), code=2)
-        self.assertTrue((d3 / "30.judgement.raw").is_file() and not (d3 / "39.outcome.json").exists())
+        # 05.08 (PB-06): an invalid grade is now a recorded failure, not an unrecorded refusal
+        _, out = self.cli("judge", "--attempt", d3, "--judgement", self.write_json("b3.json", bad), code=1)
+        self.assertTrue((d3 / "30.judgement.raw").is_file())
+        self.assertEqual((self.stage(d3, "31.judgement.json")["status"], self.stage(d3, "39.outcome.json")["outcome"],
+                          self.stage(d3, "39.outcome.json")["judgement"]), ("failed", "not-oriented", "invalid"))
 
     def test_16_clerk_jobs_unsupported(self):
         lanes = [{"lane": "fixture", "project": "workshop", "owner_label": "builder", "repository": "work", "pages": [PAGE],
@@ -521,6 +524,265 @@ class TestPrimeBoot(Fixture):
         self.assertEqual(set(tmp_after) - set(tmp_before), {"registry-0.json", "req-a1.json", "ans-a1.json", "jud-a1.json"})
         self.assertEqual([p.name for p in self.records.iterdir()], ["a1"])
         self.assertFalse(any(p.suffix == ".pyc" for p in LAB.rglob("*")))
+
+
+# ---------- 05.08: PB-06 nested validation, PB-07 stage-aware replay ----------
+
+def set_path(doc, path, value):
+    target = doc
+    for key in path[:-1]:
+        target = target[key]
+    target[path[-1]] = value
+    return doc
+
+
+ANSWER_VARIANTS = [  # (path under answers, wrong-shaped value)
+    *[(("O1", "citations"), v) for v in (None, 5, "R01", {}, [None], [["R01"]], [{}])],
+    *[(("O1", "target"), v) for v in (None, 1, [], {})],
+    *[(("O1", "conflicts_seen"), v) for v in (None, "0", {}, [True], [None], [0.0], [[0]])],
+    *[(("O1", "text"), v) for v in (None, 1, [], {})],
+    *[(("O2", "fields"), v) for v in (None, "x", [], {"release": {}})],
+    *[(("O2", "fields", "claim"), v) for v in (None, "x", [], {})],
+    *[(("O2", "fields", "claim", "value"), v) for v in (None, 1, [], {})],
+    *[(("O2", "fields", "claim", "citation"), v) for v in (None, 1, [], {})],
+    *[(("O3", "citations"), v) for v in (None, "R01", [None], [{}])],
+    *[(("O4",), v) for v in (None, "x", [], 1)],
+    *[(("O5",), v) for v in (None, [], {"none_found": None, "text": "x"}, {"none_found": True, "text": None},
+                             {"citations": None, "text": "x"}, {"citations": [{}], "text": "x"})],
+    *[(("O6", "text"), v) for v in (None, [], {})],
+]
+ENVELOPE_VARIANTS = [b"null", b"[]", b'"answers"', b"1", b'{"schema": "prime-boot-answers/1"}',
+                     b'{"schema": "prime-boot-answers/1", "attempt_id": "%s", "answers": null}',
+                     b'{"schema": "prime-boot-answers/1", "attempt_id": "%s", "answers": []}',
+                     b'{"schema": "prime-boot-answers/1", "attempt_id": ["x"], "answers": {}}',
+                     b'{"schema": {}, "attempt_id": "%s", "answers": {}}']
+JUDGEMENT_VARIANTS = [
+    *[(("grades", "O1"), v) for v in ({}, [], None, 1, "excellent", ["pass"])],
+    *[(("grades",), v) for v in (None, [], "pass", {"O1": "pass"})],
+    *[(("reasons", "O2"), v) for v in (None, {}, [], 1)],
+    *[(("reasons",), v) for v in (None, [])],
+    *[(("reviewer",), v) for v in (None, {}, [], 1, "not a label!")],
+    *[(("remediation",), v) for v in (None, {}, "x", [None], [{"kind": {}, "detail": "x"}],
+                                      [{"kind": "question", "detail": None}], [{"kind": "other", "detail": "x"}],
+                                      [{"kind": "question"}])],
+    *[(("attempt_id",), v) for v in (None, [], {})],
+]
+JUDGEMENT_RAW_VARIANTS = [b"null", b"[]", b"{not json", b'{"schema": "a", "schema": "b"}', b'{"grades": NaN}']
+
+
+class TestValidationAndReplay(Fixture):
+    def setUp(self):
+        super().setUp()
+        self.base, _, _ = self.prepare(self.request(), attempt="base", code=0)
+
+    def clone(self, name, checked=False):
+        """A copy of one real prepared attempt; for judge variants, checked with good answers first."""
+        d = self.records / name
+        shutil.copytree(self.base, d)
+        if checked:
+            ans = self.good_answers(d)
+            self.cli("check", "--attempt", d, "--answers", self.write_json(f"ok-{name}.json", ans), code=0)
+        return d
+
+    def show_json(self, d):
+        return json.loads(self.cli("show", "--attempt", d, "--json", code=0)[1])
+
+    def test_19_exact_prime_probes(self):
+        d = self.clone("probe1")
+        ans = self.good_answers(d)
+        ans["answers"]["O1"]["citations"] = None
+        f = self.write_json("probe1.json", ans)
+        code, out = self.cli("check", "--attempt", d, "--answers", f, code=1)
+        self.assertIn("O1 fail: O1 citations must be a list of strings", out)
+        self.assertEqual((d / "20.answers.raw").read_bytes(), f.read_bytes())
+        self.assertEqual(self.stage(d, "22.checks.json")["status"], "failed")
+        self.assertEqual(self.cli("check", "--attempt", d, "--answers", f, code=1)[1], "already-recorded: checks failed\n")
+        self.assertEqual(self.show_json(d)["state"], "prepared; checks failed; awaiting judgement; not oriented")
+        d2 = self.clone("probe2", checked=True)
+        j = self.judgement(d2)
+        j["grades"]["O1"] = {}
+        g = self.write_json("probe2.json", j)
+        _, out = self.cli("judge", "--attempt", d2, "--judgement", g, code=1)
+        self.assertIn("judgement invalid: judgement grades.O1 must be one of pass, gap, wrong", out)
+        self.assertEqual((d2 / "30.judgement.raw").read_bytes(), g.read_bytes())
+        self.assertEqual(self.stage(d2, "39.outcome.json")["outcome"], "not-oriented")
+        self.assertNotIn("grades", self.stage(d2, "39.outcome.json"))
+        _, out = self.cli("judge", "--attempt", d2, "--judgement", g, code=1)
+        self.assertEqual(out.splitlines()[0], "already-recorded: outcome not-oriented")
+        self.assertEqual(self.show_json(d2)["state"], "not-oriented; judgement invalid")
+
+    def test_20_nested_answer_variants_fail_in_a_controlled_way(self):
+        for i, (path, value) in enumerate(ANSWER_VARIANTS):
+            with self.subTest(path=path, value=value):
+                d = self.clone(f"av{i:02d}")
+                ans = self.good_answers(d)
+                set_path(ans["answers"], path, value)
+                f = self.write_json(f"av{i:02d}.json", ans)
+                self.cli("check", "--attempt", d, "--answers", f, code=1)
+                self.assertEqual((d / "20.answers.raw").read_bytes(), f.read_bytes())
+                checks = self.stage(d, "22.checks.json")
+                self.assertEqual(checks["status"], "failed")
+                self.assertEqual(checks["results"][path[0]]["status"], "fail")
+                self.assertEqual(checks["results"][path[0]].get("phase"), "shape")
+                before = tree_digest(d)
+                self.cli("check", "--attempt", d, "--answers", f, code=1)
+                self.assertEqual(tree_digest(d), before)
+                self.assertEqual(self.show_json(d)["stage"], "checked")
+                self.cli("judge", "--attempt", d, "--judgement", self.write_json(f"aj{i:02d}.json", self.judgement(d)), code=1)
+                self.assertEqual(self.stage(d, "39.outcome.json")["outcome"], "not-oriented")
+
+    def test_21_answer_envelope_variants(self):
+        for i, raw in enumerate(ENVELOPE_VARIANTS):
+            with self.subTest(raw=raw):
+                d = self.clone(f"ev{i:02d}")
+                data = raw.replace(b"%s", d.name.encode()) if b"%s" in raw else raw
+                f = self.write_json(f"ev{i:02d}.json", data)
+                _, out = self.cli("check", "--attempt", d, "--answers", f, code=1)
+                self.assertTrue(out.startswith("checks failed: "), out)
+                self.assertEqual((d / "20.answers.raw").read_bytes(), data)
+                self.assertEqual(self.stage(d, "22.checks.json")["status"], "failed")
+                self.assertFalse((d / "21.answers.json").exists())
+                self.assertEqual(self.cli("check", "--attempt", d, "--answers", f, code=1)[1], "already-recorded: checks failed\n")
+
+    def test_22_judgement_variants_record_invalid_and_never_orient(self):
+        variants = [(p, v, None) for p, v in JUDGEMENT_VARIANTS] + [(None, None, raw) for raw in JUDGEMENT_RAW_VARIANTS]
+        for i, (path, value, raw) in enumerate(variants):
+            with self.subTest(path=path, value=value, raw=raw):
+                d = self.clone(f"jv{i:02d}", checked=True)
+                data = raw if raw is not None else json.dumps(set_path(self.judgement(d), path, value)).encode()
+                g = self.write_json(f"jv{i:02d}.json", data)
+                _, out = self.cli("judge", "--attempt", d, "--judgement", g, code=1)
+                self.assertTrue(out.startswith("judgement invalid: "), out)
+                self.assertEqual((d / "30.judgement.raw").read_bytes(), data)
+                self.assertEqual(self.stage(d, "31.judgement.json")["status"], "failed")
+                outcome = self.stage(d, "39.outcome.json")
+                self.assertEqual((outcome["outcome"], outcome["judgement"], outcome["dependent_execution"]),
+                                 ("not-oriented", "invalid", "blocked"))
+                self.assertTrue(outcome["authority"].startswith("none"))
+                before = tree_digest(d)
+                self.assertEqual(self.cli("judge", "--attempt", d, "--judgement", g, code=1)[1].splitlines()[0],
+                                 "already-recorded: outcome not-oriented")
+                self.assertEqual(tree_digest(d), before)
+                self.cli("judge", "--attempt", d, "--judgement", self.write_json(f"jg{i:02d}.json", self.judgement(d)), code=2)
+                self.assertEqual(tree_digest(d), before)
+
+    def test_23_inspected_registry_and_report_shapes(self):
+        cases = {"list": b"[]", "scalar": b"7", "lanes-object": b'{"lanes": {}}', "lanes-scalar": b'{"lanes": 3}',
+                 "lane-scalar": b'{"lanes": [1]}', "lane-list": b'{"lanes": [[]]}',
+                 "clerk-jobs-object": b'{"lanes": [{"clerk_jobs": {}}]}', "clerk-jobs-string": b'{"lanes": [{"clerk_jobs": "j"}]}'}
+        for name, raw in cases.items():
+            with self.subTest(case=name):
+                d, _, out = self.prepare(self.request(registry=self.registry(raw=raw)), attempt=f"rg-{name}", code=2)
+                st = self.stage(d, "07.status.json")
+                self.assertEqual(st["status"], "failed")
+                self.assertIn("registry shape", st["reason"])
+                self.assertEqual(self.show_json(d)["state"], "failed at status; not oriented")
+        real = pb.run_tool
+        reports = {"status-list": ("prime_support", "[]"), "status-files": ("prime_support", '{"lanes": [{"files": [1]}]}'),
+                   "status-path": ("prime_support", '{"lanes": [{"files": [{"path": 1}]}]}'),
+                   "status-conflicts": ("prime_support", '{"lanes": [], "conflicts": [{}]}'),
+                   "status-attention": ("prime_support", '{"lanes": [], "attention": {}}'),
+                   "book-findings": ("check_book", '{"findings": {}}'), "book-finding": ("check_book", '{"findings": [1]}')}
+        for name, (tool, stdout) in reports.items():
+            with self.subTest(report=name):
+                def fake(path, pin, args, tool=tool, stdout=stdout):
+                    if pin == pb.PINS[tool]:
+                        return {"argv": [path, *args], "exit": 0, "stdout": stdout, "stderr": ""}
+                    return real(path, pin, args)
+                req = self.write_json(f"req-{name}.json", self.request())
+                with mock.patch.object(pb, "run_tool", fake), mock.patch.object(sys, "stdout", new=io.StringIO()):
+                    self.assertEqual(pb.prepare(str(req), str(self.records), f"rp-{name}"), 2)
+                stage = "07.status.json" if tool == "prime_support" else "05.book.json"
+                rec = self.stage(self.records / f"rp-{name}", stage)
+                self.assertEqual(rec["status"], "failed")
+                self.assertIn("shape", rec["reason"])
+
+    def interrupt(self, name, fn, command, path):
+        d = self.records / name
+        with mock.patch.object(pb, fn, side_effect=KeyboardInterrupt), mock.patch.object(sys, "stdout", new=io.StringIO()):
+            with self.assertRaises(KeyboardInterrupt):
+                (pb.check if command == "check" else pb.judge)(str(d), str(path))
+        return d
+
+    def test_24_missing_or_partial_check_record_replays_as_incomplete(self):
+        d, _, _ = self.prepare(self.request(), attempt="ci", code=0)  # a real attempt, so the later link names it
+        good = self.write_json("ci.json", self.good_answers(d))
+        self.interrupt("ci", "check_answers", "check", good)
+        self.assertTrue((d / "20.answers.raw").is_file() and not (d / "22.checks.json").exists())
+        before = tree_digest(d)
+        _, out = self.cli("check", "--attempt", d, "--answers", good, code=3)
+        self.assertIn("incomplete: answers recorded without a check result", out)
+        self.assertIn("start a new linked attempt", out)
+        self.assertEqual(tree_digest(d), before)
+        other = self.good_answers(d)
+        other["answers"]["O6"]["text"] = "other"
+        self.assertIn("conflict", self.cli("check", "--attempt", d, "--answers", self.write_json("ci2.json", other), code=2)[1])
+        self.assertIn("check stage incomplete", self.cli("judge", "--attempt", d, "--judgement",
+                                                         self.write_json("cij.json", self.judgement(d)), code=2)[1])
+        state = self.show_json(d)
+        self.assertEqual((state["stage"], state["complete"]), ("check-incomplete", False))
+        self.assertIn("not oriented", state["state"])
+        self.assertEqual(tree_digest(d), before)
+        for name, partial in {"truncated": b'{"status": "ok"', "unknown-status": b'{"status": "maybe"}', "list": b"[]"}.items():
+            with self.subTest(partial=name):
+                p = self.clone(f"cp-{name}")
+                f = self.write_json(f"cp-{name}.json", self.good_answers(p))
+                (p / "20.answers.raw").write_bytes(f.read_bytes())
+                (p / "22.checks.json").write_bytes(partial)
+                snap = tree_digest(p)
+                self.cli("check", "--attempt", p, "--answers", f, code=3)
+                self.assertEqual(tree_digest(p), snap)
+                self.assertEqual(self.show_json(p)["stage"], "check-incomplete")
+                self.cli("judge", "--attempt", p, "--judgement", self.write_json(f"cpj-{name}.json", self.judgement(p)), code=2)
+                self.assertFalse((p / "39.outcome.json").exists())
+        d2, _, _ = self.prepare(self.request(attempt=2, previous_attempt=str(d)), attempt="ci-next", code=0)
+        self.assertEqual(self.stage(d2, "02.links.json")["previous_attempt_id"], "ci")
+
+    def test_25_missing_or_partial_outcome_never_orients_from_raw_bytes(self):
+        d = self.clone("ji", checked=True)
+        passing = self.write_json("ji.json", self.judgement(d))
+        self.interrupt("ji", "judgement_problem", "judge", passing)
+        self.assertTrue((d / "30.judgement.raw").is_file())
+        self.assertFalse((d / "31.judgement.json").exists() or (d / "39.outcome.json").exists())
+        before = tree_digest(d)
+        _, out = self.cli("judge", "--attempt", d, "--judgement", passing, code=3)
+        self.assertIn("incomplete: judgement recorded without an outcome", out)
+        self.assertNotIn("oriented\n", out)
+        self.assertEqual(tree_digest(d), before)
+        self.assertIn("conflict", self.cli("judge", "--attempt", d, "--judgement",
+                                           self.write_json("ji2.json", self.judgement(d, grade="gap")), code=2)[1])
+        state = self.show_json(d)
+        self.assertEqual((state["stage"], state["complete"]), ("judgement-incomplete", False))
+        self.assertNotIn("oriented;", state["state"].replace("not oriented", ""))
+        self.assertEqual(tree_digest(d), before)
+        for name, partial in {"truncated": b'{"outcome": "oriented"', "no-outcome": b'{"authority": "none"}', "list": b"[]"}.items():
+            with self.subTest(partial=name):
+                p = self.clone(f"jp-{name}", checked=True)
+                g = self.write_json(f"jp-{name}.json", self.judgement(p))
+                (p / "30.judgement.raw").write_bytes(g.read_bytes())
+                (p / "39.outcome.json").write_bytes(partial)
+                snap = tree_digest(p)
+                _, out = self.cli("judge", "--attempt", p, "--judgement", g, code=3)
+                self.assertTrue(out.startswith("incomplete"), out)
+                self.assertEqual(tree_digest(p), snap)
+                self.assertEqual(self.show_json(p)["stage"], "judgement-incomplete")
+
+    def test_26_completed_replays_report_their_recorded_state(self):
+        d = self.clone("ok", checked=True)
+        g = self.write_json("ok-j.json", self.judgement(d))
+        self.cli("judge", "--attempt", d, "--judgement", g, code=0)
+        before = tree_digest(d)
+        _, out = self.cli("judge", "--attempt", d, "--judgement", g, code=0)
+        self.assertEqual(out.splitlines()[0], "already-recorded: outcome oriented")
+        a = self.write_json("ok-a.json", self.good_answers(d))
+        self.assertEqual(self.cli("check", "--attempt", d, "--answers", a, code=0)[1], "already-recorded: checks ok\n")
+        self.assertEqual(tree_digest(d), before)
+        self.assertEqual((self.show_json(d)["stage"], self.show_json(d)["state"]), ("outcome", "oriented"))
+        p = self.clone("gap", checked=True)
+        gg = self.write_json("gap-j.json", self.judgement(p, grade="gap"))
+        self.cli("judge", "--attempt", p, "--judgement", gg, code=1)
+        self.assertEqual(self.cli("judge", "--attempt", p, "--judgement", gg, code=1)[1].splitlines()[0],
+                         "already-recorded: outcome partial")
 
 
 if __name__ == "__main__":

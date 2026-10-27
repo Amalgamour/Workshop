@@ -1,0 +1,24 @@
+{
+  "bad_citations": {
+    "exit": 1,
+    "stdout": "checks failed\nO1 fail: O1 citations must be a list of strings\nO2 ok\nO3 ok\nO4 ok\nO5 ok\nO6 ok\n",
+    "stderr": ""
+  },
+  "retry": {
+    "exit": 1,
+    "stdout": "already-recorded: checks failed\n",
+    "stderr": ""
+  },
+  "checks_exist": true,
+  "bad_grade": {
+    "exit": 1,
+    "stdout": "judgement invalid: judgement grades.O1 must be one of pass, gap, wrong\noutcome not-oriented\nauthority none; orientation grants no new work authority\n",
+    "stderr": ""
+  },
+  "grade_retry": {
+    "exit": 1,
+    "stdout": "already-recorded: outcome not-oriented\nauthority none; orientation grants no new work authority\n",
+    "stderr": ""
+  },
+  "outcome_exists": true
+}

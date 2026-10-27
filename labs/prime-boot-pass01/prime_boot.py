@@ -214,6 +214,8 @@ def stage_links(req: dict, attempt_dir: Path) -> dict:
         raise StageFailure("previous_attempt is not an existing attempt directory")
     intent_bytes = (p / "00.intent.json").read_bytes()
     intent = strict_json(intent_bytes, "previous intent")
+    if not isinstance(intent, dict):
+        raise StageFailure("previous_attempt intent shape: not an object")
     prev_req_raw = (p / "00.request.raw").read_bytes()
     try:
         prev_req = strict_json(prev_req_raw, "previous request")
@@ -263,6 +265,9 @@ def stage_book(req: dict) -> dict:
     if run["exit"] not in (0, 1):
         raise StageFailure(f"contents checker refused (exit {run['exit']}): {run['stdout'].strip()[:300]}")
     report = strict_json(run["stdout"].encode("utf-8"), "contents checker report")
+    if not isinstance(report, dict) or not isinstance(report.get("findings", []), list) \
+            or not all(isinstance(f, dict) for f in report.get("findings", [])):
+        raise StageFailure("contents checker report shape: findings must be a list of objects")
     return {"entry": entry_path, "entry_sha256": sha256(entry), "pointer": pointers[0], "contents": contents,
             "checker_exit": run["exit"], "checker_report": report,
             "findings": [f.get("kind") for f in report.get("findings", [])]}
@@ -292,16 +297,39 @@ def stage_status(req: dict) -> dict:
     if sha256(data) != req["registry"]["sha256"]:
         raise StageFailure("registry bytes do not match the requested sha256")
     reg = strict_json(data, "registry")
-    if isinstance(reg, dict) and any(isinstance(l, dict) and l.get("clerk_jobs") for l in reg.get("lanes", [])):
+    if not isinstance(reg, dict):
+        raise StageFailure("registry shape: the registry must be an object")
+    lanes = reg.get("lanes", [])
+    if not isinstance(lanes, list) or not all(isinstance(lane, dict) for lane in lanes):
+        raise StageFailure("registry shape: lanes must be a list of objects")
+    if any("clerk_jobs" in lane and not isinstance(lane["clerk_jobs"], list) for lane in lanes):
+        raise StageFailure("registry shape: lanes[].clerk_jobs must be a list")
+    if any(lane.get("clerk_jobs") for lane in lanes):
         raise StageFailure("unsupported: the registry has clerk_jobs; Clerk-job boot integration is deferred in this prototype")
     run = run_tool(req["tools"]["prime_support"], PINS["prime_support"], ["status", "--registry", req["registry"]["path"], "--json"])
     if run["exit"] not in (0, 1) or run["stderr"]:
         raise StageFailure(f"prime_support status failed (exit {run['exit']}): {(run['stdout'] + run['stderr']).strip()[:300]}")
     report = strict_json(run["stdout"].encode("utf-8"), "status report")
+    status_shape(report)
     scope = sorted({e["path"] for lane in report.get("lanes", []) for e in lane.get("files", []) if e.get("kind") != "page-folder"})
     return {"registry_sha256": sha256(data), "status_exit": run["exit"], "status": report, "scope_paths": scope,
             "conflicts": report.get("conflicts", []), "attention_advice": report.get("attention", []),
             "note": "status mixes committed and live labels as prime_support reports them; attention is advice only"}
+
+
+def status_shape(report) -> None:
+    """The parts of the accepted tool's report that this prototype reads itself."""
+    if not isinstance(report, dict):
+        raise StageFailure("status report shape: not an object")
+    lanes = report.get("lanes", [])
+    if not isinstance(lanes, list) or not all(
+            isinstance(lane, dict) and isinstance(lane.get("files", []), list)
+            and all(isinstance(e, dict) and isinstance(e.get("path"), str) for e in lane.get("files", [])) for lane in lanes):
+        raise StageFailure("status report shape: lanes must be objects whose files are objects with a string path")
+    if not str_list(report.get("conflicts", [])):
+        raise StageFailure("status report shape: conflicts must be a list of strings")
+    if not isinstance(report.get("attention", []), list):
+        raise StageFailure("status report shape: attention must be a list")
 
 
 def stage_members(req: dict) -> dict:
@@ -440,6 +468,45 @@ def load_stage(attempt: Path, name: str) -> dict:
     return strict_json((attempt / name).read_bytes(), name)
 
 
+def str_list(value) -> bool:
+    return isinstance(value, list) and all(isinstance(v, str) for v in value)
+
+
+def answer_shape(q: str, item) -> list[str]:
+    """PB-06: every supplied value is type-checked before it is iterated, compared or dereferenced."""
+    if q == "O5":
+        if isinstance(item, dict) and set(item) == {"none_found", "text"}:
+            return [] if item["none_found"] is True and isinstance(item["text"], str) else \
+                ["O5 must be {none_found: true, text: string}"]
+        if isinstance(item, dict) and set(item) == {"citations", "text"}:
+            return [] if str_list(item["citations"]) and isinstance(item["text"], str) else \
+                ["O5 citations must be a list of strings and text a string"]
+        return ["O5 must be {none_found: true, text} or {citations, text}"]
+    keys = ANSWER_KEYS[q]
+    if not isinstance(item, dict) or set(item) != keys:
+        return [f"{q} must be an object with exactly {sorted(keys)}"]
+    errs = [] if isinstance(item["text"], str) else [f"{q} text must be a string"]
+    if "citations" in keys and not str_list(item["citations"]):
+        errs.append(f"{q} citations must be a list of strings")
+    if q == "O1":
+        if not isinstance(item["target"], str):
+            errs.append("O1 target must be a string")
+        seen = item["conflicts_seen"]
+        if not isinstance(seen, list) or not all(type(i) is int for i in seen):
+            errs.append("O1 conflicts_seen must be a list of integer conflict indices")
+    if q == "O2":
+        fields = item["fields"]
+        if not isinstance(fields, dict) or set(fields) != O2_FIELDS:
+            errs.append(f"O2 fields must be an object with exactly {sorted(O2_FIELDS)}")
+        else:
+            for name in sorted(fields):
+                f = fields[name]
+                if not isinstance(f, dict) or set(f) != {"value", "citation"} \
+                        or not isinstance(f["value"], str) or not isinstance(f["citation"], str):
+                    errs.append(f"O2 {name} must be {{value: string, citation: string}}")
+    return errs
+
+
 def check_answers(attempt: Path, answers: dict) -> dict:
     packet = load_stage(attempt, "09.packet.json")
     status = load_stage(attempt, "07.status.json")
@@ -447,57 +514,44 @@ def check_answers(attempt: Path, answers: dict) -> dict:
     ids = set(ref_by_id) | {a["id"] for a in packet["absences"]}
     scope = set(status["scope_paths"]) | {r["path"] for r in packet["refs"]}
     results = {}
-
-    def cite(item, key, label):
-        cites = item.get(key)
-        if not isinstance(cites, list) or not all(isinstance(c, str) for c in cites):
-            return [f"{label}: citations must be a list of packet ids"]
-        return [f"{label}: {c} is not a packet ref or absence id" for c in cites if c not in ids]
-
-    for q, keys in ANSWER_KEYS.items():
-        item = answers.get(q)
-        errs = []
-        if not isinstance(item, dict) or set(item) != keys or not isinstance(item.get("text"), str):
-            results[q] = {"status": "fail", "errors": [f"{q} must have exactly {sorted(keys)} with string text"]}
+    for q in ("O1", "O2", "O3", "O4", "O5", "O6"):
+        item = answers[q]
+        errs = answer_shape(q, item)
+        if errs:
+            results[q] = {"status": "fail", "errors": errs, "phase": "shape"}
             continue
-        if q != "O2":
-            errs += cite(item, "citations", q)
+        errs += [f"{q}: {c} is not a packet ref or absence id" for c in item.get("citations", []) if c not in ids]
         if q == "O1":
             target = item["target"]
-            if not isinstance(target, str) or target not in scope:
+            if target not in scope:
                 errs.append("O1 target is not inside the declared scope")
-            elif not any(ref_by_id.get(c, {}).get("path") == target for c in item["citations"] if isinstance(c, str)):
+            elif not any(ref_by_id.get(c, {}).get("path") == target for c in item["citations"]):
                 errs.append("O1 must cite a packet ref whose path is the target")
-            seen = item["conflicts_seen"]
-            if not isinstance(seen, list) or not all(type(i) is int for i in seen):
-                errs.append("O1 conflicts_seen must be a list of conflict indices")
-            elif sorted(set(seen)) != list(range(len(status["conflicts"]))):
+            if sorted(set(item["conflicts_seen"])) != list(range(len(status["conflicts"]))):
                 errs.append(f"O1 must acknowledge every reported conflict (0..{len(status['conflicts']) - 1})"
                             if status["conflicts"] else "O1 lists conflicts that were not reported")
         if q == "O2":
-            fields = item["fields"]
-            if not isinstance(fields, dict) or set(fields) != O2_FIELDS:
-                errs.append(f"O2 fields must be exactly {sorted(O2_FIELDS)}")
-            else:
-                for name, f in fields.items():
-                    if not isinstance(f, dict) or set(f) != {"value", "citation"} or not all(isinstance(v, str) for v in f.values()):
-                        errs.append(f"O2 {name} must be {{value, citation}} strings")
-                    elif f["citation"] not in ref_by_id:
-                        errs.append(f"O2 {name}: {f['citation']} is not a packet ref")
-                    elif not f["value"] or f["value"] not in ref_by_id[f["citation"]]["text"]:
-                        errs.append(f"O2 {name}: value does not occur in {f['citation']}")
+            for name in sorted(item["fields"]):
+                f = item["fields"][name]
+                if f["citation"] not in ref_by_id:
+                    errs.append(f"O2 {name}: {f['citation']} is not a packet ref")
+                elif not f["value"] or f["value"] not in ref_by_id[f["citation"]]["text"]:
+                    errs.append(f"O2 {name}: value does not occur in {f['citation']}")
+        if q == "O5" and "citations" in item and not item["citations"] and not errs:
+            errs.append("O5 must cite at least one ref or absence, or say none_found")
         results[q] = {"status": "fail" if errs else "ok", "errors": errs}
-    o5 = answers.get("O5")
-    if isinstance(o5, dict) and set(o5) == {"none_found", "text"} and o5["none_found"] is True and isinstance(o5["text"], str):
-        results["O5"] = {"status": "ok", "errors": [], "note": "no unknown found in this bounded packet (PB-03)"}
-    elif isinstance(o5, dict) and set(o5) == {"citations", "text"} and isinstance(o5["text"], str):
-        errs = cite(o5, "citations", "O5")
-        if not errs and not o5["citations"]:
-            errs = ["O5 must cite at least one ref or absence, or say none_found"]
-        results["O5"] = {"status": "fail" if errs else "ok", "errors": errs}
-    else:
-        results["O5"] = {"status": "fail", "errors": ["O5 must be {none_found: true, text} or {citations, text}"]}
-    return {q: results[q] for q in sorted(results)}
+        if q == "O5" and "none_found" in item:
+            results[q]["note"] = "no unknown found in this bounded packet (PB-03)"
+    return results
+
+
+def read_terminal(attempt: Path, name: str):
+    """A stage's terminal record, or None when it is missing or unreadable (PB-07)."""
+    try:
+        doc = load_stage(attempt, name)
+    except (OSError, StageFailure):
+        return None
+    return doc if isinstance(doc, dict) else None
 
 
 def check(attempt_text: str, answers_path: str) -> int:
@@ -508,10 +562,15 @@ def check(attempt_text: str, answers_path: str) -> int:
     raw = Path(answers_path).read_bytes()
     target = attempt / "20.answers.raw"
     if target.exists():
-        if target.read_bytes() == raw:
-            sys.stdout.write("already-recorded\n")
-            return 0
-        raise Refusal("conflict: different answers were already recorded for this attempt; start a new attempt")
+        if target.read_bytes() != raw:
+            raise Refusal("conflict: different answers were already recorded for this attempt; start a new attempt")
+        done = read_terminal(attempt, "22.checks.json")
+        if done is None or done.get("status") not in ("ok", "failed"):
+            sys.stdout.write("incomplete: answers recorded without a check result; replay does not complete a stage; "
+                             "start a new linked attempt\n")
+            return 3
+        sys.stdout.write(f"already-recorded: checks {done['status']}\n")
+        return 0 if done["status"] == "ok" else 1
     write_once(target, raw)
     try:
         doc = strict_json(raw, "answers")
@@ -536,32 +595,70 @@ def check(attempt_text: str, answers_path: str) -> int:
 
 # ---------- judge ----------
 
+def judgement_problem(doc, attempt: Path) -> str | None:
+    """PB-06: shape of prime-boot-judgement/1, type-checked before membership tests."""
+    qs = {"O1", "O2", "O3", "O4", "O5", "O6"}
+    if not isinstance(doc, dict) or set(doc) != {"schema", "attempt_id", "reviewer", "grades", "reasons", "remediation"}:
+        return "judgement must be an object with exactly schema, attempt_id, reviewer, grades, reasons, remediation"
+    if doc["schema"] != "prime-boot-judgement/1" or doc["attempt_id"] != attempt.name:
+        return "judgement is not prime-boot-judgement/1 for this attempt"
+    if not isinstance(doc["reviewer"], str) or not LABEL.fullmatch(doc["reviewer"]):
+        return "judgement reviewer must be a plain label"
+    for key, kind in (("grades", "one of pass, gap, wrong"), ("reasons", "a string")):
+        value = doc[key]
+        if not isinstance(value, dict) or set(value) != qs:
+            return f"judgement {key} must be an object with exactly O1..O6"
+        for q in sorted(value):
+            v = value[q]
+            if not isinstance(v, str) or (key == "grades" and v not in GRADES):
+                return f"judgement {key}.{q} must be {kind}"
+    rem = doc["remediation"]
+    if not isinstance(rem, list):
+        return "judgement remediation must be a list"
+    for i, x in enumerate(rem):
+        if not isinstance(x, dict) or set(x) != {"kind", "detail"} or not isinstance(x["kind"], str) \
+                or x["kind"] not in ("reference", "question") or not isinstance(x["detail"], str):
+            return f"judgement remediation[{i}] must be {{kind: reference|question, detail: string}}"
+    return None
+
+
 def judge(attempt_text: str, judgement_path: str) -> int:
     attempt = Path(attempt_text)
-    if not (attempt / "22.checks.json").is_file():
+    checks = read_terminal(attempt, "22.checks.json")
+    if checks is None or checks.get("status") not in ("ok", "failed"):
+        if (attempt / "20.answers.raw").exists():
+            raise Refusal("check stage incomplete: answers recorded without a check result; start a new linked attempt")
         raise Refusal("no checks recorded; a judgement needs checked answers")
     raw = Path(judgement_path).read_bytes()
     target = attempt / "30.judgement.raw"
     if target.exists():
-        if target.read_bytes() == raw:
-            sys.stdout.write("already-recorded\n")
-            return 0
-        raise Refusal("conflict: a different judgement was already recorded for this attempt")
+        if target.read_bytes() != raw:
+            raise Refusal("conflict: a different judgement was already recorded for this attempt")
+        done = read_terminal(attempt, "39.outcome.json")
+        if done is None or not isinstance(done.get("outcome"), str):
+            sys.stdout.write("incomplete: judgement recorded without an outcome; replay does not complete a stage; "
+                             "start a new linked attempt\n")
+            return 3
+        sys.stdout.write(f"already-recorded: outcome {done['outcome']}\nauthority {AUTHORITY}\n")
+        return 0 if done["outcome"] == "oriented" else 1
     write_once(target, raw)
-    doc = strict_json(raw, "judgement")
-    qs = {"O1", "O2", "O3", "O4", "O5", "O6"}
-    if not isinstance(doc, dict) or set(doc) != {"schema", "attempt_id", "reviewer", "grades", "reasons", "remediation"} \
-            or doc["schema"] != "prime-boot-judgement/1" or doc["attempt_id"] != attempt.name \
-            or not isinstance(doc["reviewer"], str) or not LABEL.fullmatch(doc["reviewer"]) \
-            or not isinstance(doc["grades"], dict) or set(doc["grades"]) != qs or not all(g in GRADES for g in doc["grades"].values()) \
-            or not isinstance(doc["reasons"], dict) or set(doc["reasons"]) != qs or not all(isinstance(r, str) for r in doc["reasons"].values()) \
-            or not isinstance(doc["remediation"], list) or not all(
-                isinstance(x, dict) and set(x) == {"kind", "detail"} and x["kind"] in ("reference", "question")
-                and isinstance(x["detail"], str) for x in doc["remediation"]):
-        raise Refusal("judgement is not prime-boot-judgement/1 for this attempt; the raw bytes are kept")
-    write_once(attempt / "31.judgement.json", canonical(dict(doc, note="a supplied record from a named reviewer label; not authentication or authority")))
     prep = load_stage(attempt, "19.prepare-outcome.json")
-    checks = load_stage(attempt, "22.checks.json")
+    try:
+        doc = strict_json(raw, "judgement")
+        problem = judgement_problem(doc, attempt)
+    except StageFailure as exc:
+        problem = str(exc)
+    if problem:
+        write_once(attempt / "31.judgement.json", canonical({"status": "failed", "reason": problem,
+                                                             "note": "raw judgement kept in 30.judgement.raw; no grade used"}))
+        write_once(attempt / "39.outcome.json", canonical({
+            "outcome": "not-oriented", "judgement": "invalid", "reason": problem, "prepare": prep["status"],
+            "checks": checks["status"], "authority": AUTHORITY, "dependent_execution": "blocked",
+            "read_only_investigation": "allowed and recorded separately"}))
+        sys.stdout.write(f"judgement invalid: {problem}\noutcome not-oriented\nauthority {AUTHORITY}\n")
+        return 1
+    write_once(attempt / "31.judgement.json", canonical(dict(
+        doc, status="ok", note="a supplied record from a named reviewer label; not authentication or authority")))
     grades = set(doc["grades"].values())
     if prep["status"] == "prepared" and checks["status"] == "ok" and grades == {"pass"}:
         outcome = "oriented"
@@ -570,8 +667,8 @@ def judge(attempt_text: str, judgement_path: str) -> int:
     else:
         outcome = "not-oriented"
     write_once(attempt / "39.outcome.json", canonical({
-        "outcome": outcome, "prepare": prep["status"], "checks": checks["status"], "grades": doc["grades"],
-        "remediation": doc["remediation"], "authority": AUTHORITY,
+        "outcome": outcome, "judgement": "recorded", "prepare": prep["status"], "checks": checks["status"],
+        "grades": doc["grades"], "remediation": doc["remediation"], "authority": AUTHORITY,
         "dependent_execution": "allowed only for already-released work" if outcome == "oriented" else "blocked",
         "read_only_investigation": "allowed and recorded separately"}))
     sys.stdout.write(f"outcome {outcome}\nauthority {AUTHORITY}\n")
@@ -580,23 +677,41 @@ def judge(attempt_text: str, judgement_path: str) -> int:
 
 # ---------- show ----------
 
+def attempt_state(attempt: Path, files: list[str]) -> tuple[str, str, bool]:
+    """(stage, state, complete). Only a readable 39 yields an outcome; raw files never do (PB-07)."""
+    prep_doc = read_terminal(attempt, "19.prepare-outcome.json")
+    if prep_doc is None:
+        stages = [f for f in files if re.match(r"^\d\d\.[a-z-]+\.json$", f) and not f.startswith("00.")]
+        return "interrupted", f"interrupted after {stages[-1] if stages else '00.intent.json'}; not oriented", False
+    prep = prep_doc.get("status")
+    if prep == "failed":
+        return "prepare-failed", f"failed at {prep_doc.get('stage')}; not oriented", True
+    outcome = read_terminal(attempt, "39.outcome.json")
+    if outcome is not None and isinstance(outcome.get("outcome"), str):
+        invalid = "; judgement invalid" if outcome.get("judgement") == "invalid" else ""
+        return "outcome", outcome["outcome"] + invalid, True
+    if "30.judgement.raw" in files:
+        return ("judgement-incomplete", f"{prep}; judgement incomplete (raw judgement without an outcome); not oriented; "
+                "start a new linked attempt", False)
+    checks = read_terminal(attempt, "22.checks.json")
+    if checks is not None and checks.get("status") in ("ok", "failed"):
+        return "checked", f"{prep}; checks {checks['status']}; awaiting judgement; not oriented", True
+    if "20.answers.raw" in files:
+        return ("check-incomplete", f"{prep}; check incomplete (raw answers without a check result); not oriented; "
+                "start a new linked attempt", False)
+    return "awaiting-answers", f"{prep}; awaiting answers; not oriented", True
+
+
 def show(attempt_text: str, as_json: bool) -> int:
     attempt = Path(attempt_text)
     if not (attempt / "00.intent.json").is_file():
         raise Refusal("not an attempt directory")
     files = sorted(p.name for p in attempt.iterdir())
-    summary = {"attempt": str(attempt), "files": files}
-    if (attempt / "39.outcome.json").is_file():
-        summary["state"] = load_stage(attempt, "39.outcome.json")["outcome"]
-    elif (attempt / "19.prepare-outcome.json").is_file():
-        prep = load_stage(attempt, "19.prepare-outcome.json")["status"]
-        summary["state"] = f"{prep}; not oriented (no judgement)" if prep != "failed" else "failed"
-    else:
-        stages = [f for f in files if re.match(r"^\d\d\.[a-z-]+\.json$", f) and not f.startswith("00.")]
-        summary["state"] = f"interrupted after {stages[-1] if stages else '00.intent.json'}; not oriented"
-    summary["authority"] = AUTHORITY
+    stage, state, complete = attempt_state(attempt, files)
+    summary = {"attempt": str(attempt), "files": files, "stage": stage, "state": state, "complete": complete,
+               "authority": AUTHORITY}
     sys.stdout.write(json.dumps(summary, indent=1) + "\n" if as_json else
-                     f"attempt {attempt}\nstate {summary['state']}\nfiles {' '.join(files)}\nauthority {AUTHORITY}\n")
+                     f"attempt {attempt}\nstate {state}\nfiles {' '.join(files)}\nauthority {AUTHORITY}\n")
     return 0
 
 
