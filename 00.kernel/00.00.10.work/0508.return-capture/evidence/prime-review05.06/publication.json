@@ -1,7 +1,7 @@
 {
   "schema": "return-publication-ack/1",
-  "status": "pending",
-  "captures_commit": null,
+  "status": "verified",
+  "captures_commit": "31fd1624c57a2e5e4cae63d8c87e942d3519dcb8",
   "records": [
     {
       "member": "0115.observer-pilot-0501",
@@ -11,5 +11,53 @@
       "member": "0116.backfill-run-0506",
       "receipt_sha256": "931fb7f4104066a9e54525b2cf1bb648d2eabdfb6f31054ee6b226ce67b169d9"
     }
-  ]
+  ],
+  "remote_head_verified": "31fd1624c57a2e5e4cae63d8c87e942d3519dcb8",
+  "verified_package_blobs": 19,
+  "contents_check": {
+    "schema": "book-orientation-check@1",
+    "revision_input": "31fd1624c57a2e5e4cae63d8c87e942d3519dcb8",
+    "commit": "31fd1624c57a2e5e4cae63d8c87e942d3519dcb8",
+    "book": "00.kernel/00.00.10.work",
+    "contents_path": "00.kernel/00.00.10.work/0011.contents/01.029.md",
+    "contents_sha256": "30b6202f62f35900edbac3bd4d6afe2e59a546b4e4e46a6f2c588abc753cbcd8",
+    "selection_source": "book 00.md pointer",
+    "sentinel_pointer": "contents in 0011.contents/01.029.md.",
+    "scope": "published tree at the commit only; working tree, index and untracked files not read",
+    "covered": [
+      "Pages table rows: page folders, direct files, direct subdirectories, recursive tracked-file counts",
+      "Book files list",
+      "Other books paths (relative to the book root)"
+    ],
+    "not_covered": [
+      "prose references and other links",
+      "face contents",
+      "whether a page should be published",
+      "the working tree, the index and untracked files"
+    ],
+    "counts": {
+      "rows": 41,
+      "tree_pages": 41,
+      "book_files_listed": 1,
+      "other_books": 2
+    },
+    "other_books": [
+      {
+        "label": "Syntax",
+        "path": "../00.00.00.syntax/00.001.md",
+        "resolved": "00.kernel/00.00.00.syntax/00.001.md",
+        "present": true
+      },
+      {
+        "label": "Law",
+        "path": "../00.00.01.law/00.001.md",
+        "resolved": "00.kernel/00.00.01.law/00.001.md",
+        "present": true
+      }
+    ],
+    "findings": [],
+    "result": "clean",
+    "advisory": true
+  },
+  "note": "Exact historical/current capture package blobs verified and published. Receipts unchanged. Acceptance concerns custody only."
 }
