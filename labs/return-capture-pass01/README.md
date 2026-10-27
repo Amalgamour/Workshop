@@ -98,3 +98,15 @@ Prime-support source discovery needs an explicit adapter before it reads these m
 ## Limits
 
 The helper does not claim it can confine a same-user process that can already write the book. A leftover allocation lock blocks new reserves until a person removes that lock. A crash between creating the member directory and writing `reservation.json` does not repair itself. Partial capture files stay on disk and are not completed by a retry. Heading text inside a return file is data. Inventory classification is a separate reader and is not used to extract return bytes.
+
+## Inspection
+
+`return_inspect.py` reads one named member. It does not reserve, capture, repair, allocate, enumerate, or write. The sibling `return_capture.py` is pinned at SHA-256 `8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac`. Those pinned bytes run only after the hash matches. A caller cannot choose another helper. Package integrity is `verify_member` from that sibling. The inspector does not parse the human verify text and does not call Git.
+
+```text
+python -B return_inspect.py inspect --book BOOK --member 01NN.slug --json
+```
+
+`--book` is absolute. `--json` is required. Stdout is one object of schema `return-capture-inspection/1`. Keys, exits, and a worked example are in `00.kernel/00.00.10.work/0508.return-capture/evidence/inspection05.04/CONTRACT.md`.
+
+Exit 0 is `complete`: this capture's hashes held. Exit 1 is `reserved` or `missing`, which are informational. Exit 2 is `incomplete`, `refused`, or an argparse error. A complete object reports capture integrity only. It has no field for review, acceptance, seating, or publication. `receipt_sha256` is the helper's recomputation of this receipt. A damaged receipt is not reported as a capture identity.

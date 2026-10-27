@@ -1,0 +1,131 @@
+{
+  "suite": {
+    "exit": 0,
+    "tail": ".test_path_escape_and_unreadable_member) ... ok\ntest_pin_gate_and_inspector_imports (__main__.InspectTests.test_pin_gate_and_inspector_imports) ... ok\ntest_reserved_missing_and_empty_are_not_complete (__main__.InspectTests.test_reserved_missing_and_empty_are_not_complete) ... ok\ntest_symlink_member_is_refused_or_skipped (__main__.InspectTests.test_symlink_member_is_refused_or_skipped) ... skipped \"symlink privilege: [WinError 1314] A required privilege is not held by the client: 'C:\\\\\\\\Users\\\\\\\\misg\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\rc-inspect-vk307wbw\\\\\\\\book\\\\\\\\0101.alpha' -> 'C:\\\\\\\\Users\\\\\\\\misg\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\rc-inspect-vk307wbw\\\\\\\\book\\\\\\\\0102.link'\"\ntest_wrong_helper_hash_does_not_execute (__main__.InspectTests.test_wrong_helper_hash_does_not_execute) ... ok\n\n----------------------------------------------------------------------\nRan 12 tests in 19.023s\n\nOK (skipped=1)\n"
+  },
+  "independent_complete": {
+    "book": "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-return-inspect-as6z45ma\\book",
+    "capture": {
+      "captured_at": "2026-10-27T20:59:15.200831Z",
+      "manifest_sha256": "fbbd53b6d97db4e066f99e2cd5b8f923572ba40d0508d3cfc6ecf1ac954a5662",
+      "origin": {
+        "batch": "05.04",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "payloads": [
+        {
+          "bytes": 15,
+          "logical": "note.txt",
+          "payload": "0001.blob",
+          "sha256": "c7cd43ab0fa17bcac770107b2ee667dc1cd1cd6310ad96f5d7f99c3792ad644e"
+        }
+      ],
+      "receipt_sha256": "31830d469e80209a3f1894029f266fc7f2fd6a251a1886ec7e8baf94d1a0d42d",
+      "reservation_sha256": "55f732216c94627971885fc61aaa1611ca7577f5ea1c26cd54e3856879901554",
+      "retrospective": false,
+      "return": {
+        "bytes": 20,
+        "includes_prime_review": false,
+        "sha256": "4b619ae088965858d7a1415a31d348a0676cefa2b5b102fe836e9b6babf55b6f"
+      },
+      "source_commit": null,
+      "submission_id": "prime-inspection"
+    },
+    "member": "0101.alpha",
+    "problems": [],
+    "reservation": {
+      "destination": {
+        "member": "0101",
+        "name": "alpha",
+        "path": "0101.alpha"
+      },
+      "expected_outputs": [
+        "note.txt"
+      ],
+      "origin": {
+        "batch": "05.04",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "release": "fixture only",
+      "reservation_sha256": "55f732216c94627971885fc61aaa1611ca7577f5ea1c26cd54e3856879901554",
+      "reserved_at": "2026-10-27T20:59:15.174825Z",
+      "reviewer": "fixture-prime",
+      "submission_id": "prime-inspection",
+      "submitter": "fixture-builder",
+      "supersedes": null
+    },
+    "schema": "return-capture-inspection/1",
+    "status": "complete"
+  },
+  "independent_damaged": {
+    "book": "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-return-inspect-as6z45ma\\book",
+    "capture": null,
+    "member": "0101.alpha",
+    "problems": [
+      "invalid JSON"
+    ],
+    "reservation": {
+      "destination": {
+        "member": "0101",
+        "name": "alpha",
+        "path": "0101.alpha"
+      },
+      "expected_outputs": [
+        "note.txt"
+      ],
+      "origin": {
+        "batch": "05.04",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+      },
+      "release": "fixture only",
+      "reservation_sha256": "55f732216c94627971885fc61aaa1611ca7577f5ea1c26cd54e3856879901554",
+      "reserved_at": "2026-10-27T20:59:15.174825Z",
+      "reviewer": "fixture-prime",
+      "submission_id": "prime-inspection",
+      "submitter": "fixture-builder",
+      "supersedes": null
+    },
+    "schema": "return-capture-inspection/1",
+    "status": "incomplete"
+  },
+  "reads_preserved_bytes": true,
+  "invalid_band_probes": [
+    {
+      "member": "0100.door",
+      "exit": 1,
+      "status": "missing",
+      "capture": null,
+      "problems": [
+        "member is absent"
+      ]
+    },
+    {
+      "member": "0200.outside",
+      "exit": 1,
+      "status": "missing",
+      "capture": null,
+      "problems": [
+        "member is absent"
+      ]
+    },
+    {
+      "member": "9999.outside",
+      "exit": 1,
+      "status": "missing",
+      "capture": null,
+      "problems": [
+        "member is absent"
+      ]
+    }
+  ],
+  "capture_verify": {
+    "exit": 0,
+    "stdout": "reservation ab8852df933d188504032bf19fdb6d03dc8f6a63cff7fe6bc7475e0e6de06bd5\nmanifest dbadf080ec93b03de648d716c2cc69450080eb259106817755832587e1aecb2b\nreceipt 06173d2dc254efc0046a143cbfab12e1d3e4ded036c8448a0d0b813539020d81\npayload 0001.blob 0066bc87f60c95371a6421313b81c8d5d05e551a50bd6f090cef33188b22f534\npayload 0002.blob ab9bea08ddbc24e51272228d2f9a89eaee9f522372f507a0cc71a96090d7a9be\npayload 0003.blob 2360047c0c20f304cc946912159a364c913955f44dda7726df093189153ac3b4\npayload 0004.blob d768c32efd5cbcda1633eeb4ba3a1a9b30b85d6a64b3f7a8c344f6414befb8ad\npayload 0005.blob 2a37dc0720067f1380f00a63a8501fa9ac36f52e9bda6a63356ee6654fd4734c\npayload 0006.blob 105892dfb993bcd6258d8ef7249ac7d6e06e4c2ea9ae797ea8e3849dcb0590ea\npayload 0007.blob 1df75e58cfdb1061c8cb1f6cea2f3a9390c14a7b698ee570373087ed7a30f4ad\nresult complete\nnot approved\nnot accepted\nnot published\n"
+  },
+  "core_sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+  "inspector_sha256": "0066bc87f60c95371a6421313b81c8d5d05e551a50bd6f090cef33188b22f534",
+  "declared_outputs_match": 7
+}

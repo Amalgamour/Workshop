@@ -1,0 +1,65 @@
+{
+  "schema": "return-capture-inspection-verification/1",
+  "helper_sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+  "helper_bytes": 45767,
+  "helper_unchanged": true,
+  "capture_tests_sha256": "842547f798288af6b82baeedd2adf48d59c0723e3756dfecef8c4fcafc5bc2ba",
+  "capture_tests_bytes": 42348,
+  "command": "python -B labs/return-capture-pass01/tests/test_return_inspect.py -v",
+  "runs": [
+    {
+      "label": "initial",
+      "tests": 11,
+      "passed": 10,
+      "skipped": 1,
+      "failed": 0,
+      "exit": 0,
+      "seconds": 9.371,
+      "note": "The skipped test had completed its path-escape checks, then WinError 1314 skipped the whole test."
+    },
+    {
+      "label": "split-symlink",
+      "tests": 12,
+      "passed": 11,
+      "skipped": 1,
+      "failed": 0,
+      "exit": 0,
+      "seconds": 15.494,
+      "note": "Path escape passed on its own. The skip is the directory symlink only."
+    }
+  ],
+  "skip": "WinError 1314 creating a directory symlink. Hard links were tested without that privilege.",
+  "fresh_process": {
+    "complete_exit": 0,
+    "missing_exit": 1
+  },
+  "public_verify_agreement": "verify exit 0 for a complete observation; verify exit 2 for reserved, missing, incomplete, and refused.",
+  "git_backed_books": "A regular checkout and a linked worktree were read. HEAD, index, and refs were unchanged.",
+  "live_members_used": false,
+  "outputs": {
+    "return_inspect.py": {
+      "sha256": "0066bc87f60c95371a6421313b81c8d5d05e551a50bd6f090cef33188b22f534",
+      "bytes": 11402
+    },
+    "test_return_inspect.py": {
+      "sha256": "ab9bea08ddbc24e51272228d2f9a89eaee9f522372f507a0cc71a96090d7a9be",
+      "bytes": 23129
+    },
+    "README.md": {
+      "sha256": "2360047c0c20f304cc946912159a364c913955f44dda7726df093189153ac3b4",
+      "bytes": 10356
+    },
+    "06.05.md": {
+      "sha256": "d768c32efd5cbcda1633eeb4ba3a1a9b30b85d6a64b3f7a8c344f6414befb8ad",
+      "bytes": 7289
+    },
+    "CONTRACT.md": {
+      "sha256": "2a37dc0720067f1380f00a63a8501fa9ac36f52e9bda6a63356ee6654fd4734c",
+      "bytes": 7305
+    },
+    "tests.txt": {
+      "sha256": "105892dfb993bcd6258d8ef7249ac7d6e06e4c2ea9ae797ea8e3849dcb0590ea",
+      "bytes": 3953
+    }
+  }
+}
