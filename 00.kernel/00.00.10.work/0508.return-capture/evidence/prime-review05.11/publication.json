@@ -1,0 +1,65 @@
+{
+  "status": "verified",
+  "captures_commit": "4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5",
+  "remote_head_verified_at_publication": "4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5",
+  "contents_check": {
+    "schema": "book-orientation-check@1",
+    "revision_input": "4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5",
+    "commit": "4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5",
+    "book": "00.kernel/00.00.10.work",
+    "contents_path": "00.kernel/00.00.10.work/0011.contents/01.039.md",
+    "contents_sha256": "594d6d2f7dabd6e65f0e39b6a77049935f2757166843c52b5a32f6a6f6059b64",
+    "selection_source": "book 00.md pointer",
+    "sentinel_pointer": "contents in 0011.contents/01.039.md.",
+    "scope": "published tree at the commit only; working tree, index and untracked files not read",
+    "covered": [
+      "Pages table rows: page folders, direct files, direct subdirectories, recursive tracked-file counts",
+      "Book files list",
+      "Other books paths (relative to the book root)"
+    ],
+    "not_covered": [
+      "prose references and other links",
+      "face contents",
+      "whether a page should be published",
+      "the working tree, the index and untracked files"
+    ],
+    "counts": {
+      "rows": 54,
+      "tree_pages": 54,
+      "book_files_listed": 1,
+      "other_books": 2
+    },
+    "other_books": [
+      {
+        "label": "Syntax",
+        "path": "../00.00.00.syntax/00.001.md",
+        "resolved": "00.kernel/00.00.00.syntax/00.001.md",
+        "present": true
+      },
+      {
+        "label": "Law",
+        "path": "../00.00.01.law/00.001.md",
+        "resolved": "00.kernel/00.00.01.law/00.001.md",
+        "present": true
+      }
+    ],
+    "findings": [],
+    "result": "clean",
+    "advisory": true
+  },
+  "records": [
+    {
+      "member": "0131.realbook-rehearsal-0510",
+      "receipt_sha256": "22edf1a05d42d015332c558269bacf74a236689e4f31c29ace27180ad3708a73"
+    },
+    {
+      "member": "0132.return-capture-origin-0501",
+      "receipt_sha256": "8526f3e38c3118ae9dea0d371f051cc85f1370133b2c464e6fbf8c870b96422d"
+    },
+    {
+      "member": "0133.original-capture-0511",
+      "receipt_sha256": "7516c5be81768d5656ec7fc8423ae4ac29186ff15fd9789047a464a2a75df88f"
+    }
+  ],
+  "note": "Acceptance scoped by separate review; source rehearsal and archival captures unchanged."
+}
