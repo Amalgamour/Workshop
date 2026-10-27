@@ -1,0 +1,39 @@
+{
+  "root": "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-capture-assembly-cth0yhqy",
+  "manifests": {
+    "capture": {
+      "rows": 37,
+      "errors": []
+    },
+    "assembly-lab": {
+      "rows": 3,
+      "errors": []
+    },
+    "assembly-evidence": {
+      "rows": 26,
+      "errors": []
+    }
+  },
+  "runs": {
+    "return-capture-pass01": {
+      "exit": 0,
+      "seconds": 1.09,
+      "tail": "rc-pass01-4qtga09a\\\\\\\\source\\\\\\\\note.txt' -> 'C:\\\\\\\\Users\\\\\\\\misg\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\rc-pass01-4qtga09a\\\\\\\\source\\\\\\\\note.link'\"\ntest_tool_imports_no_process_copy_or_database (test_return_capture.ReturnCaptureTests.test_tool_imports_no_process_copy_or_database) ... ok\ntest_traversal_links_and_crlf (test_return_capture.ReturnCaptureTests.test_traversal_links_and_crlf) ... ok\ntest_writer_refuses_git_and_real_book_is_unchanged (test_return_capture.ReturnCaptureTests.test_writer_refuses_git_and_real_book_is_unchanged) ... ok\n\n----------------------------------------------------------------------\nRan 23 tests in 0.934s\n\nOK (skipped=1)\n"
+    },
+    "pack-assembly-pass01": {
+      "exit": 0,
+      "seconds": 25.38,
+      "tail": ".....s........\n----------------------------------------------------------------------\nRan 14 tests in 25.219s\n\nOK (skipped=1)\n"
+    }
+  },
+  "fixture_adjustments": [
+    "Only copied test REAL_BOOK constant redirected to disposable Git workbook; no test may allocate/write the shared workbook.",
+    "Only copied test CHECKER_SRC constant redirected to byte-identical local checker copy."
+  ],
+  "git_workbook_probe": {
+    "exit": 2,
+    "stdout": "book is inside a Git working tree: C:\\Users\\misg\\AppData\\Local\\Temp\\prime-capture-assembly-cth0yhqy\\git-workspace\\.git\nresult refused\n",
+    "stderr": "",
+    "new_members": []
+  }
+}

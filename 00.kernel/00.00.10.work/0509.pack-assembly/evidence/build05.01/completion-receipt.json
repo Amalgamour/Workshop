@@ -1,0 +1,47 @@
+{
+  "schema": "pack-assembly-receipt/1",
+  "result": "completed",
+  "template": "pack-assembly-draft/1",
+  "digest": "e037cee011da15b3c3b74da2ca3d26d2f06b1d3c06bb69529773c4debd27cdd2",
+  "request_sha256": "91acc3cb131c58e7c0b176bfe45056c1e35e2447eb515b6e86f6e0898c4b5cdb",
+  "request_bytes": 987,
+  "commit": "9ddcfdb6eb70b07e5384aa9633067aa4e1b0c195",
+  "batch": "05.14",
+  "batch_file": "05.14.md",
+  "batch_sha256": "589bd1b842927b31e93c4238b5fa95bc221d03af13c8a9b058a52176eddcbace",
+  "batch_bytes": 1058,
+  "sources": [
+    {
+      "path": "fixture.txt",
+      "sha256": "7cefb9aa217c81555befc729d7fa5d70dbc83bfe20d91eaac7e8af9aee481432",
+      "bytes": 15,
+      "snapshot": "snapshots/0001.blob"
+    },
+    {
+      "path": "note.txt",
+      "sha256": "3b0a9cf5befb3cc59f9d8c46d45ae82ffe1a3428e5f1219c454f8406c4f61bf4",
+      "bytes": 27,
+      "snapshot": "snapshots/0002.blob"
+    }
+  ],
+  "manifest_file": "source-manifest.json",
+  "manifest_sha256": "b4a17dc7668b37a079c2de1dd02fba6d6450af278e3adb3bcd4c0fad620a0665",
+  "manifest_bytes": 481,
+  "checker": {
+    "sha256": "9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d",
+    "bytes": 21563,
+    "result": "pass",
+    "exit": 0,
+    "rows_checked": 2
+  },
+  "return_destination": {
+    "state": "unresolved"
+  },
+  "repository_label": null,
+  "limits": [
+    "This receipt does not approve, release, or accept the draft.",
+    "Live return-slot allocation was not checked.",
+    "Clerk readiness was not checked.",
+    "Pinned sources were not executed."
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "schema": "pack-assembly-report/1",
+  "command": "preview",
+  "result": "preview",
+  "digest": "e037cee011da15b3c3b74da2ca3d26d2f06b1d3c06bb69529773c4debd27cdd2",
+  "supplied_digest": null,
+  "template": "pack-assembly-draft/1",
+  "commit": "9ddcfdb6eb70b07e5384aa9633067aa4e1b0c195",
+  "request_sha256": "91acc3cb131c58e7c0b176bfe45056c1e35e2447eb515b6e86f6e0898c4b5cdb",
+  "request_bytes": 987,
+  "batch": "05.14",
+  "sources": [
+    {
+      "path": "fixture.txt",
+      "sha256": "7cefb9aa217c81555befc729d7fa5d70dbc83bfe20d91eaac7e8af9aee481432",
+      "bytes": 15,
+      "snapshot": "snapshots/0001.blob"
+    },
+    {
+      "path": "note.txt",
+      "sha256": "3b0a9cf5befb3cc59f9d8c46d45ae82ffe1a3428e5f1219c454f8406c4f61bf4",
+      "bytes": 27,
+      "snapshot": "snapshots/0002.blob"
+    }
+  ],
+  "planned": [
+    {
+      "path": "05.14.md",
+      "sha256": "589bd1b842927b31e93c4238b5fa95bc221d03af13c8a9b058a52176eddcbace",
+      "bytes": 1058
+    },
+    {
+      "path": "request.snapshot",
+      "sha256": "91acc3cb131c58e7c0b176bfe45056c1e35e2447eb515b6e86f6e0898c4b5cdb",
+      "bytes": 987
+    },
+    {
+      "path": "source-manifest.json",
+      "sha256": "b4a17dc7668b37a079c2de1dd02fba6d6450af278e3adb3bcd4c0fad620a0665",
+      "bytes": 481
+    },
+    {
+      "path": "snapshots/0001.blob",
+      "sha256": "7cefb9aa217c81555befc729d7fa5d70dbc83bfe20d91eaac7e8af9aee481432",
+      "bytes": 15
+    },
+    {
+      "path": "snapshots/0002.blob",
+      "sha256": "3b0a9cf5befb3cc59f9d8c46d45ae82ffe1a3428e5f1219c454f8406c4f61bf4",
+      "bytes": 27
+    }
+  ],
+  "target": null,
+  "checker": null,
+  "receipt": null,
+  "findings": [],
+  "not_checked": [
+    {
+      "item": "meaning",
+      "detail": "This tool does not say what the draft means."
+    },
+    {
+      "item": "instruction-sufficiency",
+      "detail": "This tool does not decide whether the instructions are sufficient."
+    },
+    {
+      "item": "approval-release",
+      "detail": "This tool does not approve or release the draft. A receipt is not acceptance."
+    },
+    {
+      "item": "dependencies",
+      "detail": "Dependencies are copied as supplied or left unresolved. None are installed or fetched."
+    },
+    {
+      "item": "execution-safety",
+      "detail": "Request text and pinned sources are data. This tool does not execute them."
+    },
+    {
+      "item": "return-slot",
+      "detail": "Live return-slot allocation is not checked."
+    },
+    {
+      "item": "clerk-readiness",
+      "detail": "Clerk readiness is not checked."
+    }
+  ]
+}
