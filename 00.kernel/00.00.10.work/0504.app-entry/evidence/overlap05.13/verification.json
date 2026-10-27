@@ -1,0 +1,173 @@
+{
+  "schema": "overlap05.13-verification",
+  "date": "2026-10-27",
+  "claim_head": "8538dc0a9932410cd830ea4e493d18fb0194ee74",
+  "pins": {
+    "manifest": "00.kernel/00.00.10.work/0504.app-entry/evidence/pack05.13/source-manifest.json",
+    "manifest_sha256": "84800305ad81bd322a4f1b36d4002c44995987bebb12c174aed3466a6bf0a960",
+    "manifest_bytes": 2402,
+    "schema": "prime-pack-sources/1",
+    "sources": 11,
+    "bad": 0,
+    "checked_before_test_and_again_here": true
+  },
+  "unchanged": {
+    "app/worker_bridge.py": {
+      "sha256": "29f29223f63146198be01f1a4015bb5f1a9143875a13b28db3b6dd7b117a208e",
+      "bytes": 34532,
+      "newline": "lf"
+    },
+    "app/clerk_seam.py": {
+      "sha256": "038962090cc2a18973fc87635625becee1719ed8f7a23ae980a58cfcb0e10159",
+      "bytes": 31663,
+      "newline": "lf"
+    },
+    "app/tests/test_bridge_dirs.py": {
+      "sha256": "5f8c145fbf4f6b6a227cd102f1b9cc788ec786aa8f73398849155933bd3c5fe9",
+      "bytes": 7996,
+      "newline": "lf"
+    },
+    "app/tests/test_clerk_seam.py": {
+      "sha256": "3b6bf7f9521255e89ffdade01d3a2ef522a9b95afed8f78c2f6d1106b93fc464",
+      "bytes": 54277,
+      "newline": "lf"
+    },
+    "app/worker-bridge.json": {
+      "sha256": "94dd3c4770d77f30482f75086d6ebc58335eb51b4a8641c86dcc6d55ce4385ea",
+      "bytes": 1136,
+      "newline": "lf"
+    },
+    "app/clerk-seam.json": {
+      "sha256": "309a0618cab6673cd03e8d263ae28e663c855290e7c53822516412ae87f6a88f",
+      "bytes": 195,
+      "newline": "lf"
+    },
+    "labs/clerk-handoff-pass02/clerk.py": {
+      "sha256": "f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c",
+      "bytes": 52279,
+      "newline": "lf"
+    },
+    "labs/worker-bridge-pass01/fixtures/worker_fixture.py": {
+      "sha256": "0d519c8b0eeb7106321748c88fed0dca0d855f2cc85a3904ada9aacc149d7cad",
+      "bytes": 4296,
+      "newline": "lf"
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/evidence/prime-review05.12/review.md": {
+      "sha256": "0207a2d194929f456cd18ec4e14cad5050c7411a9da023d875b634ce2ac753ca",
+      "bytes": 1306,
+      "newline": "lf"
+    },
+    "labs/return-capture-pass01/return_capture.py": {
+      "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+      "bytes": 45767,
+      "newline": "lf"
+    },
+    "00.kernel/00.00.10.work/0122.bridge-overlap-0513/reservation.json": {
+      "sha256": "d14afbe8dc7aa5f94e6be0e6e706a2d0aed111b0943aa95d74d109a21d7ccd3e",
+      "bytes": 710,
+      "newline": "lf"
+    }
+  },
+  "product_edits": false,
+  "page_before_return_pointer": {
+    "path": "0504.app-entry/05.13.md",
+    "sha256": "a7dbf2e2fa237350d4a4923a9f38463670009de3ebd15e37fb4b8fd603e72e7f",
+    "bytes": 3761,
+    "state": "claimed",
+    "note": "The return pointer is written only after verify exit 0. This file is not a capture artifact."
+  },
+  "limits": {
+    "barrier_parties": 2,
+    "fixture": "fixture-sleep",
+    "fixture_hold_s": 30,
+    "observe_bound_s": 25,
+    "job_timeout_s": 60,
+    "deliver_subprocess_timeout_s": 120,
+    "exactly_once": false
+  },
+  "overlap": {
+    "disposable_copy": "C:/Users/misg/AppData/Local/Temp/overlap0513-repo",
+    "robocopy_exit": 1,
+    "ran_once": true,
+    "exit": 0,
+    "pass": 2,
+    "expected_refusal": 1,
+    "skip": 0,
+    "fail": 0,
+    "observed": "both started.marker files existed and neither result.json existed",
+    "launches_at_observation": [
+      "bridge-0001 sleep",
+      "bridge-0002 sleep"
+    ],
+    "identities": [
+      {
+        "delivery_id": "bridge-0001",
+        "clerk_job": "clerk-0001",
+        "artifact_sha256": "0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6",
+        "launches": [
+          "bridge-0001 sleep"
+        ],
+        "replay": "already-recorded",
+        "stored_bytes_changed": false
+      },
+      {
+        "delivery_id": "bridge-0002",
+        "clerk_job": "clerk-0002",
+        "artifact_sha256": "6aea6dfe6561984cdc5c54ead84d47d2cf29e48253ae282aef237404adad4661",
+        "launches": [
+          "bridge-0002 sleep"
+        ],
+        "replay": "already-recorded",
+        "stored_bytes_changed": false
+      }
+    ],
+    "occupied": {
+      "delivery_id": "bridge-0003",
+      "result": "stop already present",
+      "bytes_retained": "occupied-bytes",
+      "launched": false
+    },
+    "shared_parents": "ordinary directories",
+    "preliminary_live": {
+      "exit": 0,
+      "pass": 2,
+      "expected_refusal": 1,
+      "skip": 0,
+      "fail": 0,
+      "same_artifact_hashes": true
+    }
+  },
+  "seam": {
+    "exit": 0,
+    "pass": 44,
+    "expected_refusal": 19,
+    "skip": 1,
+    "fail": 0,
+    "skip_detail": "dangling file symlink: WinError 1314",
+    "a15": "one launch and one Clerk return; later identical call already-recorded",
+    "demo": {
+      "receipt": "90d28e685e1d6213de4140a1bcde88019ce03f64e36f31284f9d8bcea73e46ee",
+      "artifact": "0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6",
+      "launches": 1,
+      "replay": "already-recorded"
+    }
+  },
+  "artifacts": {
+    "app/tests/test_bridge_overlap.py": {
+      "sha256": "c7c831afc5a2ab22c88c9203ff6c7a8ea01cd3db9c460f1ad8d86fdf3c4da0b4",
+      "bytes": 19965,
+      "newline": "lf"
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/06.13.md": {
+      "sha256": "0ae73a83ef9dcc641e79addd0b1ba5d6c9f8a37daf62413be2cc5b5532544ce9",
+      "bytes": 4778,
+      "newline": "lf"
+    },
+    "evidence/overlap05.13/tests.txt": {
+      "sha256": "6fd8c50b29897823415698e166edd017185342c878d5bcf22eeb0b8021a85159",
+      "bytes": 7290,
+      "newline": "crlf"
+    }
+  },
+  "omitted_from_this_file": "This file does not store its own sha256."
+}

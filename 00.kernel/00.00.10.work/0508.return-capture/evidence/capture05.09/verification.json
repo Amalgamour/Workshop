@@ -1,0 +1,74 @@
+{
+  "schema": "mapping-capture-verification/1",
+  "date": "2026-10-27",
+  "source_commit": "75ae515d826482113c4126274d015de112aa249b",
+  "helper_sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+  "helper_bytes": 45767,
+  "reader_sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+  "reader_bytes": 11402,
+  "product_code_changed": false,
+  "suite_rerun": false,
+  "archived_scripts_executed": false,
+  "preserved_plan_unchanged": true,
+  "implementation_captured": false,
+  "assembler_captured": false,
+  "rc01_hold_remains": true,
+  "historical_member": {
+    "member": "0124.clerk-seam-design-0503",
+    "submission_id": "historical-0506-0503",
+    "retrospective": true,
+    "source_commit": "75ae515d826482113c4126274d015de112aa249b",
+    "includes_prime_review": true,
+    "return_sha256": "59468d0976229899136f0120df3315583de65a79e4e06d8ec5bcd3b94cce50dd",
+    "return_bytes": 14383,
+    "payloads": 29,
+    "manifest_sha256": "94487a067c1da03bd7f8cfba29578fd1e52d11c643ff55397044c4c7829454dc",
+    "receipt_sha256": "74faa288e05e74403cae4d3dc4c1745b20bd31094096118b2ff139384da612e0",
+    "receipt_bytes": 303,
+    "verify_exit": 0,
+    "inspect_exit": 0,
+    "inspect_status": "complete",
+    "bytes_unchanged_by_reads": true
+  },
+  "ar01": [
+    {
+      "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/pack05.02/snapshots/0008.blob",
+      "logical_path": "labs/return-capture-pass01/README.md",
+      "sha256": "4d82b7feeacf055f180f9a6c483bfa920faccbd0788fc15482732c0cf3f8de4e",
+      "bytes": 8515,
+      "hash_proof": "verified"
+    },
+    {
+      "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/pack05.02/snapshots/0009.blob",
+      "logical_path": "labs/return-capture-pass01/return_capture.py",
+      "sha256": "655bd4a005d1210eef8f5ae62a462d4cf8a2591bfe318c2f428bcfb3ae5c3269",
+      "bytes": 45898,
+      "hash_proof": "verified"
+    },
+    {
+      "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/pack05.02/snapshots/0010.blob",
+      "logical_path": "labs/return-capture-pass01/tests/test_return_capture.py",
+      "sha256": "9de8908a371839789586bee10f2d3a01d4a53b43cea5db2efeaa5c625a87afbe",
+      "bytes": 26254,
+      "hash_proof": "verified"
+    }
+  ],
+  "artifacts": {
+    "06.10.md": {
+      "sha256": "4b377db1e795f40868ed58b9e51a365a0b56d06e6ab6bd0683492d4a55ea64bd",
+      "bytes": 6208
+    },
+    "resolution-addendum.json": {
+      "sha256": "dba913e2ff7cbdc1acba569caf915c182cdb55445ae57bb5d955f216b8cecdd5",
+      "bytes": 4252
+    },
+    "capture-report.md": {
+      "sha256": "85206259ceadc53adbd011bbde242ff82bb6db0df13eb8f69cd7704072db4f84",
+      "bytes": 10064
+    }
+  },
+  "reserved_member_contents_before_current_capture": [
+    "01.md",
+    "reservation.json"
+  ]
+}

@@ -1,0 +1,13 @@
+OVERLAP both started.marker files exist and neither result.json exists
+OVERLAP launches ['bridge-0001 sleep'] ['bridge-0002 sleep']
+IDENTITY bridge-0001 clerk-0001 artifact 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6 launches ['bridge-0001 sleep']
+IDENTITY bridge-0002 clerk-0002 artifact 6aea6dfe6561984cdc5c54ead84d47d2cf29e48253ae282aef237404adad4661 launches ['bridge-0002 sleep']
+PASS two overlapping deliveries collected separate artifacts
+REPLAY bridge-0001 already-recorded artifact 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6
+REPLAY bridge-0002 already-recorded artifact 6aea6dfe6561984cdc5c54ead84d47d2cf29e48253ae282aef237404adad4661
+PASS identical replays are read-only
+REFUSAL occupied bridge-0003 is refused and its bytes stay
+limit: not an exactly-once guarantee; same-job overlap remains the seam suite
+summary pass 2 expected-refusal 1 skip 0 fail 0
+
+STDERR

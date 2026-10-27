@@ -1,0 +1,1417 @@
+{
+  "schema": "archive-resolution-plan/1",
+  "planned_at_commit": "75ae515d826482113c4126274d015de112aa249b",
+  "inventory_plan_sha256": "28994db7ef036af72282d0ff42068d090a7fbbeb5bc23ab550f8e5852b4fd16c",
+  "inventory_plan_bytes": 84040,
+  "expansion_bound": "The old 12-file bound is not applied to these three rows. Other inventory rows stay outside this plan.",
+  "historical_capture": false,
+  "historical_members_allocated": false,
+  "product_code_changed": false,
+  "scripts_executed": false,
+  "candidates": [
+    {
+      "member": null,
+      "capture": false,
+      "source_commit": "75ae515d826482113c4126274d015de112aa249b",
+      "includes_prime_review": true,
+      "retrospective": true,
+      "classification": "return-and-review",
+      "old_status": "unresolved",
+      "old_payload_count": 0,
+      "origin_book": "00.00.10.work",
+      "origin_page": "0506.clerk-handoff",
+      "origin_batch": "05.03",
+      "return_source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/05.03.md",
+      "return_sha256": "59468d0976229899136f0120df3315583de65a79e4e06d8ec5bcd3b94cce50dd",
+      "return_bytes": 14383,
+      "custody_kind": "checkpoint-and-recovered-design",
+      "custody_explanation": "The whole return page at the inventory commit is checkpoint custody. It contains the embedded Prime review and the Director release quote. The design files are recovered delivered artifacts: each listed file matches evidence/design05.03/SHA256SUMS.txt, and that sums file matches the hash in the return. The 15 bundled inputs are recovered pinned snapshots of commit 54274e698dde1c6cbd5e25177395c62c2a2c645a. They are source inputs. They are not a seam implementation. The three app modules named as the next slice are proposed future outputs. This candidate is not a recovery of a later clerk_seam implementation.",
+      "old_unresolved_count": 4,
+      "payloads": [
+        {
+          "source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/06.06.md",
+          "logical_name": "00.kernel/00.00.10.work/0506.clerk-handoff/06.06.md",
+          "sha256": "be428b4069d9d63ed03cd5cc5e9f175fb24d91c8fa1ea42b5c0d4845a84325ae",
+          "bytes": 7839,
+          "relationship": "delivered artifact",
+          "hash_proof": "verified",
+          "reason": "Notes named by the return. The return records the prefix be428b40. The blob at that path is 7839 bytes and its SHA-256 begins with that prefix. Full hash computed from the inventory blob."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/design05.03/SEAM.md",
+          "logical_name": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/design05.03/SEAM.md",
+          "sha256": "ef0c75072d050a77f9a5ac59449165a00a7752244ce4ea2576b38564389c8930",
+          "bytes": 18616,
+          "relationship": "delivered artifact",
+          "hash_proof": "verified",
+          "reason": "Delivered design. 18616 bytes. SHA-256 ef0c75072d050a77f9a5ac59449165a00a7752244ce4ea2576b38564389c8930 matches the return's recorded prefix ef0c7507 and the design manifest."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/design05.03/examples/app/clerk-seam.json",
+          "logical_name": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/design05.03/examples/app/clerk-seam.json",
+          "sha256": "29ed7bd914067cae4e116488829cf61d987714e3528da47d57a335eeea464749",
+          "bytes": 323,
+          "relationship": "delivered artifact",
+          "hash_proof": "verified",
+          "reason": "Delivered design example. It is an example file inside evidence/design05.03. It is not the proposed app module app/clerk-seam.json, which is absent at this commit."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/design05.03/examples/fixture/bridge/job.json",
+          "logical_name": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/design05.03/examples/fixture/bridge/job.json",
+          "sha256": "4d57cdb9ea210bfaedf4bdf6974c723735abcf431cb16b3ec946222fab05e1cf",
+          "bytes": 496,
+          "relationship": "delivered artifact",
+          "hash_proof": "verified",
+          "reason": "Delivered design example listed by evidence/design05.03/SHA256SUMS.txt. The inventory blob matches that line."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/design05.03/examples/fixture/clerk-link/bridge-0001.json",
+          "logical_name": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/design05.03/examples/fixture/clerk-link/bridge-0001.json",
+          "sha256": "1141738b55af63b4d3425c26fd1e877772f53177bed542eb9b319526f87dc859",
+          "bytes": 345,
+          "relationship": "delivered artifact",
+          "hash_proof": "verified",
+          "reason": "Delivered design example listed by evidence/design05.03/SHA256SUMS.txt. The inventory blob matches that line."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/design05.03/examples/router/clerk-job.json",
+          "logical_name": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/design05.03/examples/router/clerk-job.json",
+          "sha256": "c4c9ddd38d3da0f72570404be23eb4c267d78653ff0ac23f0741ad8433bb1f5f",
+          "bytes": 350,
+          "relationship": "delivered artifact",
+          "hash_proof": "verified",
+          "reason": "Delivered design example listed by evidence/design05.03/SHA256SUMS.txt. The inventory blob matches that line."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/design05.03/examples/router/instructions/task.md",
+          "logical_name": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/design05.03/examples/router/instructions/task.md",
+          "sha256": "6c913091d80948e3be49fa384b023ee3c43762599f3f61b47db885b4f846fe66",
+          "bytes": 175,
+          "relationship": "delivered artifact",
+          "hash_proof": "verified",
+          "reason": "Delivered design example listed by evidence/design05.03/SHA256SUMS.txt. The inventory blob matches that line."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/design05.03/SHA256SUMS.txt",
+          "logical_name": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/design05.03/SHA256SUMS.txt",
+          "sha256": "b3f9dcf780081d4e016ea69ef9de4cb903de0a9ceeb041668452bb65f19da0b7",
+          "bytes": 579,
+          "relationship": "delivered artifact",
+          "hash_proof": "verified",
+          "reason": "Delivered design manifest. The return records sha256 b3f9dcf780081d4e016ea69ef9de4cb903de0a9ceeb041668452bb65f19da0b7. The inventory blob matches. The file lists the other six design files and does not list itself."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/pack05.03/source-manifest.tsv",
+          "logical_name": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/pack05.03/source-manifest.tsv",
+          "sha256": "b9cd0760aa11fd9defd5ca0d22a22bce37b365c587dd8094a61000fafd3623b5",
+          "bytes": 2284,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pin list named by the assignment. It records 15 files at commit 54274e698dde1c6cbd5e25177395c62c2a2c645a. This plan checked each bundled copy and each blob at that commit."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/pack05.03/inputs/00.kernel/00.00.10.work/0506.clerk-handoff/01.md",
+          "logical_name": "00.kernel/00.00.10.work/0506.clerk-handoff/01.md",
+          "sha256": "ec47b135cfd7614f5535ac600d7ec2e94d8cab6c6299e21296d7da0c8a9603f1",
+          "bytes": 1409,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned input copy. source_path is the bundle under evidence/pack05.03/inputs at the inventory commit. logical_name is the path recorded in source-manifest.tsv. Both the bundle and the blob at 54274e698dde1c6cbd5e25177395c62c2a2c645a match that record. This is a frozen input, not the seam implementation.",
+          "intended_logical_name": "00.kernel/00.00.10.work/0506.clerk-handoff/01.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/pack05.03/inputs/00.kernel/00.00.10.work/0506.clerk-handoff/05.01.md",
+          "logical_name": "00.kernel/00.00.10.work/0506.clerk-handoff/05.01.md",
+          "sha256": "7c68b7d4095aeec9563b0ccdbdd73d4050c4d31817efbf148fa25e4a223861e6",
+          "bytes": 11307,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned input copy. source_path is the bundle under evidence/pack05.03/inputs at the inventory commit. logical_name is the path recorded in source-manifest.tsv. Both the bundle and the blob at 54274e698dde1c6cbd5e25177395c62c2a2c645a match that record. This is a frozen input, not the seam implementation.",
+          "intended_logical_name": "00.kernel/00.00.10.work/0506.clerk-handoff/05.01.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/pack05.03/inputs/00.kernel/00.00.10.work/0506.clerk-handoff/05.02.md",
+          "logical_name": "00.kernel/00.00.10.work/0506.clerk-handoff/05.02.md",
+          "sha256": "7c96dfa17db7eda44535adbb86677380def3c00a27b7acc7958e301de1a6f469",
+          "bytes": 4270,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned input copy. source_path is the bundle under evidence/pack05.03/inputs at the inventory commit. logical_name is the path recorded in source-manifest.tsv. Both the bundle and the blob at 54274e698dde1c6cbd5e25177395c62c2a2c645a match that record. This is a frozen input, not the seam implementation.",
+          "intended_logical_name": "00.kernel/00.00.10.work/0506.clerk-handoff/05.02.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/pack05.03/inputs/00.kernel/00.00.10.work/0506.clerk-handoff/06.01.md",
+          "logical_name": "00.kernel/00.00.10.work/0506.clerk-handoff/06.01.md",
+          "sha256": "1de4675be5cd393868bc751cdc3d97b2bf8882bba7b88037b746de1510728be5",
+          "bytes": 4285,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned input copy. source_path is the bundle under evidence/pack05.03/inputs at the inventory commit. logical_name is the path recorded in source-manifest.tsv. Both the bundle and the blob at 54274e698dde1c6cbd5e25177395c62c2a2c645a match that record. This is a frozen input, not the seam implementation.",
+          "intended_logical_name": "00.kernel/00.00.10.work/0506.clerk-handoff/06.01.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/pack05.03/inputs/00.kernel/00.00.10.work/0506.clerk-handoff/06.02.md",
+          "logical_name": "00.kernel/00.00.10.work/0506.clerk-handoff/06.02.md",
+          "sha256": "c2e37d3ba93d45d72e2c0110bd3199e03d66bb8ddab5da9710c196a12ef48509",
+          "bytes": 9337,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned input copy. source_path is the bundle under evidence/pack05.03/inputs at the inventory commit. logical_name is the path recorded in source-manifest.tsv. Both the bundle and the blob at 54274e698dde1c6cbd5e25177395c62c2a2c645a match that record. This is a frozen input, not the seam implementation.",
+          "intended_logical_name": "00.kernel/00.00.10.work/0506.clerk-handoff/06.02.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/pack05.03/inputs/00.kernel/00.00.10.work/0504.app-entry/05.05.md",
+          "logical_name": "00.kernel/00.00.10.work/0504.app-entry/05.05.md",
+          "sha256": "5a52d9e9905faf2cbb36e4b0d70e701fbab55b63faccb8617ed8e507341c5d6f",
+          "bytes": 17442,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned input copy. source_path is the bundle under evidence/pack05.03/inputs at the inventory commit. logical_name is the path recorded in source-manifest.tsv. Both the bundle and the blob at 54274e698dde1c6cbd5e25177395c62c2a2c645a match that record. This is a frozen input, not the seam implementation.",
+          "intended_logical_name": "00.kernel/00.00.10.work/0504.app-entry/05.05.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/pack05.03/inputs/00.kernel/00.00.10.work/0504.app-entry/05.06.md",
+          "logical_name": "00.kernel/00.00.10.work/0504.app-entry/05.06.md",
+          "sha256": "8365ec5ebe811d34bb61f81d5ce8b46a212fbf3b1dd334a1a6d81d7607b65805",
+          "bytes": 3937,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned input copy. source_path is the bundle under evidence/pack05.03/inputs at the inventory commit. logical_name is the path recorded in source-manifest.tsv. Both the bundle and the blob at 54274e698dde1c6cbd5e25177395c62c2a2c645a match that record. This is a frozen input, not the seam implementation.",
+          "intended_logical_name": "00.kernel/00.00.10.work/0504.app-entry/05.06.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/pack05.03/inputs/app/librarian.py",
+          "logical_name": "app/librarian.py",
+          "sha256": "24e510dbf8c55c315af1d8b6777a9f5a645abe79528967d8ef24954e916a651c",
+          "bytes": 5909,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned input copy. source_path is the bundle under evidence/pack05.03/inputs at the inventory commit. logical_name is the path recorded in source-manifest.tsv. Both the bundle and the blob at 54274e698dde1c6cbd5e25177395c62c2a2c645a match that record. This is a frozen input, not the seam implementation.",
+          "intended_logical_name": "app/librarian.py"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/pack05.03/inputs/app/context.py",
+          "logical_name": "app/context.py",
+          "sha256": "5b1a31d47bb9f9b465a8492541467abbd9bd3a99ae524be7aa0dbffe2380eb9f",
+          "bytes": 22063,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned input copy. source_path is the bundle under evidence/pack05.03/inputs at the inventory commit. logical_name is the path recorded in source-manifest.tsv. Both the bundle and the blob at 54274e698dde1c6cbd5e25177395c62c2a2c645a match that record. This is a frozen input, not the seam implementation.",
+          "intended_logical_name": "app/context.py"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/pack05.03/inputs/app/worker_bridge.py",
+          "logical_name": "app/worker_bridge.py",
+          "sha256": "69650662fa08c3bcfbfc4d180579a104a0f9edcfa39652e0aeaf741f006f6ba6",
+          "bytes": 31166,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned input copy. source_path is the bundle under evidence/pack05.03/inputs at the inventory commit. logical_name is the path recorded in source-manifest.tsv. Both the bundle and the blob at 54274e698dde1c6cbd5e25177395c62c2a2c645a match that record. This is a frozen input, not the seam implementation.",
+          "intended_logical_name": "app/worker_bridge.py"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/pack05.03/inputs/app/worker-bridge.json",
+          "logical_name": "app/worker-bridge.json",
+          "sha256": "94dd3c4770d77f30482f75086d6ebc58335eb51b4a8641c86dcc6d55ce4385ea",
+          "bytes": 1136,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned input copy. source_path is the bundle under evidence/pack05.03/inputs at the inventory commit. logical_name is the path recorded in source-manifest.tsv. Both the bundle and the blob at 54274e698dde1c6cbd5e25177395c62c2a2c645a match that record. This is a frozen input, not the seam implementation.",
+          "intended_logical_name": "app/worker-bridge.json"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/pack05.03/inputs/labs/clerk-handoff-pass02/clerk.py",
+          "logical_name": "labs/clerk-handoff-pass02/clerk.py",
+          "sha256": "b75b6d0f5afc6d901d183739817ca5b0bfba8d1b1ddda2fc5bf67f50e5e24eab",
+          "bytes": 38060,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned input copy. source_path is the bundle under evidence/pack05.03/inputs at the inventory commit. logical_name is the path recorded in source-manifest.tsv. Both the bundle and the blob at 54274e698dde1c6cbd5e25177395c62c2a2c645a match that record. This is a frozen input, not the seam implementation.",
+          "intended_logical_name": "labs/clerk-handoff-pass02/clerk.py"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/pack05.03/inputs/labs/clerk-handoff-pass02/README.md",
+          "logical_name": "labs/clerk-handoff-pass02/README.md",
+          "sha256": "263dc2d2d57c22c469347efcce02a47c387e428ae03e27b6da6ae9d0e9115ca6",
+          "bytes": 6882,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned input copy. source_path is the bundle under evidence/pack05.03/inputs at the inventory commit. logical_name is the path recorded in source-manifest.tsv. Both the bundle and the blob at 54274e698dde1c6cbd5e25177395c62c2a2c645a match that record. This is a frozen input, not the seam implementation.",
+          "intended_logical_name": "labs/clerk-handoff-pass02/README.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/pack05.03/inputs/labs/worker-bridge-pass01/docs/CONTRACT.md",
+          "logical_name": "labs/worker-bridge-pass01/docs/CONTRACT.md",
+          "sha256": "2d62b602bd4249d9e7cea29c56f524b69cbfac42a46e60768a2dc93aef7bcccf",
+          "bytes": 14468,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned input copy. source_path is the bundle under evidence/pack05.03/inputs at the inventory commit. logical_name is the path recorded in source-manifest.tsv. Both the bundle and the blob at 54274e698dde1c6cbd5e25177395c62c2a2c645a match that record. This is a frozen input, not the seam implementation.",
+          "intended_logical_name": "labs/worker-bridge-pass01/docs/CONTRACT.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/pack05.03/inputs/labs/worker-bridge-pass01/bridge/adapter.py",
+          "logical_name": "labs/worker-bridge-pass01/bridge/adapter.py",
+          "sha256": "27d683b494c13bd120d5099f863bb68ab96c6d458dd2a7641c0129122b89c9de",
+          "bytes": 17038,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned input copy. source_path is the bundle under evidence/pack05.03/inputs at the inventory commit. logical_name is the path recorded in source-manifest.tsv. Both the bundle and the blob at 54274e698dde1c6cbd5e25177395c62c2a2c645a match that record. This is a frozen input, not the seam implementation.",
+          "intended_logical_name": "labs/worker-bridge-pass01/bridge/adapter.py"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/prime-review-05.03-2026-10-27/finish-correction-evidence-2026-10-27.py",
+          "logical_name": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/prime-review-05.03-2026-10-27/finish-correction-evidence-2026-10-27.py",
+          "sha256": "ae91994f9fc323cc5b3e5cfd02d8ed5660eb47b1b4d7125b09baa4e3ddf6e438",
+          "bytes": 1416,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Review evidence stored beside the design. This plan does not execute it."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/prime-review-05.03-2026-10-27/publication-followup.json",
+          "logical_name": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/prime-review-05.03-2026-10-27/publication-followup.json",
+          "sha256": "7ad292d6ebc4d97b5a1d44ada643998ab257ace5efa1d1c21970ea43d97f5426",
+          "bytes": 2196,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Review evidence named by the page as evidence/prime-review-05.03-2026-10-27/."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/prime-review-05.03-2026-10-27/reviewed-return.md",
+          "logical_name": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/prime-review-05.03-2026-10-27/reviewed-return.md",
+          "sha256": "936023d145ff6fd84423eee25779fa27a14cd7c586c74f04ca3cc8658088c562",
+          "bytes": 11954,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Review evidence. These bytes are the return Prime recorded as reviewed, SHA-256 936023d145ff6fd84423eee25779fa27a14cd7c586c74f04ca3cc8658088c562, 11954 bytes. That hash is the hash printed in the page review. It is a retained copy. It is not the whole inventory page, which is 14383 bytes and includes the review section."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/prime-review-05.03-2026-10-27/verification.json",
+          "logical_name": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/prime-review-05.03-2026-10-27/verification.json",
+          "sha256": "1e6477b53475d82c265626a9da0817aff475244cb5508cc84c8b765c6bab8053",
+          "bytes": 1974,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Review evidence named by the page as evidence/prime-review-05.03-2026-10-27/."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/prime-review-05.03-2026-10-27/verify-corrections-and-seam-2026-10-27.py",
+          "logical_name": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/prime-review-05.03-2026-10-27/verify-corrections-and-seam-2026-10-27.py",
+          "sha256": "55dc06394b548b6f90cef5c0e23659271342b9d1c3d53bfe897f31c78c18901d",
+          "bytes": 6866,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Review evidence stored beside the design. This plan does not execute it."
+        }
+      ],
+      "named_without_companion": [
+        {
+          "path": "app/clerk_seam.py",
+          "relationship": "proposed/future output",
+          "hash_proof": "verified-absent-at-commit",
+          "reason": "The return names this file as the next implementation slice. The design assignment says no code changes. The path is absent at the inventory commit. A file with this name exists in the later worktree and is not used."
+        },
+        {
+          "path": "app/clerk-seam.json",
+          "relationship": "proposed/future output",
+          "hash_proof": "verified-absent-at-commit",
+          "reason": "The return names this file as the proposed hash pin for clerk.py. It is absent at the inventory commit. The design example evidence/design05.03/examples/app/clerk-seam.json is a different, delivered file."
+        },
+        {
+          "path": "app/tests/test_clerk_seam.py",
+          "relationship": "proposed/future output",
+          "hash_proof": "verified-absent-at-commit",
+          "reason": "The return names this file among proposed acceptance tests. It is absent at the inventory commit. The return says those tests were not run."
+        },
+        {
+          "path": "app/librarian.py",
+          "relationship": "proposed/future output",
+          "hash_proof": "verified-as-proposal",
+          "reason": "The next slice names one dispatch added to app/librarian.py. That edit is a proposal. The librarian.py bytes in the input bundle are the frozen input at 54274e69, already listed as a source input."
+        },
+        {
+          "path": "app/README.md",
+          "relationship": "proposed/future output",
+          "hash_proof": "verified-as-proposal",
+          "reason": "The next slice names an app/README.md section. That section is a proposal. This plan does not invent a README payload for it."
+        }
+      ],
+      "old_unresolved_resolution": [
+        {
+          "path": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/pack05.03/inputs",
+          "old_files": 15,
+          "resolution": "Expanded. All 15 files are source inputs. Each bundle matches source-manifest.tsv and the blob at 54274e698dde1c6cbd5e25177395c62c2a2c645a. The directory was withheld only by the old 12-file bound."
+        },
+        {
+          "path": "app/clerk_seam.py",
+          "resolution": "Proposed future output. Absent at the inventory commit. Not missing evidence."
+        },
+        {
+          "path": "app/clerk-seam.json",
+          "resolution": "Proposed future output. Absent at the inventory commit. Not missing evidence."
+        },
+        {
+          "path": "app/tests/test_clerk_seam.py",
+          "resolution": "Proposed future output. Absent at the inventory commit. Not missing evidence."
+        }
+      ],
+      "unresolved": []
+    },
+    {
+      "member": null,
+      "capture": false,
+      "source_commit": "75ae515d826482113c4126274d015de112aa249b",
+      "includes_prime_review": true,
+      "retrospective": true,
+      "classification": "return-and-review",
+      "old_status": "unresolved",
+      "old_payload_count": 0,
+      "origin_book": "00.00.10.work",
+      "origin_page": "0508.return-capture",
+      "origin_batch": "05.01",
+      "return_source_path": "00.kernel/00.00.10.work/0508.return-capture/05.01.md",
+      "return_sha256": "9da830f28f340fb6142a12908e8d60a3b5050cc8ff075d32405133f39853d472",
+      "return_bytes": 18493,
+      "custody_kind": "checkpoint-partial-recovery-held",
+      "custody_explanation": "The whole return page at the inventory commit is checkpoint custody, including the held Prime review. That hold is unchanged. demo.py, inventory.py, and 06.02.md match the return's declared hashes, so those three are recovered delivered bytes. return_capture.py, README.md, and tests/test_return_capture.py do not. Their declared blobs are not in this repository, and the files at those paths on the inventory commit are later bytes. The later helper is SHA-256 8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac, 45767 bytes. It is not the declared 655bd4a005d1210eef8f5ae62a462d4cf8a2591bfe318c2f428bcfb3ae5c3269, 45898 bytes. Evidence copies recover the declared furniture before/after bytes. The historical returns/ root is cited and is not part of this candidate.",
+      "old_unresolved_count": 3,
+      "payloads": [
+        {
+          "source_path": "labs/return-capture-pass01/demo.py",
+          "logical_name": "labs/return-capture-pass01/demo.py",
+          "sha256": "b205d0ddf5136416ab5767f04c505bfff89ae82efd419409e726e586073d865b",
+          "bytes": 13969,
+          "relationship": "delivered artifact",
+          "hash_proof": "verified",
+          "reason": "Delivered lab file. The return records SHA-256 b205d0ddf5136416ab5767f04c505bfff89ae82efd419409e726e586073d865b and 13969 bytes. The blob at this path on the inventory commit matches."
+        },
+        {
+          "source_path": "labs/return-capture-pass01/inventory.py",
+          "logical_name": "labs/return-capture-pass01/inventory.py",
+          "sha256": "765765cbdab87ec17304cd891c1f46ddfe7249d9128f0f203a1fd9dc0609aa64",
+          "bytes": 4462,
+          "relationship": "delivered artifact",
+          "hash_proof": "verified",
+          "reason": "Delivered lab file. The return records SHA-256 765765cbdab87ec17304cd891c1f46ddfe7249d9128f0f203a1fd9dc0609aa64 and 4462 bytes. The blob at this path on the inventory commit matches. This plan does not execute it."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/06.02.md",
+          "logical_name": "00.kernel/00.00.10.work/0508.return-capture/06.02.md",
+          "sha256": "fc3ba08e9fa676dec9d76c9c663693a799146483b924bef3320a479eaf3d689d",
+          "bytes": 10669,
+          "relationship": "delivered artifact",
+          "hash_proof": "verified",
+          "reason": "Delivered notes. The return records SHA-256 fc3ba08e9fa676dec9d76c9c663693a799146483b924bef3320a479eaf3d689d and 10669 bytes. The inventory blob matches."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01/after/00.kernel__00.00.10.work__0014.design__01.001.md",
+          "logical_name": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01/after/00.kernel__00.00.10.work__0014.design__01.001.md",
+          "sha256": "20ba376e05a5ab09fed5d6e9644e3e74a6db954d7e476ff94f76b6469c780d0a",
+          "bytes": 1448,
+          "relationship": "delivered artifact",
+          "hash_proof": "verified",
+          "reason": "Retained delivered furniture bytes. source_path is the evidence copy. intended_logical_name is the furniture path declared by the return. The hash and length match the return's After column. The inventory blob of the furniture path has the same hash and length.",
+          "intended_logical_name": "00.kernel/00.00.10.work/0014.design/01.001.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01/after/00.kernel__00.00.10.work__0100.band.returns__01.md",
+          "logical_name": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01/after/00.kernel__00.00.10.work__0100.band.returns__01.md",
+          "sha256": "55c5e8e285c5fda8ab7f29c211e987ddf5a9a6b12cd5bb9fb5468a28f7319fee",
+          "bytes": 1488,
+          "relationship": "delivered artifact",
+          "hash_proof": "verified",
+          "reason": "Retained delivered furniture bytes. source_path is the evidence copy. intended_logical_name is the furniture path declared by the return. The hash and length match the return's After column. The inventory blob of 00.kernel/00.00.10.work/0100.band.returns/01.md is SHA-256 9d9efcd2f5bfbb5b and 2844 bytes, so that later path is not these delivered bytes.",
+          "intended_logical_name": "00.kernel/00.00.10.work/0100.band.returns/01.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01/after/00.kernel__00.00.10.work__0500.band.packs__01.md",
+          "logical_name": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01/after/00.kernel__00.00.10.work__0500.band.packs__01.md",
+          "sha256": "c0b8516b834d89a28bfed23a4779629be7b00556f21ff029d174ff9040e7b053",
+          "bytes": 2561,
+          "relationship": "delivered artifact",
+          "hash_proof": "verified",
+          "reason": "Retained delivered furniture bytes. source_path is the evidence copy. intended_logical_name is the furniture path declared by the return. The hash and length match the return's After column. The inventory blob of the furniture path has the same hash and length.",
+          "intended_logical_name": "00.kernel/00.00.10.work/0500.band.packs/01.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01/backfill.json",
+          "logical_name": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01/backfill.json",
+          "sha256": "39cc192816469aa359db0853fedbb2370303af9789caa2bbc0bd061fc4bf7f68",
+          "bytes": 2740,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "File inside the named evidence directory evidence/build05.01. The old plan withheld the directory because it has 15 files. Hash computed from the inventory blob. The return names this directory as the build record."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01/before/00.kernel__00.00.10.work__0014.design__01.001.md",
+          "logical_name": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01/before/00.kernel__00.00.10.work__0014.design__01.001.md",
+          "sha256": "a04962e94ae54bcb0fc2ae42dd36ff6fc33822427cb2a983211d069aeaf4b610",
+          "bytes": 1075,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Retained prior furniture bytes. source_path is the evidence copy. intended_logical_name is the furniture path declared by the return. The hash and length match the return's Before column.",
+          "intended_logical_name": "00.kernel/00.00.10.work/0014.design/01.001.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01/before/00.kernel__00.00.10.work__0100.band.returns__01.md",
+          "logical_name": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01/before/00.kernel__00.00.10.work__0100.band.returns__01.md",
+          "sha256": "f66b010a74fe879431cc17093b236dd1dd113658e22c041252fe2719c0c1a3be",
+          "bytes": 669,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Retained prior furniture bytes. source_path is the evidence copy. intended_logical_name is the furniture path declared by the return. The hash and length match the return's Before column.",
+          "intended_logical_name": "00.kernel/00.00.10.work/0100.band.returns/01.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01/before/00.kernel__00.00.10.work__0500.band.packs__01.md",
+          "logical_name": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01/before/00.kernel__00.00.10.work__0500.band.packs__01.md",
+          "sha256": "f358b4315ee604aa20203671bcf8b97d149c9034bb694f77d31fa8e2440dc635",
+          "bytes": 1104,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Retained prior furniture bytes. source_path is the evidence copy. intended_logical_name is the furniture path declared by the return. The hash and length match the return's Before column.",
+          "intended_logical_name": "00.kernel/00.00.10.work/0500.band.packs/01.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01/custody.json",
+          "logical_name": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01/custody.json",
+          "sha256": "c3cc6baafc8321f01a177cdfc93540e593ed6f04dfc3fededc16002cacade1f3",
+          "bytes": 7893,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Review evidence named by the return. The recorded hash and length match the inventory blob. This plan does not apply the patch and does not execute scripts."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01/demo.txt",
+          "logical_name": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01/demo.txt",
+          "sha256": "079dc6de98157887289a9438e19e087cfc950d4dcb0e8864bdf2da988b5f382c",
+          "bytes": 1243,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "File inside the named evidence directory evidence/build05.01. The old plan withheld the directory because it has 15 files. Hash computed from the inventory blob. The return names this directory as the build record."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01/discovery.patch",
+          "logical_name": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01/discovery.patch",
+          "sha256": "3d4403419817c7d562e7c6173edbe55b8ec347118281940f87a1725d148165fe",
+          "bytes": 3585,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Review evidence named by the return. The recorded hash and length match the inventory blob. This plan does not apply the patch and does not execute scripts."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01/inventory.json",
+          "logical_name": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01/inventory.json",
+          "sha256": "d697f57a3998d1af58987a42fa1a17273c6276336c2dd2c76aa0de0feb6a9af1",
+          "bytes": 11970,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "File inside the named evidence directory evidence/build05.01. The old plan withheld the directory because it has 15 files. Hash computed from the inventory blob. The return names this directory as the build record."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01/limits.md",
+          "logical_name": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01/limits.md",
+          "sha256": "f9cef3eff1d04f4c47e67734034f13cc1fbd9bb70d76a90b983a3c118b10fa5d",
+          "bytes": 1947,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "File inside the named evidence directory evidence/build05.01. The old plan withheld the directory because it has 15 files. Hash computed from the inventory blob. The return names this directory as the build record."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01/publication.json",
+          "logical_name": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01/publication.json",
+          "sha256": "61d203eb9450c60d912ef621d3848532e76e4887da7bc202453aa1b8ab344979",
+          "bytes": 1902,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "File inside the named evidence directory evidence/build05.01. The old plan withheld the directory because it has 15 files. Hash computed from the inventory blob. The return names this directory as the build record."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01/retrospective.json",
+          "logical_name": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01/retrospective.json",
+          "sha256": "47814afde6ed62be1963c7816fc6ab1df4572d0916ae9e25601c3b127bfb3e91",
+          "bytes": 2628,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "File inside the named evidence directory evidence/build05.01. The old plan withheld the directory because it has 15 files. Hash computed from the inventory blob. The return names this directory as the build record."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01/tests.pass01.txt",
+          "logical_name": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01/tests.pass01.txt",
+          "sha256": "11fcfbeb1ce238494ea5c47b7bdbf6932ae6a5b98981e76a7784df47241f4437",
+          "bytes": 3624,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "File inside the named evidence directory evidence/build05.01. The old plan withheld the directory because it has 15 files. Hash computed from the inventory blob. The return names this directory as the build record."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/pack05.01/source-manifest.json",
+          "logical_name": "00.kernel/00.00.10.work/0508.return-capture/evidence/pack05.01/source-manifest.json",
+          "sha256": "7f32a599bdbbe12f370afa3e4b88bcd83df6136fd9520b02637ed6856c5a2db8",
+          "bytes": 2794,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Input pin named by the assignment. Schema prime-pack-sources/1. Commit recorded in the file is e6d6eb75538732c7eedbc840042242d386b25c2f. Each snapshot row matches the inventory blob."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/pack05.01/snapshots/0001.blob",
+          "logical_name": "00.kernel/00.00.10.work/0100.band.returns/01.md",
+          "sha256": "f66b010a74fe879431cc17093b236dd1dd113658e22c041252fe2719c0c1a3be",
+          "bytes": 669,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned snapshot named by evidence/pack05.01/source-manifest.json. source_path is the snapshot blob. logical_name is the path recorded in that manifest. The hash and length match. This is an input pin, not a claim that the logical path at the inventory commit still has these bytes.",
+          "intended_logical_name": "00.kernel/00.00.10.work/0100.band.returns/01.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/pack05.01/snapshots/0002.blob",
+          "logical_name": "00.kernel/00.00.10.work/0500.band.packs/01.md",
+          "sha256": "f358b4315ee604aa20203671bcf8b97d149c9034bb694f77d31fa8e2440dc635",
+          "bytes": 1104,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned snapshot named by evidence/pack05.01/source-manifest.json. source_path is the snapshot blob. logical_name is the path recorded in that manifest. The hash and length match. This is an input pin, not a claim that the logical path at the inventory commit still has these bytes.",
+          "intended_logical_name": "00.kernel/00.00.10.work/0500.band.packs/01.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/pack05.01/snapshots/0003.blob",
+          "logical_name": "00.kernel/00.00.10.work/0014.design/01.001.md",
+          "sha256": "a04962e94ae54bcb0fc2ae42dd36ff6fc33822427cb2a983211d069aeaf4b610",
+          "bytes": 1075,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned snapshot named by evidence/pack05.01/source-manifest.json. source_path is the snapshot blob. logical_name is the path recorded in that manifest. The hash and length match. This is an input pin, not a claim that the logical path at the inventory commit still has these bytes.",
+          "intended_logical_name": "00.kernel/00.00.10.work/0014.design/01.001.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/pack05.01/snapshots/0004.blob",
+          "logical_name": "00.kernel/00.00.10.work/0014.design/01.002.md",
+          "sha256": "17a0cbca1ba6287efd13df9746021a5881ab06b324ef44d1bbd245a20d4fbb13",
+          "bytes": 2188,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned snapshot named by evidence/pack05.01/source-manifest.json. source_path is the snapshot blob. logical_name is the path recorded in that manifest. The hash and length match. This is an input pin, not a claim that the logical path at the inventory commit still has these bytes.",
+          "intended_logical_name": "00.kernel/00.00.10.work/0014.design/01.002.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/pack05.01/snapshots/0005.blob",
+          "logical_name": "00.kernel/00.00.10.work/00.md",
+          "sha256": "7f1803d3efec7e62709df0ff4b082cfd3dba4e57609f51559437e7a189b4d57c",
+          "bytes": 98,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned snapshot named by evidence/pack05.01/source-manifest.json. source_path is the snapshot blob. logical_name is the path recorded in that manifest. The hash and length match. This is an input pin, not a claim that the logical path at the inventory commit still has these bytes.",
+          "intended_logical_name": "00.kernel/00.00.10.work/00.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/pack05.01/snapshots/0006.blob",
+          "logical_name": "00.kernel/00.00.10.work/0502.workflow-start/01.md",
+          "sha256": "93f0bf4f5d36ec9d7cc7064e9eca394dab9d1a2d00f011701e59cb63ce3f85fa",
+          "bytes": 2063,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned snapshot named by evidence/pack05.01/source-manifest.json. source_path is the snapshot blob. logical_name is the path recorded in that manifest. The hash and length match. This is an input pin, not a claim that the logical path at the inventory commit still has these bytes.",
+          "intended_logical_name": "00.kernel/00.00.10.work/0502.workflow-start/01.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/pack05.01/snapshots/0007.blob",
+          "logical_name": "00.kernel/00.00.10.work/0504.app-entry/05.06.md",
+          "sha256": "51332cea6913d812c940574432a891f05c4b2667719f465b4a613dbea0a62cf6",
+          "bytes": 13251,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned snapshot named by evidence/pack05.01/source-manifest.json. source_path is the snapshot blob. logical_name is the path recorded in that manifest. The hash and length match. This is an input pin, not a claim that the logical path at the inventory commit still has these bytes.",
+          "intended_logical_name": "00.kernel/00.00.10.work/0504.app-entry/05.06.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/pack05.01/snapshots/0008.blob",
+          "logical_name": "00.kernel/00.00.10.work/0507.prime-support/05.01.md",
+          "sha256": "0c91acfe02943770c25950670bbcfc5b6fe732a747707185f7d40bf00968c983",
+          "bytes": 17634,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned snapshot named by evidence/pack05.01/source-manifest.json. source_path is the snapshot blob. logical_name is the path recorded in that manifest. The hash and length match. This is an input pin, not a claim that the logical path at the inventory commit still has these bytes.",
+          "intended_logical_name": "00.kernel/00.00.10.work/0507.prime-support/05.01.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/pack05.01/snapshots/0009.blob",
+          "logical_name": "00.kernel/00.00.10.work/0507.prime-support/evidence/prime-review05.01/review.md",
+          "sha256": "fb30c940ea36b62b9e673d124834702c3be4ce260730f46aa0883077b1a7c943",
+          "bytes": 3632,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned snapshot named by evidence/pack05.01/source-manifest.json. source_path is the snapshot blob. logical_name is the path recorded in that manifest. The hash and length match. This is an input pin, not a claim that the logical path at the inventory commit still has these bytes.",
+          "intended_logical_name": "00.kernel/00.00.10.work/0507.prime-support/evidence/prime-review05.01/review.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/pack05.01/snapshots/0010.blob",
+          "logical_name": "00.kernel/00.00.10.work/0506.clerk-handoff/01.md",
+          "sha256": "ec47b135cfd7614f5535ac600d7ec2e94d8cab6c6299e21296d7da0c8a9603f1",
+          "bytes": 1409,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned snapshot named by evidence/pack05.01/source-manifest.json. source_path is the snapshot blob. logical_name is the path recorded in that manifest. The hash and length match. This is an input pin, not a claim that the logical path at the inventory commit still has these bytes.",
+          "intended_logical_name": "00.kernel/00.00.10.work/0506.clerk-handoff/01.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/pack05.01/snapshots/0011.blob",
+          "logical_name": "labs/clerk-handoff-pass02/README.md",
+          "sha256": "13e5148f91957a109a2560622c09c87de5369c6e1e3591cb223de252440914cc",
+          "bytes": 8530,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned snapshot named by evidence/pack05.01/source-manifest.json. source_path is the snapshot blob. logical_name is the path recorded in that manifest. The hash and length match. This is an input pin, not a claim that the logical path at the inventory commit still has these bytes.",
+          "intended_logical_name": "labs/clerk-handoff-pass02/README.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/pack05.01/snapshots/0012.blob",
+          "logical_name": "README.md",
+          "sha256": "7a5b94ff6732e0a49fd712ea447608d7407e85dfa5eeb5d290f12fbeb736fd54",
+          "bytes": 6877,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned snapshot named by evidence/pack05.01/source-manifest.json. source_path is the snapshot blob. logical_name is the path recorded in that manifest. The hash and length match. This is an input pin, not a claim that the logical path at the inventory commit still has these bytes.",
+          "intended_logical_name": "README.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.01/builder-door-before-prime-status.md",
+          "logical_name": "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.01/builder-door-before-prime-status.md",
+          "sha256": "55c5e8e285c5fda8ab7f29c211e987ddf5a9a6b12cd5bb9fb5468a28f7319fee",
+          "bytes": 1488,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Review evidence named by the page as evidence/prime-review05.01/. The disposition inside the return is HELD FOR RC-01 REPAIR. These files do not change that disposition into acceptance."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.01/custody.json",
+          "logical_name": "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.01/custody.json",
+          "sha256": "1b2bb3bcecc54a94e8b6565f12c4bc83c7ab9278b1636c22566271706e001bc4",
+          "bytes": 895,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Review evidence named by the page as evidence/prime-review05.01/. The disposition inside the return is HELD FOR RC-01 REPAIR. These files do not change that disposition into acceptance."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.01/return-capture-pass01.txt",
+          "logical_name": "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.01/return-capture-pass01.txt",
+          "sha256": "f60c7f1d878908887a451d329eedb12d03d755778ded924cf22f0071783d4988",
+          "bytes": 3611,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Review evidence named by the page as evidence/prime-review05.01/. The disposition inside the return is HELD FOR RC-01 REPAIR. These files do not change that disposition into acceptance."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.01/review.md",
+          "logical_name": "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.01/review.md",
+          "sha256": "56a03ab860f6c7a85ddd3be60f90ade70229b781b8db976c978b5af7073da214",
+          "bytes": 1952,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Review evidence named by the page as evidence/prime-review05.01/. The disposition inside the return is HELD FOR RC-01 REPAIR. These files do not change that disposition into acceptance."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.01/reviewed-05.01.md",
+          "logical_name": "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.01/reviewed-05.01.md",
+          "sha256": "72e40237948012bd3259e59d0d87f06f86bedaebf454e52fe3d58f0d3d3118fe",
+          "bytes": 16576,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Review evidence named by the page as evidence/prime-review05.01/. The disposition inside the return is HELD FOR RC-01 REPAIR. These files do not change that disposition into acceptance."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.01/verification.json",
+          "logical_name": "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.01/verification.json",
+          "sha256": "0768d05a32bfbe9e93a86f776cca39b494b367ee0dff04dadb974904d195faad",
+          "bytes": 1845,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Review evidence named by the page as evidence/prime-review05.01/. The disposition inside the return is HELD FOR RC-01 REPAIR. These files do not change that disposition into acceptance."
+        }
+      ],
+      "named_without_companion": [
+        {
+          "path": "labs/return-capture-pass01/return_capture.py",
+          "relationship": "delivered artifact",
+          "hash_proof": "unknown",
+          "declared_sha256": "655bd4a005d1210eef8f5ae62a462d4cf8a2591bfe318c2f428bcfb3ae5c3269",
+          "declared_bytes": 45898,
+          "inventory_path_sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+          "inventory_path_bytes": 45767,
+          "reason": "The return and custody.json record this hash. No blob with that hash is in this repository. The inventory path is later code, the same bytes as the current RC-01/RC-02 helper. Those later bytes are not a companion."
+        },
+        {
+          "path": "labs/return-capture-pass01/README.md",
+          "relationship": "delivered artifact",
+          "hash_proof": "unknown",
+          "declared_sha256": "4d82b7feeacf055f180f9a6c483bfa920faccbd0788fc15482732c0cf3f8de4e",
+          "declared_bytes": 8515,
+          "inventory_path_sha256": "281d31c026d0bbb213a1d3a793c17175fe5d4ed8527d1f0ba8567d579f9c21e4",
+          "inventory_path_bytes": 9162,
+          "reason": "The return and custody.json record this hash. No blob with that hash is in this repository. The inventory path has different bytes. Those later bytes are not a companion."
+        },
+        {
+          "path": "labs/return-capture-pass01/tests/test_return_capture.py",
+          "relationship": "delivered artifact",
+          "hash_proof": "unknown",
+          "declared_sha256": "9de8908a371839789586bee10f2d3a01d4a53b43cea5db2efeaa5c625a87afbe",
+          "declared_bytes": 26254,
+          "inventory_path_sha256": "842547f798288af6b82baeedd2adf48d59c0723e3756dfecef8c4fcafc5bc2ba",
+          "inventory_path_bytes": 42348,
+          "reason": "The return and custody.json record this hash. No blob with that hash is in this repository. The inventory path has different bytes. Those later bytes are not a companion."
+        },
+        {
+          "path": "returns/01.md",
+          "relationship": "genuinely absent evidence",
+          "hash_proof": "verified-absent-at-commit",
+          "reason": "The old plan listed returns/01.md. That exact path is absent at the inventory commit. The return names 00.kernel/00.00.10.work/0100.band.returns/01.md. The declared before and after bytes are the evidence copies already in the payload list."
+        },
+        {
+          "path": "labs/return-capture-pass01/.gitignore",
+          "relationship": "unnamed file at the lab path",
+          "hash_proof": "verified",
+          "sha256": "6feaded4e28ea86e001a6751b4e3d960e8b7c31b9616ff9936b79297086e809b",
+          "bytes": 23,
+          "reason": "Present at the inventory commit. The return's lab table does not name it. It is not a companion."
+        }
+      ],
+      "not_expanded": [
+        {
+          "path": "returns",
+          "files": 15,
+          "relationship": "cited dependency",
+          "reason": "The return names the bootstrap root returns/ as the place new submissions must stop using. The old plan counted 15 files and refused the historical returns root. Those files are other historical returns. They are not target-owned evidence of this batch. This plan does not add them as companions.",
+          "seen": [
+            {
+              "path": "returns/clerk-handoff-proposal-claude-2026-10-27.md",
+              "bytes": 9445
+            },
+            {
+              "path": "returns/pack-A-preserve-return.md",
+              "bytes": 12878
+            },
+            {
+              "path": "returns/pack-A-prime-report-2026-10-26.md",
+              "bytes": 4527
+            },
+            {
+              "path": "returns/pack-A-prime-review-checks-2026-10-26.py",
+              "bytes": 4771
+            },
+            {
+              "path": "returns/pack-A-prime-verification-2026-10-26.json",
+              "bytes": 1902
+            },
+            {
+              "path": "returns/pack-B-establish-return.md",
+              "bytes": 18735
+            },
+            {
+              "path": "returns/pack-B-prime-report-2026-10-26.md",
+              "bytes": 10148
+            },
+            {
+              "path": "returns/pack-B-prime-review-2026-10-26/publication-hashes.json",
+              "bytes": 1285
+            },
+            {
+              "path": "returns/pack-B-prime-review-2026-10-26/remote-refs.json",
+              "bytes": 618
+            },
+            {
+              "path": "returns/pack-B-prime-review-2026-10-26/review-pack-b-2026-10-26.py",
+              "bytes": 6629
+            },
+            {
+              "path": "returns/pack-B-prime-review-2026-10-26/test_gitbytes.py.log",
+              "bytes": 5456
+            },
+            {
+              "path": "returns/pack-B-prime-review-2026-10-26/test_gitbytes.py.retry.log",
+              "bytes": 651
+            },
+            {
+              "path": "returns/pack-B-prime-review-2026-10-26/test_import_blobs.py.retry.log",
+              "bytes": 1220
+            },
+            {
+              "path": "returns/pack-B-prime-review-2026-10-26/test_render_live.py.retry.log",
+              "bytes": 475
+            },
+            {
+              "path": "returns/pack-B-prime-review-2026-10-26/verification.json",
+              "bytes": 2873
+            }
+          ]
+        }
+      ],
+      "old_unresolved_resolution": [
+        {
+          "path": "returns",
+          "old_files": 15,
+          "resolution": "Cited historical root. Seen and not expanded. Zero companions."
+        },
+        {
+          "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/build05.01",
+          "old_files": 15,
+          "resolution": "Expanded. All 15 files are companions. Named before/after, discovery.patch, and custody.json hashes match the return."
+        },
+        {
+          "path": "returns/01.md",
+          "resolution": "Absent at that exact path. The declared furniture file is 0100.band.returns/01.md, retained as evidence copies."
+        }
+      ],
+      "unresolved": [
+        {
+          "path": "labs/return-capture-pass01/return_capture.py",
+          "declared_sha256": "655bd4a005d1210eef8f5ae62a462d4cf8a2591bfe318c2f428bcfb3ae5c3269",
+          "declared_bytes": 45898,
+          "reason": "No retained blob for the declared hash inside this repository."
+        },
+        {
+          "path": "labs/return-capture-pass01/README.md",
+          "declared_sha256": "4d82b7feeacf055f180f9a6c483bfa920faccbd0788fc15482732c0cf3f8de4e",
+          "declared_bytes": 8515,
+          "reason": "No retained blob for the declared hash inside this repository."
+        },
+        {
+          "path": "labs/return-capture-pass01/tests/test_return_capture.py",
+          "declared_sha256": "9de8908a371839789586bee10f2d3a01d4a53b43cea5db2efeaa5c625a87afbe",
+          "declared_bytes": 26254,
+          "reason": "No retained blob for the declared hash inside this repository."
+        }
+      ]
+    },
+    {
+      "member": null,
+      "capture": false,
+      "source_commit": "75ae515d826482113c4126274d015de112aa249b",
+      "includes_prime_review": true,
+      "retrospective": true,
+      "classification": "return-and-review",
+      "old_status": "unresolved",
+      "old_payload_count": 0,
+      "origin_book": "00.00.10.work",
+      "origin_page": "0509.pack-assembly",
+      "origin_batch": "05.01",
+      "return_source_path": "00.kernel/00.00.10.work/0509.pack-assembly/05.01.md",
+      "return_sha256": "9545b7457a0e37fbcd3efeec2a379fcef6e4a02e2c41558a18673a7b14ae89a7",
+      "return_bytes": 10398,
+      "custody_kind": "recovered-lab-and-checkpoint-page",
+      "custody_explanation": "The three lab source files at the inventory commit match the hashes the return declared, so those files are recovered originally delivered artifacts. The 27 build-evidence files match the delivered SHA256SUMS.txt, or are that sums file. The whole return page is a separate checkpoint of the inventory bytes, including the embedded acceptance review. Those two facts are both true. The checker and the jobs formatter are pinned snapshots and cited dependencies. This plan does not execute them.",
+      "old_unresolved_count": 1,
+      "payloads": [
+        {
+          "source_path": "labs/pack-assembly-pass01/pack_assembly.py",
+          "logical_name": "labs/pack-assembly-pass01/pack_assembly.py",
+          "sha256": "75d49679cbf3e624a82573229ca8c7cd9b758799bc26b6f080111feb6eaa275c",
+          "bytes": 43928,
+          "relationship": "delivered artifact",
+          "hash_proof": "verified",
+          "reason": "Delivered lab source. The return and labs/pack-assembly-pass01/evidence/SHA256SUMS.txt record SHA-256 75d49679cbf3e624a82573229ca8c7cd9b758799bc26b6f080111feb6eaa275c. The inventory blob matches. This plan does not execute it."
+        },
+        {
+          "source_path": "labs/pack-assembly-pass01/README.md",
+          "logical_name": "labs/pack-assembly-pass01/README.md",
+          "sha256": "bfc2178908889fb238d8c7218683ef8367c57fe65cc94df54fe1f21f825ecd68",
+          "bytes": 4849,
+          "relationship": "delivered artifact",
+          "hash_proof": "verified",
+          "reason": "Delivered lab source. The return and the lab sums record SHA-256 bfc2178908889fb238d8c7218683ef8367c57fe65cc94df54fe1f21f825ecd68. The inventory blob matches."
+        },
+        {
+          "source_path": "labs/pack-assembly-pass01/tests/test_pack_assembly.py",
+          "logical_name": "labs/pack-assembly-pass01/tests/test_pack_assembly.py",
+          "sha256": "e39a9481ac66ddef1fd76d6bd17083d3d5f236756384843c3552c3307e1a0296",
+          "bytes": 31745,
+          "relationship": "delivered artifact",
+          "hash_proof": "verified",
+          "reason": "Delivered lab test. The return and the lab sums record SHA-256 e39a9481ac66ddef1fd76d6bd17083d3d5f236756384843c3552c3307e1a0296. The inventory blob matches. This plan does not execute it."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/06.02.md",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/06.02.md",
+          "sha256": "d09497bcdb699bac1477cc96d100d64cdce41216b8e0874577e3745194897fe7",
+          "bytes": 9815,
+          "relationship": "delivered artifact",
+          "hash_proof": "verified",
+          "reason": "Delivered notes. The return records this hash and 9815 bytes. The inventory blob matches."
+        },
+        {
+          "source_path": "labs/pack-assembly-pass01/evidence/SHA256SUMS.txt",
+          "logical_name": "labs/pack-assembly-pass01/evidence/SHA256SUMS.txt",
+          "sha256": "58e67e2d12045ce1f2daf0483eb2041e2e0c4f6f72fd80781fce007e5e692574",
+          "bytes": 253,
+          "relationship": "delivered artifact",
+          "hash_proof": "verified",
+          "reason": "Delivered lab sums. The return records SHA-256 58e67e2d12045ce1f2daf0483eb2041e2e0c4f6f72fd80781fce007e5e692574 and 253 bytes. The inventory blob matches. Its three lines match the three lab source files."
+        },
+        {
+          "source_path": "labs/pack-assembly-pass01/evidence/tests.txt",
+          "logical_name": "labs/pack-assembly-pass01/evidence/tests.txt",
+          "sha256": "b80826e0b65a2567db13faeaf8078ebbe3da4ff49f66bc3ca2119950ff7da394",
+          "bytes": 1866,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Lab test log present beside the lab sums. The build evidence SHA256SUMS.txt lists tests.txt with the same hash b80826e0b65a2567db13faeaf8078ebbe3da4ff49f66bc3ca2119950ff7da394. This plan does not rerun the suite."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/assemble.exit.txt",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/assemble.exit.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+          "bytes": 2,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Build evidence listed by evidence/build05.01/SHA256SUMS.txt. The inventory blob matches that line. The old plan withheld the directory because it has 27 files."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/assemble.stderr.txt",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/assemble.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Build evidence listed by evidence/build05.01/SHA256SUMS.txt. The inventory blob matches that line. The old plan withheld the directory because it has 27 files."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/assemble.stdout.txt",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/assemble.stdout.txt",
+          "sha256": "ff9e9e5a34c2eb615e4a6273da266a204e42c644cba69b8a02660595765f0b34",
+          "bytes": 2857,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Build evidence listed by evidence/build05.01/SHA256SUMS.txt. The inventory blob matches that line. The old plan withheld the directory because it has 27 files."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/commands.txt",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/commands.txt",
+          "sha256": "66730333bfb4d6335ddca3ab9002ad0954ac114d2cffc1e6ff7fb86cf4a4b6a5",
+          "bytes": 2036,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Build evidence listed by evidence/build05.01/SHA256SUMS.txt. The inventory blob matches that line. The old plan withheld the directory because it has 27 files."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/completion-receipt.json",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/completion-receipt.json",
+          "sha256": "40ba90694101645a5e9b65500a36f54a8ad14b4716ccd5da9cf5c4d9d4e95d49",
+          "bytes": 1539,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Synthetic completion receipt named by the return. SHA-256 40ba90694101645a5e9b65500a36f54a8ad14b4716ccd5da9cf5c4d9d4e95d49 and 1539 bytes match. A receipt is not acceptance."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/draft-05.14.md",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/draft-05.14.md",
+          "sha256": "589bd1b842927b31e93c4238b5fa95bc221d03af13c8a9b058a52176eddcbace",
+          "bytes": 1058,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Synthetic fixture draft named by the return. SHA-256 589bd1b842927b31e93c4238b5fa95bc221d03af13c8a9b058a52176eddcbace and 1058 bytes match. It is evidence of a disposable assembly, not a live book page."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/git-add.stderr.txt",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/git-add.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Build evidence listed by evidence/build05.01/SHA256SUMS.txt. The inventory blob matches that line. The old plan withheld the directory because it has 27 files."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/git-commit.stderr.txt",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/git-commit.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Build evidence listed by evidence/build05.01/SHA256SUMS.txt. The inventory blob matches that line. The old plan withheld the directory because it has 27 files."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/mutated-verify.exit.txt",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/mutated-verify.exit.txt",
+          "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+          "bytes": 2,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Build evidence listed by evidence/build05.01/SHA256SUMS.txt. The inventory blob matches that line. The old plan withheld the directory because it has 27 files."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/mutated-verify.stderr.txt",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/mutated-verify.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Build evidence listed by evidence/build05.01/SHA256SUMS.txt. The inventory blob matches that line. The old plan withheld the directory because it has 27 files."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/mutated-verify.stdout.txt",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/mutated-verify.stdout.txt",
+          "sha256": "ddbb239eae4d22e59cd0854ac2624d731dd6ba89a0059f5d220285d36d2b83b2",
+          "bytes": 1847,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Build evidence listed by evidence/build05.01/SHA256SUMS.txt. The inventory blob matches that line. The old plan withheld the directory because it has 27 files."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/originals-after.txt",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/originals-after.txt",
+          "sha256": "52e63c41107662c76c6a58104c008dd26cc07dc397726cd7b72e923cd2fe2688",
+          "bytes": 832,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Build evidence listed by evidence/build05.01/SHA256SUMS.txt. The inventory blob matches that line. The old plan withheld the directory because it has 27 files."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/originals-before.txt",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/originals-before.txt",
+          "sha256": "52e63c41107662c76c6a58104c008dd26cc07dc397726cd7b72e923cd2fe2688",
+          "bytes": 832,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Build evidence listed by evidence/build05.01/SHA256SUMS.txt. The inventory blob matches that line. The old plan withheld the directory because it has 27 files."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/pack-check.exit.txt",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/pack-check.exit.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+          "bytes": 2,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Build evidence listed by evidence/build05.01/SHA256SUMS.txt. The inventory blob matches that line. The old plan withheld the directory because it has 27 files."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/pack-check.stderr.txt",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/pack-check.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Build evidence listed by evidence/build05.01/SHA256SUMS.txt. The inventory blob matches that line. The old plan withheld the directory because it has 27 files."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/pack-check.stdout.txt",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/pack-check.stdout.txt",
+          "sha256": "7f70c35cfd9cf3c6a3a135e27539a770120d136784e0c68fa300dda30d3b470a",
+          "bytes": 2045,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Build evidence listed by evidence/build05.01/SHA256SUMS.txt. The inventory blob matches that line. The old plan withheld the directory because it has 27 files."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/preview.exit.txt",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/preview.exit.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+          "bytes": 2,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Build evidence listed by evidence/build05.01/SHA256SUMS.txt. The inventory blob matches that line. The old plan withheld the directory because it has 27 files."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/preview.stderr.txt",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/preview.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Build evidence listed by evidence/build05.01/SHA256SUMS.txt. The inventory blob matches that line. The old plan withheld the directory because it has 27 files."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/preview.stdout.txt",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/preview.stdout.txt",
+          "sha256": "853e811f108c6cc77fc0784e4cc78cb90436522145f3a81feb63ba782eaf4f26",
+          "bytes": 2546,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Build evidence listed by evidence/build05.01/SHA256SUMS.txt. The inventory blob matches that line. The old plan withheld the directory because it has 27 files."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/source-manifest.json",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/source-manifest.json",
+          "sha256": "b4a17dc7668b37a079c2de1dd02fba6d6450af278e3adb3bcd4c0fad620a0665",
+          "bytes": 481,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Output manifest of the synthetic fixture. The return records SHA-256 b4a17dc7668b37a079c2de1dd02fba6d6450af278e3adb3bcd4c0fad620a0665 and 481 bytes. The inventory blob matches."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/tests.stderr.txt",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/tests.stderr.txt",
+          "sha256": "0fb09e71f655ca484f5d35953a319c465e18a59c29030de3648dc792820c4279",
+          "bytes": 1885,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Build evidence listed by evidence/build05.01/SHA256SUMS.txt. The inventory blob matches that line. The old plan withheld the directory because it has 27 files."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/tests.stdout.txt",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/tests.stdout.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Build evidence listed by evidence/build05.01/SHA256SUMS.txt. The inventory blob matches that line. The old plan withheld the directory because it has 27 files."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/tests.txt",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/tests.txt",
+          "sha256": "b80826e0b65a2567db13faeaf8078ebbe3da4ff49f66bc3ca2119950ff7da394",
+          "bytes": 1866,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Build evidence listed by evidence/build05.01/SHA256SUMS.txt. The inventory blob matches that line. The old plan withheld the directory because it has 27 files."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/verify.exit.txt",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/verify.exit.txt",
+          "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+          "bytes": 2,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Build evidence listed by evidence/build05.01/SHA256SUMS.txt. The inventory blob matches that line. The old plan withheld the directory because it has 27 files."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/verify.stderr.txt",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/verify.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Build evidence listed by evidence/build05.01/SHA256SUMS.txt. The inventory blob matches that line. The old plan withheld the directory because it has 27 files."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/verify.stdout.txt",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/verify.stdout.txt",
+          "sha256": "b8c0583b745de93f9acafcb62b4c3d69c3325794d3348c9515f3d0537961bdba",
+          "bytes": 1504,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Build evidence listed by evidence/build05.01/SHA256SUMS.txt. The inventory blob matches that line. The old plan withheld the directory because it has 27 files."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/SHA256SUMS.txt",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01/SHA256SUMS.txt",
+          "sha256": "a2156b25bbd13261a66be928dc82a365c22d98f4adaf84f1a3cbcefd90991b38",
+          "bytes": 2220,
+          "relationship": "delivered artifact",
+          "hash_proof": "verified",
+          "reason": "Delivered evidence manifest. The return records SHA-256 a2156b25bbd13261a66be928dc82a365c22d98f4adaf84f1a3cbcefd90991b38 and 2220 bytes. The inventory blob matches. It lists the other 26 files in this directory and does not list itself."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/pack05.01/source-manifest.json",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/pack05.01/source-manifest.json",
+          "sha256": "4db26ef3c1d9c0a2ee03eef2469fc84f146d02b1e4e4ff6ce66c682285f40d75",
+          "bytes": 1862,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Input pin named by the return. SHA-256 4db26ef3c1d9c0a2ee03eef2469fc84f146d02b1e4e4ff6ce66c682285f40d75 and 1862 bytes match. Schema prime-pack-sources/1. Eight snapshot rows match."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/pack05.01/snapshots/0001.blob",
+          "logical_name": "00.kernel/00.00.10.work/0504.app-entry/05.07.md",
+          "sha256": "246153bcaa86b2b3e056ae84263899a99dc39e011b54e4ed3f588334330fe8e7",
+          "bytes": 9634,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned input snapshot named by evidence/pack05.01/source-manifest.json. source_path is the snapshot. logical_name is the manifest path. Hash and length match.",
+          "intended_logical_name": "00.kernel/00.00.10.work/0504.app-entry/05.07.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/pack05.01/snapshots/0002.blob",
+          "logical_name": "00.kernel/00.00.10.work/0504.app-entry/evidence/prime-review05.07/review.md",
+          "sha256": "013ffb0c11a3ef8daae309b3176560b6bca31d5ce24646733508338569ef144e",
+          "bytes": 1311,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned input snapshot named by evidence/pack05.01/source-manifest.json. source_path is the snapshot. logical_name is the manifest path. Hash and length match.",
+          "intended_logical_name": "00.kernel/00.00.10.work/0504.app-entry/evidence/prime-review05.07/review.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/pack05.01/snapshots/0003.blob",
+          "logical_name": "labs/pack-custody-pass01/pack_check.py",
+          "sha256": "9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d",
+          "bytes": 21563,
+          "relationship": "cited dependency",
+          "hash_proof": "verified",
+          "reason": "Cited dependency. The return says the accepted checker still matches 9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d and was not edited. source_path is snapshots/0003.blob. logical_name is the checker path recorded in the pack manifest. labs/pack-assembly-pass01/pack_check.py is absent at the inventory commit. This plan does not execute the checker.",
+          "intended_logical_name": "labs/pack-custody-pass01/pack_check.py"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/pack05.01/snapshots/0004.blob",
+          "logical_name": "labs/pack-custody-pass01/README.md",
+          "sha256": "657ef6032cb4fdead6a8f93450792c97a3e46b837d3a191aa3f19983ff4969af",
+          "bytes": 5074,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned input snapshot named by evidence/pack05.01/source-manifest.json. source_path is the snapshot. logical_name is the manifest path. Hash and length match.",
+          "intended_logical_name": "labs/pack-custody-pass01/README.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/pack05.01/snapshots/0005.blob",
+          "logical_name": "labs/pack-custody-pass01/tests/test_pack_check.py",
+          "sha256": "07a50f4b719f8de71119c1459e40f1bfe6c6ce992aff64d3818a2d994656f69b",
+          "bytes": 26105,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned input snapshot named by evidence/pack05.01/source-manifest.json. source_path is the snapshot. logical_name is the manifest path. Hash and length match.",
+          "intended_logical_name": "labs/pack-custody-pass01/tests/test_pack_check.py"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/pack05.01/snapshots/0006.blob",
+          "logical_name": "00.kernel/00.00.01.law/0303.jobs/02.jobs.010.py",
+          "sha256": "7b39308592b63f080820de907eed996e6e9ac30c5b90e9502c628578fc1c3547",
+          "bytes": 97270,
+          "relationship": "cited dependency",
+          "hash_proof": "verified",
+          "reason": "Cited dependency pin. The return says the jobs formatter pin matched snapshot 0006.blob and was not run. source_path is that snapshot. logical_name is the path in the pack manifest. This plan does not execute it.",
+          "intended_logical_name": "00.kernel/00.00.01.law/0303.jobs/02.jobs.010.py"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/pack05.01/snapshots/0007.blob",
+          "logical_name": "00.kernel/00.00.10.work/0508.return-capture/05.01.md",
+          "sha256": "fca5b450312f0201fa9a2e60d686cb3e982524266030a54353d65dfb6655001e",
+          "bytes": 9747,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned earlier snapshot of 0508.return-capture/05.01.md, 9747 bytes, SHA-256 fca5b450312f0201fa9a2e60d686cb3e982524266030a54353d65dfb6655001e. The inventory page of that path is a different file, 18493 bytes. This snapshot is an input of the assembler pack. It is not the 05.01 return candidate.",
+          "intended_logical_name": "00.kernel/00.00.10.work/0508.return-capture/05.01.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/pack05.01/snapshots/0008.blob",
+          "logical_name": "00.kernel/00.00.10.work/0507.prime-support/05.03.md",
+          "sha256": "19cf1e4e5c9317d85e7dc4283ed7abe793c32cf8dceeac90a777c89b05339fea",
+          "bytes": 4151,
+          "relationship": "source input",
+          "hash_proof": "verified",
+          "reason": "Pinned input snapshot named by evidence/pack05.01/source-manifest.json. source_path is the snapshot. logical_name is the manifest path. Hash and length match.",
+          "intended_logical_name": "00.kernel/00.00.10.work/0507.prime-support/05.03.md"
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/prime-review05.01/custody.json",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/prime-review05.01/custody.json",
+          "sha256": "14ab3a9577958d70147749ad029319aaff18882843a939a993aacc75fd8cd3e7",
+          "bytes": 722,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Review evidence named by the page as evidence/prime-review05.01/. The embedded review accepts the fixture component. This plan does not publish or activate it."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/prime-review05.01/pack-assembly-pass01.txt",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/prime-review05.01/pack-assembly-pass01.txt",
+          "sha256": "d4dfe4825778562ec483b89ec7ee3c101a877b24b67b587a044ff03b901e9070",
+          "bytes": 126,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Review evidence named by the page as evidence/prime-review05.01/. The embedded review accepts the fixture component. This plan does not publish or activate it."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/prime-review05.01/review.md",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/prime-review05.01/review.md",
+          "sha256": "70bd68aaa86f5f9da2ef95530601c61e2288a5c50259231fc5ec1732731b6ef9",
+          "bytes": 1239,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Review evidence named by the page as evidence/prime-review05.01/. The embedded review accepts the fixture component. This plan does not publish or activate it."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/prime-review05.01/reviewed-05.01.md",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/prime-review05.01/reviewed-05.01.md",
+          "sha256": "e0945f4a5cc356ccc571dcc877167c0e4cadc19b34ca547b33135f5375e6f1fc",
+          "bytes": 9194,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Review evidence named by the page as evidence/prime-review05.01/. The embedded review accepts the fixture component. This plan does not publish or activate it."
+        },
+        {
+          "source_path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/prime-review05.01/verification.json",
+          "logical_name": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/prime-review05.01/verification.json",
+          "sha256": "0768d05a32bfbe9e93a86f776cca39b494b367ee0dff04dadb974904d195faad",
+          "bytes": 1845,
+          "relationship": "review/test evidence",
+          "hash_proof": "verified",
+          "reason": "Review evidence named by the page as evidence/prime-review05.01/. The embedded review accepts the fixture component. This plan does not publish or activate it."
+        }
+      ],
+      "named_without_companion": [],
+      "old_unresolved_resolution": [
+        {
+          "path": "00.kernel/00.00.10.work/0509.pack-assembly/evidence/build05.01",
+          "old_files": 27,
+          "resolution": "Expanded. 26 files match SHA256SUMS.txt. The sums file itself matches the hash recorded in the return. Zero files in that directory are missing."
+        }
+      ],
+      "unresolved": []
+    }
+  ],
+  "reconciliation": {
+    "old_rows": 3,
+    "old_unresolved_items": 8,
+    "old_payloads": 0,
+    "rows": [
+      {
+        "origin_page": "0506.clerk-handoff",
+        "origin_batch": "05.03",
+        "old_unresolved_items": 4,
+        "payloads": 29,
+        "unresolved_now": 0
+      },
+      {
+        "origin_page": "0508.return-capture",
+        "origin_batch": "05.01",
+        "old_unresolved_items": 3,
+        "payloads": 37,
+        "unresolved_now": 3
+      },
+      {
+        "origin_page": "0509.pack-assembly",
+        "origin_batch": "05.01",
+        "old_unresolved_items": 1,
+        "payloads": 47,
+        "unresolved_now": 0
+      }
+    ]
+  },
+  "next_batch": {
+    "origin_book": "00.00.10.work",
+    "origin_page": "0506.clerk-handoff",
+    "origin_batch": "05.03",
+    "return_source_path": "00.kernel/00.00.10.work/0506.clerk-handoff/05.03.md",
+    "member": null,
+    "capture_now": false,
+    "reason": "One next batch only: the accepted seam design. Its old block was the 15-file input directory and three proposed app paths. The inputs are now hash-matched source inputs. The app modules stay proposed and out of the companion list. The design files match their manifest. 0509.pack-assembly/05.01 is also hash-complete and is not selected. 0508.return-capture/05.01 stays unselected because three declared code blobs are unknown and the inventory copies are later bytes. The held review stays held."
+  },
+  "counts": {
+    "0506": {
+      "payloads": 29,
+      "by_relationship": {
+        "delivered artifact": 8,
+        "source input": 16,
+        "review/test evidence": 5
+      },
+      "unresolved": 0,
+      "named_without_companion": 5
+    },
+    "0508": {
+      "payloads": 37,
+      "by_relationship": {
+        "delivered artifact": 6,
+        "review/test evidence": 15,
+        "source input": 16
+      },
+      "unresolved": 3,
+      "named_without_companion": 5
+    },
+    "0509": {
+      "payloads": 47,
+      "by_relationship": {
+        "delivered artifact": 6,
+        "review/test evidence": 32,
+        "source input": 7,
+        "cited dependency": 2
+      },
+      "unresolved": 0,
+      "named_without_companion": 0
+    }
+  }
+}

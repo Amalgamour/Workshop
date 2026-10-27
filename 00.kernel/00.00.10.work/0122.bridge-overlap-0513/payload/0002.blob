@@ -1,0 +1,36 @@
+# Notes — two Clerk deliveries on shared bridge parents
+Date: 2026-10-27
+Recorder: Grok 4.7 (xAI)
+State: notes for the 05.13 slice, written before the test. Not seated kernel law.
+
+## Reading
+These notes follow the pin check and the claim. `evidence/pack05.13/source-manifest.json` is schema `prime-pack-sources/1`, sha256 `84800305ad81bd322a4f1b36d4002c44995987bebb12c174aed3466a6bf0a960`, 2402 bytes. It names 11 sources. Every snapshot matches its declared sha256 and byte length, and every live file matches that snapshot. 0 bad.
+
+`evidence/prime-review05.12/review.md` accepts CS-02 and leaves different-delivery overlapping launches unproved. This slice is that bounded integration test. It is test-only. Product bridge, seam, and Clerk bytes are not authorized to change.
+
+Claim HEAD is `8538dc0a9932410cd830ea4e493d18fb0194ee74`. This slice does not pull, reset, stage, commit, or push.
+
+## Test planned
+Add `app/tests/test_bridge_overlap.py`. One disposable fixture root holds two queued and claimed Clerk jobs. They share `bridge`, `bridge/delivery`, `bridge/store`, and `bridge/provenance`. Their delivery ids, job files, links, and instruction inputs differ.
+
+Both calls start together on a `threading.Barrier`. Both use the allowlisted `fixture-sleep` worker, whose own 30 second hold makes the overlap observable. The test waits, at most 25 seconds, until both `started.marker` files exist and neither `result.json` exists yet. That observation is not a retry of a failed run. Each job must then show its own collected artifact, one launch, and one Clerk return. The artifact hashes must differ. A later identical call for each job must be already-recorded, with no new launch, no new event, and no stored-byte change. An occupied third delivery id must refuse and keep its planted bytes. Shared parents must stay ordinary directories.
+
+The existing `app/tests/test_clerk_seam.py` still covers same-job overlap. This test does not claim an exactly-once guarantee. No model, network, arbitrary command, or real store.
+
+Disposable copy, then `python -B app/tests/test_bridge_overlap.py` and `python -B app/tests/test_clerk_seam.py`, once each, sequentially. A product failure stays in the first log. Product files are not edited to clear it.
+
+## Out of scope
+No edit to the bridge, the seam, context, configs, existing tests, the loader, labs, or kernel pages other than these notes and the return pointer after verify. No SoF. No shared Git publication.
+
+HEAD observed while these notes were written: `8538dc0a9932410cd830ea4e493d18fb0194ee74`.
+
+## Outcome
+Reread after the recorded proof. The reading above still matches the pins and the claim HEAD `8538dc0a9932410cd830ea4e493d18fb0194ee74`. No product file was edited.
+
+The new test queues and claims `clerk-0001` / `bridge-0001` and `clerk-0002` / `bridge-0002` on one fixture root. A barrier starts both `clerk-deliver` calls. Both use allowlisted `fixture-sleep`. Within the 25 second bound, both `started.marker` files existed and neither `result.json` existed. Launches at that moment were `bridge-0001 sleep` and `bridge-0002 sleep`.
+
+`bridge-0001` collected artifact `0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6`. `bridge-0002` collected artifact `6aea6dfe6561984cdc5c54ead84d47d2cf29e48253ae282aef237404adad4661`. Each had one launch and one Clerk return. Provenance, receipt, and the return event kept their own ids. Shared parents stayed ordinary directories. Each identical replay was `already-recorded`, wrote nothing further, and left the stored bytes and the one launch line unchanged. Planted `bridge-0003` refused with `already present`, kept `occupied-bytes`, and did not launch. The earlier two deliveries were unchanged by that refusal.
+
+Disposable copy `C:/Users/misg/AppData/Local/Temp/overlap0513-repo`. Robocopy exit 1. `python -B app/tests/test_bridge_overlap.py` exit 0: pass 2, expected-refusal 1, skip 0, fail 0. `python -B app/tests/test_clerk_seam.py` exit 0: pass 44, expected-refusal 19, skip 1, fail 0. The skip is a dangling file symlink, WinError 1314. Partial I/O cases passed. A15 is one launch and one return, then an already-recorded replay. The seam demo receipt is `90d28e685e1d6213de4140a1bcde88019ce03f64e36f31284f9d8bcea73e46ee`, artifact `0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6`, one launch, replay `already-recorded`. A preliminary live run of the new test had the same summary and the same two artifact hashes. The transcript is `evidence/overlap05.13/tests.txt`, sha256 `6fd8c50b29897823415698e166edd017185342c878d5bcf22eeb0b8021a85159`, 7290 bytes.
+
+This does not claim an exactly-once guarantee. No shared Git write. Review is not performed here. Capture follows these notes. This slot authorizes no further work.
