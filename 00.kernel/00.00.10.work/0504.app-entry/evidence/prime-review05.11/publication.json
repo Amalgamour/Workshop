@@ -1,7 +1,55 @@
 {
   "schema": "return-publication-ack/1",
-  "status": "pending",
-  "captures_commit": null,
+  "status": "verified",
+  "captures_commit": "2739029193ea3110d534a31176d73b608645d973",
   "member": "0112.seam-io-0511",
-  "receipt_sha256": "672861b7c5904ba91e8b97ab3d26247bff02c81ef26b3385c2ccfbc9d8a99357"
+  "receipt_sha256": "672861b7c5904ba91e8b97ab3d26247bff02c81ef26b3385c2ccfbc9d8a99357",
+  "remote_head_verified": "2739029193ea3110d534a31176d73b608645d973",
+  "verified_package_blobs": 13,
+  "contents_check": {
+    "schema": "book-orientation-check@1",
+    "revision_input": "2739029193ea3110d534a31176d73b608645d973",
+    "commit": "2739029193ea3110d534a31176d73b608645d973",
+    "book": "00.kernel/00.00.10.work",
+    "contents_path": "00.kernel/00.00.10.work/0011.contents/01.028.md",
+    "contents_sha256": "1d2447e7154c5de554eebe83ae7990b797c7390bdaf44c2c43c0c32853f1661e",
+    "selection_source": "book 00.md pointer",
+    "sentinel_pointer": "contents in 0011.contents/01.028.md.",
+    "scope": "published tree at the commit only; working tree, index and untracked files not read",
+    "covered": [
+      "Pages table rows: page folders, direct files, direct subdirectories, recursive tracked-file counts",
+      "Book files list",
+      "Other books paths (relative to the book root)"
+    ],
+    "not_covered": [
+      "prose references and other links",
+      "face contents",
+      "whether a page should be published",
+      "the working tree, the index and untracked files"
+    ],
+    "counts": {
+      "rows": 38,
+      "tree_pages": 38,
+      "book_files_listed": 1,
+      "other_books": 2
+    },
+    "other_books": [
+      {
+        "label": "Syntax",
+        "path": "../00.00.00.syntax/00.001.md",
+        "resolved": "00.kernel/00.00.00.syntax/00.001.md",
+        "present": true
+      },
+      {
+        "label": "Law",
+        "path": "../00.00.01.law/00.001.md",
+        "resolved": "00.kernel/00.00.01.law/00.001.md",
+        "present": true
+      }
+    ],
+    "findings": [],
+    "result": "clean",
+    "advisory": true
+  },
+  "note": "Exact builder-local repair package verified and published; receipt unchanged. CS-01 accepted and CS-02 remains separately open."
 }
