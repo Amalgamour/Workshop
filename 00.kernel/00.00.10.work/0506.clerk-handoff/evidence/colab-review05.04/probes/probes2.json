@@ -1,0 +1,32 @@
+[
+ {
+  "status": "ok",
+  "probe": "H event deleted: human show/verify/inbox and json are read-only and exit 2 without traceback",
+  "detail": "codes [2, 2, 2, 2, 2, 2]"
+ },
+ {
+  "status": "ok",
+  "probe": "H witness deleted: human show/verify/inbox and json are read-only and exit 2 without traceback",
+  "detail": "codes [2, 2, 2, 2, 2, 2]"
+ },
+ {
+  "status": "ok",
+  "probe": "H event byte changed: human show/verify/inbox and json are read-only and exit 2 without traceback",
+  "detail": "codes [2, 2, 2, 2, 2, 2]"
+ },
+ {
+  "status": "ok",
+  "probe": "H queued event changed: human show/verify/inbox and json are read-only and exit 2 without traceback",
+  "detail": "codes [2, 2, 2, 2, 2, 2]"
+ },
+ {
+  "status": "ok",
+  "probe": "O outbox OSError after claim event: exit 2, names the existing token, no new token",
+  "detail": "incomplete: filesystem error: PermissionError: Permission denied | claim event exists | existing token d0556f0ea4824978abfb9177286a62fa | no new token | record left in place | result refused | "
+ },
+ {
+  "status": "ok",
+  "probe": "O then resume and claim both refuse and write nothing (claim without outbox stays incomplete)",
+  "detail": "refused: bad state: incomplete: claim recorded but outbox is missing / refused: bad state: incomplete: claim recorded but outbox is missing"
+ }
+]

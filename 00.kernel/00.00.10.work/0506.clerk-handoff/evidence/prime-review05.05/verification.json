@@ -1,0 +1,50 @@
+{
+  "root": "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u",
+  "manifest": {
+    "rows": 13,
+    "errors": []
+  },
+  "runs": {
+    "probes2": {
+      "exit": 0,
+      "count": 6,
+      "findings": [],
+      "observations": [],
+      "tail": "8b5371310a570fb6818e75c81a | no new token | record left in place | result refused | \nok       O then resume and claim both refuse and write nothing (claim without outbox stays incomplete) :: refused: bad state: incomplete: claim recorded but outbox is missing / refused: bad state: incomplete: claim recorded but outbox is missing\ntotal 6 findings 0\n"
+    },
+    "probes": {
+      "exit": 0,
+      "count": 52,
+      "findings": [],
+      "observations": [
+        {
+          "status": "LIMIT",
+          "probe": "R3 both completion files deleted reads as a clean claim",
+          "detail": "state claimed exit 0 (documented limit)"
+        },
+        {
+          "status": "OBSERVE",
+          "probe": "R4c tab inside evidence refused, nothing written",
+          "detail": "exit 2: refused: evidence is blank"
+        },
+        {
+          "status": "OBSERVE",
+          "probe": "R4d newline inside evidence refused, nothing written",
+          "detail": "exit 2: refused: evidence is blank"
+        },
+        {
+          "status": "OBSERVE",
+          "probe": "R5d no single 'clean' field",
+          "detail": "a consumer must combine exit code, state, checks and problems"
+        },
+        {
+          "status": "OBSERVE",
+          "probe": "R9 witness missing reports checks.events 'broken'",
+          "detail": "events broken completion missing-witness; 0001/0002 chain is intact"
+        }
+      ],
+      "tail": "2, read-only :: state corrupt detail earlier store format clerk-handoff-pass02/1\nOBSERVE  R9 witness missing reports checks.events 'broken' :: events broken completion missing-witness; 0001/0002 chain is intact\nok       R10 argparse error: exit 2, empty stdout :: clerk.py show: error: the following arguments are required: --job\ntotal 52 findings 0\n"
+    }
+  },
+  "reviewed_clerk_sha256": "e3918daeff7241549a0e74bb0bef1f148e09b426fe0d5f02074dc6afcf9dd321"
+}

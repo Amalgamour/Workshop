@@ -1,0 +1,128 @@
+# Lead review — Clerk schema-2 correction (05.02) and show --json inspection (05.04)
+Date: 2026-10-27
+Reviewer: claude-opus-5-5, independent Colab/technical lead (batch 05.05)
+State: independent review for Codex Prime. Not an acceptance. No code edited. Initial notes are preserved unchanged in evidence/colab-review05.04/notes.md and dispositioned at the end of this page.
+
+## Did, Blocked, Need
+**Did:**
+- Verified pack05.05: 14 of 14 snapshots match their pins and their blobs at 3642f6c, and live equals all 14.
+- Wrote the initial notes before reading the code.
+- Read clerk.py (e3918dae…) at the completion, classify and inspection paths in full.
+- Ran the copied suite and demo.
+- Ran 58 independent probes (52 + 6) that assert against the real recorded files.
+**Blocked:** nothing.
+**Need:** Prime's decision on CI-01. It decides whether the inspection interface is complete for its second named consumer.
+
+## Verdict
+- **The corrected core is sound for its stated guarantee.** Every isolated completion fault I could produce is disclosed, exits 2, is read-only, never yields a clean returned document, and refuses a different re-return.
+- **The inspection interface is sufficient for the seam consumer** (0506/05.03 SEAM): routing, expected outputs, instruction status, claim token, returned delivery, artifacts and completion state are all present and match the recorded files.
+- **It is not yet sufficient for the Prime-support intake consumer** (0507). That needs a durable returned-revision identity, which the document does not expose (CI-01).
+- **Recommendation:** accept the core. Accept the interface for the seam. Ask for one bounded additive change (CI-01) before Prime-support reads Clerk returns.
+
+## Goal fit
+The 05.04 goal was one read-only projection for "05.03's app/Clerk seam and future Prime support", with no raw-event reader in another component. The first half is met. For the second, a consumer would have to hash 0003.returned.json itself (a raw-event read) or parse human `show` lines to get the revision it acknowledged.
+
+## Verified here, versus claimed
+**Verified** in a disposable copy (`scratchpad\cr05\lab`; interpreter pythoncore-3.14-64; PYTHONDONTWRITEBYTECODE=1):
+- **Suite:** `python -B tests\test_clerk.py -v` gave 32 run, 31 ok, 1 skipped (`test_symlink_output_refused_or_skipped`, WinError 1314; a skip, not a pass), in default mode and in `-X dev`. This matches the 05.04 claim. The relocated copy is outside any Git tree, so the portable git-store test (CR-03) is shown working.
+- **Demo:** `python -B demo.py --out <temp>` gave `demo ok`, exit 0.
+- **R1, a clean returned job, against the real files:**
+  - `job` equals the 0001 job object; assignee, reviewer and outputs come from the record;
+  - `claim` equals 0002's `by` and `claim`;
+  - `returned` equals 0003's `by`, `delivery`, `evidence` and `artifacts`;
+  - the artifact hash equals the outbox bytes; the witness digest equals sha256 of the 0003 bytes, and its job_id is right;
+  - with a base, checks are all `ok`/`usable`;
+  - one JSON line, no stderr, no store byte or name changed.
+- **R2, eight isolated faults:** event deleted, witness deleted, one byte changed in 0003, witness truncated, witness valid but with the wrong job_id, witness with an extra key, 0003 missing only its final LF, and a planted 0004.completion.json.
+  - Each gives exit 2, state incomplete or corrupt, and null job/claim/returned, read-only.
+  - verify exits 2, and the reviewer's inbox discloses the fault.
+  - A different re-return refuses and writes nothing.
+- **R4, required fields:** an empty expected_outputs list is refused, with no store created. Blank evidence is refused, and nothing is written.
+- **R5, stale and changed values:**
+  - A stale instruction file with a base gives `unusable`, exit 1, and the recorded hash kept.
+  - A changed artifact gives state `returned`, `artifacts: changed`, exit 1, with the recorded hash unchanged.
+- **R6, resends:** an identical resend gives already-recorded with zero byte changes. The same delivery with different evidence is a conflict and writes nothing.
+- **R7, read failures (in-process):**
+  - 0003 unreadable gives valid JSON, exit 2, state incomplete, read-only;
+  - the job directory unreadable gives valid JSON, exit 2, state corrupt.
+- **R8:** a schema-1 event is named "earlier store format" and refused, read-only.
+- **R10:** an argparse error gives exit 2 with empty stdout.
+- **H, on four damaged stores:** human show (with and without a base), verify, both inboxes and show --json all exit 2, with no traceback and zero byte changes.
+- **O:** an outbox mkdir failure after the claim event gives exit 2, "claim event exists", the existing token, "no new token". Resume and claim then both refuse and write nothing.
+- **CR-05:** pass02 and pass03 manifests are LF (Python byte count: 0 CR). An earlier reading of mine from Git Bash `grep -c $'\r'` miscounted CRs and was discarded.
+
+**Claimed and accepted as limits, not findings:**
+- R3: deleting both completion files reads as a clean claim (exit 0). This is documented.
+- Coherent rewrite of the store is not detected.
+- Names and tokens are labels.
+- release and routed_by are recorded text.
+
+**Not established:** concurrency between two returns; real filesystem permission errors (simulated in-process only); symlink outputs on this account.
+
+## Findings (numbered; none blocks the core)
+**CI-01, medium: no returned-revision identity in the inspection document.**
+- Source: clerk.py e3918dae…, lines 1244-1250 (`returned` = by, delivery, evidence, artifacts) and 1130-1156 (exact top-level keys).
+- Reproduction: probe R1. sha256 of the real 0003.returned.json bytes does not occur anywhere in the document. The builder's own example, examples/returned.json, likewise lacks its 0003 digest, 48e651f2….
+- Consequence: the 0507 Prime-support design keys a Clerk-routed return on (store, job_id, the 0003 digest with its witness). That consumer must either read raw event files or parse human `show` text, which 05.04 meant to avoid.
+- Suggested fix, not applied: add `returned.event_sha256`, the witness-verified digest. Optionally add `claim.event_sha256` too. Under the exact-keys rule this is a schema bump to clerk-handoff-inspection/2, with /1 left documented.
+
+**CI-02, low: evidence containing a tab or newline is refused as "evidence is blank".**
+- Source: clerk.py:1017-1018, which refuses any character below 32 with that message. README:52 says only "non-blank text".
+- Reproduction: probes R4c and R4d.
+- Consequence: a misleading diagnostic, and multi-line evidence is impossible. The seam's one-line evidence format is unaffected.
+- Suggested fix: a distinct message ("evidence has control characters") and a README sentence, or a decision to allow LF.
+
+**CI-03, low (consumer safety): exit 0 with `instructions: not-checked`.**
+- Source: clerk.py:1281-1288, and README:95 versus README:97 ("Exit 0 is a clean … projection").
+- Reproduction: probes R1b and R5b. A stale instruction file shown without a base exits 0.
+- Consequence: a consumer that gates on the exit code alone would treat unchecked instructions as acceptable.
+- Suggested fix: no code change needed. State in the README that exit 0 does not mean instructions were verified, and require consumers (the seam, Prime-support) always to pass `--instructions-base` and to read `checks.instructions`.
+
+**CI-04, cosmetic: `checks.events` reads `broken` when only the completion pair is damaged.**
+- Source: clerk.py:1163-1176 (`broken` for any structural view). 06.07 documents this.
+- Reproduction: probe R9. With the witness deleted, the 0001/0002 chain is intact, yet events reports `broken`.
+- Suggested fix: let `events` describe 0001-0002 only and leave completion to `checks.completion`. Optional.
+
+## What works well
+- The witness is written before the event, and readers require the pair to agree. Every isolated half-loss, change, truncation, mis-addressed witness and planted file is caught, and none is repairable by a later return.
+- The OS-error paths are honest: an existing claim is named, and no token is minted.
+- The JSON is a projection of the validated view, never a second reader. Recorded artifact hashes are not rewritten by later byte changes.
+- `not-checked` and `not-applicable` are kept distinct from success.
+- The read-only discipline holds on every path I tried, human and JSON.
+- Builder notes and returns are precise about limits.
+
+## Tool updates needed
+- CI-01: an additive revision identity.
+- The CI-02 diagnostic.
+- The CI-03 README sentence.
+- CI-04, optional.
+
+## Cold-reader gaps
+- The README never names the intended consumers or which fields each one needs.
+- "Exit 0 is a clean projection" invites over-reading (CI-03).
+- The relation of evidence/SHA256SUMS.txt, .pass02 and .pass03 is clear only from the returns, not the README.
+
+## One bounded next action
+A builder slice adding `returned.event_sha256` (and optionally `claim.event_sha256`) as clerk-handoff-inspection/2, plus the CI-02 message and the CI-03 README sentence, with a test asserting the field equals sha256 of the real 0003 bytes and the witness digest. Then the 0507 Clerk adapter can read only `show --json`.
+
+## Disposition of the initial notes (evidence/colab-review05.04/notes.md)
+- **Q1 (base absent):** answered; `not-checked`, exit 0 (CI-03).
+- **Q2:** recorded artifacts come from the event (R1, R5c).
+- **Q3:** a wrong job_id or extra key in the witness is detected (R2e, R2f).
+- **Q4:** a changed artifact exits 1, and there is no single clean field (CI-03 note).
+- **Q5:** `not-checked`/`not-applicable` are distinct (R1b).
+- **Q6:** read errors give valid JSON, exit 2, no traceback (R7, H).
+- **Q7:** a different re-return after a deleted event refuses (R2a).
+- **Q8:** human show still prints `claim <token>` (R1c).
+- **Q9:** sufficient for the seam; for Prime-support see CI-01.
+- **Claims:** B1 confirmed; B2 confirmed on every path tried; B3 confirmed (R2, R7); B4 confirmed as stated, including the both-deleted limit (R3). P1, Prime's terminal-loss probe, reproduced independently (R2a).
+- **Unknowns:** the Prime probe scripts were not in the pack, so I wrote my own. Earlier-session recollection was not used.
+
+## Evidence
+`evidence/colab-review05.04/` holds:
+- notes.md;
+- reviewed-sources.tsv;
+- runs/ (suite in both modes, demo output and transcript);
+- probes/ (probes.py, probes2.py, their results and the CLI transcript).
+
+The manifest is SHA256SUMS.txt in that folder.

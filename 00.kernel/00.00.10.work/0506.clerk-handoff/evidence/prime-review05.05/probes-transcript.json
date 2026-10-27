@@ -1,0 +1,1602 @@
+[
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r1\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r1\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r1\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=0b3041637e5c5d7415150d76d2ec2fc4443181271fcdc245f0d093c79229824c\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r1\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r1\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken 7a351a8b5b91b9afe72baddb78cb79e9\nevent 0002.claimed.json sha256=2b19c38c34477f58670ba079283db536cf044a71b7513c52c984cd0fcb52137c\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r1\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "7a351a8b5b91b9afe72baddb78cb79e9",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=789757600c4eb8bbaee5026e462b2f8d028e3ec455f62c412b93c80571718a8a\nwitness 0003.witness.json records event sha256=789757600c4eb8bbaee5026e462b2f8d028e3ec455f62c412b93c80571718a8a\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r1\\store",
+   "--job",
+   "job-1",
+   "--json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r1\\base"
+  ],
+  "exit": 0,
+  "stdout": "{\"checks\":{\"artifacts\":\"ok\",\"completion\":\"ok\",\"events\":\"ok\",\"instructions\":\"usable\"},\"claim\":{\"by\":\"builder-b\",\"token\":\"7a351a8b5b91b9afe72baddb78cb79e9\"},\"job\":{\"assignee\":\"builder-b\",\"expected_outputs\":[\"count.py\"],\"instructions\":{\"path\":\"task.txt\",\"sha256\":\"8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\"},\"job_id\":\"job-1\",\"release\":\"fixture release\",\"reviewer\":\"codex-prime\",\"routed_by\":\"router-fixture\"},\"job_id\":\"job-1\",\"problems\":[],\"returned\":{\"artifacts\":[{\"bytes\":69,\"path\":\"count.py\",\"sha256\":\"8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85\"}],\"by\":\"builder-b\",\"delivery\":\"d-1\",\"evidence\":\"scripted fixture\"},\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"returned\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r1\\store",
+   "--job",
+   "job-1",
+   "--json"
+  ],
+  "exit": 0,
+  "stdout": "{\"checks\":{\"artifacts\":\"ok\",\"completion\":\"ok\",\"events\":\"ok\",\"instructions\":\"not-checked\"},\"claim\":{\"by\":\"builder-b\",\"token\":\"7a351a8b5b91b9afe72baddb78cb79e9\"},\"job\":{\"assignee\":\"builder-b\",\"expected_outputs\":[\"count.py\"],\"instructions\":{\"path\":\"task.txt\",\"sha256\":\"8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\"},\"job_id\":\"job-1\",\"release\":\"fixture release\",\"reviewer\":\"codex-prime\",\"routed_by\":\"router-fixture\"},\"job_id\":\"job-1\",\"problems\":[],\"returned\":{\"artifacts\":[{\"bytes\":69,\"path\":\"count.py\",\"sha256\":\"8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85\"}],\"by\":\"builder-b\",\"delivery\":\"d-1\",\"evidence\":\"scripted fixture\"},\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"returned\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r1\\store",
+   "--job",
+   "job-1"
+  ],
+  "exit": 0,
+  "stdout": "show job-1\nstate returned\nclaim 7a351a8b5b91b9afe72baddb78cb79e9\nstates queued claimed returned\nchain ok\nevent 0001.queued.json sha256=0b3041637e5c5d7415150d76d2ec2fc4443181271fcdc245f0d093c79229824c prev=null\nevent 0002.claimed.json sha256=2b19c38c34477f58670ba079283db536cf044a71b7513c52c984cd0fcb52137c prev=0b3041637e5c5d7415150d76d2ec2fc4443181271fcdc245f0d093c79229824c\nevent 0003.returned.json sha256=789757600c4eb8bbaee5026e462b2f8d028e3ec455f62c412b93c80571718a8a prev=2b19c38c34477f58670ba079283db536cf044a71b7513c52c984cd0fcb52137c\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69 ok\ninstructions-not-checked\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-0\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-0\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-0\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=131e9b46db499636f4e7cf6f1de6081068b70b050835f977ae9b6013c95b43c5\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-0\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-0\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken 7c9e42c8daa743f561f0f34603af3894\nevent 0002.claimed.json sha256=fb8cc919e6ef3a044484cec5d48add1561835086ed679084db5a957438233f56\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-0\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "7c9e42c8daa743f561f0f34603af3894",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=c19f62a320f267cf584013c6e0f8b90ce00600293db3c37237ea32f88a4e43d4\nwitness 0003.witness.json records event sha256=c19f62a320f267cf584013c6e0f8b90ce00600293db3c37237ea32f88a4e43d4\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-0\\store",
+   "--job",
+   "job-1",
+   "--json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-0\\base"
+  ],
+  "exit": 2,
+  "stdout": "{\"checks\":{\"artifacts\":\"not-applicable\",\"completion\":\"missing-event\",\"events\":\"broken\",\"instructions\":\"not-applicable\"},\"claim\":null,\"job\":null,\"job_id\":\"job-1\",\"problems\":[{\"detail\":\"completion witness without returned event\",\"kind\":\"incomplete\"}],\"returned\":null,\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"incomplete\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "verify",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-0\\store"
+  ],
+  "exit": 2,
+  "stdout": "verify\njob job-1\nbad state: incomplete: completion witness without returned event\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "inbox",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-0\\store",
+   "--as",
+   "codex-prime"
+  ],
+  "exit": 2,
+  "stdout": "inbox codex-prime\nsection queued\nnone\nsection claimed\nnone\nsection returned\nnone\nsection incomplete\njob-1 bad state: incomplete: completion witness without returned event\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-0\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "7c9e42c8daa743f561f0f34603af3894",
+   "--delivery",
+   "d-9",
+   "--evidence",
+   "different"
+  ],
+  "exit": 2,
+  "stdout": "refused: bad state: incomplete: completion witness without returned event\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-1\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-1\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-1\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=4cb67cdefd91e21db3ba4eb0cb4841e16993a6ab0cec496ac3a27959ac354bf0\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-1\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-1\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken 477097fde29fcc84026b2c5ca4888597\nevent 0002.claimed.json sha256=25e759055c5ddd312d87e8625d43ec7cef0acd51aed4380ec87078a069c0f400\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-1\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "477097fde29fcc84026b2c5ca4888597",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=e0c384ef3a3ec6355ec7cc81ab250c988fbd9404ed8a452975baa2235aba1b46\nwitness 0003.witness.json records event sha256=e0c384ef3a3ec6355ec7cc81ab250c988fbd9404ed8a452975baa2235aba1b46\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-1\\store",
+   "--job",
+   "job-1",
+   "--json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-1\\base"
+  ],
+  "exit": 2,
+  "stdout": "{\"checks\":{\"artifacts\":\"not-applicable\",\"completion\":\"missing-witness\",\"events\":\"broken\",\"instructions\":\"not-applicable\"},\"claim\":null,\"job\":null,\"job_id\":\"job-1\",\"problems\":[{\"detail\":\"returned event without completion witness\",\"kind\":\"incomplete\"}],\"returned\":null,\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"incomplete\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "verify",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-1\\store"
+  ],
+  "exit": 2,
+  "stdout": "verify\njob job-1\nbad state: incomplete: returned event without completion witness\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "inbox",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-1\\store",
+   "--as",
+   "codex-prime"
+  ],
+  "exit": 2,
+  "stdout": "inbox codex-prime\nsection queued\nnone\nsection claimed\nnone\nsection returned\nnone\nsection incomplete\njob-1 bad state: incomplete: returned event without completion witness\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-1\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "477097fde29fcc84026b2c5ca4888597",
+   "--delivery",
+   "d-9",
+   "--evidence",
+   "different"
+  ],
+  "exit": 2,
+  "stdout": "refused: bad state: incomplete: returned event without completion witness\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-2\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-2\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-2\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=b2ac1c4920865a6f633a7386cf5f829d13db1ba383cf2d3d2a6a38b75b66842d\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-2\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-2\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken 72608fc55f555b4aa2143e904ba11798\nevent 0002.claimed.json sha256=8f3cf9aea82953fa310833ebbe1c3648ed7ccdd0a703ef6a1de7151a6801805a\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-2\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "72608fc55f555b4aa2143e904ba11798",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=c22910101ad57d3bf4c385ad7476dda1308d45773912a74b6dd0dfa322529fe7\nwitness 0003.witness.json records event sha256=c22910101ad57d3bf4c385ad7476dda1308d45773912a74b6dd0dfa322529fe7\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-2\\store",
+   "--job",
+   "job-1",
+   "--json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-2\\base"
+  ],
+  "exit": 2,
+  "stdout": "{\"checks\":{\"artifacts\":\"not-applicable\",\"completion\":\"mismatch\",\"events\":\"broken\",\"instructions\":\"not-applicable\"},\"claim\":null,\"job\":null,\"job_id\":\"job-1\",\"problems\":[{\"detail\":\"completion witness mismatch\",\"kind\":\"incomplete\"}],\"returned\":null,\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"incomplete\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "verify",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-2\\store"
+  ],
+  "exit": 2,
+  "stdout": "verify\njob job-1\nbad state: incomplete: completion witness mismatch\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "inbox",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-2\\store",
+   "--as",
+   "codex-prime"
+  ],
+  "exit": 2,
+  "stdout": "inbox codex-prime\nsection queued\nnone\nsection claimed\nnone\nsection returned\nnone\nsection incomplete\njob-1 bad state: incomplete: completion witness mismatch\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-2\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "72608fc55f555b4aa2143e904ba11798",
+   "--delivery",
+   "d-9",
+   "--evidence",
+   "different"
+  ],
+  "exit": 2,
+  "stdout": "refused: bad state: incomplete: completion witness mismatch\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-3\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-3\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-3\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=8dc705fe31e8ed31022a342bd178c738ba9f5bd3a4e66d804679c68b160489b3\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-3\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-3\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken d603f2d39eaaf0354daba18896dc37a8\nevent 0002.claimed.json sha256=a355b22e16bf4ec579ecba649a7a6ce39c8d2c24f85fab9afe6889a836c39204\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-3\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "d603f2d39eaaf0354daba18896dc37a8",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=ef45fda83ad6f590bf2dae73b7e5a288e4d60d46f4f020f76ed5a4a438a9da40\nwitness 0003.witness.json records event sha256=ef45fda83ad6f590bf2dae73b7e5a288e4d60d46f4f020f76ed5a4a438a9da40\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-3\\store",
+   "--job",
+   "job-1",
+   "--json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-3\\base"
+  ],
+  "exit": 2,
+  "stdout": "{\"checks\":{\"artifacts\":\"not-applicable\",\"completion\":\"partial\",\"events\":\"broken\",\"instructions\":\"not-applicable\"},\"claim\":null,\"job\":null,\"job_id\":\"job-1\",\"problems\":[{\"detail\":\"partial completion witness\",\"kind\":\"incomplete\"}],\"returned\":null,\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"incomplete\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "verify",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-3\\store"
+  ],
+  "exit": 2,
+  "stdout": "verify\njob job-1\nbad state: incomplete: partial completion witness\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "inbox",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-3\\store",
+   "--as",
+   "codex-prime"
+  ],
+  "exit": 2,
+  "stdout": "inbox codex-prime\nsection queued\nnone\nsection claimed\nnone\nsection returned\nnone\nsection incomplete\njob-1 bad state: incomplete: partial completion witness\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-3\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "d603f2d39eaaf0354daba18896dc37a8",
+   "--delivery",
+   "d-9",
+   "--evidence",
+   "different"
+  ],
+  "exit": 2,
+  "stdout": "refused: bad state: incomplete: partial completion witness\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-4\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-4\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-4\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=018305c541fbb6495c94b9a2e75d56822196c56fd35886ece7aa4fd278d4ea46\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-4\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-4\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken dc147761ede45ef3440466c25540caee\nevent 0002.claimed.json sha256=389b27ff300db23c9239a7768a4a3b45392b2553803a9033b1d1e319a1b41ac1\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-4\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "dc147761ede45ef3440466c25540caee",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=c501999d42109f055970446980d60547508c53ae233a95a2118c1a7b16d3c0ea\nwitness 0003.witness.json records event sha256=c501999d42109f055970446980d60547508c53ae233a95a2118c1a7b16d3c0ea\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-4\\store",
+   "--job",
+   "job-1",
+   "--json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-4\\base"
+  ],
+  "exit": 2,
+  "stdout": "{\"checks\":{\"artifacts\":\"not-applicable\",\"completion\":\"mismatch\",\"events\":\"broken\",\"instructions\":\"not-applicable\"},\"claim\":null,\"job\":null,\"job_id\":\"job-1\",\"problems\":[{\"detail\":\"invalid completion witness\",\"kind\":\"incomplete\"}],\"returned\":null,\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"incomplete\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "verify",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-4\\store"
+  ],
+  "exit": 2,
+  "stdout": "verify\njob job-1\nbad state: incomplete: invalid completion witness\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "inbox",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-4\\store",
+   "--as",
+   "codex-prime"
+  ],
+  "exit": 2,
+  "stdout": "inbox codex-prime\nsection queued\nnone\nsection claimed\nnone\nsection returned\nnone\nsection incomplete\njob-1 bad state: incomplete: invalid completion witness\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-4\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "dc147761ede45ef3440466c25540caee",
+   "--delivery",
+   "d-9",
+   "--evidence",
+   "different"
+  ],
+  "exit": 2,
+  "stdout": "refused: bad state: incomplete: invalid completion witness\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-5\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-5\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-5\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=5da2ca3e2cffde263f368308c489814169a95b3150320ba3af3f4589affee525\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-5\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-5\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken 319052492f6a6fb544656b4a50d641b4\nevent 0002.claimed.json sha256=447c0f998c76f580879abb3463907ecd093126f2c9e4d7daff2f4f44c4028755\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-5\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "319052492f6a6fb544656b4a50d641b4",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=a8f62b8a19208eb458c2e8554e16f4a907e08ace9cd7745167d56e6856c7f749\nwitness 0003.witness.json records event sha256=a8f62b8a19208eb458c2e8554e16f4a907e08ace9cd7745167d56e6856c7f749\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-5\\store",
+   "--job",
+   "job-1",
+   "--json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-5\\base"
+  ],
+  "exit": 2,
+  "stdout": "{\"checks\":{\"artifacts\":\"not-applicable\",\"completion\":\"mismatch\",\"events\":\"broken\",\"instructions\":\"not-applicable\"},\"claim\":null,\"job\":null,\"job_id\":\"job-1\",\"problems\":[{\"detail\":\"invalid completion witness\",\"kind\":\"incomplete\"}],\"returned\":null,\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"incomplete\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "verify",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-5\\store"
+  ],
+  "exit": 2,
+  "stdout": "verify\njob job-1\nbad state: incomplete: invalid completion witness\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "inbox",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-5\\store",
+   "--as",
+   "codex-prime"
+  ],
+  "exit": 2,
+  "stdout": "inbox codex-prime\nsection queued\nnone\nsection claimed\nnone\nsection returned\nnone\nsection incomplete\njob-1 bad state: incomplete: invalid completion witness\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-5\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "319052492f6a6fb544656b4a50d641b4",
+   "--delivery",
+   "d-9",
+   "--evidence",
+   "different"
+  ],
+  "exit": 2,
+  "stdout": "refused: bad state: incomplete: invalid completion witness\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-6\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-6\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-6\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=f411b38fb3e5a8f1c4d52692ebc13b2637b37e66238c207ff9faa772acddab3b\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-6\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-6\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken a6345c1160ee1a5b25d67fd7173076b5\nevent 0002.claimed.json sha256=6829d5d8954d4bb0d197ede9fe2a47cdb087deca54f7e8ed6151faf387ffc10d\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-6\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "a6345c1160ee1a5b25d67fd7173076b5",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=b70fd59dc5f37b8061161f8499c02fe86a532f2507aed1ac4b7bf75e8a5c5b55\nwitness 0003.witness.json records event sha256=b70fd59dc5f37b8061161f8499c02fe86a532f2507aed1ac4b7bf75e8a5c5b55\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-6\\store",
+   "--job",
+   "job-1",
+   "--json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-6\\base"
+  ],
+  "exit": 2,
+  "stdout": "{\"checks\":{\"artifacts\":\"not-applicable\",\"completion\":\"mismatch\",\"events\":\"broken\",\"instructions\":\"not-applicable\"},\"claim\":null,\"job\":null,\"job_id\":\"job-1\",\"problems\":[{\"detail\":\"completion witness mismatch\",\"kind\":\"incomplete\"}],\"returned\":null,\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"incomplete\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "verify",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-6\\store"
+  ],
+  "exit": 2,
+  "stdout": "verify\njob job-1\nbad state: incomplete: completion witness mismatch\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "inbox",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-6\\store",
+   "--as",
+   "codex-prime"
+  ],
+  "exit": 2,
+  "stdout": "inbox codex-prime\nsection queued\nnone\nsection claimed\nnone\nsection returned\nnone\nsection incomplete\njob-1 bad state: incomplete: completion witness mismatch\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-6\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "a6345c1160ee1a5b25d67fd7173076b5",
+   "--delivery",
+   "d-9",
+   "--evidence",
+   "different"
+  ],
+  "exit": 2,
+  "stdout": "refused: bad state: incomplete: completion witness mismatch\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-7\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-7\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-7\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=e61948b99faf8bfa85fc737bc461544cb11276c0cf1df56345bb020376b20167\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-7\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-7\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken 9539d2c059161f7576ac7d3c60b745c8\nevent 0002.claimed.json sha256=6450b57e8a0b151b733058f37ba61aa257ebaa1be37ca64ae305cfb1a245cad3\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-7\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "9539d2c059161f7576ac7d3c60b745c8",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=b02ff447190d15434c28c74ad9a2b37bf0a30c95c126f4252f8fd2c9d2227623\nwitness 0003.witness.json records event sha256=b02ff447190d15434c28c74ad9a2b37bf0a30c95c126f4252f8fd2c9d2227623\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-7\\store",
+   "--job",
+   "job-1",
+   "--json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-7\\base"
+  ],
+  "exit": 2,
+  "stdout": "{\"checks\":{\"artifacts\":\"not-applicable\",\"completion\":\"mismatch\",\"events\":\"broken\",\"instructions\":\"not-applicable\"},\"claim\":null,\"job\":null,\"job_id\":\"job-1\",\"problems\":[{\"detail\":\"planted completion metadata 0004.completion.json\",\"kind\":\"corrupt\"}],\"returned\":null,\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"corrupt\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "verify",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-7\\store"
+  ],
+  "exit": 2,
+  "stdout": "verify\njob job-1\nbad state: planted completion metadata 0004.completion.json\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "inbox",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-7\\store",
+   "--as",
+   "codex-prime"
+  ],
+  "exit": 2,
+  "stdout": "inbox codex-prime\nsection queued\nnone\nsection claimed\nnone\nsection returned\nnone\nsection incomplete\njob-1 bad state: planted completion metadata 0004.completion.json\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r2-7\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "9539d2c059161f7576ac7d3c60b745c8",
+   "--delivery",
+   "d-9",
+   "--evidence",
+   "different"
+  ],
+  "exit": 2,
+  "stdout": "refused: bad state: planted completion metadata 0004.completion.json\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r3\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r3\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r3\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=b9e82386485e12773eb555b3cf000e9c0ee419658e4098eee4fd97381fa5b15a\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r3\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r3\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken 57c854bf65ac0416a38a8e2be802658b\nevent 0002.claimed.json sha256=6fcb27904a87877ee5b8660cc1214d5453458d25efd5e1f03656610365104e19\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r3\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "57c854bf65ac0416a38a8e2be802658b",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=f782a4499363329db0d5cd39a121dc393e394a94682f5a4a63b2e34ff914f68e\nwitness 0003.witness.json records event sha256=f782a4499363329db0d5cd39a121dc393e394a94682f5a4a63b2e34ff914f68e\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r3\\store",
+   "--job",
+   "job-1",
+   "--json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r3\\base"
+  ],
+  "exit": 0,
+  "stdout": "{\"checks\":{\"artifacts\":\"not-applicable\",\"completion\":\"not-applicable\",\"events\":\"ok\",\"instructions\":\"usable\"},\"claim\":{\"by\":\"builder-b\",\"token\":\"57c854bf65ac0416a38a8e2be802658b\"},\"job\":{\"assignee\":\"builder-b\",\"expected_outputs\":[\"count.py\"],\"instructions\":{\"path\":\"task.txt\",\"sha256\":\"8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\"},\"job_id\":\"job-1\",\"release\":\"fixture release\",\"reviewer\":\"codex-prime\",\"routed_by\":\"router-fixture\"},\"job_id\":\"job-1\",\"problems\":[],\"returned\":null,\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"claimed\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r4\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r4\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r4\\base"
+  ],
+  "exit": 2,
+  "stdout": "refused: expected_outputs must be a non-empty list\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r4b\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r4b\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r4b\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=8d7f65183030ec963b2d9a51104096f924bbf572e23698a406f5aa0fef03ab96\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r4b\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r4b\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken eb96ef0543c9bc8cb8a250a3b5d2b546\nevent 0002.claimed.json sha256=d7be71f769d01c20a369626e07efc2a2405b151a9163c755d675766d6ab0ada7\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r4b\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "eb96ef0543c9bc8cb8a250a3b5d2b546",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "   "
+  ],
+  "exit": 2,
+  "stdout": "refused: evidence is blank\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r4c\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r4c\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r4c\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=e548c1c72a1706e85df30cdecdd9e4e5cba060cd3d0e0ace9eb84a2f1701ccba\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r4c\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r4c\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken b12576a3d9065e08db351799d751f039\nevent 0002.claimed.json sha256=338440181723885b53e2d5a3a2a840822038d1f21fd05f7c628f15d458115d13\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r4c\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "b12576a3d9065e08db351799d751f039",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "line one\tline two"
+  ],
+  "exit": 2,
+  "stdout": "refused: evidence is blank\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r4d\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r4d\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r4d\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=94be124b3587073177cb030bc565007d4aed1264bda03743d4a2c07b62215a36\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r4d\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r4d\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken 496fa1098014b13c3b64230f2cf18bdf\nevent 0002.claimed.json sha256=2f9d1ef9ed6ead0d4c3110f975b5f9911d2ec8dd843864b762164d591d464a60\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r4d\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "496fa1098014b13c3b64230f2cf18bdf",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "line one\nline two"
+  ],
+  "exit": 2,
+  "stdout": "refused: evidence is blank\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r5\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r5\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r5\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=e06229486477d7f6f3fccfa0d2724c2a7fe433164a4435b4d8dc07e58788f463\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r5\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r5\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken 3a998d4bcec761abf10b6049cb303342\nevent 0002.claimed.json sha256=cd0a7122276d621b376cec4b1778d95e755acb1598037815cb6f5c81c74d5115\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r5\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "3a998d4bcec761abf10b6049cb303342",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=5792446cfff4e2d319557f269270914ea97a5f2803c101a8b87427f00a710b55\nwitness 0003.witness.json records event sha256=5792446cfff4e2d319557f269270914ea97a5f2803c101a8b87427f00a710b55\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r5\\store",
+   "--job",
+   "job-1",
+   "--json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r5\\base"
+  ],
+  "exit": 1,
+  "stdout": "{\"checks\":{\"artifacts\":\"ok\",\"completion\":\"ok\",\"events\":\"ok\",\"instructions\":\"unusable\"},\"claim\":{\"by\":\"builder-b\",\"token\":\"3a998d4bcec761abf10b6049cb303342\"},\"job\":{\"assignee\":\"builder-b\",\"expected_outputs\":[\"count.py\"],\"instructions\":{\"path\":\"task.txt\",\"sha256\":\"8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\"},\"job_id\":\"job-1\",\"release\":\"fixture release\",\"reviewer\":\"codex-prime\",\"routed_by\":\"router-fixture\"},\"job_id\":\"job-1\",\"problems\":[{\"detail\":\"instruction hash mismatch\",\"kind\":\"instructions-unusable\"}],\"returned\":{\"artifacts\":[{\"bytes\":69,\"path\":\"count.py\",\"sha256\":\"8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85\"}],\"by\":\"builder-b\",\"delivery\":\"d-1\",\"evidence\":\"scripted fixture\"},\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"returned\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r5\\store",
+   "--job",
+   "job-1",
+   "--json"
+  ],
+  "exit": 0,
+  "stdout": "{\"checks\":{\"artifacts\":\"ok\",\"completion\":\"ok\",\"events\":\"ok\",\"instructions\":\"not-checked\"},\"claim\":{\"by\":\"builder-b\",\"token\":\"3a998d4bcec761abf10b6049cb303342\"},\"job\":{\"assignee\":\"builder-b\",\"expected_outputs\":[\"count.py\"],\"instructions\":{\"path\":\"task.txt\",\"sha256\":\"8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\"},\"job_id\":\"job-1\",\"release\":\"fixture release\",\"reviewer\":\"codex-prime\",\"routed_by\":\"router-fixture\"},\"job_id\":\"job-1\",\"problems\":[],\"returned\":{\"artifacts\":[{\"bytes\":69,\"path\":\"count.py\",\"sha256\":\"8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85\"}],\"by\":\"builder-b\",\"delivery\":\"d-1\",\"evidence\":\"scripted fixture\"},\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"returned\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r5c\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r5c\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r5c\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=d80caf269cc94540eb355795bf650abbe1889d28f0b92f2d2a4f4d5e3f78293d\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r5c\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r5c\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken 4c2a4a84bbc91ce5ce8b7693736ff8a9\nevent 0002.claimed.json sha256=39edaf8f3881c18b5bc4d0655fc9b62b5bbae52258a5284bb6bc33cb8945332f\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r5c\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "4c2a4a84bbc91ce5ce8b7693736ff8a9",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=8d07bb514d1848e9023088ab0c6ad6c79c7b24d1400725a7dda201212c35b929\nwitness 0003.witness.json records event sha256=8d07bb514d1848e9023088ab0c6ad6c79c7b24d1400725a7dda201212c35b929\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r5c\\store",
+   "--job",
+   "job-1",
+   "--json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r5c\\base"
+  ],
+  "exit": 1,
+  "stdout": "{\"checks\":{\"artifacts\":\"changed\",\"completion\":\"ok\",\"events\":\"ok\",\"instructions\":\"usable\"},\"claim\":{\"by\":\"builder-b\",\"token\":\"4c2a4a84bbc91ce5ce8b7693736ff8a9\"},\"job\":{\"assignee\":\"builder-b\",\"expected_outputs\":[\"count.py\"],\"instructions\":{\"path\":\"task.txt\",\"sha256\":\"8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\"},\"job_id\":\"job-1\",\"release\":\"fixture release\",\"reviewer\":\"codex-prime\",\"routed_by\":\"router-fixture\"},\"job_id\":\"job-1\",\"problems\":[{\"detail\":\"artifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 artifact changed\",\"kind\":\"artifact-changed\",\"path\":\"count.py\"}],\"returned\":{\"artifacts\":[{\"bytes\":69,\"path\":\"count.py\",\"sha256\":\"8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85\"}],\"by\":\"builder-b\",\"delivery\":\"d-1\",\"evidence\":\"scripted fixture\"},\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"returned\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r6\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r6\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r6\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=ec0efde11df8fcf0771394071a4b903c9dcf4b600ba5ad4f2d8ead85082fdb07\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r6\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r6\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken ecb7b353a3ab70436e57b48755fdb25e\nevent 0002.claimed.json sha256=bde051ce859c065cacc1b5d37d47a98c55940eea3794a406d42bd80943814f30\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r6\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "ecb7b353a3ab70436e57b48755fdb25e",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=b79f6b1c3a5465e8882ac7219fbb45837ea0116f0f8b4cca0aa5f5532f1c959e\nwitness 0003.witness.json records event sha256=b79f6b1c3a5465e8882ac7219fbb45837ea0116f0f8b4cca0aa5f5532f1c959e\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r6\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "ecb7b353a3ab70436e57b48755fdb25e",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "already-recorded job-1\ndelivery d-1\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r6\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "ecb7b353a3ab70436e57b48755fdb25e",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "other evidence"
+  ],
+  "exit": 2,
+  "stdout": "refused: delivery conflict\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r7\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r7\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r7\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=d5e1a9fa0c5d32637333c74eb8ab2584e7ad8dd676aa2bd5549e56cd820c2c32\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r7\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r7\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken cc06ab1d43039c2404dbda6c9e3da1a8\nevent 0002.claimed.json sha256=8149527dc1fb8db99ea90b19566c57b4d594ec845452d92d8a2018bb7b7104f6\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r7\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "cc06ab1d43039c2404dbda6c9e3da1a8",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=a04b5ee48ee66ce8ac903aa7b10711f97462fef21a42afcc229d8d6232179d01\nwitness 0003.witness.json records event sha256=a04b5ee48ee66ce8ac903aa7b10711f97462fef21a42afcc229d8d6232179d01\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r8\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r8\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r8\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=2fd1bc01dcd44fa575f6c7cb88e66ed0be2243f32bccce1b8c0eccdbbe278dab\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r8\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r8\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken 98d709eceef6ab6cc15f4c5573e778db\nevent 0002.claimed.json sha256=e1270e6323765577c755dba858a3f4d25d690b3e3e3ea3a7680ddd457795542f\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r8\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "98d709eceef6ab6cc15f4c5573e778db",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=3593cd3d326994afba3825f501ee39a5fa1668d1c545820e9eba11968bbc3d39\nwitness 0003.witness.json records event sha256=3593cd3d326994afba3825f501ee39a5fa1668d1c545820e9eba11968bbc3d39\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r8\\store",
+   "--job",
+   "job-1",
+   "--json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r8\\base"
+  ],
+  "exit": 2,
+  "stdout": "{\"checks\":{\"artifacts\":\"not-applicable\",\"completion\":\"not-applicable\",\"events\":\"broken\",\"instructions\":\"not-applicable\"},\"claim\":null,\"job\":null,\"job_id\":\"job-1\",\"problems\":[{\"detail\":\"earlier store format clerk-handoff-pass02/1\",\"kind\":\"corrupt\"}],\"returned\":null,\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"corrupt\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r9\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r9\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r9\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=a787e3dee9d89a58c9491270203fc4e7d9aa5cd94bb9bc3b0b09603b26cf1a46\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r9\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r9\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken 941d476b2f92a1fa0f2cf3879f50e98c\nevent 0002.claimed.json sha256=094f6498e26be4d05ea19bada681fdb00b3215c1715ffa46289630b8ac97f8ae\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r9\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "941d476b2f92a1fa0f2cf3879f50e98c",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=579e6c52d9e019ee966b6d5b5074b96f4fb6051f9bd0e559509d7d8afd0a3b7b\nwitness 0003.witness.json records event sha256=579e6c52d9e019ee966b6d5b5074b96f4fb6051f9bd0e559509d7d8afd0a3b7b\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r9\\store",
+   "--job",
+   "job-1",
+   "--json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\r9\\base"
+  ],
+  "exit": 2,
+  "stdout": "{\"checks\":{\"artifacts\":\"not-applicable\",\"completion\":\"missing-witness\",\"events\":\"broken\",\"instructions\":\"not-applicable\"},\"claim\":null,\"job\":null,\"job_id\":\"job-1\",\"problems\":[{\"detail\":\"returned event without completion witness\",\"kind\":\"incomplete\"}],\"returned\":null,\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"incomplete\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-lead-6jhc0u_u\\probes-temp\\cr05-probes-c6dxl_8t\\nope",
+   "--json",
+   "--bogus"
+  ],
+  "exit": 2,
+  "stdout": "",
+  "stderr": "usage: clerk.py show [-h] --store STORE --job JOB\n                     [--instructions-base INSTRUCTIONS_BASE] [--json]\nclerk.py show: error: the following arguments are required: --job\n"
+ }
+]

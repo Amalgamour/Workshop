@@ -1,0 +1,265 @@
+{
+ "results": [
+  {
+   "status": "ok",
+   "probe": "R1 return exit 0",
+   "detail": "returned job-1"
+  },
+  {
+   "status": "ok",
+   "probe": "R1 show --json exit 0, one JSON document, no stderr, read-only",
+   "detail": "exit 0"
+  },
+  {
+   "status": "ok",
+   "probe": "R1 job equals the recorded 0001 job object",
+   "detail": ""
+  },
+  {
+   "status": "ok",
+   "probe": "R1 assignee/reviewer/outputs from the record",
+   "detail": ""
+  },
+  {
+   "status": "ok",
+   "probe": "R1 claim token and by equal 0002",
+   "detail": ""
+  },
+  {
+   "status": "ok",
+   "probe": "R1 returned delivery/evidence/artifacts equal 0003",
+   "detail": ""
+  },
+  {
+   "status": "ok",
+   "probe": "R1 artifact hash equals the outbox file",
+   "detail": ""
+  },
+  {
+   "status": "ok",
+   "probe": "R1 witness digest equals sha256 of 0003 bytes",
+   "detail": ""
+  },
+  {
+   "status": "ok",
+   "probe": "R1 checks all ok with a base",
+   "detail": "{\"artifacts\": \"ok\", \"completion\": \"ok\", \"events\": \"ok\", \"instructions\": \"usable\"}"
+  },
+  {
+   "status": "ok",
+   "probe": "R1 JSON exposes no 0003 event digest or witness digest",
+   "detail": "OBSERVE: a consumer cannot get the returned event's identity from show --json"
+  },
+  {
+   "status": "ok",
+   "probe": "R1b without a base: instructions not-checked, exit 0 (absent check, not verified)",
+   "detail": "exit 0"
+  },
+  {
+   "status": "ok",
+   "probe": "R1c human show still prints the claim token (seam replay path)",
+   "detail": ""
+  },
+  {
+   "status": "ok",
+   "probe": "R2a event deleted, witness kept: not a clean returned document, exit 2, read-only, one JSON",
+   "detail": "exit 2 state incomplete completion missing-event"
+  },
+  {
+   "status": "ok",
+   "probe": "R2a event deleted, witness kept: verify exit 2 and reviewer inbox discloses it",
+   "detail": "verify 2 inbox 2"
+  },
+  {
+   "status": "ok",
+   "probe": "R2a event deleted, witness kept: a different re-return refuses and writes nothing",
+   "detail": "refused: bad state: incomplete: completion witness without returned event"
+  },
+  {
+   "status": "ok",
+   "probe": "R2b witness deleted, event kept: not a clean returned document, exit 2, read-only, one JSON",
+   "detail": "exit 2 state incomplete completion missing-witness"
+  },
+  {
+   "status": "ok",
+   "probe": "R2b witness deleted, event kept: verify exit 2 and reviewer inbox discloses it",
+   "detail": "verify 2 inbox 2"
+  },
+  {
+   "status": "ok",
+   "probe": "R2b witness deleted, event kept: a different re-return refuses and writes nothing",
+   "detail": "refused: bad state: incomplete: returned event without completion witness"
+  },
+  {
+   "status": "ok",
+   "probe": "R2c one byte changed in 0003: not a clean returned document, exit 2, read-only, one JSON",
+   "detail": "exit 2 state incomplete completion mismatch"
+  },
+  {
+   "status": "ok",
+   "probe": "R2c one byte changed in 0003: verify exit 2 and reviewer inbox discloses it",
+   "detail": "verify 2 inbox 2"
+  },
+  {
+   "status": "ok",
+   "probe": "R2c one byte changed in 0003: a different re-return refuses and writes nothing",
+   "detail": "refused: bad state: incomplete: completion witness mismatch"
+  },
+  {
+   "status": "ok",
+   "probe": "R2d witness truncated: not a clean returned document, exit 2, read-only, one JSON",
+   "detail": "exit 2 state incomplete completion partial"
+  },
+  {
+   "status": "ok",
+   "probe": "R2d witness truncated: verify exit 2 and reviewer inbox discloses it",
+   "detail": "verify 2 inbox 2"
+  },
+  {
+   "status": "ok",
+   "probe": "R2d witness truncated: a different re-return refuses and writes nothing",
+   "detail": "refused: bad state: incomplete: partial completion witness"
+  },
+  {
+   "status": "ok",
+   "probe": "R2e witness valid JSON but wrong job_id: not a clean returned document, exit 2, read-only, one JSON",
+   "detail": "exit 2 state incomplete completion mismatch"
+  },
+  {
+   "status": "ok",
+   "probe": "R2e witness valid JSON but wrong job_id: verify exit 2 and reviewer inbox discloses it",
+   "detail": "verify 2 inbox 2"
+  },
+  {
+   "status": "ok",
+   "probe": "R2e witness valid JSON but wrong job_id: a different re-return refuses and writes nothing",
+   "detail": "refused: bad state: incomplete: invalid completion witness"
+  },
+  {
+   "status": "ok",
+   "probe": "R2f witness with an extra key: not a clean returned document, exit 2, read-only, one JSON",
+   "detail": "exit 2 state incomplete completion mismatch"
+  },
+  {
+   "status": "ok",
+   "probe": "R2f witness with an extra key: verify exit 2 and reviewer inbox discloses it",
+   "detail": "verify 2 inbox 2"
+  },
+  {
+   "status": "ok",
+   "probe": "R2f witness with an extra key: a different re-return refuses and writes nothing",
+   "detail": "refused: bad state: incomplete: invalid completion witness"
+  },
+  {
+   "status": "ok",
+   "probe": "R2g 0003 lost only its trailing newline: not a clean returned document, exit 2, read-only, one JSON",
+   "detail": "exit 2 state incomplete completion mismatch"
+  },
+  {
+   "status": "ok",
+   "probe": "R2g 0003 lost only its trailing newline: verify exit 2 and reviewer inbox discloses it",
+   "detail": "verify 2 inbox 2"
+  },
+  {
+   "status": "ok",
+   "probe": "R2g 0003 lost only its trailing newline: a different re-return refuses and writes nothing",
+   "detail": "refused: bad state: incomplete: completion witness mismatch"
+  },
+  {
+   "status": "ok",
+   "probe": "R2h planted 0004.completion.json: not a clean returned document, exit 2, read-only, one JSON",
+   "detail": "exit 2 state corrupt completion mismatch"
+  },
+  {
+   "status": "ok",
+   "probe": "R2h planted 0004.completion.json: verify exit 2 and reviewer inbox discloses it",
+   "detail": "verify 2 inbox 2"
+  },
+  {
+   "status": "ok",
+   "probe": "R2h planted 0004.completion.json: a different re-return refuses and writes nothing",
+   "detail": "refused: bad state: planted completion metadata 0004.completion.json"
+  },
+  {
+   "status": "LIMIT",
+   "probe": "R3 both completion files deleted reads as a clean claim",
+   "detail": "state claimed exit 0 (documented limit)"
+  },
+  {
+   "status": "ok",
+   "probe": "R4a empty expected_outputs refused, nothing written",
+   "detail": "refused: expected_outputs must be a non-empty list"
+  },
+  {
+   "status": "ok",
+   "probe": "R4b blank evidence refused, nothing written",
+   "detail": "exit 2: refused: evidence is blank"
+  },
+  {
+   "status": "OBSERVE",
+   "probe": "R4c tab inside evidence refused, nothing written",
+   "detail": "exit 2: refused: evidence is blank"
+  },
+  {
+   "status": "OBSERVE",
+   "probe": "R4d newline inside evidence refused, nothing written",
+   "detail": "exit 2: refused: evidence is blank"
+  },
+  {
+   "status": "ok",
+   "probe": "R5a stale instructions: unusable, exit 1, recorded hash kept",
+   "detail": "exit 1"
+  },
+  {
+   "status": "ok",
+   "probe": "R5b stale instructions without a base: not-checked, exit 0",
+   "detail": "OBSERVE: exit 0 with an unchecked instruction file"
+  },
+  {
+   "status": "ok",
+   "probe": "R5c changed artifact: state returned, checks.artifacts changed, exit 1, recorded hash unchanged",
+   "detail": "exit 1"
+  },
+  {
+   "status": "OBSERVE",
+   "probe": "R5d no single 'clean' field",
+   "detail": "a consumer must combine exit code, state, checks and problems"
+  },
+  {
+   "status": "ok",
+   "probe": "R6a identical resend: already-recorded, no byte changes",
+   "detail": ""
+  },
+  {
+   "status": "ok",
+   "probe": "R6b same delivery, different evidence: conflict, nothing written",
+   "detail": ""
+  },
+  {
+   "status": "ok",
+   "probe": "R7a 0003 unreadable: valid JSON, exit 2, not returned, read-only",
+   "detail": "state incomplete problems [{'detail': 'returned event is unreadable', 'kind': 'incomplete'}]"
+  },
+  {
+   "status": "ok",
+   "probe": "R7b job directory unreadable: valid JSON, exit 2",
+   "detail": "state corrupt"
+  },
+  {
+   "status": "ok",
+   "probe": "R8 schema-1 event: not clean, exit 2, read-only",
+   "detail": "state corrupt detail earlier store format clerk-handoff-pass02/1"
+  },
+  {
+   "status": "OBSERVE",
+   "probe": "R9 witness missing reports checks.events 'broken'",
+   "detail": "events broken completion missing-witness; 0001/0002 chain is intact"
+  },
+  {
+   "status": "ok",
+   "probe": "R10 argparse error: exit 2, empty stdout",
+   "detail": "clerk.py show: error: the following arguments are required: --job"
+  }
+ ],
+ "transcript_calls": 102
+}

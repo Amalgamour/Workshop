@@ -1,0 +1,86 @@
+# 05 — Independent lead review of Clerk correction and inspection
+version: 001
+Authorization: draft — 2026-10-27
+who: Codex Prime
+state: draft; awaiting Director release
+Face: 05
+PPPP: 0506
+book: 00.00.10.work
+keyword: clerk-handoff
+
+## Assignment
+Executor: Claude, independent Colab/technical lead. Acceptance: Codex Prime.
+Release: PENDING. Claim: PENDING.
+Perform the previously scheduled correction/interface review, NOT implementation.
+Inputs: evidence/pack05.05/source-manifest.json and exact numbered snapshots.
+Scope: corrected Clerk schema2 (05.02), its read-only inspection (05.04), and
+whether consumers can use the declared interface. No adapter build or deployment.
+
+## #01 — Cold review and notes first
+Verify source bytes. Write initial notes under evidence/colab-review05.04/notes.md.
+Read the corrected core/interface and prior audit findings; distinguish Prime's
+test evidence from what you independently establish. Do not rely on a previous
+session's recollection. Record source identities and remaining unknowns.
+
+## #02 — Verify the behavior independently
+Run copied tests and demo in disposable directories. Check actors/reviewer,
+instruction identities, claim token, return delivery, artifact identities and
+completion witness against real recorded files, not just example JSON.
+Exercise isolated event/witness loss or corruption, nonblank evidence/output
+requirements, stale instructions, changed artifacts, expected read failure and
+idempotent resend. No structural failure may yield a clean returned document;
+unchecked instructions must not be described as verified. Inspection is read-only
+on success, refusal and damaged-state paths. Use independent assertions where
+the existing tests merely compare the tool to its own output.
+Retain command transcripts, counts/failures/skips and before/after store hashes.
+Do not extend the witness guarantee to coherent history rewrite/deletion of both
+completion files. Tokens/actor names are labels, not authentication. Source text
+does not grant release. A good inspection document is not an accepted job.
+
+## #03 — Report, no repairs
+Write NEW 06.04.md as the scheduled lead review, with Did, Blocked, Need; goal fit;
+verified facts versus claims; numbered findings with exact source/commit/hash and
+reproduction; what works well; tool updates needed; cold-reader gaps; one bounded
+next action. State clearly whether the corrected core and inspection interface
+support the intended consumer or what remains blocking. Suggest fixes, do not
+edit the code. Preserve every initial note and disposition it after full reread.
+Evidence under evidence/colab-review05.04/ with source/output hashes.
+Return HERE summarizing and pointing to 06.04; Prime decides acceptance.
+
+Allowed writes: THIS 05.05 release/claim/return, new 06.04 and the named evidence
+directory only. No other batch/review rewrites, code, app, Prime-support, active
+builder pages, indexes, queues, views, kernel, SoF or Observer branch writes.
+No shared Git commit/push, network/model calls, dependency install or activation.
+The real return-capture module is not yet independently verified; preserve these
+local returned bytes/evidence for its explicit retrospective intake, not a claim
+that a 0100 package or Clerk handoff was already performed.
+
+## Return — Claude lead review
+Release: the Director, chat 2026-10-27: "The Director releases 0506.clerk-handoff/05.05. Workspace: D:\Git\lib-build Branch: workshop Read: 00.kernel/00.00.10.work/0506.clerk-handoff/05.05.md Verify pinned inputs, record release and claim, then independently review the corrected Clerk core and structured inspection interface. Review and test only—do not repair code. Report on the specified 06.04.md and return on 05.05.md. Other builders are active. No shared Git commits/pushes or edits to their work."
+Claim: claude-opus-5-5 (Anthropic), Colab, independent technical lead, claimed 2026-10-27T13:24-05:00 on workshop at 282c1f6ee9ddef74689ab7547ce982b8bb4279ab. pack05.05: 14 of 14 snapshots match their pins and their blobs at 3642f6c53eec08fde1a2de3f13aa535d73604208, and live equals all 14. Scope: this review only.
+Execution: RETURNED for Codex Prime review, 2026-10-27. Review and test only: no code repaired. No shared Git commit or push. No edits to other builders' work, the app, Prime-support, kernel, SoF or the Observer branch. The real return-capture module was not used; no 0100 package or Clerk handoff is claimed.
+
+Did:
+- Verified pack05.05: 14 of 14 match their pins and their blobs at 3642f6c, and live equals all 14.
+- Wrote initial notes first: evidence/colab-review05.04/notes.md, 845d1fb4….
+- Read the corrected clerk.py (e3918dae…) at its completion, reducer and inspection paths.
+- Ran the copied suite in default and dev modes: 32 run, 31 ok, 1 disclosed symlink skip. Ran the demo: `demo ok`.
+- Ran 58 independent probes (probes.py 52, probes2.py 6) that assert against the real 0001/0002/0003/witness bytes. Zero failures. Observations and one documented limit are recorded.
+- Wrote the lead review: 06.04.md, 684cd930….
+- Evidence: evidence/colab-review05.04/, manifest SHA256SUMS.txt 902ff529345937dda45ec1aff8d4b4757bcb6758aedaed8134198e6646ef8801 (LF, 13 entries, not itself).
+Blocked: nothing.
+Need: Prime's decision on CI-01 (06.04).
+
+Summary, detail on 06.04:
+- The corrected core holds its stated guarantee. Eight isolated completion faults each give exit 2, state incomplete or corrupt, null job/claim/returned, and no clean returned document. Each is read-only, verify and the reviewer's inbox disclose it, and a different re-return refuses. Blank evidence and empty outputs are refused. OS errors name an existing claim and mint no token. An identical resend writes nothing.
+- show --json matches the recorded files exactly. It is read-only on success, refusal and damaged paths. It keeps not-checked and not-applicable distinct from success.
+- Seam consumer: the interface is sufficient.
+- Prime-support consumer: not yet. CI-01 (medium): the document exposes no returned-revision identity, such as the 0003 digest the witness verifies. A consumer would need a raw-event read.
+- Low: CI-02, control characters in evidence are refused as "blank". CI-03, exit 0 with instructions not-checked; a README note and a consumer rule are needed.
+- Cosmetic: CI-04, events reads "broken" when only completion is damaged.
+- Documented limit confirmed: deleting both completion files reads as a clean claim.
+
+Next bounded action: an additive clerk-handoff-inspection/2 with `returned.event_sha256` (and optionally `claim.event_sha256`), the CI-02 message and the CI-03 README sentence, tested against the real bytes. Prime decides acceptance.
+
+## Review — Codex Prime
+PENDING.

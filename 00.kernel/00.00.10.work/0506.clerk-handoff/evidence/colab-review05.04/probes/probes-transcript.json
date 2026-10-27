@@ -1,0 +1,1602 @@
+[
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r1\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r1\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r1\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=8de19f63624eea1bdee4d30bde90e09f2c918bab910e259f96aba3d59eb7f5f0\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r1\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r1\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken 0c26de7304e20cda573e5363e5e17349\nevent 0002.claimed.json sha256=c7637c2f96c980c5c55de54101cd2baffee7532f0325ad7216533aab22399e5d\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r1\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "0c26de7304e20cda573e5363e5e17349",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=15da27a17975db758bc7fed3c27a10d571d39f4ca37e4b42f9929951a836131e\nwitness 0003.witness.json records event sha256=15da27a17975db758bc7fed3c27a10d571d39f4ca37e4b42f9929951a836131e\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r1\\store",
+   "--job",
+   "job-1",
+   "--json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r1\\base"
+  ],
+  "exit": 0,
+  "stdout": "{\"checks\":{\"artifacts\":\"ok\",\"completion\":\"ok\",\"events\":\"ok\",\"instructions\":\"usable\"},\"claim\":{\"by\":\"builder-b\",\"token\":\"0c26de7304e20cda573e5363e5e17349\"},\"job\":{\"assignee\":\"builder-b\",\"expected_outputs\":[\"count.py\"],\"instructions\":{\"path\":\"task.txt\",\"sha256\":\"8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\"},\"job_id\":\"job-1\",\"release\":\"fixture release\",\"reviewer\":\"codex-prime\",\"routed_by\":\"router-fixture\"},\"job_id\":\"job-1\",\"problems\":[],\"returned\":{\"artifacts\":[{\"bytes\":69,\"path\":\"count.py\",\"sha256\":\"8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85\"}],\"by\":\"builder-b\",\"delivery\":\"d-1\",\"evidence\":\"scripted fixture\"},\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"returned\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r1\\store",
+   "--job",
+   "job-1",
+   "--json"
+  ],
+  "exit": 0,
+  "stdout": "{\"checks\":{\"artifacts\":\"ok\",\"completion\":\"ok\",\"events\":\"ok\",\"instructions\":\"not-checked\"},\"claim\":{\"by\":\"builder-b\",\"token\":\"0c26de7304e20cda573e5363e5e17349\"},\"job\":{\"assignee\":\"builder-b\",\"expected_outputs\":[\"count.py\"],\"instructions\":{\"path\":\"task.txt\",\"sha256\":\"8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\"},\"job_id\":\"job-1\",\"release\":\"fixture release\",\"reviewer\":\"codex-prime\",\"routed_by\":\"router-fixture\"},\"job_id\":\"job-1\",\"problems\":[],\"returned\":{\"artifacts\":[{\"bytes\":69,\"path\":\"count.py\",\"sha256\":\"8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85\"}],\"by\":\"builder-b\",\"delivery\":\"d-1\",\"evidence\":\"scripted fixture\"},\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"returned\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r1\\store",
+   "--job",
+   "job-1"
+  ],
+  "exit": 0,
+  "stdout": "show job-1\nstate returned\nclaim 0c26de7304e20cda573e5363e5e17349\nstates queued claimed returned\nchain ok\nevent 0001.queued.json sha256=8de19f63624eea1bdee4d30bde90e09f2c918bab910e259f96aba3d59eb7f5f0 prev=null\nevent 0002.claimed.json sha256=c7637c2f96c980c5c55de54101cd2baffee7532f0325ad7216533aab22399e5d prev=8de19f63624eea1bdee4d30bde90e09f2c918bab910e259f96aba3d59eb7f5f0\nevent 0003.returned.json sha256=15da27a17975db758bc7fed3c27a10d571d39f4ca37e4b42f9929951a836131e prev=c7637c2f96c980c5c55de54101cd2baffee7532f0325ad7216533aab22399e5d\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69 ok\ninstructions-not-checked\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-0\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-0\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-0\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=011956a7e7b0a58d58357490a6d92f97a77b0b3e5ec3c54c425aeaf5e5a8c874\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-0\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-0\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken 8c88489958846a614fbf537a961752ea\nevent 0002.claimed.json sha256=d287d6e59de6947319ad8e9b9eb69aea3499c709c191f3ab336987cab204ed6f\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-0\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "8c88489958846a614fbf537a961752ea",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=b3eb3198adeb5222ec85e1eb2bac95c3f1040924d982276c9f7e5ab74d17ca4f\nwitness 0003.witness.json records event sha256=b3eb3198adeb5222ec85e1eb2bac95c3f1040924d982276c9f7e5ab74d17ca4f\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-0\\store",
+   "--job",
+   "job-1",
+   "--json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-0\\base"
+  ],
+  "exit": 2,
+  "stdout": "{\"checks\":{\"artifacts\":\"not-applicable\",\"completion\":\"missing-event\",\"events\":\"broken\",\"instructions\":\"not-applicable\"},\"claim\":null,\"job\":null,\"job_id\":\"job-1\",\"problems\":[{\"detail\":\"completion witness without returned event\",\"kind\":\"incomplete\"}],\"returned\":null,\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"incomplete\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "verify",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-0\\store"
+  ],
+  "exit": 2,
+  "stdout": "verify\njob job-1\nbad state: incomplete: completion witness without returned event\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "inbox",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-0\\store",
+   "--as",
+   "codex-prime"
+  ],
+  "exit": 2,
+  "stdout": "inbox codex-prime\nsection queued\nnone\nsection claimed\nnone\nsection returned\nnone\nsection incomplete\njob-1 bad state: incomplete: completion witness without returned event\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-0\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "8c88489958846a614fbf537a961752ea",
+   "--delivery",
+   "d-9",
+   "--evidence",
+   "different"
+  ],
+  "exit": 2,
+  "stdout": "refused: bad state: incomplete: completion witness without returned event\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-1\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-1\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-1\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=02f0c727d9ee2fe0c673358c64471c6679b3c83562a60e4d0dbb5537bb637f96\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-1\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-1\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken 0fe9833c8e515a9360ca4e7aa1ae9b6b\nevent 0002.claimed.json sha256=531e8089ed5367714e975a6d25422a843733a8a9dabef4e1e834dfd36f2f4883\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-1\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "0fe9833c8e515a9360ca4e7aa1ae9b6b",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=20c8a49055f46927331a067cd695e6339cee63fa92381c537cc860a159fdf7c1\nwitness 0003.witness.json records event sha256=20c8a49055f46927331a067cd695e6339cee63fa92381c537cc860a159fdf7c1\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-1\\store",
+   "--job",
+   "job-1",
+   "--json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-1\\base"
+  ],
+  "exit": 2,
+  "stdout": "{\"checks\":{\"artifacts\":\"not-applicable\",\"completion\":\"missing-witness\",\"events\":\"broken\",\"instructions\":\"not-applicable\"},\"claim\":null,\"job\":null,\"job_id\":\"job-1\",\"problems\":[{\"detail\":\"returned event without completion witness\",\"kind\":\"incomplete\"}],\"returned\":null,\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"incomplete\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "verify",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-1\\store"
+  ],
+  "exit": 2,
+  "stdout": "verify\njob job-1\nbad state: incomplete: returned event without completion witness\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "inbox",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-1\\store",
+   "--as",
+   "codex-prime"
+  ],
+  "exit": 2,
+  "stdout": "inbox codex-prime\nsection queued\nnone\nsection claimed\nnone\nsection returned\nnone\nsection incomplete\njob-1 bad state: incomplete: returned event without completion witness\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-1\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "0fe9833c8e515a9360ca4e7aa1ae9b6b",
+   "--delivery",
+   "d-9",
+   "--evidence",
+   "different"
+  ],
+  "exit": 2,
+  "stdout": "refused: bad state: incomplete: returned event without completion witness\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-2\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-2\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-2\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=5670b5532b314166d2b1d8caefffb5f6852f92bf39ed4e413ff3c04565723e32\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-2\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-2\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken a2cc0c5a9a361037403906c9c1634056\nevent 0002.claimed.json sha256=d192e806e57193fcb07ededb391d18fba9a2a9d3bf87e3e09684a1909f715403\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-2\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "a2cc0c5a9a361037403906c9c1634056",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=52283599edf4fee5ccbd5642569ecacdc1ce14b9827c3f81fdf1017016bd6a09\nwitness 0003.witness.json records event sha256=52283599edf4fee5ccbd5642569ecacdc1ce14b9827c3f81fdf1017016bd6a09\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-2\\store",
+   "--job",
+   "job-1",
+   "--json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-2\\base"
+  ],
+  "exit": 2,
+  "stdout": "{\"checks\":{\"artifacts\":\"not-applicable\",\"completion\":\"mismatch\",\"events\":\"broken\",\"instructions\":\"not-applicable\"},\"claim\":null,\"job\":null,\"job_id\":\"job-1\",\"problems\":[{\"detail\":\"completion witness mismatch\",\"kind\":\"incomplete\"}],\"returned\":null,\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"incomplete\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "verify",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-2\\store"
+  ],
+  "exit": 2,
+  "stdout": "verify\njob job-1\nbad state: incomplete: completion witness mismatch\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "inbox",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-2\\store",
+   "--as",
+   "codex-prime"
+  ],
+  "exit": 2,
+  "stdout": "inbox codex-prime\nsection queued\nnone\nsection claimed\nnone\nsection returned\nnone\nsection incomplete\njob-1 bad state: incomplete: completion witness mismatch\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-2\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "a2cc0c5a9a361037403906c9c1634056",
+   "--delivery",
+   "d-9",
+   "--evidence",
+   "different"
+  ],
+  "exit": 2,
+  "stdout": "refused: bad state: incomplete: completion witness mismatch\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-3\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-3\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-3\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=767d1ded39670747377714b6acbb770c5829c6294ee3276c6f3263eb27c5729e\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-3\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-3\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken 1620d19238f5fa105e90bbfd55fe8ecb\nevent 0002.claimed.json sha256=0cb031b0763fc603f9e9bdc17d084a320c29fec786c92a1079f1f75d451bd5f6\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-3\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "1620d19238f5fa105e90bbfd55fe8ecb",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=8dab0510f748909dfa1dbc878cf5350bb73255e5ffaf76d5ad52bae76be355ac\nwitness 0003.witness.json records event sha256=8dab0510f748909dfa1dbc878cf5350bb73255e5ffaf76d5ad52bae76be355ac\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-3\\store",
+   "--job",
+   "job-1",
+   "--json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-3\\base"
+  ],
+  "exit": 2,
+  "stdout": "{\"checks\":{\"artifacts\":\"not-applicable\",\"completion\":\"partial\",\"events\":\"broken\",\"instructions\":\"not-applicable\"},\"claim\":null,\"job\":null,\"job_id\":\"job-1\",\"problems\":[{\"detail\":\"partial completion witness\",\"kind\":\"incomplete\"}],\"returned\":null,\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"incomplete\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "verify",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-3\\store"
+  ],
+  "exit": 2,
+  "stdout": "verify\njob job-1\nbad state: incomplete: partial completion witness\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "inbox",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-3\\store",
+   "--as",
+   "codex-prime"
+  ],
+  "exit": 2,
+  "stdout": "inbox codex-prime\nsection queued\nnone\nsection claimed\nnone\nsection returned\nnone\nsection incomplete\njob-1 bad state: incomplete: partial completion witness\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-3\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "1620d19238f5fa105e90bbfd55fe8ecb",
+   "--delivery",
+   "d-9",
+   "--evidence",
+   "different"
+  ],
+  "exit": 2,
+  "stdout": "refused: bad state: incomplete: partial completion witness\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-4\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-4\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-4\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=5e26b7594aceb845f23f123e29d2d7d71b7f4f29a957b2897859c1b415bd42a1\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-4\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-4\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken dd2aefd641e4bfd091d8968ba34df1e9\nevent 0002.claimed.json sha256=ac76bead4f04e23d71ce0ed3952de7dba2dcb03241b8689c733899bb2d488c5f\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-4\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "dd2aefd641e4bfd091d8968ba34df1e9",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=814b724509bde9afc0a4a639586c046a8757772a599299f9b29bdee0675ce614\nwitness 0003.witness.json records event sha256=814b724509bde9afc0a4a639586c046a8757772a599299f9b29bdee0675ce614\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-4\\store",
+   "--job",
+   "job-1",
+   "--json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-4\\base"
+  ],
+  "exit": 2,
+  "stdout": "{\"checks\":{\"artifacts\":\"not-applicable\",\"completion\":\"mismatch\",\"events\":\"broken\",\"instructions\":\"not-applicable\"},\"claim\":null,\"job\":null,\"job_id\":\"job-1\",\"problems\":[{\"detail\":\"invalid completion witness\",\"kind\":\"incomplete\"}],\"returned\":null,\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"incomplete\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "verify",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-4\\store"
+  ],
+  "exit": 2,
+  "stdout": "verify\njob job-1\nbad state: incomplete: invalid completion witness\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "inbox",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-4\\store",
+   "--as",
+   "codex-prime"
+  ],
+  "exit": 2,
+  "stdout": "inbox codex-prime\nsection queued\nnone\nsection claimed\nnone\nsection returned\nnone\nsection incomplete\njob-1 bad state: incomplete: invalid completion witness\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-4\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "dd2aefd641e4bfd091d8968ba34df1e9",
+   "--delivery",
+   "d-9",
+   "--evidence",
+   "different"
+  ],
+  "exit": 2,
+  "stdout": "refused: bad state: incomplete: invalid completion witness\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-5\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-5\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-5\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=f1eec4a8e71a61578dddfce396c70596a1a1271e21641cf0146becb3c2d2ac14\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-5\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-5\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken 1b3dc7436041c387ef0025727e8a9b33\nevent 0002.claimed.json sha256=9faf0bfd47102b12e5c89d45f474ba0261a717ebbc7fab4b54a1ef9bf061900c\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-5\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "1b3dc7436041c387ef0025727e8a9b33",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=24ce99914353d47b97cdb29121be61d92091426f12bd710e25d0cebf6e5b719c\nwitness 0003.witness.json records event sha256=24ce99914353d47b97cdb29121be61d92091426f12bd710e25d0cebf6e5b719c\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-5\\store",
+   "--job",
+   "job-1",
+   "--json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-5\\base"
+  ],
+  "exit": 2,
+  "stdout": "{\"checks\":{\"artifacts\":\"not-applicable\",\"completion\":\"mismatch\",\"events\":\"broken\",\"instructions\":\"not-applicable\"},\"claim\":null,\"job\":null,\"job_id\":\"job-1\",\"problems\":[{\"detail\":\"invalid completion witness\",\"kind\":\"incomplete\"}],\"returned\":null,\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"incomplete\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "verify",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-5\\store"
+  ],
+  "exit": 2,
+  "stdout": "verify\njob job-1\nbad state: incomplete: invalid completion witness\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "inbox",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-5\\store",
+   "--as",
+   "codex-prime"
+  ],
+  "exit": 2,
+  "stdout": "inbox codex-prime\nsection queued\nnone\nsection claimed\nnone\nsection returned\nnone\nsection incomplete\njob-1 bad state: incomplete: invalid completion witness\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-5\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "1b3dc7436041c387ef0025727e8a9b33",
+   "--delivery",
+   "d-9",
+   "--evidence",
+   "different"
+  ],
+  "exit": 2,
+  "stdout": "refused: bad state: incomplete: invalid completion witness\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-6\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-6\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-6\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=67e982f60f96dca7da0f8a2b868760ba48767177c34a6571c1b6b6a23a76e2e0\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-6\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-6\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken 6d8b2f7274a337e04b53c500867b5c61\nevent 0002.claimed.json sha256=4922d0523418530dbc7ee4d0ac0b17ef738906260e3801f5306d7c4a50099b43\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-6\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "6d8b2f7274a337e04b53c500867b5c61",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=bfc15e444f2b5855108f696e05a3c1e0bd3854ae2d4a150506a58104d6410439\nwitness 0003.witness.json records event sha256=bfc15e444f2b5855108f696e05a3c1e0bd3854ae2d4a150506a58104d6410439\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-6\\store",
+   "--job",
+   "job-1",
+   "--json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-6\\base"
+  ],
+  "exit": 2,
+  "stdout": "{\"checks\":{\"artifacts\":\"not-applicable\",\"completion\":\"mismatch\",\"events\":\"broken\",\"instructions\":\"not-applicable\"},\"claim\":null,\"job\":null,\"job_id\":\"job-1\",\"problems\":[{\"detail\":\"completion witness mismatch\",\"kind\":\"incomplete\"}],\"returned\":null,\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"incomplete\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "verify",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-6\\store"
+  ],
+  "exit": 2,
+  "stdout": "verify\njob job-1\nbad state: incomplete: completion witness mismatch\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "inbox",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-6\\store",
+   "--as",
+   "codex-prime"
+  ],
+  "exit": 2,
+  "stdout": "inbox codex-prime\nsection queued\nnone\nsection claimed\nnone\nsection returned\nnone\nsection incomplete\njob-1 bad state: incomplete: completion witness mismatch\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-6\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "6d8b2f7274a337e04b53c500867b5c61",
+   "--delivery",
+   "d-9",
+   "--evidence",
+   "different"
+  ],
+  "exit": 2,
+  "stdout": "refused: bad state: incomplete: completion witness mismatch\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-7\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-7\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-7\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=db5ab15a432c9cf40d92ee10330c5a713295ec66f363e51c892c8ed3caf22c07\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-7\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-7\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken 8eb05774f336ef12a81521bb5c5e83b4\nevent 0002.claimed.json sha256=03859ae1758d597e375ca40aecd1b052c2ea59c1f2586df1c5ff070d9906613f\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-7\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "8eb05774f336ef12a81521bb5c5e83b4",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=b51fa22613e3a89122a23c34445efd3fe26e04bc5386728bb7f214501ecc3135\nwitness 0003.witness.json records event sha256=b51fa22613e3a89122a23c34445efd3fe26e04bc5386728bb7f214501ecc3135\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-7\\store",
+   "--job",
+   "job-1",
+   "--json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-7\\base"
+  ],
+  "exit": 2,
+  "stdout": "{\"checks\":{\"artifacts\":\"not-applicable\",\"completion\":\"mismatch\",\"events\":\"broken\",\"instructions\":\"not-applicable\"},\"claim\":null,\"job\":null,\"job_id\":\"job-1\",\"problems\":[{\"detail\":\"planted completion metadata 0004.completion.json\",\"kind\":\"corrupt\"}],\"returned\":null,\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"corrupt\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "verify",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-7\\store"
+  ],
+  "exit": 2,
+  "stdout": "verify\njob job-1\nbad state: planted completion metadata 0004.completion.json\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "inbox",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-7\\store",
+   "--as",
+   "codex-prime"
+  ],
+  "exit": 2,
+  "stdout": "inbox codex-prime\nsection queued\nnone\nsection claimed\nnone\nsection returned\nnone\nsection incomplete\njob-1 bad state: planted completion metadata 0004.completion.json\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r2-7\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "8eb05774f336ef12a81521bb5c5e83b4",
+   "--delivery",
+   "d-9",
+   "--evidence",
+   "different"
+  ],
+  "exit": 2,
+  "stdout": "refused: bad state: planted completion metadata 0004.completion.json\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r3\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r3\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r3\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=4c9d2ff08bc6aa1ebe392e7a9eb8f6e072da6e0cc9dbcc24d37245531145dfe0\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r3\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r3\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken 4c8b3d6989654fbd2553e2a8691e9a73\nevent 0002.claimed.json sha256=73b7dccc02cea6d102270ffa1625eae47ad5f921ac3b3ee16955aae52462d027\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r3\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "4c8b3d6989654fbd2553e2a8691e9a73",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=5b4671c3d4a6856acf1dc1248970450c18232a70ec825147b10cb44ddd3b4a9c\nwitness 0003.witness.json records event sha256=5b4671c3d4a6856acf1dc1248970450c18232a70ec825147b10cb44ddd3b4a9c\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r3\\store",
+   "--job",
+   "job-1",
+   "--json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r3\\base"
+  ],
+  "exit": 0,
+  "stdout": "{\"checks\":{\"artifacts\":\"not-applicable\",\"completion\":\"not-applicable\",\"events\":\"ok\",\"instructions\":\"usable\"},\"claim\":{\"by\":\"builder-b\",\"token\":\"4c8b3d6989654fbd2553e2a8691e9a73\"},\"job\":{\"assignee\":\"builder-b\",\"expected_outputs\":[\"count.py\"],\"instructions\":{\"path\":\"task.txt\",\"sha256\":\"8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\"},\"job_id\":\"job-1\",\"release\":\"fixture release\",\"reviewer\":\"codex-prime\",\"routed_by\":\"router-fixture\"},\"job_id\":\"job-1\",\"problems\":[],\"returned\":null,\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"claimed\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r4\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r4\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r4\\base"
+  ],
+  "exit": 2,
+  "stdout": "refused: expected_outputs must be a non-empty list\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r4b\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r4b\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r4b\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=0b6f9f82f3f87f4dd04807deef43a34a273a120ee278bd93b69c0b83e9bee296\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r4b\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r4b\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken 307702f4fc729b465239a93b9601a05c\nevent 0002.claimed.json sha256=5c8ffe6d9f0b91b497b911b001c391d706c9881cbbab3dce75c152c66a7ed78c\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r4b\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "307702f4fc729b465239a93b9601a05c",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "   "
+  ],
+  "exit": 2,
+  "stdout": "refused: evidence is blank\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r4c\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r4c\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r4c\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=2f268c167cd4048fe2b4a8be9f771d69ff7630821ef9caf69004f4431f138d50\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r4c\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r4c\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken 7a4a375ebddccef3322ef95b53787be4\nevent 0002.claimed.json sha256=2f6d807ccec6ec4cfd63975cd784185fd65a79d9dcf6c12100f4312ceea3fb2b\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r4c\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "7a4a375ebddccef3322ef95b53787be4",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "line one\tline two"
+  ],
+  "exit": 2,
+  "stdout": "refused: evidence is blank\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r4d\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r4d\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r4d\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=780a9276b4c68f8bb314afb485dd100d44d1297d8e11f664a2b15c06c92cd97d\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r4d\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r4d\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken d6f20660f9d6462f8c4c3f3eb8166fc7\nevent 0002.claimed.json sha256=19e3d4bbfa446cfb67eb443e36252ad0dd0c89746ebfabb1dd7fe2b6d63c5c5f\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r4d\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "d6f20660f9d6462f8c4c3f3eb8166fc7",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "line one\nline two"
+  ],
+  "exit": 2,
+  "stdout": "refused: evidence is blank\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r5\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r5\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r5\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=36e525e8701bc6a1c5f03f6fd057c5675c90ec858090bb603896054286b44e50\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r5\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r5\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken e35309a53753d1e093a7871c7373ba46\nevent 0002.claimed.json sha256=4df530894171402f24e723b07abeac2140d8b6798dac25af6f34fb3ed0b159d6\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r5\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "e35309a53753d1e093a7871c7373ba46",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=c5c02f2600514ef87a177293ce28dc9726aec4cec07ff200a80d41613dd8e1bb\nwitness 0003.witness.json records event sha256=c5c02f2600514ef87a177293ce28dc9726aec4cec07ff200a80d41613dd8e1bb\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r5\\store",
+   "--job",
+   "job-1",
+   "--json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r5\\base"
+  ],
+  "exit": 1,
+  "stdout": "{\"checks\":{\"artifacts\":\"ok\",\"completion\":\"ok\",\"events\":\"ok\",\"instructions\":\"unusable\"},\"claim\":{\"by\":\"builder-b\",\"token\":\"e35309a53753d1e093a7871c7373ba46\"},\"job\":{\"assignee\":\"builder-b\",\"expected_outputs\":[\"count.py\"],\"instructions\":{\"path\":\"task.txt\",\"sha256\":\"8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\"},\"job_id\":\"job-1\",\"release\":\"fixture release\",\"reviewer\":\"codex-prime\",\"routed_by\":\"router-fixture\"},\"job_id\":\"job-1\",\"problems\":[{\"detail\":\"instruction hash mismatch\",\"kind\":\"instructions-unusable\"}],\"returned\":{\"artifacts\":[{\"bytes\":69,\"path\":\"count.py\",\"sha256\":\"8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85\"}],\"by\":\"builder-b\",\"delivery\":\"d-1\",\"evidence\":\"scripted fixture\"},\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"returned\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r5\\store",
+   "--job",
+   "job-1",
+   "--json"
+  ],
+  "exit": 0,
+  "stdout": "{\"checks\":{\"artifacts\":\"ok\",\"completion\":\"ok\",\"events\":\"ok\",\"instructions\":\"not-checked\"},\"claim\":{\"by\":\"builder-b\",\"token\":\"e35309a53753d1e093a7871c7373ba46\"},\"job\":{\"assignee\":\"builder-b\",\"expected_outputs\":[\"count.py\"],\"instructions\":{\"path\":\"task.txt\",\"sha256\":\"8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\"},\"job_id\":\"job-1\",\"release\":\"fixture release\",\"reviewer\":\"codex-prime\",\"routed_by\":\"router-fixture\"},\"job_id\":\"job-1\",\"problems\":[],\"returned\":{\"artifacts\":[{\"bytes\":69,\"path\":\"count.py\",\"sha256\":\"8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85\"}],\"by\":\"builder-b\",\"delivery\":\"d-1\",\"evidence\":\"scripted fixture\"},\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"returned\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r5c\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r5c\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r5c\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=ccaa1df4b111db5351626e837575a45791b03b8e8dcd5bb79683ce70b3002425\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r5c\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r5c\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken c24c61b82d8377f2d1059867cc16b728\nevent 0002.claimed.json sha256=ddfed580b6673d0658613046a07d6c49de5d57e76bbeec56981d57f1c2f65317\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r5c\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "c24c61b82d8377f2d1059867cc16b728",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=921cc6cd716fc1adcacbf2b7435820cc3cd8d16b9c4b453989d6c19fdeff1760\nwitness 0003.witness.json records event sha256=921cc6cd716fc1adcacbf2b7435820cc3cd8d16b9c4b453989d6c19fdeff1760\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r5c\\store",
+   "--job",
+   "job-1",
+   "--json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r5c\\base"
+  ],
+  "exit": 1,
+  "stdout": "{\"checks\":{\"artifacts\":\"changed\",\"completion\":\"ok\",\"events\":\"ok\",\"instructions\":\"usable\"},\"claim\":{\"by\":\"builder-b\",\"token\":\"c24c61b82d8377f2d1059867cc16b728\"},\"job\":{\"assignee\":\"builder-b\",\"expected_outputs\":[\"count.py\"],\"instructions\":{\"path\":\"task.txt\",\"sha256\":\"8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\"},\"job_id\":\"job-1\",\"release\":\"fixture release\",\"reviewer\":\"codex-prime\",\"routed_by\":\"router-fixture\"},\"job_id\":\"job-1\",\"problems\":[{\"detail\":\"artifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 artifact changed\",\"kind\":\"artifact-changed\",\"path\":\"count.py\"}],\"returned\":{\"artifacts\":[{\"bytes\":69,\"path\":\"count.py\",\"sha256\":\"8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85\"}],\"by\":\"builder-b\",\"delivery\":\"d-1\",\"evidence\":\"scripted fixture\"},\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"returned\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r6\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r6\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r6\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=855485be23a98463a446506f7ce9e584ca12edf65ac3aad4a1283780f33eaa11\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r6\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r6\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken 38738df22b8bfda8154fa75161dd7e2b\nevent 0002.claimed.json sha256=7e33cfbc54604096b1f44ae44bf536d2e277cc53d21eeca1380b0c706d9f0c24\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r6\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "38738df22b8bfda8154fa75161dd7e2b",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=27a9c76f80d25b13fa42f228161ecb45990aa7ca62cb8551c3c61479d389df48\nwitness 0003.witness.json records event sha256=27a9c76f80d25b13fa42f228161ecb45990aa7ca62cb8551c3c61479d389df48\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r6\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "38738df22b8bfda8154fa75161dd7e2b",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "already-recorded job-1\ndelivery d-1\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r6\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "38738df22b8bfda8154fa75161dd7e2b",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "other evidence"
+  ],
+  "exit": 2,
+  "stdout": "refused: delivery conflict\nresult refused\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r7\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r7\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r7\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=848f0460232dab46cf6a03b482c50c4685eacd9f6b8eca1baa8cd1786117fe80\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r7\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r7\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken 03d2be5b80105a3a6cc83ad5c5499fe2\nevent 0002.claimed.json sha256=b4794f875e2b93861ee9c3e0c3e35cffee6a808f0b5f342f6565d53a72bd45db\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r7\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "03d2be5b80105a3a6cc83ad5c5499fe2",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=1097b7454a61ac63aed480c09922fd90435afcdbcd4d74fad56d394aac708fe5\nwitness 0003.witness.json records event sha256=1097b7454a61ac63aed480c09922fd90435afcdbcd4d74fad56d394aac708fe5\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r8\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r8\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r8\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=d8b5150486498c77fe1df819dd1f067f66566d4fa1d8be5495e82e1076b547ee\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r8\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r8\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken 38f96df99a703b3e20d83e18ae4d0d3f\nevent 0002.claimed.json sha256=375ee4059060c66547ecbe2e1699e2a63217ee1555478c87da4f2e1beb77988c\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r8\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "38f96df99a703b3e20d83e18ae4d0d3f",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=b950fcffe03e601743cbcc4e9475b497d4341153b88e224633ce458a235ee377\nwitness 0003.witness.json records event sha256=b950fcffe03e601743cbcc4e9475b497d4341153b88e224633ce458a235ee377\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r8\\store",
+   "--job",
+   "job-1",
+   "--json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r8\\base"
+  ],
+  "exit": 2,
+  "stdout": "{\"checks\":{\"artifacts\":\"not-applicable\",\"completion\":\"not-applicable\",\"events\":\"broken\",\"instructions\":\"not-applicable\"},\"claim\":null,\"job\":null,\"job_id\":\"job-1\",\"problems\":[{\"detail\":\"earlier store format clerk-handoff-pass02/1\",\"kind\":\"corrupt\"}],\"returned\":null,\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"corrupt\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r9\\store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r9\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r9\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued job-1\nevent 0001.queued.json sha256=7f5d419f476bb6f8e96a156f0bf17af05abe40d5a67bdf1deedbd2595a3ef19a\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r9\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r9\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed job-1\ntoken 4ce059d440c3cfaf2dc174a0eaa49211\nevent 0002.claimed.json sha256=0732a80ee2d1bf23a2975b973391d02965635106f360dce7c9891837b58a5672\ninstructions-usable sha256=8e4d1754f411204388f05b2401407883f0ee3dd48c7c36d22732bd6fe0dfe000\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r9\\store",
+   "--job",
+   "job-1",
+   "--as",
+   "builder-b",
+   "--claim",
+   "4ce059d440c3cfaf2dc174a0eaa49211",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "scripted fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned job-1\ndelivery d-1\nevent 0003.returned.json sha256=07ddbc4fd0f810a90378c82d4c3b526b5bb17f912a815c88a334e44719f5bf33\nwitness 0003.witness.json records event sha256=07ddbc4fd0f810a90378c82d4c3b526b5bb17f912a815c88a334e44719f5bf33\nartifact count.py sha256=8355d054f6435a495f09657699c5aef6cbba9be413eea54a85d089e7ebc37c85 bytes=69\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r9\\store",
+   "--job",
+   "job-1",
+   "--json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\r9\\base"
+  ],
+  "exit": 2,
+  "stdout": "{\"checks\":{\"artifacts\":\"not-applicable\",\"completion\":\"missing-witness\",\"events\":\"broken\",\"instructions\":\"not-applicable\"},\"claim\":null,\"job\":null,\"job_id\":\"job-1\",\"problems\":[{\"detail\":\"returned event without completion witness\",\"kind\":\"incomplete\"}],\"returned\":null,\"schema\":\"clerk-handoff-inspection/1\",\"state\":\"incomplete\"}\n",
+  "stderr": ""
+ },
+ {
+  "argv": [
+   "show",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-probes-47vcxa5b\\nope",
+   "--json",
+   "--bogus"
+  ],
+  "exit": 2,
+  "stdout": "",
+  "stderr": "usage: clerk.py show [-h] --store STORE --job JOB\n                     [--instructions-base INSTRUCTIONS_BASE] [--json]\nclerk.py show: error: the following arguments are required: --job\n"
+ }
+]

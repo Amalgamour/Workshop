@@ -1,0 +1,281 @@
+[
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "-B",
+      "-c",
+      "import hashlib, json, pathlib, sys\nbase, job_path = sys.argv[1:]\ntext = b'Count lines containing at least one non-whitespace character.\\n'\npath = pathlib.Path(base) / 'task.txt'\npath.parent.mkdir(parents=True)\npath.write_bytes(text)\ndigest = hashlib.sha256(text).hexdigest()\njob = {\n  'assignee': 'builder-b',\n  'expected_outputs': ['count.py'],\n  'instructions': {'path': 'task.txt', 'sha256': digest},\n  'job_id': 'demo-0001',\n  'release': 'fixture release',\n  'reviewer': 'codex-prime',\n  'routed_by': 'router-fixture',\n}\npathlib.Path(job_path).write_text(json.dumps(job), encoding='utf-8')\nprint(digest)\n",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-demo-270acea5fdaf48f3b17ec072593e9339\\base",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-demo-270acea5fdaf48f3b17ec072593e9339\\job.json"
+    ],
+    "returncode": 0,
+    "stdout": "4e323eba376a5d14231c33aa10ea003e1462e1e74aef7daf1797f394f1beb4be\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "-B",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\cr05\\lab\\clerk.py",
+      "queue",
+      "--store",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-demo-270acea5fdaf48f3b17ec072593e9339\\store",
+      "--job",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-demo-270acea5fdaf48f3b17ec072593e9339\\job.json",
+      "--instructions-base",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-demo-270acea5fdaf48f3b17ec072593e9339\\base"
+    ],
+    "returncode": 0,
+    "stdout": "queued demo-0001\nevent 0001.queued.json sha256=b00ea7909b4135986f179a92df3ba82827a519b627dbaa96f9f80f7b0683a3a4\nresult ok\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "-B",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\cr05\\lab\\clerk.py",
+      "inbox",
+      "--store",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-demo-270acea5fdaf48f3b17ec072593e9339\\store",
+      "--as",
+      "builder-b",
+      "--instructions-base",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-demo-270acea5fdaf48f3b17ec072593e9339\\base"
+    ],
+    "returncode": 0,
+    "stdout": "inbox builder-b\nsection queued\ndemo-0001 instructions-usable sha256=4e323eba376a5d14231c33aa10ea003e1462e1e74aef7daf1797f394f1beb4be\nsection claimed\nnone\nsection returned\nnone\nsection incomplete\nnone\nresult ok\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "-B",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\cr05\\lab\\clerk.py",
+      "inbox",
+      "--store",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-demo-270acea5fdaf48f3b17ec072593e9339\\store",
+      "--as",
+      "codex-prime",
+      "--instructions-base",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-demo-270acea5fdaf48f3b17ec072593e9339\\base"
+    ],
+    "returncode": 0,
+    "stdout": "inbox codex-prime\nsection queued\nnone\nsection claimed\nnone\nsection returned\nnone\nsection incomplete\nnone\nresult ok\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "-B",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\cr05\\lab\\clerk.py",
+      "claim",
+      "--store",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-demo-270acea5fdaf48f3b17ec072593e9339\\store",
+      "--job",
+      "demo-0001",
+      "--as",
+      "builder-b",
+      "--instructions-base",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-demo-270acea5fdaf48f3b17ec072593e9339\\base"
+    ],
+    "returncode": 0,
+    "stdout": "claimed demo-0001\ntoken a00b537c8605f93b9218294559369b11\nevent 0002.claimed.json sha256=695a1e704b1d06bcda03710799cb17af037688f129def029332926e7d7eb433d\ninstructions-usable sha256=4e323eba376a5d14231c33aa10ea003e1462e1e74aef7daf1797f394f1beb4be\nresult ok\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "-B",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\cr05\\lab\\clerk.py",
+      "claim",
+      "--store",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-demo-270acea5fdaf48f3b17ec072593e9339\\store",
+      "--job",
+      "demo-0001",
+      "--as",
+      "builder-b",
+      "--instructions-base",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-demo-270acea5fdaf48f3b17ec072593e9339\\base"
+    ],
+    "returncode": 2,
+    "stdout": "refused: already claimed\nresult refused\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "-B",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\cr05\\lab\\clerk.py",
+      "claim",
+      "--store",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-demo-270acea5fdaf48f3b17ec072593e9339\\store",
+      "--job",
+      "demo-0001",
+      "--as",
+      "colab",
+      "--instructions-base",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-demo-270acea5fdaf48f3b17ec072593e9339\\base"
+    ],
+    "returncode": 2,
+    "stdout": "refused: not assignee\nresult refused\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "-B",
+      "-c",
+      "import pathlib, sys\npathlib.Path(sys.argv[1]).write_bytes(b'def count_lines(text):\\n    return sum(1 for line in text.splitlines() if line.strip())\\n')\n",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-demo-270acea5fdaf48f3b17ec072593e9339\\store\\jobs\\demo-0001\\outbox\\count.py"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "-B",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\cr05\\lab\\clerk.py",
+      "return",
+      "--store",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-demo-270acea5fdaf48f3b17ec072593e9339\\store",
+      "--job",
+      "demo-0001",
+      "--as",
+      "builder-b",
+      "--claim",
+      "a00b537c8605f93b9218294559369b11",
+      "--delivery",
+      "d-1",
+      "--evidence",
+      "scripted fixture wrote count.py"
+    ],
+    "returncode": 0,
+    "stdout": "returned demo-0001\ndelivery d-1\nevent 0003.returned.json sha256=178ba5fcd5c785a7519ccede990328349bad9f7044802da2167b380b848e9c87\nwitness 0003.witness.json records event sha256=178ba5fcd5c785a7519ccede990328349bad9f7044802da2167b380b848e9c87\nartifact count.py sha256=a462cd0fc8d967065c00e2f7f162cb480e7d919d299fa5c03af46ba002679133 bytes=87\nresult ok\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "-B",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\cr05\\lab\\clerk.py",
+      "inbox",
+      "--store",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-demo-270acea5fdaf48f3b17ec072593e9339\\store",
+      "--as",
+      "codex-prime",
+      "--instructions-base",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-demo-270acea5fdaf48f3b17ec072593e9339\\base"
+    ],
+    "returncode": 0,
+    "stdout": "inbox codex-prime\nsection queued\nnone\nsection claimed\nnone\nsection returned\ndemo-0001 artifact count.py sha256=a462cd0fc8d967065c00e2f7f162cb480e7d919d299fa5c03af46ba002679133 bytes=87 ok\nsection incomplete\nnone\nresult ok\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "-B",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\cr05\\lab\\clerk.py",
+      "inbox",
+      "--store",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-demo-270acea5fdaf48f3b17ec072593e9339\\store",
+      "--as",
+      "builder-b",
+      "--instructions-base",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-demo-270acea5fdaf48f3b17ec072593e9339\\base"
+    ],
+    "returncode": 0,
+    "stdout": "inbox builder-b\nsection queued\nnone\nsection claimed\nnone\nsection returned\nnone\nsection incomplete\nnone\nresult ok\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "-B",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\cr05\\lab\\clerk.py",
+      "inbox",
+      "--store",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-demo-270acea5fdaf48f3b17ec072593e9339\\store",
+      "--as",
+      "colab",
+      "--instructions-base",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-demo-270acea5fdaf48f3b17ec072593e9339\\base"
+    ],
+    "returncode": 0,
+    "stdout": "inbox colab\nsection queued\nnone\nsection claimed\nnone\nsection returned\nnone\nsection incomplete\nnone\nresult ok\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "-B",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\cr05\\lab\\clerk.py",
+      "verify",
+      "--store",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-demo-270acea5fdaf48f3b17ec072593e9339\\store",
+      "--instructions-base",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-demo-270acea5fdaf48f3b17ec072593e9339\\base"
+    ],
+    "returncode": 0,
+    "stdout": "verify\njob demo-0001\nstate returned\nclaim a00b537c8605f93b9218294559369b11\nstates queued claimed returned\nchain ok\nevent 0001.queued.json sha256=b00ea7909b4135986f179a92df3ba82827a519b627dbaa96f9f80f7b0683a3a4 prev=null\nevent 0002.claimed.json sha256=695a1e704b1d06bcda03710799cb17af037688f129def029332926e7d7eb433d prev=b00ea7909b4135986f179a92df3ba82827a519b627dbaa96f9f80f7b0683a3a4\nevent 0003.returned.json sha256=178ba5fcd5c785a7519ccede990328349bad9f7044802da2167b380b848e9c87 prev=695a1e704b1d06bcda03710799cb17af037688f129def029332926e7d7eb433d\nartifact count.py sha256=a462cd0fc8d967065c00e2f7f162cb480e7d919d299fa5c03af46ba002679133 bytes=87 ok\ninstructions-usable sha256=4e323eba376a5d14231c33aa10ea003e1462e1e74aef7daf1797f394f1beb4be\nresult ok\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "-B",
+      "-c",
+      "import pathlib, sys\npath = pathlib.Path(sys.argv[1])\npath.write_bytes(path.read_bytes() + b'# tampered\\n')\n",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-demo-270acea5fdaf48f3b17ec072593e9339\\store\\jobs\\demo-0001\\outbox\\count.py"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "-B",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\cr05\\lab\\clerk.py",
+      "show",
+      "--store",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-demo-270acea5fdaf48f3b17ec072593e9339\\store",
+      "--job",
+      "demo-0001",
+      "--instructions-base",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-demo-270acea5fdaf48f3b17ec072593e9339\\base"
+    ],
+    "returncode": 1,
+    "stdout": "show demo-0001\nstate returned\nclaim a00b537c8605f93b9218294559369b11\nstates queued claimed returned\nchain ok\nevent 0001.queued.json sha256=b00ea7909b4135986f179a92df3ba82827a519b627dbaa96f9f80f7b0683a3a4 prev=null\nevent 0002.claimed.json sha256=695a1e704b1d06bcda03710799cb17af037688f129def029332926e7d7eb433d prev=b00ea7909b4135986f179a92df3ba82827a519b627dbaa96f9f80f7b0683a3a4\nevent 0003.returned.json sha256=178ba5fcd5c785a7519ccede990328349bad9f7044802da2167b380b848e9c87 prev=695a1e704b1d06bcda03710799cb17af037688f129def029332926e7d7eb433d\nartifact count.py sha256=a462cd0fc8d967065c00e2f7f162cb480e7d919d299fa5c03af46ba002679133 artifact changed\nnot-returned-clean\ninstructions-usable sha256=4e323eba376a5d14231c33aa10ea003e1462e1e74aef7daf1797f394f1beb4be\nresult findings\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "-B",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\cr05\\lab\\clerk.py",
+      "inbox",
+      "--store",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-demo-270acea5fdaf48f3b17ec072593e9339\\store",
+      "--as",
+      "codex-prime"
+    ],
+    "returncode": 1,
+    "stdout": "inbox codex-prime\nsection queued\nnone\nsection claimed\nnone\nsection returned\ndemo-0001 artifact count.py sha256=a462cd0fc8d967065c00e2f7f162cb480e7d919d299fa5c03af46ba002679133 artifact changed\nsection incomplete\nnone\nresult findings\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "-B",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\cr05\\lab\\clerk.py",
+      "verify",
+      "--store",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\cr05-demo-270acea5fdaf48f3b17ec072593e9339\\store"
+    ],
+    "returncode": 1,
+    "stdout": "verify\njob demo-0001\nstate returned\nclaim a00b537c8605f93b9218294559369b11\nstates queued claimed returned\nchain ok\nevent 0001.queued.json sha256=b00ea7909b4135986f179a92df3ba82827a519b627dbaa96f9f80f7b0683a3a4 prev=null\nevent 0002.claimed.json sha256=695a1e704b1d06bcda03710799cb17af037688f129def029332926e7d7eb433d prev=b00ea7909b4135986f179a92df3ba82827a519b627dbaa96f9f80f7b0683a3a4\nevent 0003.returned.json sha256=178ba5fcd5c785a7519ccede990328349bad9f7044802da2167b380b848e9c87 prev=695a1e704b1d06bcda03710799cb17af037688f129def029332926e7d7eb433d\nartifact count.py sha256=a462cd0fc8d967065c00e2f7f162cb480e7d919d299fa5c03af46ba002679133 artifact changed\nnot-returned-clean\ninstructions-not-checked\nresult findings\n",
+    "stderr": ""
+  }
+]
