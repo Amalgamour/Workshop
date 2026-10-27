@@ -22,7 +22,7 @@
 |---|---|---|
 | desk `00` (owner address `00.00.00.kernel`) | `00.kernel/` | desk files `00.md`, `00.start.md`, `00.readme.md`, the derived `00.live.md` |
 | `00.00.00` syntax | `00.kernel/00.00.00.syntax/` | orientation candidate `00.001.md`; imported reference faces (`01.md`), not locally approved |
-| `00.00.01` law | `00.kernel/00.00.01.law/` | orientation candidate `00.001.md`; imported reference faces; new drafts `0041`, `0062`–`0065`; amendment drafts for `0018`, `0050`, `0057`; runtime band `0300` with inactive candidates |
+| `00.00.01` law | `00.kernel/00.00.01.law/` | orientation candidate `00.001.md`; imported reference faces; new drafts `0041`, `0062`â€“`0065`; amendment drafts for `0018`, `0050`, `0057`; runtime band `0300` with inactive candidates |
 | `00.00.10` work | `00.kernel/00.00.10.work/` | designs, assignments, decisions, imports, packs, returns, findings |
 
 Beside the desk:
@@ -51,13 +51,21 @@ Old boot files (`00.start.md`, `00.readme.md`, `AGENTS.md` and others under `imp
 
 `.gitattributes` keeps `/imports`, `/labs`, `/notes`, `/packs`, `/returns` and `/00.kernel` byte-exact (`-text`). New app and control text is LF. `.gitignore` excludes only generated scratch repositories. See `0410.imports`, and addendum 001 #B-A03, for how every Git boundary was checked.
 
-## Development status — 2026-10-27
+## Development status â€” 2026-10-27
 The development entry can hash-check `0302.run/02.run.003.py` and run one fixture inventory. It can also submit one fixture job to the accepted local process adapter, print a verified artifact and a durable receipt, read that receipt from a fresh process, and replay the same job without a second launch. The worker kind is `protocol test worker`. Collection is not approval. No model connection is active. The lab at `labs/worker-bridge-pass01` is unchanged. `run` refuses. AR-01's pre-existing output name is still refused before an inventory payload runs. The advisory book checker is accepted on 0502/05.03. The Observer's first manual review and Prime responses are 0502/06.02. No continuous Observer process exists. Nothing is seated or activated.
 
-## Latest review disposition — app 05.05 / Clerk 05.01
+## Latest review disposition â€” app 05.05 / Clerk 05.01
 The app now implements a fixture-only worker exchange, but acceptance is blocked
 by stored-receipt correlation BRI-01 (0504/05.06). AR-01/AR-02 were repaired and
 accepted on 0504/05.04. The separate file-backed Clerk loop works in its demo but
 needs the reviewed corrections on 0506/05.02. No model connection is active.
 The Observer independently publishes periodic advisory notes on observer/reviews;
 Prime intake is manual during work sessions, not an automatic dispatcher.
+
+## Latest corrected-component checkpoint — app 05.06 / Clerk 05.02
+BRI-01's persisted-receipt mutation is now refused; the fixture-only correction
+passed independent app and entry suites. Clerk schema 2 passes the relocated
+suite and isolated-loss probes, with independent lead review still due before
+integrated acceptance. The completed seam design needs read-only show --json
+(0506/05.04) before implementation; it is not a deployed connection. Active
+Prime-support work is separate and is not included by this checkpoint.

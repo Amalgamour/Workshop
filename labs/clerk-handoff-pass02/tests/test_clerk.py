@@ -195,6 +195,11 @@ class ClerkTests(unittest.TestCase):
         self.assertEqual(json.loads(second)["prev"], sha256(first))
         self.assertEqual(json.loads(third)["prev"], sha256(second))
         self.assertIsNone(json.loads(first)["prev"])
+        witness = json.loads(self.event_bytes("0003.witness.json"))
+        self.assertEqual(witness["sha256"], sha256(third))
+        self.assertEqual(witness["schema"], "clerk-handoff-pass02/2")
+        self.assertEqual(witness["event"], "0003.returned.json")
+        self.assertEqual(witness["job_id"], "demo-0001")
         self.assert_files_unchanged(before, "store")
 
     def test_unknown_and_missing_keys_write_nothing(self):
@@ -425,11 +430,13 @@ class ClerkTests(unittest.TestCase):
         first = self.ret(token)
         self.assert_code(first, 0)
         recorded = self.event_bytes("0003.returned.json")
+        witness = self.event_bytes("0003.witness.json")
         stamp = json.loads(recorded)["at"]
         again = self.ret(token)
         self.assert_code(again, 0)
         self.assertIn("already-recorded demo-0001", again.stdout)
         self.assertEqual(self.event_bytes("0003.returned.json"), recorded)
+        self.assertEqual(self.event_bytes("0003.witness.json"), witness)
         self.assertEqual(json.loads(recorded)["at"], stamp)
         changed = self.ret(token, evidence="different evidence")
         self.assert_code(changed, 2)
@@ -586,9 +593,12 @@ class ClerkTests(unittest.TestCase):
         )
         self.assertEqual(stopped.code, 2)
         partial = self.event_bytes("0003.returned.json")
+        witness = self.event_bytes("0003.witness.json")
+        self.assertIn(b"clerk-handoff-pass02/2", witness)
         retry = self.ret(token)
         self.assert_code(retry, 2)
         self.assertEqual(self.event_bytes("0003.returned.json"), partial)
+        self.assertEqual(self.event_bytes("0003.witness.json"), witness)
         reviewer = self.cli(["inbox", "--store", str(self.store), "--as", "codex-prime"])
         self.assertEqual(sections(reviewer.stdout)["returned"], [])
         self.assertIn("bad state: incomplete:", reviewer.stdout)
@@ -611,16 +621,21 @@ class ClerkTests(unittest.TestCase):
         self.assert_code(proc, 2)
         self.assertIn("Git working tree", proc.stdout)
         self.assertFalse(store.exists())
-        inside = LAB / "_not_created_store"
-        self.assertFalse(inside.exists())
-        try:
-            proc = self.queue(store=inside)
-            self.assert_code(proc, 2)
-            self.assertIn("Git working tree", proc.stdout)
-            self.assertFalse(inside.exists())
-        finally:
-            if inside.exists():
-                shutil.rmtree(inside, ignore_errors=True)
+        repo = self.root / "git-repo"
+        init = subprocess.run(
+            ["git", "init", "--quiet", str(repo)],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(init.returncode, 0, init.stderr)
+        store = repo / "nested" / "store"
+        self.assertEqual(store.relative_to(self.root).parts[0], "git-repo")
+        proc = self.queue(store=store)
+        self.assert_code(proc, 2)
+        self.assertIn("Git working tree", proc.stdout)
+        self.assertFalse(store.exists())
+        self.assertTrue((repo / ".git").is_dir())
         proc = self.cli([
             "queue",
             "--store", str(self.store),
@@ -671,6 +686,176 @@ class ClerkTests(unittest.TestCase):
         source = CLERK.read_text(encoding="utf-8")
         for banned in ("os.remove", "os.unlink", "rmtree", "shutil", "sqlite3", "subprocess", "allow-repo-store"):
             self.assertNotIn(banned, source)
+
+    def test_lost_returned_event_stays_visible_and_blocks_rereeturn(self):
+        self.assert_code(self.queue(), 0)
+        token = self.token_of(self.claim().stdout)
+        self.write_output()
+        self.assert_code(self.ret(token), 0)
+        witness = self.event_bytes("0003.witness.json")
+        outbox = (self.store / "jobs" / "demo-0001" / "outbox" / "count.py").read_bytes()
+        (self.store / "jobs" / "demo-0001" / "0003.returned.json").unlink()
+        checked = self.cli(["verify", "--store", str(self.store)])
+        self.assert_code(checked, 2)
+        self.assertIn("completion witness without returned event", checked.stdout)
+        self.assertNotIn("chain ok", checked.stdout)
+        self.assertNotIn("result ok", checked.stdout)
+        reviewer = self.cli(["inbox", "--store", str(self.store), "--as", "codex-prime"])
+        self.assert_code(reviewer, 2)
+        self.assertIn("demo-0001", reviewer.stdout)
+        self.assertIn("completion witness without returned event", reviewer.stdout)
+        self.assertEqual(sections(reviewer.stdout)["returned"], [])
+        self.assertNotIn("result ok", reviewer.stdout)
+        self.write_output(COUNT + b"# other\n")
+        again = self.ret(token, delivery="d-2", evidence="different fixture")
+        self.assert_code(again, 2)
+        self.assertIn("completion witness without returned event", again.stdout)
+        self.assertFalse((self.store / "jobs" / "demo-0001" / "0003.returned.json").exists())
+        self.assertEqual(self.event_bytes("0003.witness.json"), witness)
+        same = self.ret(token)
+        self.assert_code(same, 2)
+        self.assertFalse((self.store / "jobs" / "demo-0001" / "0003.returned.json").exists())
+        self.assertEqual(self.event_bytes("0003.witness.json"), witness)
+        (self.store / "jobs" / "demo-0001" / "outbox" / "count.py").write_bytes(outbox)
+
+    def test_missing_witness_and_planted_completion_are_corrupt(self):
+        self.assert_code(self.queue(), 0)
+        token = self.token_of(self.claim().stdout)
+        self.write_output()
+        self.assert_code(self.ret(token), 0)
+        returned = self.event_bytes("0003.returned.json")
+        (self.store / "jobs" / "demo-0001" / "0003.witness.json").unlink()
+        checked = self.cli(["verify", "--store", str(self.store)])
+        self.assert_code(checked, 2)
+        self.assertIn("returned event without completion witness", checked.stdout)
+        self.assertNotIn("chain ok", checked.stdout)
+        refused = self.ret(token, delivery="d-2", evidence="different fixture")
+        self.assert_code(refused, 2)
+        self.assertEqual(self.event_bytes("0003.returned.json"), returned)
+        self.assertFalse((self.store / "jobs" / "demo-0001" / "0003.witness.json").exists())
+        planted = self.store / "jobs" / "demo-0001" / "0004.completion.json"
+        planted.write_bytes(b"{}\n")
+        shown = self.cli(["show", "--store", str(self.store), "--job", "demo-0001"])
+        self.assert_code(shown, 2)
+        self.assertIn("planted completion metadata 0004.completion.json", shown.stdout)
+        self.assertEqual(self.event_bytes("0003.returned.json"), returned)
+
+    def test_witness_mismatch_and_partial_witness_stay_incomplete(self):
+        self.assert_code(self.queue(), 0)
+        token = self.token_of(self.claim().stdout)
+        self.write_output()
+        stopped = clerk.return_job(
+            str(self.store), "demo-0001", "builder-b", token, "d-1", "scripted fixture",
+            interrupt="witness",
+        )
+        self.assertEqual(stopped.code, 2)
+        self.assertIn("completion witness publication interrupted", stopped.text)
+        self.assertFalse((self.store / "jobs" / "demo-0001" / "0003.returned.json").exists())
+        partial = self.event_bytes("0003.witness.json")
+        self.assertLess(len(partial), 20)
+        checked = self.cli(["verify", "--store", str(self.store)])
+        self.assert_code(checked, 2)
+        self.assertIn("partial completion witness", checked.stdout)
+        retry = self.ret(token)
+        self.assert_code(retry, 2)
+        self.assertEqual(self.event_bytes("0003.witness.json"), partial)
+        self.assertFalse((self.store / "jobs" / "demo-0001" / "0003.returned.json").exists())
+        shutil.rmtree(self.store)
+        self.assert_code(self.queue(), 0)
+        token = self.token_of(self.claim().stdout)
+        self.write_output()
+        self.assert_code(self.ret(token), 0)
+        witness_path = self.store / "jobs" / "demo-0001" / "0003.witness.json"
+        event_path = self.store / "jobs" / "demo-0001" / "0003.returned.json"
+        witness = json.loads(witness_path.read_text(encoding="utf-8"))
+        witness["sha256"] = "0" * 64
+        witness_path.write_text(json.dumps(witness) + "\n", encoding="utf-8")
+        frozen = event_path.read_bytes()
+        checked = self.cli(["verify", "--store", str(self.store)])
+        self.assert_code(checked, 2)
+        self.assertIn("completion witness mismatch", checked.stdout)
+        self.assertNotIn("chain ok", checked.stdout)
+        refused = self.ret(token, delivery="d-2")
+        self.assert_code(refused, 2)
+        self.assertEqual(event_path.read_bytes(), frozen)
+
+    def test_outbox_oserror_reports_the_existing_claim_and_writes_no_new_token(self):
+        self.assert_code(self.queue(), 0)
+        real_mkdir = os.mkdir
+
+        def racing(path, mode=0o777, *, dir_fd=None):
+            if Path(path).name == "outbox":
+                real_mkdir(path, mode)
+                raise FileExistsError(
+                    17, "Cannot create a file when that file already exists", str(path)
+                )
+            return real_mkdir(path, mode, dir_fd=dir_fd)
+
+        os.mkdir = racing
+        try:
+            result = clerk.claim(str(self.store), "demo-0001", "builder-b", str(self.base))
+        finally:
+            os.mkdir = real_mkdir
+        self.assertEqual(result.code, 2)
+        self.assertIn("incomplete: filesystem error: FileExistsError:", result.text)
+        self.assertIn("claim event exists", result.text)
+        self.assertIn("no new token", result.text)
+        self.assertIn("result refused", result.text)
+        self.assertNotIn("result findings", result.text)
+        self.assertNotIn("Traceback", result.text)
+        claimed = self.event_bytes("0002.claimed.json")
+        token = json.loads(claimed)["claim"]
+        self.assertIn("existing token " + token, result.text)
+        self.assertTrue((self.store / "jobs" / "demo-0001" / "outbox").is_dir())
+        again = clerk.claim(str(self.store), "demo-0001", "builder-b", str(self.base))
+        self.assertEqual(again.code, 2)
+        self.assertIn("already claimed", again.text)
+        self.assertEqual(self.event_bytes("0002.claimed.json"), claimed)
+        names = sorted(os.listdir(self.store / "jobs" / "demo-0001"))
+        self.assertEqual(names.count("0002.claimed.json"), 1)
+
+    def test_blank_evidence_and_empty_outputs_write_nothing(self):
+        self.assert_code(self.queue(), 0)
+        token = self.token_of(self.claim().stdout)
+        self.write_output()
+        before = self.event_bytes("0002.claimed.json")
+        for evidence in ("", "   "):
+            refused = self.ret(token, evidence=evidence)
+            self.assert_code(refused, 2)
+            self.assertIn("evidence is blank", refused.stdout)
+            self.assertFalse((self.store / "jobs" / "demo-0001" / "0003.returned.json").exists())
+            self.assertFalse((self.store / "jobs" / "demo-0001" / "0003.witness.json").exists())
+            self.assertEqual(self.event_bytes("0002.claimed.json"), before)
+        empty = self.queue(self.job(name="empty.json", expected_outputs=[], job_id="demo-0002"))
+        self.assert_code(empty, 2)
+        self.assertIn("expected_outputs must be a non-empty list", empty.stdout)
+        self.assertFalse((self.store / "jobs" / "demo-0002").exists())
+
+    def test_earlier_store_format_is_refused_and_not_migrated(self):
+        job = self._body()
+        event = {
+            "at": "2026-10-27T00:00:00.000000Z",
+            "job": job,
+            "kind": "queued",
+            "prev": None,
+            "schema": "clerk-handoff-pass02/1",
+        }
+        text = json.dumps(event, sort_keys=True, separators=(",", ":")) + "\n"
+        job_dir = self.store / "jobs" / "demo-0001"
+        job_dir.mkdir(parents=True)
+        (job_dir / "0001.queued.json").write_bytes(text.encode("utf-8"))
+        shown = self.cli(["show", "--store", str(self.store), "--job", "demo-0001"])
+        self.assert_code(shown, 2)
+        self.assertIn("earlier store format clerk-handoff-pass02/1", shown.stdout)
+        self.assertNotIn("chain ok", shown.stdout)
+        self.assertNotIn("state queued", shown.stdout)
+        claim = self.claim()
+        self.assert_code(claim, 2)
+        self.assertIn("earlier store format clerk-handoff-pass02/1", claim.stdout)
+        self.assertFalse((job_dir / "0002.claimed.json").exists())
+        self.assertFalse((job_dir / "0003.witness.json").exists())
+        self.assertFalse((job_dir / "0003.returned.json").exists())
+        self.assertEqual((job_dir / "0001.queued.json").read_bytes(), text.encode("utf-8"))
 
     def _body(self):
         return {

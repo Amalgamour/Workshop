@@ -17,8 +17,11 @@ Not carried forward: hard-coded recipients, closure on an accepted review,
 role-selected next(), and SQLite. This module does not import pass01, app/,
 the worker bridge, or the kernel.
 
-Schema clerk-handoff-pass02/1. Every mutation is an exclusive create.
-An interrupted write is left in place and is not a successful state.
+Schema clerk-handoff-pass02/2. A returned job also has one exclusive-create
+completion witness, written before the returned event, recording that event
+file's digest. Schema clerk-handoff-pass02/1 is recognized and refused,
+not migrated. Every mutation is an exclusive create. An interrupted write
+is left in place and is not a successful state.
 """
 
 from __future__ import annotations
@@ -36,11 +39,13 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 
-SCHEMA = "clerk-handoff-pass02/1"
+SCHEMA = "clerk-handoff-pass02/2"
+EARLIER_SCHEMA = "clerk-handoff-pass02/1"
 QUEUED_NAME = "0001.queued.json"
 CLAIMED_NAME = "0002.claimed.json"
 RETURNED_NAME = "0003.returned.json"
-KNOWN_NAMES = {QUEUED_NAME, CLAIMED_NAME, RETURNED_NAME, "outbox"}
+WITNESS_NAME = "0003.witness.json"
+KNOWN_NAMES = {QUEUED_NAME, CLAIMED_NAME, RETURNED_NAME, WITNESS_NAME, "outbox"}
 JOB_KEYS = {
     "assignee",
     "expected_outputs",
@@ -65,6 +70,7 @@ RETURNED_KEYS = {
     "schema",
 }
 ARTIFACT_KEYS = {"bytes", "path", "sha256"}
+WITNESS_KEYS = {"event", "job_id", "kind", "schema", "sha256"}
 FILE_ATTRIBUTE_REPARSE_POINT = 0x400
 _ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$")
 _HEX64 = re.compile(r"^[0-9a-f]{64}$")
@@ -244,7 +250,12 @@ def assert_outside_git(path: Path) -> None:
             refuse("store resolves inside a Git working tree")
 
 
-def exclusive_write(path: Path, data: bytes, interrupt: bool) -> None:
+def exclusive_write(
+    path: Path,
+    data: bytes,
+    interrupt: bool,
+    interrupt_message: str = "event publication interrupted",
+) -> None:
     try:
         handle = open(path, "xb")
     except FileExistsError:
@@ -254,7 +265,7 @@ def exclusive_write(path: Path, data: bytes, interrupt: bool) -> None:
             handle.write(data[:1] if data else b"{")
             handle.flush()
             os.fsync(handle.fileno())
-            incomplete("event publication interrupted")
+            incomplete(interrupt_message)
         handle.write(data)
         handle.flush()
         os.fsync(handle.fileno())
@@ -305,6 +316,8 @@ def validate_job(job) -> None:
     outputs = job["expected_outputs"]
     if not isinstance(outputs, list):
         refuse("expected_outputs must be a list")
+    if not outputs:
+        refuse("expected_outputs must be a non-empty list")
     seen = set()
     for name in outputs:
         if not isinstance(name, str) or "/" in name or "\\" in name or name in (".", ".."):
@@ -426,13 +439,164 @@ def _parse_event(path: Path):
 
 
 def _require_stamp(event: dict, keys: set[str], kind: str) -> str | None:
-    if not isinstance(event, dict) or set(event) != keys:
+    if not isinstance(event, dict):
         return "event schema mismatch"
-    if event.get("schema") != SCHEMA or event.get("kind") != kind:
+    schema = event.get("schema")
+    if schema == EARLIER_SCHEMA:
+        return "earlier store format " + EARLIER_SCHEMA
+    if set(event) != keys:
+        return "event schema mismatch"
+    if schema != SCHEMA or event.get("kind") != kind:
         return "event schema mismatch"
     if not isinstance(event.get("at"), str) or event["at"] == "":
         return "event schema mismatch"
     return None
+
+
+def _read_witness(path: Path, job_id: str):
+    try:
+        text = path.read_bytes().decode("utf-8")
+    except (OSError, UnicodeDecodeError):
+        return None, "partial completion witness"
+    try:
+        event = loads_strict(text)
+    except Refusal:
+        return None, "partial completion witness"
+    if not isinstance(event, dict) or event.get("schema") == EARLIER_SCHEMA:
+        if isinstance(event, dict) and event.get("schema") == EARLIER_SCHEMA:
+            return None, "earlier store format " + EARLIER_SCHEMA
+        return None, "invalid completion witness"
+    if (
+        set(event) != WITNESS_KEYS
+        or event.get("schema") != SCHEMA
+        or event.get("kind") != "completion"
+        or event.get("job_id") != job_id
+        or event.get("event") != RETURNED_NAME
+    ):
+        return None, "invalid completion witness"
+    digest = event.get("sha256")
+    if not isinstance(digest, str) or not _HEX64.fullmatch(digest):
+        return None, "invalid completion witness"
+    return event, None
+
+
+def _os_lines(exc: OSError, store: Path | None, job_id: str | None) -> list[str]:
+    detail = exc.strerror or str(exc)
+    lines = [f"incomplete: filesystem error: {type(exc).__name__}: {detail}"]
+    if store is None or not job_id:
+        lines.append("claim event was not checked")
+        return lines
+    claimed = store / "jobs" / job_id / CLAIMED_NAME
+    try:
+        exists = os.path.lexists(claimed)
+    except OSError:
+        lines.append("claim event was not checked")
+        return lines
+    if not exists:
+        lines.append("claim event does not exist")
+        return lines
+    lines.append("claim event exists")
+    event, error = _parse_event(claimed)
+    token = event.get("claim") if isinstance(event, dict) else None
+    if error is None and isinstance(token, str) and _TOKEN.fullmatch(token):
+        lines.append("existing token " + token)
+    lines.append("no new token")
+    lines.append("record left in place")
+    return lines
+
+
+def _apply_completion(job_dir: Path, view: View) -> None:
+    witness_path = job_dir / WITNESS_NAME
+    returned_path = job_dir / RETURNED_NAME
+    has_witness = os.path.lexists(witness_path)
+    has_return = os.path.lexists(returned_path)
+    if not has_witness and not has_return:
+        view.status = "claimed"
+        view.structural = False
+        view.diagnosis = ""
+        view.chain_ok = True
+        return
+    if has_witness and not has_return:
+        _parsed, error = _read_witness(witness_path, view.name)
+        view.status = "incomplete"
+        view.diagnosis = (
+            "partial completion witness"
+            if error == "partial completion witness"
+            else "completion witness without returned event"
+        )
+        return
+    if has_return and not has_witness:
+        parsed, _error = _parse_event(returned_path)
+        schema = parsed.get("schema") if isinstance(parsed, dict) else None
+        if schema == EARLIER_SCHEMA:
+            view.diagnosis = "earlier store format " + EARLIER_SCHEMA
+            return
+        view.status = "incomplete"
+        view.diagnosis = "returned event without completion witness"
+        return
+    witness, error = _read_witness(witness_path, view.name)
+    if error:
+        if error.startswith("earlier store format"):
+            view.diagnosis = error
+            return
+        view.status = "incomplete"
+        view.diagnosis = error
+        return
+    try:
+        returned_bytes = returned_path.read_bytes()
+    except OSError:
+        view.status = "incomplete"
+        view.diagnosis = "returned event is unreadable"
+        return
+    if sha256_bytes(returned_bytes) != witness["sha256"]:
+        view.status = "incomplete"
+        view.diagnosis = "completion witness mismatch"
+        return
+    returned, error = _parse_event(returned_path)
+    if error or not isinstance(returned, dict):
+        view.status = "incomplete"
+        view.diagnosis = "invalid event 0003.returned.json"
+        return
+    schema_error = _require_stamp(returned, RETURNED_KEYS, "returned")
+    if schema_error:
+        view.diagnosis = schema_error
+        return
+    claimed_sha = view.events[-1][1]
+    if returned.get("prev") != claimed_sha:
+        view.diagnosis = "hash chain mismatch"
+        return
+    if returned.get("claim") != view.token or returned.get("by") != view.assignee:
+        view.diagnosis = "return does not match claim"
+        return
+    problem = id_problem(returned.get("delivery"), "delivery")
+    if problem or not isinstance(returned.get("evidence"), str) or returned["evidence"].strip() == "":
+        view.diagnosis = "event schema mismatch"
+        return
+    artifacts = returned.get("artifacts")
+    expected = view.job["expected_outputs"]
+    if not isinstance(artifacts, list) or len(artifacts) != len(expected) or not expected:
+        view.diagnosis = "artifact list does not match expected outputs"
+        return
+    for item, name in zip(artifacts, expected):
+        if not isinstance(item, dict) or set(item) != ARTIFACT_KEYS:
+            view.diagnosis = "event schema mismatch"
+            return
+        if item["path"] != name or not isinstance(item["sha256"], str):
+            view.diagnosis = "artifact list does not match expected outputs"
+            return
+        if not _HEX64.fullmatch(item["sha256"]) or type(item["bytes"]) is not int:
+            view.diagnosis = "event schema mismatch"
+            return
+        if item["bytes"] < 0:
+            view.diagnosis = "event schema mismatch"
+            return
+    view.artifacts = artifacts
+    view.events.append((RETURNED_NAME, sha256_bytes(returned_bytes), claimed_sha))
+    view.states.append("returned")
+    view.status = "returned"
+    view.structural = False
+    view.diagnosis = ""
+    view.chain_ok = True
 
 
 def classify(job_dir: Path) -> View:
@@ -447,6 +611,13 @@ def classify(job_dir: Path) -> View:
         view.diagnosis = "job directory is unreadable"
         return view
     unknown = sorted(set(names) - KNOWN_NAMES)
+    planted = [
+        name for name in unknown
+        if "witness" in name.casefold() or "completion" in name.casefold()
+    ]
+    if planted:
+        view.diagnosis = "planted completion metadata " + planted[0]
+        return view
     if unknown:
         view.diagnosis = "extra file " + unknown[0]
         return view
@@ -486,6 +657,7 @@ def classify(job_dir: Path) -> View:
     has_claim = os.path.lexists(claimed_path)
     has_return = os.path.lexists(returned_path)
     has_outbox = os.path.lexists(outbox)
+    has_witness = os.path.lexists(job_dir / WITNESS_NAME)
     if has_return and not has_claim:
         view.diagnosis = "planted return before claim"
         return view
@@ -493,6 +665,9 @@ def classify(job_dir: Path) -> View:
         view.diagnosis = "outbox exists without a claim"
         return view
     if not has_claim:
+        if has_witness:
+            view.diagnosis = "planted completion metadata " + WITNESS_NAME
+            return view
         view.status = "queued"
         view.structural = False
         view.diagnosis = ""
@@ -526,57 +701,7 @@ def classify(job_dir: Path) -> View:
     if plain_dir_problem(outbox):
         view.diagnosis = "outbox is not a plain directory"
         return view
-    if not has_return:
-        view.status = "claimed"
-        view.structural = False
-        view.diagnosis = ""
-        view.chain_ok = True
-        return view
-    returned, error = _parse_event(returned_path)
-    if error or not isinstance(returned, dict):
-        view.status = "incomplete"
-        view.diagnosis = "invalid event 0003.returned.json"
-        return view
-    schema_error = _require_stamp(returned, RETURNED_KEYS, "returned")
-    if schema_error:
-        view.diagnosis = schema_error
-        return view
-    claimed_sha = view.events[-1][1]
-    if returned.get("prev") != claimed_sha:
-        view.diagnosis = "hash chain mismatch"
-        return view
-    if returned.get("claim") != view.token or returned.get("by") != view.assignee:
-        view.diagnosis = "return does not match claim"
-        return view
-    problem = id_problem(returned.get("delivery"), "delivery")
-    if problem or not isinstance(returned.get("evidence"), str):
-        view.diagnosis = "event schema mismatch"
-        return view
-    artifacts = returned.get("artifacts")
-    expected = view.job["expected_outputs"]
-    if not isinstance(artifacts, list) or len(artifacts) != len(expected):
-        view.diagnosis = "artifact list does not match expected outputs"
-        return view
-    for item, name in zip(artifacts, expected):
-        if not isinstance(item, dict) or set(item) != ARTIFACT_KEYS:
-            view.diagnosis = "event schema mismatch"
-            return view
-        if item["path"] != name or not isinstance(item["sha256"], str):
-            view.diagnosis = "artifact list does not match expected outputs"
-            return view
-        if not _HEX64.fullmatch(item["sha256"]) or type(item["bytes"]) is not int:
-            view.diagnosis = "event schema mismatch"
-            return view
-        if item["bytes"] < 0:
-            view.diagnosis = "event schema mismatch"
-            return view
-    view.artifacts = artifacts
-    view.events.append((RETURNED_NAME, _event_sha(returned_path), claimed_sha))
-    view.states.append("returned")
-    view.status = "returned"
-    view.structural = False
-    view.diagnosis = ""
-    view.chain_ok = True
+    _apply_completion(job_dir, view)
     return view
 
 
@@ -716,10 +841,13 @@ def _find_view(store: Path, job_id: str) -> View | None:
 
 
 def queue(store_text: str, job_text: str, base_text: str, *, interrupt=None) -> Result:
+    store = None
+    job_id = None
     try:
         if interrupt not in (None, "publish"):
             refuse("unknown interrupt seam")
         job = read_job_file(job_text)
+        job_id = job["job_id"]
         resolve_instructions(base_text, job["instructions"])
         store = guard_store(store_text)
         jobs = _ensure_store_dirs(store)
@@ -745,9 +873,12 @@ def queue(store_text: str, job_text: str, base_text: str, *, interrupt=None) -> 
         return finish(2, [str(exc)])
     except Refusal as exc:
         return finish(2, [str(exc)])
+    except OSError as exc:
+        return finish(2, _os_lines(exc, store, job_id))
 
 
 def claim(store_text: str, job_id: str, actor: str, base_text: str, resume: bool = False, *, interrupt=None) -> Result:
+    store = None
     try:
         if interrupt not in (None, "publish", "outbox"):
             refuse("unknown interrupt seam")
@@ -810,6 +941,8 @@ def claim(store_text: str, job_id: str, actor: str, base_text: str, resume: bool
         return finish(2, [str(exc)])
     except Refusal as exc:
         return finish(2, [str(exc)])
+    except OSError as exc:
+        return finish(2, _os_lines(exc, store, job_id))
 
 
 def _current_artifacts(store: Path, view: View):
@@ -859,8 +992,9 @@ def _recorded_return(store: Path, view: View) -> dict:
 
 
 def return_job(store_text: str, job_id: str, actor: str, token: str, delivery: str, evidence: str, *, interrupt=None) -> Result:
+    store = None
     try:
-        if interrupt not in (None, "publish"):
+        if interrupt not in (None, "publish", "witness"):
             refuse("unknown interrupt seam")
         _require_actor(actor)
         problem = id_problem(delivery, "delivery")
@@ -870,6 +1004,8 @@ def return_job(store_text: str, job_id: str, actor: str, token: str, delivery: s
             refuse("wrong token")
         if not isinstance(evidence, str):
             refuse("evidence is not a string")
+        if evidence.strip() == "" or any(ord(ch) < 32 for ch in evidence):
+            refuse("evidence is blank")
         store = existing_store(store_text)
         view = _find_view(store, job_id)
         if view is None:
@@ -919,13 +1055,31 @@ def return_job(store_text: str, job_id: str, actor: str, token: str, delivery: s
             "prev": prev,
         }
         data = canonical(event)
-        path = store / "jobs" / job_id / RETURNED_NAME
+        digest = sha256_bytes(data)
+        job_dir = store / "jobs" / job_id
+        witness = {
+            "schema": SCHEMA,
+            "kind": "completion",
+            "job_id": job_id,
+            "event": RETURNED_NAME,
+            "sha256": digest,
+        }
+        exclusive_write(
+            job_dir / WITNESS_NAME,
+            canonical(witness),
+            interrupt == "witness",
+            "completion witness publication interrupted",
+        )
+        path = job_dir / RETURNED_NAME
         exclusive_write(path, data, interrupt == "publish")
-        digest = sha256_bytes(path.read_bytes())
+        landed = sha256_bytes(path.read_bytes())
+        if landed != digest:
+            incomplete("returned event does not match completion witness")
         lines = [
             "returned " + job_id,
             "delivery " + delivery,
             f"event {RETURNED_NAME} sha256={digest}",
+            f"witness {WITNESS_NAME} records event sha256={digest}",
         ]
         for item in artifacts:
             lines.append(
@@ -936,6 +1090,8 @@ def return_job(store_text: str, job_id: str, actor: str, token: str, delivery: s
         return finish(2, [str(exc)])
     except Refusal as exc:
         return finish(2, [str(exc)])
+    except OSError as exc:
+        return finish(2, _os_lines(exc, store, job_id))
 
 
 def _present_job(store: Path, view: View, base_text: str | None) -> tuple[list[str], int]:
@@ -962,6 +1118,7 @@ def _present_job(store: Path, view: View, base_text: str | None) -> tuple[list[s
 
 
 def show(store_text: str, job_id: str, base_text: str | None = None) -> Result:
+    store = None
     try:
         store = existing_store(store_text)
         view = _find_view(store, job_id)
@@ -971,9 +1128,12 @@ def show(store_text: str, job_id: str, base_text: str | None = None) -> Result:
         return finish(code, ["show " + job_id, *lines])
     except Refusal as exc:
         return finish(2, [str(exc)])
+    except OSError as exc:
+        return finish(2, _os_lines(exc, store, job_id))
 
 
 def verify(store_text: str, base_text: str | None = None) -> Result:
+    store = None
     try:
         store = existing_store(store_text)
         problems, views = store_entries(store)
@@ -990,9 +1150,12 @@ def verify(store_text: str, base_text: str | None = None) -> Result:
         return finish(worst, lines)
     except Refusal as exc:
         return finish(2, [str(exc)])
+    except OSError as exc:
+        return finish(2, _os_lines(exc, store, None))
 
 
 def inbox(store_text: str, actor: str, base_text: str | None = None) -> Result:
+    store = None
     try:
         _require_actor(actor)
         store = existing_store(store_text)
@@ -1033,6 +1196,8 @@ def inbox(store_text: str, actor: str, base_text: str | None = None) -> Result:
         return finish(worst, lines)
     except Refusal as exc:
         return finish(2, [str(exc)])
+    except OSError as exc:
+        return finish(2, _os_lines(exc, store, None))
 
 
 def build_parser() -> argparse.ArgumentParser:

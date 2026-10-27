@@ -1,0 +1,15 @@
+{
+  "missing_terminal_verify": {
+    "exit": 2,
+    "stdout": "verify\njob demo-0001\nbad state: incomplete: completion witness without returned event\nresult refused\n"
+  },
+  "missing_terminal_inbox": {
+    "exit": 2,
+    "stdout": "inbox codex-prime\nsection queued\nnone\nsection claimed\nnone\nsection returned\nnone\nsection incomplete\ndemo-0001 bad state: incomplete: completion witness without returned event\nresult refused\n"
+  },
+  "different_rereturn_exit": 2,
+  "witness_unchanged": true,
+  "blank_evidence_exit": 2,
+  "os_error_code": 2,
+  "os_error_text": "incomplete: filesystem error: FileExistsError: controlled competing outbox creation\nclaim event exists\nexisting token 58f218ac5917ad2db50387baf742142d\nno new token\nrecord left in place\nresult refused\n"
+}

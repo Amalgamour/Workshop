@@ -1,7 +1,7 @@
 # Clerk handoff lab — pass 02
 
 Lab ID: `clerk-handoff-pass02`  
-Schema: `clerk-handoff-pass02/1`  
+Schema: `clerk-handoff-pass02/2`  
 Status: development lab, not a seated Clerk
 
 One job moves from queued to claimed to returned, and the named reviewer can see it. Clerk copies the assignee and the reviewer from the job record. It does not choose a recipient, accept, close, retry, infer authority, launch a worker, or call a model.
@@ -44,11 +44,11 @@ The router writes the job file. Clerk checks it and does not fill in missing fie
 - `job_id`, `assignee`, `reviewer` — windows-safe ids, assignee and reviewer different even by case
 - `instructions` — exactly `path` and `sha256`; `path` is relative to the named base, forward slashes, no `..`
 - `release`, `routed_by` — non-empty text, recorded and not treated as proof
-- `expected_outputs` — a list of distinct simple filenames
+- `expected_outputs` — a non-empty list of distinct simple filenames
 
 Ids are ASCII, at most 64 characters, and are not Windows device names (`CON`, `NUL`, `COM1`, and the rest of that set). Case-colliding ids and output names are refused. JSON must be finite, without duplicate keys.
 
-`--as` is a label. The claim token ties a return to a claim. Neither one proves who a person or a model is. `release` and `routed_by` are evidence text, not a check that the Director authorized the job.
+`--as` is a label. The claim token ties a return to a claim. Neither one proves who a person or a model is. `release` and `routed_by` are recorded text, not a check that the Director authorized the job. Return `--evidence` must be non-blank text. It is a note from the caller, not a credential.
 
 ## Store
 
@@ -57,10 +57,15 @@ Ids are ASCII, at most 64 characters, and are not Windows device names (`CON`, `
   0001.queued.json
   0002.claimed.json
   outbox/
+  0003.witness.json
   0003.returned.json
 ```
 
-Event files are canonical UTF-8 JSON, one trailing LF, keys sorted. `prev` on the first event is null. Each later `prev` is the SHA-256 of the previous event file's exact bytes. The schema stamp is `clerk-handoff-pass02/1`.
+Event files are canonical UTF-8 JSON, one trailing LF, keys sorted. `prev` on the first event is null. Each later `prev` is the SHA-256 of the previous event file's exact bytes. New events are stamped `clerk-handoff-pass02/2`.
+
+`0003.witness.json` is the completion witness. Clerk writes it with exclusive create before `0003.returned.json`. It records the SHA-256 of the exact returned-event bytes that are about to be written. A returned job is clean only when both files exist and that digest matches the event file. A witness without the event, an event without the witness, a partial witness, a digest mismatch, or any other completion file is incomplete or corrupt. It is not a clean claim, and a later return does not repair it or write a replacement event.
+
+A store stamped `clerk-handoff-pass02/1` is an earlier format. Readers name that format and refuse it. Clerk does not rewrite it into the new shape.
 
 Every new file is created with exclusive create (`open(..., "xb")`). The outbox directory is an exclusive `mkdir`. Clerk does not truncate, replace, or delete an existing record.
 
@@ -72,7 +77,7 @@ A complete claim (valid `0002` and a plain `outbox`, no return yet) stays visibl
 
 A second `claim` without `--resume` is refused.
 
-After a complete return, the resend identity is the caller's `--as`, `--claim`, `--delivery`, `--evidence`, and the verified artifact bytes. Timestamps and `prev` are not part of that identity. The same delivery id and the same identity print `already-recorded` and do not write. The same delivery id with different evidence or different artifact bytes is a delivery conflict and does not write. This is per job. The same delivery id on another job is a different record. It is not a global exactly-once guarantee.
+After a complete return, the resend identity is the caller's `--as`, `--claim`, `--delivery`, `--evidence`, and the verified artifact bytes. Timestamps and `prev` are not part of that identity. The same delivery id and the same identity print `already-recorded` and do not write a new witness or a new event. The same delivery id with different evidence or different artifact bytes is a delivery conflict and does not write. This is per job. The same delivery id on another job is a different record. It is not a global exactly-once guarantee. An identical return does not finish a missing event when the witness was left behind. That partial pair stays incomplete.
 
 ## Instructions
 
@@ -86,7 +91,9 @@ An interrupted queue, claim, or return is not a success and is not repaired.
 - A claim event that exists without an outbox stays incomplete. Resume does not create the outbox or a new token. Return does not succeed. The reviewer is not told the job was returned.
 - Clerk does not delete the partial record, roll it back, or finish it. There is no repair command. The partial store is evidence. Doing the work again means a new job id in a new store, outside this program.
 
-The hash chain shows that an earlier event file changed after the next event recorded its bytes. It is not a signature. It does not authenticate someone who rewrites the whole store, and it has no anchor beyond the last event. `verify` exits `2` for a broken or incomplete record and `1` when the record is intact but an artifact's bytes changed. A changed artifact is `artifact changed` and `not-returned-clean`, never a clean return.
+A filesystem error at a command boundary exits `2` and says `incomplete: filesystem error:`. The partial files stay. If the claim event is already on disk, the diagnostic says `claim event exists` and prints that existing token as `existing token`. It does not write a second token. An OS error is not findings and not success. A programming error is not caught and reported as success.
+
+The hash chain shows that an earlier event file changed after the next event recorded its bytes. It is not a signature. The completion witness detects one isolated break in the returned pair: deleting or changing only the returned event, or only the witness, no longer looks like a clean claim or a clean return. It does not authenticate history. Someone who rewrites the whole store, or who rewrites the witness and the returned event so they still agree, or who deletes both and leaves the claimed prefix, is not caught. `verify` exits `2` for a broken or incomplete record and `1` when the record is intact but an artifact's bytes changed. A changed artifact is `artifact changed` and `not-returned-clean`, never a clean return.
 
 Corrupt and incomplete jobs are listed for every inbox caller. Omitting them would make a damaged store look like an empty queue. A person who is not the assignee or the reviewer still sees no clean job.
 

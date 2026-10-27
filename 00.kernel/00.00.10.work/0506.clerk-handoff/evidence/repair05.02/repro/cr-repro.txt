@@ -1,0 +1,112 @@
+cr01 queue 0
+queued demo-0001
+event 0001.queued.json sha256=629c1490eb1b10b9bf21dbcb045eec707885ffe8a05b45c0c865d5b584418241
+result ok
+
+cr01 claim 0
+claimed demo-0001
+token 58ae1371511ae51aaab09c23d6311769
+event 0002.claimed.json sha256=16f544382d1a082ade26458bfade3b7c5cd38f8685ec4693c19111d61b4fbd4a
+instructions-usable sha256=4e323eba376a5d14231c33aa10ea003e1462e1e74aef7daf1797f394f1beb4be
+result ok
+
+cr01 return 0
+returned demo-0001
+delivery d-1
+event 0003.returned.json sha256=2d0d374dc3f045fdcfb120f433b2a9b593e9adf90924c593bf81e9f465816784
+artifact count.py sha256=a462cd0fc8d967065c00e2f7f162cb480e7d919d299fa5c03af46ba002679133 bytes=87
+result ok
+
+cr01 verify-after-delete 0
+verify
+job demo-0001
+state claimed
+claim 58ae1371511ae51aaab09c23d6311769
+states queued claimed
+chain ok
+event 0001.queued.json sha256=629c1490eb1b10b9bf21dbcb045eec707885ffe8a05b45c0c865d5b584418241 prev=null
+event 0002.claimed.json sha256=16f544382d1a082ade26458bfade3b7c5cd38f8685ec4693c19111d61b4fbd4a prev=629c1490eb1b10b9bf21dbcb045eec707885ffe8a05b45c0c865d5b584418241
+instructions-not-checked
+result ok
+
+cr01 reviewer-inbox 0
+inbox codex-prime
+section queued
+none
+section claimed
+none
+section returned
+none
+section incomplete
+none
+result ok
+
+cr01 rereeturn 0
+returned demo-0001
+delivery d-2
+event 0003.returned.json sha256=ab632547361319302dcd7d416669cce6c21d4a669ef00e8f10898efa991bfdbe
+artifact count.py sha256=92f60ca53471e66d49b06f1ccdaea86247b6bfb4e80379ece54c4901a1f491cd bytes=95
+result ok
+
+cr01 event-replaced True bytes 392
+cr02 queue 0
+queued demo-0001
+event 0001.queued.json sha256=0513bbff23ac642b01c310c8eaaa1e77e0a0bbead2d3609dc90ee28057394b46
+result ok
+
+cr02 claim-raised FileExistsError
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\clerk-repro-0502.py", line 146, in main
+    result = clerk.claim(str(store), "demo-0001", "builder-b", str(base))
+  File "D:\Git\lib-build\labs\clerk-handoff-pass02\clerk.py", line 798, in claim
+    os.mkdir(outbox)
+    ~~~~~~~~^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\clerk-repro-0502.py", line 138, in racing
+    raise FileExistsError(
+        17, "Cannot create a file when that file already exists", str(path)
+    )
+FileExistsError: [Errno 17] Cannot create a file when that file already exists: 'C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-cr02-sc3jcshx\\store\\jobs\\demo-0001\\outbox'
+
+cr02 claim-event-exists True outbox True
+cr04 queue 0
+queued demo-0001
+event 0001.queued.json sha256=e7dddcecc0a61e321ca04691d5b1bc3aebb1e0e81c4a0bbf1fd2378f453b2bfc
+result ok
+
+cr04 claim 0
+claimed demo-0001
+token 48396aa650f64a7f189a576778542e4e
+event 0002.claimed.json sha256=8f98593cc3303520f1527ee3ca13011348e2074a2a42ad57f1ece8d82d7a04e6
+instructions-usable sha256=4e323eba376a5d14231c33aa10ea003e1462e1e74aef7daf1797f394f1beb4be
+result ok
+
+cr04 blank-evidence 0
+returned demo-0001
+delivery d-1
+event 0003.returned.json sha256=bacf5723f899001f9604a430a318521f8494440b87f201c4e99bd04e43fa7e79
+artifact count.py sha256=a462cd0fc8d967065c00e2f7f162cb480e7d919d299fa5c03af46ba002679133 bytes=87
+result ok
+
+cr03 relocated-test 1
+F
+======================================================================
+FAIL: test_git_store_and_unknown_flags_write_nothing (__main__.ClerkTests.test_git_store_and_unknown_flags_write_nothing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\clerk-cr03-ykbk_1vw\lab\tests\test_clerk.py", line 618, in test_git_store_and_unknown_flags_write_nothing
+    self.assert_code(proc, 2)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\clerk-cr03-ykbk_1vw\lab\tests\test_clerk.py", line 154, in assert_code
+    self.assertEqual(proc.returncode, code, proc.stdout + proc.stderr)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 2 : queued demo-0001
+event 0001.queued.json sha256=f42209a2ad94d31153af9a46fcc0a909751663a3960ec78586a1ddf73dbb7896
+result ok
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.329s
+
+FAILED (failures=1)
+
+cr03 leaked-store-in-copy False
