@@ -1,0 +1,73 @@
+{
+  "schema": "archive-resolution-addendum/1",
+  "correction": "AR-01",
+  "source_commit": "75ae515d826482113c4126274d015de112aa249b",
+  "object_format": "sha1",
+  "preserves_plan": true,
+  "preserved_files": [
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/06.09.md",
+      "sha256": "f2c39e2318fced4e69f531d8d354f5a572f499b2e5bf13409c458bf98f0859f1",
+      "bytes": 6230
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/resolution05.08/resolved-slices.json",
+      "sha256": "1e8d1ab20743e4ea51358f832c6a7bf558f3a7e999724bc6bc670227b124eaf3",
+      "bytes": 95003
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/resolution05.08/resolution-report.md",
+      "sha256": "be68346aacad1adec3cc601137af9f53a8cf5c5e8b9cee04b5da10db28121eb2",
+      "bytes": 14405
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/resolution05.08/verification.json",
+      "sha256": "08cae79528e59de8c33c331dd9e5f613dbbc401776245a8f51ec67beace16cfa",
+      "bytes": 3728
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/resolution05.08/submission.md",
+      "sha256": "6f802c53ad56517626d5f58ed564dd16a70dc2a20fada19b435695d5bf51b8bc",
+      "bytes": 1526
+    }
+  ],
+  "preserved_member": {
+    "member": "0121.archive-resolution-0508",
+    "receipt_sha256": "d62ef4be4a33f7cc868f65cc207f323352838dbdf83039590335d47f4c16213d",
+    "manifest_sha256": "8218221b6ffb2933a9412f538cebad17e10ca37d2319300f13264b29dacbf68f",
+    "files_match_prime_verification": true
+  },
+  "pack_manifest": {
+    "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/pack05.02/source-manifest.json",
+    "sha256": "3573fe7ab97ba8d44ab7a385cc1942169fa7c9b37a663d64887b3b44ae0bab3c",
+    "bytes": 2332
+  },
+  "recovered_originals": [
+    {
+      "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/pack05.02/snapshots/0008.blob",
+      "logical_path": "labs/return-capture-pass01/README.md",
+      "sha256": "4d82b7feeacf055f180f9a6c483bfa920faccbd0788fc15482732c0cf3f8de4e",
+      "bytes": 8515,
+      "hash_proof": "verified",
+      "reason": "Blob bytes at the inventory commit match the SHA-256 and length declared by 0508.return-capture/05.01 and by evidence/pack05.02/source-manifest.json. source_path is the retained snapshot. logical_path is the name in that manifest."
+    },
+    {
+      "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/pack05.02/snapshots/0009.blob",
+      "logical_path": "labs/return-capture-pass01/return_capture.py",
+      "sha256": "655bd4a005d1210eef8f5ae62a462d4cf8a2591bfe318c2f428bcfb3ae5c3269",
+      "bytes": 45898,
+      "hash_proof": "verified",
+      "reason": "Blob bytes at the inventory commit match the SHA-256 and length declared by 0508.return-capture/05.01 and by evidence/pack05.02/source-manifest.json. source_path is the retained snapshot. logical_path is the name in that manifest."
+    },
+    {
+      "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/pack05.02/snapshots/0010.blob",
+      "logical_path": "labs/return-capture-pass01/tests/test_return_capture.py",
+      "sha256": "9de8908a371839789586bee10f2d3a01d4a53b43cea5db2efeaa5c625a87afbe",
+      "bytes": 26254,
+      "hash_proof": "verified",
+      "reason": "Blob bytes at the inventory commit match the SHA-256 and length declared by 0508.return-capture/05.01 and by evidence/pack05.02/source-manifest.json. source_path is the retained snapshot. logical_path is the name in that manifest."
+    }
+  ],
+  "hold": "The historical RC-01 hold remains. Recovered original bytes do not accept the implementation. This addendum selects no capture of 0508.return-capture/05.01 and no capture of 0509.pack-assembly/05.01.",
+  "statement": "The preserved 05.08 plan left three code files unknown after git cat-file rejected their SHA-256 digests as object names. This repository addresses Git objects by SHA-1 ids. A SHA-256 content digest is not an object id, so that lookup does not show the bytes are absent. The three originals are the snapshot blobs above, at the same inventory commit. Their computed SHA-256 and lengths match the original return and the pack manifest."
+}
