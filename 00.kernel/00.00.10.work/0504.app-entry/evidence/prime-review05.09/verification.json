@@ -1,0 +1,80 @@
+{
+  "entry": {
+    "exit": 0,
+    "tail": " symlink: WinError 1314: a required privilege is not held by the client\nPASS occupied output names stayed unchanged\nREFUSAL reparse escape\nREFUSAL missing config\nREFUSAL malformed config\nREFUSAL duplicate config key\nREFUSAL config version type\nREFUSAL unknown config key\nREFUSAL config cannot widen fixture containers\nREFUSAL malformed record\nREFUSAL duplicate record key\nREFUSAL invalid assignment state\nREFUSAL record carriage return\nREFUSAL assignment path is the derived view\nPASS tampered 00.live does not change context\nREFUSAL wrong runner hash\nPASS guarded bytes were unchanged by the suite\nPASS no bytecode was written into the books or app\nsummary pass 12 expected-refusal 46 skip 1 fail 0\n"
+  },
+  "pack-tools": {
+    "exit": 0,
+    "tail": "n__.PrimeToolsTest.test_preview_assemble_verify_and_pack_check_match_direct) ... ok\ntest_snapshot_mutation_fails_and_keeps_the_receipt (__main__.PrimeToolsTest.test_snapshot_mutation_fails_and_keeps_the_receipt) ... ok\ntest_sources_match_the_declaration (__main__.PrimeToolsTest.test_sources_match_the_declaration) ... ok\ntest_stale_digest_and_malformed_request_match_direct (__main__.PrimeToolsTest.test_stale_digest_and_malformed_request_match_direct) ... ok\ntest_wrong_hash_and_missing_tool_write_nothing (__main__.PrimeToolsTest.test_wrong_hash_and_missing_tool_write_nothing) ... ok\n\n----------------------------------------------------------------------\nRan 12 tests in 15.647s\n\nOK (skipped=1)\n"
+  },
+  "sof": {
+    "exit": 0,
+    "tail": "pass05.Pass05Tests.test_lock_and_concurrent_callers_cannot_double_apply) ... ok\ntest_malformed_json_and_output_alias_do_not_apply (test_pass05.Pass05Tests.test_malformed_json_and_output_alias_do_not_apply) ... ok\ntest_missing_or_corrupt_dependency_refuses (test_pass05.Pass05Tests.test_missing_or_corrupt_dependency_refuses) ... ok\ntest_replay_conflict_and_stale_base_write_nothing_more (test_pass05.Pass05Tests.test_replay_conflict_and_stale_base_write_nothing_more) ... ok\ntest_wrong_inputs_refuse_before_history (test_pass05.Pass05Tests.test_wrong_inputs_refuse_before_history) ... ok\n\n----------------------------------------------------------------------\nRan 47 tests in 30.062s\n\nOK (skipped=1)\n"
+  },
+  "independent_happy": {
+    "apply": {
+      "branch_id": "br-main",
+      "checkpoint_id": "cp-0002",
+      "event_id": "ev-0001",
+      "findings": [],
+      "op": "apply",
+      "parent_checkpoint_id": "cp-0001",
+      "procedure": "offer_light",
+      "reasons": [],
+      "replayed": false,
+      "request_id": "prime-happy",
+      "revision": 2,
+      "schema": "sof-op-result",
+      "wrote": true
+    },
+    "replay": {
+      "branch_id": "br-main",
+      "checkpoint_id": "cp-0002",
+      "event_id": "ev-0001",
+      "findings": [],
+      "op": "apply",
+      "parent_checkpoint_id": "cp-0001",
+      "procedure": "offer_light",
+      "reasons": [],
+      "replayed": true,
+      "request_id": "prime-happy",
+      "revision": 2,
+      "schema": "sof-op-result",
+      "wrote": false
+    },
+    "old_checkpoint_unchanged": true,
+    "historical_player_verified": true
+  },
+  "requests_junction_probe": {
+    "junction": "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-entry-sof-3tw_dbp0\\request-junction\\10.gm\\state\\requests",
+    "external": "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-entry-sof-3tw_dbp0\\external-request-target",
+    "result": {
+      "branch_id": "br-main",
+      "checkpoint_id": "cp-0002",
+      "event_id": "ev-0001",
+      "findings": [],
+      "op": "apply",
+      "parent_checkpoint_id": "cp-0001",
+      "procedure": "offer_light",
+      "reasons": [],
+      "replayed": false,
+      "request_id": "prime-junction",
+      "revision": 2,
+      "schema": "sof-op-result",
+      "wrote": true
+    },
+    "external_before": {},
+    "external_after": {
+      "prime-junction.json": "ed4b2fccfcb7b2af5bd861aa5229d12664c2df8049fd3cf0218553207882f346"
+    },
+    "outside_files_written": [
+      "prime-junction.json"
+    ]
+  },
+  "grok1_capture": {
+    "exit": 0,
+    "stdout": "reservation 02233cd3ad691f6579a7dac720d6bd4e6681a4ddd796abdd0ab2df49ec568c0d\nmanifest 2cedf3be5d6f5b7c66029e99e83b488d70ce5797334d669a5b1743819689f30a\nreceipt f0c38562f62df06cde3eb3d5048619ce16e890e0f372ed9e6cebc175901342a9\npayload 0001.blob 2cfc166d3ddea46876535f642042285ec1331ebd14a13c0f67f5c94bac9373a2\npayload 0002.blob 8949a89927ecd6c07d3ce6080f3148ca66017ffc0b90c15faf35848c90ccfa03\npayload 0003.blob 02dc9f5f6d20fb375814296f628398af82383f444cccb1895e65a192efa3218c\npayload 0004.blob 42363d3eb717ce6702df836a48c1507d551b0bdefb3286591a59b0e8939a9768\npayload 0005.blob 18519d8608fdd70dacaac49e153ab56277c558cd2295ab5af1d91e7cdddbb0ae\nresult complete\nnot approved\nnot accepted\nnot published\n",
+    "stderr": ""
+  },
+  "sof_custody_rows": 50
+}

@@ -1,0 +1,79 @@
+# 05 — Reconcile the stale entry regression pin
+version: 001
+Authorization: draft — 2026-10-27
+who: Codex Prime
+state: returned
+Face: 05
+PPPP: 0504
+book: 00.00.10.work
+
+## Assignment
+Executor: Grok Builder 1. Reviewer: Codex Prime.
+Release: released by the Director, 2026-10-27.
+Claim: Grok 4.7 (xAI), session 01a179d2-387a-7661-8702-6e53f95e96b5, 2026-10-27, HEAD acc3831f9560c86d4c000b84e9f026ca0570207b.
+Verify exact inputs in evidence/pack05.09/source-manifest.json before
+editing. Shared workspace D:/Git/lib-build, branch workshop. No shared Git writes.
+Keep other builders' work unchanged. Source snapshots are the exact supplied
+inputs; they include this Prime review, not a claim they all came from one old commit.
+
+## #01 — Repair the expectation from recorded change
+Notes first on 06.09.md. Preserve exact test source in evidence/regression05.09/
+before/test_entry.py. Confirm EA-01 against the pinned before/after logs and
+git show 96785c3 -- 00.kernel/00.00.10.work/0014.design/01.001.md (read only).
+The authorized additive return-routing change explains the new hash. Update only
+the specific stale expected pin and its provenance comment. Do not remove the
+pin, compute the expected value from the file under test, or weaken the assertion.
+Keep prior failures and source-before. No document/app/accepted-tool changes.
+
+## #02 — Prove the entry and the pack front door
+In a disposable copy, run test_entry.py and test_prime_tools.py. Preserve full
+stdout/stderr, commands, counts, skips and failures in tests.txt; verification.json
+records exact before/after hashes and the source commit explaining the change.
+Run normal-run refusal and the existing fixture command coverage, using the
+suites rather than another implementation. No live test writers, network or
+unrelated core/bridge suite reruns. A second unexpected failure is a finding,
+not permission to refresh every hash. Disposition notes after rereading.
+Allowed product edit: app/tests/test_entry.py only, plus this batch, new notes
+and new regression05.09 evidence. No shared Git writes or other lane edits.
+
+## #03 — Return locally before publication
+The return member 0106.entry-regression-0509 is already reserved for this batch. Do not
+allocate another. Verify capture helper SHA-256 8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac before use.
+Write the final dedicated submission.md under evidence/regression05.09/, starting
+Did, Blocked, Need with test results, failures, limits and exact output hashes.
+Complete every declared output listed in the reservation. Do not fabricate
+missing evidence to satisfy capture. Run from D:/Git/lib-build:
+
+```text
+python -B labs/return-capture-pass01/return_capture.py capture --book "D:/Git/lib-build/00.kernel/00.00.10.work" --submission grok-1-0504-0509 --return-file "D:/Git/lib-build/00.kernel/00.00.10.work/0504.app-entry/evidence/regression05.09/submission.md" --source-root "D:/Git/lib-build" --artifact "app/tests/test_entry.py|app/tests/test_entry.py" --artifact "00.kernel/00.00.10.work/0504.app-entry/06.09.md|00.kernel/00.00.10.work/0504.app-entry/06.09.md" --artifact "00.kernel/00.00.10.work/0504.app-entry/evidence/regression05.09/tests.txt|00.kernel/00.00.10.work/0504.app-entry/evidence/regression05.09/tests.txt" --artifact "00.kernel/00.00.10.work/0504.app-entry/evidence/regression05.09/verification.json|00.kernel/00.00.10.work/0504.app-entry/evidence/regression05.09/verification.json" --artifact "00.kernel/00.00.10.work/0504.app-entry/evidence/regression05.09/before/test_entry.py|00.kernel/00.00.10.work/0504.app-entry/evidence/regression05.09/before/test_entry.py"
+python -B labs/return-capture-pass01/return_capture.py verify --book "D:/Git/lib-build/00.kernel/00.00.10.work" --member 0106.entry-regression-0509
+```
+
+Keep the original submission and evidence after capture. Once capture and fresh
+verify succeed, append only the member, receipt hash and verification result to
+this batch's Return pointer below. Do not duplicate the submitted prose here.
+If capture refuses or leaves a partial package, report the exact state here;
+never overwrite a member, remove a receipt or silently allocate around failure.
+Prime reviews and publishes separately. Receipt means capture, not acceptance.
+No future work is authorized by a recommendation or by this reserved slot.
+
+## Return pointer
+Member 0106.entry-regression-0509. Receipt sha256 f0c38562f62df06cde3eb3d5048619ce16e890e0f372ed9e6cebc175901342a9. Verify exit 0: result complete; not approved; not accepted; not published.
+
+## Review — Codex Prime
+Accepted, 2026-10-27. EA-01 resolved.
+Prime verified the only product diff: one explicit expected document hash and
+its provenance comment, explained by authorized additive change 96785c3. No
+runtime/document edit or weakened/dynamic pin assertion. Independent disposable
+entry run: 12 passes, 46 expected refusals, one privilege skip, zero failures.
+Pack-tool suite: 12 tests, 11 passed and one privilege skip. Normal run still
+refuses. Evidence is evidence/prime-review05.09/.
+
+Fresh verify of the builder-created 0106.entry-regression-0509 passed. Its return
+and five declared payloads match the reserved contract and submitted source bytes.
+Receipt f0c38562f62df06cde3eb3d5048619ce16e890e0f372ed9e6cebc175901342a9.
+The builder completed local capture before Prime review and publication; Prime
+did not reconstruct its return. Receipt remains unchanged. Separate publication
+evidence is evidence/prime-review05.09/publication.json. Acceptance is bounded
+development verification, not app activation or kernel seating.
+

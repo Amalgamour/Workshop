@@ -1,0 +1,100 @@
+# regression05.09 disposable suite transcript
+copy: C:/Users/misg/AppData/Local/Temp/wf0509-repo
+env: PYTHONDONTWRITEBYTECODE=1 GIT_OPTIONAL_LOCKS=0 GIT_TERMINAL_PROMPT=0
+
+command: C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B app\tests\test_entry.py
+cwd: C:/Users/misg/AppData/Local/Temp/wf0509-repo
+exit: 0
+stdout-bytes: 2472
+stderr-bytes: 0
+
+== stdout ==
+PASS pinned sources still match the manifest
+PASS real workspace where and validate
+PASS fixture inventory from a foreign cwd and a relocated root
+REFUSAL test-run on the real workspace
+REFUSAL test-run on the real work book
+REFUSAL normal run
+REFUSAL direct runner 002 refuses
+REFUSAL direct runner 003 refuses
+PASS refused commands left the guarded files unchanged
+REFUSAL accepted assignment is not a fresh release
+PASS accepted context can be inspected and does not select a higher version
+REFUSAL accepted fixture with --test is not a fresh release
+REFUSAL missing work book
+REFUSAL missing work item
+REFUSAL undeclared workflow space
+REFUSAL wrong job book
+REFUSAL job book mapped onto the runtime book
+REFUSAL ambiguous compute title
+REFUSAL path escape
+REFUSAL payload outside its compute page
+REFUSAL wrong payload hash
+REFUSAL payload bytes do not match the declared hash
+REFUSAL compute page outside the band is not climbed to
+REFUSAL two compute pages for one keyword
+REFUSAL source folder app is not a fixture container
+REFUSAL source page is not a fixture container
+REFUSAL fixture allowed_root is not authority
+REFUSAL external container was not named
+REFUSAL external container overlaps the workspace
+REFUSAL filesystem root is not a container
+REFUSAL fixture root is a filesystem root
+REFUSAL junction to app is not a container
+REFUSAL junction output leaves the container
+PASS designated page fixtures container
+PASS protected source bytes stayed unchanged
+PASS fresh inventory when the output names are absent
+REFUSAL existing ordinary output
+REFUSAL existing ordinary temporary
+REFUSAL direct output hard link
+REFUSAL temporary hard link
+REFUSAL dangling temporary junction
+SKIP dangling file symlink: WinError 1314: a required privilege is not held by the client
+PASS occupied output names stayed unchanged
+REFUSAL reparse escape
+REFUSAL missing config
+REFUSAL malformed config
+REFUSAL duplicate config key
+REFUSAL config version type
+REFUSAL unknown config key
+REFUSAL config cannot widen fixture containers
+REFUSAL malformed record
+REFUSAL duplicate record key
+REFUSAL invalid assignment state
+REFUSAL record carriage return
+REFUSAL assignment path is the derived view
+PASS tampered 00.live does not change context
+REFUSAL wrong runner hash
+PASS guarded bytes were unchanged by the suite
+PASS no bytecode was written into the books or app
+summary pass 12 expected-refusal 46 skip 1 fail 0
+
+== stderr ==
+
+command: C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B app\tests\test_prime_tools.py -v
+cwd: C:/Users/misg/AppData/Local/Temp/wf0509-repo
+exit: 0
+stdout-bytes: 0
+stderr-bytes: 1623
+
+== stdout ==
+
+== stderr ==
+test_argparse_diagnostics_match_and_create_nothing (__main__.PrimeToolsTest.test_argparse_diagnostics_match_and_create_nothing) ... ok
+test_checker_injection_writes_nothing (__main__.PrimeToolsTest.test_checker_injection_writes_nothing) ... ok
+test_declaration_faults_and_normal_run (__main__.PrimeToolsTest.test_declaration_faults_and_normal_run) ... ok
+test_file_symlink_pin_is_not_followed (__main__.PrimeToolsTest.test_file_symlink_pin_is_not_followed) ... skipped 'file symlink privilege WinError 1314'
+test_junction_pin_is_not_followed (__main__.PrimeToolsTest.test_junction_pin_is_not_followed) ... ok
+test_occupied_linked_and_live_book_targets_match_direct (__main__.PrimeToolsTest.test_occupied_linked_and_live_book_targets_match_direct) ... ok
+test_path_escape_is_refused (__main__.PrimeToolsTest.test_path_escape_is_refused) ... ok
+test_preview_assemble_verify_and_pack_check_match_direct (__main__.PrimeToolsTest.test_preview_assemble_verify_and_pack_check_match_direct) ... ok
+test_snapshot_mutation_fails_and_keeps_the_receipt (__main__.PrimeToolsTest.test_snapshot_mutation_fails_and_keeps_the_receipt) ... ok
+test_sources_match_the_declaration (__main__.PrimeToolsTest.test_sources_match_the_declaration) ... ok
+test_stale_digest_and_malformed_request_match_direct (__main__.PrimeToolsTest.test_stale_digest_and_malformed_request_match_direct) ... ok
+test_wrong_hash_and_missing_tool_write_nothing (__main__.PrimeToolsTest.test_wrong_hash_and_missing_tool_write_nothing) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 15.416s
+
+OK (skipped=1)

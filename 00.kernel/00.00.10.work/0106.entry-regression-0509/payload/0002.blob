@@ -1,0 +1,42 @@
+# Notes — stale entry regression pin
+Date: 2026-10-27
+Recorder: Grok 4.7 (xAI)
+State: notes for the 05.09 slice. Not seated kernel law.
+
+## Reading
+These notes are written after the pins were checked and the claim was recorded, and before the expected pin in `app/tests/test_entry.py` changes.
+
+`evidence/pack05.09/source-manifest.json` is schema `prime-pack-sources/1`, sha256 `bbd2ab52b076ce8dc9a272e907948722f3a7df3176a0cb161b5e6f5e94d32f64`, 2520 bytes. It names 11 sources. Every snapshot matches its declared sha256 and byte length, and every live file matched that snapshot when the claim was recorded. 0 bad.
+
+The failing test source is preserved at `evidence/regression05.09/before/test_entry.py`, sha256 `18519d8608fdd70dacaac49e153ab56277c558cd2295ab5af1d91e7cdddbb0ae`, 43790 bytes, 0 CR. That copy is byte-identical to `app/tests/test_entry.py` at the time of these notes. The expected pin on `00.kernel/00.00.10.work/0014.design/01.001.md` in that source is `a04962e94ae54bcb0fc2ae42dd36ff6fc33822427cb2a983211d069aeaf4b610`.
+
+Pinned logs `evidence/prime-review05.08/entry-before.txt` and `entry-after.txt` are byte-identical, sha256 `794ec4c83bc2c0b5a2f9edaae88955a2c269f045abae094519bcd76e7b342c32`, 2821 bytes. Both record `FAIL pins`, `AssertionError: 00.kernel/00.00.10.work/0014.design/01.001.md`, `REFUSAL normal run`, and `summary pass 11 expected-refusal 46 skip 1 fail 1`. Those logs stay as they are. EA-01 is this one stale expectation. It is the same failure on both sides of the 05.08 facade.
+
+## Recorded change
+Read-only comparison of commit `96785c39b9c58ba32a54398f4b1fe6fbf144edbb`, parent `155e8c7959fc806a5493ad4a92fefee4077f0f5a`. The subject is "Review assembler and return capture; isolate placement correction". Author Mathias, 2026-10-27 13:54:57 -0500. Path-limited numstat for `00.kernel/00.00.10.work/0014.design/01.001.md` is 3 insertions and 0 deletions.
+
+Parent blob `80df6268d9f9916a957b9cd59ee15a3f2af1b4ad` is sha256 `a04962e94ae54bcb0fc2ae42dd36ff6fc33822427cb2a983211d069aeaf4b610`, 1075 bytes, 0 CR, 28 LF. That digest is the stale expected pin.
+
+Commit blob `9e4e8ea579ed0cc4e0e8146e69336a7fb3433605` is sha256 `20ba376e05a5ab09fed5d6e9644e3e74a6db954d7e476ff94f76b6469c780d0a`, 1448 bytes, 0 CR, 31 LF. The live page matches that blob. Pack snapshot `snapshots/0005.blob` is the same hash and length. The replacement expectation is this commit-blob digest.
+
+The three added lines are the heading `Superseding instruction — 2026-10-27`, the paragraph authorized by `0508.return-capture/05.01` #03, and one following blank line. The paragraph keeps the band table above as the historical hand form. For new work, `0100`–`0199` holds return members `0101`–`0199`. The return bytes live in the member. Root `returns/` stays the historical bootstrap location. The page does not adopt `01.002.md`. This is not a new kernel law. No parent line was removed.
+
+## Planned edit
+One comment and one hash in `app/tests/test_entry.py`, on the `0014.design/01.001.md` entry only. The comment names the authorized additive return-routing addendum in `96785c39b9c58ba32a54398f4b1fe6fbf144edbb` and states that this batch does not edit the page. The expected hash becomes `20ba376e05a5ab09fed5d6e9644e3e74a6db954d7e476ff94f76b6469c780d0a`. The pin remains. The assertion remains. The neighboring comment on `0502.workflow-start/05.01.md` remains.
+
+## Proof planned
+A disposable copy of the tree, without `.git`, receives the edited test. From that copy, `python -B` runs `app/tests/test_entry.py` and `app/tests/test_prime_tools.py`. Those suites carry the normal-run refusal and the existing fixture command coverage. Full stdout and stderr go to `evidence/regression05.09/tests.txt`. `verification.json` records the before and after hashes and the source commit. No live test writer. No network. No core or bridge suite rerun. A second unexpected failure stays a finding.
+
+## Out of scope
+No edit to `01.001.md`, the checker, the assembler, `librarian.py`, `prime_tools.py`, `prime-tools.json`, `context.py`, README files, `05.08.md`, the `prime-review05.08` logs, `entry05.08` evidence, other lanes, or the capture helper. No shared Git commit or push. Claim HEAD stays `acc3831f9560c86d4c000b84e9f026ca0570207b`.
+
+HEAD observed while these notes were written: `acc3831f9560c86d4c000b84e9f026ca0570207b`.
+
+## Outcome
+Disposition: the planned comment and the planned hash are the edit that was made. On reread, `app/tests/test_entry.py` still names commit `96785c39b9c58ba32a54398f4b1fe6fbf144edbb` on the `0014.design/01.001.md` entry and expects `20ba376e05a5ab09fed5d6e9644e3e74a6db954d7e476ff94f76b6469c780d0a`. The neighboring `b471a24` comment is still the workflow-start pin. The edited test is sha256 `2cfc166d3ddea46876535f642042285ec1331ebd14a13c0f67f5c94bac9373a2`, 43920 bytes. The preserved failure source is still sha256 `18519d8608fdd70dacaac49e153ab56277c558cd2295ab5af1d91e7cdddbb0ae`, 43790 bytes. `01.001.md` is still the commit blob, sha256 `20ba376e05a5ab09fed5d6e9644e3e74a6db954d7e476ff94f76b6469c780d0a`, 1448 bytes.
+
+The disposable copy at `C:/Users/misg/AppData/Local/Temp/wf0509-repo` ran the edited test with `python -B app\tests\test_entry.py` and exited 0. Summary: pass 12, expected-refusal 46, skip 1, fail 0. `pinned sources still match the manifest` passed. `REFUSAL normal run` is in that transcript, with the fixture inventory pass. The skip is `dangling file symlink: WinError 1314`. Guarded bytes were unchanged and no bytecode was written. Stdout is 2472 bytes. Stderr is empty.
+
+The same copy ran `python -B app\tests\test_prime_tools.py -v` and exited 0. Unittest wrote 12 tests in 15.416s, `OK (skipped=1)`, to stderr, 1623 bytes. Stdout is empty. The skip is `test_file_symlink_pin_is_not_followed`, file symlink privilege WinError 1314. That suite is the fixture command coverage: preview, assemble, verify, and pack-check matched direct calls, and a mutated snapshot kept the receipt. No second failure appeared. The bridge suite and the core suites were not rerun.
+
+The full transcripts are `evidence/regression05.09/tests.txt`. Those process bytes are CRLF, stored as captured. The before and after hashes and the source commit are `evidence/regression05.09/verification.json`. Claim HEAD stays `acc3831f9560c86d4c000b84e9f026ca0570207b`. HEAD observed while this outcome was written: `acc3831f9560c86d4c000b84e9f026ca0570207b`.

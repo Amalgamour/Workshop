@@ -1,0 +1,55 @@
+{
+  "schema": "entry-regression-0509/1",
+  "source_commit": "96785c39b9c58ba32a54398f4b1fe6fbf144edbb",
+  "parent_commit": "155e8c7959fc806a5493ad4a92fefee4077f0f5a",
+  "design_path": "00.kernel/00.00.10.work/0014.design/01.001.md",
+  "numstat": {
+    "insertions": 3,
+    "deletions": 0
+  },
+  "before": {
+    "git_blob": "80df6268d9f9916a957b9cd59ee15a3f2af1b4ad",
+    "sha256": "a04962e94ae54bcb0fc2ae42dd36ff6fc33822427cb2a983211d069aeaf4b610",
+    "bytes": 1075
+  },
+  "after": {
+    "git_blob": "9e4e8ea579ed0cc4e0e8146e69336a7fb3433605",
+    "sha256": "20ba376e05a5ab09fed5d6e9644e3e74a6db954d7e476ff94f76b6469c780d0a",
+    "bytes": 1448
+  },
+  "test_entry_before": {
+    "path": "00.kernel/00.00.10.work/0504.app-entry/evidence/regression05.09/before/test_entry.py",
+    "sha256": "18519d8608fdd70dacaac49e153ab56277c558cd2295ab5af1d91e7cdddbb0ae",
+    "bytes": 43790
+  },
+  "test_entry_after": {
+    "path": "app/tests/test_entry.py",
+    "sha256": "2cfc166d3ddea46876535f642042285ec1331ebd14a13c0f67f5c94bac9373a2",
+    "bytes": 43920
+  },
+  "preserved_failure_logs": {
+    "entry_before_sha256": "794ec4c83bc2c0b5a2f9edaae88955a2c269f045abae094519bcd76e7b342c32",
+    "entry_after_sha256": "794ec4c83bc2c0b5a2f9edaae88955a2c269f045abae094519bcd76e7b342c32",
+    "bytes": 2821,
+    "identical": true
+  },
+  "disposable_copy": "C:/Users/misg/AppData/Local/Temp/wf0509-repo",
+  "test_entry_suite": {
+    "command": "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe -B app\\tests\\test_entry.py",
+    "exit": 0,
+    "summary": "pass 12 expected-refusal 46 skip 1 fail 0",
+    "stdout_bytes": 2472,
+    "stderr_bytes": 0,
+    "stdout_crlf": true
+  },
+  "test_prime_tools_suite": {
+    "command": "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe -B app\\tests\\test_prime_tools.py -v",
+    "exit": 0,
+    "ran": 12,
+    "skipped": 1,
+    "seconds": 15.416,
+    "stdout_bytes": 0,
+    "stderr_bytes": 1623,
+    "stderr_crlf": true
+  }
+}

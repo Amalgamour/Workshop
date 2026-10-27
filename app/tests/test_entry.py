@@ -42,8 +42,9 @@ PINNED = {
     # Committed additive correction in b471a24. This batch does not edit the page.
     "00.kernel/00.00.10.work/0502.workflow-start/05.01.md":
         "7f43ea75f0fc6f01229e0171312bc1f42a067df7a27e9689eab602d5f1bcfe17",
+    # Authorized additive return-routing addendum in 96785c39b9c58ba32a54398f4b1fe6fbf144edbb. This batch does not edit the page.
     "00.kernel/00.00.10.work/0014.design/01.001.md":
-        "a04962e94ae54bcb0fc2ae42dd36ff6fc33822427cb2a983211d069aeaf4b610",
+        "20ba376e05a5ab09fed5d6e9644e3e74a6db954d7e476ff94f76b6469c780d0a",
     "00.kernel/00.00.10.work/0011.contents/01.002.md":
         "a4e31538a92f499173075ada8e13344a5a207ab3cdd738fb227f7ba92c768ab7",
     "labs/bootstrap-establish-pass01/render_live.py":
