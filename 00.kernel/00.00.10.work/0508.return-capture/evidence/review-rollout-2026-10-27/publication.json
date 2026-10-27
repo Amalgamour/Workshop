@@ -1,7 +1,7 @@
 {
   "schema": "return-publication-ack/1",
-  "status": "pending",
-  "captures_commit": null,
+  "status": "verified",
+  "captures_commit": "9f66421f7f8003b563c61911aea15e91793be84f",
   "records": [
     {
       "member": "0104.app-entry-0508",
@@ -11,5 +11,53 @@
       "member": "0105.prime-clerk-0504",
       "receipt_sha256": "c24d2441a28e0f511181db337ef32aedfe7b951ca011a44ffc04c93ac4eebb9c"
     }
-  ]
+  ],
+  "remote_head_verified": "9f66421f7f8003b563c61911aea15e91793be84f",
+  "package_blob_count": 85,
+  "contents_check": {
+    "schema": "book-orientation-check@1",
+    "revision_input": "9f66421f7f8003b563c61911aea15e91793be84f",
+    "commit": "9f66421f7f8003b563c61911aea15e91793be84f",
+    "book": "00.kernel/00.00.10.work",
+    "contents_path": "00.kernel/00.00.10.work/0011.contents/01.020.md",
+    "contents_sha256": "18b7e62cb93cc5ed15cb42cdbba5594294c628b08f82ba2a0bd844e481000608",
+    "selection_source": "book 00.md pointer",
+    "sentinel_pointer": "contents in 0011.contents/01.020.md.",
+    "scope": "published tree at the commit only; working tree, index and untracked files not read",
+    "covered": [
+      "Pages table rows: page folders, direct files, direct subdirectories, recursive tracked-file counts",
+      "Book files list",
+      "Other books paths (relative to the book root)"
+    ],
+    "not_covered": [
+      "prose references and other links",
+      "face contents",
+      "whether a page should be published",
+      "the working tree, the index and untracked files"
+    ],
+    "counts": {
+      "rows": 29,
+      "tree_pages": 29,
+      "book_files_listed": 1,
+      "other_books": 2
+    },
+    "other_books": [
+      {
+        "label": "Syntax",
+        "path": "../00.00.00.syntax/00.001.md",
+        "resolved": "00.kernel/00.00.00.syntax/00.001.md",
+        "present": true
+      },
+      {
+        "label": "Law",
+        "path": "../00.00.01.law/00.001.md",
+        "resolved": "00.kernel/00.00.01.law/00.001.md",
+        "present": true
+      }
+    ],
+    "findings": [],
+    "result": "clean",
+    "advisory": true
+  },
+  "note": "Exact local package bytes verified against committed blobs; remote workshop head confirmed. This is publication evidence, not acceptance of the held adapter or release of next packs."
 }
