@@ -5,8 +5,9 @@ It never reads 00.kernel/00.live.md as an input. A path that names that view is 
 
 A fixture file cannot name its writable container. Inside this workspace, test-run
 may use only the configured containers. An external container must be named on
-the command and must stay disjoint from the workspace. These checks are not an
-operating-system sandbox.
+the command and must stay disjoint from the workspace. An output name that is
+already present, including a dangling link, is refused before the payload runs.
+These checks are not an operating-system sandbox.
 """
 
 from __future__ import annotations
@@ -564,6 +565,39 @@ def guard_workspace_path(path: Path, code_root: Path) -> None:
         stop("path resolves to a source tree")
 
 
+def _output_temp(output_rel: str) -> str:
+    """The sibling temporary name the inventory payload writes before replace."""
+    text = output_rel.replace("\\", "/")
+    if "/" in text:
+        parent, name = text.rsplit("/", 1)
+        return f"{parent}/{name}.tmp"
+    return text + ".tmp"
+
+
+def _name_is_present(path: Path) -> bool:
+    """True when this path entry exists, including a dangling link.
+
+    exists() follows links and returns false for a dangling junction. lstat
+    reports the directory entry itself.
+    """
+    try:
+        path.lstat()
+    except FileNotFoundError:
+        return False
+    except OSError:
+        stop("output name is already present")
+    return True
+
+
+def _guard_output_name(root: Path, container: Path, rel: str, message: str) -> None:
+    resolved = resolve_under(root, rel)
+    if not is_inside(resolved, container):
+        stop("output is outside the designated container")
+    lexical = root.joinpath(*rel.replace("\\", "/").split("/"))
+    if _name_is_present(lexical):
+        stop(message)
+
+
 def check_allowed_root(fixture_root: Path, fixture: dict) -> None:
     if "allowed_root" in fixture:
         stop("fixture cannot designate its own root")
@@ -579,6 +613,10 @@ def check_allowed_root(fixture_root: Path, fixture: dict) -> None:
         stop("fixture container is a filesystem root")
     if not is_inside(root_r, container):
         stop("fixture root is outside the designated container")
-    output = resolve_under(root_r, fixture["output"])
-    if not is_inside(output, container):
-        stop("output is outside the designated container")
+    _guard_output_name(root_r, container, fixture["output"], "output name is already present")
+    _guard_output_name(
+        root_r,
+        container,
+        _output_temp(fixture["output"]),
+        "output temporary name is already present",
+    )

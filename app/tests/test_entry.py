@@ -11,6 +11,7 @@ import hashlib
 import json
 import os
 import shutil
+import stat
 import subprocess
 import sys
 import tempfile
@@ -38,8 +39,9 @@ PINNED = {
         "4a962d3a6edd26428b75e27ad82113708e510a1e770522d34b9e8bb11ec2b0f4",
     "00.kernel/00.00.01.law/0302.run/02.md":
         "95062ea60f8b923c3bda1cf603f394e54e56d961f42af13c9520031bf13bb95f",
+    # Committed additive correction in b471a24. This batch does not edit the page.
     "00.kernel/00.00.10.work/0502.workflow-start/05.01.md":
-        "f3e9ee3e05de5a7e11c407c89bf4205ec4b408d5c1c7a8a96175d71cda461000",
+        "7f43ea75f0fc6f01229e0171312bc1f42a067df7a27e9689eab602d5f1bcfe17",
     "00.kernel/00.00.10.work/0014.design/01.001.md":
         "a04962e94ae54bcb0fc2ae42dd36ff6fc33822427cb2a983211d069aeaf4b610",
     "00.kernel/00.00.10.work/0011.contents/01.002.md":
@@ -289,6 +291,10 @@ def test_operation() -> None:
     try:
         copied = relocated / "fixture"
         shutil.copytree(scratch, copied)
+        kept_inventory = (copied / "output" / "inventory.json").read_bytes()
+        moved = json.loads((copied / "fixture.json").read_text(encoding="utf-8"))
+        moved["output"] = "output/inventory-relocated.json"
+        (copied / "fixture.json").write_bytes(lf(json.dumps(moved, indent=2) + "\n"))
         for name in ("02.run.002.py", "02.run.003.py", "02.run.009.py"):
             junk = copied / "00.kernel/00.00.01.law/0302.run" / name
             junk.parent.mkdir(parents=True, exist_ok=True)
@@ -306,9 +312,11 @@ def test_operation() -> None:
                 raise AssertionError("runner was not the law candidate")
             if "not-the-runner" in proc.stdout:
                 raise AssertionError("relocated junk runner was selected")
-            second = json.loads((copied / "output" / "inventory.json").read_bytes().decode("utf-8"))
+            second = json.loads((copied / "output" / "inventory-relocated.json").read_bytes().decode("utf-8"))
             if second != expected:
                 raise AssertionError("relocated inventory differed")
+            if (copied / "output" / "inventory.json").read_bytes() != kept_inventory:
+                raise AssertionError("the prior inventory was erased")
         finally:
             shutil.rmtree(other, ignore_errors=True)
     finally:
@@ -866,6 +874,176 @@ def test_app01() -> None:
     SUITE.ok("protected source bytes stayed unchanged")
 
 
+def _reparse(path: Path) -> bool:
+    try:
+        info = path.lstat()
+    except OSError:
+        return False
+    attributes = getattr(info, "st_file_attributes", 0)
+    return bool(attributes & stat.FILE_ATTRIBUTE_REPARSE_POINT)
+
+
+def test_ar01() -> None:
+    """Refuse an output name, or its temporary name, that is already present."""
+    base = REPO / "app" / "scratch" / "ar01"
+    if base.exists():
+        shutil.rmtree(base)
+    base.mkdir(parents=True)
+    digest = sha(PAYLOAD)
+    readme = REPO / "app/README.md"
+    readme_before = readme.read_bytes()
+    expected = json.loads(EXPECTED.read_text(encoding="utf-8"))
+
+    def invoke(root: Path) -> subprocess.CompletedProcess[str]:
+        return run([
+            "test-run", "--root", str(root),
+            "--candidate", CANDIDATE, "--sha256", digest,
+        ])
+
+    def fresh_root(name: str) -> Path:
+        root = base / name
+        if root.exists():
+            shutil.rmtree(root)
+        make_fixture(root)
+        return root
+
+    junction = base / "dangling-junction" / "output" / "inventory.json.tmp"
+    symlink = base / "file-symlink" / "output" / "inventory.json"
+    try:
+        fresh = fresh_root("fresh")
+        proc = invoke(fresh)
+        if proc.returncode != 0:
+            raise AssertionError(proc.stderr)
+        got = json.loads((fresh / "output" / "inventory.json").read_bytes().decode("utf-8"))
+        if got != expected:
+            raise AssertionError("fresh inventory differed")
+        if (fresh / "output" / "inventory.json.tmp").exists():
+            raise AssertionError("fresh run left the temporary name")
+        SUITE.ok("fresh inventory when the output names are absent")
+
+        ordinary = fresh_root("ordinary-output")
+        marker = b"ordinary-output-marker\n"
+        target = ordinary / "output" / "inventory.json"
+        target.parent.mkdir(parents=True)
+        target.write_bytes(marker)
+        proc = invoke(ordinary)
+        expect_stop("existing ordinary output", proc, "output name is already present")
+        if target.read_bytes() != marker:
+            raise AssertionError("ordinary output bytes changed")
+        if (ordinary / "output" / "inventory.json.tmp").exists():
+            raise AssertionError("ordinary output refusal wrote a temporary")
+
+        temporary = fresh_root("ordinary-tmp")
+        marker_tmp = b"ordinary-tmp-marker\n"
+        tmp = temporary / "output" / "inventory.json.tmp"
+        tmp.parent.mkdir(parents=True)
+        tmp.write_bytes(marker_tmp)
+        proc = invoke(temporary)
+        expect_stop("existing ordinary temporary", proc, "output temporary name is already present")
+        if tmp.read_bytes() != marker_tmp:
+            raise AssertionError("ordinary temporary bytes changed")
+        if (temporary / "output" / "inventory.json").exists():
+            raise AssertionError("ordinary temporary refusal wrote the output")
+
+        linked_out = fresh_root("hardlink-output")
+        victim_out = linked_out / "victim-output.txt"
+        victim_out_bytes = b"hardlink-output-victim\n"
+        victim_out.write_bytes(victim_out_bytes)
+        link_out = linked_out / "output" / "inventory.json"
+        link_out.parent.mkdir(parents=True)
+        os.link(victim_out, link_out)
+        if victim_out.stat().st_nlink != 2:
+            raise AssertionError("output hard link was not created")
+        proc = invoke(linked_out)
+        expect_stop("direct output hard link", proc, "output name is already present")
+        if victim_out.read_bytes() != victim_out_bytes or link_out.read_bytes() != victim_out_bytes:
+            raise AssertionError("output hard link changed the victim")
+        if victim_out.stat().st_nlink != 2 or not link_out.exists():
+            raise AssertionError("output hard link was removed")
+
+        linked_tmp = fresh_root("hardlink-tmp")
+        victim_tmp = linked_tmp / "victim-tmp.txt"
+        victim_tmp_bytes = b"hardlink-tmp-victim\n"
+        victim_tmp.write_bytes(victim_tmp_bytes)
+        link_tmp = linked_tmp / "output" / "inventory.json.tmp"
+        link_tmp.parent.mkdir(parents=True)
+        os.link(victim_tmp, link_tmp)
+        if victim_tmp.stat().st_nlink != 2:
+            raise AssertionError("temporary hard link was not created")
+        proc = invoke(linked_tmp)
+        expect_stop("temporary hard link", proc, "output temporary name is already present")
+        if victim_tmp.read_bytes() != victim_tmp_bytes or link_tmp.read_bytes() != victim_tmp_bytes:
+            raise AssertionError("temporary hard link changed the victim")
+        if victim_tmp.stat().st_nlink != 2 or not link_tmp.exists():
+            raise AssertionError("temporary hard link was removed")
+        if (linked_tmp / "output" / "inventory.json").exists():
+            raise AssertionError("temporary hard link refusal wrote the output")
+
+        junction_root = fresh_root("dangling-junction")
+        missing = junction_root / "absent-dir"
+        junction.parent.mkdir(parents=True, exist_ok=True)
+        made = subprocess.run(
+            ["cmd", "/c", "mklink", "/J", str(junction), str(missing)],
+            capture_output=True, text=True, encoding="utf-8", errors="replace",
+        )
+        if made.returncode != 0 or not _reparse(junction):
+            SUITE.skip(
+                "dangling temporary junction",
+                (made.stderr or made.stdout or "mklink failed").strip(),
+            )
+        else:
+            if junction.exists():
+                raise AssertionError("dangling junction exists() was true")
+            proc = invoke(junction_root)
+            expect_stop(
+                "dangling temporary junction",
+                proc,
+                "output temporary name is already present",
+            )
+            if missing.exists():
+                raise AssertionError("dangling junction target was created")
+            if not _reparse(junction):
+                raise AssertionError("dangling junction was removed")
+            if junction.exists():
+                raise AssertionError("dangling junction became an existing path")
+            if (junction_root / "output" / "inventory.json").exists():
+                raise AssertionError("dangling junction refusal wrote the output")
+
+        symlink_root = fresh_root("file-symlink")
+        symlink_missing = symlink_root / "absent-file"
+        symlink.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            os.symlink(str(symlink_missing), symlink)
+        except OSError as exc:
+            if getattr(exc, "winerror", None) == 1314:
+                SUITE.skip(
+                    "dangling file symlink",
+                    "WinError 1314: a required privilege is not held by the client",
+                )
+            else:
+                raise
+        else:
+            if symlink.exists():
+                raise AssertionError("dangling file symlink exists() was true")
+            proc = invoke(symlink_root)
+            expect_stop("dangling file symlink", proc, "output name is already present")
+            if symlink_missing.exists():
+                raise AssertionError("dangling file symlink target was created")
+            if not symlink.is_symlink():
+                raise AssertionError("dangling file symlink was removed")
+
+        if readme.read_bytes() != readme_before:
+            readme.write_bytes(readme_before)
+            raise AssertionError("app/README.md changed during AR-01 checks")
+        SUITE.ok("occupied output names stayed unchanged")
+    finally:
+        if _reparse(junction):
+            os.rmdir(junction)
+        if symlink.is_symlink():
+            symlink.unlink()
+        shutil.rmtree(base, ignore_errors=True)
+
+
 def main() -> None:
     scratch = REPO / "app" / "scratch"
     if scratch.exists():
@@ -880,6 +1058,7 @@ def main() -> None:
         ("authorization", test_authorization),
         ("boundaries", test_boundaries),
         ("app-01", test_app01),
+        ("ar-01", test_ar01),
         ("reparse", test_reparse),
         ("config and record", test_config_and_record),
     ):
