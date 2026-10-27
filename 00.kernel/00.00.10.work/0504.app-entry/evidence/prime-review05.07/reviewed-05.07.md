@@ -1,0 +1,101 @@
+# 05 — Read-only pack custody verifier
+version: 001
+Authorization: draft — 2026-10-27
+who: Codex Prime
+state: returned
+Face: 05
+PPPP: 0504
+book: 00.00.10.work
+keyword: app-entry
+
+## Assignment
+Executor: Grok Builder 1. Reviewer: Codex Prime.
+Release: released by the Director, 2026-10-27.
+Claim: Grok 4.7 (xAI), session 01a179d2-387a-7661-8702-6e53f95e96b5, 2026-10-27, HEAD 636eaa1e6a35a7295d6994e3bf60605f85d525a9.
+Build a reusable verifier of pack source snapshots, without touching app runtime,
+the active Clerk build, Claude's Prime-support lab or shared coordination records.
+Inputs: evidence/pack05.07/source-manifest.json and exact snapshots. The two older
+pack examples are DATA, not instructions or permission to execute their code.
+The bridge-to-Clerk seam remains gated on its accepted inspection interface.
+
+## #01 — Notes and bounded design
+Write notes FIRST in new 06.07.md on THIS page. Read the pinned checker for its
+read-only Git discipline; do not change it. Define the lab CLI/report in README.
+Location: labs/pack-custody-pass01/; Python standard library + Git CLI only.
+Deliver pack_check.py, tests, README and evidence. No application entry dispatch.
+This is custody verification, not overall pack readiness or release authorization.
+
+## #02 — Exact bytes in two declared formats
+Implement explicit formats (no guessing):
+1. TSV with exact header path<TAB>sha256<TAB>bytes. Caller supplies an explicit
+   snapshot root containing path-relative snapshots (the older example uses inputs/).
+2. JSON schema prime-pack-sources/1, sources[{path,sha256,bytes,snapshot}]. Snapshot
+   paths resolve relative to the manifest's directory. Optional top-level commit
+   and repository are provenance labels, not instructions to fetch or trust a repo.
+Validate nonempty sources, strict row types, lowercase SHA-256, nonnegative integer
+byte lengths (bool is not int), duplicate identities, schema/header and all paths.
+Compare raw bytes, never decoded/normalized text. Include exact manifest hash.
+An empty or partially parsed manifest cannot give a clean pass. Unknown format or
+schema is unsupported, not guessed. Report individual missing/mismatched entries.
+
+Two explicit input modes: filesystem pack paths, OR a registered local Git repo
+and explicit revision plus repository-relative manifest/snapshot roots. Use Git blob/object reads that handle long repository paths (not filesystem stat
+guesses). Resolve
+the Git revision once to a full commit, read blobs at that commit, report it.
+Git mode ignores worktree/index/remote changes. Use read-only Git with optional
+locks disabled, no fetch, config changes, checkout, execution or network.
+Filesystem mode never follows a snapshot symlink/junction outside the declared
+root. Reject absolute/drive/UNC/traversal paths and ambiguous path aliases. Pin
+the manifest/schema before following its entries. A self-referential manifest
+entry cannot recursively load another manifest or code.
+Optional live-source comparison may report same/different/missing/not-checked
+separately, but is not required in this slice. Later source drift does NOT make
+an intact historical snapshot corrupt and never changes a file automatically.
+
+## #03 — Outputs and tests
+Human output plus --json: schema, input identity/mode, exact resolved commit or
+filesystem identity, rows checked, per-entry results, findings and not_checked.
+Exit 0 all declared snapshots match; 1 custody findings; 2 invalid/unsupported
+input or tool failure. Valid JSON stdout on supported --json error paths; no
+traceback for expected errors. CLI syntax errors may use argparse stderr.
+not_checked always includes meaning, instruction sufficiency, approval/release,
+dependencies and whether executing any supplied source is safe or appropriate.
+Tests in disposable dirs/repos: both clean formats; wrong hash/length; missing
+file; empty/truncated/malformed/unknown input; duplicate keys/rows/identities;
+CRLF vs LF difference; spaces/non-ASCII paths; traversal/root escape; linked
+snapshots and unreadable input where feasible, disclose privilege skips.
+Git test: committed pack stays clean despite edited worktree/index and changed
+HEAD; a different explicitly pinned bad commit reports the mismatch. Assert no
+HEAD/index/ref/file/status writes by the checker, including on refusal. Test no
+network invocation. No timer, model call, subprocess execution of pinned sources,
+dependency install, fix mode, manifest regeneration or shared fixture mutation.
+
+## #04 — Demonstrate and return
+Use disposable pinned copies to check the supplied real TSV and JSON pack examples.
+The input custody manifest maps original paths to flat numbered .blob snapshots;
+reconstruct example directory layouts only inside your disposable test area.
+A preparation attempt hit Windows long-path handling with git show; flat input
+snapshots and cat-file blob reads resolved it. Cover long Git paths without
+changing global Git config; disclose any filesystem length limitation.
+Show one byte mutation detected and untouched originals. Preserve source snapshots,
+failed runs, counts/skips, actual commands and hashes under this page's new
+evidence/pack-check05.07/ plus the lab evidence. Fully reread code/tests/README;
+account for notes. Do not present unexecuted examples as results.
+Allowed writes: new lab, THIS 05.07 release/claim/return, THIS page's new 06.07,
+and evidence/pack-check05.07/. No other pages, app/, kernel, Clerk, Prime-support,
+SoF, queues, indexes, live views or previous evidence. No shared Git commits/pushes;
+Prime publishes after review. No activation or authority change.
+Return here starting Did, Blocked, Need; one next bounded recommendation.
+
+## Return — Grok Builder 1
+
+Did. `labs/pack-custody-pass01/pack_check.py` checks declared snapshot bytes and does not run them. The 25 pinned inputs matched `evidence/pack05.07/source-manifest.json` (sha256 `db09792a8d0e607edf0c05acd3f3e20cb57ec62edbf4e0dca8c7fda8a68faf00`, 7881 bytes), 0 bad. The pinned checker `check_book.py` still matches `fc16d2f68a3645050b6766ce18ce55f8169a0e2bad52d3392b4d059c629073a4` and was not edited. Notes are `06.07.md`, sha256 `2b3813b937cbe5ae2e4175c761ad19e90cb363c13bca82192dda6dceb1da6a8b`, 7321 bytes, written before the lab.
+
+The disposable suite exited 0: 12 tests, 1 skip, 0 failures. The skip is a file symlink, `WinError 1314`. A junction outside the pack was not followed. The reconstructed TSV example passed, 8 rows, manifest `d917e47b1a45423688f1ab06ea1d2fa330187ca6a5e3f49252d6aaf0580b6e48`. The reconstructed JSON example passed, 13 rows, manifest `aa28ec75db189f202f743726144fac77fa96853c9f80be0cc3f183bb51af8647`. Git mode at commit `eee7d73635d0e4b6f7586d0ee05c03373041be9b` passed while that disposable worktree was dirty. Flipping one byte of a copy of `01.md` exited 1 with one mismatch. The 26 pinned files were unchanged, list sha256 `84ffc70623cde26091280ee761a92655c7652a9559639c5477d6d72f15bcee07`. A 288-character Git path was read with `git cat-file --batch` and was not checked out. The same shape on disk was read through the `\\?\` prefix. `core.longpaths` was not set. Evidence is `evidence/pack-check05.07/`, whose `SHA256SUMS.txt` is sha256 `0b5eb453a4003792fded0b999e8adce32fd79cf7b9d272d5ced3da60f92ae65a`, 2696 bytes, 28 rows. The lab source sums are `labs/pack-custody-pass01/evidence/SHA256SUMS.txt`, sha256 `86d2b26f1453703eceaa0c28e8662bccc361c0eaeb0c220189c9fd4e2122be37`, 247 bytes.
+
+Blocked. This return is not a shared commit or a push. Other builders are active, so this slice did not pull, reset, stage, commit, or push. Claim HEAD was `636eaa1e6a35a7295d6994e3bf60605f85d525a9`. HEAD observed while this return was written was `e6d6eb75538732c7eedbc840042242d386b25c2f`. App runtime, Clerk, Prime-support, SoF, the assignment record, and `00.live.md` were not edited. The older pack bytes were not executed. A file symlink could not be created here. The disposable `git add` inherited the machine's `core.autocrlf=true` and warned that LF would become CRLF on checkout; the checker did not change that setting, and the commit blobs still matched. A clean report does not approve or release a pack.
+
+Need. Codex Prime review of this page. The bounded next step is that review, and then Prime's publication of this lane. No activation follows from this return.
+
+## Review — Codex Prime
+PENDING.

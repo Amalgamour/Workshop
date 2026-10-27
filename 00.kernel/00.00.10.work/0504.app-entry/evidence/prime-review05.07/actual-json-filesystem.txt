@@ -1,0 +1,153 @@
+{
+  "schema": "pack-custody-report/1",
+  "result": "pass",
+  "mode": "filesystem",
+  "format": "prime-pack-sources/1",
+  "manifest": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0508.return-capture\\evidence\\pack05.01\\source-manifest.json",
+  "manifest_sha256": "7f32a599bdbbe12f370afa3e4b88bcd83df6136fd9520b02637ed6856c5a2db8",
+  "manifest_bytes": 2794,
+  "commit": null,
+  "root": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0508.return-capture\\evidence\\pack05.01",
+  "provenance": {
+    "repository": "Amalgamour/Librarian",
+    "commit": "e6d6eb75538732c7eedbc840042242d386b25c2f"
+  },
+  "rows_checked": 12,
+  "entries": [
+    {
+      "path": "00.kernel/00.00.10.work/0100.band.returns/01.md",
+      "snapshot": "snapshots/0001.blob",
+      "location": "snapshots/0001.blob",
+      "result": "match",
+      "sha256": "f66b010a74fe879431cc17093b236dd1dd113658e22c041252fe2719c0c1a3be",
+      "bytes": 669,
+      "detail": "snapshot bytes match"
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0500.band.packs/01.md",
+      "snapshot": "snapshots/0002.blob",
+      "location": "snapshots/0002.blob",
+      "result": "match",
+      "sha256": "f358b4315ee604aa20203671bcf8b97d149c9034bb694f77d31fa8e2440dc635",
+      "bytes": 1104,
+      "detail": "snapshot bytes match"
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0014.design/01.001.md",
+      "snapshot": "snapshots/0003.blob",
+      "location": "snapshots/0003.blob",
+      "result": "match",
+      "sha256": "a04962e94ae54bcb0fc2ae42dd36ff6fc33822427cb2a983211d069aeaf4b610",
+      "bytes": 1075,
+      "detail": "snapshot bytes match"
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0014.design/01.002.md",
+      "snapshot": "snapshots/0004.blob",
+      "location": "snapshots/0004.blob",
+      "result": "match",
+      "sha256": "17a0cbca1ba6287efd13df9746021a5881ab06b324ef44d1bbd245a20d4fbb13",
+      "bytes": 2188,
+      "detail": "snapshot bytes match"
+    },
+    {
+      "path": "00.kernel/00.00.10.work/00.md",
+      "snapshot": "snapshots/0005.blob",
+      "location": "snapshots/0005.blob",
+      "result": "match",
+      "sha256": "7f1803d3efec7e62709df0ff4b082cfd3dba4e57609f51559437e7a189b4d57c",
+      "bytes": 98,
+      "detail": "snapshot bytes match"
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0502.workflow-start/01.md",
+      "snapshot": "snapshots/0006.blob",
+      "location": "snapshots/0006.blob",
+      "result": "match",
+      "sha256": "93f0bf4f5d36ec9d7cc7064e9eca394dab9d1a2d00f011701e59cb63ce3f85fa",
+      "bytes": 2063,
+      "detail": "snapshot bytes match"
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0504.app-entry/05.06.md",
+      "snapshot": "snapshots/0007.blob",
+      "location": "snapshots/0007.blob",
+      "result": "match",
+      "sha256": "51332cea6913d812c940574432a891f05c4b2667719f465b4a613dbea0a62cf6",
+      "bytes": 13251,
+      "detail": "snapshot bytes match"
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0507.prime-support/05.01.md",
+      "snapshot": "snapshots/0008.blob",
+      "location": "snapshots/0008.blob",
+      "result": "match",
+      "sha256": "0c91acfe02943770c25950670bbcfc5b6fe732a747707185f7d40bf00968c983",
+      "bytes": 17634,
+      "detail": "snapshot bytes match"
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0507.prime-support/evidence/prime-review05.01/review.md",
+      "snapshot": "snapshots/0009.blob",
+      "location": "snapshots/0009.blob",
+      "result": "match",
+      "sha256": "fb30c940ea36b62b9e673d124834702c3be4ce260730f46aa0883077b1a7c943",
+      "bytes": 3632,
+      "detail": "snapshot bytes match"
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0506.clerk-handoff/01.md",
+      "snapshot": "snapshots/0010.blob",
+      "location": "snapshots/0010.blob",
+      "result": "match",
+      "sha256": "ec47b135cfd7614f5535ac600d7ec2e94d8cab6c6299e21296d7da0c8a9603f1",
+      "bytes": 1409,
+      "detail": "snapshot bytes match"
+    },
+    {
+      "path": "labs/clerk-handoff-pass02/README.md",
+      "snapshot": "snapshots/0011.blob",
+      "location": "snapshots/0011.blob",
+      "result": "match",
+      "sha256": "13e5148f91957a109a2560622c09c87de5369c6e1e3591cb223de252440914cc",
+      "bytes": 8530,
+      "detail": "snapshot bytes match"
+    },
+    {
+      "path": "README.md",
+      "snapshot": "snapshots/0012.blob",
+      "location": "snapshots/0012.blob",
+      "result": "match",
+      "sha256": "7a5b94ff6732e0a49fd712ea447608d7407e85dfa5eeb5d290f12fbeb736fd54",
+      "bytes": 6877,
+      "detail": "snapshot bytes match"
+    }
+  ],
+  "findings": [],
+  "not_checked": [
+    {
+      "item": "meaning",
+      "detail": "This check does not say what the bytes mean."
+    },
+    {
+      "item": "instruction-sufficiency",
+      "detail": "This check does not decide whether the pack's instructions are sufficient."
+    },
+    {
+      "item": "approval-release",
+      "detail": "This check does not approve or release the pack."
+    },
+    {
+      "item": "dependencies",
+      "detail": "This check does not resolve or install dependencies."
+    },
+    {
+      "item": "execution-safety",
+      "detail": "This check does not decide whether executing any supplied source is safe or appropriate. It does not run those sources."
+    },
+    {
+      "item": "live-source",
+      "detail": "Later worktree drift is not compared. An intact snapshot is not rewritten, and drift alone does not fail a historical blob."
+    }
+  ]
+}

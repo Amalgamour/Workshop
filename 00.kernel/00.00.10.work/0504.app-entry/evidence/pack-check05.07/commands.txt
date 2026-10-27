@@ -1,0 +1,20 @@
+tsv-filesystem
+--format tsv --manifest C:\Users\misg\AppData\Local\Temp\wf0507-demo-wk_05rv9\tsv-pack\source-manifest.tsv --root C:\Users\misg\AppData\Local\Temp\wf0507-demo-wk_05rv9\tsv-pack\inputs --json
+
+tsv-filesystem-human
+--format tsv --manifest C:\Users\misg\AppData\Local\Temp\wf0507-demo-wk_05rv9\tsv-pack\source-manifest.tsv --root C:\Users\misg\AppData\Local\Temp\wf0507-demo-wk_05rv9\tsv-pack\inputs
+
+json-filesystem
+--format prime-pack-sources/1 --manifest C:\Users\misg\AppData\Local\Temp\wf0507-demo-wk_05rv9\json-pack\source-manifest.json --json
+
+json-filesystem-human
+--format prime-pack-sources/1 --manifest C:\Users\misg\AppData\Local\Temp\wf0507-demo-wk_05rv9\json-pack\source-manifest.json
+
+json-git-dirty-worktree
+--format prime-pack-sources/1 --git-repo C:\Users\misg\AppData\Local\Temp\wf0507-demo-wk_05rv9\repo --rev eee7d73635d0e4b6f7586d0ee05c03373041be9b --manifest source-manifest.json --json
+
+json-mutated
+--format prime-pack-sources/1 --manifest C:\Users\misg\AppData\Local\Temp\wf0507-demo-wk_05rv9\json-mutated\source-manifest.json --json
+
+long-filesystem
+--format prime-pack-sources/1 --manifest C:\Users\misg\AppData\Local\Temp\wf0507-demo-wk_05rv9\longfs\source-manifest.json --json

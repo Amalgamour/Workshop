@@ -1,0 +1,117 @@
+{
+  "schema": "pack-custody-report/1",
+  "result": "pass",
+  "mode": "filesystem",
+  "format": "tsv",
+  "manifest": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0506.clerk-handoff\\evidence\\pack05.04\\source-manifest.tsv",
+  "manifest_sha256": "d917e47b1a45423688f1ab06ea1d2fa330187ca6a5e3f49252d6aaf0580b6e48",
+  "manifest_bytes": 967,
+  "commit": null,
+  "root": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0506.clerk-handoff\\evidence\\pack05.04\\inputs",
+  "provenance": {
+    "repository": null,
+    "commit": null
+  },
+  "rows_checked": 8,
+  "entries": [
+    {
+      "path": "labs/clerk-handoff-pass02/clerk.py",
+      "snapshot": "labs/clerk-handoff-pass02/clerk.py",
+      "location": "labs/clerk-handoff-pass02/clerk.py",
+      "result": "match",
+      "sha256": "f469e232f878d042a7a50e6c1ca948d26fdb680de12a6a4220fd8f4513f103ad",
+      "bytes": 44188,
+      "detail": "snapshot bytes match"
+    },
+    {
+      "path": "labs/clerk-handoff-pass02/tests/test_clerk.py",
+      "snapshot": "labs/clerk-handoff-pass02/tests/test_clerk.py",
+      "location": "labs/clerk-handoff-pass02/tests/test_clerk.py",
+      "result": "match",
+      "sha256": "2824ca6d5b168065cc9cdcacc6ba009f8e5e3405cef82225ccddc6838f4b7a3d",
+      "bytes": 39734,
+      "detail": "snapshot bytes match"
+    },
+    {
+      "path": "labs/clerk-handoff-pass02/README.md",
+      "snapshot": "labs/clerk-handoff-pass02/README.md",
+      "location": "labs/clerk-handoff-pass02/README.md",
+      "result": "match",
+      "sha256": "13e5148f91957a109a2560622c09c87de5369c6e1e3591cb223de252440914cc",
+      "bytes": 8530,
+      "detail": "snapshot bytes match"
+    },
+    {
+      "path": "labs/clerk-handoff-pass02/demo.py",
+      "snapshot": "labs/clerk-handoff-pass02/demo.py",
+      "location": "labs/clerk-handoff-pass02/demo.py",
+      "result": "match",
+      "sha256": "ae6653a928d450bd943e04b454c2789e6a794558373e66b9b819768950b6b50c",
+      "bytes": 9623,
+      "detail": "snapshot bytes match"
+    },
+    {
+      "path": "labs/clerk-handoff-pass02/evidence/SHA256SUMS.pass02.txt",
+      "snapshot": "labs/clerk-handoff-pass02/evidence/SHA256SUMS.pass02.txt",
+      "location": "labs/clerk-handoff-pass02/evidence/SHA256SUMS.pass02.txt",
+      "result": "match",
+      "sha256": "08cd3001d887af06df56c65e0f857a77ce38374e3eafc8755942fb5ee69c9760",
+      "bytes": 1138,
+      "detail": "snapshot bytes match"
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0506.clerk-handoff/05.02.md",
+      "snapshot": "00.kernel/00.00.10.work/0506.clerk-handoff/05.02.md",
+      "location": "00.kernel/00.00.10.work/0506.clerk-handoff/05.02.md",
+      "result": "match",
+      "sha256": "395cb773b6bf5a6551704be88b80d0f355b86e6a43fa12ebc072887f42f1543d",
+      "bytes": 10408,
+      "detail": "snapshot bytes match"
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0506.clerk-handoff/05.03.md",
+      "snapshot": "00.kernel/00.00.10.work/0506.clerk-handoff/05.03.md",
+      "location": "00.kernel/00.00.10.work/0506.clerk-handoff/05.03.md",
+      "result": "match",
+      "sha256": "59468d0976229899136f0120df3315583de65a79e4e06d8ec5bcd3b94cce50dd",
+      "bytes": 14383,
+      "detail": "snapshot bytes match"
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/design05.03/SEAM.md",
+      "snapshot": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/design05.03/SEAM.md",
+      "location": "00.kernel/00.00.10.work/0506.clerk-handoff/evidence/design05.03/SEAM.md",
+      "result": "match",
+      "sha256": "ef0c75072d050a77f9a5ac59449165a00a7752244ce4ea2576b38564389c8930",
+      "bytes": 18616,
+      "detail": "snapshot bytes match"
+    }
+  ],
+  "findings": [],
+  "not_checked": [
+    {
+      "item": "meaning",
+      "detail": "This check does not say what the bytes mean."
+    },
+    {
+      "item": "instruction-sufficiency",
+      "detail": "This check does not decide whether the pack's instructions are sufficient."
+    },
+    {
+      "item": "approval-release",
+      "detail": "This check does not approve or release the pack."
+    },
+    {
+      "item": "dependencies",
+      "detail": "This check does not resolve or install dependencies."
+    },
+    {
+      "item": "execution-safety",
+      "detail": "This check does not decide whether executing any supplied source is safe or appropriate. It does not run those sources."
+    },
+    {
+      "item": "live-source",
+      "detail": "Later worktree drift is not compared. An intact snapshot is not rewritten, and drift alone does not fail a historical blob."
+    }
+  ]
+}

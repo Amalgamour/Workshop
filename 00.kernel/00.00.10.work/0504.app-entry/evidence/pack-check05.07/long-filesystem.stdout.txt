@@ -1,0 +1,54 @@
+{
+  "schema": "pack-custody-report/1",
+  "result": "pass",
+  "mode": "filesystem",
+  "format": "prime-pack-sources/1",
+  "manifest": "C:\\Users\\misg\\AppData\\Local\\Temp\\wf0507-demo-wk_05rv9\\longfs\\source-manifest.json",
+  "manifest_sha256": "687a5ecf1e84d1b7dccb5a40c1d801cc05869d3e1c2fd31f150c6ee32baea26d",
+  "manifest_bytes": 516,
+  "commit": null,
+  "root": "C:\\Users\\misg\\AppData\\Local\\Temp\\wf0507-demo-wk_05rv9\\longfs",
+  "provenance": {
+    "repository": null,
+    "commit": null
+  },
+  "rows_checked": 1,
+  "entries": [
+    {
+      "path": "logical/file.txt",
+      "snapshot": "directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/file.txt",
+      "location": "directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/directory/file.txt",
+      "result": "match",
+      "sha256": "afe43767ced10e71caa62443712e810dfb9ef6e40e49101edb35c875b1515991",
+      "bytes": 8,
+      "detail": "snapshot bytes match"
+    }
+  ],
+  "findings": [],
+  "not_checked": [
+    {
+      "item": "meaning",
+      "detail": "This check does not say what the bytes mean."
+    },
+    {
+      "item": "instruction-sufficiency",
+      "detail": "This check does not decide whether the pack's instructions are sufficient."
+    },
+    {
+      "item": "approval-release",
+      "detail": "This check does not approve or release the pack."
+    },
+    {
+      "item": "dependencies",
+      "detail": "This check does not resolve or install dependencies."
+    },
+    {
+      "item": "execution-safety",
+      "detail": "This check does not decide whether executing any supplied source is safe or appropriate. It does not run those sources."
+    },
+    {
+      "item": "live-source",
+      "detail": "Later worktree drift is not compared. An intact snapshot is not rewritten, and drift alone does not fail a historical blob."
+    }
+  ]
+}

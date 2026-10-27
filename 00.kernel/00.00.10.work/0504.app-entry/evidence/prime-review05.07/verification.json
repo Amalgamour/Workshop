@@ -1,0 +1,45 @@
+{
+  "root": "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-pack-verifier-16w55ise",
+  "manifests": {
+    "D:\\Git\\lib-build\\labs\\pack-custody-pass01\\evidence\\SHA256SUMS.txt": {
+      "rows": 3,
+      "errors": []
+    },
+    "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0504.app-entry\\evidence\\pack-check05.07\\SHA256SUMS.txt": {
+      "rows": 28,
+      "errors": []
+    }
+  },
+  "runs": {
+    "suite": {
+      "exit": 0,
+      "expected": 0,
+      "matches": true,
+      "tail": "n_feasible (__main__.FilesystemTests.test_unreadable_when_feasible) ... ok\ntest_long_path_and_no_network_commands (__main__.GitTests.test_long_path_and_no_network_commands) ... ok\ntest_pinned_commit_ignores_worktree_index_and_head (__main__.GitTests.test_pinned_commit_ignores_worktree_index_and_head) ... ok\n\n----------------------------------------------------------------------\nRan 12 tests in 5.444s\n\nOK (skipped=1)\n"
+    },
+    "actual-json-filesystem": {
+      "exit": 0,
+      "expected": 0,
+      "matches": true,
+      "tail": " not resolve or install dependencies.\"\n    },\n    {\n      \"item\": \"execution-safety\",\n      \"detail\": \"This check does not decide whether executing any supplied source is safe or appropriate. It does not run those sources.\"\n    },\n    {\n      \"item\": \"live-source\",\n      \"detail\": \"Later worktree drift is not compared. An intact snapshot is not rewritten, and drift alone does not fail a historical blob.\"\n    }\n  ]\n}\n"
+    },
+    "actual-tsv-filesystem": {
+      "exit": 0,
+      "expected": 0,
+      "matches": true,
+      "tail": " not resolve or install dependencies.\"\n    },\n    {\n      \"item\": \"execution-safety\",\n      \"detail\": \"This check does not decide whether executing any supplied source is safe or appropriate. It does not run those sources.\"\n    },\n    {\n      \"item\": \"live-source\",\n      \"detail\": \"Later worktree drift is not compared. An intact snapshot is not rewritten, and drift alone does not fail a historical blob.\"\n    }\n  ]\n}\n"
+    },
+    "actual-json-git": {
+      "exit": 0,
+      "expected": 0,
+      "matches": true,
+      "tail": " not resolve or install dependencies.\"\n    },\n    {\n      \"item\": \"execution-safety\",\n      \"detail\": \"This check does not decide whether executing any supplied source is safe or appropriate. It does not run those sources.\"\n    },\n    {\n      \"item\": \"live-source\",\n      \"detail\": \"Later worktree drift is not compared. An intact snapshot is not rewritten, and drift alone does not fail a historical blob.\"\n    }\n  ]\n}\n"
+    },
+    "independent-line-ending-change": {
+      "exit": 1,
+      "expected": 1,
+      "matches": true,
+      "tail": " not resolve or install dependencies.\"\n    },\n    {\n      \"item\": \"execution-safety\",\n      \"detail\": \"This check does not decide whether executing any supplied source is safe or appropriate. It does not run those sources.\"\n    },\n    {\n      \"item\": \"live-source\",\n      \"detail\": \"Later worktree drift is not compared. An intact snapshot is not rewritten, and drift alone does not fail a historical blob.\"\n    }\n  ]\n}\n"
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "schema": "pack-custody-report/1",
+  "result": "findings",
+  "mode": "filesystem",
+  "format": "prime-pack-sources/1",
+  "manifest": "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-pack-verifier-16w55ise\\bad-pack\\source-manifest.json",
+  "manifest_sha256": "6398e9f9a48b408b4bd87b2a5654a95ce88d7ec3b2e1e5512a87ec1a78f8775b",
+  "manifest_bytes": 187,
+  "commit": null,
+  "root": "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-pack-verifier-16w55ise\\bad-pack",
+  "provenance": {
+    "repository": null,
+    "commit": null
+  },
+  "rows_checked": 1,
+  "entries": [
+    {
+      "path": "source.md",
+      "snapshot": "source.blob",
+      "location": "source.blob",
+      "result": "mismatch",
+      "sha256": "55c97802b397ef4da0d8e2ecf4a8fa33c1f4755da0eacec54c62cacbbcfd9713",
+      "bytes": 6,
+      "detail": "declared sha256 0fa688a99130064bb165bb044e81762209c35788be12de3909a0112bbc8b53ec bytes 7; actual sha256 55c97802b397ef4da0d8e2ecf4a8fa33c1f4755da0eacec54c62cacbbcfd9713 bytes 6"
+    }
+  ],
+  "findings": [
+    {
+      "code": "mismatch",
+      "path": "source.md",
+      "detail": "declared sha256 0fa688a99130064bb165bb044e81762209c35788be12de3909a0112bbc8b53ec bytes 7; actual sha256 55c97802b397ef4da0d8e2ecf4a8fa33c1f4755da0eacec54c62cacbbcfd9713 bytes 6"
+    }
+  ],
+  "not_checked": [
+    {
+      "item": "meaning",
+      "detail": "This check does not say what the bytes mean."
+    },
+    {
+      "item": "instruction-sufficiency",
+      "detail": "This check does not decide whether the pack's instructions are sufficient."
+    },
+    {
+      "item": "approval-release",
+      "detail": "This check does not approve or release the pack."
+    },
+    {
+      "item": "dependencies",
+      "detail": "This check does not resolve or install dependencies."
+    },
+    {
+      "item": "execution-safety",
+      "detail": "This check does not decide whether executing any supplied source is safe or appropriate. It does not run those sources."
+    },
+    {
+      "item": "live-source",
+      "detail": "Later worktree drift is not compared. An intact snapshot is not rewritten, and drift alone does not fail a historical blob."
+    }
+  ]
+}

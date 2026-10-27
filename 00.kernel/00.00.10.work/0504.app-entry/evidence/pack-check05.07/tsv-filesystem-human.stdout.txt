@@ -1,0 +1,26 @@
+schema: pack-custody-report/1
+result: pass
+mode: filesystem
+format: tsv
+manifest: C:\Users\misg\AppData\Local\Temp\wf0507-demo-wk_05rv9\tsv-pack\source-manifest.tsv
+manifest_sha256: d917e47b1a45423688f1ab06ea1d2fa330187ca6a5e3f49252d6aaf0580b6e48
+manifest_bytes: 967
+commit: None
+root: C:\Users\misg\AppData\Local\Temp\wf0507-demo-wk_05rv9\tsv-pack\inputs
+provenance_repository: None
+provenance_commit: None
+rows_checked: 8
+entry match labs/clerk-handoff-pass02/clerk.py snapshot labs/clerk-handoff-pass02/clerk.py location labs/clerk-handoff-pass02/clerk.py snapshot bytes match
+entry match labs/clerk-handoff-pass02/tests/test_clerk.py snapshot labs/clerk-handoff-pass02/tests/test_clerk.py location labs/clerk-handoff-pass02/tests/test_clerk.py snapshot bytes match
+entry match labs/clerk-handoff-pass02/README.md snapshot labs/clerk-handoff-pass02/README.md location labs/clerk-handoff-pass02/README.md snapshot bytes match
+entry match labs/clerk-handoff-pass02/demo.py snapshot labs/clerk-handoff-pass02/demo.py location labs/clerk-handoff-pass02/demo.py snapshot bytes match
+entry match labs/clerk-handoff-pass02/evidence/SHA256SUMS.pass02.txt snapshot labs/clerk-handoff-pass02/evidence/SHA256SUMS.pass02.txt location labs/clerk-handoff-pass02/evidence/SHA256SUMS.pass02.txt snapshot bytes match
+entry match 00.kernel/00.00.10.work/0506.clerk-handoff/05.02.md snapshot 00.kernel/00.00.10.work/0506.clerk-handoff/05.02.md location 00.kernel/00.00.10.work/0506.clerk-handoff/05.02.md snapshot bytes match
+entry match 00.kernel/00.00.10.work/0506.clerk-handoff/05.03.md snapshot 00.kernel/00.00.10.work/0506.clerk-handoff/05.03.md location 00.kernel/00.00.10.work/0506.clerk-handoff/05.03.md snapshot bytes match
+entry match 00.kernel/00.00.10.work/0506.clerk-handoff/evidence/design05.03/SEAM.md snapshot 00.kernel/00.00.10.work/0506.clerk-handoff/evidence/design05.03/SEAM.md location 00.kernel/00.00.10.work/0506.clerk-handoff/evidence/design05.03/SEAM.md snapshot bytes match
+not_checked meaning: This check does not say what the bytes mean.
+not_checked instruction-sufficiency: This check does not decide whether the pack's instructions are sufficient.
+not_checked approval-release: This check does not approve or release the pack.
+not_checked dependencies: This check does not resolve or install dependencies.
+not_checked execution-safety: This check does not decide whether executing any supplied source is safe or appropriate. It does not run those sources.
+not_checked live-source: Later worktree drift is not compared. An intact snapshot is not rewritten, and drift alone does not fail a historical blob.
