@@ -5,9 +5,11 @@ test-run executes one fixture payload through the pinned runner candidate.
 bridge-test, bridge-status, and bridge-recover are the fixture-only worker exchange.
 clerk-deliver copies one collected fixture delivery into the caller's claimed Clerk job.
 pack-check, pack-preview, pack-assemble, and pack-verify call the pinned pack tools.
+prime-status calls the pinned read-only Prime status tool on a caller-supplied registry.
 The writable container is designated before fixture metadata is read.
 run is refused. A --test flag does not authorize a fixture root.
 A clean pack check is not release readiness.
+A status result is not release readiness.
 """
 
 from __future__ import annotations
@@ -70,10 +72,20 @@ def main(argv: list[str] | None = None) -> None:
         "pack-preview",
         "pack-assemble",
         "pack-verify",
+        "prime-status",
     ):
         stop("normal run is not activated")
     command = args.pop(0)
     code_root = Path(__file__).resolve().parent.parent
+    if command == "prime-status":
+        intake = load_module(Path(__file__).resolve().parent / "prime_intake.py", "librarian_prime_intake")
+        try:
+            code = intake.perform(args, code_root)
+        except intake.Refuse as exc:
+            stop(str(exc))
+        if type(code) is not int:
+            stop("pinned status tool returned no exit code")
+        raise SystemExit(code)
     if command in ("pack-check", "pack-preview", "pack-assemble", "pack-verify"):
         tools = load_module(Path(__file__).resolve().parent / "prime_tools.py", "librarian_prime_tools")
         try:

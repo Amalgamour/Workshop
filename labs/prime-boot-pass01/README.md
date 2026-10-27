@@ -90,3 +90,22 @@ The contract addendum is `00.kernel/00.00.10.work/0507.prime-support/evidence/re
 **Replay.** An identical second `check` or `judge` reads the stage's terminal record, `22` or `39`, and reports `already-recorded: …`. If that record is missing or unreadable, it reports `incomplete: …; start a new linked attempt` with exit 3. Replay never writes, repairs or completes a stage. Different bytes still refuse with `conflict`.
 
 **show.** `show` names the stage: interrupted, prepare-failed, awaiting-answers, check-incomplete, checked, judgement-incomplete or outcome. `--json` adds `stage` and `complete`. Only a readable `39` gives an outcome. A raw file on its own never does.
+
+## Member evidence (05.09)
+
+The contract addendum is `00.kernel/00.00.10.work/0507.prime-support/evidence/members05.09/CONTRACT.md`.
+
+**Inspection.** Each requested member is read by the accepted inspector, `return_inspect.py inspect --book ABS --member NAME --json`. The inspector is the sibling of `tools.return_capture`. Its hash (947915fe…) and the helper's hash (8f3da5c6…) are both checked before every launch, and a mismatch never launches.
+
+**Recording.** The inspector's exact stdout is kept as `08.member-NN.inspect.raw`. Stage 08 records each observation as `prime-boot-member-observation/1`: a live observation, not a commit blob. It holds:
+- the inspector's reservation and capture projection;
+- the identity: reservation, submission, manifest, receipt and return hashes;
+- the readiness, and a remediation line.
+
+**Not a validator.** This lab checks only the inspector's interface: schema, status, the exit for that status, member, problems, and capture versus status. It never re-validates a package. A report that fails these checks is a failed observation.
+
+**Readiness.** A requested member must be `complete`. A reserved, missing, incomplete or refused member, or a failed observation, makes prepare `partial` with remediation, so the attempt can never be oriented. Capture identities appear only when the inspector returned them. A complete receipt proves custody only: review, acceptance and publication are not inferred either way. An empty member list is valid.
+
+**Packet.** Each observation is a citable ref, `kind: live-inspection` with `path: member:<name>`, holding the exact report text. Member refs count against the 12-ref and 128 KiB caps, and overflow is recorded as an omission. They are never O1 work targets.
+
+**Stability.** Stage 10 inspects each member again into `10.member-NN.inspect.raw`. A changed identity marks the attempt unstable. Two reads are two observations; no atomic snapshot is claimed.

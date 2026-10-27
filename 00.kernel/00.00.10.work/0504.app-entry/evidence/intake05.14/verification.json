@@ -1,0 +1,173 @@
+{
+  "schema": "intake05.14-verification",
+  "date": "2026-10-27",
+  "claim_head": "aaeb8dc4cd5a3e42342a7e79427f481c9f05896e",
+  "head_at_outcome": "aaeb8dc4cd5a3e42342a7e79427f481c9f05896e",
+  "pins": {
+    "manifest": "00.kernel/00.00.10.work/0504.app-entry/evidence/pack05.14/source-manifest.json",
+    "manifest_sha256": "4823e7a3c346285c71a01c199e68e0141c8ca1d66bef44e987bcb73133d65de1",
+    "manifest_bytes": 2785,
+    "schema": "prime-pack-sources/1",
+    "sources": 13,
+    "bad": 0,
+    "checked_before_release_and_again_here": true
+  },
+  "commands": [
+    {
+      "command": "python -B app/tests/test_prime_intake.py",
+      "exit": 0,
+      "pass": 6,
+      "expected_refusal": 16,
+      "skip": 1,
+      "fail": 0,
+      "skip_reason": "file symlink privilege WinError 1314"
+    },
+    {
+      "command": "python -B app/tests/test_entry.py",
+      "exit": 0,
+      "pass": 12,
+      "expected_refusal": 46,
+      "skip": 1,
+      "fail": 0,
+      "skip_reason": "dangling file symlink WinError 1314"
+    },
+    {
+      "command": "python -B app/tests/test_prime_tools.py",
+      "exit": 0,
+      "tests": 12,
+      "skip": 1,
+      "fail": 0,
+      "skip_reason": "the only skipTest is file symlink privilege WinError 1314"
+    }
+  ],
+  "artifacts": {
+    "app/librarian.py": {
+      "sha256": "3dc5f4542a2a00583efe2d1fbb201749dfbe7fea42e9ddd3a80b3fef920f1ecf",
+      "bytes": 8039,
+      "newline": "lf"
+    },
+    "app/prime_intake.py": {
+      "sha256": "5a06c302dce4d9d6102cc11c78cb9adc961d49c9eb095e4fdd2632e49971611e",
+      "bytes": 8501,
+      "newline": "lf"
+    },
+    "app/prime-intake.json": {
+      "sha256": "998278c445b293bc9df4b5ad2578c7596454ba25fd9a706a1076d79a778d37e6",
+      "bytes": 735,
+      "newline": "lf"
+    },
+    "app/tests/test_prime_intake.py": {
+      "sha256": "03464d3b52c4fd5e0db2659700076343c19006b208c0b8d39f0c0978685e56a0",
+      "bytes": 25296,
+      "newline": "lf"
+    },
+    "app/README.md": {
+      "sha256": "cbfa6ff314bea2c9b5309b86c8154354c9fd91de2a0a0ed727c6c6254f9d3f31",
+      "bytes": 15720,
+      "newline": "lf"
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/06.14.md": {
+      "sha256": "ea227318bfcd444892fc203040b4f9e829b1ace6179f059ef1a2acbc5926b954",
+      "bytes": 8465,
+      "newline": "lf"
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/evidence/intake05.14/CONTRACT.md": {
+      "sha256": "155b964baa49cdaf55858f6a1355cc688274c412ffb026aa4c394c1ca5d2bdff",
+      "bytes": 4089,
+      "newline": "lf"
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/evidence/intake05.14/tests.txt": {
+      "sha256": "8d74def17e011931f0da9f0d56a18b0ecf74b91f43d67df9635e51e87c907be2",
+      "bytes": 6430,
+      "newline": "crlf"
+    }
+  },
+  "unchanged": {
+    "app/prime_tools.py": {
+      "sha256": "4725efba6caeda1589c78a81b26e5bc4cb8b04ddefed1b1916db1a01e3e5640c",
+      "bytes": 7800
+    },
+    "app/prime-tools.json": {
+      "sha256": "e70e951cd229da0a3320ccf9a2d3b59e99dacdcf9b6c82c12d275578b62395e8",
+      "bytes": 593
+    },
+    "app/context.py": {
+      "sha256": "5b1a31d47bb9f9b465a8492541467abbd9bd3a99ae524be7aa0dbffe2380eb9f",
+      "bytes": 22063
+    },
+    "app/tests/test_entry.py": {
+      "sha256": "2cfc166d3ddea46876535f642042285ec1331ebd14a13c0f67f5c94bac9373a2",
+      "bytes": 43920
+    },
+    "app/tests/test_prime_tools.py": {
+      "sha256": "f0ba134a9aed5f573c85058b155aacef873a29a8b7d2a6f535887d82a8e6220d",
+      "bytes": 29826
+    },
+    "labs/prime-support-pass01/prime_support.py": {
+      "sha256": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70",
+      "bytes": 59791
+    },
+    "labs/prime-support-pass01/clerk_adapter.py": {
+      "sha256": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4",
+      "bytes": 11774
+    },
+    "labs/clerk-handoff-pass02/clerk.py": {
+      "sha256": "f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c",
+      "bytes": 52279
+    },
+    "labs/return-capture-pass01/return_capture.py": {
+      "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+      "bytes": 45767
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/evidence/prime-review05.13/review.md": {
+      "sha256": "69335d2824bf8eb446d9ca6611e82db99c52272a5d0a93e554d3e737f0220fd2",
+      "bytes": 1039
+    },
+    "00.kernel/00.00.10.work/0127.prime-intake-0514/reservation.json": {
+      "sha256": "3b7c1d7d1dd8268cba35c1be61977d7d0d4dedbc56b8e0f3911ef79d26ddc991",
+      "bytes": 866
+    }
+  },
+  "source_before": {
+    "app/librarian.py": {
+      "sha256": "98a0a4a93b05f16f293d38d2b27ea4001be61c34ff8b575a1a6746b0e260ba8e",
+      "bytes": 7488
+    },
+    "app/README.md": {
+      "sha256": "b615b9441e654eaa46de0be6abb1f53bb6f86316884c479e089adaa6b00c7611",
+      "bytes": 13658
+    }
+  },
+  "page_before_return_pointer": {
+    "path": "0504.app-entry/05.14.md",
+    "sha256": "787e5d49ae34ad2770cafb4c40a1f15025249771fc6276d9f2e92bd7a55f87f1",
+    "bytes": 4600,
+    "state": "claimed",
+    "note": "The return pointer is written only after verify exit 0. This file is not a capture artifact."
+  },
+  "comparison": {
+    "clean_exit": 0,
+    "attention_exit": 1,
+    "attention_items": [
+      "lane status: page folder absent-pages not found",
+      "lane status: absent-pages missing"
+    ],
+    "malformed_exit": 2,
+    "missing_exit": 2,
+    "missing_stdout_newline": "crlf",
+    "non_ascii_owner_matched_direct_bytes": true,
+    "foreign_cwd_decoy_not_run": true,
+    "registry_store_worktree_head_unchanged": true,
+    "no_acknowledgment": true
+  },
+  "limits": {
+    "full_bridge_suite": false,
+    "live_registry_installed": false,
+    "model_boot": false,
+    "intake_exposed": false,
+    "normal_run": "refused",
+    "status_is_not_release_readiness": true,
+    "same_user_gap_between_hash_and_subprocess": true,
+    "file_symlink_privilege": "WinError 1314 skip"
+  }
+}

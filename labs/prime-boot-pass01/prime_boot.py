@@ -29,7 +29,11 @@ PINS = {
     "clerk_adapter": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4",  # sibling of prime_support
     "check_book": "fc16d2f68a3645050b6766ce18ce55f8169a0e2bad52d3392b4d059c629073a4",
     "return_capture": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+    "return_inspect": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",  # sibling of return_capture
 }
+INSPECTION_SCHEMA = "return-capture-inspection/1"
+INSPECTION_EXIT = {"complete": 0, "reserved": 1, "missing": 1, "incomplete": 2, "refused": 2}
+CUSTODY = "capture custody only; review, acceptance and publication are not inferred either way"
 GIT_ALLOWED = {"rev-parse", "cat-file", "show", "status"}
 REQUEST_KEYS = {"schema", "boot_id", "attempt", "previous_attempt", "workspace", "branch", "commit", "role", "model",
                 "book", "role_record", "assignment_record", "registry", "tools", "members", "members_book", "packet",
@@ -136,14 +140,25 @@ def blob(workspace: str, commit: str, path: str) -> bytes | None:
     return git(workspace, "show", f"{commit}:{path}")[1] if code == 0 else None
 
 
-def run_tool(path: str, pin: str, args: list[str]) -> dict:
-    """Hash-check, then launch. A mismatch never launches."""
+def run_tool(path: str, pin: str, args: list[str], binary: bool = False) -> dict:
+    """Hash-check, then launch. A mismatch never launches. binary keeps stdout as the exact bytes."""
     digest = plain_file_sha(path)
     if digest != pin:
         raise StageFailure(f"tool {path} is not the pinned code (sha256 {digest})")
-    proc = subprocess.run([sys.executable, "-I", "-B", path, *args], capture_output=True, text=True, encoding="utf-8",
-                          errors="replace", timeout=120, env=dict(os.environ, PYTHONDONTWRITEBYTECODE="1"))
-    return {"argv": [path, *args], "exit": proc.returncode, "stdout": proc.stdout, "stderr": proc.stderr}
+    proc = subprocess.run([sys.executable, "-I", "-B", path, *args], capture_output=True, timeout=120,
+                          env=dict(os.environ, PYTHONDONTWRITEBYTECODE="1"))
+    out = proc.stdout if binary else proc.stdout.decode("utf-8", "replace").replace("\r\n", "\n")
+    return {"argv": [path, *args], "exit": proc.returncode, "stdout": out,
+            "stderr": proc.stderr.decode("utf-8", "replace").replace("\r\n", "\n")}
+
+
+def tool_path(req: dict, name: str) -> str:
+    """Request paths, plus the two fixed siblings: no version discovery and no other path field."""
+    if name == "clerk_adapter":
+        return str(Path(req["tools"]["prime_support"]).parent / "clerk_adapter.py")
+    if name == "return_inspect":
+        return str(Path(req["tools"]["return_capture"]).parent / "return_inspect.py")
+    return req["tools"][name]
 
 
 # ---------- prepare ----------
@@ -199,8 +214,7 @@ def identities(req: dict) -> dict:
     """The required identities re-read for the stability check (PB-04)."""
     head = git(req["workspace"], "rev-parse", "--verify", "HEAD")[1].decode().strip()
     code, out = git(req["workspace"], "rev-parse", "--verify", "--quiet", f"refs/heads/{req['branch']}", ok=(0, 1))
-    tools = {name: plain_file_sha(path) for name, path in req["tools"].items()}
-    tools["clerk_adapter"] = plain_file_sha(str(Path(req["tools"]["prime_support"]).parent / "clerk_adapter.py"))
+    tools = {name: plain_file_sha(tool_path(req, name)) for name in sorted(PINS)}
     return {"head": head, "branch_ref": out.decode().strip() if code == 0 else None,
             "registry_sha256": plain_file_sha(req["registry"]["path"]), "tools": tools}
 
@@ -234,8 +248,7 @@ def stage_tools(req: dict) -> dict:
     bad = {k: v for k, v in observed.items() if v != PINS[k]}
     if bad:
         raise StageFailure("tool pin mismatch: " + ", ".join(f"{k} {v}" for k, v in sorted(bad.items())))
-    return {"tools": {k: {"path": (req["tools"].get(k) or str(Path(req["tools"]["prime_support"]).parent / "clerk_adapter.py")),
-                          "sha256": v} for k, v in observed.items()}}
+    return {"tools": {k: {"path": tool_path(req, k), "sha256": v} for k, v in observed.items()}}
 
 
 def stage_git(req: dict) -> dict:
@@ -332,23 +345,121 @@ def status_shape(report) -> None:
         raise StageFailure("status report shape: attention must be a list")
 
 
-def stage_members(req: dict) -> dict:
+def interpret_inspection(member: str, run: dict) -> dict:
+    """Interface checks on the accepted inspector's report (05.09 CONTRACT §3). Not a package validator."""
+    raw = run["stdout"]
+    if run["stderr"]:
+        return {"observation": "failed", "reason": "inspector wrote to stderr"}
+    try:
+        doc = strict_json(raw, "inspector report")
+    except StageFailure as exc:
+        return {"observation": "failed", "reason": str(exc)}
+    if not isinstance(doc, dict):
+        return {"observation": "failed", "reason": "inspector report is not an object"}
+    if doc.get("schema") != INSPECTION_SCHEMA:
+        return {"observation": "failed", "reason": "inspector report has an unknown schema"}
+    status = doc.get("status")
+    if not isinstance(status, str) or status not in INSPECTION_EXIT:
+        return {"observation": "failed", "reason": "inspector report has an unknown status"}
+    if run["exit"] != INSPECTION_EXIT[status]:
+        return {"observation": "failed", "reason": f"inspector exit {run['exit']} is inconsistent with status {status}"}
+    if doc.get("member") != member:
+        return {"observation": "failed", "reason": "inspector report names a different member"}
+    problems = doc.get("problems")
+    if not str_list(problems) or (status == "complete") != (problems == []):
+        return {"observation": "failed", "reason": "inspector problems are inconsistent with its status"}
+    reservation, capture = doc.get("reservation"), doc.get("capture")
+    if reservation is not None and not isinstance(reservation, dict):
+        return {"observation": "failed", "reason": "inspector reservation is not an object or null"}
+    if isinstance(capture, dict) != (status == "complete") or (capture is not None and not isinstance(capture, dict)):
+        return {"observation": "failed", "reason": "inspector capture is inconsistent with its status"}
+    identity = {"status": status, "reservation_sha256": None, "submission_id": None, "manifest_sha256": None,
+                "receipt_sha256": None, "return_sha256": None, "return_bytes": None}
+    if reservation is not None:
+        if not isinstance(reservation.get("reservation_sha256"), str) or not HEX64.fullmatch(reservation["reservation_sha256"]):
+            return {"observation": "failed", "reason": "inspector reservation_sha256 is not 64 hex"}
+        identity["reservation_sha256"] = reservation["reservation_sha256"]
+    if capture is not None:
+        ret = capture.get("return")
+        hashes = [capture.get(k) for k in ("reservation_sha256", "manifest_sha256", "receipt_sha256")]
+        if not isinstance(capture.get("submission_id"), str) or not isinstance(ret, dict) \
+                or not all(isinstance(h, str) and HEX64.fullmatch(h) for h in hashes + [ret.get("sha256")]) \
+                or type(ret.get("bytes")) is not int:
+            return {"observation": "failed", "reason": "inspector capture identity fields have the wrong shape"}
+        identity.update(reservation_sha256=capture["reservation_sha256"], submission_id=capture["submission_id"],
+                        manifest_sha256=capture["manifest_sha256"], receipt_sha256=capture["receipt_sha256"],
+                        return_sha256=ret["sha256"], return_bytes=ret["bytes"])
+    return {"observation": "ok", "status": status, "problems": problems, "reservation": reservation, "capture": capture,
+            "identity": identity}
+
+
+def observe_members(req: dict, attempt_dir: Path, phase: str) -> list[dict]:
+    """One pinned inspector run per requested member; exact stdout kept as a raw attempt file."""
+    inspector = tool_path(req, "return_inspect")
     results = []
-    for member in req["members"]:
-        run = run_tool(req["tools"]["return_capture"], PINS["return_capture"],
-                       ["verify", "--book", req["members_book"], "--member", member])
-        results.append({"member": member, "verify_exit": run["exit"], "verify_stdout": run["stdout"],
-                        "integrity": "complete" if run["exit"] == 0 else "not verified",
-                        "structured": "unavailable: return_inspect.py is unaccepted",
-                        "scope": "capture integrity only; review or publication elsewhere is not asserted either way"})
-    return {"members_book": req["members_book"], "members": results}
+    for i, member in enumerate(req["members"], 1):
+        helper_sha = plain_file_sha(req["tools"]["return_capture"])
+        if helper_sha != PINS["return_capture"]:
+            raise StageFailure(f"tool {req['tools']['return_capture']} (inspector sibling) is not the pinned code (sha256 {helper_sha})")
+        observed_at = now()
+        run = run_tool(inspector, PINS["return_inspect"],
+                       ["inspect", "--book", req["members_book"], "--member", member, "--json"], binary=True)
+        raw_name = f"{phase}.member-{i:02d}.inspect.raw"
+        write_once(attempt_dir / raw_name, run["stdout"])
+        obs = {"schema": "prime-boot-member-observation/1", "member": member, "members_book": req["members_book"],
+               "source_kind": "live-inspection", "observed_at": observed_at,
+               "tool": {"path": inspector, "sha256": PINS["return_inspect"]}, "argv": run["argv"], "exit": run["exit"],
+               "stderr": run["stderr"], "raw_file": raw_name, "stdout_sha256": sha256(run["stdout"]),
+               "stdout_bytes": len(run["stdout"]), "status": None, "problems": None, "reservation": None,
+               "capture": None, "identity": None, "scope": CUSTODY}
+        obs.update(interpret_inspection(member, run))
+        ready = obs["observation"] == "ok" and obs["status"] == "complete"
+        obs["readiness"] = "ready" if ready else "not-ready"
+        obs["remediation"] = None if ready else (
+            f"member {member}: " + (f"observation failed ({obs['reason']})" if obs["observation"] == "failed"
+                                    else f"status {obs['status']} ({'; '.join(obs['problems'])})")
+            + "; a complete captured member is required, or a new linked attempt without it")
+        results.append(obs)
+    return results
 
 
-def stage_packet(req: dict, book: dict) -> dict:
+def stage_members(req: dict, attempt_dir: Path) -> dict:
+    return {"members_book": req["members_book"], "members": observe_members(req, attempt_dir, "08"),
+            "note": "live observations of member directories through the pinned inspector; not commit blobs; " + CUSTODY}
+
+
+def stage_packet(req: dict, book: dict, members: list[dict], attempt_dir: Path) -> dict:
     wanted = [book["entry"], book["contents"], req["role_record"], req["assignment_record"]]
+    wanted += [obs for obs in members]
     wanted += [p for p in req["packet"] if p not in wanted]
     refs, absences, omitted, total = [], [], [], 0
-    for path in wanted:
+    for item in wanted:
+        if isinstance(item, dict):  # a member observation: live, not a commit blob (05.09)
+            data = (attempt_dir / item["raw_file"]).read_bytes()
+            reason = None
+            if not data:
+                reason = "no inspector output"
+            elif len(refs) >= req["limits"]["max_refs"]:
+                reason = "max_refs reached"
+            elif total + len(data) > req["limits"]["max_bytes"]:
+                reason = "max_bytes would be exceeded"
+            else:
+                try:
+                    text = data.decode("utf-8")
+                except UnicodeDecodeError:
+                    reason = "not UTF-8 text"
+            if reason:
+                omitted.append({"kind": "live-inspection", "member": item["member"], "sha256": sha256(data),
+                                "bytes": len(data), "raw_file": item["raw_file"], "reason": reason})
+                continue
+            refs.append({"id": f"R{len(refs) + 1:02d}", "kind": "live-inspection", "path": f"member:{item['member']}",
+                         "member": item["member"], "members_book": item["members_book"], "observed_at": item["observed_at"],
+                         "observation": item["observation"], "status": item["status"], "sha256": sha256(data),
+                         "bytes": len(data), "text": text, "raw_file": item["raw_file"],
+                         "note": "exact inspector output observed live; not a commit blob; " + CUSTODY})
+            total += len(data)
+            continue
+        path = item
         data = blob(req["workspace"], req["commit"], path)
         if data is None:
             absences.append({"id": f"A{len(absences) + 1:02d}", "path": path, "commit": req["commit"], "absent": True})
@@ -431,13 +542,28 @@ def prepare(request_path: str, records: str, attempt_id: str) -> int:
             elif name == "status":
                 value = stage_status(req)
             elif name == "members":
-                value = stage_members(req)
+                value = stage_members(req, attempt_dir)
             elif name == "packet":
-                value = stage_packet(req, results["book"])
+                value = stage_packet(req, results["book"], results["members"]["members"], attempt_dir)
             else:
                 after = identities(req)
                 changed = sorted(k for k in before if before[k] != after[k])
-                value = {"before": before, "after": after, "stable": not changed, "changed": changed}
+                value = {"before": before, "after": after}
+                if not req["members"]:
+                    value["members_reobserved"] = None
+                elif any(after["tools"][k] != PINS[k] for k in PINS):
+                    value["members_reobserved"] = False
+                    value["members_reason"] = "a tool hash changed, so the inspector was not launched again"
+                else:
+                    again = observe_members(req, attempt_dir, "10")
+                    value["members_reobserved"] = True
+                    value["members_after"] = [{"member": o["member"], "observation": o["observation"],
+                                               "identity": o["identity"], "raw_file": o["raw_file"]} for o in again]
+                    first = [(o["observation"], o["identity"]) for o in results["members"]["members"]]
+                    if first != [(o["observation"], o["identity"]) for o in again]:
+                        changed.append("members")
+                value.update(stable=not changed, changed=changed,
+                             note="two reads are two observations; no atomic snapshot is claimed")
         except (StageFailure, OSError, subprocess.SubprocessError) as exc:
             detail = str(exc) if isinstance(exc, StageFailure) else f"{type(exc).__name__}: {exc}"
             write_once(attempt_dir / f"{number}.{name}.json", canonical({"stage": name, "status": "failed", "reason": detail}))
@@ -454,10 +580,12 @@ def prepare(request_path: str, records: str, attempt_id: str) -> int:
         reasons.append("unstable: " + ", ".join(results["stability"]["changed"]))
     if packet["omitted"]:
         reasons.append(f"{len(packet['omitted'])} source(s) omitted by the caps")
+    remediation = [o["remediation"] for o in results["members"]["members"] if o["readiness"] != "ready"]
+    reasons += [f"member {o['member']} not ready" for o in results["members"]["members"] if o["readiness"] != "ready"]
     status = "partial" if reasons else "prepared"
     write_once(attempt_dir / "19.prepare-outcome.json", canonical({
-        "status": status, "reasons": reasons, "refs": len(packet["refs"]), "absences": len(packet["absences"]),
-        "omitted": len(packet["omitted"]), "authority": AUTHORITY}))
+        "status": status, "reasons": reasons, "remediation": remediation, "refs": len(packet["refs"]),
+        "absences": len(packet["absences"]), "omitted": len(packet["omitted"]), "authority": AUTHORITY}))
     sys.stdout.write(f"attempt {attempt_dir}\nprepare {status}{': ' + '; '.join(reasons) if reasons else ''}\n")
     return 0 if status == "prepared" else 1
 
@@ -512,7 +640,7 @@ def check_answers(attempt: Path, answers: dict) -> dict:
     status = load_stage(attempt, "07.status.json")
     ref_by_id = {r["id"]: r for r in packet["refs"]}
     ids = set(ref_by_id) | {a["id"] for a in packet["absences"]}
-    scope = set(status["scope_paths"]) | {r["path"] for r in packet["refs"]}
+    scope = set(status["scope_paths"]) | {r["path"] for r in packet["refs"] if r["kind"] == "commit-blob"}
     results = {}
     for q in ("O1", "O2", "O3", "O4", "O5", "O6"):
         item = answers[q]

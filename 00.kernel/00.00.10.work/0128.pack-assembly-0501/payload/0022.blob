@@ -1,0 +1,63 @@
+{
+  "schema": "pack-custody-report/1",
+  "result": "pass",
+  "mode": "filesystem",
+  "format": "prime-pack-sources/1",
+  "manifest": "C:\\Users\\misg\\AppData\\Local\\Temp\\wf0501-demo-aqj7su_a\\pack\\source-manifest.json",
+  "manifest_sha256": "b4a17dc7668b37a079c2de1dd02fba6d6450af278e3adb3bcd4c0fad620a0665",
+  "manifest_bytes": 481,
+  "commit": null,
+  "root": "C:\\Users\\misg\\AppData\\Local\\Temp\\wf0501-demo-aqj7su_a\\pack",
+  "provenance": {
+    "repository": null,
+    "commit": "9ddcfdb6eb70b07e5384aa9633067aa4e1b0c195"
+  },
+  "rows_checked": 2,
+  "entries": [
+    {
+      "path": "fixture.txt",
+      "snapshot": "snapshots/0001.blob",
+      "location": "snapshots/0001.blob",
+      "result": "match",
+      "sha256": "7cefb9aa217c81555befc729d7fa5d70dbc83bfe20d91eaac7e8af9aee481432",
+      "bytes": 15,
+      "detail": "snapshot bytes match"
+    },
+    {
+      "path": "note.txt",
+      "snapshot": "snapshots/0002.blob",
+      "location": "snapshots/0002.blob",
+      "result": "match",
+      "sha256": "3b0a9cf5befb3cc59f9d8c46d45ae82ffe1a3428e5f1219c454f8406c4f61bf4",
+      "bytes": 27,
+      "detail": "snapshot bytes match"
+    }
+  ],
+  "findings": [],
+  "not_checked": [
+    {
+      "item": "meaning",
+      "detail": "This check does not say what the bytes mean."
+    },
+    {
+      "item": "instruction-sufficiency",
+      "detail": "This check does not decide whether the pack's instructions are sufficient."
+    },
+    {
+      "item": "approval-release",
+      "detail": "This check does not approve or release the pack."
+    },
+    {
+      "item": "dependencies",
+      "detail": "This check does not resolve or install dependencies."
+    },
+    {
+      "item": "execution-safety",
+      "detail": "This check does not decide whether executing any supplied source is safe or appropriate. It does not run those sources."
+    },
+    {
+      "item": "live-source",
+      "detail": "Later worktree drift is not compared. An intact snapshot is not rewritten, and drift alone does not fail a historical blob."
+    }
+  ]
+}

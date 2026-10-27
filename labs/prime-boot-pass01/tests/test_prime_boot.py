@@ -503,11 +503,23 @@ class TestPrimeBoot(Fixture):
         self.assertIn("unsupported", self.stage(d, "07.status.json")["reason"])
 
     def test_17_members_integrity_only(self):
-        d, _, _ = self.prepare(self.request(members=["0198.not-there"], members_book=str(self.tmp)), code=0)
+        # 05.09: a structured observation from the pinned inspector replaces the unavailable placeholder
+        d, _, _ = self.prepare(self.request(members=["0198.not-there"], members_book=str(self.tmp)), code=1)
         m = self.stage(d, "08.members.json")["members"][0]
-        self.assertEqual((m["integrity"], m["structured"]), ("not verified", "unavailable: return_inspect.py is unaccepted"))
-        self.assertNotEqual(m["verify_exit"], 0)
-        self.assertNotIn("return_inspect", TOOL.read_text(encoding="utf-8").replace("return_inspect.py is unaccepted", ""))
+        self.assertEqual((m["observation"], m["status"], m["exit"], m["readiness"]), ("ok", "missing", 1, "not-ready"))
+        self.assertEqual(m["problems"], ["member is absent"])
+        self.assertIsNone(m["capture"])
+        self.assertEqual({k: v for k, v in m["identity"].items() if k != "status"},
+                         dict.fromkeys(["reservation_sha256", "submission_id", "manifest_sha256", "receipt_sha256",
+                                        "return_sha256", "return_bytes"]))
+        self.assertEqual(m["scope"], pb.CUSTODY)
+        prep = self.stage(d, "19.prepare-outcome.json")
+        self.assertEqual(prep["status"], "partial")
+        self.assertIn("member 0198.not-there not ready", prep["reasons"])
+        self.assertTrue(prep["remediation"] and "0198.not-there" in prep["remediation"][0])
+        src = TOOL.read_text(encoding="utf-8")
+        self.assertNotIn("import return_inspect", src)
+        self.assertNotIn('"verify", "--book"', src)
 
     def test_18_sources_and_git_metadata_unchanged_no_writes_outside_records(self):
         (self.repo / PAGE / "05.02.md").write_bytes(b"dirty\n")
@@ -783,6 +795,278 @@ class TestValidationAndReplay(Fixture):
         self.cli("judge", "--attempt", p, "--judgement", gg, code=1)
         self.assertEqual(self.cli("judge", "--attempt", p, "--judgement", gg, code=1)[1].splitlines()[0],
                          "already-recorded: outcome partial")
+
+
+# ---------- 05.09: structured member evidence through the accepted inspector ----------
+
+RC = LABS / "return-capture-pass01"
+
+
+class MemberFixture(Fixture):
+    def setUp(self):
+        super().setUp()
+        self.mbook = self.tmp / "mbook"
+        self.mbook.mkdir()
+        self.src = self.tmp / "msrc"
+        self.src.mkdir()
+
+    def rc(self, tool, *args, code=0):
+        r = subprocess.run([sys.executable, "-B", str(RC / tool), *map(str, args)], capture_output=True, text=True,
+                           encoding="utf-8", timeout=120)
+        self.assertEqual((r.returncode, r.stderr), (code, ""), r.stdout)
+        return r.stdout
+
+    def member(self, name, capture=True, note="note\n", ret="Did.\nfixture member return.\n"):
+        out = self.rc("return_capture.py", "reserve", "--book", self.mbook, "--submission", f"fx-{name}", "--name", name,
+                      "--origin-book", "00.00.10.work", "--origin-page", "0599.fixture-lane", "--origin-batch", "05.01",
+                      "--expected-output", "note.txt", "--submitter", "fixture", "--reviewer", "fixture",
+                      "--release", "fixture only")
+        folder = out.split()[1]
+        if capture:
+            (self.src / "note.txt").write_bytes(note.encode())
+            (self.src / f"{name}.md").write_bytes(ret.encode())
+            self.rc("return_capture.py", "capture", "--book", self.mbook, "--submission", f"fx-{name}",
+                    "--return-file", self.src / f"{name}.md", "--source-root", self.src, "--artifact", "note.txt|note.txt")
+        return folder
+
+    def inspect_direct(self, folder):
+        r = subprocess.run([sys.executable, "-B", str(RC / "return_inspect.py"), "inspect", "--book", str(self.mbook),
+                            "--member", folder, "--json"], capture_output=True, timeout=120)
+        return r.returncode, r.stdout
+
+    def mreq(self, members, **over):
+        return self.request(members=members, members_book=str(self.mbook), **over)
+
+    def obs(self, d, i=0):
+        return self.stage(d, "08.members.json")["members"][i]
+
+    def mref(self, d, folder):
+        return next(r for r in self.stage(d, "09.packet.json")["refs"] if r["path"] == f"member:{folder}")
+
+
+def fake_inspector(stdout: bytes, exit_code: int, stderr: str = ""):
+    real = pb.run_tool
+
+    def fake(path, pin, args, binary=False):
+        if pin == pb.PINS["return_inspect"]:
+            return {"argv": [path, *args], "exit": exit_code, "stdout": stdout, "stderr": stderr}
+        return real(path, pin, args, binary)
+    return fake
+
+
+class TestMembers(MemberFixture):
+    def test_27_complete_member_identity_and_text_projection(self):
+        folder = self.member("alpha")
+        code_direct, direct = self.inspect_direct(folder)
+        self.assertEqual(code_direct, 0)
+        expected = json.loads(direct)
+        before_book, before_repo = tree_digest(self.mbook), tree_digest(self.repo)
+        git_before = (git(self.repo, "rev-parse", "HEAD"), git(self.repo, "for-each-ref"), git(self.repo, "status", "--porcelain=v1", "-uall"))
+        d, _, out = self.prepare(self.mreq([folder]), code=0)
+        self.assertIn("prepare prepared", out)
+        o = self.obs(d)
+        self.assertEqual((o["schema"], o["observation"], o["status"], o["readiness"], o["remediation"]),
+                         ("prime-boot-member-observation/1", "ok", "complete", "ready", None))
+        self.assertEqual((o["source_kind"], o["exit"], o["stderr"]), ("live-inspection", 0, ""))
+        self.assertEqual((o["reservation"], o["capture"], o["problems"]), (expected["reservation"], expected["capture"], []))
+        cap = expected["capture"]
+        self.assertEqual(o["identity"], {"status": "complete", "reservation_sha256": cap["reservation_sha256"],
+                                         "submission_id": "fx-alpha", "manifest_sha256": cap["manifest_sha256"],
+                                         "receipt_sha256": cap["receipt_sha256"], "return_sha256": cap["return"]["sha256"],
+                                         "return_bytes": cap["return"]["bytes"]})
+        self.assertEqual(cap["receipt_sha256"], hashlib.sha256((self.mbook / folder / "receipt.json").read_bytes()).hexdigest())
+        raw = (d / o["raw_file"]).read_bytes()
+        self.assertEqual(raw, direct)
+        self.assertEqual((o["stdout_sha256"], o["stdout_bytes"]), (hashlib.sha256(raw).hexdigest(), len(raw)))
+        ref = self.mref(d, folder)
+        self.assertEqual((ref["kind"], ref["text"].encode("utf-8"), ref["sha256"], ref["status"]),
+                         ("live-inspection", raw, hashlib.sha256(raw).hexdigest(), "complete"))
+        self.assertNotIn("commit", ref)
+        self.assertNotIn("live", ref)
+        refs = self.stage(d, "09.packet.json")["refs"]
+        self.assertEqual([r["kind"] for r in refs][:5], ["commit-blob"] * 4 + ["live-inspection"])
+        st = self.stage(d, "10.stability.json")
+        self.assertEqual((st["members_reobserved"], st["stable"]), (True, True))
+        self.assertEqual((d / "10.member-01.inspect.raw").read_bytes(), raw)
+        # citable for reading, never a work target
+        ans = self.good_answers(d)
+        ans["answers"]["O3"]["citations"] = [ref["id"]]
+        ans["answers"]["O2"]["fields"]["review"] = {"value": cap["receipt_sha256"], "citation": ref["id"]}
+        self.cli("check", "--attempt", d, "--answers", self.write_json("a.json", ans), code=0)
+        self.cli("judge", "--attempt", d, "--judgement", self.write_json("j.json", self.judgement(d)), code=0)
+        self.assertEqual(self.stage(d, "39.outcome.json")["authority"], pb.AUTHORITY)
+        d2, _, _ = self.prepare(self.mreq([folder]), attempt="a2", code=0)
+        bad = self.good_answers(d2)
+        bad["answers"]["O1"]["target"] = f"member:{folder}"
+        bad["answers"]["O1"]["citations"] = [self.mref(d2, folder)["id"]]
+        self.cli("check", "--attempt", d2, "--answers", self.write_json("b.json", bad), code=1)
+        self.assertIn("not inside the declared scope", " ".join(self.stage(d2, "22.checks.json")["results"]["O1"]["errors"]))
+        self.assertEqual((tree_digest(self.mbook), tree_digest(self.repo)), (before_book, before_repo))
+        self.assertEqual(git_before, (git(self.repo, "rev-parse", "HEAD"), git(self.repo, "for-each-ref"),
+                                      git(self.repo, "status", "--porcelain=v1", "-uall")))
+
+    def test_28_reserved_missing_incomplete_refused_are_not_ready(self):
+        reserved = self.member("beta", capture=False)
+        broken = self.member("gamma")
+        with open(self.mbook / broken / "return.md", "ab") as h:
+            h.write(b"tampered\n")
+        cases = {reserved: ("reserved", 1, True), "0150.absent": ("missing", 1, False),
+                 broken: ("incomplete", 2, True), "0200.out-of-band": ("refused", 2, False)}
+        before = tree_digest(self.mbook)
+        d, _, out = self.prepare(self.mreq(list(cases)), code=1)
+        prep = self.stage(d, "19.prepare-outcome.json")
+        self.assertEqual(prep["status"], "partial")
+        for i, (folder, (status, exit_code, has_reservation)) in enumerate(cases.items()):
+            with self.subTest(member=folder):
+                o = self.obs(d, i)
+                self.assertEqual((o["observation"], o["status"], o["exit"], o["readiness"]), ("ok", status, exit_code, "not-ready"))
+                self.assertIsNone(o["capture"])
+                ident = o["identity"]
+                self.assertEqual([ident[k] for k in ("submission_id", "manifest_sha256", "receipt_sha256", "return_sha256",
+                                                     "return_bytes")], [None] * 5)
+                self.assertEqual(ident["reservation_sha256"] is not None, has_reservation)
+                self.assertIn(f"member {folder} not ready", prep["reasons"])
+                self.assertTrue(any(folder in r and status in r for r in prep["remediation"]))
+                self.assertEqual(self.mref(d, folder)["status"], status)
+        self.assertEqual(tree_digest(self.mbook), before)
+        self.run_all(d, self.good_answers(d), self.judgement(d))
+        out39 = self.stage(d, "39.outcome.json")
+        self.assertEqual((out39["outcome"], out39["dependent_execution"]), ("partial", "blocked"))
+
+    def test_29_malformed_or_inconsistent_inspector_reports_are_failed_observations(self):
+        folder = self.member("delta")
+        _, good = self.inspect_direct(folder)
+        doc = json.loads(good)
+
+        def variant(**changes):
+            return json.dumps(dict(doc, **changes)).encode()
+        cap_bad = dict(doc["capture"], receipt_sha256="nothex")
+        cases = {"not-json": (b"{not json", 0, ""), "list": (b"[]", 0, ""), "empty": (b"", 0, ""),
+                 "dup-key": (b'{"schema": "a", "schema": "b"}', 0, ""),
+                 "schema": (variant(schema="return-capture-inspection/9"), 0, ""),
+                 "status": (variant(status="approved"), 0, ""), "exit": (good, 1, ""),
+                 "member": (variant(member="0101.other"), 0, ""), "problems-type": (variant(problems="none"), 0, ""),
+                 "complete-with-problems": (variant(problems=["x"]), 0, ""),
+                 "reserved-with-capture": (variant(status="reserved", problems=["reservation only"]), 1, ""),
+                 "complete-without-capture": (variant(capture=None), 0, ""),
+                 "reservation-type": (variant(reservation=[]), 0, ""),
+                 "identity-shape": (variant(capture=cap_bad), 0, ""), "stderr": (good, 0, "warning\n")}
+        for name, (stdout, exit_code, stderr) in cases.items():
+            with self.subTest(case=name):
+                req = self.write_json(f"req-{name}.json", self.mreq([folder]))
+                with mock.patch.object(pb, "run_tool", fake_inspector(stdout, exit_code, stderr)), \
+                        mock.patch.object(sys, "stdout", new=io.StringIO()):
+                    self.assertEqual(pb.prepare(str(req), str(self.records), f"m-{name}"), 1)
+                d = self.records / f"m-{name}"
+                o = self.obs(d)
+                self.assertEqual((o["observation"], o["readiness"], o["status"], o["capture"]), ("failed", "not-ready", None, None))
+                self.assertTrue(o["reason"])
+                self.assertEqual((d / o["raw_file"]).read_bytes(), stdout)
+                self.assertIn("observation failed", self.stage(d, "19.prepare-outcome.json")["remediation"][0])
+                packet = self.stage(d, "09.packet.json")
+                if stdout:
+                    self.assertEqual(self.mref(d, folder)["observation"], "failed")
+                else:
+                    self.assertEqual(packet["omitted"][0]["reason"], "no inspector output")
+
+    def test_30_wrong_or_missing_inspector_or_helper_pin_never_launches(self):
+        folder = self.member("eps")
+        for what in ("inspector-drift", "inspector-missing", "helper-drift"):
+            with self.subTest(case=what):
+                copy = self.tmp / f"rc-{what}"
+                shutil.copytree(RC, copy, ignore=shutil.ignore_patterns("tests", "__pycache__"))
+                if what == "inspector-drift":
+                    with open(copy / "return_inspect.py", "ab") as h:
+                        h.write(b"\n# drift\n")
+                elif what == "inspector-missing":
+                    (copy / "return_inspect.py").unlink()
+                else:
+                    with open(copy / "return_capture.py", "ab") as h:
+                        h.write(b"\n# drift\n")
+                tools = dict(TOOLS, return_capture=str(copy / "return_capture.py"))
+                d, _, _ = self.prepare(self.mreq([folder], tools=tools), attempt=f"p-{what}", code=2)
+                reason = self.stage(d, "03.tools.json")["reason"]
+                self.assertIn("return_inspect" if what.startswith("inspector") else "return_capture", reason)
+                self.assertFalse((d / "08.members.json").exists() or list(d.glob("*.inspect.raw")))
+                req = self.mreq([folder], tools=tools)
+                with mock.patch.object(pb.subprocess, "run") as run:
+                    with self.assertRaises(pb.StageFailure):
+                        pb.observe_members(req, self.records, "08")
+                    run.assert_not_called()
+
+    def test_31_member_identity_change_at_end_of_prepare_is_unstable(self):
+        folder = self.member("zeta")
+        real = pb.run_tool
+        calls = []
+
+        def mutate_after_first(path, pin, args, binary=False):
+            out = real(path, pin, args, binary)
+            if pin == pb.PINS["return_inspect"]:
+                calls.append(1)
+                if len(calls) == 1:
+                    with open(self.mbook / folder / "return.md", "ab") as h:
+                        h.write(b"changed between reads\n")
+            return out
+        req = self.write_json("req-z.json", self.mreq([folder]))
+        with mock.patch.object(pb, "run_tool", mutate_after_first), mock.patch.object(sys, "stdout", new=io.StringIO()):
+            self.assertEqual(pb.prepare(str(req), str(self.records), "z1"), 1)
+        d = self.records / "z1"
+        self.assertEqual(self.obs(d)["status"], "complete")
+        st = self.stage(d, "10.stability.json")
+        self.assertEqual((st["stable"], st["changed"], st["members_after"][0]["identity"]["status"]),
+                         (False, ["members"], "incomplete"))
+        self.assertNotEqual((d / "08.member-01.inspect.raw").read_bytes(), (d / "10.member-01.inspect.raw").read_bytes())
+        self.assertEqual(self.stage(d, "19.prepare-outcome.json")["status"], "partial")
+        self.run_all(d, self.good_answers(d), self.judgement(d))
+        self.assertNotEqual(self.stage(d, "39.outcome.json")["outcome"], "oriented")
+
+    def test_32_member_refs_count_against_the_caps(self):
+        folder = self.member("eta")
+        d, _, _ = self.prepare(self.mreq([folder], limits={"max_refs": 4, "max_bytes": 131072}), code=1)
+        p = self.stage(d, "09.packet.json")
+        self.assertEqual([r["kind"] for r in p["refs"]], ["commit-blob"] * 4)
+        om = next(o for o in p["omitted"] if o.get("kind") == "live-inspection")
+        self.assertEqual((om["member"], om["reason"]), (folder, "max_refs reached"))
+        raw = (d / om["raw_file"]).read_bytes()
+        self.assertEqual((om["sha256"], om["bytes"]), (hashlib.sha256(raw).hexdigest(), len(raw)))
+        self.assertEqual(self.stage(d, "19.prepare-outcome.json")["status"], "partial")
+        base = sum(r["bytes"] for r in p["refs"])
+        d2, _, _ = self.prepare(self.mreq([folder], limits={"max_refs": 12, "max_bytes": base + 10}), attempt="a2", code=1)
+        p2 = self.stage(d2, "09.packet.json")
+        self.assertLessEqual(p2["raw_bytes"], base + 10)
+        self.assertTrue(any(o.get("kind") == "live-inspection" and o["reason"] == "max_bytes would be exceeded" for o in p2["omitted"]))
+        d3, _, _ = self.prepare(self.mreq([folder]), attempt="a3", code=0)
+        p3 = self.stage(d3, "09.packet.json")
+        self.assertEqual(p3["raw_bytes"], sum(r["bytes"] for r in p3["refs"]))
+
+    def test_33_no_false_authority_or_approval(self):
+        folder = self.member("theta")
+        d, _, _ = self.prepare(self.mreq([folder]), code=0)
+        self.run_all(d, self.good_answers(d), self.judgement(d))
+
+        def keys_of(v):
+            if isinstance(v, dict):
+                for k, x in v.items():
+                    yield k
+                    yield from keys_of(x)
+            elif isinstance(v, list):
+                for x in v:
+                    yield from keys_of(x)
+        for f in d.glob("*.json"):
+            doc = json.loads(f.read_text(encoding="utf-8"))
+            self.assertFalse({"approved", "accepted", "published", "seated", "approval"} & set(keys_of(doc)), f.name)
+        o = self.obs(d)
+        self.assertEqual(o["scope"], pb.CUSTODY)
+        self.assertIn("not inferred", self.mref(d, folder)["note"])
+        out39 = self.stage(d, "39.outcome.json")
+        self.assertEqual((out39["outcome"], out39["authority"]), ("oriented", pb.AUTHORITY))
+
+    def test_34_empty_member_list_stays_valid(self):
+        d, _, _ = self.prepare(self.request(), code=0)
+        self.assertEqual(self.stage(d, "08.members.json")["members"], [])
+        self.assertIsNone(self.stage(d, "10.stability.json")["members_reobserved"])
+        self.assertEqual(self.stage(d, "19.prepare-outcome.json")["remediation"], [])
+        self.assertEqual(list(d.glob("*.inspect.raw")), [])
 
 
 if __name__ == "__main__":

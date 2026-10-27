@@ -1,0 +1,63 @@
+# Notes — one historical assembler capture, 05.10
+Date: 2026-10-27
+Recorder: Grok 4.7, Grok Builder 2
+Session: 01a17dfa-bc23-7730-bec3-c49938f96187
+State: capture notes for 05.10, written before source-map.json and before either capture. Not a review and not an acceptance.
+
+06.01 through 06.10 stay as written. This file records one historical assembler capture. It does not allocate a new member and it does not decide review, acceptance, seating, or publication.
+
+## Pins
+
+`evidence/pack05.10/source-manifest.json` is schema `prime-pack-sources/1`. Checked before this claim and before any export. All 8 snapshots match the manifest, and all 8 live paths match those snapshots.
+
+| Snapshot | Path | SHA-256 | Bytes |
+| --- | --- | --- | --- |
+| 0001.blob | `labs/return-capture-pass01/return_capture.py` | `8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac` | 45767 |
+| 0002.blob | `labs/return-capture-pass01/return_inspect.py` | `947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b` | 11402 |
+| 0003.blob | `evidence/resolution05.08/resolved-slices.json` | `1e8d1ab20743e4ea51358f832c6a7bf558f3a7e999724bc6bc670227b124eaf3` | 95003 |
+| 0004.blob | `evidence/prime-review05.08/review.md` | `b4be09c80712060153bc35b280c27859141ff2aa5b47d3456030a691eabf4302` | 1989 |
+| 0005.blob | `evidence/prime-review05.09/review.md` | `d4ead9332c0bc7e0b608b98f31a0fc903f1671f4ca8dfc6198e93b54aea19899` | 1093 |
+| 0006.blob | `evidence/prime-review05.08/verification.json` | `5ef921cf29fd733a6c3c27a7d525e8e15a847a4e3330b650c5e41aa7a8b1b0a7` | 2667 |
+| 0007.blob | `0128.pack-assembly-0501/reservation.json` | `773436661f4a045b5f690575c72d42fc6c7d3129abe3eed2589f9e5feae53028` | 4002 |
+| 0008.blob | `0129.assembly-capture-0510/reservation.json` | `f21d49b11d0862cdb3205ef5ce2c6a883984646d7e65cb1bbc6e803775bb6ab9` | 805 |
+
+`return_capture.py` and `return_inspect.py` stay at those hashes. This batch edits no product code. The preserved plan `resolved-slices.json` stays at the hash above. Branch `workshop` was `aaeb8dc4cd5a3e42342a7e79427f481c9f05896e` when this note was opened. The inventory object `75ae515d826482113c4126274d015de112aa249b` is a commit in this checkout. This builder does not commit.
+
+`0128.pack-assembly-0501` and `0129.assembly-capture-0510` each hold `01.md` and `reservation.json` only at this note.
+
+## Qualified row
+
+Prime's review of 05.08 qualified the mapping plan. That review recorded the assembler row as hash-complete and left it unselected for the seam-design batch. Prime's review of 05.09 accepted the seam-design custody and named this following capture: one hash-verified assembler record with 47 companions, plus a separate current report. Archiving renews no old execution or approval.
+
+The row used is the single `0509.pack-assembly` / `05.01` candidate in `resolved-slices.json`. Custody kind `recovered-lab-and-checkpoint-page`. Classification `return-and-review`. Source commit `75ae515d826482113c4126274d015de112aa249b`. Return source `00.kernel/00.00.10.work/0509.pack-assembly/05.01.md`, SHA-256 `9545b7457a0e37fbcd3efeec2a379fcef6e4a02e2c41558a18673a7b14ae89a7`, 10398 bytes. Retrospective true. Embedded review true. Forty-seven companions. The reservation `expected_outputs` are those logical names in that order. Capture false in the plan; this batch performs the capture the later review named.
+
+Eight companions keep a snapshot Git source path and a different logical name. The other thirty-nine use the same path for source and logical name. The checker `snapshots/0003.blob` and the jobs formatter `snapshots/0006.blob` are cited dependencies. They are stored as bytes and are not executed. `snapshots/0007.blob` is the earlier pin of `0508.return-capture/05.01.md` named by the plan, 9747 bytes, SHA-256 `fca5b450312f0201fa9a2e60d686cb3e982524266030a54353d65dfb6655001e`. It is not the later inventory page of that return.
+
+| Git source path | Logical name |
+| --- | --- |
+| `00.kernel/00.00.10.work/0509.pack-assembly/evidence/pack05.01/snapshots/0001.blob` | `00.kernel/00.00.10.work/0504.app-entry/05.07.md` |
+| `00.kernel/00.00.10.work/0509.pack-assembly/evidence/pack05.01/snapshots/0002.blob` | `00.kernel/00.00.10.work/0504.app-entry/evidence/prime-review05.07/review.md` |
+| `00.kernel/00.00.10.work/0509.pack-assembly/evidence/pack05.01/snapshots/0003.blob` | `labs/pack-custody-pass01/pack_check.py` |
+| `00.kernel/00.00.10.work/0509.pack-assembly/evidence/pack05.01/snapshots/0004.blob` | `labs/pack-custody-pass01/README.md` |
+| `00.kernel/00.00.10.work/0509.pack-assembly/evidence/pack05.01/snapshots/0005.blob` | `labs/pack-custody-pass01/tests/test_pack_check.py` |
+| `00.kernel/00.00.10.work/0509.pack-assembly/evidence/pack05.01/snapshots/0006.blob` | `00.kernel/00.00.01.law/0303.jobs/02.jobs.010.py` |
+| `00.kernel/00.00.10.work/0509.pack-assembly/evidence/pack05.01/snapshots/0007.blob` | `00.kernel/00.00.10.work/0508.return-capture/05.01.md` |
+| `00.kernel/00.00.10.work/0509.pack-assembly/evidence/pack05.01/snapshots/0008.blob` | `00.kernel/00.00.10.work/0507.prime-support/05.03.md` |
+
+Export uses read-only `git cat-file blob` into a disposable staging directory. Live files are not the source. The whole return is stored, including its Director reply and embedded Review section. Submission `historical-0509-0501`. Flags: `--retrospective`, `--source-commit 75ae515d826482113c4126274d015de112aa249b`, `--return-includes-prime-review`.
+
+The recovered original helper stays under the historical RC-01 hold. This batch does not capture that implementation.
+
+This work's own return is `0129.assembly-capture-0510`, submission `grok-2-0508-0510`. Its four outputs are this note, `source-map.json`, `capture-report.md`, and `verification.json`. That capture is current work: no retrospective flag, no source commit, and no embedded-review flag.
+
+## Disposition
+
+Reread after the historical verify. Export used read-only `git cat-file blob` at commit `75ae515d826482113c4126274d015de112aa249b`. The return and all 47 companions matched the qualified row before capture. Eight snapshot source paths stayed distinct from their logical names. Live files were not the source. The whole page was stored, including its Director reply and embedded Review section. The checker and the jobs formatter were stored as bytes and were not executed. No archived script was executed.
+
+Before capture, `0128.pack-assembly-0501` held `01.md` SHA-256 `7a4de4c4fa7cfd1ddb0cabf6ac7a3178b28e69fbb4c9419089a12494970f0ce1`, 332 bytes, and `reservation.json` SHA-256 `773436661f4a045b5f690575c72d42fc6c7d3129abe3eed2589f9e5feae53028`, 4002 bytes. The capture left that reservation hash in place.
+
+`0128.pack-assembly-0501` captured with manifest `ae1f999645208785517ffd12f99a55ebcbcbee720a95e7998120b92df4fc6e98` and receipt `8aefe871d65c9fc6d98388f2eca6492bc03e4f44795f89fc4fe84994e5ba5727`. Fresh verify exited 0: result complete, not approved, not accepted, not published. Inspect exited 0 with status `complete`, retrospective true, `includes_prime_review` true, that source commit, 47 payload hashes, and an empty problem list. Verify and inspect left the member unchanged.
+
+The RC-01 hold remains. The recovered original helper was not captured. This custody grants no current approval, release, or execution authority.
+
+The `0129` receipt is written by the later capture and recorded on the Return pointers of `05.10`. This note does not contain that receipt.

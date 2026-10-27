@@ -1,0 +1,22 @@
+command python -B app/tests/test_prime_intake.py
+repo D:/Git/lib-build
+python C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe
+git C:\Program Files\Git\cmd\git.exe
+
+STDERR
+Traceback (most recent call last):
+  File "D:\librarian\temp\review-intake-members-assembly\repo\app\tests\test_prime_intake.py", line 624, in <module>
+    main()
+  File "D:\librarian\temp\review-intake-members-assembly\repo\app\tests\test_prime_intake.py", line 218, in main
+    before = live_bytes()
+             ^^^^^^^^^^^^
+  File "D:\librarian\temp\review-intake-members-assembly\repo\app\tests\test_prime_intake.py", line 185, in live_bytes
+    return {rel: (REPO / rel).read_bytes() for rel in FROZEN}
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\librarian\\temp\\review-intake-members-assembly\\repo\\00.kernel\\00.00.10.work\\0504.app-entry\\06.14.md'

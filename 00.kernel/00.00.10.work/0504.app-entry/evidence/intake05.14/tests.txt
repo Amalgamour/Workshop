@@ -1,0 +1,140 @@
+0504.app-entry/05.14 prime-status proof
+date: 2026-10-27
+recorder: Grok 4.7 (xAI)
+python: C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B
+PYTHONDONTWRITEBYTECODE=1
+cwd: D:/Git/lib-build
+Recorded once, sequentially. No full bridge suite. No live registry. No model boot.
+A status result is not release readiness.
+
+command: C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B app/tests/test_prime_intake.py
+exit: 0
+stdout:
+command python -B app/tests/test_prime_intake.py
+repo D:/Git/lib-build
+python C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe
+git C:\Users\misg\AppData\Local\grok\git\2.55.0.windows.5\cmd\git.exe
+fixture-head 9e44ce4a1e1d6a94750c07c1834bfcf0c597eedc
+evidence clean exit 0 attention 0 clerk [] newline crlf
+pass clean-matches-direct
+evidence attention exit 1 items [{"item": "lane status: page folder absent-pages not found", "kind": "missing"}, {"item": "lane status: absent-pages missing", "kind": "missing"}]
+pass attention-matches-direct
+evidence malformed exit 2 refused
+pass malformed-matches-direct
+evidence missing exit 2 bytes refused: registry is missing\r\n
+pass missing-matches-direct
+evidence registry store git worktree unchanged; no ack
+pass fixture-bytes-unchanged
+expected-refusal missing-json
+expected-refusal missing-registry
+expected-refusal relative-registry
+expected-refusal extra-argument
+expected-refusal intake-not-exposed
+expected-refusal repeated-registry
+expected-refusal unknown-flag
+expected-refusal normal-bare
+expected-refusal normal-run
+expected-refusal unknown-command
+expected-refusal wrong-prime-support-pin
+expected-refusal wrong-adapter-pin
+expected-refusal wrong-clerk-pin
+expected-refusal declaration-pin
+expected-refusal args-before-pin
+expected-refusal junction-pin
+skip file-symlink-pin file symlink privilege WinError 1314
+pass frozen-sources
+hash app/librarian.py 3dc5f4542a2a00583efe2d1fbb201749dfbe7fea42e9ddd3a80b3fef920f1ecf 8039
+hash app/prime_intake.py 5a06c302dce4d9d6102cc11c78cb9adc961d49c9eb095e4fdd2632e49971611e 8501
+hash app/prime-intake.json 998278c445b293bc9df4b5ad2578c7596454ba25fd9a706a1076d79a778d37e6 735
+hash app/README.md cbfa6ff314bea2c9b5309b86c8154354c9fd91de2a0a0ed727c6c6254f9d3f31 15720
+hash app/tests/test_prime_intake.py 03464d3b52c4fd5e0db2659700076343c19006b208c0b8d39f0c0978685e56a0 25296
+hash labs/prime-support-pass01/prime_support.py 700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70 59791
+hash labs/prime-support-pass01/clerk_adapter.py 2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4 11774
+hash labs/clerk-handoff-pass02/clerk.py f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c 52279
+summary pass 6 expected-refusal 16 skip 1 fail 0
+stderr:
+empty
+
+command: C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B app/tests/test_entry.py
+exit: 0
+stdout:
+PASS pinned sources still match the manifest
+PASS real workspace where and validate
+PASS fixture inventory from a foreign cwd and a relocated root
+REFUSAL test-run on the real workspace
+REFUSAL test-run on the real work book
+REFUSAL normal run
+REFUSAL direct runner 002 refuses
+REFUSAL direct runner 003 refuses
+PASS refused commands left the guarded files unchanged
+REFUSAL accepted assignment is not a fresh release
+PASS accepted context can be inspected and does not select a higher version
+REFUSAL accepted fixture with --test is not a fresh release
+REFUSAL missing work book
+REFUSAL missing work item
+REFUSAL undeclared workflow space
+REFUSAL wrong job book
+REFUSAL job book mapped onto the runtime book
+REFUSAL ambiguous compute title
+REFUSAL path escape
+REFUSAL payload outside its compute page
+REFUSAL wrong payload hash
+REFUSAL payload bytes do not match the declared hash
+REFUSAL compute page outside the band is not climbed to
+REFUSAL two compute pages for one keyword
+REFUSAL source folder app is not a fixture container
+REFUSAL source page is not a fixture container
+REFUSAL fixture allowed_root is not authority
+REFUSAL external container was not named
+REFUSAL external container overlaps the workspace
+REFUSAL filesystem root is not a container
+REFUSAL fixture root is a filesystem root
+REFUSAL junction to app is not a container
+REFUSAL junction output leaves the container
+PASS designated page fixtures container
+PASS protected source bytes stayed unchanged
+PASS fresh inventory when the output names are absent
+REFUSAL existing ordinary output
+REFUSAL existing ordinary temporary
+REFUSAL direct output hard link
+REFUSAL temporary hard link
+REFUSAL dangling temporary junction
+SKIP dangling file symlink: WinError 1314: a required privilege is not held by the client
+PASS occupied output names stayed unchanged
+REFUSAL reparse escape
+REFUSAL missing config
+REFUSAL malformed config
+REFUSAL duplicate config key
+REFUSAL config version type
+REFUSAL unknown config key
+REFUSAL config cannot widen fixture containers
+REFUSAL malformed record
+REFUSAL duplicate record key
+REFUSAL invalid assignment state
+REFUSAL record carriage return
+REFUSAL assignment path is the derived view
+PASS tampered 00.live does not change context
+REFUSAL wrong runner hash
+PASS guarded bytes were unchanged by the suite
+PASS no bytecode was written into the books or app
+summary pass 12 expected-refusal 46 skip 1 fail 0
+stderr:
+empty
+
+command: C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B app/tests/test_prime_tools.py
+exit: 0
+stdout:
+<empty>
+stderr:
+...s........
+----------------------------------------------------------------------
+Ran 12 tests in 14.929s
+
+OK (skipped=1)
+
+limits
+New intake test: pass 6, expected-refusal 16, skip 1, fail 0. The skip is file-symlink privilege WinError 1314.
+Entry test: pass 12, expected-refusal 46, skip 1, fail 0. The skip is a dangling file symlink, WinError 1314.
+Pack wrapper test: Ran 12 tests, skipped=1, fail 0. The only skipTest in that file is file symlink privilege WinError 1314.
+Wrapper stdout matched the direct pinned status tool byte for byte. On this Windows pipe the tool's text stdout uses CRLF; the wrapper copied those bytes.
+This recorded sequence was not rerun. No full bridge suite. No live registry install. No model boot.

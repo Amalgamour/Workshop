@@ -1,0 +1,151 @@
+{
+ "schema": "members05.09-verification",
+ "batch": "0507.prime-support/05.09",
+ "who": "claude-opus-5-5",
+ "date": "2026-10-27",
+ "workshop_at_claim": "c31f0c2fc1ec7e4f020f58dff3353a0905ae481d",
+ "workshop_head_at_verification": "aaeb8dc4cd5a3e42342a7e79427f481c9f05896e",
+ "pack05.09": "12 of 12 snapshots match pins and live",
+ "before": {
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/members05.09/before/prime_boot.py": "0b83797538189626642b2b686065b874342f0a27a21138e58e8243cfc513c6c3",
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/members05.09/before/README.md": "d0ff7165e2ecf5fda5ef90fdabce8f724adf52ec2bcdf72631275515ae1771cd",
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/members05.09/before/test_prime_boot.py": "468ae5e482ec4f0cbcafd9abd89f9a5db9f89272c90e40e7354e2ff370dcf482"
+ },
+ "pins": {
+  "labs/prime-support-pass01/prime_support.py": {
+   "expected": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70",
+   "live": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70",
+   "match": true
+  },
+  "labs/prime-support-pass01/clerk_adapter.py": {
+   "expected": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4",
+   "live": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4",
+   "match": true
+  },
+  "labs/book-orientation-pass01/check_book.py": {
+   "expected": "fc16d2f68a3645050b6766ce18ce55f8169a0e2bad52d3392b4d059c629073a4",
+   "live": "fc16d2f68a3645050b6766ce18ce55f8169a0e2bad52d3392b4d059c629073a4",
+   "match": true
+  },
+  "labs/return-capture-pass01/return_capture.py": {
+   "expected": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+   "live": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+   "match": true
+  },
+  "labs/return-capture-pass01/return_inspect.py": {
+   "expected": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+   "live": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+   "match": true
+  }
+ },
+ "pins_in_code": true,
+ "inspector_not_imported_or_copied": true,
+ "demo_unchanged": true,
+ "tests": {
+  "count": 34,
+  "existing": 26,
+  "added": 8,
+  "changed_existing": [
+   "test_17 (to the new member contract)"
+  ],
+  "skips": 0,
+  "runs": [
+   {
+    "run": "run1",
+    "mode": "dev",
+    "suite": "26 existing, unchanged",
+    "result": "FAILED (failures=1): test_17",
+    "retained": true
+   },
+   {
+    "run": "run2",
+    "mode": "dev",
+    "result": "OK",
+    "warnings": 0
+   },
+   {
+    "run": "run3",
+    "mode": "default",
+    "result": "OK"
+   },
+   {
+    "run": "run4",
+    "mode": "dev",
+    "where": "disposable copy",
+    "result": "OK",
+    "warnings": 0
+   }
+  ],
+  "mutations": [
+   {
+    "change": "O1 scope without the commit-blob filter",
+    "caught_by": [
+     "test_27"
+    ]
+   },
+   {
+    "change": "member not-ready reason removed",
+    "caught_by": [
+     "test_28",
+     "test_17"
+    ]
+   }
+  ]
+ },
+ "cases": {
+  "complete identity and text projection": "test_27",
+  "reserved, missing, incomplete, out-of-band refused": "test_28 (and test_17)",
+  "malformed, wrong-schema and inconsistent reports (15 variants)": "test_29",
+  "wrong or missing inspector, wrong helper, before launch": "test_30",
+  "end-of-prepare identity change": "test_31",
+  "packet overflow (refs and bytes)": "test_32",
+  "no false authority or approval": "test_33",
+  "empty member list": "test_34",
+  "member, source and Git bytes unchanged": "test_27, test_28"
+ },
+ "demo": [
+  "demo1 dev ok",
+  "demo2 default ok",
+  "demo3 copy default ok"
+ ],
+ "limits": [
+  "return.md text is not added to the packet; the inspector projection is the member evidence",
+  "two reads are two observations; no atomic snapshot",
+  "receipt completeness is custody only"
+ ],
+ "not_done": [
+  "no live installation",
+  "no Clerk-job integration",
+  "no model",
+  "no acknowledgement or seated role",
+  "no shared Git stage, commit or push",
+  "no other-lane changes",
+  "no temp sweep"
+ ],
+ "outputs": {
+  "labs/prime-boot-pass01/prime_boot.py": {
+   "sha256": "54b23484f9e0812db92a623a8588175702682ebe14f8b0b915111daf51a91534",
+   "bytes": 49229
+  },
+  "labs/prime-boot-pass01/README.md": {
+   "sha256": "fbe8a2e7062ac1bc64273ad7d6011484dc2eeb5ff57e507b310878e7921f5b7f",
+   "bytes": 7105
+  },
+  "labs/prime-boot-pass01/tests/test_prime_boot.py": {
+   "sha256": "c86681306cdd45851bdc5002424be80f8af69ae3f03844cae737bdc0959589d1",
+   "bytes": 65667
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/06.10.md": {
+   "sha256": "d9515617a03b1e81368bd1692e156e6cffced3222ef3691cc53e4772a3038bdf",
+   "bytes": 5539
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/members05.09/CONTRACT.md": {
+   "sha256": "1d1c3b2e928449ba9d596989b2b7eda3a61b2d06b5cc2b47f21b3fdc363f60c7",
+   "bytes": 4864
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/members05.09/tests.txt": {
+   "sha256": "9fcb4fb1c5e062218f7d4c6c9c49b34979678cdabfa0bf6aabef50fbb8cc7301",
+   "bytes": 26773
+  }
+ }
+}

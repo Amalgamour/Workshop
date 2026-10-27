@@ -1,0 +1,44 @@
+command python -B app/tests/test_prime_intake.py
+repo D:/Git/lib-build
+python C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe
+git C:\Program Files\Git\cmd\git.exe
+fixture-head 216e911c6db29b2a85902fe6654505e22a783476
+evidence clean exit 0 attention 0 clerk [] newline crlf
+pass clean-matches-direct
+evidence attention exit 1 items [{"item": "lane status: page folder absent-pages not found", "kind": "missing"}, {"item": "lane status: absent-pages missing", "kind": "missing"}]
+pass attention-matches-direct
+evidence malformed exit 2 refused
+pass malformed-matches-direct
+evidence missing exit 2 bytes refused: registry is missing\r\n
+pass missing-matches-direct
+evidence registry store git worktree unchanged; no ack
+pass fixture-bytes-unchanged
+expected-refusal missing-json
+expected-refusal missing-registry
+expected-refusal relative-registry
+expected-refusal extra-argument
+expected-refusal intake-not-exposed
+expected-refusal repeated-registry
+expected-refusal unknown-flag
+expected-refusal normal-bare
+expected-refusal normal-run
+expected-refusal unknown-command
+expected-refusal wrong-prime-support-pin
+expected-refusal wrong-adapter-pin
+expected-refusal wrong-clerk-pin
+expected-refusal declaration-pin
+expected-refusal args-before-pin
+expected-refusal junction-pin
+skip file-symlink-pin file symlink privilege WinError 1314
+pass frozen-sources
+hash app/librarian.py 3dc5f4542a2a00583efe2d1fbb201749dfbe7fea42e9ddd3a80b3fef920f1ecf 8039
+hash app/prime_intake.py 5a06c302dce4d9d6102cc11c78cb9adc961d49c9eb095e4fdd2632e49971611e 8501
+hash app/prime-intake.json 998278c445b293bc9df4b5ad2578c7596454ba25fd9a706a1076d79a778d37e6 735
+hash app/README.md cbfa6ff314bea2c9b5309b86c8154354c9fd91de2a0a0ed727c6c6254f9d3f31 15720
+hash app/tests/test_prime_intake.py 03464d3b52c4fd5e0db2659700076343c19006b208c0b8d39f0c0978685e56a0 25296
+hash labs/prime-support-pass01/prime_support.py 700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70 59791
+hash labs/prime-support-pass01/clerk_adapter.py 2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4 11774
+hash labs/clerk-handoff-pass02/clerk.py f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c 52279
+summary pass 6 expected-refusal 16 skip 1 fail 0
+
+STDERR

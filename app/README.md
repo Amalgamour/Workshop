@@ -17,6 +17,7 @@ python <workspace>/app/librarian.py pack-check --format tsv --manifest <manifest
 python <workspace>/app/librarian.py pack-preview --request <request.json> --repo <repository> [--json]
 python <workspace>/app/librarian.py pack-assemble --request <request.json> --repo <repository> --output <empty-or-absent-directory> --digest <sha256> [--json]
 python <workspace>/app/librarian.py pack-verify --pack <draft-pack> [--json]
+python <workspace>/app/librarian.py prime-status --registry <absolute-registry> --json
 ```
 
 `where` and `validate` read `app/development-workspace.json` under `--root`, then the assignment record that file names. They report the desk, work book, workflow space, current work, assignment state, runtime book, runtime space, N3NN band, and the pinned runner path and SHA-256. They do not import the runner. `validate` adds `validate: pass` when the references resolve.
@@ -59,4 +60,10 @@ A wrapper refusal prints `stop:` on stderr, exits 2, and writes no pack. The too
 
 The tools still write fixture-only drafts. An output inside the source repository, or inside a directory whose ancestor contains `00.kernel`, is refused by the assembler. An occupied or linked output is refused. A stale digest writes nothing. The wrapper does not bypass those restrictions. A clean custody result is not release readiness. These pins are development wiring, not kernel law. No model is called. `run` is still refused. Nothing here is seated or activated.
 
-Tests are `app/tests/test_entry.py`, `app/tests/test_worker_bridge.py`, `app/tests/test_prime_tools.py`, and `app/tests/test_clerk_seam.py`.
+`prime-status` calls the accepted read-only status command pinned in `app/prime-intake.json` and `app/prime_intake.py`. The tool pin is `labs/prime-support-pass01/prime_support.py` at `700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70`. The sibling adapter pin is `labs/prime-support-pass01/clerk_adapter.py` at `2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4`. The Clerk core pin is `labs/clerk-handoff-pass02/clerk.py` at `f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c`. All three paths are relative to the workspace that contains this entry. All three hashes are checked before the status subprocess starts. A symlink or junction on the declaration or on a tool path is refused and is not followed.
+
+The only added command is `prime-status --registry <absolute-registry> --json`. The registry is a file the caller supplies. This entry does not install it, discover it, or read a default path. The subprocess is the current Python executable and the argument array `status --registry <path> --json`. There is no shell, no `--intake`, and no scan, acknowledgment, or show command. The wrapper copies the tool's stdout and stderr bytes and keeps its exit. Exit 0 means the tool reported no attention. Exit 1 means the tool reported attention and is not a stop. Exit 2 from the tool stays the tool's own `refused:` text. A bad argument or a pin mismatch prints `stop:` on stderr, exits 2, and does not start the tool.
+
+An attention item is a recommendation. It does not grant a role, a claim, an acknowledgment, a dispatch, or a model call. A status result is not release readiness. These pins are development wiring, not kernel law. The wrapper does not reimplement the status report. A registry can still name paths the tool reads. The same-user gap between the hash read and the subprocess is not closed. No model is called. `run` is still refused. Nothing here is seated or activated.
+
+Tests are `app/tests/test_entry.py`, `app/tests/test_worker_bridge.py`, `app/tests/test_prime_tools.py`, `app/tests/test_clerk_seam.py`, and `app/tests/test_prime_intake.py`.
