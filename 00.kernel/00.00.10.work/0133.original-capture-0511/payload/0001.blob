@@ -1,0 +1,60 @@
+# Notes — preserve the original held capture, 05.11
+Date: 2026-10-27
+Recorder: Grok 4.7, Grok Builder 2
+Session: 01a17dfa-bc23-7730-bec3-c49938f96187
+State: capture notes for 05.11, written before source-map.json and before either capture. Not a review and not an acceptance.
+
+06.01 through 06.11 stay as written. This file records custody of the original held capture implementation. It does not allocate a new member and it does not decide review, acceptance, seating, or publication.
+
+## Pins
+
+`evidence/pack05.11/source-manifest.json` is schema `prime-pack-sources/1`. Checked before this claim and before any export. All 8 snapshots match the manifest, and all 8 live paths match those snapshots.
+
+| Snapshot | Path | SHA-256 | Bytes |
+| --- | --- | --- | --- |
+| 0001.blob | `labs/return-capture-pass01/return_capture.py` | `8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac` | 45767 |
+| 0002.blob | `labs/return-capture-pass01/return_inspect.py` | `947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b` | 11402 |
+| 0003.blob | `evidence/resolution05.08/resolved-slices.json` | `1e8d1ab20743e4ea51358f832c6a7bf558f3a7e999724bc6bc670227b124eaf3` | 95003 |
+| 0004.blob | `evidence/capture05.09/resolution-addendum.json` | `dba913e2ff7cbdc1acba569caf915c182cdb55445ae57bb5d955f216b8cecdd5` | 4252 |
+| 0005.blob | `evidence/prime-review05.08/review.md` | `b4be09c80712060153bc35b280c27859141ff2aa5b47d3456030a691eabf4302` | 1989 |
+| 0006.blob | `evidence/prime-review05.10/review.md` | `0b088fd974867870994c98df8ef726daec3f9b0295417a5c1491bed47ad3633d` | 774 |
+| 0007.blob | `0132.return-capture-origin-0501/reservation.json` | `7485a6ac770fb464ff199c1fcbcba2887d0cf61f304a70a0717ab79a8713a2f5` | 3454 |
+| 0008.blob | `0133.original-capture-0511/reservation.json` | `4f0a29dacdb2bade4f34f14714a8bc1ec6b3052350de03b7ace34959d8efc585` | 806 |
+
+Verify and inspect use today's pinned helper and reader. Those files stay at the hashes above. The recovered original helper is a payload, not the tool this batch runs. This batch edits no product code. Branch `workshop` was `fab74ab2c73d274775ce0971105bb735878f2c50` when this note was opened. The inventory object `75ae515d826482113c4126274d015de112aa249b` is a commit in this checkout. This builder does not commit.
+
+`0132.return-capture-origin-0501` and `0133.original-capture-0511` each hold `01.md` and `reservation.json` only at this note.
+
+## Supplied source map
+
+Prime's review of 05.10 accepted the assembler custody and named this following capture: the original held implementation, using the three recovered snapshot blobs plus the 37 previously verified companions. Recovering or archiving those bytes does not accept that code.
+
+The map is `evidence/pack05.11/original-source-map.json`. It is used as supplied and is not rewritten. Source commit `75ae515d826482113c4126274d015de112aa249b`. Return source `00.kernel/00.00.10.work/0508.return-capture/05.01.md`, SHA-256 `9da830f28f340fb6142a12908e8d60a3b5050cc8ff075d32405133f39853d472`, 18493 bytes. That identity matches the qualified 05.08 plan row. The first 37 map rows match that plan row's companions in order, path, hash, and length. The map's hold line is `HELD FOR RC-01 REPAIR; unchanged`. Forty logical names, in the reservation order of `0132.return-capture-origin-0501`. Submission `historical-0508-0501`.
+
+Fifteen Git source paths differ from their logical names. Twelve are `pack05.01` snapshots `0001.blob` through `0012.blob`. Three are the recovered originals:
+
+| Git source path | Logical name | SHA-256 | Bytes |
+| --- | --- | --- | --- |
+| `evidence/pack05.02/snapshots/0008.blob` | `labs/return-capture-pass01/README.md` | `4d82b7feeacf055f180f9a6c483bfa920faccbd0788fc15482732c0cf3f8de4e` | 8515 |
+| `evidence/pack05.02/snapshots/0009.blob` | `labs/return-capture-pass01/return_capture.py` | `655bd4a005d1210eef8f5ae62a462d4cf8a2591bfe318c2f428bcfb3ae5c3269` | 45898 |
+| `evidence/pack05.02/snapshots/0010.blob` | `labs/return-capture-pass01/tests/test_return_capture.py` | `9de8908a371839789586bee10f2d3a01d4a53b43cea5db2efeaa5c625a87afbe` | 26254 |
+
+Those three hashes match the 05.09 addendum. Export uses read-only `git cat-file blob` into a disposable staging directory. Live files are not the source. No recovered script is executed or installed. The discovery patch is not applied. The whole return is stored, including its Director reply and the historical `HELD FOR RC-01 REPAIR` review. Flags: `--retrospective`, `--source-commit 75ae515d826482113c4126274d015de112aa249b`, `--return-includes-prime-review`.
+
+The RC-01 hold remains. This capture does not replace today's helper and does not renew any old execution request.
+
+This completes custody for the three resolved deferred rows from the 05.08 plan: the seam-design page in `0124`, the assembler page in `0128`, and this held implementation in `0132`. It does not claim that every historical return in the repository is recovered.
+
+This work's own return is `0133.original-capture-0511`, submission `grok-2-0508-0511`. Its four outputs are this note, `source-map.json`, `capture-report.md`, and `verification.json`. That capture is current work: no retrospective flag, no source commit, and no embedded-review flag.
+
+## Disposition
+
+Reread after the historical verify. Export used read-only `git cat-file blob` at commit `75ae515d826482113c4126274d015de112aa249b`. The return and all 40 companions matched the supplied map before capture. Fifteen snapshot source paths stayed distinct from their logical names, including the three recovered originals. Live files were not the source. The recovered helper, its tests, `demo.py`, `inventory.py`, and the discovery patch were stored as bytes and were not executed or installed. Today's helper and reader stayed at the pinned hashes above. The whole page was stored, including its Director reply and the historical `HELD FOR RC-01 REPAIR` review.
+
+Before capture, `0132.return-capture-origin-0501` held `01.md` SHA-256 `4bcf355d960c3d50b0c16a157a6f5f0bd36313638b0eef0356311c61b6a8f6db`, 341 bytes, and `reservation.json` SHA-256 `7485a6ac770fb464ff199c1fcbcba2887d0cf61f304a70a0717ab79a8713a2f5`, 3454 bytes. The capture left that reservation hash in place.
+
+`0132.return-capture-origin-0501` captured with manifest `60d7f3528486a263e0a1769e3a780dbdfc93e9d9a444719f8526079a4c3f1716` and receipt `8526f3e38c3118ae9dea0d371f051cc85f1370133b2c464e6fbf8c870b96422d`. Fresh verify exited 0: result complete, not approved, not accepted, not published. Inspect exited 0 with status `complete`, retrospective true, `includes_prime_review` true, that source commit, 40 payload hashes, and an empty problem list. Verify and inspect left the member unchanged. The plan, the 05.09 addendum, the supplied source map, and the receipts of `0121`, `0124`, `0125`, `0128`, and `0129` stayed at the hashes checked before capture.
+
+The RC-01 hold remains. This custody does not accept the recovered implementation, replace today's helper, or renew an old execution request. It completes custody for the three resolved deferred rows only. It does not claim that every historical return in the repository is recovered.
+
+The `0133` receipt is written by the later capture and recorded on the Return pointer of `05.11`. This note does not contain that receipt.

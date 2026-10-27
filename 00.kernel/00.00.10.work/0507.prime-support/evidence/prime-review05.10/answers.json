@@ -1,0 +1,74 @@
+{
+  "answers": {
+    "O1": {
+      "citations": [
+        "R06",
+        "R04",
+        "R02"
+      ],
+      "conflicts_seen": [
+        0
+      ],
+      "target": "00.kernel/00.00.10.work/0507.prime-support/05.09.md",
+      "text": "Packet shows: the newest 0507 batch in the committed packet and contents (R02 lists 0507 faces 05.01-05.09 only) is 05.09 (R06), whose Return pointer says returned (member 0126) and whose Review says 'Accepted within scope'. So there is no released, unreturned 0507 batch at a38d05a. Reported conflict 0: the canonical assignment (R04) names current_work 0504.app-entry/05.06.md, which is not inside lane 0507 - the canonical record and this lane disagree, and I report both rather than pick. The status scope also lists 05.10.md, but that page is not in the committed contents; it comes from live state, not the pinned commit. Prior session knowledge, not proven by the packet: 05.10 is this rehearsal itself."
+    },
+    "O2": {
+      "fields": {
+        "claim": {
+          "citation": "R06",
+          "value": "Claim: claude-opus-5-5 (Anthropic), Colab, executor"
+        },
+        "execution": {
+          "citation": "R06",
+          "value": "Execution: returned. Member 0126.boot-members-0509."
+        },
+        "release": {
+          "citation": "R06",
+          "value": "Release: the Director, chat 2026-10-27"
+        },
+        "review": {
+          "citation": "R06",
+          "value": "Accepted within scope,2026-10-27."
+        }
+      },
+      "text": "All four values are cited from the Return pointer and Review of 05.09 (R06). Gap: the same page's header still says 'state: draft; awaiting Director release' and its Assignment block still says 'Release: PENDING. Claim: PENDING.' The header was not updated after release; I report it as stale, not as the page's status. The member receipt in R05 (706ed69c...) matches the receipt hash in R06's Execution line."
+    },
+    "O3": {
+      "citations": [
+        "R06",
+        "R07",
+        "R03"
+      ],
+      "text": "The why of 05.09 is in its own #01-#04 (R06) and in the 05.08 Review, which names it as next: 'Next draft05.09 integrates separately accepted structured member inspection read-only' (R07). R06's Review points to evidence/prime-review05.09/review.md for the full results; that file is not in this packet. The role why is on the seats page (R03), which defers role definitions to law 0062-0065, also not in the packet."
+    },
+    "O4": {
+      "citations": [
+        "R03",
+        "R04",
+        "R06",
+        "R05"
+      ],
+      "text": "Per the packet, nothing in lane 0507 is released and unreturned at a38d05a, so I may do read-only investigation only. Held: any new 0507 work until the Director releases a batch; the canonical assignment (R04, state accepted on 0504/05.06, waiting on 0506/05.04 and a lead review) cannot be used to pick work until someone with authority reconciles it; acceptance of 05.09 is Prime's recorded Review (R06), and the member receipt (R05) is custody only. Seats (R03): Prime is Codex, Colab is Claude; 'Prime' here is an exercise label, so I hold every Prime decision."
+    },
+    "O5": {
+      "citations": [
+        "R04",
+        "R03",
+        "R08",
+        "R09"
+      ],
+      "text": "Unknown: the current assignment. The canonical record (R04, updated 2026-10-27) still names 0504.app-entry/05.06.md as current_work with state accepted and waits_on Clerk inspection 0506/05.04. The packet's later pages (R08 0504/05.14 returned and accepted; R06 0507/05.09 accepted) show work well past it. Whether a newer canonical record is intended is a decision not recorded here. Second: the seats page (R03) is a 2026-10-26 draft, and its Builder cell is scoped to 0504/05.01, while R08 and R09 name Grok Builders 1 and 2 on later batches. The seat record for those builders is not in the packet."
+    },
+    "O6": {
+      "citations": [
+        "R03",
+        "R10",
+        "R05",
+        "R01"
+      ],
+      "text": "I will not:\n- run judge, or write a judgement or an outcome;\n- accept, approve, seat, lock or promote anything; the seats page says only the Director assigns a seat (R03), and import is not approval (R10);\n- treat the member receipt as approval (R05: custody only);\n- edit the canonical assignment, the seats, or any page to make the answers pass;\n- dispatch or acknowledge;\n- commit or push to shared Git, or merge into main;\n- claim a fresh-model boot or the Prime seat.\nOrientation, if it is ever recorded, is not authority. Live observation, kept separate from the commit: the worktree 00.md now points to contents 01.037.md, not R01's 01.036.md; the packet text is the commit's."
+    }
+  },
+  "attempt_id": "a1",
+  "schema": "prime-boot-answers/1"
+}

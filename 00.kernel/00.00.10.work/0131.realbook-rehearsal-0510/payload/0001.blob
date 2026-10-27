@@ -1,0 +1,48 @@
+# Notes — read-only rehearsal on the real work book (batch 05.10)
+Date: 2026-10-27
+Recorder: claude-opus-5-5, Colab, executor
+State: written before the rehearsal. 06.01-06.10 stay as they are.
+
+**What this is.** A NONBLIND rehearsal by the same Claude Colab session that designed and built prime_boot. It is not a fresh-session or cold-model boot. It is not a Prime appointment: "Prime" in the request is an exercise label. It makes no product edits and runs no judgement.
+
+## Inputs
+I01. pack05.10: 17 of 17 snapshots match their pins and live. 16 of them also match the pinned commit. The 0131 reservation postdates that commit (added in fab74ab), which is expected.
+- The code pins match code-pins.json. prime_boot 54b23484… is the accepted 05.09 tool, used unchanged.
+I02. Source: D:/Git/lib-build at exactly a38d05a487dcf468527161eb929b2052acf6cec6. At claim, live HEAD and refs/heads/workshop are fab74ab. I don't fetch, check out, or substitute the newer commit. The HEAD difference is recorded as an observation.
+I03. What the pinned commit already shows, before any run:
+- `00.md` points to `0011.contents/01.036.md`.
+- The canonical assignment `0401.goal/06.01.md` (3578934…) says `current_work 0504.app-entry/05.06.md` and `assignment_state accepted`, with a `waits_on` from earlier work. It is stale relative to this batch, and it is kept as it is.
+- All five packet pages exist at the commit: 0507/05.09, 0507/05.08, 0504/05.14, 0508/05.10 and 0410.imports/01.md.
+
+## Choices
+C01. Records root: a new `tempfile.mkdtemp(prefix="pb-rehearsal-0510-")` in the system temp directory, outside every Git tree. Its absolute path is recorded. The tool writes only there. The request, registry and answers are written as plain input files in a sibling `inputs/` folder in that root.
+C02. Registry `prime-support-registry` v1, in the accepted fixture form:
+- one repository `workshop`: local D:/Git/lib-build, branch workshop, remote_ref refs/remotes/origin/workshop, worktree registered-paths, history_limit 50;
+- one lane `0507.prime-support`, page folder `00.kernel/00.00.10.work/0507.prime-support`, with no return files and no review sources;
+- canonical_assignment `{repository workshop, path …/0401.goal/06.01.md, lane 0507.prime-support}`.
+No Clerk jobs. It is a pilot input, not an installation.
+C03. Request `prime-boot-request/1`:
+- role `Prime` as an exercise label; model `claude-opus-5-5`;
+- book `00.kernel/00.00.10.work`;
+- role_record `0408.seats/01.md`, assignment_record `0401.goal/06.01.md`;
+- members `["0126.boot-members-0509"]`, with members_book the absolute work book;
+- the packet lists the five full relative paths in batch order;
+- limits 12 refs and 131072 bytes;
+- the tools are the absolute paths of the pinned files in this workspace.
+C04. Answers: O1-O6, written by me only from the recorded packet, with citations. Each answer separates what the packet shows from what I already know from this session. A stale canonical record or a conflict is stated, not hidden.
+C05. `check` only. No `judge`, and no 30, 31 or 39 file. A retry is used only for a documented transient identity change or a request-construction mistake, and links the first attempt.
+C06. records.json: version `prime-boot-rehearsal-records/1`. It is a file map of every file under the records root, the inputs, and the raw stdout and stderr of every command. Each entry gives a logical name, a base64 encoding of the bytes, the byte count and the sha256.
+C07. Read-only proof: before and after the runs, I snapshot the sha256 of every packet source in the worktree, the whole 0126 member folder, `git rev-parse HEAD`, refs/heads/workshop and the `git status --porcelain` lines. Changes from other lanes are told apart by path: the only writes authorised for this batch are 05.10.md, 06.11.md and evidence/rehearsal05.10/.
+
+## Disposition (reread in full after the run)
+- I01-I03: stand. HEAD and the workshop branch were fab74ab before and after. The pinned commit was used throughout.
+- C01: the root is `C:\Users\misg\AppData\Local\Temp\pb-rehearsal-0510-2f7t3yte`, outside Git, and kept for Prime.
+- C02-C03: carried as written. The prepare was one attempt, `prepared`, with exit 0.
+- C04: answers written from the packet only. Session knowledge (05.10 is this rehearsal) is marked as such in O1.
+- C05: `check` exit 0, O1-O6 ok. No judge, and no 30, 31 or 39. No retry was needed.
+- C06: records.json holds 35 entries: every root file, plus the three driver scripts as data.
+- C07: the pinned sources and the 0126 member are byte-identical before and after.
+  - Status changes in the same window are other lanes: app/, 0504/05.15, 0508/05.11 and new members 0132 and 0133.
+  - My own writes are only 05.10.md, 06.11.md and evidence/rehearsal05.10/.
+  - Snapshot artifact: the helper stripped the whole `git status` output, which dropped the leading space of its first line. So status codes on that line read "M" for " M". verification.json compares by path.
+- Nothing was corrected in a source. The stale canonical assignment, the stale batch headers and the seat gaps are reported in rehearsal-report.md.

@@ -1,0 +1,64 @@
+{
+  "schema": "return-capture-retrospective/1",
+  "snapshots_are_not_original_time_drops": true,
+  "source_commit": "e6d6eb75538732c7eedbc840042242d386b25c2f",
+  "subjects": [
+    {
+      "captured_at": "2026-10-27T18:31:09.253195Z",
+      "captured_at_policy": "now, not a historical file time",
+      "disposable_member": "0101.app-entry-0506",
+      "gaps": [
+        "no separate pristine return; the whole pinned batch file is the submission"
+      ],
+      "origin": {
+        "batch": "05.06",
+        "book": "0504.app-entry",
+        "page": "05.06.md"
+      },
+      "payloads": [],
+      "proposed_real_member": "0101",
+      "proposed_real_name": "app-entry-0506",
+      "real_book_allocated": false,
+      "receipt_sha256": "bfd9f21d877ccc25eac15a56f9413fc820e46b94ad33c66a8c2f44abb6beb5fd",
+      "retrospective": true,
+      "return_includes_prime_review": true,
+      "review_bytes": "the whole batch file contains the return and the Prime review",
+      "snapshot": "snapshots/0007.blob",
+      "snapshot_sha256": "51332cea6913d812c940574432a891f05c4b2667719f465b4a613dbea0a62cf6",
+      "source_commit": "e6d6eb75538732c7eedbc840042242d386b25c2f",
+      "submission_id": "0504-05-06-pinned"
+    },
+    {
+      "captured_at": "2026-10-27T18:31:09.389331Z",
+      "captured_at_policy": "now, not a historical file time",
+      "disposable_member": "0102.prime-support-0501",
+      "gaps": [
+        "no separate pristine return; the whole pinned batch file is the submission"
+      ],
+      "origin": {
+        "batch": "05.01",
+        "book": "0507.prime-support",
+        "page": "05.01.md"
+      },
+      "payloads": [
+        {
+          "logical": "prime-review05.01/review.md",
+          "role": "prime-review bytes, not the submission body",
+          "sha256": "fb30c940ea36b62b9e673d124834702c3be4ce260730f46aa0883077b1a7c943",
+          "snapshot": "snapshots/0009.blob"
+        }
+      ],
+      "proposed_real_member": "0102",
+      "proposed_real_name": "prime-support-0501",
+      "real_book_allocated": false,
+      "receipt_sha256": "59b98ebf9f9ef70c0a82abac9ddcbf50a54598ca32bfc9d0ba60d100f02c2104",
+      "retrospective": true,
+      "return_includes_prime_review": true,
+      "review_bytes": "the whole batch file contains the return and the Prime review; the payload is the separate review.md snapshot and is not the submission body",
+      "snapshot": "snapshots/0008.blob",
+      "snapshot_sha256": "0c91acfe02943770c25950670bbcfc5b6fe732a747707185f7d40bf00968c983",
+      "source_commit": "e6d6eb75538732c7eedbc840042242d386b25c2f",
+      "submission_id": "0507-05-01-pinned"
+    }
+  ]
+}

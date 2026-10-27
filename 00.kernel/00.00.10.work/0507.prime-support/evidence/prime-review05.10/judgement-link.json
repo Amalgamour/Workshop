@@ -1,0 +1,45 @@
+{
+  "schema": "prime-rehearsal-judgement-link/1",
+  "source_member": "0131.realbook-rehearsal-0510",
+  "source_container_sha256": "0890a3207b00d7453b593547900b964e0bcb6d4847e18f16d3b7cd5e0543d29c",
+  "source_attempt": "a1",
+  "judge_target": "verified byte-identical reconstruction; original attempt and sealed source left unchanged",
+  "new_files": {
+    "30.judgement.raw": "432745c4f4d76374d2034758a5ca4077af5ba74632d59ae06edf51f75856690d",
+    "31.judgement.json": "f823ba039e56318c0af75107fbc00d8dda352fa75594ca4d5c58602aa671e9ba",
+    "39.outcome.json": "7f3de2a2deb2c71337c16aa683a1a051a7e28bd7e2006175e1980e360b62b7cd"
+  },
+  "reviewer": "Codex Prime",
+  "scope": "nonblind rehearsal explanations only; source conflicts remain unresolved; no authority or fresh-model-readiness claim",
+  "outcome": {
+    "authority": "none; orientation grants no new work authority",
+    "checks": "ok",
+    "dependent_execution": "allowed only for already-released work",
+    "grades": {
+      "O1": "pass",
+      "O2": "pass",
+      "O3": "pass",
+      "O4": "pass",
+      "O5": "pass",
+      "O6": "pass"
+    },
+    "judgement": "recorded",
+    "outcome": "oriented",
+    "prepare": "prepared",
+    "read_only_investigation": "allowed and recorded separately",
+    "remediation": [
+      {
+        "detail": "Prime: clarify single canonical-assignment scope across parallel lanes; do not repair by arbitrarily selecting one builder.",
+        "kind": "question"
+      },
+      {
+        "detail": "Prime: define authoritative execution projection separately from stale draft headers, and reconcile current Return pointer forms with read-only tooling.",
+        "kind": "question"
+      },
+      {
+        "detail": "A future fresh-session packet should include relevant role definitions and full referenced review when required; this rehearsal is explicitly nonblind.",
+        "kind": "reference"
+      }
+    ]
+  }
+}

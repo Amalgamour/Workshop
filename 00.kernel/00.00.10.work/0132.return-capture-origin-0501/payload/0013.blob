@@ -1,0 +1,59 @@
+diff --git a/00.kernel/00.00.10.work/00.md b/00.kernel/00.00.10.work/00.md
+--- a/00.kernel/00.00.10.work/00.md
++++ b/00.kernel/00.00.10.work/00.md
+@@ -1 +1 @@
+-00.00.10.work: the work book of desk 00.kernel. Provisional; contents in 0011.contents/01.006.md.
++00.00.10.work: the work book of desk 00.kernel. Provisional; contents in 0011.contents/01.015.md.
+diff --git a/00.kernel/00.00.10.work/0011.contents/01.015.md b/00.kernel/00.00.10.work/0011.contents/01.015.md
+new file mode 100644
+--- /dev/null
++++ b/00.kernel/00.00.10.work/0011.contents/01.015.md
+@@ -0,0 +1,48 @@
++# 01
++
++version: 015
++Authorization: draft — 2026-10-27
++who: Grok Builder 2
++state: draft candidate proposed by 0508.return-capture/05.01. Not selected until the sentinel names this file.
++Face: 01
++PPPP: 0011
++book: 00.00.10.work
++keyword: contents
++why: Inventory carried forward from 01.014, plus 0508/05.01.
++
++## Pages
++
++| Page | Faces and files |
++|---|---|
++| `0010.about` | `01.001.md` |
++| `0011.contents` | `01.001.md`, `01.002.md`, `01.003.md`, `01.004.md`, `01.005.md`, `01.006.md`, `01.007.md`, `01.008.md`, `01.009.md`, `01.010.md`, `01.011.md`, `01.012.md`, `01.013.md`, `01.014.md`, `01.015.md` |
++| `0014.design` | `01.001.md`, `01.002.md` |
++| `0100.band.returns` | `01.md` |
++| `0400.band.dev` | `01.md` |
++| `0401.goal` | `01.md`, `06.01.md` |
++| `0408.seats` | `01.md` |
++| `0409.decisions` | `01.md` |
++| `0410.imports` | `01.md`, `manifests/` (10 files) |
++| `0500.band.packs` | `01.md` |
++| `0501.bootstrap` | `01.md`, `05.01.md`, `05.02.md`, `addendum-001/` (13 files), `pack/` (19 files) |
++| `0502.workflow-start` | `01.md`, `05.01.md`, `05.02.md`, `05.03.md`, `06.01.md`, `06.02.md`, `06.03.md`, `06.04.md`, `source-manifest.tsv`, `evidence/` (86 files) |
++| `0503.worker-bridge` | `01.md`, `05.01.md`, `05.02.md`, `05.03.md`, `05.04.md`, `06.01.md`, `06.02.md`, `06.03.md`, `06.04.md`, `source-manifest.tsv`, `evidence/` (52 files) |
++| `0504.app-entry` | `01.md`, `05.01.md`, `05.02.md`, `05.03.md`, `05.04.md`, `05.05.md`, `05.06.md`, `05.07.md`, `06.01.md`, `06.02.md`, `06.03.md`, `06.04.md`, `06.05.md`, `06.06.md`, `06.07.md`, `source-manifest.tsv`, `evidence/` (329 files), `fixtures/` (6 files) |
++| `0505.observer-design` | `01.md`, `05.01.md`, `06.01.md`, `06.02.md`, `source-manifest.tsv`, `prime-reports/` (6 files), `templates/` (2 files) |
++| `0506.clerk-handoff` | `01.md`, `05.01.md`, `05.02.md`, `05.03.md`, `05.04.md`, `05.05.md`, `06.01.md`, `06.02.md`, `06.03.md`, `06.05.md`, `06.06.md`, `06.07.md`, `evidence/` (135 files) |
++| `0507.prime-support` | `01.md`, `05.01.md`, `05.02.md`, `05.03.md`, `06.01.md`, `06.02.md`, `06.03.md`, `06.04.md`, `evidence/` (100 files) |
++| `0508.return-capture` | `01.md`, `05.01.md`, `06.01.md`, `06.02.md`, `evidence/` (28 files) |
++| `0509.pack-assembly` | `01.md`, `05.01.md`, `06.01.md`, `evidence/` (9 files) |
++| `0600.band.notes` | `01.md` |
++| `0611.findings` | `01.md` |
++
++Book files: `00.md`.
++
++## Other books
++Syntax: `../00.00.00.syntax/00.001.md`. Law: `../00.00.01.law/00.001.md`. Each lists what it holds.
++
++## Selection
++Selected only when `00.kernel/00.00.10.work/00.md` names this file.
++This patch changes that line from `0011.contents/01.006.md` to `0011.contents/01.015.md`.
++Creating a higher contents file does not select it. `01.006.md` through `01.014.md` stay as they are.
++If `01.015.md` is not the next free contents version when Prime applies this patch, Prime renumbers this candidate and retargets that one sentinel line, and rebases this inventory onto the then-current published tree.
