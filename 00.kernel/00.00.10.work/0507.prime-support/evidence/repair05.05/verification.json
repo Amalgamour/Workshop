@@ -1,0 +1,113 @@
+{
+ "after": {
+  "README.md (unchanged)": "8b3e020c749058a224a61858372fca285ead4ea9309e0113acee9f851e672fc4",
+  "clerk_adapter.py": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4",
+  "prime_support.py (unchanged)": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70",
+  "tests/test_clerk_adapter.py": "3881abac397399d9329cd2d00255a860240dcbbb6052e27d9fbefcdaddc8fe8f"
+ },
+ "batch": "00.kernel/00.00.10.work/0507.prime-support/05.05.md",
+ "before": {
+  "clerk_adapter.py": "06828436095c43783fcfffb6408d9400b0ab4cf810433229d8c35890d0a0c2e6",
+  "test_clerk_adapter.py": "03f9a256e9ce5656c4a072895791acc68e9fdb0e30e84bdf66bf1335b03fa4ba"
+ },
+ "coverage": {
+  "consumed_field_types": 24,
+  "enum_field_types": 35,
+  "error_path": "in-process status, scan and ack-clerk with one malformed and one real clean registered job",
+  "malformed_variants": 78,
+  "six_prime_cases": 6,
+  "state_dependent_shapes": 13
+ },
+ "failure_before": {
+  "errors": 63,
+  "failures": 16,
+  "log": "runs/failure-before-test_clerk_adapter.txt",
+  "log_sha256": "c668b40360d256a822a904a674bf4e0fa2615219a4b74e77f6afc0d251cdd320",
+  "missing_packet_key_errors": 41,
+  "prime_cases_reproduced": [
+   "state=[]",
+   "state={}",
+   "checks.events=[]",
+   "checks.completion=[]",
+   "checks.artifacts=[]",
+   "checks.instructions=[]"
+  ],
+  "ran": 19,
+  "type_errors": 22
+ },
+ "final": {
+  "demo": {
+   "checks": 18,
+   "exit": 0,
+   "failed": 0,
+   "lib_build_status_and_index_unchanged": true,
+   "log_sha256": "4b95db81e1a5593c5f398a7c0ad6dda7e7104c1a2a7ca2b10928f128708e2720",
+   "processes": 14,
+   "sof_status_unchanged": true
+  },
+  "demo_clerk": {
+   "checks": 14,
+   "exit": 0,
+   "failed": 0,
+   "log_sha256": "2652aac978ddc758a4358479206be18208410814f1c49799cb30cfdb8b7e4c07",
+   "processes": 11
+  },
+  "test_clerk_adapter": {
+   "default_log_sha256": "76e71b5372a79c14b61bf0db65377685d4100cc785753432d54d19ef2f3c7db5",
+   "dev_log_sha256": "81c7d554ca85bd86a8cdc6805ef8e326467cab1a87092bcadf9e68d0bc53fffd",
+   "modes": [
+    "dev",
+    "default"
+   ],
+   "ok": 19,
+   "ran": 19,
+   "skipped": 0
+  },
+  "test_prime_support": {
+   "default_log_sha256": "71f9ebc6f13d90c08230223297e37494f3552c90cc651ee26d61d4e30914b0f9",
+   "dev_log_sha256": "13469b88ce42d9dd1333e62d8aabf9c6faab4e72fd68ab9ed894e24e6f10b293",
+   "ok": 19,
+   "ran": 19,
+   "skipped": 0
+  },
+  "test_psi": {
+   "default_log_sha256": "5a5492a1543c6fae5baccef7e319b3e2d5835daaa9c9c0813ad1d2072667c87c",
+   "dev_log_sha256": "b5857fa232367ea35a3fd609927983512c424b0f1b3dfdd4ccd19a70fab8da1c",
+   "ok": 10,
+   "ran": 10,
+   "skipped": 0
+  }
+ },
+ "finding": "CA-01",
+ "guarantees_asserted": [
+  "no exception escapes inspect for a malformed projection",
+  "unsupported with no identity, not clean, no event",
+  "context packet names the source",
+  "status and scan keep the other registered job",
+  "ack refuses and writes no intake store",
+  "Clerk store byte-identical"
+ ],
+ "inputs": {
+  "accepted_clerk_sha256": "f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c",
+  "bad": 0,
+  "capture_helper_sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+  "pack": "evidence/pack05.05/source-manifest.json",
+  "sources": 11
+ },
+ "limits": [
+  "types are validated only for the fields this adapter consumes, as the pinned Clerk emits them; no new producer schema",
+  "same-user race between the hash check and the launch, unchanged",
+  "registered jobs only",
+  "no concurrency test of two acknowledgements"
+ ],
+ "not_changed": [
+  "prime_support.py",
+  "README.md",
+  "demo.py",
+  "demo_clerk.py",
+  "labs/clerk-handoff-pass02/*",
+  "no broad except Exception added"
+ ],
+ "schema": "verification/0507-05.05",
+ "workshop_head_at_claim": "acc3831f9560c86d4c000b84e9f026ca0570207b"
+}

@@ -23,6 +23,10 @@ ACCEPTED_CLERK_SHA256 = "f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc
 INSPECTION_SCHEMA = "clerk-handoff-inspection/2"
 TOP_KEYS = {"schema", "job_id", "state", "job", "claim", "returned", "checks", "problems"}
 RETURNED_KEYS = {"by", "delivery", "evidence", "artifacts", "event_sha256"}
+# Shapes as the pinned Clerk (ACCEPTED_CLERK_SHA256) emits them; not a new producer schema (05.05, CA-01).
+JOB_KEYS = {"assignee", "expected_outputs", "instructions", "job_id", "release", "reviewer", "routed_by"}
+CLAIM_KEYS = {"by", "token"}
+ARTIFACT_KEYS = {"bytes", "path", "sha256"}
 STATES = {"queued", "claimed", "returned", "incomplete", "corrupt", "unknown"}
 CHECK_ENUMS = {
     "events": {"ok", "unreadable", "broken", "not-applicable"},
@@ -94,6 +98,46 @@ def _strict(text: str):
         raise ProjectionError(f"invalid JSON ({exc.msg})") from None
 
 
+def _string(value, label: str) -> str:
+    """Type before membership: a list or dict is unhashable, so a set test on it would raise TypeError (CA-01)."""
+    if not isinstance(value, str):
+        raise ProjectionError(f"{label} is not a string ({type(value).__name__})")
+    return value
+
+
+def _object(value, keys: set, label: str) -> dict:
+    if not isinstance(value, dict) or set(value) != keys:
+        raise ProjectionError(f"{label} is not the inspection/2 object")
+    return value
+
+
+def _check_shapes(doc: dict) -> None:
+    """The fields this adapter reads, typed as the pinned Clerk emits them."""
+    if isinstance(doc["job"], dict):
+        job = _object(doc["job"], JOB_KEYS, "job")
+        for key in ("job_id", "reviewer", "assignee"):
+            _string(job[key], f"job.{key}")
+    if isinstance(doc["claim"], dict):
+        claim = _object(doc["claim"], CLAIM_KEYS, "claim")
+        for key in CLAIM_KEYS:
+            _string(claim[key], f"claim.{key}")
+    if isinstance(doc["returned"], dict):
+        ret = _object(doc["returned"], RETURNED_KEYS, "returned")
+        for key in ("by", "delivery", "evidence"):
+            _string(ret[key], f"returned.{key}")
+        if not HEX64.fullmatch(_string(ret["event_sha256"], "returned.event_sha256")):
+            raise ProjectionError("returned.event_sha256 is not 64 lowercase hex")
+        if not isinstance(ret["artifacts"], list):
+            raise ProjectionError("returned.artifacts is not a list")
+        for item in ret["artifacts"]:
+            item = _object(item, ARTIFACT_KEYS, "returned.artifacts item")
+            _string(item["path"], "artifact path")
+            if not HEX64.fullmatch(_string(item["sha256"], "artifact sha256")):
+                raise ProjectionError("artifact sha256 is not 64 lowercase hex")
+            if type(item["bytes"]) is not int or item["bytes"] < 0:
+                raise ProjectionError("artifact bytes is not a non-negative integer")
+
+
 def parse_projection(code: int, stdout: str, stderr: str, job_id: str) -> dict:
     """Strict inspection/2 parse. Raises ProjectionError on anything unexpected."""
     if stderr:
@@ -103,18 +147,18 @@ def parse_projection(code: int, stdout: str, stderr: str, job_id: str) -> dict:
     doc = _strict(stdout)
     if not isinstance(doc, dict) or set(doc) != TOP_KEYS:
         raise ProjectionError("projection keys are not the inspection/2 set")
-    if doc["schema"] != INSPECTION_SCHEMA:
+    if _string(doc["schema"], "schema") != INSPECTION_SCHEMA:
         raise ProjectionError(f"unsupported projection schema {doc['schema']!r}")
-    if doc["job_id"] != job_id:
+    if _string(doc["job_id"], "job_id") != job_id:
         raise ProjectionError("projection job_id is not the registered job")
-    state = doc["state"]
+    state = _string(doc["state"], "state")
     if state not in STATES:
         raise ProjectionError(f"unknown state {state!r}")
     checks = doc["checks"]
     if not isinstance(checks, dict) or set(checks) != set(CHECK_ENUMS):
         raise ProjectionError("checks keys are not the inspection/2 set")
     for key, allowed in CHECK_ENUMS.items():
-        if checks[key] not in allowed:
+        if _string(checks[key], f"checks.{key}") not in allowed:
             raise ProjectionError(f"checks.{key} has unknown value {checks[key]!r}")
     problems = doc["problems"]
     if not isinstance(problems, list) or any(
@@ -129,11 +173,10 @@ def parse_projection(code: int, stdout: str, stderr: str, job_id: str) -> dict:
     returned = doc["returned"]
     if (state == "returned") != isinstance(returned, dict):
         raise ProjectionError("returned presence does not match the state")
-    if returned is not None:
-        if set(returned) != RETURNED_KEYS:
-            raise ProjectionError("returned keys are not the inspection/2 set")
-        if not isinstance(returned["event_sha256"], str) or not HEX64.fullmatch(returned["event_sha256"]):
-            raise ProjectionError("returned.event_sha256 is not 64 lowercase hex")
+    for key in ("job", "claim", "returned"):
+        if doc[key] is not None and not isinstance(doc[key], dict):
+            raise ProjectionError(f"{key} is neither null nor an object")
+    _check_shapes(doc)
     kinds = {p["kind"] for p in problems}
     if code == 0 and (problems or not clean_phase):
         raise ProjectionError("exit 0 with problems or a damaged state")
@@ -168,6 +211,9 @@ def inspect(tool: dict, job: dict, runner=None) -> dict:
         doc = parse_projection(code, stdout, stderr, job["job_id"])
     except ProjectionError as exc:
         out["reason"] = "projection: " + str(exc)
+        # The attention item names its exact source even when the projection is unusable (CA-01).
+        out["packet"] = (f"clerk:{job['store']}#{job['job_id']}@unsupported via show --json "
+                         f"(tool {tool['sha256'][:12]}, exit {code}): {out['reason']}")
         return out
     out.update(status="ok", state=doc["state"], checks=doc["checks"], problems=doc["problems"])
     if isinstance(doc["job"], dict):

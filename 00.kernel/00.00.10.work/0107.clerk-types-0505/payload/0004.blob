@@ -1,0 +1,57 @@
+Tests for 0507.prime-support/05.05 (CA-01), in order. Full logs are in runs/.
+All runs used disposable copies holding labs/prime-support-pass01 and labs/clerk-handoff-pass02 side by side, outside
+the shared checkout. Interpreter C:\Users\misg\AppData\Local\Python\pythoncore-3.14-64\python.exe, PYTHONDONTWRITEBYTECODE=1.
+Every fixture Git repository, Clerk store and intake store was under the system temp directory. Fixture setup alone runs
+queue/claim/return, with a copied clerk.py hashed to f697a7e4….
+
+1. Failure before. The new tests ran against the BEFORE adapter (before/clerk_adapter.py 06828436…).
+   command: python -B -X dev tests\test_clerk_adapter.py -v
+   result:  exit 1. Ran 19 tests: FAILED (failures=16, errors=63).
+   - The six Prime cases (state=[], state={}, checks.events/completion/artifacts/instructions=[]) each raise TypeError
+     "cannot use 'list'/'dict' as a set element" from `state not in STATES` (before line 111) or the check-enum test.
+   - 22 TypeErrors in all: those six plus the list/object variants for the five enum fields and the error-path test.
+   - 41 KeyError 'packet': the before adapter set no context packet for an unsupported projection.
+   - 16 failures where a wrong type was accepted as valid: job/claim/returned/artifact field types and keys.
+   log: runs/failure-before-test_clerk_adapter.txt
+
+2. After the fix, final code. These bytes equal the live files:
+   clerk_adapter.py 2f30ba75…, tests/test_clerk_adapter.py 3881abac…, prime_support.py 700d60d2… (unchanged).
+   python -B -X dev tests\test_clerk_adapter.py -v   exit 0  Ran 19 tests  OK  (14 existing + 5 new; 0 skipped)
+   python -B tests\test_clerk_adapter.py -v          exit 0  Ran 19 tests  OK
+   python -B -X dev tests\test_prime_support.py -v   exit 0  Ran 19 tests  OK
+   python -B tests\test_prime_support.py -v          exit 0  Ran 19 tests  OK
+   python -B -X dev tests\test_psi.py -v             exit 0  Ran 10 tests  OK
+   python -B tests\test_psi.py -v                    exit 0  Ran 10 tests  OK
+   No bytecode was written in the copy.
+   logs: runs/final-<suite>-<dev|default>.txt
+
+   The new tests and the malformed variants (subtests) they cover:
+   - test_ca01_the_six_prime_cases: 6.
+   - test_ca01_enum_fields_of_every_json_type: 35, that is state and the four checks, each as list, object, null,
+     int, float, bool and nested list.
+   - test_ca01_state_dependent_null_and_object_shapes: 13. returned with job, claim or returned null, list or string;
+     queued with a claim or returned object; claimed with a null claim or a returned object; incomplete with a job object.
+   - test_ca01_consumed_field_types: 24. The types of schema and job_id; job.job_id, reviewer and assignee; job key set;
+     claim.token and claim keys; returned by, delivery, evidence and artifacts; artifact path, bytes (bool), sha256 and
+     keys; event_sha256 (int, list); problems as an object, an int kind, a non-object item; checks as a list.
+   - test_ca01_status_scan_and_ack_keep_going_beside_a_good_job: an in-process status, scan and ack-clerk with one
+     malformed job (job-1) next to one real clean job (job-2).
+     - job-1 is unsupported, with no identity, not clean, and a packet naming the source.
+     - job-2 is returned, clean and unseen.
+     - Attention holds both items. The render shows "UNSUPPORTED: projection: state is not a string".
+     - scan exits 1 and lists both jobs.
+     - ack-clerk of job-1 exits 2 ("refused: inspection failed: projection: …") and creates no intake store.
+     - The Clerk store is byte-identical.
+   Every malformed variant asserts: status unsupported, identity False, clean False, event_sha256 None, a reason that
+   starts with "projection: ", and a packet "@unsupported via show --json". No exception escapes.
+
+3. Demonstrations, final code:
+   python -B demo_clerk.py --out <temp> --clerk <copied accepted clerk.py>
+     exit 0; scope registered jobs only; 11 processes (3 fixture setup, 8 adapter); 14 checks, 0 failed; demo ok
+     (the real clean fixture and the changed-artifact fixture still work).
+   python -B demo.py --out <temp> --workshop-repo D:\Git\lib-build --sof-repo D:\Git\SoF
+     exit 0; 14 processes; 18 checks; demo ok. D:\Git\lib-build git status and index hash, and D:\Git\SoF git status,
+     were identical before and after.
+   logs: runs/final-demo-clerk.txt, runs/final-demo.txt
+
+Skips: none in any final run. Failures retained: run 1 above.

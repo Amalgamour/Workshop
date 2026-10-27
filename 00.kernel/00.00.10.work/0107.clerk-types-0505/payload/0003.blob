@@ -1,0 +1,57 @@
+# Notes — CA-01, malformed projection types (batch 05.05)
+Date: 2026-10-27
+Recorder: claude-opus-5-5, Colab, executor
+State: written before any code edit. The before-bytes are in evidence/repair05.05/before/: clerk_adapter.py 06828436…, test_clerk_adapter.py 03f9a256…. 06.01-06.05 stay as they are.
+
+## Inputs
+I01. pack05.05: 11 of 11 match their pins and live, at workshop acc3831. The capture helper is 8f3da5c6…. Reservation 0107.clerk-types-0505 lists 7 expected outputs.
+I02. Prime review of 05.04 (verification.json in prime-review05.04): CA-01. `state=[]`, `state={}`, and `[]` in each of the four check fields raise TypeError. That is six failures. The other shape probes already became unsupported.
+
+## Cause
+K01. parse_projection() tests `state not in STATES` and `checks[key] not in allowed` on set objects. A list or dict is unhashable, so set membership raises TypeError before any type check. inspect() catches only ProjectionError, OSError and SubprocessError, so the TypeError escapes to status, scan and ack.
+K02. The other consumed fields:
+- `job` is checked only as `isinstance(dict)`, then read with `.get`;
+- `claim` is checked only for presence;
+- returned's non-digest fields are unchecked;
+- problem `kind`/`detail` types are already checked.
+A dict-shaped job with non-string job_id or reviewer would compare unequal and show as a binding mismatch, not as unsupported.
+
+## Contract (no new producer schema; from the pinned Clerk f697a7e4…)
+C01. Every enum-valued field (state, the four checks) must be a `str` before membership. Otherwise ProjectionError, then unsupported.
+C02. Shapes required exactly as the pinned Clerk produces them:
+- `job`: an object whose keys are exactly Clerk's seven job keys (assignee, expected_outputs, instructions, job_id, release, reviewer, routed_by), with job_id, reviewer and assignee as strings;
+- `claim`: exactly {by, token}, both strings;
+- `returned`: exactly {by, delivery, evidence, artifacts, event_sha256}, with by, delivery and evidence strings, artifacts a list of {path, sha256, bytes} objects, and event_sha256 64 hex;
+- `problems`: a list of objects with string kind and detail;
+- schema and job_id must be strings.
+The null/object rule by state is unchanged.
+C03. No broad except. inspect() still catches only ProjectionError plus run errors. A programming error still raises.
+C04. An unsupported observation also carries a context packet (`…@unsupported via show --json …`), so the attention item names its source.
+
+## Test plan
+T01. Reproduce first: the six Prime cases on the before code, through inspect with a hash-verified copied Clerk and injected replies.
+T02. New cases:
+- list, object, null, number, float and bool for the state and each check field;
+- wrong state-dependent shapes for job, claim and returned in each state;
+- consumed-field type errors;
+- in-process status and scan with one malformed job beside one real clean job: both shown, the malformed one unsupported with a packet;
+- ack of the malformed job refused, with no store written.
+T03. Existing 14 + 19 + 10, plus the real clean and changed-artifact fixtures, in disposable copies, in both modes.
+
+## Outcome and reread (after code, tests, demos)
+O01. clerk_adapter.py 06828436… → 2f30ba75…:
+- `_string()` runs before every enum membership test, and for schema and job_id;
+- `_object()` and `_check_shapes()` validate job (Clerk's seven keys; job_id, reviewer and assignee as strings), claim ({by, token} strings) and returned (the five keys, string fields, the artifact objects, event_sha256 as 64 hex);
+- non-null job, claim and returned must be objects;
+- an unsupported observation carries a packet.
+There is no broad except; inspect() still catches only ProjectionError and run errors. No other product file changed: prime_support.py stays 700d60d2… and README 8b3e020c….
+O02. tests/test_clerk_adapter.py 03f9a256… → 3881abac…, with five new tests covering 78 malformed variants and the full error path (tests.txt). The 14 existing tests are unchanged.
+O03. Failure before: on the before adapter, the new tests gave 22 TypeErrors (including all six Prime cases), 41 missing-packet errors and 16 accepted wrong types. Final: 19, 19 and 10 tests pass in both modes, and both demos pass.
+O04. Accounted:
+- I01-I02: used;
+- K01: fixed by C01;
+- K02: fixed by C02;
+- C03: held;
+- C04: done;
+- T01-T03: done.
+No deviation.

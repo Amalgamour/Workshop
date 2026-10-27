@@ -1,0 +1,1332 @@
+test_ack_stale_event_and_abbreviated_id_refused (__main__.ClerkAdapter.test_ack_stale_event_and_abbreviated_id_refused) ... ok
+test_ack_store_deletion_restores_unseen_and_keeps_problems (__main__.ClerkAdapter.test_ack_store_deletion_restores_unseen_and_keeps_problems) ... ok
+test_adapter_reads_no_store_file_and_runs_only_show_json (__main__.ClerkAdapter.test_adapter_reads_no_store_file_and_runs_only_show_json) ... ok
+test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) ... 
+  test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='schema list') ... ERROR
+  test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='job_id list') ... ERROR
+  test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='job.job_id int') ... FAIL
+  test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='job.reviewer list') ... FAIL
+  test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='job.assignee null') ... FAIL
+  test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='job missing key') ... FAIL
+  test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='job extra key') ... FAIL
+  test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='claim.token int') ... FAIL
+  test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='claim extra key') ... FAIL
+  test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='returned.by int') ... FAIL
+  test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='returned.delivery null') ... FAIL
+  test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='returned.evidence list') ... FAIL
+  test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='returned.artifacts object') ... FAIL
+  test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='returned.artifacts item int') ... FAIL
+  test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='artifact path int') ... FAIL
+  test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='artifact bytes bool') ... FAIL
+  test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='artifact sha256 short') ... FAIL
+  test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='artifact extra key') ... FAIL
+  test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='event_sha256 int') ... ERROR
+  test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='event_sha256 list') ... ERROR
+  test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='problems object') ... ERROR
+  test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='problem kind int') ... ERROR
+  test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='problem not object') ... ERROR
+  test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='checks list') ... ERROR
+test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) ... 
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='state', type='list') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='state', type='object') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='state', type='null') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='state', type='int') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='state', type='float') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='state', type='bool') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='state', type='nested') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='events', type='list') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='events', type='object') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='events', type='null') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='events', type='int') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='events', type='float') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='events', type='bool') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='events', type='nested') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='completion', type='list') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='completion', type='object') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='completion', type='null') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='completion', type='int') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='completion', type='float') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='completion', type='bool') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='completion', type='nested') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='artifacts', type='list') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='artifacts', type='object') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='artifacts', type='null') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='artifacts', type='int') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='artifacts', type='float') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='artifacts', type='bool') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='artifacts', type='nested') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='instructions', type='list') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='instructions', type='object') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='instructions', type='null') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='instructions', type='int') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='instructions', type='float') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='instructions', type='bool') ... ERROR
+  test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='instructions', type='nested') ... ERROR
+test_ca01_state_dependent_null_and_object_shapes (__main__.ClerkAdapter.test_ca01_state_dependent_null_and_object_shapes) ... 
+  test_ca01_state_dependent_null_and_object_shapes (__main__.ClerkAdapter.test_ca01_state_dependent_null_and_object_shapes) (case='returned: job null') ... ERROR
+  test_ca01_state_dependent_null_and_object_shapes (__main__.ClerkAdapter.test_ca01_state_dependent_null_and_object_shapes) (case='returned: job list') ... ERROR
+  test_ca01_state_dependent_null_and_object_shapes (__main__.ClerkAdapter.test_ca01_state_dependent_null_and_object_shapes) (case='returned: job string') ... ERROR
+  test_ca01_state_dependent_null_and_object_shapes (__main__.ClerkAdapter.test_ca01_state_dependent_null_and_object_shapes) (case='returned: claim null') ... ERROR
+  test_ca01_state_dependent_null_and_object_shapes (__main__.ClerkAdapter.test_ca01_state_dependent_null_and_object_shapes) (case='returned: claim list') ... ERROR
+  test_ca01_state_dependent_null_and_object_shapes (__main__.ClerkAdapter.test_ca01_state_dependent_null_and_object_shapes) (case='returned: returned null') ... ERROR
+  test_ca01_state_dependent_null_and_object_shapes (__main__.ClerkAdapter.test_ca01_state_dependent_null_and_object_shapes) (case='returned: returned list') ... ERROR
+  test_ca01_state_dependent_null_and_object_shapes (__main__.ClerkAdapter.test_ca01_state_dependent_null_and_object_shapes) (case='returned: returned string') ... ERROR
+  test_ca01_state_dependent_null_and_object_shapes (__main__.ClerkAdapter.test_ca01_state_dependent_null_and_object_shapes) (case='queued: claim object') ... ERROR
+  test_ca01_state_dependent_null_and_object_shapes (__main__.ClerkAdapter.test_ca01_state_dependent_null_and_object_shapes) (case='queued: returned object') ... ERROR
+  test_ca01_state_dependent_null_and_object_shapes (__main__.ClerkAdapter.test_ca01_state_dependent_null_and_object_shapes) (case='claimed: claim null') ... ERROR
+  test_ca01_state_dependent_null_and_object_shapes (__main__.ClerkAdapter.test_ca01_state_dependent_null_and_object_shapes) (case='claimed: returned object') ... ERROR
+  test_ca01_state_dependent_null_and_object_shapes (__main__.ClerkAdapter.test_ca01_state_dependent_null_and_object_shapes) (case='incomplete: job object') ... ERROR
+test_ca01_status_scan_and_ack_keep_going_beside_a_good_job (__main__.ClerkAdapter.test_ca01_status_scan_and_ack_keep_going_beside_a_good_job) ... ERROR
+test_ca01_the_six_prime_cases (__main__.ClerkAdapter.test_ca01_the_six_prime_cases) ... 
+  test_ca01_the_six_prime_cases (__main__.ClerkAdapter.test_ca01_the_six_prime_cases) (case='state=[]') ... ERROR
+  test_ca01_the_six_prime_cases (__main__.ClerkAdapter.test_ca01_the_six_prime_cases) (case='state={}') ... ERROR
+  test_ca01_the_six_prime_cases (__main__.ClerkAdapter.test_ca01_the_six_prime_cases) (case='checks.events=[]') ... ERROR
+  test_ca01_the_six_prime_cases (__main__.ClerkAdapter.test_ca01_the_six_prime_cases) (case='checks.completion=[]') ... ERROR
+  test_ca01_the_six_prime_cases (__main__.ClerkAdapter.test_ca01_the_six_prime_cases) (case='checks.artifacts=[]') ... ERROR
+  test_ca01_the_six_prime_cases (__main__.ClerkAdapter.test_ca01_the_six_prime_cases) (case='checks.instructions=[]') ... ERROR
+test_changed_artifact_keeps_identity_and_attention_after_ack (__main__.ClerkAdapter.test_changed_artifact_keeps_identity_and_attention_after_ack) ... ok
+test_changed_valid_event_does_not_inherit_seen (__main__.ClerkAdapter.test_changed_valid_event_does_not_inherit_seen) ... ok
+test_clean_return_unseen_ack_seen_idempotent (__main__.ClerkAdapter.test_clean_return_unseen_ack_seen_idempotent) ... ok
+test_intake_store_inside_a_clerk_store_is_refused (__main__.ClerkAdapter.test_intake_store_inside_a_clerk_store_is_refused) ... ok
+test_malformed_and_old_schema_projections_are_unsupported (__main__.ClerkAdapter.test_malformed_and_old_schema_projections_are_unsupported) ... ok
+test_queued_and_claimed_have_no_identity (__main__.ClerkAdapter.test_queued_and_claimed_have_no_identity) ... ok
+test_registry_versions (__main__.ClerkAdapter.test_registry_versions) ... ok
+test_reviewer_binding_conflict (__main__.ClerkAdapter.test_reviewer_binding_conflict) ... ok
+test_stale_and_missing_instruction_base (__main__.ClerkAdapter.test_stale_and_missing_instruction_base) ... ok
+test_unknown_job_and_damaged_pair (__main__.ClerkAdapter.test_unknown_job_and_damaged_pair) ... ok
+test_wrong_tool_identity_is_never_executed (__main__.ClerkAdapter.test_wrong_tool_identity_is_never_executed) ... ok
+
+======================================================================
+ERROR: test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='schema list')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 456, in test_ca01_consumed_field_types
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='job_id list')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 456, in test_ca01_consumed_field_types
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='event_sha256 int')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 456, in test_ca01_consumed_field_types
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='event_sha256 list')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 456, in test_ca01_consumed_field_types
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='problems object')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 456, in test_ca01_consumed_field_types
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='problem kind int')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 456, in test_ca01_consumed_field_types
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='problem not object')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 456, in test_ca01_consumed_field_types
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='checks list')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 456, in test_ca01_consumed_field_types
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='state', type='list')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 369, in assert_unsupported
+    o = ca.inspect(tool, self.cjob(job_id), runner=lambda argv: reply)
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 168, in inspect
+    doc = parse_projection(code, stdout, stderr, job["job_id"])
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 111, in parse_projection
+    if state not in STATES:
+       ^^^^^^^^^^^^^^^^^^^
+TypeError: cannot use 'list' as a set element (unhashable type: 'list')
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='state', type='object')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 369, in assert_unsupported
+    o = ca.inspect(tool, self.cjob(job_id), runner=lambda argv: reply)
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 168, in inspect
+    doc = parse_projection(code, stdout, stderr, job["job_id"])
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 111, in parse_projection
+    if state not in STATES:
+       ^^^^^^^^^^^^^^^^^^^
+TypeError: cannot use 'dict' as a set element (unhashable type: 'dict')
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='state', type='null')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='state', type='int')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='state', type='float')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='state', type='bool')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='state', type='nested')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 369, in assert_unsupported
+    o = ca.inspect(tool, self.cjob(job_id), runner=lambda argv: reply)
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 168, in inspect
+    doc = parse_projection(code, stdout, stderr, job["job_id"])
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 111, in parse_projection
+    if state not in STATES:
+       ^^^^^^^^^^^^^^^^^^^
+TypeError: cannot use 'list' as a set element (unhashable type: 'list')
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='events', type='list')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 369, in assert_unsupported
+    o = ca.inspect(tool, self.cjob(job_id), runner=lambda argv: reply)
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 168, in inspect
+    doc = parse_projection(code, stdout, stderr, job["job_id"])
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 117, in parse_projection
+    if checks[key] not in allowed:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: cannot use 'list' as a set element (unhashable type: 'list')
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='events', type='object')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 369, in assert_unsupported
+    o = ca.inspect(tool, self.cjob(job_id), runner=lambda argv: reply)
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 168, in inspect
+    doc = parse_projection(code, stdout, stderr, job["job_id"])
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 117, in parse_projection
+    if checks[key] not in allowed:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: cannot use 'dict' as a set element (unhashable type: 'dict')
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='events', type='null')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='events', type='int')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='events', type='float')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='events', type='bool')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='events', type='nested')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 369, in assert_unsupported
+    o = ca.inspect(tool, self.cjob(job_id), runner=lambda argv: reply)
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 168, in inspect
+    doc = parse_projection(code, stdout, stderr, job["job_id"])
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 117, in parse_projection
+    if checks[key] not in allowed:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: cannot use 'list' as a set element (unhashable type: 'list')
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='completion', type='list')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 369, in assert_unsupported
+    o = ca.inspect(tool, self.cjob(job_id), runner=lambda argv: reply)
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 168, in inspect
+    doc = parse_projection(code, stdout, stderr, job["job_id"])
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 117, in parse_projection
+    if checks[key] not in allowed:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: cannot use 'list' as a set element (unhashable type: 'list')
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='completion', type='object')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 369, in assert_unsupported
+    o = ca.inspect(tool, self.cjob(job_id), runner=lambda argv: reply)
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 168, in inspect
+    doc = parse_projection(code, stdout, stderr, job["job_id"])
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 117, in parse_projection
+    if checks[key] not in allowed:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: cannot use 'dict' as a set element (unhashable type: 'dict')
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='completion', type='null')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='completion', type='int')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='completion', type='float')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='completion', type='bool')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='completion', type='nested')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 369, in assert_unsupported
+    o = ca.inspect(tool, self.cjob(job_id), runner=lambda argv: reply)
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 168, in inspect
+    doc = parse_projection(code, stdout, stderr, job["job_id"])
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 117, in parse_projection
+    if checks[key] not in allowed:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: cannot use 'list' as a set element (unhashable type: 'list')
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='artifacts', type='list')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 369, in assert_unsupported
+    o = ca.inspect(tool, self.cjob(job_id), runner=lambda argv: reply)
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 168, in inspect
+    doc = parse_projection(code, stdout, stderr, job["job_id"])
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 117, in parse_projection
+    if checks[key] not in allowed:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: cannot use 'list' as a set element (unhashable type: 'list')
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='artifacts', type='object')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 369, in assert_unsupported
+    o = ca.inspect(tool, self.cjob(job_id), runner=lambda argv: reply)
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 168, in inspect
+    doc = parse_projection(code, stdout, stderr, job["job_id"])
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 117, in parse_projection
+    if checks[key] not in allowed:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: cannot use 'dict' as a set element (unhashable type: 'dict')
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='artifacts', type='null')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='artifacts', type='int')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='artifacts', type='float')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='artifacts', type='bool')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='artifacts', type='nested')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 369, in assert_unsupported
+    o = ca.inspect(tool, self.cjob(job_id), runner=lambda argv: reply)
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 168, in inspect
+    doc = parse_projection(code, stdout, stderr, job["job_id"])
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 117, in parse_projection
+    if checks[key] not in allowed:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: cannot use 'list' as a set element (unhashable type: 'list')
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='instructions', type='list')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 369, in assert_unsupported
+    o = ca.inspect(tool, self.cjob(job_id), runner=lambda argv: reply)
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 168, in inspect
+    doc = parse_projection(code, stdout, stderr, job["job_id"])
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 117, in parse_projection
+    if checks[key] not in allowed:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: cannot use 'list' as a set element (unhashable type: 'list')
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='instructions', type='object')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 369, in assert_unsupported
+    o = ca.inspect(tool, self.cjob(job_id), runner=lambda argv: reply)
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 168, in inspect
+    doc = parse_projection(code, stdout, stderr, job["job_id"])
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 117, in parse_projection
+    if checks[key] not in allowed:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: cannot use 'dict' as a set element (unhashable type: 'dict')
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='instructions', type='null')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='instructions', type='int')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='instructions', type='float')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='instructions', type='bool')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_enum_fields_of_every_json_type (__main__.ClerkAdapter.test_ca01_enum_fields_of_every_json_type) (field='instructions', type='nested')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 394, in test_ca01_enum_fields_of_every_json_type
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 369, in assert_unsupported
+    o = ca.inspect(tool, self.cjob(job_id), runner=lambda argv: reply)
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 168, in inspect
+    doc = parse_projection(code, stdout, stderr, job["job_id"])
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 117, in parse_projection
+    if checks[key] not in allowed:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: cannot use 'list' as a set element (unhashable type: 'list')
+
+======================================================================
+ERROR: test_ca01_state_dependent_null_and_object_shapes (__main__.ClerkAdapter.test_ca01_state_dependent_null_and_object_shapes) (case='returned: job null')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 421, in test_ca01_state_dependent_null_and_object_shapes
+    self.assert_unsupported(c, bad, job_id)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_state_dependent_null_and_object_shapes (__main__.ClerkAdapter.test_ca01_state_dependent_null_and_object_shapes) (case='returned: job list')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 421, in test_ca01_state_dependent_null_and_object_shapes
+    self.assert_unsupported(c, bad, job_id)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_state_dependent_null_and_object_shapes (__main__.ClerkAdapter.test_ca01_state_dependent_null_and_object_shapes) (case='returned: job string')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 421, in test_ca01_state_dependent_null_and_object_shapes
+    self.assert_unsupported(c, bad, job_id)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_state_dependent_null_and_object_shapes (__main__.ClerkAdapter.test_ca01_state_dependent_null_and_object_shapes) (case='returned: claim null')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 421, in test_ca01_state_dependent_null_and_object_shapes
+    self.assert_unsupported(c, bad, job_id)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_state_dependent_null_and_object_shapes (__main__.ClerkAdapter.test_ca01_state_dependent_null_and_object_shapes) (case='returned: claim list')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 421, in test_ca01_state_dependent_null_and_object_shapes
+    self.assert_unsupported(c, bad, job_id)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_state_dependent_null_and_object_shapes (__main__.ClerkAdapter.test_ca01_state_dependent_null_and_object_shapes) (case='returned: returned null')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 421, in test_ca01_state_dependent_null_and_object_shapes
+    self.assert_unsupported(c, bad, job_id)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_state_dependent_null_and_object_shapes (__main__.ClerkAdapter.test_ca01_state_dependent_null_and_object_shapes) (case='returned: returned list')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 421, in test_ca01_state_dependent_null_and_object_shapes
+    self.assert_unsupported(c, bad, job_id)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_state_dependent_null_and_object_shapes (__main__.ClerkAdapter.test_ca01_state_dependent_null_and_object_shapes) (case='returned: returned string')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 421, in test_ca01_state_dependent_null_and_object_shapes
+    self.assert_unsupported(c, bad, job_id)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_state_dependent_null_and_object_shapes (__main__.ClerkAdapter.test_ca01_state_dependent_null_and_object_shapes) (case='queued: claim object')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 421, in test_ca01_state_dependent_null_and_object_shapes
+    self.assert_unsupported(c, bad, job_id)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_state_dependent_null_and_object_shapes (__main__.ClerkAdapter.test_ca01_state_dependent_null_and_object_shapes) (case='queued: returned object')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 421, in test_ca01_state_dependent_null_and_object_shapes
+    self.assert_unsupported(c, bad, job_id)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_state_dependent_null_and_object_shapes (__main__.ClerkAdapter.test_ca01_state_dependent_null_and_object_shapes) (case='claimed: claim null')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 421, in test_ca01_state_dependent_null_and_object_shapes
+    self.assert_unsupported(c, bad, job_id)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_state_dependent_null_and_object_shapes (__main__.ClerkAdapter.test_ca01_state_dependent_null_and_object_shapes) (case='claimed: returned object')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 421, in test_ca01_state_dependent_null_and_object_shapes
+    self.assert_unsupported(c, bad, job_id)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_state_dependent_null_and_object_shapes (__main__.ClerkAdapter.test_ca01_state_dependent_null_and_object_shapes) (case='incomplete: job object')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 421, in test_ca01_state_dependent_null_and_object_shapes
+    self.assert_unsupported(c, bad, job_id)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 373, in assert_unsupported
+    self.assertIn("@unsupported via show --json", o["packet"])
+                                                  ~^^^^^^^^^^
+KeyError: 'packet'
+
+======================================================================
+ERROR: test_ca01_status_scan_and_ack_keep_going_beside_a_good_job (__main__.ClerkAdapter.test_ca01_status_scan_and_ack_keep_going_beside_a_good_job)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 469, in test_ca01_status_scan_and_ack_keep_going_beside_a_good_job
+    report = ps.collect(reg, str(self.store))
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\prime_support.py", line 731, in collect
+    out["clerk"] = clerk_observations(reg, lane, records, store_text, report)
+                   ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\prime_support.py", line 678, in clerk_observations
+    obs = clerk_adapter.inspect(reg["clerk_tool"], job)
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 168, in inspect
+    doc = parse_projection(code, stdout, stderr, job["job_id"])
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 111, in parse_projection
+    if state not in STATES:
+       ^^^^^^^^^^^^^^^^^^^
+TypeError: cannot use 'list' as a set element (unhashable type: 'list')
+
+======================================================================
+ERROR: test_ca01_the_six_prime_cases (__main__.ClerkAdapter.test_ca01_the_six_prime_cases) (case='state=[]')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 384, in test_ca01_the_six_prime_cases
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 369, in assert_unsupported
+    o = ca.inspect(tool, self.cjob(job_id), runner=lambda argv: reply)
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 168, in inspect
+    doc = parse_projection(code, stdout, stderr, job["job_id"])
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 111, in parse_projection
+    if state not in STATES:
+       ^^^^^^^^^^^^^^^^^^^
+TypeError: cannot use 'list' as a set element (unhashable type: 'list')
+
+======================================================================
+ERROR: test_ca01_the_six_prime_cases (__main__.ClerkAdapter.test_ca01_the_six_prime_cases) (case='state={}')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 384, in test_ca01_the_six_prime_cases
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 369, in assert_unsupported
+    o = ca.inspect(tool, self.cjob(job_id), runner=lambda argv: reply)
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 168, in inspect
+    doc = parse_projection(code, stdout, stderr, job["job_id"])
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 111, in parse_projection
+    if state not in STATES:
+       ^^^^^^^^^^^^^^^^^^^
+TypeError: cannot use 'dict' as a set element (unhashable type: 'dict')
+
+======================================================================
+ERROR: test_ca01_the_six_prime_cases (__main__.ClerkAdapter.test_ca01_the_six_prime_cases) (case='checks.events=[]')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 384, in test_ca01_the_six_prime_cases
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 369, in assert_unsupported
+    o = ca.inspect(tool, self.cjob(job_id), runner=lambda argv: reply)
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 168, in inspect
+    doc = parse_projection(code, stdout, stderr, job["job_id"])
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 117, in parse_projection
+    if checks[key] not in allowed:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: cannot use 'list' as a set element (unhashable type: 'list')
+
+======================================================================
+ERROR: test_ca01_the_six_prime_cases (__main__.ClerkAdapter.test_ca01_the_six_prime_cases) (case='checks.completion=[]')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 384, in test_ca01_the_six_prime_cases
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 369, in assert_unsupported
+    o = ca.inspect(tool, self.cjob(job_id), runner=lambda argv: reply)
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 168, in inspect
+    doc = parse_projection(code, stdout, stderr, job["job_id"])
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 117, in parse_projection
+    if checks[key] not in allowed:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: cannot use 'list' as a set element (unhashable type: 'list')
+
+======================================================================
+ERROR: test_ca01_the_six_prime_cases (__main__.ClerkAdapter.test_ca01_the_six_prime_cases) (case='checks.artifacts=[]')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 384, in test_ca01_the_six_prime_cases
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 369, in assert_unsupported
+    o = ca.inspect(tool, self.cjob(job_id), runner=lambda argv: reply)
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 168, in inspect
+    doc = parse_projection(code, stdout, stderr, job["job_id"])
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 117, in parse_projection
+    if checks[key] not in allowed:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: cannot use 'list' as a set element (unhashable type: 'list')
+
+======================================================================
+ERROR: test_ca01_the_six_prime_cases (__main__.ClerkAdapter.test_ca01_the_six_prime_cases) (case='checks.instructions=[]')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 384, in test_ca01_the_six_prime_cases
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 369, in assert_unsupported
+    o = ca.inspect(tool, self.cjob(job_id), runner=lambda argv: reply)
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 168, in inspect
+    doc = parse_projection(code, stdout, stderr, job["job_id"])
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\clerk_adapter.py", line 117, in parse_projection
+    if checks[key] not in allowed:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: cannot use 'list' as a set element (unhashable type: 'list')
+
+======================================================================
+FAIL: test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='job.job_id int')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 456, in test_ca01_consumed_field_types
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 370, in assert_unsupported
+    self.assertEqual((o["status"], o["identity"], o["clean"], o["event_sha256"]), ("unsupported", False, False, None),
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     o["reason"])
+                     ^^^^^^^^^^^^
+AssertionError: Tuples differ: ('ok', False, False, '14d5df5fcee346375cf4e[40 chars]6aa') != ('unsupported', False, False, None)
+
+First differing element 0:
+'ok'
+'unsupported'
+
++ ('unsupported', False, False, None)
+- ('ok',
+-  False,
+-  False,
+-  '14d5df5fcee346375cf4ed6b3e3a9132f2041002f8be117cc47267ffc87186aa') : 
+
+======================================================================
+FAIL: test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='job.reviewer list')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 456, in test_ca01_consumed_field_types
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 370, in assert_unsupported
+    self.assertEqual((o["status"], o["identity"], o["clean"], o["event_sha256"]), ("unsupported", False, False, None),
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     o["reason"])
+                     ^^^^^^^^^^^^
+AssertionError: Tuples differ: ('ok', False, False, '14d5df5fcee346375cf4e[40 chars]6aa') != ('unsupported', False, False, None)
+
+First differing element 0:
+'ok'
+'unsupported'
+
++ ('unsupported', False, False, None)
+- ('ok',
+-  False,
+-  False,
+-  '14d5df5fcee346375cf4ed6b3e3a9132f2041002f8be117cc47267ffc87186aa') : 
+
+======================================================================
+FAIL: test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='job.assignee null')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 456, in test_ca01_consumed_field_types
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 370, in assert_unsupported
+    self.assertEqual((o["status"], o["identity"], o["clean"], o["event_sha256"]), ("unsupported", False, False, None),
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     o["reason"])
+                     ^^^^^^^^^^^^
+AssertionError: Tuples differ: ('ok', True, True, '14d5df5fcee346375cf4ed6[38 chars]6aa') != ('unsupported', False, False, None)
+
+First differing element 0:
+'ok'
+'unsupported'
+
++ ('unsupported', False, False, None)
+- ('ok',
+-  True,
+-  True,
+-  '14d5df5fcee346375cf4ed6b3e3a9132f2041002f8be117cc47267ffc87186aa') : 
+
+======================================================================
+FAIL: test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='job missing key')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 456, in test_ca01_consumed_field_types
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 370, in assert_unsupported
+    self.assertEqual((o["status"], o["identity"], o["clean"], o["event_sha256"]), ("unsupported", False, False, None),
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     o["reason"])
+                     ^^^^^^^^^^^^
+AssertionError: Tuples differ: ('ok', True, True, '14d5df5fcee346375cf4ed6[38 chars]6aa') != ('unsupported', False, False, None)
+
+First differing element 0:
+'ok'
+'unsupported'
+
++ ('unsupported', False, False, None)
+- ('ok',
+-  True,
+-  True,
+-  '14d5df5fcee346375cf4ed6b3e3a9132f2041002f8be117cc47267ffc87186aa') : 
+
+======================================================================
+FAIL: test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='job extra key')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 456, in test_ca01_consumed_field_types
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 370, in assert_unsupported
+    self.assertEqual((o["status"], o["identity"], o["clean"], o["event_sha256"]), ("unsupported", False, False, None),
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     o["reason"])
+                     ^^^^^^^^^^^^
+AssertionError: Tuples differ: ('ok', True, True, '14d5df5fcee346375cf4ed6[38 chars]6aa') != ('unsupported', False, False, None)
+
+First differing element 0:
+'ok'
+'unsupported'
+
++ ('unsupported', False, False, None)
+- ('ok',
+-  True,
+-  True,
+-  '14d5df5fcee346375cf4ed6b3e3a9132f2041002f8be117cc47267ffc87186aa') : 
+
+======================================================================
+FAIL: test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='claim.token int')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 456, in test_ca01_consumed_field_types
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 370, in assert_unsupported
+    self.assertEqual((o["status"], o["identity"], o["clean"], o["event_sha256"]), ("unsupported", False, False, None),
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     o["reason"])
+                     ^^^^^^^^^^^^
+AssertionError: Tuples differ: ('ok', True, True, '14d5df5fcee346375cf4ed6[38 chars]6aa') != ('unsupported', False, False, None)
+
+First differing element 0:
+'ok'
+'unsupported'
+
++ ('unsupported', False, False, None)
+- ('ok',
+-  True,
+-  True,
+-  '14d5df5fcee346375cf4ed6b3e3a9132f2041002f8be117cc47267ffc87186aa') : 
+
+======================================================================
+FAIL: test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='claim extra key')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 456, in test_ca01_consumed_field_types
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 370, in assert_unsupported
+    self.assertEqual((o["status"], o["identity"], o["clean"], o["event_sha256"]), ("unsupported", False, False, None),
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     o["reason"])
+                     ^^^^^^^^^^^^
+AssertionError: Tuples differ: ('ok', True, True, '14d5df5fcee346375cf4ed6[38 chars]6aa') != ('unsupported', False, False, None)
+
+First differing element 0:
+'ok'
+'unsupported'
+
++ ('unsupported', False, False, None)
+- ('ok',
+-  True,
+-  True,
+-  '14d5df5fcee346375cf4ed6b3e3a9132f2041002f8be117cc47267ffc87186aa') : 
+
+======================================================================
+FAIL: test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='returned.by int')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 456, in test_ca01_consumed_field_types
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 370, in assert_unsupported
+    self.assertEqual((o["status"], o["identity"], o["clean"], o["event_sha256"]), ("unsupported", False, False, None),
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     o["reason"])
+                     ^^^^^^^^^^^^
+AssertionError: Tuples differ: ('ok', True, True, '14d5df5fcee346375cf4ed6[38 chars]6aa') != ('unsupported', False, False, None)
+
+First differing element 0:
+'ok'
+'unsupported'
+
++ ('unsupported', False, False, None)
+- ('ok',
+-  True,
+-  True,
+-  '14d5df5fcee346375cf4ed6b3e3a9132f2041002f8be117cc47267ffc87186aa') : 
+
+======================================================================
+FAIL: test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='returned.delivery null')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 456, in test_ca01_consumed_field_types
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 370, in assert_unsupported
+    self.assertEqual((o["status"], o["identity"], o["clean"], o["event_sha256"]), ("unsupported", False, False, None),
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     o["reason"])
+                     ^^^^^^^^^^^^
+AssertionError: Tuples differ: ('ok', True, True, '14d5df5fcee346375cf4ed6[38 chars]6aa') != ('unsupported', False, False, None)
+
+First differing element 0:
+'ok'
+'unsupported'
+
++ ('unsupported', False, False, None)
+- ('ok',
+-  True,
+-  True,
+-  '14d5df5fcee346375cf4ed6b3e3a9132f2041002f8be117cc47267ffc87186aa') : 
+
+======================================================================
+FAIL: test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='returned.evidence list')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 456, in test_ca01_consumed_field_types
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 370, in assert_unsupported
+    self.assertEqual((o["status"], o["identity"], o["clean"], o["event_sha256"]), ("unsupported", False, False, None),
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     o["reason"])
+                     ^^^^^^^^^^^^
+AssertionError: Tuples differ: ('ok', True, True, '14d5df5fcee346375cf4ed6[38 chars]6aa') != ('unsupported', False, False, None)
+
+First differing element 0:
+'ok'
+'unsupported'
+
++ ('unsupported', False, False, None)
+- ('ok',
+-  True,
+-  True,
+-  '14d5df5fcee346375cf4ed6b3e3a9132f2041002f8be117cc47267ffc87186aa') : 
+
+======================================================================
+FAIL: test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='returned.artifacts object')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 456, in test_ca01_consumed_field_types
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 370, in assert_unsupported
+    self.assertEqual((o["status"], o["identity"], o["clean"], o["event_sha256"]), ("unsupported", False, False, None),
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     o["reason"])
+                     ^^^^^^^^^^^^
+AssertionError: Tuples differ: ('ok', True, True, '14d5df5fcee346375cf4ed6[38 chars]6aa') != ('unsupported', False, False, None)
+
+First differing element 0:
+'ok'
+'unsupported'
+
++ ('unsupported', False, False, None)
+- ('ok',
+-  True,
+-  True,
+-  '14d5df5fcee346375cf4ed6b3e3a9132f2041002f8be117cc47267ffc87186aa') : 
+
+======================================================================
+FAIL: test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='returned.artifacts item int')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 456, in test_ca01_consumed_field_types
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 370, in assert_unsupported
+    self.assertEqual((o["status"], o["identity"], o["clean"], o["event_sha256"]), ("unsupported", False, False, None),
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     o["reason"])
+                     ^^^^^^^^^^^^
+AssertionError: Tuples differ: ('ok', True, True, '14d5df5fcee346375cf4ed6[38 chars]6aa') != ('unsupported', False, False, None)
+
+First differing element 0:
+'ok'
+'unsupported'
+
++ ('unsupported', False, False, None)
+- ('ok',
+-  True,
+-  True,
+-  '14d5df5fcee346375cf4ed6b3e3a9132f2041002f8be117cc47267ffc87186aa') : 
+
+======================================================================
+FAIL: test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='artifact path int')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 456, in test_ca01_consumed_field_types
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 370, in assert_unsupported
+    self.assertEqual((o["status"], o["identity"], o["clean"], o["event_sha256"]), ("unsupported", False, False, None),
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     o["reason"])
+                     ^^^^^^^^^^^^
+AssertionError: Tuples differ: ('ok', True, True, '14d5df5fcee346375cf4ed6[38 chars]6aa') != ('unsupported', False, False, None)
+
+First differing element 0:
+'ok'
+'unsupported'
+
++ ('unsupported', False, False, None)
+- ('ok',
+-  True,
+-  True,
+-  '14d5df5fcee346375cf4ed6b3e3a9132f2041002f8be117cc47267ffc87186aa') : 
+
+======================================================================
+FAIL: test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='artifact bytes bool')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 456, in test_ca01_consumed_field_types
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 370, in assert_unsupported
+    self.assertEqual((o["status"], o["identity"], o["clean"], o["event_sha256"]), ("unsupported", False, False, None),
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     o["reason"])
+                     ^^^^^^^^^^^^
+AssertionError: Tuples differ: ('ok', True, True, '14d5df5fcee346375cf4ed6[38 chars]6aa') != ('unsupported', False, False, None)
+
+First differing element 0:
+'ok'
+'unsupported'
+
++ ('unsupported', False, False, None)
+- ('ok',
+-  True,
+-  True,
+-  '14d5df5fcee346375cf4ed6b3e3a9132f2041002f8be117cc47267ffc87186aa') : 
+
+======================================================================
+FAIL: test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='artifact sha256 short')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 456, in test_ca01_consumed_field_types
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 370, in assert_unsupported
+    self.assertEqual((o["status"], o["identity"], o["clean"], o["event_sha256"]), ("unsupported", False, False, None),
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     o["reason"])
+                     ^^^^^^^^^^^^
+AssertionError: Tuples differ: ('ok', True, True, '14d5df5fcee346375cf4ed6[38 chars]6aa') != ('unsupported', False, False, None)
+
+First differing element 0:
+'ok'
+'unsupported'
+
++ ('unsupported', False, False, None)
+- ('ok',
+-  True,
+-  True,
+-  '14d5df5fcee346375cf4ed6b3e3a9132f2041002f8be117cc47267ffc87186aa') : 
+
+======================================================================
+FAIL: test_ca01_consumed_field_types (__main__.ClerkAdapter.test_ca01_consumed_field_types) (case='artifact extra key')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 456, in test_ca01_consumed_field_types
+    self.assert_unsupported(code, bad)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\ca01-before\labs\prime-support-pass01\tests\test_clerk_adapter.py", line 370, in assert_unsupported
+    self.assertEqual((o["status"], o["identity"], o["clean"], o["event_sha256"]), ("unsupported", False, False, None),
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     o["reason"])
+                     ^^^^^^^^^^^^
+AssertionError: Tuples differ: ('ok', True, True, '14d5df5fcee346375cf4ed6[38 chars]6aa') != ('unsupported', False, False, None)
+
+First differing element 0:
+'ok'
+'unsupported'
+
++ ('unsupported', False, False, None)
+- ('ok',
+-  True,
+-  True,
+-  '14d5df5fcee346375cf4ed6b3e3a9132f2041002f8be117cc47267ffc87186aa') : 
+
+----------------------------------------------------------------------
+Ran 19 tests in 35.400s
+
+FAILED (failures=16, errors=63)

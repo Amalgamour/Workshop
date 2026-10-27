@@ -6,7 +6,9 @@ queue/claim/return below are FIXTURE SETUP ONLY, run with a copied, hash-checked
 only ever runs `show --json`.
 """
 import builtins
+import contextlib
 import hashlib
+import io
 import json
 import os
 import shutil
@@ -354,6 +356,145 @@ class ClerkAdapter(tps.Fixture):
                 code, out = self.run_tool("status", "--registry", path)
                 self.assertEqual(code, 2, out)
                 self.assertIn("refused: registry", out)
+
+
+    # ---- 05.05, CA-01: malformed projection types are unsupported attention, never exceptions ----
+    def real_doc(self, job_id="job-1"):
+        r = subprocess.run(ca.argv_for(str(self.tool), self.cjob(job_id)), capture_output=True, text=True, encoding="utf-8")
+        return r.returncode, json.loads(r.stdout)
+
+    def assert_unsupported(self, code, doc, job_id="job-1", raw=None):
+        tool = {"path": str(self.tool), "sha256": ca.ACCEPTED_CLERK_SHA256}
+        reply = (code, raw if raw is not None else json.dumps(doc) + "\n", "")
+        o = ca.inspect(tool, self.cjob(job_id), runner=lambda argv: reply)
+        self.assertEqual((o["status"], o["identity"], o["clean"], o["event_sha256"]), ("unsupported", False, False, None),
+                         o["reason"])
+        self.assertTrue(o["reason"].startswith("projection: "), o["reason"])
+        self.assertIn("@unsupported via show --json", o["packet"])
+        return o
+
+    def test_ca01_the_six_prime_cases(self):
+        self.make_job()
+        code, doc = self.real_doc()
+        cases = {"state=[]": dict(doc, state=[]), "state={}": dict(doc, state={})}
+        for key in ("events", "completion", "artifacts", "instructions"):
+            cases[f"checks.{key}=[]"] = dict(doc, checks=dict(doc["checks"], **{key: []}))
+        for name, bad in cases.items():
+            with self.subTest(case=name):
+                self.assert_unsupported(code, bad)
+
+    def test_ca01_enum_fields_of_every_json_type(self):
+        self.make_job()
+        code, doc = self.real_doc()
+        values = {"list": [], "object": {}, "null": None, "int": 1, "float": 1.5, "bool": True, "nested": [["ok"]]}
+        for field in ("state", "events", "completion", "artifacts", "instructions"):
+            for type_name, value in values.items():
+                with self.subTest(field=field, type=type_name):
+                    bad = dict(doc, state=value) if field == "state" else dict(doc, checks=dict(doc["checks"], **{field: value}))
+                    self.assert_unsupported(code, bad)
+
+    def test_ca01_state_dependent_null_and_object_shapes(self):
+        self.make_job("job-q", stage="queued")
+        self.make_job("job-c", stage="claimed")
+        self.make_job("job-1")
+        _c, queued = self.real_doc("job-q")
+        _c, claimed = self.real_doc("job-c")
+        code, returned = self.real_doc("job-1")
+        cases = {
+            "returned: job null": ("job-1", code, dict(returned, job=None)),
+            "returned: job list": ("job-1", code, dict(returned, job=[])),
+            "returned: job string": ("job-1", code, dict(returned, job="job-1")),
+            "returned: claim null": ("job-1", code, dict(returned, claim=None)),
+            "returned: claim list": ("job-1", code, dict(returned, claim=[])),
+            "returned: returned null": ("job-1", code, dict(returned, returned=None)),
+            "returned: returned list": ("job-1", code, dict(returned, returned=[])),
+            "returned: returned string": ("job-1", code, dict(returned, returned="x")),
+            "queued: claim object": ("job-q", 0, dict(queued, claim={"by": "builder-b", "token": "0" * 32})),
+            "queued: returned object": ("job-q", 0, dict(queued, returned=returned["returned"])),
+            "claimed: claim null": ("job-c", 0, dict(claimed, claim=None)),
+            "claimed: returned object": ("job-c", 0, dict(claimed, returned=returned["returned"])),
+            "incomplete: job object": ("job-1", 2, dict(returned, state="incomplete", claim=None, returned=None,
+                                                         problems=[{"kind": "incomplete", "detail": "x"}])),
+        }
+        for name, (job_id, c, bad) in cases.items():
+            with self.subTest(case=name):
+                self.assert_unsupported(c, bad, job_id)
+
+    def test_ca01_consumed_field_types(self):
+        self.make_job()
+        code, doc = self.real_doc()
+        job, claim, ret = doc["job"], doc["claim"], doc["returned"]
+        art = ret["artifacts"][0]
+        cases = {
+            "schema list": dict(doc, schema=["clerk-handoff-inspection/2"]),
+            "job_id list": dict(doc, job_id=["job-1"]),
+            "job.job_id int": dict(doc, job=dict(job, job_id=1)),
+            "job.reviewer list": dict(doc, job=dict(job, reviewer=["codex-prime"])),
+            "job.assignee null": dict(doc, job=dict(job, assignee=None)),
+            "job missing key": dict(doc, job={k: v for k, v in job.items() if k != "routed_by"}),
+            "job extra key": dict(doc, job=dict(job, extra=1)),
+            "claim.token int": dict(doc, claim=dict(claim, token=1)),
+            "claim extra key": dict(doc, claim=dict(claim, extra=1)),
+            "returned.by int": dict(doc, returned=dict(ret, by=1)),
+            "returned.delivery null": dict(doc, returned=dict(ret, delivery=None)),
+            "returned.evidence list": dict(doc, returned=dict(ret, evidence=[])),
+            "returned.artifacts object": dict(doc, returned=dict(ret, artifacts={})),
+            "returned.artifacts item int": dict(doc, returned=dict(ret, artifacts=[1])),
+            "artifact path int": dict(doc, returned=dict(ret, artifacts=[dict(art, path=1)])),
+            "artifact bytes bool": dict(doc, returned=dict(ret, artifacts=[dict(art, bytes=True)])),
+            "artifact sha256 short": dict(doc, returned=dict(ret, artifacts=[dict(art, sha256="ab")])),
+            "artifact extra key": dict(doc, returned=dict(ret, artifacts=[dict(art, extra=1)])),
+            "event_sha256 int": dict(doc, returned=dict(ret, event_sha256=1)),
+            "event_sha256 list": dict(doc, returned=dict(ret, event_sha256=[])),
+            "problems object": dict(doc, problems={}),
+            "problem kind int": dict(doc, problems=[{"kind": 1, "detail": "x"}]),
+            "problem not object": dict(doc, problems=["x"]),
+            "checks list": dict(doc, checks=[]),
+        }
+        for name, bad in cases.items():
+            with self.subTest(case=name):
+                self.assert_unsupported(code, bad)
+
+    def test_ca01_status_scan_and_ack_keep_going_beside_a_good_job(self):
+        self.make_job("job-1")
+        self.make_job("job-2")
+        reg_path = self.creg([self.cjob("job-1"), self.cjob("job-2")])
+        reg, _ = ps.load_registry(str(reg_path))
+        code, doc = self.real_doc("job-1")
+        malformed = (code, json.dumps(dict(doc, state=[], checks=dict(doc["checks"], events={}))) + "\n", "")
+        real_run = ca.run_show
+        ca.run_show = lambda argv: malformed if "job-1" in argv else real_run(argv)
+        before = tree(self.cstore)
+        try:
+            report = ps.collect(reg, str(self.store))
+            text = ps.render(report, "test")
+            scan_out = io.StringIO()
+            with contextlib.redirect_stdout(scan_out):
+                scan_code = ps.main(["intake", "scan", "--registry", str(reg_path), "--intake", str(self.store)])
+            ack_out = io.StringIO()
+            with contextlib.redirect_stdout(ack_out):
+                ack_code = ps.main(["intake", "ack-clerk", "--registry", str(reg_path), "--intake", str(self.store),
+                                    "--lane", "fixture", "--store", str(self.cstore), "--job", "job-1",
+                                    "--event-sha256", self.real_event("job-1")[0], "--as", "codex-prime"])
+        finally:
+            ca.run_show = real_run
+        bad = next(o for o in report["lanes"][0]["clerk"] if o["job_id"] == "job-1")
+        good = next(o for o in report["lanes"][0]["clerk"] if o["job_id"] == "job-2")
+        self.assertEqual((bad["status"], bad["identity"], bad["clean"]), ("unsupported", False, False))
+        self.assertIn("@unsupported via show --json", bad["packet"])
+        self.assertEqual((good["status"], good["state"], good["clean"], good["intake"]), ("ok", "returned", True, "unseen"))
+        self.assertTrue(any(a[0] == "unsupported" and "job-1" in a[1] for a in report["attention"]))
+        self.assertTrue(any(a[0] == "unseen" and "job-2" in a[1] for a in report["attention"]))
+        self.assertIn("clerk job-1", text)
+        self.assertIn("UNSUPPORTED: projection: state is not a string", text)
+        self.assertIn("clerk job-2", text)
+        self.assertEqual(scan_code, 1)
+        self.assertIn("fixture clerk job-1 unsupported: projection:", scan_out.getvalue())
+        self.assertIn(f"fixture clerk job-2 event {self.real_event('job-2')[0]} unseen clean yes", scan_out.getvalue())
+        self.assertEqual(ack_code, 2)
+        self.assertIn("refused: inspection failed: projection:", ack_out.getvalue())
+        self.assertFalse(self.store.exists(), "a refused acknowledgement wrote the intake store")
+        self.assertEqual(before, tree(self.cstore))
 
 
 for _name in [n for n in vars(tps.Fixture) if n.startswith("test_")]:
