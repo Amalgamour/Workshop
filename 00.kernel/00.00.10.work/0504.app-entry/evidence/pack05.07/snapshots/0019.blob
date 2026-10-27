@@ -1,0 +1,22 @@
+{
+  "schema": "prime-support-registry",
+  "version": 1,
+  "_note": "PROPOSED. Example only. Owns paths and scope, never state. Written by Prime. The SoF lane values are synthetic placeholders; its checkout was not read.",
+  "repositories": {
+    "lib-build": {"local": "D:/Git/lib-build", "branch": "workshop", "remote_ref": "refs/remotes/origin/workshop", "worktree_status": "registered-paths"},
+    "observer": {"cache": "<independent bare cache dir>", "remote": "https://github.com/Amalgamour/Librarian.git", "ref": "refs/heads/observer/reviews", "notes_path": "00.kernel/00.00.10.work/0505.observer-design/notes", "fetch": "explicit-only"},
+    "sof": {"local": "<registered SoF repository>", "branch": "<registered branch>", "remote_ref": "<registered remote ref>", "worktree_status": "off", "status_file": "<registered committed status path>"}
+  },
+  "canonical_assignment": {"repository": "lib-build", "path": "00.kernel/00.00.10.work/0401.goal/06.01.md", "describes_lane": "app"},
+  "lanes": [
+    {"lane": "app", "project": "workshop", "owner_label": "Grok Builder 1", "repository": "lib-build",
+     "pages": ["00.kernel/00.00.10.work/0504.app-entry"], "deliveries": []},
+    {"lane": "clerk", "project": "workshop", "owner_label": "Grok Builder 2; lead Claude", "repository": "lib-build",
+     "pages": ["00.kernel/00.00.10.work/0506.clerk-handoff"], "clerk_stores": []},
+    {"lane": "prime-support", "project": "workshop", "owner_label": "Claude (design)", "repository": "lib-build",
+     "pages": ["00.kernel/00.00.10.work/0507.prime-support"]},
+    {"lane": "observer", "project": "workshop", "owner_label": "Observer (advisory)", "repository": "observer",
+     "review_records": ["00.kernel/00.00.10.work/0502.workflow-start/06.02.md"]},
+    {"lane": "sof", "project": "SoF (separate repository)", "owner_label": "<registered>", "repository": "sof", "pages": []}
+  ]
+}
