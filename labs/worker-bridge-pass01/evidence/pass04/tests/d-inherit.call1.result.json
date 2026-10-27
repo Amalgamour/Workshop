@@ -1,0 +1,49 @@
+{
+ "elapsed_s": 3.531,
+ "alive_at_return": [
+  "bridge-stderr-reader",
+  "bridge-stdout-reader"
+ ],
+ "background_finished_after_s": 5.344,
+ "receipt": {
+  "schema": "worker-bridge/receipt@1",
+  "delivery_id": "d-inherit",
+  "job_id": "job-count-lines",
+  "request_sha256": "c00a723327c9d0141d21d2f97e18517678837b8aa6da8402ed53b308c14aa55d",
+  "backend": "fixture-inherit-pipes",
+  "worker_kind": "protocol test worker",
+  "launched": true,
+  "returncode": 0,
+  "duration_s": 3.516,
+  "diagnostics": {
+   "stdout": {
+    "path": "attempt/stdout.bin",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+   },
+   "stderr": {
+    "path": "attempt/stderr.bin",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+   }
+  },
+  "review": "not performed",
+  "transport": "incomplete-output",
+  "outcome_uncertain": true,
+  "claimed_outcome": null,
+  "collection": "not attempted",
+  "reason": "the child exited but its output streams were still open when the budget ended (a descendant may hold them); the captured bytes are a partial snapshot and are not parsed",
+  "cleanup": {
+   "allowance_s": 2.0,
+   "complete": false,
+   "notes": [
+    "stdout reader still owns its pipe after the cleanup allowance (a descendant may hold the other end); left to finish and close it on its own",
+    "stderr reader still owns its pipe after the cleanup allowance (a descendant may hold the other end); left to finish and close it on its own"
+   ],
+   "retained": [
+    "stdout reader",
+    "stderr reader"
+   ]
+  }
+ }
+}

@@ -22,6 +22,7 @@ REQUEST_SCHEMA = "worker-bridge/request@1"
 JOB_SCHEMA = "librarian-bridge-job"
 PROVENANCE_SCHEMA = "librarian-bridge-provenance"
 RECOVERY_SCHEMA = "librarian-bridge-recovery"
+RECEIPT_SCHEMA = "worker-bridge/receipt@1"
 CONFIG_SCHEMA = "librarian-worker-bridge"
 PIN_NAMES = (
     "bridge/__init__.py",
@@ -398,6 +399,62 @@ def _correlate(context, code_root: Path, root: Path, container: Path, canon, pro
     return env
 
 
+def _require_stored_receipt(context, stored, provenance: dict, env: dict, delivery: str) -> None:
+    """Refuse a persisted receipt whose identity does not match this delivery.
+
+    The object must use the supported receipt schema. delivery_id, job_id,
+    backend, and request_sha256 are mandatory strings. A missing request hash
+    is not a match. A matching hash does not excuse a different delivery or job.
+    Extra keys are left in place. This is not a signature or an approval.
+    Call it only for a stored receipt, not for a transient status form.
+    """
+    if not isinstance(stored, dict):
+        context.stop("stored receipt is not an object")
+    if stored.get("schema") != RECEIPT_SCHEMA:
+        context.stop("stored receipt schema is not worker-bridge/receipt@1")
+    for key in ("delivery_id", "job_id", "request_sha256", "backend"):
+        value = stored.get(key)
+        if not isinstance(value, str) or value.strip() == "":
+            context.stop(f"stored receipt field is missing: {key}")
+    if (
+        stored["delivery_id"] != delivery
+        or stored["delivery_id"] != provenance["delivery_id"]
+        or stored["delivery_id"] != env.get("delivery_id")
+    ):
+        context.stop("stored receipt delivery does not match")
+    if stored["job_id"] != provenance["job_id"] or stored["job_id"] != env.get("job_id"):
+        context.stop("stored receipt job does not match")
+    if stored["backend"] != provenance["backend"] or stored["backend"] != env.get("backend"):
+        context.stop("stored receipt backend does not match")
+    if stored["request_sha256"] != provenance["request_sha256"]:
+        context.stop("stored receipt does not match provenance")
+
+
+def _read_stored_receipt(context, canon, receipt_file: Path, provenance: dict, env: dict, delivery: str):
+    """Return the stored receipt when the file is present. Return None when it is absent.
+
+    A link, a non-file, malformed JSON, or an inconsistent object refuses.
+    The file is not written.
+    """
+    if not _lexists(receipt_file):
+        return None
+    if _is_link(receipt_file) or not receipt_file.is_file():
+        context.stop("stored receipt is not a file")
+    try:
+        stored = canon.strict_loads(receipt_file.read_bytes())
+    except Exception:
+        context.stop("stored receipt is not strict json")
+    _require_stored_receipt(context, stored, provenance, env, delivery)
+    return stored
+
+
+def _guard_reported_receipt(context, receipt, provenance: dict, env: dict, delivery: str, receipt_file: Path) -> None:
+    """Apply the same identity check to the object about to be printed, when a receipt file exists."""
+    if not _lexists(receipt_file):
+        return
+    _require_stored_receipt(context, receipt, provenance, env, delivery)
+
+
 def _refuse_conflict(context, store_dir: Path, reason: str) -> None:
     message = reason
     if "this call did not launch" not in message:
@@ -606,15 +663,18 @@ def _replay(context, code_root, root, container, canon, job, job_bytes, pinned) 
             "delivery_id reused with a different request; use a new delivery_id",
         )
     env = _correlate(context, code_root, root, container, canon, provenance, delivery)
+    receipt_file = store_dir / "receipt.json"
+    _read_stored_receipt(context, canon, receipt_file, provenance, env, delivery)
     profiles = _load_profiles(context, canon, lab)
     adapter = adapter_mod.LocalProcessAdapter(root / "bridge" / "store", profiles, lab)
     receipt = adapter.deliver(env)
+    _guard_reported_receipt(context, receipt, provenance, env, delivery, receipt_file)
     return _report(
         context,
         root,
         receipt,
         provenance["output_root"],
-        store_dir / "receipt.json",
+        receipt_file,
         store_dir,
     )
 
@@ -629,21 +689,19 @@ def _status(context, code_root, root, container, canon, ids, adapter_mod, lab, d
         if not prov_path.is_file():
             context.stop("stored delivery has no provenance; this call did not launch")
         provenance = _load_provenance(context, canon, prov_path)
-        _correlate(context, code_root, root, container, canon, provenance, delivery)
+        env = _correlate(context, code_root, root, container, canon, provenance, delivery)
         output_rel = provenance["output_root"]
         receipt_file = store_dir / "receipt.json"
-        if receipt_file.is_file():
-            try:
-                stored = canon.strict_loads(receipt_file.read_bytes())
-            except Exception:
-                context.stop("stored receipt is not strict json")
-            if isinstance(stored, dict) and stored.get("request_sha256") not in (None, provenance["request_sha256"]):
-                context.stop("stored receipt does not match provenance")
+        _read_stored_receipt(context, canon, receipt_file, provenance, env, delivery)
     else:
+        provenance = None
+        env = None
         receipt_file = store_dir / "receipt.json"
     profiles = _load_profiles(context, canon, lab)
     adapter = adapter_mod.LocalProcessAdapter(root / "bridge" / "store", profiles, lab)
     receipt = adapter.status(delivery)
+    if provenance is not None and env is not None:
+        _guard_reported_receipt(context, receipt, provenance, env, delivery, receipt_file)
     return _report(context, root, receipt, output_rel, receipt_file if receipt_file.is_file() else None, store_dir)
 
 
@@ -675,15 +733,18 @@ def _recover(context, code_root, root, container, canon, ids, adapter_mod, lab, 
     env = _correlate(context, code_root, root, container, canon, provenance, delivery)
     if digest != provenance["request_sha256"] or digest != _sha256(canon.canonical(env)):
         context.stop("recovery request does not name the stored request; this call did not launch")
+    receipt_file = store_dir / "receipt.json"
+    _read_stored_receipt(context, canon, receipt_file, provenance, env, delivery)
     profiles = _load_profiles(context, canon, lab)
     adapter = adapter_mod.LocalProcessAdapter(root / "bridge" / "store", profiles, lab)
     receipt = adapter.recover(delivery)
+    _guard_reported_receipt(context, receipt, provenance, env, delivery, receipt_file)
     return _report(
         context,
         root,
         receipt,
         provenance["output_root"],
-        store_dir / "receipt.json" if (store_dir / "receipt.json").is_file() else None,
+        receipt_file if receipt_file.is_file() else None,
         store_dir,
     )
 

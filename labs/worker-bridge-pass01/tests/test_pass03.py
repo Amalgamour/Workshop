@@ -14,9 +14,15 @@ from bridge.canon import canonical  # noqa: E402
 
 SCRATCH = LAB / "scratch" / "tests-pass03"
 TEXT = b"one\ntwo\n"
-TIMEOUT_S = 0.2
-STARTUP_MARGIN_S = 1.5   # documented allowance for process start-up; the reviewed blockage was 5.078 s
-BOUND_S = TIMEOUT_S + CLEANUP_ALLOWANCE_S + STARTUP_MARGIN_S   # 3.7 s
+TIMEOUT_S = 1.5
+# Prime's 0.2 s run classified this fixture as timeout at duration_s 0.235, with
+# cleanup complete and retained empty: the direct child had not yet left a
+# descendant holding the pipes. 1.5 s is enough for that child to start and exit.
+# The descendant still sleeps 5 s. Cleanup stays 2.0 s, so a correct return is
+# near 3.5 s and still names the open pipes. A timeout result is not relabeled.
+STARTUP_MARGIN_S = 1.0   # outer measurement slack only; not added to the worker timeout
+REVIEWED_BLOCKAGE_S = 5.078  # the adapter waited out the descendant; that elapsed must still fail
+BOUND_S = TIMEOUT_S + CLEANUP_ALLOWANCE_S + STARTUP_MARGIN_S   # 4.5 s, under the reviewed blockage
 
 
 class InheritedPipes(unittest.TestCase):
@@ -53,6 +59,9 @@ class InheritedPipes(unittest.TestCase):
 
     def check_bounded_incomplete(self, res):
         rec = res["receipt"]
+        self.assertEqual(CLEANUP_ALLOWANCE_S, 2.0)
+        self.assertLess(BOUND_S, REVIEWED_BLOCKAGE_S)
+        self.assertLess(TIMEOUT_S + CLEANUP_ALLOWANCE_S, 5.0)
         self.assertLess(res["elapsed_s"], BOUND_S, f"deliver() held for {res['elapsed_s']} s; bound {BOUND_S} s")
         self.assertEqual(rec["transport"], "incomplete-output", rec)
         self.assertTrue(rec["outcome_uncertain"])

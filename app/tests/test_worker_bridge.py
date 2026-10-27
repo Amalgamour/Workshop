@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Fixture-only app-to-worker exchange. Expected refusals are counted apart from passes.
 
-These checks are not an operating-system sandbox. The lab is not edited.
+These checks are not an operating-system sandbox. The lab runtime is not edited.
+The pass 03 test budget is the only lab change.
 """
 
 from __future__ import annotations
@@ -770,6 +771,139 @@ def test_isolated_copies() -> None:
         shutil.rmtree(base, ignore_errors=True)
 
 
+def tamper_receipt(root: Path, delivery: str = "bridge-0001", **changes: object) -> bytes:
+    path = root / f"bridge/store/{delivery}/receipt.json"
+    receipt = json.loads(path.read_text(encoding="utf-8"))
+    for key, value in changes.items():
+        if value is None:
+            receipt.pop(key, None)
+        else:
+            receipt[key] = value
+    data = (json.dumps(receipt, indent=2) + "\n").encode("utf-8")
+    path.write_bytes(data)
+    return data
+
+
+def test_stored_receipt_correlation() -> None:
+    root = fresh("correlate")
+    plant(root)
+    write_example_job(root)
+    first = bridge(root, "bridge-test", "--job", "bridge/job.json")
+    expect_outcome("correlation setup collected", first, 0, collection="collected")
+    receipt_path = root / "bridge/store/bridge-0001/receipt.json"
+    request_path = root / "bridge/store/bridge-0001/request.json"
+    launch_path = root / "bridge/delivery/bridge-0001/output/launches.log"
+    original = receipt_path.read_bytes()
+    request_bytes = request_path.read_bytes()
+    launches_before = launch_path.read_bytes()
+    adapter_before = sha(REPO / "labs/worker-bridge-pass01/bridge/adapter.py")
+    provenance = json.loads((root / "bridge/provenance/bridge-0001.json").read_text(encoding="utf-8"))
+    real_hash = json.loads(original)["request_sha256"]
+    if real_hash != provenance["request_sha256"]:
+        raise AssertionError("setup receipt hash drifted from provenance")
+
+    def unchanged(name: str, payload: bytes) -> None:
+        if receipt_path.read_bytes() != payload:
+            raise AssertionError(f"{name} rewrote the receipt")
+        if request_path.read_bytes() != request_bytes:
+            raise AssertionError(f"{name} rewrote the request")
+        if launch_path.read_bytes() != launches_before:
+            raise AssertionError(f"{name} launched")
+        if sha(REPO / "labs/worker-bridge-pass01/bridge/adapter.py") != adapter_before:
+            raise AssertionError(f"{name} rewrote the adapter")
+
+    tampered = tamper_receipt(root, request_sha256=None, delivery_id="another-delivery", job_id="another-job")
+    proc = bridge(root, "bridge-status", "--delivery", "bridge-0001")
+    expect_stop("missing request hash is not a wildcard", proc, "stored receipt field is missing: request_sha256")
+    if "collection: collected" in proc.stdout or "another-delivery" in proc.stdout:
+        raise AssertionError(show(proc))
+    unchanged("status", tampered)
+    replay = bridge(root, "bridge-test", "--job", "bridge/job.json")
+    expect_stop("replay refuses a bad stored receipt", replay, "stored receipt field is missing: request_sha256")
+    unchanged("replay", tampered)
+    recovery = {
+        "schema": "librarian-bridge-recovery",
+        "version": 1,
+        "delivery_id": "bridge-0001",
+        "request_sha256": real_hash,
+        "reason": "tampered receipt",
+        "requester": "fixture test",
+    }
+    (root / "bridge/recover.json").write_bytes((json.dumps(recovery, indent=2) + "\n").encode("utf-8"))
+    recovered = bridge(
+        root,
+        "bridge-recover",
+        "--delivery",
+        "bridge-0001",
+        "--recovery-request",
+        "bridge/recover.json",
+    )
+    expect_stop("recover refuses a bad stored receipt", recovered, "stored receipt field is missing: request_sha256")
+    unchanged("recover", tampered)
+
+    receipt_path.write_bytes(original)
+    tampered = tamper_receipt(root, delivery_id="another-delivery", job_id="another-job")
+    if json.loads(tampered)["request_sha256"] != real_hash:
+        raise AssertionError("the wrong-id receipt lost its request hash")
+    proc = bridge(root, "bridge-status", "--delivery", "bridge-0001")
+    expect_stop("correct hash does not excuse wrong ids", proc, "stored receipt delivery does not match")
+    unchanged("wrong ids", tampered)
+    replay = bridge(root, "bridge-test", "--job", "bridge/job.json")
+    expect_stop("replay refuses wrong ids", replay, "stored receipt delivery does not match")
+    unchanged("replay wrong ids", tampered)
+    recovered = bridge(
+        root,
+        "bridge-recover",
+        "--delivery",
+        "bridge-0001",
+        "--recovery-request",
+        "bridge/recover.json",
+    )
+    expect_stop("recover refuses wrong ids", recovered, "stored receipt delivery does not match")
+    unchanged("recover wrong ids", tampered)
+
+    receipt_path.write_bytes(original)
+    tampered = tamper_receipt(root, schema="worker-bridge/receipt@9")
+    proc = bridge(root, "bridge-status", "--delivery", "bridge-0001")
+    expect_stop("unsupported receipt schema", proc, "stored receipt schema is not worker-bridge/receipt@1")
+    unchanged("schema", tampered)
+
+    receipt_path.write_bytes(b"[]\n")
+    proc = bridge(root, "bridge-status", "--delivery", "bridge-0001")
+    expect_stop("non-object receipt", proc, "stored receipt is not an object")
+    unchanged("non-object", b"[]\n")
+    replay = bridge(root, "bridge-test", "--job", "bridge/job.json")
+    expect_stop("replay refuses a non-object receipt", replay, "stored receipt is not an object")
+    unchanged("replay non-object", b"[]\n")
+
+    receipt_path.write_bytes(b"{")
+    proc = bridge(root, "bridge-status", "--delivery", "bridge-0001")
+    expect_stop("malformed receipt", proc, "stored receipt is not strict json")
+    unchanged("malformed", b"{")
+    recovered = bridge(
+        root,
+        "bridge-recover",
+        "--delivery",
+        "bridge-0001",
+        "--recovery-request",
+        "bridge/recover.json",
+    )
+    expect_stop("recover refuses a malformed receipt", recovered, "stored receipt is not strict json")
+    unchanged("recover malformed", b"{")
+
+    receipt_path.write_bytes(original)
+    status = bridge(root, "bridge-status", "--delivery", "bridge-0001")
+    got = expect_outcome("status still reads a consistent receipt", status, 0, collection="collected", delivery_id="bridge-0001")
+    if got["receipt"] != f"bridge/store/bridge-0001/receipt.json sha256 {sha(receipt_path)}":
+        raise AssertionError(got["receipt"])
+    replay = bridge(root, "bridge-test", "--job", "bridge/job.json")
+    replay_fields = expect_outcome("replay still does not launch", replay, 0, collection="collected")
+    if replay_fields.get("replayed") != "true" or launch_path.read_bytes() != launches_before:
+        raise AssertionError(show(replay))
+    if receipt_path.read_bytes() != original or request_path.read_bytes() != request_bytes:
+        raise AssertionError("a consistent replay rewrote stored bytes")
+
+
 def test_lab_suite() -> None:
     lab = Path(tempfile.mkdtemp(prefix="librarian-0505-lab-"))
     try:
@@ -830,6 +964,7 @@ def main() -> None:
         ("recovery", test_conflict_and_recovery),
         ("refusals", test_honesty_and_refusals),
         ("preplanted", test_preplanted),
+        ("correlation", test_stored_receipt_correlation),
         ("isolated", test_isolated_copies),
         ("lab", test_lab_suite),
     ):
