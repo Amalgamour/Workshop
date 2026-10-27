@@ -167,6 +167,30 @@ class ClerkTests(unittest.TestCase):
                 continue
             self.assertTrue(rel == prefix or rel.startswith(prefix + "/"), rel)
 
+    def show_json(self, job="demo-0001", base=None, store=None):
+        store_path = store or self.store
+        args = ["show", "--store", str(store_path), "--job", job, "--json"]
+        if base is not None:
+            args.extend(["--instructions-base", str(base)])
+        before = snapshot(store_path)
+        proc = self.cli(args)
+        after = snapshot(store_path)
+        self.assertEqual(after, before, "inspection changed the store")
+        self.assertEqual(proc.stderr, "")
+        document = json.loads(proc.stdout)
+        self.assertEqual(proc.stdout.encode("utf-8"), clerk.canonical(document))
+        self.assertEqual(set(document), {
+            "schema", "job_id", "state", "job", "claim", "returned", "checks", "problems",
+        })
+        self.assertEqual(set(document["checks"]), {
+            "events", "completion", "artifacts", "instructions",
+        })
+        self.assertEqual(document["schema"], "clerk-handoff-inspection/1")
+        self.assertEqual(document["job_id"], job)
+        for marker in ("result ok", "result findings", "result refused"):
+            self.assertNotIn(marker, proc.stdout)
+        return proc, document
+
     def test_happy_path_chain_and_projection(self):
         job_path = self.job()
         before, _dirs = snapshot(self.root)
@@ -856,6 +880,403 @@ class ClerkTests(unittest.TestCase):
         self.assertFalse((job_dir / "0003.witness.json").exists())
         self.assertFalse((job_dir / "0003.returned.json").exists())
         self.assertEqual((job_dir / "0001.queued.json").read_bytes(), text.encode("utf-8"))
+
+    def test_show_json_projects_each_clean_phase(self):
+        self.assert_code(self.queue(), 0)
+        queued_event = json.loads(self.event_bytes("0001.queued.json"))
+        first, queued = self.show_json()
+        self.assertEqual(first.returncode, 0)
+        self.assertEqual(queued["state"], "queued")
+        self.assertEqual(queued["job"], queued_event["job"])
+        self.assertEqual(queued["job"]["assignee"], "builder-b")
+        self.assertEqual(queued["job"]["reviewer"], "codex-prime")
+        self.assertEqual(queued["job"]["expected_outputs"], ["count.py"])
+        self.assertEqual(queued["job"]["release"], "fixture release")
+        self.assertEqual(queued["job"]["routed_by"], "router-fixture")
+        self.assertIsNone(queued["claim"])
+        self.assertIsNone(queued["returned"])
+        self.assertEqual(queued["problems"], [])
+        self.assertEqual(queued["checks"], {
+            "events": "ok",
+            "completion": "not-applicable",
+            "artifacts": "not-applicable",
+            "instructions": "not-checked",
+        })
+        again, queued_again = self.show_json()
+        self.assertEqual(again.stdout, first.stdout)
+        self.assertEqual(queued_again["state"], "queued")
+        checked, usable = self.show_json(base=self.base)
+        self.assertEqual(checked.returncode, 0)
+        self.assertEqual(usable["checks"]["instructions"], "usable")
+        self.assertEqual(usable["job"]["instructions"]["sha256"], self.digest)
+        self.assertEqual(usable["problems"], [])
+        claimed = self.claim()
+        self.assert_code(claimed, 0)
+        token = self.token_of(claimed.stdout)
+        claim_event = json.loads(self.event_bytes("0002.claimed.json"))
+        before_resume = snapshot(self.store)
+        resumed = self.claim("--resume")
+        self.assert_code(resumed, 0)
+        self.assertEqual(snapshot(self.store), before_resume)
+        held, claimed_doc = self.show_json(base=self.base)
+        self.assertEqual(held.returncode, 0)
+        self.assertEqual(snapshot(self.store), before_resume)
+        self.assertEqual(claimed_doc["state"], "claimed")
+        self.assertEqual(claimed_doc["job"], queued_event["job"])
+        self.assertEqual(claimed_doc["claim"], {
+            "by": claim_event["by"],
+            "token": claim_event["claim"],
+        })
+        self.assertEqual(claimed_doc["claim"]["token"], token)
+        self.assertEqual(claimed_doc["claim"]["by"], "builder-b")
+        self.assertIsNone(claimed_doc["returned"])
+        self.assertEqual(claimed_doc["checks"]["events"], "ok")
+        self.assertEqual(claimed_doc["checks"]["completion"], "not-applicable")
+        self.assertEqual(claimed_doc["checks"]["artifacts"], "not-applicable")
+        self.assertEqual(claimed_doc["problems"], [])
+        self.write_output()
+        self.assert_code(self.ret(token), 0)
+        recorded = self.event_bytes("0003.returned.json")
+        witness = self.event_bytes("0003.witness.json")
+        returned_event = json.loads(recorded)
+        done, returned_doc = self.show_json(base=self.base)
+        self.assertEqual(done.returncode, 0)
+        self.assertEqual(returned_doc["state"], "returned")
+        self.assertEqual(returned_doc["returned"]["by"], returned_event["by"])
+        self.assertEqual(returned_doc["returned"]["delivery"], returned_event["delivery"])
+        self.assertEqual(returned_doc["returned"]["evidence"], returned_event["evidence"])
+        self.assertEqual(returned_doc["returned"]["artifacts"], returned_event["artifacts"])
+        self.assertEqual(returned_doc["claim"]["token"], returned_event["claim"])
+        self.assertEqual(returned_doc["checks"], {
+            "events": "ok",
+            "completion": "ok",
+            "artifacts": "ok",
+            "instructions": "usable",
+        })
+        self.assertEqual(returned_doc["problems"], [])
+        self.assertEqual(self.event_bytes("0003.returned.json"), recorded)
+        self.assertEqual(self.event_bytes("0003.witness.json"), witness)
+        human = self.cli(["show", "--store", str(self.store), "--job", "demo-0001"])
+        self.assert_code(human, 0)
+        self.assertIn("show demo-0001", human.stdout)
+        self.assertIn("state returned", human.stdout)
+        self.assertIn("claim " + token, human.stdout)
+        self.assertIn("chain ok", human.stdout)
+        self.assertIn("result ok", human.stdout)
+        self.assertNotIn("clerk-handoff-inspection/1", human.stdout)
+        resend = self.ret(token)
+        self.assert_code(resend, 0)
+        self.assertIn("already-recorded demo-0001", resend.stdout)
+        resent, resent_doc = self.show_json(base=self.base)
+        self.assertEqual(resent.returncode, 0)
+        self.assertEqual(resent.stdout, done.stdout)
+        self.assertEqual(resent_doc["returned"]["delivery"], "d-1")
+        self.assertEqual(self.event_bytes("0003.returned.json"), recorded)
+        self.assertEqual(self.event_bytes("0003.witness.json"), witness)
+
+    def test_show_json_reports_record_problems_without_writing(self):
+        self.assert_code(self.queue(), 0)
+        token = self.token_of(self.claim().stdout)
+        self.write_output()
+        self.assert_code(self.ret(token), 0)
+        recorded = self.event_bytes("0003.returned.json")
+        recorded_hash = json.loads(recorded)["artifacts"][0]["sha256"]
+        other = self.root / "other-base"
+        other.mkdir()
+        (other / "task.txt").write_bytes(b"different instructions\n")
+        unusable, unusable_doc = self.show_json(base=other)
+        self.assertEqual(unusable.returncode, 1)
+        self.assertEqual(unusable_doc["state"], "returned")
+        self.assertEqual(unusable_doc["checks"]["artifacts"], "ok")
+        self.assertEqual(unusable_doc["checks"]["completion"], "ok")
+        self.assertEqual(unusable_doc["checks"]["instructions"], "unusable")
+        self.assertEqual(unusable_doc["job"]["instructions"]["sha256"], self.digest)
+        self.assertEqual(unusable_doc["returned"]["artifacts"][0]["sha256"], recorded_hash)
+        self.assertEqual(len(unusable_doc["problems"]), 1)
+        self.assertEqual(unusable_doc["problems"][0]["kind"], "instructions-unusable")
+        self.assertIn("instruction hash mismatch", unusable_doc["problems"][0]["detail"])
+        self.assertEqual(self.event_bytes("0003.returned.json"), recorded)
+        self.write_output(COUNT + b"\n")
+        changed, changed_doc = self.show_json(base=self.base)
+        self.assertEqual(changed.returncode, 1)
+        self.assertEqual(changed_doc["state"], "returned")
+        self.assertEqual(changed_doc["returned"]["artifacts"][0]["sha256"], recorded_hash)
+        self.assertNotEqual(sha256(COUNT + b"\n"), recorded_hash)
+        self.assertEqual(changed_doc["checks"]["artifacts"], "changed")
+        self.assertEqual(changed_doc["checks"]["completion"], "ok")
+        self.assertEqual(changed_doc["checks"]["instructions"], "usable")
+        self.assertEqual(changed_doc["problems"], [{
+            "kind": "artifact-changed",
+            "path": "count.py",
+            "detail": changed_doc["problems"][0]["detail"],
+        }])
+        self.assertIn("artifact changed", changed_doc["problems"][0]["detail"])
+        self.assertIn(recorded_hash, changed_doc["problems"][0]["detail"])
+        self.assertEqual(self.event_bytes("0003.returned.json"), recorded)
+        both, both_doc = self.show_json(base=other)
+        self.assertEqual(both.returncode, 1)
+        self.assertEqual(both_doc["state"], "returned")
+        self.assertEqual(both_doc["returned"]["delivery"], "d-1")
+        self.assertEqual(both_doc["job"]["instructions"]["sha256"], self.digest)
+        self.assertEqual(both_doc["checks"]["instructions"], "unusable")
+        self.assertEqual(
+            [item["kind"] for item in both_doc["problems"]],
+            ["artifact-changed", "instructions-unusable"],
+        )
+        self.assertEqual(both_doc["problems"][0]["path"], "count.py")
+        self.assertIn("instruction hash mismatch", both_doc["problems"][1]["detail"])
+        self.assertEqual(self.event_bytes("0003.returned.json"), recorded)
+        human = self.cli(["show", "--store", str(self.store), "--job", "demo-0001"])
+        self.assert_code(human, 1)
+        self.assertIn("artifact changed", human.stdout)
+        self.assertIn("not-returned-clean", human.stdout)
+        self.assertIn("result findings", human.stdout)
+        self.assertNotIn("clerk-handoff-inspection/1", human.stdout)
+
+    def test_show_json_damaged_records_are_not_clean_returns(self):
+        missing_store, missing_doc = self.show_json(store=self.root / "no-such-store")
+        self.assertEqual(missing_store.returncode, 2)
+        self.assertEqual(missing_doc["state"], "unknown")
+        self.assertIsNone(missing_doc["job"])
+        self.assertIsNone(missing_doc["claim"])
+        self.assertIsNone(missing_doc["returned"])
+        self.assertEqual(missing_doc["problems"], [{
+            "kind": "unknown",
+            "detail": "no matching store",
+        }])
+        self.assertEqual(missing_doc["checks"]["events"], "not-applicable")
+        self.assert_code(self.queue(), 0)
+        unknown, unknown_doc = self.show_json(job="missing-job")
+        self.assertEqual(unknown.returncode, 2)
+        self.assertEqual(unknown_doc["state"], "unknown")
+        self.assertEqual(unknown_doc["job_id"], "missing-job")
+        self.assertIsNone(unknown_doc["job"])
+        self.assertEqual(unknown_doc["problems"][0], {
+            "kind": "unknown",
+            "detail": "no matching job",
+        })
+        token = self.token_of(self.claim().stdout)
+        self.write_output()
+        stopped = clerk.return_job(
+            str(self.store), "demo-0001", "builder-b", token, "d-1", "scripted fixture",
+            interrupt="witness",
+        )
+        self.assertEqual(stopped.code, 2)
+        partial = self.event_bytes("0003.witness.json")
+        partial_doc = self.show_json()[1]
+        self.assertEqual(partial_doc["state"], "incomplete")
+        self.assertEqual(partial_doc["checks"]["completion"], "partial")
+        self.assertEqual(partial_doc["checks"]["events"], "broken")
+        self.assertIsNone(partial_doc["job"])
+        self.assertIsNone(partial_doc["claim"])
+        self.assertIsNone(partial_doc["returned"])
+        self.assertEqual(partial_doc["problems"], [{
+            "kind": "incomplete",
+            "detail": "partial completion witness",
+        }])
+        self.assertNotIn(token, self.show_json()[0].stdout)
+        self.assertEqual(self.event_bytes("0003.witness.json"), partial)
+        self.assertFalse((self.store / "jobs" / "demo-0001" / "0003.returned.json").exists())
+        shutil.rmtree(self.store)
+        self.assert_code(self.queue(), 0)
+        token = self.token_of(self.claim().stdout)
+        self.write_output()
+        self.assert_code(self.ret(token), 0)
+        witness = self.event_bytes("0003.witness.json")
+        returned = self.event_bytes("0003.returned.json")
+        (self.store / "jobs" / "demo-0001" / "0003.returned.json").unlink()
+        lost_event = self.show_json()[1]
+        self.assertEqual(lost_event["state"], "incomplete")
+        self.assertEqual(lost_event["checks"]["completion"], "missing-event")
+        self.assertIsNone(lost_event["returned"])
+        self.assertEqual(lost_event["problems"][0]["detail"], "completion witness without returned event")
+        self.assertNotIn("d-1", json.dumps(lost_event))
+        self.assertNotIn(token, json.dumps(lost_event))
+        self.assertEqual(self.event_bytes("0003.witness.json"), witness)
+        shutil.rmtree(self.store)
+        self.assert_code(self.queue(), 0)
+        token = self.token_of(self.claim().stdout)
+        self.write_output()
+        self.assert_code(self.ret(token), 0)
+        returned = self.event_bytes("0003.returned.json")
+        (self.store / "jobs" / "demo-0001" / "0003.witness.json").unlink()
+        lost_witness = self.show_json()[1]
+        self.assertEqual(lost_witness["state"], "incomplete")
+        self.assertEqual(lost_witness["checks"]["completion"], "missing-witness")
+        self.assertIsNone(lost_witness["job"])
+        self.assertIsNone(lost_witness["claim"])
+        self.assertIsNone(lost_witness["returned"])
+        self.assertEqual(
+            lost_witness["problems"][0]["detail"],
+            "returned event without completion witness",
+        )
+        self.assertNotIn(token, json.dumps(lost_witness))
+        self.assertEqual(self.event_bytes("0003.returned.json"), returned)
+        witness_path = self.store / "jobs" / "demo-0001" / "0003.witness.json"
+        witness_path.write_bytes(clerk.canonical({
+            "schema": "clerk-handoff-pass02/2",
+            "kind": "completion",
+            "job_id": "demo-0001",
+            "event": "0003.returned.json",
+            "sha256": "0" * 64,
+        }))
+        mismatch = self.show_json()[1]
+        self.assertEqual(mismatch["state"], "incomplete")
+        self.assertEqual(mismatch["checks"]["completion"], "mismatch")
+        self.assertEqual(mismatch["problems"][0]["detail"], "completion witness mismatch")
+        self.assertIsNone(mismatch["returned"])
+        self.assertEqual(self.event_bytes("0003.returned.json"), returned)
+        planted = self.store / "jobs" / "demo-0001" / "0004.completion.json"
+        planted.write_bytes(b"{}\n")
+        planted_doc = self.show_json()[1]
+        self.assertEqual(planted_doc["state"], "corrupt")
+        self.assertEqual(planted_doc["checks"]["completion"], "mismatch")
+        self.assertEqual(planted_doc["checks"]["events"], "broken")
+        self.assertIsNone(planted_doc["returned"])
+        self.assertTrue(planted_doc["problems"][0]["detail"].startswith("planted completion metadata"))
+        self.assertEqual(self.event_bytes("0003.returned.json"), returned)
+        shutil.rmtree(self.store)
+        self.store.mkdir()
+        (self.store / "jobs").mkdir()
+        (self.store / "jobs" / "demo-0001").write_bytes(b"not-a-directory")
+        not_dir = self.show_json()[1]
+        self.assertEqual(not_dir["state"], "corrupt")
+        self.assertEqual(not_dir["checks"]["events"], "broken")
+        self.assertEqual(not_dir["problems"][0]["detail"], "job path is not a plain directory")
+        self.assertIsNone(not_dir["job"])
+        self.assertEqual((self.store / "jobs" / "demo-0001").read_bytes(), b"not-a-directory")
+        (self.store / "jobs" / "demo-0001").unlink()
+        earlier_dir = self.store / "jobs" / "demo-0001"
+        earlier_dir.mkdir()
+        earlier_event = {
+            "at": "2026-10-27T00:00:00.000000Z",
+            "job": self._body(),
+            "kind": "queued",
+            "prev": None,
+            "schema": "clerk-handoff-pass02/1",
+        }
+        earlier_text = json.dumps(earlier_event, sort_keys=True, separators=(",", ":")) + "\n"
+        (earlier_dir / "0001.queued.json").write_bytes(earlier_text.encode("utf-8"))
+        earlier = self.show_json()[1]
+        self.assertEqual(earlier["state"], "corrupt")
+        self.assertEqual(earlier["checks"]["events"], "broken")
+        self.assertEqual(earlier["checks"]["completion"], "not-applicable")
+        self.assertIsNone(earlier["job"])
+        self.assertIsNone(earlier["claim"])
+        self.assertIsNone(earlier["returned"])
+        self.assertEqual(earlier["problems"][0]["kind"], "corrupt")
+        self.assertIn("earlier store format clerk-handoff-pass02/1", earlier["problems"][0]["detail"])
+        self.assertEqual((earlier_dir / "0001.queued.json").read_bytes(), earlier_text.encode("utf-8"))
+        relative = self.cli([
+            "show", "--store", "relative-store", "--job", "demo-0001", "--json",
+        ], cwd=self.root)
+        self.assertEqual(relative.returncode, 2)
+        self.assertEqual(relative.stderr, "")
+        relative_doc = json.loads(relative.stdout)
+        self.assertEqual(relative.stdout.encode("utf-8"), clerk.canonical(relative_doc))
+        self.assertEqual(relative_doc["state"], "unknown")
+        self.assertEqual(relative_doc["problems"][0]["detail"], "store path must be absolute")
+        self.assertFalse((self.root / "relative-store").exists())
+        directory = self.root / "repo-dir"
+        directory.mkdir()
+        (directory / ".git").mkdir()
+        git_store = directory / "store"
+        refused, refused_doc = self.show_json(store=git_store)
+        self.assertEqual(refused.returncode, 2)
+        self.assertEqual(refused_doc["state"], "unknown")
+        self.assertEqual(refused_doc["problems"][0]["kind"], "unknown")
+        self.assertIn("Git working tree", refused_doc["problems"][0]["detail"])
+        self.assertFalse(git_store.exists())
+        bad, bad_doc = self.show_json(job="bad id")
+        self.assertEqual(bad.returncode, 2)
+        self.assertEqual(bad_doc["state"], "unknown")
+        self.assertEqual(bad_doc["problems"][0]["detail"], "job_id is not a windows-safe id")
+        file_store = self.root / "file-store"
+        file_store.write_bytes(b"x")
+        filed, filed_doc = self.show_json(store=file_store)
+        self.assertEqual(filed.returncode, 2)
+        self.assertEqual(filed_doc["state"], "unknown")
+        self.assertEqual(filed_doc["problems"][0]["detail"], "store path is not a plain directory")
+        self.assertEqual(file_store.read_bytes(), b"x")
+
+    def test_show_json_read_and_syntax_errors_do_not_write(self):
+        syntax = self.cli(["show", "--json"])
+        self.assertEqual(syntax.returncode, 2)
+        self.assertNotEqual(syntax.stderr, "")
+        self.assertNotIn("clerk-handoff-inspection/1", syntax.stdout)
+        with self.assertRaises(json.JSONDecodeError):
+            json.loads(syntax.stdout)
+        self.assertFalse(self.store.exists())
+        flagged = self.cli([
+            "inbox", "--json", "--store", str(self.store), "--as", "builder-b",
+        ])
+        self.assertEqual(flagged.returncode, 2)
+        self.assertIn("unrecognized arguments", flagged.stderr)
+        self.assertFalse(self.store.exists())
+        self.assert_code(self.queue(), 0)
+        token = self.token_of(self.claim().stdout)
+        self.write_output()
+        self.assert_code(self.ret(token), 0)
+        recorded = self.event_bytes("0003.returned.json")
+        before = snapshot(self.store)
+        real_read = Path.read_bytes
+
+        def deny_artifact(path, *args, **kwargs):
+            if path.name == "count.py":
+                raise OSError(13, "Permission denied")
+            return real_read(path, *args, **kwargs)
+
+        Path.read_bytes = deny_artifact
+        try:
+            result = clerk.show(str(self.store), "demo-0001", as_json=True)
+            human = clerk.show(str(self.store), "demo-0001")
+        finally:
+            Path.read_bytes = real_read
+        self.assertEqual(result.code, 2)
+        failed = json.loads(result.text)
+        self.assertEqual(result.text.encode("utf-8"), clerk.canonical(failed))
+        self.assertEqual(failed["state"], "unknown")
+        self.assertIsNone(failed["job"])
+        self.assertIsNone(failed["claim"])
+        self.assertIsNone(failed["returned"])
+        self.assertEqual(failed["checks"]["events"], "not-applicable")
+        self.assertEqual(failed["problems"][0]["kind"], "filesystem")
+        self.assertEqual(failed["problems"][0]["detail"], "PermissionError: Permission denied")
+        self.assertNotIn("result refused", result.text)
+        self.assertNotIn("Traceback", result.text)
+        self.assertEqual(human.code, 2)
+        self.assertIn("incomplete: filesystem error:", human.text)
+        self.assertIn("result refused", human.text)
+        self.assertIn("existing token " + token, human.text)
+        self.assertIn("no new token", human.text)
+        self.assertNotIn("clerk-handoff-inspection/1", human.text)
+        self.assertNotIn("Traceback", human.text)
+        self.assertEqual(snapshot(self.store), before)
+        self.assertEqual(self.event_bytes("0003.returned.json"), recorded)
+        real_list = os.listdir
+
+        def deny_job(path):
+            if Path(path).name == "demo-0001":
+                raise OSError(13, "Permission denied")
+            return real_list(path)
+
+        os.listdir = deny_job
+        try:
+            unreadable = clerk.show(str(self.store), "demo-0001", as_json=True)
+        finally:
+            os.listdir = real_list
+        self.assertEqual(unreadable.code, 2)
+        unread = json.loads(unreadable.text)
+        self.assertEqual(unread["state"], "corrupt")
+        self.assertEqual(unread["checks"]["events"], "unreadable")
+        self.assertEqual(unread["checks"]["completion"], "not-applicable")
+        self.assertIsNone(unread["returned"])
+        self.assertEqual(unread["problems"], [{
+            "kind": "corrupt",
+            "detail": "job directory is unreadable",
+        }])
+        self.assertNotEqual(unread["problems"][0]["kind"], "filesystem")
+        self.assertEqual(snapshot(self.store), before)
 
     def _body(self):
         return {

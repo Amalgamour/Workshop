@@ -1,0 +1,142 @@
+# 05 — Prime status and intake fixture lab
+version: 001
+Authorization: draft — 2026-10-27
+who: Codex Prime
+state: draft; awaiting Director release
+Face: 05
+PPPP: 0507
+book: 00.00.10.work
+
+## Assignment
+Executor: Claude. Reviewer: Codex Prime.
+Release: PENDING. Claim: PENDING.
+Build only the first status/intake lab from the reviewed 05.01 design.
+Inputs: evidence/pack05.02/source-manifest.json and its exact source snapshots.
+These snapshots include the Prime review with PS-01–03. No global convention,
+real acknowledgement store, automatic dispatch or new Prime authority is adopted.
+
+## #01 — Notes and identity contract
+Read the pinned sources, write notes FIRST on new 06.03.md. Preserve the original
+design/examples/manifests. Record an additive DESIGN.002.md under evidence/build05.02
+with the narrow implementation decisions. Account for notes on final reread.
+Resolve PS-01: exact, top-level Review boundary outside fenced examples, ordered
+after Return. Reject ambiguous structures; never accept a changed payload based
+on an old review. Define the reviewable bytes and legacy unknowns explicitly.
+Resolve PS-03: findings derive from declared review sources or bounded Git history,
+survive amendments and acknowledgement loss; missing history reports unknown.
+No prose inference of acceptance. New one-line fields are provisional fixture
+contracts only. Keep immutable intake subject ids as full SHA-256 even if paths
+abbreviate them; refuse collisions/inconsistent stored identity.
+
+## #02 — Build one lab
+Allowed runtime/docs/tests: labs/prime-support-pass01/ only; plus this page's new
+06.03, evidence/build05.02 and the Return below. No app/Clerk/kernel edits.
+Standard-library Python + read-only Git. Implement status, intake scan, intake ack,
+intake show from DESIGN sections 2–7 with PS-01–03 applied.
+Registry owns paths/scope only. Add explicit registered return-file support for
+SoF bootstrap returns, not a directory crawl. Support a legacy return without a
+Review as eligible with execution/review unknown, never accepted. Do not force
+SoF into workshop numbering. Unsupported source schemas say so.
+Read real sources only from disposable pinned copies for the demo. No real store
+installation; --intake points to an explicitly supplied disposable store. No fetch,
+shared Git writes, worker/model calls, queue writes, Observer cache, Clerk adapter,
+app wiring, release, acceptance or authority effects.
+Review/context packets cite exact revisions and paths. Report scope, stale refs,
+published/local/uncommitted observations and conflict without choosing a winner.
+
+## #03 — Meaningful verification
+All tests use disposable Git repos and local bare origins. Run the design's 12
+acceptance cases, plus fenced/prefix/duplicate Review decoys; amendments that remove
+old Review while retaining unresolved lineage; missing legacy history; an explicit
+SoF-format return-file; idempotent and conflicting ack; abbreviated-id collision;
+missing sources; an unregistered decoy; invalid registry/path escape.
+Assert status/scan/show do not alter HEAD, index, refs, registered file bytes or
+status and never invoke a network command. Ack writes only its selected store.
+Assert acknowledgement loss cannot hide a finding or manufacture acceptance.
+Run a short fixture walk showing unseen -> seen -> reviewed -> amended, with one
+open finding carried through. Include workshop and SoF source shapes. Record
+counts, refusals, failures, skips, transcripts and hashes under evidence/build05.02.
+Do not present constructed output as an executed command result.
+
+## #04 — Handoff
+Fully reread implementation, tests, README and DESIGN.002. Give a cold reader one
+command to run the demo and state limits. Preserve failed runs and dispositions.
+No Git commit/push in the shared workspace: Prime publishes after review.
+Return here starting Did, Blocked, Need; name files/hashes and exactly what ran.
+Report PS-01–03 separately, pending decisions and a single recommended next slice.
+
+## Return
+Release: the Director, chat 2026-10-27: "The Director releases 0507.prime-support/05.02. Workspace: D:\Git\lib-build Branch: workshop Read: 00.kernel/00.00.10.work/0507.prime-support/05.02.md Verify its pinned inputs, record release and claim, then execute only that batch. Build the fixture-only Prime status/intake lab, including PS-01–03. Return on the named page. Do not commit or push the shared workspace."
+Claim: claude-opus-5-5 (Anthropic), Colab, executor, claimed 2026-10-27T12:28-05:00 on workshop at 1b71fb5ce58faca0dac438eca0f4e56d5d7542f8. Scope: this batch only; not the global current assignment.
+Execution: RETURNED for Codex Prime review, 2026-10-27. No Git commit or push in the shared workspace. No fetch, model call, worker, queue write, real intake store, Observer cache, Clerk adapter, app wiring, release, acceptance or authority effect. Builder lanes and the SoF working checkout were not touched. SoF was read only as Git objects.
+
+Did:
+- Verified pack05.02 (prime-pack-sources/1): 13 of 13 snapshots match their sha256 and bytes. Live bytes equal 12. Live 01.md differs from its snapshot: Prime updated it after packing. The snapshot was used.
+- Wrote notes first: 06.03.md (final sha256 91a039ff…), with inputs, findings from the real sources, contract C01-C06, and reread R01-R04.
+- Wrote the additive contract evidence/build05.02/DESIGN.002.md (c946942e…). The 05.01 design and its examples are unchanged.
+- Built labs/prime-support-pass01/:
+  - prime_support.py 64fdd0ab…;
+  - demo.py 8c1801fd…;
+  - tests/test_prime_support.py 4337b630…;
+  - README.md db7123d7…;
+  - .gitignore 030a3899….
+  It uses the standard library and an allowlisted read-only Git runner. Commands: status, intake scan, intake ack, intake show.
+- Evidence: evidence/build05.02/, with RUNS.md (every run and its disposition), runs/ and demo/. Manifest evidence/build05.02/SHA256SUMS.txt, LF, 21 entries, sha256 f8d22b03c33dea8f719299f23e599d841c7f95d411583d96d8673e75bfb04019. It does not list itself.
+Blocked: nothing.
+Need: Prime's review. No Director decision is required for this lab.
+
+What ran, exactly. Interpreter pythoncore-3.14-64, PYTHONDONTWRITEBYTECODE=1, always from a disposable copy of the lab:
+1. `python -B -X dev tests\test_prime_support.py -v`: 19 run, 18 ok, 1 FAIL. The fault was in my test's final assertion, which misread the bare origin's files as writes. Kept as runs/tests-run01-fail.txt.
+2. The same in dev and default modes: 19 ok. Intermediate, before two edits. Kept.
+3. `python -B demo.py --out <temp> --workshop-repo D:\Git\lib-build --sof-repo D:\Git\SoF`: exit 0, 14 processes, 18 checks, 0 failed. Intermediate. Kept.
+4. Final, on final bytes: the suite 19 of 19 ok in dev and default modes, 0 skipped, 0 bytecode. The demo exit 0, 14 processes, 18 of 18 checks, `demo ok`.
+Around both demo runs, the `git status --porcelain` and `.git/index` hashes of D:\Git\lib-build and D:\Git\SoF were identical before and after.
+Cold reader: `python -B demo.py --out <new absolute dir outside Git> --workshop-repo D:\Git\lib-build --sof-repo D:\Git\SoF` (README).
+
+PS-01, boundary: implemented and tested.
+- Only one exact top-level `## Review` or `## Review — <label>` heading, outside fenced blocks, after exactly one Return, counts.
+- Any other level 1-6 heading beginning return or review, a duplicate, a misordering, a bad separator or an unclosed fence refuses the source as unsupported.
+- Reviewable bytes are the bytes before that heading, with trailing blank lines removed and one LF added. This is a disclosed deviation from 05.01's exact-prefix example, made so that appending a Review to a file without one (SoF) keeps an unchanged return's identity. As a result the 05.01 example ids are not this lab's ids.
+- A review binds only by `reviewed_return_prefix` or a legacy whole-file hash matched through history. A changed payload, including a metadata edit before the Return, shows stale-review and never inherits the review.
+- Tests: ps01 decoys, including two different fenced bodies giving two ids; ps01b no inherited review; 04 an appended review not re-queued, and an amendment giving a new revision with supersedes.
+- Real check, demo A: 0504/05.05's legacy `Reviewed return SHA-256 56c4e2c1…` binds through history to its current revision be7aabba…. The disposition is shown verbatim.
+
+PS-02, SoF: implemented.
+- The registry source kind `return_files` names exact paths. Line 1 must be `# Return` or `# Return — <label>`, and the same boundary rules apply.
+- The real `returns/sof-gm-kit-pass01.md` at sof/gm-kit 01b8fe6 (a99a3893…) is eligible, with execution unknown and review-needed, and is never accepted.
+- With the SoF repository registered as worktree off, only the published and local refs are read.
+- No crawl and no renumbering.
+- Tests: ps02, and 01 for a three-lane registry including a SoF-shaped repository on branch sof/gm-kit. Demo A ran on the real blob.
+
+PS-03, lineage: implemented.
+- Findings come only from `findings:` lines in page Reviews and declared review_sources, across bounded history (HEAD ∪ remote ref) plus the worktree.
+- The latest record per ID wins. No ID disappears.
+- Passes = distinct revisions bound by reviews that mention the ID.
+- Truncated or shallow history is `incomplete`, and an untracked file is `none`. Either way it is an attention item, never zero findings.
+- The intake store is never a findings source.
+- Tests: 08, where the amended page drops the old Review, the store is deleted, and SY-01 is still open with v2 stale-review; 08b for missing history; 07 for passes counted 2 across a legacy binding and a prefix binding. Demo B5-B6 shows the same.
+
+Other verified behaviour (tests):
+- three-lane read-only status: HEAD, index, refs, status and registered bytes unchanged, no store created;
+- every canonical-versus-page conflict shape;
+- published, local and worktree shown as three revisions, with the ahead relation;
+- incomplete returns not eligible;
+- ack idempotent; a conflicting label refused; an abbreviated revision refused; a store inside Git refused; refusals leaving the store unchanged;
+- an abbreviated-id collision and an inconsistent stored identity reported as bad intake, with ack refused;
+- missing sources visible; an unregistered decoy never touched by any git call;
+- an invalid registry or path escape refused (exit 2);
+- every git subcommand outside the allowlist raising before it runs;
+- scan, show and status writing nothing, and ack writing exactly one file in its store.
+
+Verified versus claimed:
+- verified: the results above, from the final runs.
+- Not established: behaviour on real stores; Observer notes; Clerk-routed returns; real Prime review lines beyond 0504/05.05; concurrency between two acks; any authentication.
+- The demo's ack label `codex-prime` is a fixture value. Prime acknowledged nothing.
+
+Limits: a fixture lab. `--as` is a label. Hashes bind bytes, not people. The provisional fields are not law (M02 not adopted). Remote state is only as fresh as someone else's last fetch.
+
+Pending decisions: none new. M01 (the real store location) and M02 (the conventions) remain deferred, as the 05.01 review says.
+Next slice (one): a Clerk inbox adapter. Read `clerk.py inbox --as codex-prime` for registered Clerk stores, keyed by the 05.02 witness. It waits on Prime's acceptance of 0506/05.02.
+
+## Review — Codex Prime
+PENDING.

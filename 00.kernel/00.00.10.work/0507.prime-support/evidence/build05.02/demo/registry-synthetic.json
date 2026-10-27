@@ -1,0 +1,26 @@
+{
+ "schema": "prime-support-registry",
+ "version": 1,
+ "repositories": {
+  "syn": {
+   "local": "C:\\Users\\misg\\AppData\\Local\\Temp\\ps-demo-final-eb4a76cd00a44ba28ed3c185f0170330\\synthetic",
+   "branch": "main",
+   "remote_ref": "refs/remotes/origin/main",
+   "worktree": "registered-paths",
+   "history_limit": 50
+  }
+ },
+ "lanes": [
+  {
+   "lane": "synthetic",
+   "project": "workshop (SYNTHETIC)",
+   "owner_label": "synthetic-builder",
+   "repository": "syn",
+   "pages": [
+    "00.kernel/00.00.10.work/0599.synthetic-lane"
+   ],
+   "return_files": [],
+   "review_sources": []
+  }
+ ]
+}

@@ -30,12 +30,13 @@ python -B clerk.py claim --store S --job ID --as NAME --instructions-base BASE -
 python -B clerk.py return --store S --job ID --as NAME --claim TOKEN --delivery DID --evidence TEXT
 python -B clerk.py inbox --store S --as NAME [--instructions-base BASE]
 python -B clerk.py show --store S --job ID [--instructions-base BASE]
+python -B clerk.py show --store S --job ID --json [--instructions-base BASE]
 python -B clerk.py verify --store S [--instructions-base BASE]
 ```
 
-`--store`, `--job`, and `--instructions-base` are absolute paths. Clerk does not resolve them from the process working directory. There is no `--allow-repo-store` flag. A store whose path resolves into a Git working tree is refused, including a working tree whose `.git` entry is a file.
+`--store`, `--job`, and `--instructions-base` are absolute paths. Clerk does not resolve them from the process working directory. There is no `--allow-repo-store` flag. A store whose path resolves into a Git working tree is refused, including a working tree whose `.git` entry is a file. `--json` is only on `show`.
 
-Exit codes: `0` ok, `1` findings, `2` refused. Stdout ends with `result ok`, `result findings`, or `result refused`.
+Exit codes: `0` ok, `1` findings, `2` refused. Human stdout ends with `result ok`, `result findings`, or `result refused`. `show --json` prints the inspection document and does not add that line.
 
 ## Job record
 
@@ -82,6 +83,20 @@ After a complete return, the resend identity is the caller's `--as`, `--claim`, 
 ## Instructions
 
 The instruction base is named on every queue and claim, including resume. Clerk hashes the file under that base before queue, before a new claim, before resume returns the token, and before inbox or show describes the instructions as usable. A mismatch refuses the mutation and does not write. Inbox and show without a base say `instructions-not-checked` and do not call the instructions usable. Verify does not treat an unchecked instruction file as verified.
+
+## Inspection
+
+`show --json` reuses the validated view. It does not read the event files a second time, and it does not write. Stdout is one canonical JSON object and a trailing LF. Stderr is empty. The schema identifier is `clerk-handoff-inspection/1`. The keys are exactly `schema`, `job_id`, `state`, `job`, `claim`, `returned`, `checks`, and `problems`. A CLI syntax error stays argparse's exit 2 on stderr, and that stdout is not this document. `--json` on another command is that syntax error and writes nothing.
+
+`state` is `queued`, `claimed`, or `returned` only when the reducer accepts that phase. `incomplete` and `corrupt` are damaged records. `unknown` means the job was not found, the path was refused, or a filesystem error escaped the reader. `job`, `claim`, and `returned` are null unless the phase is clean. A clean non-returned phase has null `returned`. The projection does not invent outputs, and an invalid structure is never a clean returned object.
+
+`job` is the validated seven-key queued object, including its `job_id`. Assignee, reviewer, instructions, expected outputs, release, and routed_by stay on that object. Top-level `job_id` is the requested id, including when `job` is null. `claim` is `by` and `token` from the validated claim. `returned` is `by`, `delivery`, `evidence`, and `artifacts` from the validated return. Those artifact hashes are the hashes recorded on the event. A later byte change does not rewrite them. Names and the claim token are labels, not authentication.
+
+`checks.events` is `ok`, `unreadable`, `broken`, or `not-applicable`. `checks.completion` is `ok`, `partial`, `missing-event`, `missing-witness`, `mismatch`, or `not-applicable`. `checks.artifacts` is `ok`, `changed`, or `not-applicable`. `checks.instructions` is `usable`, `unusable`, `not-checked`, or `not-applicable`. `not-checked` means a clean job and no instruction base. `not-applicable` means the check was not run against a usable record. Neither one means the check passed. `unusable` means the file at the named base does not match the recorded instruction hash.
+
+`problems` is a list of objects with `kind` and `detail`. An `artifact-changed` problem also has `path`, and its detail is the same artifact line human `show` prints. Kinds are `unknown`, `incomplete`, `corrupt`, `artifact-changed`, `instructions-unusable`, and `filesystem`. The list is empty only on exit 0. Exit 0 is a clean queued, claimed, or returned projection. Exit 1 means that projection is intact and the only problems are a changed artifact, unusable instructions, or both. Exit 2 is unknown, incomplete, corrupt, a refusal, or a filesystem error. Structural detail is the reducer's diagnosis, without the human `bad state:` wrapper. Refusal detail drops one `refused: ` prefix. Filesystem detail is the exception class and its message.
+
+The document is a projection for a later reader. It is not an acceptance, a closure, or a second copy of the job. The witness limit below is unchanged.
 
 ## Interrupted writes
 

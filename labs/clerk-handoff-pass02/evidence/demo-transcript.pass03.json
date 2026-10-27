@@ -1,0 +1,281 @@
+[
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-B",
+      "-c",
+      "import hashlib, json, pathlib, sys\nbase, job_path = sys.argv[1:]\ntext = b'Count lines containing at least one non-whitespace character.\\n'\npath = pathlib.Path(base) / 'task.txt'\npath.parent.mkdir(parents=True)\npath.write_bytes(text)\ndigest = hashlib.sha256(text).hexdigest()\njob = {\n  'assignee': 'builder-b',\n  'expected_outputs': ['count.py'],\n  'instructions': {'path': 'task.txt', 'sha256': digest},\n  'job_id': 'demo-0001',\n  'release': 'fixture release',\n  'reviewer': 'codex-prime',\n  'routed_by': 'router-fixture',\n}\npathlib.Path(job_path).write_text(json.dumps(job), encoding='utf-8')\nprint(digest)\n",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\demo-out\\base",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\demo-out\\job.json"
+    ],
+    "returncode": 0,
+    "stdout": "4e323eba376a5d14231c33aa10ea003e1462e1e74aef7daf1797f394f1beb4be\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-B",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\lab\\clerk.py",
+      "queue",
+      "--store",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\demo-out\\store",
+      "--job",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\demo-out\\job.json",
+      "--instructions-base",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\demo-out\\base"
+    ],
+    "returncode": 0,
+    "stdout": "queued demo-0001\nevent 0001.queued.json sha256=f5c4f9e1621409dd8171449aa77300d6fec4f15c7bf77ac0577282ec03b18873\nresult ok\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-B",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\lab\\clerk.py",
+      "inbox",
+      "--store",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\demo-out\\store",
+      "--as",
+      "builder-b",
+      "--instructions-base",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\demo-out\\base"
+    ],
+    "returncode": 0,
+    "stdout": "inbox builder-b\nsection queued\ndemo-0001 instructions-usable sha256=4e323eba376a5d14231c33aa10ea003e1462e1e74aef7daf1797f394f1beb4be\nsection claimed\nnone\nsection returned\nnone\nsection incomplete\nnone\nresult ok\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-B",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\lab\\clerk.py",
+      "inbox",
+      "--store",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\demo-out\\store",
+      "--as",
+      "codex-prime",
+      "--instructions-base",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\demo-out\\base"
+    ],
+    "returncode": 0,
+    "stdout": "inbox codex-prime\nsection queued\nnone\nsection claimed\nnone\nsection returned\nnone\nsection incomplete\nnone\nresult ok\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-B",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\lab\\clerk.py",
+      "claim",
+      "--store",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\demo-out\\store",
+      "--job",
+      "demo-0001",
+      "--as",
+      "builder-b",
+      "--instructions-base",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\demo-out\\base"
+    ],
+    "returncode": 0,
+    "stdout": "claimed demo-0001\ntoken c8e588d08a90dd0e7a9059e37f50197b\nevent 0002.claimed.json sha256=d10a9e3d04bf0d65090e38d60d9fb29922579e752193d607b8de2f073f12b824\ninstructions-usable sha256=4e323eba376a5d14231c33aa10ea003e1462e1e74aef7daf1797f394f1beb4be\nresult ok\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-B",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\lab\\clerk.py",
+      "claim",
+      "--store",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\demo-out\\store",
+      "--job",
+      "demo-0001",
+      "--as",
+      "builder-b",
+      "--instructions-base",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\demo-out\\base"
+    ],
+    "returncode": 2,
+    "stdout": "refused: already claimed\nresult refused\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-B",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\lab\\clerk.py",
+      "claim",
+      "--store",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\demo-out\\store",
+      "--job",
+      "demo-0001",
+      "--as",
+      "colab",
+      "--instructions-base",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\demo-out\\base"
+    ],
+    "returncode": 2,
+    "stdout": "refused: not assignee\nresult refused\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-B",
+      "-c",
+      "import pathlib, sys\npathlib.Path(sys.argv[1]).write_bytes(b'def count_lines(text):\\n    return sum(1 for line in text.splitlines() if line.strip())\\n')\n",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\demo-out\\store\\jobs\\demo-0001\\outbox\\count.py"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-B",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\lab\\clerk.py",
+      "return",
+      "--store",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\demo-out\\store",
+      "--job",
+      "demo-0001",
+      "--as",
+      "builder-b",
+      "--claim",
+      "c8e588d08a90dd0e7a9059e37f50197b",
+      "--delivery",
+      "d-1",
+      "--evidence",
+      "scripted fixture wrote count.py"
+    ],
+    "returncode": 0,
+    "stdout": "returned demo-0001\ndelivery d-1\nevent 0003.returned.json sha256=dc76fdc6c1a87d376e7cb45e0b036ad42e16a28855687b9259439e4fe1dc709d\nwitness 0003.witness.json records event sha256=dc76fdc6c1a87d376e7cb45e0b036ad42e16a28855687b9259439e4fe1dc709d\nartifact count.py sha256=a462cd0fc8d967065c00e2f7f162cb480e7d919d299fa5c03af46ba002679133 bytes=87\nresult ok\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-B",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\lab\\clerk.py",
+      "inbox",
+      "--store",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\demo-out\\store",
+      "--as",
+      "codex-prime",
+      "--instructions-base",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\demo-out\\base"
+    ],
+    "returncode": 0,
+    "stdout": "inbox codex-prime\nsection queued\nnone\nsection claimed\nnone\nsection returned\ndemo-0001 artifact count.py sha256=a462cd0fc8d967065c00e2f7f162cb480e7d919d299fa5c03af46ba002679133 bytes=87 ok\nsection incomplete\nnone\nresult ok\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-B",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\lab\\clerk.py",
+      "inbox",
+      "--store",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\demo-out\\store",
+      "--as",
+      "builder-b",
+      "--instructions-base",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\demo-out\\base"
+    ],
+    "returncode": 0,
+    "stdout": "inbox builder-b\nsection queued\nnone\nsection claimed\nnone\nsection returned\nnone\nsection incomplete\nnone\nresult ok\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-B",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\lab\\clerk.py",
+      "inbox",
+      "--store",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\demo-out\\store",
+      "--as",
+      "colab",
+      "--instructions-base",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\demo-out\\base"
+    ],
+    "returncode": 0,
+    "stdout": "inbox colab\nsection queued\nnone\nsection claimed\nnone\nsection returned\nnone\nsection incomplete\nnone\nresult ok\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-B",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\lab\\clerk.py",
+      "verify",
+      "--store",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\demo-out\\store",
+      "--instructions-base",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\demo-out\\base"
+    ],
+    "returncode": 0,
+    "stdout": "verify\njob demo-0001\nstate returned\nclaim c8e588d08a90dd0e7a9059e37f50197b\nstates queued claimed returned\nchain ok\nevent 0001.queued.json sha256=f5c4f9e1621409dd8171449aa77300d6fec4f15c7bf77ac0577282ec03b18873 prev=null\nevent 0002.claimed.json sha256=d10a9e3d04bf0d65090e38d60d9fb29922579e752193d607b8de2f073f12b824 prev=f5c4f9e1621409dd8171449aa77300d6fec4f15c7bf77ac0577282ec03b18873\nevent 0003.returned.json sha256=dc76fdc6c1a87d376e7cb45e0b036ad42e16a28855687b9259439e4fe1dc709d prev=d10a9e3d04bf0d65090e38d60d9fb29922579e752193d607b8de2f073f12b824\nartifact count.py sha256=a462cd0fc8d967065c00e2f7f162cb480e7d919d299fa5c03af46ba002679133 bytes=87 ok\ninstructions-usable sha256=4e323eba376a5d14231c33aa10ea003e1462e1e74aef7daf1797f394f1beb4be\nresult ok\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-B",
+      "-c",
+      "import pathlib, sys\npath = pathlib.Path(sys.argv[1])\npath.write_bytes(path.read_bytes() + b'# tampered\\n')\n",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\demo-out\\store\\jobs\\demo-0001\\outbox\\count.py"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-B",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\lab\\clerk.py",
+      "show",
+      "--store",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\demo-out\\store",
+      "--job",
+      "demo-0001",
+      "--instructions-base",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\demo-out\\base"
+    ],
+    "returncode": 1,
+    "stdout": "show demo-0001\nstate returned\nclaim c8e588d08a90dd0e7a9059e37f50197b\nstates queued claimed returned\nchain ok\nevent 0001.queued.json sha256=f5c4f9e1621409dd8171449aa77300d6fec4f15c7bf77ac0577282ec03b18873 prev=null\nevent 0002.claimed.json sha256=d10a9e3d04bf0d65090e38d60d9fb29922579e752193d607b8de2f073f12b824 prev=f5c4f9e1621409dd8171449aa77300d6fec4f15c7bf77ac0577282ec03b18873\nevent 0003.returned.json sha256=dc76fdc6c1a87d376e7cb45e0b036ad42e16a28855687b9259439e4fe1dc709d prev=d10a9e3d04bf0d65090e38d60d9fb29922579e752193d607b8de2f073f12b824\nartifact count.py sha256=a462cd0fc8d967065c00e2f7f162cb480e7d919d299fa5c03af46ba002679133 artifact changed\nnot-returned-clean\ninstructions-usable sha256=4e323eba376a5d14231c33aa10ea003e1462e1e74aef7daf1797f394f1beb4be\nresult findings\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-B",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\lab\\clerk.py",
+      "inbox",
+      "--store",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\demo-out\\store",
+      "--as",
+      "codex-prime"
+    ],
+    "returncode": 1,
+    "stdout": "inbox codex-prime\nsection queued\nnone\nsection claimed\nnone\nsection returned\ndemo-0001 artifact count.py sha256=a462cd0fc8d967065c00e2f7f162cb480e7d919d299fa5c03af46ba002679133 artifact changed\nsection incomplete\nnone\nresult findings\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "-B",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\lab\\clerk.py",
+      "verify",
+      "--store",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\clerk-pass03-i92c64e3\\demo-out\\store"
+    ],
+    "returncode": 1,
+    "stdout": "verify\njob demo-0001\nstate returned\nclaim c8e588d08a90dd0e7a9059e37f50197b\nstates queued claimed returned\nchain ok\nevent 0001.queued.json sha256=f5c4f9e1621409dd8171449aa77300d6fec4f15c7bf77ac0577282ec03b18873 prev=null\nevent 0002.claimed.json sha256=d10a9e3d04bf0d65090e38d60d9fb29922579e752193d607b8de2f073f12b824 prev=f5c4f9e1621409dd8171449aa77300d6fec4f15c7bf77ac0577282ec03b18873\nevent 0003.returned.json sha256=dc76fdc6c1a87d376e7cb45e0b036ad42e16a28855687b9259439e4fe1dc709d prev=d10a9e3d04bf0d65090e38d60d9fb29922579e752193d607b8de2f073f12b824\nartifact count.py sha256=a462cd0fc8d967065c00e2f7f162cb480e7d919d299fa5c03af46ba002679133 artifact changed\nnot-returned-clean\ninstructions-not-checked\nresult findings\n",
+    "stderr": ""
+  }
+]

@@ -1,0 +1,49 @@
+{
+ "schema": "prime-support-registry",
+ "version": 1,
+ "repositories": {
+  "workshop": {
+   "local": "C:\\Users\\misg\\AppData\\Local\\Temp\\ps-demo-final-eb4a76cd00a44ba28ed3c185f0170330\\workshop",
+   "branch": "workshop",
+   "remote_ref": "refs/remotes/origin/workshop",
+   "worktree": "registered-paths",
+   "history_limit": 50
+  },
+  "sof": {
+   "local": "C:\\Users\\misg\\AppData\\Local\\Temp\\ps-demo-final-eb4a76cd00a44ba28ed3c185f0170330\\sof",
+   "branch": "sof/gm-kit",
+   "remote_ref": "refs/remotes/origin/sof/gm-kit",
+   "worktree": "off",
+   "history_limit": 50
+  }
+ },
+ "canonical_assignment": {
+  "repository": "workshop",
+  "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+  "lane": "app"
+ },
+ "lanes": [
+  {
+   "lane": "app",
+   "project": "workshop",
+   "owner_label": "Grok Builder 1",
+   "repository": "workshop",
+   "pages": [
+    "00.kernel/00.00.10.work/0504.app-entry"
+   ],
+   "return_files": [],
+   "review_sources": []
+  },
+  {
+   "lane": "sof",
+   "project": "SoF (separate repository)",
+   "owner_label": "SoF builder",
+   "repository": "sof",
+   "pages": [],
+   "return_files": [
+    "returns/sof-gm-kit-pass01.md"
+   ],
+   "review_sources": []
+  }
+ ]
+}

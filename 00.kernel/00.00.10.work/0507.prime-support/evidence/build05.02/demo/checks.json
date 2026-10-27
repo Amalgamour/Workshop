@@ -1,0 +1,92 @@
+[
+ {
+  "check": "05.05 has one current revision (published = local = worktree)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "05.05 legacy whole-hash review binds through history",
+  "ok": true,
+  "detail": "00.kernel/00.00.10.work/0504.app-entry/05.05.md@4066528768b659684b8bef8145752ed664a333de"
+ },
+ {
+  "check": "05.05 disposition shown verbatim",
+  "ok": true,
+  "detail": "REPAIR REQUIRED, BRI-01 stored receipt correlation."
+ },
+ {
+  "check": "05.05 amended revision supersedes the first",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "05.05 execution unknown (legacy)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "05.06 return is PENDING, not eligible",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "SoF return-file eligible, execution and review unknown/needed",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "SoF worktree not read (worktree off)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "findings not machine-readable on real pages",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "canonical waiting for 05.06 with no return: no canonical conflict",
+  "ok": true,
+  "detail": []
+ },
+ {
+  "check": "ack then idempotent re-ack",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "SoF now seen, still review-needed, nothing accepted",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "B1 unseen and review-needed",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "B3 seen",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "B4 same revision, reviewed, not re-queued",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "B5 new revision, unseen, stale review, supersedes v1",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "B5 SY-01 still open from history",
+  "ok": true,
+  "detail": "{\"SY-01\": {\"passes\": 1, \"resolution\": \"unresolved\", \"source\": \"00.kernel/00.00.10.work/0599.synthetic-lane/05.01.md@f24d6ee46171716c483170b0ed6ef9b3cef8e17b\", \"state\": \"open\"}}"
+ },
+ {
+  "check": "B6 ack loss: v2 unseen, SY-01 still open, nothing accepted",
+  "ok": true,
+  "detail": ""
+ }
+]

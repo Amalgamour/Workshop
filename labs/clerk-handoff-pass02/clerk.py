@@ -21,7 +21,8 @@ Schema clerk-handoff-pass02/2. A returned job also has one exclusive-create
 completion witness, written before the returned event, recording that event
 file's digest. Schema clerk-handoff-pass02/1 is recognized and refused,
 not migrated. Every mutation is an exclusive create. An interrupted write
-is left in place and is not a successful state.
+is left in place and is not a successful state. show --json prints one
+read-only projection, schema clerk-handoff-inspection/1, and does not write.
 """
 
 from __future__ import annotations
@@ -41,6 +42,7 @@ from pathlib import Path
 
 SCHEMA = "clerk-handoff-pass02/2"
 EARLIER_SCHEMA = "clerk-handoff-pass02/1"
+INSPECTION_SCHEMA = "clerk-handoff-inspection/1"
 QUEUED_NAME = "0001.queued.json"
 CLAIMED_NAME = "0002.claimed.json"
 RETURNED_NAME = "0003.returned.json"
@@ -416,6 +418,10 @@ class View:
         self.states = []
         self.chain_ok = False
         self.artifacts = []
+        self.claim_by = None
+        self.delivery = None
+        self.evidence = None
+        self.return_by = None
 
     @property
     def assignee(self):
@@ -591,6 +597,9 @@ def _apply_completion(job_dir: Path, view: View) -> None:
             view.diagnosis = "event schema mismatch"
             return
     view.artifacts = artifacts
+    view.delivery = returned["delivery"]
+    view.evidence = returned["evidence"]
+    view.return_by = returned["by"]
     view.events.append((RETURNED_NAME, sha256_bytes(returned_bytes), claimed_sha))
     view.states.append("returned")
     view.status = "returned"
@@ -692,6 +701,7 @@ def classify(job_dir: Path) -> View:
         view.diagnosis = "event schema mismatch"
         return view
     view.token = claimed["claim"]
+    view.claim_by = claimed["by"]
     view.events.append((CLAIMED_NAME, _event_sha(claimed_path), queued_sha))
     view.states.append("claimed")
     if not has_outbox and not has_return:
@@ -1117,18 +1127,230 @@ def _present_job(store: Path, view: View, base_text: str | None) -> tuple[list[s
     return lines, code
 
 
-def show(store_text: str, job_id: str, base_text: str | None = None) -> Result:
+def _inspection_document(
+    job_id: str,
+    state: str,
+    job,
+    claim,
+    returned,
+    events: str,
+    completion: str,
+    artifacts: str,
+    instructions: str,
+    problems: list,
+) -> dict:
+    return {
+        "schema": INSPECTION_SCHEMA,
+        "job_id": job_id,
+        "state": state,
+        "job": job,
+        "claim": claim,
+        "returned": returned,
+        "checks": {
+            "events": events,
+            "completion": completion,
+            "artifacts": artifacts,
+            "instructions": instructions,
+        },
+        "problems": problems,
+    }
+
+
+def _json_result(document: dict, code: int) -> Result:
+    return Result(code, canonical(document).decode("utf-8"))
+
+
+def _events_check(view: View | None) -> str:
+    if view is None:
+        return "not-applicable"
+    if view.chain_ok and not view.structural:
+        return "ok"
+    diagnosis = view.diagnosis
+    if (
+        diagnosis == "unreadable job"
+        or diagnosis == "job directory is unreadable"
+        or diagnosis == "returned event is unreadable"
+        or diagnosis.startswith("invalid event")
+    ):
+        return "unreadable"
+    return "broken"
+
+
+def _completion_check(view: View | None, state: str) -> str:
+    if view is None or state in ("queued", "claimed"):
+        return "not-applicable"
+    if state == "returned":
+        return "ok"
+    diagnosis = view.diagnosis
+    if diagnosis == "partial completion witness":
+        return "partial"
+    if diagnosis == "completion witness without returned event":
+        return "missing-event"
+    if diagnosis == "returned event without completion witness":
+        return "missing-witness"
+    if diagnosis in ("completion witness mismatch", "invalid completion witness"):
+        return "mismatch"
+    if diagnosis.startswith("planted completion metadata"):
+        return "mismatch"
+    return "not-applicable"
+
+
+def _artifact_problems(lines: list[str]) -> list[dict]:
+    problems = []
+    for line in lines:
+        if "artifact changed" not in line or not line.startswith("artifact "):
+            continue
+        rest = line[len("artifact "):]
+        path, _marker, _tail = rest.partition(" artifact changed")
+        if " sha256=" in path:
+            path = path.split(" sha256=", 1)[0]
+        problems.append({
+            "kind": "artifact-changed",
+            "path": path,
+            "detail": line,
+        })
+    return problems
+
+
+def _instruction_check(base_text: str | None, job):
+    if job is None:
+        return "not-applicable", None
+    status = instruction_status(base_text, job)
+    if status == "instructions-not-checked":
+        return "not-checked", None
+    if status.startswith("instructions-usable"):
+        return "usable", None
+    prefix = "instructions-unusable "
+    detail = status[len(prefix):] if status.startswith(prefix) else status
+    return "unusable", detail
+
+
+def _project_inspection(store: Path, job_id: str, view: View, base_text: str | None):
+    if (
+        not view.structural
+        and view.status in ("queued", "claimed", "returned")
+    ):
+        state = view.status
+    elif view.status == "incomplete":
+        state = "incomplete"
+    else:
+        state = "corrupt"
+    job = view.job if state in ("queued", "claimed", "returned") else None
+    claim = None
+    returned = None
+    if state in ("claimed", "returned"):
+        by = view.claim_by if isinstance(view.claim_by, str) else view.assignee
+        claim = {"by": by, "token": view.token}
+    if state == "returned":
+        returned = {
+            "by": view.return_by,
+            "delivery": view.delivery,
+            "evidence": view.evidence,
+            "artifacts": view.artifacts,
+        }
+    if state in ("incomplete", "corrupt"):
+        kind = "incomplete" if state == "incomplete" else "corrupt"
+        problems = [{"kind": kind, "detail": view.diagnosis}]
+        artifact_check = "not-applicable"
+        instruction_check = "not-applicable"
+    else:
+        problems = []
+        artifact_check = "not-applicable"
+        if state == "returned":
+            lines = inspect_artifacts(store, view)
+            problems.extend(_artifact_problems(lines))
+            artifact_check = "changed" if problems else "ok"
+        instruction_check, instruction_detail = _instruction_check(base_text, job)
+        if instruction_detail is not None:
+            problems.append({
+                "kind": "instructions-unusable",
+                "detail": instruction_detail,
+            })
+    document = _inspection_document(
+        job_id,
+        state,
+        job,
+        claim,
+        returned,
+        _events_check(view),
+        _completion_check(view, state),
+        artifact_check,
+        instruction_check,
+        problems,
+    )
+    if state in ("queued", "claimed", "returned"):
+        findings = {"artifact-changed", "instructions-unusable"}
+        if not problems:
+            code = 0
+        elif all(item["kind"] in findings for item in problems):
+            code = 1
+        else:
+            code = 2
+    else:
+        code = 2
+    return document, code
+
+
+def _refusal_inspection(job_id: str, exc: Refusal) -> Result:
+    text = str(exc)
+    if isinstance(exc, Incomplete):
+        prefix = "incomplete: "
+        detail = text[len(prefix):] if text.startswith(prefix) else text
+        state, kind = "incomplete", "incomplete"
+    else:
+        prefix = "refused: "
+        detail = text[len(prefix):] if text.startswith(prefix) else text
+        state, kind = "unknown", "unknown"
+    document = _inspection_document(
+        job_id, state, None, None, None,
+        "not-applicable", "not-applicable", "not-applicable", "not-applicable",
+        [{"kind": kind, "detail": detail}],
+    )
+    return _json_result(document, 2)
+
+
+def _filesystem_inspection(job_id: str, exc: OSError) -> Result:
+    detail = f"{type(exc).__name__}: {exc.strerror or str(exc)}"
+    document = _inspection_document(
+        job_id, "unknown", None, None, None,
+        "not-applicable", "not-applicable", "not-applicable", "not-applicable",
+        [{"kind": "filesystem", "detail": detail}],
+    )
+    return _json_result(document, 2)
+
+
+def show(
+    store_text: str,
+    job_id: str,
+    base_text: str | None = None,
+    *,
+    as_json: bool = False,
+) -> Result:
     store = None
     try:
         store = existing_store(store_text)
         view = _find_view(store, job_id)
+        if as_json:
+            if view is None:
+                document = _inspection_document(
+                    job_id, "unknown", None, None, None,
+                    "not-applicable", "not-applicable", "not-applicable", "not-applicable",
+                    [{"kind": "unknown", "detail": "no matching job"}],
+                )
+                return _json_result(document, 2)
+            document, code = _project_inspection(store, job_id, view, base_text)
+            return _json_result(document, code)
         if view is None:
             return finish(2, ["show " + job_id, "no matching job"])
         lines, code = _present_job(store, view, base_text)
         return finish(code, ["show " + job_id, *lines])
     except Refusal as exc:
+        if as_json:
+            return _refusal_inspection(job_id, exc)
         return finish(2, [str(exc)])
     except OSError as exc:
+        if as_json:
+            return _filesystem_inspection(job_id, exc)
         return finish(2, _os_lines(exc, store, job_id))
 
 
@@ -1233,6 +1455,7 @@ def build_parser() -> argparse.ArgumentParser:
     show_cmd = add("show")
     show_cmd.add_argument("--job", required=True)
     show_cmd.add_argument("--instructions-base")
+    show_cmd.add_argument("--json", action="store_true")
 
     verify_cmd = add("verify")
     verify_cmd.add_argument("--instructions-base")
@@ -1267,7 +1490,12 @@ def main(argv: list[str] | None = None) -> int:
     elif args.command == "inbox":
         result = inbox(args.store, args.actor, args.instructions_base)
     elif args.command == "show":
-        result = show(args.store, args.job, args.instructions_base)
+        result = show(
+            args.store,
+            args.job,
+            args.instructions_base,
+            as_json=args.json,
+        )
     elif args.command == "verify":
         result = verify(args.store, args.instructions_base)
     else:
