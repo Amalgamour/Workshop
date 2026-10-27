@@ -1,0 +1,105 @@
+{
+  "schema": "archive-resolution-verification/1",
+  "date": "2026-10-27",
+  "source_commit": "75ae515d826482113c4126274d015de112aa249b",
+  "head": "c3870275ec491d39137be8e9d1aee96e6a8fc1f3",
+  "branch": "workshop",
+  "helper_sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+  "helper_bytes": 45767,
+  "reader_sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+  "reader_bytes": 11402,
+  "pack_pins_match": true,
+  "product_code_changed": false,
+  "suite_rerun": false,
+  "scripts_executed": false,
+  "historical_targets_captured": false,
+  "historical_members_allocated": false,
+  "reserved_member_contents_before_capture": [
+    "01.md",
+    "reservation.json"
+  ],
+  "counts": {
+    "0506": {
+      "payloads": 29,
+      "by_relationship": {
+        "delivered artifact": 8,
+        "source input": 16,
+        "review/test evidence": 5
+      },
+      "unresolved": 0,
+      "named_without_companion": 5
+    },
+    "0508": {
+      "payloads": 37,
+      "by_relationship": {
+        "delivered artifact": 6,
+        "review/test evidence": 15,
+        "source input": 16
+      },
+      "unresolved": 3,
+      "named_without_companion": 5
+    },
+    "0509": {
+      "payloads": 47,
+      "by_relationship": {
+        "delivered artifact": 6,
+        "review/test evidence": 32,
+        "source input": 7,
+        "cited dependency": 2
+      },
+      "unresolved": 0,
+      "named_without_companion": 0
+    }
+  },
+  "next_batch": {
+    "origin_book": "00.00.10.work",
+    "origin_page": "0506.clerk-handoff",
+    "origin_batch": "05.03",
+    "member": null
+  },
+  "artifacts": {
+    "06.09.md": {
+      "sha256": "f2c39e2318fced4e69f531d8d354f5a572f499b2e5bf13409c458bf98f0859f1",
+      "bytes": 6230
+    },
+    "resolved-slices.json": {
+      "sha256": "1e8d1ab20743e4ea51358f832c6a7bf558f3a7e999724bc6bc670227b124eaf3",
+      "bytes": 95003
+    },
+    "resolution-report.md": {
+      "sha256": "be68346aacad1adec3cc601137af9f53a8cf5c5e8b9cee04b5da10db28121eb2",
+      "bytes": 14405
+    }
+  },
+  "verified": [
+    "Eight pack05.08 pins match live bytes and snapshots.",
+    "Three return pages match the old plan hashes at the inventory commit.",
+    "Design SHA256SUMS.txt matches the return, and its six listed files match the sums.",
+    "Fifteen clerk input bundles match source-manifest.tsv and commit 54274e698dde1c6cbd5e25177395c62c2a2c645a.",
+    "Pack-assembly lab hashes, lab sums, build sums, and both pack manifests match their records.",
+    "Return-capture demo.py, inventory.py, 06.02.md, furniture before/after copies, discovery.patch, and custody.json match the return.",
+    "Proposed app paths and returns/01.md are absent at the inventory commit.",
+    "returns/ lists 15 files and is not a companion set."
+  ],
+  "inferred": [
+    "The old unresolved names returns and returns/01.md follow the return's bootstrap wording and the furniture path 0100.band.returns/01.md. The old scanner source is not in this batch.",
+    "Proposed-future-output is the return's next-slice wording, checked against absence at the inventory commit."
+  ],
+  "unknown": [
+    {
+      "path": "labs/return-capture-pass01/return_capture.py",
+      "declared_sha256": "655bd4a005d1210eef8f5ae62a462d4cf8a2591bfe318c2f428bcfb3ae5c3269",
+      "declared_bytes": 45898
+    },
+    {
+      "path": "labs/return-capture-pass01/README.md",
+      "declared_sha256": "4d82b7feeacf055f180f9a6c483bfa920faccbd0788fc15482732c0cf3f8de4e",
+      "declared_bytes": 8515
+    },
+    {
+      "path": "labs/return-capture-pass01/tests/test_return_capture.py",
+      "declared_sha256": "9de8908a371839789586bee10f2d3a01d4a53b43cea5db2efeaa5c625a87afbe",
+      "declared_bytes": 26254
+    }
+  ]
+}

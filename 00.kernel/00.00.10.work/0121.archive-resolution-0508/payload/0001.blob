@@ -1,0 +1,52 @@
+# Notes — resolution plan for three deferred rows, 05.08
+Date: 2026-10-27
+Recorder: Grok 4.7, Grok Builder 2
+Session: 01a17dfa-bc23-7730-bec3-c49938f96187
+State: plan notes for 05.08, written before the plan files. Not a review and not an acceptance.
+
+06.01 through 06.08 stay as written. This file records a plan. It does not capture the three historical targets, and it does not decide review, acceptance, seating, or publication.
+
+## Pins
+
+`evidence/pack05.08/source-manifest.json` is schema `prime-pack-sources/1`. Checked before this claim and again before this note. All 8 snapshots match the manifest, and all 8 live paths match those snapshots.
+
+| Snapshot | Path | SHA-256 | Bytes |
+| --- | --- | --- | --- |
+| 0001.blob | `labs/return-capture-pass01/return_capture.py` | `8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac` | 45767 |
+| 0002.blob | `labs/return-capture-pass01/return_inspect.py` | `947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b` | 11402 |
+| 0003.blob | `0508.return-capture/05.07.md` | `a6238b672100f9a623087c4cac9cbadba7c61e1717e07b221b8563007d0953f5` | 5265 |
+| 0004.blob | `evidence/prime-review05.07/review.md` | `7b64b846937b4393e75ded3e12590c98684e272dc6741667147a1593f5720c4c` | 1525 |
+| 0005.blob | `evidence/prime-review05.07/verification.json` | `9c24d2d9ca2bdd9e63c3f93c2d8816d81b887c1796919ba0869bb69895be6317` | 39091 |
+| 0006.blob | `evidence/plan05.03/backfill-plan.json` | `28994db7ef036af72282d0ff42068d090a7fbbeb5bc23ab550f8e5852b4fd16c` | 84040 |
+| 0007.blob | `0508.return-capture/05.03.md` | `ab46dfe2bd09a49028a08d4e09bfcc3810c3bfe2b74b1efcc77af25b58ab2901` | 6638 |
+| 0008.blob | `0121.archive-resolution-0508/reservation.json` | `d62220877d750ec4143cdb28153d20ce1b6bdf28d4e4232f7b8e4470c8eb83ec` | 826 |
+
+`return_capture.py` and `return_inspect.py` stay at those hashes. This batch edits no product code. The helper hash above is the later RC-01/RC-02 helper. It is the pin of this tool. It is not the original helper declared by `0508.return-capture/05.01`. `0121.archive-resolution-0508` holds `01.md` and `reservation.json` only at this note. Branch `workshop` was `c3870275ec491d39137be8e9d1aee96e6a8fc1f3` when this note was opened. The inventory object `75ae515d826482113c4126274d015de112aa249b` is a commit in this checkout. This builder does not commit.
+
+## Targets
+
+Three old unresolved rows only, all at that inventory commit. The old 12-file bound is dropped for these rows. Other inventory rows stay outside this plan.
+
+`0506.clerk-handoff/05.03` is the accepted seam design. Return SHA-256 `59468d0976229899136f0120df3315583de65a79e4e06d8ec5bcd3b94cce50dd`, 14383 bytes. The page contains one Prime Review heading.
+
+`0509.pack-assembly/05.01` is the assembler return and its evidence. Return SHA-256 `9545b7457a0e37fbcd3efeec2a379fcef6e4a02e2c41558a18673a7b14ae89a7`, 10398 bytes. The page contains one Prime Review heading.
+
+`0508.return-capture/05.01` is the first capture implementation and its held review. Return SHA-256 `9da830f28f340fb6142a12908e8d60a3b5050cc8ff075d32405133f39853d472`, 18493 bytes. The page contains one Prime Review heading. The disposition in that page is HELD FOR RC-01 REPAIR.
+
+Reading used `git cat-file` and `git ls-tree` at the inventory commit, plus the declared manifests and sums files stored there. No archived script was executed. No product suite was rerun.
+
+## Disposition
+
+Reread after the hash checks and before the plan capture.
+
+The old plan had 8 unresolved items and 0 payloads across these three rows. This plan classifies those items and adds the files the returns name.
+
+`0506.clerk-handoff/05.03` has 29 companions. Eight are delivered design artifacts: `06.06.md`, `SEAM.md`, five examples, and `SHA256SUMS.txt`. The sums file matches the hash in the return, and the six listed files match the sums. Sixteen are source inputs: `source-manifest.tsv` and the 15 bundled files. Each bundle matches the manifest and the blob at `54274e698dde1c6cbd5e25177395c62c2a2c645a`. Five are the prime-review evidence files. `reviewed-return.md` is the 11954-byte copy whose hash the review records. The whole inventory page is the return source. `app/clerk_seam.py`, `app/clerk-seam.json`, and `app/tests/test_clerk_seam.py` are proposed future outputs. They are absent at the inventory commit. The later worktree files of those names are left unused. The proposed dispatch and README section stay proposals. This candidate has no unresolved companion.
+
+`0509.pack-assembly/05.01` has 47 companions. The three lab source files at the inventory commit match the hashes the return declared, so those bytes are the originally delivered lab. The 27 files in `evidence/build05.01` match `SHA256SUMS.txt`, or are that sums file. Pack snapshots are inputs. The checker and the jobs formatter are cited pins. The checker bytes are `snapshots/0003.blob`. This candidate has no unresolved companion. Checkpoint custody of the whole return page and recovery of the lab bytes are both recorded, and they are separate claims.
+
+`0508.return-capture/05.01` has 37 companions and 3 unresolved code files. `demo.py`, `inventory.py`, and `06.02.md` match the return. The declared furniture before/after bytes match the evidence copies. `discovery.patch` and `custody.json` match the return. `return_capture.py`, `README.md`, and `tests/test_return_capture.py` stay unknown: the declared hashes are not objects in this repository, and the inventory paths are later bytes. The historical `returns/` root has 15 files and is not expanded. `returns/01.md` is absent. The declared furniture path is `0100.band.returns/01.md`. The held review stays held.
+
+The one next batch is `0506.clerk-handoff/05.03`. No member is allocated for it. `0509.pack-assembly/05.01` is hash-complete and is not the selected batch. `0508.return-capture/05.01` is not selected.
+
+This plan's own return is the reserved member `0121.archive-resolution-0508`, submission `grok-2-0508-0508`. Its four outputs are this note, `resolved-slices.json`, `resolution-report.md`, and `verification.json`. The receipt for that member is written by the later capture and recorded on the Return pointer of `05.08`. This note does not contain that receipt.

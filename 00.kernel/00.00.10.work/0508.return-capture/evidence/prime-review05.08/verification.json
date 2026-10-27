@@ -1,0 +1,60 @@
+{
+  "source_commit": "75ae515d826482113c4126274d015de112aa249b",
+  "object_format": "sha1",
+  "verified_candidates": [
+    {
+      "page": "0506.clerk-handoff",
+      "batch": "05.03",
+      "payloads": 29,
+      "return_sha256": "59468d0976229899136f0120df3315583de65a79e4e06d8ec5bcd3b94cce50dd"
+    },
+    {
+      "page": "0508.return-capture",
+      "batch": "05.01",
+      "payloads": 37,
+      "return_sha256": "9da830f28f340fb6142a12908e8d60a3b5050cc8ff075d32405133f39853d472"
+    },
+    {
+      "page": "0509.pack-assembly",
+      "batch": "05.01",
+      "payloads": 47,
+      "return_sha256": "9545b7457a0e37fbcd3efeec2a379fcef6e4a02e2c41558a18673a7b14ae89a7"
+    }
+  ],
+  "recovered_originals": [
+    {
+      "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/pack05.02/snapshots/0008.blob",
+      "logical": "labs/return-capture-pass01/README.md",
+      "sha256": "4d82b7feeacf055f180f9a6c483bfa920faccbd0788fc15482732c0cf3f8de4e",
+      "bytes": 8515
+    },
+    {
+      "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/pack05.02/snapshots/0009.blob",
+      "logical": "labs/return-capture-pass01/return_capture.py",
+      "sha256": "655bd4a005d1210eef8f5ae62a462d4cf8a2591bfe318c2f428bcfb3ae5c3269",
+      "bytes": 45898
+    },
+    {
+      "source_path": "00.kernel/00.00.10.work/0508.return-capture/evidence/pack05.02/snapshots/0010.blob",
+      "logical": "labs/return-capture-pass01/tests/test_return_capture.py",
+      "sha256": "9de8908a371839789586bee10f2d3a01d4a53b43cea5db2efeaa5c625a87afbe",
+      "bytes": 26254
+    }
+  ],
+  "package_files": {
+    "01.md": "6e25799df1f1fc062fbe4946c6664fcc48bd11058e0b1fd0b167a5ff59de4a84",
+    "manifest.json": "8218221b6ffb2933a9412f538cebad17e10ca37d2319300f13264b29dacbf68f",
+    "receipt.json": "d62ef4be4a33f7cc868f65cc207f323352838dbdf83039590335d47f4c16213d",
+    "reservation.json": "d62220877d750ec4143cdb28153d20ce1b6bdf28d4e4232f7b8e4470c8eb83ec",
+    "return.md": "6f802c53ad56517626d5f58ed564dd16a70dc2a20fada19b435695d5bf51b8bc",
+    "payload/0001.blob": "f2c39e2318fced4e69f531d8d354f5a572f499b2e5bf13409c458bf98f0859f1",
+    "payload/0002.blob": "1e8d1ab20743e4ea51358f832c6a7bf558f3a7e999724bc6bc670227b124eaf3",
+    "payload/0003.blob": "be68346aacad1adec3cc601137af9f53a8cf5c5e8b9cee04b5da10db28121eb2",
+    "payload/0004.blob": "08cae79528e59de8c33c331dd9e5f613dbbc401776245a8f51ec67beace16cfa"
+  },
+  "capture": {
+    "verify": 0,
+    "inspect": 0
+  },
+  "qualification": "A SHA-256 content digest is not a Git SHA-1 object id. The three originals exist in the retained next-pack snapshots."
+}

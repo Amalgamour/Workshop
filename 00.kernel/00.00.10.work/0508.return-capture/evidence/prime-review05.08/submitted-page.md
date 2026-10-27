@@ -1,0 +1,75 @@
+# 05 — Resolve three deferred historical source mappings
+version: 001
+Authorization: draft — 2026-10-27
+who: Codex Prime
+state: released by the Director 2026-10-27; claimed by Grok Builder 2
+Face: 05
+PPPP: 0508
+book: 00.00.10.work
+
+## Assignment
+Executor: Grok Builder 2. Reviewer: Codex Prime.
+Release: Director, this session, 2026-10-27. Claim: Grok Builder 2, this page only.
+Workspace D:/Git/lib-build, branch workshop. Verify evidence/pack05.08/source-manifest.json.
+PLAN ONLY for deferred historical rows; only THIS plan is captured. No code edits,
+shared Git writes, extra reservations, mass capture, live-source substitutions or
+changes to the active Grok-1/Claude/SoF lanes.
+
+## #01 — Three bounded targets, notes first
+Write06.09.md before the plan. Inspect exact committed source at
+75ae515d826482113c4126274d015de112aa249b for these rows only:
+-0506.clerk-handoff/05.03 (the accepted seam DESIGN, not its later implementation).
+-0509.pack-assembly/05.01 (the assembler return and evidence).
+-0508.return-capture/05.01 (the first capture implementation and its held review).
+Use read-only Git blobs/trees and existing declared manifests/source-before
+records. Drop the previous arbitrary12-file expansion limit; a larger directory
+is not missing evidence. Expand only explicit target-owned evidence/dependencies,
+not the whole repository. Preserve original rows and reports unchanged.
+
+## #02 — Classify what the source actually claims
+For each named file distinguish delivered artifact, source input, review/test
+evidence, proposed/future output, cited dependency, and genuinely absent evidence.
+Do not label a proposed app module missing merely because a design named it
+before it was implemented. Do not make a failed/held implementation look accepted.
+For original delivered CODE, match the return's declared hash to retained blobs,
+source-before files or pinned snapshots. Newer code at the inventory commit is
+not automatically the original delivered artifact. If using a retained before-file,
+record its actual Git source path separately from its intended logical name.
+If no proven original can be found inside this bounded evidence, leave it unknown.
+No filename/version guessing, historical text cleanup or execution of scripts.
+
+## #03 — Produce an auditable candidate plan
+Write resolved-slices.json, resolution-report.md and verification.json under
+evidence/resolution05.08/. Each candidate needs separate origin book/page/batch,
+exact source return path/commit/hash/length, embedded-review/retrospective flags,
+payload SOURCE path, LOGICAL name, hash/length, relationship and reason. Explain
+whether it is a checkpoint custody set or recovery of actual originally delivered
+artifacts; never imply those are the same. Preserve Director replies and whole
+return bytes. Include unresolved items without invented companions. No archive
+member numbers or captures for these targets yet. Reconcile counts against the
+three old unresolved rows; recommend at most one next small capture batch.
+Static hash/source checks are sufficient; no product suite reruns. Cite every
+verified versus inferred/unknown result. Fully reread and disposition notes.
+
+## #04 — Capture THIS plan's return
+Verify unchanged helper 8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac and reader 947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b.
+Write dedicated evidence/resolution05.08/submission.md starting Did, Blocked, Need.
+Use pre-reserved 0121.archive-resolution-0508 and four declared outputs:
+
+```text
+python -B labs/return-capture-pass01/return_capture.py capture --book "D:/Git/lib-build/00.kernel/00.00.10.work" --submission grok-2-0508-0508 --return-file "D:/Git/lib-build/00.kernel/00.00.10.work/0508.return-capture/evidence/resolution05.08/submission.md" --source-root "D:/Git/lib-build" --artifact "00.kernel/00.00.10.work/0508.return-capture/06.09.md|00.kernel/00.00.10.work/0508.return-capture/06.09.md" --artifact "00.kernel/00.00.10.work/0508.return-capture/evidence/resolution05.08/resolved-slices.json|00.kernel/00.00.10.work/0508.return-capture/evidence/resolution05.08/resolved-slices.json" --artifact "00.kernel/00.00.10.work/0508.return-capture/evidence/resolution05.08/resolution-report.md|00.kernel/00.00.10.work/0508.return-capture/evidence/resolution05.08/resolution-report.md" --artifact "00.kernel/00.00.10.work/0508.return-capture/evidence/resolution05.08/verification.json|00.kernel/00.00.10.work/0508.return-capture/evidence/resolution05.08/verification.json"
+python -B labs/return-capture-pass01/return_capture.py verify --book "D:/Git/lib-build/00.kernel/00.00.10.work" --member 0121.archive-resolution-0508
+```
+
+Keep source/submission. Append only member,receipt hash,fresh verify below. A
+partial/refused capture stays explicit; no overwriting/removing receipts or
+allocating around it. Prime reviews and publishes separately. No shared Git
+commits/pushes, new authority or historical execution follows from this plan.
+
+## Return pointer
+Member: 0121.archive-resolution-0508
+Receipt: d62ef4be4a33f7cc868f65cc207f323352838dbdf83039590335d47f4c16213d
+Verification: result complete. Not approved. Not accepted. Not published. Exit 0.
+
+## Review — Codex Prime
+PENDING.
