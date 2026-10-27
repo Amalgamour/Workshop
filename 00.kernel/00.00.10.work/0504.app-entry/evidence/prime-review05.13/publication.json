@@ -1,6 +1,6 @@
 {
-  "status": "pending",
-  "captures_commit": null,
+  "status": "verified",
+  "captures_commit": "d72994b7ab5606000209e32f51248890d879cf37",
   "records": [
     {
       "member": "0122.bridge-overlap-0513",
@@ -14,5 +14,51 @@
       "member": "0125.mapping-capture-0509",
       "receipt_sha256": "ea41e6d97a65eb8ccc9f72dc0ce666c299e86fd7fbda2c0eb09932106fe33eb8"
     }
-  ]
+  ],
+  "remote_head_verified": "d72994b7ab5606000209e32f51248890d879cf37",
+  "contents_check": {
+    "schema": "book-orientation-check@1",
+    "revision_input": "d72994b7ab5606000209e32f51248890d879cf37",
+    "commit": "d72994b7ab5606000209e32f51248890d879cf37",
+    "book": "00.kernel/00.00.10.work",
+    "contents_path": "00.kernel/00.00.10.work/0011.contents/01.035.md",
+    "contents_sha256": "8189fd5554e7fb1dbb0d261a791642aec301a870cfc4624df00e3492d48cae3d",
+    "selection_source": "book 00.md pointer",
+    "sentinel_pointer": "contents in 0011.contents/01.035.md.",
+    "scope": "published tree at the commit only; working tree, index and untracked files not read",
+    "covered": [
+      "Pages table rows: page folders, direct files, direct subdirectories, recursive tracked-file counts",
+      "Book files list",
+      "Other books paths (relative to the book root)"
+    ],
+    "not_covered": [
+      "prose references and other links",
+      "face contents",
+      "whether a page should be published",
+      "the working tree, the index and untracked files"
+    ],
+    "counts": {
+      "rows": 50,
+      "tree_pages": 50,
+      "book_files_listed": 1,
+      "other_books": 2
+    },
+    "other_books": [
+      {
+        "label": "Syntax",
+        "path": "../00.00.00.syntax/00.001.md",
+        "resolved": "00.kernel/00.00.00.syntax/00.001.md",
+        "present": true
+      },
+      {
+        "label": "Law",
+        "path": "../00.00.01.law/00.001.md",
+        "resolved": "00.kernel/00.00.01.law/00.001.md",
+        "present": true
+      }
+    ],
+    "findings": [],
+    "result": "clean",
+    "advisory": true
+  }
 }
