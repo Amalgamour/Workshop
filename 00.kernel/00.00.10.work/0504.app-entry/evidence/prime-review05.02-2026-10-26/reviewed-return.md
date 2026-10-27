@@ -1,0 +1,82 @@
+# 05 — Designated fixture boundaries
+version: 001
+Authorization: draft — 2026-10-26
+who: Codex Prime
+state: returned
+Face: 05
+PPPP: 0504
+book: 00.00.10.work
+keyword: app-entry
+
+## Assignment
+Builder: Grok 4.7 (xAI). Reviewer: Codex Prime.
+Release: released by the Director, 2026-10-26.
+Claim: Grok 4.7 (xAI), session 01a179d2-387a-7661-8702-6e53f95e96b5, 2026-10-26, HEAD 15b9cceb3438b8a91acfd8d3155b9b0d5fce29ae.
+Reviewed base: 15b9cceb3438b8a91acfd8d3155b9b0d5fce29ae, branch workshop.
+Repair APP-01 from the 05.01 Prime Review. Keep the working app entry and the inventory.
+The packed page is `evidence/05.02/packed/05.02.md`, sha256 `89a7179e2465b9219c32b9f80e3100a9b4c26dd2419a54d58b0061963b03b8e0`, 2977 bytes.
+
+Director, verbatim:
+
+> Read and execute:
+> D:\Git\lib-build\00.kernel\00.00.10.work\0504.app-entry\05.02.md
+>
+> I release this batch. Repair APP-01, preserve the existing working behavior,
+> and return on that page for Codex Prime review.
+>
+> Preserve Claude’s and the Observer’s independent files.
+
+## #01 — Notes and fixture-root contract
+Notes are `06.02.md` on this page, sha256 `894b249380821ce3fd2953953fa7d66e40e70eb185c27e1fa31bb81ebf1503fa`, 4723 bytes. The 05.01 Review and `evidence/prime-review-latest-2026-10-26/` were read and are staged as found. They were not rewritten.
+
+The fixture file cannot name its writable container. `allowed_root` is not a fixture field. One implementation, `app/context.py`, designates the container from app-owned configuration, or from `--container` when the fixture root is outside the workspace. Inside this workspace the only containers are `app/scratch` and `00.kernel/00.00.10.work/0504.app-entry/fixtures`. `fixture_containers` must be that pair. A list that adds `app` stops with `fixture containers are not the designated pair`.
+
+An external container must contain the fixture root, must be disjoint from this workspace, and must not be a filesystem or drive root. Paths are resolved, including directory junctions, before those checks. A resolved output or payload that leaves the container, or that lands in the workspace outside the two containers, is refused before the payload runs. The choice is made before `fixture.json` is read and before the runner is imported.
+
+The trust boundary is in `app/README.md` and in `06.02.md`. Approved same-user Python is not an operating-system sandbox. `0014.design/01.002.md` was not edited and does not list `fixture_containers`.
+
+## #02 — Repair and regression
+The interpreter was `C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe`. Below, `<py>` is that interpreter and `<ws>` is `D:\Git\lib-build`.
+
+On the reviewed implementation, before this repair, an isolated copy planted the standard fixture under `app/`, kept the approved payload, and set the output to `README.md`. `test-run` exited 0 and replaced that copy's `app/README.md`. Before `9a9085ee01913c2e102c8efb48823621ac80047fc077d0dabff8dcaf0dfc293a`. After `1b465c3517a5b4575a3ff5b2cdbeeb37220d83b262afb5f69864b292093e13c0`. The real README stayed `9a9085ee01913c2e102c8efb48823621ac80047fc077d0dabff8dcaf0dfc293a`. Stdout contained `result: pass`. Transcripts: `evidence/05.02/failure-before.stdout.txt` sha256 `e6747f570ed7aa23196cfe43cfe45701d95ac2a136a31781b23759873697c55b`, 830 bytes; `evidence/05.02/failure-before.stderr.txt` empty; `evidence/05.02/failure-before.json` sha256 `b74a8663dcbe8ccd7968479848156a57150d31413a98ccc670ad7842adfc815d`, 512 bytes.
+
+On the repaired tree, the same shape in a new isolated copy stopped before the payload. Exit 2. Stderr: `stop: fixture root is not a designated container`. Stdout empty. No `result: pass`. The isolated README stayed `64a7953d726e764c81208c16eaf294aa2d76ee87cdb2b7101a5e1693547037d9`, and the real README stayed that same hash. Transcripts: `evidence/05.02/success-after.stderr.txt` sha256 `66971ec2280b9df03d7a0ec8df2090861752d27d57f635fd1df2746ad5ef1eca`, 49 bytes; `evidence/05.02/success-after.stdout.txt` empty; `evidence/05.02/success-after.json` sha256 `9724224d5860599b8c47dfae32c508a6033d309fb9d1cd8099202600c0aa9c76`, 579 bytes. The repaired README differs from the reviewed README because this slice documents the container rule there.
+
+The suite also refuses a source page posing as a fixture (`fixture root is the live workspace`), a fixture that still carries `allowed_root`, an unnamed external container, an external container that overlaps the workspace, a filesystem root, a junction whose target is `app/`, and a junction output that leaves the chosen container. The page fixtures directory is inside the work book. `overlaps_live` returns false for a fixture root inside a designated container, so that directory can be selected, and the work book itself still refuses. `02.run.002.py` still refuses a payload inside the live work book before `run_main`. Its bytes are unchanged, so the successful inventory in that directory is `02.run.003.py`. 003 is named by path and SHA-256. It is not chosen by version number. 002 and 009 planted beside it are not selected.
+
+Preserved successes: the scratch fixture from a foreign current directory, the same inventory from an explicitly named external container and a second foreign current directory, and a fixture root under this page's `fixtures/` directory with no `--container`. That page-fixtures inventory matched `expected-inventory.json`. The payload, the card, and the expected inventory bytes stayed unchanged, and `app/README.md` stayed unchanged. Existing command and context refusals still refuse. Normal run refuses. No bytecode was written under `00.kernel` or `app`. Nothing imported an active module.
+
+Suite summary `pass 10 expected-refusal 41 skip 0 fail 0`, exit 0. Log `evidence/05.02/test-log.txt` sha256 `eb197c1214671db11117b2a1b16877162aec6c7b52564503be7969c8ef9d3ac5`, 24036 bytes. The scratch inventory copied from that run is `evidence/05.02/inventory.json` sha256 `1b465c3517a5b4575a3ff5b2cdbeeb37220d83b262afb5f69864b292093e13c0`, 363 bytes. `0101.present` lists `01.md` and `08.md`. `0199.gap` lists `08.md` and reports missing `01.md`.
+
+Commands on the returned workspace:
+
+```text
+<py> -B <ws>/app/librarian.py where --root <ws>
+<py> -B <ws>/app/librarian.py validate --root <ws>
+<py> -B <ws>/app/librarian.py test-run --root <fixture> --candidate 00.kernel/00.00.01.law/0310.inventory/02.inventory.py --sha256 dd6a78b5a3781fe840e68950805b9838e569095d15dac3c678f00782341ed69b [--container <external-container>]
+```
+
+`where` printed desk `00.kernel`, work book `00.00.10.work`, workflow space `0`, current work this file, pack this file, assignment state `returned`, runtime book `00.00.01.law`, runtime space `0`, runtime band `0300-0399`, runner `00.kernel/00.00.01.law/0302.run/02.run.003.py`, and runner sha256 `bbca135691ba4e873e27b9322b1ad6d79deeb59107eb7d377f7d20014067d50c`. `validate` printed those lines and `validate: pass`. Neither command imported the runner. Transcripts: `evidence/05.02/where.txt` sha256 `7ae48a452828bc86932b771e351a8a9fedeb6ab8473a3e6a6b6a0c1208cf74ae`, 404 bytes; `evidence/05.02/validate.txt` sha256 `8f7ceda0e7d46c8d20c049b6d6c70a609a4e8ee1d445e6b0f9ba23e518916337`, 419 bytes.
+
+## #03 — Return and custody
+The assignment record was hand-edited from running to returned. Clerk did not make that transition. `00.live.md` was regenerated with `render_live.py`. The renderer was not edited. `render_live.py check` printed `check: 00.kernel/00.live.md matches the record` (`evidence/05.02/render-check.txt`, sha256 `0cb6ad63c6a61988153304a55d3d7619a74207942f44328a35b8b9b12137cc3c`, 47 bytes).
+
+Assignment bytes: Prime's returned record `evidence/05.02/assignment-before.md` sha256 `6114ac8f347b155b9bacedf1dae71adca5632ffbb104fd03d8f4e5b58eaaf2a3`, 583 bytes. Running `evidence/05.02/assignment-running.md` sha256 `e8747e982a461425a800a2bc51feaa6b5c95535e189618ba17949f29590d72fe`, 576 bytes. Returned record sha256 `5d59252c91b6c611bac31aebeebfe49707d0f4498ba4e7cb3c436171c85e1f81`, 616 bytes. Views: before `evidence/05.02/live-before.md` sha256 `3ebae43eb643a8ad8053f45263e400420e715f4e0383f3b68cfde556ffc8a060`, 1198 bytes; running `evidence/05.02/live-running.md` sha256 `0a321ed9f8d35cde92f0e856ec98bbd249bfd4a2acc3fc6ee17183026c5dd3ee`, 1191 bytes; current `00.live.md` sha256 `4b62f01e4ed6274e6ba0b85d61de41a71c35cfc8d4902b81c8bcd2a5ce376f62`, 1231 bytes. `waits_on` names Codex Prime's review of this page and keeps the separate acceptance of the 0503 bridge lab. `next` stays the proposed integration, not a release.
+
+Changed source and derived hashes: `app/context.py` `ebb9d2e864ba62b46405dedbb6afcc9c9f51e850b3f13499f711e6d5e70ca38a` (20818 bytes). `app/librarian.py` `3d9aa20a55e66def29325cfe85d0056f69213807ba5c247b90c8116ac3c26a77` (4480 bytes). `app/development-workspace.json` `b6f4e13b3157416a05b102dfe8a01605e007c2608ba6b0fd06987757d2e33018` (538 bytes). `app/tests/test_entry.py` `f66f8af3834d3e3a3b7ce7ec27a18d9bf01da69858450ce354cc796f84b3008b` (35513 bytes). `app/README.md` `64a7953d726e764c81208c16eaf294aa2d76ee87cdb2b7101a5e1693547037d9` (3138 bytes). Runner source `02.run.001.py` `af207d4d4f68ddcc2c22b7b1dced081b29dcbbfa6675d152ff7efa37871dcb8c` (13805 bytes), unchanged. `02.run.002.py` `4a962d3a6edd26428b75e27ad82113708e510a1e770522d34b9e8bb11ec2b0f4` (9470 bytes), unchanged. Derived `02.run.003.py` `bbca135691ba4e873e27b9322b1ad6d79deeb59107eb7d377f7d20014067d50c` (10143 bytes). Its notes `00.kernel/00.00.01.law/0302.run/06.02.md` sha256 `6c905df87cf0599030f2d251b74b9888c34979433e4acee78ff919433e79bf7e`, 1682 bytes. Card `02.md` sha256 `95062ea60f8b923c3bda1cf603f394e54e56d961f42af13c9520031bf13bb95f` (746 bytes), unchanged. Payload `dd6a78b5a3781fe840e68950805b9838e569095d15dac3c678f00782341ed69b` (2988 bytes), unchanged.
+
+Kernel paths in the evidence commit, other than `evidence/05.02/custody.tsv`, `evidence/05.02/text-custody.tsv`, and the gitbytes transcripts, are in `evidence/05.02/custody.tsv`. The `app/` files are in `evidence/05.02/text-custody.tsv` and stay out of the `-text` attribute check. Root `README.md` and `.gitignore` were not changed. Root `README.md` still names `0504.app-entry/05.01.md` (sha256 `40be8cf57f8c2a5adb81af9b688cd494891a666b08615c06a3e7e6e0c9050a3e`, 4795 bytes).
+
+`write_contents.py --check` is `evidence/05.02/contents-check.txt`, sha256 `7047b1d4d898b9339d93f42007a4d6cc74d0105e2e778f458d0af2910206390f`, 43 bytes, and exits 2. The writer was not run. `0011.contents/01.003.md` still lists this page's 05.01 evidence and does not list `05.02.md`, `06.02.md`, `evidence/05.02/`, or `02.run.003.py`. It still lists `0505.observer-design` and omits `0503.worker-bridge`. The goal page was not edited. Finish line 2 stays partial and still describes the 05.01 return. Jobs, checker, clerk, and face are not integrated.
+
+Failures/skips/remaining risks: This suite recorded no skip and no unexpected failure. A fresh `autocrlf=true` clone was not repeated. Bytecode was kept out of the books by `-B` and `PYTHONDONTWRITEBYTECODE`. The path checks do not confine same-user Python. Normal run stays refused. Nothing is seated or activated. The adapter and the loader were not activated. `02.run.py` was not created. W-F2 stays open. F01, F04, F05, Clerk routing, and cold activation stay open. Separate Colab review remains due before integration.
+
+Visible at publication and not staged: `0502.workflow-start/05.02.md`, `0502.workflow-start/06.03.md`, `0502.workflow-start/evidence/check05.02/`, `0502.workflow-start/evidence/pack05.02/`, `labs/book-orientation-pass01/`, `0503.worker-bridge/`, `labs/worker-bridge-pass01/`, and `0505.observer-design/`. Those files were not edited. Prime's 05.01 review bytes and `evidence/prime-review-latest-2026-10-26/` are staged as found. The packed snapshot in `evidence/05.02/packed/` stays byte-exact.
+
+The entry refuses the reviewed `app/README.md` overwrite before the payload runs, and it still performs the declared fixture inventory from a designated container.
+
+Evidence commit: cf9ed917e4b0f1bab3f050216a1a7a2abc4118b2. `gitbytes.py commit` passed 36 rows in `evidence/05.02/custody.tsv` and 5 rows in `evidence/05.02/text-custody.tsv` at that revision. The manifest, and the five transcripts left out of it, match that commit's blobs. This file does not embed the hash of the commit that contains this return.
+Next work proposed, not released: integrate a real existing compute module against fixtures, then review its activation; connect the independently reviewed worker bridge.
+
+## Review — Codex Prime
+PENDING.

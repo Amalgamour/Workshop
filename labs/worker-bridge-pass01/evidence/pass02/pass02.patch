@@ -1,0 +1,1002 @@
+diff -ruN evidence/pass02/source-before/README.md evidence/pass02/source-after/README.md
+--- evidence/pass02/source-before/README.md	2026-10-26 15:47:07.362985700 -0500
++++ evidence/pass02/source-after/README.md	2026-10-26 15:52:41.354839900 -0500
+@@ -1,7 +1,7 @@
+ # Worker bridge, lab pass 01
+ 
+ **batch:** `00.kernel/00.00.10.work/0503.worker-bridge/05.01.md` (released by the Director, 2026-10-26)
+-**who:** claude-opus-5-5, Colab · **state:** lab experiment. Not runtime, not Clerk, no real model.
++**who:** claude-opus-5-5, Colab · **state:** lab experiment, pass 02 corrections applied (batch 05.02). Not runtime, not Clerk, no real model.
+ 
+ ## What it is
+ 
+@@ -14,7 +14,9 @@
+ | `bridge/` | `envelope.py`, `adapter.py` (interface and `LocalProcessAdapter`, with `recover`), `verify.py`, `canon.py`, `cli.py` |
+ | `profiles.json` | the allowlist: exact argv per profile, all test workers |
+ | `fixtures/worker_fixture.py` | the protocol test worker; behaviour chosen only by its profile's `--mode` |
+-| `tests/test_bridge.py` | 18 tests |
++| `tests/test_bridge.py` | the 18 pass 01 tests |
++| `tests/test_pass02.py` | 10 pass 02 regressions: the deadline, containment, limits, strict JSON |
++| `tests/probes_pass02.py` | reproduces the Prime's probes BR-01 to BR-03 against any source tree |
+ | `run_demo.py` | the demonstration |
+ | `evidence/` | test runs, the demonstration, the inventory, the contract before implementation, hashes |
+ | `scratch/` | test runs; ignored by the lab's `.gitignore` |
+@@ -26,6 +28,8 @@
+ ```text
+ python -B tests/test_bridge.py -v
+ python -B -X dev tests/test_bridge.py
++python -B -X dev tests/test_pass02.py -v
++python -B tests/probes_pass02.py <lab source dir> scratch/<new-name>
+ python -B run_demo.py evidence/demo-<new-name>
+ python -B -m bridge.cli status --store evidence/demo-run-01/store --delivery demo-0001
+ ```
+@@ -33,7 +37,9 @@
+ ## Limits
+ 
+ - **No sandbox.** The worker is a same-user subprocess. Path checks prove where the artifacts are, not what the process could touch.
+-- **Process cleanup:** only the direct child is killed on a timeout. Grandchildren are not (there are no Windows job objects).
++- **Deadline:** one deadline over stdin, stdout, stderr and the wait, then at most 2.0 s of cleanup. That is a bound of about `timeout_s` + 2 s plus start-up, a best effort and not real time.
++- **Process cleanup:** only the direct child is killed. Grandchildren are not (there are no Windows job objects); one that holds a pipe is recorded as incomplete cleanup.
++- **Identity:** delivery ids follow the Windows-safe rules in `docs/CONTRACT.md`; every entry point checks them and stays inside the store. That is containment, not authentication.
+ - **Concurrency:** one launcher per delivery, through an exclusive-create `launch.json`. Nothing more is supported.
+ - **Authentication:** none. The `release` field is evidence, not authority.
+ - **The receipts are lab transport evidence,** not a ledger.
+diff -ruN evidence/pass02/source-before/bridge/adapter.py evidence/pass02/source-after/bridge/adapter.py
+--- evidence/pass02/source-before/bridge/adapter.py	2026-10-26 15:47:07.017405700 -0500
++++ evidence/pass02/source-after/bridge/adapter.py	2026-10-26 15:52:40.997256000 -0500
+@@ -5,8 +5,9 @@
+ """
+ import json, os, subprocess, sys, threading, time
+ from pathlib import Path
+-from .canon import canonical, sha256, sha256_file, write_atomic, write_exclusive
++from .canon import canonical, sha256, sha256_file, strict_loads, write_atomic, write_exclusive
+ from .envelope import EnvelopeError, request_sha256, validate
++from .ids import IdentityError, store_dir
+ from . import verify
+ 
+ RECEIPT_SCHEMA = "worker-bridge/receipt@1"
+@@ -42,6 +43,82 @@
+     out.append(bytes(buf))
+ 
+ 
++CLEANUP_ALLOWANCE_S = 2.0   # after the deadline: time allowed to kill the child, reap it and stop the I/O threads
++
++
++def _write_stdin(stream, data, done, errors):
++    """Write the request and close stdin, in its own thread, so a child that never reads cannot block the
++    adapter past the deadline (05.02 #01, Prime probe BR-01)."""
++    try:
++        stream.write(data)
++        stream.flush()
++    except (OSError, ValueError) as e:
++        errors.append(f"stdin: {type(e).__name__}")
++    finally:
++        try:
++            stream.close()
++        except (OSError, ValueError):
++            pass
++        done.set()
++
++
++def _execute(argv, cwd, req_bytes, lim, t0):
++    """Run one child under ONE deadline (t0 + timeout_s) that covers writing stdin, reading stdout and stderr,
++    and waiting for exit. Overrun or an output cap kills the direct child; then at most CLEANUP_ALLOWANCE_S more
++    is spent reaping it and joining the I/O threads. Anything still running after that is recorded, not waited
++    for. This is a bounded best effort, not a real-time guarantee, and grandchildren are not killed."""
++    cleanup = {"allowance_s": CLEANUP_ALLOWANCE_S, "complete": True, "notes": []}
++    try:
++        proc = subprocess.Popen(argv, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False, cwd=cwd)
++    except OSError as e:
++        return {"transport": "launch-failed", "returncode": None, "stdout": b"", "stderr": str(e).encode(), "cleanup": cleanup}
++    outs, errs, ofl, efl, wdone, werr = [], [], threading.Event(), threading.Event(), threading.Event(), []
++    th = [threading.Thread(target=_read_capped, args=(proc.stdout, lim["max_stdout_bytes"], outs, ofl), daemon=True),
++          threading.Thread(target=_read_capped, args=(proc.stderr, lim["max_stderr_bytes"], errs, efl), daemon=True),
++          threading.Thread(target=_write_stdin, args=(proc.stdin, req_bytes, wdone, werr), daemon=True)]
++    for t in th:
++        t.start()
++    deadline = t0 + lim["timeout_s"]
++    timed_out = over = False
++    while True:
++        if ofl.is_set() or efl.is_set():
++            over = True
++            break
++        if proc.poll() is not None and wdone.is_set():
++            break
++        if time.monotonic() >= deadline:
++            timed_out = proc.poll() is None or not wdone.is_set()
++            break
++        time.sleep(0.01)
++    if (over or timed_out) and proc.poll() is None:
++        try:
++            proc.kill()
++        except OSError as e:
++            cleanup["notes"].append(f"kill: {type(e).__name__}")
++    end = time.monotonic() + CLEANUP_ALLOWANCE_S
++    try:
++        proc.wait(timeout=max(0.0, end - time.monotonic()))
++    except subprocess.TimeoutExpired:
++        cleanup["complete"] = False
++        cleanup["notes"].append("the child had not exited within the cleanup allowance")
++    for t, name in zip(th, ("stdout reader", "stderr reader", "stdin writer")):
++        t.join(timeout=max(0.0, end - time.monotonic()))
++        if t.is_alive():
++            cleanup["complete"] = False
++            cleanup["notes"].append(f"{name} still running after the cleanup allowance (a grandchild may hold the pipe)")
++    for s in (proc.stdout, proc.stderr):   # close the parent's pipe handles (pass 01 run 01 leaked them)
++        try:
++            s.close()
++        except (OSError, ValueError):
++            pass
++    cleanup["notes"] += werr
++    out, err = (outs[0] if outs else b""), (errs[0] if errs else b"")
++    over = over or ofl.is_set() or efl.is_set()
++    rc = proc.returncode
++    transport = "timeout" if timed_out else "output-limit" if over else "crashed" if rc not in (0, None) else "delivered"
++    return {"transport": transport, "returncode": rc, "stdout": out, "stderr": err, "cleanup": cleanup}
++
++
+ class LocalProcessAdapter(Adapter):
+     def __init__(self, store, profiles, lab_root):
+         """store: folder for per-delivery records. profiles: {name: {"kind", "argv"}}; argv[0] may be
+@@ -52,12 +129,22 @@
+ 
+     # ---------- persistence ----------
+     def _dir(self, delivery_id):
+-        return self.store / delivery_id
++        """Every entry point (deliver, status, recover, and the CLI through them) gets its folder here: the
++        shared identity rules and resolved containment in the store (05.02 #02)."""
++        return store_dir(self.store, delivery_id)
++
++    @staticmethod
++    def _id_refusal(delivery_id, e):
++        return {"delivery_id": delivery_id if isinstance(delivery_id, str) else None, "state": "refused", "transport": "refused",
++                "reason": f"delivery_id: {e}", "launched": False, "review": "not performed"}
+ 
+     def status(self, delivery_id):
+-        d = self._dir(delivery_id)
++        try:
++            d = self._dir(delivery_id)
++        except IdentityError as e:
++            return self._id_refusal(delivery_id, e)
+         if (d / "receipt.json").is_file():
+-            return json.loads((d / "receipt.json").read_bytes())
++            return strict_loads((d / "receipt.json").read_bytes())
+         if (d / "launch.json").is_file():
+             return {"delivery_id": delivery_id, "state": "uncertain",
+                     "reason": "launched, no receipt: the earlier attempt's outcome is unknown; not relaunched"}
+@@ -79,7 +166,10 @@
+         prof = self.profiles.get(env["backend"])
+         if prof is None:
+             return self._refusal(env, req_sha, f"backend {env['backend']!r} is not an allowlisted profile")
+-        d = self._dir(env["delivery_id"])
++        try:
++            d = self._dir(env["delivery_id"])
++        except IdentityError as e:
++            return self._refusal(env, req_sha, f"delivery_id: {e}")
+         d.mkdir(parents=True, exist_ok=True)
+         req_bytes = canonical(env)
+         rq = d / "request.json"
+@@ -89,7 +179,7 @@
+         else:
+             write_atomic(rq, req_bytes)
+         if (d / "receipt.json").is_file():
+-            rec = json.loads((d / "receipt.json").read_bytes())
++            rec = strict_loads((d / "receipt.json").read_bytes())
+             rec["replayed"] = True          # the same request again: nothing is relaunched or applied twice
+             return rec
+         if (d / "launch.json").exists():
+@@ -106,53 +196,16 @@
+         att.mkdir(exist_ok=True)
+         lim = env["limits"]
+         t0 = time.monotonic()
+-        try:
+-            proc = subprocess.Popen(argv, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False,
+-                                    cwd=str(Path(env["output_root"])))
+-        except OSError as e:
+-            transport, rc, out, err, over = "launch-failed", None, b"", str(e).encode(), False
+-        else:
+-            outs, errs, ofl, efl = [], [], threading.Event(), threading.Event()
+-            th = [threading.Thread(target=_read_capped, args=(proc.stdout, lim["max_stdout_bytes"], outs, ofl), daemon=True),
+-                  threading.Thread(target=_read_capped, args=(proc.stderr, lim["max_stderr_bytes"], errs, efl), daemon=True)]
+-            for t in th:
+-                t.start()
+-            try:
+-                proc.stdin.write(req_bytes)
+-                proc.stdin.close()
+-            except OSError:
+-                pass
+-            timed_out, over = False, False
+-            deadline = t0 + lim["timeout_s"]
+-            while proc.poll() is None:
+-                if ofl.is_set() or efl.is_set():
+-                    over = True
+-                    proc.kill()
+-                    break
+-                if time.monotonic() > deadline:
+-                    timed_out = True
+-                    proc.kill()
+-                    break
+-                time.sleep(0.02)
+-            proc.wait()
+-            for t in th:
+-                t.join(timeout=5)
+-            for s in (proc.stdout, proc.stderr):   # close the parent's pipe handles (run 01 leaked them)
+-                try:
+-                    s.close()
+-                except OSError:
+-                    pass
+-            out, err = (outs[0] if outs else b""), (errs[0] if errs else b"")
+-            over = over or ofl.is_set() or efl.is_set()
+-            rc = proc.returncode
+-            transport = "timeout" if timed_out else "output-limit" if over else "crashed" if rc != 0 else "delivered"
++        x = _execute(argv, str(Path(env["output_root"])), req_bytes, lim, t0)
++        transport, rc, out, err = x["transport"], x["returncode"], x["stdout"], x["stderr"]
+         dur = round(time.monotonic() - t0, 3)
+         (att / "stdout.bin").write_bytes(out)
+         (att / "stderr.bin").write_bytes(err)
+-        write_atomic(att / "exit.json", canonical({"returncode": rc, "duration_s": dur, "transport": transport}))
++        write_atomic(att / "exit.json", canonical({"returncode": rc, "duration_s": dur, "transport": transport, "cleanup": x["cleanup"]}))
+         if _test_crash_before_receipt:
+             raise StoreError("simulated crash after the process, before the receipt")
+         rec = self._receipt(env, req_sha, prof, out, err, rc, dur, transport)
++        rec["cleanup"] = x["cleanup"]
+         write_atomic(d / "receipt.json", canonical(rec), fail_before_replace=_test_crash_in_receipt)
+         return rec
+ 
+@@ -186,16 +239,19 @@
+     def recover(self, delivery_id):
+         """Rebuild a missing receipt from the recorded attempt, without relaunching. Only possible when the
+         attempt finished and its exit record exists; otherwise the delivery stays uncertain."""
+-        d = self._dir(delivery_id)
++        try:
++            d = self._dir(delivery_id)
++        except IdentityError as e:
++            return {**self._id_refusal(delivery_id, e), "recovered": False}
+         if (d / "receipt.json").is_file():
+-            return json.loads((d / "receipt.json").read_bytes())
++            return strict_loads((d / "receipt.json").read_bytes())
+         need = [d / "request.json", d / "launch.json", d / "attempt" / "exit.json", d / "attempt" / "stdout.bin", d / "attempt" / "stderr.bin"]
+         if not all(x.is_file() for x in need):
+             return {**self.status(delivery_id), "transport": "uncertain", "recovered": False,
+                     "reason": "the attempt was not fully recorded; outcome unknown; not relaunched"}
+-        env = json.loads((d / "request.json").read_bytes())
+-        launch = json.loads((d / "launch.json").read_bytes())
+-        ex = json.loads((d / "attempt" / "exit.json").read_bytes())
++        env = strict_loads((d / "request.json").read_bytes())
++        launch = strict_loads((d / "launch.json").read_bytes())
++        ex = strict_loads((d / "attempt" / "exit.json").read_bytes())
+         req_sha = request_sha256(env)
+         if launch["request_sha256"] != req_sha:
+             raise StoreError("the stored request does not match its launch record")
+@@ -203,5 +259,6 @@
+         rec = self._receipt(env, req_sha, prof, (d / "attempt" / "stdout.bin").read_bytes(), (d / "attempt" / "stderr.bin").read_bytes(),
+                             ex["returncode"], ex["duration_s"], ex["transport"])
+         rec["recovered"] = True
++        rec["cleanup"] = ex.get("cleanup")
+         write_atomic(d / "receipt.json", canonical(rec))
+         return rec
+diff -ruN evidence/pass02/source-before/bridge/canon.py evidence/pass02/source-after/bridge/canon.py
+--- evidence/pass02/source-before/bridge/canon.py	2026-10-26 15:47:07.055413200 -0500
++++ evidence/pass02/source-after/bridge/canon.py	2026-10-26 15:52:41.035265000 -0500
+@@ -4,7 +4,33 @@
+ 
+ 
+ def canonical(value):
+-    return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
++    """Canonical JSON bytes. NaN and Infinity are refused (allow_nan=False): they are not JSON (05.02 #03)."""
++    return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False, allow_nan=False).encode("utf-8")
++
++
++class StrictJSONError(ValueError):
++    pass
++
++
++def _reject_constant(name):
++    raise StrictJSONError(f"non-standard JSON number {name}")
++
++
++def _no_duplicates(pairs):
++    out = {}
++    for k, v in pairs:
++        if k in out:
++            raise StrictJSONError(f"duplicate key {k!r}")
++        out[k] = v
++    return out
++
++
++def strict_loads(data):
++    """Parse one JSON value from UTF-8 bytes or text, refusing NaN, Infinity, -Infinity and duplicate keys,
++    which Python's json module otherwise accepts (05.02 #03)."""
++    if isinstance(data, (bytes, bytearray)):
++        data = bytes(data).decode("utf-8")
++    return json.loads(data, parse_constant=_reject_constant, object_pairs_hook=_no_duplicates)
+ 
+ 
+ def sha256(data):
+diff -ruN evidence/pass02/source-before/bridge/cli.py evidence/pass02/source-after/bridge/cli.py
+--- evidence/pass02/source-before/bridge/cli.py	2026-10-26 15:47:07.093422400 -0500
++++ evidence/pass02/source-after/bridge/cli.py	2026-10-26 15:52:41.074273700 -0500
+@@ -3,14 +3,23 @@
+   python -B -m bridge.cli deliver --store S --request R      # R is a request.json; prints the receipt
+   python -B -m bridge.cli status  --store S --delivery D     # a fresh process reads the recorded state
+   python -B -m bridge.cli recover --store S --delivery D     # rebuild a missing receipt, never relaunch
++
++The request file is read with the strict loader (no NaN or Infinity, no duplicate keys). A delivery id is checked
++by the same rules as the library (bridge/ids.py) before any file is touched. Exit 0, or 2 on a refusal.
+ """
+ import argparse, json, sys
+ from pathlib import Path
+ from .adapter import LocalProcessAdapter
++from .canon import StrictJSONError, strict_loads
+ 
+ LAB = Path(__file__).resolve().parents[1]
+ 
+ 
++def refuse(reason):
++    print(json.dumps({"transport": "refused", "reason": reason, "launched": False, "review": "not performed"}, indent=1, sort_keys=True))
++    sys.exit(2)
++
++
+ def main():
+     ap = argparse.ArgumentParser()
+     ap.add_argument("cmd", choices=("deliver", "status", "recover"))
+@@ -18,16 +27,22 @@
+     ap.add_argument("--request")
+     ap.add_argument("--delivery")
+     a = ap.parse_args()
+-    profiles = {k: v for k, v in json.loads((LAB / "profiles.json").read_text(encoding="utf-8")).items() if not k.startswith("_")}
++    profiles = {k: v for k, v in strict_loads((LAB / "profiles.json").read_bytes()).items() if not k.startswith("_")}
+     ad = LocalProcessAdapter(a.store, profiles, LAB)
+     if a.cmd == "deliver":
+-        out = ad.deliver(json.loads(Path(a.request).read_bytes()))
+-    elif a.cmd == "status":
+-        out = ad.status(a.delivery)
++        if not a.request:
++            refuse("deliver needs --request")
++        try:
++            env = strict_loads(Path(a.request).read_bytes())
++        except (OSError, UnicodeDecodeError, json.JSONDecodeError, StrictJSONError) as e:
++            refuse(f"request file: {type(e).__name__}: {e}")
++        out = ad.deliver(env)
+     else:
+-        out = ad.recover(a.delivery)
++        if a.delivery is None:
++            refuse(f"{a.cmd} needs --delivery")
++        out = ad.status(a.delivery) if a.cmd == "status" else ad.recover(a.delivery)
+     print(json.dumps(out, indent=1, sort_keys=True))
+-    sys.exit(0 if out.get("transport") not in ("refused",) else 2)
++    sys.exit(2 if out.get("transport") == "refused" else 0)
+ 
+ 
+ if __name__ == "__main__":
+diff -ruN evidence/pass02/source-before/bridge/envelope.py evidence/pass02/source-after/bridge/envelope.py
+--- evidence/pass02/source-before/bridge/envelope.py	2026-10-26 15:47:07.131430400 -0500
++++ evidence/pass02/source-after/bridge/envelope.py	2026-10-26 15:52:41.114282100 -0500
+@@ -1,7 +1,8 @@
+ """Request envelope: shape, identity and input checks. Validation proves well-formedness, not authority."""
+-import re
++import math, re
+ from pathlib import Path, PurePosixPath
+ from .canon import canonical, sha256, sha256_file
++from . import ids
+ 
+ SCHEMA = "worker-bridge/request@1"
+ ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,79}$")
+@@ -13,6 +14,24 @@
+     pass
+ 
+ 
++MAX_TIMEOUT_S = 3600          # lab ceiling: one hour
++MAX_CAPTURE_BYTES = 64 * 1024 * 1024   # lab ceiling per stream: 64 MiB
++
++
++def check_limits(lim):
++    """timeout_s: an int or float, not a bool, finite, 0 < t <= MAX_TIMEOUT_S.
++    max_stdout_bytes, max_stderr_bytes: an int, not a bool, 1 <= n <= MAX_CAPTURE_BYTES (05.02 #03)."""
++    if not isinstance(lim, dict) or set(lim) != LIMITS:
++        raise EnvelopeError("limits must be exactly {timeout_s, max_stdout_bytes, max_stderr_bytes}")
++    t = lim["timeout_s"]
++    if isinstance(t, bool) or not isinstance(t, (int, float)) or not math.isfinite(t) or not 0 < t <= MAX_TIMEOUT_S:
++        raise EnvelopeError(f"timeout_s must be a finite number with 0 < timeout_s <= {MAX_TIMEOUT_S}, not {t!r}")
++    for k in ("max_stdout_bytes", "max_stderr_bytes"):
++        v = lim[k]
++        if isinstance(v, bool) or not isinstance(v, int) or not 1 <= v <= MAX_CAPTURE_BYTES:
++            raise EnvelopeError(f"{k} must be an integer with 1 <= {k} <= {MAX_CAPTURE_BYTES}, not {v!r}")
++
++
+ def request_sha256(env):
+     return sha256(canonical(env))
+ 
+@@ -39,15 +58,16 @@
+         raise EnvelopeError(f"envelope fields: missing {sorted(missing)}, unknown {sorted(extra)}")
+     if env["schema"] != SCHEMA:
+         raise EnvelopeError(f"schema is not {SCHEMA}")
+-    for k in ("delivery_id", "job_id"):
+-        if not isinstance(env[k], str) or not ID.match(env[k]):
+-            raise EnvelopeError(f"{k} is not a plain identifier")
++    try:
++        ids.check(env["delivery_id"])
++    except ids.IdentityError as e:
++        raise EnvelopeError(str(e))
++    if not isinstance(env["job_id"], str) or not ID.match(env["job_id"]):
++        raise EnvelopeError("job_id is not a plain identifier")
+     for k in ("role", "work_ref", "backend", "input_root", "output_root"):
+         if not isinstance(env[k], str) or not env[k]:
+             raise EnvelopeError(f"{k} is empty")
+-    lim = env["limits"]
+-    if not isinstance(lim, dict) or set(lim) != LIMITS or not all(isinstance(lim[k], (int, float)) and lim[k] > 0 for k in LIMITS):
+-        raise EnvelopeError("limits must give positive timeout_s, max_stdout_bytes, max_stderr_bytes")
++    check_limits(env["limits"])
+     if not isinstance(env["release"], dict) or set(env["release"]) != {"by", "ref"}:
+         raise EnvelopeError("release must be {by, ref}")
+     ins = env["inputs"]
+diff -ruN evidence/pass02/source-before/bridge/ids.py evidence/pass02/source-after/bridge/ids.py
+--- evidence/pass02/source-before/bridge/ids.py	1969-12-31 18:00:00.000000000 -0600
++++ evidence/pass02/source-after/bridge/ids.py	2026-10-26 15:52:41.473210400 -0500
+@@ -0,0 +1,53 @@
++"""Delivery identity and control-plane path containment (05.02 #02). Containment, not authentication.
++
++Windows identifier rules for a delivery_id (it becomes a folder name under the store):
++  - a str of 1 to 64 characters;
++  - lowercase ASCII letters, digits, '.', '_' and '-' only, so two ids can never name the same folder on a
++    case-insensitive file system;
++  - starts and ends with a letter or digit, so there is no leading dot and no trailing dot or space (Windows
++    silently drops those, which would alias two ids);
++  - no '..' anywhere;
++  - the part before the first '.' is not a reserved device name (con, prn, aux, nul, com1-com9, lpt1-lpt9).
++A path separator, drive letter, colon, absolute path or traversal therefore cannot be an id.
++"""
++import os, re, stat
++from pathlib import Path
++
++PATTERN = re.compile(r"^[a-z0-9](?:[a-z0-9._-]{0,62}[a-z0-9])?$")
++RESERVED = {"con", "prn", "aux", "nul"} | {f"com{i}" for i in range(1, 10)} | {f"lpt{i}" for i in range(1, 10)}
++REPARSE = getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400)
++
++
++class IdentityError(Exception):
++    pass
++
++
++def check(delivery_id):
++    if not isinstance(delivery_id, str):
++        raise IdentityError(f"delivery_id is not text ({type(delivery_id).__name__})")
++    if not PATTERN.match(delivery_id) or ".." in delivery_id:
++        raise IdentityError(f"delivery_id {delivery_id!r} breaks the identifier rules (lowercase a-z 0-9 . _ -, 1-64 chars, "
++                            "letter or digit at both ends, no '..')")
++    if delivery_id.split(".")[0] in RESERVED:
++        raise IdentityError(f"delivery_id {delivery_id!r} is a reserved Windows device name")
++    return delivery_id
++
++
++def _is_link(p):
++    try:
++        st = os.lstat(p)
++    except FileNotFoundError:
++        return False
++    return stat.S_ISLNK(st.st_mode) or bool(getattr(st, "st_file_attributes", 0) & REPARSE)
++
++
++def store_dir(store, delivery_id):
++    """The per-delivery folder, after the id rules and a resolved-containment check. Touches nothing."""
++    check(delivery_id)
++    root = Path(store).resolve()
++    d = root / delivery_id
++    if _is_link(d):
++        raise IdentityError(f"the delivery folder {delivery_id!r} is a link or reparse point")
++    if os.path.lexists(d) and d.resolve().parent != root:
++        raise IdentityError(f"the delivery folder {delivery_id!r} resolves outside the store")
++    return d
+diff -ruN evidence/pass02/source-before/bridge/verify.py evidence/pass02/source-after/bridge/verify.py
+--- evidence/pass02/source-before/bridge/verify.py	2026-10-26 15:47:07.170438900 -0500
++++ evidence/pass02/source-after/bridge/verify.py	2026-10-26 15:52:41.153291300 -0500
+@@ -1,7 +1,7 @@
+ """Result verifier: shape, correlation with the request, and artifact bytes inside the output root."""
+ import json, os, stat
+ from pathlib import Path, PurePosixPath
+-from .canon import sha256_file
++from .canon import StrictJSONError, sha256_file, strict_loads
+ from .envelope import safe_rel
+ 
+ SCHEMA = "worker-bridge/result@1"
+@@ -24,9 +24,11 @@
+     except UnicodeDecodeError:
+         return None, "stdout is not UTF-8"
+     try:
+-        res = json.loads(text)
++        res = strict_loads(text)
+     except json.JSONDecodeError as e:
+         return None, f"stdout is not one JSON value ({e.msg})"
++    except StrictJSONError as e:
++        return None, f"stdout is not strict JSON ({e})"
+     if not isinstance(res, dict) or set(res) != FIELDS:
+         return None, "result fields are not exactly " + ", ".join(sorted(FIELDS))
+     if res["schema"] != SCHEMA:
+diff -ruN evidence/pass02/source-before/docs/CONTRACT.md evidence/pass02/source-after/docs/CONTRACT.md
+--- evidence/pass02/source-before/docs/CONTRACT.md	2026-10-26 15:47:07.323977800 -0500
++++ evidence/pass02/source-after/docs/CONTRACT.md	2026-10-26 15:52:41.237310000 -0500
+@@ -29,14 +29,14 @@
+ | Field | Meaning |
+ |---|---|
+ | `schema` | `worker-bridge/request@1` |
+-| `delivery_id` | identity of this delivery; unique per attempt-at-work |
++| `delivery_id` | identity of this delivery; unique per attempt-at-work. It becomes a folder name, so it follows the identifier rules in "Delivery identity" below (pass 02). |
+ | `job_id` | the job the delivery belongs to |
+ | `role` | the intended role (`builder`, `colab`, …), as data only |
+ | `work_ref` | reference to the work item, for example `00.kernel/00.00.10.work/0503.worker-bridge/05.01.md#02` |
+ | `inputs` | list of `{name, path, sha256, bytes}`. Paths are relative to the declared input root. |
+ | `input_root` | the folder the worker may read |
+ | `output_root` | the folder the worker may write; artifacts must land inside it |
+-| `limits` | `{timeout_s, max_stdout_bytes, max_stderr_bytes}` |
++| `limits` | `{timeout_s, max_stdout_bytes, max_stderr_bytes}`, the only keys. `timeout_s` is an int or float, not a bool, finite, with 0 < t ≤ 3600. Each byte cap is an int, not a bool, with 1 ≤ n ≤ 67108864 (64 MiB). Anything else is refused before launch (pass 02). |
+ | `release` | `{by, ref}`, recorded as evidence of who released it. **Not proof of authorization:** authority comes from the supplying system's validated release, and the adapter does not trust a field that says `approved`. |
+ | `backend` | the name of a configured backend profile, never a command line |
+ 
+@@ -64,7 +64,7 @@
+ ## Local-process implementation
+ 
+ - Launch with an argv list (no shell), the request on stdin as JSON, stdout as the single result JSON, and stderr as diagnostics.
+-- Both streams are read concurrently and capped. Time is limited, and the child is killed on overrun.
++- **One deadline** (`t0 + timeout_s`) covers writing stdin, reading stdout and stderr, and waiting for exit. Each of the three streams has its own thread, so a child that never reads its stdin cannot hold the adapter (pass 02). On overrun, or when a cap is exceeded, the direct child is killed. Then at most `CLEANUP_ALLOWANCE_S` (2.0 s) more is spent reaping it and joining the threads. Anything still running after that is recorded in `exit.json` and the receipt (`cleanup.complete: false`, with notes) and is not waited for. So the wall-clock bound is about `timeout_s` + 2.0 s, plus process start-up. It is a bounded best effort on a same-user process, not a real-time guarantee. A grandchild that keeps a pipe open is not killed; it can keep a reader thread alive past the allowance, and that is recorded.
+ - **Persistence, one folder per delivery:**
+ 
+   ```text
+@@ -108,6 +108,22 @@
+ 
+ It is lab transport evidence. It is not a production ledger, and not a second authority for the work's state.
+ 
++## Delivery identity and store containment (pass 02)
++
++Every entry point (`deliver`, `status`, `recover`, and the CLI through them) gets its per-delivery folder from one function, `bridge/ids.py:store_dir`. It applies the identifier rules before any file is touched, then checks that the folder is not a link or reparse point and that it resolves directly inside the store. A refusal is a normal result with `transport: refused`, never an outside read or write, and never an uncaught path error.
++
++**Identifier rules** (Windows-safe, because the id is a folder name):
++- 1 to 64 characters: lowercase ASCII letters, digits, `.`, `_` and `-`;
++- a letter or digit at both ends, so no leading dot and no trailing dot or space (Windows drops those);
++- no `..`;
++- the part before the first `.` is not a reserved device name (`con`, `prn`, `aux`, `nul`, `com1`–`com9`, `lpt1`–`lpt9`).
++
++Lowercase only, so two ids can never name the same folder on a case-insensitive file system. This is containment, not authentication.
++
++## Strict JSON (pass 02)
++
++Messages (requests read by the CLI, worker results, and the adapter's own stored records) are parsed by `canon.strict_loads`. It refuses `NaN`, `Infinity`, `-Infinity` and duplicate keys, which Python's `json` module otherwise accepts silently: a duplicate key would keep the last value. `canonical()` refuses to encode NaN or Infinity.
++
+ ## Confinement limits (stated, not solved)
+ 
+ The worker is a same-user subprocess. Path checks on the result prove where the artifacts **are**, not what the process could touch. It can read and write anything the user can. There is no OS sandbox, no network control, and no process-tree kill on Windows: only the direct child is killed. Real model workers must bring their own confinement (for example `claude --restricted`, or `grok --sandbox`), and that is outside this lab.
+@@ -129,3 +145,15 @@
+ | R7 | An existing `launch.json` from someone else (exclusive create failed, or found before launch) is reported `uncertain`, not relaunched. | Basic protection against two launchers on one filesystem. It is not a lock manager. |
+ 
+ Unchanged from the design: the envelope fields, the result fields, the error kinds, the receipt's separate transport, outcome, collection and review statements, and the confinement limits.
++
++## Pass 02 corrections (Prime review of 05.01: BR-01, BR-02, BR-03)
++
++| # | Change | Why |
++|---|---|---|
++| R8 | The stdin write moved into its own thread under the single deadline, with a documented 2.0 s cleanup allowance and a `cleanup` record in `exit.json` and the receipt. | BR-01: the synchronous `proc.stdin.write` ran before the timeout loop; a child that never read stdin held the adapter about 3.05 s against a 0.2 s timeout. |
++| R9 | `bridge/ids.py`: one identity and containment check for every entry; stricter delivery-id rules (lowercase, no trailing dot, no reserved names). | BR-02: `status` and `recover` joined an unchecked id to the store and read `../outside/receipt.json`. |
++| R10 | `check_limits`: finite, typed, bounded limits; lab ceilings of 3600 s and 64 MiB. | BR-03: infinity, fractional byte caps and bools were accepted. |
++| R11 | Strict JSON for messages; canonical encoding refuses NaN and Infinity. | Nonstandard numbers or duplicate keys could hide a bad limit, or change a result's meaning. |
++| R12 | New protocol test workers: `no-stdin-reader` (self-terminates after 10 s), `flood-stderr`, `dup-keys`. | Regression fixtures for R8 and R11, and the stderr cap. |
++
++Pass 01's statement "Time is limited, and the child is killed on overrun" was overbroad: it did not cover stdin. It is replaced above.
+diff -ruN evidence/pass02/source-before/fixtures/worker_fixture.py evidence/pass02/source-after/fixtures/worker_fixture.py
+--- evidence/pass02/source-before/fixtures/worker_fixture.py	2026-10-26 15:47:07.209448500 -0500
++++ evidence/pass02/source-after/fixtures/worker_fixture.py	2026-10-26 15:52:41.276318500 -0500
+@@ -15,8 +15,14 @@
+ def main():
+     ap = argparse.ArgumentParser()
+     ap.add_argument("--mode", required=True, choices=["ok", "crash", "sleep", "garbage", "partial", "flood", "wrong-id",
+-                                                       "missing-artifact", "bad-hash", "escape", "bad-shape"])
++                                                       "missing-artifact", "bad-hash", "escape", "bad-shape",
++                                                       "no-stdin-reader", "flood-stderr", "dup-keys"])
+     mode = ap.parse_args().mode
++    if mode == "no-stdin-reader":   # never reads stdin; exits by itself after 10 s so a regression cannot hang a suite
++        with open("launches.log", "a", encoding="utf-8") as f:   # its working directory is the output root
++            f.write("(stdin not read) no-stdin-reader\n")
++        time.sleep(10)
++        return
+     env = json.loads(sys.stdin.buffer.read().decode("utf-8"))
+     req_sha = hashlib.sha256(canonical(env)).hexdigest()
+     with open(Path(env["output_root"]) / "launches.log", "a", encoding="utf-8") as f:   # lets tests count real launches
+@@ -27,6 +33,10 @@
+     if mode == "sleep":
+         Path(env["output_root"], "started.marker").write_text("work started before the timeout\n", encoding="utf-8")
+         time.sleep(30)
++    if mode == "flood-stderr":
++        sys.stderr.write("e" * 5_000_000)
++        sys.stderr.flush()
++        return
+     if mode == "flood":
+         sys.stdout.write("x" * 5_000_000)
+         sys.stdout.flush()
+@@ -56,6 +66,9 @@
+         res["delivery_id"] = "someone-else"
+     if mode == "bad-shape":
+         res["outcome"] = "approved"
++    if mode == "dup-keys":   # the same key twice: Python would keep the last; the strict reader refuses
++        sys.stdout.write(json.dumps(res)[:-1] + ', "outcome": "failed"}')
++        return
+     sys.stdout.write(json.dumps(res))
+ 
+ 
+diff -ruN evidence/pass02/source-before/profiles.json evidence/pass02/source-after/profiles.json
+--- evidence/pass02/source-before/profiles.json	2026-10-26 15:47:07.246959700 -0500
++++ evidence/pass02/source-after/profiles.json	2026-10-26 15:52:41.315327300 -0500
+@@ -10,5 +10,8 @@
+   "fixture-missing-artifact": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "missing-artifact"]},
+   "fixture-bad-hash": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "bad-hash"]},
+   "fixture-escape": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "escape"]},
+-  "fixture-bad-shape": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "bad-shape"]}
++  "fixture-bad-shape": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "bad-shape"]},
++  "fixture-no-stdin-reader": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "no-stdin-reader"]},
++  "fixture-flood-stderr": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "flood-stderr"]},
++  "fixture-dup-keys": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "dup-keys"]}
+ }
+diff -ruN evidence/pass02/source-before/tests/_deliver_driver.py evidence/pass02/source-after/tests/_deliver_driver.py
+--- evidence/pass02/source-before/tests/_deliver_driver.py	1969-12-31 18:00:00.000000000 -0600
++++ evidence/pass02/source-after/tests/_deliver_driver.py	2026-10-26 15:52:41.551218900 -0500
+@@ -0,0 +1,19 @@
++"""Test helper: deliver one request file in a separate process and print the elapsed time and receipt as JSON.
++Runs inside the test's outer watchdog (subprocess timeout), so a regression in the deadline cannot hang the suite.
++
++  python -B tests/_deliver_driver.py <store> <request.json>
++"""
++import json, sys, time
++from pathlib import Path
++
++LAB = Path(__file__).resolve().parents[1]
++sys.path.insert(0, str(LAB))
++from bridge.adapter import LocalProcessAdapter  # noqa: E402
++from bridge.canon import strict_loads  # noqa: E402
++
++profiles = {k: v for k, v in strict_loads((LAB / "profiles.json").read_bytes()).items() if not k.startswith("_")}
++env = strict_loads(Path(sys.argv[2]).read_bytes())
++ad = LocalProcessAdapter(sys.argv[1], profiles, LAB)
++t = time.monotonic()
++rec = ad.deliver(env)
++print(json.dumps({"elapsed_s": round(time.monotonic() - t, 3), "receipt": rec}))
+diff -ruN evidence/pass02/source-before/tests/probes_pass02.py evidence/pass02/source-after/tests/probes_pass02.py
+--- evidence/pass02/source-before/tests/probes_pass02.py	1969-12-31 18:00:00.000000000 -0600
++++ evidence/pass02/source-after/tests/probes_pass02.py	2026-10-26 15:52:41.589734500 -0500
+@@ -0,0 +1,60 @@
++"""Reproduce Prime review probes BR-01, BR-02 and BR-03 against one lab source tree, inside lab scratch only.
++
++  python -B tests/probes_pass02.py <lab source dir> <scratch dir>     -> prints one JSON object
++
++BR-01: a child that never reads stdin, a valid ~1 MB envelope, timeout 0.2 s (Prime's settings).
++BR-02: status('../outside') and recover('../outside') against a sentinel receipt outside the store.
++BR-03: validate() with an infinite timeout, a fractional byte cap and bool limits.
++The child is a self-terminating script written into the scratch copy (sleep 3, never reads stdin).
++"""
++import json, os, shutil, subprocess, sys, time
++from pathlib import Path
++
++src, scratch = Path(sys.argv[1]).resolve(), Path(sys.argv[2]).resolve()
++if scratch.exists():
++    sys.exit(f"stop: {scratch} exists")
++copy = scratch / "lab"
++shutil.copytree(src, copy, ignore=shutil.ignore_patterns("scratch", "evidence", "__pycache__"))
++(copy / "fixtures" / "noread_probe.py").write_text("import time\ntime.sleep(3)\n", encoding="utf-8")
++sys.path.insert(0, str(copy))
++from bridge.adapter import LocalProcessAdapter  # noqa: E402
++from bridge.canon import canonical  # noqa: E402
++from bridge.envelope import validate  # noqa: E402
++
++inp, out, store, outside = (scratch / n for n in ("in", "out", "store", "outside"))
++for d in (inp, out, store, outside):
++    d.mkdir(parents=True)
++(inp / "i.txt").write_bytes(b"x\n")
++(outside / "receipt.json").write_bytes(b'{"sentinel":"outside the configured store"}')
++import hashlib  # noqa: E402
++base = {"schema": "worker-bridge/request@1", "delivery_id": "probe-timeout", "job_id": "probe", "role": "builder", "work_ref": "probe",
++        "inputs": [{"name": "i", "path": "i.txt", "sha256": hashlib.sha256(b"x\n").hexdigest(), "bytes": 2}],
++        "input_root": str(inp), "output_root": str(out), "limits": {"timeout_s": 0.2, "max_stdout_bytes": 1000, "max_stderr_bytes": 1000},
++        "release": {"by": "probe", "ref": "probe"}, "backend": "fixture-noread"}
++result = {"source": str(src)}
++
++ad = LocalProcessAdapter(store, {"fixture-noread": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/noread_probe.py"]}}, copy)
++for name, call in (("status", ad.status), ("recover", ad.recover)):
++    try:
++        r = call("../outside")
++        result[f"BR-02 {name}('../outside')"] = "READ OUTSIDE THE STORE" if "sentinel" in json.dumps(r) else f"no outside read: {r.get('transport') or r.get('state')}"
++    except Exception as e:
++        result[f"BR-02 {name}('../outside')"] = f"raised {type(e).__name__} (no outside read)"
++result["BR-02 sentinel unchanged"] = (outside / "receipt.json").read_bytes() == b'{"sentinel":"outside the configured store"}'
++
++for name, lim in (("infinite timeout", {"timeout_s": float("inf"), "max_stdout_bytes": 1000, "max_stderr_bytes": 1000}),
++                  ("fractional byte cap", {"timeout_s": 1, "max_stdout_bytes": 1.5, "max_stderr_bytes": 1000}),
++                  ("bool limits", {"timeout_s": True, "max_stdout_bytes": True, "max_stderr_bytes": True})):
++    try:
++        validate(dict(base, limits=lim))
++        result[f"BR-03 {name}"] = "ACCEPTED"
++    except Exception as e:
++        result[f"BR-03 {name}"] = f"refused: {e}"
++
++big = dict(base, work_ref="x" * 1_000_000)
++t = time.monotonic()
++r = ad.deliver(big)
++result["BR-01 elapsed_s"] = round(time.monotonic() - t, 3)
++result["BR-01 transport"] = r.get("transport")
++result["BR-01 configured_timeout_s"] = 0.2
++print(json.dumps(result, indent=1))
+diff -ruN evidence/pass02/source-before/tests/test_pass02.py evidence/pass02/source-after/tests/test_pass02.py
+--- evidence/pass02/source-before/tests/test_pass02.py	1969-12-31 18:00:00.000000000 -0600
++++ evidence/pass02/source-after/tests/test_pass02.py	2026-10-26 15:52:41.504660600 -0500
+@@ -0,0 +1,210 @@
++"""Batch 0503.worker-bridge/05.02 regressions: one deadline over all child I/O (#01), delivery-id and store
++containment at every entry (#02), finite usable numeric limits and strict JSON (#03).
++PROTOCOL TEST WORKERS only. Every run lives under scratch/tests-pass02/ (ignored).
++
++  python -B -X dev tests/test_pass02.py -v        (from the lab folder)
++"""
++import hashlib, json, math, os, subprocess, sys, tempfile, time, unittest
++from pathlib import Path
++
++LAB = Path(__file__).resolve().parents[1]
++sys.path.insert(0, str(LAB))
++from bridge.adapter import CLEANUP_ALLOWANCE_S, LocalProcessAdapter, StoreError  # noqa: E402
++from bridge.canon import StrictJSONError, canonical, strict_loads  # noqa: E402
++from bridge.envelope import MAX_CAPTURE_BYTES, MAX_TIMEOUT_S  # noqa: E402
++
++SCRATCH = LAB / "scratch" / "tests-pass02"
++PROFILES = {k: v for k, v in strict_loads((LAB / "profiles.json").read_bytes()).items() if not k.startswith("_")}
++TEXT = "alpha\n\n  \nbeta\n\tgamma\n".encode("utf-8")
++SPAWN_MARGIN_S = 1.5   # documented allowance for process start-up on this machine, on top of the cleanup allowance
++
++
++class Base(unittest.TestCase):
++    def setUp(self):
++        SCRATCH.mkdir(parents=True, exist_ok=True)
++        self.base = Path(tempfile.mkdtemp(prefix=self._testMethodName[:24] + "-", dir=SCRATCH))
++        self.inp, self.out, self.store, self.outside = (self.base / n for n in ("in", "out", "store", "outside"))
++        for d in (self.inp, self.out, self.store, self.outside):
++            d.mkdir()
++        (self.inp / "input.txt").write_bytes(TEXT)
++        self.sentinel = self.outside / "receipt.json"
++        self.sentinel.write_bytes(b'{"sentinel":"outside the configured store"}')
++        self.sentinel_hash = hashlib.sha256(self.sentinel.read_bytes()).hexdigest()
++        self.ad = LocalProcessAdapter(self.store, PROFILES, LAB)
++
++    def env(self, backend="fixture-ok", delivery="d-001", limits=None, **over):
++        e = {"schema": "worker-bridge/request@1", "delivery_id": delivery, "job_id": "job-count-lines", "role": "builder",
++             "work_ref": "00.kernel/00.00.10.work/0503.worker-bridge/05.02.md",
++             "inputs": [{"name": "text", "path": "input.txt", "sha256": hashlib.sha256(TEXT).hexdigest(), "bytes": len(TEXT)}],
++             "input_root": str(self.inp), "output_root": str(self.out),
++             "limits": limits or {"timeout_s": 20, "max_stdout_bytes": 100000, "max_stderr_bytes": 100000},
++             "release": {"by": "fixture producer (lab only)", "ref": "pass02 test"}, "backend": backend}
++        e.update(over)
++        return e
++
++    def launches(self):
++        p = self.out / "launches.log"
++        return p.read_text(encoding="utf-8").splitlines() if p.exists() else []
++
++    def outside_untouched(self):
++        self.assertEqual(sorted(p.name for p in self.outside.iterdir()), ["receipt.json"])
++        self.assertEqual(hashlib.sha256(self.sentinel.read_bytes()).hexdigest(), self.sentinel_hash)
++
++    def cli(self, *args):
++        return subprocess.run([sys.executable, "-B", "-m", "bridge.cli", *args], cwd=LAB, capture_output=True, text=True, timeout=60)
++
++
++class Deadline(Base):
++    """#01: stdin writing, reading, waiting and cleanup all obey one deadline."""
++
++    def driver(self, env, watchdog=40):
++        req = self.base / "request.json"
++        req.write_bytes(canonical(env))
++        r = subprocess.run([sys.executable, "-B", str(LAB / "tests" / "_deliver_driver.py"), str(self.store), str(req)],
++                           capture_output=True, text=True, timeout=watchdog)   # outer watchdog
++        self.assertEqual(r.returncode, 0, r.stderr)
++        return json.loads(r.stdout)
++
++    def test_child_that_never_reads_stdin_and_a_large_valid_envelope(self):
++        lim = {"timeout_s": 0.3, "max_stdout_bytes": 1000, "max_stderr_bytes": 1000}
++        e = self.env("fixture-no-stdin-reader", limits=lim, work_ref="x" * 2_000_000)   # far larger than a pipe buffer
++        res = self.driver(e)
++        rec = res["receipt"]
++        bound = lim["timeout_s"] + CLEANUP_ALLOWANCE_S + SPAWN_MARGIN_S
++        self.assertLess(res["elapsed_s"], bound, f"adapter blocked past the deadline: {res['elapsed_s']} s")
++        self.assertEqual(rec["transport"], "timeout")
++        self.assertTrue(rec["outcome_uncertain"])
++        self.assertIn("allowance_s", rec["cleanup"])
++        self.assertEqual(len(self.launches()), 1)
++        again = self.driver(e)
++        self.assertTrue(again["receipt"].get("replayed"))
++        self.assertEqual(len(self.launches()), 1, "no second launch on retry")
++        (self.base / "timing.json").write_text(json.dumps({"first": res["elapsed_s"], "bound": bound}), encoding="utf-8")
++
++    def test_small_successful_request_still_collected(self):
++        rec = self.driver(self.env())["receipt"]
++        self.assertEqual((rec["transport"], rec["collection"]), ("delivered", "collected"))
++        self.assertTrue(rec["cleanup"]["complete"])
++
++    def test_stdout_and_stderr_output_limits(self):
++        for i, b in enumerate(("fixture-flood", "fixture-flood-stderr")):
++            with self.subTest(backend=b):
++                rec = self.ad.deliver(self.env(b, delivery=f"d-flood-{i}"))
++                self.assertEqual(rec["transport"], "output-limit")
++                self.assertTrue(rec["outcome_uncertain"])
++                stream = "stdout" if b == "fixture-flood" else "stderr"
++                self.assertLessEqual(rec["diagnostics"][stream]["bytes"], 100000)
++
++
++class Containment(Base):
++    """#02: one identity and path validator at every entry; nothing outside the store is read or changed."""
++
++    BAD = ["../outside", "..\\outside", "../outside/receipt.json", "C:\\outside", "C:/outside", "D:outside", "/outside",
++           "\\\\server\\share", "", "a/b", "a\\b", "CON", "con", "con.txt", "nul", "lpt1", "com9.x", "abc.", "abc ",
++           ".hidden", "Upper", "a..b", "a:b", "x" * 65]
++
++    def test_valid_status_and_recover_still_work(self):
++        self.ad.deliver(self.env())
++        self.assertEqual(self.ad.status("d-001")["collection"], "collected")
++        with self.assertRaises(StoreError):
++            self.ad.deliver(self.env(delivery="d-002"), _test_crash_before_receipt=True)
++        self.assertTrue(self.ad.recover("d-002")["recovered"])
++
++    def test_library_refuses_bad_ids_before_touching_files(self):
++        for bad in self.BAD + [None, 5, ["d-001"], b"d-001"]:
++            with self.subTest(id=bad):
++                for call in (self.ad.status, self.ad.recover):
++                    r = call(bad)
++                    self.assertEqual(r["transport"], "refused", r)
++                    self.assertNotIn("sentinel", json.dumps(r))
++                r = self.ad.deliver(self.env(delivery=bad))
++                self.assertEqual(r["transport"], "refused")
++        self.outside_untouched()
++        self.assertEqual(list(self.store.iterdir()), [])
++
++    def test_cli_refuses_bad_ids(self):
++        for bad in ("../outside", str(self.outside), "CON"):
++            for cmd in ("status", "recover"):
++                with self.subTest(cmd=cmd, id=bad):
++                    r = self.cli(cmd, "--store", str(self.store), "--delivery", bad)
++                    self.assertEqual(r.returncode, 2, r.stdout + r.stderr)
++                    self.assertIn('"refused"', r.stdout)
++                    self.assertNotIn("sentinel", r.stdout)
++        self.outside_untouched()
++
++    def test_junction_inside_the_store_is_refused(self):
++        if os.name != "nt":
++            self.skipTest("junctions are Windows-only")
++        (self.outside / "launch.json").write_bytes(b'{"x":1}')
++        before = {p.name: p.read_bytes() for p in self.outside.iterdir()}
++        j = subprocess.run(["cmd", "/c", "mklink", "/J", str(self.store / "evil"), str(self.outside)], capture_output=True, text=True)
++        if j.returncode:
++            self.skipTest("could not create a junction")
++        for call in (self.ad.status, self.ad.recover):
++            r = call("evil")
++            self.assertEqual(r["transport"], "refused")
++            self.assertIn("link or reparse point", r["reason"])
++        self.assertEqual(self.ad.deliver(self.env(delivery="evil"))["transport"], "refused")
++        r = self.cli("status", "--store", str(self.store), "--delivery", "evil")
++        self.assertEqual(r.returncode, 2)
++        self.assertEqual({p.name: p.read_bytes() for p in self.outside.iterdir()}, before)
++
++
++class Limits(Base):
++    """#03: limits must be usable, finite and of the right type; refused before launch, through deliver."""
++
++    def refused_before_launch(self, lim, delivery):
++        r = self.ad.deliver(self.env(delivery=delivery, limits=lim))
++        self.assertEqual(r["transport"], "refused", (lim, r))
++        self.assertIn("envelope", r["reason"])
++        self.assertFalse((self.store / delivery).exists())
++        return r
++
++    def test_invalid_limits(self):
++        good = {"timeout_s": 5, "max_stdout_bytes": 1000, "max_stderr_bytes": 1000}
++        cases = [("timeout_s", math.inf), ("timeout_s", -math.inf), ("timeout_s", math.nan), ("timeout_s", True), ("timeout_s", False),
++                 ("timeout_s", 0), ("timeout_s", -1), ("timeout_s", "5"), ("timeout_s", None), ("timeout_s", MAX_TIMEOUT_S + 1),
++                 ("max_stdout_bytes", 1.5), ("max_stdout_bytes", 1000.0), ("max_stdout_bytes", True), ("max_stdout_bytes", 0),
++                 ("max_stdout_bytes", -5), ("max_stdout_bytes", "1000"), ("max_stdout_bytes", MAX_CAPTURE_BYTES + 1),
++                 ("max_stderr_bytes", math.inf), ("max_stderr_bytes", False), ("max_stderr_bytes", 2.5)]
++        for i, (k, v) in enumerate(cases):
++            with self.subTest(key=k, value=v):
++                self.refused_before_launch({**good, k: v}, f"d-lim-{i}")
++        self.refused_before_launch({"timeout_s": True, "max_stdout_bytes": True, "max_stderr_bytes": True}, "d-lim-bools")
++        self.refused_before_launch({"timeout_s": 5, "max_stdout_bytes": 1000}, "d-lim-missing")
++        self.assertEqual(self.launches(), [])
++
++    def test_valid_boundary_values(self):
++        r = self.ad.deliver(self.env(delivery="d-top", limits={"timeout_s": MAX_TIMEOUT_S, "max_stdout_bytes": MAX_CAPTURE_BYTES,
++                                                                "max_stderr_bytes": MAX_CAPTURE_BYTES}))
++        self.assertEqual((r["transport"], r["collection"]), ("delivered", "collected"))
++        r = self.ad.deliver(self.env(delivery="d-float", limits={"timeout_s": 7.5, "max_stdout_bytes": 100000, "max_stderr_bytes": 1}))
++        self.assertEqual(r["transport"], "delivered")
++        r = self.ad.deliver(self.env(delivery="d-one", limits={"timeout_s": 20, "max_stdout_bytes": 1, "max_stderr_bytes": 1}))
++        self.assertEqual(r["transport"], "output-limit", "a 1-byte cap is valid; the result simply does not fit")
++
++    def test_strict_json_in_messages(self):
++        for text in ('{"a": NaN}', '{"a": Infinity}', '{"a": -Infinity}', '{"a": 1, "a": 2}'):
++            with self.subTest(text=text):
++                with self.assertRaises(StrictJSONError):
++                    strict_loads(text)
++        with self.assertRaises(ValueError):
++            canonical({"timeout_s": math.inf})
++        req = self.base / "nan-request.json"
++        req.write_bytes(canonical(self.env())[:-1].replace(b'"timeout_s":20', b'"timeout_s":NaN') + b"}")
++        r = self.cli("deliver", "--store", str(self.store), "--request", str(req))
++        self.assertEqual(r.returncode, 2, r.stdout)
++        self.assertIn("non-standard JSON number NaN", r.stdout)
++        dup = self.base / "dup-request.json"
++        dup.write_bytes(canonical(self.env())[:-1] + b',"backend":"fixture-crash"}')
++        r = self.cli("deliver", "--store", str(self.store), "--request", str(dup))
++        self.assertEqual(r.returncode, 2, r.stdout)
++        self.assertIn("duplicate key 'backend'", r.stdout)
++        self.assertEqual(self.launches(), [])
++        rec = self.ad.deliver(self.env("fixture-dup-keys", delivery="d-dup"))
++        self.assertEqual(rec["transport"], "malformed")
++        self.assertIn("duplicate key 'outcome'", rec["reason"])
++
++
++if __name__ == "__main__":
++    unittest.main()
+diff -ruN evidence/pass02/source-before/tools/page_edit.py evidence/pass02/source-after/tools/page_edit.py
+--- evidence/pass02/source-before/tools/page_edit.py	1969-12-31 18:00:00.000000000 -0600
++++ evidence/pass02/source-after/tools/page_edit.py	2026-10-26 15:52:41.630743600 -0500
+@@ -0,0 +1,21 @@
++"""Replace one exact, unique block of text on the batch page, keeping its CRLF line endings.
++
++  python -B page_edit.py <page> <old-file> <new-file>
++
++Both blocks are given as LF text files; they are converted to the page's CRLF before matching.
++Refuses unless the old block occurs exactly once. Used only for 0503.worker-bridge pages 05.01, 06.01, 05.02 and 06.02.
++"""
++import sys
++from pathlib import Path
++
++page, old, new = Path(sys.argv[1]), Path(sys.argv[2]), Path(sys.argv[3])
++allowed = {"05.01.md", "06.01.md", "05.02.md", "06.02.md"}
++if page.name not in allowed or page.parent.name != "0503.worker-bridge":
++    sys.exit(f"stop: not an allowed page: {page}")
++data = page.read_bytes()
++o = old.read_bytes().replace(b"\r\n", b"\n").replace(b"\n", b"\r\n")
++n = new.read_bytes().replace(b"\r\n", b"\n").replace(b"\n", b"\r\n")
++if data.count(o) != 1:
++    sys.exit(f"stop: the old block occurs {data.count(o)} times")
++page.write_bytes(data.replace(o, n))
++print(f"edited {page.name}")
+diff -ruN evidence/pass02/source-before/tools/page_return_0502.py evidence/pass02/source-after/tools/page_return_0502.py
+--- evidence/pass02/source-before/tools/page_return_0502.py	1969-12-31 18:00:00.000000000 -0600
++++ evidence/pass02/source-after/tools/page_return_0502.py	2026-10-26 15:53:32.105110400 -0500
+@@ -0,0 +1,37 @@
++"""Fill batch 05.02's PENDING return fields on 0503.worker-bridge/05.02.md, keeping CRLF and every instruction line.
++
++  python -B page_return_0502.py <05.02.md> <return-text-folder>
++
++The folder holds r01.txt..r04.txt (each replaces 'result: PENDING' inside section '## #0N') and return.txt
++(replaces 'Execution: IN PROGRESS' and the three PENDING lines that follow it under '## Return — Claude').
++The Prime's review section is not touched. Refuses unless each target occurs exactly once.
++"""
++import sys
++from pathlib import Path
++
++page, folder = Path(sys.argv[1]), Path(sys.argv[2])
++if page.name != "05.02.md" or page.parent.name != "0503.worker-bridge":
++    sys.exit("stop: not batch 05.02")
++raw = page.read_bytes().decode("utf-8")
++if "\r\n" not in raw:
++    sys.exit("stop: expected CRLF")
++t = raw.replace("\r\n", "\n")
++
++
++def text(name):
++    return (folder / name).read_text(encoding="utf-8").replace("\r\n", "\n").rstrip("\n")
++
++
++for n in range(1, 5):
++    i = t.index(f"\n## #0{n} ")
++    j = t.find("\n## ", i + 1)
++    sec = t[i:j]
++    if sec.count("result: PENDING") != 1:
++        sys.exit(f"stop: section #0{n} has {sec.count('result: PENDING')} pending results")
++    t = t[:i] + sec.replace("result: PENDING", text(f"r0{n}.txt")) + t[j:]
++old = "Execution: IN PROGRESS\nCorrections and original-probe outcomes: PENDING\nTests/evidence/hashes: PENDING\nRemaining limitations: PENDING"
++if t.count(old) != 1:
++    sys.exit("stop: return block not found exactly once")
++t = t.replace(old, text("return.txt"))
++page.write_bytes(t.replace("\n", "\r\n").encode("utf-8"))
++print("return written")

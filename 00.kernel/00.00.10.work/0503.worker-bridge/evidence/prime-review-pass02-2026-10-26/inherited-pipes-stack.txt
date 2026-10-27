@@ -1,0 +1,18 @@
+Timeout (0:00:03)!
+Thread 0x0000645c (most recent call first):
+  File "D:\librarian\temp\review-0503-pass02-2026-10-26\lab-copy\bridge\adapter.py", line 34 in _read_capped
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\threading.py", line 1012 in run
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\threading.py", line 1075 in _bootstrap_inner
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\threading.py", line 1032 in _bootstrap
+
+Thread 0x000056a0 (most recent call first):
+  File "D:\librarian\temp\review-0503-pass02-2026-10-26\lab-copy\bridge\adapter.py", line 34 in _read_capped
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\threading.py", line 1012 in run
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\threading.py", line 1075 in _bootstrap_inner
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\threading.py", line 1032 in _bootstrap
+
+Thread 0x00004568 (most recent call first):
+  File "D:\librarian\temp\review-0503-pass02-2026-10-26\lab-copy\bridge\adapter.py", line 111 in _execute
+  File "D:\librarian\temp\review-0503-pass02-2026-10-26\lab-copy\bridge\adapter.py", line 199 in deliver
+  File "D:\librarian\temp\review-0503-pass02-2026-10-26\inherited-pipes-trace-driver.py", line 8 in <module>
+{"elapsed_s": 5.0790000000015425, "timeout_s": 0.2, "cleanup_allowance_s": 2.0, "receipt": {"schema": "worker-bridge/receipt@1", "delivery_id": "probe-inherited", "job_id": "probe", "request_sha256": "3b53b8bbcf3e4b9eb552b56db5bffa7b0293871d8fb77fd9f1e9f5233352076d", "backend": "prime-inherited", "worker_kind": "protocol test worker", "launched": true, "returncode": 0, "duration_s": 5.063, "diagnostics": {"stdout": {"path": "attempt/stdout.bin", "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "bytes": 0}, "stderr": {"path": "attempt/stderr.bin", "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "bytes": 0}}, "review": "not performed", "transport": "malformed", "outcome_uncertain": true, "claimed_outcome": null, "collection": "not attempted", "reason": "stdout is not one JSON value (Expecting value)", "cleanup": {"allowance_s": 2.0, "complete": false, "notes": ["stdout reader still running after the cleanup allowance (a grandchild may hold the pipe)", "stderr reader still running after the cleanup allowance (a grandchild may hold the pipe)"]}}}

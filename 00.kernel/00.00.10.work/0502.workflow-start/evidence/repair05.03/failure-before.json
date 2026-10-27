@@ -1,0 +1,212 @@
+[
+  {
+    "case": "R01 Prime fixture: second line names a missing book",
+    "exit": 0,
+    "outcome": "clean",
+    "accepted_after_repair": [
+      "finding",
+      "refuse"
+    ],
+    "meets_repair_contract": false,
+    "detail": [],
+    "other_books": [
+      "../00.00.00.syntax/00.001.md",
+      "../00.00.01.law/00.001.md"
+    ]
+  },
+  {
+    "case": "R02 same line: unlabelled lower-case text holding a missing path",
+    "exit": 0,
+    "outcome": "clean",
+    "accepted_after_repair": [
+      "finding",
+      "refuse"
+    ],
+    "meets_repair_contract": false,
+    "detail": [],
+    "other_books": [
+      "../00.00.00.syntax/00.001.md",
+      "../00.00.01.law/00.001.md"
+    ]
+  },
+  {
+    "case": "R03 same line: comma instead of the item separator",
+    "exit": 0,
+    "outcome": "clean",
+    "accepted_after_repair": [
+      "refuse"
+    ],
+    "meets_repair_contract": false,
+    "detail": [],
+    "other_books": [
+      "../00.00.00.syntax/00.001.md",
+      "../00.00.01.law/00.001.md"
+    ]
+  },
+  {
+    "case": "R04 same line: an item after the trailing sentence",
+    "exit": 1,
+    "outcome": "finding",
+    "accepted_after_repair": [
+      "finding",
+      "refuse"
+    ],
+    "meets_repair_contract": true,
+    "detail": [
+      "missing-other-book"
+    ],
+    "other_books": [
+      "../00.00.00.syntax/00.001.md",
+      "../00.00.01.law/00.001.md",
+      "../00.00.99.missing/00.md"
+    ]
+  },
+  {
+    "case": "R05 a prose line inside the section",
+    "exit": 0,
+    "outcome": "clean",
+    "accepted_after_repair": [
+      "refuse"
+    ],
+    "meets_repair_contract": false,
+    "detail": [],
+    "other_books": [
+      "../00.00.00.syntax/00.001.md",
+      "../00.00.01.law/00.001.md"
+    ]
+  },
+  {
+    "case": "R06 a later heading ends the section",
+    "exit": 0,
+    "outcome": "clean",
+    "accepted_after_repair": [
+      "clean"
+    ],
+    "meets_repair_contract": true,
+    "detail": [],
+    "other_books": [
+      "../00.00.00.syntax/00.001.md",
+      "../00.00.01.law/00.001.md"
+    ]
+  },
+  {
+    "case": "R07 valid multiline form with a blank line",
+    "exit": 0,
+    "outcome": "clean",
+    "accepted_after_repair": [
+      "clean"
+    ],
+    "meets_repair_contract": true,
+    "detail": [],
+    "other_books": [
+      "../00.00.00.syntax/00.001.md"
+    ]
+  },
+  {
+    "case": "R08 duplicate Other books heading",
+    "exit": 0,
+    "outcome": "clean",
+    "accepted_after_repair": [
+      "refuse"
+    ],
+    "meets_repair_contract": false,
+    "detail": [],
+    "other_books": [
+      "../00.00.00.syntax/00.001.md",
+      "../00.00.01.law/00.001.md"
+    ]
+  },
+  {
+    "case": "R09 near-miss heading spelling",
+    "exit": 0,
+    "outcome": "clean",
+    "accepted_after_repair": [
+      "refuse"
+    ],
+    "meets_repair_contract": false,
+    "detail": [],
+    "other_books": []
+  },
+  {
+    "case": "R10 second line: back-quoted path with no label",
+    "exit": 0,
+    "outcome": "clean",
+    "accepted_after_repair": [
+      "refuse"
+    ],
+    "meets_repair_contract": false,
+    "detail": [],
+    "other_books": [
+      "../00.00.00.syntax/00.001.md",
+      "../00.00.01.law/00.001.md"
+    ]
+  },
+  {
+    "case": "R11 trailing sentence on an earlier line",
+    "exit": 0,
+    "outcome": "clean",
+    "accepted_after_repair": [
+      "refuse"
+    ],
+    "meets_repair_contract": false,
+    "detail": [],
+    "other_books": [
+      "../00.00.00.syntax/00.001.md"
+    ]
+  },
+  {
+    "case": "R12 item without its final period",
+    "exit": 0,
+    "outcome": "clean",
+    "accepted_after_repair": [
+      "refuse"
+    ],
+    "meets_repair_contract": false,
+    "detail": [],
+    "other_books": [
+      "../00.00.00.syntax/00.001.md",
+      "../00.00.01.law/00.001.md"
+    ]
+  },
+  {
+    "case": "R13 trailing whitespace after the sentence",
+    "exit": 0,
+    "outcome": "clean",
+    "accepted_after_repair": [
+      "refuse"
+    ],
+    "meets_repair_contract": false,
+    "detail": [],
+    "other_books": [
+      "../00.00.00.syntax/00.001.md",
+      "../00.00.01.law/00.001.md"
+    ]
+  },
+  {
+    "case": "R14 the existing committed form",
+    "exit": 0,
+    "outcome": "clean",
+    "accepted_after_repair": [
+      "clean"
+    ],
+    "meets_repair_contract": true,
+    "detail": [],
+    "other_books": [
+      "../00.00.00.syntax/00.001.md",
+      "../00.00.01.law/00.001.md"
+    ]
+  },
+  {
+    "case": "R15 multiline form, missing book on a later line",
+    "exit": 0,
+    "outcome": "clean",
+    "accepted_after_repair": [
+      "finding"
+    ],
+    "meets_repair_contract": false,
+    "detail": [],
+    "other_books": [
+      "../00.00.00.syntax/00.001.md"
+    ]
+  }
+]

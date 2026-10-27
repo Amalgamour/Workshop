@@ -1,0 +1,49 @@
+{
+  "exit": 0,
+  "report": {
+    "schema": "book-orientation-check@1",
+    "revision_input": "ada26437b6ef1b24f65669a8c1839ab11fc9c837",
+    "commit": "ada26437b6ef1b24f65669a8c1839ab11fc9c837",
+    "book": "00.kernel/00.00.10.work",
+    "contents_path": "00.kernel/00.00.10.work/0011.contents/01.002.md",
+    "contents_sha256": "8fae0000e00dd9487a6b44dffe500d07f3e581bfe43ad8570625c40a1ee20bdb",
+    "selection_source": "book 00.md pointer",
+    "sentinel_pointer": "contents in 0011.contents/01.002.md.",
+    "scope": "published tree at the commit only; working tree, index and untracked files not read",
+    "covered": [
+      "Pages table rows: page folders, direct files, direct subdirectories, recursive tracked-file counts",
+      "Book files list",
+      "Other books paths (relative to the book root)"
+    ],
+    "not_covered": [
+      "prose references and other links",
+      "face contents",
+      "whether a page should be published",
+      "the working tree, the index and untracked files"
+    ],
+    "counts": {
+      "rows": 3,
+      "tree_pages": 3,
+      "book_files_listed": 1,
+      "other_books": 2
+    },
+    "other_books": [
+      {
+        "label": "Syntax",
+        "path": "../00.00.00.syntax/00.001.md",
+        "resolved": "00.kernel/00.00.00.syntax/00.001.md",
+        "present": true
+      },
+      {
+        "label": "Law",
+        "path": "../00.00.01.law/00.001.md",
+        "resolved": "00.kernel/00.00.01.law/00.001.md",
+        "present": true
+      }
+    ],
+    "findings": [],
+    "result": "clean",
+    "advisory": true
+  },
+  "added_explicit_missing_reference": "Missing: `../00.00.99.missing/00.md`."
+}

@@ -1,0 +1,16 @@
+ok  finding  R01 Prime fixture: second line names a missing book :: ['missing-other-book']
+ok  refuse   R02 same line: unlabelled lower-case text holding a missing path :: unsupported structure: Other books line 14 has text that is not a 'Label: `path`.' item: 'Syntax: `../00.00.00.syntax/00.001.md`. see `../00.00.99.missing/00.md`. Law: `../00.00.01.law/00.001.md`. Each lists what it holds.'
+ok  refuse   R03 same line: comma instead of the item separator :: unsupported structure: Other books line 14 has text that is not a 'Label: `path`.' item: 'Syntax: `../00.00.00.syntax/00.001.md`, Law: `../00.00.01.law/00.001.md`. Each lists what it holds.'
+ok  refuse   R04 same line: an item after the trailing sentence :: unsupported structure: Other books line 14 has text that is not a 'Label: `path`.' item: 'Syntax: `../00.00.00.syntax/00.001.md`. Law: `../00.00.01.law/00.001.md`. Each lists what it holds. Missing: `../00.00.99.missing/00.md`.'
+ok  refuse   R05 a prose line inside the section :: unsupported structure: Other books line 14: 'Each lists what it holds.' is allowed only at the end of the section's last line
+ok  clean    R06 a later heading ends the section :: []
+ok  clean    R07 valid multiline form with a blank line :: []
+ok  refuse   R08 duplicate Other books heading :: unsupported structure: 2 '## Other books' headings
+ok  refuse   R09 near-miss heading spelling :: unsupported structure: line 13 is not exactly '## Other books': '## Other Books'
+ok  refuse   R10 second line: back-quoted path with no label :: unsupported structure: Other books line 14: 'Each lists what it holds.' is allowed only at the end of the section's last line
+ok  refuse   R11 trailing sentence on an earlier line :: unsupported structure: Other books line 14: 'Each lists what it holds.' is allowed only at the end of the section's last line
+ok  refuse   R12 item without its final period :: unsupported structure: Other books line 14 has text that is not a 'Label: `path`.' item: 'Syntax: `../00.00.00.syntax/00.001.md`. Law: `../00.00.01.law/00.001.md` Each lists what it holds.'
+ok  refuse   R13 trailing whitespace after the sentence :: unsupported structure: Other books line 14 has text that is not a 'Label: `path`.' item: 'Syntax: `../00.00.00.syntax/00.001.md`. Law: `../00.00.01.law/00.001.md`. Each lists what it holds.  '
+ok  clean    R14 the existing committed form :: []
+ok  finding  R15 multiline form, missing book on a later line :: ['missing-other-book']
+meets contract 15 of 15

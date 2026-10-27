@@ -1,0 +1,57 @@
+{
+ "schema": "book-orientation-check@1",
+ "revision_input": "a5853b7",
+ "commit": "a5853b7ecdd076a77b4b106b057cea568e205bfb",
+ "book": "00.kernel/00.00.10.work",
+ "contents_path": "00.kernel/00.00.10.work/0011.contents/01.001.md",
+ "contents_sha256": "30ae5faf252b4d28e833755ebdab27c82824a61346f8dddb13d33b8eee68b428",
+ "selection_source": "book 00.md pointer",
+ "sentinel_pointer": "contents in 0011.contents/01.001.md.",
+ "scope": "published tree at the commit only; working tree, index and untracked files not read",
+ "covered": [
+  "Pages table rows: page folders, direct files, direct subdirectories, recursive tracked-file counts",
+  "Book files list",
+  "Other books paths (relative to the book root)"
+ ],
+ "not_covered": [
+  "prose references and other links",
+  "face contents",
+  "whether a page should be published",
+  "the working tree, the index and untracked files"
+ ],
+ "counts": {
+  "rows": 13,
+  "tree_pages": 14,
+  "book_files_listed": 1,
+  "other_books": 2
+ },
+ "other_books": [
+  {
+   "label": "Syntax",
+   "path": "../00.00.00.syntax/00.001.md",
+   "resolved": "00.kernel/00.00.00.syntax/00.001.md",
+   "present": true
+  },
+  {
+   "label": "Law",
+   "path": "../00.00.01.law/00.001.md",
+   "resolved": "00.kernel/00.00.01.law/00.001.md",
+   "present": true
+  }
+ ],
+ "findings": [
+  {
+   "kind": "extra-file",
+   "message": "0011.contents/01.002.md is in the published tree but not listed",
+   "page": "0011.contents",
+   "item": "01.002.md"
+  },
+  {
+   "kind": "extra-page",
+   "message": "0502.workflow-start is a folder in the published tree but has no row",
+   "page": "0502.workflow-start"
+  }
+ ],
+ "result": "findings",
+ "advisory": true
+}

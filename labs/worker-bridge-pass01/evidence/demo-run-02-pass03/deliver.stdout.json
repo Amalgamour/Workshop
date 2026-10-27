@@ -1,0 +1,42 @@
+{
+ "artifacts": [
+  {
+   "bytes": 11,
+   "path": "result.json",
+   "sha256": "0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6"
+  }
+ ],
+ "backend": "fixture-ok",
+ "claimed_outcome": "done",
+ "cleanup": {
+  "allowance_s": 2.0,
+  "complete": true,
+  "notes": [],
+  "retained": []
+ },
+ "collection": "collected",
+ "delivery_id": "demo-0001",
+ "diagnostics": {
+  "stderr": {
+   "bytes": 0,
+   "path": "attempt/stderr.bin",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+   "bytes": 374,
+   "path": "attempt/stdout.bin",
+   "sha256": "4be2f977bdc6e7db32b43f61c58ce5eb719c2af93e5e07b41dfd01f1589e6cd9"
+  }
+ },
+ "duration_s": 0.11,
+ "job_id": "job-count-lines",
+ "launched": true,
+ "outcome_uncertain": false,
+ "reason": null,
+ "request_sha256": "8ce51a0d346ef32877af410315c58646e0d9c6b3d6ca9cb373060dfc640d0715",
+ "returncode": 0,
+ "review": "not performed",
+ "schema": "worker-bridge/receipt@1",
+ "transport": "delivered",
+ "worker_kind": "protocol test worker"
+}

@@ -1,0 +1,19 @@
+{
+  "_note": "Allowlisted backend profiles for lab pass 01. All are PROTOCOL TEST WORKERS. No real model profile is configured. argv is exact; '{python}' is this interpreter; a path ending in .py resolves against this lab.",
+  "fixture-ok": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "ok"]},
+  "fixture-crash": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "crash"]},
+  "fixture-sleep": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "sleep"]},
+  "fixture-garbage": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "garbage"]},
+  "fixture-partial": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "partial"]},
+  "fixture-flood": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "flood"]},
+  "fixture-wrong-id": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "wrong-id"]},
+  "fixture-missing-artifact": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "missing-artifact"]},
+  "fixture-bad-hash": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "bad-hash"]},
+  "fixture-escape": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "escape"]},
+  "fixture-bad-shape": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "bad-shape"]},
+  "fixture-no-stdin-reader": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "no-stdin-reader"]},
+  "fixture-flood-stderr": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "flood-stderr"]},
+  "fixture-dup-keys": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "dup-keys"]},
+  "fixture-inherit-pipes": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "inherit-pipes"]},
+  "fixture-inherit-pipes-after-result": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "inherit-pipes-after-result"]}
+}

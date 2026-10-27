@@ -1,0 +1,34 @@
+{
+  "reviewer": "Codex Prime",
+  "reviewed_batch_sha256": "6603a960df0afd5f72668b088f1e201680755f415895b0230bdcd415bb04f568",
+  "source_manifest_rows_verified": 41,
+  "independent_suite": {
+    "exit": 0,
+    "tests": 18,
+    "mode": "-X dev",
+    "log": "independent-tests.txt"
+  },
+  "probes": {
+    "status_path_escape": {
+      "sentinel": "outside the configured store"
+    },
+    "recover_path_escape": {
+      "sentinel": "outside the configured store"
+    },
+    "blocked_stdin": {
+      "configured_timeout_s": 0.2,
+      "elapsed_s": 3.047000000002299,
+      "transport": "timeout",
+      "receipt_duration_s": 3.016
+    },
+    "invalid_limits": {
+      "infinite_timeout": "accepted",
+      "fractional_byte_cap": "accepted",
+      "boolean_limits": "accepted"
+    }
+  },
+  "original_lab_and_batch_unchanged": true,
+  "actual_model_calls": 0,
+  "shared_records_or_git_written": false,
+  "disposition": "request targeted corrections before accepting transport reliability for real model trial"
+}

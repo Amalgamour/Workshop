@@ -1,0 +1,40 @@
+test_bad_revision_refuses (__main__.Book.test_bad_revision_refuses) ... 
+  test_bad_revision_refuses (__main__.Book.test_bad_revision_refuses) (rev='--output=x') ... ERROR
+test_checker_is_read_only_on_the_inspected_checkout (__main__.Book.test_checker_is_read_only_on_the_inspected_checkout) ... ok
+test_correct_book_is_clean (__main__.Book.test_correct_book_is_clean) ... ok
+test_duplicate_page_identity (__main__.Book.test_duplicate_page_identity) ... ok
+test_explicit_contents_is_labelled_as_not_selected_by_the_sentinel (__main__.Book.test_explicit_contents_is_labelled_as_not_selected_by_the_sentinel) ... ok
+test_files_and_count_mismatch (__main__.Book.test_files_and_count_mismatch) ... ok
+test_missing_ambiguous_and_dangling_pointer_refuse (__main__.Book.test_missing_ambiguous_and_dangling_pointer_refuse) ... ok
+test_missing_book_file_and_other_book (__main__.Book.test_missing_book_file_and_other_book) ... ok
+test_no_sentinel_refuses (__main__.Book.test_no_sentinel_refuses) ... ok
+test_path_escape (__main__.Book.test_path_escape) ... ok
+test_pointer_to_older_candidate_is_honoured_not_the_newest (__main__.Book.test_pointer_to_older_candidate_is_honoured_not_the_newest) ... ok
+test_unsupported_table_syntax_refuses (__main__.Book.test_unsupported_table_syntax_refuses) ... ok
+test_untracked_local_folder_does_not_satisfy_a_missing_published_page (__main__.Book.test_untracked_local_folder_does_not_satisfy_a_missing_published_page) ... ok
+test_working_tree_and_index_changes_do_not_alter_a_pinned_result (__main__.Book.test_working_tree_and_index_changes_do_not_alter_a_pinned_result) ... ok
+
+======================================================================
+ERROR: test_bad_revision_refuses (__main__.Book.test_bad_revision_refuses) (rev='--output=x')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\book-orientation-pass01\tests\test_check_book.py", line 228, in test_bad_revision_refuses
+    self.assertEqual(self.run_tool(rev)[0], 2)
+                     ~~~~~~~~~~~~~^^^^^
+  File "D:\Git\lib-build\labs\book-orientation-pass01\tests\test_check_book.py", line 71, in run_tool
+    return r.returncode, json.loads(r.stdout)
+                         ~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Python\pythoncore-3.14-64\Lib\json\__init__.py", line 352, in loads
+    return _default_decoder.decode(s)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\misg\AppData\Local\Python\pythoncore-3.14-64\Lib\json\decoder.py", line 345, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Python\pythoncore-3.14-64\Lib\json\decoder.py", line 363, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+----------------------------------------------------------------------
+Ran 14 tests in 8.391s
+
+FAILED (errors=1)

@@ -1,0 +1,512 @@
+diff -ruN evidence/pass03/source-before/README.md evidence/pass03/source-after/README.md
+--- evidence/pass03/source-before/README.md	2026-10-26 16:09:58.094854800 -0500
++++ evidence/pass03/source-after/README.md	2026-10-26 16:14:41.785858200 -0500
+@@ -1,7 +1,7 @@
+ # Worker bridge, lab pass 01
+ 
+ **batch:** `00.kernel/00.00.10.work/0503.worker-bridge/05.01.md` (released by the Director, 2026-10-26)
+-**who:** claude-opus-5-5, Colab · **state:** lab experiment, pass 02 corrections applied (batch 05.02). Not runtime, not Clerk, no real model.
++**who:** claude-opus-5-5, Colab · **state:** lab experiment, pass 02 corrections (batch 05.02) and the pass 03 cleanup correction (batch 05.03) applied. Not runtime, not Clerk, no real model.
+ 
+ ## What it is
+ 
+@@ -17,6 +17,7 @@
+ | `tests/test_bridge.py` | the 18 pass 01 tests |
+ | `tests/test_pass02.py` | 10 pass 02 regressions: the deadline, containment, limits, strict JSON |
+ | `tests/probes_pass02.py` | reproduces the Prime's probes BR-01 to BR-03 against any source tree |
++| `tests/test_pass03.py` | 2 pass 03 regressions: a descendant holding stdout and stderr (BR-01b) |
+ | `run_demo.py` | the demonstration |
+ | `evidence/` | test runs, the demonstration, the inventory, the contract before implementation, hashes |
+ | `scratch/` | test runs; ignored by the lab's `.gitignore` |
+@@ -30,6 +31,7 @@
+ python -B -X dev tests/test_bridge.py
+ python -B -X dev tests/test_pass02.py -v
+ python -B tests/probes_pass02.py <lab source dir> scratch/<new-name>
++python -B -X dev tests/test_pass03.py -v
+ python -B run_demo.py evidence/demo-<new-name>
+ python -B -m bridge.cli status --store evidence/demo-run-01/store --delivery demo-0001
+ ```
+@@ -37,8 +39,8 @@
+ ## Limits
+ 
+ - **No sandbox.** The worker is a same-user subprocess. Path checks prove where the artifacts are, not what the process could touch.
+-- **Deadline:** one deadline over stdin, stdout, stderr and the wait, then at most 2.0 s of cleanup. That is a bound of about `timeout_s` + 2 s plus start-up, a best effort and not real time.
+-- **Process cleanup:** only the direct child is killed. Grandchildren are not (there are no Windows job objects); one that holds a pipe is recorded as incomplete cleanup.
++- **Deadline:** one deadline over stdin, stdout and stderr (to EOF) and the wait, then at most 2.0 s of cleanup, and then `deliver()` returns (pass 03). That is about `timeout_s` + 2 s plus start-up, a best effort and not real time.
++- **Process cleanup:** only the direct child is killed. Grandchildren are not (there are no Windows job objects). If one holds a pipe, the adapter still returns. The owner thread is named in `cleanup.retained`, keeps the pipe until the descendant closes it or this interpreter exits, and the result is `incomplete-output`.
+ - **Identity:** delivery ids follow the Windows-safe rules in `docs/CONTRACT.md`; every entry point checks them and stays inside the store. That is containment, not authentication.
+ - **Concurrency:** one launcher per delivery, through an exclusive-create `launch.json`. Nothing more is supported.
+ - **Authentication:** none. The `release` field is evidence, not authority.
+diff -ruN evidence/pass03/source-before/bridge/adapter.py evidence/pass03/source-after/bridge/adapter.py
+--- evidence/pass03/source-before/bridge/adapter.py	2026-10-26 16:09:57.594301100 -0500
++++ evidence/pass03/source-after/bridge/adapter.py	2026-10-26 16:14:41.376238600 -0500
+@@ -27,31 +27,74 @@
+     pass
+ 
+ 
+-def _read_capped(stream, cap, out, flag):
+-    """Read a stream to EOF, keeping at most cap bytes; set flag if more arrived."""
+-    buf = bytearray()
+-    while True:
+-        chunk = stream.read(65536)
+-        if not chunk:
+-            break
+-        room = cap - len(buf)
+-        if room > 0:
+-            buf += chunk[:room]
+-        if len(chunk) > max(room, 0):
+-            flag.set()
+-            break
+-    out.append(bytes(buf))
++class _Capture:
++    """One output stream's capture, owned by its reader thread (05.03, BR-01b).
+ 
++    The reader thread is the only code that reads or closes the stream. The adapter never closes a pipe a reader
++    may still be blocked on: on Windows that close waits for the reader's buffered-stream lock, and so for
++    whichever process holds the other end (the 5.078 s blockage in Prime review BR-01b). At the end of the
++    adapter's budget it calls snapshot(), which freezes what was captured; bytes that arrive later are counted and
++    dropped, never added to the result. The reader keeps draining to EOF so a descendant writing to the pipe is not
++    blocked by a full pipe, then closes the stream itself."""
++
++    def __init__(self, cap):
++        self.cap = cap
++        self.buf = bytearray()
++        self.lock = threading.Lock()
++        self.frozen = False
++        self.late_bytes = 0
++        self.over = threading.Event()
++        self.eof = threading.Event()
++        self.error = None
++
++    def feed(self, chunk):
++        with self.lock:
++            if self.frozen:
++                self.late_bytes += len(chunk)
++                return
++            room = self.cap - len(self.buf)
++            if room > 0:
++                self.buf += chunk[:room]
++            if len(chunk) > max(room, 0):
++                self.over.set()
++
++    def snapshot(self):
++        with self.lock:
++            self.frozen = True
++            return bytes(self.buf)
+ 
+-CLEANUP_ALLOWANCE_S = 2.0   # after the deadline: time allowed to kill the child, reap it and stop the I/O threads
++
++def _reader(stream, capture):
++    """Drain an unbuffered pipe to EOF into its capture, then close it. Runs in its own daemon thread."""
++    try:
++        while True:
++            chunk = stream.read(65536)
++            if not chunk:
++                break
++            capture.feed(chunk)
++    except (OSError, ValueError) as e:
++        capture.error = type(e).__name__
++    finally:
++        try:
++            stream.close()
++        except (OSError, ValueError):
++            pass
++        capture.eof.set()
++
++
++CLEANUP_ALLOWANCE_S = 2.0   # after the deadline: time allowed to kill the child, reap it and let the I/O threads finish
+ 
+ 
+ def _write_stdin(stream, data, done, errors):
+-    """Write the request and close stdin, in its own thread, so a child that never reads cannot block the
+-    adapter past the deadline (05.02 #01, Prime probe BR-01)."""
++    """Write the whole request to an unbuffered pipe and close it, in its own thread, so a child that never reads
++    cannot block the adapter past the deadline (05.02 #01, BR-01). This thread is the only owner of stdin."""
+     try:
+-        stream.write(data)
+-        stream.flush()
++        view = memoryview(data)
++        while view:
++            n = stream.write(view)
++            if not n:
++                raise OSError("stdin accepted no bytes")
++            view = view[n:]
+     except (OSError, ValueError) as e:
+         errors.append(f"stdin: {type(e).__name__}")
+     finally:
+@@ -63,28 +106,35 @@
+ 
+ 
+ def _execute(argv, cwd, req_bytes, lim, t0):
+-    """Run one child under ONE deadline (t0 + timeout_s) that covers writing stdin, reading stdout and stderr,
+-    and waiting for exit. Overrun or an output cap kills the direct child; then at most CLEANUP_ALLOWANCE_S more
+-    is spent reaping it and joining the I/O threads. Anything still running after that is recorded, not waited
+-    for. This is a bounded best effort, not a real-time guarantee, and grandchildren are not killed."""
+-    cleanup = {"allowance_s": CLEANUP_ALLOWANCE_S, "complete": True, "notes": []}
++    """Run one child under ONE deadline (t0 + timeout_s) that covers writing stdin, reading stdout and stderr to
++    EOF, and the child's exit. On overrun or an output cap the direct child is killed. Then at most
++    CLEANUP_ALLOWANCE_S more is spent reaping it and letting the three I/O threads finish. After that the adapter
++    RETURNS: it never closes, joins or waits on a stream that a thread still owns. A thread still running (for
++    example on a pipe that a descendant inherited) is named in cleanup.retained; it finishes and closes its own
++    stream when the other end closes, or when this interpreter exits (daemon thread). Output captured up to
++    that point is a frozen snapshot; anything later is dropped. A bounded best effort, not a real-time guarantee;
++    only the direct child is killed."""
++    cleanup = {"allowance_s": CLEANUP_ALLOWANCE_S, "complete": True, "notes": [], "retained": []}
+     try:
+-        proc = subprocess.Popen(argv, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False, cwd=cwd)
++        proc = subprocess.Popen(argv, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False, cwd=cwd,
++                                bufsize=0)
+     except OSError as e:
+         return {"transport": "launch-failed", "returncode": None, "stdout": b"", "stderr": str(e).encode(), "cleanup": cleanup}
+-    outs, errs, ofl, efl, wdone, werr = [], [], threading.Event(), threading.Event(), threading.Event(), []
+-    th = [threading.Thread(target=_read_capped, args=(proc.stdout, lim["max_stdout_bytes"], outs, ofl), daemon=True),
+-          threading.Thread(target=_read_capped, args=(proc.stderr, lim["max_stderr_bytes"], errs, efl), daemon=True),
+-          threading.Thread(target=_write_stdin, args=(proc.stdin, req_bytes, wdone, werr), daemon=True)]
+-    for t in th:
++    cout, cerr = _Capture(lim["max_stdout_bytes"]), _Capture(lim["max_stderr_bytes"])
++    wdone, werr = threading.Event(), []
++    th = [("stdout reader", threading.Thread(target=_reader, args=(proc.stdout, cout), daemon=True, name="bridge-stdout-reader")),
++          ("stderr reader", threading.Thread(target=_reader, args=(proc.stderr, cerr), daemon=True, name="bridge-stderr-reader")),
++          ("stdin writer", threading.Thread(target=_write_stdin, args=(proc.stdin, req_bytes, wdone, werr), daemon=True,
++                                            name="bridge-stdin-writer"))]
++    for _, t in th:
+         t.start()
+     deadline = t0 + lim["timeout_s"]
+     timed_out = over = False
+     while True:
+-        if ofl.is_set() or efl.is_set():
++        if cout.over.is_set() or cerr.over.is_set():
+             over = True
+             break
+-        if proc.poll() is not None and wdone.is_set():
++        if proc.poll() is not None and wdone.is_set() and cout.eof.is_set() and cerr.eof.is_set():
+             break
+         if time.monotonic() >= deadline:
+             timed_out = proc.poll() is None or not wdone.is_set()
+@@ -100,22 +150,29 @@
+         proc.wait(timeout=max(0.0, end - time.monotonic()))
+     except subprocess.TimeoutExpired:
+         cleanup["complete"] = False
+-        cleanup["notes"].append("the child had not exited within the cleanup allowance")
+-    for t, name in zip(th, ("stdout reader", "stderr reader", "stdin writer")):
++        cleanup["notes"].append("the direct child had not exited within the cleanup allowance")
++    for name, t in th:
+         t.join(timeout=max(0.0, end - time.monotonic()))
+         if t.is_alive():
+             cleanup["complete"] = False
+-            cleanup["notes"].append(f"{name} still running after the cleanup allowance (a grandchild may hold the pipe)")
+-    for s in (proc.stdout, proc.stderr):   # close the parent's pipe handles (pass 01 run 01 leaked them)
+-        try:
+-            s.close()
+-        except (OSError, ValueError):
+-            pass
+-    cleanup["notes"] += werr
+-    out, err = (outs[0] if outs else b""), (errs[0] if errs else b"")
+-    over = over or ofl.is_set() or efl.is_set()
++            cleanup["retained"].append(name)
++            cleanup["notes"].append(f"{name} still owns its pipe after the cleanup allowance (a descendant may hold the other end); "
++                                    "left to finish and close it on its own")
++    out, err = cout.snapshot(), cerr.snapshot()   # frozen now: later bytes are counted on the capture and dropped
++    cleanup["notes"] += werr + [f"{n}: {c.error}" for n, c in (("stdout reader", cout), ("stderr reader", cerr)) if c.error]
++    over = over or cout.over.is_set() or cerr.over.is_set()
+     rc = proc.returncode
+-    transport = "timeout" if timed_out else "output-limit" if over else "crashed" if rc not in (0, None) else "delivered"
++    streams_open = not (cout.eof.is_set() and cerr.eof.is_set())
++    if timed_out:
++        transport = "timeout"
++    elif over:
++        transport = "output-limit"
++    elif rc not in (0, None):
++        transport = "crashed"
++    elif rc is None or streams_open or not wdone.is_set():
++        transport = "incomplete-output"   # the child ended, but its output was not complete within the budget
++    else:
++        transport = "delivered"
+     return {"transport": transport, "returncode": rc, "stdout": out, "stderr": err, "cleanup": cleanup}
+ 
+ 
+@@ -218,6 +275,10 @@
+         if transport in ("timeout", "output-limit"):
+             rec.update(transport=transport, outcome_uncertain=True, claimed_outcome=None, collection="not attempted",
+                        reason="killed after launch; work may or may not have happened; not relaunched")
++        elif transport == "incomplete-output":
++            rec.update(transport=transport, outcome_uncertain=True, claimed_outcome=None, collection="not attempted",
++                       reason="the child exited but its output streams were still open when the budget ended "
++                              "(a descendant may hold them); the captured bytes are a partial snapshot and are not parsed")
+         elif transport in ("launch-failed", "crashed"):
+             rec.update(transport=transport, outcome_uncertain=transport == "crashed", claimed_outcome=None, collection="not attempted",
+                        reason=f"exit {rc}" if transport == "crashed" else "the process did not start")
+diff -ruN evidence/pass03/source-before/docs/CONTRACT.md evidence/pass03/source-after/docs/CONTRACT.md
+--- evidence/pass03/source-before/docs/CONTRACT.md	2026-10-26 16:09:58.056846500 -0500
++++ evidence/pass03/source-after/docs/CONTRACT.md	2026-10-26 16:14:41.663829500 -0500
+@@ -57,6 +57,7 @@
+ | `crashed` | non-zero exit |
+ | `timeout` | ran past the limit and was killed; **outcome uncertain** |
+ | `output-limit` | stdout or stderr went over its cap; killed; **outcome uncertain** |
++| `incomplete-output` | the direct child exited, but its output streams were still open when the budget ended (a descendant may hold them). The captured bytes are a partial snapshot, kept as diagnostics and never parsed. **Outcome uncertain** (pass 03). |
+ | `malformed` | the result is not valid JSON or has the wrong shape |
+ | `uncollected` | the result is valid but its artifacts are missing, wrong, or outside the root |
+ | `collected` | the result is valid and every artifact verified |
+@@ -64,7 +65,7 @@
+ ## Local-process implementation
+ 
+ - Launch with an argv list (no shell), the request on stdin as JSON, stdout as the single result JSON, and stderr as diagnostics.
+-- **One deadline** (`t0 + timeout_s`) covers writing stdin, reading stdout and stderr, and waiting for exit. Each of the three streams has its own thread, so a child that never reads its stdin cannot hold the adapter (pass 02). On overrun, or when a cap is exceeded, the direct child is killed. Then at most `CLEANUP_ALLOWANCE_S` (2.0 s) more is spent reaping it and joining the threads. Anything still running after that is recorded in `exit.json` and the receipt (`cleanup.complete: false`, with notes) and is not waited for. So the wall-clock bound is about `timeout_s` + 2.0 s, plus process start-up. It is a bounded best effort on a same-user process, not a real-time guarantee. A grandchild that keeps a pipe open is not killed; it can keep a reader thread alive past the allowance, and that is recorded.
++- **One deadline** (`t0 + timeout_s`) covers writing stdin, reading stdout and stderr to EOF, and the child's exit. Each stream has exactly one owner thread, which is the only code that reads, writes or closes it (pass 03). On overrun, or when a cap is exceeded, the direct child is killed. Then at most `CLEANUP_ALLOWANCE_S` (2.0 s) more is spent reaping it and letting the threads finish, and after that `deliver()` **returns**. The adapter never closes, joins or waits on a stream that a thread still owns. Pass 02 did, and a descendant holding the pipe blocked the return for 5.078 s (BR-01b). A thread still running is named in `cleanup.retained`. It keeps draining its pipe, and closes it itself when the other end closes, or when the interpreter exits (it is a daemon thread). The captured bytes are frozen at the return, and later bytes are dropped, never added to a result. Observed bound: about `timeout_s` + 2.0 s plus process start-up (2.219 s at a 0.2 s timeout with a descendant holding both pipes). This is a best effort for the adapter's return, not a real-time guarantee, and not a bound on the descendant's lifetime.
+ - **Persistence, one folder per delivery:**
+ 
+   ```text
+@@ -157,3 +158,13 @@
+ | R12 | New protocol test workers: `no-stdin-reader` (self-terminates after 10 s), `flood-stderr`, `dup-keys`. | Regression fixtures for R8 and R11, and the stderr cap. |
+ 
+ Pass 01's statement "Time is limited, and the child is killed on overrun" was overbroad: it did not cover stdin. It is replaced above.
++
++## Pass 03 correction (Prime review of 05.02: BR-01b)
++
++| # | Change | Why |
++|---|---|---|
++| R13 | Stream ownership: unbuffered pipes (`bufsize=0`); one owner thread per stream that reads or writes and then closes it; a capture object frozen by `snapshot()` at the return; `cleanup.retained` names any thread still running; the adapter never closes a stream after the joins. | BR-01b: after the bounded joins, pass 02 called `close()` on buffered streams whose reader threads were blocked inside `read()` holding the stream lock. With a descendant holding both pipes, `deliver()` returned only when it exited (5.078 s at timeout 0.2 s plus allowance 2.0 s). |
++| R14 | New transport kind `incomplete-output`: the child exited, but its output was not at EOF within the budget. It is never parsed, even if a complete result had already been written. | Late or partial output must not become a verified result after the deadline. |
++| R15 | Normal completion now also waits, within the deadline, for both streams to reach EOF. | So "delivered" means the output was complete, not only that the child had exited. |
++
++Pass 02's line "it can keep a reader thread alive past the allowance, and that is recorded" was true about the thread, but it hid that the adapter itself also waited. It is replaced above.
+diff -ruN evidence/pass03/source-before/fixtures/worker_fixture.py evidence/pass03/source-after/fixtures/worker_fixture.py
+--- evidence/pass03/source-before/fixtures/worker_fixture.py	2026-10-26 16:09:57.826148200 -0500
++++ evidence/pass03/source-after/fixtures/worker_fixture.py	2026-10-26 16:14:41.702840000 -0500
+@@ -16,7 +16,8 @@
+     ap = argparse.ArgumentParser()
+     ap.add_argument("--mode", required=True, choices=["ok", "crash", "sleep", "garbage", "partial", "flood", "wrong-id",
+                                                        "missing-artifact", "bad-hash", "escape", "bad-shape",
+-                                                       "no-stdin-reader", "flood-stderr", "dup-keys"])
++                                                       "no-stdin-reader", "flood-stderr", "dup-keys",
++                                                       "inherit-pipes", "inherit-pipes-after-result"])
+     mode = ap.parse_args().mode
+     if mode == "no-stdin-reader":   # never reads stdin; exits by itself after 10 s so a regression cannot hang a suite
+         with open("launches.log", "a", encoding="utf-8") as f:   # its working directory is the output root
+@@ -27,6 +28,10 @@
+     req_sha = hashlib.sha256(canonical(env)).hexdigest()
+     with open(Path(env["output_root"]) / "launches.log", "a", encoding="utf-8") as f:   # lets tests count real launches
+         f.write(f"{env['delivery_id']} {mode}\n")
++    if mode == "inherit-pipes":   # Prime BR-01b: a descendant keeps stdout/stderr open; it exits by itself after 5 s
++        import subprocess
++        subprocess.Popen([sys.executable, "-c", "import time; time.sleep(5)"], stdin=subprocess.DEVNULL, stdout=sys.stdout, stderr=sys.stderr)
++        return
+     if mode == "crash":
+         sys.stderr.write("fixture: simulated crash\n")
+         sys.exit(3)
+@@ -66,6 +71,12 @@
+         res["delivery_id"] = "someone-else"
+     if mode == "bad-shape":
+         res["outcome"] = "approved"
++    if mode == "inherit-pipes-after-result":   # a complete result first, then a pipe-holding descendant (5 s)
++        import subprocess
++        sys.stdout.write(json.dumps(res))
++        sys.stdout.flush()
++        subprocess.Popen([sys.executable, "-c", "import time; time.sleep(5)"], stdin=subprocess.DEVNULL, stdout=sys.stdout, stderr=sys.stderr)
++        return
+     if mode == "dup-keys":   # the same key twice: Python would keep the last; the strict reader refuses
+         sys.stdout.write(json.dumps(res)[:-1] + ', "outcome": "failed"}')
+         return
+diff -ruN evidence/pass03/source-before/profiles.json evidence/pass03/source-after/profiles.json
+--- evidence/pass03/source-before/profiles.json	2026-10-26 16:09:57.863803100 -0500
++++ evidence/pass03/source-after/profiles.json	2026-10-26 16:14:41.742848300 -0500
+@@ -13,5 +13,7 @@
+   "fixture-bad-shape": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "bad-shape"]},
+   "fixture-no-stdin-reader": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "no-stdin-reader"]},
+   "fixture-flood-stderr": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "flood-stderr"]},
+-  "fixture-dup-keys": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "dup-keys"]}
++  "fixture-dup-keys": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "dup-keys"]},
++  "fixture-inherit-pipes": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "inherit-pipes"]},
++  "fixture-inherit-pipes-after-result": {"kind": "protocol test worker", "argv": ["{python}", "-B", "-I", "fixtures/worker_fixture.py", "--mode", "inherit-pipes-after-result"]}
+ }
+diff -ruN evidence/pass03/source-before/tests/_driver_pass03.py evidence/pass03/source-after/tests/_driver_pass03.py
+--- evidence/pass03/source-before/tests/_driver_pass03.py	1969-12-31 18:00:00.000000000 -0600
++++ evidence/pass03/source-after/tests/_driver_pass03.py	2026-10-26 16:14:42.013344300 -0500
+@@ -0,0 +1,29 @@
++"""Test helper for 05.03 (BR-01b): deliver one request in a separate process, report how long deliver() took,
++which I/O threads were still alive when it returned, and when (if ever, within 15 s) they finished.
++The descendant that holds the pipes is a self-terminating fixture (5 s), so nothing persists.
++
++  python -B tests/_driver_pass03.py <store> <request.json>
++"""
++import json, sys, threading, time
++from pathlib import Path
++
++LAB = Path(__file__).resolve().parents[1]
++sys.path.insert(0, str(LAB))
++from bridge.adapter import LocalProcessAdapter  # noqa: E402
++from bridge.canon import strict_loads  # noqa: E402
++
++profiles = {k: v for k, v in strict_loads((LAB / "profiles.json").read_bytes()).items() if not k.startswith("_")}
++env = strict_loads(Path(sys.argv[2]).read_bytes())
++ad = LocalProcessAdapter(sys.argv[1], profiles, LAB)
++before = set(threading.enumerate())
++t = time.monotonic()
++rec = ad.deliver(env)
++elapsed = time.monotonic() - t
++left = [th for th in threading.enumerate() if th not in before and th.is_alive()]
++names = sorted(th.name for th in left)
++t2 = time.monotonic()
++while any(th.is_alive() for th in left) and time.monotonic() - t2 < 15:
++    time.sleep(0.05)
++print(json.dumps({"elapsed_s": round(elapsed, 3), "alive_at_return": names,
++                  "background_finished_after_s": None if any(th.is_alive() for th in left) else round(time.monotonic() - t, 3),
++                  "receipt": rec}))
+diff -ruN evidence/pass03/source-before/tests/test_pass03.py evidence/pass03/source-after/tests/test_pass03.py
+--- evidence/pass03/source-before/tests/test_pass03.py	1969-12-31 18:00:00.000000000 -0600
++++ evidence/pass03/source-after/tests/test_pass03.py	2026-10-26 16:14:41.979153800 -0500
+@@ -0,0 +1,83 @@
++"""Batch 0503.worker-bridge/05.03 regression (BR-01b): a descendant that inherits stdout/stderr must not hold the
++adapter past the deadline plus the cleanup allowance. PROTOCOL TEST WORKERS only; the descendant exits by
++itself after 5 s. Runs under scratch/tests-pass03/ (ignored), each delivery inside an outer watchdog process.
++
++  python -B -X dev tests/test_pass03.py -v        (from the lab folder)
++"""
++import hashlib, json, subprocess, sys, tempfile, time, unittest
++from pathlib import Path
++
++LAB = Path(__file__).resolve().parents[1]
++sys.path.insert(0, str(LAB))
++from bridge.adapter import CLEANUP_ALLOWANCE_S  # noqa: E402
++from bridge.canon import canonical  # noqa: E402
++
++SCRATCH = LAB / "scratch" / "tests-pass03"
++TEXT = b"one\ntwo\n"
++TIMEOUT_S = 0.2
++STARTUP_MARGIN_S = 1.5   # documented allowance for process start-up; the reviewed blockage was 5.078 s
++BOUND_S = TIMEOUT_S + CLEANUP_ALLOWANCE_S + STARTUP_MARGIN_S   # 3.7 s
++
++
++class InheritedPipes(unittest.TestCase):
++    def setUp(self):
++        SCRATCH.mkdir(parents=True, exist_ok=True)
++        self.base = Path(tempfile.mkdtemp(prefix=self._testMethodName[:24] + "-", dir=SCRATCH))
++        self.inp, self.out, self.store = self.base / "in", self.base / "out", self.base / "store"
++        for d in (self.inp, self.out):
++            d.mkdir()
++        (self.inp / "input.txt").write_bytes(TEXT)
++
++    def env(self, backend, delivery):
++        return {"schema": "worker-bridge/request@1", "delivery_id": delivery, "job_id": "job-count-lines", "role": "builder",
++                "work_ref": "00.kernel/00.00.10.work/0503.worker-bridge/05.03.md",
++                "inputs": [{"name": "text", "path": "input.txt", "sha256": hashlib.sha256(TEXT).hexdigest(), "bytes": len(TEXT)}],
++                "input_root": str(self.inp), "output_root": str(self.out),
++                "limits": {"timeout_s": TIMEOUT_S, "max_stdout_bytes": 100000, "max_stderr_bytes": 100000},
++                "release": {"by": "fixture producer (lab only)", "ref": "pass03 test"}, "backend": backend}
++
++    def drive(self, env):
++        req = self.base / f"{env['delivery_id']}.json"
++        req.write_bytes(canonical(env))
++        r = subprocess.run([sys.executable, "-B", str(LAB / "tests" / "_driver_pass03.py"), str(self.store), str(req)],
++                           capture_output=True, text=True, timeout=40)   # outer watchdog
++        self.assertEqual(r.returncode, 0, r.stderr)
++        res = json.loads(r.stdout)
++        self.calls = getattr(self, "calls", 0) + 1
++        (self.base / f"{env['delivery_id']}.call{self.calls}.result.json").write_text(json.dumps(res, indent=1), encoding="utf-8")
++        return res
++
++    def launches(self):
++        p = self.out / "launches.log"
++        return p.read_text(encoding="utf-8").splitlines() if p.exists() else []
++
++    def check_bounded_incomplete(self, res):
++        rec = res["receipt"]
++        self.assertLess(res["elapsed_s"], BOUND_S, f"deliver() held for {res['elapsed_s']} s; bound {BOUND_S} s")
++        self.assertEqual(rec["transport"], "incomplete-output", rec)
++        self.assertTrue(rec["outcome_uncertain"])
++        self.assertEqual(rec["collection"], "not attempted")
++        self.assertIsNone(rec["claimed_outcome"], "partial or late output is never promoted to a result")
++        self.assertFalse(rec["cleanup"]["complete"])
++        self.assertTrue(rec["cleanup"]["retained"], "the threads still waiting on the descendant are named")
++
++    def test_descendant_holds_pipes_returns_within_bound(self):
++        res = self.drive(self.env("fixture-inherit-pipes", "d-inherit"))
++        self.check_bounded_incomplete(res)
++        self.assertIsNotNone(res["background_finished_after_s"], "the retained readers finished once the descendant exited")
++        self.assertEqual(len(self.launches()), 1)
++        again = self.drive(self.env("fixture-inherit-pipes", "d-inherit"))
++        self.assertTrue(again["receipt"].get("replayed"))
++        self.assertEqual(len(self.launches()), 1, "no automatic relaunch")
++
++    def test_complete_result_followed_by_descendant_is_not_promoted(self):
++        res = self.drive(self.env("fixture-inherit-pipes-after-result", "d-inherit-result"))
++        self.check_bounded_incomplete(res)
++        self.assertFalse((self.store / "d-inherit-result" / "attempt" / "stdout.bin").read_bytes() == b"",
++                         "the partial snapshot is kept as diagnostics")
++        self.assertFalse(self.out.joinpath("result.json").exists() and res["receipt"].get("artifacts"),
++                         "no artifact is reported collected")
++
++
++if __name__ == "__main__":
++    unittest.main()
+diff -ruN evidence/pass03/source-before/tools/page_edit.py evidence/pass03/source-after/tools/page_edit.py
+--- evidence/pass03/source-before/tools/page_edit.py	1969-12-31 18:00:00.000000000 -0600
++++ evidence/pass03/source-after/tools/page_edit.py	2026-10-26 16:14:42.053076600 -0500
+@@ -0,0 +1,21 @@
++"""Replace one exact, unique block of text on the batch page, keeping its CRLF line endings.
++
++  python -B page_edit.py <page> <old-file> <new-file>
++
++Both blocks are given as LF text files; they are converted to the page's CRLF before matching.
++Refuses unless the old block occurs exactly once. Used only for 0503.worker-bridge pages 05.01, 06.01, 05.02 and 06.02.
++"""
++import sys
++from pathlib import Path
++
++page, old, new = Path(sys.argv[1]), Path(sys.argv[2]), Path(sys.argv[3])
++allowed = {"05.01.md", "06.01.md", "05.02.md", "06.02.md", "05.03.md", "06.03.md"}
++if page.name not in allowed or page.parent.name != "0503.worker-bridge":
++    sys.exit(f"stop: not an allowed page: {page}")
++data = page.read_bytes()
++o = old.read_bytes().replace(b"\r\n", b"\n").replace(b"\n", b"\r\n")
++n = new.read_bytes().replace(b"\r\n", b"\n").replace(b"\n", b"\r\n")
++if data.count(o) != 1:
++    sys.exit(f"stop: the old block occurs {data.count(o)} times")
++page.write_bytes(data.replace(o, n))
++print(f"edited {page.name}")
+diff -ruN evidence/pass03/source-before/tools/page_return_0503.py evidence/pass03/source-after/tools/page_return_0503.py
+--- evidence/pass03/source-before/tools/page_return_0503.py	1969-12-31 18:00:00.000000000 -0600
++++ evidence/pass03/source-after/tools/page_return_0503.py	2026-10-26 16:14:42.080314900 -0500
+@@ -0,0 +1,42 @@
++"""Fill batch 05.03's PENDING return fields on 0503.worker-bridge/05.03.md, keeping CRLF and every instruction line,
++and set its header state to agree with the Return (the batch asks that header and Return agree when returned).
++
++  python -B page_return_0503.py <05.03.md> <return-text-folder>
++
++The folder holds r01.txt..r03.txt (each replaces 'result: PENDING' inside section '## #0N'), return.txt (replaces
++'Execution: IN PROGRESS' and the three PENDING lines after it) and state.txt (the new header state line).
++The Prime's review section is not touched. Refuses unless each target occurs exactly once.
++"""
++import sys
++from pathlib import Path
++
++page, folder = Path(sys.argv[1]), Path(sys.argv[2])
++if page.name != "05.03.md" or page.parent.name != "0503.worker-bridge":
++    sys.exit("stop: not batch 05.03")
++raw = page.read_bytes().decode("utf-8")
++if "\r\n" not in raw:
++    sys.exit("stop: expected CRLF")
++t = raw.replace("\r\n", "\n")
++
++
++def text(name):
++    return (folder / name).read_text(encoding="utf-8").replace("\r\n", "\n").rstrip("\n")
++
++
++for n in range(1, 4):
++    i = t.index(f"\n## #0{n} ")
++    j = t.find("\n## ", i + 1)
++    sec = t[i:j]
++    if sec.count("result: PENDING") != 1:
++        sys.exit(f"stop: section #0{n} has {sec.count('result: PENDING')} pending results")
++    t = t[:i] + sec.replace("result: PENDING", text(f"r0{n}.txt")) + t[j:]
++old = "Execution: IN PROGRESS\nOriginal BR-01b before/after: PENDING\nImplementation and lifecycle limits: PENDING\nTests/evidence/hashes: PENDING"
++if t.count(old) != 1:
++    sys.exit("stop: return block not found exactly once")
++t = t.replace(old, text("return.txt"))
++head_old = [l for l in t.split("\n")[:8] if l.startswith("state: released by the Director 2026-10-26; executing")]
++if len(head_old) != 1:
++    sys.exit("stop: header state line not found exactly once")
++t = t.replace(head_old[0], text("state.txt"), 1)
++page.write_bytes(t.replace("\n", "\r\n").encode("utf-8"))
++print("return written")

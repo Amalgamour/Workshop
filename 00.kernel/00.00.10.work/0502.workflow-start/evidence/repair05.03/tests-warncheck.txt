@@ -1,0 +1,637 @@
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+======================================================================
+FAIL: test_bad_revision_refuses (__main__.Book.test_bad_revision_refuses) (rev='0000000000000000000000000000000000000000')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 229, in test_bad_revision_refuses
+    self.assertEqual(self.run_tool(rev)[0], 2)
+                     ~~~~~~~~~~~~~^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_bad_revision_refuses (__main__.Book.test_bad_revision_refuses) (rev='no-such-branch')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 229, in test_bad_revision_refuses
+    self.assertEqual(self.run_tool(rev)[0], 2)
+                     ~~~~~~~~~~~~~^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_checker_is_read_only_on_the_inspected_checkout (__main__.Book.test_checker_is_read_only_on_the_inspected_checkout)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 119, in test_checker_is_read_only_on_the_inspected_checkout
+    self.run_tool(sha, *extra)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_correct_book_is_clean (__main__.Book.test_correct_book_is_clean)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 85, in test_correct_book_is_clean
+    code, rep = self.run_tool(sha)
+                ~~~~~~~~~~~~~^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_duplicate_page_identity (__main__.Book.test_duplicate_page_identity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 139, in test_duplicate_page_identity
+    code, rep = self.run_tool(sha)
+                ~~~~~~~~~~~~~^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_explicit_contents_is_labelled_as_not_selected_by_the_sentinel (__main__.Book.test_explicit_contents_is_labelled_as_not_selected_by_the_sentinel)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 169, in test_explicit_contents_is_labelled_as_not_selected_by_the_sentinel
+    code, rep = self.run_tool(sha, "--contents", "0011.contents/01.002.md")
+                ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_files_and_count_mismatch (__main__.Book.test_files_and_count_mismatch)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 128, in test_files_and_count_mismatch
+    code, rep = self.run_tool(sha)
+                ~~~~~~~~~~~~~^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_missing_ambiguous_and_dangling_pointer_refuse (__main__.Book.test_missing_ambiguous_and_dangling_pointer_refuse) (case='none')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 184, in test_missing_ambiguous_and_dangling_pointer_refuse
+    code, rep = self.run_tool(sha)
+                ~~~~~~~~~~~~~^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_missing_ambiguous_and_dangling_pointer_refuse (__main__.Book.test_missing_ambiguous_and_dangling_pointer_refuse) (case='two')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 184, in test_missing_ambiguous_and_dangling_pointer_refuse
+    code, rep = self.run_tool(sha)
+                ~~~~~~~~~~~~~^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_missing_ambiguous_and_dangling_pointer_refuse (__main__.Book.test_missing_ambiguous_and_dangling_pointer_refuse) (case='dangling')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 184, in test_missing_ambiguous_and_dangling_pointer_refuse
+    code, rep = self.run_tool(sha)
+                ~~~~~~~~~~~~~^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_missing_ambiguous_and_dangling_pointer_refuse (__main__.Book.test_missing_ambiguous_and_dangling_pointer_refuse) (case='outside')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 184, in test_missing_ambiguous_and_dangling_pointer_refuse
+    code, rep = self.run_tool(sha)
+                ~~~~~~~~~~~~~^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_missing_book_file_and_other_book (__main__.Book.test_missing_book_file_and_other_book)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 148, in test_missing_book_file_and_other_book
+    code, rep = self.run_tool(sha)
+                ~~~~~~~~~~~~~^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_no_sentinel_refuses (__main__.Book.test_no_sentinel_refuses)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 190, in test_no_sentinel_refuses
+    code, rep = self.run_tool(sha)
+                ~~~~~~~~~~~~~^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_or01_second_line_missing_book_is_a_finding_not_clean (__main__.Book.test_or01_second_line_missing_book_is_a_finding_not_clean)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 245, in test_or01_second_line_missing_book_is_a_finding_not_clean
+    code, rep = self.contents(GOOD.replace(" Each lists what it holds.", "\nMissing: `../00.00.99.missing/00.md`."), "or01")
+                ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 241, in contents
+    return self.run_tool(self.commit(f, msg=msg))
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_other_books_multiline_form_and_section_boundary (__main__.Book.test_other_books_multiline_form_and_section_boundary) (case='two lines and a blank line')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 258, in test_other_books_multiline_form_and_section_boundary
+    code, rep = self.contents(text, name)
+                ~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 241, in contents
+    return self.run_tool(self.commit(f, msg=msg))
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_other_books_multiline_form_and_section_boundary (__main__.Book.test_other_books_multiline_form_and_section_boundary) (case='missing book on a later line')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 258, in test_other_books_multiline_form_and_section_boundary
+    code, rep = self.contents(text, name)
+                ~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 241, in contents
+    return self.run_tool(self.commit(f, msg=msg))
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_other_books_multiline_form_and_section_boundary (__main__.Book.test_other_books_multiline_form_and_section_boundary) (case='a later heading ends the section')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 258, in test_other_books_multiline_form_and_section_boundary
+    code, rep = self.contents(text, name)
+                ~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 241, in contents
+    return self.run_tool(self.commit(f, msg=msg))
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_other_books_unconsumed_text_refuses (__main__.Book.test_other_books_unconsumed_text_refuses) (variant='same-line unlabelled path')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 278, in test_other_books_unconsumed_text_refuses
+    code, rep = self.contents(head + section, name)
+                ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 241, in contents
+    return self.run_tool(self.commit(f, msg=msg))
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_other_books_unconsumed_text_refuses (__main__.Book.test_other_books_unconsumed_text_refuses) (variant='comma separator')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 278, in test_other_books_unconsumed_text_refuses
+    code, rep = self.contents(head + section, name)
+                ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 241, in contents
+    return self.run_tool(self.commit(f, msg=msg))
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_other_books_unconsumed_text_refuses (__main__.Book.test_other_books_unconsumed_text_refuses) (variant='item after the sentence')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 278, in test_other_books_unconsumed_text_refuses
+    code, rep = self.contents(head + section, name)
+                ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 241, in contents
+    return self.run_tool(self.commit(f, msg=msg))
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_other_books_unconsumed_text_refuses (__main__.Book.test_other_books_unconsumed_text_refuses) (variant='prose line')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 278, in test_other_books_unconsumed_text_refuses
+    code, rep = self.contents(head + section, name)
+                ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 241, in contents
+    return self.run_tool(self.commit(f, msg=msg))
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_other_books_unconsumed_text_refuses (__main__.Book.test_other_books_unconsumed_text_refuses) (variant='bare path line')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 278, in test_other_books_unconsumed_text_refuses
+    code, rep = self.contents(head + section, name)
+                ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 241, in contents
+    return self.run_tool(self.commit(f, msg=msg))
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_other_books_unconsumed_text_refuses (__main__.Book.test_other_books_unconsumed_text_refuses) (variant='sentence on an earlier line')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 278, in test_other_books_unconsumed_text_refuses
+    code, rep = self.contents(head + section, name)
+                ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 241, in contents
+    return self.run_tool(self.commit(f, msg=msg))
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_other_books_unconsumed_text_refuses (__main__.Book.test_other_books_unconsumed_text_refuses) (variant='sentence alone')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 278, in test_other_books_unconsumed_text_refuses
+    code, rep = self.contents(head + section, name)
+                ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 241, in contents
+    return self.run_tool(self.commit(f, msg=msg))
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_other_books_unconsumed_text_refuses (__main__.Book.test_other_books_unconsumed_text_refuses) (variant='item without period')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 278, in test_other_books_unconsumed_text_refuses
+    code, rep = self.contents(head + section, name)
+                ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 241, in contents
+    return self.run_tool(self.commit(f, msg=msg))
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_other_books_unconsumed_text_refuses (__main__.Book.test_other_books_unconsumed_text_refuses) (variant='trailing whitespace')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 278, in test_other_books_unconsumed_text_refuses
+    code, rep = self.contents(head + section, name)
+                ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 241, in contents
+    return self.run_tool(self.commit(f, msg=msg))
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_other_books_unconsumed_text_refuses (__main__.Book.test_other_books_unconsumed_text_refuses) (variant='duplicate heading')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 278, in test_other_books_unconsumed_text_refuses
+    code, rep = self.contents(head + section, name)
+                ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 241, in contents
+    return self.run_tool(self.commit(f, msg=msg))
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_other_books_unconsumed_text_refuses (__main__.Book.test_other_books_unconsumed_text_refuses) (variant='near-miss heading')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 278, in test_other_books_unconsumed_text_refuses
+    code, rep = self.contents(head + section, name)
+                ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 241, in contents
+    return self.run_tool(self.commit(f, msg=msg))
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_other_books_unconsumed_text_refuses (__main__.Book.test_other_books_unconsumed_text_refuses) (variant='empty section')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 278, in test_other_books_unconsumed_text_refuses
+    code, rep = self.contents(head + section, name)
+                ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 241, in contents
+    return self.run_tool(self.commit(f, msg=msg))
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_path_escape (__main__.Book.test_path_escape)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 199, in test_path_escape
+    code, rep = self.run_tool(sha)
+                ~~~~~~~~~~~~~^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_pointer_to_older_candidate_is_honoured_not_the_newest (__main__.Book.test_pointer_to_older_candidate_is_honoured_not_the_newest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 160, in test_pointer_to_older_candidate_is_honoured_not_the_newest
+    code, rep = self.run_tool(sha)
+                ~~~~~~~~~~~~~^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_unsupported_table_syntax_refuses (__main__.Book.test_unsupported_table_syntax_refuses) (variant='extra column')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 221, in test_unsupported_table_syntax_refuses
+    code, rep = self.run_tool(sha)
+                ~~~~~~~~~~~~~^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_unsupported_table_syntax_refuses (__main__.Book.test_unsupported_table_syntax_refuses) (variant='bare entry')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 221, in test_unsupported_table_syntax_refuses
+    code, rep = self.run_tool(sha)
+                ~~~~~~~~~~~~~^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_unsupported_table_syntax_refuses (__main__.Book.test_unsupported_table_syntax_refuses) (variant='dir without count')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 221, in test_unsupported_table_syntax_refuses
+    code, rep = self.run_tool(sha)
+                ~~~~~~~~~~~~~^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_unsupported_table_syntax_refuses (__main__.Book.test_unsupported_table_syntax_refuses) (variant='header')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 221, in test_unsupported_table_syntax_refuses
+    code, rep = self.run_tool(sha)
+                ~~~~~~~~~~~~~^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_unsupported_table_syntax_refuses (__main__.Book.test_unsupported_table_syntax_refuses) (variant='no pages')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 221, in test_unsupported_table_syntax_refuses
+    code, rep = self.run_tool(sha)
+                ~~~~~~~~~~~~~^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_unsupported_table_syntax_refuses (__main__.Book.test_unsupported_table_syntax_refuses) (variant='no book files')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 221, in test_unsupported_table_syntax_refuses
+    code, rep = self.run_tool(sha)
+                ~~~~~~~~~~~~~^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_untracked_local_folder_does_not_satisfy_a_missing_published_page (__main__.Book.test_untracked_local_folder_does_not_satisfy_a_missing_published_page)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 99, in test_untracked_local_folder_does_not_satisfy_a_missing_published_page
+    code, rep = self.run_tool(sha)
+                ~~~~~~~~~~~~~^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+======================================================================
+FAIL: test_working_tree_and_index_changes_do_not_alter_a_pinned_result (__main__.Book.test_working_tree_and_index_changes_do_not_alter_a_pinned_result)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 105, in test_working_tree_and_index_changes_do_not_alter_a_pinned_result
+    before = self.run_tool(sha)
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\tests\test_check_book.py", line 71, in run_tool
+    self.assertEqual(r.stderr, "", "the tool wrote to stderr (a warning would hide here)")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'C:\\Users\\misg\\AppData\\Local\\Temp\\cl[377 chars].`\n' != ''
+- C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\or05\lab-warncheck\check_book.py:25: SyntaxWarning: "\`" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\`"? A raw string is also an option.
+-   Markdown heading or the end of the face, is accounted for. Each nonblank line is one or more `Label: \`path\`.`
+ : the tool wrote to stderr (a warning would hide here)
+
+----------------------------------------------------------------------
+Ran 17 tests in 14.895s
+
+FAILED (failures=39)

@@ -1,0 +1,4 @@
+shared-repo-before.txt / shared-repo-after.txt: lines are HEAD, sha256 of `git status --porcelain=v1 -uall`, sha256 of .git/index bytes, sha256 of for-each-ref.
+HEAD, index bytes and refs are identical before and after the demonstration. The status hash differs because the demonstration wrote its outputs (demo-*.json, demo-*.txt, these fingerprints) into this very evidence folder, which is inside the inspected repository and untracked.
+Re-run with outputs kept outside the repository: the status listing excluding evidence/check05.02/ and the index bytes were identical before and after (shared-status-excluding-check05.02.txt is that listing).
+All Git reads ran with GIT_OPTIONAL_LOCKS=0. The checker opens no file for writing.

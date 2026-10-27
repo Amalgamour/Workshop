@@ -1,0 +1,73 @@
+{
+  "reviewer": "Codex Prime",
+  "reviewed_batch_sha256": "c289e65b11f98b88e609c1780b0bfd69f8148447822222d11f4380c55dfb0df9",
+  "manifest_files_verified": 88,
+  "independent_suites": [
+    {
+      "suite": "test_bridge.py",
+      "exit": 0
+    },
+    {
+      "suite": "test_pass02.py",
+      "exit": 0
+    }
+  ],
+  "independent_test_count": 28,
+  "original_three_probes": {
+    "source": "D:\\librarian\\temp\\review-0503-pass02-2026-10-26\\lab-copy",
+    "BR-02 status('../outside')": "no outside read: refused",
+    "BR-02 recover('../outside')": "no outside read: refused",
+    "BR-02 sentinel unchanged": true,
+    "BR-03 infinite timeout": "refused: timeout_s must be a finite number with 0 < timeout_s <= 3600, not inf",
+    "BR-03 fractional byte cap": "refused: max_stdout_bytes must be an integer with 1 <= max_stdout_bytes <= 67108864, not 1.5",
+    "BR-03 bool limits": "refused: timeout_s must be a finite number with 0 < timeout_s <= 3600, not True",
+    "BR-01 elapsed_s": 0.219,
+    "BR-01 transport": "timeout",
+    "BR-01 configured_timeout_s": 0.2
+  },
+  "inherited_pipes_probe": {
+    "elapsed_s": 5.077999999997701,
+    "timeout_s": 0.2,
+    "cleanup_allowance_s": 2.0,
+    "receipt": {
+      "schema": "worker-bridge/receipt@1",
+      "delivery_id": "probe-inherited",
+      "job_id": "probe",
+      "request_sha256": "805dfbe4b168ca1e16f53b168ccc5f04b9ac8cee7d2f05585182409b660a3c3c",
+      "backend": "prime-inherited",
+      "worker_kind": "protocol test worker",
+      "launched": true,
+      "returncode": 0,
+      "duration_s": 5.078,
+      "diagnostics": {
+        "stdout": {
+          "path": "attempt/stdout.bin",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "stderr": {
+          "path": "attempt/stderr.bin",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      },
+      "review": "not performed",
+      "transport": "malformed",
+      "outcome_uncertain": true,
+      "claimed_outcome": null,
+      "collection": "not attempted",
+      "reason": "stdout is not one JSON value (Expecting value)",
+      "cleanup": {
+        "allowance_s": 2.0,
+        "complete": false,
+        "notes": [
+          "stdout reader still running after the cleanup allowance (a grandchild may hold the pipe)",
+          "stderr reader still running after the cleanup allowance (a grandchild may hold the pipe)"
+        ]
+      }
+    }
+  },
+  "original_lab_and_batch_unchanged": true,
+  "actual_model_calls": 0,
+  "shared_records_or_Git_written": false
+}

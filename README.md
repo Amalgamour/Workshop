@@ -12,7 +12,7 @@
 4. **What was imported, and its status:** [`0410.imports`](00.kernel/00.00.10.work/0410.imports/01.md). **Open findings:** [`0611.findings`](00.kernel/00.00.10.work/0611.findings/01.md).
 5. **The bootstrap record**, with the packs, their outcomes and the evidence: [`0501.bootstrap`](00.kernel/00.00.10.work/0501.bootstrap/01.md).
 
-**New jobs** in this line are page-local batches in the work book `00.kernel/00.00.10.work/`. Read the batch, its `01.md` and its `06.01.md`. The current batch is [`0504.app-entry/05.01.md`](00.kernel/00.00.10.work/0504.app-entry/05.01.md). Its return and the Prime review stay on that file. `0502.workflow-start/05.01.md` is the accepted previous return. Root [`packs/`](packs) and [`returns/`](returns) keep the bootstrap history. They are not a second copy of a new job.
+**New jobs** in this line are page-local batches in the work book `00.kernel/00.00.10.work/`. Read the batch, its `01.md` and its `06.01.md`. The canonical record above selects the current batch; do not infer it from this historical overview. Each return and Prime review stays on its own batch file. `0502.workflow-start/05.01.md` is the accepted previous return. Root [`packs/`](packs) and [`returns/`](returns) keep the bootstrap history. They are not a second copy of a new job.
 
 `00.kernel/00.live.md` is a derived view of the record, rebuilt by a development renderer. If it disagrees with `06.01.md`, the record wins, and the view should be regenerated.
 
@@ -42,11 +42,19 @@ Old boot files (`00.start.md`, `00.readme.md`, `AGENTS.md` and others under `imp
 
 ## What is missing
 
-- No seated loader, and no active `02.<name>.py` on any runtime page. The development entry can hash-check `0302.run/02.run.002.py` and run one fixture payload. `run` refuses. The law card still names `02.run.py`, which does not exist.
-- Clerk routing (inboxes, handoffs between seats) is not integrated. Seats hand work over through files in `packs/` and `returns/`.
+- No seated loader, and no active `02.<name>.py` on any runtime page. The development entry can hash-check `0302.run/02.run.003.py` and run one fixture payload. `run` refuses. The law card still names `02.run.py`, which does not exist.
+- Clerk routing (inboxes, handoffs between seats) is not integrated. Seats currently hand work over manually through page-local `05.NN` batches and their returns; root `packs/` and `returns/` retain bootstrap history.
 - Lock and release are not implemented. No orientation face is seated.
 - The renderer for `00.live.md` is development tooling in `labs/bootstrap-establish-pass01/`, not a runtime module.
 
 ## Byte custody
 
 `.gitattributes` keeps `/imports`, `/labs`, `/notes`, `/packs`, `/returns` and `/00.kernel` byte-exact (`-text`). New app and control text is LF. `.gitignore` excludes only generated scratch repositories. See `0410.imports`, and addendum 001 #B-A03, for how every Git boundary was checked.
+
+## Development status — 2026-10-27
+The app entry and worker bridge are separate development components. The bridge
+lab passed Prime's 30-test verification; fixture-only integration is designed but
+not implemented. The app's original source-folder overwrite is fixed; AR-01's
+hard-link route blocks integration pending 0504/05.04. No model connection is active.
+The advisory book checker is accepted on 0502/05.03. The Observer's first manual
+review and Prime responses are 0502/06.02. No continuous Observer process exists.

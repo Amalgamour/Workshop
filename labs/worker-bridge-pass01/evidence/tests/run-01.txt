@@ -1,0 +1,101 @@
+test_altered_input_hash_refused_before_launch (__main__.Bridge.test_altered_input_hash_refused_before_launch) ... ok
+test_artifact_escaping_root (__main__.Bridge.test_artifact_escaping_root) ... D:\Git\lib-build\labs\worker-bridge-pass01\tests\test_bridge.py:175: ResourceWarning: unclosed file <_io.BufferedReader name=5>
+  r = self.ad.deliver(self.env("fixture-escape"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\Git\lib-build\labs\worker-bridge-pass01\tests\test_bridge.py:175: ResourceWarning: unclosed file <_io.BufferedReader name=4>
+  r = self.ad.deliver(self.env("fixture-escape"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_artifact_through_junction_refused (__main__.Bridge.test_artifact_through_junction_refused) ... ok
+test_conflicting_identity_reuse_refused (__main__.Bridge.test_conflicting_identity_reuse_refused) ... D:\Git\lib-build\labs\worker-bridge-pass01\tests\test_bridge.py:123: ResourceWarning: unclosed file <_io.BufferedReader name=5>
+  self.ad.deliver(self.env())
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\Git\lib-build\labs\worker-bridge-pass01\tests\test_bridge.py:123: ResourceWarning: unclosed file <_io.BufferedReader name=4>
+  self.ad.deliver(self.env())
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_crash_before_receipt_then_recover_without_relaunch (__main__.Bridge.test_crash_before_receipt_then_recover_without_relaunch) ... C:\Users\misg\AppData\Local\Python\pythoncore-3.14-64\Lib\traceback.py:270: ResourceWarning: unclosed file <_io.BufferedReader name=5>
+  tb.tb_frame.clear()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\Users\misg\AppData\Local\Python\pythoncore-3.14-64\Lib\traceback.py:270: ResourceWarning: unclosed file <_io.BufferedReader name=4>
+  tb.tb_frame.clear()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_crash_nonzero (__main__.Bridge.test_crash_nonzero) ... D:\Git\lib-build\labs\worker-bridge-pass01\tests\test_bridge.py:84: ResourceWarning: unclosed file <_io.BufferedReader name=5>
+  r = self.ad.deliver(self.env("fixture-crash"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\Git\lib-build\labs\worker-bridge-pass01\tests\test_bridge.py:84: ResourceWarning: unclosed file <_io.BufferedReader name=4>
+  r = self.ad.deliver(self.env("fixture-crash"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_duplicate_identical_applies_once (__main__.Bridge.test_duplicate_identical_applies_once) ... D:\Git\lib-build\labs\worker-bridge-pass01\tests\test_bridge.py:114: ResourceWarning: unclosed file <_io.BufferedReader name=5>
+  r1 = self.ad.deliver(self.env())
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\Git\lib-build\labs\worker-bridge-pass01\tests\test_bridge.py:114: ResourceWarning: unclosed file <_io.BufferedReader name=4>
+  r1 = self.ad.deliver(self.env())
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_excessive_output (__main__.Bridge.test_excessive_output) ... D:\Git\lib-build\labs\worker-bridge-pass01\tests\test_bridge.py:97: ResourceWarning: unclosed file <_io.BufferedReader name=5>
+  r = self.ad.deliver(self.env("fixture-flood"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\Git\lib-build\labs\worker-bridge-pass01\tests\test_bridge.py:97: ResourceWarning: unclosed file <_io.BufferedReader name=4>
+  r = self.ad.deliver(self.env("fixture-flood"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_interrupted_receipt_write_leaves_tmp_and_recovers (__main__.Bridge.test_interrupted_receipt_write_leaves_tmp_and_recovers) ... ok
+test_invalid_envelope_and_unknown_backend_refused (__main__.Bridge.test_invalid_envelope_and_unknown_backend_refused) ... ok
+test_invalid_result_shape (__main__.Bridge.test_invalid_result_shape) ... D:\Git\lib-build\labs\worker-bridge-pass01\tests\test_bridge.py:71: ResourceWarning: unclosed file <_io.BufferedReader name=5>
+  r = self.ad.deliver(self.env("fixture-bad-shape"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\Git\lib-build\labs\worker-bridge-pass01\tests\test_bridge.py:71: ResourceWarning: unclosed file <_io.BufferedReader name=4>
+  r = self.ad.deliver(self.env("fixture-bad-shape"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_launch_record_without_attempt_stays_uncertain (__main__.Bridge.test_launch_record_without_attempt_stays_uncertain) ... ok
+test_malformed_and_partial_output (__main__.Bridge.test_malformed_and_partial_output) ... D:\Git\lib-build\labs\worker-bridge-pass01\tests\test_bridge.py:92: ResourceWarning: unclosed file <_io.BufferedReader name=5>
+  r = self.ad.deliver(self.env(b, delivery=f"d-m{i}"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\Git\lib-build\labs\worker-bridge-pass01\tests\test_bridge.py:92: ResourceWarning: unclosed file <_io.BufferedReader name=4>
+  r = self.ad.deliver(self.env(b, delivery=f"d-m{i}"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_missing_artifact (__main__.Bridge.test_missing_artifact) ... D:\Git\lib-build\labs\worker-bridge-pass01\tests\test_bridge.py:165: ResourceWarning: unclosed file <_io.BufferedReader name=5>
+  r = self.ad.deliver(self.env("fixture-missing-artifact"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\Git\lib-build\labs\worker-bridge-pass01\tests\test_bridge.py:165: ResourceWarning: unclosed file <_io.BufferedReader name=4>
+  r = self.ad.deliver(self.env("fixture-missing-artifact"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_success_collected_and_fresh_process_reads_receipt (__main__.Bridge.test_success_collected_and_fresh_process_reads_receipt) ... D:\Git\lib-build\labs\worker-bridge-pass01\tests\test_bridge.py:46: ResourceWarning: unclosed file <_io.BufferedReader name=5>
+  r = self.ad.deliver(self.env())
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\Git\lib-build\labs\worker-bridge-pass01\tests\test_bridge.py:46: ResourceWarning: unclosed file <_io.BufferedReader name=4>
+  r = self.ad.deliver(self.env())
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_timeout_uncertain_and_not_relaunched (__main__.Bridge.test_timeout_uncertain_and_not_relaunched) ... D:\Git\lib-build\labs\worker-bridge-pass01\tests\test_bridge.py:104: ResourceWarning: unclosed file <_io.BufferedReader name=5>
+  r = self.ad.deliver(e)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\Git\lib-build\labs\worker-bridge-pass01\tests\test_bridge.py:104: ResourceWarning: unclosed file <_io.BufferedReader name=4>
+  r = self.ad.deliver(e)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_wrong_artifact_hash (__main__.Bridge.test_wrong_artifact_hash) ... D:\Git\lib-build\labs\worker-bridge-pass01\tests\test_bridge.py:170: ResourceWarning: unclosed file <_io.BufferedReader name=5>
+  r = self.ad.deliver(self.env("fixture-bad-hash"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\Git\lib-build\labs\worker-bridge-pass01\tests\test_bridge.py:170: ResourceWarning: unclosed file <_io.BufferedReader name=4>
+  r = self.ad.deliver(self.env("fixture-bad-hash"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_wrong_result_identity (__main__.Bridge.test_wrong_result_identity) ... D:\Git\lib-build\labs\worker-bridge-pass01\tests\test_bridge.py:57: ResourceWarning: unclosed file <_io.BufferedReader name=5>
+  r = self.ad.deliver(self.env("fixture-wrong-id"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+D:\Git\lib-build\labs\worker-bridge-pass01\tests\test_bridge.py:57: ResourceWarning: unclosed file <_io.BufferedReader name=4>
+  r = self.ad.deliver(self.env("fixture-wrong-id"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 3.439s
+
+OK

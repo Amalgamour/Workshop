@@ -1,0 +1,207 @@
+PASS	P1 complete fixture in app/, output README.md	exit 2: stop: fixture root is not a designated container
+PASS	P1 README bytes unchanged	64a7953d726e764c81208c16eaf294aa2d76ee87cdb2b7101a5e1693547037d9
+PASS	P2a sibling prefix fixtures-x	exit 2: stop: fixture root is the live workspace
+PASS	P2b other page fixtures	exit 2: stop: fixture root is the live workspace
+PASS	P3 case-varied root in app/scratch succeeds	exit 0: result: pass
+PASS	P3 inventory equals expected	
+PASS	P4 explicit container mismatch inside workspace	exit 2: stop: explicit container does not match the designated container
+PASS	P4b explicit container equal to the designated one	exit 0: result: pass
+PASS	P5a external container success	exit 0: result: pass
+PASS	P5b fixture root outside the named container	exit 2: stop: fixture root is outside the named container
+PASS	P5c external root that is a junction to app/	exit 2: stop: fixture root is not a designated container
+PASS	P5d named container is a junction to the workspace	exit 2: stop: external container overlaps the workspace
+PASS	P6 output junction to app/ refused	exit 2: stop: path escapes the root
+PASS	P7a marker payload at a refused root	exit 2: stop: fixture root is the live workspace
+PASS	P7a payload not imported	False
+PASS	P7b broken stamp refused	exit 2: stop: code face has no stamp: 02.inventory.py
+PASS	P7b payload not imported	False
+PASS	P7c CLI hash differs from fixture hash	exit 2: stop: payload hash does not match the fixture
+PASS	P7c payload not imported	False
+OBSERVE	P8 unreviewed stamped payload with caller-supplied hash	exit 0; imported=True; hash 5dffbc074298 vs reviewed dd6a78b5a378
+FAIL	P9 hard-linked temp name leaves app/README.md unchanged	exit 0; README changed=True; sha now 1b465c3517a5
+PASS	P10 predecessor pinned 00.kernel/00.00.01.law/0302.run/02.run.001.py	
+PASS	P10 predecessor pinned 00.kernel/00.00.01.law/0302.run/02.run.002.py	
+PASS	P10 predecessor pinned 00.kernel/00.00.01.law/0302.run/02.md	
+PASS	copy tree outside scratch unchanged after restores	
+
+# log
+$ librarian.py test-run --root C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\review0504\ws\app --candidate 00.kernel/00.00.01.law/0310.inventory/02.inventory.py --sha256 dd6a78b5a3781fe840e68950805b9838e569095d15dac3c678f00782341ed69b
+exit 2
+stdout:
+stderr:
+stop: fixture root is not a designated container
+
+$ librarian.py test-run --root C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\review0504\ws\00.kernel\00.00.10.work\0504.app-entry\fixtures-x --candidate 00.kernel/00.00.01.law/0310.inventory/02.inventory.py --sha256 dd6a78b5a3781fe840e68950805b9838e569095d15dac3c678f00782341ed69b
+exit 2
+stdout:
+stderr:
+stop: fixture root is the live workspace
+
+$ librarian.py test-run --root C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\review0504\ws\00.kernel\00.00.10.work\0502.workflow-start\fixtures --candidate 00.kernel/00.00.01.law/0310.inventory/02.inventory.py --sha256 dd6a78b5a3781fe840e68950805b9838e569095d15dac3c678f00782341ed69b
+exit 2
+stdout:
+stderr:
+stop: fixture root is the live workspace
+
+$ librarian.py test-run --root C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\SCRATCHpad\review0504\ws\app\SCRATCH\colab-ok --candidate 00.kernel/00.00.01.law/0310.inventory/02.inventory.py --sha256 dd6a78b5a3781fe840e68950805b9838e569095d15dac3c678f00782341ed69b
+exit 0
+stdout:
+desk: 00.kernel
+work_book: 00.00.10.work
+workflow_space: 0
+current_work: 00.kernel/00.00.10.work/0504.app-entry/05.01.md
+pack: 00.kernel/00.00.10.work/0504.app-entry/05.01.md
+assignment_state: released
+runtime_book: 00.00.01.law
+runtime_space: 0
+runtime_band: 0300-0399
+runner: 00.kernel/00.00.01.law/0302.run/02.run.003.py
+runner_sha256: bbca135691ba4e873e27b9322b1ad6d79deeb59107eb7d377f7d20014067d50c
+fixture: 0504-inventory-pass01
+runner_resolved: C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\review0504\ws\00.kernel\00.00.01.law\0302.run\02.run.003.py
+payload: 00.kernel/00.00.01.law/0310.inventory/02.inventory.py
+payload_sha256: dd6a78b5a3781fe840e68950805b9838e569095d15dac3c678f00782341ed69b
+output: output/inventory.json
+output_sha256: 1b465c3517a5b4575a3ff5b2cdbeeb37220d83b262afb5f69864b292093e13c0
+result: pass
+stderr:
+
+$ librarian.py test-run --root C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\review0504\ws\app\scratch\colab-ok --container C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\review0504\ws\00.kernel\00.00.10.work\0504.app-entry\fixtures --candidate 00.kernel/00.00.01.law/0310.inventory/02.inventory.py --sha256 dd6a78b5a3781fe840e68950805b9838e569095d15dac3c678f00782341ed69b
+exit 2
+stdout:
+stderr:
+stop: explicit container does not match the designated container
+
+$ librarian.py test-run --root C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\review0504\ws\app\scratch\colab-ok --container C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\review0504\ws\app\scratch --candidate 00.kernel/00.00.01.law/0310.inventory/02.inventory.py --sha256 dd6a78b5a3781fe840e68950805b9838e569095d15dac3c678f00782341ed69b
+exit 0
+stdout:
+desk: 00.kernel
+work_book: 00.00.10.work
+workflow_space: 0
+current_work: 00.kernel/00.00.10.work/0504.app-entry/05.01.md
+pack: 00.kernel/00.00.10.work/0504.app-entry/05.01.md
+assignment_state: released
+runtime_book: 00.00.01.law
+runtime_space: 0
+runtime_band: 0300-0399
+runner: 00.kernel/00.00.01.law/0302.run/02.run.003.py
+runner_sha256: bbca135691ba4e873e27b9322b1ad6d79deeb59107eb7d377f7d20014067d50c
+fixture: 0504-inventory-pass01
+runner_resolved: C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\review0504\ws\00.kernel\00.00.01.law\0302.run\02.run.003.py
+payload: 00.kernel/00.00.01.law/0310.inventory/02.inventory.py
+payload_sha256: dd6a78b5a3781fe840e68950805b9838e569095d15dac3c678f00782341ed69b
+output: output/inventory.json
+output_sha256: 1b465c3517a5b4575a3ff5b2cdbeeb37220d83b262afb5f69864b292093e13c0
+result: pass
+stderr:
+
+$ librarian.py test-run --root C:\Users\misg\AppData\Local\Temp\colab0504-ext-ck9ctl4c\box\fx --container C:\Users\misg\AppData\Local\Temp\colab0504-ext-ck9ctl4c\box --candidate 00.kernel/00.00.01.law/0310.inventory/02.inventory.py --sha256 dd6a78b5a3781fe840e68950805b9838e569095d15dac3c678f00782341ed69b
+exit 0
+stdout:
+desk: 00.kernel
+work_book: 00.00.10.work
+workflow_space: 0
+current_work: 00.kernel/00.00.10.work/0504.app-entry/05.01.md
+pack: 00.kernel/00.00.10.work/0504.app-entry/05.01.md
+assignment_state: released
+runtime_book: 00.00.01.law
+runtime_space: 0
+runtime_band: 0300-0399
+runner: 00.kernel/00.00.01.law/0302.run/02.run.003.py
+runner_sha256: bbca135691ba4e873e27b9322b1ad6d79deeb59107eb7d377f7d20014067d50c
+fixture: 0504-inventory-pass01
+runner_resolved: C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\review0504\ws\00.kernel\00.00.01.law\0302.run\02.run.003.py
+payload: 00.kernel/00.00.01.law/0310.inventory/02.inventory.py
+payload_sha256: dd6a78b5a3781fe840e68950805b9838e569095d15dac3c678f00782341ed69b
+output: output/inventory.json
+output_sha256: 1b465c3517a5b4575a3ff5b2cdbeeb37220d83b262afb5f69864b292093e13c0
+result: pass
+stderr:
+
+$ librarian.py test-run --root C:\Users\misg\AppData\Local\Temp\colab0504-ext-ck9ctl4c\box\fx --container C:\Users\misg\AppData\Local\Temp\colab0504-ext-ck9ctl4c\box\fx\00.kernel --candidate 00.kernel/00.00.01.law/0310.inventory/02.inventory.py --sha256 dd6a78b5a3781fe840e68950805b9838e569095d15dac3c678f00782341ed69b
+exit 2
+stdout:
+stderr:
+stop: fixture root is outside the named container
+
+$ librarian.py test-run --root C:\Users\misg\AppData\Local\Temp\colab0504-ext-ck9ctl4c\box\alias-app --container C:\Users\misg\AppData\Local\Temp\colab0504-ext-ck9ctl4c\box --candidate 00.kernel/00.00.01.law/0310.inventory/02.inventory.py --sha256 dd6a78b5a3781fe840e68950805b9838e569095d15dac3c678f00782341ed69b
+exit 2
+stdout:
+stderr:
+stop: fixture root is not a designated container
+
+$ librarian.py test-run --root C:\Users\misg\AppData\Local\Temp\colab0504-ext-ck9ctl4c\box\fx --container C:\Users\misg\AppData\Local\Temp\colab0504-ext-ck9ctl4c\alias-ws --candidate 00.kernel/00.00.01.law/0310.inventory/02.inventory.py --sha256 dd6a78b5a3781fe840e68950805b9838e569095d15dac3c678f00782341ed69b
+exit 2
+stdout:
+stderr:
+stop: external container overlaps the workspace
+
+$ librarian.py test-run --root C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\review0504\ws\app\scratch\colab-junction --candidate 00.kernel/00.00.01.law/0310.inventory/02.inventory.py --sha256 dd6a78b5a3781fe840e68950805b9838e569095d15dac3c678f00782341ed69b
+exit 2
+stdout:
+stderr:
+stop: path escapes the root
+
+$ librarian.py test-run --root C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\review0504\ws\00.kernel\00.00.10.work\0504.app-entry\colab-not-container --candidate 00.kernel/00.00.01.law/0310.inventory/02.inventory.py --sha256 5dffbc07429817afd156b391da2fcd0e6150a2cd9aa2e79f4be6748f981cf3f3
+exit 2
+stdout:
+stderr:
+stop: fixture root is the live workspace
+
+$ librarian.py test-run --root C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\review0504\ws\app\scratch\colab-stamp --candidate 00.kernel/00.00.01.law/0310.inventory/02.inventory.py --sha256 0538435231a543859ec10112bd09d6cfd8b642c3b897e4e74f406be18a63504a
+exit 2
+stdout:
+stderr:
+stop: code face has no stamp: 02.inventory.py
+
+$ librarian.py test-run --root C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\review0504\ws\app\scratch\colab-stamp --candidate 00.kernel/00.00.01.law/0310.inventory/02.inventory.py --sha256 dd6a78b5a3781fe840e68950805b9838e569095d15dac3c678f00782341ed69b
+exit 2
+stdout:
+stderr:
+stop: payload hash does not match the fixture
+
+$ librarian.py test-run --root C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\review0504\ws\app\scratch\colab-other-payload --candidate 00.kernel/00.00.01.law/0310.inventory/02.inventory.py --sha256 5dffbc07429817afd156b391da2fcd0e6150a2cd9aa2e79f4be6748f981cf3f3
+exit 0
+stdout:
+desk: 00.kernel
+work_book: 00.00.10.work
+workflow_space: 0
+current_work: 00.kernel/00.00.10.work/0504.app-entry/05.01.md
+pack: 00.kernel/00.00.10.work/0504.app-entry/05.01.md
+assignment_state: released
+runtime_book: 00.00.01.law
+runtime_space: 0
+runtime_band: 0300-0399
+runner: 00.kernel/00.00.01.law/0302.run/02.run.003.py
+runner_sha256: bbca135691ba4e873e27b9322b1ad6d79deeb59107eb7d377f7d20014067d50c
+fixture: 0504-inventory-pass01
+runner_resolved: C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\review0504\ws\00.kernel\00.00.01.law\0302.run\02.run.003.py
+payload: 00.kernel/00.00.01.law/0310.inventory/02.inventory.py
+payload_sha256: 5dffbc07429817afd156b391da2fcd0e6150a2cd9aa2e79f4be6748f981cf3f3
+output: output/inventory.json
+output_sha256: 1b465c3517a5b4575a3ff5b2cdbeeb37220d83b262afb5f69864b292093e13c0
+result: pass
+stderr:
+
+$ librarian.py test-run --root C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\review0504\ws\app\scratch\colab-hardlink --candidate 00.kernel/00.00.01.law/0310.inventory/02.inventory.py --sha256 dd6a78b5a3781fe840e68950805b9838e569095d15dac3c678f00782341ed69b
+exit 0
+stdout:
+desk: 00.kernel
+work_book: 00.00.10.work
+workflow_space: 0
+current_work: 00.kernel/00.00.10.work/0504.app-entry/05.01.md
+pack: 00.kernel/00.00.10.work/0504.app-entry/05.01.md
+assignment_state: released
+runtime_book: 00.00.01.law
+runtime_space: 0
+runtime_band: 0300-0399
+runner: 00.kernel/00.00.01.law/0302.run/02.run.003.py
+runner_sha256: bbca135691ba4e873e27b9322b1ad6d79deeb59107eb7d377f7d20014067d50c
+fixture: 0504-inventory-pass01
+runner_resolved: C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\review0504\ws\00.kernel\00.00.01.law\0302.run\02.run.003.py
+payload: 00.kernel/00.00.01.law/0310.inventory/02.inventory.py
+payload_sha256: dd6a78b5a3781fe840e68950805b9838e569095d15dac3c678f00782341ed69b
+output: output/inventory.json
+output_sha256: 1b465c3517a5b4575a3ff5b2cdbeeb37220d83b262afb5f69864b292093e13c0
+result: pass
+stderr:
