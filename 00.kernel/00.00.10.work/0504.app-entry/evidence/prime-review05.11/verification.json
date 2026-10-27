@@ -1,0 +1,38 @@
+{
+  "seam": {
+    "exit": 0,
+    "tail": "on\nPASS later call returns after fsync without a new launch\nPASS read-back failure returns attention\nPASS later call returns after read-back without a new launch\nPASS clerk-oserror stays uncertain\nPASS later call inspects clerk-oserror and does not relaunch\nPASS clerk-timeout stays uncertain\nPASS later call inspects clerk-timeout and does not relaunch\nREFUSAL unknown io fault is refused\nPASS A15 later call is already-recorded\nPASS A15 one launch and one return\nPASS guarded bytes were unchanged\nPASS no bytecode was written into the books or app\nsummary pass 44 expected-refusal 19 skip 1 fail 0\n"
+  },
+  "entry": {
+    "exit": 0,
+    "tail": "tayed unchanged\nREFUSAL reparse escape\nREFUSAL missing config\nREFUSAL malformed config\nREFUSAL duplicate config key\nREFUSAL config version type\nREFUSAL unknown config key\nREFUSAL config cannot widen fixture containers\nREFUSAL malformed record\nREFUSAL duplicate record key\nREFUSAL invalid assignment state\nREFUSAL record carriage return\nREFUSAL assignment path is the derived view\nPASS tampered 00.live does not change context\nREFUSAL wrong runner hash\nPASS guarded bytes were unchanged by the suite\nPASS no bytecode was written into the books or app\nsummary pass 12 expected-refusal 46 skip 1 fail 0\n"
+  },
+  "pack-tools": {
+    "exit": 0,
+    "tail": "...s........\n----------------------------------------------------------------------\nRan 12 tests in 16.860s\n\nOK (skipped=1)\n"
+  },
+  "bridge-pass03": {
+    "exit": 0,
+    "tail": "..\n----------------------------------------------------------------------\nRan 2 tests in 10.549s\n\nOK\n"
+  },
+  "independent_original_CS01": {
+    "exit": 4,
+    "text": "seam: attention\nboundary: outbox write failed\nclerk_job: clerk-0001\ndelivery_id: bridge-0001\nthis-call-wrote: partial outbox\nreview: not performed\nacceptance: not performed\nphase: write\nattempted: result.json\nexception: OSError\ndetail: Prime external writer failure after three bytes\nretained: C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-xnt4o5xf\\container\\clerk-store\\jobs\\clerk-0001\\outbox\\result.json\nretained-bytes: 3\nretained-sha256: ad5e54234e32e2b67092054d1de220fa5069dd2237c2ac771b5fe634df8e308b\nrecovery: explicit recovery is required\n",
+    "partial_bytes_hex": "7b2263",
+    "events_unchanged": true,
+    "launches": [
+      "bridge-0001 ok"
+    ],
+    "later_exit": 4,
+    "fixture": "C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-xnt4o5xf"
+  },
+  "independent_CS02_shared_parent_race": {
+    "exception": "FileExistsError",
+    "detail": "[WinError 183] Cannot create a file when that file already exists: 'C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\prime-seam-io-9gji0j55\\\\shared-parent'",
+    "traceback": "Traceback (most recent call last):\n  File \"D:\\librarian\\temp\\verify-seam-io-repair-2026-10-27.py\", line 36, in <module>\n    bridge._ensure_plain_dir(context,path,'shared parent');race_result={'result':'returned'}\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\misg\\AppData\\Local\\Temp\\prime-seam-io-9gji0j55\\repo\\app\\worker_bridge.py\", line 131, in _ensure_plain_dir\n    path.mkdir()\n  File \"C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\pathlib.py\", line 1311, in mkdir\n    os.mkdir(self, mode)\nFileExistsError: [WinError 183] Cannot create a file when that file already exists: 'C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\prime-seam-io-9gji0j55\\\\shared-parent'\n"
+  },
+  "capture_verify": {
+    "exit": 0,
+    "stdout": "reservation d2c499af574f84590113020847a4cd93a7d854ff3f6b59b55300c9ce8128576f\nmanifest c8b472745a6725a417ee4ffd74e44206dfdc21f797dc3de80edfc8267abe4a47\nreceipt 672861b7c5904ba91e8b97ab3d26247bff02c81ef26b3385c2ccfbc9d8a99357\npayload 0001.blob 038962090cc2a18973fc87635625becee1719ed8f7a23ae980a58cfcb0e10159\npayload 0002.blob 3b6bf7f9521255e89ffdade01d3a2ef522a9b95afed8f78c2f6d1106b93fc464\npayload 0003.blob 90f5ed5ca09cad229f34f545a83267c8e623ab45289266b86cbea4f7a8fc61eb\npayload 0004.blob 7c919b0f98f873b58fb39a62206c9b45bb6c8e886d8a6be8c7d9294dc8cbd700\npayload 0005.blob e090627388438528aefe86d6676aedee5afe909093c3e4c4bff260dcc266e545\npayload 0006.blob a1d3662d7fd9df1505a27dbf3f8b46614f847a7d2dfff2d0eacc2267c50eaa55\npayload 0007.blob abbf48a134d10b49bcf52a906b833561165d1bc67d1f5d61e1a77f3c32864878\npayload 0008.blob f2a1e083a66763527345df805b0777af713e6cfcdbf05fc2ce1b7b25f1a442c2\nresult complete\nnot approved\nnot accepted\nnot published\n"
+  }
+}

@@ -1,0 +1,83 @@
+# 05 — Preserve attention through a partial seam copy
+version: 001
+Authorization: draft — 2026-10-27
+who: Codex Prime
+state: returned
+Face: 05
+PPPP: 0504
+book: 00.00.10.work
+
+## Assignment
+Executor: Grok Builder 1. Reviewer: Codex Prime.
+Release: released by the Director, 2026-10-27.
+Claim: Grok 4.7 (xAI), session 01a179d2-387a-7661-8702-6e53f95e96b5, 2026-10-27, HEAD db4629e48217a79d6f9839afd7ea105ec5ec8fb8.
+Workspace D:/Git/lib-build, branch workshop. Verify exact inputs in
+evidence/pack05.11/source-manifest.json. No shared Git writes or other lane changes.
+
+## #01 — Reproduce first, preserve source and partial bytes
+Notes FIRST on 06.11.md. Preserve both editable source files under
+evidence/repair05.11/before/. Read CS-01's exact failure and the partial-outbox
+bytes. Reproduce in a disposable instance before editing: get one collected
+delivery, inject a failure during outbox.write after some bytes, preserve the
+exception/file/Clerk events/launch count. Do not only stop before or after copying.
+
+## #02 — Expected failures become honest attention
+Edit app/clerk_seam.py and its tests; an additive README clarification is allowed.
+Keep existing normal entry, Clerk, bridge, configs, context, labs and other tests
+unchanged. Catch expected I/O failures at their phase boundaries and return
+attention with job/delivery, what was attempted/written, retained paths and the
+need for explicit recovery. No broad except Exception hiding defects, traceback,
+success claim, false clean no-write claim, partial-file deletion/overwrite or
+automatic retry/relaunch. Cover create/write/flush/fsync/read-back failures and
+expected Clerk process OSError/timeout after a copy. An uncertain return must
+remain uncertain even if a Clerk event may already exist; later calls inspect
+the records and never re-run a worker merely because the caller lost its report.
+Keep receipt/job/provenance/actor/instruction binding checks on every replay.
+No new lock/repair authority, queue, model connector or normal-run activation.
+
+## #03 — Verify both the failure and the connected loop
+Meaningful in-process injected failures must exercise the real writer and report
+path, not replace the entire copy function with a fake refusal. Assert partial
+bytes retained, Clerk not falsely returned, one launch, subsequent call attention
+with no second effect, and no writes outside the designated fixture. Also prove
+the existing clean loop and identical completed replay. In a disposable copy run
+the seam suite plus app entry/pack-tool regressions. The original bridge timing
+failure and separate retry remain evidence. Run its narrow two-case test once
+sequentially and report actual outcomes; do not silently alter timeouts or tests
+outside scope. No unrelated whole-core reruns. Preserve first failures/skips,
+full commands/logs in tests.txt, exact hashes/results/limits in verification.json.
+Reread and disposition notes. If another product change is needed, report why.
+
+## #04 — Capture the return locally
+Verify unchanged capture helper SHA-256 8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac.
+Write dedicated evidence/repair05.11/submission.md starting Did, Blocked, Need.
+Complete the reservation's eight declared outputs, then run:
+
+```text
+python -B labs/return-capture-pass01/return_capture.py capture --book "D:/Git/lib-build/00.kernel/00.00.10.work" --submission grok-1-0504-0511 --return-file "D:/Git/lib-build/00.kernel/00.00.10.work/0504.app-entry/evidence/repair05.11/submission.md" --source-root "D:/Git/lib-build" --artifact "app/clerk_seam.py|app/clerk_seam.py" --artifact "app/tests/test_clerk_seam.py|app/tests/test_clerk_seam.py" --artifact "app/README.md|app/README.md" --artifact "00.kernel/00.00.10.work/0504.app-entry/06.11.md|00.kernel/00.00.10.work/0504.app-entry/06.11.md" --artifact "00.kernel/00.00.10.work/0504.app-entry/evidence/repair05.11/tests.txt|00.kernel/00.00.10.work/0504.app-entry/evidence/repair05.11/tests.txt" --artifact "00.kernel/00.00.10.work/0504.app-entry/evidence/repair05.11/verification.json|00.kernel/00.00.10.work/0504.app-entry/evidence/repair05.11/verification.json" --artifact "00.kernel/00.00.10.work/0504.app-entry/evidence/repair05.11/before/clerk_seam.py|00.kernel/00.00.10.work/0504.app-entry/evidence/repair05.11/before/clerk_seam.py" --artifact "00.kernel/00.00.10.work/0504.app-entry/evidence/repair05.11/before/test_clerk_seam.py|00.kernel/00.00.10.work/0504.app-entry/evidence/repair05.11/before/test_clerk_seam.py"
+python -B labs/return-capture-pass01/return_capture.py verify --book "D:/Git/lib-build/00.kernel/00.00.10.work" --member 0112.seam-io-0511
+```
+
+Keep source/submission and failure evidence. Append only the member, receipt hash
+and fresh verify result below. Never remove a partial package, overwrite receipts
+or allocate around a failure. Prime reviews/publishes separately. This draft and
+reservation are not release or acceptance. No SoF, active Prime or capture work.
+
+## Return pointer
+Member 0112.seam-io-0511. Receipt sha256 672861b7c5904ba91e8b97ab3d26247bff02c81ef26b3385c2ccfbc9d8a99357. Verify exit 0: result complete; not approved; not accepted; not published.
+
+## Review — Codex Prime
+Accepted for CS-01, 2026-10-27. Original partial-copy error is resolved.
+Independent seam44 passes/19 expected refusals/one skip; entry12 passes/46
+refusals/one skip; pack-tool11 passed/one skip; narrow bridge2/2. All exit0.
+External actual-writer failure after3 bytes now returns attention, retains bytes
+and claimed events, and does not relaunch. Fresh0112 capture verifies and all
+declared output bytes match. Full review/evidence: evidence/prime-review05.11/.
+
+CS-02 stays OPEN: Prime deterministically reproduced the builder's separate
+shared-parent creation race in unchanged worker_bridge._ensure_plain_dir. Its
+FileExistsError cannot be closed by a passing rerun. Next draft05.12 is the narrow
+bridge correction, with per-delivery exclusivity preserved. No concurrent-use
+readiness, general recovery, model dispatch or kernel activation is claimed.
+Publication evidence is separate in prime-review05.11/publication.json.
+

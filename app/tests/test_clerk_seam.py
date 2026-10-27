@@ -388,7 +388,7 @@ class World:
         )
         return run(args, timeout=timeout, librarian=librarian)
 
-    def direct(self, interrupt: str | None = None, code_root: Path = REPO) -> tuple[int, str, str]:
+    def direct(self, interrupt: str | None = None, code_root: Path = REPO, io_fault: str | None = None) -> tuple[int, str, str]:
         context = load_module(code_root / "app" / "context.py", "seam_context")
         seam = load_module(code_root / "app" / "clerk_seam.py", "seam_module")
         try:
@@ -401,6 +401,7 @@ class World:
                 instructions_base=str(self.instructions),
                 explicit=str(self.container),
                 interrupt=interrupt,
+                io_fault=io_fault,
             )
         except context.Stop as exc:
             return 2, "", "stop: " + str(exc) + "\n"
@@ -1095,6 +1096,127 @@ def test_occupied_paths() -> None:
             os.remove(soft.outbox())
 
 
+def attention_text(name: str, code: int, text: str, err: str, snippet: str) -> None:
+    if code != 4 or err.strip() or "Traceback" in text or "Traceback" in err:
+        raise AssertionError(f"{code}\n{text}\n{err}")
+    if "seam: attention" not in text or snippet not in text:
+        raise AssertionError(text)
+    for line in (
+        "clerk_job: clerk-0001",
+        "delivery_id: bridge-0001",
+        "review: not performed",
+        "acceptance: not performed",
+        "recovery: explicit recovery is required",
+    ):
+        if line not in text:
+            raise AssertionError(text)
+    SUITE.ok(name)
+
+
+def test_io_failures() -> None:
+    output_name = Path("bridge/delivery/bridge-0001/output/result.json")
+    partial = World()
+    partial.ready()
+    before_events = json_events(partial.store)
+    code, text, err = partial.direct(io_fault="write")
+    attention_text("partial write returns attention", code, text, err, "outbox write failed")
+    blob = partial.outbox().read_bytes()
+    produced = (partial.root / output_name).read_bytes()
+    if blob != produced[:3] or blob.hex() != "7b2263" or len(blob) != 3:
+        raise AssertionError(blob.hex())
+    if sha(partial.outbox()) != "ad5e54234e32e2b67092054d1de220fa5069dd2237c2ac771b5fe634df8e308b":
+        raise AssertionError(sha(partial.outbox()))
+    if "this-call-wrote: partial outbox" not in text or "retained-bytes: 3" not in text:
+        raise AssertionError(text)
+    if "this-call-wrote: nothing" in text or "transport: delivered" in text:
+        raise AssertionError(text)
+    if str(partial.outbox()) not in text or "phase: write" not in text:
+        raise AssertionError(text)
+    if json_events(partial.store) != before_events or launches(partial.root) != ["bridge-0001 ok"]:
+        raise AssertionError(launches(partial.root))
+    frozen = event_map(partial.store)
+    again = partial.deliver()
+    expect_attention("later call keeps the partial outbox", again, 4, "outbox bytes differ")
+    if "this-call-wrote: nothing" not in again.stdout:
+        raise AssertionError(again.stdout)
+    if partial.outbox().read_bytes() != blob or launches(partial.root) != ["bridge-0001 ok"]:
+        raise AssertionError("partial outbox changed or relaunched")
+    if event_map(partial.store) != frozen or (partial.store / "jobs/clerk-0001/0003.returned.json").exists():
+        raise AssertionError("later call wrote a Clerk return or changed bytes")
+
+    created = World()
+    created.ready()
+    code, text, err = created.direct(io_fault="create")
+    attention_text("create failure returns attention", code, text, err, "outbox create failed")
+    if created.outbox().exists() or "retained: absent" not in text or "this-call-wrote: nothing" not in text:
+        raise AssertionError(text)
+    if launches(created.root) != ["bridge-0001 ok"] or not created.receipt().is_file():
+        raise AssertionError("create failure did not keep the collected delivery")
+    if (created.store / "jobs/clerk-0001/0003.returned.json").exists():
+        raise AssertionError("create failure returned the job")
+    copied = created.deliver()
+    expect_success("later call copies after a failed create", copied, "returned", "copied to clerk outbox")
+    if launches(created.root) != ["bridge-0001 ok"]:
+        raise AssertionError(launches(created.root))
+
+    def full_then_return(fault: str, snippet: str) -> None:
+        world = World()
+        world.ready()
+        code, text, err = world.direct(io_fault=fault)
+        attention_text(fault + " failure returns attention", code, text, err, snippet)
+        if "this-call-wrote: nothing" in text or "transport: delivered" in text:
+            raise AssertionError(text)
+        if str(world.outbox()) not in text:
+            raise AssertionError(text)
+        produced = (world.root / output_name).read_bytes()
+        if not world.outbox().is_file() or world.outbox().read_bytes() != produced or sha(world.outbox()) != RESULT_SHA:
+            raise AssertionError("copy fault did not retain the outbox bytes")
+        if launches(world.root) != ["bridge-0001 ok"]:
+            raise AssertionError(launches(world.root))
+        if (world.store / "jobs/clerk-0001/0003.returned.json").exists():
+            raise AssertionError("copy fault returned the job")
+        second = world.deliver()
+        expect_success("later call returns after " + fault + " without a new launch", second, "returned", "already in clerk outbox")
+        if launches(world.root) != ["bridge-0001 ok"] or world.outbox().read_bytes() != produced:
+            raise AssertionError("later call relaunched or rewrote the outbox")
+
+    full_then_return("flush", "outbox flush failed")
+    full_then_return("fsync", "outbox fsync failed")
+    full_then_return("read-back", "outbox read-back failed")
+
+    def lost_return(fault: str) -> None:
+        world = World()
+        world.ready()
+        code, text, err = world.direct(io_fault=fault)
+        attention_text(fault + " stays uncertain", code, text, err, "clerk return is uncertain")
+        if "return-report: uncertain; a Clerk event may already exist" not in text:
+            raise AssertionError(text)
+        if "transport: delivered" in text or "this-call-wrote: nothing" in text:
+            raise AssertionError(text)
+        if "this-call-wrote: outbox copy" not in text or "phase: clerk-return" not in text:
+            raise AssertionError(text)
+        if sha(world.outbox()) != RESULT_SHA or launches(world.root) != ["bridge-0001 ok"]:
+            raise AssertionError(launches(world.root))
+        if not (world.store / "jobs/clerk-0001/0003.returned.json").is_file():
+            raise AssertionError("injected return did not exercise the Clerk process")
+        frozen = event_map(world.store)
+        second = world.deliver()
+        expect_success("later call inspects " + fault + " and does not relaunch", second, "already-recorded", "already in clerk outbox")
+        if launches(world.root) != ["bridge-0001 ok"] or event_map(world.store) != frozen:
+            raise AssertionError("uncertain return relaunched or wrote again")
+
+    lost_return("clerk-oserror")
+    lost_return("clerk-timeout")
+
+    bare = World()
+    code, text, err = bare.direct(io_fault="not-a-phase")
+    if code != 2 or text.strip() or "unknown io fault" not in err or "Traceback" in err or "Traceback" in text:
+        raise AssertionError(f"{code}\n{text}\n{err}")
+    if launches(bare.root) or bare.provenance().exists():
+        raise AssertionError("unknown io fault launched")
+    SUITE.refusal("unknown io fault is refused")
+
+
 def test_concurrent() -> None:
     import threading
 
@@ -1167,6 +1289,7 @@ def main() -> None:
         ("outcomes", test_worker_outcomes),
         ("placement", test_placement_and_pin),
         ("occupied", test_occupied_paths),
+        ("io", test_io_failures),
         ("concurrent", test_concurrent),
     ):
         check(name, fn)

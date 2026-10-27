@@ -32,6 +32,7 @@ LINK_KEYS = (
     "bridge_job_sha256",
 )
 INTERRUPTS = ("before-launch", "before-copy", "before-return", "before-report")
+IO_FAULTS = ("create", "write", "flush", "fsync", "read-back", "clerk-oserror", "clerk-timeout")
 REPARSE = getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400)
 NAME = __import__("re").compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
 HEX64 = __import__("re").compile(r"^[0-9a-f]{64}$")
@@ -42,6 +43,13 @@ class SeamResult:
     def __init__(self, code: int, text: str) -> None:
         self.code = code
         self.text = text if text.endswith("\n") else text + "\n"
+
+
+class _CopyFault:
+    def __init__(self, boundary: str, wrote: str, extra: str) -> None:
+        self.boundary = boundary
+        self.wrote = wrote
+        self.extra = extra
 
 
 def _sha256(data: bytes) -> str:
@@ -320,6 +328,89 @@ def _artifact_map(context, stored: dict, expected: list[str]) -> dict[str, dict]
     return found
 
 
+def _exc_line(exc: BaseException) -> str:
+    text = str(exc).replace("\r", " ").replace("\n", " ")
+    if len(text) > 200:
+        text = text[:200]
+    return text
+
+
+def _io_attention(phase: str, dest: Path, exc: BaseException, payload: bytes) -> _CopyFault:
+    boundary = {
+        "create": "outbox create failed",
+        "write": "outbox write failed",
+        "flush": "outbox flush failed",
+        "fsync": "outbox fsync failed",
+        "read-back": "outbox read-back failed",
+    }[phase]
+    lines = [
+        f"phase: {phase}",
+        f"attempted: {dest.name}",
+        f"exception: {type(exc).__name__}",
+        "detail: " + _exc_line(exc),
+    ]
+    wrote = "uncertain outbox"
+    if not _lexists(dest):
+        wrote = "nothing"
+        lines.append("retained: absent")
+    elif _linked(dest):
+        wrote = "occupied outbox path"
+        lines.append(f"retained: {dest}")
+    else:
+        try:
+            plain = dest.is_file()
+            data = dest.read_bytes() if plain else None
+        except OSError as read_exc:
+            lines.append(f"retained: {dest}")
+            lines.append("retained-bytes: unreadable")
+            lines.append(f"read-error: {type(read_exc).__name__}")
+        else:
+            if not plain or data is None:
+                wrote = "occupied outbox path"
+                lines.append(f"retained: {dest}")
+            else:
+                if data == payload:
+                    wrote = "outbox copy"
+                elif len(data) == 0:
+                    wrote = "empty outbox file"
+                else:
+                    wrote = "partial outbox"
+                lines.append(f"retained: {dest}")
+                lines.append(f"retained-bytes: {len(data)}")
+                lines.append(f"retained-sha256: {_sha256(data)}")
+    lines.append("recovery: explicit recovery is required")
+    return _CopyFault(boundary, wrote, "\n".join(lines))
+
+
+def _return_uncertain(job_id: str, delivery: str, outbox: Path, expected: list[str], exc: BaseException) -> SeamResult:
+    lines = [
+        "phase: clerk-return",
+        "attempted: clerk return",
+        f"exception: {type(exc).__name__}",
+        "detail: " + _exc_line(exc),
+    ]
+    for name in expected:
+        path = outbox / name
+        lines.append(f"retained: {path}")
+        if _linked(path):
+            lines.append("retained-bytes: linked")
+            continue
+        try:
+            if not path.is_file():
+                lines.append("retained-bytes: absent")
+                continue
+            data = path.read_bytes()
+        except OSError as read_exc:
+            lines.append("retained-bytes: unreadable")
+            lines.append(f"read-error: {type(read_exc).__name__}")
+        else:
+            lines.append(f"retained-bytes: {len(data)}")
+            lines.append(f"retained-sha256: {_sha256(data)}")
+    lines.append("recovery: explicit recovery is required")
+    lines.append("return-report: uncertain; a Clerk event may already exist")
+    return _attention(4, "clerk return is uncertain", "outbox copy", job_id, delivery, "\n".join(lines))
+
+
 def _worker_result(report, boundary: str) -> SeamResult:
     text = (
         "seam: attention\n"
@@ -332,7 +423,7 @@ def _worker_result(report, boundary: str) -> SeamResult:
     return SeamResult(report.code, text)
 
 
-def _copy_outputs(context, container: Path, store: Path, job_id: str, output_root: Path, expected: list[str], artifacts: dict[str, dict]) -> str:
+def _copy_outputs(context, container: Path, store: Path, job_id: str, output_root: Path, expected: list[str], artifacts: dict[str, dict], io_fault: str | None = None) -> str | _CopyFault:
     outbox = store / "jobs" / job_id / "outbox"
     if _linked(outbox) or not outbox.is_dir():
         return "outbox is not a plain directory"
@@ -348,23 +439,60 @@ def _copy_outputs(context, container: Path, store: Path, job_id: str, output_roo
             return "bridge output does not match the receipt"
         dest = outbox / name
         if _lexists(dest):
-            if _linked(dest) or not dest.is_file() or dest.stat().st_nlink != 1:
+            try:
+                linked = _linked(dest)
+                plain = dest.is_file()
+                nlink = dest.stat().st_nlink
+            except OSError as exc:
+                return _io_attention("read-back", dest, exc, payload)
+            if linked or not plain or nlink != 1:
                 return "outbox path is occupied"
-            if dest.read_bytes() != payload:
+            try:
+                existing = dest.read_bytes()
+            except OSError as exc:
+                return _io_attention("read-back", dest, exc, payload)
+            if existing != payload:
                 return "outbox bytes differ"
             continue
         if not context.is_inside(dest, outbox):
             context.stop("outbox name escapes the outbox")
+        phase = "create"
         try:
+            if io_fault == "create":
+                raise OSError("injected outbox create failure")
             with open(dest, "xb") as handle:
+                phase = "write"
+                if io_fault == "write":
+                    part = payload[:3] if len(payload) >= 3 else payload
+                    handle.write(part)
+                    handle.flush()
+                    raise OSError("injected outbox write failure after partial bytes")
                 handle.write(payload)
+                phase = "flush"
+                if io_fault == "flush":
+                    raise OSError("injected outbox flush failure")
                 handle.flush()
+                phase = "fsync"
+                if io_fault == "fsync":
+                    raise OSError("injected outbox fsync failure")
                 os.fsync(handle.fileno())
         except FileExistsError:
-            if _linked(dest) or not dest.is_file() or dest.read_bytes() != payload:
-                return "outbox path is occupied"
+            try:
+                if _linked(dest) or not dest.is_file() or dest.read_bytes() != payload:
+                    return "outbox path is occupied"
+            except OSError as exc:
+                return _io_attention("read-back", dest, exc, payload)
             continue
-        if dest.read_bytes() != payload or dest.stat().st_nlink != 1:
+        except OSError as exc:
+            return _io_attention(phase, dest, exc, payload)
+        try:
+            if io_fault == "read-back":
+                raise OSError("injected outbox read-back failure")
+            copied = dest.read_bytes()
+            nlink = dest.stat().st_nlink
+        except OSError as exc:
+            return _io_attention("read-back", dest, exc, payload)
+        if copied != payload or nlink != 1:
             return "outbox copy does not match the receipt"
         wrote = True
     return "copied" if wrote else "already"
@@ -409,10 +537,13 @@ def perform(
     instructions_base: str,
     explicit: str | None = None,
     interrupt: str | None = None,
+    io_fault: str | None = None,
 ) -> SeamResult:
-    """Run clerk-deliver. Refusals raise context.Stop. The interrupt argument is not a CLI flag."""
+    """Run clerk-deliver. Refusals raise context.Stop. interrupt and io_fault are not CLI flags."""
     if interrupt not in (None, *INTERRUPTS):
         context.stop("unknown interrupt")
+    if io_fault not in (None, *IO_FAULTS):
+        context.stop("unknown io fault")
     if not isinstance(actor, str) or actor.strip() == "":
         context.stop("actor is missing")
     if not isinstance(instructions_base, str) or instructions_base.strip() == "":
@@ -568,7 +699,11 @@ def perform(
             return _attention(4, "bridge output does not match the receipt", "nothing", job_id, delivery)
     if interrupt == "before-copy":
         return _attention(4, "interrupted before copy", "nothing", job_id, delivery)
-    copy_state = _copy_outputs(context, container, store, job_id, output_root, expected, artifacts)
+    copy_state = _copy_outputs(
+        context, container, store, job_id, output_root, expected, artifacts, io_fault
+    )
+    if isinstance(copy_state, _CopyFault):
+        return _attention(4, copy_state.boundary, copy_state.wrote, job_id, delivery, copy_state.extra)
     if copy_state not in ("copied", "already"):
         wrote = "outbox copy" if copy_state == "outbox copy does not match the receipt" else "nothing"
         return _attention(4, copy_state, wrote, job_id, delivery)
@@ -576,24 +711,34 @@ def perform(
         return _attention(4, "interrupted before return", "outbox copy", job_id, delivery)
     receipt_sha = _sha256(receipt_path.read_bytes())
     evidence = _evidence(delivery, provenance["request_sha256"], receipt_sha, expected, artifacts)
-    returned = _run_clerk(
-        clerk,
-        [
-            "return",
-            "--store",
-            str(store.resolve()),
-            "--job",
-            job_id,
-            "--as",
-            actor,
-            "--claim",
-            token,
-            "--delivery",
-            delivery,
-            "--evidence",
-            evidence,
-        ],
-    )
+    outbox = store / "jobs" / job_id / "outbox"
+    try:
+        returned = _run_clerk(
+            clerk,
+            [
+                "return",
+                "--store",
+                str(store.resolve()),
+                "--job",
+                job_id,
+                "--as",
+                actor,
+                "--claim",
+                token,
+                "--delivery",
+                delivery,
+                "--evidence",
+                evidence,
+            ],
+        )
+        if io_fault == "clerk-timeout":
+            raise subprocess.TimeoutExpired([sys.executable, "-B", str(clerk)], 60)
+        if io_fault == "clerk-oserror":
+            raise OSError("injected clerk process failure")
+    except subprocess.TimeoutExpired as exc:
+        return _return_uncertain(job_id, delivery, outbox, expected, exc)
+    except OSError as exc:
+        return _return_uncertain(job_id, delivery, outbox, expected, exc)
     text = returned.stdout.decode("utf-8", "replace")
     if b"Traceback" in returned.stderr or "Traceback" in text:
         return _attention(4, "clerk return raised", "outbox copy", job_id, delivery, text)

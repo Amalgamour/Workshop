@@ -1,0 +1,147 @@
+{
+  "schema": "repair05.11-verification",
+  "date": "2026-10-27",
+  "claim_head": "db4629e48217a79d6f9839afd7ea105ec5ec8fb8",
+  "pins": {
+    "manifest": "00.kernel/00.00.10.work/0504.app-entry/evidence/pack05.11/source-manifest.json",
+    "manifest_sha256": "bd49bcf05e500946b127e30f410d853a3600e87bf5f35b11a3be5f5e28338e59",
+    "manifest_bytes": 2888,
+    "schema": "prime-pack-sources/1",
+    "sources": 13,
+    "bad": 0
+  },
+  "reproduction": {
+    "when": "before the product edit",
+    "seam_sha256": "abbf48a134d10b49bcf52a906b833561165d1bc67d1f5d61e1a77f3c32864878",
+    "seam_bytes": 25819,
+    "exception": "OSError",
+    "detail": "injected outbox write failure after three bytes",
+    "site": "app/clerk_seam.py:360 handle.write",
+    "partial_bytes_hex": "7b2263",
+    "partial_sha256": "ad5e54234e32e2b67092054d1de220fa5069dd2237c2ac771b5fe634df8e308b",
+    "partial_bytes": 3,
+    "claim_events_unchanged": true,
+    "return_event": false,
+    "launches": [
+      "bridge-0001 ok"
+    ],
+    "subsequent_exit": 4,
+    "subsequent_boundary": "outbox bytes differ",
+    "subsequent_wrote": "nothing",
+    "fixture": "C:/Users/misg/AppData/Local/Temp/seam0510-vnua_1ys"
+  },
+  "suites": {
+    "disposable_copy": "C:/Users/misg/AppData/Local/Temp/seam0511-repo",
+    "robocopy_exit": 1,
+    "seam_first": {
+      "exit": 1,
+      "pass": 42,
+      "expected_refusal": 19,
+      "skip": 1,
+      "fail": 1,
+      "failure": "concurrent FileExistsError in unchanged worker_bridge._ensure_plain_dir while creating bridge/delivery; before outbox copy"
+    },
+    "seam_rerun_same_bytes": {
+      "exit": 0,
+      "pass": 44,
+      "expected_refusal": 19,
+      "skip": 1,
+      "fail": 0,
+      "includes": "A15 one launch and one return"
+    },
+    "entry": {
+      "exit": 0,
+      "pass": 12,
+      "expected_refusal": 46,
+      "skip": 1,
+      "fail": 0
+    },
+    "prime_tools": {
+      "exit": 0,
+      "ran": 12,
+      "seconds": 21.442,
+      "result": "OK (skipped=1)"
+    },
+    "pass03": {
+      "exit": 0,
+      "ran": 2,
+      "seconds": 10.563,
+      "result": "OK"
+    },
+    "skips": "WinError 1314 file symlink",
+    "demo": {
+      "receipt": "3f156ffd2723e743211312253fc8c670a2d7e0b391fedf4c125864044a47d284",
+      "artifact": "0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6",
+      "launches": 1,
+      "replay": "already-recorded"
+    }
+  },
+  "pass03_limits": {
+    "TIMEOUT_S": 1.5,
+    "CLEANUP_ALLOWANCE_S": 2.0,
+    "BOUND_S": 4.5,
+    "outer_watchdog_s": 40,
+    "source_changed": false
+  },
+  "another_product_change": "Not made. The first seam failure is in pinned app/worker_bridge.py. This slot does not edit that file.",
+  "unchanged": {
+    "app/librarian.py": {
+      "sha256": "98a0a4a93b05f16f293d38d2b27ea4001be61c34ff8b575a1a6746b0e260ba8e",
+      "bytes": 7488
+    },
+    "app/context.py": {
+      "sha256": "5b1a31d47bb9f9b465a8492541467abbd9bd3a99ae524be7aa0dbffe2380eb9f",
+      "bytes": 22063
+    },
+    "app/worker_bridge.py": {
+      "sha256": "657a4dfcd72dcd040a12d506ba5e2b6f7a50a8d7bd38364d42753e7b48bdd975",
+      "bytes": 34227
+    },
+    "labs/worker-bridge-pass01/tests/test_pass03.py": {
+      "sha256": "03ffc50a67c7323536c0c46d7f82c5f76cf02a33d44f4264665002d6005140d8",
+      "bytes": 5272
+    },
+    "labs/return-capture-pass01/return_capture.py": {
+      "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+      "bytes": 45767
+    },
+    "00.kernel/00.00.10.work/0112.seam-io-0511/reservation.json": {
+      "sha256": "d2c499af574f84590113020847a4cd93a7d854ff3f6b59b55300c9ce8128576f",
+      "bytes": 907
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/05.10.md": {
+      "sha256": "8799d03996b5d689d24f2f7c16d094677ef6b45bd4c726f2346fa54b5d862fea",
+      "bytes": 8735
+    }
+  },
+  "artifacts": {
+    "app/clerk_seam.py": {
+      "sha256": "038962090cc2a18973fc87635625becee1719ed8f7a23ae980a58cfcb0e10159",
+      "bytes": 31663
+    },
+    "app/tests/test_clerk_seam.py": {
+      "sha256": "3b6bf7f9521255e89ffdade01d3a2ef522a9b95afed8f78c2f6d1106b93fc464",
+      "bytes": 54277
+    },
+    "app/README.md": {
+      "sha256": "90f5ed5ca09cad229f34f545a83267c8e623ab45289266b86cbea4f7a8fc61eb",
+      "bytes": 13286
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/06.11.md": {
+      "sha256": "7c919b0f98f873b58fb39a62206c9b45bb6c8e886d8a6be8c7d9294dc8cbd700",
+      "bytes": 7543
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/evidence/repair05.11/tests.txt": {
+      "sha256": "e090627388438528aefe86d6676aedee5afe909093c3e4c4bff260dcc266e545",
+      "bytes": 16188
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/evidence/repair05.11/before/clerk_seam.py": {
+      "sha256": "abbf48a134d10b49bcf52a906b833561165d1bc67d1f5d61e1a77f3c32864878",
+      "bytes": 25819
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/evidence/repair05.11/before/test_clerk_seam.py": {
+      "sha256": "f2a1e083a66763527345df805b0777af713e6cfcdbf05fc2ce1b7b25f1a442c2",
+      "bytes": 47596
+    }
+  }
+}

@@ -1,0 +1,69 @@
+REFUSAL normal run is not activated
+PASS A1 clerk-deliver returns the collected artifact
+PASS A1 replay is already-recorded and launches nothing
+REFUSAL returned replay still checks the actor
+DEMO receipt 626ec7d62d4d7e4c51cafea5b459a0ad829e0b7a70883655f11f330e505c8f23
+DEMO artifact 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6
+DEMO launches 1
+DEMO replay already-recorded
+PASS A1 reviewer inbox, verify, and one launch
+PASS B1 a later call is the one launch
+PASS B3 repeat copies without a second launch
+PASS B4 repeat returns the existing copy
+PASS B5 repeat is already-recorded
+PASS in-process interruption hooks keep the partial stores
+PASS B2 uncertain launch is not a Clerk return
+PASS B2 recover then deliver does not launch
+PASS bridge-recover stays outside clerk-deliver
+REFUSAL A9 unclaimed job
+REFUSAL A9 wrong actor
+REFUSAL A9 missing link
+REFUSAL A9 link hash does not match the job
+REFUSAL A9 store outside the container
+REFUSAL A9 link job does not match the bridge job
+REFUSAL A10 stale instructions before delivery
+PASS A10 stale instructions after delivery
+PASS A10 setup return
+PASS A10 returned replay still checks instructions
+REFUSAL A11 Clerk returned under another delivery
+REFUSAL A11 provenance job hash still binds the link
+PASS A7 different outbox bytes stay
+PASS A7 changed bridge output is not copied
+REFUSAL A8 malformed receipt is refused
+REFUSAL A8 receipt without request_sha256 is refused
+REFUSAL B1a claim without an outbox
+PASS B5a setup return
+PASS B5a witness mismatch stays attention
+PASS artifact-changed setup return
+PASS returned replay sees a changed outbox
+PASS A13 uncollected is exit 3
+PASS A13 collected failed is exit 3
+PASS A13 crash is exit 4
+PASS A13 timeout is exit 4
+REFUSAL A12 scratch store is inside Git
+REFUSAL A12 unknown flag
+REFUSAL A12 test flag is not a grant
+REFUSAL A14 clerk pin mismatch starts no subprocess
+PASS occupied junction stays
+PASS occupied hardlink stays
+SKIP dangling file symlink: WinError 1314
+PASS partial write returns attention
+PASS later call keeps the partial outbox
+PASS create failure returns attention
+PASS later call copies after a failed create
+PASS flush failure returns attention
+PASS later call returns after flush without a new launch
+PASS fsync failure returns attention
+PASS later call returns after fsync without a new launch
+PASS read-back failure returns attention
+PASS later call returns after read-back without a new launch
+PASS clerk-oserror stays uncertain
+PASS later call inspects clerk-oserror and does not relaunch
+PASS clerk-timeout stays uncertain
+PASS later call inspects clerk-timeout and does not relaunch
+REFUSAL unknown io fault is refused
+PASS A15 later call is already-recorded
+PASS A15 one launch and one return
+PASS guarded bytes were unchanged
+PASS no bytecode was written into the books or app
+summary pass 44 expected-refusal 19 skip 1 fail 0
