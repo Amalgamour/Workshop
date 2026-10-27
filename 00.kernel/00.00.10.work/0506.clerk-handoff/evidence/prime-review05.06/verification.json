@@ -1,0 +1,42 @@
+{
+  "root": "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-identity-cx3pu7sd",
+  "manifests": {
+    "lab": {
+      "rows": 9,
+      "errors": []
+    },
+    "page": {
+      "rows": 20,
+      "errors": []
+    }
+  },
+  "runs": {
+    "demo": {
+      "exit": 0,
+      "tail": "demo ok\nC:\\Users\\misg\\AppData\\Local\\Temp\\prime-clerk-identity-cx3pu7sd\\demo-output\n"
+    },
+    "suite": {
+      "exit": 0,
+      "tail": ":\\\\\\\\Users\\\\\\\\misg\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\clerk-pass02-dw31zz2t\\\\\\\\store\\\\\\\\jobs\\\\\\\\demo-0001\\\\\\\\outbox\\\\\\\\count.py'\"\ntest_unknown_and_missing_keys_write_nothing (__main__.ClerkTests.test_unknown_and_missing_keys_write_nothing) ... ok\ntest_witness_mismatch_and_partial_witness_stay_incomplete (__main__.ClerkTests.test_witness_mismatch_and_partial_witness_stay_incomplete) ... ok\n\n----------------------------------------------------------------------\nRan 37 tests in 18.921s\n\nOK (skipped=1)\n"
+    }
+  },
+  "independent": {
+    "event_sha256": "ae73075a746a3ab85090ddd6bb356b2d2421f9633d98619e533ab0689418c711",
+    "reported_sha256": "ae73075a746a3ab85090ddd6bb356b2d2421f9633d98619e533ab0689418c711",
+    "witness": {
+      "event": "0003.returned.json",
+      "job_id": "demo-0001",
+      "kind": "completion",
+      "schema": "clerk-handoff-pass02/2",
+      "sha256": "ae73075a746a3ab85090ddd6bb356b2d2421f9633d98619e533ab0689418c711"
+    },
+    "same_event": true,
+    "matches_witness": true,
+    "schema": "clerk-handoff-inspection/2",
+    "artifacts_check": "changed",
+    "exit": 1,
+    "store_unchanged": true,
+    "expected_changed_artifact_diagnostic": true,
+    "matches": true
+  }
+}

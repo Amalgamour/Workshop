@@ -49,7 +49,7 @@ The router writes the job file. Clerk checks it and does not fill in missing fie
 
 Ids are ASCII, at most 64 characters, and are not Windows device names (`CON`, `NUL`, `COM1`, and the rest of that set). Case-colliding ids and output names are refused. JSON must be finite, without duplicate keys.
 
-`--as` is a label. The claim token ties a return to a claim. Neither one proves who a person or a model is. `release` and `routed_by` are recorded text, not a check that the Director authorized the job. Return `--evidence` must be non-blank text. It is a note from the caller, not a credential.
+`--as` is a label. The claim token ties a return to a claim. Neither one proves who a person or a model is. `release` and `routed_by` are recorded text, not a check that the Director authorized the job. Return `--evidence` must be one line of non-blank printable text. Whitespace-only evidence is refused as `evidence is blank`. Nonblank evidence containing any control character (below U+0020: tab, CR, LF and the rest) is refused as `evidence contains a control character; it must be one line of printable text`. Neither refusal writes anything. There is no multi-line convention. Evidence is a note from the caller, not a credential.
 
 ## Store
 
@@ -86,15 +86,25 @@ The instruction base is named on every queue and claim, including resume. Clerk 
 
 ## Inspection
 
-`show --json` reuses the validated view. It does not read the event files a second time, and it does not write. Stdout is one canonical JSON object and a trailing LF. Stderr is empty. The schema identifier is `clerk-handoff-inspection/1`. The keys are exactly `schema`, `job_id`, `state`, `job`, `claim`, `returned`, `checks`, and `problems`. A CLI syntax error stays argparse's exit 2 on stderr, and that stdout is not this document. `--json` on another command is that syntax error and writes nothing.
+`show --json` reuses the validated view. It does not read the event files a second time, and it does not write. Stdout is one canonical JSON object and a trailing LF. Stderr is empty. The schema identifier is `clerk-handoff-inspection/2`. Its predecessor `clerk-handoff-inspection/1` had the same document without `returned.event_sha256`. The keys are exactly `schema`, `job_id`, `state`, `job`, `claim`, `returned`, `checks`, and `problems`. A CLI syntax error stays argparse's exit 2 on stderr, and that stdout is not this document. `--json` on another command is that syntax error and writes nothing.
 
 `state` is `queued`, `claimed`, or `returned` only when the reducer accepts that phase. `incomplete` and `corrupt` are damaged records. `unknown` means the job was not found, the path was refused, or a filesystem error escaped the reader. `job`, `claim`, and `returned` are null unless the phase is clean. A clean non-returned phase has null `returned`. The projection does not invent outputs, and an invalid structure is never a clean returned object.
 
-`job` is the validated seven-key queued object, including its `job_id`. Assignee, reviewer, instructions, expected outputs, release, and routed_by stay on that object. Top-level `job_id` is the requested id, including when `job` is null. `claim` is `by` and `token` from the validated claim. `returned` is `by`, `delivery`, `evidence`, and `artifacts` from the validated return. Those artifact hashes are the hashes recorded on the event. A later byte change does not rewrite them. Names and the claim token are labels, not authentication.
+`job` is the validated seven-key queued object, including its `job_id`. Assignee, reviewer, instructions, expected outputs, release, and routed_by stay on that object. Top-level `job_id` is the requested id, including when `job` is null. `claim` is `by` and `token` from the validated claim. `returned` is `by`, `delivery`, `evidence`, `artifacts`, and `event_sha256` from the validated return. Those artifact hashes are the hashes recorded on the event. A later byte change does not rewrite them.
+
+`event_sha256` is the SHA-256 of the exact `0003.returned.json` bytes that the reducer read once and matched against the completion witness before it accepted the pair. It is the returned event's identity. It is present only when `returned` is not null, so an incomplete, corrupt or unknown record never supplies one. A later change to an artifact leaves it as the recorded event's identity, while `checks.artifacts` reports `changed`. Names and the claim token are labels, not authentication.
 
 `checks.events` is `ok`, `unreadable`, `broken`, or `not-applicable`. `checks.completion` is `ok`, `partial`, `missing-event`, `missing-witness`, `mismatch`, or `not-applicable`. `checks.artifacts` is `ok`, `changed`, or `not-applicable`. `checks.instructions` is `usable`, `unusable`, `not-checked`, or `not-applicable`. `not-checked` means a clean job and no instruction base. `not-applicable` means the check was not run against a usable record. Neither one means the check passed. `unusable` means the file at the named base does not match the recorded instruction hash.
 
-`problems` is a list of objects with `kind` and `detail`. An `artifact-changed` problem also has `path`, and its detail is the same artifact line human `show` prints. Kinds are `unknown`, `incomplete`, `corrupt`, `artifact-changed`, `instructions-unusable`, and `filesystem`. The list is empty only on exit 0. Exit 0 is a clean queued, claimed, or returned projection. Exit 1 means that projection is intact and the only problems are a changed artifact, unusable instructions, or both. Exit 2 is unknown, incomplete, corrupt, a refusal, or a filesystem error. Structural detail is the reducer's diagnosis, without the human `bad state:` wrapper. Refusal detail drops one `refused: ` prefix. Filesystem detail is the exception class and its message.
+`problems` is a list of objects with `kind` and `detail`. An `artifact-changed` problem also has `path`, and its detail is the same artifact line human `show` prints. Kinds are `unknown`, `incomplete`, `corrupt`, `artifact-changed`, `instructions-unusable`, and `filesystem`. The list is empty only on exit 0. Exit 0 is a structurally valid queued, claimed, or returned projection with no problems. It can still carry `instructions: not-checked` (see the consumer contract below). Exit 1 means that projection is intact and the only problems are a changed artifact, unusable instructions, or both. Exit 2 is unknown, incomplete, corrupt, a refusal, or a filesystem error. Structural detail is the reducer's diagnosis, without the human `bad state:` wrapper. Refusal detail drops one `refused: ` prefix. Filesystem detail is the exception class and its message.
+
+**Consumer contract.**
+- **Exit 0 means a structurally valid projection.** It does not mean every check ran.
+- **`instructions: not-checked` does not mean verified, and it does not mean ready.**
+- **A consumer that needs usable instructions** must pass `--instructions-base` and require `checks.instructions` to be `usable`.
+- **A clean returned handoff requires all of these:** `state` is `returned`; `checks.events`, `checks.completion` and `checks.artifacts` are all `ok`; and `problems` is empty. Reading `state` alone is not enough.
+- **A consumer that records or acknowledges a troubled record** keeps its `checks` and `problems` with it, rather than hiding them.
+- **Nothing here grants approval.** A good document is not an accepted job.
 
 The document is a projection for a later reader. It is not an acceptance, a closure, or a second copy of the job. The witness limit below is unchanged.
 

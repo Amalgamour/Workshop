@@ -1,0 +1,42 @@
+test_artifact_changed_is_not_a_clean_return (__main__.ClerkTests.test_artifact_changed_is_not_a_clean_return) ... ok
+test_assignee_must_differ_including_case (__main__.ClerkTests.test_assignee_must_differ_including_case) ... ok
+test_blank_evidence_and_empty_outputs_write_nothing (__main__.ClerkTests.test_blank_evidence_and_empty_outputs_write_nothing) ... ok
+test_claim_and_return_refusals_write_no_event (__main__.ClerkTests.test_claim_and_return_refusals_write_no_event) ... ok
+test_control_character_evidence_is_refused_with_its_own_diagnostic (__main__.ClerkTests.test_control_character_evidence_is_refused_with_its_own_diagnostic) ... ok
+test_duplicate_and_case_colliding_job_id (__main__.ClerkTests.test_duplicate_and_case_colliding_job_id) ... ok
+test_earlier_store_format_is_refused_and_not_migrated (__main__.ClerkTests.test_earlier_store_format_is_refused_and_not_migrated) ... ok
+test_empty_store_differs_from_a_missing_store (__main__.ClerkTests.test_empty_store_differs_from_a_missing_store) ... ok
+test_event_tamper_missing_extra_and_planted_return (__main__.ClerkTests.test_event_tamper_missing_extra_and_planted_return) ... ok
+test_extra_event_and_inbox_disclosure (__main__.ClerkTests.test_extra_event_and_inbox_disclosure) ... ok
+test_git_store_and_unknown_flags_write_nothing (__main__.ClerkTests.test_git_store_and_unknown_flags_write_nothing) ... ok
+test_happy_path_chain_and_projection (__main__.ClerkTests.test_happy_path_chain_and_projection) ... ok
+test_hardlink_output_refused (__main__.ClerkTests.test_hardlink_output_refused) ... ok
+test_inspection2_changed_artifact_keeps_the_recorded_event_identity (__main__.ClerkTests.test_inspection2_changed_artifact_keeps_the_recorded_event_identity) ... ok
+test_inspection2_damaged_pair_supplies_no_identity (__main__.ClerkTests.test_inspection2_damaged_pair_supplies_no_identity) ... ok
+test_inspection2_event_sha256_is_the_witnessed_event_identity (__main__.ClerkTests.test_inspection2_event_sha256_is_the_witnessed_event_identity) ... ok
+test_inspection2_instruction_base_absent_stale_and_usable (__main__.ClerkTests.test_inspection2_instruction_base_absent_stale_and_usable) ... ok
+test_instruction_hash_and_cwd_are_not_ambient (__main__.ClerkTests.test_instruction_hash_and_cwd_are_not_ambient) ... ok
+test_interrupted_return_is_not_reviewer_success (__main__.ClerkTests.test_interrupted_return_is_not_reviewer_success) ... ok
+test_interruptions_stay_incomplete (__main__.ClerkTests.test_interruptions_stay_incomplete) ... ok
+test_junction_output_refused (__main__.ClerkTests.test_junction_output_refused) ... ok
+test_lost_returned_event_stays_visible_and_blocks_rereeturn (__main__.ClerkTests.test_lost_returned_event_stays_visible_and_blocks_rereeturn) ... ok
+test_missing_witness_and_planted_completion_are_corrupt (__main__.ClerkTests.test_missing_witness_and_planted_completion_are_corrupt) ... ok
+test_module_is_stdlib_only_and_does_not_delete (__main__.ClerkTests.test_module_is_stdlib_only_and_does_not_delete) ... ok
+test_nonfinite_and_duplicate_json (__main__.ClerkTests.test_nonfinite_and_duplicate_json) ... ok
+test_outbox_oserror_reports_the_existing_claim_and_writes_no_new_token (__main__.ClerkTests.test_outbox_oserror_reports_the_existing_claim_and_writes_no_new_token) ... ok
+test_output_and_instruction_paths (__main__.ClerkTests.test_output_and_instruction_paths) ... ok
+test_output_shape_refusals (__main__.ClerkTests.test_output_shape_refusals) ... ok
+test_resend_identity_is_per_job_and_does_not_restamp (__main__.ClerkTests.test_resend_identity_is_per_job_and_does_not_restamp) ... ok
+test_resume_returns_the_same_token_without_a_write (__main__.ClerkTests.test_resume_returns_the_same_token_without_a_write) ... ok
+test_show_json_damaged_records_are_not_clean_returns (__main__.ClerkTests.test_show_json_damaged_records_are_not_clean_returns) ... ok
+test_show_json_projects_each_clean_phase (__main__.ClerkTests.test_show_json_projects_each_clean_phase) ... ok
+test_show_json_read_and_syntax_errors_do_not_write (__main__.ClerkTests.test_show_json_read_and_syntax_errors_do_not_write) ... ok
+test_show_json_reports_record_problems_without_writing (__main__.ClerkTests.test_show_json_reports_record_problems_without_writing) ... ok
+test_symlink_output_refused_or_skipped (__main__.ClerkTests.test_symlink_output_refused_or_skipped) ... skipped "SKIP symlink unsupported: [WinError 1314] A required privilege is not held by the client: 'C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\clerk-pass02-dw31zz2t\\\\outside.py' -> 'C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\clerk-pass02-dw31zz2t\\\\store\\\\jobs\\\\demo-0001\\\\outbox\\\\count.py'"
+test_unknown_and_missing_keys_write_nothing (__main__.ClerkTests.test_unknown_and_missing_keys_write_nothing) ... ok
+test_witness_mismatch_and_partial_witness_stay_incomplete (__main__.ClerkTests.test_witness_mismatch_and_partial_witness_stay_incomplete) ... ok
+
+----------------------------------------------------------------------
+Ran 37 tests in 18.921s
+
+OK (skipped=1)

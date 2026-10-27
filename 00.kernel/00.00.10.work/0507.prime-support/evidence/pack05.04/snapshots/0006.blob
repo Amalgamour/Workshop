@@ -1,0 +1,140 @@
+# 05 — Repair review binding and finding order
+version: 001
+Authorization: draft — 2026-10-27
+who: Codex Prime
+state: draft; awaiting Director release
+Face: 05
+PPPP: 0507
+book: 00.00.10.work
+
+## Assignment
+Executor: Claude. Reviewer: Codex Prime.
+Release: PENDING. Claim: PENDING.
+Only correct PSI-01 and PSI-02 on the returned fixture lab. No new adapter or
+real store, Observer fetch, live use, role trial, routing or authority change.
+Inputs: evidence/pack05.03/source-manifest.json and exact numbered snapshots.
+
+## #01 — Notes and preserve
+Read the 05.02 Prime review and independent probes. Write new notes 06.04.md
+before edits. Preserve source-before bytes, original DESIGN.002, original tests,
+demo and failure evidence. Record additive correction decisions; no history rewrite.
+No Git writes in the shared checkout; Prime publishes completed work.
+
+## #02 — PSI-01: bind resolutions before using them
+A well-formed hash is not a known return revision. Match a review to an observed
+source/revision within the declared target lineage before it can alter a finding
+or count as a reviewed pass. Unknown hashes, invalid legacy bindings and invalid
+review records remain visible as attention/conflict evidence; retain the last
+valid finding state. Do not drop their text, silently close the finding, or invent
+a pass. Preserve existing legacy whole-file review support when evidence exists.
+Keep finding identity scoped to the appropriate return/source lineage rather
+than collapsing unrelated page-local IDs. Explain how exact review_sources bind
+to their targets; never infer a target or approval from the disposition prose.
+
+## #03 — PSI-02: causal order and visible conflicts
+Use commit ancestry for updates on the same source/lineage, not commit timestamp.
+Prime reproduced descendant B unresolved losing to ancestor A verified-fixed
+because B's timestamp was older. This must stay unresolved with worktree off.
+If two sources/branches contain incompatible incomparable resolutions, expose
+both as conflict/attention; no timestamp, registry-order or lexical winner.
+Define uncommitted review observations explicitly. A draft observation cannot
+silently conceal a conflicting committed open finding. Same-content copies and
+repeated observations do not manufacture extra passes. Preserve honest history
+incomplete/unknown reporting and read-only operation.
+
+## #04 — Verify and return
+Repeat the 19 tests and 14-process demo in disposable copies. Add independent
+regressions for the exact unknown-hash closure and inverted timestamp chain with
+worktree off; invalid legacy hashes; comparable and divergent branch resolutions;
+worktree-versus-committed conflicts; repeated observations; unrelated IDs and
+acknowledgement-store deletion. No actual source repo/store mutations by the tool.
+Snapshot all relevant bytes/ref/index/status boundaries; retain failures/skips.
+Allowed writes: labs/prime-support-pass01/, THIS batch/notes and new
+evidence/repair05.03/. No other pages, app/Clerk/SoF, current assignments, indexes,
+00.live, Observer branch or kernel. Fully reread code/docs/tests and disposition
+notes; write a new manifest preserving older manifests as historical versions.
+Return here Did, Blocked, Need with exact commands/hashes and PSI-01/02 outcomes.
+The Clerk independent lead review remains due as its own subsequent assignment;
+this correction neither replaces nor executes it.
+
+## Return
+Release: the Director, chat 2026-10-27: "The Director releases 0507.prime-support/05.03. Workspace: D:\Git\lib-build Branch: workshop Read: 00.kernel/00.00.10.work/0507.prime-support/05.03.md Verify pins, record release and claim, then correct PSI-01 and PSI-02 only: review binding and causal history ordering. Preserve the failing evidence. Return on the named page. No shared Git commits/pushes or changes to other builder lanes."
+Claim: claude-opus-5-5 (Anthropic), Colab, executor, claimed 2026-10-27T13:03-05:00 on workshop at 8c6d5a5911c1c0a3ba91b66c7833d6364c14d9c4. pack05.03: 9 of 9 snapshots match their pins, and live equals all 9. Scope: this batch only.
+Execution: RETURNED for Codex Prime review, 2026-10-27. Only PSI-01 and PSI-02 were corrected. No shared Git commit or push. No other page, app, Clerk, SoF, current assignment, index, 00.live, Observer branch or kernel edit. No new adapter, real store, fetch, live use or trial. This correction neither replaces nor executes the separate Clerk lead review.
+
+Did:
+- Verified pack05.03: 9 of 9 snapshots match their pins, and live equals all 9 (claim line above).
+- Wrote 06.04.md before any edit. Final sha256 7e96f0d1…, with causes K01-K02, contract C01-C06, and outcome and reread O01-O05.
+- Preserved the 05.02 bytes of all five lab files under evidence/repair05.03/before/. The original DESIGN.002, the build05.02 runs and the demo evidence are untouched. The build05.02 manifest is kept as historical: it now mismatches only the four edited lab files.
+- Wrote evidence/repair05.03/DESIGN.003.md (3101b471…), additive to DESIGN.002.
+- Wrote tests/test_psi.py first. I ran it against the before code and kept the failures, then corrected prime_support.py.
+- Lab files now:
+  - prime_support.py 44cd1cef…;
+  - tests/test_psi.py a23ed5f6…;
+  - tests/test_prime_support.py 9ef97783…;
+  - demo.py 9d1ecbf3…;
+  - README.md 77669282…;
+  - .gitignore unchanged (030a3899…).
+- Manifest: evidence/repair05.03/SHA256SUMS.txt, LF, 25 entries, sha256 6e919bb94d3213a0c6b0bb80a80edb15180f39a824a2852f4df506dac5f294fd. It does not list itself.
+Blocked: nothing.
+Need: Prime's review.
+
+What ran (RUNS.md). Each run used a disposable copy, interpreter pythoncore-3.14-64, PYTHONDONTWRITEBYTECODE=1:
+1. Failure before, on the before code with the new regressions: `python -B -X dev tests\test_psi.py -v` gave 10 run, 8 FAIL, 2 ok (runs/psi-failure-before.txt, b9695829…). An earlier run of the same also re-ran the 19 inherited tests, 48 run and 8 FAIL, and is kept and marked superseded.
+2. Intermediate runs after the fix: psi 10 ok, original 19 ok. Kept.
+3. Final, on final code and tests, in dev and default modes:
+   - `tests\test_prime_support.py`: 19 of 19 ok;
+   - `tests\test_psi.py`: 10 of 10 ok;
+   - 0 skipped, 0 bytecode.
+4. Final demo, `python -B demo.py --out <temp> --workshop-repo D:\Git\lib-build --sof-repo D:\Git\SoF`: exit 0, 14 processes, 18 of 18 checks, `demo ok`.
+Around it, the `git status`, `.git/index` hash and `for-each-ref` of lib-build and SoF were identical before and after. Every PSI status call also asserts that HEAD, index, refs, status and page bytes are unchanged.
+
+PSI-01 (bind before use): CORRECTED.
+- A review counts only when its hash is a known revision of its declared target. A page Review targets its own page. A review source must name `reviewed_return_path:`, and it must be a registered return of the same lane.
+- A legacy whole-file hash binds only when it equals an observed version of that page.
+- Unknown hashes, invalid legacy hashes, invalid targets and unbound findings become `invalid-review` attention, with source, hash and finding text kept. They change no finding and count no pass. The last valid state stays.
+- Finding identity is `<target path>#<ID>`.
+- Prime's case: PS-X unresolved, then a review naming aaaa… with verified-fixed. Before: closed, passes 2, no attention. After: unresolved, open, passes 1, with the aaaa… item visible, worktree on and off.
+- Also covered: invalid legacy; review-source target required, unregistered or absent; the same ID on two pages kept as two findings.
+- The real 0504/05.05 legacy binding still works (demo A).
+
+PSI-02 (causal order): CORRECTED.
+- Committed records for a finding are ordered only by `git merge-base --is-ancestor`, never by date. The frontier decides the state.
+- Incomparable resolutions are `conflict`, with every frontier record listed and an attention item. There is no timestamp, registry or lexical winner.
+- `git log --topo-order` orders supersedes.
+- An uncommitted worktree file identical to HEAD is the same observation. A differing one is a `draft`, reported beside the committed state, never replacing it. A differing draft is a "draft differs from committed" conflict item.
+- Passes count distinct bound revisions only.
+- Prime's case: A (2030) verified-fixed, then descendant B (2029) unresolved, worktree off. Before: closed. After: unresolved, open.
+- Also covered: local behind remote (resolved by ancestry); divergent branches (conflict, both shown); worktree draft versus committed; repeated observations (passes 1); ack-store deletion (unchanged).
+
+Original-test changes, minimal: scoped-key lookups in tests 07, 08 and 08b, and test 11's unbound list, where the identical worktree is now listed once. The before tests are preserved.
+Not established: the Prime's original fixture script is not in the pack, so its counterexamples were reproduced from independent-probes.json and the review text. Not established either: real stores, concurrent acks, authentication.
+Pending decisions: none.
+Next slice: unchanged, the Clerk inbox adapter. It waits on the separate Clerk lead review and Prime's acceptance of 0506/05.02.
+
+## Review — Codex Prime
+Date: 2026-10-27.
+Disposition: ACCEPTED FOR THE DEVELOPMENT LAB; PSI-01 AND PSI-02 VERIFIED FIXED.
+Prime independently verified all 25 repair-manifest entries, reran the original
+19 tests plus all 10 PSI regressions (29 pass, no skips), and the 14-process,
+18-check demonstration. Demo inputs were independent local no-checkout clones,
+avoiding concurrent builder changes in the shared checkout. No network or live
+store was involved. Original source snapshots and before-fix failures remain.
+
+Most importantly, Prime replayed the SAME two retained independent fixtures that
+failed before, using the corrected copied tool rather than newly authored fixtures:
+- unknown hash aaaa... cannot close PS-X: it stays unresolved/open, passes=1,
+  with the unmatched review text explicitly visible as invalid-review attention;
+- descendant unresolved PS-Y stays open with worktree OFF despite its older
+  timestamp; the earlier ancestor's verified-fixed resolution no longer wins.
+Committed ancestry, scoped finding IDs, explicit review-source targets, divergent
+conflicts and uncommitted drafts now have the declared distinct treatment.
+
+This accepts the bounded correction and read-only fixture lab. It does not install
+a real registry/intake store, adopt provisional fields as kernel law, prove
+concurrent acknowledgement behavior, start a model/Observer, or accept an adapter.
+The earlier 05.02 deliverable remains historical; its findings are repaired by
+this new build, not rewritten as if they never occurred.
+Evidence: evidence/prime-review05.03/, including the original counterexample output.
+Next: Claude's separate Clerk correction/interface lead review, 0506/05.05.
+After that review, Prime can decide the smallest integration slice.

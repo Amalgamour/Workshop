@@ -1,0 +1,7 @@
+ok       H event deleted: human show/verify/inbox and json are read-only and exit 2 without traceback :: codes [2, 2, 2, 2, 2, 2]
+ok       H witness deleted: human show/verify/inbox and json are read-only and exit 2 without traceback :: codes [2, 2, 2, 2, 2, 2]
+ok       H event byte changed: human show/verify/inbox and json are read-only and exit 2 without traceback :: codes [2, 2, 2, 2, 2, 2]
+ok       H queued event changed: human show/verify/inbox and json are read-only and exit 2 without traceback :: codes [2, 2, 2, 2, 2, 2]
+ok       O outbox OSError after claim event: exit 2, names the existing token, no new token :: incomplete: filesystem error: PermissionError: Permission denied | claim event exists | existing token 06c428fd6ccfa9a959535657fe96618a | no new token | record left in place | result refused | 
+ok       O then resume and claim both refuse and write nothing (claim without outbox stays incomplete) :: refused: bad state: incomplete: claim recorded but outbox is missing / refused: bad state: incomplete: claim recorded but outbox is missing
+total 6 findings 0

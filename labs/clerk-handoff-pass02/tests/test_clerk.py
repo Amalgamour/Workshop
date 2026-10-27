@@ -185,7 +185,9 @@ class ClerkTests(unittest.TestCase):
         self.assertEqual(set(document["checks"]), {
             "events", "completion", "artifacts", "instructions",
         })
-        self.assertEqual(document["schema"], "clerk-handoff-inspection/1")
+        self.assertEqual(document["schema"], "clerk-handoff-inspection/2")  # 05.06: was /1
+        if document["returned"] is not None:  # 05.06: inspection/2 adds exactly event_sha256
+            self.assertEqual(set(document["returned"]), {"by", "delivery", "evidence", "artifacts", "event_sha256"})
         self.assertEqual(document["job_id"], job)
         for marker in ("result ok", "result findings", "result refused"):
             self.assertNotIn(marker, proc.stdout)
@@ -963,7 +965,7 @@ class ClerkTests(unittest.TestCase):
         self.assertIn("claim " + token, human.stdout)
         self.assertIn("chain ok", human.stdout)
         self.assertIn("result ok", human.stdout)
-        self.assertNotIn("clerk-handoff-inspection/1", human.stdout)
+        self.assertNotIn(clerk.INSPECTION_SCHEMA, human.stdout)
         resend = self.ret(token)
         self.assert_code(resend, 0)
         self.assertIn("already-recorded demo-0001", resend.stdout)
@@ -1031,7 +1033,7 @@ class ClerkTests(unittest.TestCase):
         self.assertIn("artifact changed", human.stdout)
         self.assertIn("not-returned-clean", human.stdout)
         self.assertIn("result findings", human.stdout)
-        self.assertNotIn("clerk-handoff-inspection/1", human.stdout)
+        self.assertNotIn(clerk.INSPECTION_SCHEMA, human.stdout)
 
     def test_show_json_damaged_records_are_not_clean_returns(self):
         missing_store, missing_doc = self.show_json(store=self.root / "no-such-store")
@@ -1203,7 +1205,7 @@ class ClerkTests(unittest.TestCase):
         syntax = self.cli(["show", "--json"])
         self.assertEqual(syntax.returncode, 2)
         self.assertNotEqual(syntax.stderr, "")
-        self.assertNotIn("clerk-handoff-inspection/1", syntax.stdout)
+        self.assertNotIn(clerk.INSPECTION_SCHEMA, syntax.stdout)
         with self.assertRaises(json.JSONDecodeError):
             json.loads(syntax.stdout)
         self.assertFalse(self.store.exists())
@@ -1249,7 +1251,7 @@ class ClerkTests(unittest.TestCase):
         self.assertIn("result refused", human.text)
         self.assertIn("existing token " + token, human.text)
         self.assertIn("no new token", human.text)
-        self.assertNotIn("clerk-handoff-inspection/1", human.text)
+        self.assertNotIn(clerk.INSPECTION_SCHEMA, human.text)
         self.assertNotIn("Traceback", human.text)
         self.assertEqual(snapshot(self.store), before)
         self.assertEqual(self.event_bytes("0003.returned.json"), recorded)
@@ -1288,6 +1290,97 @@ class ClerkTests(unittest.TestCase):
             "reviewer": "codex-prime",
             "routed_by": "router-fixture",
         }
+
+    # ---- 05.06: inspection/2 returned identity, CI-02 diagnostic ----
+    def test_inspection2_event_sha256_is_the_witnessed_event_identity(self):
+        self.assert_code(self.queue(), 0)
+        _p, queued = self.show_json(base=self.base)
+        self.assertIsNone(queued["returned"])
+        token = self.token_of(self.claim().stdout)
+        _p, claimed = self.show_json(base=self.base)
+        self.assertIsNone(claimed["returned"])
+        self.write_output()
+        self.assert_code(self.ret(token), 0)
+        event = self.event_bytes("0003.returned.json")
+        witness = json.loads(self.event_bytes("0003.witness.json"))
+        done, doc = self.show_json(base=self.base)
+        self.assert_code(done, 0)
+        self.assertEqual(doc["returned"]["event_sha256"], hashlib.sha256(event).hexdigest())
+        self.assertEqual(doc["returned"]["event_sha256"], witness["sha256"])
+        resend = self.ret(token)
+        self.assertIn("already-recorded", resend.stdout)
+        _p, after_resend = self.show_json(base=self.base)
+        self.assertEqual(after_resend["returned"]["event_sha256"], doc["returned"]["event_sha256"])
+        self.assertEqual(self.event_bytes("0003.returned.json"), event)
+
+    def test_inspection2_changed_artifact_keeps_the_recorded_event_identity(self):
+        self.assert_code(self.queue(), 0)
+        token = self.token_of(self.claim().stdout)
+        self.write_output()
+        self.assert_code(self.ret(token), 0)
+        recorded = hashlib.sha256(self.event_bytes("0003.returned.json")).hexdigest()
+        self.write_output(payload=b"changed\n")
+        proc, doc = self.show_json(base=self.base)
+        self.assert_code(proc, 1)
+        self.assertEqual((doc["state"], doc["checks"]["artifacts"]), ("returned", "changed"))
+        self.assertEqual(doc["returned"]["event_sha256"], recorded)
+        self.assertTrue(any(p["kind"] == "artifact-changed" for p in doc["problems"]))
+
+    def test_inspection2_damaged_pair_supplies_no_identity(self):
+        cases = {
+            "event deleted": lambda d: (d / "0003.returned.json").unlink(),
+            "witness deleted": lambda d: (d / "0003.witness.json").unlink(),
+            "event changed": lambda d: (d / "0003.returned.json").write_bytes(
+                (d / "0003.returned.json").read_bytes().replace(b"d-1", b"d-2", 1)),
+        }
+        for name, damage in cases.items():
+            with self.subTest(case=name):
+                shutil.rmtree(self.store, ignore_errors=True)
+                self.assert_code(self.queue(), 0)
+                token = self.token_of(self.claim().stdout)
+                self.write_output()
+                self.assert_code(self.ret(token), 0)
+                damage(self.store / "jobs" / "demo-0001")
+                proc, doc = self.show_json(base=self.base)
+                self.assert_code(proc, 2)
+                self.assertIsNone(doc["returned"])
+                self.assertNotIn("event_sha256", json.dumps(doc))
+
+    def test_inspection2_instruction_base_absent_stale_and_usable(self):
+        self.assert_code(self.queue(), 0)
+        token = self.token_of(self.claim().stdout)
+        self.write_output()
+        self.assert_code(self.ret(token), 0)
+        absent_proc, absent = self.show_json()
+        self.assert_code(absent_proc, 0)
+        self.assertEqual(absent["checks"]["instructions"], "not-checked")
+        usable_proc, usable = self.show_json(base=self.base)
+        self.assert_code(usable_proc, 0)
+        self.assertEqual(usable["checks"]["instructions"], "usable")
+        (self.base / "task.txt").write_bytes(b"stale\n")
+        stale_proc, stale = self.show_json(base=self.base)
+        self.assert_code(stale_proc, 1)
+        self.assertEqual(stale["checks"]["instructions"], "unusable")
+        self.assertEqual(stale["returned"]["event_sha256"], usable["returned"]["event_sha256"])
+
+    def test_control_character_evidence_is_refused_with_its_own_diagnostic(self):
+        self.assert_code(self.queue(), 0)
+        token = self.token_of(self.claim().stdout)
+        self.write_output()
+        before = snapshot(self.store)
+        for evidence in ("one\ttwo", "line one\nline two", "end\r", "bell\x07"):
+            with self.subTest(evidence=repr(evidence)):
+                refused = self.ret(token, evidence=evidence)
+                self.assert_code(refused, 2)
+                self.assertIn("evidence contains a control character; it must be one line of printable text", refused.stdout)
+                self.assertNotIn("evidence is blank", refused.stdout)
+        for evidence in ("", "   ", " \t "):
+            with self.subTest(evidence=repr(evidence)):
+                refused = self.ret(token, evidence=evidence)
+                self.assert_code(refused, 2)
+                self.assertIn("evidence is blank", refused.stdout)
+        self.assertEqual(before, snapshot(self.store))  # file hashes and directory names
+        self.assertFalse((self.store / "jobs" / "demo-0001" / "0003.returned.json").exists())
 
 
 if __name__ == "__main__":

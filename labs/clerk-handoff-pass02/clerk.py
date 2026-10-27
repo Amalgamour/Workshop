@@ -22,7 +22,9 @@ completion witness, written before the returned event, recording that event
 file's digest. Schema clerk-handoff-pass02/1 is recognized and refused,
 not migrated. Every mutation is an exclusive create. An interrupted write
 is left in place and is not a successful state. show --json prints one
-read-only projection, schema clerk-handoff-inspection/1, and does not write.
+read-only projection, schema clerk-handoff-inspection/2, and does not write.
+Inspection/2 adds returned.event_sha256; its predecessor inspection/1 had no
+event digest.
 """
 
 from __future__ import annotations
@@ -42,7 +44,7 @@ from pathlib import Path
 
 SCHEMA = "clerk-handoff-pass02/2"
 EARLIER_SCHEMA = "clerk-handoff-pass02/1"
-INSPECTION_SCHEMA = "clerk-handoff-inspection/1"
+INSPECTION_SCHEMA = "clerk-handoff-inspection/2"  # predecessor /1: the same document without returned.event_sha256
 QUEUED_NAME = "0001.queued.json"
 CLAIMED_NAME = "0002.claimed.json"
 RETURNED_NAME = "0003.returned.json"
@@ -1014,8 +1016,10 @@ def return_job(store_text: str, job_id: str, actor: str, token: str, delivery: s
             refuse("wrong token")
         if not isinstance(evidence, str):
             refuse("evidence is not a string")
-        if evidence.strip() == "" or any(ord(ch) < 32 for ch in evidence):
+        if evidence.strip() == "":
             refuse("evidence is blank")
+        if any(ord(ch) < 32 for ch in evidence):
+            refuse("evidence contains a control character; it must be one line of printable text")
         store = existing_store(store_text)
         view = _find_view(store, job_id)
         if view is None:
@@ -1242,11 +1246,17 @@ def _project_inspection(store: Path, job_id: str, view: View, base_text: str | N
         by = view.claim_by if isinstance(view.claim_by, str) else view.assignee
         claim = {"by": by, "token": view.token}
     if state == "returned":
+        # The digest _apply_completion matched against the witness before it accepted the
+        # pair. It is the recorded event's identity: a later artifact change does not alter it.
+        name, event_sha256, _prev = view.events[-1]
+        if name != RETURNED_NAME:
+            raise AssertionError("returned view without its validated returned event")
         returned = {
             "by": view.return_by,
             "delivery": view.delivery,
             "evidence": view.evidence,
             "artifacts": view.artifacts,
+            "event_sha256": event_sha256,
         }
     if state in ("incomplete", "corrupt"):
         kind = "incomplete" if state == "incomplete" else "corrupt"
