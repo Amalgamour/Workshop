@@ -1,0 +1,30 @@
+ILLUSTRATIVE status report (proposed format; not produced by any tool). Values for app/clerk/prime-support
+are readings by hand from pinned sources and a read-only `git status` on 2026-10-27; sof values are synthetic.
+
+prime-support status   registry lanes.json sha256 <hash>   read-only, offline (no fetch)
+repo lib-build  branch workshop  HEAD 54274e6  origin/workshop 54274e6 (last observed, not fetched)
+canonical 0401.goal/06.01.md sha256 1ee161c5…  describes lane app
+
+lane app  (Grok Builder 1)
+  canonical     current_work 0504/05.06  state waiting  waits_on "Director release of app 05.06; ..."
+  page 05.06    published: Release PENDING  Claim PENDING  return: none
+                local:     untracked 0504/06.06.md, evidence/05.06/   modified app/worker_bridge.py, ...
+  CONFLICT      canonical says waiting; local work exists on this lane's registered paths (release not visible on the page)
+  page 05.05    return prefix 8c1dfe6f…  reviewed (whole 56c4e2c1… at cf25d56)  Disposition REPAIR REQUIRED
+                findings: not machine-readable (BRI-01 named in prose)
+lane clerk  (Grok Builder 2; lead Claude)
+  canonical     not described by the canonical record
+  page 05.01    return reviewed  Disposition REPAIR REQUIRED   06.02 review CR-01..CR-05: not machine-readable
+  page 05.02    published: Release PENDING   local: modified labs/clerk-handoff-pass02/*, untracked evidence/repair05.02/
+  page 05.03    LOCAL ONLY (untracked): return prefix <sha>  execution RETURNED  intake: unseen   NOT on origin/workshop
+lane prime-support  (Claude)
+  page 05.01    LOCAL ONLY: execution IN PROGRESS   (not intake-eligible)
+lane observer  (advisory)
+  cache         not fetched in this run; last seen observer/reviews e865d3c (local remote-tracking ref)
+  0502/06.02    review_status open  phase submitted  findings O-01..O-07: 7 with Prime response; 1 open escalation (O-06: B-F1)
+lane sof  (separate repository)   SYNTHETIC
+  ref           <branch> <commit>  status file <path>@<commit>  worktree: not inspected (registration off)
+
+attention: 1. CONFLICT lane app (canonical vs local work)   packet: 0401.goal/06.01.md@1ee161c5…, 0504/05.06.md@<prefix>, git status -- 0504.app-entry app/
+           next after it: clerk 05.03 return unseen and unpublished
+exit 1 (findings present)

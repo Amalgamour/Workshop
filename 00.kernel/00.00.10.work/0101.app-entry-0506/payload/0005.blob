@@ -1,0 +1,751 @@
+PASS pinned lab and example bytes
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\success --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 0
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: delivered
+claimed_outcome: done
+collection: collected
+artifact: bridge/delivery/bridge-0001/output/result.json sha256 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6
+receipt: bridge/store/bridge-0001/receipt.json sha256 6be25ca4f569e07df3b3723e3c5d02167314f4b474cbdb6d20271c2b80fcd4a7
+review: not performed
+acceptance: not performed
+
+
+PASS bridge-test collected the count
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-status --root D:\Git\lib-build\app\scratch\bridge\success --delivery bridge-0001
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 0
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: delivered
+claimed_outcome: done
+collection: collected
+artifact: bridge/delivery/bridge-0001/output/result.json sha256 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6
+receipt: bridge/store/bridge-0001/receipt.json sha256 6be25ca4f569e07df3b3723e3c5d02167314f4b474cbdb6d20271c2b80fcd4a7
+review: not performed
+acceptance: not performed
+
+
+PASS fresh-process status reads the receipt
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\success --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 0
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: delivered
+claimed_outcome: done
+collection: collected
+artifact: bridge/delivery/bridge-0001/output/result.json sha256 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6
+receipt: bridge/store/bridge-0001/receipt.json sha256 6be25ca4f569e07df3b3723e3c5d02167314f4b474cbdb6d20271c2b80fcd4a7
+review: not performed
+acceptance: not performed
+replayed: true
+
+
+PASS identical replay does not launch again
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\success --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 0
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: delivered
+claimed_outcome: done
+collection: collected
+artifact: bridge/delivery/bridge-0001/output/result.json sha256 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6
+receipt: bridge/store/bridge-0001/receipt.json sha256 6be25ca4f569e07df3b3723e3c5d02167314f4b474cbdb6d20271c2b80fcd4a7
+review: not performed
+acceptance: not performed
+replayed: true
+
+
+PASS replay does not recreate the output directory
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root C:\Users\misg\AppData\Local\Temp\librarian-0505-external-m0jn6mlb --job bridge/job.json --container C:\Users\misg\AppData\Local\Temp\librarian-0505-external-m0jn6mlb
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 0
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: delivered
+claimed_outcome: done
+collection: collected
+artifact: bridge/delivery/bridge-0001/output/result.json sha256 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6
+receipt: bridge/store/bridge-0001/receipt.json sha256 e14eaf20e85a2ee0ba4557c1211a0c39d128da6e9a1379caf6e9ef451ee27a53
+review: not performed
+acceptance: not performed
+
+
+PASS external container collected
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-status --root C:\Users\misg\AppData\Local\Temp\librarian-0505-external-m0jn6mlb --delivery bridge-0001 --container C:\Users\misg\AppData\Local\Temp\librarian-0505-external-m0jn6mlb
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 0
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: delivered
+claimed_outcome: done
+collection: collected
+artifact: bridge/delivery/bridge-0001/output/result.json sha256 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6
+receipt: bridge/store/bridge-0001/receipt.json sha256 e14eaf20e85a2ee0ba4557c1211a0c39d128da6e9a1379caf6e9ef451ee27a53
+review: not performed
+acceptance: not performed
+
+
+PASS external fresh status
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root C:\Users\misg\AppData\Local\Temp\librarian-0505-external-m0jn6mlb --job bridge/job.json --container C:\Users\misg\AppData\Local\Temp\librarian-0505-external-m0jn6mlb
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 0
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: delivered
+claimed_outcome: done
+collection: collected
+artifact: bridge/delivery/bridge-0001/output/result.json sha256 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6
+receipt: bridge/store/bridge-0001/receipt.json sha256 e14eaf20e85a2ee0ba4557c1211a0c39d128da6e9a1379caf6e9ef451ee27a53
+review: not performed
+acceptance: not performed
+replayed: true
+
+
+PASS external replay
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-status --root C:\Users\misg\AppData\Local\Temp\librarian-0505-external-m0jn6mlb --delivery bridge-0001 --container C:\Users\misg\AppData\Local\Temp\librarian-0505-external-m0jn6mlb
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 0
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: delivered
+claimed_outcome: done
+collection: collected
+artifact: bridge/delivery/bridge-0001/output/result.json sha256 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6
+receipt: bridge/store/bridge-0001/receipt.json sha256 e14eaf20e85a2ee0ba4557c1211a0c39d128da6e9a1379caf6e9ef451ee27a53
+review: not performed
+acceptance: not performed
+
+
+PASS status after accepted and current-work change
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-status --root C:\Users\misg\AppData\Local\Temp\librarian-0505-external-m0jn6mlb --delivery bridge-0001 --container C:\Users\misg\AppData\Local\Temp\librarian-0505-external-m0jn6mlb
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 0
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: delivered
+claimed_outcome: done
+collection: collected
+artifact: bridge/delivery/bridge-0001/output/result.json sha256 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6
+receipt: bridge/store/bridge-0001/receipt.json sha256 e14eaf20e85a2ee0ba4557c1211a0c39d128da6e9a1379caf6e9ef451ee27a53
+review: not performed
+acceptance: not performed
+
+
+PASS status after returned
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\bad-hash --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 3
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: delivered
+claimed_outcome: done
+collection: uncollected
+artifact: none
+receipt: bridge/store/bridge-0001/receipt.json sha256 c227a64a897a948f16bf2e4c71ccd03bb776f46221eac486b972df1d3464a10f
+review: not performed
+acceptance: not performed
+reason: artifact bytes differ from the result: result.json
+
+
+PASS bad-hash
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\missing-artifact --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 3
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: delivered
+claimed_outcome: done
+collection: uncollected
+artifact: none
+receipt: bridge/store/bridge-0001/receipt.json sha256 f210b31bc0e0a09da0bde74f5fbb18325c3c77809ba377883ba808e003a20263
+review: not performed
+acceptance: not performed
+reason: artifact missing: result.json
+
+
+PASS missing-artifact
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\escape --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 3
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: delivered
+claimed_outcome: done
+collection: uncollected
+artifact: none
+receipt: bridge/store/bridge-0001/receipt.json sha256 6787d38f5b23e8e359b18e55747567fd946c034803310bfacfba0e59e51042c8
+review: not performed
+acceptance: not performed
+reason: artifact path is not a safe relative path: '../escaped.json'
+
+
+PASS escape
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\garbage --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 4
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: malformed
+claimed_outcome: none
+collection: not attempted
+artifact: none
+receipt: bridge/store/bridge-0001/receipt.json sha256 424bf3da619dc1e186a37a8056854559e59980e9f864f8cf526f3b75f66fbe98
+review: not performed
+acceptance: not performed
+reason: stdout is not one JSON value (Expecting value)
+
+
+PASS garbage
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\partial --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 4
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: malformed
+claimed_outcome: none
+collection: not attempted
+artifact: none
+receipt: bridge/store/bridge-0001/receipt.json sha256 aaff2c1a894d8ebaf13c040548e990e33e63beff802472a4e73c77eb65e557d5
+review: not performed
+acceptance: not performed
+reason: stdout is not one JSON value (Expecting value)
+
+
+PASS partial
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\bad-shape --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 4
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: malformed
+claimed_outcome: none
+collection: not attempted
+artifact: none
+receipt: bridge/store/bridge-0001/receipt.json sha256 9dfc46b9a70ecc95e8b6d871b9e5631050bd78ef00d7e24ece93d03232161c26
+review: not performed
+acceptance: not performed
+reason: outcome is not done or failed
+
+
+PASS bad-shape
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\dup-keys --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 4
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: malformed
+claimed_outcome: none
+collection: not attempted
+artifact: none
+receipt: bridge/store/bridge-0001/receipt.json sha256 2509ceeff9a5314cbf142cecbe7cdef52be30952c855ebfac4bbdb99a6a3a182
+review: not performed
+acceptance: not performed
+reason: stdout is not strict JSON (duplicate key 'outcome')
+
+
+PASS dup-keys
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\crash --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 4
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: crashed
+claimed_outcome: none
+collection: not attempted
+artifact: none
+receipt: bridge/store/bridge-0001/receipt.json sha256 c3890329a32d5cfe4af1717f8af05baa880a7da6be7ebc6f61ebc75ec15559ae
+review: not performed
+acceptance: not performed
+reason: exit 3
+
+
+PASS crash
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\flood --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 4
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: output-limit
+claimed_outcome: none
+collection: not attempted
+artifact: none
+receipt: bridge/store/bridge-0001/receipt.json sha256 f83acbe53b75cf9bb6244dca5cb8161f74c8b64e6b194f0b67ea7402eb4a4a88
+review: not performed
+acceptance: not performed
+reason: killed after launch; work may or may not have happened; not relaunched
+
+
+PASS output-limit
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\sleep --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 4
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: timeout
+claimed_outcome: none
+collection: not attempted
+artifact: none
+receipt: bridge/store/bridge-0001/receipt.json sha256 14e4078f2e9abe8d44eeaaffa1332635f6b11fa622ae7c9a003b8eda9325639a
+review: not performed
+acceptance: not performed
+reason: killed after launch; work may or may not have happened; not relaunched
+
+
+PASS timeout stays uncertain
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\sleep --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 4
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: timeout
+claimed_outcome: none
+collection: not attempted
+artifact: none
+receipt: bridge/store/bridge-0001/receipt.json sha256 14e4078f2e9abe8d44eeaaffa1332635f6b11fa622ae7c9a003b8eda9325639a
+review: not performed
+acceptance: not performed
+replayed: true
+reason: killed after launch; work may or may not have happened; not relaunched
+
+
+PASS timeout replay does not relaunch
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\pipes --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 4
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: incomplete-output
+claimed_outcome: none
+collection: not attempted
+artifact: none
+receipt: bridge/store/bridge-0001/receipt.json sha256 36060a5fa844e58c7a4d5cb91264754326e304e5eadbe95710ac9138759ffea8
+review: not performed
+acceptance: not performed
+cleanup.retained: stdout reader, stderr reader
+reason: the child exited but its output streams were still open when the budget ended (a descendant may hold them); the captured bytes are a partial snapshot and are not parsed
+
+
+PASS inherited pipes stay incomplete
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\conflict --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 0
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: delivered
+claimed_outcome: done
+collection: collected
+artifact: bridge/delivery/bridge-0001/output/result.json sha256 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6
+receipt: bridge/store/bridge-0001/receipt.json sha256 5a992596c7fff68cd98b3a6263757b0c6db4b4f355f26138d198132740a0dc7a
+review: not performed
+acceptance: not performed
+
+
+PASS conflict setup collected
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\conflict --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 2
+
+stop: delivery_id reused with a different request; use a new delivery_id; this call did not launch; a prior launch record remains
+
+REFUSAL conflicting delivery does not claim there was no launch
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-status --root D:\Git\lib-build\app\scratch\bridge\interrupt --delivery bridge-0001
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 4
+delivery_id: bridge-0001
+state: uncertain
+transport: uncertain
+claimed_outcome: none
+collection: not collected
+artifact: none
+receipt: none
+review: not performed
+acceptance: not performed
+reason: launched, no receipt: the earlier attempt's outcome is unknown; not relaunched
+
+
+PASS interrupted receipt stays uncertain
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-recover --root D:\Git\lib-build\app\scratch\bridge\interrupt --delivery bridge-0001 --recovery-request bridge/recover.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 0
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: delivered
+claimed_outcome: done
+collection: collected
+artifact: bridge/delivery/bridge-0001/output/result.json sha256 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6
+receipt: bridge/store/bridge-0001/receipt.json sha256 8bdc5e9d32966df0c1885358d60fba443d3a4b2b9ac0c3bd13a1979d379238d9
+review: not performed
+acceptance: not performed
+recovered: true
+
+
+PASS recover rebuilds the receipt without a launch
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-recover --root D:\Git\lib-build\app\scratch\bridge\interrupt --delivery bridge-0001 --recovery-request bridge/recover.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 0
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: delivered
+claimed_outcome: done
+collection: collected
+artifact: bridge/delivery/bridge-0001/output/result.json sha256 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6
+receipt: bridge/store/bridge-0001/receipt.json sha256 8bdc5e9d32966df0c1885358d60fba443d3a4b2b9ac0c3bd13a1979d379238d9
+review: not performed
+acceptance: not performed
+recovered: true
+
+
+PASS second recover reads the stored receipt
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-recover --root D:\Git\lib-build\app\scratch\bridge\no-attempt --delivery bridge-0002 --recovery-request bridge/recover.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 4
+delivery_id: bridge-0002
+state: uncertain
+transport: uncertain
+claimed_outcome: none
+collection: not collected
+artifact: none
+receipt: none
+review: not performed
+acceptance: not performed
+reason: the attempt was not fully recorded; outcome unknown; not relaunched
+
+
+PASS launch without an attempt stays uncertain
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-status --root D:\Git\lib-build\app\scratch\bridge\unknown --delivery bridge-0099
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 4
+delivery_id: bridge-0099
+state: unknown
+transport: unknown
+claimed_outcome: none
+collection: not collected
+artifact: none
+receipt: none
+review: not performed
+acceptance: not performed
+
+
+PASS unknown delivery is not collected
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\accepted-not-launched --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 0
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: delivered
+claimed_outcome: done
+collection: collected
+artifact: bridge/delivery/bridge-0001/output/result.json sha256 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6
+receipt: bridge/store/bridge-0001/receipt.json sha256 5595b6fd8e4e7b84b89bb2b0e7f7720f0c77e858ec917e27fc184937def264e6
+review: not performed
+acceptance: not performed
+
+
+PASS accepted-not-launched setup
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-status --root D:\Git\lib-build\app\scratch\bridge\accepted-not-launched --delivery bridge-0001
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 4
+delivery_id: bridge-0001
+state: accepted-not-launched
+transport: accepted-not-launched
+claimed_outcome: none
+collection: not collected
+artifact: none
+receipt: none
+review: not performed
+acceptance: not performed
+
+
+PASS accepted-not-launched stays not collected
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\bad-provenance --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 0
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: delivered
+claimed_outcome: done
+collection: collected
+artifact: bridge/delivery/bridge-0001/output/result.json sha256 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6
+receipt: bridge/store/bridge-0001/receipt.json sha256 e97c93f77391bbe4f7df3aeb93a0de0d945ac6715ee1903bb31a178cf9447e70
+review: not performed
+acceptance: not performed
+
+
+PASS bad provenance setup
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-status --root D:\Git\lib-build\app\scratch\bridge\bad-provenance --delivery bridge-0001
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 2
+
+stop: provenance has an unknown key: extra
+
+REFUSAL bad stored provenance
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-status --root D:\Git\lib-build\app\scratch\bridge\bad-provenance --delivery bridge-0001
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 2
+
+stop: path escapes the root
+
+REFUSAL escaping stored path
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\unreleased --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 2
+
+stop: assignment is not a fresh execution release
+
+REFUSAL unreleased new work
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\backend --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 2
+
+stop: backend 'fixture-no-such' is not an allowlisted profile
+
+REFUSAL unknown backend
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\work-ref --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 2
+
+stop: work_ref is not the current work
+
+REFUSAL work_ref is not current work
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\limits --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 2
+
+stop: timeout_s must be a finite number with 0 < timeout_s <= 3600, not -1
+
+REFUSAL bad limits
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\escape-job --job ../job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 2
+
+stop: path escapes the root
+
+REFUSAL job path escape
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py run --root D:\Git\lib-build
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 2
+
+stop: normal run is not activated
+
+REFUSAL normal run
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 2
+
+stop: fixture root is the live workspace
+
+REFUSAL live workspace
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\pre-dir --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 2
+
+stop: bridge/delivery/bridge-0001 is already present
+
+REFUSAL pre-planted per-delivery directory
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\pre-link --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 2
+
+stop: bridge/delivery/bridge-0001 is already present
+
+REFUSAL pre-planted hard link
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\pre-store --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 2
+
+stop: stored delivery does not match provenance; this call did not adopt it and did not launch
+
+REFUSAL pre-planted store
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\pre-junction --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 2
+
+stop: bridge/delivery/bridge-0001 is already present
+
+REFUSAL pre-planted junction
+SKIP pre-planted file symlink: WinError 1314: A required privilege is not held by the client
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\correlate --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 0
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: delivered
+claimed_outcome: done
+collection: collected
+artifact: bridge/delivery/bridge-0001/output/result.json sha256 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6
+receipt: bridge/store/bridge-0001/receipt.json sha256 618afb0d4c80587ba5ce61b3e4a838da1fcc176f574636e48ccc08833cc07b79
+review: not performed
+acceptance: not performed
+
+
+PASS correlation setup collected
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-status --root D:\Git\lib-build\app\scratch\bridge\correlate --delivery bridge-0001
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 2
+
+stop: stored receipt field is missing: request_sha256
+
+REFUSAL missing request hash is not a wildcard
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\correlate --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 2
+
+stop: stored receipt field is missing: request_sha256
+
+REFUSAL replay refuses a bad stored receipt
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-recover --root D:\Git\lib-build\app\scratch\bridge\correlate --delivery bridge-0001 --recovery-request bridge/recover.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 2
+
+stop: stored receipt field is missing: request_sha256
+
+REFUSAL recover refuses a bad stored receipt
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-status --root D:\Git\lib-build\app\scratch\bridge\correlate --delivery bridge-0001
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 2
+
+stop: stored receipt delivery does not match
+
+REFUSAL correct hash does not excuse wrong ids
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\correlate --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 2
+
+stop: stored receipt delivery does not match
+
+REFUSAL replay refuses wrong ids
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-recover --root D:\Git\lib-build\app\scratch\bridge\correlate --delivery bridge-0001 --recovery-request bridge/recover.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 2
+
+stop: stored receipt delivery does not match
+
+REFUSAL recover refuses wrong ids
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-status --root D:\Git\lib-build\app\scratch\bridge\correlate --delivery bridge-0001
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 2
+
+stop: stored receipt schema is not worker-bridge/receipt@1
+
+REFUSAL unsupported receipt schema
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-status --root D:\Git\lib-build\app\scratch\bridge\correlate --delivery bridge-0001
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 2
+
+stop: stored receipt is not an object
+
+REFUSAL non-object receipt
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\correlate --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 2
+
+stop: stored receipt is not an object
+
+REFUSAL replay refuses a non-object receipt
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-status --root D:\Git\lib-build\app\scratch\bridge\correlate --delivery bridge-0001
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 2
+
+stop: stored receipt is not strict json
+
+REFUSAL malformed receipt
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-recover --root D:\Git\lib-build\app\scratch\bridge\correlate --delivery bridge-0001 --recovery-request bridge/recover.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 2
+
+stop: stored receipt is not strict json
+
+REFUSAL recover refuses a malformed receipt
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-status --root D:\Git\lib-build\app\scratch\bridge\correlate --delivery bridge-0001
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 0
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: delivered
+claimed_outcome: done
+collection: collected
+artifact: bridge/delivery/bridge-0001/output/result.json sha256 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6
+receipt: bridge/store/bridge-0001/receipt.json sha256 618afb0d4c80587ba5ce61b3e4a838da1fcc176f574636e48ccc08833cc07b79
+review: not performed
+acceptance: not performed
+
+
+PASS status still reads a consistent receipt
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B D:\Git\lib-build\app\librarian.py bridge-test --root D:\Git\lib-build\app\scratch\bridge\correlate --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 0
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: delivered
+claimed_outcome: done
+collection: collected
+artifact: bridge/delivery/bridge-0001/output/result.json sha256 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6
+receipt: bridge/store/bridge-0001/receipt.json sha256 618afb0d4c80587ba5ce61b3e4a838da1fcc176f574636e48ccc08833cc07b79
+review: not performed
+acceptance: not performed
+replayed: true
+
+
+PASS replay still does not launch
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B C:\Users\misg\AppData\Local\Temp\librarian-0505-code-oxoe6sul\pin\app\librarian.py bridge-test --root C:\Users\misg\AppData\Local\Temp\librarian-0505-code-oxoe6sul\pin\app\scratch\pin --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 2
+
+stop: pinned file hash does not match: bridge/adapter.py
+
+REFUSAL pin mismatch before import
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B C:\Users\misg\AppData\Local\Temp\librarian-0505-code-oxoe6sul\kind\app\librarian.py bridge-test --root C:\Users\misg\AppData\Local\Temp\librarian-0505-code-oxoe6sul\kind\app\scratch\kind --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 2
+
+stop: worker kind is not allowed
+
+REFUSAL wrong kind
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B C:\Users\misg\AppData\Local\Temp\librarian-0505-code-oxoe6sul\launch-failed\app\librarian.py bridge-test --root C:\Users\misg\AppData\Local\Temp\librarian-0505-code-oxoe6sul\launch-failed\app\scratch\launch --job bridge/job.json
+cwd: C:\Users\misg\AppData\Local\Temp\librarian-0505-cwd-6ramhy9l
+exit: 4
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: launch-failed
+claimed_outcome: none
+collection: not attempted
+artifact: none
+receipt: bridge/store/bridge-0001/receipt.json sha256 fb55a10190ce0183004536e8287a421b52130c71aab7f9f19242f18c41d0d084
+review: not performed
+acceptance: not performed
+reason: the process did not start
+
+
+PASS launch-failed is not collected
+LAB test_bridge.py exit 0
+
+..................
+----------------------------------------------------------------------
+Ran 18 tests in 2.783s
+
+OK
+
+LAB test_pass02.py exit 0
+
+..........
+----------------------------------------------------------------------
+Ran 10 tests in 2.098s
+
+OK
+
+LAB test_pass03.py exit 0
+
+..
+----------------------------------------------------------------------
+Ran 2 tests in 10.511s
+
+OK
+
+PASS accepted bridge 30 tests in an isolated copy
+PASS guarded bytes were unchanged
+PASS no bytecode was written into the books or app

@@ -1,0 +1,83 @@
+{
+  "root": "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-capture-repair-bbgh70_z",
+  "manifest": {
+    "rows": 12,
+    "errors": []
+  },
+  "runs": {
+    "suite": {
+      "exit": 0,
+      "tail": "mp\\\\\\\\rc-pass01-m3mz_l81\\\\\\\\source\\\\\\\\note.link'\"\ntest_tool_imports_no_process_copy_or_database (test_return_capture.ReturnCaptureTests.test_tool_imports_no_process_copy_or_database) ... ok\ntest_traversal_links_and_crlf (test_return_capture.ReturnCaptureTests.test_traversal_links_and_crlf) ... ok\ntest_writer_allows_git_checkout_and_refuses_control_and_root (test_return_capture.ReturnCaptureTests.test_writer_allows_git_checkout_and_refuses_control_and_root)\nPass-01 expected a Git-tree refusal. An ordinary directory is allowed. ... ok\n\n----------------------------------------------------------------------\nRan 25 tests in 2.815s\n\nOK (skipped=1)\n"
+    }
+  },
+  "original_git_probe": {
+    "calls": [
+      {
+        "args": [
+          "reserve",
+          "--book",
+          "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-capture-repair-bbgh70_z\\workspace\\00.kernel\\00.00.10.work",
+          "--submission",
+          "prime-original-git-probe",
+          "--name",
+          "local",
+          "--origin-book",
+          "00.00.10.work",
+          "--origin-page",
+          "0508.fixture",
+          "--origin-batch",
+          "05.01",
+          "--expected-output",
+          "module.py",
+          "--expected-output",
+          "evidence.txt",
+          "--submitter",
+          "fixture-builder",
+          "--reviewer",
+          "prime-fixture",
+          "--release",
+          "explicit disposable verification"
+        ],
+        "exit": 0,
+        "stdout": "member 0101.local\nsubmission prime-original-git-probe\nresult reserved\n",
+        "stderr": ""
+      },
+      {
+        "args": [
+          "capture",
+          "--book",
+          "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-capture-repair-bbgh70_z\\workspace\\00.kernel\\00.00.10.work",
+          "--submission",
+          "prime-original-git-probe",
+          "--return-file",
+          "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-capture-repair-bbgh70_z\\workspace\\00.kernel\\00.00.10.work\\0508.fixture\\return.md",
+          "--source-root",
+          "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-capture-repair-bbgh70_z\\workspace",
+          "--artifact",
+          "module.py|module.py",
+          "--artifact",
+          "00.kernel/00.00.10.work/0508.fixture/evidence.txt|evidence.txt"
+        ],
+        "exit": 0,
+        "stdout": "capture 0101.local\nmanifest 2afc3df58d430bde1c1fadbb9e3f66751006a96018f4c6e58b2cb1c1f29ecbf0\nreceipt 253cb898ffd03e0981ae60748c3ee7e2dbe9831a34e02872c09567ff311b9b02\nresult captured\n",
+        "stderr": ""
+      },
+      {
+        "args": [
+          "verify",
+          "--book",
+          "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-capture-repair-bbgh70_z\\workspace\\00.kernel\\00.00.10.work",
+          "--member",
+          "0101.local"
+        ],
+        "exit": 0,
+        "stdout": "reservation d63671124dd3df032d12873bda1413e96dfa20a3b485c59c4161c5e941c0e0e9\nmanifest 2afc3df58d430bde1c1fadbb9e3f66751006a96018f4c6e58b2cb1c1f29ecbf0\nreceipt 253cb898ffd03e0981ae60748c3ee7e2dbe9831a34e02872c09567ff311b9b02\npayload 0001.blob 24621fc52fd520c13342197c5ab8afeb0781530ed5224ba0e9ae30b14c1caa13\npayload 0002.blob 1b43a7b4dbd63cb482bd048d58fd84aaf176560794056d3f29cd06f395f399eb\nresult complete\nnot approved\nnot accepted\nnot published\n",
+        "stderr": ""
+      }
+    ],
+    "git_metadata_unchanged": true,
+    "source_bytes_unchanged": true,
+    "receipt_present": true
+  },
+  "harness_note": "Initial review harness completed CLI calls but failed while checking sources: str dictionary key used as Path. Corrected only harness Path conversion; no product change."
+}

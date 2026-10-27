@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import ast
-import hashlib
 import json
 import os
 import shutil
@@ -20,7 +19,6 @@ import return_capture as rc  # noqa: E402
 
 SCRIPT = LAB / "return_capture.py"
 PY = sys.executable
-REAL_BOOK = Path(r"D:\Git\lib-build\00.kernel\00.00.10.work")
 PIN = "e6d6eb75538732c7eedbc840042242d386b25c2f"
 
 
@@ -32,6 +30,76 @@ def outside_git(path: Path) -> bool:
         if current.parent == current:
             return True
         current = current.parent
+
+
+def git_env() -> dict[str, str]:
+    env = os.environ.copy()
+    for key in ("GIT_DIR", "GIT_WORK_TREE", "GIT_INDEX_FILE", "GIT_NAMESPACE", "GIT_PREFIX"):
+        env.pop(key, None)
+    env["GIT_AUTHOR_NAME"] = "Return Capture"
+    env["GIT_AUTHOR_EMAIL"] = "return-capture@example.invalid"
+    env["GIT_COMMITTER_NAME"] = "Return Capture"
+    env["GIT_COMMITTER_EMAIL"] = "return-capture@example.invalid"
+    env["GIT_AUTHOR_DATE"] = "2026-10-27T12:00:00+00:00"
+    env["GIT_COMMITTER_DATE"] = "2026-10-27T12:00:00+00:00"
+    return env
+
+
+def run_git(repo: Path, args: list[str], env: dict[str, str]) -> subprocess.CompletedProcess[str]:
+    proc = subprocess.run(
+        ["git", *args],
+        cwd=repo,
+        env=env,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+    )
+    if proc.returncode != 0:
+        raise AssertionError(f"git {' '.join(args)}\n{proc.stderr}\n{proc.stdout}")
+    return proc
+
+
+def git_metadata_dir(repo: Path) -> Path:
+    marker = repo / ".git"
+    if marker.is_file():
+        text = marker.read_text(encoding="utf-8")
+        if not text.startswith("gitdir:"):
+            raise AssertionError(text)
+        gitdir = Path(text.split(":", 1)[1].strip())
+        if not gitdir.is_absolute():
+            gitdir = (repo / gitdir).resolve()
+        return gitdir
+    if marker.is_dir():
+        return marker
+    raise AssertionError(f"missing git metadata: {repo}")
+
+
+def snapshot_git_control(gitdir: Path) -> dict[str, bytes]:
+    found: dict[str, bytes] = {}
+    for name in ("HEAD", "index", "config"):
+        path = gitdir / name
+        if path.is_file() and not path.is_symlink():
+            found[name] = path.read_bytes()
+    refs = gitdir / "refs"
+    if refs.is_dir():
+        for dirpath, _dirnames, filenames in os.walk(refs):
+            for filename in filenames:
+                path = Path(dirpath) / filename
+                if path.is_symlink():
+                    continue
+                found[path.relative_to(gitdir).as_posix()] = path.read_bytes()
+    packed = gitdir / "packed-refs"
+    if packed.is_file() and not packed.is_symlink():
+        found["packed-refs"] = packed.read_bytes()
+    return found
+
+
+def init_checkout(path: Path, env: dict[str, str]) -> None:
+    path.mkdir(parents=True)
+    run_git(path, ["init", "-b", "workshop"], env)
+    run_git(path, ["config", "core.autocrlf", "false"], env)
+    run_git(path, ["config", "user.email", "return-capture@example.invalid"], env)
+    run_git(path, ["config", "user.name", "Return Capture"], env)
 
 
 def snap_bytes(root: Path) -> dict[str, bytes]:
@@ -490,13 +558,19 @@ class ReturnCaptureTests(unittest.TestCase):
         self.assertEqual(blob, program.read_bytes())
         self.assertFalse(marker.exists())
 
-    def test_writer_refuses_git_and_real_book_is_unchanged(self) -> None:
-        repo = self.tmp / "repo"
+    def test_writer_allows_git_checkout_and_refuses_control_and_root(self) -> None:
+        """Pass-01 expected a Git-tree refusal. An ordinary directory is allowed.
+
+        The shared work book is not a fixture. Roots and Git control paths
+        are refused before a door or member is created.
+        """
+        repo = self.tmp / "linked"
         repo.mkdir()
-        (repo / ".git").write_text("gitdir: nowhere\n", encoding="utf-8")
+        git_file = repo / ".git"
+        git_file.write_bytes(b"gitdir: nowhere\n")
         inside = repo / "book"
         inside.mkdir()
-        refused = rc.reserve(
+        allowed = rc.reserve(
             str(inside),
             "sub-1",
             "alpha",
@@ -508,17 +582,14 @@ class ReturnCaptureTests(unittest.TestCase):
             "Codex Prime",
             "Director 2026-10-27",
         )
-        self.assertEqual(refused.code, 2, refused.text)
-        self.assertIn("Git working tree", refused.text)
-        self.assertEqual(list(inside.iterdir()), [])
-        sibling = self.tmp / "sibling"
-        sibling.mkdir()
-        (self.tmp / "other").mkdir()
-        (self.tmp / "other" / ".git").mkdir()
-        ok = rc.reserve(
-            str(sibling),
-            "sub-1",
-            "alpha",
+        self.assertEqual(allowed.code, 0, allowed.text)
+        self.assertIn("member 0101.alpha", allowed.text)
+        self.assertEqual(git_file.read_bytes(), b"gitdir: nowhere\n")
+        self.assertTrue((inside / "0101.alpha" / "reservation.json").is_file())
+        file_book = rc.reserve(
+            str(git_file),
+            "sub-file",
+            "file",
             "0504.app-entry",
             "05.06.md",
             "05.06",
@@ -527,15 +598,92 @@ class ReturnCaptureTests(unittest.TestCase):
             "Codex Prime",
             "Director 2026-10-27",
         )
-        self.assertEqual(ok.code, 0, ok.text)
-        if not REAL_BOOK.is_dir():
-            self.skipTest("real work book is not on this machine")
-        door = REAL_BOOK / "0100.band.returns" / "01.md"
-        before_hash = hashlib.sha256(door.read_bytes()).hexdigest()
-        before_names = set(os.listdir(REAL_BOOK))
+        self.assertEqual(file_book.code, 2, file_book.text)
+        self.assertIn("Git control", file_book.text)
+        self.assertEqual(git_file.read_bytes(), b"gitdir: nowhere\n")
         try:
-            real = rc.reserve(
-                str(REAL_BOOK),
+            os.symlink(inside, self.tmp / "linked-book", target_is_directory=True)
+        except OSError as exc:
+            self.assertEqual(getattr(exc, "winerror", None), 1314, exc)
+        else:
+            linked = rc.reserve(
+                str(self.tmp / "linked-book"),
+                "sub-link",
+                "link",
+                "0504.app-entry",
+                "05.06.md",
+                "05.06",
+                [],
+                "Builder 2",
+                "Codex Prime",
+                "Director 2026-10-27",
+            )
+            self.assertEqual(linked.code, 2, linked.text)
+            self.assertIn("link", linked.text)
+            self.assertFalse((inside / "0102.link").exists())
+        control = self.tmp / "control"
+        control.mkdir()
+        git_dir = control / ".git"
+        (git_dir / "refs").mkdir(parents=True)
+        head = git_dir / "HEAD"
+        head.write_bytes(b"ref: refs/heads/workshop\n")
+        as_book = rc.reserve(
+            str(git_dir),
+            "sub-git",
+            "git",
+            "0504.app-entry",
+            "05.06.md",
+            "05.06",
+            [],
+            "Builder 2",
+            "Codex Prime",
+            "Director 2026-10-27",
+        )
+        self.assertEqual(as_book.code, 2, as_book.text)
+        self.assertIn("Git control", as_book.text)
+        self.assertFalse((git_dir / "0100.band.returns").exists())
+        nested = rc.reserve(
+            str(git_dir / "refs"),
+            "sub-nested",
+            "nested",
+            "0504.app-entry",
+            "05.06.md",
+            "05.06",
+            [],
+            "Builder 2",
+            "Codex Prime",
+            "Director 2026-10-27",
+        )
+        self.assertEqual(nested.code, 2, nested.text)
+        self.assertIn("Git control", nested.text)
+        self.assertFalse((git_dir / "refs" / "0100.band.returns").exists())
+        self.assertEqual(head.read_bytes(), b"ref: refs/heads/workshop\n")
+        ordinary = control / "work"
+        ordinary.mkdir()
+        inside_checkout = rc.reserve(
+            str(ordinary),
+            "sub-2",
+            "beta",
+            "0504.app-entry",
+            "05.06.md",
+            "05.06",
+            [],
+            "Builder 2",
+            "Codex Prime",
+            "Director 2026-10-27",
+        )
+        self.assertEqual(inside_checkout.code, 0, inside_checkout.text)
+        self.assertIn("member 0101.beta", inside_checkout.text)
+        self.assertEqual(head.read_bytes(), b"ref: refs/heads/workshop\n")
+        root = Path(self.tmp.anchor)
+        door = root / "0100.band.returns"
+        accidental = root / "0101.alpha"
+        door_existed = door.exists()
+        member_existed = accidental.exists()
+        created: list[str] = []
+        try:
+            rooted = rc.reserve(
+                str(root),
                 "sub-1",
                 "alpha",
                 "0504.app-entry",
@@ -546,21 +694,21 @@ class ReturnCaptureTests(unittest.TestCase):
                 "Codex Prime",
                 "Director 2026-10-27",
             )
-            self.assertEqual(real.code, 2, real.text)
-            self.assertIn("Git working tree", real.text)
-            self.assertEqual(hashlib.sha256(door.read_bytes()).hexdigest(), before_hash)
-            self.assertEqual(set(os.listdir(REAL_BOOK)), before_names)
-            self.assertFalse((REAL_BOOK / "0100.band.returns" / ".allocation.lock").exists())
-            self.assertFalse(any(name.startswith("0101") for name in os.listdir(REAL_BOOK)))
+            self.assertEqual(rooted.code, 2, rooted.text)
+            self.assertIn("filesystem root", rooted.text)
+            self.assertEqual(door.exists(), door_existed)
+            self.assertEqual(accidental.exists(), member_existed)
         finally:
-            lock = REAL_BOOK / "0100.band.returns" / ".allocation.lock"
-            if lock.is_file():
-                os.remove(lock)
-                raise AssertionError(f"removed an allocation lock left on the real door: {lock}")
-            accidental = REAL_BOOK / "0101.alpha"
-            if "0101.alpha" not in before_names and accidental.exists():
-                shutil.rmtree(accidental)
-                raise AssertionError("removed accidental real member 0101.alpha")
+            if not door_existed and door.exists():
+                shutil.rmtree(door, ignore_errors=True)
+                created.append(str(door))
+            if not member_existed and accidental.exists():
+                shutil.rmtree(accidental, ignore_errors=True)
+                created.append(str(accidental))
+            if created:
+                raise AssertionError(
+                    "removed writer output on the filesystem root: " + ", ".join(created)
+                )
 
     def test_source_commit_rules_and_overlap(self) -> None:
         self.write_return(b"Did.\n")
@@ -582,18 +730,80 @@ class ReturnCaptureTests(unittest.TestCase):
         self.assertEqual(manifest["source_commit"], PIN)
         self.assertTrue(manifest["return"]["includes_prime_review"])
         self.assertFalse((self.book / "0101.alpha" / "payload").exists())
-        overlap = self.tmp / "overlap-book"
-        overlap.mkdir()
-        nested = overlap / "source"
-        nested.mkdir()
-        refused = rc.capture(
-            str(overlap),
-            "sub-1",
-            str(self.return_file),
-            str(overlap),
-            [],
+        book = self.tmp / "origin-book"
+        book.mkdir()
+        return_file = book / "0508.return-capture" / "05.02.md"
+        return_file.parent.mkdir(parents=True)
+        return_file.write_bytes(b"Did. On the work page.\n")
+        note = book / "evidence" / "note.txt"
+        note.parent.mkdir()
+        note.write_bytes(b"from-book\n")
+        reserved = rc.reserve(
+            str(book),
+            "sub-page",
+            "page",
+            "0508.return-capture",
+            "05.02.md",
+            "05.02",
+            ["evidence/note.txt"],
+            "Builder 2",
+            "Codex Prime",
+            "Director 2026-10-27",
         )
-        self.assertEqual(refused.code, 2, refused.text)
+        self.assertEqual(reserved.code, 0, reserved.text)
+        member = book / "0101.page"
+        bad_return = rc.capture(
+            str(book),
+            "sub-page",
+            str(member / "01.md"),
+            str(book),
+            ["evidence/note.txt|evidence/note.txt"],
+        )
+        self.assertEqual(bad_return.code, 2, bad_return.text)
+        self.assertIn("destination member", bad_return.text)
+        self.assertFalse((member / "return.md").exists())
+        bad_root = rc.capture(
+            str(book),
+            "sub-page",
+            str(return_file),
+            str(member),
+            ["01.md|evidence/note.txt"],
+        )
+        self.assertEqual(bad_root.code, 2, bad_root.text)
+        self.assertIn("destination member", bad_root.text)
+        self.assertFalse((member / "return.md").exists())
+        bad_artifact = rc.capture(
+            str(book),
+            "sub-page",
+            str(return_file),
+            str(book),
+            ["0101.page/01.md|evidence/note.txt"],
+        )
+        self.assertEqual(bad_artifact.code, 2, bad_artifact.text)
+        self.assertIn("destination member", bad_artifact.text)
+        self.assertFalse((member / "receipt.json").exists())
+        bad_alias = rc.capture(
+            str(book),
+            "sub-page",
+            str(return_file),
+            str(book),
+            ["0101.PAGE/01.md|evidence/note.txt"],
+        )
+        self.assertEqual(bad_alias.code, 2, bad_alias.text)
+        self.assertIn("destination member", bad_alias.text)
+        self.assertFalse((member / "manifest.json").exists())
+        captured = rc.capture(
+            str(book),
+            "sub-page",
+            str(return_file),
+            str(book),
+            ["evidence/note.txt|evidence/note.txt"],
+        )
+        self.assertEqual(captured.code, 0, captured.text)
+        self.assertEqual((member / "return.md").read_bytes(), b"Did. On the work page.\n")
+        self.assertEqual((member / "payload" / "0001.blob").read_bytes(), b"from-book\n")
+        self.assertEqual(return_file.read_bytes(), b"Did. On the work page.\n")
+        self.assertEqual(note.read_bytes(), b"from-book\n")
 
     def test_cli_syntax_uses_stderr(self) -> None:
         proc = subprocess.run(
@@ -612,6 +822,186 @@ class ReturnCaptureTests(unittest.TestCase):
         reserved = self.reserve(submission="CON")
         self.assertEqual(reserved.code, 2, reserved.text)
         self.assertEqual(list(self.book.iterdir()), [])
+
+    def prove_local_checkout(self, repo: Path, env: dict[str, str]) -> None:
+        code = repo / "code"
+        evidence = repo / "evidence"
+        page = repo / "work" / "0508.return-capture"
+        code.mkdir(parents=True)
+        evidence.mkdir()
+        page.mkdir(parents=True)
+        (repo / ".gitattributes").write_bytes(b"* -text\n")
+        tool = code / "tool.py"
+        note = evidence / "note.txt"
+        return_file = page / "05.02.md"
+        tool.write_bytes(b"print('captured')\n")
+        note.write_bytes(b"evidence-bytes\n")
+        return_file.write_bytes(b"Did. Captured from this checkout.\n")
+        source_bytes = {
+            tool: tool.read_bytes(),
+            note: note.read_bytes(),
+            return_file: return_file.read_bytes(),
+        }
+        run_git(
+            repo,
+            [
+                "add",
+                "--",
+                ".gitattributes",
+                "code/tool.py",
+                "evidence/note.txt",
+                "work/0508.return-capture/05.02.md",
+            ],
+            env,
+        )
+        run_git(repo, ["commit", "-m", "originating page"], env)
+        book = repo / "work"
+        gitdir = git_metadata_dir(repo)
+        common = gitdir
+        commondir = gitdir / "commondir"
+        if commondir.is_file():
+            raw = commondir.read_text(encoding="utf-8").strip()
+            common = Path(raw)
+            if not common.is_absolute():
+                common = (gitdir / common).resolve()
+        before_control = {
+            "gitdir": snapshot_git_control(gitdir),
+            "common": snapshot_git_control(common),
+        }
+        git_file = repo / ".git"
+        git_file_bytes = git_file.read_bytes() if git_file.is_file() else None
+        head_before = run_git(repo, ["rev-parse", "HEAD"], env).stdout.strip()
+        artifacts = ["code/tool.py|code/tool.py", "evidence/note.txt|evidence/note.txt"]
+        reserved = rc.reserve(
+            str(book),
+            "page-0502",
+            "local",
+            "0508.return-capture",
+            "05.02.md",
+            "05.02",
+            ["code/tool.py", "evidence/note.txt"],
+            "Grok Builder 2",
+            "Codex Prime",
+            "Director 2026-10-27",
+        )
+        self.assertEqual(reserved.code, 0, reserved.text)
+        self.assertIn("member 0101.local", reserved.text)
+        member = book / "0101.local"
+        bad_return = rc.capture(str(book), "page-0502", str(member / "01.md"), str(repo), artifacts)
+        self.assertEqual(bad_return.code, 2, bad_return.text)
+        self.assertIn("return file is inside the destination member", bad_return.text)
+        self.assertFalse((member / "return.md").exists())
+        bad_root = rc.capture(str(book), "page-0502", str(return_file), str(member), ["01.md|code/tool.py"])
+        self.assertEqual(bad_root.code, 2, bad_root.text)
+        self.assertIn("source root is inside the destination member", bad_root.text)
+        self.assertFalse((member / "return.md").exists())
+        bad_artifact = rc.capture(
+            str(book),
+            "page-0502",
+            str(return_file),
+            str(repo),
+            ["work/0101.local/01.md|code/tool.py", "evidence/note.txt|evidence/note.txt"],
+        )
+        self.assertEqual(bad_artifact.code, 2, bad_artifact.text)
+        self.assertIn("artifact is inside the destination member", bad_artifact.text)
+        self.assertFalse((member / "receipt.json").exists())
+        bad_alias = rc.capture(
+            str(book),
+            "page-0502",
+            str(return_file),
+            str(repo),
+            ["work/0101.LOCAL/01.md|code/tool.py", "evidence/note.txt|evidence/note.txt"],
+        )
+        self.assertEqual(bad_alias.code, 2, bad_alias.text)
+        self.assertIn("artifact is inside the destination member", bad_alias.text)
+        self.assertFalse((member / "manifest.json").exists())
+        captured = rc.capture(str(book), "page-0502", str(return_file), str(repo), artifacts)
+        self.assertEqual(captured.code, 0, captured.text)
+        self.assertIn("result captured", captured.text)
+        self.assertEqual((member / "return.md").read_bytes(), source_bytes[return_file])
+        self.assertEqual((member / "payload" / "0001.blob").read_bytes(), source_bytes[tool])
+        self.assertEqual((member / "payload" / "0002.blob").read_bytes(), source_bytes[note])
+        sealed = snap_bytes(member)
+        retry = rc.capture(str(book), "page-0502", str(return_file), str(repo), artifacts)
+        self.assertEqual(retry.code, 0, retry.text)
+        self.assertIn("result already-captured", retry.text)
+        self.assertEqual(snap_bytes(member), sealed)
+        return_file.write_bytes(b"changed\n")
+        conflict = rc.capture(str(book), "page-0502", str(return_file), str(repo), artifacts)
+        self.assertEqual(conflict.code, 2, conflict.text)
+        self.assertIn("conflict submission page-0502", conflict.text)
+        self.assertEqual(snap_bytes(member), sealed)
+        return_file.write_bytes(source_bytes[return_file])
+        for path, data in source_bytes.items():
+            self.assertEqual(path.read_bytes(), data)
+        after_control = {
+            "gitdir": snapshot_git_control(gitdir),
+            "common": snapshot_git_control(common),
+        }
+        self.assertEqual(after_control, before_control)
+        if git_file_bytes is not None:
+            self.assertEqual(git_file.read_bytes(), git_file_bytes)
+        head_after = run_git(repo, ["rev-parse", "HEAD"], env).stdout.strip()
+        self.assertEqual(head_after, head_before)
+        status = run_git(repo, ["status", "--porcelain=v1", "--untracked-files=all"], env)
+        lines = [line for line in status.stdout.splitlines() if line.strip()]
+        self.assertTrue(lines)
+        for line in lines:
+            self.assertTrue(line.startswith("?? "), line)
+            relative = line[3:].replace("\\", "/")
+            self.assertTrue(relative.startswith("work/0101.local/"), relative)
+        proc = subprocess.run(
+            [PY, "-B", str(SCRIPT), "verify", "--book", str(book), "--member", "0101.local"],
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+        )
+        self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
+        self.assertIn("result complete", proc.stdout)
+        self.assertIn("not approved", proc.stdout)
+        self.assertIn("not accepted", proc.stdout)
+        self.assertIn("not published", proc.stdout)
+        run_git(repo, ["add", "--", "work/0101.local"], env)
+        run_git(repo, ["commit", "-m", "local capture"], env)
+        self.assertNotEqual(run_git(repo, ["rev-parse", "HEAD"], env).stdout.strip(), head_before)
+        for relative, data in sealed.items():
+            blob = run_git(repo, ["rev-parse", f"HEAD:work/0101.local/{relative}"], env).stdout.strip()
+            shown = subprocess.run(
+                ["git", "cat-file", "blob", blob],
+                cwd=repo,
+                env=env,
+                capture_output=True,
+            )
+            self.assertEqual(shown.returncode, 0, shown.stderr)
+            self.assertEqual(shown.stdout, data)
+        for path, data in source_bytes.items():
+            self.assertEqual(path.read_bytes(), data)
+        if common != gitdir:
+            self.assertEqual(snapshot_git_control(common), before_control["common"])
+
+    def test_capture_in_regular_git_checkout(self) -> None:
+        repo = self.tmp / "checkout"
+        env = git_env()
+        init_checkout(repo, env)
+        self.assertTrue((repo / ".git").is_dir())
+        self.prove_local_checkout(repo, env)
+
+    def test_capture_in_git_file_worktree(self) -> None:
+        main = self.tmp / "main"
+        worktree = self.tmp / "wt"
+        env = git_env()
+        init_checkout(main, env)
+        (main / "README").write_bytes(b"seed\n")
+        run_git(main, ["add", "--", "README"], env)
+        run_git(main, ["commit", "-m", "seed"], env)
+        main_control = snapshot_git_control(main / ".git")
+        run_git(main, ["worktree", "add", "--detach", str(worktree), "HEAD"], env)
+        self.assertTrue((worktree / ".git").is_file())
+        self.prove_local_checkout(worktree, env)
+        after = snapshot_git_control(main / ".git")
+        self.assertEqual(after["HEAD"], main_control["HEAD"])
+        self.assertEqual(after["refs/heads/workshop"], main_control["refs/heads/workshop"])
+        self.assertEqual(after["index"], main_control["index"])
 
 
 if __name__ == "__main__":

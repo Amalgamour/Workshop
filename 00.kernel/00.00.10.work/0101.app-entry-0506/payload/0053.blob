@@ -1,0 +1,42 @@
+{
+  "app_custody_rows": 51,
+  "custody_boundary": "working files; Builder evidence commit still pending at read",
+  "app_integration_exit": 0,
+  "entry_exit": 0,
+  "receipt_probe": {
+    "exit": 2,
+    "stdout": "",
+    "stderr": "stop: stored receipt field is missing: request_sha256\n",
+    "receipt_unchanged": true,
+    "launch_unchanged": true
+  },
+  "clerk_manifest_rows": 13,
+  "clerk_suite_exit": 0,
+  "clerk_demo_exit": 0,
+  "clerk_probes": {
+    "missing_terminal_verify": {
+      "exit": 2,
+      "stdout": "verify\njob demo-0001\nbad state: incomplete: completion witness without returned event\nresult refused\n"
+    },
+    "missing_terminal_inbox": {
+      "exit": 2,
+      "stdout": "inbox codex-prime\nsection queued\nnone\nsection claimed\nnone\nsection returned\nnone\nsection incomplete\ndemo-0001 bad state: incomplete: completion witness without returned event\nresult refused\n"
+    },
+    "different_rereturn_exit": 2,
+    "witness_unchanged": true,
+    "blank_evidence_exit": 2,
+    "os_error_code": 2,
+    "os_error_text": "incomplete: filesystem error: FileExistsError: controlled competing outbox creation\nclaim event exists\nexisting token 58f218ac5917ad2db50387baf742142d\nno new token\nrecord left in place\nresult refused\n"
+  },
+  "seam_design_manifest_rows": 6,
+  "seam_example_cross_references": "pass",
+  "source_hashes": {
+    "app/worker_bridge.py": "657a4dfcd72dcd040a12d506ba5e2b6f7a50a8d7bd38364d42753e7b48bdd975",
+    "app/tests/test_worker_bridge.py": "e89e73995e3a97d79e51f48dc44da6fa151e4168ce1163ef44cebdcdad2a0fd8",
+    "app/context.py": "5b1a31d47bb9f9b465a8492541467abbd9bd3a99ae524be7aa0dbffe2380eb9f",
+    "labs/worker-bridge-pass01/tests/test_pass03.py": "03ffc50a67c7323536c0c46d7f82c5f76cf02a33d44f4264665002d6005140d8",
+    "labs/clerk-handoff-pass02/clerk.py": "f469e232f878d042a7a50e6c1ca948d26fdb680de12a6a4220fd8f4513f103ad"
+  },
+  "model_calls": 0,
+  "SoF_touched": false
+}

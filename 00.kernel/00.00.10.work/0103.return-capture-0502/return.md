@@ -1,0 +1,87 @@
+# 05 — Capture in the real local Git work-book layout
+version: 001
+Authorization: draft — 2026-10-27
+who: Codex Prime
+state: released by the Director 2026-10-27; claimed by Grok Builder 2
+Face: 05
+PPPP: 0508
+book: 00.00.10.work
+
+## Assignment
+Executor: Grok Builder2. Reviewer: Codex Prime.
+Release: Director, this session, 2026-10-27. Claim: Grok Builder 2, this page only.
+Fix RC-01/02 only. Inputs evidence/pack05.02/source-manifest.json and snapshots.
+Notes FIRST on new06.03.md. Preserve current source/tests/docs and all original
+custody/demo/discovery evidence. Code stays labs/return-capture-pass01/.
+
+## #01 — Local archive is allowed in its Git checkout
+Permit reserve/capture in an explicitly named ordinary work-book directory within
+a local Git checkout, including a linked worktree with a .git file. Do not add an
+escape flag that keeps our intended path exceptional. Keep plain-file/reparse/
+hard-link/containment/exclusive-write rules and0101–0199 bounds. Refuse filesystem
+roots and Git control directories/files as destinations. The helper still invokes
+no Git, writes no Git metadata, and cannot commit/push/release/accept anything.
+Permit explicit input source-root containing the book and a dedicated return file
+in its originating work page. Reject selected inputs inside the actual destination
+member or aliases/recursive self-capture; do not reject all source/book overlap.
+Only explicit listed files are read; no repository crawl or automatic file choice.
+Preserve source bytes and receipt-last/no-overwrite/idempotent/conflict behavior.
+
+## #02 — Prove the actual workflow in disposable checkouts
+Replace REAL_BOOK hard-coding in tests with local disposable fixtures. Never test
+a refusal by pointing a writer at the shared real book. Test regular Git checkout
+and .git-file worktree: reserve0101 -> capture an originating work-page return
+and selected code/evidence from that SAME checkout -> fresh verify -> local Git
+commit -> verify each stored blob. HEAD/index/refs remain untouched by the helper;
+new untracked return-member files are the expected worktree changes. Only the
+fixture publication harness may run Git. Also prove source bytes unchanged.
+Cover return/source inside originating book, source-root at repo root, target/self
+alias refusal, linked paths, Git-control targets, retries, concurrency, partial
+receipts, changed bytes and band full. Keep the existing23 cases with explained
+updates to the incorrect Git-refusal expectation; retain original test bytes.
+Disclose privilege skips. No real-member allocation or active source mutation.
+
+## #03 — Return for first real rollout
+Update README and add correction docs/evidence under evidence/repair05.02/.
+Do not edit the furniture/old review/current index/sentinel in this correction;
+Prime reconciles them after verification. Preserve the original discovery.patch
+as historical:01.015 is occupied, so it cannot simply be applied unchanged.
+Return HERE Did, Blocked, Need, exact hashes/results and a demonstration command.
+Fully reread and disposition notes. No shared Git writes. No Clerk/app/Prime-support/
+pack-assembly/kernel/SoF changes. Prime independently verifies, then performs first
+real local captures and publishes those same bytes. No self-acceptance or rollout.
+
+## Return — Grok Builder2
+
+Did. Grok Builder 2 claimed this page and repaired RC-01 and RC-02 in `labs/return-capture-pass01/`. All 10 `evidence/pack05.02` snapshots matched their live paths before the edit. `06.03.md` was written before the lab change. Original lab bytes are in `evidence/repair05.02/before/` and match pack snapshots `0008.blob`, `0009.blob`, and `0010.blob`.
+
+Reserve and capture now accept an ordinary work-book directory inside a local Git checkout, including a linked worktree whose `.git` entry is a file. There is no escape flag. A filesystem root, and any destination whose path contains a `.git` component, is refused before a door or member is created. The helper still imports no process runner, shell copy helper, or database. It does not call Git and it does not write Git metadata. A source root may contain the book. A return file may sit on the originating work page. A source root, return file, or selected artifact inside the destination member is refused, including a case-alias of that member, and that refusal writes no capture files. Receipt-last, exclusive create, identical retry, conflict, and partial retention stay as in pass 01. A receipt is not approval, acceptance, seating, publication, or finish.
+
+The suite is Python 3.14.0. The log is `evidence/repair05.02/tests.repair05.02.txt` (`2e6ba76dc2f295e44a9aa1e9e5bc92a2fdfcc52cd51c7e924cdac68adc54d9e9`, 3708). It ran 25 tests, 24 passed, and 1 skipped, and it ends `TEST_EXIT 0`. The 23 pass-01 cases remain. The Git-refusal case now allows an ordinary checkout directory and refuses a filesystem root and a Git control path. It does not point a writer at the shared work book. The overlap case captures a book-contained return and refuses member self-capture. `test_capture_in_regular_git_checkout` and `test_capture_in_git_file_worktree` each reserve `0101.local` in a disposable checkout, capture the originating return plus selected code and evidence from that same checkout, verify in a fresh process, and let only the fixture harness commit. `git cat-file` matched every stored member blob. HEAD, index, and refs were unchanged by the helper. Untracked member files were the worktree change. Source bytes were unchanged. An identical retry wrote nothing. Changed return bytes conflicted and left the sealed package. The retained cases still cover concurrency, partial receipts, and a full band.
+
+| File | SHA-256 | Bytes |
+| --- | --- | --- |
+| `return_capture.py` | `8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac` | 45767 |
+| `README.md` | `281d31c026d0bbb213a1d3a793c17175fe5d4ed8527d1f0ba8567d579f9c21e4` | 9162 |
+| `tests/test_return_capture.py` | `842547f798288af6b82baeedd2adf48d59c0723e3756dfecef8c4fcafc5bc2ba` | 42348 |
+| `demo.py` | `b205d0ddf5136416ab5767f04c505bfff89ae82efd419409e726e586073d865b` | 13969 |
+| `inventory.py` | `765765cbdab87ec17304cd891c1f46ddfe7249d9128f0f203a1fd9dc0609aa64` | 4462 |
+| `.gitignore` | `6feaded4e28ea86e001a6751b4e3d960e8b7c31b9616ff9936b79297086e809b` | 23 |
+| `06.03.md` | `c93e6b90d122d3e2edd0bc4a4716078a588b21f7a1967ca0606f7e7e9c105ccb` | 10559 |
+
+`demo.py` was not re-run. Custody `evidence/repair05.02/custody.json` is `843f42fc2f601159bb535ed8db7e7267b01f1ca7845c8c8609ce186af969ea54` (2365) and lists 12 files. It excludes itself and this page. `discovery.patch` stays `3d4403419817c7d562e7c6173edbe55b8ec347118281940f87a1725d148165fe` (3585) and was not applied. The sentinel `00.md` stays `7f1803d3efec7e62709df0ff4b082cfd3dba4e57609f51559437e7a189b4d57c` (98). `0100.band.returns/01.md` stays the pack pin `ffb6eefc78692b02b2a2e8dc53c4bc18a4494a73e2f5d27e78e14a6ea2b3823e` (1852). The band still has only `0100.band.returns`. There is no allocation lock and no real `0101` or `0102`.
+
+Claim-time and close HEAD are `9dcd981124d491794b41715aaaaff1c16e5f4bc0` on `workshop`. This builder made no shared commit or push.
+
+Demonstration command, from `D:\Git\lib-build`:
+
+```text
+python -B labs/return-capture-pass01/tests/test_return_capture.py -v
+```
+
+Blocked. None that stop this slice. Symlink creation still returns WinError 1314, so `test_symlink_source_refused_or_skipped` is a skip. The same privilege error is recorded in `evidence/repair05.02/limits.md`. Hard-link refusal ran.
+
+Need. Prime independently verifies this repair, then performs the first real local captures and publishes those same bytes. This builder does not allocate those members, apply `discovery.patch`, or accept this page.
+
+## Review — Codex Prime
+PENDING.

@@ -1,0 +1,97 @@
+# Notes — capture inside the local Git checkout, repair 05.02
+Date: 2026-10-27
+Recorder: Grok 4.7, Grok Builder 2
+Session: 01a17dfa-bc23-7730-bec3-c49938f96187
+State: contract notes for 05.02, written before the lab edit. Not a review and not an acceptance.
+
+06.01 and 06.02 stay as written. 06.02 records the pass-01 rule that reserve and capture refused a Git ancestor. This file corrects that placement rule. It does not replace the rest of the pass-01 contract.
+
+## Pins
+
+`evidence/pack05.02/source-manifest.json` is schema `prime-pack-sources/1`. All 10 snapshots match the manifest hash and byte length, and all 10 live paths match those snapshots. Checked before this claim and before any lab edit.
+
+| Snapshot | Live path | SHA-256 | Bytes |
+| --- | --- | --- | --- |
+| 0001.blob | `0508.return-capture/05.01.md` | `9da830f28f340fb6142a12908e8d60a3b5050cc8ff075d32405133f39853d472` | 18493 |
+| 0002.blob | `evidence/prime-review05.01/review.md` | `56a03ab860f6c7a85ddd3be60f90ade70229b781b8db976c978b5af7073da214` | 1952 |
+| 0003.blob | `evidence/prime-review05.01/verification.json` | `0768d05a32bfbe9e93a86f776cca39b494b367ee0dff04dadb974904d195faad` | 1845 |
+| 0004.blob | `0100.band.returns/01.md` | `ffb6eefc78692b02b2a2e8dc53c4bc18a4494a73e2f5d27e78e14a6ea2b3823e` | 1852 |
+| 0005.blob | `labs/return-capture-pass01/.gitignore` | `6feaded4e28ea86e001a6751b4e3d960e8b7c31b9616ff9936b79297086e809b` | 23 |
+| 0006.blob | `labs/return-capture-pass01/demo.py` | `b205d0ddf5136416ab5767f04c505bfff89ae82efd419409e726e586073d865b` | 13969 |
+| 0007.blob | `labs/return-capture-pass01/inventory.py` | `765765cbdab87ec17304cd891c1f46ddfe7249d9128f0f203a1fd9dc0609aa64` | 4462 |
+| 0008.blob | `labs/return-capture-pass01/README.md` | `4d82b7feeacf055f180f9a6c483bfa920faccbd0788fc15482732c0cf3f8de4e` | 8515 |
+| 0009.blob | `labs/return-capture-pass01/return_capture.py` | `655bd4a005d1210eef8f5ae62a462d4cf8a2591bfe318c2f428bcfb3ae5c3269` | 45898 |
+| 0010.blob | `labs/return-capture-pass01/tests/test_return_capture.py` | `9de8908a371839789586bee10f2d3a01d4a53b43cea5db2efeaa5c625a87afbe` | 26254 |
+
+The 0100 pin matches the live door. It differs from the pass-01 custody copy `55c5e8e285c5fda8ab7f29c211e987ddf5a9a6b12cd5bb9fb5468a28f7319fee` (1488). This slice does not edit the door, the pack band, or the design files. Witnesses left untouched at claim: `00.md` `7f1803d3efec7e62709df0ff4b082cfd3dba4e57609f51559437e7a189b4d57c` (98); `0014.design/01.002.md` `17a0cbca1ba6287efd13df9746021a5881ab06b324ef44d1bbd245a20d4fbb13` (2188); `discovery.patch` `3d4403419817c7d562e7c6173edbe55b8ec347118281940f87a1725d148165fe` (3585); pass-01 custody `c3cc6baafc8321f01a177cdfc93540e593ed6f04dfc3fededc16002cacade1f3` (7893). Branch at claim: `workshop`. HEAD at claim: `9dcd981124d491794b41715aaaaff1c16e5f4bc0`. This builder does not commit.
+
+`01.015` in `discovery.patch` is historical. Prime's review says that contents slot is occupied. The patch stays unapplied and is not rewritten.
+
+## Defect
+
+RC-01: `require_writer_book` walks parents for a `.git` file or directory and refuses with `book is inside a Git working tree`. Prime reproduced that refusal on a disposable checkout and no member was created. The same capture also refuses `source root and book overlap` and `return file is inside the book`. Those three refusals block the intended archive: an ordinary work-book directory inside the local checkout, a return file on its originating work page, and selected files from that same checkout.
+
+RC-02: `tests/test_return_capture.py` pins `REAL_BOOK` to `D:\Git\lib-build\00.kernel\00.00.10.work` and treats the Git refusal as success. A refusal test must not point a writer at the shared book. The external-book publication demo does not prove capture inside a checkout.
+
+## Corrected placement
+
+Reserve and capture accept an explicitly named ordinary directory. That directory may be the root of a local Git checkout, a subdirectory of one, or a linked worktree whose `.git` entry is a file. There is no escape-hatch flag.
+
+The writer still refuses:
+
+- a filesystem root, checked before any member or door is created
+- a destination whose path contains a component named `.git`, in any case: the control directory, anything inside it, or the `.git` file used as the book
+- a book that is missing, not a directory, or a reparse point
+- symlinks, junctions, and hard links on inputs and outputs
+- path escape, device names, duplicate logical names, and case-colliding names
+- members outside `0101`–`0199`
+
+A `.git` file next to the work tree does not make that work tree a Git control directory. The helper does not look upward for a checkout marker.
+
+The source root may contain the book, and it may be the book. The return file may sit on the originating work page inside the book, and it may still sit outside the source root. Reads are that source root plus the one return file, and only the caller's explicit artifact list. There is no repository crawl and no automatic file choice.
+
+After the reservation is known, capture refuses a source root, return file, or selected artifact that is inside the destination member, including a case-alias of that member. That refusal writes no capture files. The reservation and `01.md` stay. This is the self-capture boundary. Overlap between the source root and the rest of the book is allowed.
+
+Receipt-last, exclusive create, no overwrite, identical retry, conflicting retry, partial retention, and canonical JSON stay as in 06.02. `includes_prime_review` stays caller-supplied. The helper imports no process runner, shell copy helper, or database. It does not call Git, write HEAD, index, refs, or config, and it cannot commit, push, release, or accept. A receipt is still not approval, acceptance, seating, publication, or finish. Verify still only reads, including a package that already sits in a checkout.
+
+## Tests to change
+
+Keep the 23 pass-01 cases. Update the Git-refusal case: an ordinary directory inside a checkout is reserved; a filesystem root and a Git control path are refused; the shared work book is not a fixture. Update the overlap case: a return file and a selected source inside the originating book are captured; an input inside the destination member is refused and writes nothing.
+
+Add two disposable proofs, one regular checkout and one `git worktree` whose `.git` is a file. Each reserves `0101`, captures the originating page return and selected code and evidence from that same checkout, verifies in a fresh process, and has the fixture harness commit. `git cat-file` must match every stored member blob. HEAD, index, and refs are byte-compared around the helper, before `git status`. Untracked member files are the expected worktree change. Source bytes stay unchanged. The same proof retries an identical capture and a changed-byte conflict. Concurrency, partial receipts, and a full band stay covered by the retained cases. Symlink creation that returns WinError 1314 stays a disclosed skip. Original test bytes are copied under `evidence/repair05.02/before/` before the edit. `demo.py` keeps its external-book publication path.
+
+## Out of scope
+
+No real `0101` or `0102` in `00.kernel/00.00.10.work`. No shared Git commit or push. No edit to furniture, the old review, the sentinel, the contents index, 05.01, 06.01, 06.02, pack snapshots, or pass-01 custody and discovery evidence. No Clerk, app, Prime-support, pack-assembly, kernel, or SoF change. Prime verifies this repair, then performs the first real local captures and publishes those same bytes.
+
+## Disposition
+
+Reread after the lab edit. The implementation follows the placement contract above.
+
+`require_writer_book` does not walk parents for a `.git` marker. It refuses a filesystem root and any destination path component named `.git`. An ordinary directory in a checkout, including a worktree whose `.git` entry is a file, can be reserved. Capture allows a source root that contains the book and a return file on the originating page. It refuses a source root, return file, or selected artifact inside the destination member, including a case-alias, and that refusal writes no capture files.
+
+The pass-01 Git-refusal case is now `test_writer_allows_git_checkout_and_refuses_control_and_root`. It does not name the shared work book. The overlap case captures a book-contained return and refuses member self-capture. Two proofs were added: `test_capture_in_regular_git_checkout` and `test_capture_in_git_file_worktree`. Each reserves `0101.local`, captures the work-page return plus `code/tool.py` and `evidence/note.txt` from that same checkout, checks that HEAD, index, and refs are unchanged by the helper, verifies in a fresh process, and lets the harness commit. `git cat-file` matches each stored member blob. An identical retry writes nothing. Changed return bytes conflict and leave the sealed package. A detached worktree commit leaves the main checkout's HEAD, branch ref, and index unchanged.
+
+The other 21 pass-01 cases stay, including concurrency, partial receipts, changed flags, and a full band. Original bytes are in `evidence/repair05.02/before/` and match pack snapshots `0008.blob`, `0009.blob`, and `0010.blob`.
+
+`demo.py` stays `b205d0ddf5136416ab5767f04c505bfff89ae82efd419409e726e586073d865b` (13969). `inventory.py` stays `765765cbdab87ec17304cd891c1f46ddfe7249d9128f0f203a1fd9dc0609aa64` (4462). `.gitignore` stays `6feaded4e28ea86e001a6751b4e3d960e8b7c31b9616ff9936b79297086e809b` (23). `discovery.patch` was not applied. No real member was allocated. HEAD at the close of the proof is still `9dcd981124d491794b41715aaaaff1c16e5f4bc0`.
+
+## Proof
+
+Python 3.14.0. Command, from `D:\Git\lib-build`:
+
+```text
+python -B labs/return-capture-pass01/tests/test_return_capture.py -v
+```
+
+Log `evidence/repair05.02/tests.repair05.02.txt` is `2e6ba76dc2f295e44a9aa1e9e5bc92a2fdfcc52cd51c7e924cdac68adc54d9e9` (3708). It ran 25 tests, 24 passed, and 1 skipped, and it ends `TEST_EXIT 0`. The skip is `test_symlink_source_refused_or_skipped`, WinError 1314.
+
+Lab hashes after the edit:
+
+| File | SHA-256 | Bytes |
+| --- | --- | --- |
+| `return_capture.py` | `8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac` | 45767 |
+| `README.md` | `281d31c026d0bbb213a1d3a793c17175fe5d4ed8527d1f0ba8567d579f9c21e4` | 9162 |
+| `tests/test_return_capture.py` | `842547f798288af6b82baeedd2adf48d59c0723e3756dfecef8c4fcafc5bc2ba` | 42348 |
+
+This note is included in `evidence/repair05.02/custody.json`. The return page is outside that file, because the return quotes the custody hash.

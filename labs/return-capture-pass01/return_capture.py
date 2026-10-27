@@ -3,6 +3,8 @@
 Reserve, capture, and verify one return member. A receipt means the copy
 finished and the hashes match. It does not approve, accept, seat, publish,
 or finish the work. This tool does not split a return on a Review heading.
+The book may be an ordinary directory in a Git checkout. This tool does not
+invoke Git.
 """
 
 from __future__ import annotations
@@ -271,38 +273,30 @@ def require_absolute(text: str, label: str) -> Path:
     return Path(os.path.abspath(text))
 
 
-def git_ancestor(path: Path) -> Path | None:
-    current = path
-    if os.path.lexists(current):
-        problem_file = False
-        try:
-            if is_reparse(current):
-                refuse(f"link: {current}")
-            problem_file = os.path.isfile(current)
-        except Refusal:
-            raise
-        except OSError as exc:
-            refuse(f"filesystem: {type(exc).__name__}: {exc.strerror or exc}")
-        if problem_file:
-            current = current.parent
-    while True:
-        marker = current / ".git"
-        if os.path.lexists(marker):
-            return marker
-        parent = current.parent
-        if parent == current:
-            return None
-        current = parent
+def writer_destination_problem(path: Path) -> str | None:
+    """A checkout may contain the book. Roots and Git control paths may not.
+
+    The check looks at this path only. It does not walk parents for a
+    `.git` marker, so a worktree whose `.git` entry is a file stays usable.
+    A filesystem root is refused before any door or member is created.
+    """
+    absolute = Path(os.path.abspath(path))
+    if absolute.parent == absolute:
+        return "a filesystem root"
+    for part in absolute.parts:
+        if part.casefold() == ".git":
+            return "a Git control path"
+    return None
 
 
 def require_writer_book(text: str) -> Path:
     book = require_absolute(text, "book")
+    problem = writer_destination_problem(book)
+    if problem:
+        refuse(f"book is {problem}")
     problem = plain_dir_problem(book)
     if problem:
         refuse(f"book is {problem}")
-    marker = git_ancestor(book)
-    if marker is not None:
-        refuse(f"book is inside a Git working tree: {marker}")
     return book
 
 
@@ -338,12 +332,6 @@ def within(child: Path, parent: Path) -> bool:
         return os.path.commonpath([child_abs, parent_abs]) == parent_abs
     except ValueError:
         return False
-
-
-def disjoint(left: Path, right: Path) -> bool:
-    if os.path.normcase(os.path.abspath(left)) == os.path.normcase(os.path.abspath(right)):
-        return False
-    return not within(left, right) and not within(right, left)
 
 
 def exclusive_write(path: Path, data: bytes) -> None:
@@ -1004,12 +992,8 @@ def capture(
     if plain_dir_problem(root) is not None:
         refuse(f"source root is {plain_dir_problem(root)}")
     reject_reparse_parents(root)
-    if not disjoint(book_path, root):
-        refuse("source root and book overlap")
     return_path = require_absolute(return_file, "return file")
     reject_reparse_parents(return_path)
-    if within(return_path, book_path):
-        refuse("return file is inside the book")
     if retrospective:
         if not isinstance(source_commit, str) or not _HEX40.fullmatch(source_commit):
             refuse("source commit is not 40 hex")
@@ -1048,6 +1032,10 @@ def capture(
     state, info = assess(member)
     if state == "incomplete":
         return partial_result(folder, member)
+    if within(root, member):
+        refuse("source root is inside the destination member")
+    if within(return_path, member):
+        refuse("return file is inside the destination member")
     if state == "complete" and logicals != expected:
         return Result(
             2,
@@ -1064,6 +1052,8 @@ def capture(
         candidate = root.joinpath(*relative.split("/"))
         if not within(candidate, root):
             refuse(f"path escape: {relative}")
+        if within(candidate, member):
+            refuse(f"artifact is inside the destination member: {relative}")
         if not os.path.lexists(candidate):
             return Result(2, f"missing {logical}\nresult refused")
     wanted = {

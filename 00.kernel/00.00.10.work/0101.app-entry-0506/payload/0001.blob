@@ -1,0 +1,40 @@
+# Notes — stored receipt correlation
+Date: 2026-10-27
+Recorder: Grok 4.7 (xAI)
+State: notes for the 05.06 slice. Not seated kernel law.
+
+## Reading
+These notes are written after the pack, Prime's 05.05 review, and the adapter receipt path were read, and before `app/worker_bridge.py`, `app/tests/test_worker_bridge.py`, `app/README.md`, or the lab tests are edited.
+
+Read and left unchanged: `0504.app-entry/05.05.md` including Prime's review, `evidence/prime-review-05.05-2026-10-27/`, the accepted lab runtime (`bridge/adapter.py`, envelope, canon, ids, verify, profiles, and the fixture worker), `app/context.py`, and `app/development-workspace.json`. No blocking interface gap. `runner_root=code_root` stays at the call.
+
+`evidence/pack05.06/source-manifest.tsv` matched the live bytes and the packed copies, 6 rows, 0 bad. The directory is 7 files, 94016 bytes. It was not rewritten. HEAD at the claim is `54274e698dde1c6cbd5e25177395c62c2a2c645a`, the same as `origin/workshop`. Clerk `0506.clerk-handoff` is already on that commit and is not this batch. SoF is a separate repository and is not in this tree.
+
+## Prime's review
+Disposition on 05.05 is REPAIR REQUIRED, BRI-01. Prime verified 61 custody rows at `d9775fabe705c6a90be9bc770b17289b6b7c7188`. The entry suite passed. The integration suite in an isolated copy was not green: the inherited-pipe lab tests at `timeout_s` 0.2 returned `transport: timeout` instead of `incomplete-output`. Prime's captured receipt for `d-inherit` has `duration_s` 0.235, `returncode` 1, `cleanup.complete` true, and `retained` empty. The five-second descendant had not kept the pipes. That is the test-timing miss already named on the 05.05 return. It is not evidence that an uncertain result was collected.
+
+BRI-01: after a real fixture delivery, Prime removed `request_sha256` and changed `delivery_id` and `job_id` in `receipt.json`. A fresh `bridge-status` exited 0 and printed `delivery_id: another-delivery` and `collection: collected`. The current status check is `stored.get("request_sha256") not in (None, provenance["request_sha256"])`. A missing hash matches. The delivery and job ids are not compared. `adapter.status` returns the stored object. `_replay` and `_recover` do not check the stored receipt before reporting it.
+
+## What the repair will check
+One helper, used by status, replay, and recover, and not by three different comparisons. It runs only when a receipt file is present. A transient `unknown`, `accepted-not-launched`, or `uncertain` status has no receipt file and is not required to carry receipt fields.
+
+A persisted receipt must be one strict JSON object with schema `worker-bridge/receipt@1`. The identity fields `delivery_id`, `job_id`, `request_sha256`, and `backend` must be non-empty strings. `delivery_id` must equal the requested delivery, the provenance, and the stored request. `job_id` and `backend` must equal the provenance and the stored request. `request_sha256` must equal the provenance hash. A missing hash is a refusal, not a wildcard. A correct hash does not excuse a different delivery or job id. Extra keys such as `artifacts`, `cleanup`, `recovered`, and `replayed` stay allowed. This is not a signature, an approval, or a second ledger.
+
+A bad receipt refuses with `stop:` and no traceback, before the adapter is asked to report it. Status does not write. Replay and recover do not launch and do not rewrite the receipt bytes. Collection is not reported as success.
+
+## Test budget
+`tests/test_pass03.py` uses `TIMEOUT_S = 0.2`. The adapter's cleanup allowance stays `2.0` and is not edited. The reviewed blockage, when the adapter waited out the descendant, was about 5.078 seconds (`evidence` under `0503.worker-bridge`, prime-review-pass02). The test bound must stay below that, so the old hang would still fail. The worker timeout has to be long enough for the direct child to start and exit, and short enough that a five-second pipe hold is still open when the adapter returns. The planned test budget is `TIMEOUT_S` 1.5, cleanup still 2.0, outer slack 1.0, bound 4.5, which is less than 5.078. A timeout result stays a failure of the incomplete-output assertion. The driver is snapshotted and is not changed unless the measurement itself requires it. Runtime files and the eight configured hashes stay put. If 1.5 seconds still classifies the child as timeout, the bound can move only while it remains under 5.078. The run is not repeated until a red result turns green by accident.
+
+## Out of scope
+No model call, Clerk routing, activation, seating, context edit, runner edit, or main merge. Root `README.md` is outside this pack's edit list. Its sentence that the lab is unchanged will be disclosed if the test files move.
+
+## Outcome
+The helper is `_require_stored_receipt` in `app/worker_bridge.py`. Status, replay, and recover call it through `_read_stored_receipt` before the adapter reports a file, and through `_guard_reported_receipt` on the object that would be printed. A missing receipt file still returns `unknown`, `accepted-not-launched`, or `uncertain` without those fields. The helper does not write.
+
+Before the edit, the Prime probe exited 0 and printed `delivery_id: another-delivery` and `collection: collected`. The tampered receipt was 1011 bytes, sha256 `171409fc0f719c58590871c717f4011186dc5d722493452ca5dca731ab5596bf`. After the edit, the same probe exited 2. Stderr was `stop: stored receipt field is missing: request_sha256`. Stdout was empty. The tampered receipt stayed 1011 bytes, sha256 `002bd2a46a5b574a357e625bbde6822a9794c4dc0e131e6d02fbbe6f3347d41b`. `launches.log` was unchanged. The two tamper hashes differ because each run's original receipt contains that run's absolute paths.
+
+The integration suite, re-run so its log survived the entry suite's scratch cleanup, exited 0: pass 38, expected-refusal 27, skip 1, fail 0. The first run had the same summary. The entry suite exited 0: pass 12, expected-refusal 46, skip 1, fail 0. The skip is `WinError 1314`. The lab copy inside the integration suite ran 30 tests, including pass 03's 2 tests in 10.511 seconds.
+
+The isolated pass 03 run exited 0 in 13.181 seconds. Both first calls returned `incomplete-output` and `collection: not attempted`, with cleanup not complete and both readers retained. Elapsed times were 3.516 and 3.531 seconds. The replay was `replayed: true` at 0.0 seconds. The bound 4.5 is still under 5.078. `_driver_pass03.py` stayed `d8554aa880b923d2c6963f5b7c509b890e73440623a1b8b97a2ec80d8ed329ff`, 1417 bytes. `adapter.py` stayed `27d683b494c13bd120d5099f863bb68ab96c6d458dd2a7641c0129122b89c9de`, 17038 bytes.
+
+`app/worker_bridge.py` is `657a4dfcd72dcd040a12d506ba5e2b6f7a50a8d7bd38364d42753e7b48bdd975`, 34227 bytes. `app/tests/test_worker_bridge.py` is `e89e73995e3a97d79e51f48dc44da6fa151e4168ce1163ef44cebdcdad2a0fd8`, 44208 bytes. `app/README.md` is `f57ff8b523dbdd7fdc6cc19da9ee34dc611a5cef1aed5a01b544726384ca6cbf`, 6930 bytes. `tests/test_pass03.py` is `03ffc50a67c7323536c0c46d7f82c5f76cf02a33d44f4264665002d6005140d8`, 5272 bytes. The pass 04 manifest is `labs/worker-bridge-pass01/evidence/pass04/SHA256SUMS.pass04.txt`, sha256 `3e81d54b8c111e7bb4a8110e73df078c79492acc205d9b8b5f4544d43ab11eb5`, 1082 bytes, 10 rows.
