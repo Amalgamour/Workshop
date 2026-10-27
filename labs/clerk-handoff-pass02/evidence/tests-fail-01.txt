@@ -1,0 +1,10 @@
+First test run, 2026-10-27, before the test-file name correction.
+Command: python -B tests\test_clerk.py
+Working directory: D:\Git\lib-build\labs\clerk-handoff-pass02
+Result: FAILED (failures=1, skipped=1). 22 tests, 44.064s.
+
+FAIL: test_output_and_instruction_paths
+AssertionError: 'output path is not a simple filename' not found in 'refused: job file is not a plain file\nresult refused\n'
+
+Cause of the failure: the test stored one job in a file named CON.json. On this Windows machine that name resolves to the CON device, so Clerk refused the job file as not a plain file. The product check held. The test was corrected to use an ordinary job-file name and to put CON in expected_outputs. The corrected run is tests.txt. This failure is kept.
+The symlink case was already a skip on this run: WinError 1314, a required privilege is not held by the client.

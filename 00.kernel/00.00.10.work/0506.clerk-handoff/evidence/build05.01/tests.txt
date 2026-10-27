@@ -1,0 +1,46 @@
+python : test_artifact_changed_is_not_a_clean_return (__main__.ClerkTests.test_artifact_changed_is_not_a_clean_return) 
+... ok
+At line:1 char:123
++ ... | Out-Null; python -B tests\test_clerk.py -v *> evidence\tests.txt; W ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (test_artifact_c..._return) ... ok:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+test_assignee_must_differ_including_case (__main__.ClerkTests.test_assignee_must_differ_including_case) ... ok
+test_claim_and_return_refusals_write_no_event (__main__.ClerkTests.test_claim_and_return_refusals_write_no_event) ... 
+ok
+test_duplicate_and_case_colliding_job_id (__main__.ClerkTests.test_duplicate_and_case_colliding_job_id) ... ok
+test_empty_store_differs_from_a_missing_store (__main__.ClerkTests.test_empty_store_differs_from_a_missing_store) ... 
+ok
+test_event_tamper_missing_extra_and_planted_return 
+(__main__.ClerkTests.test_event_tamper_missing_extra_and_planted_return) ... ok
+test_extra_event_and_inbox_disclosure (__main__.ClerkTests.test_extra_event_and_inbox_disclosure) ... ok
+test_git_store_and_unknown_flags_write_nothing (__main__.ClerkTests.test_git_store_and_unknown_flags_write_nothing) 
+... ok
+test_happy_path_chain_and_projection (__main__.ClerkTests.test_happy_path_chain_and_projection) ... ok
+test_hardlink_output_refused (__main__.ClerkTests.test_hardlink_output_refused) ... ok
+test_instruction_hash_and_cwd_are_not_ambient (__main__.ClerkTests.test_instruction_hash_and_cwd_are_not_ambient) ... 
+ok
+test_interrupted_return_is_not_reviewer_success (__main__.ClerkTests.test_interrupted_return_is_not_reviewer_success) 
+... ok
+test_interruptions_stay_incomplete (__main__.ClerkTests.test_interruptions_stay_incomplete) ... ok
+test_junction_output_refused (__main__.ClerkTests.test_junction_output_refused) ... ok
+test_module_is_stdlib_only_and_does_not_delete (__main__.ClerkTests.test_module_is_stdlib_only_and_does_not_delete) 
+... ok
+test_nonfinite_and_duplicate_json (__main__.ClerkTests.test_nonfinite_and_duplicate_json) ... ok
+test_output_and_instruction_paths (__main__.ClerkTests.test_output_and_instruction_paths) ... ok
+test_output_shape_refusals (__main__.ClerkTests.test_output_shape_refusals) ... ok
+test_resend_identity_is_per_job_and_does_not_restamp 
+(__main__.ClerkTests.test_resend_identity_is_per_job_and_does_not_restamp) ... ok
+test_resume_returns_the_same_token_without_a_write 
+(__main__.ClerkTests.test_resume_returns_the_same_token_without_a_write) ... ok
+test_symlink_output_refused_or_skipped (__main__.ClerkTests.test_symlink_output_refused_or_skipped) ... skipped "SKIP 
+symlink unsupported: [WinError 1314] A required privilege is not held by the client: 
+'C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\clerk-pass02-142id432\\\\outside.py' -> 'C:\\\\Users\\\\misg\\\\App
+Data\\\\Local\\\\Temp\\\\clerk-pass02-142id432\\\\store\\\\jobs\\\\demo-0001\\\\outbox\\\\count.py'"
+test_unknown_and_missing_keys_write_nothing (__main__.ClerkTests.test_unknown_and_missing_keys_write_nothing) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 9.696s
+
+OK (skipped=1)

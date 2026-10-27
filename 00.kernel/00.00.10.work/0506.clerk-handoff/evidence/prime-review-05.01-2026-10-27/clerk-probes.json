@@ -1,0 +1,23 @@
+{
+  "blank_evidence": {
+    "exit": 0,
+    "stdout": "returned demo-0001\ndelivery d-1\nevent 0003.returned.json sha256=34f6b5a708d3284f1842916d7abc694db0b91795bc355f277477056b8cfc09be\nartifact count.py sha256=a462cd0fc8d967065c00e2f7f162cb480e7d919d299fa5c03af46ba002679133 bytes=87\nresult ok\n"
+  },
+  "deleted_terminal_verify": {
+    "exit": 0,
+    "stdout": "verify\njob demo-0001\nstate claimed\nclaim 0a2a77608ce9d5b023faca5484fb299b\nstates queued claimed\nchain ok\nevent 0001.queued.json sha256=00b55f45ddbcc42e2e43a8b6b3580c0e4dd81ef819766bd077607d57a05663b2 prev=null\nevent 0002.claimed.json sha256=5a0bd94213d2406d5cc07dc5ffec4d99b76c396faaf4a204b4749a6f8780e9ab prev=00b55f45ddbcc42e2e43a8b6b3580c0e4dd81ef819766bd077607d57a05663b2\ninstructions-not-checked\nresult ok\n"
+  },
+  "deleted_terminal_inbox": {
+    "exit": 0,
+    "stdout": "inbox codex-prime\nsection queued\nnone\nsection claimed\nnone\nsection returned\nnone\nsection incomplete\nnone\nresult ok\n"
+  },
+  "different_rereturn_after_deletion": {
+    "exit": 0,
+    "stdout": "returned demo-0001\ndelivery d-2\nevent 0003.returned.json sha256=95c7cb10df271034668163a38446346011a9312d1a4cc8d589ddd40981a105ef\nartifact count.py sha256=32d586126d43482c0c535874a9ac3b09220cc7f28cbbfe8384e9d6b86769b324 bytes=97\nresult ok\n"
+  },
+  "outbox_oserror": {
+    "caught": true,
+    "exception": "FileExistsError",
+    "claim_event_written": true
+  }
+}

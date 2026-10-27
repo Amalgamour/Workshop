@@ -53,3 +53,11 @@ Old boot files (`00.start.md`, `00.readme.md`, `AGENTS.md` and others under `imp
 
 ## Development status — 2026-10-27
 The development entry can hash-check `0302.run/02.run.003.py` and run one fixture inventory. It can also submit one fixture job to the accepted local process adapter, print a verified artifact and a durable receipt, read that receipt from a fresh process, and replay the same job without a second launch. The worker kind is `protocol test worker`. Collection is not approval. No model connection is active. The lab at `labs/worker-bridge-pass01` is unchanged. `run` refuses. AR-01's pre-existing output name is still refused before an inventory payload runs. The advisory book checker is accepted on 0502/05.03. The Observer's first manual review and Prime responses are 0502/06.02. No continuous Observer process exists. Nothing is seated or activated.
+
+## Latest review disposition — app 05.05 / Clerk 05.01
+The app now implements a fixture-only worker exchange, but acceptance is blocked
+by stored-receipt correlation BRI-01 (0504/05.06). AR-01/AR-02 were repaired and
+accepted on 0504/05.04. The separate file-backed Clerk loop works in its demo but
+needs the reviewed corrections on 0506/05.02. No model connection is active.
+The Observer independently publishes periodic advisory notes on observer/reviews;
+Prime intake is manual during work sessions, not an automatic dispatcher.

@@ -1,0 +1,116 @@
+# 05 — App-to-worker fixture exchange
+version: 001
+Authorization: draft — 2026-10-27
+who: Codex Prime
+state: returned
+Face: 05
+PPPP: 0504
+book: 00.00.10.work
+keyword: app-entry
+
+## Assignment
+Builder: Grok 4.7 (xAI). Reviewer: Codex Prime.
+Release: released by the Director, 2026-10-27.
+Claim: Grok 4.7 (xAI), session 01a179d2-387a-7661-8702-6e53f95e96b5, 2026-10-27, HEAD 4005828d8153073d2ffd385b4a2e4a7d831d11e7.
+Reviewed base: 4005828d8153073d2ffd385b4a2e4a7d831d11e7, branch workshop.
+Build the first fixture-only app-to-worker exchange on the accepted local process adapter. Demonstrate a verified artifact, a durable receipt, fresh-process status, and replay without another worker launch.
+The packed page is `evidence/05.05/packed/05.05.md`, sha256 `f716df61edfff5ca5cd0f3f81d34806d6f5fb6afeadfcd3b08d4e002f78c2f43`, 8086 bytes.
+
+Director, verbatim:
+
+> Read and execute:
+> D:\Git\lib-build\00.kernel\00.00.10.work\0504.app-entry\05.05.md
+>
+> I release this batch.
+>
+> Build the first fixture-only app-to-worker exchange using the
+> accepted bridge. Demonstrate a verified artifact, a durable receipt,
+> fresh-process status, and replay without another worker launch.
+>
+> Preserve the other builder lanes, especially 0506.clerk-handoff
+> and labs/clerk-handoff-pass02. Follow the pinned inputs and scope.
+>
+> No real model calls, Clerk integration, activation or main merge.
+> Return on 05.05.md for Codex Prime review.
+
+## Return — Grok Builder 1
+
+Did. From a foreign current directory, one `bridge-test` submitted the design's `fixture-ok` job to the accepted local process adapter, printed the verified count artifact and a durable receipt, a fresh `bridge-status` printed that same receipt hash, and the same job replayed with `replayed: true` and one line in `launches.log`. `run` still refuses. No active-name module and no model connection were created.
+
+Blocked. Real model calls, Clerk integration, activation, seating, and a main merge stay outside this release. A file symlink could not be created here (`WinError 1314`). Same-user Python is not sandboxed. The adapter does not kill a descendant process. There is no exactly-once promise. Collection is not approval.
+
+Need. Codex Prime review of this page. The bounded next step is that review. No bridge activation and no Clerk integration follow from this return.
+
+## #01 — Notes, pins, and other lanes
+Notes are `06.05.md`, sha256 `6bd7203b07c7b14fb5f0cdb88453285097af60b3905dce2374c82fef6c036e93`, 7821 bytes. They were written after the pack, the design, and the adapter were read, and before `app/worker_bridge.py`, `app/worker-bridge.json`, and `app/librarian.py` were edited. The outcome section was added after the suites.
+
+`evidence/pack05.05/source-manifest.tsv` matched the live bytes at claim time, 21 rows, 0 bad. That directory is committed byte-exact. It was not rewritten. `context.py` stays `5b1a31d47bb9f9b465a8492541467abbd9bd3a99ae524be7aa0dbffe2380eb9f`, 22063 bytes. `app/development-workspace.json` stays `b6f4e13b3157416a05b102dfe8a01605e007c2608ba6b0fd06987757d2e33018`, 538 bytes. No blocking interface gap. `runner_root=code_root` is passed at the call. The eight lab pins match the design example and the live lab. `app/worker-bridge.json` is that example, sha256 `94dd3c4770d77f30482f75086d6ebc58335eb51b4a8641c86dcc6d55ce4385ea`, 1136 bytes, including its `_note`. The loader requires those exact keys.
+
+The lab at `labs/worker-bridge-pass01` was not edited. Runners `02.run.001.py` `af207d4d4f68ddcc2c22b7b1dced081b29dcbbfa6675d152ff7efa37871dcb8c` (13805 bytes), `02.run.002.py` `4a962d3a6edd26428b75e27ad82113708e510a1e770522d34b9e8bb11ec2b0f4` (9470 bytes), and `02.run.003.py` `bbca135691ba4e873e27b9322b1ad6d79deeb59107eb7d377f7d20014067d50c` (10143 bytes) stay byte-exact. Card `02.md` `95062ea60f8b923c3bda1cf603f394e54e56d961f42af13c9520031bf13bb95f` (746 bytes). Inventory payload `dd6a78b5a3781fe840e68950805b9838e569095d15dac3c678f00782341ed69b` (2988 bytes). No `02.run.py`.
+
+Other lanes were left unstaged: `0506.clerk-handoff/`, `labs/clerk-handoff-pass02/`, `returns/clerk-handoff-proposal-claude-2026-10-27.md`, and `evidence/prime-review05.04-2026-10-27/`. The working tree of `05.04.md` carries Prime's uncommitted review, sha256 `96535f9f05c08c97ed750f4a80834d7454d03ec1487aad74550ddf5aaf20ebc9`, 15615 bytes. That is the pack pin. This commit does not stage it. HEAD's blob stays `fba0120a38076441b6ec06fa2e6524e93cfb7f3bc2d96be3ea5c0366618adc53`, 13684 bytes.
+
+## #02 — The exchange
+`bridge-test`, `bridge-status`, and `bridge-recover` are thin commands on `app/librarian.py`. The glue is `app/worker_bridge.py`. Standard library only. The lab is imported as `worker_bridge_pinned` after all eight pinned hashes match, with no `sys.path` change. A mismatch stops before that import. The same-user gap between the hash read and the import is open. The pin check is development integrity.
+
+The job is exact-key `librarian-bridge-job` version 1. It has no root, argv, store, release, or container field. `load_fixture` and `check_allowed_root` are not called. There is no container metadata file. Context uses the app config, `overlaps_live`, `select_container`, `guard_workspace_path`, and `resolve_under`, then `validate_context(..., runner_root=code_root)`. `bridge-test` uses `execute=True`. Status and recover use `execute=False`. `00.live.md` is not an input.
+
+A new delivery copies declared inputs from `bridge/declared/` into a fresh `bridge/delivery/<id>/input` and launches only into `bridge/delivery/<id>/output`. A directory, file, hard link, junction, or temporary name already present on those paths is refused and is not removed. The adapter store stays `bridge/store/`. One provenance file, `bridge/provenance/<id>.json`, associates the stored request with the fixture, the work ref, and the declared job hash. It is not a second job ledger. The design's shared `bridge/input` and `bridge/output` are narrowed by this pack to those per-delivery directories.
+
+Replay passes the stored request object through. The envelope is not rebuilt, so a later assignment hash does not change `request_sha256`. A different job under the same delivery id stops with `delivery_id reused with a different request; use a new delivery_id; this call did not launch`, and, when a launch record is already there, `a prior launch record remains`.
+
+The only allowed kind is `protocol test worker`. The envelope release is `{by: "fixture record", ref: "<record path> sha256 <hash>"}`. That text is recorded evidence.
+
+Exit 0 is transport `delivered`, collection `collected`, claimed outcome `done`. Exit 2 is a refusal on this call: stderr starts with `stop:`, stdout is empty. Exit 3 is delivered but uncollected, or a collected claim of `failed`. Exit 4 is uncertain or not collected. Unknown, accepted-not-launched, launch-failed, crashed, timeout, output-limit, incomplete-output, and malformed are exit 4. Unknown prints `collection: not collected`. A new delivery id after uncertainty is a separate decision. Nothing relaunches automatically.
+
+`bridge-recover` reads an exact-key `librarian-bridge-recovery` version 1 file naming the delivery, the original request hash, a reason, and a requester. It can rebuild a receipt from a recorded attempt. It does not launch. A second recover reads the stored receipt, which already says `recovered: true`, and does not launch.
+
+## #03 — Demonstration
+The interpreter was `C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe`. The fixture was `app/scratch/demo-0505`, with the example job and the example input. The current directory was a foreign temporary directory. The synthetic record was `released` and its `current_work` was the example work ref.
+
+`bridge-test` exited 0. `bridge-status` in a fresh process exited 0 and printed the same receipt hash. `bridge-test` again exited 0 with `replayed: true`. `launches.log` is one line, `bridge-0001 ok`, 16 bytes, sha256 `75586534e438a6ca0377edc2ac499e6179061a3cb866105a8160fb781396be1b`. Those 16 bytes are the worker's platform newline (`CRLF` on this machine). The artifact is `{"count":3}`, 11 bytes, sha256 `0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6`. The receipt file is sha256 `8cad33f9abd520bb141724996dcda5bb252075deebf57a6f11ac36863e5da6d9`, 887 bytes. The transcript is `evidence/05.05/demo/transcript.txt`, sha256 `8e2aeedd49d357e84c00e957dba8ba218bb039db34e3849a21fb1bc0201ee4a3`, 1806 bytes. The first command printed:
+
+```text
+delivery_id: bridge-0001
+worker_kind: protocol test worker
+transport: delivered
+claimed_outcome: done
+collection: collected
+artifact: bridge/delivery/bridge-0001/output/result.json sha256 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6
+receipt: bridge/store/bridge-0001/receipt.json sha256 8cad33f9abd520bb141724996dcda5bb252075deebf57a6f11ac36863e5da6d9
+review: not performed
+acceptance: not performed
+```
+
+Status printed those same lines. Replay added `replayed: true`. Stderr was empty for all three. The kept copies are under `evidence/05.05/demo/`. `SHA256SUMS.txt` is sha256 `9c72bd47ef1fdcf8305627388090d48a08570fc1dc9cc9994ee52dfeca44ca9b`, 1326 bytes.
+
+An external container, named with `--container`, did the same three steps in the suite. Status still matched the receipt after the fixture record was set to `accepted` and then `returned`, with `current_work` moved to another existing file.
+
+## #04 — Tests
+`app/tests/test_worker_bridge.py` exited 0: pass 35, expected-refusal 16, skip 1, fail 0. Log `evidence/05.05/bridge-test-log.txt`, sha256 `55c1134501855c31e1ad10fa215c777dd93bf6b1fb70b703fc291fc439ab129b`, 29331 bytes. The skip is the dangling file symlink, `WinError 1314: A required privilege is not held by the client`.
+
+Covered there: wrong artifact hash, missing artifact, escaping artifact, malformed and duplicate-key output, crash, output-limit, timeout with replay and no second launch, inherited pipes with `cleanup.retained` under an outer watchdog, conflicting id, interrupted receipt then recover without a launch, launch record without an attempt, unknown delivery, accepted-not-launched, bad provenance, an escaping stored path, unreleased new work, unknown backend, wrong kind, `work_ref` mismatch, bad limits, job path escape, live workspace, pre-planted directory, hard link, store directory, and junction. Pin mismatch on an isolated copy stopped with `pinned file hash does not match` and no traceback. Launch-failed on an isolated copy with a missing program name exited 4 and did not print `collection: collected`. Refusals left the guarded lab files, `context.py`, both READMEs, the live assignment, and `00.live.md` unchanged for the length of the suite.
+
+The same run copied the lab and executed `tests/test_bridge.py`, `tests/test_pass02.py`, and `tests/test_pass03.py`. That recorded run passed 30 tests. An earlier isolated attempt of `test_pass03.py` alone reported `timeout` instead of `incomplete-output` for `fixture-inherit-pipes-after-result` at `timeout_s` 0.2. The lab was not changed to chase that timing. The recorded run is the one in the log.
+
+`app/tests/test_entry.py` exited 0: pass 12, expected-refusal 46, skip 1, fail 0. Log `evidence/05.05/entry-test-log.txt`, sha256 `2b5c0d1ef6b67773029158cb7f5fa9f9f895d40fc11f91f3d604d9a856ef7421`, 27938 bytes. The skip is the same file-symlink privilege. The inventory presence checks still refuse a pre-existing output name.
+
+`where` and `validate` on the returned workspace printed desk `00.kernel`, work book `00.00.10.work`, workflow space `0`, current work this file, pack this file, assignment state `returned`, runtime book `00.00.01.law`, runtime space `0`, runtime band `0300-0399`, runner `00.kernel/00.00.01.law/0302.run/02.run.003.py`, and runner sha256 `bbca135691ba4e873e27b9322b1ad6d79deeb59107eb7d377f7d20014067d50c`. `validate` added `validate: pass`. Transcripts: `evidence/05.05/where.txt` sha256 `70b1d891782913f73221935cad718f86dbe94089c223cf8361921f9b766777f9`, 404 bytes; `evidence/05.05/validate.txt` sha256 `bcd47fcd69df017298a438ad55ef0229664b58ac745a7390e9f6180738b2d100`, 419 bytes.
+
+Changed source: `app/worker_bridge.py` `69650662fa08c3bcfbfc4d180579a104a0f9edcfa39652e0aeaf741f006f6ba6` (31166 bytes). `app/librarian.py` `24e510dbf8c55c315af1d8b6777a9f5a645abe79528967d8ef24954e916a651c` (5909 bytes). `app/tests/test_worker_bridge.py` `edd20708d9ad5bf6ff32e01bce12f4ac5f05e2d02f4a2fb17364db6a467e03c5` (37598 bytes). `app/README.md` `410d143aeabf9b649d14efc320cb23803eb9463eb1c16535f6c4ae6b81845586` (6154 bytes). Root `README.md` `eaca06295e61d259ae9f0a5394bb4d42b486a5eabe9a4af005ba34347f505042` (5798 bytes).
+
+## #05 — Custody and limits
+The assignment record was hand-edited from the uncommitted accepted 05.04 record to running, then to returned. Clerk did not make that transition. `00.live.md` was regenerated with `render_live.py`. The renderer was not edited. `render_live.py check` printed `check: 00.kernel/00.live.md matches the record` (`evidence/05.05/render-check.txt`, sha256 `0cb6ad63c6a61988153304a55d3d7619a74207942f44328a35b8b9b12137cc3c`, 47 bytes).
+
+Assignment bytes: before `evidence/05.05/assignment-before.md` sha256 `9448cb911260acefa87d38324653c036b2acc7f541cfa7438e9ce09bfd0796f3`, 535 bytes. Running `evidence/05.05/assignment-running.md` sha256 `8d7475198f196a6c0a6538ec9368387999f4bb1833f7eb3fe2fb5b1237a03ac1`, 468 bytes. Returned record sha256 `86a48117f49ffdda5944c7556358dcaddb696224e54302f0d16cc16cf2a78fab`, 467 bytes. Views: before `evidence/05.05/live-before.md` sha256 `f49f06118c832ff5f20d7a42d0cc2e877d7eefbaec8c86d06f1d5ea6a68ddfb3`, 1150 bytes; running `evidence/05.05/live-running.md` sha256 `0ad461319b8a97556772cbdc1849cbb086389d08986531431a352dc632cd54df`, 1083 bytes; current `00.live.md` sha256 `8ce59085485b5eaabb620216af39261eb68c56b1dfb3053c4e9be9df4f8fa57c`, 1082 bytes. `waits_on` names Codex Prime's review of this page.
+
+`write_contents.py --check` is `evidence/05.05/contents-check.txt`, sha256 `87227606cafd8f3bb96c52af67eb9eba09d530d45419b26c1de9a82beb4adf41`, 43 bytes, and exits 2. The writer was not run. It compares `0011.contents/01.001.md` in memory. The contents pages were not edited. They do not name `05.05.md` or `06.05.md`. The goal page was not edited. Jobs, checker, clerk, and face are not integrated.
+
+A fresh `autocrlf=true` clone was not repeated. Bytecode was kept out of the books by `-B` and `PYTHONDONTWRITEBYTECODE`. Path checks do not confine same-user Python. Normal `run` stays refused. Nothing is seated or activated. No model profile was called. The lab was not copied into law or main.
+
+Kernel paths in the evidence commit, other than `evidence/05.05/custody.tsv`, `evidence/05.05/text-custody.tsv`, and the gitbytes transcripts, are in `evidence/05.05/custody.tsv`. The `app/` files and root `README.md` are in `evidence/05.05/text-custody.tsv` and stay out of the `-text` attribute check.
+
+Evidence commit: d9775fabe705c6a90be9bc770b17289b6b7c7188. `gitbytes.py commit` passed 55 rows in `evidence/05.05/custody.tsv` and 6 rows in `evidence/05.05/text-custody.tsv` at that revision. The manifest, and the five transcripts left out of it, match that commit's blobs. The commit check printed `pass commit: 55 row(s)` and `pass commit: 6 row(s)`. Those lines are `evidence/05.05/gitbytes-commit.txt`, sha256 `013f3a624d1205cb714f99a486afe6328fffedde5f95a37b8fae5a02f567eb78`, 23 bytes, and `evidence/05.05/gitbytes-text-commit.txt`, sha256 `21a2fe1020e48e5f93beee375f75209ec430e10e48a9cf17269f8ce160585477`, 22 bytes. This file does not embed the hash of the commit that contains this return.
+
+## Review — Codex Prime
+PENDING.

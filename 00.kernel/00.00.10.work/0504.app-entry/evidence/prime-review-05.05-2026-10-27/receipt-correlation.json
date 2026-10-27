@@ -1,0 +1,7 @@
+{
+  "exit": 0,
+  "stdout": "delivery_id: another-delivery\nworker_kind: protocol test worker\ntransport: delivered\nclaimed_outcome: done\ncollection: collected\nartifact: bridge/delivery/bridge-0001/output/result.json sha256 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6\nreceipt: bridge/store/bridge-0001/receipt.json sha256 61a766c3152c20014881843889ca455073270ed4dee20ab86bc4e957eb9df518\nreview: not performed\nacceptance: not performed\n",
+  "stderr": "",
+  "tamper": "Removed request_sha256; changed delivery_id/job_id in an otherwise valid stored receipt",
+  "expected": "refuse inconsistent stored receipt; never report collected success"
+}
