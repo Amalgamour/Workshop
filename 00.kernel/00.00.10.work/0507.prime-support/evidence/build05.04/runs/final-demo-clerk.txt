@@ -1,0 +1,16 @@
+ok   A0 status text: Clerk store byte-identical
+ok   A1 status json: Clerk store byte-identical
+ok   A1 returned, clean, unseen; event = sha256(0003) = witness
+ok   A2 scan: Clerk store byte-identical
+ok   A3 ack-clerk: Clerk store byte-identical
+ok   A3 ack written
+ok   A4 status after ack: Clerk store byte-identical
+ok   A4 seen, review not machine-readable, attention review-needed
+ok   A5 ack again: Clerk store byte-identical
+ok   A5 idempotent
+ok   A6 artifact changed after ack: Clerk store byte-identical
+ok   A6 same event, still seen, not clean, attention kept
+ok   A7 acknowledgements deleted: Clerk store byte-identical
+ok   A7 unseen again, problems still visible
+scope: registered jobs only  processes 11 (setup 3, adapter 8)  checks 14  failed 0
+demo ok

@@ -1,0 +1,55 @@
+# Notes — development entry for Prime pack tools
+Date: 2026-10-27
+Recorder: Grok 4.7 (xAI)
+State: notes for the 05.08 slice. Not seated kernel law.
+
+## Reading
+These notes are written after the pins were checked and the claim was recorded, and before `app/prime_tools.py` exists.
+
+`evidence/pack05.08/source-manifest.json` is schema `prime-pack-sources/1`, sha256 `60ba3ccf07aeea9f7668da38862dd64db007707757a437e226243880e31f6ba0`, 2188 bytes. It names 10 sources and has no commit or repository label. Every snapshot matches its declared sha256 and byte length, and every live file matches that snapshot. 0 bad.
+
+The accepted checker is `labs/pack-custody-pass01/pack_check.py`, sha256 `9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d`, 21563 bytes. The accepted assembler is `labs/pack-assembly-pass01/pack_assembly.py`, sha256 `75d49679cbf3e624a82573229ca8c7cd9b758799bc26b6f080111feb6eaa275c`, 43928 bytes. Both live files match. They are not edited. The assembler's README and `tests/test_pack_assembly.py` match the pack and are not edited. That test still names `D:\Git\lib-build` as its checker source. This slice does not change that harness. The new app test copies the pinned files into a disposable tree instead.
+
+`app/librarian.py` matches snapshot 0007, sha256 `24e510dbf8c55c315af1d8b6777a9f5a645abe79528967d8ef24954e916a651c`, 5909 bytes. `app/README.md` matches snapshot 0009, sha256 `f57ff8b523dbdd7fdc6cc19da9ee34dc611a5cef1aed5a01b544726384ca6cbf`, 6930 bytes. Those two files are the source-before copies under `evidence/entry05.08/source-before/app/`. `app/context.py` and `app/tests/test_entry.py` match their snapshots and stay unchanged.
+
+Prime's review of 0509.pack-assembly/05.01 accepted the assembler as a fixture pack-assembly component and named this page as the next step. Acceptance there does not place a draft in the live book, release a job, choose a return slot, or activate Prime intake.
+
+HEAD observed while these notes were written: `9dcd981124d491794b41715aaaaff1c16e5f4bc0`. That is the claim HEAD. Other builders are active. This slice does not pull, reset, stage, commit, or push.
+
+## Front door
+`app/librarian.py` gains four command names and nothing else in its existing dispatch: `pack-check`, `pack-preview`, `pack-assemble`, and `pack-verify`. Those commands load `app/prime_tools.py` and do not load `context.py` or `worker_bridge.py`. `where`, `validate`, `test-run`, and the three bridge commands stay on their current path. `run` and every other name still stop with `normal run is not activated`.
+
+The pin declaration is `app/prime-tools.json`, schema `librarian-prime-tools`, version 1. It is loaded only by `prime_tools.py`. The same paths and hashes are fixed constants in that module. The JSON must match the constants. There is no other declaration path, no version scan, and no caller choice of tool.
+
+The two pins, both checked on every one of the four commands before either file is imported:
+
+- `labs/pack-custody-pass01/pack_check.py` `9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d`
+- `labs/pack-assembly-pass01/pack_assembly.py` `75d49679cbf3e624a82573229ca8c7cd9b758799bc26b6f080111feb6eaa275c`
+
+Paths are relative to the code root, the parent of `app/`. An absolute path, a drive, a backslash, an empty segment, `.`, or `..` is a refusal. A symlink or junction on the declaration or on any component of a tool path is a refusal and is not followed. The file must be a regular file inside the code root. Its raw SHA-256 must match the constant. A miss, a mismatch, or a declaration that names anything else stops before import.
+
+`pack-check` calls `pack_check.main` with the caller's argument array. The three assembly commands call `pack_assembly.main` with the subcommand prepended and `--checker` set to the absolute path of the pinned checker. The caller cannot pass `--checker` or `--checker=...`. The facade does not parse manifests, does not shell out, and does not create the output directory.
+
+Tool stdout, including `--json`, and the tool's argparse diagnostics stay as the tool writes them. A tool exit of 0 or 1 is that exit. A tool `SystemExit` from argparse propagates. A new wrapper fault prints `stop:` on stderr, exits 2, and does not create a pack. Expected tool failures stay inside the tool's report. The same-user gap between the hash read and the import is not closed.
+
+## Boundaries that stay
+The checker and the assembler remain the accepted implementations. They still build fixture-only drafts outside the source repository and outside any directory whose ancestor contains `00.kernel`. They do not choose a route or a return slot, execute source text, release a job, call a model, or fetch or publish Git. The wrapper does not bypass those output restrictions. A clean custody result is not release readiness. These app pins are development wiring, not kernel law.
+
+No loader seating, no app UI, no Clerk or Prime-intake adapter, and no return-capture integration.
+
+## Proof planned
+`app/tests/test_prime_tools.py` copies the entry, the declaration, and the two pinned tools into a disposable tree. It does not hard-code `D:\Git\lib-build`. One request goes through app preview, assemble, verify, and pack-check, and the output is compared with direct calls of the copied tools. A mutated snapshot must fail verify while the receipt bytes stay put. A wrong hash, a missing tool, a path escape, a linked tool path, a caller `--checker`, a stale digest, an occupied target, a junction target, a live-book target, and a malformed request must refuse without an unauthorized write. Read-only commands must leave HEAD, refs, the index, and status unchanged. The Git stand-in records argv and refuses network verbs. The existing `app/tests/test_entry.py` suite runs once after the entry change. The bridge suite and the core suites stay unrun unless that entry suite shows a new concern. A fresh-process demo uses the real entry against a temporary repository and a temporary output, then stores the transcript and hashes under `evidence/entry05.08/`. No pack is written into the work book. No model runs.
+
+## Out of scope
+No edit to the checker, the assembler, the assembler's tests, `context.py`, `worker_bridge.py`, `worker-bridge.json`, `test_entry.py`, other pages, shared assignments, indexes, views, capture, Clerk, or SoF. No shared Git publication. Prime publishes after review.
+
+## Outcome
+Disposition: the front door above is what was built. The accepted checker and assembler were not edited. The draft in `evidence/entry05.08/demo/output/` is a byte copy of a pack the entry assembled in a temporary directory. It is evidence of that run. It is not a pack placed for the work book.
+
+`app/librarian.py` is sha256 `fe31aae774ccc2cfa37839c2e423e0e58240e594e364888b323a5308ba0ab452`, 6486 bytes. `app/prime_tools.py` is `4725efba6caeda1589c78a81b26e5bc4cb8b04ddefed1b1916db1a01e3e5640c`, 7800 bytes. `app/prime-tools.json` is `e70e951cd229da0a3320ccf9a2d3b59e99dacdcf9b6c82c12d275578b62395e8`, 593 bytes. `app/README.md` is `6237ddf4b8d0a7403e4ca4d3969b720ac89edfac0912965d1d6886e01a87e04f`, 9798 bytes. `app/tests/test_prime_tools.py` is `f0ba134a9aed5f573c85058b155aacef873a29a8b7d2a6f535887d82a8e6220d`, 29826 bytes. The source-before copies still match the pack snapshots.
+
+The disposable suite exited 0: 12 tests, 1 skip, 0 failures. The skip is `test_file_symlink_pin_is_not_followed`, `WinError 1314`. App preview, assemble, verify, and pack-check matched direct calls. A mutated snapshot exited 1 and the receipt bytes stayed. Wrong hash, a missing tool, path escape, a junction pin, caller `--checker`, a stale digest, occupied, linked, in-repository, and live-book targets, and a malformed request refused without an unauthorized write. Argparse usage names `librarian.py` because the call is in-process; the error line matches the accepted tool. The Git stand-in recorded `rev-parse` and `cat-file` only, with `GIT_OPTIONAL_LOCKS=0` and `GIT_TERMINAL_PROMPT=0`.
+
+The fresh-process demo used the real entry. Preview, assemble, verify, and pack-check exited 0 and matched direct calls of the accepted tools. The digest is `d37f645a33d2dfa46d7a5bc1daaf71eebfda60e00083d51eb1a0d8ac1da76725`. `demo/output/05.14.md` is `0e46bb422d7fcf7ddc69004df37bc368e3545f800b9994128fbd11f77ceaf518`, 945 bytes. `completion-receipt.json` is `ff351b59c274b0921de075f7e9634c1c1d532b3c3a391c331407caa28a9d4ff7`, 1352 bytes. `source-manifest.json` is `26f274e713d59e73b0f82616dc394ee9be16fc9274217afa5be89af3565cb54f`, 295 bytes. The mutated verify exited 1 and the receipt bytes stayed. Caller `--checker` printed `stop: caller checker override is refused` and created no directory. The temporary repository status stayed empty. No model ran.
+
+`app/tests/test_entry.py` ran once. Normal run refused. Guarded bytes were unchanged during that suite, and it wrote no bytecode. Its pin check failed on `00.kernel/00.00.10.work/0014.design/01.001.md`. The test constant is `a04962e94ae54bcb0fc2ae42dd36ff6fc33822427cb2a983211d069aeaf4b610`. The live file matches HEAD and is `20ba376e05a5ab09fed5d6e9644e3e74a6db954d7e476ff94f76b6469c780d0a`, 1448 bytes. This slice did not edit that file or `test_entry.py`. The other eight pins in that list matched. The same run skipped a dangling file symlink, `WinError 1314`. The bridge suite and the core suites were not rerun. Evidence sums are `evidence/entry05.08/SHA256SUMS.txt`, sha256 `b582bd8531762e6fb83b97f6ff216d4a0773fd029f9dcb1e47cd1d4e4a84c00e`, 2931 bytes, 32 rows. That file does not list itself.

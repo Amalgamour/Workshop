@@ -1,0 +1,54 @@
+{
+  "schema": "pack-custody-report/1",
+  "result": "pass",
+  "mode": "filesystem",
+  "format": "prime-pack-sources/1",
+  "manifest": "C:\\Users\\misg\\AppData\\Local\\Temp\\wf0508-demo-2gk0r_25\\pack-app\\source-manifest.json",
+  "manifest_sha256": "26f274e713d59e73b0f82616dc394ee9be16fc9274217afa5be89af3565cb54f",
+  "manifest_bytes": 295,
+  "commit": null,
+  "root": "C:\\Users\\misg\\AppData\\Local\\Temp\\wf0508-demo-2gk0r_25\\pack-app",
+  "provenance": {
+    "repository": null,
+    "commit": "cf797e6971d987cbdc20587fcaaf783330288430"
+  },
+  "rows_checked": 1,
+  "entries": [
+    {
+      "path": "keep.txt",
+      "snapshot": "snapshots/0001.blob",
+      "location": "snapshots/0001.blob",
+      "result": "match",
+      "sha256": "2c8b08da5ce60398e1f19af0e5dccc744df274b826abe585eaba68c525434806",
+      "bytes": 4,
+      "detail": "snapshot bytes match"
+    }
+  ],
+  "findings": [],
+  "not_checked": [
+    {
+      "item": "meaning",
+      "detail": "This check does not say what the bytes mean."
+    },
+    {
+      "item": "instruction-sufficiency",
+      "detail": "This check does not decide whether the pack's instructions are sufficient."
+    },
+    {
+      "item": "approval-release",
+      "detail": "This check does not approve or release the pack."
+    },
+    {
+      "item": "dependencies",
+      "detail": "This check does not resolve or install dependencies."
+    },
+    {
+      "item": "execution-safety",
+      "detail": "This check does not decide whether executing any supplied source is safe or appropriate. It does not run those sources."
+    },
+    {
+      "item": "live-source",
+      "detail": "Later worktree drift is not compared. An intact snapshot is not rewritten, and drift alone does not fail a historical blob."
+    }
+  ]
+}

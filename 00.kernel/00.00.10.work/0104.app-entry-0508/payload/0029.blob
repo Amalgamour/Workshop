@@ -1,0 +1,66 @@
+FAIL pins: Traceback (most recent call last):
+  File "D:\Git\lib-build\app\tests\test_entry.py", line 136, in check
+    fn()
+  File "D:\Git\lib-build\app\tests\test_entry.py", line 232, in test_pins
+    raise AssertionError(rel)
+AssertionError: 00.kernel/00.00.10.work/0014.design/01.001.md
+
+PASS real workspace where and validate
+PASS fixture inventory from a foreign cwd and a relocated root
+REFUSAL test-run on the real workspace
+REFUSAL test-run on the real work book
+REFUSAL normal run
+REFUSAL direct runner 002 refuses
+REFUSAL direct runner 003 refuses
+PASS refused commands left the guarded files unchanged
+REFUSAL accepted assignment is not a fresh release
+PASS accepted context can be inspected and does not select a higher version
+REFUSAL accepted fixture with --test is not a fresh release
+REFUSAL missing work book
+REFUSAL missing work item
+REFUSAL undeclared workflow space
+REFUSAL wrong job book
+REFUSAL job book mapped onto the runtime book
+REFUSAL ambiguous compute title
+REFUSAL path escape
+REFUSAL payload outside its compute page
+REFUSAL wrong payload hash
+REFUSAL payload bytes do not match the declared hash
+REFUSAL compute page outside the band is not climbed to
+REFUSAL two compute pages for one keyword
+REFUSAL source folder app is not a fixture container
+REFUSAL source page is not a fixture container
+REFUSAL fixture allowed_root is not authority
+REFUSAL external container was not named
+REFUSAL external container overlaps the workspace
+REFUSAL filesystem root is not a container
+REFUSAL fixture root is a filesystem root
+REFUSAL junction to app is not a container
+REFUSAL junction output leaves the container
+PASS designated page fixtures container
+PASS protected source bytes stayed unchanged
+PASS fresh inventory when the output names are absent
+REFUSAL existing ordinary output
+REFUSAL existing ordinary temporary
+REFUSAL direct output hard link
+REFUSAL temporary hard link
+REFUSAL dangling temporary junction
+SKIP dangling file symlink: WinError 1314: a required privilege is not held by the client
+PASS occupied output names stayed unchanged
+REFUSAL reparse escape
+REFUSAL missing config
+REFUSAL malformed config
+REFUSAL duplicate config key
+REFUSAL config version type
+REFUSAL unknown config key
+REFUSAL config cannot widen fixture containers
+REFUSAL malformed record
+REFUSAL duplicate record key
+REFUSAL invalid assignment state
+REFUSAL record carriage return
+REFUSAL assignment path is the derived view
+PASS tampered 00.live does not change context
+REFUSAL wrong runner hash
+PASS guarded bytes were unchanged by the suite
+PASS no bytecode was written into the books or app
+summary pass 11 expected-refusal 46 skip 1 fail 1

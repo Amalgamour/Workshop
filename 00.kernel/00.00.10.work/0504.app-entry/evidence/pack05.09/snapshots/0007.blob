@@ -1,0 +1,93 @@
+{
+  "test_prime_tools": {
+    "exit": 0,
+    "tail": "ok\ntest_occupied_linked_and_live_book_targets_match_direct (__main__.PrimeToolsTest.test_occupied_linked_and_live_book_targets_match_direct) ... ok\ntest_path_escape_is_refused (__main__.PrimeToolsTest.test_path_escape_is_refused) ... ok\ntest_preview_assemble_verify_and_pack_check_match_direct (__main__.PrimeToolsTest.test_preview_assemble_verify_and_pack_check_match_direct) ... ok\ntest_snapshot_mutation_fails_and_keeps_the_receipt (__main__.PrimeToolsTest.test_snapshot_mutation_fails_and_keeps_the_receipt) ... ok\ntest_sources_match_the_declaration (__main__.PrimeToolsTest.test_sources_match_the_declaration) ... ok\ntest_stale_digest_and_malformed_request_match_direct (__main__.PrimeToolsTest.test_stale_digest_and_malformed_request_match_direct) ... ok\ntest_wrong_hash_and_missing_tool_write_nothing (__main__.PrimeToolsTest.test_wrong_hash_and_missing_tool_write_nothing) ... ok\n\n----------------------------------------------------------------------\nRan 12 tests in 15.388s\n\nOK (skipped=1)\n"
+  },
+  "test_clerk_adapter": {
+    "exit": 0,
+    "tail": "ent) ... ok\ntest_intake_store_inside_a_clerk_store_is_refused (__main__.ClerkAdapter.test_intake_store_inside_a_clerk_store_is_refused) ... ok\ntest_malformed_and_old_schema_projections_are_unsupported (__main__.ClerkAdapter.test_malformed_and_old_schema_projections_are_unsupported) ... ok\ntest_queued_and_claimed_have_no_identity (__main__.ClerkAdapter.test_queued_and_claimed_have_no_identity) ... ok\ntest_registry_versions (__main__.ClerkAdapter.test_registry_versions) ... ok\ntest_reviewer_binding_conflict (__main__.ClerkAdapter.test_reviewer_binding_conflict) ... ok\ntest_stale_and_missing_instruction_base (__main__.ClerkAdapter.test_stale_and_missing_instruction_base) ... ok\ntest_unknown_job_and_damaged_pair (__main__.ClerkAdapter.test_unknown_job_and_damaged_pair) ... ok\ntest_wrong_tool_identity_is_never_executed (__main__.ClerkAdapter.test_wrong_tool_identity_is_never_executed) ... ok\n\n----------------------------------------------------------------------\nRan 14 tests in 22.822s\n\nOK\n"
+  },
+  "test_prime_support": {
+    "exit": 0,
+    "tail": "n__.Fixture.test_07_review_binding_findings) ... ok\ntest_08_ps03_lineage_survives (__main__.Fixture.test_08_ps03_lineage_survives) ... ok\ntest_08b_missing_history_is_unknown (__main__.Fixture.test_08b_missing_history_is_unknown) ... ok\ntest_09_missing_sources (__main__.Fixture.test_09_missing_sources) ... ok\ntest_10_no_crawl (__main__.Fixture.test_10_no_crawl) ... ok\ntest_11_legacy_unknowns (__main__.Fixture.test_11_legacy_unknowns) ... ok\ntest_git_allowlist (__main__.Fixture.test_git_allowlist) ... ok\ntest_invalid_registry (__main__.Fixture.test_invalid_registry) ... ok\ntest_ps01_boundary_decoys (__main__.Fixture.test_ps01_boundary_decoys) ... ok\ntest_ps01_no_inherited_review (__main__.Fixture.test_ps01_no_inherited_review) ... ok\ntest_ps02_return_file_shape (__main__.Fixture.test_ps02_return_file_shape) ... ok\ntest_scan_show_read_only (__main__.Fixture.test_scan_show_read_only) ... ok\n\n----------------------------------------------------------------------\nRan 19 tests in 28.774s\n\nOK\n"
+  },
+  "test_psi": {
+    "exit": 0,
+    "tail": "test_psi01_invalid_legacy (__main__.PSI.test_psi01_invalid_legacy) ... ok\ntest_psi01_review_source_binding (__main__.PSI.test_psi01_review_source_binding) ... ok\ntest_psi01_unknown_hash_cannot_close (__main__.PSI.test_psi01_unknown_hash_cannot_close) ... ok\ntest_psi01_unrelated_ids_not_collapsed (__main__.PSI.test_psi01_unrelated_ids_not_collapsed) ... ok\ntest_psi02_comparable_branches (__main__.PSI.test_psi02_comparable_branches) ... ok\ntest_psi02_divergent_conflict (__main__.PSI.test_psi02_divergent_conflict) ... ok\ntest_psi02_inverted_timestamps (__main__.PSI.test_psi02_inverted_timestamps) ... ok\ntest_psi02_repeated_observations (__main__.PSI.test_psi02_repeated_observations) ... ok\ntest_psi02_worktree_draft (__main__.PSI.test_psi02_worktree_draft) ... ok\ntest_psi_ack_deletion (__main__.PSI.test_psi_ack_deletion) ... ok\n\n----------------------------------------------------------------------\nRan 10 tests in 13.870s\n\nOK\n"
+  },
+  "entry_after": {
+    "exit": 1,
+    "tail": "L undeclared workflow space\nREFUSAL wrong job book\nREFUSAL job book mapped onto the runtime book\nREFUSAL ambiguous compute title\nREFUSAL path escape\nREFUSAL payload outside its compute page\nREFUSAL wrong payload hash\nREFUSAL payload bytes do not match the declared hash\nREFUSAL compute page outside the band is not climbed to\nREFUSAL two compute pages for one keyword\nREFUSAL source folder app is not a fixture container\nREFUSAL source page is not a fixture container\nREFUSAL fixture allowed_root is not authority\nREFUSAL external container was not named\nREFUSAL external container overlaps the workspace\nREFUSAL filesystem root is not a container\nREFUSAL fixture root is a filesystem root\nREFUSAL junction to app is not a container\nREFUSAL junction output leaves the container\nPASS designated page fixtures container\nPASS protected source bytes stayed unchanged\nPASS fresh inventory when the output names are absent\nREFUSAL existing ordinary output\nREFUSAL existing ordinary temporary\nREFUSAL direct output hard link\nREFUSAL temporary hard link\nREFUSAL dangling temporary junction\nSKIP dangling file symlink: WinError 1314: a required privilege is not held by the client\nPASS occupied output names stayed unchanged\nREFUSAL reparse escape\nREFUSAL missing config\nREFUSAL malformed config\nREFUSAL duplicate config key\nREFUSAL config version type\nREFUSAL unknown config key\nREFUSAL config cannot widen fixture containers\nREFUSAL malformed record\nREFUSAL duplicate record key\nREFUSAL invalid assignment state\nREFUSAL record carriage return\nREFUSAL assignment path is the derived view\nPASS tampered 00.live does not change context\nREFUSAL wrong runner hash\nPASS guarded bytes were unchanged by the suite\nPASS no bytecode was written into the books or app\nsummary pass 11 expected-refusal 46 skip 1 fail 1\n"
+  },
+  "entry_before": {
+    "exit": 1,
+    "tail": "L undeclared workflow space\nREFUSAL wrong job book\nREFUSAL job book mapped onto the runtime book\nREFUSAL ambiguous compute title\nREFUSAL path escape\nREFUSAL payload outside its compute page\nREFUSAL wrong payload hash\nREFUSAL payload bytes do not match the declared hash\nREFUSAL compute page outside the band is not climbed to\nREFUSAL two compute pages for one keyword\nREFUSAL source folder app is not a fixture container\nREFUSAL source page is not a fixture container\nREFUSAL fixture allowed_root is not authority\nREFUSAL external container was not named\nREFUSAL external container overlaps the workspace\nREFUSAL filesystem root is not a container\nREFUSAL fixture root is a filesystem root\nREFUSAL junction to app is not a container\nREFUSAL junction output leaves the container\nPASS designated page fixtures container\nPASS protected source bytes stayed unchanged\nPASS fresh inventory when the output names are absent\nREFUSAL existing ordinary output\nREFUSAL existing ordinary temporary\nREFUSAL direct output hard link\nREFUSAL temporary hard link\nREFUSAL dangling temporary junction\nSKIP dangling file symlink: WinError 1314: a required privilege is not held by the client\nPASS occupied output names stayed unchanged\nREFUSAL reparse escape\nREFUSAL missing config\nREFUSAL malformed config\nREFUSAL duplicate config key\nREFUSAL config version type\nREFUSAL unknown config key\nREFUSAL config cannot widen fixture containers\nREFUSAL malformed record\nREFUSAL duplicate record key\nREFUSAL invalid assignment state\nREFUSAL record carriage return\nREFUSAL assignment path is the derived view\nPASS tampered 00.live does not change context\nREFUSAL wrong runner hash\nPASS guarded bytes were unchanged by the suite\nPASS no bytecode was written into the books or app\nsummary pass 11 expected-refusal 46 skip 1 fail 1\n"
+  },
+  "projection_type_probes": [
+    {
+      "case": "state=[]",
+      "exception": "TypeError",
+      "detail": "unhashable type: 'list'"
+    },
+    {
+      "case": "state={}",
+      "exception": "TypeError",
+      "detail": "unhashable type: 'dict'"
+    },
+    {
+      "case": "job=[]",
+      "status": "unsupported",
+      "clean": false,
+      "identity": false,
+      "reason": "projection: job presence does not match the state"
+    },
+    {
+      "case": "claim=[]",
+      "status": "unsupported",
+      "clean": false,
+      "identity": false,
+      "reason": "projection: claim presence does not match the state"
+    },
+    {
+      "case": "returned=[]",
+      "status": "unsupported",
+      "clean": false,
+      "identity": false,
+      "reason": "projection: returned presence does not match the state"
+    },
+    {
+      "case": "job=42",
+      "status": "unsupported",
+      "clean": false,
+      "identity": false,
+      "reason": "projection: job presence does not match the state"
+    },
+    {
+      "case": "claim=42",
+      "status": "unsupported",
+      "clean": false,
+      "identity": false,
+      "reason": "projection: claim presence does not match the state"
+    },
+    {
+      "case": "checks.events=[]",
+      "exception": "TypeError",
+      "detail": "unhashable type: 'list'"
+    },
+    {
+      "case": "checks.completion=[]",
+      "exception": "TypeError",
+      "detail": "unhashable type: 'list'"
+    },
+    {
+      "case": "checks.artifacts=[]",
+      "exception": "TypeError",
+      "detail": "unhashable type: 'list'"
+    },
+    {
+      "case": "checks.instructions=[]",
+      "exception": "TypeError",
+      "detail": "unhashable type: 'list'"
+    }
+  ]
+}

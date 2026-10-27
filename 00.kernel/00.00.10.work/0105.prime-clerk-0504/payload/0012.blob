@@ -1,0 +1,36 @@
+{
+ "schema": "prime-support-registry",
+ "version": 2,
+ "repositories": {
+  "work": {
+   "local": "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\work",
+   "branch": "main",
+   "remote_ref": "refs/remotes/origin/main",
+   "worktree": "off",
+   "history_limit": 50
+  }
+ },
+ "clerk_tool": {
+  "path": "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\tool\\clerk.py",
+  "sha256": "f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c"
+ },
+ "lanes": [
+  {
+   "lane": "clerk",
+   "project": "workshop (fixture)",
+   "owner_label": "builder-b",
+   "repository": "work",
+   "pages": [],
+   "return_files": [],
+   "review_sources": [],
+   "clerk_jobs": [
+    {
+     "store": "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\clerk-store",
+     "job_id": "demo-0001",
+     "instructions_base": "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\base",
+     "reviewer": "codex-prime"
+    }
+   ]
+  }
+ ]
+}

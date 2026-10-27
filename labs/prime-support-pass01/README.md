@@ -31,7 +31,29 @@ python -B prime_support.py status --registry <abs lanes.json> [--intake <abs sto
 python -B prime_support.py intake scan --registry <abs lanes.json> [--intake <abs store>] [--json]
 python -B prime_support.py intake ack --registry R --intake S --lane L --path P --revision <64 hex> --as LABEL
 python -B prime_support.py intake show --intake <abs store> [--json]
+python -B prime_support.py intake ack-clerk --registry R --intake S --lane L --store CLERKSTORE --job ID --event-sha256 <64 hex> --as LABEL
 ```
+
+## Registered Clerk returns (05.04; contract `evidence/build05.04/DESIGN.004.md`)
+
+**Scope: registered jobs only.** There is no inbox discovery.
+- A version-2 registry names `clerk_tool {path, sha256}` and per-lane `clerk_jobs [{store, job_id, instructions_base, reviewer}]`, all paths absolute.
+- Version-1 registries keep working unchanged.
+
+**How a job is read** (`clerk_adapter.py`):
+- It runs only `clerk.py show --store S --job ID --instructions-base BASE --json`, as `<python> -I -B`, with no shell.
+- It runs only after the file hashes to the accepted inspection/2 code (`ACCEPTED_CLERK_SHA256`, f697a7e4…). The caller cannot choose other code.
+- It parses inspection/2 strictly. Anything unexpected is `unsupported`, never success.
+- It never opens or lists a Clerk store, never parses human output, and never queues, claims, returns or repairs.
+
+**Identity:** `(store, job_id, returned.event_sha256)`, as subject kind `clerk-return` in `prime-intake/2` records. `/1` records are read unchanged.
+- An identity exists only for a returned job whose events and completion checks are `ok` and whose job and reviewer match the registration.
+- **Clean** additionally needs artifacts `ok`, instructions `usable`, no problems and exit 0.
+- Review is `not-machine-readable`.
+- `ack-clerk` inspects freshly, refuses a stale or abbreviated event id, and writes one record. That record is never written into a Clerk store.
+- A seen but nonclean return stays `clerk-not-clean` attention. Deleting the acknowledgements returns it to `unseen`, and its problems stay visible.
+
+Demonstration: `python -B demo_clerk.py --out <new absolute dir outside Git> --clerk <path to the accepted clerk.py>`.
 
 **Read-only commands:** `status`, `scan` and `show`.
 - Git runs only through an allowlist: rev-parse, show, ls-tree, log, status, merge-base, for-each-ref, cat-file. Any other subcommand, fetch included, raises before it runs.
@@ -73,7 +95,7 @@ python -B -X dev tests/test_prime_support.py -v
 python -B -X dev tests/test_psi.py -v
 ```
 
-There are 19 original tests and 10 PSI regressions (05.03), each building disposable repositories with local bare origins under the system temp directory. Run them from a copy of the lab if you want nothing at all near the shared checkout.
+There are 19 original tests, 10 PSI regressions (05.03) and 14 Clerk-adapter tests (05.04: `python -B -X dev tests/test_clerk_adapter.py -v`), each building disposable repositories with local bare origins under the system temp directory. Run them from a copy of the lab if you want nothing at all near the shared checkout.
 
 ## Limits
 

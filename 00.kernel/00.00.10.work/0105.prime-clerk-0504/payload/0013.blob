@@ -1,0 +1,230 @@
+[
+ {
+  "step": "S1 queue",
+  "role": "fixture setup",
+  "argv": [
+   "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+   "-B",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\tool\\clerk.py",
+   "queue",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\clerk-store",
+   "--job",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\job.json",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\base"
+  ],
+  "exit": 0,
+  "stdout": "queued demo-0001\nevent 0001.queued.json sha256=2b4aa5b976424744629aee64f76a4edcf35e1b78ddbd417629cf15405376fe02\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "step": "S2 claim",
+  "role": "fixture setup",
+  "argv": [
+   "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+   "-B",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\tool\\clerk.py",
+   "claim",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\clerk-store",
+   "--job",
+   "demo-0001",
+   "--as",
+   "builder-b",
+   "--instructions-base",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\base"
+  ],
+  "exit": 0,
+  "stdout": "claimed demo-0001\ntoken 8dfa1ef7ba74815a8b21c044c585b3e4\nevent 0002.claimed.json sha256=42782215104ddf959f07ffc92d04f906b56dc73943878a10c712b1cb108b044b\ninstructions-usable sha256=9a52e695fd2dd5027e399f7560bcee2e111954913e8b22e5d3e43f9b872cc8b7\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "step": "S3 return",
+  "role": "fixture setup",
+  "argv": [
+   "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+   "-B",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\tool\\clerk.py",
+   "return",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\clerk-store",
+   "--job",
+   "demo-0001",
+   "--as",
+   "builder-b",
+   "--claim",
+   "8dfa1ef7ba74815a8b21c044c585b3e4",
+   "--delivery",
+   "d-1",
+   "--evidence",
+   "demo fixture"
+  ],
+  "exit": 0,
+  "stdout": "returned demo-0001\ndelivery d-1\nevent 0003.returned.json sha256=fe211acb0742cc02e59cfd2c2429bf30b2c3128e62ed68c399ff2b12ecc72d6b\nwitness 0003.witness.json records event sha256=fe211acb0742cc02e59cfd2c2429bf30b2c3128e62ed68c399ff2b12ecc72d6b\nartifact result.json sha256=0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6 bytes=11\nresult ok\n",
+  "stderr": ""
+ },
+ {
+  "step": "A0 status text",
+  "role": "adapter",
+  "argv": [
+   "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+   "-B",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\ca-run2\\labs\\prime-support-pass01\\prime_support.py",
+   "status",
+   "--registry",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\registry.json",
+   "--intake",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\intake-store"
+  ],
+  "exit": 1,
+  "stdout": "prime-support status  registry sha256 3d686e13ce613601b17c0863382719a815f82d5b017c128159bfb9a84cb27678\nscope: only registered sources are read; no fetch; remote refs are last observed\nrepo work: HEAD none  refs/remotes/origin/main absent (last observed, not fetched)  unknown  worktree off\nlane clerk  (builder-b; workshop (fixture))\n  clerk demo-0001  store C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\clerk-store  [registered job; show --json, tool f697a7e44311]  exit 0  state returned  binding ok\n    checks {\"artifacts\": \"ok\", \"completion\": \"ok\", \"events\": \"ok\", \"instructions\": \"usable\"}  problems 0  event fe211acb0742cc02e59cfd2c2429bf30b2c3128e62ed68c399ff2b12ecc72d6b  clean yes  intake unseen  review not-machine-readable\n  findings: none recorded in machine-readable form\nattention (unseen; recommendation, not authority): lane clerk: clerk demo-0001 in C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\clerk-store: event fe211acb0742cc02e59cfd2c2429bf30b2c3128e62ed68c399ff2b12ecc72d6b\npacket: clerk:C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\clerk-store#demo-0001@fe211acb0742cc02e59cfd2c2429bf30b2c3128e62ed68c399ff2b12ecc72d6b via show --json (tool f697a7e44311, exit 0)\nattention items: 1\n",
+  "stderr": ""
+ },
+ {
+  "step": "A1 status json",
+  "role": "adapter",
+  "argv": [
+   "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+   "-B",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\ca-run2\\labs\\prime-support-pass01\\prime_support.py",
+   "status",
+   "--registry",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\registry.json",
+   "--intake",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\intake-store",
+   "--json"
+  ],
+  "exit": 1,
+  "stdout": "{\n \"attention\": [\n  {\n   \"item\": \"lane clerk: clerk demo-0001 in C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\\\clerk-store: event fe211acb0742cc02e59cfd2c2429bf30b2c3128e62ed68c399ff2b12ecc72d6b\",\n   \"kind\": \"unseen\"\n  }\n ],\n \"conflicts\": [],\n \"intake_problems\": [],\n \"lanes\": [\n  {\n   \"clerk\": [\n    {\n     \"binding\": \"ok\",\n     \"canonical_store\": \"c:\\\\users\\\\misg\\\\appdata\\\\local\\\\temp\\\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\\\clerk-store\",\n     \"checks\": {\n      \"artifacts\": \"ok\",\n      \"completion\": \"ok\",\n      \"events\": \"ok\",\n      \"instructions\": \"usable\"\n     },\n     \"clean\": true,\n     \"event_sha256\": \"fe211acb0742cc02e59cfd2c2429bf30b2c3128e62ed68c399ff2b12ecc72d6b\",\n     \"exit\": 0,\n     \"identity\": true,\n     \"intake\": \"unseen\",\n     \"job_id\": \"demo-0001\",\n     \"packet\": \"clerk:C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\\\clerk-store#demo-0001@fe211acb0742cc02e59cfd2c2429bf30b2c3128e62ed68c399ff2b12ecc72d6b via show --json (tool f697a7e44311, exit 0)\",\n     \"problems\": [],\n     \"reason\": \"\",\n     \"review\": \"not-machine-readable\",\n     \"reviewer\": \"codex-prime\",\n     \"state\": \"returned\",\n     \"status\": \"ok\",\n     \"store\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\\\clerk-store\",\n     \"subject_id\": \"bdfa0d5f1df3194b729dcbd60b6eb860e9ec6389c3d42d6b0374293e1cb92ae1\",\n     \"tool_sha256\": \"f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c\"\n    }\n   ],\n   \"dirty\": [],\n   \"files\": [],\n   \"findings\": {},\n   \"lane\": \"clerk\",\n   \"owner_label\": \"builder-b\",\n   \"packets\": [],\n   \"project\": \"workshop (fixture)\",\n   \"repository\": \"work\",\n   \"review_sources\": []\n  }\n ],\n \"registry_sha256\": \"3d686e13ce613601b17c0863382719a815f82d5b017c128159bfb9a84cb27678\",\n \"repositories\": {\n  \"work\": {\n   \"head\": null,\n   \"problem\": null,\n   \"relation\": \"unknown\",\n   \"remote\": null,\n   \"remote_ref\": \"refs/remotes/origin/main\",\n   \"shallow\": false,\n   \"worktree\": \"off\"\n  }\n },\n \"scope\": \"only registered sources are read; no fetch; remote refs are last observed\"\n}\n",
+  "stderr": ""
+ },
+ {
+  "step": "A2 scan",
+  "role": "adapter",
+  "argv": [
+   "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+   "-B",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\ca-run2\\labs\\prime-support-pass01\\prime_support.py",
+   "intake",
+   "scan",
+   "--registry",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\registry.json",
+   "--intake",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\intake-store"
+  ],
+  "exit": 1,
+  "stdout": "intake scan (read-only)\nclerk clerk demo-0001 event fe211acb0742cc02e59cfd2c2429bf30b2c3128e62ed68c399ff2b12ecc72d6b unseen clean yes review not-machine-readable\n",
+  "stderr": ""
+ },
+ {
+  "step": "A3 ack-clerk",
+  "role": "adapter",
+  "argv": [
+   "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+   "-B",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\ca-run2\\labs\\prime-support-pass01\\prime_support.py",
+   "intake",
+   "ack-clerk",
+   "--registry",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\registry.json",
+   "--intake",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\intake-store",
+   "--lane",
+   "clerk",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\clerk-store",
+   "--job",
+   "demo-0001",
+   "--event-sha256",
+   "fe211acb0742cc02e59cfd2c2429bf30b2c3128e62ed68c399ff2b12ecc72d6b",
+   "--as",
+   "codex-prime"
+  ],
+  "exit": 0,
+  "stdout": "seen bdfa0d5f1df3194b729dcbd60b6eb860e9ec6389c3d42d6b0374293e1cb92ae1\nclean yes\nacknowledged as seen; not reviewed, not accepted\n",
+  "stderr": ""
+ },
+ {
+  "step": "A4 status after ack",
+  "role": "adapter",
+  "argv": [
+   "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+   "-B",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\ca-run2\\labs\\prime-support-pass01\\prime_support.py",
+   "status",
+   "--registry",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\registry.json",
+   "--intake",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\intake-store",
+   "--json"
+  ],
+  "exit": 1,
+  "stdout": "{\n \"attention\": [\n  {\n   \"item\": \"lane clerk: clerk demo-0001 in C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\\\clerk-store: event fe211acb0742cc02e59cfd2c2429bf30b2c3128e62ed68c399ff2b12ecc72d6b seen; review not machine-readable\",\n   \"kind\": \"review-needed\"\n  }\n ],\n \"conflicts\": [],\n \"intake_problems\": [],\n \"lanes\": [\n  {\n   \"clerk\": [\n    {\n     \"binding\": \"ok\",\n     \"canonical_store\": \"c:\\\\users\\\\misg\\\\appdata\\\\local\\\\temp\\\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\\\clerk-store\",\n     \"checks\": {\n      \"artifacts\": \"ok\",\n      \"completion\": \"ok\",\n      \"events\": \"ok\",\n      \"instructions\": \"usable\"\n     },\n     \"clean\": true,\n     \"event_sha256\": \"fe211acb0742cc02e59cfd2c2429bf30b2c3128e62ed68c399ff2b12ecc72d6b\",\n     \"exit\": 0,\n     \"identity\": true,\n     \"intake\": \"seen\",\n     \"job_id\": \"demo-0001\",\n     \"packet\": \"clerk:C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\\\clerk-store#demo-0001@fe211acb0742cc02e59cfd2c2429bf30b2c3128e62ed68c399ff2b12ecc72d6b via show --json (tool f697a7e44311, exit 0)\",\n     \"problems\": [],\n     \"reason\": \"\",\n     \"review\": \"not-machine-readable\",\n     \"reviewer\": \"codex-prime\",\n     \"state\": \"returned\",\n     \"status\": \"ok\",\n     \"store\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\\\clerk-store\",\n     \"subject_id\": \"bdfa0d5f1df3194b729dcbd60b6eb860e9ec6389c3d42d6b0374293e1cb92ae1\",\n     \"tool_sha256\": \"f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c\"\n    }\n   ],\n   \"dirty\": [],\n   \"files\": [],\n   \"findings\": {},\n   \"lane\": \"clerk\",\n   \"owner_label\": \"builder-b\",\n   \"packets\": [],\n   \"project\": \"workshop (fixture)\",\n   \"repository\": \"work\",\n   \"review_sources\": []\n  }\n ],\n \"registry_sha256\": \"3d686e13ce613601b17c0863382719a815f82d5b017c128159bfb9a84cb27678\",\n \"repositories\": {\n  \"work\": {\n   \"head\": null,\n   \"problem\": null,\n   \"relation\": \"unknown\",\n   \"remote\": null,\n   \"remote_ref\": \"refs/remotes/origin/main\",\n   \"shallow\": false,\n   \"worktree\": \"off\"\n  }\n },\n \"scope\": \"only registered sources are read; no fetch; remote refs are last observed\"\n}\n",
+  "stderr": ""
+ },
+ {
+  "step": "A5 ack again",
+  "role": "adapter",
+  "argv": [
+   "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+   "-B",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\ca-run2\\labs\\prime-support-pass01\\prime_support.py",
+   "intake",
+   "ack-clerk",
+   "--registry",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\registry.json",
+   "--intake",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\intake-store",
+   "--lane",
+   "clerk",
+   "--store",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\clerk-store",
+   "--job",
+   "demo-0001",
+   "--event-sha256",
+   "fe211acb0742cc02e59cfd2c2429bf30b2c3128e62ed68c399ff2b12ecc72d6b",
+   "--as",
+   "codex-prime"
+  ],
+  "exit": 0,
+  "stdout": "already-recorded bdfa0d5f1df3194b729dcbd60b6eb860e9ec6389c3d42d6b0374293e1cb92ae1\n",
+  "stderr": ""
+ },
+ {
+  "step": "A6 artifact changed after ack",
+  "role": "adapter",
+  "argv": [
+   "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+   "-B",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\ca-run2\\labs\\prime-support-pass01\\prime_support.py",
+   "status",
+   "--registry",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\registry.json",
+   "--intake",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\intake-store",
+   "--json"
+  ],
+  "exit": 1,
+  "stdout": "{\n \"attention\": [\n  {\n   \"item\": \"lane clerk: clerk demo-0001 in C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\\\clerk-store: event fe211acb0742cc02e59cfd2c2429bf30b2c3128e62ed68c399ff2b12ecc72d6b not clean: checks {\\\"artifacts\\\": \\\"changed\\\", \\\"completion\\\": \\\"ok\\\", \\\"events\\\": \\\"ok\\\", \\\"instructions\\\": \\\"usable\\\"} problems [{\\\"detail\\\": \\\"artifact result.json sha256=0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6 artifact changed\\\", \\\"kind\\\": \\\"artifact-changed\\\", \\\"path\\\": \\\"result.json\\\"}]\",\n   \"kind\": \"clerk-not-clean\"\n  },\n  {\n   \"item\": \"lane clerk: clerk demo-0001 in C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\\\clerk-store: event fe211acb0742cc02e59cfd2c2429bf30b2c3128e62ed68c399ff2b12ecc72d6b seen; review not machine-readable\",\n   \"kind\": \"review-needed\"\n  }\n ],\n \"conflicts\": [],\n \"intake_problems\": [],\n \"lanes\": [\n  {\n   \"clerk\": [\n    {\n     \"binding\": \"ok\",\n     \"canonical_store\": \"c:\\\\users\\\\misg\\\\appdata\\\\local\\\\temp\\\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\\\clerk-store\",\n     \"checks\": {\n      \"artifacts\": \"changed\",\n      \"completion\": \"ok\",\n      \"events\": \"ok\",\n      \"instructions\": \"usable\"\n     },\n     \"clean\": false,\n     \"event_sha256\": \"fe211acb0742cc02e59cfd2c2429bf30b2c3128e62ed68c399ff2b12ecc72d6b\",\n     \"exit\": 1,\n     \"identity\": true,\n     \"intake\": \"seen\",\n     \"job_id\": \"demo-0001\",\n     \"packet\": \"clerk:C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\\\clerk-store#demo-0001@fe211acb0742cc02e59cfd2c2429bf30b2c3128e62ed68c399ff2b12ecc72d6b via show --json (tool f697a7e44311, exit 1)\",\n     \"problems\": [\n      {\n       \"detail\": \"artifact result.json sha256=0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6 artifact changed\",\n       \"kind\": \"artifact-changed\",\n       \"path\": \"result.json\"\n      }\n     ],\n     \"reason\": \"\",\n     \"review\": \"not-machine-readable\",\n     \"reviewer\": \"codex-prime\",\n     \"state\": \"returned\",\n     \"status\": \"ok\",\n     \"store\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\\\clerk-store\",\n     \"subject_id\": \"bdfa0d5f1df3194b729dcbd60b6eb860e9ec6389c3d42d6b0374293e1cb92ae1\",\n     \"tool_sha256\": \"f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c\"\n    }\n   ],\n   \"dirty\": [],\n   \"files\": [],\n   \"findings\": {},\n   \"lane\": \"clerk\",\n   \"owner_label\": \"builder-b\",\n   \"packets\": [],\n   \"project\": \"workshop (fixture)\",\n   \"repository\": \"work\",\n   \"review_sources\": []\n  }\n ],\n \"registry_sha256\": \"3d686e13ce613601b17c0863382719a815f82d5b017c128159bfb9a84cb27678\",\n \"repositories\": {\n  \"work\": {\n   \"head\": null,\n   \"problem\": null,\n   \"relation\": \"unknown\",\n   \"remote\": null,\n   \"remote_ref\": \"refs/remotes/origin/main\",\n   \"shallow\": false,\n   \"worktree\": \"off\"\n  }\n },\n \"scope\": \"only registered sources are read; no fetch; remote refs are last observed\"\n}\n",
+  "stderr": ""
+ },
+ {
+  "step": "A7 acknowledgements deleted",
+  "role": "adapter",
+  "argv": [
+   "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+   "-B",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\ca-run2\\labs\\prime-support-pass01\\prime_support.py",
+   "status",
+   "--registry",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\registry.json",
+   "--intake",
+   "C:\\Users\\misg\\AppData\\Local\\Temp\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\intake-store",
+   "--json"
+  ],
+  "exit": 1,
+  "stdout": "{\n \"attention\": [\n  {\n   \"item\": \"lane clerk: clerk demo-0001 in C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\\\clerk-store: event fe211acb0742cc02e59cfd2c2429bf30b2c3128e62ed68c399ff2b12ecc72d6b not clean: checks {\\\"artifacts\\\": \\\"changed\\\", \\\"completion\\\": \\\"ok\\\", \\\"events\\\": \\\"ok\\\", \\\"instructions\\\": \\\"usable\\\"} problems [{\\\"detail\\\": \\\"artifact result.json sha256=0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6 artifact changed\\\", \\\"kind\\\": \\\"artifact-changed\\\", \\\"path\\\": \\\"result.json\\\"}]\",\n   \"kind\": \"clerk-not-clean\"\n  },\n  {\n   \"item\": \"lane clerk: clerk demo-0001 in C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\\\clerk-store: event fe211acb0742cc02e59cfd2c2429bf30b2c3128e62ed68c399ff2b12ecc72d6b\",\n   \"kind\": \"unseen\"\n  }\n ],\n \"conflicts\": [],\n \"intake_problems\": [],\n \"lanes\": [\n  {\n   \"clerk\": [\n    {\n     \"binding\": \"ok\",\n     \"canonical_store\": \"c:\\\\users\\\\misg\\\\appdata\\\\local\\\\temp\\\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\\\clerk-store\",\n     \"checks\": {\n      \"artifacts\": \"changed\",\n      \"completion\": \"ok\",\n      \"events\": \"ok\",\n      \"instructions\": \"usable\"\n     },\n     \"clean\": false,\n     \"event_sha256\": \"fe211acb0742cc02e59cfd2c2429bf30b2c3128e62ed68c399ff2b12ecc72d6b\",\n     \"exit\": 1,\n     \"identity\": true,\n     \"intake\": \"unseen\",\n     \"job_id\": \"demo-0001\",\n     \"packet\": \"clerk:C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\\\clerk-store#demo-0001@fe211acb0742cc02e59cfd2c2429bf30b2c3128e62ed68c399ff2b12ecc72d6b via show --json (tool f697a7e44311, exit 1)\",\n     \"problems\": [\n      {\n       \"detail\": \"artifact result.json sha256=0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6 artifact changed\",\n       \"kind\": \"artifact-changed\",\n       \"path\": \"result.json\"\n      }\n     ],\n     \"reason\": \"\",\n     \"review\": \"not-machine-readable\",\n     \"reviewer\": \"codex-prime\",\n     \"state\": \"returned\",\n     \"status\": \"ok\",\n     \"store\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\ca-demo-clerk-ebd501b5072840f08e7432651d907684\\\\clerk-store\",\n     \"subject_id\": \"bdfa0d5f1df3194b729dcbd60b6eb860e9ec6389c3d42d6b0374293e1cb92ae1\",\n     \"tool_sha256\": \"f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c\"\n    }\n   ],\n   \"dirty\": [],\n   \"files\": [],\n   \"findings\": {},\n   \"lane\": \"clerk\",\n   \"owner_label\": \"builder-b\",\n   \"packets\": [],\n   \"project\": \"workshop (fixture)\",\n   \"repository\": \"work\",\n   \"review_sources\": []\n  }\n ],\n \"registry_sha256\": \"3d686e13ce613601b17c0863382719a815f82d5b017c128159bfb9a84cb27678\",\n \"repositories\": {\n  \"work\": {\n   \"head\": null,\n   \"problem\": null,\n   \"relation\": \"unknown\",\n   \"remote\": null,\n   \"remote_ref\": \"refs/remotes/origin/main\",\n   \"shallow\": false,\n   \"worktree\": \"off\"\n  }\n },\n \"scope\": \"only registered sources are read; no fetch; remote refs are last observed\"\n}\n",
+  "stderr": ""
+ }
+]

@@ -1,0 +1,76 @@
+{
+  "schema": "pack-assembly-report/1",
+  "command": "preview",
+  "result": "preview",
+  "digest": "d37f645a33d2dfa46d7a5bc1daaf71eebfda60e00083d51eb1a0d8ac1da76725",
+  "supplied_digest": null,
+  "template": "pack-assembly-draft/1",
+  "commit": "cf797e6971d987cbdc20587fcaaf783330288430",
+  "request_sha256": "3e435e71be36404a551885dee14537e078c4919f8a731079ef6ad57697a5f3c0",
+  "request_bytes": 956,
+  "batch": "05.14",
+  "sources": [
+    {
+      "path": "keep.txt",
+      "sha256": "2c8b08da5ce60398e1f19af0e5dccc744df274b826abe585eaba68c525434806",
+      "bytes": 4,
+      "snapshot": "snapshots/0001.blob"
+    }
+  ],
+  "planned": [
+    {
+      "path": "05.14.md",
+      "sha256": "0e46bb422d7fcf7ddc69004df37bc368e3545f800b9994128fbd11f77ceaf518",
+      "bytes": 945
+    },
+    {
+      "path": "request.snapshot",
+      "sha256": "3e435e71be36404a551885dee14537e078c4919f8a731079ef6ad57697a5f3c0",
+      "bytes": 956
+    },
+    {
+      "path": "source-manifest.json",
+      "sha256": "26f274e713d59e73b0f82616dc394ee9be16fc9274217afa5be89af3565cb54f",
+      "bytes": 295
+    },
+    {
+      "path": "snapshots/0001.blob",
+      "sha256": "2c8b08da5ce60398e1f19af0e5dccc744df274b826abe585eaba68c525434806",
+      "bytes": 4
+    }
+  ],
+  "target": null,
+  "checker": null,
+  "receipt": null,
+  "findings": [],
+  "not_checked": [
+    {
+      "item": "meaning",
+      "detail": "This tool does not say what the draft means."
+    },
+    {
+      "item": "instruction-sufficiency",
+      "detail": "This tool does not decide whether the instructions are sufficient."
+    },
+    {
+      "item": "approval-release",
+      "detail": "This tool does not approve or release the draft. A receipt is not acceptance."
+    },
+    {
+      "item": "dependencies",
+      "detail": "Dependencies are copied as supplied or left unresolved. None are installed or fetched."
+    },
+    {
+      "item": "execution-safety",
+      "detail": "Request text and pinned sources are data. This tool does not execute them."
+    },
+    {
+      "item": "return-slot",
+      "detail": "Live return-slot allocation is not checked."
+    },
+    {
+      "item": "clerk-readiness",
+      "detail": "Clerk readiness is not checked."
+    }
+  ]
+}

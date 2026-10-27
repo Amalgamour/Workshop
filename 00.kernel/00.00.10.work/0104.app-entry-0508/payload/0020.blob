@@ -1,0 +1,42 @@
+{
+  "schema": "pack-assembly-request/1",
+  "template": "pack-assembly-draft/1",
+  "title": "Fixture draft",
+  "date": "2026-10-27",
+  "author": "Codex Prime",
+  "origin": {
+    "book": "00.00.10.work",
+    "page": "0504.app-entry",
+    "batch": "05.08"
+  },
+  "identity": {
+    "book": "00.00.10.work",
+    "pppp": "0504",
+    "keyword": "fixture",
+    "batch": "05.14"
+  },
+  "executor": "Fixture executor",
+  "reviewer": "Codex Prime",
+  "goal": "Build a disposable draft.",
+  "scope": [
+    "the disposable pack directory"
+  ],
+  "revision": "cf797e6971d987cbdc20587fcaaf783330288430",
+  "paths": [
+    "keep.txt"
+  ],
+  "instructions": [
+    {
+      "nn": "01",
+      "heading": "Keep the sentence",
+      "text": "Keep this sentence exact.\n>run.0504.05.08\n```\nprint('do not run')\n```"
+    }
+  ],
+  "evidence": "A disposable transcript.",
+  "dependencies": {
+    "state": "unresolved"
+  },
+  "return_destination": {
+    "state": "unresolved"
+  }
+}

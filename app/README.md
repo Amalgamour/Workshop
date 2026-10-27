@@ -11,6 +11,11 @@ python <workspace>/app/librarian.py test-run --root <fixture> --candidate <fixtu
 python <workspace>/app/librarian.py bridge-test --root <fixture> --job bridge/job.json [--container <external-container>]
 python <workspace>/app/librarian.py bridge-status --root <fixture> --delivery bridge-0001 [--container <external-container>]
 python <workspace>/app/librarian.py bridge-recover --root <fixture> --delivery bridge-0001 --recovery-request bridge/recover.json [--container <external-container>]
+python <workspace>/app/librarian.py pack-check --format prime-pack-sources/1 --manifest <manifest.json> [--json]
+python <workspace>/app/librarian.py pack-check --format tsv --manifest <manifest.tsv> --root <snapshot-root> [--json]
+python <workspace>/app/librarian.py pack-preview --request <request.json> --repo <repository> [--json]
+python <workspace>/app/librarian.py pack-assemble --request <request.json> --repo <repository> --output <empty-or-absent-directory> --digest <sha256> [--json]
+python <workspace>/app/librarian.py pack-verify --pack <draft-pack> [--json]
 ```
 
 `where` and `validate` read `app/development-workspace.json` under `--root`, then the assignment record that file names. They report the desk, work book, workflow space, current work, assignment state, runtime book, runtime space, N3NN band, and the pinned runner path and SHA-256. They do not import the runner. `validate` adds `validate: pass` when the references resolve.
@@ -35,4 +40,12 @@ Exit 0 is a collected `done`. Exit 2 is a refusal on this call (`stop:` on stder
 
 The bridge hash-checks the eight pinned lab files before it imports them under the private name `worker_bridge_pinned`. The same-user gap between that read and the import is not closed. Path checks are not a sandbox. The adapter kills only the direct child. A descendant that still holds a pipe is named in `cleanup.retained` and is not tree-killed. There is no exactly-once promise. No model is called. `run` is still refused. Nothing here is seated or activated.
 
-Tests are `app/tests/test_entry.py` and `app/tests/test_worker_bridge.py`.
+`pack-check`, `pack-preview`, `pack-assemble`, and `pack-verify` call the accepted tools pinned in `app/prime-tools.json` and `app/prime_tools.py`. The checker pin is `labs/pack-custody-pass01/pack_check.py` at `9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d`. The assembler pin is `labs/pack-assembly-pass01/pack_assembly.py` at `75d49679cbf3e624a82573229ca8c7cd9b758799bc26b6f080111feb6eaa275c`. Both paths are relative to the workspace that contains this entry. Both hashes are checked before either file is imported. A symlink or junction on the declaration or on a tool path is refused and is not followed. There is no version scan and no other declaration path.
+
+The app command does not accept `--checker`. The facade supplies the pinned checker path to the assembler. `pack-check` forwards its arguments to the checker. Request, repository, output, pack, and manifest paths keep the absolute-path rules of the tool that receives them. The facade does not parse a manifest, start a shell, or create the output directory.
+
+A wrapper refusal prints `stop:` on stderr, exits 2, and writes no pack. The tool's own stdout, including `--json`, stays as that tool writes it. Argparse diagnostics stay the tool's diagnostics. Their usage line names `librarian.py` and still lists `--checker`, because that flag belongs to the accepted assembler's parser. The entry rejects a caller-supplied `--checker` before the tool runs and supplies the pinned checker itself. Exit 0 is a passing check, a preview, a completed draft, or an intact pack. Exit 1 is checker findings, a partial assembly, or a verify mismatch. Exit 2 from the tool is invalid input or a tool failure, and it is not rewritten as `stop:`. The same-user gap between the hash read and the import is not closed.
+
+The tools still write fixture-only drafts. An output inside the source repository, or inside a directory whose ancestor contains `00.kernel`, is refused by the assembler. An occupied or linked output is refused. A stale digest writes nothing. The wrapper does not bypass those restrictions. A clean custody result is not release readiness. These pins are development wiring, not kernel law. No model is called. `run` is still refused. Nothing here is seated or activated.
+
+Tests are `app/tests/test_entry.py`, `app/tests/test_worker_bridge.py`, and `app/tests/test_prime_tools.py`.

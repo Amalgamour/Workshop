@@ -1,0 +1,72 @@
+[
+ {
+  "check": "A0 status text: Clerk store byte-identical",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "A1 status json: Clerk store byte-identical",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "A1 returned, clean, unseen; event = sha256(0003) = witness",
+  "ok": true,
+  "detail": "fe211acb0742cc02e59cfd2c2429bf30b2c3128e62ed68c399ff2b12ecc72d6b"
+ },
+ {
+  "check": "A2 scan: Clerk store byte-identical",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "A3 ack-clerk: Clerk store byte-identical",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "A3 ack written",
+  "ok": true,
+  "detail": "seen bdfa0d5f1df3194b729dcbd60b6eb860e9ec6389c3d42d6b0374293e1cb92ae1"
+ },
+ {
+  "check": "A4 status after ack: Clerk store byte-identical",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "A4 seen, review not machine-readable, attention review-needed",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "A5 ack again: Clerk store byte-identical",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "A5 idempotent",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "A6 artifact changed after ack: Clerk store byte-identical",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "A6 same event, still seen, not clean, attention kept",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "A7 acknowledgements deleted: Clerk store byte-identical",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "check": "A7 unseen again, problems still visible",
+  "ok": true,
+  "detail": ""
+ }
+]

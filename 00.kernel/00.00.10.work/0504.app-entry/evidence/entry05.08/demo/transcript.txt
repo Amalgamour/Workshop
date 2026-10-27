@@ -1,0 +1,16 @@
+Fresh-process demo of app/librarian.py against a temporary repository.
+The draft was assembled outside the work book. demo/output is a byte copy of that temporary pack.
+claim-head-remains 9dcd981124d491794b41715aaaaff1c16e5f4bc0
+head-at-demo a07053829887b4532bc26c4b51d9545a0c1b9f5a
+temporary-commit cf797e6971d987cbdc20587fcaaf783330288430
+digest d37f645a33d2dfa46d7a5bc1daaf71eebfda60e00083d51eb1a0d8ac1da76725
+preview-exit 0 stdout-equals-direct yes
+assemble-exit 0 report-equals-direct yes bytes-equal yes
+verify-exit 0 stdout-equals-direct yes
+pack-check-exit 0 stdout-equals-direct yes
+verify-mutated-exit 1 receipt-unchanged yes
+checker-injection-exit 2 stdout-empty yes output-absent yes
+source-status-before-and-after empty
+file-symlink-skip WinError 1314 in app/tests/test_prime_tools.py and in app/tests/test_entry.py
+entry-suite-fail pin 00.kernel/00.00.10.work/0014.design/01.001.md; normal run refused
+no model was called

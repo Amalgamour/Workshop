@@ -20,6 +20,9 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import clerk_adapter  # noqa: E402  same lab folder; the only Clerk reader (05.04)
+
 REGISTRY_SCHEMA = "prime-support-registry"
 INTAKE_SCHEMA = "prime-intake/1"
 REPO_KEYS = {"local", "branch", "remote_ref", "worktree", "history_limit"}
@@ -27,13 +30,19 @@ LANE_KEYS = {"lane", "project", "owner_label", "repository", "pages", "return_fi
 CANON_KEYS = {"repository", "path", "lane"}
 TOP_REQUIRED = {"schema", "version", "repositories", "lanes"}
 TOP_OPTIONAL = {"canonical_assignment", "attention_order"}
-ATTENTION_KINDS = ["conflict", "missing", "unsupported", "bad-intake", "invalid-review", "review-needed", "unseen",
+ATTENTION_KINDS = ["conflict", "missing", "unsupported", "bad-intake", "invalid-review", "clerk-not-clean",
+                   "review-needed", "unseen",
                    "history-unknown", "open-finding"]
 ASSIGNMENT_KEYS = {"record", "schema", "desk", "book", "workflow_space", "current_work", "pack",
                    "assignment_state", "waits_on", "next", "updated"}
 RECORD_KEYS = {"schema", "subject_id", "subject", "observed", "supersedes", "by", "at", "note"}
 SUBJECT_KEYS = {"kind", "repository", "path", "revision_id"}
 OBSERVED_KEYS = {"source", "commit", "whole_sha256", "execution"}
+# 05.04: Clerk returns are a distinct subject kind, stored as prime-intake/2. /1 records are read unchanged.
+INTAKE_SCHEMA_2 = "prime-intake/2"
+CLERK_SUBJECT_KEYS = {"kind", "store", "job_id", "event_sha256"}
+CLERK_OBSERVED_KEYS = {"tool_sha256", "exit", "state", "checks", "problems"}
+CLERK_JOB_KEYS = {"store", "job_id", "instructions_base", "reviewer"}
 GIT_ALLOWED = {"rev-parse", "show", "ls-tree", "log", "status", "merge-base", "for-each-ref", "cat-file"}
 OPEN = {"unresolved", "fix-planned", "director-pending"}
 CLOSED = {"verified-fixed", "answered-with-reason", "decided"}
@@ -115,11 +124,13 @@ def load_registry(path_text: str) -> tuple[dict, str]:
     if not isinstance(reg, dict):
         refuse("registry: not an object")
     keys = set(reg)
-    if not TOP_REQUIRED <= keys or keys - TOP_REQUIRED - TOP_OPTIONAL:
-        extra = sorted(keys - TOP_REQUIRED - TOP_OPTIONAL)
-        refuse("registry: " + (f"unknown key {extra[0]}" if extra else "missing required key"))
-    if reg["schema"] != REGISTRY_SCHEMA or reg["version"] != 1 or type(reg["version"]) is not int:
+    version = reg.get("version")
+    if reg.get("schema") != REGISTRY_SCHEMA or type(version) is not int or version not in (1, 2):
         refuse("registry: unsupported schema or version")
+    optional = TOP_OPTIONAL | ({"clerk_tool"} if version == 2 else set())  # 05.04: version 2 adds Clerk jobs
+    if not TOP_REQUIRED <= keys or keys - TOP_REQUIRED - optional:
+        extra = sorted(keys - TOP_REQUIRED - optional)
+        refuse("registry: " + (f"unknown key {extra[0]}" if extra else "missing required key"))
     repos = reg["repositories"]
     if not isinstance(repos, dict) or not repos:
         refuse("registry: repositories must be a non-empty object")
@@ -142,9 +153,28 @@ def load_registry(path_text: str) -> tuple[dict, str]:
     if not isinstance(lanes, list) or not lanes:
         refuse("registry: lanes must be a non-empty list")
     seen = set()
+    clerk_pairs = set()
     for lane in lanes:
-        if not isinstance(lane, dict) or set(lane) != LANE_KEYS:
-            refuse(f"registry: each lane must have exactly {sorted(LANE_KEYS)}")
+        allowed = LANE_KEYS | ({"clerk_jobs"} if version == 2 else set())
+        if not isinstance(lane, dict) or not LANE_KEYS <= set(lane) or set(lane) - allowed:
+            refuse(f"registry: each lane must have exactly {sorted(LANE_KEYS)}"
+                   + (" (and optionally clerk_jobs)" if version == 2 else ""))
+        lane.setdefault("clerk_jobs", [])
+        if not isinstance(lane["clerk_jobs"], list):
+            refuse(f"registry: lane {lane.get('lane')} clerk_jobs must be a list")
+        for job in lane["clerk_jobs"]:
+            if not isinstance(job, dict) or set(job) != CLERK_JOB_KEYS:
+                refuse(f"registry: each clerk job must have exactly {sorted(CLERK_JOB_KEYS)}")
+            for key in ("store", "instructions_base"):
+                if not isinstance(job[key], str) or not os.path.isabs(job[key]):
+                    refuse(f"registry: clerk job {key} must be absolute")
+            for key in ("job_id", "reviewer"):
+                if not isinstance(job[key], str) or not clerk_adapter.CLERK_ID.fullmatch(job[key]):
+                    refuse(f"registry: clerk job {key} is not a Clerk id")
+            pair = (clerk_adapter.canonical_store(job["store"]), job["job_id"].casefold())
+            if pair in clerk_pairs:
+                refuse(f"registry: clerk job {job['job_id']} is registered twice for one store")
+            clerk_pairs.add(pair)
         if not LABEL.fullmatch(str(lane["lane"])) or lane["lane"] in seen:
             refuse(f"registry: lane id {lane['lane']!r} is invalid or repeated")
         seen.add(lane["lane"])
@@ -164,6 +194,16 @@ def load_registry(path_text: str) -> tuple[dict, str]:
         if canon["repository"] not in repos or canon["lane"] not in seen:
             refuse("registry: canonical_assignment names an unknown repository or lane")
         _rel(canon["path"], "canonical_assignment.path")
+    tool = reg.get("clerk_tool")
+    if clerk_pairs and tool is None:
+        refuse("registry: clerk_jobs require clerk_tool")
+    if tool is not None:
+        if not isinstance(tool, dict) or set(tool) != {"path", "sha256"}:
+            refuse("registry: clerk_tool must have exactly path and sha256")
+        if not isinstance(tool["path"], str) or not os.path.isabs(tool["path"]):
+            refuse("registry: clerk_tool.path must be absolute")
+        if not isinstance(tool["sha256"], str) or not HEX64.fullmatch(tool["sha256"]):
+            refuse("registry: clerk_tool.sha256 must be 64 hex")
     order = reg.get("attention_order", ATTENTION_KINDS)
     if not isinstance(order, list) or len(set(order)) != len(order) or set(order) - set(ATTENTION_KINDS):
         refuse("registry: attention_order must list distinct known kinds")
@@ -608,9 +648,14 @@ def load_store(store: Path) -> tuple[dict, list[str]]:
         extra = sorted(set(os.listdir(root / d)) - {"0001.seen.json"}) if (root / d).is_dir() else ["not a directory"]
         try:
             rec = loads_strict(rec_path.read_bytes().decode("utf-8"), f"intake {d}")
-            ok = (isinstance(rec, dict) and set(rec) == RECORD_KEYS and rec["schema"] == INTAKE_SCHEMA
-                  and isinstance(rec["subject"], dict) and set(rec["subject"]) == SUBJECT_KEYS
-                  and isinstance(rec["observed"], dict) and set(rec["observed"]) == OBSERVED_KEYS
+            schema = rec.get("schema") if isinstance(rec, dict) else None
+            subject_keys, observed_keys = ((SUBJECT_KEYS, OBSERVED_KEYS) if schema == INTAKE_SCHEMA else
+                                           (CLERK_SUBJECT_KEYS, CLERK_OBSERVED_KEYS) if schema == INTAKE_SCHEMA_2 else
+                                           (None, None))
+            ok = (isinstance(rec, dict) and set(rec) == RECORD_KEYS and subject_keys is not None
+                  and isinstance(rec["subject"], dict) and set(rec["subject"]) == subject_keys
+                  and (schema == INTAKE_SCHEMA or rec["subject"].get("kind") == "clerk-return")
+                  and isinstance(rec["observed"], dict) and set(rec["observed"]) == observed_keys
                   and isinstance(rec["subject_id"], str) and HEX64.fullmatch(rec["subject_id"])
                   and subject_id(rec["subject"]) == rec["subject_id"] and rec["subject_id"][:12] == d
                   and not extra)
@@ -622,6 +667,42 @@ def load_store(store: Path) -> tuple[dict, list[str]]:
             continue
         records[rec["subject_id"]] = rec
     return records, bad
+
+
+# ---------- registered Clerk returns (05.04) ----------
+
+def clerk_observations(reg: dict, lane: dict, records: dict, store_text: str | None, report: dict) -> list[dict]:
+    """One inspection/2 observation per registered job. Scope: registered jobs only, never an inbox scan."""
+    out = []
+    for job in lane.get("clerk_jobs", []):
+        obs = clerk_adapter.inspect(reg["clerk_tool"], job)
+        where = f"lane {lane['lane']}: clerk {job['job_id']} in {job['store']}"
+        subject = clerk_adapter.subject_for(obs)
+        obs["intake"] = None
+        if obs["status"] != "ok":
+            report["attention"].append(("unsupported", f"{where}: {obs['reason']}"))
+        elif obs["binding"].startswith("mismatch"):
+            report["attention"].append(("conflict", f"{where}: registration binding {obs['binding']}; unusable"))
+        elif obs["state"] in ("unknown",):
+            report["attention"].append(("missing", f"{where}: state unknown: "
+                                        + "; ".join(p["detail"] for p in obs["problems"])))
+        elif obs["state"] in ("incomplete", "corrupt"):
+            report["attention"].append(("clerk-not-clean", f"{where}: state {obs['state']}: "
+                                        + "; ".join(p["detail"] for p in obs["problems"])))
+        if subject:
+            obs["subject_id"] = subject_id(subject)
+            obs["intake"] = ("seen" if obs["subject_id"] in records else "unseen") if store_text else "not checked"
+            if obs["intake"] == "seen":
+                report["attention"].append(("review-needed", f"{where}: event {obs['event_sha256']} seen; review not machine-readable"))
+            else:
+                report["attention"].append(("unseen", f"{where}: event {obs['event_sha256']}"))
+        if obs["status"] == "ok" and obs["state"] == "returned" and not obs["clean"] and not obs["binding"].startswith("mismatch"):
+            # Kept after acknowledgement: a seen record never hides a troubled return.
+            report["attention"].append(("clerk-not-clean", f"{where}: event {obs['event_sha256']} not clean: checks "
+                                        + json.dumps(obs["checks"], sort_keys=True) + " problems "
+                                        + json.dumps(obs["problems"], sort_keys=True)))
+        out.append(obs)
+    return out
 
 
 # ---------- status ----------
@@ -647,6 +728,7 @@ def collect(reg: dict, store_text: str | None) -> dict:
                "repository": repo.name, "files": [], "review_sources": [], "findings": {}, "packets": [],
                "dirty": []}
         report["lanes"].append(out)
+        out["clerk"] = clerk_observations(reg, lane, records, store_text, report)
         if repo.problem:
             continue
         reviews: list = []
@@ -828,6 +910,17 @@ def render(report: dict, reg_sha: str) -> str:
                              f"{'  supersedes ' + rev['supersedes'][:12] if rev['supersedes'] else ''}{extra}")
         for src in lane["review_sources"]:
             lines.append(f"  review source {src['path']}: {src['status']}  history {src['history']}")
+        for obs in lane.get("clerk", []):
+            head = f"  clerk {obs['job_id']}  store {obs['store']}  [registered job; show --json, tool {obs['tool_sha256'][:12]}]"
+            if obs["status"] != "ok":
+                lines.append(f"{head}  UNSUPPORTED: {obs['reason']}")
+                continue
+            lines.append(f"{head}  exit {obs['exit']}  state {obs['state']}  binding {obs['binding']}")
+            lines.append(f"    checks {json.dumps(obs['checks'], sort_keys=True)}  problems {len(obs['problems'])}"
+                         f"  event {obs['event_sha256'] or 'none'}  clean {'yes' if obs['clean'] else 'no'}"
+                         f"  intake {obs['intake'] or 'not eligible'}  review {obs['review']}")
+            for p in obs["problems"]:
+                lines.append(f"    problem {p['kind']}: {p['detail']}")
         if lane["findings"]:
             lines.append("  findings: " + "; ".join(
                 f"{v['id']} [{v['target']}]={v['resolution']} ({v['state']}, passes {v['passes']}"
@@ -843,7 +936,8 @@ def render(report: dict, reg_sha: str) -> str:
     if report["attention"]:
         kind, text = report["attention"][0]
         lines.append(f"attention ({kind}; recommendation, not authority): {text}")
-        packet = next((l["packets"] for l in report["lanes"] if f"lane {l['lane']}:" in text and l["packets"]), [])
+        packet = next((l["packets"] + [o["packet"] for o in l.get("clerk", []) if o.get("packet") and o["job_id"] in text]
+                       for l in report["lanes"] if f"lane {l['lane']}:" in text), [])
         if packet:
             lines.append("packet: " + ", ".join(dict.fromkeys(packet)))
         lines.append(f"attention items: {len(report['attention'])}")
@@ -884,6 +978,14 @@ def cmd_scan(args) -> int:
                 rows.append(f"{lane['lane']} {entry['path']} {labels} revision {rev['revision_id']} "
                             f"{state} review {rev['review']}"
                             f"{' supersedes ' + rev['supersedes'] if rev['supersedes'] else ''}")
+        for obs in lane.get("clerk", []):
+            if obs["status"] != "ok":
+                rows.append(f"{lane['lane']} clerk {obs['job_id']} unsupported: {obs['reason']}")
+            elif obs["event_sha256"] and obs["identity"]:
+                rows.append(f"{lane['lane']} clerk {obs['job_id']} event {obs['event_sha256']} {obs['intake']} "
+                            f"clean {'yes' if obs['clean'] else 'no'} review {obs['review']}")
+            else:
+                rows.append(f"{lane['lane']} clerk {obs['job_id']} not eligible (state {obs['state']}, binding {obs['binding']})")
     if args.json:
         sys.stdout.write(json.dumps({"registry_sha256": reg_sha, "rows": rows}, indent=1) + "\n")
     else:
@@ -938,6 +1040,63 @@ def cmd_ack(args) -> int:
     return 0
 
 
+def cmd_ack_clerk(args) -> int:
+    """Freshly inspect one registered Clerk job and record that its exact returned event was seen."""
+    reg, _ = load_registry(args.registry)
+    if not HEX64.fullmatch(args.event_sha256 or ""):
+        refuse("--event-sha256 must be the full 64-hex returned.event_sha256")
+    if not LABEL.fullmatch(args.actor):
+        refuse("--as must be a plain label")
+    store = store_path(args.intake)
+    lane = next((l for l in reg["lanes"] if l["lane"] == args.lane), None)
+    if lane is None:
+        refuse("unknown lane")
+    wanted = clerk_adapter.canonical_store(args.store)
+    job = next((j for j in lane["clerk_jobs"]
+                if clerk_adapter.canonical_store(j["store"]) == wanted and j["job_id"] == args.job), None)
+    if job is None:
+        refuse("store and job are not a registered Clerk job in that lane")
+    resolved = Path(os.path.realpath(store))
+    for other in (j for l in reg["lanes"] for j in l["clerk_jobs"]):
+        clerk_root = Path(os.path.realpath(other["store"]))
+        if resolved == clerk_root or clerk_root in resolved.parents:
+            refuse("intake store resolves inside a registered Clerk store")
+    records, bad = load_store(store)
+    if bad:
+        refuse("intake store has bad records; nothing written")
+    obs = clerk_adapter.inspect(reg["clerk_tool"], job)
+    if obs["status"] != "ok":
+        refuse("inspection failed: " + obs["reason"])
+    if obs["binding"].startswith("mismatch"):
+        refuse("registration binding " + obs["binding"])
+    subject = clerk_adapter.subject_for(obs)
+    if subject is None:
+        refuse(f"no returned-event identity (state {obs['state']}, checks {json.dumps(obs['checks'], sort_keys=True)})")
+    if subject["event_sha256"] != args.event_sha256:
+        refuse(f"stale event: the job now projects event {subject['event_sha256']}")
+    sid = subject_id(subject)
+    directory = store / "subjects" / sid[:12]
+    target = directory / "0001.seen.json"
+    if target.exists():
+        existing = loads_strict(target.read_bytes().decode("utf-8"), "intake")
+        if existing.get("subject_id") != sid:
+            refuse("abbreviated id collision: a different subject already holds " + sid[:12])
+        if existing.get("by") != args.actor:
+            refuse("conflicting acknowledgement: this subject was acknowledged by another label")
+        sys.stdout.write(f"already-recorded {sid}\n")
+        return 0
+    record = {"schema": INTAKE_SCHEMA_2, "subject_id": sid, "subject": subject,
+              "observed": {"tool_sha256": obs["tool_sha256"], "exit": obs["exit"], "state": obs["state"],
+                           "checks": obs["checks"], "problems": obs["problems"]},
+              "supersedes": None, "by": args.actor,
+              "at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), "note": NOTE}
+    directory.mkdir(parents=True, exist_ok=True)
+    with open(target, "xb") as handle:
+        handle.write(canonical(record))
+    sys.stdout.write(f"seen {sid}\nclean {'yes' if obs['clean'] else 'no'}\n{NOTE}\n")
+    return 0
+
+
 def cmd_show(args) -> int:
     store = store_path(args.intake)
     records, bad = load_store(store)
@@ -947,7 +1106,10 @@ def cmd_show(args) -> int:
         lines = [f"intake store {store}  records {len(records)}"]
         for sid, rec in sorted(records.items()):
             s = rec["subject"]
-            lines.append(f"{sid}  {s['repository']}:{s['path']}  revision {s['revision_id']}  by {rec['by']}  at {rec['at']}")
+            if s.get("kind") == "clerk-return":
+                lines.append(f"{sid}  clerk {s['store']}#{s['job_id']}  event {s['event_sha256']}  by {rec['by']}  at {rec['at']}")
+            else:
+                lines.append(f"{sid}  {s['repository']}:{s['path']}  revision {s['revision_id']}  by {rec['by']}  at {rec['at']}")
         lines.extend(bad)
         sys.stdout.write("\n".join(lines) + "\n")
     return 1 if bad else 0
@@ -976,6 +1138,14 @@ def main(argv=None) -> int:
     ak.add_argument("--path", required=True)
     ak.add_argument("--revision", required=True)
     ak.add_argument("--as", dest="actor", required=True)
+    ac = isub.add_parser("ack-clerk")
+    ac.add_argument("--registry", required=True)
+    ac.add_argument("--intake", required=True)
+    ac.add_argument("--lane", required=True)
+    ac.add_argument("--store", required=True)
+    ac.add_argument("--job", required=True)
+    ac.add_argument("--event-sha256", dest="event_sha256", required=True)
+    ac.add_argument("--as", dest="actor", required=True)
     sh = isub.add_parser("show")
     sh.add_argument("--intake", required=True)
     sh.add_argument("--json", action="store_true")
@@ -987,6 +1157,8 @@ def main(argv=None) -> int:
             return cmd_scan(args)
         if args.action == "ack":
             return cmd_ack(args)
+        if args.action == "ack-clerk":
+            return cmd_ack_clerk(args)
         return cmd_show(args)
     except Refusal as exc:
         sys.stdout.write(f"refused: {exc}\n")

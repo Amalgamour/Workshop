@@ -3,8 +3,10 @@
 
 test-run executes one fixture payload through the pinned runner candidate.
 bridge-test, bridge-status, and bridge-recover are the fixture-only worker exchange.
+pack-check, pack-preview, pack-assemble, and pack-verify call the pinned pack tools.
 The writable container is designated before fixture metadata is read.
 run is refused. A --test flag does not authorize a fixture root.
+A clean pack check is not release readiness.
 """
 
 from __future__ import annotations
@@ -62,10 +64,21 @@ def main(argv: list[str] | None = None) -> None:
         "bridge-test",
         "bridge-status",
         "bridge-recover",
+        "pack-check",
+        "pack-preview",
+        "pack-assemble",
+        "pack-verify",
     ):
         stop("normal run is not activated")
     command = args.pop(0)
     code_root = Path(__file__).resolve().parent.parent
+    if command in ("pack-check", "pack-preview", "pack-assemble", "pack-verify"):
+        tools = load_module(Path(__file__).resolve().parent / "prime_tools.py", "librarian_prime_tools")
+        try:
+            code = tools.perform(command, args, code_root)
+        except tools.Refuse as exc:
+            stop(str(exc))
+        raise SystemExit(code)
     context = load_module(Path(__file__).resolve().parent / "context.py", "librarian_context")
     try:
         if command in ("where", "validate"):
