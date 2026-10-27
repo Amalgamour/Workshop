@@ -1,0 +1,73 @@
+{
+ "absences": [],
+ "limits": {
+  "max_bytes": 131072,
+  "max_refs": 12
+ },
+ "omitted": [],
+ "raw_bytes": 1158,
+ "refs": [
+  {
+   "bytes": 75,
+   "commit": "6913e53ea10840cead4d36252ec4fda4a925e9a4",
+   "id": "R01",
+   "kind": "commit-blob",
+   "live": "same",
+   "path": "00.kernel/00.00.10.work/00.md",
+   "sha256": "55306c2d76b9aff57064309989f4ef3cc556fdaad057e907678c3bc7952ee9da",
+   "text": "00.00.10.work: the fixture work book; contents in 0011.contents/01.001.md.\n"
+  },
+  {
+   "bytes": 339,
+   "commit": "6913e53ea10840cead4d36252ec4fda4a925e9a4",
+   "id": "R02",
+   "kind": "commit-blob",
+   "live": "same",
+   "path": "00.kernel/00.00.10.work/0011.contents/01.001.md",
+   "sha256": "416352eada78a2697a856991d3cc7f3a8eb37c709196a2f84a67bd3db2c41316",
+   "text": "# 01\n\n## Pages\n\n| Page | Faces and files |\n|---|---|\n| `0011.contents` | `01.001.md` |\n| `0401.goal` | `06.01.md` |\n| `0408.seats` | `01.md` |\n| `0599.fixture-lane` | `01.md`, `05.01.md`, `05.02.md` |\n\nBook files: `00.md`.\n\n## Other books\nSyntax: `../00.00.00.syntax/00.001.md`. Law: `../00.00.01.law/00.001.md`. Each lists what it holds.\n"
+  },
+  {
+   "bytes": 65,
+   "commit": "6913e53ea10840cead4d36252ec4fda4a925e9a4",
+   "id": "R03",
+   "kind": "commit-blob",
+   "live": "same",
+   "path": "00.kernel/00.00.10.work/0408.seats/01.md",
+   "sha256": "491a146b1616910afc097c64633351ffdca5346658a09aa1dd9c48368311c5d4",
+   "text": "# 01 seats\nPrime: draft role for a fixture exercise; not seated.\n"
+  },
+  {
+   "bytes": 254,
+   "commit": "6913e53ea10840cead4d36252ec4fda4a925e9a4",
+   "id": "R04",
+   "kind": "commit-blob",
+   "live": "same",
+   "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+   "sha256": "4bed980b1c003038231e197724305d2020479322ecdfde9738df1eaebe73f2da",
+   "text": "record: assignment\nschema: v1\ndesk: 00.kernel\nbook: 00.kernel/00.00.10.work\nworkflow_space: 0599\ncurrent_work: 00.kernel/00.00.10.work/0599.fixture-lane/05.02.md\npack: fixture\nassignment_state: released\nwaits_on: builder\nnext: return\nupdated: 2026-10-27\n"
+  },
+  {
+   "bytes": 241,
+   "commit": "6913e53ea10840cead4d36252ec4fda4a925e9a4",
+   "id": "R05",
+   "kind": "commit-blob",
+   "live": "same",
+   "path": "00.kernel/00.00.10.work/0599.fixture-lane/05.01.md",
+   "sha256": "c35b886a6fdeeb083f0b4b7c9e389aa37a69b1a55b76653d9537e5ec49a0f29c",
+   "text": "# 05 — fixture batch\nstate: draft\n\n## Assignment\nRelease: fixture release.\n\n## #01 — Do it\nWrite out.txt.\n\n## Return — fixture-builder\nClaim: builder one.\nexecution: returned\nDid: wrote it.\n\n## Review — Codex Prime\nReview: accepted.\n"
+  },
+  {
+   "bytes": 184,
+   "commit": "6913e53ea10840cead4d36252ec4fda4a925e9a4",
+   "id": "R06",
+   "kind": "commit-blob",
+   "live": "same",
+   "path": "00.kernel/00.00.10.work/0599.fixture-lane/05.02.md",
+   "sha256": "f35a7b9c18ac37ea04252547f4b480cdd81a3ac93d2999c6e63d12f5c1e2c9a7",
+   "text": "# 05 — fixture batch\nstate: draft\n\n## Assignment\nRelease: fixture release.\n\n## #01 — Do it\nWrite out.txt.\n\n## Return — fixture-builder\nClaim: builder two.\nExecution: IN PROGRESS\n"
+  }
+ ],
+ "stage": "packet",
+ "status": "ok"
+}

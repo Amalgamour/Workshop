@@ -1,0 +1,68 @@
+fixture repository C:\Users\misg\AppData\Local\Temp\pb-st-dfjluoua\work
+records root C:\Users\misg\AppData\Local\Temp\pb-records-2xfjio4k
+
+== attempt 1: prepare (max_refs 5)
+attempt C:\Users\misg\AppData\Local\Temp\pb-records-2xfjio4k\a1
+prepare partial: 1 source(s) omitted by the caps
+reported conflicts: [
+ "canonical says waiting for 00.kernel/00.00.10.work/0599.fixture-lane/05.01.md; published page shows a return (execution unknown)",
+ "canonical says waiting for 00.kernel/00.00.10.work/0599.fixture-lane/05.01.md; local page shows a return (execution unknown)",
+ "canonical says waiting for 00.kernel/00.00.10.work/0599.fixture-lane/05.01.md; worktree page shows a return (execution unknown)"
+]
+
+== attempt 1: check (fixture answers)
+checks failed
+O1 fail: O1 must acknowledge every reported conflict (0..2)
+O2 ok
+O3 ok
+O4 ok
+O5 ok
+O6 ok
+
+== attempt 1: judge (fixture judgement)
+outcome not-oriented
+authority none; orientation grants no new work authority
+
+== attempt 1: show
+attempt C:\Users\misg\AppData\Local\Temp\pb-records-2xfjio4k\a1
+state not-oriented
+files 00.intent.json 00.request.raw 01.request.json 02.links.json 03.tools.json 04.git.json 05.book.json 06.records.json 07.status.json 08.members.json 09.packet.json 10.stability.json 19.prepare-outcome.json 20.answers.raw 21.answers.json 22.checks.json 30.judgement.raw 31.judgement.json 39.outcome.json
+authority none; orientation grants no new work authority
+
+== attempt 2: prepare (links attempt 1, max_refs 12)
+attempt C:\Users\misg\AppData\Local\Temp\pb-records-2xfjio4k\a2
+prepare prepared
+link: {
+ "previous_attempt": "C:\\Users\\misg\\AppData\\Local\\Temp\\pb-records-2xfjio4k\\a1",
+ "previous_attempt_id": "a1",
+ "previous_attempt_number": 1,
+ "previous_intent_sha256": "0c162101d279e8422c99f03115a6dae480577713805f735ef9d5e8c08b296d03",
+ "previous_outcome_present": true,
+ "stage": "links"
+}
+
+== attempt 2: check
+checks ok
+O1 ok
+O2 ok
+O3 ok
+O4 ok
+O5 ok
+O6 ok
+
+== attempt 2: judge
+outcome oriented
+authority none; orientation grants no new work authority
+
+== attempt 2: show
+attempt C:\Users\misg\AppData\Local\Temp\pb-records-2xfjio4k\a2
+state oriented
+files 00.intent.json 00.request.raw 01.request.json 02.links.json 03.tools.json 04.git.json 05.book.json 06.records.json 07.status.json 08.members.json 09.packet.json 10.stability.json 19.prepare-outcome.json 20.answers.raw 21.answers.json 22.checks.json 30.judgement.raw 31.judgement.json 39.outcome.json
+authority none; orientation grants no new work authority
+
+attempt 1 files: 00.intent.json 00.request.raw 01.request.json 02.links.json 03.tools.json 04.git.json 05.book.json 06.records.json 07.status.json 08.members.json 09.packet.json 10.stability.json 19.prepare-outcome.json 20.answers.raw 21.answers.json 22.checks.json 30.judgement.raw 31.judgement.json 39.outcome.json
+attempt 2 files: 00.intent.json 00.request.raw 01.request.json 02.links.json 03.tools.json 04.git.json 05.book.json 06.records.json 07.status.json 08.members.json 09.packet.json 10.stability.json 19.prepare-outcome.json 20.answers.raw 21.answers.json 22.checks.json 30.judgement.raw 31.judgement.json 39.outcome.json
+
+No model was called. Answers and judgements are fixtures. Orientation is not authority.
+
+STDERR

@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "D:\librarian\temp\review-primeboot07\repo\labs\prime-boot-pass01\prime_boot.py", line 640, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "D:\librarian\temp\review-primeboot07\repo\labs\prime-boot-pass01\prime_boot.py", line 627, in main
+    return check(args.attempt, args.answers)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\librarian\temp\review-primeboot07\repo\labs\prime-boot-pass01\prime_boot.py", line 522, in check
+    results = check_answers(attempt, doc["answers"])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\librarian\temp\review-primeboot07\repo\labs\prime-boot-pass01\prime_boot.py", line 469, in check_answers
+    elif not any(ref_by_id.get(c, {}).get("path") == target for c in item["citations"] if isinstance(c, str)):
+                                                                     ~~~~^^^^^^^^^^^^^
+TypeError: 'NoneType' object is not iterable

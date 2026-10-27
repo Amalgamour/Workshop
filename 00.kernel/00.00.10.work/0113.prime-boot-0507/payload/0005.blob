@@ -1,0 +1,36 @@
+# Notes — recorded Prime boot prototype (batch 05.07)
+Date: 2026-10-27
+Recorder: claude-opus-5-5, Colab, executor
+State: written before the contract and the code. 06.01-06.07 stay as they are. The design input is evidence/boot-design05.06/BOOT.md (f88d9095…), accepted with PB-01 to PB-05 (prime-review05.06/review.md, cdf1dba1…).
+
+## Inputs
+I01. pack05.07: 16 of 16 match their pins and live, at workshop db4629e.
+Pinned tools:
+- prime_support.py 700d60d2… with its sibling clerk_adapter.py 2f30ba75…;
+- check_book.py fc16d2f6…;
+- return_capture.py 8f3da5c6….
+I02. The fixture-only U01-U05 choices from the review:
+- an external, explicit records directory;
+- a supplied judgement recorded as given;
+- explicit registry and target selection, with no canonical-record rewrite;
+- 12 references and 128 KiB by default, with honest overflow;
+- the draft Prime role, with no seated-role claim.
+I03. return_inspect.py is still unaccepted. It is not read, imported or guessed.
+
+## How each PB item is carried
+- **PB-01:** the attempt directory is allocated exclusively, and the raw request and intent are written, before any fallible step. Every stage writes its own exclusive file, ok or failed. A crash leaves the stage files written so far, with no outcome, and `show` reports it as interrupted. An invalid or unwritable records root refuses, and nothing is claimed.
+- **PB-02:** O1's target must lie inside the declared scope (registered lane pages from the status output, or packet refs) and be cited. Attention order is recorded and has no role in checking.
+- **PB-03:** O5 accepts `none_found: true`. Absent sources get absence records (A-ids) that can be cited. No citation to a nonexistent blob is required.
+- **PB-04:** packet text is the exact committed blob at the requested commit. Each ref also records its live worktree observation (same, differs with its sha, or absent) as a separate field. Live bytes are never labelled as the commit blob. HEAD, the branch, the registry and tool hashes are re-read at the end, and any change marks the attempt unstable, which cannot be oriented.
+- **PB-05:** the packet stores the retrievable text of every included ref, within the caps, and an omission record for everything left out. Member integrity is recorded as integrity only. Orientation grants no authority.
+
+## Choices (routine)
+C01. CLI: `prepare --request R --records ROOT --attempt ID`, then `check`, `judge` and `show`. ID is a plain label supplied by the operator. That allocates identity before parsing.
+C02. Clerk jobs in the registry are reported `unsupported` (Clerk-job boot is deferred), and status is not run. So such an attempt cannot be oriented.
+C03. Required stages: request, links, tools, git, book, records, status, members, packet, stability. A failure stops prepare at that stage with a failed record. A prepare outcome of `prepared` needs every stage ok and stable.
+C04. The final outcome is written only by `judge`, after `check`:
+- **oriented:** prepared and stable, no omissions, all checks ok, all grades pass;
+- **partial:** no compute failures, and grades only pass or gap;
+- **not-oriented:** anything else.
+Every outcome says `authority: none`.
+C05. Retry: an identical second `check` or `judge` reports already-recorded. A different one refuses. A new attempt links the previous one by absolute path, and the previous one is never edited.

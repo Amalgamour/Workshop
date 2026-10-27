@@ -1,0 +1,24 @@
+{
+  "bad_citations": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"D:\\librarian\\temp\\review-primeboot07\\repo\\labs\\prime-boot-pass01\\prime_boot.py\", line 640, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"D:\\librarian\\temp\\review-primeboot07\\repo\\labs\\prime-boot-pass01\\prime_boot.py\", line 627, in main\n    return check(args.attempt, args.answers)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\librarian\\temp\\review-primeboot07\\repo\\labs\\prime-boot-pass01\\prime_boot.py\", line 522, in check\n    results = check_answers(attempt, doc[\"answers\"])\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\librarian\\temp\\review-primeboot07\\repo\\labs\\prime-boot-pass01\\prime_boot.py\", line 469, in check_answers\n    elif not any(ref_by_id.get(c, {}).get(\"path\") == target for c in item[\"citations\"] if isinstance(c, str)):\n                                                                     ~~~~^^^^^^^^^^^^^\nTypeError: 'NoneType' object is not iterable\n"
+  },
+  "retry": {
+    "exit": 0,
+    "stdout": "already-recorded\n",
+    "stderr": ""
+  },
+  "checks_exist": false,
+  "bad_grade": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"D:\\librarian\\temp\\review-primeboot07\\repo\\labs\\prime-boot-pass01\\prime_boot.py\", line 640, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"D:\\librarian\\temp\\review-primeboot07\\repo\\labs\\prime-boot-pass01\\prime_boot.py\", line 629, in main\n    return judge(args.attempt, args.judgement)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\librarian\\temp\\review-primeboot07\\repo\\labs\\prime-boot-pass01\\prime_boot.py\", line 556, in judge\n    or not isinstance(doc[\"grades\"], dict) or set(doc[\"grades\"]) != qs or not all(g in GRADES for g in doc[\"grades\"].values()) \\\n                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\librarian\\temp\\review-primeboot07\\repo\\labs\\prime-boot-pass01\\prime_boot.py\", line 556, in <genexpr>\n    or not isinstance(doc[\"grades\"], dict) or set(doc[\"grades\"]) != qs or not all(g in GRADES for g in doc[\"grades\"].values()) \\\n                                                                                  ^^^^^^^^^^^\nTypeError: unhashable type: 'dict'\n"
+  },
+  "grade_retry": {
+    "exit": 0,
+    "stdout": "already-recorded\n",
+    "stderr": ""
+  },
+  "outcome_exists": false
+}

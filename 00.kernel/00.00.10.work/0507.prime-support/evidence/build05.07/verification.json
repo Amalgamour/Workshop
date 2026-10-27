@@ -1,0 +1,133 @@
+{
+ "schema": "build05.07-verification",
+ "batch": "0507.prime-support/05.07",
+ "who": "claude-opus-5-5",
+ "date": "2026-10-27",
+ "workshop_at_claim": "db4629e48217a79d6f9839afd7ea105ec5ec8fb8",
+ "workshop_head_at_verification": "b13c7ef5ac56ffae3ff3126bf355da066d4618d1",
+ "head_note": "other lanes committed between claim and verification; this batch made no commit",
+ "pins": {
+  "labs/prime-support-pass01/prime_support.py": {
+   "expected": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70",
+   "live": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70",
+   "match": true
+  },
+  "labs/prime-support-pass01/clerk_adapter.py": {
+   "expected": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4",
+   "live": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4",
+   "match": true
+  },
+  "labs/book-orientation-pass01/check_book.py": {
+   "expected": "fc16d2f68a3645050b6766ce18ce55f8169a0e2bad52d3392b4d059c629073a4",
+   "live": "fc16d2f68a3645050b6766ce18ce55f8169a0e2bad52d3392b4d059c629073a4",
+   "match": true
+  },
+  "labs/return-capture-pass01/return_capture.py": {
+   "expected": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+   "live": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+   "match": true
+  }
+ },
+ "pins_in_code_match": true,
+ "return_inspect_referenced_only_as_unaccepted": true,
+ "stdlib_only": true,
+ "tests": {
+  "count": 18,
+  "runs": [
+   {
+    "run": "run1",
+    "mode": "dev",
+    "result": "FAILED (failures=1) test_18; 2 ResourceWarnings",
+    "retained": true
+   },
+   {
+    "run": "run2",
+    "mode": "dev",
+    "result": "OK"
+   },
+   {
+    "run": "run3",
+    "mode": "default",
+    "result": "OK"
+   },
+   {
+    "run": "run4",
+    "mode": "dev",
+    "result": "OK",
+    "warnings": 0
+   },
+   {
+    "run": "run5",
+    "mode": "default",
+    "result": "OK"
+   }
+  ]
+ },
+ "demo": {
+  "runs": [
+   "demo1 dev ok",
+   "demo3 dev ok",
+   "demo4 default ok"
+  ],
+  "attempt1": "partial prepare (max_refs 5) -> checks failed (O1 missed 3 conflicts) -> judged gap with 2 remediations -> not-oriented",
+  "attempt2": "links attempt1 -> prepared -> checks ok -> oriented, authority none"
+ },
+ "required_cases": {
+  "content and citation checks": "test_01, test_02",
+  "known conflicts": "test_03",
+  "non-first valid target": "test_04",
+  "no-missing-dependency case": "test_05",
+  "missing source with absence evidence": "test_05",
+  "wrong or missing tool pin": "test_06",
+  "dirty versus committed bytes": "test_07",
+  "HEAD or ref change": "test_08",
+  "packet overflow": "test_09",
+  "malformed or duplicate inputs": "test_10",
+  "invalid linked or occupied destinations": "test_11",
+  "failed preparation kept": "test_12",
+  "stage interruption retained": "test_13",
+  "immutable retry and conflict": "test_14",
+  "no orientation without judgement": "test_15",
+  "clerk jobs unsupported": "test_16",
+  "members integrity only": "test_17",
+  "source and Git metadata unchanged, no writes outside records": "test_18"
+ },
+ "residue": "runs 1-3 left 56 pb-* fixture folders in the system temp directory (rmtree ignore_errors on read-only Git objects); the teardown is fixed and runs 4-5 left none; the 56 were not removed (a broad temp sweep was not permitted in this session)",
+ "not_claimed": [
+  "no model cold-booted",
+  "no live registry",
+  "no shared Git commit or push",
+  "no assignment record changed",
+  "return inspector not integrated"
+ ],
+ "outputs": {
+  "labs/prime-boot-pass01/prime_boot.py": {
+   "sha256": "c3c194fc897e2108b0d67305345122363a68bc085051d92ba04c3c0f543e1582",
+   "bytes": 34184
+  },
+  "labs/prime-boot-pass01/README.md": {
+   "sha256": "b616777e5058b652f6c3bffe11ccf85fc63273a6e07872ed8e2d210b884f59e1",
+   "bytes": 3502
+  },
+  "labs/prime-boot-pass01/tests/test_prime_boot.py": {
+   "sha256": "b2e23fba99bd11afe2c66537fae63ef2cfad4e29578a77f4f229508a01da0a8f",
+   "bytes": 31255
+  },
+  "labs/prime-boot-pass01/demo.py": {
+   "sha256": "6755577c97b03a5b2b539d0c7d152e913f3b8040713dacb1a58908a6a06304a6",
+   "bytes": 3637
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/06.08.md": {
+   "sha256": "89bfc632f36e4aba2d19affde7e7fb6ccb535db968a30b91e905afed5decc558",
+   "bytes": 3389
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/build05.07/CONTRACT.md": {
+   "sha256": "d946e48b7afea2b501607a8a63cb0bdecab231e0304d19634e165338d81b3231",
+   "bytes": 7087
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/build05.07/tests.txt": {
+   "sha256": "d1c8193bb4757f79be271df9f2759ae4336a707b3e8a3f18b894fad40ef5ac61",
+   "bytes": 17342
+  }
+ }
+}

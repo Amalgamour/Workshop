@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "D:\librarian\temp\review-primeboot07\repo\labs\prime-boot-pass01\prime_boot.py", line 640, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "D:\librarian\temp\review-primeboot07\repo\labs\prime-boot-pass01\prime_boot.py", line 629, in main
+    return judge(args.attempt, args.judgement)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\librarian\temp\review-primeboot07\repo\labs\prime-boot-pass01\prime_boot.py", line 556, in judge
+    or not isinstance(doc["grades"], dict) or set(doc["grades"]) != qs or not all(g in GRADES for g in doc["grades"].values()) \
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\librarian\temp\review-primeboot07\repo\labs\prime-boot-pass01\prime_boot.py", line 556, in <genexpr>
+    or not isinstance(doc["grades"], dict) or set(doc["grades"]) != qs or not all(g in GRADES for g in doc["grades"].values()) \
+                                                                                  ^^^^^^^^^^^
+TypeError: unhashable type: 'dict'

@@ -1,0 +1,55 @@
+{
+ "checker_exit": 0,
+ "checker_report": {
+  "advisory": true,
+  "book": "00.kernel/00.00.10.work",
+  "commit": "6913e53ea10840cead4d36252ec4fda4a925e9a4",
+  "contents_path": "00.kernel/00.00.10.work/0011.contents/01.001.md",
+  "contents_sha256": "416352eada78a2697a856991d3cc7f3a8eb37c709196a2f84a67bd3db2c41316",
+  "counts": {
+   "book_files_listed": 1,
+   "other_books": 2,
+   "rows": 4,
+   "tree_pages": 4
+  },
+  "covered": [
+   "Pages table rows: page folders, direct files, direct subdirectories, recursive tracked-file counts",
+   "Book files list",
+   "Other books paths (relative to the book root)"
+  ],
+  "findings": [],
+  "not_covered": [
+   "prose references and other links",
+   "face contents",
+   "whether a page should be published",
+   "the working tree, the index and untracked files"
+  ],
+  "other_books": [
+   {
+    "label": "Syntax",
+    "path": "../00.00.00.syntax/00.001.md",
+    "present": true,
+    "resolved": "00.kernel/00.00.00.syntax/00.001.md"
+   },
+   {
+    "label": "Law",
+    "path": "../00.00.01.law/00.001.md",
+    "present": true,
+    "resolved": "00.kernel/00.00.01.law/00.001.md"
+   }
+  ],
+  "result": "clean",
+  "revision_input": "6913e53ea10840cead4d36252ec4fda4a925e9a4",
+  "schema": "book-orientation-check@1",
+  "scope": "published tree at the commit only; working tree, index and untracked files not read",
+  "selection_source": "book 00.md pointer",
+  "sentinel_pointer": "contents in 0011.contents/01.001.md."
+ },
+ "contents": "00.kernel/00.00.10.work/0011.contents/01.001.md",
+ "entry": "00.kernel/00.00.10.work/00.md",
+ "entry_sha256": "55306c2d76b9aff57064309989f4ef3cc556fdaad057e907678c3bc7952ee9da",
+ "findings": [],
+ "pointer": "0011.contents/01.001.md",
+ "stage": "book",
+ "status": "ok"
+}
