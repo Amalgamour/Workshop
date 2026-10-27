@@ -3,6 +3,7 @@
 
 test-run executes one fixture payload through the pinned runner candidate.
 bridge-test, bridge-status, and bridge-recover are the fixture-only worker exchange.
+clerk-deliver copies one collected fixture delivery into the caller's claimed Clerk job.
 pack-check, pack-preview, pack-assemble, and pack-verify call the pinned pack tools.
 The writable container is designated before fixture metadata is read.
 run is refused. A --test flag does not authorize a fixture root.
@@ -64,6 +65,7 @@ def main(argv: list[str] | None = None) -> None:
         "bridge-test",
         "bridge-status",
         "bridge-recover",
+        "clerk-deliver",
         "pack-check",
         "pack-preview",
         "pack-assemble",
@@ -121,6 +123,28 @@ def main(argv: list[str] | None = None) -> None:
             sys.stdout.write(report.text)
             if report.code != 0:
                 raise SystemExit(report.code)
+            return
+        if command == "clerk-deliver":
+            root = directory(take(args, "--root"))
+            explicit = take(args, "--container") if "--container" in args else None
+            link = take(args, "--link")
+            actor = take(args, "--as")
+            instructions = take(args, "--instructions-base")
+            if args:
+                stop("unknown argument")
+            seam = load_module(Path(__file__).resolve().parent / "clerk_seam.py", "librarian_clerk_seam")
+            result = seam.perform(
+                context,
+                code_root,
+                root,
+                link_rel=link,
+                actor=actor,
+                instructions_base=instructions,
+                explicit=explicit,
+            )
+            sys.stdout.write(result.text)
+            if result.code != 0:
+                raise SystemExit(result.code)
             return
         test_flag = "--test" in args
         if test_flag:

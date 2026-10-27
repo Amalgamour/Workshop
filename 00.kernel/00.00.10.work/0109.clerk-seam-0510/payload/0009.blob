@@ -1,0 +1,95 @@
+{
+  "schema": "clerk-seam-0510/1",
+  "disposable_copy": "C:/Users/misg/AppData/Local/Temp/seam0510-repo",
+  "claim_head": "a7f5ba7df66469ffb3f4f1da4ac5ef9f737570d4",
+  "source_before": {
+    "librarian.py": {
+      "sha256": "fe31aae774ccc2cfa37839c2e423e0e58240e594e364888b323a5308ba0ab452",
+      "bytes": 6486
+    },
+    "README.md": {
+      "sha256": "6237ddf4b8d0a7403e4ca4d3969b720ac89edfac0912965d1d6886e01a87e04f",
+      "bytes": 9798
+    }
+  },
+  "demo": {
+    "receipt": "3b08575c251359118482fbdcc3927130031baf348b2e5803d49c8e0b8278b594",
+    "artifact": "0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6",
+    "launches": "1",
+    "replay": "already-recorded",
+    "process": "fresh librarian.py and clerk.py subprocesses inside test_clerk_seam.py"
+  },
+  "products": {
+    "app/clerk_seam.py": {
+      "sha256": "abbf48a134d10b49bcf52a906b833561165d1bc67d1f5d61e1a77f3c32864878",
+      "bytes": 25819
+    },
+    "app/clerk-seam.json": {
+      "sha256": "309a0618cab6673cd03e8d263ae28e663c855290e7c53822516412ae87f6a88f",
+      "bytes": 195
+    },
+    "app/librarian.py": {
+      "sha256": "98a0a4a93b05f16f293d38d2b27ea4001be61c34ff8b575a1a6746b0e260ba8e",
+      "bytes": 7488
+    },
+    "app/README.md": {
+      "sha256": "85540a29f668b3d6dbb7f6df486e770bae2dab3e7f9b60eb56f253151a9fc1fa",
+      "bytes": 12777
+    },
+    "app/tests/test_clerk_seam.py": {
+      "sha256": "f2a1e083a66763527345df805b0777af713e6cfcdbf05fc2ce1b7b25f1a442c2",
+      "bytes": 47596
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/evidence/seam05.10/CONTRACT.md": {
+      "sha256": "15d9ef00b4310caa27a2a0007527e447a80e721ff4b9b352756a78072b965073",
+      "bytes": 9347
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/06.10.md": {
+      "sha256": "9c1e819147ecf85bff4fb6231e136b106619c96a5a89ed65a8100799943bf2b6",
+      "bytes": 7162
+    }
+  },
+  "tests_txt": {
+    "sha256": "8ef25dff4dd98061c54779efd6e3a9a4bb0f65b1c7ed08dac295e163c1f05f41",
+    "bytes": 9577,
+    "crlf": true
+  },
+  "suites": [
+    {
+      "command": "python -B app/tests/test_clerk_seam.py",
+      "exit": 0,
+      "stdout_bytes": 2260,
+      "stderr_bytes": 0,
+      "stdout_crlf": true,
+      "summary": "pass 30 expected-refusal 18 skip 1 fail 0",
+      "skip": "dangling file symlink: WinError 1314"
+    },
+    {
+      "command": "python -B app/tests/test_entry.py",
+      "exit": 0,
+      "stdout_bytes": 2472,
+      "stderr_bytes": 0,
+      "stdout_crlf": true,
+      "summary": "pass 12 expected-refusal 46 skip 1 fail 0",
+      "skip": "dangling file symlink: WinError 1314"
+    },
+    {
+      "command": "python -B app/tests/test_prime_tools.py -v",
+      "exit": 0,
+      "stdout_bytes": 0,
+      "stderr_bytes": 1623,
+      "stderr_crlf": true,
+      "summary": "Ran 12 tests in 14.646s; OK (skipped=1)",
+      "skip": "file symlink pin, WinError 1314"
+    },
+    {
+      "command": "python -B app/tests/test_worker_bridge.py",
+      "exit": 0,
+      "stdout_bytes": 2363,
+      "stderr_bytes": 0,
+      "stdout_crlf": true,
+      "summary": "pass 38 expected-refusal 27 skip 1 fail 0",
+      "skip": "pre-planted file symlink: WinError 1314"
+    }
+  ]
+}

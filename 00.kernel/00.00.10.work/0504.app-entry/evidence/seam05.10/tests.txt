@@ -1,0 +1,223 @@
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B app/tests/test_clerk_seam.py
+cwd: C:\Users\misg\AppData\Local\Temp\seam0510-repo
+exit: 0
+--- stdout ---
+REFUSAL normal run is not activated
+PASS A1 clerk-deliver returns the collected artifact
+PASS A1 replay is already-recorded and launches nothing
+REFUSAL returned replay still checks the actor
+DEMO receipt 3b08575c251359118482fbdcc3927130031baf348b2e5803d49c8e0b8278b594
+DEMO artifact 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6
+DEMO launches 1
+DEMO replay already-recorded
+PASS A1 reviewer inbox, verify, and one launch
+PASS B1 a later call is the one launch
+PASS B3 repeat copies without a second launch
+PASS B4 repeat returns the existing copy
+PASS B5 repeat is already-recorded
+PASS in-process interruption hooks keep the partial stores
+PASS B2 uncertain launch is not a Clerk return
+PASS B2 recover then deliver does not launch
+PASS bridge-recover stays outside clerk-deliver
+REFUSAL A9 unclaimed job
+REFUSAL A9 wrong actor
+REFUSAL A9 missing link
+REFUSAL A9 link hash does not match the job
+REFUSAL A9 store outside the container
+REFUSAL A9 link job does not match the bridge job
+REFUSAL A10 stale instructions before delivery
+PASS A10 stale instructions after delivery
+PASS A10 setup return
+PASS A10 returned replay still checks instructions
+REFUSAL A11 Clerk returned under another delivery
+REFUSAL A11 provenance job hash still binds the link
+PASS A7 different outbox bytes stay
+PASS A7 changed bridge output is not copied
+REFUSAL A8 malformed receipt is refused
+REFUSAL A8 receipt without request_sha256 is refused
+REFUSAL B1a claim without an outbox
+PASS B5a setup return
+PASS B5a witness mismatch stays attention
+PASS artifact-changed setup return
+PASS returned replay sees a changed outbox
+PASS A13 uncollected is exit 3
+PASS A13 collected failed is exit 3
+PASS A13 crash is exit 4
+PASS A13 timeout is exit 4
+REFUSAL A12 scratch store is inside Git
+REFUSAL A12 unknown flag
+REFUSAL A12 test flag is not a grant
+REFUSAL A14 clerk pin mismatch starts no subprocess
+PASS occupied junction stays
+PASS occupied hardlink stays
+SKIP dangling file symlink: WinError 1314
+PASS A15 later call is already-recorded
+PASS A15 one launch and one return
+PASS guarded bytes were unchanged
+PASS no bytecode was written into the books or app
+summary pass 30 expected-refusal 18 skip 1 fail 0
+--- stderr ---
+
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B app/tests/test_entry.py
+cwd: C:\Users\misg\AppData\Local\Temp\seam0510-repo
+exit: 0
+--- stdout ---
+PASS pinned sources still match the manifest
+PASS real workspace where and validate
+PASS fixture inventory from a foreign cwd and a relocated root
+REFUSAL test-run on the real workspace
+REFUSAL test-run on the real work book
+REFUSAL normal run
+REFUSAL direct runner 002 refuses
+REFUSAL direct runner 003 refuses
+PASS refused commands left the guarded files unchanged
+REFUSAL accepted assignment is not a fresh release
+PASS accepted context can be inspected and does not select a higher version
+REFUSAL accepted fixture with --test is not a fresh release
+REFUSAL missing work book
+REFUSAL missing work item
+REFUSAL undeclared workflow space
+REFUSAL wrong job book
+REFUSAL job book mapped onto the runtime book
+REFUSAL ambiguous compute title
+REFUSAL path escape
+REFUSAL payload outside its compute page
+REFUSAL wrong payload hash
+REFUSAL payload bytes do not match the declared hash
+REFUSAL compute page outside the band is not climbed to
+REFUSAL two compute pages for one keyword
+REFUSAL source folder app is not a fixture container
+REFUSAL source page is not a fixture container
+REFUSAL fixture allowed_root is not authority
+REFUSAL external container was not named
+REFUSAL external container overlaps the workspace
+REFUSAL filesystem root is not a container
+REFUSAL fixture root is a filesystem root
+REFUSAL junction to app is not a container
+REFUSAL junction output leaves the container
+PASS designated page fixtures container
+PASS protected source bytes stayed unchanged
+PASS fresh inventory when the output names are absent
+REFUSAL existing ordinary output
+REFUSAL existing ordinary temporary
+REFUSAL direct output hard link
+REFUSAL temporary hard link
+REFUSAL dangling temporary junction
+SKIP dangling file symlink: WinError 1314: a required privilege is not held by the client
+PASS occupied output names stayed unchanged
+REFUSAL reparse escape
+REFUSAL missing config
+REFUSAL malformed config
+REFUSAL duplicate config key
+REFUSAL config version type
+REFUSAL unknown config key
+REFUSAL config cannot widen fixture containers
+REFUSAL malformed record
+REFUSAL duplicate record key
+REFUSAL invalid assignment state
+REFUSAL record carriage return
+REFUSAL assignment path is the derived view
+PASS tampered 00.live does not change context
+REFUSAL wrong runner hash
+PASS guarded bytes were unchanged by the suite
+PASS no bytecode was written into the books or app
+summary pass 12 expected-refusal 46 skip 1 fail 0
+--- stderr ---
+
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B app/tests/test_prime_tools.py -v
+cwd: C:\Users\misg\AppData\Local\Temp\seam0510-repo
+exit: 0
+--- stdout ---
+
+--- stderr ---
+test_argparse_diagnostics_match_and_create_nothing (__main__.PrimeToolsTest.test_argparse_diagnostics_match_and_create_nothing) ... ok
+test_checker_injection_writes_nothing (__main__.PrimeToolsTest.test_checker_injection_writes_nothing) ... ok
+test_declaration_faults_and_normal_run (__main__.PrimeToolsTest.test_declaration_faults_and_normal_run) ... ok
+test_file_symlink_pin_is_not_followed (__main__.PrimeToolsTest.test_file_symlink_pin_is_not_followed) ... skipped 'file symlink privilege WinError 1314'
+test_junction_pin_is_not_followed (__main__.PrimeToolsTest.test_junction_pin_is_not_followed) ... ok
+test_occupied_linked_and_live_book_targets_match_direct (__main__.PrimeToolsTest.test_occupied_linked_and_live_book_targets_match_direct) ... ok
+test_path_escape_is_refused (__main__.PrimeToolsTest.test_path_escape_is_refused) ... ok
+test_preview_assemble_verify_and_pack_check_match_direct (__main__.PrimeToolsTest.test_preview_assemble_verify_and_pack_check_match_direct) ... ok
+test_snapshot_mutation_fails_and_keeps_the_receipt (__main__.PrimeToolsTest.test_snapshot_mutation_fails_and_keeps_the_receipt) ... ok
+test_sources_match_the_declaration (__main__.PrimeToolsTest.test_sources_match_the_declaration) ... ok
+test_stale_digest_and_malformed_request_match_direct (__main__.PrimeToolsTest.test_stale_digest_and_malformed_request_match_direct) ... ok
+test_wrong_hash_and_missing_tool_write_nothing (__main__.PrimeToolsTest.test_wrong_hash_and_missing_tool_write_nothing) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 14.646s
+
+OK (skipped=1)
+
+$ C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B app/tests/test_worker_bridge.py
+cwd: C:\Users\misg\AppData\Local\Temp\seam0510-repo
+exit: 0
+--- stdout ---
+PASS pinned lab and example bytes
+PASS bridge-test collected the count
+PASS fresh-process status reads the receipt
+PASS identical replay does not launch again
+PASS replay does not recreate the output directory
+PASS external container collected
+PASS external fresh status
+PASS external replay
+PASS status after accepted and current-work change
+PASS status after returned
+PASS bad-hash
+PASS missing-artifact
+PASS escape
+PASS garbage
+PASS partial
+PASS bad-shape
+PASS dup-keys
+PASS crash
+PASS output-limit
+PASS timeout stays uncertain
+PASS timeout replay does not relaunch
+PASS inherited pipes stay incomplete
+PASS conflict setup collected
+REFUSAL conflicting delivery does not claim there was no launch
+PASS interrupted receipt stays uncertain
+PASS recover rebuilds the receipt without a launch
+PASS second recover reads the stored receipt
+PASS launch without an attempt stays uncertain
+PASS unknown delivery is not collected
+PASS accepted-not-launched setup
+PASS accepted-not-launched stays not collected
+PASS bad provenance setup
+REFUSAL bad stored provenance
+REFUSAL escaping stored path
+REFUSAL unreleased new work
+REFUSAL unknown backend
+REFUSAL work_ref is not current work
+REFUSAL bad limits
+REFUSAL job path escape
+REFUSAL normal run
+REFUSAL live workspace
+REFUSAL pre-planted per-delivery directory
+REFUSAL pre-planted hard link
+REFUSAL pre-planted store
+REFUSAL pre-planted junction
+SKIP pre-planted file symlink: WinError 1314: A required privilege is not held by the client
+PASS correlation setup collected
+REFUSAL missing request hash is not a wildcard
+REFUSAL replay refuses a bad stored receipt
+REFUSAL recover refuses a bad stored receipt
+REFUSAL correct hash does not excuse wrong ids
+REFUSAL replay refuses wrong ids
+REFUSAL recover refuses wrong ids
+REFUSAL unsupported receipt schema
+REFUSAL non-object receipt
+REFUSAL replay refuses a non-object receipt
+REFUSAL malformed receipt
+REFUSAL recover refuses a malformed receipt
+PASS status still reads a consistent receipt
+PASS replay still does not launch
+REFUSAL pin mismatch before import
+REFUSAL wrong kind
+PASS launch-failed is not collected
+PASS accepted bridge 30 tests in an isolated copy
+PASS guarded bytes were unchanged
+PASS no bytecode was written into the books or app
+summary pass 38 expected-refusal 27 skip 1 fail 0
+--- stderr ---
+

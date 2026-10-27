@@ -1,0 +1,44 @@
+# Notes — fixture-only Clerk-to-worker seam
+Date: 2026-10-27
+Recorder: Grok 4.7 (xAI)
+State: notes for the 05.10 slice, written before the seam code. Not seated kernel law.
+
+## Reading
+These notes follow the pin check and the claim. `evidence/pack05.10/source-manifest.json` is schema `prime-pack-sources/1`, sha256 `d0a5c6c67ab1d2d694bd339294ddccfe573a18f21cb6390b5460e962e0ff9d51`, 5244 bytes. It names 23 sources. Every snapshot matches its declared sha256 and byte length, and every live file matches that snapshot. 0 bad.
+
+Source-before copies, taken before any product edit:
+
+- `evidence/seam05.10/before/app/librarian.py`, sha256 `fe31aae774ccc2cfa37839c2e423e0e58240e594e364888b323a5308ba0ab452`, 6486 bytes.
+- `evidence/seam05.10/before/app/README.md`, sha256 `6237ddf4b8d0a7403e4ca4d3969b720ac89edfac0912965d1d6886e01a87e04f`, 9798 bytes.
+
+The accepted design is `0506.clerk-handoff/evidence/design05.03/SEAM.md`, sha256 `ef0c75072d050a77f9a5ac59449165a00a7752244ce4ea2576b38564389c8930`, 18616 bytes. Prime accepted that design with two requirements, recorded on `0506.clerk-handoff/05.03`. The pinned Clerk is `labs/clerk-handoff-pass02/clerk.py`, sha256 `f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c`, 52279 bytes. Its `show --json` document is schema `clerk-handoff-inspection/2`. The accepted bridge entry is `worker_bridge.perform`, and the stored-receipt check is `worker_bridge._require_stored_receipt`.
+
+Claim HEAD is `a7f5ba7df66469ffb3f4f1da4ac5ef9f737570d4`. This slice does not pull, reset, stage, commit, or push.
+
+## Contract to implement
+`evidence/seam05.10/CONTRACT.md` is the map written before code. One command, `clerk-deliver`, in a new `app/clerk_seam.py`. The caller supplies an already queued and explicitly claimed job, the router link, the actor, the external fixture, and the container. The command does not queue, claim, or choose an actor, reviewer, route, or authority.
+
+Clerk is reached only as a subprocess of the pinned `clerk.py`, after the hash matches. Job, checks, claim, and recorded return come from `show --json`. The seam does not read raw Clerk events and does not parse inbox text. While the job is claimed, `claim --resume` remains the public token contract: three lines, `resume`, `token`, and `instructions-usable sha256=`, and that token must equal the inspection token. Resume refuses a returned job, so a returned replay takes the token from inspection `claim.token` and still checks actor, instructions, and stored job identity.
+
+The delivery is `worker_bridge.perform`. There is no second bridge, receipt validator, Clerk, queue, router, or intake registry. On every existing delivery path, including a returned replay, `link.bridge_job_sha256` must equal the original `provenance.job_sha256`, and the current job bytes must equal that same digest. Matching ids alone do not bind the historical request.
+
+Uncollected, failed, and uncertain worker results stay out of a normal Clerk return. The seam stops, keeps the claim and the bridge evidence, and names the boundary. `bridge-recover` stays a separate command. An identical completed replay is read-only toward the worker: no launch. There is no cross-store transaction and no exactly-once claim. Interrupted copy or conflicting outbox bytes stay attention and are not overwritten or deleted.
+
+The only worker backend the success path launches is an allowlisted protocol test worker. No model profile is configured. `run` stays refused.
+
+## Proof planned
+Disposable copies only for the recorded suites. `app/tests/test_clerk_seam.py` covers design A1–A15, including queue and claim as fixture setup, one `clerk-deliver`, the reviewer inbox projection, verify, and a replay with one launch. In-process hooks `before-launch`, `before-copy`, `before-return`, and `before-report` are arguments of `perform`, not CLI flags. The same disposable copy then runs `test_clerk_seam.py`, `test_entry.py`, `test_prime_tools.py`, and `test_worker_bridge.py` once. A fresh-process demo is recorded in `verification.json`. No network and no real job.
+
+## Out of scope
+No edit to `context.py`, `worker_bridge.py`, `worker-bridge.json`, the Clerk lab, the bridge lab, the pack tools, kernel pages, shared assignments, views, or the 0507 Prime-support lane. No SoF. No shared Git publication.
+
+HEAD observed while these notes were written: `a7f5ba7df66469ffb3f4f1da4ac5ef9f737570d4`.
+
+## Outcome
+Reread after the recorded proof. `clerk-deliver` is the one fixture command. `app/librarian.py` loads `app/clerk_seam.py` only for that command and passes its own context module, so a refusal stays `context.Stop`. The seam pins `app/clerk-seam.json` and does not start Clerk until the hash matches. Job, checks, claim, and recorded return come from `show --json`, schema `clerk-handoff-inspection/2`. The seam does not read raw events or inbox text.
+
+While the job is claimed, `claim --resume` is the public token check: the three lines must match the inspection token and the instruction hash. Resume is not called for a returned job. That replay uses the inspection token and still checks the actor, the instructions, and the stored job identity. On every existing delivery, `link.bridge_job_sha256` must equal `provenance.job_sha256` and the current job bytes. The worker call is `worker_bridge.perform`. The receipt check is `worker_bridge._read_stored_receipt`. A collected `done` is exclusive-copied into the Clerk outbox and returned with one evidence line. Exit 3 and exit 4 keep the claim and the bridge evidence, do not return the job, and do not relaunch. `bridge-recover` remains a separate command. An identical completed replay launches nothing. There is no seam ledger and no exactly-once claim. `run` stays refused. No model profile is configured.
+
+Two defects were fixed before this recorded run. Guarding the pinned Clerk path with `guard_workspace_path` refused the lab file as a source tree; the pin now resolves under the code root, refuses a link, and refuses a hash mismatch before any subprocess. Resolving an outbox junction made a linked name look like an escape; an existing link, junction, or extra hard link is attention at exit 4 and is left in place.
+
+The recorded suites are one disposable copy, `C:/Users/misg/AppData/Local/Temp/seam0510-repo`, using these bytes and no Git directory until the placement test planted a marker and removed it. `test_clerk_seam.py` exit 0: pass 30, expected-refusal 18, skip 1, fail 0. The skip is the file symlink, WinError 1314. Its fresh-process demo recorded receipt `3b08575c251359118482fbdcc3927130031baf348b2e5803d49c8e0b8278b594`, artifact `0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6`, one launch, and replay `already-recorded`. `test_entry.py` exit 0: pass 12, expected-refusal 46, skip 1, fail 0. `test_prime_tools.py -v` exit 0: Ran 12 tests in 14.646s, OK (skipped=1). `test_worker_bridge.py` exit 0: pass 38, expected-refusal 27, skip 1, fail 0. Those skips are the same WinError 1314 file-symlink case. Source-before `librarian.py` and `README.md` are unchanged. No shared Git write. Review is not performed. This slot authorizes no further work.

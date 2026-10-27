@@ -1,0 +1,60 @@
+test_changed_titles_and_premise (test_pass02.Pass02Tests.test_changed_titles_and_premise) ... ok
+test_cli_preview_and_unimplemented_op (test_pass02.Pass02Tests.test_cli_preview_and_unimplemented_op) ... ok
+test_dangling_menu_modified_snapshot_inventory_and_prose (test_pass02.Pass02Tests.test_dangling_menu_modified_snapshot_inventory_and_prose) ... ok
+test_existing_instance_is_not_overwritten (test_pass02.Pass02Tests.test_existing_instance_is_not_overwritten) ... ok
+test_extra_draft_is_not_selected_by_version (test_pass02.Pass02Tests.test_extra_draft_is_not_selected_by_version) ... ok
+test_first_free_skips_a_taken_number (test_pass02.Pass02Tests.test_first_free_skips_a_taken_number) ... ok
+test_invalid_instance_is_not_a_clean_pass (test_pass02.Pass02Tests.test_invalid_instance_is_not_a_clean_pass) ... ok
+test_junction_is_refused_or_the_skip_is_recorded (test_pass02.Pass02Tests.test_junction_is_refused_or_the_skip_is_recorded) ... ok
+test_no_agreement_and_no_write_capability (test_pass02.Pass02Tests.test_no_agreement_and_no_write_capability) ... ok
+test_occupied_target_preserves_bytes (test_pass02.Pass02Tests.test_occupied_target_preserves_bytes) ... ok
+test_partial_create_is_kept_and_rerun_refuses (test_pass02.Pass02Tests.test_partial_create_is_kept_and_rerun_refuses) ... ok
+test_pass01_recipe_untouched (test_pass02.Pass02Tests.test_pass01_recipe_untouched) ... ok
+test_preview_writes_nothing_and_create_validates (test_pass02.Pass02Tests.test_preview_writes_nothing_and_create_validates) ... ok
+test_resume_reads_without_writing (test_pass02.Pass02Tests.test_resume_reads_without_writing) ... ok
+test_sibling_desk_outside_the_target_is_ignored (test_pass02.Pass02Tests.test_sibling_desk_outside_the_target_is_ignored) ... ok
+test_stale_preview_after_config_change (test_pass02.Pass02Tests.test_stale_preview_after_config_change) ... ok
+test_stale_preview_after_template_change (test_pass02.Pass02Tests.test_stale_preview_after_template_change) ... ok
+test_unknown_ruleset (test_pass02.Pass02Tests.test_unknown_ruleset) ... ok
+test_catalog_list_null_truncated_and_duplicate_key (test_pass03.Pass03Tests.test_catalog_list_null_truncated_and_duplicate_key) ... ok
+test_fresh_report_outside_protected_roots (test_pass03.Pass03Tests.test_fresh_report_outside_protected_roots) ... ok
+test_junction_and_hard_link_aliases (test_pass03.Pass03Tests.test_junction_and_hard_link_aliases) ... ok
+test_malformed_requests_write_no_report_file (test_pass03.Pass03Tests.test_malformed_requests_write_no_report_file) ... ok
+test_metadata_path_stays_inside_the_instance (test_pass03.Pass03Tests.test_metadata_path_stays_inside_the_instance) ... ok
+test_output_equals_input_and_existing_bytes (test_pass03.Pass03Tests.test_output_equals_input_and_existing_bytes) ... ok
+test_report_write_failure_keeps_operation_wrote (test_pass03.Pass03Tests.test_report_write_failure_keeps_operation_wrote) ... ok
+test_setup_outputs_inside_target_do_not_write (test_pass03.Pass03Tests.test_setup_outputs_inside_target_do_not_write) ... ok
+test_unsupported_version_is_not_a_clean_pass (test_pass03.Pass03Tests.test_unsupported_version_is_not_a_clean_pass) ... ok
+test_validate_output_alias_keeps_instance_schema (test_pass03.Pass03Tests.test_validate_output_alias_keeps_instance_schema) ... ok
+test_bound_setup_serves_gm_and_player_context (test_pass04.Pass04Tests.test_bound_setup_serves_gm_and_player_context) ... ok
+test_context_report_aliases_do_not_overwrite (test_pass04.Pass04Tests.test_context_report_aliases_do_not_overwrite) ... ok
+test_damaged_retained_dependency_does_not_read_live_text (test_pass04.Pass04Tests.test_damaged_retained_dependency_does_not_read_live_text) ... ok
+test_exact_ids_wrong_branch_and_catalog_are_not_substituted (test_pass04.Pass04Tests.test_exact_ids_wrong_branch_and_catalog_are_not_substituted) ... ok
+test_gameplay_operations_stay_unimplemented (test_pass04.Pass04Tests.test_gameplay_operations_stay_unimplemented)
+checkpoint, export, fork, and roll stay unimplemented. ... ok
+test_in_process_context_matches_the_checkpoint_and_writes_nothing (test_pass04.Pass04Tests.test_in_process_context_matches_the_checkpoint_and_writes_nothing) ... ok
+test_legacy_checkpoint_is_refused_without_migration (test_pass04.Pass04Tests.test_legacy_checkpoint_is_refused_without_migration) ... ok
+test_live_prose_edits_do_not_change_the_checkpoint_packet (test_pass04.Pass04Tests.test_live_prose_edits_do_not_change_the_checkpoint_packet) ... ok
+test_unsupported_requests_refuse_without_a_live_fallback (test_pass04.Pass04Tests.test_unsupported_requests_refuse_without_a_live_fallback) ... ok
+test_cli_loop_keeps_the_opening_and_records_one_action (test_pass05.Pass05Tests.test_cli_loop_keeps_the_opening_and_records_one_action) ... ok
+test_file_symlink_output_is_refused_or_the_skip_is_recorded (test_pass05.Pass05Tests.test_file_symlink_output_is_refused_or_the_skip_is_recorded) ... skipped 'file symlink creation was not permitted: You do not have sufficient privilege to perform this operation.\n'
+test_historical_context_survives_a_moved_head_pointer (test_pass05.Pass05Tests.test_historical_context_survives_a_moved_head_pointer) ... ok
+test_injected_partial_writes_stay_incomplete (test_pass05.Pass05Tests.test_injected_partial_writes_stay_incomplete) ... ok
+test_live_prose_drift_is_not_copied_into_history (test_pass05.Pass05Tests.test_live_prose_drift_is_not_copied_into_history) ... ok
+test_lock_and_concurrent_callers_cannot_double_apply (test_pass05.Pass05Tests.test_lock_and_concurrent_callers_cannot_double_apply) ... ok
+test_malformed_json_and_output_alias_do_not_apply (test_pass05.Pass05Tests.test_malformed_json_and_output_alias_do_not_apply) ... ok
+test_missing_or_corrupt_dependency_refuses (test_pass05.Pass05Tests.test_missing_or_corrupt_dependency_refuses) ... ok
+test_replay_conflict_and_stale_base_write_nothing_more (test_pass05.Pass05Tests.test_replay_conflict_and_stale_base_write_nothing_more) ... ok
+test_wrong_inputs_refuse_before_history (test_pass05.Pass05Tests.test_wrong_inputs_refuse_before_history) ... ok
+test_cli_apply_refuses_a_requests_junction (test_pass06.Pass06Tests.test_cli_apply_refuses_a_requests_junction) ... ok
+test_file_symlink_journal_is_refused_or_the_skip_is_recorded (test_pass06.Pass06Tests.test_file_symlink_journal_is_refused_or_the_skip_is_recorded) ... skipped 'file symlink creation was not permitted: You do not have sufficient privilege to perform this operation.\n'
+test_hard_link_aliases_do_not_change_outside_bytes (test_pass06.Pass06Tests.test_hard_link_aliases_do_not_change_outside_bytes) ... ok
+test_journal_lock_and_checkpoint_junctions_are_refused (test_pass06.Pass06Tests.test_journal_lock_and_checkpoint_junctions_are_refused) ... ok
+test_partial_stop_remains_partial_on_a_clean_tree (test_pass06.Pass06Tests.test_partial_stop_remains_partial_on_a_clean_tree) ... ok
+test_requests_directory_junction_does_not_receive_the_journal (test_pass06.Pass06Tests.test_requests_directory_junction_does_not_receive_the_journal) ... ok
+test_staging_directories_and_occupied_temps_are_refused (test_pass06.Pass06Tests.test_staging_directories_and_occupied_temps_are_refused) ... ok
+
+----------------------------------------------------------------------
+Ran 54 tests in 62.051s
+
+OK (skipped=2)

@@ -1,0 +1,83 @@
+{
+  "seam": {
+    "exit": 0,
+    "tail": "SS A13 collected failed is exit 3\nPASS A13 crash is exit 4\nPASS A13 timeout is exit 4\nREFUSAL A12 scratch store is inside Git\nREFUSAL A12 unknown flag\nREFUSAL A12 test flag is not a grant\nREFUSAL A14 clerk pin mismatch starts no subprocess\nPASS occupied junction stays\nPASS occupied hardlink stays\nSKIP dangling file symlink: WinError 1314\nPASS A15 later call is already-recorded\nPASS A15 one launch and one return\nPASS guarded bytes were unchanged\nPASS no bytecode was written into the books or app\nsummary pass 30 expected-refusal 18 skip 1 fail 0\n"
+  },
+  "entry": {
+    "exit": 0,
+    "tail": "sing config\nREFUSAL malformed config\nREFUSAL duplicate config key\nREFUSAL config version type\nREFUSAL unknown config key\nREFUSAL config cannot widen fixture containers\nREFUSAL malformed record\nREFUSAL duplicate record key\nREFUSAL invalid assignment state\nREFUSAL record carriage return\nREFUSAL assignment path is the derived view\nPASS tampered 00.live does not change context\nREFUSAL wrong runner hash\nPASS guarded bytes were unchanged by the suite\nPASS no bytecode was written into the books or app\nsummary pass 12 expected-refusal 46 skip 1 fail 0\n"
+  },
+  "pack-tools": {
+    "exit": 0,
+    "tail": "ToolsTest.test_snapshot_mutation_fails_and_keeps_the_receipt) ... ok\ntest_sources_match_the_declaration (__main__.PrimeToolsTest.test_sources_match_the_declaration) ... ok\ntest_stale_digest_and_malformed_request_match_direct (__main__.PrimeToolsTest.test_stale_digest_and_malformed_request_match_direct) ... ok\ntest_wrong_hash_and_missing_tool_write_nothing (__main__.PrimeToolsTest.test_wrong_hash_and_missing_tool_write_nothing) ... ok\n\n----------------------------------------------------------------------\nRan 12 tests in 18.072s\n\nOK (skipped=1)\n"
+  },
+  "app-bridge": {
+    "exit": 1,
+    "tail": "'review': 'not performed', 'transport': 'timeout', 'outcome_uncertain': True, 'claimed_outcome': None, 'collection': 'not attempted', 'reason': 'killed after launch; work may or may not have happened; not relaunched', 'cleanup': {'allowance_s': 2.0, 'complete': True, 'notes': [], 'retained': []}}\n\n----------------------------------------------------------------------\nRan 2 tests in 7.686s\n\nFAILED (failures=1)\n\n\nPASS guarded bytes were unchanged\nPASS no bytecode was written into the books or app\nsummary pass 37 expected-refusal 27 skip 1 fail 1\n"
+  },
+  "sof": {
+    "exit": 0,
+    "tail": "ok\ntest_partial_stop_remains_partial_on_a_clean_tree (test_pass06.Pass06Tests.test_partial_stop_remains_partial_on_a_clean_tree) ... ok\ntest_requests_directory_junction_does_not_receive_the_journal (test_pass06.Pass06Tests.test_requests_directory_junction_does_not_receive_the_journal) ... ok\ntest_staging_directories_and_occupied_temps_are_refused (test_pass06.Pass06Tests.test_staging_directories_and_occupied_temps_are_refused) ... ok\n\n----------------------------------------------------------------------\nRan 54 tests in 62.051s\n\nOK (skipped=2)\n"
+  },
+  "partial_copy_probe": {
+    "fixture": "C:\\Users\\misg\\AppData\\Local\\Temp\\seam0510-1042ju_k",
+    "outcome": {
+      "exception": "OSError",
+      "detail": "Prime injected outbox write failure after three bytes",
+      "traceback": "Traceback (most recent call last):\n  File \"D:\\librarian\\temp\\verify-seam-sof06-2026-10-27.py\", line 37, in <module>\n    answer=seam.perform(context,lr,world.root,link_rel=world.link_rel,actor='fixture-worker',instructions_base=str(world.instructions),explicit=str(world.container))\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\misg\\AppData\\Local\\Temp\\prime-seam-sof06-jsb8ic75\\lib\\app\\clerk_seam.py\", line 571, in perform\n    copy_state = _copy_outputs(context, container, store, job_id, output_root, expected, artifacts)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\misg\\AppData\\Local\\Temp\\prime-seam-sof06-jsb8ic75\\lib\\app\\clerk_seam.py\", line 360, in _copy_outputs\n    handle.write(payload)\n  File \"D:\\librarian\\temp\\verify-seam-sof06-2026-10-27.py\", line 30, in write\n    def write(self,payload):self.handle.write(payload[:3]);self.handle.flush();raise OSError('Prime injected outbox write failure after three bytes')\n                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nOSError: Prime injected outbox write failure after three bytes\n"
+    },
+    "partial_bytes_hex": "7b2263",
+    "events_unchanged": true,
+    "launches": [
+      "bridge-0001 ok"
+    ],
+    "subsequent_exit": 4,
+    "subsequent_stdout": "seam: attention\nboundary: outbox bytes differ\nclerk_job: clerk-0001\ndelivery_id: bridge-0001\nthis-call-wrote: nothing\nreview: not performed\nacceptance: not performed\n"
+  },
+  "independent_containment_probes": [
+    {
+      "path": "10.gm/state/requests",
+      "result": {
+        "findings": [
+          "symlink_refused"
+        ],
+        "op": "apply",
+        "reasons": [
+          "requests directory is a symlink or junction"
+        ],
+        "replayed": false,
+        "schema": "sof-op-result",
+        "wrote": false
+      },
+      "instance_unchanged": true,
+      "external_unchanged": true
+    },
+    {
+      "path": "10.gm/state/branches/br-main/.apply-staging",
+      "result": {
+        "findings": [
+          "symlink_refused"
+        ],
+        "op": "apply",
+        "reasons": [
+          ".apply-staging is a symlink or junction"
+        ],
+        "replayed": false,
+        "schema": "sof-op-result",
+        "wrote": false
+      },
+      "instance_unchanged": true,
+      "external_unchanged": true
+    }
+  ],
+  "capture_verify": {
+    "exit": 0,
+    "stdout": "reservation 8e9200caaf4f3c289ff7e48e73667500c1d46d7d081a2a495ce8be7e115bf0d2\nmanifest b2fb357101b0c2f4143a519ba75fa97612619cd3498a105a46c5a73f28fe6bf0\nreceipt 0ff16dcc5c0d563933d48b3d601d3119b28da8700359441770fb1897445d481c\npayload 0001.blob abbf48a134d10b49bcf52a906b833561165d1bc67d1f5d61e1a77f3c32864878\npayload 0002.blob 309a0618cab6673cd03e8d263ae28e663c855290e7c53822516412ae87f6a88f\npayload 0003.blob 98a0a4a93b05f16f293d38d2b27ea4001be61c34ff8b575a1a6746b0e260ba8e\npayload 0004.blob 85540a29f668b3d6dbb7f6df486e770bae2dab3e7f9b60eb56f253151a9fc1fa\npayload 0005.blob f2a1e083a66763527345df805b0777af713e6cfcdbf05fc2ce1b7b25f1a442c2\npayload 0006.blob 9c1e819147ecf85bff4fb6231e136b106619c96a5a89ed65a8100799943bf2b6\npayload 0007.blob 15d9ef00b4310caa27a2a0007527e447a80e721ff4b9b352756a78072b965073\npayload 0008.blob 8ef25dff4dd98061c54779efd6e3a9a4bb0f65b1c7ed08dac295e163c1f05f41\npayload 0009.blob eaa343e2b470a53a5f07a4e4be012105fe96002e4322781c0b92bdce736c2f89\nresult complete\nnot approved\nnot accepted\nnot published\n"
+  },
+  "sof_custody_rows": 61,
+  "bridge_pass03_sequential_retry": {
+    "exit": 0,
+    "tail": "test_complete_result_followed_by_descendant_is_not_promoted (__main__.InheritedPipes.test_complete_result_followed_by_descendant_is_not_promoted) ... ok\ntest_descendant_holds_pipes_returns_within_bound (__main__.InheritedPipes.test_descendant_holds_pipes_returns_within_bound) ... ok\n\n----------------------------------------------------------------------\nRan 2 tests in 12.731s\n\nOK\n",
+    "scope": "Only the unchanged two-case lab suite that failed inside the concurrent app regression. No source changes. First failure retained; no inferred cause."
+  }
+}

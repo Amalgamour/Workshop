@@ -1,0 +1,89 @@
+PASS pinned lab and example bytes
+PASS bridge-test collected the count
+PASS fresh-process status reads the receipt
+PASS identical replay does not launch again
+PASS replay does not recreate the output directory
+PASS external container collected
+PASS external fresh status
+PASS external replay
+PASS status after accepted and current-work change
+PASS status after returned
+PASS bad-hash
+PASS missing-artifact
+PASS escape
+PASS garbage
+PASS partial
+PASS bad-shape
+PASS dup-keys
+PASS crash
+PASS output-limit
+PASS timeout stays uncertain
+PASS timeout replay does not relaunch
+PASS inherited pipes stay incomplete
+PASS conflict setup collected
+REFUSAL conflicting delivery does not claim there was no launch
+PASS interrupted receipt stays uncertain
+PASS recover rebuilds the receipt without a launch
+PASS second recover reads the stored receipt
+PASS launch without an attempt stays uncertain
+PASS unknown delivery is not collected
+PASS accepted-not-launched setup
+PASS accepted-not-launched stays not collected
+PASS bad provenance setup
+REFUSAL bad stored provenance
+REFUSAL escaping stored path
+REFUSAL unreleased new work
+REFUSAL unknown backend
+REFUSAL work_ref is not current work
+REFUSAL bad limits
+REFUSAL job path escape
+REFUSAL normal run
+REFUSAL live workspace
+REFUSAL pre-planted per-delivery directory
+REFUSAL pre-planted hard link
+REFUSAL pre-planted store
+REFUSAL pre-planted junction
+SKIP pre-planted file symlink: WinError 1314: A required privilege is not held by the client
+PASS correlation setup collected
+REFUSAL missing request hash is not a wildcard
+REFUSAL replay refuses a bad stored receipt
+REFUSAL recover refuses a bad stored receipt
+REFUSAL correct hash does not excuse wrong ids
+REFUSAL replay refuses wrong ids
+REFUSAL recover refuses wrong ids
+REFUSAL unsupported receipt schema
+REFUSAL non-object receipt
+REFUSAL replay refuses a non-object receipt
+REFUSAL malformed receipt
+REFUSAL recover refuses a malformed receipt
+PASS status still reads a consistent receipt
+PASS replay still does not launch
+REFUSAL pin mismatch before import
+REFUSAL wrong kind
+PASS launch-failed is not collected
+FAIL lab: Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\prime-seam-sof06-jsb8ic75\lib\app\tests\test_worker_bridge.py", line 948, in check
+    fn()
+  File "C:\Users\misg\AppData\Local\Temp\prime-seam-sof06-jsb8ic75\lib\app\tests\test_worker_bridge.py", line 930, in test_lab_suite
+    raise AssertionError(f"{name} failed\n{proc.stdout[-1500:]}\n{proc.stderr[-1500:]}")
+AssertionError: test_pass03.py failed
+
+ (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\librarian-0505-lab-6m4jxg8q\tests\test_pass03.py", line 75, in test_descendant_holds_pipes_returns_within_bound
+    self.check_bounded_incomplete(res)
+  File "C:\Users\misg\AppData\Local\Temp\librarian-0505-lab-6m4jxg8q\tests\test_pass03.py", line 66, in check_bounded_incomplete
+    self.assertEqual(rec["transport"], "incomplete-output", rec)
+AssertionError: 'timeout' != 'incomplete-output'
+- timeout
++ incomplete-output
+ : {'schema': 'worker-bridge/receipt@1', 'delivery_id': 'd-inherit', 'job_id': 'job-count-lines', 'request_sha256': '0e7ca7192518af6804e4733032b8cfc081f22dec5125849c7d878485390c6f38', 'backend': 'fixture-inherit-pipes', 'worker_kind': 'protocol test worker', 'launched': True, 'returncode': 1, 'duration_s': 2.281, 'diagnostics': {'stdout': {'path': 'attempt/stdout.bin', 'sha256': 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'bytes': 0}, 'stderr': {'path': 'attempt/stderr.bin', 'sha256': 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'bytes': 0}}, 'review': 'not performed', 'transport': 'timeout', 'outcome_uncertain': True, 'claimed_outcome': None, 'collection': 'not attempted', 'reason': 'killed after launch; work may or may not have happened; not relaunched', 'cleanup': {'allowance_s': 2.0, 'complete': True, 'notes': [], 'retained': []}}
+
+----------------------------------------------------------------------
+Ran 2 tests in 7.686s
+
+FAILED (failures=1)
+
+
+PASS guarded bytes were unchanged
+PASS no bytecode was written into the books or app
+summary pass 37 expected-refusal 27 skip 1 fail 1
