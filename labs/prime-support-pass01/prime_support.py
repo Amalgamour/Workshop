@@ -27,7 +27,7 @@ LANE_KEYS = {"lane", "project", "owner_label", "repository", "pages", "return_fi
 CANON_KEYS = {"repository", "path", "lane"}
 TOP_REQUIRED = {"schema", "version", "repositories", "lanes"}
 TOP_OPTIONAL = {"canonical_assignment", "attention_order"}
-ATTENTION_KINDS = ["conflict", "missing", "unsupported", "bad-intake", "review-needed", "unseen",
+ATTENTION_KINDS = ["conflict", "missing", "unsupported", "bad-intake", "invalid-review", "review-needed", "unseen",
                    "history-unknown", "open-finding"]
 ASSIGNMENT_KEYS = {"record", "schema", "desk", "book", "workflow_space", "current_work", "pack",
                    "assignment_state", "waits_on", "next", "updated"}
@@ -211,7 +211,8 @@ class Git:
     def history(self, refs: list[str], path: str, limit: int) -> list[tuple[str, int]]:
         if not refs:
             return []
-        out = self.run("log", "--format=%H %ct", "-n", str(limit), *refs, "--", path)[1].decode()
+        # --topo-order: children before parents. Commit dates are never used for ordering (PSI-02).
+        out = self.run("log", "--topo-order", "--format=%H %ct", "-n", str(limit), *refs, "--", path)[1].decode()
         return [(line.split()[0], int(line.split()[1])) for line in out.splitlines() if line.strip()]
 
     def dirty(self, paths: list[str]) -> list[str]:
@@ -303,11 +304,15 @@ def parse_source(data: bytes, kind: str) -> dict:
 
 
 def parse_review_lines(lines: list[str]) -> dict:
-    review = {"prefix": None, "legacy_whole": None, "disposition": None, "findings": [], "bad": []}
+    review = {"prefix": None, "legacy_whole": None, "target": None, "disposition": None, "findings": [], "bad": []}
     for line in lines:
         m = re.fullmatch(r"reviewed_return_prefix: ([0-9a-f]{64})", line.strip())
         if m:
             review["prefix"] = m.group(1)
+            continue
+        m = re.fullmatch(r"reviewed_return_path: (\S+)", line.strip())
+        if m:
+            review["target"] = m.group(1)
             continue
         m = re.search(r"Reviewed return SHA-256: `?([0-9a-f]{64})`?", line)
         if m:
@@ -340,6 +345,7 @@ class Repo:
         self.head = self.remote = None
         self.shallow = False
         self.relation = "unknown"
+        self._anc: dict[tuple, bool] = {}
         if not Path(spec["local"]).is_dir():
             self.problem = "repository path is missing"
             return
@@ -369,6 +375,13 @@ class Repo:
     def refs(self) -> list[str]:
         return [c for c in dict.fromkeys([self.head, self.remote]) if c]
 
+    def is_ancestor(self, a: str, b: str) -> bool:
+        """True when commit a is an ancestor of commit b (a != b). Cached; causal order only (PSI-02)."""
+        key = (a, b)
+        if key not in self._anc:
+            self._anc[key] = a != b and self.git.ancestor(a, b)
+        return self._anc[key]
+
     def observations(self, path: str) -> list[dict]:
         found = []
         for label, commit in (("published", self.remote), ("local", self.head)):
@@ -383,47 +396,58 @@ class Repo:
         return found
 
 
-def evaluate_file(repo: Repo, path: str, kind: str, reviews_out: list, packets: list) -> dict:
+DRAFT = "worktree (uncommitted draft)"
+
+
+def _versions(repo: Repo, path: str, obs: list[dict], hist: list) -> list[tuple]:
+    """(topo index, source label, bytes, commit or None). Parents come before children. A worktree copy is
+    included only when it differs from HEAD's bytes (or HEAD lacks the file): an identical copy is the same
+    observation, not a new one (PSI-02)."""
+    out = []
+    for i, (commit, _ct) in enumerate(reversed(hist)):
+        data = repo.git.blob(commit, path)
+        if data is not None:
+            out.append((i, f"{path}@{commit}", data, commit))
+    head = next((o["data"] for o in obs if o["label"] == "local"), None)
+    for o in obs:
+        if o["commit"] is None and o["data"] != head:
+            out.append((len(hist), f"{path}@{DRAFT}", o["data"], None))
+    return out
+
+
+def _history_state(repo: Repo, hist: list) -> str:
+    if repo.shallow or len(hist) >= repo.spec["history_limit"]:
+        return "incomplete"
+    return "none" if not hist else "complete"
+
+
+def evaluate_file(repo: Repo, path: str, kind: str, reviews_out: list, packets: list, lineages: dict) -> dict:
     obs = repo.observations(path)
     entry = {"path": path, "kind": kind, "revisions": [], "history": "complete", "status": "ok", "reason": ""}
     if not obs:
         entry.update(status="missing", reason="registered source not found at any observed revision")
         return entry
-    limit = repo.spec["history_limit"]
-    hist = repo.git.history(repo.refs(), path, limit)
-    if repo.shallow or len(hist) >= limit:
-        entry["history"] = "incomplete"
-    elif not hist:
-        entry["history"] = "none"
-    versions = []  # (order, label, parsed)
-    for i, (commit, ct) in enumerate(reversed(hist)):
-        data = repo.git.blob(commit, path)
-        if data is not None:
-            versions.append(((ct, i), f"{path}@{commit}", parse_source(data, kind), commit))
+    hist = repo.git.history(repo.refs(), path, repo.spec["history_limit"])
+    entry["history"] = _history_state(repo, hist)
     for o in obs:
-        parsed = parse_source(o["data"], kind)
-        o["parsed"] = parsed
-        if o["commit"] is None:
-            versions.append(((float("inf"), 0), f"{path}@worktree", parsed, None))
+        o["parsed"] = parse_source(o["data"], kind)
+    versions = [(i, source, parse_source(data, kind), commit) for i, source, data, commit in _versions(repo, path, obs, hist)]
+    known = {v[2]["revision_id"] for v in versions if v[2]["revision_id"]}
+    known |= {o["parsed"]["revision_id"] for o in obs if o["parsed"]["revision_id"]}
     whole_to_rev = {v[2]["whole"]: v[2]["revision_id"] for v in versions if v[2]["revision_id"]}
     for o in obs:
         if o["parsed"]["revision_id"]:
             whole_to_rev.setdefault(o["parsed"]["whole"], o["parsed"]["revision_id"])
+    lineages[path] = {"known": known, "whole": whole_to_rev}
     order_ids = []
     for _, _, parsed, _ in sorted(versions, key=lambda v: v[0]):
         rid = parsed["revision_id"]
         if rid and parsed["execution"] in ELIGIBLE and (not order_ids or order_ids[-1] != rid):
             order_ids.append(rid)
-    for order, source, parsed, commit in versions:
-        review = parsed.get("review")
-        if not review:
-            continue
-        binds = None
-        if review["prefix"]:
-            binds = review["prefix"]
-        elif review["legacy_whole"] and review["legacy_whole"] in whole_to_rev:
-            binds = whole_to_rev[review["legacy_whole"]]
-        reviews_out.append({"order": order, "source": source, "binds": binds, "review": review, "file": path})
+    for _, source, parsed, commit in versions:
+        if parsed.get("review"):
+            # A page Review's target is always its own page; binding is decided later against `known`.
+            reviews_out.append({"source": source, "commit": commit, "target": path, "review": parsed["review"]})
     distinct = []
     for o in obs:
         p = o["parsed"]
@@ -455,47 +479,85 @@ def evaluate_file(repo: Repo, path: str, kind: str, reviews_out: list, packets: 
 
 
 def evaluate_review_source(repo: Repo, path: str, lane: str, reviews_out: list) -> dict:
+    """A review source names its target with `reviewed_return_path:`. It is never inferred (PSI-01)."""
     obs = repo.observations(path)
     entry = {"path": path, "kind": "review-source", "status": "ok", "history": "complete"}
     if not obs:
         entry.update(status="missing")
         return entry
-    limit = repo.spec["history_limit"]
-    hist = repo.git.history(repo.refs(), path, limit)
-    if repo.shallow or len(hist) >= limit:
-        entry["history"] = "incomplete"
-    elif not hist:
-        entry["history"] = "none"
-    items = [((ct, i), f"{path}@{c}", repo.git.blob(c, path)) for i, (c, ct) in enumerate(reversed(hist))]
-    items += [((float("inf"), 0), f"{path}@worktree", o["data"]) for o in obs if o["commit"] is None]
-    for order, source, data in items:
-        if data is None:
-            continue
+    hist = repo.git.history(repo.refs(), path, repo.spec["history_limit"])
+    entry["history"] = _history_state(repo, hist)
+    for _, source, data, commit in _versions(repo, path, obs, hist):
         try:
             lines = data.decode("utf-8").split("\n")
         except UnicodeDecodeError:
             entry.update(status="unsupported")
             continue
         review = parse_review_lines([line.rstrip("\r") for line in lines])
-        if review["findings"] or review["prefix"]:
-            reviews_out.append({"order": order, "source": source, "binds": review["prefix"], "review": review,
-                                "file": path})
+        if review["findings"] or review["prefix"] or review["legacy_whole"] or review["target"]:
+            reviews_out.append({"source": source, "commit": commit, "target": review["target"], "review": review})
     return entry
 
 
-def findings_for(reviews: list) -> dict:
-    latest: dict[str, dict] = {}
-    passes: dict[str, set] = {}
-    for item in sorted(reviews, key=lambda r: r["order"]):
+def resolve_binding(item: dict, lineages: dict, lane_paths: set) -> tuple[str, str | None]:
+    """VALID only when the named revision is a known revision of the declared target (PSI-01)."""
+    r = item["review"]
+    has_claim = bool(r["prefix"] or r["legacy_whole"] or r["findings"])
+    if item["target"] not in lane_paths:
+        return ("invalid-target", None) if has_claim else ("unbound", None)
+    lineage = lineages.get(item["target"], {"known": set(), "whole": {}})
+    if r["prefix"]:
+        return ("valid", r["prefix"]) if r["prefix"] in lineage["known"] else ("unknown-hash", None)
+    if r["legacy_whole"]:
+        rid = lineage["whole"].get(r["legacy_whole"])
+        return ("valid", rid) if rid else ("invalid-legacy", None)
+    return "unbound", None
+
+
+def causal_frontier(repo: Repo, records: list[dict]) -> list[dict]:
+    """Records whose commit is not an ancestor of another record's commit. Ancestry only; no dates (PSI-02)."""
+    commits = {r["commit"] for r in records}
+    keep, seen = [], set()
+    for r in records:
+        if any(repo.is_ancestor(r["commit"], c) for c in commits if c != r["commit"]):
+            continue
+        key = (r["commit"], r["resolution"], r["source"])
+        if key not in seen:
+            seen.add(key)
+            keep.append(r)
+    return keep
+
+
+def classify(resolution: str) -> str:
+    return "open" if resolution in OPEN else "closed" if resolution in CLOSED else "unrecognized"
+
+
+def lane_findings(repo: Repo, valid: list[dict]) -> dict:
+    """Finding identity is (target path, ID) (PSI-01). Committed state comes from the causal frontier.
+    Uncommitted drafts are reported beside it and never replace it (PSI-02)."""
+    by_key: dict[tuple, list] = {}
+    for item in valid:
         for ident, resolution in item["review"]["findings"]:
-            latest[ident] = {"resolution": resolution, "source": item["source"]}
-            if item["binds"]:
-                passes.setdefault(ident, set()).add(item["binds"])
+            by_key.setdefault((item["target"], ident), []).append(
+                {"commit": item["commit"], "resolution": resolution, "source": item["source"], "binds": item["binds"]})
     out = {}
-    for ident, rec in latest.items():
-        state = "open" if rec["resolution"] in OPEN else "closed" if rec["resolution"] in CLOSED else "unrecognized"
-        out[ident] = {"resolution": rec["resolution"], "state": state, "source": rec["source"],
-                      "passes": len(passes.get(ident, set()))}
+    for (target, ident), recs in sorted(by_key.items()):
+        committed = [r for r in recs if r["commit"]]
+        drafts = sorted({r["resolution"] for r in recs if not r["commit"]})
+        front = causal_frontier(repo, committed)
+        resolutions = sorted({r["resolution"] for r in front})
+        if committed and len(resolutions) == 1:
+            resolution, state = resolutions[0], classify(resolutions[0])
+        elif committed:
+            resolution, state = " | ".join(resolutions), "conflict"
+        else:
+            resolution, state = " | ".join(drafts), "draft-only"
+        out[f"{target}#{ident}"] = {
+            "id": ident, "target": target, "resolution": resolution, "state": state,
+            "passes": len({r["binds"] for r in committed}),
+            "source": ", ".join(sorted({r["source"] for r in front})) if committed else DRAFT,
+            "frontier": [{"resolution": r["resolution"], "source": r["source"]} for r in front],
+            "draft": " | ".join(drafts) if drafts else None}
     return out
 
 
@@ -588,6 +650,7 @@ def collect(reg: dict, store_text: str | None) -> dict:
         if repo.problem:
             continue
         reviews: list = []
+        lineages: dict = {}
         paths = []
         for folder in lane["pages"]:
             names = set()
@@ -603,17 +666,26 @@ def collect(reg: dict, store_text: str | None) -> dict:
                 paths.append((f"{folder}/{name}", "page-return"))
         paths += [(p, "return-file") for p in lane["return_files"]]
         for path, kind in paths:
-            entry = evaluate_file(repo, path, kind, reviews, out["packets"])
+            entry = evaluate_file(repo, path, kind, reviews, out["packets"], lineages)
             out["files"].append(entry)
             lane_files[f"{lane['lane']}:{path}"] = entry
         for path in lane["review_sources"]:
             out["review_sources"].append(evaluate_review_source(repo, path, lane["lane"], reviews))
         if repo.worktree:
             out["dirty"] = repo.git.dirty([*lane["pages"], *lane["return_files"], *lane["review_sources"]])
-        by_rev: dict[str, list] = {}
+        lane_paths = {p for p, _ in paths}
         for item in reviews:
-            if item["binds"]:
-                by_rev.setdefault(item["binds"], []).append(item)
+            item["status"], item["binds"] = resolve_binding(item, lineages, lane_paths)
+            if item["status"] not in ("valid", "unbound") or (
+                    item["status"] == "unbound" and (item["review"]["findings"] or item["review"]["disposition"])):
+                claimed = item["review"]["prefix"] or item["review"]["legacy_whole"]
+                text = "; ".join(f"{i}={r}" for i, r in item["review"]["findings"]) or "no findings"
+                report["attention"].append((
+                    "invalid-review",
+                    f"lane {lane['lane']}: {item['source']}: {item['status']} review"
+                    f"{' naming ' + claimed if claimed else ''}{' for ' + str(item['target']) if item['target'] else ''}"
+                    f" changes no finding and counts no pass; its text is kept: {text}"))
+        valid = [i for i in reviews if i["status"] == "valid"]
         for entry in out["files"]:
             if entry.get("status") == "missing":
                 report["attention"].append(("missing", f"lane {lane['lane']}: {entry['path']} missing"))
@@ -627,19 +699,26 @@ def collect(reg: dict, store_text: str | None) -> dict:
             for rev in entry["revisions"]:
                 if rev.get("status") != "ok":
                     continue
-                bound = by_rev.get(rev["revision_id"], [])
-                file_bound = [b for b in reviews if b["file"] == entry["path"] and b["binds"]]
-                if bound:
-                    committed = [b for b in bound if not b["source"].endswith("@worktree")]
-                    latest = max(committed or bound, key=lambda b: b["order"])
+                bound = [b for b in valid if b["target"] == entry["path"] and b["binds"] == rev["revision_id"]]
+                committed = [b for b in bound if b["commit"]]
+                if committed:
+                    front = causal_frontier(repo, [dict(b, resolution=b["review"]["disposition"]) for b in committed])
                     rev["review"] = "reviewed"
-                    rev["review_source"] = latest["source"]
-                    rev["disposition"] = latest["review"]["disposition"]
-                elif file_bound:
+                    rev["review_source"] = ", ".join(sorted({b["source"] for b in front}))
+                    dispositions = sorted({b["resolution"] for b in front if b["resolution"]})
+                    if len(dispositions) == 1:
+                        rev["disposition"] = dispositions[0]
+                    elif dispositions:
+                        rev["disposition"] = " | ".join(dispositions)
+                        report["attention"].append(("conflict", f"lane {lane['lane']}: {entry['path']}: incomparable review dispositions {dispositions}"))
+                elif bound:
+                    rev["review"] = "reviewed-in-uncommitted-draft"
+                    rev["review_source"] = bound[0]["source"]
+                elif any(b["target"] == entry["path"] for b in valid):
                     rev["review"] = "stale-review"
                 else:
                     rev["review"] = "review-needed"
-                unbound = [b for b in reviews if b["file"] == entry["path"] and not b["binds"]]
+                unbound = [b for b in reviews if b["target"] == entry["path"] and b["status"] != "valid"]
                 if unbound:
                     rev["unbound_reviews"] = [b["source"] for b in unbound]
                 rev["intake"] = None
@@ -651,10 +730,16 @@ def collect(reg: dict, store_text: str | None) -> dict:
                     if rev["review"] != "reviewed":
                         kind = "review-needed" if rev["intake"] == "seen" else "unseen" if rev["intake"] == "unseen" else "review-needed"
                         report["attention"].append((kind, f"lane {lane['lane']}: {entry['path']} {rev['label']} #{rev['revision_id']}"))
-        out["findings"] = findings_for(reviews)
-        for ident, f in out["findings"].items():
-            if f["state"] != "closed":
-                report["attention"].append(("open-finding", f"lane {lane['lane']}: {ident}={f['resolution']} ({f['state']}, passes {f['passes']})"))
+        out["findings"] = lane_findings(repo, valid)
+        for key, f in out["findings"].items():
+            if f["state"] == "conflict":
+                report["attention"].append(("conflict", f"lane {lane['lane']}: {key}: incomparable resolutions "
+                                            + "; ".join(f"{r['resolution']} at {r['source']}" for r in f["frontier"])))
+            elif f["state"] != "closed":
+                report["attention"].append(("open-finding", f"lane {lane['lane']}: {key}={f['resolution']} ({f['state']}, passes {f['passes']})"))
+            if f["draft"] is not None and f["state"] != "draft-only" and f["draft"] != f["resolution"]:
+                report["attention"].append(("conflict", f"lane {lane['lane']}: {key}: draft differs from committed: "
+                                            f"committed {f['resolution']}, uncommitted draft {f['draft']}"))
         for item in reviews:
             for b in item["review"]["bad"]:
                 report["attention"].append(("unsupported", f"lane {lane['lane']}: unreadable finding item {b!r} in {item['source']}"))
@@ -744,8 +829,9 @@ def render(report: dict, reg_sha: str) -> str:
         for src in lane["review_sources"]:
             lines.append(f"  review source {src['path']}: {src['status']}  history {src['history']}")
         if lane["findings"]:
-            lines.append("  findings: " + "; ".join(f"{k}={v['resolution']} ({v['state']}, passes {v['passes']})"
-                                                     for k, v in sorted(lane["findings"].items())))
+            lines.append("  findings: " + "; ".join(
+                f"{v['id']} [{v['target']}]={v['resolution']} ({v['state']}, passes {v['passes']}"
+                f"{', draft ' + v['draft'] if v['draft'] else ''})" for _, v in sorted(lane["findings"].items())))
         else:
             lines.append("  findings: none recorded in machine-readable form")
         if lane["dirty"]:

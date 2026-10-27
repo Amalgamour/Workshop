@@ -1,0 +1,20 @@
+ok   05.05 has one current revision (published = local = worktree)
+ok   05.05 legacy whole-hash review binds through history
+ok   05.05 disposition shown verbatim
+ok   05.05 amended revision supersedes the first
+ok   05.05 execution unknown (legacy)
+ok   05.06 return is PENDING, not eligible
+ok   SoF return-file eligible, execution and review unknown/needed
+ok   SoF worktree not read (worktree off)
+ok   findings not machine-readable on real pages
+ok   canonical waiting for 05.06 with no return: no canonical conflict
+ok   ack then idempotent re-ack
+ok   SoF now seen, still review-needed, nothing accepted
+ok   B1 unseen and review-needed
+ok   B3 seen
+ok   B4 same revision, reviewed, not re-queued
+ok   B5 new revision, unseen, stale review, supersedes v1
+ok   B5 SY-01 still open from history
+ok   B6 ack loss: v2 unseen, SY-01 still open, nothing accepted
+processes 14  checks 18  failed 0
+demo ok

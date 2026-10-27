@@ -1,0 +1,82 @@
+{
+  "root": "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-psi-review-sw5clnuh",
+  "manifest": {
+    "rows": 25,
+    "errors": []
+  },
+  "runs": {
+    "demo": {
+      "exit": 0,
+      "seconds": 11.33,
+      "tail": " ack then idempotent re-ack\nok   SoF now seen, still review-needed, nothing accepted\nok   B1 unseen and review-needed\nok   B3 seen\nok   B4 same revision, reviewed, not re-queued\nok   B5 new revision, unseen, stale review, supersedes v1\nok   B5 SY-01 still open from history\nok   B6 ack loss: v2 unseen, SY-01 still open, nothing accepted\nprocesses 14  checks 18  failed 0\ndemo ok\n"
+    },
+    "psi-tests": {
+      "exit": 0,
+      "seconds": 14.66,
+      "tail": "__main__.PSI.test_psi02_inverted_timestamps) ... ok\ntest_psi02_repeated_observations (__main__.PSI.test_psi02_repeated_observations) ... ok\ntest_psi02_worktree_draft (__main__.PSI.test_psi02_worktree_draft) ... ok\ntest_psi_ack_deletion (__main__.PSI.test_psi_ack_deletion) ... ok\n\n----------------------------------------------------------------------\nRan 10 tests in 14.476s\n\nOK\n"
+    },
+    "original-tests": {
+      "exit": 0,
+      "seconds": 28.84,
+      "tail": "e.test_ps01_boundary_decoys) ... ok\ntest_ps01_no_inherited_review (__main__.Fixture.test_ps01_no_inherited_review) ... ok\ntest_ps02_return_file_shape (__main__.Fixture.test_ps02_return_file_shape) ... ok\ntest_scan_show_read_only (__main__.Fixture.test_scan_show_read_only) ... ok\n\n----------------------------------------------------------------------\nRan 19 tests in 28.674s\n\nOK\n"
+    }
+  },
+  "counterexamples": {
+    "unknown-hash": {
+      "exit": 1,
+      "reported": {
+        "draft": null,
+        "frontier": [
+          {
+            "resolution": "unresolved",
+            "source": "00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@faddfb31b3825ceb7850cbd42681dd96fb8ed3b3"
+          }
+        ],
+        "id": "PS-X",
+        "passes": 1,
+        "resolution": "unresolved",
+        "source": "00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@faddfb31b3825ceb7850cbd42681dd96fb8ed3b3",
+        "state": "open",
+        "target": "00.kernel/00.00.10.work/0599.fixture-lane/05.01.md"
+      },
+      "attention": [
+        {
+          "item": "lane fixture: 00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@22721a7e330bccf0f357efddc25a477de2ac369f: unknown-hash review naming aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa for 00.kernel/00.00.10.work/0599.fixture-lane/05.01.md changes no finding and counts no pass; its text is kept: PS-X=verified-fixed",
+          "kind": "invalid-review"
+        },
+        {
+          "item": "lane fixture: 00.kernel/00.00.10.work/0599.fixture-lane/05.01.md#PS-X=unresolved (open, passes 1)",
+          "kind": "open-finding"
+        }
+      ],
+      "passes": 1,
+      "matches": true
+    },
+    "inverted-timestamp": {
+      "exit": 1,
+      "reported": {
+        "draft": null,
+        "frontier": [
+          {
+            "resolution": "unresolved",
+            "source": "00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@d49e5968638b21253b74696c7c4b29b4f5ac5108"
+          }
+        ],
+        "id": "PS-Y",
+        "passes": 1,
+        "resolution": "unresolved",
+        "source": "00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@d49e5968638b21253b74696c7c4b29b4f5ac5108",
+        "state": "open",
+        "target": "00.kernel/00.00.10.work/0599.fixture-lane/05.01.md"
+      },
+      "attention": [
+        {
+          "item": "lane fixture: 00.kernel/00.00.10.work/0599.fixture-lane/05.01.md#PS-Y=unresolved (open, passes 1)",
+          "kind": "open-finding"
+        }
+      ],
+      "passes": 1,
+      "matches": true
+    }
+  }
+}

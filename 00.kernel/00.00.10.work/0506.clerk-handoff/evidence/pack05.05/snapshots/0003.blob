@@ -1,0 +1,209 @@
+# 05 — Machine-readable Clerk inspection
+version: 001
+Authorization: draft — 2026-10-27
+who: Codex Prime
+state: released by the Director 2026-10-27; claimed by Grok Builder 2
+Face: 05
+PPPP: 0506
+book: 00.00.10.work
+keyword: clerk-handoff
+
+## Assignment
+Executor: Grok Builder 2. Technical lead/reviewer: Claude. Acceptance: Codex Prime.
+Release: Director, this session, 2026-10-27. Claim: Grok Builder 2, this page only.
+Add one READ-ONLY show --json projection needed by 05.03's app/Clerk seam and
+future Prime support. No mutations, new lifecycle state or raw-event reader in
+another component. Core correction passed Prime verification; Claude will review
+the correction plus this interface before integrated acceptance.
+Inputs: evidence/pack05.04/source-manifest.tsv and exact snapshots.
+
+## #01 — Notes and preserve
+Read 05.02/05.03 Prime Reviews and the full design. Notes FIRST on new 06.07.md.
+Snapshot schema-2 source/tests/docs before edits. Keep all prior manifests/evidence
+and pass01 untouched. No new desk or numeric address allocation.
+
+## #02 — One JSON inspection contract
+Implement `clerk.py show --store S --job ID --json [--instructions-base BASE]`.
+Reuse the existing validated View/read/check path. Default human show output and
+all mutation commands remain compatible. No app/bridge/kernel changes.
+JSON schema identifier: clerk-handoff-inspection/1. Top-level fields:
+schema, job_id, state, job, claim, returned, checks, problems.
+- job: the validated queued job object (assignee, reviewer, instructions,
+  expected_outputs, release and routed_by remain owned there), or null if unusable.
+- claim: {by, token} from the validated claim, or null.
+- returned: {by, delivery, evidence, artifacts} from the validated return, or null.
+- checks: structured event/completion/artifact/instruction check results. Document
+  exact enums/types; distinguish not checked/not applicable from verified good.
+- problems: explicit typed diagnostics or strings, documented consistently.
+State must distinguish queued/claimed/returned from unknown/incomplete/corrupt;
+an invalid structure never produces a successful clean returned object. Do not
+present unverified fields as usable. Tokens and names remain labels, not auth.
+For valid nonreturned phases, null returned is normal; don't invent outputs.
+For missing/corrupt records or OS failures reached by show, emit valid JSON with
+nonzero exit and diagnostics, no mixed human stdout or traceback. CLI syntax errors
+may retain argparse's normal stderr/exit 2 behavior. Inspection never writes.
+
+## #03 — Tests and demonstration
+In external disposable stores/copies, cover queued, claimed, resumed, returned,
+identical resend, changed artifact, unusable instructions, unknown job, partial or
+missing witness/event and expected read errors. Parse JSON in a fresh process;
+check exact actor/reviewer/output set, claim token, returned delivery and artifact
+hashes against the actual recorded source. Assert every store byte/name unchanged
+before/after inspection, including on failure. Do not silently regenerate views.
+Keep existing human CLI tests and 28-test suite/demonstration passing with skips
+reported. No new network/model calls, timers or broad fuzzing. A JSON shape is
+not an approval/acceptance record. No duplicated editable job state or database.
+
+## #04 — Reread and return
+Reread schema/docs/code and account for notes. New source/output manifest:
+lab evidence/SHA256SUMS.pass03.txt; retain old manifests and before copies.
+Return HERE with Did, Blocked, Need; exact hashes, commands, counts, read-only
+proof, example JSON for all phases, limits and one recommended next action.
+Claude's independent correction/interface review remains NEW 06.04.md and
+evidence/colab-review05.04/ (Director invokes after his Prime-support assignment).
+Builder never writes that review. No sharing or execution of other packs.
+
+## Scope
+Only labs/clerk-handoff-pass02/, this 05.04, new 06.07 and evidence/inspection05.04/
+on this page. No earlier batch/review rewrites, app/bridge/SoF/Prime-support,
+kernel/pass01, shared assignment/view/queue or source checkout changes.
+NO shared Git writes; Prime publishes. No activation, worker execution, scheduler,
+automatic routing, approval/closure or new privileges. External tests only.
+
+## Return — Grok Builder 2
+
+Did. Added read-only `show --json` on `labs/clerk-handoff-pass02/`. It reuses the validated view from `classify`. Schema identifier `clerk-handoff-inspection/1`. The store format remains `clerk-handoff-pass02/2`. Human `show`, `inbox`, `verify`, and the mutation commands keep their text and exit codes. `--json` on another command is an argparse error and writes nothing. Notes are on 06.07.md. 06.04.md is not written.
+
+Blocked. Nothing in this slice.
+
+Need. Nothing that has to be decided before review. 06.07 records the check enums, the rule that incomplete, corrupt, and unknown documents carry null `job`, `claim`, and `returned`, and that the document is an inspection projection.
+
+Files and hashes. New lab pin: `labs/clerk-handoff-pass02/evidence/SHA256SUMS.pass03.txt`, SHA-256 `62891eb4abb7ebdc24fdcf836d4d401452bfa27d7e71c1a7b63239f30c2f3ea2`, LF, 17 files, not including itself. The pass02 pin is unchanged, `08cd3001d887af06df56c65e0f857a77ce38374e3eafc8755942fb5ee69c9760`. The first pin `evidence/SHA256SUMS.txt` is unchanged, `0d8022900bc20d77e2b1d978a360f80685f79c389f61d4a46702b410d0ad3d52`.
+
+Changed sources:
+
+- `clerk.py` `e3918daeff7241549a0e74bb0bef1f148e09b426fe0d5f02074dc6afcf9dd321`
+- `README.md` `8d97f815aebe6ee323f72143b1222d02f3d29d92d19f5a52dd123936ebea8345`
+- `tests/test_clerk.py` `25b0572484eda861894840d3a0789479cd76ec1e95b38013c33e9b4592b4192c`
+
+`demo.py` is unchanged, `ae6653a928d450bd943e04b454c2789e6a794558373e66b9b819768950b6b50c`. Before-edit copies are under `evidence/inspection05.04/before/`. `before/clerk.py` is still `f469e232f878d042a7a50e6c1ca948d26fdb680de12a6a4220fd8f4513f103ad`. The page pin is `evidence/inspection05.04/SHA256SUMS.txt`, SHA-256 `f4fe4c572b259d32bb54703db9fa740d34d22cdaa3d1b51bbd54527815f6535d`, LF, 18 files, not including itself.
+
+Tests. Python 3.14.0. Relocated copy, outside the Git working tree: `C:\Users\misg\AppData\Local\Temp\clerk-pass03-i92c64e3\lab`. Command: `python -B tests\test_clerk.py -v`. 32 tests, 31 ok, 1 skipped, 106.861s. The skip is `test_symlink_output_refused_or_skipped`, WinError 1314. It is not a pass. Log: `labs/clerk-handoff-pass02/evidence/tests.pass03.txt`, SHA-256 `9a76c386defb7b141cbeb703f8069b6adc9f0e9876d9797b857ecaff4c2a04b3`.
+
+Demo. The same copy: `python -B demo.py --out <absolute temp>`. It printed `demo ok` and exited 0. Seventeen processes. Codes `0 0 0 0 0 2 2 0 0 0 0 0 0 0 1 1 1`.
+
+Read-only proof. Each JSON test snapshots every store file hash and directory name before and after `show --json`, including unknown jobs, damaged completion, refusals, and read errors. The example run compared `0003.returned.json` and `0003.witness.json` after the clean return, the changed artifact, the deleted event, and the deleted witness. The partial witness bytes were compared after inspection. Those bytes stayed, and inspection did not create the missing half. Human `show` of the returned job still prints `claim <token>`, `chain ok`, and `result ok` or `result findings`. It does not print the inspection schema.
+
+Example JSON. Exact stdout from the example run. Copies: `evidence/inspection05.04/examples/`. The claim token below is the label from that run.
+
+Queued, exit 0. `examples/queued.json`:
+
+```text
+{"checks":{"artifacts":"not-applicable","completion":"not-applicable","events":"ok","instructions":"not-checked"},"claim":null,"job":{"assignee":"builder-b","expected_outputs":["count.py"],"instructions":{"path":"task.txt","sha256":"4e323eba376a5d14231c33aa10ea003e1462e1e74aef7daf1797f394f1beb4be"},"job_id":"demo-0001","release":"fixture release","reviewer":"codex-prime","routed_by":"router-fixture"},"job_id":"demo-0001","problems":[],"returned":null,"schema":"clerk-handoff-inspection/1","state":"queued"}
+```
+
+Claimed after resume, exit 0. Resume wrote nothing. `examples/claimed.json`:
+
+```text
+{"checks":{"artifacts":"not-applicable","completion":"not-applicable","events":"ok","instructions":"usable"},"claim":{"by":"builder-b","token":"ed7e9f345903281572d3ea027dc346a0"},"job":{"assignee":"builder-b","expected_outputs":["count.py"],"instructions":{"path":"task.txt","sha256":"4e323eba376a5d14231c33aa10ea003e1462e1e74aef7daf1797f394f1beb4be"},"job_id":"demo-0001","release":"fixture release","reviewer":"codex-prime","routed_by":"router-fixture"},"job_id":"demo-0001","problems":[],"returned":null,"schema":"clerk-handoff-inspection/1","state":"claimed"}
+```
+
+Returned, exit 0. Recorded artifact `count.py` is `a462cd0fc8d967065c00e2f7f162cb480e7d919d299fa5c03af46ba002679133`, 87 bytes. `examples/returned.json`:
+
+```text
+{"checks":{"artifacts":"ok","completion":"ok","events":"ok","instructions":"usable"},"claim":{"by":"builder-b","token":"ed7e9f345903281572d3ea027dc346a0"},"job":{"assignee":"builder-b","expected_outputs":["count.py"],"instructions":{"path":"task.txt","sha256":"4e323eba376a5d14231c33aa10ea003e1462e1e74aef7daf1797f394f1beb4be"},"job_id":"demo-0001","release":"fixture release","reviewer":"codex-prime","routed_by":"router-fixture"},"job_id":"demo-0001","problems":[],"returned":{"artifacts":[{"bytes":87,"path":"count.py","sha256":"a462cd0fc8d967065c00e2f7f162cb480e7d919d299fa5c03af46ba002679133"}],"by":"builder-b","delivery":"d-1","evidence":"scripted fixture"},"schema":"clerk-handoff-inspection/1","state":"returned"}
+```
+
+Identical resend, then `show --json`, exit 0. The second document matched the returned document above. The event and the witness bytes matched the bytes taken after the first return.
+
+Changed artifact, exit 1. The recorded hash stays `a462cd0f…`. `examples/artifact-changed.json`:
+
+```text
+{"checks":{"artifacts":"changed","completion":"ok","events":"ok","instructions":"usable"},"claim":{"by":"builder-b","token":"ed7e9f345903281572d3ea027dc346a0"},"job":{"assignee":"builder-b","expected_outputs":["count.py"],"instructions":{"path":"task.txt","sha256":"4e323eba376a5d14231c33aa10ea003e1462e1e74aef7daf1797f394f1beb4be"},"job_id":"demo-0001","release":"fixture release","reviewer":"codex-prime","routed_by":"router-fixture"},"job_id":"demo-0001","problems":[{"detail":"artifact count.py sha256=a462cd0fc8d967065c00e2f7f162cb480e7d919d299fa5c03af46ba002679133 artifact changed","kind":"artifact-changed","path":"count.py"}],"returned":{"artifacts":[{"bytes":87,"path":"count.py","sha256":"a462cd0fc8d967065c00e2f7f162cb480e7d919d299fa5c03af46ba002679133"}],"by":"builder-b","delivery":"d-1","evidence":"scripted fixture"},"schema":"clerk-handoff-inspection/1","state":"returned"}
+```
+
+Unusable instructions, exit 1. The recorded instruction hash stays on `job`. `examples/instructions-unusable.json`:
+
+```text
+{"checks":{"artifacts":"ok","completion":"ok","events":"ok","instructions":"unusable"},"claim":{"by":"builder-b","token":"ed7e9f345903281572d3ea027dc346a0"},"job":{"assignee":"builder-b","expected_outputs":["count.py"],"instructions":{"path":"task.txt","sha256":"4e323eba376a5d14231c33aa10ea003e1462e1e74aef7daf1797f394f1beb4be"},"job_id":"demo-0001","release":"fixture release","reviewer":"codex-prime","routed_by":"router-fixture"},"job_id":"demo-0001","problems":[{"detail":"instruction hash mismatch","kind":"instructions-unusable"}],"returned":{"artifacts":[{"bytes":87,"path":"count.py","sha256":"a462cd0fc8d967065c00e2f7f162cb480e7d919d299fa5c03af46ba002679133"}],"by":"builder-b","delivery":"d-1","evidence":"scripted fixture"},"schema":"clerk-handoff-inspection/1","state":"returned"}
+```
+
+Unknown job, exit 2. `examples/unknown.json`:
+
+```text
+{"checks":{"artifacts":"not-applicable","completion":"not-applicable","events":"not-applicable","instructions":"not-applicable"},"claim":null,"job":null,"job_id":"missing-job","problems":[{"detail":"no matching job","kind":"unknown"}],"returned":null,"schema":"clerk-handoff-inspection/1","state":"unknown"}
+```
+
+Missing store, exit 2. `examples/unknown-missing-store.json`:
+
+```text
+{"checks":{"artifacts":"not-applicable","completion":"not-applicable","events":"not-applicable","instructions":"not-applicable"},"claim":null,"job":null,"job_id":"demo-0001","problems":[{"detail":"no matching store","kind":"unknown"}],"returned":null,"schema":"clerk-handoff-inspection/1","state":"unknown"}
+```
+
+Partial witness, exit 2. `examples/incomplete-partial.json`:
+
+```text
+{"checks":{"artifacts":"not-applicable","completion":"partial","events":"broken","instructions":"not-applicable"},"claim":null,"job":null,"job_id":"demo-0001","problems":[{"detail":"partial completion witness","kind":"incomplete"}],"returned":null,"schema":"clerk-handoff-inspection/1","state":"incomplete"}
+```
+
+Witness kept, returned event deleted, exit 2. `examples/incomplete-missing-event.json`:
+
+```text
+{"checks":{"artifacts":"not-applicable","completion":"missing-event","events":"broken","instructions":"not-applicable"},"claim":null,"job":null,"job_id":"demo-0001","problems":[{"detail":"completion witness without returned event","kind":"incomplete"}],"returned":null,"schema":"clerk-handoff-inspection/1","state":"incomplete"}
+```
+
+Returned event kept, witness deleted, exit 2. `examples/incomplete-missing-witness.json`:
+
+```text
+{"checks":{"artifacts":"not-applicable","completion":"missing-witness","events":"broken","instructions":"not-applicable"},"claim":null,"job":null,"job_id":"demo-0001","problems":[{"detail":"returned event without completion witness","kind":"incomplete"}],"returned":null,"schema":"clerk-handoff-inspection/1","state":"incomplete"}
+```
+
+Planted completion file, exit 2. `examples/corrupt-planted.json`:
+
+```text
+{"checks":{"artifacts":"not-applicable","completion":"mismatch","events":"broken","instructions":"not-applicable"},"claim":null,"job":null,"job_id":"demo-0001","problems":[{"detail":"planted completion metadata 0004.completion.json","kind":"corrupt"}],"returned":null,"schema":"clerk-handoff-inspection/1","state":"corrupt"}
+```
+
+Job path is a file, exit 2. `examples/corrupt-not-directory.json`:
+
+```text
+{"checks":{"artifacts":"not-applicable","completion":"not-applicable","events":"broken","instructions":"not-applicable"},"claim":null,"job":null,"job_id":"demo-0001","problems":[{"detail":"job path is not a plain directory","kind":"corrupt"}],"returned":null,"schema":"clerk-handoff-inspection/1","state":"corrupt"}
+```
+
+Artifact read error, exit 2. In-process, because the patch does not cross a process. `examples/filesystem.json`:
+
+```text
+{"checks":{"artifacts":"not-applicable","completion":"not-applicable","events":"not-applicable","instructions":"not-applicable"},"claim":null,"job":null,"job_id":"demo-0001","problems":[{"detail":"PermissionError: Permission denied","kind":"filesystem"}],"returned":null,"schema":"clerk-handoff-inspection/1","state":"unknown"}
+```
+
+The same patch on human `show` prints `incomplete: filesystem error:`, `existing token`, `no new token`, and `result refused`. A directory listing error that `classify` already records as `job directory is unreadable` stays `state` `corrupt`, `checks.events` `unreadable`, kind `corrupt`. It is a classified record, and the JSON kind is `corrupt`.
+
+Verified. Pack 05.04 inputs matched before the edit (8 files, `input_bad 0`). After the edit, `demo.py`, `SHA256SUMS.pass02.txt`, 05.02.md, 05.03.md, and `evidence/design05.03/SEAM.md` still match that pack. The pass02 manifest's ten preserved lab files still match, and `clerk.py`, `README.md`, and `tests/test_clerk.py` are the intended differences. Git was read and not written. HEAD at the start of this slice was `916cd8b0d4080437c9f4412ad67c24f33013f34e`. At the pin it was `636eaa1e6a35a7295d6994e3bf60605f85d525a9` (`Draft Grok 1 pack custody verifier lab`), outside this slice. This work did not edit pass01, app, the worker bridge, SoF, 05.02, 05.03, 06.06, or 06.01 through 06.05.
+
+Claimed as limits, not as test results. The witness still detects an isolated break in the returned pair. A rewrite of the witness and the returned event that still agrees, a rewrite of the whole store, and deletion of both files back to a claimed prefix still look consistent. Inspection does not write, repair, or accept. `--json` is only on `show`. A CLI syntax error stays on stderr with exit 2, and that stdout is not this document. `not-checked` and `not-applicable` are absent checks. An escaped filesystem error yields a valid document with null `job`, `claim`, and `returned`. Names and the claim token remain labels. This machine did not create a symlink. The seam's `bridge_job_sha256` check and Q01 are outside this slice.
+
+One bounded next step. Claude's independent review of the corrected core and this interface, on 06.04.md and `evidence/colab-review05.04/`. Codex Prime accepts this return or asks for one bounded correction after that review. This builder does not write that review.
+
+## Review — Codex Prime
+Date: 2026-10-27.
+Disposition: INDEPENDENT VERIFICATION PASS; LEAD REVIEW AND INTEGRATED ACCEPTANCE PENDING.
+The structured inspection is a projection of Clerk's existing validated state,
+not a second queue or approval record. Its actor, reviewer, claim, return delivery,
+artifact hashes, instruction checks and failure states are exposed for consumers.
+
+Prime independently verified all 17 pass03 manifest entries, reran the isolated
+suite (32 tests: 31 pass, one symlink-privilege skip), and reran the 17-process
+demo successfully. Prime's first demo command omitted --out and was refused;
+the original failure and corrected invocation/output are retained. This was a
+review-harness invocation error, not a product defect hidden by a passing count.
+The four new inspection tests include fresh-process JSON, damaged completion,
+artifact/instruction changes and unchanged-store assertions. No failing behavior
+was found in this bounded inspection review. A skipped privilege case is unproven.
+
+The completion witness limitations remain: coherent rewriting/removal of both
+completion records is not authenticated history. Structured inspection is not an
+accepted worker-to-Clerk connection, model integration or release capability.
+Next: Claude's independent correction/interface lead review on new 06.04.md and
+evidence/colab-review05.04/. It remains due after the active Prime-support work;
+this Prime pass does not silently substitute for that named review.
+Evidence: evidence/prime-review05.04/.

@@ -193,16 +193,16 @@ def main():
     commit(syn, {page: (head + "Amendment: out.txt ends with a newline (answers SY-01).\n").encode()}, "amend, old Review removed", "main")
     code, rep = status_json("B5 amended", reg2, store2)
     r5 = entry(rep, "synthetic", page)["revisions"][0]
-    f5 = rep["lanes"][0]["findings"]
+    f5 = rep["lanes"][0]["findings"]  # 05.03: keys are scoped '<target path>#<ID>'
     expect("B5 new revision, unseen, stale review, supersedes v1",
            r5["revision_id"] != v1 and (r5["intake"], r5["review"], r5["supersedes"]) == ("unseen", "stale-review", v1))
-    expect("B5 SY-01 still open from history", f5.get("SY-01", {}).get("state") == "open", json.dumps(f5))
+    expect("B5 SY-01 still open from history", f5.get(f"{page}#SY-01", {}).get("state") == "open", json.dumps(f5))
     for p in sorted(store2.rglob("*"), reverse=True):
         p.unlink() if p.is_file() else p.rmdir()
     store2.rmdir()
     code, rep = status_json("B6 acknowledgements lost", reg2, store2)
     expect("B6 ack loss: v2 unseen, SY-01 still open, nothing accepted",
-           rep["lanes"][0]["findings"].get("SY-01", {}).get("state") == "open"
+           rep["lanes"][0]["findings"].get(f"{page}#SY-01", {}).get("state") == "open"
            and "accepted" not in json.dumps(rep).replace("not accepted", ""))
     tool("B7 status text", "status", "--registry", reg2, "--intake", store2)
 

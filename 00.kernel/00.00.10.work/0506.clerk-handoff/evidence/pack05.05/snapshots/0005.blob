@@ -1,0 +1,66 @@
+# Notes — file-backed Clerk handoff, pass 02
+Date: 2026-10-27
+Recorder: Grok 4.7, Second Grok Builder
+Session: 01a17dfa-bc23-7730-bec3-c49938f96187
+State: implementation notes for 05.01. Not a review and not an acceptance.
+
+Prime's assessment on 06.01.md stays as Prime wrote it. Pass01 stays byte-for-byte. These notes do not replace either one.
+
+## Where the work was written
+
+The released page is `D:\Git\lib-build\00.kernel\00.00.10.work\0506.clerk-handoff\05.01.md`. That checkout is branch `workshop` at `4005828`. The session worktree `builder-2` is a different checkout at `4ae4b06` and already held the first builder's uncommitted app edits. This build did not write there.
+
+## Integrated
+
+From the pinned proposal, sections 3-7: one lab library and CLI, the six commands, states queued then claimed then returned, exclusive create, the hash-linked event files, the exact job keys, assignee different from reviewer, outbox checks, the seven-step demo, and the section 7 refusals. No accept, close, route, or next recipient.
+
+From 06.01, where it controls:
+
+1. Schema `clerk-handoff-pass02/1` is stamped on events Clerk writes. The router job keeps the section 3 keys only. Unknown keys, duplicate keys, and nonfinite numbers are refused. Ids are windows-safe. Case-colliding ids and output names are refused.
+2. The instruction base is an absolute `--instructions-base`. The path inside the job is relative to that base. Clerk hashes it before queue, before claim, before resume hands back the token, and before calling the instructions usable. The process working directory is not a base.
+3. Expected outputs are one path segment. Return requires an ordinary file, not a reparse point, with link count one. Writes are exclusive creates. Nothing is deleted.
+4. `claim --resume` returns the same token and writes nothing. A second claim without `--resume` is refused.
+5. An interrupted event write, a claim without an outbox, and an interrupted return stay incomplete. There is no repair command. Resume does not create the missing outbox or a new token. The reviewer does not get a success.
+6. Resend identity is `--as`, `--claim`, `--delivery`, `--evidence`, and the artifact bytes. `at` and `prev` are outside it. The same identity is `already-recorded` and does not restamp. A changed body under that delivery id is a conflict. Another job may use the same delivery id.
+7. A corrupt or incomplete job is shown to every inbox caller. Show and verify say `bad state:` for a damaged job and `no matching job` when the id is absent.
+8. A `.git` directory or a `.git` file refuses the store. `--allow-repo-store` is not a flag.
+
+Pass01 patterns are cited in `clerk.py` and the README at the line ranges the proposal named. The module does not import pass01.
+
+## Rejected
+
+- Pass01's hard-coded recipients, closure on an accepted review, `next(role)`, and SQLite.
+- The proposal's `--allow-repo-store` bypass. 06.01 removes it.
+- Any completion protocol that would finish a partial claim. 06.01 allows a refusal instead. This lab refuses.
+- Treating `--as`, the token, `release`, or `routed_by` as authentication.
+- Treating the hash chain as a signature or as protection against a same-user race.
+
+## Deferred
+
+App integration, worker launch, model calls, scheduling, seating, acceptance, and a repair tool. A partial store is evidence. Re-doing the work is a new job id in a new store, outside this program.
+
+## Reread
+
+Checked the implementation and the README against each item above after the tests and the demo.
+
+- Queue validates the job and the instruction hash before it creates a store directory. A refusal leaves no store.
+- Claim, resume, and return do not open an event with a truncating write. The source has no `os.remove`, `unlink`, `rmtree`, or `shutil`.
+- Resume of a complete claim compares the token and the file bytes before and after. They match, and the file set matches.
+- The outbox interruption leaves `0002` in place and does not create `outbox` on a later resume, claim, or return.
+- A partial `0003` is not listed as a returned job. A later return does not replace those bytes.
+- An extra or tampered earlier event exits 2 and adds no event. Deleting the middle event after a return is a bad state, not a clean queue.
+- Artifact byte changes after a valid return exit 1, say `artifact changed`, and say `not-returned-clean`. The event chain can still be intact. That split follows section 4's findings code and section 7's refusal code for a damaged event.
+- Inbox of a clean store can be empty for the reviewer and for anyone else. Inbox of a damaged store is not `result ok` and names the job.
+- The demo store was under `%TEMP%`, outside this Git working tree. Seventeen separate processes covered the seven steps. Verify before the tamper exited 0 with `states queued claimed returned`. After the tamper, show, the reviewer inbox, and verify reported `artifact changed`, and verify exited 1.
+- Symlink creation returned WinError 1314. That test is a skip. Junction and hard link were created and refused, with no return event.
+- The first test run failed in the test harness: it tried to store a job in `CON.json`, which Windows opens as the CON device. Clerk refused that path as not a plain file. The corrected test puts `CON` in `expected_outputs` and uses an ordinary job-file name. Both logs are in `evidence/`.
+
+## Choices left visible for review
+
+- Absolute `--store`, `--job`, and `--instructions-base`. A relative path is refused rather than resolved from the working directory.
+- `routed_by` is required because section 3 lists it. The demo narrative did not name it. The fixture records `router-fixture`.
+- An empty `expected_outputs` list is schema-valid. The proposal says a list. The demo uses one name.
+- Corrupt records exit 2. A clean chain with a changed artifact exits 1.
+- The last event has no later `prev` to anchor it. Replacing that file, or rewriting the whole store consistently, is not detected. The README says so.
+
+No contract question needs a new rule before Claude's review.

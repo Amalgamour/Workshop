@@ -1,0 +1,170 @@
+test_01_three_lanes_read_only (test_prime_support.Fixture.test_01_three_lanes_read_only) ... ok
+test_02_canonical_conflicts (test_prime_support.Fixture.test_02_canonical_conflicts) ... ok
+test_03_published_local_worktree (test_prime_support.Fixture.test_03_published_local_worktree) ... ok
+test_04_identity_review_amend (test_prime_support.Fixture.test_04_identity_review_amend) ... ok
+test_05_incomplete_not_eligible (test_prime_support.Fixture.test_05_incomplete_not_eligible) ... ok
+test_06_ack_rules (test_prime_support.Fixture.test_06_ack_rules) ... ok
+test_06b_collision_and_inconsistent_identity (test_prime_support.Fixture.test_06b_collision_and_inconsistent_identity) ... ok
+test_07_review_binding_findings (test_prime_support.Fixture.test_07_review_binding_findings) ... ok
+test_08_ps03_lineage_survives (test_prime_support.Fixture.test_08_ps03_lineage_survives) ... ok
+test_08b_missing_history_is_unknown (test_prime_support.Fixture.test_08b_missing_history_is_unknown) ... ok
+test_09_missing_sources (test_prime_support.Fixture.test_09_missing_sources) ... ok
+test_10_no_crawl (test_prime_support.Fixture.test_10_no_crawl) ... ok
+test_11_legacy_unknowns (test_prime_support.Fixture.test_11_legacy_unknowns) ... ok
+test_git_allowlist (test_prime_support.Fixture.test_git_allowlist) ... ok
+test_invalid_registry (test_prime_support.Fixture.test_invalid_registry) ... ok
+test_ps01_boundary_decoys (test_prime_support.Fixture.test_ps01_boundary_decoys) ... ok
+test_ps01_no_inherited_review (test_prime_support.Fixture.test_ps01_no_inherited_review) ... ok
+test_ps02_return_file_shape (test_prime_support.Fixture.test_ps02_return_file_shape) ... ok
+test_scan_show_read_only (test_prime_support.Fixture.test_scan_show_read_only) ... ok
+test_01_three_lanes_read_only (__main__.PSI.test_01_three_lanes_read_only) ... ok
+test_02_canonical_conflicts (__main__.PSI.test_02_canonical_conflicts) ... ok
+test_03_published_local_worktree (__main__.PSI.test_03_published_local_worktree) ... ok
+test_04_identity_review_amend (__main__.PSI.test_04_identity_review_amend) ... ok
+test_05_incomplete_not_eligible (__main__.PSI.test_05_incomplete_not_eligible) ... ok
+test_06_ack_rules (__main__.PSI.test_06_ack_rules) ... ok
+test_06b_collision_and_inconsistent_identity (__main__.PSI.test_06b_collision_and_inconsistent_identity) ... ok
+test_07_review_binding_findings (__main__.PSI.test_07_review_binding_findings) ... ok
+test_08_ps03_lineage_survives (__main__.PSI.test_08_ps03_lineage_survives) ... ok
+test_08b_missing_history_is_unknown (__main__.PSI.test_08b_missing_history_is_unknown) ... ok
+test_09_missing_sources (__main__.PSI.test_09_missing_sources) ... ok
+test_10_no_crawl (__main__.PSI.test_10_no_crawl) ... ok
+test_11_legacy_unknowns (__main__.PSI.test_11_legacy_unknowns) ... ok
+test_git_allowlist (__main__.PSI.test_git_allowlist) ... ok
+test_invalid_registry (__main__.PSI.test_invalid_registry) ... ok
+test_ps01_boundary_decoys (__main__.PSI.test_ps01_boundary_decoys) ... ok
+test_ps01_no_inherited_review (__main__.PSI.test_ps01_no_inherited_review) ... ok
+test_ps02_return_file_shape (__main__.PSI.test_ps02_return_file_shape) ... ok
+test_psi01_invalid_legacy (__main__.PSI.test_psi01_invalid_legacy) ... FAIL
+test_psi01_review_source_binding (__main__.PSI.test_psi01_review_source_binding) ... FAIL
+test_psi01_unknown_hash_cannot_close (__main__.PSI.test_psi01_unknown_hash_cannot_close) ... FAIL
+test_psi01_unrelated_ids_not_collapsed (__main__.PSI.test_psi01_unrelated_ids_not_collapsed) ... FAIL
+test_psi02_comparable_branches (__main__.PSI.test_psi02_comparable_branches) ... FAIL
+test_psi02_divergent_conflict (__main__.PSI.test_psi02_divergent_conflict) ... FAIL
+test_psi02_inverted_timestamps (__main__.PSI.test_psi02_inverted_timestamps) ... FAIL
+test_psi02_repeated_observations (__main__.PSI.test_psi02_repeated_observations) ... ok
+test_psi02_worktree_draft (__main__.PSI.test_psi02_worktree_draft) ... FAIL
+test_psi_ack_deletion (__main__.PSI.test_psi_ack_deletion) ... ok
+test_scan_show_read_only (__main__.PSI.test_scan_show_read_only) ... ok
+
+======================================================================
+FAIL: test_psi01_invalid_legacy (__main__.PSI.test_psi01_invalid_legacy)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\psi-before\lab\tests\test_psi.py", line 69, in test_psi01_invalid_legacy
+    self.assertEqual((f["state"], f["passes"]), ("open", 1), f)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ('closed', 1) != ('open', 1)
+
+First differing element 0:
+'closed'
+'open'
+
+- ('closed', 1)
+?   -- ^ ^
+
++ ('open', 1)
+?    ^ ^
+ : {'passes': 1, 'resolution': 'verified-fixed', 'source': '00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@worktree', 'state': 'closed'}
+
+======================================================================
+FAIL: test_psi01_review_source_binding (__main__.PSI.test_psi01_review_source_binding)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\psi-before\lab\tests\test_psi.py", line 88, in test_psi01_review_source_binding
+    self.assertIsNone(finding(rep, "RS-2"))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'passes': 1, 'resolution': 'verified-fixed', 'source': 'notes/review-none.md@worktree', 'state': 'closed'} is not None
+
+======================================================================
+FAIL: test_psi01_unknown_hash_cannot_close (__main__.PSI.test_psi01_unknown_hash_cannot_close)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\psi-before\lab\tests\test_psi.py", line 56, in test_psi01_unknown_hash_cannot_close
+    self.assertEqual((f["resolution"], f["state"], f["passes"]), ("unresolved", "open", 1), f)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ('verified-fixed', 'closed', 2) != ('unresolved', 'open', 1)
+
+First differing element 0:
+'verified-fixed'
+'unresolved'
+
+- ('verified-fixed', 'closed', 2)
++ ('unresolved', 'open', 1) : {'passes': 2, 'resolution': 'verified-fixed', 'source': '00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@worktree', 'state': 'closed'}
+
+======================================================================
+FAIL: test_psi01_unrelated_ids_not_collapsed (__main__.PSI.test_psi01_unrelated_ids_not_collapsed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\psi-before\lab\tests\test_psi.py", line 102, in test_psi01_unrelated_ids_not_collapsed
+    self.assertEqual(finding(rep, "F-1", PAGE_FILE)["state"], "open")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'closed' != 'open'
+- closed
++ open
+
+
+======================================================================
+FAIL: test_psi02_comparable_branches (__main__.PSI.test_psi02_comparable_branches)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\psi-before\lab\tests\test_psi.py", line 126, in test_psi02_comparable_branches
+    self.assertEqual((f["resolution"], f["state"]), ("verified-fixed", "closed"), f)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ('unresolved', 'open') != ('verified-fixed', 'closed')
+
+First differing element 0:
+'unresolved'
+'verified-fixed'
+
+- ('unresolved', 'open')
++ ('verified-fixed', 'closed') : {'passes': 1, 'resolution': 'unresolved', 'source': '00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@1b898e8e18363e074ee3469b03670c089daaac31', 'state': 'open'}
+
+======================================================================
+FAIL: test_psi02_divergent_conflict (__main__.PSI.test_psi02_divergent_conflict)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\psi-before\lab\tests\test_psi.py", line 143, in test_psi02_divergent_conflict
+    self.assertEqual(f["state"], "conflict", f)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'open' != 'conflict'
+- open
++ conflict
+ : {'passes': 1, 'resolution': 'director-pending', 'source': '00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@97d9d99042c5322628a16bf934c06dbabe187de5', 'state': 'open'}
+
+======================================================================
+FAIL: test_psi02_inverted_timestamps (__main__.PSI.test_psi02_inverted_timestamps)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\psi-before\lab\tests\test_psi.py", line 114, in test_psi02_inverted_timestamps
+    self.assertEqual((f["resolution"], f["state"]), ("unresolved", "open"), f)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ('verified-fixed', 'closed') != ('unresolved', 'open')
+
+First differing element 0:
+'verified-fixed'
+'unresolved'
+
+- ('verified-fixed', 'closed')
++ ('unresolved', 'open') : {'passes': 1, 'resolution': 'verified-fixed', 'source': '00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@577328d04c53a9f2a814ec451aecc923caaca0c4', 'state': 'closed'}
+
+======================================================================
+FAIL: test_psi02_worktree_draft (__main__.PSI.test_psi02_worktree_draft)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\psi-before\lab\tests\test_psi.py", line 155, in test_psi02_worktree_draft
+    self.assertEqual((f["resolution"], f["state"], f.get("draft")), ("unresolved", "open", "verified-fixed"), f)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ('verified-fixed', 'closed', None) != ('unresolved', 'open', 'verified-fixed')
+
+First differing element 0:
+'verified-fixed'
+'unresolved'
+
+- ('verified-fixed', 'closed', None)
++ ('unresolved', 'open', 'verified-fixed') : {'passes': 1, 'resolution': 'verified-fixed', 'source': '00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@worktree', 'state': 'closed'}
+
+----------------------------------------------------------------------
+Ran 48 tests in 83.718s
+
+FAILED (failures=8)

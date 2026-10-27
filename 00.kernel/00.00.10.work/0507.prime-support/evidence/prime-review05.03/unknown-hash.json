@@ -1,0 +1,125 @@
+{
+ "attention": [
+  {
+   "item": "lane fixture: 00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@22721a7e330bccf0f357efddc25a477de2ac369f: unknown-hash review naming aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa for 00.kernel/00.00.10.work/0599.fixture-lane/05.01.md changes no finding and counts no pass; its text is kept: PS-X=verified-fixed",
+   "kind": "invalid-review"
+  },
+  {
+   "item": "lane fixture: 00.kernel/00.00.10.work/0599.fixture-lane/05.01.md#PS-X=unresolved (open, passes 1)",
+   "kind": "open-finding"
+  }
+ ],
+ "conflicts": [],
+ "intake_problems": [],
+ "lanes": [
+  {
+   "dirty": [],
+   "files": [
+    {
+     "divergent": false,
+     "history": "complete",
+     "kind": "page-return",
+     "path": "00.kernel/00.00.10.work/0599.fixture-lane/05.01.md",
+     "reason": "",
+     "revisions": [
+      {
+       "commit": "22721a7e330bccf0f357efddc25a477de2ac369f",
+       "disposition": "findings",
+       "eligible": true,
+       "execution": "returned",
+       "intake": "not checked",
+       "label": "published",
+       "review": "reviewed",
+       "review_source": "00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@faddfb31b3825ceb7850cbd42681dd96fb8ed3b3",
+       "revision_id": "9389b2c6db47a3325ddb06c140855045e000306570ea5c65d7fa15209166f49a",
+       "status": "ok",
+       "subject_id": "d91a66e8705542f3a9de4614bd53e2b72fd5fa278324feafccac5708bf82178f",
+       "supersedes": null,
+       "unbound_reviews": [
+        "00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@22721a7e330bccf0f357efddc25a477de2ac369f"
+       ],
+       "whole_sha256": "256875aa061d4cb88afb558d49b14b2021431cac7bd442a8faf0acaab1778614"
+      },
+      {
+       "commit": "22721a7e330bccf0f357efddc25a477de2ac369f",
+       "disposition": "findings",
+       "eligible": true,
+       "execution": "returned",
+       "intake": "not checked",
+       "label": "local",
+       "review": "reviewed",
+       "review_source": "00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@faddfb31b3825ceb7850cbd42681dd96fb8ed3b3",
+       "revision_id": "9389b2c6db47a3325ddb06c140855045e000306570ea5c65d7fa15209166f49a",
+       "status": "ok",
+       "subject_id": "d91a66e8705542f3a9de4614bd53e2b72fd5fa278324feafccac5708bf82178f",
+       "supersedes": null,
+       "unbound_reviews": [
+        "00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@22721a7e330bccf0f357efddc25a477de2ac369f"
+       ],
+       "whole_sha256": "256875aa061d4cb88afb558d49b14b2021431cac7bd442a8faf0acaab1778614"
+      },
+      {
+       "commit": null,
+       "disposition": "findings",
+       "eligible": true,
+       "execution": "returned",
+       "intake": "not checked",
+       "label": "worktree",
+       "review": "reviewed",
+       "review_source": "00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@faddfb31b3825ceb7850cbd42681dd96fb8ed3b3",
+       "revision_id": "9389b2c6db47a3325ddb06c140855045e000306570ea5c65d7fa15209166f49a",
+       "status": "ok",
+       "subject_id": "d91a66e8705542f3a9de4614bd53e2b72fd5fa278324feafccac5708bf82178f",
+       "supersedes": null,
+       "unbound_reviews": [
+        "00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@22721a7e330bccf0f357efddc25a477de2ac369f"
+       ],
+       "whole_sha256": "256875aa061d4cb88afb558d49b14b2021431cac7bd442a8faf0acaab1778614"
+      }
+     ],
+     "status": "ok"
+    }
+   ],
+   "findings": {
+    "00.kernel/00.00.10.work/0599.fixture-lane/05.01.md#PS-X": {
+     "draft": null,
+     "frontier": [
+      {
+       "resolution": "unresolved",
+       "source": "00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@faddfb31b3825ceb7850cbd42681dd96fb8ed3b3"
+      }
+     ],
+     "id": "PS-X",
+     "passes": 1,
+     "resolution": "unresolved",
+     "source": "00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@faddfb31b3825ceb7850cbd42681dd96fb8ed3b3",
+     "state": "open",
+     "target": "00.kernel/00.00.10.work/0599.fixture-lane/05.01.md"
+    }
+   },
+   "lane": "fixture",
+   "owner_label": "builder",
+   "packets": [
+    "00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@22721a7e330bccf0f357efddc25a477de2ac369f#9389b2c6db47a3325ddb06c140855045e000306570ea5c65d7fa15209166f49a",
+    "00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@22721a7e330bccf0f357efddc25a477de2ac369f#9389b2c6db47a3325ddb06c140855045e000306570ea5c65d7fa15209166f49a",
+    "00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@worktree#9389b2c6db47a3325ddb06c140855045e000306570ea5c65d7fa15209166f49a"
+   ],
+   "project": "workshop",
+   "repository": "work",
+   "review_sources": []
+  }
+ ],
+ "registry_sha256": "52fedf59ea6477b4cd0e7c10369c2c88605d6c2fcd72c4064671ec139c6b9557",
+ "repositories": {
+  "work": {
+   "head": "22721a7e330bccf0f357efddc25a477de2ac369f",
+   "problem": null,
+   "relation": "same",
+   "remote": "22721a7e330bccf0f357efddc25a477de2ac369f",
+   "remote_ref": "refs/remotes/origin/main",
+   "shallow": false,
+   "worktree": "registered-paths"
+  }
+ },
+ "scope": "only registered sources are read; no fetch; remote refs are last observed"
+}

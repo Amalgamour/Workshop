@@ -52,7 +52,12 @@ Per file, it reads the published ref, HEAD, the worktree (only when the reposito
 
 **Return identity:** `revision_id` is sha256 of the bytes before the one recognized top-level Review heading. Fenced blocks are skipped, trailing blank lines are removed, and one LF is added. Ambiguous, duplicate or misordered headings refuse the source as `unsupported`.
 
-**Review and findings:**
+**Review and findings** (corrected in 05.03, PSI-01 and PSI-02; see `evidence/repair05.03/DESIGN.003.md`):
+- A review counts only when it binds to a **known** revision of its target. A page Review targets its own page. A review source must name its target with `reviewed_return_path:`.
+- Unknown hashes, invalid legacy hashes, undeclared targets and unbound findings are shown as `invalid-review` attention, with their text kept. They never change a finding or count a pass.
+- Finding identity is `<target path>#<ID>`.
+- Order is causal (commit ancestry), never by date. Incomparable resolutions are a visible `conflict`.
+- Uncommitted worktree edits are reported as `draft` beside the committed state and never replace it.
 - Review state and findings are derived from page Reviews and declared review sources across bounded history.
 - They are never read from the intake store.
 - Missing history is reported as `history incomplete` or `history none`, as an attention item, never as zero findings.
@@ -64,7 +69,11 @@ Per file, it reads the published ref, HEAD, the worktree (only when the reposito
 python -B -X dev tests/test_prime_support.py -v
 ```
 
-There are 19 tests, each building disposable repositories with local bare origins under the system temp directory. Run them from a copy of the lab if you want nothing at all near the shared checkout.
+```text
+python -B -X dev tests/test_psi.py -v
+```
+
+There are 19 original tests and 10 PSI regressions (05.03), each building disposable repositories with local bare origins under the system temp directory. Run them from a copy of the lab if you want nothing at all near the shared checkout.
 
 ## Limits
 

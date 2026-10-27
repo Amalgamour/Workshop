@@ -1,0 +1,132 @@
+test_psi01_invalid_legacy (__main__.PSI.test_psi01_invalid_legacy) ... FAIL
+test_psi01_review_source_binding (__main__.PSI.test_psi01_review_source_binding) ... FAIL
+test_psi01_unknown_hash_cannot_close (__main__.PSI.test_psi01_unknown_hash_cannot_close) ... FAIL
+test_psi01_unrelated_ids_not_collapsed (__main__.PSI.test_psi01_unrelated_ids_not_collapsed) ... FAIL
+test_psi02_comparable_branches (__main__.PSI.test_psi02_comparable_branches) ... FAIL
+test_psi02_divergent_conflict (__main__.PSI.test_psi02_divergent_conflict) ... FAIL
+test_psi02_inverted_timestamps (__main__.PSI.test_psi02_inverted_timestamps) ... FAIL
+test_psi02_repeated_observations (__main__.PSI.test_psi02_repeated_observations) ... ok
+test_psi02_worktree_draft (__main__.PSI.test_psi02_worktree_draft) ... FAIL
+test_psi_ack_deletion (__main__.PSI.test_psi_ack_deletion) ... ok
+
+======================================================================
+FAIL: test_psi01_invalid_legacy (__main__.PSI.test_psi01_invalid_legacy)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\psi-before\lab\tests\test_psi.py", line 74, in test_psi01_invalid_legacy
+    self.assertEqual((f["state"], f["passes"]), ("open", 1), f)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ('closed', 1) != ('open', 1)
+
+First differing element 0:
+'closed'
+'open'
+
+- ('closed', 1)
+?   -- ^ ^
+
++ ('open', 1)
+?    ^ ^
+ : {'passes': 1, 'resolution': 'verified-fixed', 'source': '00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@worktree', 'state': 'closed'}
+
+======================================================================
+FAIL: test_psi01_review_source_binding (__main__.PSI.test_psi01_review_source_binding)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\psi-before\lab\tests\test_psi.py", line 93, in test_psi01_review_source_binding
+    self.assertIsNone(finding(rep, "RS-2"))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'passes': 1, 'resolution': 'verified-fixed', 'source': 'notes/review-none.md@worktree', 'state': 'closed'} is not None
+
+======================================================================
+FAIL: test_psi01_unknown_hash_cannot_close (__main__.PSI.test_psi01_unknown_hash_cannot_close)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\psi-before\lab\tests\test_psi.py", line 61, in test_psi01_unknown_hash_cannot_close
+    self.assertEqual((f["resolution"], f["state"], f["passes"]), ("unresolved", "open", 1), f)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ('verified-fixed', 'closed', 2) != ('unresolved', 'open', 1)
+
+First differing element 0:
+'verified-fixed'
+'unresolved'
+
+- ('verified-fixed', 'closed', 2)
++ ('unresolved', 'open', 1) : {'passes': 2, 'resolution': 'verified-fixed', 'source': '00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@worktree', 'state': 'closed'}
+
+======================================================================
+FAIL: test_psi01_unrelated_ids_not_collapsed (__main__.PSI.test_psi01_unrelated_ids_not_collapsed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\psi-before\lab\tests\test_psi.py", line 107, in test_psi01_unrelated_ids_not_collapsed
+    self.assertEqual(finding(rep, "F-1", PAGE_FILE)["state"], "open")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'closed' != 'open'
+- closed
++ open
+
+
+======================================================================
+FAIL: test_psi02_comparable_branches (__main__.PSI.test_psi02_comparable_branches)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\psi-before\lab\tests\test_psi.py", line 131, in test_psi02_comparable_branches
+    self.assertEqual((f["resolution"], f["state"]), ("verified-fixed", "closed"), f)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ('unresolved', 'open') != ('verified-fixed', 'closed')
+
+First differing element 0:
+'unresolved'
+'verified-fixed'
+
+- ('unresolved', 'open')
++ ('verified-fixed', 'closed') : {'passes': 1, 'resolution': 'unresolved', 'source': '00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@653b27a989da6e4e3cc1ac0967784a5218fd265d', 'state': 'open'}
+
+======================================================================
+FAIL: test_psi02_divergent_conflict (__main__.PSI.test_psi02_divergent_conflict)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\psi-before\lab\tests\test_psi.py", line 148, in test_psi02_divergent_conflict
+    self.assertEqual(f["state"], "conflict", f)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'closed' != 'conflict'
+- closed
++ conflict
+ : {'passes': 1, 'resolution': 'verified-fixed', 'source': '00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@4bf7a46535cede76ecd0ff974b1ac1f861721337', 'state': 'closed'}
+
+======================================================================
+FAIL: test_psi02_inverted_timestamps (__main__.PSI.test_psi02_inverted_timestamps)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\psi-before\lab\tests\test_psi.py", line 119, in test_psi02_inverted_timestamps
+    self.assertEqual((f["resolution"], f["state"]), ("unresolved", "open"), f)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ('verified-fixed', 'closed') != ('unresolved', 'open')
+
+First differing element 0:
+'verified-fixed'
+'unresolved'
+
+- ('verified-fixed', 'closed')
++ ('unresolved', 'open') : {'passes': 1, 'resolution': 'verified-fixed', 'source': '00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@577328d04c53a9f2a814ec451aecc923caaca0c4', 'state': 'closed'}
+
+======================================================================
+FAIL: test_psi02_worktree_draft (__main__.PSI.test_psi02_worktree_draft)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\psi-before\lab\tests\test_psi.py", line 160, in test_psi02_worktree_draft
+    self.assertEqual((f["resolution"], f["state"], f.get("draft")), ("unresolved", "open", "verified-fixed"), f)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ('verified-fixed', 'closed', None) != ('unresolved', 'open', 'verified-fixed')
+
+First differing element 0:
+'verified-fixed'
+'unresolved'
+
+- ('verified-fixed', 'closed', None)
++ ('unresolved', 'open', 'verified-fixed') : {'passes': 1, 'resolution': 'verified-fixed', 'source': '00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@worktree', 'state': 'closed'}
+
+----------------------------------------------------------------------
+Ran 10 tests in 13.036s
+
+FAILED (failures=8)

@@ -1,0 +1,94 @@
+{
+ "attention": [
+  {
+   "item": "lane fixture: 00.kernel/00.00.10.work/0599.fixture-lane/05.01.md#PS-Y=unresolved (open, passes 1)",
+   "kind": "open-finding"
+  }
+ ],
+ "conflicts": [],
+ "intake_problems": [],
+ "lanes": [
+  {
+   "dirty": [],
+   "files": [
+    {
+     "divergent": false,
+     "history": "complete",
+     "kind": "page-return",
+     "path": "00.kernel/00.00.10.work/0599.fixture-lane/05.01.md",
+     "reason": "",
+     "revisions": [
+      {
+       "commit": "d49e5968638b21253b74696c7c4b29b4f5ac5108",
+       "eligible": true,
+       "execution": "returned",
+       "intake": "not checked",
+       "label": "published",
+       "review": "reviewed",
+       "review_source": "00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@d49e5968638b21253b74696c7c4b29b4f5ac5108",
+       "revision_id": "be8519988b859eb511230275fc4b000b37f690e56da780df0a38b3a84aef5b4c",
+       "status": "ok",
+       "subject_id": "766cae0eea4980b4576546c2f0af39102e004b4efa9279658001757818805d0c",
+       "supersedes": null,
+       "whole_sha256": "db8ee3c3e0f9141ae17bdeed42974e6bbf202331d0850939a58d5e6f813b5881"
+      },
+      {
+       "commit": "d49e5968638b21253b74696c7c4b29b4f5ac5108",
+       "eligible": true,
+       "execution": "returned",
+       "intake": "not checked",
+       "label": "local",
+       "review": "reviewed",
+       "review_source": "00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@d49e5968638b21253b74696c7c4b29b4f5ac5108",
+       "revision_id": "be8519988b859eb511230275fc4b000b37f690e56da780df0a38b3a84aef5b4c",
+       "status": "ok",
+       "subject_id": "766cae0eea4980b4576546c2f0af39102e004b4efa9279658001757818805d0c",
+       "supersedes": null,
+       "whole_sha256": "db8ee3c3e0f9141ae17bdeed42974e6bbf202331d0850939a58d5e6f813b5881"
+      }
+     ],
+     "status": "ok"
+    }
+   ],
+   "findings": {
+    "00.kernel/00.00.10.work/0599.fixture-lane/05.01.md#PS-Y": {
+     "draft": null,
+     "frontier": [
+      {
+       "resolution": "unresolved",
+       "source": "00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@d49e5968638b21253b74696c7c4b29b4f5ac5108"
+      }
+     ],
+     "id": "PS-Y",
+     "passes": 1,
+     "resolution": "unresolved",
+     "source": "00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@d49e5968638b21253b74696c7c4b29b4f5ac5108",
+     "state": "open",
+     "target": "00.kernel/00.00.10.work/0599.fixture-lane/05.01.md"
+    }
+   },
+   "lane": "fixture",
+   "owner_label": "builder",
+   "packets": [
+    "00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@d49e5968638b21253b74696c7c4b29b4f5ac5108#be8519988b859eb511230275fc4b000b37f690e56da780df0a38b3a84aef5b4c",
+    "00.kernel/00.00.10.work/0599.fixture-lane/05.01.md@d49e5968638b21253b74696c7c4b29b4f5ac5108#be8519988b859eb511230275fc4b000b37f690e56da780df0a38b3a84aef5b4c"
+   ],
+   "project": "workshop",
+   "repository": "work",
+   "review_sources": []
+  }
+ ],
+ "registry_sha256": "d78b69ee5fdf743c59c831e50cb264ba6830b2456cba747c6f76a5140652290f",
+ "repositories": {
+  "work": {
+   "head": "d49e5968638b21253b74696c7c4b29b4f5ac5108",
+   "problem": null,
+   "relation": "same",
+   "remote": "d49e5968638b21253b74696c7c4b29b4f5ac5108",
+   "remote_ref": "refs/remotes/origin/main",
+   "shallow": false,
+   "worktree": "off"
+  }
+ },
+ "scope": "only registered sources are read; no fetch; remote refs are last observed"
+}

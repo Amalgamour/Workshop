@@ -1,0 +1,69 @@
+# Notes — Clerk-to-worker seam design (batch 05.03)
+Date: 2026-10-27
+Recorder: claude-opus-5-5, Colab, technical lead
+State: working notes for the 05.03 design return. Design only: no code, no execution, no dispatch. 06.04 and 06.05 are left to the correction review and the Builder's repair notes.
+
+## Inputs, verified
+I01. pack05.03 lists 15 files. Each matches its pin, its blob at 54274e698dde1c6cbd5e25177395c62c2a2c645a (now HEAD of workshop) and the live bytes. Read in full or at every cited section: Clerk clerk.py and README (pass02, first pass, before any 05.02 correction); app/worker_bridge.py, worker-bridge.json, librarian.py and context.py; bridge CONTRACT.md and adapter.py; 0504/05.05 (return and Prime review), 0504/05.06, and 0506/01, 05.01, 05.02, 06.01, 06.02.
+I02. One unpinned read, for shape only: labs/worker-bridge-pass01/fixtures/worker_fixture.py, sha256 0d519c8b…. That equals its pin in the pinned worker-bridge.json. fixture-ok counts the non-blank lines of inputs[0], writes result.json as canonical {"count":N}, and also appends launches.log in the same output root.
+
+## Trace: what each component actually records
+T01. Clerk job store (clerk.py:40-67, 718-938):
+- jobs/<job_id>/0001.queued.json holds the router's job verbatim: assignee, reviewer, instructions {path, sha256}, release, routed_by, expected_outputs.
+- 0002.claimed.json holds claim (a 32-hex token), by, at, prev. outbox/ is created by Clerk at claim.
+- 0003.returned.json holds claim, by, delivery, artifacts [{path, sha256, bytes}] hashed by Clerk from the outbox, evidence, at, prev.
+- Inbox is a projection. Clerk launches nothing and never writes into the outbox itself.
+T02. Bridge glue (worker_bridge.py:508-591): in the fixture root, bridge/delivery/<d>/input and output are created fresh and exclusively. bridge/provenance/<d>.json (an exclusive write) ties delivery, job_id, work_ref, container, job_sha256, assignment record and hash, request_sha256 and backend.
+T03. Adapter store (adapter.py:218-267; CONTRACT 65-83):
+- bridge/store/<d>/request.json (canonical envelope);
+- launch.json (exclusive, before launch);
+- attempt/stdout.bin, stderr.bin and exit.json;
+- receipt.json, written last, atomically. It holds delivery_id, job_id, request_sha256, transport, claimed_outcome, collection, artifacts [{path, sha256, bytes}] and `review: not performed`.
+T04. Envelope (worker_bridge.py:546-558): release = {by: "fixture record", ref: "<record> sha256 <hash>"}. It is evidence, not authority. work_ref must equal the fixture record's current_work (:511). bridge-test uses execute=True; status and recover use execute=False.
+T05. Placement:
+- The app's writable root is a designated container: app/scratch or 0504 fixtures inside the workspace, or an external `--container` that is disjoint from the workspace and not a filesystem root (context.select_container).
+- A Clerk store must resolve outside every Git working tree and has no bypass (clerk.py:240-245; README 36).
+- So app/scratch can never hold a Clerk store, while an external app container can.
+
+## Mapping (owner of each fact in brackets)
+M01. Clerk job_id [Clerk 0001] = bridge job_id [router's bridge job → provenance and request]. The seam requires the two to be equal. That makes correlation by equality, not by a mapping table.
+M02. Claimant label --as [caller] must equal Clerk assignee [Clerk 0001]. The token [Clerk 0002] is read by `claim --resume`, never stored by the seam. Both are correlation, not authentication.
+M03. Instruction identity [Clerk 0001 instructions.sha256] = the bridge job's inputs[0].sha256 [router]. The bytes in bridge/declared/ are a copy, verified equal. request_sha256 then covers them.
+M04. work_ref [fixture record current_work, checked by the bridge]. It is not a Clerk field. It is the app's own.
+M05. Worker role and backend [router's bridge job]. Data only; the bridge allowlists the backend.
+M06. Delivery id [router's bridge job] is used again as Clerk `return --delivery`. It must satisfy both id rules (lowercase bridge rule ⊂ Clerk rule).
+M07. request_sha256 [bridge provenance and request]. The receipt repeats it and is checked against it.
+M08. Artifact: verified once in the bridge receipt [bridge store]. The Clerk outbox copy is hashed again by Clerk at return [Clerk 0003]. Equality is a seam precondition. The evidence text names receipt and source.
+M09. Named reviewer [Clerk 0001]. Availability [Clerk inbox, a projection]. Nothing invokes the reviewer.
+
+## Decisions taken in design (routine, recommended)
+D01. One app command, `clerk-deliver`, in a new app/clerk_seam.py, reusing worker_bridge.perform. The seam never claims, queues or reviews. The claim stays an explicit separate Clerk command.
+D02. Clerk is reached only through its public CLI, as a subprocess of a hash-pinned clerk.py (app/clerk-seam.json). No second Clerk, no import of Clerk internals, no new loader beyond a pin check.
+D03. One external app container holds both the fixture root and the Clerk store, as siblings. The verified-artifact copy then stays inside the app's designated container, and the Clerk store stays outside Git. No override flag. app/scratch is unsupported for this seam and refuses through Clerk's own rule.
+D04. A router-written link file, <root>/clerk-link/<delivery>.json: exclusive and immutable. The seam never writes it. It names only clerk_store, clerk_job_id, delivery_id, bridge_job and bridge_job_sha256. It holds no state and no assignee, reviewer or authority.
+D05. Clerk evidence text is deterministic (receipt sha, request sha, artifact sha, source path), so a repeated seam call produces an identical Clerk return, which Clerk records as already-recorded.
+D06. Only transport delivered + collected + outcome done is copied and returned. Every other state stops with the bridge's exit code, and evidence is kept.
+
+## Dependencies (pending, not assumed)
+P01. 0504/05.06 (BRI-01): the seam must read the stored receipt through the accepted single validator. Until it is accepted, a receipt with a missing request hash or swapped ids can read as collected (Prime's probe), so the seam cannot trust status/replay output.
+P02. 0506/05.02 (CR-01 to CR-05):
+- the completion witness, so a lost 0003 is never a clean claim open to a different re-return;
+- OSError mapped to exit 2, so the seam can tell a Clerk failure from findings;
+- nonblank evidence and nonempty expected_outputs.
+The seam pins the accepted clerk.py hash.
+
+## Open, for Prime only if it matters
+Q01. Material: does a worker result with collection uncollected or outcome failed go to the reviewer as a Clerk return? This design says no: it stops with evidence, and a human decides. Returning a failure would put a non-success in the reviewer's inbox under the same three states.
+
+## Reread (after SEAM.md was written)
+R01. Every line reference in SEAM.md was checked against the pinned snapshots. Three were corrected before the return: worker_bridge.py exclusive dirs :538-541, envelope :546-558, work_ref :511.
+R02. Found on reread: a returned Clerk job cannot be resumed (claim --resume needs a claimed state, clerk.py:763-765), so the replay path needs the token from somewhere else. SEAM S4 now takes it from show's `claim` line (clerk.py:960) and skips S5 and S6. Whether 05.02 keeps that line is listed as a dependency, not assumed.
+R03. Removed from examples/app/clerk-seam.json a `copy_names` list I had first written. It would have duplicated Clerk's expected_outputs and become a second authority. The seam copies the receipt's artifacts, and Clerk's return enforces expected_outputs.
+R04. Accounted:
+- I01, I02: used.
+- T01 to T05: SEAM §2, §5, §6.
+- M01 to M09: SEAM §6.
+- D01 to D06: SEAM §1, §2, §4.
+- P01, P02: SEAM §8.
+- Q01: SEAM §10.
+Nothing was executed. No Clerk store, fixture or worker was created.

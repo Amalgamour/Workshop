@@ -36,6 +36,11 @@ def prefix(text: str) -> str:
     return ps.parse_source(text.encode("utf-8"), "page-return")["revision_id"]
 
 
+def by_id(findings: dict) -> dict:
+    """05.03: finding keys are scoped as '<target path>#<ID>'. Fixtures here use one return per lane."""
+    return {v["id"]: v for v in findings.values()}
+
+
 def git(repo, *args, check=True):
     return subprocess.run(["git", "-C", str(repo), *args], capture_output=True, env=ENV, check=check).stdout.decode().strip()
 
@@ -285,14 +290,14 @@ class Fixture(unittest.TestCase):
         self.assertEqual((rev["execution"], rev["review"]), ("unknown", "reviewed"))
         self.assertEqual(rev["disposition"], "REPAIR REQUIRED, LG-01.")
         lane = rep["lanes"][0]
-        self.assertEqual({k: v["state"] for k, v in lane["findings"].items()}, {"LG-01": "open", "LG-02": "open"})
+        self.assertEqual({k: v["state"] for k, v in by_id(lane["findings"]).items()}, {"LG-01": "open", "LG-02": "open"})
         rid1 = rev["revision_id"]
         v2 = batch("Did. legacy return without execution line.\nAmended.",
                    f"reviewed_return_prefix: {prefix(batch('Did. legacy return without execution line.' + chr(10) + 'Amended.'))}\n"
                    "findings: LG-01=verified-fixed; LG-02=director-pending")
         self.commit(self.repo, {page: v2})
         rep = self.status_json(self.registry())
-        f = rep["lanes"][0]["findings"]
+        f = by_id(rep["lanes"][0]["findings"])
         self.assertEqual((f["LG-01"]["state"], f["LG-01"]["passes"]), ("closed", 2))
         self.assertEqual((f["LG-02"]["resolution"], f["LG-02"]["passes"]), ("director-pending", 2))
         self.assertNotEqual(self.file_entry(rep, "fixture", page)["revisions"][0]["revision_id"], rid1)
@@ -310,7 +315,7 @@ class Fixture(unittest.TestCase):
         self.commit(self.repo, {page: v2})
         shutil.rmtree(self.store)
         rep = self.status_json(reg)
-        f = rep["lanes"][0]["findings"]
+        f = by_id(rep["lanes"][0]["findings"])
         self.assertEqual(f["SY-01"]["state"], "open")
         rev = self.file_entry(rep, "fixture", page)["revisions"][0]
         self.assertEqual((rev["intake"], rev["review"], rev["supersedes"]), ("unseen", "stale-review", rid1))
@@ -329,7 +334,7 @@ class Fixture(unittest.TestCase):
         rep = self.status_json(reg)
         self.assertEqual(self.file_entry(rep, "fixture", page)["history"], "incomplete")
         self.assertTrue(any(a["kind"] == "history-unknown" for a in rep["attention"]))
-        self.assertNotIn("OLD-1", rep["lanes"][0]["findings"])  # not seen within the limit, and reported as unknown
+        self.assertNotIn("OLD-1", by_id(rep["lanes"][0]["findings"]))  # not seen within the limit, and reported as unknown
         untracked = f"{PAGE}/05.02.md"
         self.write(self.repo, untracked, batch("execution: returned\nlocal only"))
         rep = self.status_json(self.registry())
@@ -379,7 +384,8 @@ class Fixture(unittest.TestCase):
         rep = self.status_json(self.registry())
         rev = self.file_entry(rep, "fixture", page)["revisions"][0]
         self.assertEqual((rev["execution"], rev["review"]), ("unknown", "review-needed"))
-        self.assertEqual(rev["unbound_reviews"], [f"{page}@{git(self.repo, 'rev-parse', 'HEAD')}", f"{page}@worktree"])
+        # 05.03: a worktree copy identical to HEAD is the same observation, so it is listed once.
+        self.assertEqual(rev["unbound_reviews"], [f"{page}@{git(self.repo, 'rev-parse', 'HEAD')}"])
         self.assertNotIn("disposition", rev)  # an unbound review's Disposition is not shown as this revision's
         self.assertNotIn("accepted", {k.lower() for k in rev})
         code, text = self.run_tool("status", "--registry", self.registry())
