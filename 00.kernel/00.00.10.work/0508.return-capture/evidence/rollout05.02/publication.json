@@ -1,7 +1,7 @@
 {
   "schema": "return-publication-ack/1",
-  "status": "pending",
-  "captures_commit": null,
+  "status": "verified",
+  "captures_commit": "086da87a07978413d810d3663d98df10d2a4bda3",
   "records": [
     {
       "member": "0101.app-entry-0506",
@@ -16,5 +16,53 @@
       "receipt_sha256": "1781cf57eb74cede72343bd1895b2463c2b8c76094488403731f2bb72b96166a"
     }
   ],
-  "note": "Local captures verified first. No Git publication is claimed yet."
+  "note": "Local capture and committed blob hashes verified before push; remote workshop head confirmed. Receipt bytes remain unchanged. This is publication evidence, not a new acceptance or release.",
+  "remote": "origin refs/heads/workshop",
+  "remote_head_verified": "086da87a07978413d810d3663d98df10d2a4bda3",
+  "verified_package_blobs": 117,
+  "selected_contents_check": {
+    "schema": "book-orientation-check@1",
+    "revision_input": "086da87a07978413d810d3663d98df10d2a4bda3",
+    "commit": "086da87a07978413d810d3663d98df10d2a4bda3",
+    "book": "00.kernel/00.00.10.work",
+    "contents_path": "00.kernel/00.00.10.work/0011.contents/01.019.md",
+    "contents_sha256": "4a8fc2d1c4f78fc654cc2aac091b26e603a631951570c5fcbb1a6255a65cc81c",
+    "selection_source": "book 00.md pointer",
+    "sentinel_pointer": "contents in 0011.contents/01.019.md.",
+    "scope": "published tree at the commit only; working tree, index and untracked files not read",
+    "covered": [
+      "Pages table rows: page folders, direct files, direct subdirectories, recursive tracked-file counts",
+      "Book files list",
+      "Other books paths (relative to the book root)"
+    ],
+    "not_covered": [
+      "prose references and other links",
+      "face contents",
+      "whether a page should be published",
+      "the working tree, the index and untracked files"
+    ],
+    "counts": {
+      "rows": 24,
+      "tree_pages": 24,
+      "book_files_listed": 1,
+      "other_books": 2
+    },
+    "other_books": [
+      {
+        "label": "Syntax",
+        "path": "../00.00.00.syntax/00.001.md",
+        "resolved": "00.kernel/00.00.00.syntax/00.001.md",
+        "present": true
+      },
+      {
+        "label": "Law",
+        "path": "../00.00.01.law/00.001.md",
+        "resolved": "00.kernel/00.00.01.law/00.001.md",
+        "present": true
+      }
+    ],
+    "findings": [],
+    "result": "clean",
+    "advisory": true
+  }
 }
