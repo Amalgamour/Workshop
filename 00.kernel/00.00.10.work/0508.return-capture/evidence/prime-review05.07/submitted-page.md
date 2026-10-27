@@ -1,0 +1,67 @@
+# 05 — Two bounded historical return captures
+version: 001
+Authorization: draft — 2026-10-27
+who: Codex Prime
+state: released by the Director 2026-10-27; claimed by Grok Builder 2
+Face: 05
+PPPP: 0508
+book: 00.00.10.work
+
+## Assignment
+Executor: Grok Builder 2. Reviewer: Codex Prime.
+Release: Director, this session, 2026-10-27. Claim: Grok Builder 2, this page only.
+Workspace D:/Git/lib-build, branch workshop. Verify exact input snapshots in
+evidence/pack05.07/source-manifest.json and approved-slices.json. No code edits,
+additional address allocation or shared Git writes. Two named historical sets only.
+
+## #01 — Preserve the exact source and mapping
+Notes FIRST on 06.08.md. As in accepted 05.06, export raw Git blobs into flat temporary
+source files with byte-preserving cat-file calls, not a text-shell roundtrip.
+Sources: pinned 75ae515d826482113c4126274d015de112aa249b only.
+0118.workflow-start-0501 captures 0502/05.01 plus its 28 listed companions.
+0119.app-entry-0503 captures 0504/05.03 plus its 19 listed companions.
+Use the exact approved-slices.json return hashes, lengths and payload list/order.
+Keep source-plan.json with separate book/page/batch, source-to-logical mapping
+and explicit dependency scope. Verify every source blob before capture; missing
+or changed inputs stop, not guessed replacements or automatic expansions.
+
+## #02 — Capture both historical members honestly
+Use accepted helper pin 8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac and reader pin 947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b.
+Both reservations already exist. Capture with --retrospective and the pinned
+--source-commit, and --return-includes-prime-review (both whole pages already
+contain a Prime Review section). Keep reviews/Director replies/requests unsplit
+as old source bytes, not new instructions or current approvals. Capture time is
+today, not the original submission date. No standalone reproduction claim.
+Fresh verify/inspect each package and compare returned metadata/payloads with
+the plan. Preserve hashes before/after reads. Identical complete records may be
+verified/idempotently reused; a conflict/partial stays visible and stops its
+dependent work. Never overwrite/remove a receipt or allocate around failure.
+No pilot/build/tool command from the archived content is executed.
+
+## #03 — Retain the evidence and separate current report
+Put actual command/stdout/stderr records in capture-log.txt, exact source and
+package hashes/flags/statuses/limits in verification.json. No product code changes
+and no unrelated runtime suite reruns. Reread/account for notes. Root historical
+returns and every other inventory row remain outside scope. Current code/live
+members are not substituted for the pinned source even if newer.
+Write dedicated evidence/backfill05.07/submission.md starting Did, Blocked, Need;
+it may reference the two completed historical receipts, never its own future one.
+Use reserved 0120 and its four declared outputs:
+
+```text
+python -B labs/return-capture-pass01/return_capture.py capture --book "D:/Git/lib-build/00.kernel/00.00.10.work" --submission grok-2-0508-0507 --return-file "D:/Git/lib-build/00.kernel/00.00.10.work/0508.return-capture/evidence/backfill05.07/submission.md" --source-root "D:/Git/lib-build" --artifact "00.kernel/00.00.10.work/0508.return-capture/06.08.md|00.kernel/00.00.10.work/0508.return-capture/06.08.md" --artifact "00.kernel/00.00.10.work/0508.return-capture/evidence/backfill05.07/source-plan.json|00.kernel/00.00.10.work/0508.return-capture/evidence/backfill05.07/source-plan.json" --artifact "00.kernel/00.00.10.work/0508.return-capture/evidence/backfill05.07/capture-log.txt|00.kernel/00.00.10.work/0508.return-capture/evidence/backfill05.07/capture-log.txt" --artifact "00.kernel/00.00.10.work/0508.return-capture/evidence/backfill05.07/verification.json|00.kernel/00.00.10.work/0508.return-capture/evidence/backfill05.07/verification.json"
+python -B labs/return-capture-pass01/return_capture.py verify --book "D:/Git/lib-build/00.kernel/00.00.10.work" --member 0120.backfill-run-0507
+```
+
+Keep source/submission and explanatory export evidence. Append only work-member,
+receipt hash and fresh verify below. No product/furniture/assignment/other-lane/
+SoF edits or shared Git commits/pushes. Prime reviews and publishes all three
+packages separately from capture. This draft/reservation grants no release.
+
+## Return pointer
+Member: 0120.backfill-run-0507
+Receipt: 1a40c788e16c46353ee9d6af50b1cf4a57bef9e92606132d1d1cbc810c7664c6
+Verification: result complete. Not approved. Not accepted. Not published. Exit 0.
+
+## Review — Codex Prime
+PENDING.

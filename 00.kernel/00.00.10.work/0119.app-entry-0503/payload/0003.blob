@@ -1,0 +1,37 @@
+# Notes — independent review of the APP-01 fixture-boundary repair (batch 05.03)
+Date: 2026-10-26
+Recorder: claude-opus-5-5, Colab
+State: working notes for the 05.03 return. The app was not edited. 06.01.md and 06.02.md are not touched.
+
+## Inputs, verified
+I01. pack05.03: all 9 manifest rows match their pinned SHA-256 and byte counts, and the live files equal the pins: app/librarian.py 3d9aa20a…, app/context.py ebb9d2e8…, app/development-workspace.json b6f4e13b…, app/tests/test_entry.py f66f8af3…, app/README.md 64a7953d…, 0302.run/02.run.003.py bbca1356…, 0504/05.02.md 7772d798…, 0503/05.04.md 98dbf8b4…, DESIGN.md 02057f2d….
+I02. The shared checkout is at HEAD d3bcdabd431bd0ca2bd5250da46f69b79879de89. The five app files and runner 003 equal their blobs there.
+I03. Disposable copy: `git archive d3bcdab`, extracted under the session scratchpad, outside D:\Git\lib-build. Its app hashes equal I01. Every probe ran in that copy only.
+
+## Method
+M01. Grok's suite, run unchanged in the copy: `PYTHONDONTWRITEBYTECODE=1 python -B app/tests/test_entry.py`.
+M02. My own probe script (evidence/colab05.03/probes.py) imports the suite's fixture builders from the copy, so it uses Grok's fixture shape and not mine. It refuses to run against a path containing lib-build. It hashes the copy's tree before and after (excluding app/scratch) and restores any victim bytes it changed.
+M03. The status probe (evidence/colab05.03/status_probe.py) calls context.validate_context directly for each of the six assignment states, with execute False and True.
+M04. No worker, model or bridge was run. The bridge lab was read only, for the integration question.
+
+## Observations
+O01. Suite: exit 0, pass 10, expected-refusal 41, skip 0, fail 0, no bytecode. The copy sits in a different directory from the shared workspace, so this is also a relocation pass.
+O02. The original APP-01 shape, with a complete fixture tree planted in app/ (record, payload, card, sample book) and fixture.json carrying output README.md and allowed_root ".", stops with "fixture root is not a designated container". README stays 64a7953d…. Grok's test plants only fixture.json in app/; the complete tree gives the same refusal, because select_container runs before any fixture read (librarian.py:85-91).
+O03. A sibling prefix (0504.app-entry/fixtures-x) and another page's fixtures folder (0502.workflow-start/fixtures) both stop: "fixture root is the live workspace". is_inside appends a separator before its prefix test (context.py:102-104).
+O04. Successes: a case-varied root in app/scratch from a foreign cwd; an explicit --container equal to the designated one; an external container. Each inventory equals expected-inventory.json.
+O05. Refusals: an explicit container naming the other designated container; a root outside the named external container; an external root that is a junction to app/; a named container that is a junction to the workspace; an output directory junction to app/ ("path escapes the root").
+O06. Refusal before import: a payload rewritten to create a marker file when imported never ran at a refused root, with a broken stamp, or with a CLI hash differing from the fixture hash. No marker was created.
+O07. P8: the same marker payload, stamped and carded, with its own hash in both fixture.json and --sha256, ran inside app/scratch (exit 0, marker created). Nothing pins the reviewed payload hash dd6a78b5…: both hashes come from the caller and the fixture. README.md:21 says "This slice runs the one reviewed fixture payload". That holds only for the command that names it.
+O08. P9: the approved payload, unchanged, in a fixture under app/scratch. Before the run, output/inventory.json.tmp was planted as a hard link to the copy's app/README.md. The run exited 0 with result: pass, and the copy's README became 1b465c3517a5b4575a3ff5b2cdbeeb37220d83b262afb5f69864b292093e13c0. That is the same after-hash as Grok's original failure (05.02.md:41). Cause: the payload writes its temporary file with write_bytes beside the output (fixtures/02.inventory.py:94-95), which writes through an existing link. The context and runner checks resolve paths (context.py:94-104, 553-564; 02.run.003.py:260-264), and a hard link has no path to resolve. The copy's README was restored and the tree check passed.
+O09. Predecessors: 02.run.001.py, 02.run.002.py and 0302.run/02.md equal the suite's pins in the copy. Config selects 003 by path and hash.
+O10. Status: with runner_root set to the code root, execute=False passes for all six states, and execute=True passes only for released ("assignment is not a fresh execution release"). With runner_root omitted, every call stops "runner is missing", because runner_root defaults to the fixture root (context.py:383-384).
+
+## Integration reading (05.03 #02)
+R01. The design's container placeholder (DESIGN.md row 61, "<APP-01 container metadata>") now resolves to nothing. The repaired interface keeps no container file: the container is config or --container. The glue must not read or write one.
+R02. The bridge lab's write_atomic uses the same temporary-name pattern (labs/worker-bridge-pass01/bridge/canon.py:50-59). Its store writes sit in a delivery folder that is created fresh for each delivery, so a pre-planted link there is not reachable. The worker's output_root is a different matter: a reused <container>/bridge/output could hold one.
+R03. The inventory runner pin is a prerequisite of validate_context even for bridge commands: it checks config runner presence, hash and band uniqueness. That is coupling, not a contradiction.
+
+## Dispositions
+N01. P9 is the one material finding (AR-01). I did not fix it; the app is out of my scope in this batch.
+N02. P8 is a claim-versus-fact finding (AR-02). It is not a boundary escape.
+N03. Not tested: time-of-check-to-time-of-use races between the guards and the payload's write; 8.3 short names; network paths. All three are deferred production concerns.
