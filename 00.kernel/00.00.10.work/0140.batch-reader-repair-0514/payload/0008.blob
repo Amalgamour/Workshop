@@ -1,0 +1,102 @@
+{
+  "schema": "batch-observation-verification/1",
+  "built": "2026-10-28",
+  "source_commit": "4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5",
+  "workshop_head_at_notes": "4e7ebfc143330f98c9b8b55681b58f2602a85255",
+  "pins": {
+    "labs/prime-support-pass01/prime_support.py": {
+      "sha256": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70",
+      "bytes": 59791
+    },
+    "labs/prime-support-pass01/clerk_adapter.py": {
+      "sha256": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4",
+      "bytes": 11774
+    },
+    "labs/return-capture-pass01/return_inspect.py": {
+      "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+      "bytes": 11402
+    },
+    "labs/return-capture-pass01/return_capture.py": {
+      "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+      "bytes": 45767
+    }
+  },
+  "parser_changed": false,
+  "helper_changed": false,
+  "inspector_changed": false,
+  "projection_integrated": false,
+  "historical_pages_rewritten": false,
+  "git_writes": false,
+  "first_failure": {
+    "command": "python -B labs/batch-observation-pass01/tests/test_batch_observe.py",
+    "exit": 1,
+    "skips": 0,
+    "failures": 1,
+    "count": 10,
+    "error": "test_reserved_member_on_the_desk_is_untouched AssertionError: 0138 file list is the sealed return",
+    "cause": "0138.batch-reader-0513 contains manifest.json, payload, receipt.json, and return.md in addition to 01.md and reservation.json"
+  },
+  "tests": {
+    "command": "python -B labs/batch-observation-pass01/tests/test_batch_observe.py",
+    "cwd": "D:/Git/lib-build",
+    "exit": 0,
+    "failures": 0,
+    "skips": 0,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_bytes": 0,
+    "stderr_sha256": "0173e38766eb0c207fb8368f8070b2b40ba8d9040b849e0f209f01c914abe8af",
+    "stderr_bytes": 119,
+    "record": {
+      "sha256": "56c57e0878a6656eb67840939a1565a13f2e0d9d18756b9fcc72afd410332761",
+      "bytes": 1664
+    }
+  },
+  "demo": {
+    "command": "python -B labs/batch-observation-pass01/demo.py",
+    "exit": 0,
+    "observation_exit": 1,
+    "declaration_exit": 2,
+    "declaration_refusal": "declaration disposition is not usable",
+    "release_raw": "Release: actual release",
+    "claim_raw": "Claim: actual claim",
+    "stdout_sha256": "b00860b8fd09e28a5aaef35992a54e53c48e119ea2297f9dcb2173228d8639f7",
+    "stdout_bytes": 196,
+    "package_at_commit": "not-established",
+    "binding": "unbound"
+  },
+  "artifacts": {
+    "labs/batch-observation-pass01/batch_observe.py": {
+      "sha256": "e372d5d9e37b83d843ed4913e5c33870770545adf62279a998367006f9a9621b",
+      "bytes": 40088
+    },
+    "labs/batch-observation-pass01/README.md": {
+      "sha256": "5e72b32511450074b7cef2fa36ee47330bf2ba76277c5a36d40994f714c59efc",
+      "bytes": 1584
+    },
+    "labs/batch-observation-pass01/tests/test_batch_observe.py": {
+      "sha256": "59c291dbf4f9023a6a4fba5899f3001cd4efb10b83128b76469b89c59d056cca",
+      "bytes": 49749
+    },
+    "labs/batch-observation-pass01/demo.py": {
+      "sha256": "0df767f0d225a1eaf7345bfabec35b8a031b13c757d7d48b4383fe8ae723e4a1",
+      "bytes": 3158
+    },
+    "00.kernel/00.00.10.work/0508.return-capture/06.15.md": {
+      "sha256": "52821072e1b31f275e10c13851e03044ec20e72baaef2eb588fcbf85acd80703",
+      "bytes": 4065
+    },
+    "00.kernel/00.00.10.work/0508.return-capture/evidence/repair05.14/CONTRACT.md": {
+      "sha256": "5d43f1809163f16a659859243dbd98a408813d139cdbb5e1ae961784d67f6e55",
+      "bytes": 4424
+    },
+    "00.kernel/00.00.10.work/0508.return-capture/evidence/repair05.14/tests.txt": {
+      "sha256": "56c57e0878a6656eb67840939a1565a13f2e0d9d18756b9fcc72afd410332761",
+      "bytes": 1664
+    }
+  },
+  "reserved_member_contents_before_capture": [
+    "01.md",
+    "reservation.json"
+  ],
+  "failures": []
+}

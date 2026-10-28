@@ -1,0 +1,40 @@
+First run, before the reservation assertion moved.
+Command: python -B labs/batch-observation-pass01/tests/test_batch_observe.py
+Working directory: D:/Git/lib-build
+Exit: 1. Failures: 1. Skips: 0.
+FAIL: test_reserved_member_on_the_desk_is_untouched
+AssertionError: Lists differ: ['01.md', 'manifest.json', 'payload', 'receipt.json', 'reservation.json', 'return.md'] != ['01.md', 'reservation.json']
+Ran 10 tests in 18.567s
+FAILED (failures=1)
+The live 0138.batch-reader-0513 return stayed sealed. No member file was deleted.
+
+Passing run, after the disposable reservation fixture.
+Command: python -B labs/batch-observation-pass01/tests/test_batch_observe.py
+Working directory: D:/Git/lib-build
+Exit: 0
+stdout sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout bytes: 0
+stderr sha256: 0173e38766eb0c207fb8368f8070b2b40ba8d9040b849e0f209f01c914abe8af
+stderr bytes: 119
+--- text ---
+..............
+----------------------------------------------------------------------
+Ran 14 tests in 23.893s
+
+OK
+
+Demo command: python -B labs/batch-observation-pass01/demo.py
+Demo process exit: 0
+The fenced release is ignored. release_raw is the actual release. claim_raw is the actual claim.
+The malformed declaration refuses with exit 2 and no traceback.
+stdout sha256: b00860b8fd09e28a5aaef35992a54e53c48e119ea2297f9dcb2173228d8639f7
+stdout bytes: 196
+stderr sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stderr bytes: 0
+--- text ---
+fenced release ignored
+release_raw: Release: actual release
+claim_raw: Claim: actual claim
+observation_exit: 1
+declaration_refusal: declaration disposition is not usable
+declaration_exit: 2

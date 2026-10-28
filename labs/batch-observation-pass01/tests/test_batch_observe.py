@@ -5,6 +5,8 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -30,6 +32,20 @@ ROLE = {
     "secondary historical capture": "secondary-historical",
     "named in the assignment, not in the return heading text": "assignment-mention",
 }
+Z_STAMP = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{6}Z$")
+
+
+def tree_fingerprint(root: Path) -> str:
+    if not root.exists():
+        return "absent"
+    rows = []
+    for path in sorted(root.rglob("*")):
+        rel = path.relative_to(root).as_posix()
+        if path.is_dir():
+            rows.append(f"dir {rel}")
+        elif path.is_file():
+            rows.append(f"file {rel} {hashlib.sha256(path.read_bytes()).hexdigest()} {path.stat().st_size}")
+    return hashlib.sha256("\n".join(rows).encode("utf-8")).hexdigest()
 
 
 def run(argv: list[str]):
@@ -57,7 +73,17 @@ class PinsAndRefusals(unittest.TestCase):
     def test_parser_pin_mismatch_runs_no_git(self):
         calls = []
         original = batch_observe.run_git
-        batch_observe.run_git = lambda *args, **kwargs: calls.append(args)
+        original_run = batch_observe.subprocess.run
+
+        def record_git(*args, **kwargs):
+            calls.append(("run_git", args))
+
+        def record_subprocess(*args, **kwargs):
+            calls.append(("subprocess", args))
+            raise AssertionError("subprocess before a failed pin")
+
+        batch_observe.run_git = record_git
+        batch_observe.subprocess.run = record_subprocess
         old = batch_observe.PARSER_PATH
         try:
             with tempfile.TemporaryDirectory() as tmp:
@@ -70,15 +96,27 @@ class PinsAndRefusals(unittest.TestCase):
             self.assertEqual(code, 2)
             self.assertEqual(payload, b"")
             self.assertIn("pin mismatch", error)
+            self.assertNotIn("Traceback", error)
             self.assertEqual(calls, [])
         finally:
             batch_observe.run_git = original
+            batch_observe.subprocess.run = original_run
             batch_observe.PARSER_PATH = old
 
     def test_helper_pin_mismatch_runs_no_inspect(self):
         calls = []
         original = batch_observe.launch_inspect
-        batch_observe.launch_inspect = lambda *args, **kwargs: calls.append(args)
+        original_run = batch_observe.subprocess.run
+
+        def record_inspect(*args, **kwargs):
+            calls.append(("inspect", args))
+
+        def record_subprocess(*args, **kwargs):
+            calls.append(("subprocess", args))
+            raise AssertionError("subprocess before a failed pin")
+
+        batch_observe.launch_inspect = record_inspect
+        batch_observe.subprocess.run = record_subprocess
         old = batch_observe.HELPER_PATH
         try:
             with tempfile.TemporaryDirectory() as tmp:
@@ -100,9 +138,11 @@ class PinsAndRefusals(unittest.TestCase):
             self.assertEqual(code, 2)
             self.assertEqual(payload, b"")
             self.assertIn("pin mismatch", error)
+            self.assertNotIn("Traceback", error)
             self.assertEqual(calls, [])
         finally:
             batch_observe.launch_inspect = original
+            batch_observe.subprocess.run = original_run
             batch_observe.HELPER_PATH = old
 
     def test_malformed_inputs_and_unknown_schema(self):
@@ -178,6 +218,11 @@ class GitAndSupplied(unittest.TestCase):
             self.assertEqual(body["source"]["kind"], "git-blob")
             self.assertEqual(body["source"]["label"], "git blob at the named commit")
             self.assertEqual(body["source"]["sha256"], hashlib.sha256(text).hexdigest())
+            self.assertEqual(body["source"]["commit"], commit)
+            self.assertEqual(body["source"]["time_basis"], "git-blob")
+            self.assertIsNone(body["source"]["live_observed_at"])
+            self.assertIsNone(body["source"]["observation_started_at"])
+            self.assertIsNone(body["source"]["observation_finished_at"])
             self.assertEqual(body["legacy"]["status"], "ok")
             self.assertEqual(body["legacy"]["execution"], "returned")
             self.assertTrue(body["legacy"]["revision_id"])
@@ -187,6 +232,12 @@ class GitAndSupplied(unittest.TestCase):
             self.assertEqual(live["source"]["kind"], "live-file")
             self.assertEqual(live["source"]["label"], "worktree file, not a git blob")
             self.assertIsNone(live["source"]["commit"])
+            self.assertEqual(live["source"]["time_basis"], "live-read")
+            self.assertRegex(live["source"]["live_observed_at"], Z_STAMP)
+            self.assertRegex(live["source"]["observation_started_at"], Z_STAMP)
+            self.assertRegex(live["source"]["observation_finished_at"], Z_STAMP)
+            self.assertEqual(live["source"]["live_observed_at"], live["source"]["observation_finished_at"])
+            self.assertLessEqual(live["source"]["observation_started_at"], live["source"]["observation_finished_at"])
             self.assertNotEqual(live["source"]["sha256"], body["source"]["sha256"])
             supplied = repo / "supplied.md"
             supplied.write_bytes(text)
@@ -196,6 +247,10 @@ class GitAndSupplied(unittest.TestCase):
             self.assertEqual(other["source"]["label"], "supplied text, not a git blob")
             self.assertIsNone(other["source"]["commit"])
             self.assertIsNone(other["source"]["repository"])
+            self.assertEqual(other["source"]["time_basis"], "supplied-text")
+            self.assertIsNone(other["source"]["live_observed_at"])
+            self.assertIsNone(other["source"]["observation_started_at"])
+            self.assertIsNone(other["source"]["observation_finished_at"])
             self.assertEqual(other["source"]["sha256"], hashlib.sha256(text).hexdigest())
             head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=repo, check=True, capture_output=True).stdout.decode().strip()
             self.assertEqual(head, commit)
@@ -227,6 +282,281 @@ class GitAndSupplied(unittest.TestCase):
             self.assertEqual(body["review"]["typed_declaration"]["reviewed_disposition"], "accepted")
             self.assertIn("declaration-not-authenticated", body["attention"])
             self.assertIsNone(body["custody"]["primary"])
+
+    def test_malformed_declarations_refuse_without_traceback(self):
+        base = {
+            "schema": "batch-review-declaration/1",
+            "reviewed_member": "0191.declared-0513",
+            "reviewed_receipt_sha256": "ab" * 32,
+            "reviewed_disposition": "accepted",
+            "reviewer": "Codex Prime",
+        }
+        bad_values = [[], {}, None, True, False, 0, 1.5]
+        calls = []
+        original_run = batch_observe.subprocess.run
+
+        def record_subprocess(*args, **kwargs):
+            calls.append(args)
+            raise AssertionError("subprocess during declaration refusal")
+
+        batch_observe.subprocess.run = record_subprocess
+        try:
+            with tempfile.TemporaryDirectory() as tmp:
+                page = Path(tmp) / "page.md"
+                page.write_bytes(b"# 05\nstate: draft\n\n## Return\nexecution: returned\n")
+                declaration = Path(tmp) / "declaration.json"
+                argv = [
+                    "observe",
+                    "--repo",
+                    str(ROOT),
+                    "--commit",
+                    COMMIT,
+                    "--path",
+                    "00.kernel/00.00.10.work/0508.return-capture/05.10.md",
+                    "--declaration",
+                    str(declaration),
+                    "--json",
+                ]
+                for field in (
+                    "reviewed_member",
+                    "reviewed_receipt_sha256",
+                    "reviewed_disposition",
+                    "reviewer",
+                ):
+                    for value in bad_values:
+                        body = dict(base)
+                        body[field] = value
+                        declaration.write_text(json.dumps(body), encoding="utf-8")
+                        code, payload, error = batch_observe.execute(argv)
+                        self.assertEqual(code, 2, (field, value, error))
+                        self.assertEqual(payload, b"")
+                        self.assertNotIn("Traceback", error)
+                        self.assertIn("not usable", error)
+                for literal in ("NaN", "Infinity", "-Infinity"):
+                    declaration.write_text(
+                        "{"
+                        '"schema":"batch-review-declaration/1",'
+                        '"reviewed_member":"0191.declared-0513",'
+                        '"reviewed_receipt_sha256":"' + ("ab" * 32) + '",'
+                        '"reviewed_disposition":' + literal + ","
+                        '"reviewer":"Codex Prime"'
+                        "}",
+                        encoding="utf-8",
+                    )
+                    code, payload, error = batch_observe.execute(argv)
+                    self.assertEqual(code, 2, literal)
+                    self.assertEqual(payload, b"")
+                    self.assertNotIn("Traceback", error)
+                    self.assertIn("not json", error)
+                declaration.write_text(
+                    '{"schema":"batch-review-declaration/1","schema":"batch-review-declaration/1",'
+                    '"reviewed_member":"0191.declared-0513","reviewed_receipt_sha256":"'
+                    + ("cd" * 32)
+                    + '","reviewed_disposition":"held","reviewer":"Codex Prime"}',
+                    encoding="utf-8",
+                )
+                code, payload, error = batch_observe.execute(argv)
+                self.assertEqual(code, 2)
+                self.assertEqual(payload, b"")
+                self.assertIn("duplicate key", error)
+                self.assertNotIn("Traceback", error)
+                missing = dict(base)
+                del missing["reviewer"]
+                declaration.write_text(json.dumps(missing), encoding="utf-8")
+                code, payload, error = batch_observe.execute(argv)
+                self.assertEqual(code, 2)
+                self.assertEqual(payload, b"")
+                self.assertIn("keys are not the contract set", error)
+                extra = dict(base)
+                extra["accepted"] = True
+                declaration.write_text(json.dumps(extra), encoding="utf-8")
+                code, payload, error = batch_observe.execute(argv)
+                self.assertEqual(code, 2)
+                self.assertEqual(payload, b"")
+                self.assertIn("keys are not the contract set", error)
+                self.assertNotIn("Traceback", error)
+                declaration.write_bytes(b"\xff")
+                code, payload, error = batch_observe.execute(
+                    ["observe", "--supplied", str(page), "--declaration", str(declaration), "--json"]
+                )
+                self.assertEqual(code, 2)
+                self.assertEqual(payload, b"")
+                self.assertIn("not utf-8", error)
+                self.assertNotIn("Traceback", error)
+            self.assertEqual(calls, [])
+        finally:
+            batch_observe.subprocess.run = original_run
+
+
+class EligibleFields(unittest.TestCase):
+    def observe_text(self, text: str):
+        with tempfile.TemporaryDirectory() as tmp:
+            page = Path(tmp) / "page.md"
+            data = text.encode("utf-8")
+            page.write_bytes(data)
+            before = hashlib.sha256(page.read_bytes()).hexdigest()
+            code, body, error = run(
+                [
+                    "observe",
+                    "--supplied",
+                    str(page),
+                    "--path",
+                    "label/00.00.10.work/0508.return-capture/05.14.md",
+                    "--json",
+                ]
+            )
+            self.assertEqual(hashlib.sha256(page.read_bytes()).hexdigest(), before)
+            module = batch_observe.load_parser()
+            parsed = module.parse_source(data, "page-return")
+            self.assertEqual(body["legacy"]["status"], parsed["status"])
+            self.assertEqual(body["legacy"]["reason"], parsed["reason"])
+            self.assertEqual(body["legacy"]["execution"], parsed["execution"])
+            self.assertEqual(body["legacy"]["whole"], parsed["whole"])
+            if parsed["status"] != "ok":
+                self.assertIsNone(body["legacy"]["revision_id"])
+            return code, body, error
+
+    def test_fences_quotes_and_other_sections_do_not_fill_fields(self):
+        lines = [
+            "state: draft",
+            "```",
+            "state: fenced-draft",
+            "Executor: Fenced Person",
+            "Release: fenced release",
+            "Claim: fenced claim",
+            "## Return pointer",
+            "Member: 0196.synthetic-fenced-0512",
+            "```",
+            "> state: quoted-draft",
+            "> Executor: Quoted Person",
+            "> Release: quoted release",
+            "> Claim: quoted claim",
+            "  > Release: indented quote",
+            "## Notes",
+            "state: notes-draft",
+            "Executor: Notes Person",
+            "Release: notes release",
+            "Claim: notes claim",
+            "The prose mentions Release: and Claim: without starting the field.",
+            "## Assignment",
+            "Executor: Actual Executor",
+            "Release and claim: recorded in the Return pointer. This draft grants no release.",
+            "````",
+            "```",
+            "Release: inner false",
+            "```",
+            "Claim: still fenced",
+            "````",
+            "## Return pointer",
+            "Release: actual release",
+            "Claim: actual claim",
+            "See Release: in the sentence.",
+        ]
+        code, body, error = self.observe_text("\n".join(lines) + "\n")
+        self.assertEqual(code, 1, error)
+        assert_open(self, body)
+        self.assertEqual(body["document"]["header_state_raw"], "state: draft")
+        self.assertEqual(body["document"]["lines"], [{"line": 1, "text": "state: draft"}])
+        self.assertFalse(body["document"]["ambiguous"])
+        self.assertEqual(body["assignment"]["executor_raw"], "Executor: Actual Executor")
+        self.assertEqual(body["assignment"]["executor_lines"], [{"line": 22, "text": "Executor: Actual Executor"}])
+        self.assertIsNone(body["assignment"]["release_raw"])
+        self.assertEqual(
+            body["assignment"]["release_lines"],
+            [
+                {
+                    "line": 23,
+                    "text": "Release and claim: recorded in the Return pointer. This draft grants no release.",
+                },
+                {"line": 31, "text": "Release: actual release"},
+            ],
+        )
+        self.assertEqual(body["assignment"]["claim_raw"], "Claim: actual claim")
+        self.assertEqual(body["assignment"]["claim_lines"], [{"line": 32, "text": "Claim: actual claim"}])
+        self.assertTrue(body["assignment"]["ambiguous"])
+        self.assertIn("duplicate-release", body["ambiguities"])
+        self.assertNotIn("duplicate-header-state", body["ambiguities"])
+        self.assertNotIn("duplicate-claim", body["ambiguities"])
+        joined = json.dumps(body["document"]) + json.dumps(body["assignment"])
+        for stray in (
+            "fenced-draft",
+            "fenced release",
+            "fenced claim",
+            "quoted release",
+            "notes release",
+            "inner false",
+            "still fenced",
+            "Fenced Person",
+        ):
+            self.assertNotIn(stray, joined)
+        self.assertEqual(body["fenced_headings"][0]["title"], "Return pointer")
+        self.assertEqual(body["pointers"][0]["line"], 30)
+        self.assertEqual(body["pointers"][0]["members"], [])
+        self.assertIsNone(body["legacy"]["revision_id"])
+
+    def test_duplicate_lines_stay_visible(self):
+        text = "\n".join(
+            [
+                "state: draft",
+                "state: draft",
+                "## Assignment",
+                "Executor: Same",
+                "Executor: Same",
+                "## Return",
+                "Release: one",
+                "Release: one",
+                "Claim: one",
+                "Claim: one",
+            ]
+        )
+        code, body, error = self.observe_text(text + "\n")
+        self.assertEqual(code, 1, error)
+        self.assertIsNone(body["document"]["header_state_raw"])
+        self.assertEqual(
+            body["document"]["lines"],
+            [{"line": 1, "text": "state: draft"}, {"line": 2, "text": "state: draft"}],
+        )
+        self.assertTrue(body["document"]["ambiguous"])
+        self.assertIsNone(body["assignment"]["executor_raw"])
+        self.assertIsNone(body["assignment"]["release_raw"])
+        self.assertIsNone(body["assignment"]["claim_raw"])
+        self.assertEqual([item["line"] for item in body["assignment"]["executor_lines"]], [4, 5])
+        self.assertEqual([item["line"] for item in body["assignment"]["release_lines"]], [7, 8])
+        self.assertEqual([item["line"] for item in body["assignment"]["claim_lines"]], [9, 10])
+        for code_name in (
+            "duplicate-header-state",
+            "duplicate-executor",
+            "duplicate-release",
+            "duplicate-claim",
+        ):
+            self.assertIn(code_name, body["ambiguities"])
+
+    def test_malformed_utf8_is_visible(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            page = Path(tmp) / "page.md"
+            page.write_bytes(b"\xff\xfe state: draft\n## Return\nexecution: returned\n")
+            code, body, error = run(
+                [
+                    "observe",
+                    "--supplied",
+                    str(page),
+                    "--path",
+                    "label/00.00.10.work/0508.return-capture/05.14.md",
+                    "--json",
+                ]
+            )
+        self.assertEqual(code, 1, error)
+        assert_open(self, body)
+        self.assertIn("not-utf-8", body["ambiguities"])
+        self.assertEqual(body["legacy"]["status"], "unsupported")
+        self.assertEqual(body["legacy"]["reason"], "not UTF-8")
+        self.assertIsNone(body["legacy"]["revision_id"])
+        self.assertIsNone(body["document"]["header_state_raw"])
+        self.assertEqual(body["document"]["lines"], [])
+        self.assertIsNone(body["assignment"]["executor_raw"])
+        self.assertIsNone(body["assignment"]["release_raw"])
+        self.assertIsNone(body["assignment"]["claim_raw"])
+        self.assertNotIn("Traceback", error)
 
 
 class RealCorpus(unittest.TestCase):
@@ -269,6 +599,10 @@ class RealCorpus(unittest.TestCase):
             self.assertEqual(body["source"]["sha256"], case["source"]["sha256"])
             self.assertEqual(body["source"]["bytes"], case["source"]["bytes"])
             self.assertEqual(body["source"]["label"], "git blob at the named commit")
+            self.assertEqual(body["source"]["time_basis"], "git-blob")
+            self.assertIsNone(body["source"]["live_observed_at"])
+            self.assertIsNone(body["source"]["observation_started_at"])
+            self.assertIsNone(body["source"]["observation_finished_at"])
             legacy = body["legacy"]
             observed = case["observation"]
             self.assertEqual(legacy["status"], observed["status"], case["id"])
@@ -295,10 +629,17 @@ class RealCorpus(unittest.TestCase):
                 if role["role"] == "named in the assignment, not in the return heading text":
                     self.assertIsNone(item["inspection"])
                     self.assertIsNone(item["commit_receipt_present"])
+                    self.assertIsNone(item["observation_started_at"])
+                    self.assertIsNone(item["observation_finished_at"])
                 else:
                     self.assertEqual(item["inspection"]["status"], "complete", role["member"])
                     self.assertTrue(item["receipt_bytes_match"], role["member"])
                     self.assertEqual(item["inspection"]["capture"]["retrospective"], role["retrospective"])
+                    self.assertRegex(item["observation_started_at"], Z_STAMP)
+                    self.assertRegex(item["observation_finished_at"], Z_STAMP)
+                    self.assertLessEqual(item["observation_started_at"], item["observation_finished_at"])
+                    self.assertNotIn("observation_started_at", item["inspection"])
+                    self.assertNotIn("observation_finished_at", item["inspection"])
             if case["id"] in {"C13", "C14"}:
                 self.assertIn("return-pointers", [item["form"] for item in body["pointers"]])
             if case["id"] == "C14":
@@ -558,23 +899,140 @@ class CustodyFixtures(unittest.TestCase):
             self.assertEqual(item["role"], "reserved")
             self.assertEqual(item["inspection"]["status"], "reserved")
             self.assertEqual(item["exit"], 1)
+            self.assertRegex(item["observation_started_at"], Z_STAMP)
+            self.assertRegex(item["observation_finished_at"], Z_STAMP)
+            self.assertNotIn("observation_started_at", item["inspection"])
+            self.assertNotIn("observation_finished_at", item["inspection"])
 
-    def test_reserved_member_on_the_desk_is_untouched(self):
+    def test_reservation_fixture_leaves_the_sealed_member(self):
         member = BOOK / "0138.batch-reader-0513"
-        names = sorted(path.name for path in member.iterdir())
-        self.assertEqual(names, ["01.md", "reservation.json"])
-        digest = hashlib.sha256((member / "reservation.json").read_bytes()).hexdigest()
-        self.assertEqual(digest, "b2484b6235ba6674c65732f53dfaaaa2bcd7a6f0adf4fc6aa736671e8a5798d5")
-        for rel in (
-            "labs/prime-support-pass01/prime_support.py",
-            "labs/prime-support-pass01/clerk_adapter.py",
-            "labs/return-capture-pass01/return_inspect.py",
-            "labs/return-capture-pass01/return_capture.py",
-        ):
+        before = tree_fingerprint(member)
+        head = subprocess.run(
+            ["git", "-C", str(ROOT), "rev-parse", "HEAD"],
+            capture_output=True,
+            check=True,
+        ).stdout
+        corpus_before = hashlib.sha256(CORPUS.read_bytes()).hexdigest()
+        pins = (
+            ("labs/prime-support-pass01/prime_support.py", batch_observe.PARSER_SHA, batch_observe.PARSER_BYTES),
+            ("labs/prime-support-pass01/clerk_adapter.py", batch_observe.ADAPTER_SHA, batch_observe.ADAPTER_BYTES),
+            ("labs/return-capture-pass01/return_inspect.py", batch_observe.INSPECT_SHA, batch_observe.INSPECT_BYTES),
+            ("labs/return-capture-pass01/return_capture.py", batch_observe.HELPER_SHA, batch_observe.HELPER_BYTES),
+        )
+        for rel, digest, size in pins:
             data = (ROOT / rel).read_bytes()
-            if rel.endswith("prime_support.py"):
-                self.assertEqual(hashlib.sha256(data).hexdigest(), batch_observe.PARSER_SHA)
-                self.assertEqual(len(data), batch_observe.PARSER_BYTES)
+            self.assertEqual(hashlib.sha256(data).hexdigest(), digest)
+            self.assertEqual(len(data), size)
+        with tempfile.TemporaryDirectory() as tmp:
+            book = Path(tmp) / "book"
+            book.mkdir()
+            reserved_text = self.helper(
+                [
+                    "reserve",
+                    "--book",
+                    str(book),
+                    "--submission",
+                    "obs-0514-reserved",
+                    "--name",
+                    "reserved-0514",
+                    "--origin-book",
+                    "00.00.10.work",
+                    "--origin-page",
+                    "0508.return-capture",
+                    "--origin-batch",
+                    "05.14",
+                    "--expected-output",
+                    "note.txt",
+                    "--submitter",
+                    "Grok Builder 2",
+                    "--reviewer",
+                    "Codex Prime",
+                    "--release",
+                    "fixture only",
+                ],
+                book,
+            )
+            reserved = next(line.split()[1] for line in reserved_text.splitlines() if line.startswith("member "))
+            reserved_dir = book / reserved
+            self.assertEqual(sorted(path.name for path in reserved_dir.iterdir()), ["01.md", "reservation.json"])
+            page = book / "page.md"
+            page.write_bytes(
+                f"## Return pointer\nMember: {reserved}\nReceipt: {'9' * 64}\n".encode("utf-8")
+            )
+            page_hash = hashlib.sha256(page.read_bytes()).hexdigest()
+            code, body, error = run(
+                [
+                    "observe",
+                    "--supplied",
+                    str(page),
+                    "--path",
+                    "label/00.00.10.work/0508.return-capture/05.14.md",
+                    "--members-book",
+                    str(book),
+                    "--json",
+                ]
+            )
+            self.assertEqual(code, 1, error)
+            assert_open(self, body)
+            item = body["custody"]["observations"][0]
+            self.assertEqual(item["member"], reserved)
+            self.assertEqual(item["role"], "reserved")
+            self.assertEqual(item["inspection"]["status"], "reserved")
+            self.assertEqual(item["exit"], 1)
+            self.assertRegex(item["observation_started_at"], Z_STAMP)
+            self.assertNotIn("observation_started_at", item["inspection"])
+            self.assertEqual(hashlib.sha256(page.read_bytes()).hexdigest(), page_hash)
+            self.assertEqual(sorted(path.name for path in reserved_dir.iterdir()), ["01.md", "reservation.json"])
+            if (member / "receipt.json").is_file():
+                copy_book = Path(tmp) / "copy"
+                dest = copy_book / member.name
+                shutil.copytree(member, dest)
+                copied = tree_fingerprint(dest)
+                receipt = hashlib.sha256((dest / "receipt.json").read_bytes()).hexdigest()
+                sealed_page = copy_book / "page.md"
+                sealed_page.write_bytes(
+                    (
+                        "## Return pointer\n"
+                        f"Member: {member.name}\n"
+                        f"Receipt: {receipt}\n"
+                    ).encode("utf-8")
+                )
+                code, sealed, error = run(
+                    [
+                        "observe",
+                        "--supplied",
+                        str(sealed_page),
+                        "--path",
+                        "label/00.00.10.work/0508.return-capture/05.13.md",
+                        "--members-book",
+                        str(copy_book),
+                        "--json",
+                    ]
+                )
+                self.assertEqual(code, 1, error)
+                assert_open(self, sealed)
+                observed = sealed["custody"]["observations"][0]
+                self.assertEqual(observed["role"], "primary-current-candidate")
+                self.assertEqual(sealed["custody"]["primary"], member.name)
+                self.assertEqual(observed["inspection"]["status"], "complete")
+                self.assertEqual(observed["inspection"]["capture"]["receipt_sha256"], receipt)
+                self.assertEqual(observed["inspection"]["capture"]["retrospective"], False)
+                self.assertRegex(observed["observation_started_at"], Z_STAMP)
+                self.assertNotIn("observation_started_at", observed["inspection"])
+                self.assertEqual(sealed["custody"]["package_at_commit"], "not-established")
+                self.assertEqual(tree_fingerprint(dest), copied)
+        self.assertEqual(tree_fingerprint(member), before)
+        self.assertEqual(hashlib.sha256(CORPUS.read_bytes()).hexdigest(), corpus_before)
+        head_after = subprocess.run(
+            ["git", "-C", str(ROOT), "rev-parse", "HEAD"],
+            capture_output=True,
+            check=True,
+        ).stdout
+        self.assertEqual(head_after, head)
+        for rel, digest, size in pins:
+            data = (ROOT / rel).read_bytes()
+            self.assertEqual(hashlib.sha256(data).hexdigest(), digest)
+            self.assertEqual(len(data), size)
 
 
 if __name__ == "__main__":

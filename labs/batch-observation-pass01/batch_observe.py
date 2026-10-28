@@ -16,6 +16,7 @@ import re
 import stat
 import subprocess
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 SCHEMA = "batch-observation/1"
@@ -341,11 +342,63 @@ def how_named(form: str) -> str:
     return "pointer"
 
 
-def raw_line(lines: list[str], prefix: str) -> str | None:
-    for line in lines:
-        if line.startswith(prefix):
-            return line
-    return None
+def utc_stamp() -> str:
+    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+
+
+def is_blockquote(line: str) -> bool:
+    return line.lstrip(" \t").startswith(">")
+
+
+def collect_fields(lines: list[str]) -> dict[str, list[dict]]:
+    """Eligible header, Assignment, and Return lines. Fences and blockquotes stay out."""
+    buckets = {"state": [], "executor": [], "release": [], "claim": []}
+    section = "header"
+    fence = None
+    for number, line in enumerate(lines, start=1):
+        if fence:
+            stripped = line.strip()
+            if stripped and set(stripped) == {fence[0]} and len(stripped) >= len(fence):
+                fence = None
+            continue
+        opened = fence_open(line)
+        if opened:
+            fence = opened
+            continue
+        heading = re.match(r"^(#{1,6}) (.*)$", line)
+        if heading:
+            level = len(heading.group(1))
+            title = heading.group(2)
+            form = form_of(title)
+            if level == 2 and title.casefold().startswith("assignment"):
+                section = "assignment"
+            elif level == 2 and form in POINTER_FORMS:
+                section = "return"
+            else:
+                section = "other"
+            continue
+        if is_blockquote(line):
+            continue
+        stripped = line.lstrip(" \t")
+        if section == "header" and stripped.startswith("state:"):
+            buckets["state"].append({"line": number, "text": line})
+        elif section == "assignment" and stripped.startswith("Executor:"):
+            buckets["executor"].append({"line": number, "text": line})
+        elif section in {"header", "assignment", "return"} and (
+            stripped.startswith("Release:") or stripped.startswith("Release and claim:")
+        ):
+            buckets["release"].append({"line": number, "text": line})
+        elif section in {"header", "assignment", "return"} and stripped.startswith("Claim:"):
+            buckets["claim"].append({"line": number, "text": line})
+    return buckets
+
+
+def field_value(items: list[dict]) -> tuple[str | None, bool]:
+    if len(items) == 1:
+        return items[0]["text"], False
+    if len(items) > 1:
+        return None, True
+    return None, False
 
 
 def page_identity(relpath: str | None) -> dict | None:
@@ -378,7 +431,7 @@ def loads_strict(data: bytes, label: str):
         return json.loads(text, object_pairs_hook=pairs, parse_constant=reject_constant)
     except ObserveError:
         raise
-    except json.JSONDecodeError as exc:
+    except (json.JSONDecodeError, ValueError):
         refuse(f"{label} is not json")
 
 
@@ -400,7 +453,7 @@ def read_declaration(path: str | None) -> dict | None:
         refuse("declaration member is not usable")
     if not isinstance(receipt, str) or HEX64.fullmatch(receipt) is None:
         refuse("declaration receipt is not usable")
-    if disposition not in DISPOSITIONS:
+    if not isinstance(disposition, str) or disposition not in DISPOSITIONS:
         refuse("declaration disposition is not usable")
     if not isinstance(reviewer, str) or reviewer == "" or len(reviewer) > 200:
         refuse("declaration reviewer is not usable")
@@ -670,6 +723,8 @@ def build_observation(
                 "commit_receipt_present": None,
                 "receipt_bytes_match": None,
                 "attention": [],
+                "observation_started_at": None,
+                "observation_finished_at": None,
             }
             order.append(name)
         item = grouped[name]
@@ -704,7 +759,9 @@ def build_observation(
             item = grouped[name]
             if item["how_named"] == "assignment-sentence":
                 continue
+            item["observation_started_at"] = utc_stamp()
             observed, code = launch_inspect(members_book, name, inspect_path)
+            item["observation_finished_at"] = utc_stamp()
             item["exit"] = code
             if observed is None or not inspection_ok(observed, name, code):
                 item["role"] = "observation-failed"
@@ -769,7 +826,19 @@ def build_observation(
     if declaration is not None:
         attention.append("declaration-not-authenticated")
 
-    header = raw_line(lines, "state: ") if text is not None else None
+    fields = collect_fields(lines) if text is not None else {"state": [], "executor": [], "release": [], "claim": []}
+    state_raw, state_ambiguous = field_value(fields["state"])
+    executor_raw, executor_ambiguous = field_value(fields["executor"])
+    release_raw, release_ambiguous = field_value(fields["release"])
+    claim_raw, claim_ambiguous = field_value(fields["claim"])
+    if state_ambiguous:
+        ambiguities.append("duplicate-header-state")
+    if executor_ambiguous:
+        ambiguities.append("duplicate-executor")
+    if release_ambiguous:
+        ambiguities.append("duplicate-release")
+    if claim_ambiguous:
+        ambiguities.append("duplicate-claim")
     tool_bytes = file_bytes(Path(__file__).resolve())
     return {
         "schema": SCHEMA,
@@ -781,15 +850,19 @@ def build_observation(
         "authority": AUTHORITY,
         "source": source,
         "page": page_out,
-        "document": {"header_state_raw": header},
+        "document": {
+            "header_state_raw": state_raw,
+            "lines": fields["state"],
+            "ambiguous": state_ambiguous,
+        },
         "assignment": {
-            "executor_raw": raw_line(lines, "Executor: ") if text is not None else None,
-            "release_raw": (
-                None
-                if text is None
-                else raw_line(lines, "Release: ") or raw_line(lines, "Release and claim: ")
-            ),
-            "claim_raw": raw_line(lines, "Claim: ") if text is not None else None,
+            "executor_raw": executor_raw,
+            "executor_lines": fields["executor"],
+            "release_raw": release_raw,
+            "release_lines": fields["release"],
+            "claim_raw": claim_raw,
+            "claim_lines": fields["claim"],
+            "ambiguous": executor_ambiguous or release_ambiguous or claim_ambiguous,
         },
         "legacy": legacy,
         "channels": {
@@ -839,6 +912,10 @@ def source_git(repo: str, commit: str, relpath: str) -> tuple[bytes, dict]:
         "sha256": sha256(blob),
         "bytes": len(blob),
         "label": "git blob at the named commit",
+        "time_basis": "git-blob",
+        "live_observed_at": None,
+        "observation_started_at": None,
+        "observation_finished_at": None,
     }
 
 
@@ -857,7 +934,9 @@ def source_live(repo: str, relpath: str) -> tuple[bytes, dict]:
             refuse("live path is a link")
     if not stat.S_ISREG(os.lstat(current).st_mode):
         refuse("live path is not a file")
+    started = utc_stamp()
     data = current.read_bytes()
+    finished = utc_stamp()
     return data, {
         "kind": "live-file",
         "repository": os.path.abspath(repo),
@@ -866,6 +945,10 @@ def source_live(repo: str, relpath: str) -> tuple[bytes, dict]:
         "sha256": sha256(data),
         "bytes": len(data),
         "label": "worktree file, not a git blob",
+        "time_basis": "live-read",
+        "live_observed_at": finished,
+        "observation_started_at": started,
+        "observation_finished_at": finished,
     }
 
 
@@ -882,6 +965,10 @@ def source_supplied(file_path: str, relpath: str | None) -> tuple[bytes, dict]:
         "sha256": sha256(data),
         "bytes": len(data),
         "label": "supplied text, not a git blob",
+        "time_basis": "supplied-text",
+        "live_observed_at": None,
+        "observation_started_at": None,
+        "observation_finished_at": None,
     }
 
 

@@ -1,0 +1,36 @@
+# Notes — batch-observation repair (05.14)
+
+Date: 2026-10-28. Recorder: Grok Builder 2. These notes are written before the repair contract and before any code change. `06.01` through `06.14` stay as they are. Member `0138.batch-reader-0513` stays as captured.
+
+## Inputs
+
+Pack `evidence/pack05.14/source-manifest.json` is schema `prime-pack-sources/1` with 13 sources. Live bytes, snapshot bytes, and the declared SHA-256 and length match for all 13.
+
+Workshop HEAD when these notes were opened is `4e7ebfc143330f98c9b8b55681b58f2602a85255`. That fact is not the corpus commit. Page bytes for the sixteen cases stay at `4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5`.
+
+Prime review `evidence/prime-review05.13/review.md` holds the reader. It is not an acceptance. The four findings are:
+
+- BO-01. `raw_line` takes the first matching line, including a fenced example. Eligible fields are unfenced, unquoted lines in the header, Assignment, or Return scope. Duplicates stay visible and are not reduced to the first line.
+- BO-02. A declaration whose disposition is a list or object, or whose JSON contains NaN, raises an uncaught exception. Types are checked before membership. Malformed JSON refuses with exit 2.
+- BO-03. Live file reads and inspector calls have no UTC time. Those times are recorded beside the raw inspector object. They are not written onto a Git commit. `package_at_commit` stays `not-established`.
+- BO-04. The test that requires live `0138` to contain only a reservation fails once that return is filed. The reservation-only case moves to a disposable book. The sealed member is not deleted and its old bytes are not rewritten.
+
+Parser `700d60d2…`, adapter `2f30ba75…`, inspector `947915fe…`, helper `8f3da5c6…`, and `clerk.py` `f697a7e4…` are pins, not edit targets. The state-projection lab is not combined with this reader.
+
+The page header stays `state: draft`. Release and claim go on the Return pointer. This note does not release the batch.
+
+## Choices
+
+The repair stays inside `labs/batch-observation-pass01/`. `parse_source` is still imported only after the pin check and its result is not rewritten. A failed pin still runs no Git command and no inspector.
+
+Field lines keep their original line numbers. One eligible line is the raw value. Zero lines leave the raw value null. Two or more leave the raw value null, keep every line, and mark the field ambiguous.
+
+A typed declaration that fails validation produces no observation document. A valid declaration stays `authority: not authenticated` and does not set `binding`.
+
+## Disposition
+
+The first suite run, before the reservation assertion moved, exited 1. `test_reserved_member_on_the_desk_is_untouched` expected `0138.batch-reader-0513` to contain only `01.md` and `reservation.json`. The live directory also contains `manifest.json`, `payload`, `receipt.json`, and `return.md`. That is the sealed 05.13 return. It was not deleted.
+
+Eligible field lines now come from the header, Assignment, or a return section, outside fences and blockquotes. Duplicate eligible lines stay listed and the raw value stays empty. A malformed declaration exits 2 with no observation document and no traceback. A live file read and each inspector call record a UTC timestamp. A Git blob leaves those times empty. `package_at_commit` stays `not-established`. The reservation-only check reserves a member on a disposable book with the pinned helper and leaves it uncaptured. The live `0138` tree is fingerprinted before and after and is left unchanged. When that member already has `receipt.json`, the test copies it and observes the copy.
+
+The saved rerun exited 0: 14 tests, no failures, no skips. The demo keeps `Release: actual release` and `Claim: actual claim`, ignores the fenced false release, and prints `declaration disposition is not usable` with declaration exit 2. The demo process exits 0. Commands and hashes are in `evidence/repair05.14/tests.txt`. Parser, adapter, inspector, helper, corpus, and the state-projection lab are unchanged. This note does not contain a receipt.
