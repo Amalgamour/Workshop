@@ -1,0 +1,152 @@
+# tests.txt — projection05.12 (0507.prime-support 05.12, fixture state projection)
+
+Commands:
+- python -B [-X dev] labs/state-projection-pass01/tests/test_state_projection.py -v
+- python -B [-X dev] labs/state-projection-pass01/demo.py
+- python -B scratchpad/d0512/mutate.py
+Python 3.14.7, Windows. Every run is kept. The first run passed, so there are no failure transcripts; the mutation checks show the tests can fail. There are no skips.
+Custody fixtures use the real pinned return_capture.py (reserve, capture) and return_inspect.py on disposable books. Test_15 alone replaces the inspector's stdout in-process, to exercise malformed reports.
+No model was called. Fixture data only.
+
+## run1: suite, dev mode, -v, in-place; first run (17 tests)
+```
+test_01_text_only_accepted_cannot_close (__main__.TestClosure.test_01_text_only_accepted_cannot_close) ... ok
+test_02_bound_held_and_correction_remain_open_with_followup (__main__.TestClosure.test_02_bound_held_and_correction_remain_open_with_followup) ... ok
+test_03_bound_accepted_with_terminal_completes_only_with_live_primary (__main__.TestClosure.test_03_bound_accepted_with_terminal_completes_only_with_live_primary) ... ok
+test_04_stale_receipt_or_member_requires_re_review (__main__.TestClosure.test_04_stale_receipt_or_member_requires_re_review) ... ok
+test_05_two_matching_members_are_ambiguous_until_explicit_candidate (__main__.TestClosure.test_05_two_matching_members_are_ambiguous_until_explicit_candidate) ... ok
+test_06_same_page_batch_in_a_different_origin_book_is_not_primary (__main__.TestClosure.test_06_same_page_batch_in_a_different_origin_book_is_not_primary) ... ok
+test_07_primary_versus_historical_secondary_regardless_of_pointer_order (__main__.TestClosure.test_07_primary_versus_historical_secondary_regardless_of_pointer_order) ... ok
+test_08_live_custody_never_sets_a_commit_time_return (__main__.TestClosure.test_08_live_custody_never_sets_a_commit_time_return) ... ok
+test_09_published_held_work_stays_held (__main__.TestClosure.test_09_published_held_work_stays_held) ... ok
+test_10_multiple_open_lanes_and_items_are_all_listed (__main__.TestClosure.test_10_multiple_open_lanes_and_items_are_all_listed) ... ok
+test_11_missing_release_is_a_conflict_not_an_inferred_release (__main__.TestClosure.test_11_missing_release_is_a_conflict_not_an_inferred_release) ... ok
+test_12_contradictory_review_and_incomplete_member (__main__.TestClosure.test_12_contradictory_review_and_incomplete_member) ... ok
+test_13_malformed_or_duplicate_inputs_refuse_before_projection (__main__.TestClosure.test_13_malformed_or_duplicate_inputs_refuse_before_projection) ... ok
+test_14_wrong_or_missing_reader_or_helper_pin_refuses_before_launch (__main__.TestClosure.test_14_wrong_or_missing_reader_or_helper_pin_refuses_before_launch) ... ok
+test_15_malformed_inspector_report_is_a_failed_observation (__main__.TestClosure.test_15_malformed_inspector_report_is_a_failed_observation) ... ok
+test_16_worked_cases_w1_to_w7_with_corrected_expectations (__main__.TestClosure.test_16_worked_cases_w1_to_w7_with_corrected_expectations) ... ok
+test_17_no_input_store_code_or_git_mutation (__main__.TestClosure.test_17_no_input_store_code_or_git_mutation) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 18.565s
+
+OK
+```
+
+## run2: suite, default mode, -v, in-place
+```
+test_01_text_only_accepted_cannot_close (__main__.TestClosure.test_01_text_only_accepted_cannot_close) ... ok
+test_02_bound_held_and_correction_remain_open_with_followup (__main__.TestClosure.test_02_bound_held_and_correction_remain_open_with_followup) ... ok
+test_03_bound_accepted_with_terminal_completes_only_with_live_primary (__main__.TestClosure.test_03_bound_accepted_with_terminal_completes_only_with_live_primary) ... ok
+test_04_stale_receipt_or_member_requires_re_review (__main__.TestClosure.test_04_stale_receipt_or_member_requires_re_review) ... ok
+test_05_two_matching_members_are_ambiguous_until_explicit_candidate (__main__.TestClosure.test_05_two_matching_members_are_ambiguous_until_explicit_candidate) ... ok
+test_06_same_page_batch_in_a_different_origin_book_is_not_primary (__main__.TestClosure.test_06_same_page_batch_in_a_different_origin_book_is_not_primary) ... ok
+test_07_primary_versus_historical_secondary_regardless_of_pointer_order (__main__.TestClosure.test_07_primary_versus_historical_secondary_regardless_of_pointer_order) ... ok
+test_08_live_custody_never_sets_a_commit_time_return (__main__.TestClosure.test_08_live_custody_never_sets_a_commit_time_return) ... ok
+test_09_published_held_work_stays_held (__main__.TestClosure.test_09_published_held_work_stays_held) ... ok
+test_10_multiple_open_lanes_and_items_are_all_listed (__main__.TestClosure.test_10_multiple_open_lanes_and_items_are_all_listed) ... ok
+test_11_missing_release_is_a_conflict_not_an_inferred_release (__main__.TestClosure.test_11_missing_release_is_a_conflict_not_an_inferred_release) ... ok
+test_12_contradictory_review_and_incomplete_member (__main__.TestClosure.test_12_contradictory_review_and_incomplete_member) ... ok
+test_13_malformed_or_duplicate_inputs_refuse_before_projection (__main__.TestClosure.test_13_malformed_or_duplicate_inputs_refuse_before_projection) ... ok
+test_14_wrong_or_missing_reader_or_helper_pin_refuses_before_launch (__main__.TestClosure.test_14_wrong_or_missing_reader_or_helper_pin_refuses_before_launch) ... ok
+test_15_malformed_inspector_report_is_a_failed_observation (__main__.TestClosure.test_15_malformed_inspector_report_is_a_failed_observation) ... ok
+test_16_worked_cases_w1_to_w7_with_corrected_expectations (__main__.TestClosure.test_16_worked_cases_w1_to_w7_with_corrected_expectations) ... ok
+test_17_no_input_store_code_or_git_mutation (__main__.TestClosure.test_17_no_input_store_code_or_git_mutation) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 18.141s
+
+OK
+```
+
+## run3: suite, dev mode, -v, on a disposable copy of the lab and the pinned reader and helper (scratchpad copy/labs)
+```
+test_01_text_only_accepted_cannot_close (__main__.TestClosure.test_01_text_only_accepted_cannot_close) ... ok
+test_02_bound_held_and_correction_remain_open_with_followup (__main__.TestClosure.test_02_bound_held_and_correction_remain_open_with_followup) ... ok
+test_03_bound_accepted_with_terminal_completes_only_with_live_primary (__main__.TestClosure.test_03_bound_accepted_with_terminal_completes_only_with_live_primary) ... ok
+test_04_stale_receipt_or_member_requires_re_review (__main__.TestClosure.test_04_stale_receipt_or_member_requires_re_review) ... ok
+test_05_two_matching_members_are_ambiguous_until_explicit_candidate (__main__.TestClosure.test_05_two_matching_members_are_ambiguous_until_explicit_candidate) ... ok
+test_06_same_page_batch_in_a_different_origin_book_is_not_primary (__main__.TestClosure.test_06_same_page_batch_in_a_different_origin_book_is_not_primary) ... ok
+test_07_primary_versus_historical_secondary_regardless_of_pointer_order (__main__.TestClosure.test_07_primary_versus_historical_secondary_regardless_of_pointer_order) ... ok
+test_08_live_custody_never_sets_a_commit_time_return (__main__.TestClosure.test_08_live_custody_never_sets_a_commit_time_return) ... ok
+test_09_published_held_work_stays_held (__main__.TestClosure.test_09_published_held_work_stays_held) ... ok
+test_10_multiple_open_lanes_and_items_are_all_listed (__main__.TestClosure.test_10_multiple_open_lanes_and_items_are_all_listed) ... ok
+test_11_missing_release_is_a_conflict_not_an_inferred_release (__main__.TestClosure.test_11_missing_release_is_a_conflict_not_an_inferred_release) ... ok
+test_12_contradictory_review_and_incomplete_member (__main__.TestClosure.test_12_contradictory_review_and_incomplete_member) ... ok
+test_13_malformed_or_duplicate_inputs_refuse_before_projection (__main__.TestClosure.test_13_malformed_or_duplicate_inputs_refuse_before_projection) ... ok
+test_14_wrong_or_missing_reader_or_helper_pin_refuses_before_launch (__main__.TestClosure.test_14_wrong_or_missing_reader_or_helper_pin_refuses_before_launch) ... ok
+test_15_malformed_inspector_report_is_a_failed_observation (__main__.TestClosure.test_15_malformed_inspector_report_is_a_failed_observation) ... ok
+test_16_worked_cases_w1_to_w7_with_corrected_expectations (__main__.TestClosure.test_16_worked_cases_w1_to_w7_with_corrected_expectations) ... ok
+test_17_no_input_store_code_or_git_mutation (__main__.TestClosure.test_17_no_input_store_code_or_git_mutation) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 17.972s
+
+OK
+```
+
+## mutations: four deliberate faults on disposable copies; each must fail the suite
+```
+held-counts-as-completed: exit 1; failing ['test_02_bound_held_and_correction_remain_open_with_followup', 'test_09_published_held_work_stays_held']
+first-pointer-is-primary: exit 1; failing ['test_05_two_matching_members_are_ambiguous_until_explicit_candidate']
+origin-book-ignored: exit 1; failing ['test_06_same_page_batch_in_a_different_origin_book_is_not_primary']
+commit-basis-completes: exit 1; failing ['test_08_live_custody_never_sets_a_commit_time_return']
+```
+
+## demo1: dev mode, in-place
+```
+fixture member book C:\Users\misg\AppData\Local\Temp\sp-st-2y8068kp\book
+input C:\Users\misg\AppData\Local\Temp\sp-st-2y8068kp\demo-input.json
+
+state-projection/1  scope 00.00.10.work  inspected True  (not a v1 assignment record and not canonical)
+0507.prime-support/05.21  open-correction-required  [supplied-live]  release recorded  claim recorded  custody primary  review bound/current  publication unknown
+    ! review correction-required; the item stays open until an explicit resolution
+    followup: 0507.prime-support/05.24 (fixture follow-up)
+0507.prime-support/05.22  open-re-review-required  [supplied-live]  release recorded  claim recorded  custody primary  review bound/stale  publication unknown
+    ! the bound review names a different member or receipt than the current primary
+0507.prime-support/05.23  completed  [supplied-live]  release recorded  claim recorded  custody primary  review bound/current  publication at-ref
+lane 0507.prime-support: open ['0507.prime-support/05.21', '0507.prime-support/05.22']; awaiting_release []; completed ['0507.prime-support/05.23']; conflicts []
+authority none; a projection grants no release, acceptance, seat or work
+exit 1 (1 = projected with attention)
+
+Fixture data only. Nothing was written. No release, acceptance, seat or work was granted.
+```
+
+## demo2: default mode, in-place
+```
+fixture member book C:\Users\misg\AppData\Local\Temp\sp-st-wpt0x7pc\book
+input C:\Users\misg\AppData\Local\Temp\sp-st-wpt0x7pc\demo-input.json
+
+state-projection/1  scope 00.00.10.work  inspected True  (not a v1 assignment record and not canonical)
+0507.prime-support/05.21  open-correction-required  [supplied-live]  release recorded  claim recorded  custody primary  review bound/current  publication unknown
+    ! review correction-required; the item stays open until an explicit resolution
+    followup: 0507.prime-support/05.24 (fixture follow-up)
+0507.prime-support/05.22  open-re-review-required  [supplied-live]  release recorded  claim recorded  custody primary  review bound/stale  publication unknown
+    ! the bound review names a different member or receipt than the current primary
+0507.prime-support/05.23  completed  [supplied-live]  release recorded  claim recorded  custody primary  review bound/current  publication at-ref
+lane 0507.prime-support: open ['0507.prime-support/05.21', '0507.prime-support/05.22']; awaiting_release []; completed ['0507.prime-support/05.23']; conflicts []
+authority none; a projection grants no release, acceptance, seat or work
+exit 1 (1 = projected with attention)
+
+Fixture data only. Nothing was written. No release, acceptance, seat or work was granted.
+```
+
+## demo3: dev mode, disposable copy
+```
+fixture member book C:\Users\misg\AppData\Local\Temp\sp-st-j069cf0e\book
+input C:\Users\misg\AppData\Local\Temp\sp-st-j069cf0e\demo-input.json
+
+state-projection/1  scope 00.00.10.work  inspected True  (not a v1 assignment record and not canonical)
+0507.prime-support/05.21  open-correction-required  [supplied-live]  release recorded  claim recorded  custody primary  review bound/current  publication unknown
+    ! review correction-required; the item stays open until an explicit resolution
+    followup: 0507.prime-support/05.24 (fixture follow-up)
+0507.prime-support/05.22  open-re-review-required  [supplied-live]  release recorded  claim recorded  custody primary  review bound/stale  publication unknown
+    ! the bound review names a different member or receipt than the current primary
+0507.prime-support/05.23  completed  [supplied-live]  release recorded  claim recorded  custody primary  review bound/current  publication at-ref
+lane 0507.prime-support: open ['0507.prime-support/05.21', '0507.prime-support/05.22']; awaiting_release []; completed ['0507.prime-support/05.23']; conflicts []
+authority none; a projection grants no release, acceptance, seat or work
+exit 1 (1 = projected with attention)
+
+Fixture data only. Nothing was written. No release, acceptance, seat or work was granted.
+```

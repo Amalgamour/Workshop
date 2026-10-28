@@ -1,0 +1,52 @@
+# Notes — fixture state projection with explicit closure (batch 05.12)
+Date: 2026-10-27
+Recorder: claude-opus-5-5, Colab, executor
+State: written FIRST, before the contract and before any code. 06.01-06.12 stay as they are. The 05.11 proposal, its worked cases and member 0134 stay unchanged.
+
+## Inputs
+I01. pack05.12: 10 of 10 snapshots match their pins, and live matches all 10, at workshop e97c70f.
+- the 05.11 STATE-PROPOSAL (0020eb4f…) and worked-cases (43a7f61b…);
+- prime-review05.11 (93bf65cd…), which is SP-01 to SP-04 plus Prime's decisions on DEC-3 and DEC-4;
+- 0410 (082314ff…) and 0408 (dbf2399d…);
+- return_inspect 947915fe…, return_capture 8f3da5c6…;
+- 0508/05.05 and the inspector correction contract;
+- the 0136 reservation.
+I02. Prime's conditions, which override my 05.11 §2 closure rule:
+- **SP-01.** Review text does not close a batch. Held and correction-required stay open and blocked. Completion needs a candidate-bound, explicit terminal declaration.
+- **SP-02.** The facets stay independent. Publication is not completion. A summary never hides an unreleased, held or ambiguous item. No live observation is projected backward onto a commit.
+- **SP-03.** The output is not a v1 record. It is a separately tagged projection over declared scope only.
+- **SP-04.** The primary is matched on origin book, page and batch. More than one matching complete candidate is ambiguous unless an explicit selection resolves it. A bound review must match the specific member and receipt. Labels are not grants.
+I03. DEC-3 is exercised in fixtures as typed bindings only. DEC-4 is already visible in this page's own header ("Release and claim: recorded in the Return pointer"). DEC-1, DEC-2 and DEC-5 are not needed and are not used.
+
+## Choices (routine, made before code)
+C01. Lab: `labs/state-projection-pass01/` with state_projection.py, README.md, tests/test_state_projection.py and demo.py. Standard library only. CLI:
+`project --input OBS.json [--inspect] [--json]`.
+- The input is one strict JSON document, `state-observations/1`: a fixture scope, plus a list of typed batch observations.
+- The output is `state-projection/1`, written to stdout.
+- The tool writes nothing.
+C02. Observations are supplied declarations, and each carries a `provenance` of `supplied-commit` (with a commit) or `supplied-live`. The tool never claims to have read Git. Member custody comes only from the pinned inspector, as a separate, timestamped, live block, and only when `--inspect` is given. A live result never sets a commit-time facet.
+C03. Closure: a batch is `completed` only when all of these hold:
+- the release is recorded;
+- the primary candidate is resolved and complete, as observed live, or supplied as `supplied-commit` custody evidence;
+- a bound review names that member and receipt;
+- the review carries `terminal: "completed"`, an explicit terminal declaration, and its binding matches.
+Anything else is not complete:
+- held, or correction-required, is open and blocked;
+- text-only review is `review-present, unresolved`;
+- a stale binding is `re-review-required`.
+C04. The lane view lists every open item, in declared order. It never picks one, and never uses the newest or highest number.
+C05. Strict input: exact keys, typed values, duplicate-key and duplicate-id refusal, and unknown versions refused before any iteration. Exit codes: 0 projected with no attention; 1 projected with attention; 2 refused, nothing projected.
+C06. The inspector is pin-checked, together with its helper, before every launch, with the argument-array form `[sys.executable, "-I", "-B", path, "inspect", …]`. The projection reuses the inspector's reported origin, status and receipt. It does not re-validate custody.
+C07. Tests use real reserve, capture and inspect on disposable books for every custody case. Text-only cases need no member. W1-W7 come in as scenario input with corrected expectations, recorded additively in the contract.
+
+## Disposition (all outputs reread in full)
+- I01-I03: stand. The notes were written first, before the contract and the code. This time the order held.
+- C01-C07: carried as written. The CLI, schema and lifecycle table are in CONTRACT.md §1-§6. The corrected W1-W7 expectations are in §7 and tested in test_16. 0134 is unchanged.
+- Two contract omissions, found by rereading the contract against the code and fixed before capture: the custody value `candidate-mismatch`, and the output's per-batch `inspections`. The code was not changed for either.
+- All 17 tests passed on their first run, so I made four mutation checks on a disposable copy. Each was caught: held counted as completed (test_02, test_09); a first-match primary (test_05); the origin book ignored (test_06); commit basis allowed to complete (test_08).
+- Not done, and outside scope:
+  - no parser or corpus integration, no app wiring, no registry;
+  - no 0401/06.01.002 created, and no 0410, law, seat or lane change;
+  - no edits to prime_support, prime_boot or the inspector;
+  - no unrelated suites.
+- Evidence slip, caught by my own check: the first verification run compared 0410 against a hash I had typed from its 12-character prefix, with the rest made up, so the check came back false. The value now comes from the pack manifest (082314ff34b0b53d…), and the page matches. The page itself never changed.

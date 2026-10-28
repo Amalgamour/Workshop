@@ -1,0 +1,129 @@
+{
+ "schema": "projection05.12-verification",
+ "batch": "0507.prime-support/05.12",
+ "who": "claude-opus-5-5",
+ "date": "2026-10-27",
+ "workshop_at_claim": "e97c70fff2984d59c26180e2ab146258dd9ac491",
+ "head_at_verification": "e97c70fff2984d59c26180e2ab146258dd9ac491",
+ "pack05.12": "10 of 10 snapshots match pins and live",
+ "pins": {
+  "labs/return-capture-pass01/return_inspect.py": {
+   "expected": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+   "live": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+   "match": true,
+   "in_code": true
+  },
+  "labs/return-capture-pass01/return_capture.py": {
+   "expected": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+   "live": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+   "match": true,
+   "in_code": true
+  }
+ },
+ "unchanged_sources": {
+  "labs/prime-support-pass01/prime_support.py": true,
+  "labs/prime-boot-pass01/prime_boot.py": true,
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/state05.11/STATE-PROPOSAL.md": true,
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/state05.11/worked-cases.json": true,
+  "00.kernel/00.00.10.work/0408.seats/01.md": true,
+  "00.kernel/00.00.10.work/0410.imports/01.md": true
+ },
+ "member_0134_unchanged": true,
+ "code_scan": {
+  "imports_prime_support_or_boot_or_app": false,
+  "uses_shell": false,
+  "writes_files": false,
+  "subprocess_calls": 1
+ },
+ "tests": {
+  "count": 17,
+  "skips": 0,
+  "runs": [
+   "run1 dev OK",
+   "run2 default OK",
+   "run3 copy dev OK"
+  ],
+  "first_failures": "none; the first run passed",
+  "mutations": [
+   "held-counts-as-completed: exit 1; failing ['test_02_bound_held_and_correction_remain_open_with_followup', 'test_09_published_held_work_stays_held']",
+   "first-pointer-is-primary: exit 1; failing ['test_05_two_matching_members_are_ambiguous_until_explicit_candidate']",
+   "origin-book-ignored: exit 1; failing ['test_06_same_page_batch_in_a_different_origin_book_is_not_primary']",
+   "commit-basis-completes: exit 1; failing ['test_08_live_custody_never_sets_a_commit_time_return']"
+  ]
+ },
+ "required_cases": {
+  "text-only Accepted cannot close": "test_01",
+  "bound held remains open": "test_02",
+  "bound accepted with terminal completes": "test_03",
+  "stale receipt cannot complete": "test_04",
+  "two matching members ambiguous": "test_05",
+  "different origin book not primary": "test_06",
+  "primary versus historical secondary order": "test_07",
+  "live/commit separation": "test_08",
+  "published held stays held": "test_09",
+  "multiple open lanes": "test_10",
+  "missing release": "test_11",
+  "contradictions and incomplete custody": "test_12",
+  "malformed or duplicate inputs": "test_13",
+  "wrong helper/reader pin before launch": "test_14",
+  "malformed inspector report": "test_15",
+  "W1-W7 corrected expectations": "test_16",
+  "no input/store/code/Git mutation": "test_17"
+ },
+ "demo": [
+  "demo1 dev ok",
+  "demo2 default ok",
+  "demo3 copy dev ok"
+ ],
+ "writes_this_batch": [
+  " M 00.kernel/00.00.10.work/0507.prime-support/05.12.md",
+  "?? 00.kernel/00.00.10.work/0507.prime-support/06.13.md",
+  "?? 00.kernel/00.00.10.work/0507.prime-support/evidence/projection05.12/CONTRACT.md",
+  "?? 00.kernel/00.00.10.work/0507.prime-support/evidence/projection05.12/tests.txt",
+  "?? 00.kernel/00.00.10.work/0507.prime-support/evidence/projection05.12/verification.json",
+  "?? labs/state-projection-pass01/README.md",
+  "?? labs/state-projection-pass01/demo.py",
+  "?? labs/state-projection-pass01/state_projection.py",
+  "?? labs/state-projection-pass01/tests/test_state_projection.py"
+ ],
+ "staged": [],
+ "not_done": [
+  "no parser/corpus integration",
+  "no app wiring",
+  "no registry",
+  "no 0401/06.01.002",
+  "no 0410/law/seat/lane change",
+  "no edits to prime_support, prime_boot or the inspector",
+  "no shared Git stage/commit/push"
+ ],
+ "outputs": {
+  "labs/state-projection-pass01/state_projection.py": {
+   "sha256": "be501a581cc7ecd07827dbfec5b6aa8bf67cc0bd3074a2fc4b7679b46620f7ea",
+   "bytes": 19437
+  },
+  "labs/state-projection-pass01/README.md": {
+   "sha256": "edc9ec42a9f585a4aa6bec1f27bbf90cdd18825dbf9d853635e92def5eb3ca83",
+   "bytes": 3997
+  },
+  "labs/state-projection-pass01/tests/test_state_projection.py": {
+   "sha256": "58851476cf7df52e7a523ced54c610177e6766a38d9911922d3fc5dafcaa22de",
+   "bytes": 24827
+  },
+  "labs/state-projection-pass01/demo.py": {
+   "sha256": "3728d4baaa2b6255f19f5c85009951d35afae53046a68d2f64d8911f817cc0e4",
+   "bytes": 2687
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/06.13.md": {
+   "sha256": "f9f76e3d0ebfb8f996144a861a85ba5f0bc5d69808854d4e0df3ffee22e4cb39",
+   "bytes": 5346
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/projection05.12/CONTRACT.md": {
+   "sha256": "6ada33d1219e3285e2a3f86b8d2eb47cf676bc3b162fee9e7ad42e2f8f1a0b66",
+   "bytes": 8916
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/projection05.12/tests.txt": {
+   "sha256": "6a353888a6e404e045e50065a4cbc81994b4fe7f9359196356cf727d5693efb5",
+   "bytes": 13230
+  }
+ }
+}

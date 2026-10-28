@@ -1,0 +1,106 @@
+{
+  "tests_exit": 0,
+  "same_origin_retrospective": {
+    "schema": "state-projection/1",
+    "tool": {
+      "path": "D:\\librarian\\temp\\review-oct28-groks\\checkout\\labs\\state-projection-pass01\\state_projection.py",
+      "sha256": "be501a581cc7ecd07827dbfec5b6aa8bf67cc0bd3074a2fc4b7679b46620f7ea"
+    },
+    "input_sha256": "fixture-probe",
+    "scope": {
+      "book": "00.00.10.work",
+      "lanes": [
+        "0507.prime-support"
+      ]
+    },
+    "projected_at": "2026-10-28T15:46:07.970403Z",
+    "inspected": true,
+    "batches": [
+      {
+        "id": "0507.prime-support/05.01",
+        "lane": "0507.prime-support",
+        "batch": "05.01",
+        "provenance": {
+          "kind": "supplied-live",
+          "commit": null,
+          "page_sha256": null
+        },
+        "facets": {
+          "document": {
+            "header_state": "draft"
+          },
+          "release": {
+            "status": "recorded",
+            "text": "Release: fixture"
+          },
+          "claim": {
+            "status": "recorded",
+            "actor": "fixture-actor"
+          },
+          "return": {
+            "pointer": "present",
+            "members_named": [
+              "0101.retro-own-origin"
+            ],
+            "candidate_declared": null,
+            "custody": "primary",
+            "primary": "0101.retro-own-origin",
+            "primary_receipt_sha256": "5f0bd5c95d4b92a30be38023dbe707086f2eb9d93e21dbfd2a94b456399a35b4",
+            "secondary": [],
+            "ambiguous": [],
+            "problems": []
+          },
+          "review": {
+            "status": "bound",
+            "text": "fixture review",
+            "binding_check": "current",
+            "disposition": "accepted",
+            "terminal": "completed",
+            "reviewer": "fixture-prime",
+            "followup": null
+          },
+          "publication": {
+            "status": "unknown",
+            "ref": null,
+            "commit": null
+          }
+        },
+        "live_custody": null,
+        "inspections": [
+          {
+            "member": "0101.retro-own-origin",
+            "observed_at": "2026-10-28T15:46:06.860307Z",
+            "basis": "live",
+            "exit": 0,
+            "stdout_sha256": "848a5570878174c746225a9bc508ad8be82a3f5c71004d2a3def06ef767a5f6c",
+            "status": "complete",
+            "origin": {
+              "batch": "05.01",
+              "book": "00.00.10.work",
+              "page": "0507.prime-support"
+            },
+            "receipt_sha256": "5f0bd5c95d4b92a30be38023dbe707086f2eb9d93e21dbfd2a94b456399a35b4",
+            "retrospective": true,
+            "observation": "ok"
+          }
+        ],
+        "lifecycle": "completed",
+        "attention": [],
+        "followup": null
+      }
+    ],
+    "lanes": {
+      "0507.prime-support": {
+        "open": [],
+        "awaiting_release": [],
+        "completed": [
+          "0507.prime-support/05.01"
+        ],
+        "conflicts": []
+      }
+    },
+    "attention_count": 0,
+    "authority": "none; a projection grants no release, acceptance, seat or work",
+    "note": "not a v1 assignment record and not canonical"
+  }
+}
