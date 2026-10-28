@@ -1,0 +1,162 @@
+{
+ "schema": "rehearsal05.10-verification",
+ "batch": "0507.prime-support/05.10",
+ "who": "claude-opus-5-5",
+ "date": "2026-10-27",
+ "nonblind": true,
+ "pinned_commit": "a38d05a487dcf468527161eb929b2052acf6cec6",
+ "records_root": "C:\\Users\\misg\\AppData\\Local\\Temp\\pb-rehearsal-0510-2f7t3yte",
+ "head": {
+  "before": "fab74ab2c73d274775ce0971105bb735878f2c50",
+  "after_run": "fab74ab2c73d274775ce0971105bb735878f2c50",
+  "at_verification": "fab74ab2c73d274775ce0971105bb735878f2c50"
+ },
+ "pins": {
+  "labs/prime-boot-pass01/prime_boot.py": {
+   "expected": "54b23484f9e0812db92a623a8588175702682ebe14f8b0b915111daf51a91534",
+   "live": "54b23484f9e0812db92a623a8588175702682ebe14f8b0b915111daf51a91534",
+   "match": true
+  },
+  "labs/prime-support-pass01/prime_support.py": {
+   "expected": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70",
+   "live": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70",
+   "match": true
+  },
+  "labs/prime-support-pass01/clerk_adapter.py": {
+   "expected": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4",
+   "live": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4",
+   "match": true
+  },
+  "labs/book-orientation-pass01/check_book.py": {
+   "expected": "fc16d2f68a3645050b6766ce18ce55f8169a0e2bad52d3392b4d059c629073a4",
+   "live": "fc16d2f68a3645050b6766ce18ce55f8169a0e2bad52d3392b4d059c629073a4",
+   "match": true
+  },
+  "labs/return-capture-pass01/return_capture.py": {
+   "expected": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+   "live": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+   "match": true
+  },
+  "labs/return-capture-pass01/return_inspect.py": {
+   "expected": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+   "live": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+   "match": true
+  },
+  "labs/clerk-handoff-pass02/clerk.py": {
+   "expected": "f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c",
+   "live": "f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c",
+   "match": true
+  }
+ },
+ "records_map": {
+  "entries": 35,
+  "all_decoded_match": true,
+  "all_match_disk": true,
+  "root_files_all_mapped": true,
+  "root_files": 32
+ },
+ "judgement_absent": true,
+ "commands": {
+  "01.prepare": 0,
+  "02.check": 0,
+  "03.show": 0
+ },
+ "stderr_empty": true,
+ "read_only": {
+  "sources_unchanged_before_after_run": true,
+  "sources_unchanged_at_verification": true,
+  "member_0126_unchanged": true,
+  "workshop_ref_unchanged": true,
+  "nothing_staged": true,
+  "files": 9,
+  "member_files": 12
+ },
+ "status_paths_new_since_claim": {
+  "authorised_this_batch": [
+   "00.kernel/00.00.10.work/0507.prime-support/evidence/rehearsal05.10/records.json",
+   "00.kernel/00.00.10.work/0507.prime-support/evidence/rehearsal05.10/rehearsal-report.md"
+  ],
+  "other_lanes_concurrent": [
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/manifest.json",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0001.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0002.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0003.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0004.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0005.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0006.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0007.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0008.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0009.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0010.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0011.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0012.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0013.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0014.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0015.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0016.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0017.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0018.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0019.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0020.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0021.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0022.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0023.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0024.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0025.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0026.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0027.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0028.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0029.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0030.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0031.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0032.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0033.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0034.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0035.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0036.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0037.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0038.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0039.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/payload/0040.blob",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/receipt.json",
+   "00.kernel/00.00.10.work/0132.return-capture-origin-0501/return.md",
+   "00.kernel/00.00.10.work/0133.original-capture-0511/manifest.json",
+   "00.kernel/00.00.10.work/0133.original-capture-0511/payload/0001.blob",
+   "00.kernel/00.00.10.work/0133.original-capture-0511/payload/0002.blob",
+   "00.kernel/00.00.10.work/0133.original-capture-0511/payload/0003.blob",
+   "00.kernel/00.00.10.work/0133.original-capture-0511/payload/0004.blob",
+   "00.kernel/00.00.10.work/0133.original-capture-0511/receipt.json",
+   "00.kernel/00.00.10.work/0133.original-capture-0511/return.md",
+   "00.kernel/00.00.10.work/0504.app-entry/05.15.md",
+   "00.kernel/00.00.10.work/0504.app-entry/06.15.md",
+   "00.kernel/00.00.10.work/0504.app-entry/evidence/boot-entry05.15/CONTRACT.md",
+   "00.kernel/00.00.10.work/0504.app-entry/evidence/boot-entry05.15/before/README.md",
+   "00.kernel/00.00.10.work/0504.app-entry/evidence/boot-entry05.15/before/librarian.py",
+   "00.kernel/00.00.10.work/0508.return-capture/06.12.md",
+   "00.kernel/00.00.10.work/0508.return-capture/evidence/capture05.11/capture-report.md",
+   "00.kernel/00.00.10.work/0508.return-capture/evidence/capture05.11/source-map.json",
+   "00.kernel/00.00.10.work/0508.return-capture/evidence/capture05.11/submission.md",
+   "00.kernel/00.00.10.work/0508.return-capture/evidence/capture05.11/verification.json",
+   "app/README.md",
+   "app/boot_tools.py",
+   "app/librarian.py",
+   "app/prime-boot.json",
+   "app/tests/test_boot_tools.py"
+  ]
+ },
+ "snapshot_artifact": "git status output was stripped as a whole, so the first line lost its leading space; comparison is by path",
+ "outputs": {
+  "00.kernel/00.00.10.work/0507.prime-support/06.11.md": {
+   "sha256": "927bf846aec2187ef02aa825842a57387d35cb0cef6046dc0af78a955f0acf5d",
+   "bytes": 5121
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/rehearsal05.10/rehearsal-report.md": {
+   "sha256": "8a3abec5313e977e36fed018c2fe2385feff9f2c28d91c283371dfca04c9f2dc",
+   "bytes": 7372
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/rehearsal05.10/records.json": {
+   "sha256": "0890a3207b00d7453b593547900b964e0bcb6d4847e18f16d3b7cd5e0543d29c",
+   "bytes": 190844
+  }
+ }
+}

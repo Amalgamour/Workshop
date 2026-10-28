@@ -1,0 +1,1026 @@
+{
+ "schema": "realbrief-rehearsal-results/1",
+ "batch": "0507.prime-support/05.14",
+ "who": "claude-opus-5-5",
+ "note": "a bounded read-only rehearsal; the pinned reader was actually run by this harness, and its reports are labelled SUPPLIED at the adapter boundary; coordination is Prime's supplied interpretation, not authentication",
+ "workspace": "D:\\Git\\lib-build",
+ "source_commit": "6d18d182535df8dc60b698c585b04cd276c5df85",
+ "pins": {
+  "labs/batch-observation-pass01/batch_observe.py": {
+   "expected": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4",
+   "live": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4",
+   "match": true
+  },
+  "labs/prime-support-pass01/prime_support.py": {
+   "expected": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70",
+   "live": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70",
+   "match": true
+  },
+  "labs/prime-support-pass01/clerk_adapter.py": {
+   "expected": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4",
+   "live": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4",
+   "match": true
+  },
+  "labs/return-capture-pass01/return_inspect.py": {
+   "expected": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+   "live": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+   "match": true
+  },
+  "labs/return-capture-pass01/return_capture.py": {
+   "expected": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+   "live": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+   "match": true
+  },
+  "labs/state-projection-pass01/state_projection.py": {
+   "expected": "b349da5cef5178296a069c354002a600ba4e168c2710aa5d87789724d4951ecb",
+   "live": "b349da5cef5178296a069c354002a600ba4e168c2710aa5d87789724d4951ecb",
+   "match": true
+  },
+  "labs/prime-brief-pass01/prime_brief.py": {
+   "expected": "302ed832d2fa955a591420f13d3b22ce91e4a7669c69a778d443fc82627580d7",
+   "live": "302ed832d2fa955a591420f13d3b22ce91e4a7669c69a778d443fc82627580d7",
+   "match": true
+  }
+ },
+ "inputs": {
+  "source-spec.json": {
+   "sha256": "ba1d9435ae48bb2112e5e76fedb38176b8d3700f9766335f6e9f5270fd462a51",
+   "bytes": 1161,
+   "text": "{\n  \"schema\": \"prime-realbrief-rehearsal-sources/1\",\n  \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\n  \"book\": \"00.00.10.work\",\n  \"lanes\": [\n    \"0504.app-entry\",\n    \"0507.prime-support\",\n    \"0508.return-capture\"\n  ],\n  \"pages\": [\n    {\n      \"path\": \"00.kernel/00.00.10.work/0504.app-entry/05.17.md\",\n      \"batch_id\": \"0504.app-entry/05.17\",\n      \"expected\": \"held declaration stays open\"\n    },\n    {\n      \"path\": \"00.kernel/00.00.10.work/0508.return-capture/05.15.md\",\n      \"batch_id\": \"0508.return-capture/05.15\",\n      \"expected\": \"accepted without terminal remains open/unverified, not completed\"\n    },\n    {\n      \"path\": \"00.kernel/00.00.10.work/0507.prime-support/05.12.md\",\n      \"batch_id\": \"0507.prime-support/05.12\",\n      \"expected\": \"held declaration stays open\"\n    },\n    {\n      \"path\": \"00.kernel/00.00.10.work/0504.app-entry/05.18.md\",\n      \"batch_id\": \"0504.app-entry/05.18\",\n      \"expected\": \"unprojected unknown coordination\"\n    },\n    {\n      \"path\": \"00.kernel/00.00.10.work/0508.return-capture/05.16.md\",\n      \"batch_id\": \"0508.return-capture/05.16\",\n      \"expected\": \"unprojected unknown coordination\"\n    }\n  ]\n}\n"
+  },
+  "coordination.json": {
+   "sha256": "f8a8d08a24888bfba179fcdab55afcc31bb2aa545ad9aa9195dcf79a4085fe9f",
+   "bytes": 3056,
+   "text": "[\n  {\n    \"label\": \"SUPPLIED\",\n    \"batch_id\": \"0504.app-entry/05.17\",\n    \"source_sha256\": \"ca48e6d89e79171ae4335db4a9c6a1f41ed88d40fb05d0b48da23e2f0843ef29\",\n    \"release\": \"recorded\",\n    \"claim\": \"recorded\",\n    \"claim_actor\": \"Grok-Builder-1\",\n    \"candidate\": \"0139.capture-handoff-0517\",\n    \"review\": {\n      \"member\": \"0139.capture-handoff-0517\",\n      \"receipt_sha256\": \"699d30e6b3eb052b0f313a737b15441888dce46a6a1f7ec826cd7d53691c6365\",\n      \"disposition\": \"held\",\n      \"terminal\": null,\n      \"reviewer\": \"Codex-Prime\",\n      \"followup\": \"0504.app-entry/05.18\"\n    },\n    \"publication\": {\n      \"status\": \"at-ref\",\n      \"ref\": \"workshop-snapshot\",\n      \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\"\n    }\n  },\n  {\n    \"label\": \"SUPPLIED\",\n    \"batch_id\": \"0508.return-capture/05.15\",\n    \"source_sha256\": \"966c440875366b74f8be682bf9d24a28491cc5e32bdd69baad94297b038e7049\",\n    \"release\": \"recorded\",\n    \"claim\": \"recorded\",\n    \"claim_actor\": \"Grok-Builder-2\",\n    \"candidate\": \"0142.batch-reader-header-0515\",\n    \"review\": {\n      \"member\": \"0142.batch-reader-header-0515\",\n      \"receipt_sha256\": \"45a455a64925addc37b9b2e1b27d9846831ac92b32058d3f78f9d3e47def7285\",\n      \"disposition\": \"accepted\",\n      \"terminal\": null,\n      \"reviewer\": \"Codex-Prime\",\n      \"followup\": null\n    },\n    \"publication\": {\n      \"status\": \"at-ref\",\n      \"ref\": \"workshop-snapshot\",\n      \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\"\n    }\n  },\n  {\n    \"label\": \"SUPPLIED\",\n    \"batch_id\": \"0507.prime-support/05.12\",\n    \"source_sha256\": \"dce336e1f4c3cd8d4679ddff45f517293b2e6fd991d8bb39560c0412f1f5f3f5\",\n    \"release\": \"recorded\",\n    \"claim\": \"recorded\",\n    \"claim_actor\": \"Claude\",\n    \"candidate\": \"0136.state-projection-0512\",\n    \"review\": {\n      \"member\": \"0136.state-projection-0512\",\n      \"receipt_sha256\": \"deec943938e07c29f28ef82cb5000e3af5758a0454330a4c53de606774c0cd44\",\n      \"disposition\": \"held\",\n      \"terminal\": null,\n      \"reviewer\": \"Codex-Prime\",\n      \"followup\": \"0507.prime-support/05.13\"\n    },\n    \"publication\": {\n      \"status\": \"at-ref\",\n      \"ref\": \"workshop-snapshot\",\n      \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\"\n    }\n  },\n  {\n    \"label\": \"SUPPLIED\",\n    \"batch_id\": \"0504.app-entry/05.18\",\n    \"source_sha256\": \"b421fa1c3a4378b2ee15522ea5d701e6ff3313260216482c979b5d3bf7eb0990\",\n    \"release\": \"unknown\",\n    \"claim\": \"unknown\",\n    \"claim_actor\": null,\n    \"candidate\": null,\n    \"review\": null,\n    \"publication\": {\n      \"status\": \"at-ref\",\n      \"ref\": \"workshop-snapshot\",\n      \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\"\n    }\n  },\n  {\n    \"label\": \"SUPPLIED\",\n    \"batch_id\": \"0508.return-capture/05.16\",\n    \"source_sha256\": \"576416338da27d9154c8c2845422529837f7229da2f714b98fbc5ed3c0500768\",\n    \"release\": \"unknown\",\n    \"claim\": \"unknown\",\n    \"claim_actor\": null,\n    \"candidate\": null,\n    \"review\": null,\n    \"publication\": {\n      \"status\": \"at-ref\",\n      \"ref\": \"workshop-snapshot\",\n      \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\"\n    }\n  }\n]\n"
+  },
+  "coordination-provenance.json": {
+   "sha256": "6c9b24a7a9abc908415c7f23857072cac199cbfb271fa3f401a48c530a4aa891",
+   "bytes": 2425,
+   "text": "[\n  {\n    \"batch_id\": \"0504.app-entry/05.17\",\n    \"source_commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\n    \"source_path\": \"00.kernel/00.00.10.work/0504.app-entry/05.17.md\",\n    \"source_sha256\": \"ca48e6d89e79171ae4335db4a9c6a1f41ed88d40fb05d0b48da23e2f0843ef29\",\n    \"basis\": \"Prime-supplied interpretation for a read-only rehearsal, not authentication or Director approval\",\n    \"review_binding\": \"named captured member and receipt; terminal deliberately null\"\n  },\n  {\n    \"batch_id\": \"0508.return-capture/05.15\",\n    \"source_commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\n    \"source_path\": \"00.kernel/00.00.10.work/0508.return-capture/05.15.md\",\n    \"source_sha256\": \"966c440875366b74f8be682bf9d24a28491cc5e32bdd69baad94297b038e7049\",\n    \"basis\": \"Prime-supplied interpretation for a read-only rehearsal, not authentication or Director approval\",\n    \"review_binding\": \"named captured member and receipt; terminal deliberately null\"\n  },\n  {\n    \"batch_id\": \"0507.prime-support/05.12\",\n    \"source_commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\n    \"source_path\": \"00.kernel/00.00.10.work/0507.prime-support/05.12.md\",\n    \"source_sha256\": \"dce336e1f4c3cd8d4679ddff45f517293b2e6fd991d8bb39560c0412f1f5f3f5\",\n    \"basis\": \"Prime-supplied interpretation for a read-only rehearsal, not authentication or Director approval\",\n    \"review_binding\": \"named captured member and receipt; terminal deliberately null\"\n  },\n  {\n    \"batch_id\": \"0504.app-entry/05.18\",\n    \"source_commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\n    \"source_path\": \"00.kernel/00.00.10.work/0504.app-entry/05.18.md\",\n    \"source_sha256\": \"b421fa1c3a4378b2ee15522ea5d701e6ff3313260216482c979b5d3bf7eb0990\",\n    \"basis\": \"Prime-supplied interpretation for a read-only rehearsal, not authentication or Director approval\",\n    \"review_binding\": \"release/claim unknown in this committed snapshot; no later live state inferred\"\n  },\n  {\n    \"batch_id\": \"0508.return-capture/05.16\",\n    \"source_commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\n    \"source_path\": \"00.kernel/00.00.10.work/0508.return-capture/05.16.md\",\n    \"source_sha256\": \"576416338da27d9154c8c2845422529837f7229da2f714b98fbc5ed3c0500768\",\n    \"basis\": \"Prime-supplied interpretation for a read-only rehearsal, not authentication or Director approval\",\n    \"review_binding\": \"release/claim unknown in this committed snapshot; no later live state inferred\"\n  }\n]\n"
+  }
+ },
+ "reader_calls": [
+  {
+   "page": "00.kernel/00.00.10.work/0504.app-entry/05.17.md",
+   "batch_id": "0504.app-entry/05.17",
+   "expected": "held declaration stays open",
+   "argv": [
+    "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+    "-B",
+    "D:\\Git\\lib-build\\labs\\batch-observation-pass01\\batch_observe.py",
+    "observe",
+    "--json",
+    "--repo",
+    "D:\\Git\\lib-build",
+    "--commit",
+    "6d18d182535df8dc60b698c585b04cd276c5df85",
+    "--path",
+    "00.kernel/00.00.10.work/0504.app-entry/05.17.md",
+    "--members-book",
+    "D:\\Git\\lib-build\\00.kernel\\00.00.10.work"
+   ],
+   "exit": 1,
+   "started_at": "2026-10-28T17:09:30.131777Z",
+   "finished_at": "2026-10-28T17:09:32.092675Z",
+   "stdout_text": "{\n  \"schema\": \"batch-observation/1\",\n  \"tool\": {\n    \"name\": \"batch-observation-pass01\",\n    \"path\": \"labs/batch-observation-pass01/batch_observe.py\",\n    \"sha256\": \"8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4\"\n  },\n  \"authority\": \"none\",\n  \"source\": {\n    \"kind\": \"git-blob\",\n    \"repository\": \"D:\\\\Git\\\\lib-build\",\n    \"path\": \"00.kernel/00.00.10.work/0504.app-entry/05.17.md\",\n    \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\n    \"sha256\": \"ca48e6d89e79171ae4335db4a9c6a1f41ed88d40fb05d0b48da23e2f0843ef29\",\n    \"bytes\": 6885,\n    \"label\": \"git blob at the named commit\",\n    \"time_basis\": \"git-blob\",\n    \"live_observed_at\": null,\n    \"observation_started_at\": null,\n    \"observation_finished_at\": null\n  },\n  \"page\": {\n    \"book\": \"00.00.10.work\",\n    \"page\": \"0504.app-entry\",\n    \"batch\": \"05.17\"\n  },\n  \"document\": {\n    \"header_state_raw\": \"state: returned\",\n    \"lines\": [\n      {\n        \"line\": 5,\n        \"text\": \"state: returned\"\n      }\n    ],\n    \"ambiguous\": false\n  },\n  \"assignment\": {\n    \"executor_raw\": \"Executor: Grok Builder 1. Reviewer: Codex Prime.\",\n    \"executor_lines\": [\n      {\n        \"line\": 11,\n        \"text\": \"Executor: Grok Builder 1. Reviewer: Codex Prime.\"\n      }\n    ],\n    \"release_raw\": \"Release: released by the Director, 2026-10-28.\",\n    \"release_lines\": [\n      {\n        \"line\": 12,\n        \"text\": \"Release: released by the Director, 2026-10-28.\"\n      }\n    ],\n    \"claim_raw\": \"Claim: Grok 4.7 (xAI), session 01a179d2-387a-7661-8702-6e53f95e96b5, 2026-10-28, HEAD 4e7ebfc143330f98c9b8b55681b58f2602a85255.\",\n    \"claim_lines\": [\n      {\n        \"line\": 13,\n        \"text\": \"Claim: Grok 4.7 (xAI), session 01a179d2-387a-7661-8702-6e53f95e96b5, 2026-10-28, HEAD 4e7ebfc143330f98c9b8b55681b58f2602a85255.\"\n      }\n    ],\n    \"ambiguous\": false\n  },\n  \"legacy\": {\n    \"tool\": \"labs/prime-support-pass01/prime_support.py\",\n    \"sha256\": \"700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70\",\n    \"sibling\": \"labs/prime-support-pass01/clerk_adapter.py\",\n    \"sibling_sha256\": \"2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4\",\n    \"kind\": \"page-return\",\n    \"status\": \"unsupported\",\n    \"reason\": \"ambiguous heading line 83\",\n    \"revision_id\": null,\n    \"execution\": null,\n    \"whole\": \"ca48e6d89e79171ae4335db4a9c6a1f41ed88d40fb05d0b48da23e2f0843ef29\",\n    \"review\": null\n  },\n  \"channels\": {\n    \"legacy\": \"parse_source page-return, unmodified\",\n    \"inventory\": \"unfenced return-family headings and Member/Receipt blocks\",\n    \"revision_repaired\": false\n  },\n  \"sections\": [\n    {\n      \"line\": 83,\n      \"level\": 2,\n      \"title\": \"Return pointer\",\n      \"form\": \"return-pointer\",\n      \"fenced\": false,\n      \"text\": \"## Return pointer\"\n    },\n    {\n      \"line\": 86,\n      \"level\": 2,\n      \"title\": \"Review — Codex Prime\",\n      \"form\": \"review-em\",\n      \"fenced\": false,\n      \"text\": \"## Review — Codex Prime\"\n    }\n  ],\n  \"fenced_headings\": [],\n  \"pointers\": [\n    {\n      \"line\": 83,\n      \"form\": \"return-pointer\",\n      \"title\": \"Return pointer\",\n      \"execution_raw\": \"Member 0139.capture-handoff-0517. Receipt sha256 699d30e6b3eb052b0f313a737b15441888dce46a6a1f7ec826cd7d53691c6365. Verify exit 0: result complete; not approved; not accepted; not published. The receipt is custody, not acceptance.\",\n      \"members\": [\n        {\n          \"name\": \"0139.capture-handoff-0517\",\n          \"line\": 84,\n          \"receipts\": [\n            {\n              \"sha256\": \"699d30e6b3eb052b0f313a737b15441888dce46a6a1f7ec826cd7d53691c6365\",\n              \"line\": 84\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"assignment_mentions\": [],\n  \"custody\": {\n    \"basis\": \"live\",\n    \"members_book\": \"D:\\\\Git\\\\lib-build\\\\00.kernel\\\\00.00.10.work\",\n    \"package_at_commit\": \"not-established\",\n    \"primary\": \"0139.capture-handoff-0517\",\n    \"primary_rule\": \"origin book, page, and batch match this page and retrospective is false; more than one match stays ambiguous\",\n    \"observations\": [\n      {\n        \"member\": \"0139.capture-handoff-0517\",\n        \"how_named\": \"pointer\",\n        \"stated_receipts\": [\n          \"699d30e6b3eb052b0f313a737b15441888dce46a6a1f7ec826cd7d53691c6365\"\n        ],\n        \"inspection\": {\n          \"book\": \"D:\\\\Git\\\\lib-build\\\\00.kernel\\\\00.00.10.work\",\n          \"capture\": {\n            \"captured_at\": \"2026-10-28T16:13:34.681787Z\",\n            \"manifest_sha256\": \"ef0143fde8d52c54a8ccbabfef36cf2bd0bc410ec91f61d17916fdbac359397a\",\n            \"origin\": {\n              \"batch\": \"05.17\",\n              \"book\": \"00.00.10.work\",\n              \"page\": \"0504.app-entry\"\n            },\n            \"payloads\": [\n              {\n                \"bytes\": 39856,\n                \"logical\": \"labs/capture-handoff-pass01/handoff.py\",\n                \"payload\": \"0001.blob\",\n                \"sha256\": \"ce9bcef0d101755d3e83c10353286d82c060aaaefcebcfb6b7491bba341558b7\"\n              },\n              {\n                \"bytes\": 1589,\n                \"logical\": \"labs/capture-handoff-pass01/README.md\",\n                \"payload\": \"0002.blob\",\n                \"sha256\": \"97669610c1d2bd22940fe3ad986e87dc99c466eacdfdf2de9872749ac59b54db\"\n              },\n              {\n                \"bytes\": 39317,\n                \"logical\": \"labs/capture-handoff-pass01/tests/test_handoff.py\",\n                \"payload\": \"0003.blob\",\n                \"sha256\": \"a950a31250aacf46ab0b8ddddadc9eb4e4ecbf9a0b249c51aa6659daa25de69d\"\n              },\n              {\n                \"bytes\": 7211,\n                \"logical\": \"labs/capture-handoff-pass01/demo.py\",\n                \"payload\": \"0004.blob\",\n                \"sha256\": \"70a7122a06ba87d155815b70678e3ab786dac16a197cef814728859f4d655e19\"\n              },\n              {\n                \"bytes\": 9129,\n                \"logical\": \"00.kernel/00.00.10.work/0504.app-entry/06.17.md\",\n                \"payload\": \"0005.blob\",\n                \"sha256\": \"91e6c1b222e1ef3657f1e6c925c5c219d4904be7e50ef2a3bb9c031ab3fe507f\"\n              },\n              {\n                \"bytes\": 8426,\n                \"logical\": \"00.kernel/00.00.10.work/0504.app-entry/evidence/handoff05.17/CONTRACT.md\",\n                \"payload\": \"0006.blob\",\n                \"sha256\": \"dbec46989aaabb7f8c55467b0ad2efee2ccf9c5926dcfeef30a1446eed09c6db\"\n              },\n              {\n                \"bytes\": 2373,\n                \"logical\": \"00.kernel/00.00.10.work/0504.app-entry/evidence/handoff05.17/tests.txt\",\n                \"payload\": \"0007.blob\",\n                \"sha256\": \"fbda0c29003d5806367406e20b4405f3d96367a5e67b5f7c7cf4f85d2b5f81d9\"\n              },\n              {\n                \"bytes\": 4022,\n                \"logical\": \"00.kernel/00.00.10.work/0504.app-entry/evidence/handoff05.17/verification.json\",\n                \"payload\": \"0008.blob\",\n                \"sha256\": \"af59d2e2524e4573e118cf82b81e16e107d871f7c17c5f8262b4376ffdb932d0\"\n              }\n            ],\n            \"receipt_sha256\": \"699d30e6b3eb052b0f313a737b15441888dce46a6a1f7ec826cd7d53691c6365\",\n            \"reservation_sha256\": \"3cce81c4a1806083e054a33b31afb8d7c0ebc3a5ad8b9cad0caabc5e80f96ad2\",\n            \"retrospective\": false,\n            \"return\": {\n              \"bytes\": 1851,\n              \"includes_prime_review\": false,\n              \"sha256\": \"711bfe7243b1f5b675a5e3d13ca937c8f6fcff691b900be72fdc5c36ded67d45\"\n            },\n            \"source_commit\": null,\n            \"submission_id\": \"grok-1-0504-0517\"\n          },\n          \"member\": \"0139.capture-handoff-0517\",\n          \"problems\": [],\n          \"reservation\": {\n            \"destination\": {\n              \"member\": \"0139\",\n              \"name\": \"capture-handoff-0517\",\n              \"path\": \"0139.capture-handoff-0517\"\n            },\n            \"expected_outputs\": [\n              \"labs/capture-handoff-pass01/handoff.py\",\n              \"labs/capture-handoff-pass01/README.md\",\n              \"labs/capture-handoff-pass01/tests/test_handoff.py\",\n              \"labs/capture-handoff-pass01/demo.py\",\n              \"00.kernel/00.00.10.work/0504.app-entry/06.17.md\",\n              \"00.kernel/00.00.10.work/0504.app-entry/evidence/handoff05.17/CONTRACT.md\",\n              \"00.kernel/00.00.10.work/0504.app-entry/evidence/handoff05.17/tests.txt\",\n              \"00.kernel/00.00.10.work/0504.app-entry/evidence/handoff05.17/verification.json\"\n            ],\n            \"origin\": {\n              \"batch\": \"05.17\",\n              \"book\": \"00.00.10.work\",\n              \"page\": \"0504.app-entry\"\n            },\n            \"release\": \"Reservation only; Director release must be recorded on 0504.app-entry/05.17.\",\n            \"reservation_sha256\": \"3cce81c4a1806083e054a33b31afb8d7c0ebc3a5ad8b9cad0caabc5e80f96ad2\",\n            \"reserved_at\": \"2026-10-28T15:39:18.331030Z\",\n            \"reviewer\": \"Codex Prime\",\n            \"submission_id\": \"grok-1-0504-0517\",\n            \"submitter\": \"Grok Builder 1\",\n            \"supersedes\": null\n          },\n          \"schema\": \"return-capture-inspection/1\",\n          \"status\": \"complete\"\n        },\n        \"exit\": 0,\n        \"role\": \"primary-current-candidate\",\n        \"commit_receipt_sha256\": \"699d30e6b3eb052b0f313a737b15441888dce46a6a1f7ec826cd7d53691c6365\",\n        \"commit_receipt_present\": true,\n        \"receipt_bytes_match\": true,\n        \"attention\": [],\n        \"observation_started_at\": \"2026-10-28T17:09:30.606133Z\",\n        \"observation_finished_at\": \"2026-10-28T17:09:30.937248Z\"\n      }\n    ]\n  },\n  \"review\": {\n    \"parser_object\": null,\n    \"sections\": [\n      {\n        \"line\": 86,\n        \"title\": \"Review — Codex Prime\",\n        \"text_raw\": \"Held for CH-03/CH-04: post-capture failure reporting omits capture writes and retains stale state; a failure-log OSError escapes. Independent suite/demo pass; fault evidence is in evidence/prime-review05.17/. Date: 2026-10-28.\"\n      }\n    ],\n    \"text_raw\": \"Held for CH-03/CH-04: post-capture failure reporting omits capture writes and retains stale state; a failure-log OSError escapes. Independent suite/demo pass; fault evidence is in evidence/prime-review05.17/. Date: 2026-10-28.\",\n    \"legacy_hashes\": [],\n    \"binding\": \"unbound\",\n    \"typed_declaration\": null\n  },\n  \"ambiguities\": [\n    \"legacy-ambiguous-heading\",\n    \"legacy-revision-withheld\"\n  ],\n  \"attention\": []\n}\n",
+   "stdout_sha256": "0f85a13a78d20f4cbaa91fb3db6c8d73498b1187afeb79ba9774e79cfe319354",
+   "stdout_bytes": 10283,
+   "stderr_text": "",
+   "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+   "page": "00.kernel/00.00.10.work/0508.return-capture/05.15.md",
+   "batch_id": "0508.return-capture/05.15",
+   "expected": "accepted without terminal remains open/unverified, not completed",
+   "argv": [
+    "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+    "-B",
+    "D:\\Git\\lib-build\\labs\\batch-observation-pass01\\batch_observe.py",
+    "observe",
+    "--json",
+    "--repo",
+    "D:\\Git\\lib-build",
+    "--commit",
+    "6d18d182535df8dc60b698c585b04cd276c5df85",
+    "--path",
+    "00.kernel/00.00.10.work/0508.return-capture/05.15.md",
+    "--members-book",
+    "D:\\Git\\lib-build\\00.kernel\\00.00.10.work"
+   ],
+   "exit": 1,
+   "started_at": "2026-10-28T17:09:32.092832Z",
+   "finished_at": "2026-10-28T17:09:34.780607Z",
+   "stdout_text": "{\n  \"schema\": \"batch-observation/1\",\n  \"tool\": {\n    \"name\": \"batch-observation-pass01\",\n    \"path\": \"labs/batch-observation-pass01/batch_observe.py\",\n    \"sha256\": \"8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4\"\n  },\n  \"authority\": \"none\",\n  \"source\": {\n    \"kind\": \"git-blob\",\n    \"repository\": \"D:\\\\Git\\\\lib-build\",\n    \"path\": \"00.kernel/00.00.10.work/0508.return-capture/05.15.md\",\n    \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\n    \"sha256\": \"966c440875366b74f8be682bf9d24a28491cc5e32bdd69baad94297b038e7049\",\n    \"bytes\": 6533,\n    \"label\": \"git blob at the named commit\",\n    \"time_basis\": \"git-blob\",\n    \"live_observed_at\": null,\n    \"observation_started_at\": null,\n    \"observation_finished_at\": null\n  },\n  \"page\": {\n    \"book\": \"00.00.10.work\",\n    \"page\": \"0508.return-capture\",\n    \"batch\": \"05.15\"\n  },\n  \"document\": {\n    \"header_state_raw\": \"state: draft\",\n    \"lines\": [\n      {\n        \"line\": 5,\n        \"text\": \"state: draft\"\n      }\n    ],\n    \"ambiguous\": false\n  },\n  \"assignment\": {\n    \"executor_raw\": \"Executor: Grok Builder 2. Reviewer: Codex Prime.\",\n    \"executor_lines\": [\n      {\n        \"line\": 11,\n        \"text\": \"Executor: Grok Builder 2. Reviewer: Codex Prime.\"\n      }\n    ],\n    \"release_raw\": null,\n    \"release_lines\": [\n      {\n        \"line\": 12,\n        \"text\": \"Release and claim: recorded in the Return pointer. This draft grants no release.\"\n      },\n      {\n        \"line\": 66,\n        \"text\": \"Release: the Director, chat 2026-10-28: \\\"The Director releases 0508.return-capture/05.15. Workspace: D:\\\\Git\\\\lib-build Branch: workshop Read 00.kernel/00.00.10.work/0508.return-capture/05.15.md Verify the pack manifest and record release/claim. Fix BO-05: preserve header fields following the initial H1 page title. Keep fenced examples, quotes and later body fields excluded. Add regressions using normally shaped workbook pages and the real corpus. Preserve previous fixes, dependency tools and captured returns. No projection or app integration. Run the required tests and demo. Capture into reserved 0142.batch-reader-header-0515 and freshly verify. No shared Git commits or pushes. Return Did, Blocked, Need.\\\"\"\n      }\n    ],\n    \"claim_raw\": \"Claim: Grok Builder 2, this session, 2026-10-28. pack05.15: 13 of 13 snapshots match their pins, and live equals all 13. Parser 700d60d2…, inspector 947915fe…, and helper 8f3da5c6… verified. Scope: this page only.\",\n    \"claim_lines\": [\n      {\n        \"line\": 67,\n        \"text\": \"Claim: Grok Builder 2, this session, 2026-10-28. pack05.15: 13 of 13 snapshots match their pins, and live equals all 13. Parser 700d60d2…, inspector 947915fe…, and helper 8f3da5c6… verified. Scope: this page only.\"\n      }\n    ],\n    \"ambiguous\": true\n  },\n  \"legacy\": {\n    \"tool\": \"labs/prime-support-pass01/prime_support.py\",\n    \"sha256\": \"700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70\",\n    \"sibling\": \"labs/prime-support-pass01/clerk_adapter.py\",\n    \"sibling_sha256\": \"2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4\",\n    \"kind\": \"page-return\",\n    \"status\": \"unsupported\",\n    \"reason\": \"ambiguous heading line 65\",\n    \"revision_id\": null,\n    \"execution\": null,\n    \"whole\": \"966c440875366b74f8be682bf9d24a28491cc5e32bdd69baad94297b038e7049\",\n    \"review\": null\n  },\n  \"channels\": {\n    \"legacy\": \"parse_source page-return, unmodified\",\n    \"inventory\": \"unfenced return-family headings and Member/Receipt blocks\",\n    \"revision_repaired\": false\n  },\n  \"sections\": [\n    {\n      \"line\": 65,\n      \"level\": 2,\n      \"title\": \"Return pointer\",\n      \"form\": \"return-pointer\",\n      \"fenced\": false,\n      \"text\": \"## Return pointer\"\n    },\n    {\n      \"line\": 73,\n      \"level\": 2,\n      \"title\": \"Review — Codex Prime\",\n      \"form\": \"review-em\",\n      \"fenced\": false,\n      \"text\": \"## Review — Codex Prime\"\n    }\n  ],\n  \"fenced_headings\": [],\n  \"pointers\": [\n    {\n      \"line\": 65,\n      \"form\": \"return-pointer\",\n      \"title\": \"Return pointer\",\n      \"execution_raw\": \"Release: the Director, chat 2026-10-28: \\\"The Director releases 0508.return-capture/05.15. Workspace: D:\\\\Git\\\\lib-build Branch: workshop Read 00.kernel/00.00.10.work/0508.return-capture/05.15.md Verify the pack manifest and record release/claim. Fix BO-05: preserve header fields following the initial H1 page title. Keep fenced examples, quotes and later body fields excluded. Add regressions using normally shaped workbook pages and the real corpus. Preserve previous fixes, dependency tools and captured returns. No projection or app integration. Run the required tests and demo. Capture into reserved 0142.batch-reader-header-0515 and freshly verify. No shared Git commits or pushes. Return Did, Blocked, Need.\\\"\",\n      \"members\": [\n        {\n          \"name\": \"0142.batch-reader-header-0515\",\n          \"line\": 68,\n          \"receipts\": [\n            {\n              \"sha256\": \"45a455a64925addc37b9b2e1b27d9846831ac92b32058d3f78f9d3e47def7285\",\n              \"line\": 69\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"assignment_mentions\": [],\n  \"custody\": {\n    \"basis\": \"live\",\n    \"members_book\": \"D:\\\\Git\\\\lib-build\\\\00.kernel\\\\00.00.10.work\",\n    \"package_at_commit\": \"not-established\",\n    \"primary\": \"0142.batch-reader-header-0515\",\n    \"primary_rule\": \"origin book, page, and batch match this page and retrospective is false; more than one match stays ambiguous\",\n    \"observations\": [\n      {\n        \"member\": \"0142.batch-reader-header-0515\",\n        \"how_named\": \"pointer\",\n        \"stated_receipts\": [\n          \"45a455a64925addc37b9b2e1b27d9846831ac92b32058d3f78f9d3e47def7285\"\n        ],\n        \"inspection\": {\n          \"book\": \"D:\\\\Git\\\\lib-build\\\\00.kernel\\\\00.00.10.work\",\n          \"capture\": {\n            \"captured_at\": \"2026-10-28T16:24:05.310296Z\",\n            \"manifest_sha256\": \"f8845bce91d71b9c909ec44162e0e7f0023c8d842996def6611c9784e7f19ab5\",\n            \"origin\": {\n              \"batch\": \"05.15\",\n              \"book\": \"00.00.10.work\",\n              \"page\": \"0508.return-capture\"\n            },\n            \"payloads\": [\n              {\n                \"bytes\": 40516,\n                \"logical\": \"labs/batch-observation-pass01/batch_observe.py\",\n                \"payload\": \"0001.blob\",\n                \"sha256\": \"8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4\"\n              },\n              {\n                \"bytes\": 1827,\n                \"logical\": \"labs/batch-observation-pass01/README.md\",\n                \"payload\": \"0002.blob\",\n                \"sha256\": \"b2c09ea5599b826fa286b265c29537546ccc904180768ba18365a0e5124ca4cc\"\n              },\n              {\n                \"bytes\": 59546,\n                \"logical\": \"labs/batch-observation-pass01/tests/test_batch_observe.py\",\n                \"payload\": \"0003.blob\",\n                \"sha256\": \"75c1bdc81dbf20832f00f5d166b1f95f718dce0701e8f14678e96846a1354c85\"\n              },\n              {\n                \"bytes\": 3969,\n                \"logical\": \"labs/batch-observation-pass01/demo.py\",\n                \"payload\": \"0004.blob\",\n                \"sha256\": \"6b44d5876cdf45424a28310fa3dd4d222a5407752c25b37747236c2ea7214a99\"\n              },\n              {\n                \"bytes\": 3421,\n                \"logical\": \"00.kernel/00.00.10.work/0508.return-capture/06.16.md\",\n                \"payload\": \"0005.blob\",\n                \"sha256\": \"b8040b2e209a7b18829b3a7f4606ba3338bc8d25218ff2c64cccfe490a03fd0e\"\n              },\n              {\n                \"bytes\": 3140,\n                \"logical\": \"00.kernel/00.00.10.work/0508.return-capture/evidence/header05.15/CONTRACT.md\",\n                \"payload\": \"0006.blob\",\n                \"sha256\": \"a7d671fe1ac08d60aadfb1c16c24d486ad9ebb89a28eb5bd883f5cbb8e9b44ab\"\n              },\n              {\n                \"bytes\": 2046,\n                \"logical\": \"00.kernel/00.00.10.work/0508.return-capture/evidence/header05.15/tests.txt\",\n                \"payload\": \"0007.blob\",\n                \"sha256\": \"b6e4bf2956dc4ea326902b1dfe64192a5554e2c2e108b50a984f3734c00eed1c\"\n              },\n              {\n                \"bytes\": 3966,\n                \"logical\": \"00.kernel/00.00.10.work/0508.return-capture/evidence/header05.15/verification.json\",\n                \"payload\": \"0008.blob\",\n                \"sha256\": \"693e93785da76b5cc75489f0e0a098c9071ad736c6a7cfe91032e549595d24c9\"\n              }\n            ],\n            \"receipt_sha256\": \"45a455a64925addc37b9b2e1b27d9846831ac92b32058d3f78f9d3e47def7285\",\n            \"reservation_sha256\": \"2188e9ec54227151857c7247248c4d94315becebcd9c8fb883fc086374a77815\",\n            \"retrospective\": false,\n            \"return\": {\n              \"bytes\": 1364,\n              \"includes_prime_review\": false,\n              \"sha256\": \"f9eb894483ae3af0540c267f5fd09c913eafefd3b8c4edbca86c77f8b9a5f112\"\n            },\n            \"source_commit\": null,\n            \"submission_id\": \"grok-2-0508-0515\"\n          },\n          \"member\": \"0142.batch-reader-header-0515\",\n          \"problems\": [],\n          \"reservation\": {\n            \"destination\": {\n              \"member\": \"0142\",\n              \"name\": \"batch-reader-header-0515\",\n              \"path\": \"0142.batch-reader-header-0515\"\n            },\n            \"expected_outputs\": [\n              \"labs/batch-observation-pass01/batch_observe.py\",\n              \"labs/batch-observation-pass01/README.md\",\n              \"labs/batch-observation-pass01/tests/test_batch_observe.py\",\n              \"labs/batch-observation-pass01/demo.py\",\n              \"00.kernel/00.00.10.work/0508.return-capture/06.16.md\",\n              \"00.kernel/00.00.10.work/0508.return-capture/evidence/header05.15/CONTRACT.md\",\n              \"00.kernel/00.00.10.work/0508.return-capture/evidence/header05.15/tests.txt\",\n              \"00.kernel/00.00.10.work/0508.return-capture/evidence/header05.15/verification.json\"\n            ],\n            \"origin\": {\n              \"batch\": \"05.15\",\n              \"book\": \"00.00.10.work\",\n              \"page\": \"0508.return-capture\"\n            },\n            \"release\": \"Reservation only; Director release must be recorded on 0508.return-capture/05.15.\",\n            \"reservation_sha256\": \"2188e9ec54227151857c7247248c4d94315becebcd9c8fb883fc086374a77815\",\n            \"reserved_at\": \"2026-10-28T16:14:21.489959Z\",\n            \"reviewer\": \"Codex Prime\",\n            \"submission_id\": \"grok-2-0508-0515\",\n            \"submitter\": \"Grok Builder 2\",\n            \"supersedes\": null\n          },\n          \"schema\": \"return-capture-inspection/1\",\n          \"status\": \"complete\"\n        },\n        \"exit\": 0,\n        \"role\": \"primary-current-candidate\",\n        \"commit_receipt_sha256\": \"45a455a64925addc37b9b2e1b27d9846831ac92b32058d3f78f9d3e47def7285\",\n        \"commit_receipt_present\": true,\n        \"receipt_bytes_match\": true,\n        \"attention\": [],\n        \"observation_started_at\": \"2026-10-28T17:09:33.397992Z\",\n        \"observation_finished_at\": \"2026-10-28T17:09:33.671152Z\"\n      }\n    ]\n  },\n  \"review\": {\n    \"parser_object\": null,\n    \"sections\": [\n      {\n        \"line\": 73,\n        \"title\": \"Review — Codex Prime\",\n        \"text_raw\": \"Accepted as read-only batch-observation lab; BO-01–BO-05 corrected. Independent19-test suite and actual-header probe pass; custody0142 freshly verifies. No authority or lifecycle completion inferred. See evidence/prime-review05.15/review.md. Date: 2026-10-28.\"\n      }\n    ],\n    \"text_raw\": \"Accepted as read-only batch-observation lab; BO-01–BO-05 corrected. Independent19-test suite and actual-header probe pass; custody0142 freshly verifies. No authority or lifecycle completion inferred. See evidence/prime-review05.15/review.md. Date: 2026-10-28.\",\n    \"legacy_hashes\": [],\n    \"binding\": \"unbound\",\n    \"typed_declaration\": null\n  },\n  \"ambiguities\": [\n    \"legacy-ambiguous-heading\",\n    \"legacy-revision-withheld\",\n    \"quoted-accepted-unbound\",\n    \"duplicate-release\"\n  ],\n  \"attention\": []\n}\n",
+   "stdout_sha256": "97e72ae9ef3a07a4f0108f84bd7ff6530a01474463b64515bd55406724a0d791",
+   "stdout_bytes": 11960,
+   "stderr_text": "",
+   "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+   "page": "00.kernel/00.00.10.work/0507.prime-support/05.12.md",
+   "batch_id": "0507.prime-support/05.12",
+   "expected": "held declaration stays open",
+   "argv": [
+    "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+    "-B",
+    "D:\\Git\\lib-build\\labs\\batch-observation-pass01\\batch_observe.py",
+    "observe",
+    "--json",
+    "--repo",
+    "D:\\Git\\lib-build",
+    "--commit",
+    "6d18d182535df8dc60b698c585b04cd276c5df85",
+    "--path",
+    "00.kernel/00.00.10.work/0507.prime-support/05.12.md",
+    "--members-book",
+    "D:\\Git\\lib-build\\00.kernel\\00.00.10.work"
+   ],
+   "exit": 1,
+   "started_at": "2026-10-28T17:09:34.780753Z",
+   "finished_at": "2026-10-28T17:09:36.727672Z",
+   "stdout_text": "{\n  \"schema\": \"batch-observation/1\",\n  \"tool\": {\n    \"name\": \"batch-observation-pass01\",\n    \"path\": \"labs/batch-observation-pass01/batch_observe.py\",\n    \"sha256\": \"8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4\"\n  },\n  \"authority\": \"none\",\n  \"source\": {\n    \"kind\": \"git-blob\",\n    \"repository\": \"D:\\\\Git\\\\lib-build\",\n    \"path\": \"00.kernel/00.00.10.work/0507.prime-support/05.12.md\",\n    \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\n    \"sha256\": \"dce336e1f4c3cd8d4679ddff45f517293b2e6fd991d8bb39560c0412f1f5f3f5\",\n    \"bytes\": 8403,\n    \"label\": \"git blob at the named commit\",\n    \"time_basis\": \"git-blob\",\n    \"live_observed_at\": null,\n    \"observation_started_at\": null,\n    \"observation_finished_at\": null\n  },\n  \"page\": {\n    \"book\": \"00.00.10.work\",\n    \"page\": \"0507.prime-support\",\n    \"batch\": \"05.12\"\n  },\n  \"document\": {\n    \"header_state_raw\": \"state: draft\",\n    \"lines\": [\n      {\n        \"line\": 5,\n        \"text\": \"state: draft\"\n      }\n    ],\n    \"ambiguous\": false\n  },\n  \"assignment\": {\n    \"executor_raw\": \"Executor: Claude. Reviewer: Codex Prime.\",\n    \"executor_lines\": [\n      {\n        \"line\": 11,\n        \"text\": \"Executor: Claude. Reviewer: Codex Prime.\"\n      }\n    ],\n    \"release_raw\": null,\n    \"release_lines\": [\n      {\n        \"line\": 12,\n        \"text\": \"Release and claim: recorded in the Return pointer. This draft grants no release.\"\n      },\n      {\n        \"line\": 90,\n        \"text\": \"Release: the Director, chat 2026-10-27: \\\"The Director releases 0507.prime-support/05.12. Workspace: D:\\\\Git\\\\lib-build Branch: workshop Read 00.kernel/00.00.10.work/0507.prime-support/05.12.md. Verify pins and record release/claim. Build the fixture-only state-projection lab under Prime's SP-01–SP-04 conditions. Review presence must not close work. Preserve held/correction states, candidate ambiguity and separate publication facts. Completion requires explicit, candidate-bound evidence. Use the accepted inspector; do not recreate custody validation or change existing tools, assignments, roles or law. Run the required countercases and demo. Capture into reserved 0136.state-projection-0512 and freshly verify. No shared Git commits or pushes.\\\"\"\n      }\n    ],\n    \"claim_raw\": \"Claim: claude-opus-5-5 (Anthropic), Colab, executor, claimed 2026-10-27T20:05-05:00 on workshop at e97c70fff2984d59c26180e2ab146258dd9ac491. pack05.12: 10 of 10 snapshots match their pins, and live equals all 10. return_inspect 947915fe… and return_capture 8f3da5c6… verified. Scope: this batch only.\",\n    \"claim_lines\": [\n      {\n        \"line\": 91,\n        \"text\": \"Claim: claude-opus-5-5 (Anthropic), Colab, executor, claimed 2026-10-27T20:05-05:00 on workshop at e97c70fff2984d59c26180e2ab146258dd9ac491. pack05.12: 10 of 10 snapshots match their pins, and live equals all 10. return_inspect 947915fe… and return_capture 8f3da5c6… verified. Scope: this batch only.\"\n      }\n    ],\n    \"ambiguous\": true\n  },\n  \"legacy\": {\n    \"tool\": \"labs/prime-support-pass01/prime_support.py\",\n    \"sha256\": \"700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70\",\n    \"sibling\": \"labs/prime-support-pass01/clerk_adapter.py\",\n    \"sibling_sha256\": \"2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4\",\n    \"kind\": \"page-return\",\n    \"status\": \"unsupported\",\n    \"reason\": \"ambiguous heading line 89\",\n    \"revision_id\": null,\n    \"execution\": null,\n    \"whole\": \"dce336e1f4c3cd8d4679ddff45f517293b2e6fd991d8bb39560c0412f1f5f3f5\",\n    \"review\": null\n  },\n  \"channels\": {\n    \"legacy\": \"parse_source page-return, unmodified\",\n    \"inventory\": \"unfenced return-family headings and Member/Receipt blocks\",\n    \"revision_repaired\": false\n  },\n  \"sections\": [\n    {\n      \"line\": 89,\n      \"level\": 2,\n      \"title\": \"Return pointer\",\n      \"form\": \"return-pointer\",\n      \"fenced\": false,\n      \"text\": \"## Return pointer\"\n    },\n    {\n      \"line\": 94,\n      \"level\": 2,\n      \"title\": \"Review — Codex Prime\",\n      \"form\": \"review-em\",\n      \"fenced\": false,\n      \"text\": \"## Review — Codex Prime\"\n    }\n  ],\n  \"fenced_headings\": [],\n  \"pointers\": [\n    {\n      \"line\": 89,\n      \"form\": \"return-pointer\",\n      \"title\": \"Return pointer\",\n      \"execution_raw\": \"Release: the Director, chat 2026-10-27: \\\"The Director releases 0507.prime-support/05.12. Workspace: D:\\\\Git\\\\lib-build Branch: workshop Read 00.kernel/00.00.10.work/0507.prime-support/05.12.md. Verify pins and record release/claim. Build the fixture-only state-projection lab under Prime's SP-01–SP-04 conditions. Review presence must not close work. Preserve held/correction states, candidate ambiguity and separate publication facts. Completion requires explicit, candidate-bound evidence. Use the accepted inspector; do not recreate custody validation or change existing tools, assignments, roles or law. Run the required countercases and demo. Capture into reserved 0136.state-projection-0512 and freshly verify. No shared Git commits or pushes.\\\"\",\n      \"members\": [\n        {\n          \"name\": \"0136.state-projection-0512\",\n          \"line\": 92,\n          \"receipts\": [\n            {\n              \"sha256\": \"deec943938e07c29f28ef82cb5000e3af5758a0454330a4c53de606774c0cd44\",\n              \"line\": 92\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"assignment_mentions\": [],\n  \"custody\": {\n    \"basis\": \"live\",\n    \"members_book\": \"D:\\\\Git\\\\lib-build\\\\00.kernel\\\\00.00.10.work\",\n    \"package_at_commit\": \"not-established\",\n    \"primary\": \"0136.state-projection-0512\",\n    \"primary_rule\": \"origin book, page, and batch match this page and retrospective is false; more than one match stays ambiguous\",\n    \"observations\": [\n      {\n        \"member\": \"0136.state-projection-0512\",\n        \"how_named\": \"pointer\",\n        \"stated_receipts\": [\n          \"deec943938e07c29f28ef82cb5000e3af5758a0454330a4c53de606774c0cd44\"\n        ],\n        \"inspection\": {\n          \"book\": \"D:\\\\Git\\\\lib-build\\\\00.kernel\\\\00.00.10.work\",\n          \"capture\": {\n            \"captured_at\": \"2026-10-28T00:36:15.423334Z\",\n            \"manifest_sha256\": \"f175a1c75678661a90e6d5967e7852fac0d3331fdf17c469b5473cc8854d7442\",\n            \"origin\": {\n              \"batch\": \"05.12\",\n              \"book\": \"00.00.10.work\",\n              \"page\": \"0507.prime-support\"\n            },\n            \"payloads\": [\n              {\n                \"bytes\": 19437,\n                \"logical\": \"labs/state-projection-pass01/state_projection.py\",\n                \"payload\": \"0001.blob\",\n                \"sha256\": \"be501a581cc7ecd07827dbfec5b6aa8bf67cc0bd3074a2fc4b7679b46620f7ea\"\n              },\n              {\n                \"bytes\": 3997,\n                \"logical\": \"labs/state-projection-pass01/README.md\",\n                \"payload\": \"0002.blob\",\n                \"sha256\": \"edc9ec42a9f585a4aa6bec1f27bbf90cdd18825dbf9d853635e92def5eb3ca83\"\n              },\n              {\n                \"bytes\": 24827,\n                \"logical\": \"labs/state-projection-pass01/tests/test_state_projection.py\",\n                \"payload\": \"0003.blob\",\n                \"sha256\": \"58851476cf7df52e7a523ced54c610177e6766a38d9911922d3fc5dafcaa22de\"\n              },\n              {\n                \"bytes\": 2687,\n                \"logical\": \"labs/state-projection-pass01/demo.py\",\n                \"payload\": \"0004.blob\",\n                \"sha256\": \"3728d4baaa2b6255f19f5c85009951d35afae53046a68d2f64d8911f817cc0e4\"\n              },\n              {\n                \"bytes\": 5346,\n                \"logical\": \"00.kernel/00.00.10.work/0507.prime-support/06.13.md\",\n                \"payload\": \"0005.blob\",\n                \"sha256\": \"f9f76e3d0ebfb8f996144a861a85ba5f0bc5d69808854d4e0df3ffee22e4cb39\"\n              },\n              {\n                \"bytes\": 8916,\n                \"logical\": \"00.kernel/00.00.10.work/0507.prime-support/evidence/projection05.12/CONTRACT.md\",\n                \"payload\": \"0006.blob\",\n                \"sha256\": \"6ada33d1219e3285e2a3f86b8d2eb47cf676bc3b162fee9e7ad42e2f8f1a0b66\"\n              },\n              {\n                \"bytes\": 13230,\n                \"logical\": \"00.kernel/00.00.10.work/0507.prime-support/evidence/projection05.12/tests.txt\",\n                \"payload\": \"0007.blob\",\n                \"sha256\": \"6a353888a6e404e045e50065a4cbc81994b4fe7f9359196356cf727d5693efb5\"\n              },\n              {\n                \"bytes\": 5086,\n                \"logical\": \"00.kernel/00.00.10.work/0507.prime-support/evidence/projection05.12/verification.json\",\n                \"payload\": \"0008.blob\",\n                \"sha256\": \"41c1999531eaab25823f06df59fb2240f687fa4f22088cf0a0510b555eceada6\"\n              }\n            ],\n            \"receipt_sha256\": \"deec943938e07c29f28ef82cb5000e3af5758a0454330a4c53de606774c0cd44\",\n            \"reservation_sha256\": \"329ce987e49938358bac34af95a28af6834d16f7d73e17090228dfc90738cf39\",\n            \"retrospective\": false,\n            \"return\": {\n              \"bytes\": 4752,\n              \"includes_prime_review\": false,\n              \"sha256\": \"1587491046041bc2113ee6be14e9f5bd83b3bb150540a566dce1ec9fe95f8b82\"\n            },\n            \"source_commit\": null,\n            \"submission_id\": \"claude-0507-0512\"\n          },\n          \"member\": \"0136.state-projection-0512\",\n          \"problems\": [],\n          \"reservation\": {\n            \"destination\": {\n              \"member\": \"0136\",\n              \"name\": \"state-projection-0512\",\n              \"path\": \"0136.state-projection-0512\"\n            },\n            \"expected_outputs\": [\n              \"labs/state-projection-pass01/state_projection.py\",\n              \"labs/state-projection-pass01/README.md\",\n              \"labs/state-projection-pass01/tests/test_state_projection.py\",\n              \"labs/state-projection-pass01/demo.py\",\n              \"00.kernel/00.00.10.work/0507.prime-support/06.13.md\",\n              \"00.kernel/00.00.10.work/0507.prime-support/evidence/projection05.12/CONTRACT.md\",\n              \"00.kernel/00.00.10.work/0507.prime-support/evidence/projection05.12/tests.txt\",\n              \"00.kernel/00.00.10.work/0507.prime-support/evidence/projection05.12/verification.json\"\n            ],\n            \"origin\": {\n              \"batch\": \"05.12\",\n              \"book\": \"00.00.10.work\",\n              \"page\": \"0507.prime-support\"\n            },\n            \"release\": \"Reservation only; Director release must be recorded on 0507.prime-support/05.12.\",\n            \"reservation_sha256\": \"329ce987e49938358bac34af95a28af6834d16f7d73e17090228dfc90738cf39\",\n            \"reserved_at\": \"2026-10-28T00:25:55.675328Z\",\n            \"reviewer\": \"Codex Prime\",\n            \"submission_id\": \"claude-0507-0512\",\n            \"submitter\": \"Claude\",\n            \"supersedes\": null\n          },\n          \"schema\": \"return-capture-inspection/1\",\n          \"status\": \"complete\"\n        },\n        \"exit\": 0,\n        \"role\": \"primary-current-candidate\",\n        \"commit_receipt_sha256\": \"deec943938e07c29f28ef82cb5000e3af5758a0454330a4c53de606774c0cd44\",\n        \"commit_receipt_present\": true,\n        \"receipt_bytes_match\": true,\n        \"attention\": [],\n        \"observation_started_at\": \"2026-10-28T17:09:35.259355Z\",\n        \"observation_finished_at\": \"2026-10-28T17:09:35.568303Z\"\n      }\n    ]\n  },\n  \"review\": {\n    \"parser_object\": null,\n    \"sections\": [\n      {\n        \"line\": 94,\n        \"title\": \"Review — Codex Prime\",\n        \"text_raw\": \"Held for SP-05: a same-origin retrospective capture can be projected as completed. Independent17-test suite passes; added real-capture countercase fails the intended boundary. See evidence/prime-review05.12/review.md. Date: 2026-10-28.\"\n      }\n    ],\n    \"text_raw\": \"Held for SP-05: a same-origin retrospective capture can be projected as completed. Independent17-test suite passes; added real-capture countercase fails the intended boundary. See evidence/prime-review05.12/review.md. Date: 2026-10-28.\",\n    \"legacy_hashes\": [],\n    \"binding\": \"unbound\",\n    \"typed_declaration\": null\n  },\n  \"ambiguities\": [\n    \"legacy-ambiguous-heading\",\n    \"legacy-revision-withheld\",\n    \"duplicate-release\"\n  ],\n  \"attention\": []\n}\n",
+   "stdout_sha256": "214986bf74e6d96a661bff7fc33ace8bfb35af00073b9bcff2f76755afd2cd1e",
+   "stdout_bytes": 12095,
+   "stderr_text": "",
+   "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+   "page": "00.kernel/00.00.10.work/0504.app-entry/05.18.md",
+   "batch_id": "0504.app-entry/05.18",
+   "expected": "unprojected unknown coordination",
+   "argv": [
+    "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+    "-B",
+    "D:\\Git\\lib-build\\labs\\batch-observation-pass01\\batch_observe.py",
+    "observe",
+    "--json",
+    "--repo",
+    "D:\\Git\\lib-build",
+    "--commit",
+    "6d18d182535df8dc60b698c585b04cd276c5df85",
+    "--path",
+    "00.kernel/00.00.10.work/0504.app-entry/05.18.md",
+    "--members-book",
+    "D:\\Git\\lib-build\\00.kernel\\00.00.10.work"
+   ],
+   "exit": 1,
+   "started_at": "2026-10-28T17:09:36.727830Z",
+   "finished_at": "2026-10-28T17:09:38.048573Z",
+   "stdout_text": "{\n  \"schema\": \"batch-observation/1\",\n  \"tool\": {\n    \"name\": \"batch-observation-pass01\",\n    \"path\": \"labs/batch-observation-pass01/batch_observe.py\",\n    \"sha256\": \"8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4\"\n  },\n  \"authority\": \"none\",\n  \"source\": {\n    \"kind\": \"git-blob\",\n    \"repository\": \"D:\\\\Git\\\\lib-build\",\n    \"path\": \"00.kernel/00.00.10.work/0504.app-entry/05.18.md\",\n    \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\n    \"sha256\": \"b421fa1c3a4378b2ee15522ea5d701e6ff3313260216482c979b5d3bf7eb0990\",\n    \"bytes\": 5620,\n    \"label\": \"git blob at the named commit\",\n    \"time_basis\": \"git-blob\",\n    \"live_observed_at\": null,\n    \"observation_started_at\": null,\n    \"observation_finished_at\": null\n  },\n  \"page\": {\n    \"book\": \"00.00.10.work\",\n    \"page\": \"0504.app-entry\",\n    \"batch\": \"05.18\"\n  },\n  \"document\": {\n    \"header_state_raw\": \"state: draft\",\n    \"lines\": [\n      {\n        \"line\": 5,\n        \"text\": \"state: draft\"\n      }\n    ],\n    \"ambiguous\": false\n  },\n  \"assignment\": {\n    \"executor_raw\": \"Executor: Grok Builder 1. Reviewer: Codex Prime.\",\n    \"executor_lines\": [\n      {\n        \"line\": 11,\n        \"text\": \"Executor: Grok Builder 1. Reviewer: Codex Prime.\"\n      }\n    ],\n    \"release_raw\": \"Release and claim: recorded in the Return pointer. This draft grants no release.\",\n    \"release_lines\": [\n      {\n        \"line\": 12,\n        \"text\": \"Release and claim: recorded in the Return pointer. This draft grants no release.\"\n      }\n    ],\n    \"claim_raw\": null,\n    \"claim_lines\": [],\n    \"ambiguous\": false\n  },\n  \"legacy\": {\n    \"tool\": \"labs/prime-support-pass01/prime_support.py\",\n    \"sha256\": \"700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70\",\n    \"sibling\": \"labs/prime-support-pass01/clerk_adapter.py\",\n    \"sibling_sha256\": \"2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4\",\n    \"kind\": \"page-return\",\n    \"status\": \"unsupported\",\n    \"reason\": \"ambiguous heading line 72\",\n    \"revision_id\": null,\n    \"execution\": null,\n    \"whole\": \"b421fa1c3a4378b2ee15522ea5d701e6ff3313260216482c979b5d3bf7eb0990\",\n    \"review\": null\n  },\n  \"channels\": {\n    \"legacy\": \"parse_source page-return, unmodified\",\n    \"inventory\": \"unfenced return-family headings and Member/Receipt blocks\",\n    \"revision_repaired\": false\n  },\n  \"sections\": [\n    {\n      \"line\": 72,\n      \"level\": 2,\n      \"title\": \"Return pointer\",\n      \"form\": \"return-pointer\",\n      \"fenced\": false,\n      \"text\": \"## Return pointer\"\n    },\n    {\n      \"line\": 75,\n      \"level\": 2,\n      \"title\": \"Review — Codex Prime\",\n      \"form\": \"review-em\",\n      \"fenced\": false,\n      \"text\": \"## Review — Codex Prime\"\n    }\n  ],\n  \"fenced_headings\": [],\n  \"pointers\": [\n    {\n      \"line\": 72,\n      \"form\": \"return-pointer\",\n      \"title\": \"Return pointer\",\n      \"execution_raw\": \"PENDING.\",\n      \"members\": []\n    }\n  ],\n  \"assignment_mentions\": [],\n  \"custody\": {\n    \"basis\": \"live\",\n    \"members_book\": \"D:\\\\Git\\\\lib-build\\\\00.kernel\\\\00.00.10.work\",\n    \"package_at_commit\": \"not-established\",\n    \"primary\": null,\n    \"primary_rule\": \"origin book, page, and batch match this page and retrospective is false; more than one match stays ambiguous\",\n    \"observations\": []\n  },\n  \"review\": {\n    \"parser_object\": null,\n    \"sections\": [\n      {\n        \"line\": 75,\n        \"title\": \"Review — Codex Prime\",\n        \"text_raw\": \"PENDING.\"\n      }\n    ],\n    \"text_raw\": \"PENDING.\",\n    \"legacy_hashes\": [],\n    \"binding\": \"unbound\",\n    \"typed_declaration\": null\n  },\n  \"ambiguities\": [\n    \"legacy-ambiguous-heading\",\n    \"legacy-revision-withheld\"\n  ],\n  \"attention\": []\n}\n",
+   "stdout_sha256": "ee335674f5f814b305eada987c4c17b8985489e4bf2769a59d471c0b9d1dfda0",
+   "stdout_bytes": 3642,
+   "stderr_text": "",
+   "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+   "page": "00.kernel/00.00.10.work/0508.return-capture/05.16.md",
+   "batch_id": "0508.return-capture/05.16",
+   "expected": "unprojected unknown coordination",
+   "argv": [
+    "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+    "-B",
+    "D:\\Git\\lib-build\\labs\\batch-observation-pass01\\batch_observe.py",
+    "observe",
+    "--json",
+    "--repo",
+    "D:\\Git\\lib-build",
+    "--commit",
+    "6d18d182535df8dc60b698c585b04cd276c5df85",
+    "--path",
+    "00.kernel/00.00.10.work/0508.return-capture/05.16.md",
+    "--members-book",
+    "D:\\Git\\lib-build\\00.kernel\\00.00.10.work"
+   ],
+   "exit": 1,
+   "started_at": "2026-10-28T17:09:38.048673Z",
+   "finished_at": "2026-10-28T17:09:38.536459Z",
+   "stdout_text": "{\n  \"schema\": \"batch-observation/1\",\n  \"tool\": {\n    \"name\": \"batch-observation-pass01\",\n    \"path\": \"labs/batch-observation-pass01/batch_observe.py\",\n    \"sha256\": \"8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4\"\n  },\n  \"authority\": \"none\",\n  \"source\": {\n    \"kind\": \"git-blob\",\n    \"repository\": \"D:\\\\Git\\\\lib-build\",\n    \"path\": \"00.kernel/00.00.10.work/0508.return-capture/05.16.md\",\n    \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\n    \"sha256\": \"576416338da27d9154c8c2845422529837f7229da2f714b98fbc5ed3c0500768\",\n    \"bytes\": 4813,\n    \"label\": \"git blob at the named commit\",\n    \"time_basis\": \"git-blob\",\n    \"live_observed_at\": null,\n    \"observation_started_at\": null,\n    \"observation_finished_at\": null\n  },\n  \"page\": {\n    \"book\": \"00.00.10.work\",\n    \"page\": \"0508.return-capture\",\n    \"batch\": \"05.16\"\n  },\n  \"document\": {\n    \"header_state_raw\": \"state: draft\",\n    \"lines\": [\n      {\n        \"line\": 5,\n        \"text\": \"state: draft\"\n      }\n    ],\n    \"ambiguous\": false\n  },\n  \"assignment\": {\n    \"executor_raw\": \"Executor: Grok Builder 2. Reviewer: Codex Prime.\",\n    \"executor_lines\": [\n      {\n        \"line\": 11,\n        \"text\": \"Executor: Grok Builder 2. Reviewer: Codex Prime.\"\n      }\n    ],\n    \"release_raw\": \"Release and claim: recorded in the Return pointer. This draft grants no release.\",\n    \"release_lines\": [\n      {\n        \"line\": 12,\n        \"text\": \"Release and claim: recorded in the Return pointer. This draft grants no release.\"\n      }\n    ],\n    \"claim_raw\": null,\n    \"claim_lines\": [],\n    \"ambiguous\": false\n  },\n  \"legacy\": {\n    \"tool\": \"labs/prime-support-pass01/prime_support.py\",\n    \"sha256\": \"700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70\",\n    \"sibling\": \"labs/prime-support-pass01/clerk_adapter.py\",\n    \"sibling_sha256\": \"2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4\",\n    \"kind\": \"page-return\",\n    \"status\": \"unsupported\",\n    \"reason\": \"ambiguous heading line 66\",\n    \"revision_id\": null,\n    \"execution\": null,\n    \"whole\": \"576416338da27d9154c8c2845422529837f7229da2f714b98fbc5ed3c0500768\",\n    \"review\": null\n  },\n  \"channels\": {\n    \"legacy\": \"parse_source page-return, unmodified\",\n    \"inventory\": \"unfenced return-family headings and Member/Receipt blocks\",\n    \"revision_repaired\": false\n  },\n  \"sections\": [\n    {\n      \"line\": 66,\n      \"level\": 2,\n      \"title\": \"Return pointer\",\n      \"form\": \"return-pointer\",\n      \"fenced\": false,\n      \"text\": \"## Return pointer\"\n    },\n    {\n      \"line\": 69,\n      \"level\": 2,\n      \"title\": \"Review — Codex Prime\",\n      \"form\": \"review-em\",\n      \"fenced\": false,\n      \"text\": \"## Review — Codex Prime\"\n    }\n  ],\n  \"fenced_headings\": [],\n  \"pointers\": [\n    {\n      \"line\": 66,\n      \"form\": \"return-pointer\",\n      \"title\": \"Return pointer\",\n      \"execution_raw\": \"PENDING.\",\n      \"members\": []\n    }\n  ],\n  \"assignment_mentions\": [],\n  \"custody\": {\n    \"basis\": \"live\",\n    \"members_book\": \"D:\\\\Git\\\\lib-build\\\\00.kernel\\\\00.00.10.work\",\n    \"package_at_commit\": \"not-established\",\n    \"primary\": null,\n    \"primary_rule\": \"origin book, page, and batch match this page and retrospective is false; more than one match stays ambiguous\",\n    \"observations\": []\n  },\n  \"review\": {\n    \"parser_object\": null,\n    \"sections\": [\n      {\n        \"line\": 69,\n        \"title\": \"Review — Codex Prime\",\n        \"text_raw\": \"PENDING.\"\n      }\n    ],\n    \"text_raw\": \"PENDING.\",\n    \"legacy_hashes\": [],\n    \"binding\": \"unbound\",\n    \"typed_declaration\": null\n  },\n  \"ambiguities\": [\n    \"legacy-ambiguous-heading\",\n    \"legacy-revision-withheld\"\n  ],\n  \"attention\": []\n}\n",
+   "stdout_sha256": "23cc690b01f2bf55ed18ed8c120388511dba1dc8ae3a641affdb2e62dbb6562f",
+   "stdout_bytes": 3652,
+   "stderr_text": "",
+   "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+ ],
+ "adapter_input": {
+  "sha256": "1c848c5ef50b9db4d001a272a3ab508c27de4859d79915f7d55d842265097aeb",
+  "bytes": 45271,
+  "text": "{\n \"schema\": \"prime-brief-input/1\",\n \"scope\": {\n  \"book\": \"00.00.10.work\",\n  \"lanes\": [\n   \"0504.app-entry\",\n   \"0507.prime-support\",\n   \"0508.return-capture\"\n  ]\n },\n \"members_book\": \"D:\\\\Git\\\\lib-build\\\\00.kernel\\\\00.00.10.work\",\n \"observations\": [\n  {\n   \"label\": \"SUPPLIED\",\n   \"note\": \"unchanged report of the pinned reader run by rehearse.py at 2026-10-28T17:09:30.131777Z; stdout sha256 0f85a13a78d20f4cbaa91fb3db6c8d73498b1187afeb79ba9774e79cfe319354\",\n   \"observation\": {\n    \"schema\": \"batch-observation/1\",\n    \"tool\": {\n     \"name\": \"batch-observation-pass01\",\n     \"path\": \"labs/batch-observation-pass01/batch_observe.py\",\n     \"sha256\": \"8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4\"\n    },\n    \"authority\": \"none\",\n    \"source\": {\n     \"kind\": \"git-blob\",\n     \"repository\": \"D:\\\\Git\\\\lib-build\",\n     \"path\": \"00.kernel/00.00.10.work/0504.app-entry/05.17.md\",\n     \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\n     \"sha256\": \"ca48e6d89e79171ae4335db4a9c6a1f41ed88d40fb05d0b48da23e2f0843ef29\",\n     \"bytes\": 6885,\n     \"label\": \"git blob at the named commit\",\n     \"time_basis\": \"git-blob\",\n     \"live_observed_at\": null,\n     \"observation_started_at\": null,\n     \"observation_finished_at\": null\n    },\n    \"page\": {\n     \"book\": \"00.00.10.work\",\n     \"page\": \"0504.app-entry\",\n     \"batch\": \"05.17\"\n    },\n    \"document\": {\n     \"header_state_raw\": \"state: returned\",\n     \"lines\": [\n      {\n       \"line\": 5,\n       \"text\": \"state: returned\"\n      }\n     ],\n     \"ambiguous\": false\n    },\n    \"assignment\": {\n     \"executor_raw\": \"Executor: Grok Builder 1. Reviewer: Codex Prime.\",\n     \"executor_lines\": [\n      {\n       \"line\": 11,\n       \"text\": \"Executor: Grok Builder 1. Reviewer: Codex Prime.\"\n      }\n     ],\n     \"release_raw\": \"Release: released by the Director, 2026-10-28.\",\n     \"release_lines\": [\n      {\n       \"line\": 12,\n       \"text\": \"Release: released by the Director, 2026-10-28.\"\n      }\n     ],\n     \"claim_raw\": \"Claim: Grok 4.7 (xAI), session 01a179d2-387a-7661-8702-6e53f95e96b5, 2026-10-28, HEAD 4e7ebfc143330f98c9b8b55681b58f2602a85255.\",\n     \"claim_lines\": [\n      {\n       \"line\": 13,\n       \"text\": \"Claim: Grok 4.7 (xAI), session 01a179d2-387a-7661-8702-6e53f95e96b5, 2026-10-28, HEAD 4e7ebfc143330f98c9b8b55681b58f2602a85255.\"\n      }\n     ],\n     \"ambiguous\": false\n    },\n    \"legacy\": {\n     \"tool\": \"labs/prime-support-pass01/prime_support.py\",\n     \"sha256\": \"700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70\",\n     \"sibling\": \"labs/prime-support-pass01/clerk_adapter.py\",\n     \"sibling_sha256\": \"2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4\",\n     \"kind\": \"page-return\",\n     \"status\": \"unsupported\",\n     \"reason\": \"ambiguous heading line 83\",\n     \"revision_id\": null,\n     \"execution\": null,\n     \"whole\": \"ca48e6d89e79171ae4335db4a9c6a1f41ed88d40fb05d0b48da23e2f0843ef29\",\n     \"review\": null\n    },\n    \"channels\": {\n     \"legacy\": \"parse_source page-return, unmodified\",\n     \"inventory\": \"unfenced return-family headings and Member/Receipt blocks\",\n     \"revision_repaired\": false\n    },\n    \"sections\": [\n     {\n      \"line\": 83,\n      \"level\": 2,\n      \"title\": \"Return pointer\",\n      \"form\": \"return-pointer\",\n      \"fenced\": false,\n      \"text\": \"## Return pointer\"\n     },\n     {\n      \"line\": 86,\n      \"level\": 2,\n      \"title\": \"Review — Codex Prime\",\n      \"form\": \"review-em\",\n      \"fenced\": false,\n      \"text\": \"## Review — Codex Prime\"\n     }\n    ],\n    \"fenced_headings\": [],\n    \"pointers\": [\n     {\n      \"line\": 83,\n      \"form\": \"return-pointer\",\n      \"title\": \"Return pointer\",\n      \"execution_raw\": \"Member 0139.capture-handoff-0517. Receipt sha256 699d30e6b3eb052b0f313a737b15441888dce46a6a1f7ec826cd7d53691c6365. Verify exit 0: result complete; not approved; not accepted; not published. The receipt is custody, not acceptance.\",\n      \"members\": [\n       {\n        \"name\": \"0139.capture-handoff-0517\",\n        \"line\": 84,\n        \"receipts\": [\n         {\n          \"sha256\": \"699d30e6b3eb052b0f313a737b15441888dce46a6a1f7ec826cd7d53691c6365\",\n          \"line\": 84\n         }\n        ]\n       }\n      ]\n     }\n    ],\n    \"assignment_mentions\": [],\n    \"custody\": {\n     \"basis\": \"live\",\n     \"members_book\": \"D:\\\\Git\\\\lib-build\\\\00.kernel\\\\00.00.10.work\",\n     \"package_at_commit\": \"not-established\",\n     \"primary\": \"0139.capture-handoff-0517\",\n     \"primary_rule\": \"origin book, page, and batch match this page and retrospective is false; more than one match stays ambiguous\",\n     \"observations\": [\n      {\n       \"member\": \"0139.capture-handoff-0517\",\n       \"how_named\": \"pointer\",\n       \"stated_receipts\": [\n        \"699d30e6b3eb052b0f313a737b15441888dce46a6a1f7ec826cd7d53691c6365\"\n       ],\n       \"inspection\": {\n        \"book\": \"D:\\\\Git\\\\lib-build\\\\00.kernel\\\\00.00.10.work\",\n        \"capture\": {\n         \"captured_at\": \"2026-10-28T16:13:34.681787Z\",\n         \"manifest_sha256\": \"ef0143fde8d52c54a8ccbabfef36cf2bd0bc410ec91f61d17916fdbac359397a\",\n         \"origin\": {\n          \"batch\": \"05.17\",\n          \"book\": \"00.00.10.work\",\n          \"page\": \"0504.app-entry\"\n         },\n         \"payloads\": [\n          {\n           \"bytes\": 39856,\n           \"logical\": \"labs/capture-handoff-pass01/handoff.py\",\n           \"payload\": \"0001.blob\",\n           \"sha256\": \"ce9bcef0d101755d3e83c10353286d82c060aaaefcebcfb6b7491bba341558b7\"\n          },\n          {\n           \"bytes\": 1589,\n           \"logical\": \"labs/capture-handoff-pass01/README.md\",\n           \"payload\": \"0002.blob\",\n           \"sha256\": \"97669610c1d2bd22940fe3ad986e87dc99c466eacdfdf2de9872749ac59b54db\"\n          },\n          {\n           \"bytes\": 39317,\n           \"logical\": \"labs/capture-handoff-pass01/tests/test_handoff.py\",\n           \"payload\": \"0003.blob\",\n           \"sha256\": \"a950a31250aacf46ab0b8ddddadc9eb4e4ecbf9a0b249c51aa6659daa25de69d\"\n          },\n          {\n           \"bytes\": 7211,\n           \"logical\": \"labs/capture-handoff-pass01/demo.py\",\n           \"payload\": \"0004.blob\",\n           \"sha256\": \"70a7122a06ba87d155815b70678e3ab786dac16a197cef814728859f4d655e19\"\n          },\n          {\n           \"bytes\": 9129,\n           \"logical\": \"00.kernel/00.00.10.work/0504.app-entry/06.17.md\",\n           \"payload\": \"0005.blob\",\n           \"sha256\": \"91e6c1b222e1ef3657f1e6c925c5c219d4904be7e50ef2a3bb9c031ab3fe507f\"\n          },\n          {\n           \"bytes\": 8426,\n           \"logical\": \"00.kernel/00.00.10.work/0504.app-entry/evidence/handoff05.17/CONTRACT.md\",\n           \"payload\": \"0006.blob\",\n           \"sha256\": \"dbec46989aaabb7f8c55467b0ad2efee2ccf9c5926dcfeef30a1446eed09c6db\"\n          },\n          {\n           \"bytes\": 2373,\n           \"logical\": \"00.kernel/00.00.10.work/0504.app-entry/evidence/handoff05.17/tests.txt\",\n           \"payload\": \"0007.blob\",\n           \"sha256\": \"fbda0c29003d5806367406e20b4405f3d96367a5e67b5f7c7cf4f85d2b5f81d9\"\n          },\n          {\n           \"bytes\": 4022,\n           \"logical\": \"00.kernel/00.00.10.work/0504.app-entry/evidence/handoff05.17/verification.json\",\n           \"payload\": \"0008.blob\",\n           \"sha256\": \"af59d2e2524e4573e118cf82b81e16e107d871f7c17c5f8262b4376ffdb932d0\"\n          }\n         ],\n         \"receipt_sha256\": \"699d30e6b3eb052b0f313a737b15441888dce46a6a1f7ec826cd7d53691c6365\",\n         \"reservation_sha256\": \"3cce81c4a1806083e054a33b31afb8d7c0ebc3a5ad8b9cad0caabc5e80f96ad2\",\n         \"retrospective\": false,\n         \"return\": {\n          \"bytes\": 1851,\n          \"includes_prime_review\": false,\n          \"sha256\": \"711bfe7243b1f5b675a5e3d13ca937c8f6fcff691b900be72fdc5c36ded67d45\"\n         },\n         \"source_commit\": null,\n         \"submission_id\": \"grok-1-0504-0517\"\n        },\n        \"member\": \"0139.capture-handoff-0517\",\n        \"problems\": [],\n        \"reservation\": {\n         \"destination\": {\n          \"member\": \"0139\",\n          \"name\": \"capture-handoff-0517\",\n          \"path\": \"0139.capture-handoff-0517\"\n         },\n         \"expected_outputs\": [\n          \"labs/capture-handoff-pass01/handoff.py\",\n          \"labs/capture-handoff-pass01/README.md\",\n          \"labs/capture-handoff-pass01/tests/test_handoff.py\",\n          \"labs/capture-handoff-pass01/demo.py\",\n          \"00.kernel/00.00.10.work/0504.app-entry/06.17.md\",\n          \"00.kernel/00.00.10.work/0504.app-entry/evidence/handoff05.17/CONTRACT.md\",\n          \"00.kernel/00.00.10.work/0504.app-entry/evidence/handoff05.17/tests.txt\",\n          \"00.kernel/00.00.10.work/0504.app-entry/evidence/handoff05.17/verification.json\"\n         ],\n         \"origin\": {\n          \"batch\": \"05.17\",\n          \"book\": \"00.00.10.work\",\n          \"page\": \"0504.app-entry\"\n         },\n         \"release\": \"Reservation only; Director release must be recorded on 0504.app-entry/05.17.\",\n         \"reservation_sha256\": \"3cce81c4a1806083e054a33b31afb8d7c0ebc3a5ad8b9cad0caabc5e80f96ad2\",\n         \"reserved_at\": \"2026-10-28T15:39:18.331030Z\",\n         \"reviewer\": \"Codex Prime\",\n         \"submission_id\": \"grok-1-0504-0517\",\n         \"submitter\": \"Grok Builder 1\",\n         \"supersedes\": null\n        },\n        \"schema\": \"return-capture-inspection/1\",\n        \"status\": \"complete\"\n       },\n       \"exit\": 0,\n       \"role\": \"primary-current-candidate\",\n       \"commit_receipt_sha256\": \"699d30e6b3eb052b0f313a737b15441888dce46a6a1f7ec826cd7d53691c6365\",\n       \"commit_receipt_present\": true,\n       \"receipt_bytes_match\": true,\n       \"attention\": [],\n       \"observation_started_at\": \"2026-10-28T17:09:30.606133Z\",\n       \"observation_finished_at\": \"2026-10-28T17:09:30.937248Z\"\n      }\n     ]\n    },\n    \"review\": {\n     \"parser_object\": null,\n     \"sections\": [\n      {\n       \"line\": 86,\n       \"title\": \"Review — Codex Prime\",\n       \"text_raw\": \"Held for CH-03/CH-04: post-capture failure reporting omits capture writes and retains stale state; a failure-log OSError escapes. Independent suite/demo pass; fault evidence is in evidence/prime-review05.17/. Date: 2026-10-28.\"\n      }\n     ],\n     \"text_raw\": \"Held for CH-03/CH-04: post-capture failure reporting omits capture writes and retains stale state; a failure-log OSError escapes. Independent suite/demo pass; fault evidence is in evidence/prime-review05.17/. Date: 2026-10-28.\",\n     \"legacy_hashes\": [],\n     \"binding\": \"unbound\",\n     \"typed_declaration\": null\n    },\n    \"ambiguities\": [\n     \"legacy-ambiguous-heading\",\n     \"legacy-revision-withheld\"\n    ],\n    \"attention\": []\n   }\n  },\n  {\n   \"label\": \"SUPPLIED\",\n   \"note\": \"unchanged report of the pinned reader run by rehearse.py at 2026-10-28T17:09:32.092832Z; stdout sha256 97e72ae9ef3a07a4f0108f84bd7ff6530a01474463b64515bd55406724a0d791\",\n   \"observation\": {\n    \"schema\": \"batch-observation/1\",\n    \"tool\": {\n     \"name\": \"batch-observation-pass01\",\n     \"path\": \"labs/batch-observation-pass01/batch_observe.py\",\n     \"sha256\": \"8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4\"\n    },\n    \"authority\": \"none\",\n    \"source\": {\n     \"kind\": \"git-blob\",\n     \"repository\": \"D:\\\\Git\\\\lib-build\",\n     \"path\": \"00.kernel/00.00.10.work/0508.return-capture/05.15.md\",\n     \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\n     \"sha256\": \"966c440875366b74f8be682bf9d24a28491cc5e32bdd69baad94297b038e7049\",\n     \"bytes\": 6533,\n     \"label\": \"git blob at the named commit\",\n     \"time_basis\": \"git-blob\",\n     \"live_observed_at\": null,\n     \"observation_started_at\": null,\n     \"observation_finished_at\": null\n    },\n    \"page\": {\n     \"book\": \"00.00.10.work\",\n     \"page\": \"0508.return-capture\",\n     \"batch\": \"05.15\"\n    },\n    \"document\": {\n     \"header_state_raw\": \"state: draft\",\n     \"lines\": [\n      {\n       \"line\": 5,\n       \"text\": \"state: draft\"\n      }\n     ],\n     \"ambiguous\": false\n    },\n    \"assignment\": {\n     \"executor_raw\": \"Executor: Grok Builder 2. Reviewer: Codex Prime.\",\n     \"executor_lines\": [\n      {\n       \"line\": 11,\n       \"text\": \"Executor: Grok Builder 2. Reviewer: Codex Prime.\"\n      }\n     ],\n     \"release_raw\": null,\n     \"release_lines\": [\n      {\n       \"line\": 12,\n       \"text\": \"Release and claim: recorded in the Return pointer. This draft grants no release.\"\n      },\n      {\n       \"line\": 66,\n       \"text\": \"Release: the Director, chat 2026-10-28: \\\"The Director releases 0508.return-capture/05.15. Workspace: D:\\\\Git\\\\lib-build Branch: workshop Read 00.kernel/00.00.10.work/0508.return-capture/05.15.md Verify the pack manifest and record release/claim. Fix BO-05: preserve header fields following the initial H1 page title. Keep fenced examples, quotes and later body fields excluded. Add regressions using normally shaped workbook pages and the real corpus. Preserve previous fixes, dependency tools and captured returns. No projection or app integration. Run the required tests and demo. Capture into reserved 0142.batch-reader-header-0515 and freshly verify. No shared Git commits or pushes. Return Did, Blocked, Need.\\\"\"\n      }\n     ],\n     \"claim_raw\": \"Claim: Grok Builder 2, this session, 2026-10-28. pack05.15: 13 of 13 snapshots match their pins, and live equals all 13. Parser 700d60d2…, inspector 947915fe…, and helper 8f3da5c6… verified. Scope: this page only.\",\n     \"claim_lines\": [\n      {\n       \"line\": 67,\n       \"text\": \"Claim: Grok Builder 2, this session, 2026-10-28. pack05.15: 13 of 13 snapshots match their pins, and live equals all 13. Parser 700d60d2…, inspector 947915fe…, and helper 8f3da5c6… verified. Scope: this page only.\"\n      }\n     ],\n     \"ambiguous\": true\n    },\n    \"legacy\": {\n     \"tool\": \"labs/prime-support-pass01/prime_support.py\",\n     \"sha256\": \"700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70\",\n     \"sibling\": \"labs/prime-support-pass01/clerk_adapter.py\",\n     \"sibling_sha256\": \"2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4\",\n     \"kind\": \"page-return\",\n     \"status\": \"unsupported\",\n     \"reason\": \"ambiguous heading line 65\",\n     \"revision_id\": null,\n     \"execution\": null,\n     \"whole\": \"966c440875366b74f8be682bf9d24a28491cc5e32bdd69baad94297b038e7049\",\n     \"review\": null\n    },\n    \"channels\": {\n     \"legacy\": \"parse_source page-return, unmodified\",\n     \"inventory\": \"unfenced return-family headings and Member/Receipt blocks\",\n     \"revision_repaired\": false\n    },\n    \"sections\": [\n     {\n      \"line\": 65,\n      \"level\": 2,\n      \"title\": \"Return pointer\",\n      \"form\": \"return-pointer\",\n      \"fenced\": false,\n      \"text\": \"## Return pointer\"\n     },\n     {\n      \"line\": 73,\n      \"level\": 2,\n      \"title\": \"Review — Codex Prime\",\n      \"form\": \"review-em\",\n      \"fenced\": false,\n      \"text\": \"## Review — Codex Prime\"\n     }\n    ],\n    \"fenced_headings\": [],\n    \"pointers\": [\n     {\n      \"line\": 65,\n      \"form\": \"return-pointer\",\n      \"title\": \"Return pointer\",\n      \"execution_raw\": \"Release: the Director, chat 2026-10-28: \\\"The Director releases 0508.return-capture/05.15. Workspace: D:\\\\Git\\\\lib-build Branch: workshop Read 00.kernel/00.00.10.work/0508.return-capture/05.15.md Verify the pack manifest and record release/claim. Fix BO-05: preserve header fields following the initial H1 page title. Keep fenced examples, quotes and later body fields excluded. Add regressions using normally shaped workbook pages and the real corpus. Preserve previous fixes, dependency tools and captured returns. No projection or app integration. Run the required tests and demo. Capture into reserved 0142.batch-reader-header-0515 and freshly verify. No shared Git commits or pushes. Return Did, Blocked, Need.\\\"\",\n      \"members\": [\n       {\n        \"name\": \"0142.batch-reader-header-0515\",\n        \"line\": 68,\n        \"receipts\": [\n         {\n          \"sha256\": \"45a455a64925addc37b9b2e1b27d9846831ac92b32058d3f78f9d3e47def7285\",\n          \"line\": 69\n         }\n        ]\n       }\n      ]\n     }\n    ],\n    \"assignment_mentions\": [],\n    \"custody\": {\n     \"basis\": \"live\",\n     \"members_book\": \"D:\\\\Git\\\\lib-build\\\\00.kernel\\\\00.00.10.work\",\n     \"package_at_commit\": \"not-established\",\n     \"primary\": \"0142.batch-reader-header-0515\",\n     \"primary_rule\": \"origin book, page, and batch match this page and retrospective is false; more than one match stays ambiguous\",\n     \"observations\": [\n      {\n       \"member\": \"0142.batch-reader-header-0515\",\n       \"how_named\": \"pointer\",\n       \"stated_receipts\": [\n        \"45a455a64925addc37b9b2e1b27d9846831ac92b32058d3f78f9d3e47def7285\"\n       ],\n       \"inspection\": {\n        \"book\": \"D:\\\\Git\\\\lib-build\\\\00.kernel\\\\00.00.10.work\",\n        \"capture\": {\n         \"captured_at\": \"2026-10-28T16:24:05.310296Z\",\n         \"manifest_sha256\": \"f8845bce91d71b9c909ec44162e0e7f0023c8d842996def6611c9784e7f19ab5\",\n         \"origin\": {\n          \"batch\": \"05.15\",\n          \"book\": \"00.00.10.work\",\n          \"page\": \"0508.return-capture\"\n         },\n         \"payloads\": [\n          {\n           \"bytes\": 40516,\n           \"logical\": \"labs/batch-observation-pass01/batch_observe.py\",\n           \"payload\": \"0001.blob\",\n           \"sha256\": \"8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4\"\n          },\n          {\n           \"bytes\": 1827,\n           \"logical\": \"labs/batch-observation-pass01/README.md\",\n           \"payload\": \"0002.blob\",\n           \"sha256\": \"b2c09ea5599b826fa286b265c29537546ccc904180768ba18365a0e5124ca4cc\"\n          },\n          {\n           \"bytes\": 59546,\n           \"logical\": \"labs/batch-observation-pass01/tests/test_batch_observe.py\",\n           \"payload\": \"0003.blob\",\n           \"sha256\": \"75c1bdc81dbf20832f00f5d166b1f95f718dce0701e8f14678e96846a1354c85\"\n          },\n          {\n           \"bytes\": 3969,\n           \"logical\": \"labs/batch-observation-pass01/demo.py\",\n           \"payload\": \"0004.blob\",\n           \"sha256\": \"6b44d5876cdf45424a28310fa3dd4d222a5407752c25b37747236c2ea7214a99\"\n          },\n          {\n           \"bytes\": 3421,\n           \"logical\": \"00.kernel/00.00.10.work/0508.return-capture/06.16.md\",\n           \"payload\": \"0005.blob\",\n           \"sha256\": \"b8040b2e209a7b18829b3a7f4606ba3338bc8d25218ff2c64cccfe490a03fd0e\"\n          },\n          {\n           \"bytes\": 3140,\n           \"logical\": \"00.kernel/00.00.10.work/0508.return-capture/evidence/header05.15/CONTRACT.md\",\n           \"payload\": \"0006.blob\",\n           \"sha256\": \"a7d671fe1ac08d60aadfb1c16c24d486ad9ebb89a28eb5bd883f5cbb8e9b44ab\"\n          },\n          {\n           \"bytes\": 2046,\n           \"logical\": \"00.kernel/00.00.10.work/0508.return-capture/evidence/header05.15/tests.txt\",\n           \"payload\": \"0007.blob\",\n           \"sha256\": \"b6e4bf2956dc4ea326902b1dfe64192a5554e2c2e108b50a984f3734c00eed1c\"\n          },\n          {\n           \"bytes\": 3966,\n           \"logical\": \"00.kernel/00.00.10.work/0508.return-capture/evidence/header05.15/verification.json\",\n           \"payload\": \"0008.blob\",\n           \"sha256\": \"693e93785da76b5cc75489f0e0a098c9071ad736c6a7cfe91032e549595d24c9\"\n          }\n         ],\n         \"receipt_sha256\": \"45a455a64925addc37b9b2e1b27d9846831ac92b32058d3f78f9d3e47def7285\",\n         \"reservation_sha256\": \"2188e9ec54227151857c7247248c4d94315becebcd9c8fb883fc086374a77815\",\n         \"retrospective\": false,\n         \"return\": {\n          \"bytes\": 1364,\n          \"includes_prime_review\": false,\n          \"sha256\": \"f9eb894483ae3af0540c267f5fd09c913eafefd3b8c4edbca86c77f8b9a5f112\"\n         },\n         \"source_commit\": null,\n         \"submission_id\": \"grok-2-0508-0515\"\n        },\n        \"member\": \"0142.batch-reader-header-0515\",\n        \"problems\": [],\n        \"reservation\": {\n         \"destination\": {\n          \"member\": \"0142\",\n          \"name\": \"batch-reader-header-0515\",\n          \"path\": \"0142.batch-reader-header-0515\"\n         },\n         \"expected_outputs\": [\n          \"labs/batch-observation-pass01/batch_observe.py\",\n          \"labs/batch-observation-pass01/README.md\",\n          \"labs/batch-observation-pass01/tests/test_batch_observe.py\",\n          \"labs/batch-observation-pass01/demo.py\",\n          \"00.kernel/00.00.10.work/0508.return-capture/06.16.md\",\n          \"00.kernel/00.00.10.work/0508.return-capture/evidence/header05.15/CONTRACT.md\",\n          \"00.kernel/00.00.10.work/0508.return-capture/evidence/header05.15/tests.txt\",\n          \"00.kernel/00.00.10.work/0508.return-capture/evidence/header05.15/verification.json\"\n         ],\n         \"origin\": {\n          \"batch\": \"05.15\",\n          \"book\": \"00.00.10.work\",\n          \"page\": \"0508.return-capture\"\n         },\n         \"release\": \"Reservation only; Director release must be recorded on 0508.return-capture/05.15.\",\n         \"reservation_sha256\": \"2188e9ec54227151857c7247248c4d94315becebcd9c8fb883fc086374a77815\",\n         \"reserved_at\": \"2026-10-28T16:14:21.489959Z\",\n         \"reviewer\": \"Codex Prime\",\n         \"submission_id\": \"grok-2-0508-0515\",\n         \"submitter\": \"Grok Builder 2\",\n         \"supersedes\": null\n        },\n        \"schema\": \"return-capture-inspection/1\",\n        \"status\": \"complete\"\n       },\n       \"exit\": 0,\n       \"role\": \"primary-current-candidate\",\n       \"commit_receipt_sha256\": \"45a455a64925addc37b9b2e1b27d9846831ac92b32058d3f78f9d3e47def7285\",\n       \"commit_receipt_present\": true,\n       \"receipt_bytes_match\": true,\n       \"attention\": [],\n       \"observation_started_at\": \"2026-10-28T17:09:33.397992Z\",\n       \"observation_finished_at\": \"2026-10-28T17:09:33.671152Z\"\n      }\n     ]\n    },\n    \"review\": {\n     \"parser_object\": null,\n     \"sections\": [\n      {\n       \"line\": 73,\n       \"title\": \"Review — Codex Prime\",\n       \"text_raw\": \"Accepted as read-only batch-observation lab; BO-01–BO-05 corrected. Independent19-test suite and actual-header probe pass; custody0142 freshly verifies. No authority or lifecycle completion inferred. See evidence/prime-review05.15/review.md. Date: 2026-10-28.\"\n      }\n     ],\n     \"text_raw\": \"Accepted as read-only batch-observation lab; BO-01–BO-05 corrected. Independent19-test suite and actual-header probe pass; custody0142 freshly verifies. No authority or lifecycle completion inferred. See evidence/prime-review05.15/review.md. Date: 2026-10-28.\",\n     \"legacy_hashes\": [],\n     \"binding\": \"unbound\",\n     \"typed_declaration\": null\n    },\n    \"ambiguities\": [\n     \"legacy-ambiguous-heading\",\n     \"legacy-revision-withheld\",\n     \"quoted-accepted-unbound\",\n     \"duplicate-release\"\n    ],\n    \"attention\": []\n   }\n  },\n  {\n   \"label\": \"SUPPLIED\",\n   \"note\": \"unchanged report of the pinned reader run by rehearse.py at 2026-10-28T17:09:34.780753Z; stdout sha256 214986bf74e6d96a661bff7fc33ace8bfb35af00073b9bcff2f76755afd2cd1e\",\n   \"observation\": {\n    \"schema\": \"batch-observation/1\",\n    \"tool\": {\n     \"name\": \"batch-observation-pass01\",\n     \"path\": \"labs/batch-observation-pass01/batch_observe.py\",\n     \"sha256\": \"8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4\"\n    },\n    \"authority\": \"none\",\n    \"source\": {\n     \"kind\": \"git-blob\",\n     \"repository\": \"D:\\\\Git\\\\lib-build\",\n     \"path\": \"00.kernel/00.00.10.work/0507.prime-support/05.12.md\",\n     \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\n     \"sha256\": \"dce336e1f4c3cd8d4679ddff45f517293b2e6fd991d8bb39560c0412f1f5f3f5\",\n     \"bytes\": 8403,\n     \"label\": \"git blob at the named commit\",\n     \"time_basis\": \"git-blob\",\n     \"live_observed_at\": null,\n     \"observation_started_at\": null,\n     \"observation_finished_at\": null\n    },\n    \"page\": {\n     \"book\": \"00.00.10.work\",\n     \"page\": \"0507.prime-support\",\n     \"batch\": \"05.12\"\n    },\n    \"document\": {\n     \"header_state_raw\": \"state: draft\",\n     \"lines\": [\n      {\n       \"line\": 5,\n       \"text\": \"state: draft\"\n      }\n     ],\n     \"ambiguous\": false\n    },\n    \"assignment\": {\n     \"executor_raw\": \"Executor: Claude. Reviewer: Codex Prime.\",\n     \"executor_lines\": [\n      {\n       \"line\": 11,\n       \"text\": \"Executor: Claude. Reviewer: Codex Prime.\"\n      }\n     ],\n     \"release_raw\": null,\n     \"release_lines\": [\n      {\n       \"line\": 12,\n       \"text\": \"Release and claim: recorded in the Return pointer. This draft grants no release.\"\n      },\n      {\n       \"line\": 90,\n       \"text\": \"Release: the Director, chat 2026-10-27: \\\"The Director releases 0507.prime-support/05.12. Workspace: D:\\\\Git\\\\lib-build Branch: workshop Read 00.kernel/00.00.10.work/0507.prime-support/05.12.md. Verify pins and record release/claim. Build the fixture-only state-projection lab under Prime's SP-01–SP-04 conditions. Review presence must not close work. Preserve held/correction states, candidate ambiguity and separate publication facts. Completion requires explicit, candidate-bound evidence. Use the accepted inspector; do not recreate custody validation or change existing tools, assignments, roles or law. Run the required countercases and demo. Capture into reserved 0136.state-projection-0512 and freshly verify. No shared Git commits or pushes.\\\"\"\n      }\n     ],\n     \"claim_raw\": \"Claim: claude-opus-5-5 (Anthropic), Colab, executor, claimed 2026-10-27T20:05-05:00 on workshop at e97c70fff2984d59c26180e2ab146258dd9ac491. pack05.12: 10 of 10 snapshots match their pins, and live equals all 10. return_inspect 947915fe… and return_capture 8f3da5c6… verified. Scope: this batch only.\",\n     \"claim_lines\": [\n      {\n       \"line\": 91,\n       \"text\": \"Claim: claude-opus-5-5 (Anthropic), Colab, executor, claimed 2026-10-27T20:05-05:00 on workshop at e97c70fff2984d59c26180e2ab146258dd9ac491. pack05.12: 10 of 10 snapshots match their pins, and live equals all 10. return_inspect 947915fe… and return_capture 8f3da5c6… verified. Scope: this batch only.\"\n      }\n     ],\n     \"ambiguous\": true\n    },\n    \"legacy\": {\n     \"tool\": \"labs/prime-support-pass01/prime_support.py\",\n     \"sha256\": \"700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70\",\n     \"sibling\": \"labs/prime-support-pass01/clerk_adapter.py\",\n     \"sibling_sha256\": \"2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4\",\n     \"kind\": \"page-return\",\n     \"status\": \"unsupported\",\n     \"reason\": \"ambiguous heading line 89\",\n     \"revision_id\": null,\n     \"execution\": null,\n     \"whole\": \"dce336e1f4c3cd8d4679ddff45f517293b2e6fd991d8bb39560c0412f1f5f3f5\",\n     \"review\": null\n    },\n    \"channels\": {\n     \"legacy\": \"parse_source page-return, unmodified\",\n     \"inventory\": \"unfenced return-family headings and Member/Receipt blocks\",\n     \"revision_repaired\": false\n    },\n    \"sections\": [\n     {\n      \"line\": 89,\n      \"level\": 2,\n      \"title\": \"Return pointer\",\n      \"form\": \"return-pointer\",\n      \"fenced\": false,\n      \"text\": \"## Return pointer\"\n     },\n     {\n      \"line\": 94,\n      \"level\": 2,\n      \"title\": \"Review — Codex Prime\",\n      \"form\": \"review-em\",\n      \"fenced\": false,\n      \"text\": \"## Review — Codex Prime\"\n     }\n    ],\n    \"fenced_headings\": [],\n    \"pointers\": [\n     {\n      \"line\": 89,\n      \"form\": \"return-pointer\",\n      \"title\": \"Return pointer\",\n      \"execution_raw\": \"Release: the Director, chat 2026-10-27: \\\"The Director releases 0507.prime-support/05.12. Workspace: D:\\\\Git\\\\lib-build Branch: workshop Read 00.kernel/00.00.10.work/0507.prime-support/05.12.md. Verify pins and record release/claim. Build the fixture-only state-projection lab under Prime's SP-01–SP-04 conditions. Review presence must not close work. Preserve held/correction states, candidate ambiguity and separate publication facts. Completion requires explicit, candidate-bound evidence. Use the accepted inspector; do not recreate custody validation or change existing tools, assignments, roles or law. Run the required countercases and demo. Capture into reserved 0136.state-projection-0512 and freshly verify. No shared Git commits or pushes.\\\"\",\n      \"members\": [\n       {\n        \"name\": \"0136.state-projection-0512\",\n        \"line\": 92,\n        \"receipts\": [\n         {\n          \"sha256\": \"deec943938e07c29f28ef82cb5000e3af5758a0454330a4c53de606774c0cd44\",\n          \"line\": 92\n         }\n        ]\n       }\n      ]\n     }\n    ],\n    \"assignment_mentions\": [],\n    \"custody\": {\n     \"basis\": \"live\",\n     \"members_book\": \"D:\\\\Git\\\\lib-build\\\\00.kernel\\\\00.00.10.work\",\n     \"package_at_commit\": \"not-established\",\n     \"primary\": \"0136.state-projection-0512\",\n     \"primary_rule\": \"origin book, page, and batch match this page and retrospective is false; more than one match stays ambiguous\",\n     \"observations\": [\n      {\n       \"member\": \"0136.state-projection-0512\",\n       \"how_named\": \"pointer\",\n       \"stated_receipts\": [\n        \"deec943938e07c29f28ef82cb5000e3af5758a0454330a4c53de606774c0cd44\"\n       ],\n       \"inspection\": {\n        \"book\": \"D:\\\\Git\\\\lib-build\\\\00.kernel\\\\00.00.10.work\",\n        \"capture\": {\n         \"captured_at\": \"2026-10-28T00:36:15.423334Z\",\n         \"manifest_sha256\": \"f175a1c75678661a90e6d5967e7852fac0d3331fdf17c469b5473cc8854d7442\",\n         \"origin\": {\n          \"batch\": \"05.12\",\n          \"book\": \"00.00.10.work\",\n          \"page\": \"0507.prime-support\"\n         },\n         \"payloads\": [\n          {\n           \"bytes\": 19437,\n           \"logical\": \"labs/state-projection-pass01/state_projection.py\",\n           \"payload\": \"0001.blob\",\n           \"sha256\": \"be501a581cc7ecd07827dbfec5b6aa8bf67cc0bd3074a2fc4b7679b46620f7ea\"\n          },\n          {\n           \"bytes\": 3997,\n           \"logical\": \"labs/state-projection-pass01/README.md\",\n           \"payload\": \"0002.blob\",\n           \"sha256\": \"edc9ec42a9f585a4aa6bec1f27bbf90cdd18825dbf9d853635e92def5eb3ca83\"\n          },\n          {\n           \"bytes\": 24827,\n           \"logical\": \"labs/state-projection-pass01/tests/test_state_projection.py\",\n           \"payload\": \"0003.blob\",\n           \"sha256\": \"58851476cf7df52e7a523ced54c610177e6766a38d9911922d3fc5dafcaa22de\"\n          },\n          {\n           \"bytes\": 2687,\n           \"logical\": \"labs/state-projection-pass01/demo.py\",\n           \"payload\": \"0004.blob\",\n           \"sha256\": \"3728d4baaa2b6255f19f5c85009951d35afae53046a68d2f64d8911f817cc0e4\"\n          },\n          {\n           \"bytes\": 5346,\n           \"logical\": \"00.kernel/00.00.10.work/0507.prime-support/06.13.md\",\n           \"payload\": \"0005.blob\",\n           \"sha256\": \"f9f76e3d0ebfb8f996144a861a85ba5f0bc5d69808854d4e0df3ffee22e4cb39\"\n          },\n          {\n           \"bytes\": 8916,\n           \"logical\": \"00.kernel/00.00.10.work/0507.prime-support/evidence/projection05.12/CONTRACT.md\",\n           \"payload\": \"0006.blob\",\n           \"sha256\": \"6ada33d1219e3285e2a3f86b8d2eb47cf676bc3b162fee9e7ad42e2f8f1a0b66\"\n          },\n          {\n           \"bytes\": 13230,\n           \"logical\": \"00.kernel/00.00.10.work/0507.prime-support/evidence/projection05.12/tests.txt\",\n           \"payload\": \"0007.blob\",\n           \"sha256\": \"6a353888a6e404e045e50065a4cbc81994b4fe7f9359196356cf727d5693efb5\"\n          },\n          {\n           \"bytes\": 5086,\n           \"logical\": \"00.kernel/00.00.10.work/0507.prime-support/evidence/projection05.12/verification.json\",\n           \"payload\": \"0008.blob\",\n           \"sha256\": \"41c1999531eaab25823f06df59fb2240f687fa4f22088cf0a0510b555eceada6\"\n          }\n         ],\n         \"receipt_sha256\": \"deec943938e07c29f28ef82cb5000e3af5758a0454330a4c53de606774c0cd44\",\n         \"reservation_sha256\": \"329ce987e49938358bac34af95a28af6834d16f7d73e17090228dfc90738cf39\",\n         \"retrospective\": false,\n         \"return\": {\n          \"bytes\": 4752,\n          \"includes_prime_review\": false,\n          \"sha256\": \"1587491046041bc2113ee6be14e9f5bd83b3bb150540a566dce1ec9fe95f8b82\"\n         },\n         \"source_commit\": null,\n         \"submission_id\": \"claude-0507-0512\"\n        },\n        \"member\": \"0136.state-projection-0512\",\n        \"problems\": [],\n        \"reservation\": {\n         \"destination\": {\n          \"member\": \"0136\",\n          \"name\": \"state-projection-0512\",\n          \"path\": \"0136.state-projection-0512\"\n         },\n         \"expected_outputs\": [\n          \"labs/state-projection-pass01/state_projection.py\",\n          \"labs/state-projection-pass01/README.md\",\n          \"labs/state-projection-pass01/tests/test_state_projection.py\",\n          \"labs/state-projection-pass01/demo.py\",\n          \"00.kernel/00.00.10.work/0507.prime-support/06.13.md\",\n          \"00.kernel/00.00.10.work/0507.prime-support/evidence/projection05.12/CONTRACT.md\",\n          \"00.kernel/00.00.10.work/0507.prime-support/evidence/projection05.12/tests.txt\",\n          \"00.kernel/00.00.10.work/0507.prime-support/evidence/projection05.12/verification.json\"\n         ],\n         \"origin\": {\n          \"batch\": \"05.12\",\n          \"book\": \"00.00.10.work\",\n          \"page\": \"0507.prime-support\"\n         },\n         \"release\": \"Reservation only; Director release must be recorded on 0507.prime-support/05.12.\",\n         \"reservation_sha256\": \"329ce987e49938358bac34af95a28af6834d16f7d73e17090228dfc90738cf39\",\n         \"reserved_at\": \"2026-10-28T00:25:55.675328Z\",\n         \"reviewer\": \"Codex Prime\",\n         \"submission_id\": \"claude-0507-0512\",\n         \"submitter\": \"Claude\",\n         \"supersedes\": null\n        },\n        \"schema\": \"return-capture-inspection/1\",\n        \"status\": \"complete\"\n       },\n       \"exit\": 0,\n       \"role\": \"primary-current-candidate\",\n       \"commit_receipt_sha256\": \"deec943938e07c29f28ef82cb5000e3af5758a0454330a4c53de606774c0cd44\",\n       \"commit_receipt_present\": true,\n       \"receipt_bytes_match\": true,\n       \"attention\": [],\n       \"observation_started_at\": \"2026-10-28T17:09:35.259355Z\",\n       \"observation_finished_at\": \"2026-10-28T17:09:35.568303Z\"\n      }\n     ]\n    },\n    \"review\": {\n     \"parser_object\": null,\n     \"sections\": [\n      {\n       \"line\": 94,\n       \"title\": \"Review — Codex Prime\",\n       \"text_raw\": \"Held for SP-05: a same-origin retrospective capture can be projected as completed. Independent17-test suite passes; added real-capture countercase fails the intended boundary. See evidence/prime-review05.12/review.md. Date: 2026-10-28.\"\n      }\n     ],\n     \"text_raw\": \"Held for SP-05: a same-origin retrospective capture can be projected as completed. Independent17-test suite passes; added real-capture countercase fails the intended boundary. See evidence/prime-review05.12/review.md. Date: 2026-10-28.\",\n     \"legacy_hashes\": [],\n     \"binding\": \"unbound\",\n     \"typed_declaration\": null\n    },\n    \"ambiguities\": [\n     \"legacy-ambiguous-heading\",\n     \"legacy-revision-withheld\",\n     \"duplicate-release\"\n    ],\n    \"attention\": []\n   }\n  },\n  {\n   \"label\": \"SUPPLIED\",\n   \"note\": \"unchanged report of the pinned reader run by rehearse.py at 2026-10-28T17:09:36.727830Z; stdout sha256 ee335674f5f814b305eada987c4c17b8985489e4bf2769a59d471c0b9d1dfda0\",\n   \"observation\": {\n    \"schema\": \"batch-observation/1\",\n    \"tool\": {\n     \"name\": \"batch-observation-pass01\",\n     \"path\": \"labs/batch-observation-pass01/batch_observe.py\",\n     \"sha256\": \"8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4\"\n    },\n    \"authority\": \"none\",\n    \"source\": {\n     \"kind\": \"git-blob\",\n     \"repository\": \"D:\\\\Git\\\\lib-build\",\n     \"path\": \"00.kernel/00.00.10.work/0504.app-entry/05.18.md\",\n     \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\n     \"sha256\": \"b421fa1c3a4378b2ee15522ea5d701e6ff3313260216482c979b5d3bf7eb0990\",\n     \"bytes\": 5620,\n     \"label\": \"git blob at the named commit\",\n     \"time_basis\": \"git-blob\",\n     \"live_observed_at\": null,\n     \"observation_started_at\": null,\n     \"observation_finished_at\": null\n    },\n    \"page\": {\n     \"book\": \"00.00.10.work\",\n     \"page\": \"0504.app-entry\",\n     \"batch\": \"05.18\"\n    },\n    \"document\": {\n     \"header_state_raw\": \"state: draft\",\n     \"lines\": [\n      {\n       \"line\": 5,\n       \"text\": \"state: draft\"\n      }\n     ],\n     \"ambiguous\": false\n    },\n    \"assignment\": {\n     \"executor_raw\": \"Executor: Grok Builder 1. Reviewer: Codex Prime.\",\n     \"executor_lines\": [\n      {\n       \"line\": 11,\n       \"text\": \"Executor: Grok Builder 1. Reviewer: Codex Prime.\"\n      }\n     ],\n     \"release_raw\": \"Release and claim: recorded in the Return pointer. This draft grants no release.\",\n     \"release_lines\": [\n      {\n       \"line\": 12,\n       \"text\": \"Release and claim: recorded in the Return pointer. This draft grants no release.\"\n      }\n     ],\n     \"claim_raw\": null,\n     \"claim_lines\": [],\n     \"ambiguous\": false\n    },\n    \"legacy\": {\n     \"tool\": \"labs/prime-support-pass01/prime_support.py\",\n     \"sha256\": \"700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70\",\n     \"sibling\": \"labs/prime-support-pass01/clerk_adapter.py\",\n     \"sibling_sha256\": \"2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4\",\n     \"kind\": \"page-return\",\n     \"status\": \"unsupported\",\n     \"reason\": \"ambiguous heading line 72\",\n     \"revision_id\": null,\n     \"execution\": null,\n     \"whole\": \"b421fa1c3a4378b2ee15522ea5d701e6ff3313260216482c979b5d3bf7eb0990\",\n     \"review\": null\n    },\n    \"channels\": {\n     \"legacy\": \"parse_source page-return, unmodified\",\n     \"inventory\": \"unfenced return-family headings and Member/Receipt blocks\",\n     \"revision_repaired\": false\n    },\n    \"sections\": [\n     {\n      \"line\": 72,\n      \"level\": 2,\n      \"title\": \"Return pointer\",\n      \"form\": \"return-pointer\",\n      \"fenced\": false,\n      \"text\": \"## Return pointer\"\n     },\n     {\n      \"line\": 75,\n      \"level\": 2,\n      \"title\": \"Review — Codex Prime\",\n      \"form\": \"review-em\",\n      \"fenced\": false,\n      \"text\": \"## Review — Codex Prime\"\n     }\n    ],\n    \"fenced_headings\": [],\n    \"pointers\": [\n     {\n      \"line\": 72,\n      \"form\": \"return-pointer\",\n      \"title\": \"Return pointer\",\n      \"execution_raw\": \"PENDING.\",\n      \"members\": []\n     }\n    ],\n    \"assignment_mentions\": [],\n    \"custody\": {\n     \"basis\": \"live\",\n     \"members_book\": \"D:\\\\Git\\\\lib-build\\\\00.kernel\\\\00.00.10.work\",\n     \"package_at_commit\": \"not-established\",\n     \"primary\": null,\n     \"primary_rule\": \"origin book, page, and batch match this page and retrospective is false; more than one match stays ambiguous\",\n     \"observations\": []\n    },\n    \"review\": {\n     \"parser_object\": null,\n     \"sections\": [\n      {\n       \"line\": 75,\n       \"title\": \"Review — Codex Prime\",\n       \"text_raw\": \"PENDING.\"\n      }\n     ],\n     \"text_raw\": \"PENDING.\",\n     \"legacy_hashes\": [],\n     \"binding\": \"unbound\",\n     \"typed_declaration\": null\n    },\n    \"ambiguities\": [\n     \"legacy-ambiguous-heading\",\n     \"legacy-revision-withheld\"\n    ],\n    \"attention\": []\n   }\n  },\n  {\n   \"label\": \"SUPPLIED\",\n   \"note\": \"unchanged report of the pinned reader run by rehearse.py at 2026-10-28T17:09:38.048673Z; stdout sha256 23cc690b01f2bf55ed18ed8c120388511dba1dc8ae3a641affdb2e62dbb6562f\",\n   \"observation\": {\n    \"schema\": \"batch-observation/1\",\n    \"tool\": {\n     \"name\": \"batch-observation-pass01\",\n     \"path\": \"labs/batch-observation-pass01/batch_observe.py\",\n     \"sha256\": \"8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4\"\n    },\n    \"authority\": \"none\",\n    \"source\": {\n     \"kind\": \"git-blob\",\n     \"repository\": \"D:\\\\Git\\\\lib-build\",\n     \"path\": \"00.kernel/00.00.10.work/0508.return-capture/05.16.md\",\n     \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\n     \"sha256\": \"576416338da27d9154c8c2845422529837f7229da2f714b98fbc5ed3c0500768\",\n     \"bytes\": 4813,\n     \"label\": \"git blob at the named commit\",\n     \"time_basis\": \"git-blob\",\n     \"live_observed_at\": null,\n     \"observation_started_at\": null,\n     \"observation_finished_at\": null\n    },\n    \"page\": {\n     \"book\": \"00.00.10.work\",\n     \"page\": \"0508.return-capture\",\n     \"batch\": \"05.16\"\n    },\n    \"document\": {\n     \"header_state_raw\": \"state: draft\",\n     \"lines\": [\n      {\n       \"line\": 5,\n       \"text\": \"state: draft\"\n      }\n     ],\n     \"ambiguous\": false\n    },\n    \"assignment\": {\n     \"executor_raw\": \"Executor: Grok Builder 2. Reviewer: Codex Prime.\",\n     \"executor_lines\": [\n      {\n       \"line\": 11,\n       \"text\": \"Executor: Grok Builder 2. Reviewer: Codex Prime.\"\n      }\n     ],\n     \"release_raw\": \"Release and claim: recorded in the Return pointer. This draft grants no release.\",\n     \"release_lines\": [\n      {\n       \"line\": 12,\n       \"text\": \"Release and claim: recorded in the Return pointer. This draft grants no release.\"\n      }\n     ],\n     \"claim_raw\": null,\n     \"claim_lines\": [],\n     \"ambiguous\": false\n    },\n    \"legacy\": {\n     \"tool\": \"labs/prime-support-pass01/prime_support.py\",\n     \"sha256\": \"700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70\",\n     \"sibling\": \"labs/prime-support-pass01/clerk_adapter.py\",\n     \"sibling_sha256\": \"2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4\",\n     \"kind\": \"page-return\",\n     \"status\": \"unsupported\",\n     \"reason\": \"ambiguous heading line 66\",\n     \"revision_id\": null,\n     \"execution\": null,\n     \"whole\": \"576416338da27d9154c8c2845422529837f7229da2f714b98fbc5ed3c0500768\",\n     \"review\": null\n    },\n    \"channels\": {\n     \"legacy\": \"parse_source page-return, unmodified\",\n     \"inventory\": \"unfenced return-family headings and Member/Receipt blocks\",\n     \"revision_repaired\": false\n    },\n    \"sections\": [\n     {\n      \"line\": 66,\n      \"level\": 2,\n      \"title\": \"Return pointer\",\n      \"form\": \"return-pointer\",\n      \"fenced\": false,\n      \"text\": \"## Return pointer\"\n     },\n     {\n      \"line\": 69,\n      \"level\": 2,\n      \"title\": \"Review — Codex Prime\",\n      \"form\": \"review-em\",\n      \"fenced\": false,\n      \"text\": \"## Review — Codex Prime\"\n     }\n    ],\n    \"fenced_headings\": [],\n    \"pointers\": [\n     {\n      \"line\": 66,\n      \"form\": \"return-pointer\",\n      \"title\": \"Return pointer\",\n      \"execution_raw\": \"PENDING.\",\n      \"members\": []\n     }\n    ],\n    \"assignment_mentions\": [],\n    \"custody\": {\n     \"basis\": \"live\",\n     \"members_book\": \"D:\\\\Git\\\\lib-build\\\\00.kernel\\\\00.00.10.work\",\n     \"package_at_commit\": \"not-established\",\n     \"primary\": null,\n     \"primary_rule\": \"origin book, page, and batch match this page and retrospective is false; more than one match stays ambiguous\",\n     \"observations\": []\n    },\n    \"review\": {\n     \"parser_object\": null,\n     \"sections\": [\n      {\n       \"line\": 69,\n       \"title\": \"Review — Codex Prime\",\n       \"text_raw\": \"PENDING.\"\n      }\n     ],\n     \"text_raw\": \"PENDING.\",\n     \"legacy_hashes\": [],\n     \"binding\": \"unbound\",\n     \"typed_declaration\": null\n    },\n    \"ambiguities\": [\n     \"legacy-ambiguous-heading\",\n     \"legacy-revision-withheld\"\n    ],\n    \"attention\": []\n   }\n  }\n ],\n \"coordination\": [\n  {\n   \"label\": \"SUPPLIED\",\n   \"batch_id\": \"0504.app-entry/05.17\",\n   \"source_sha256\": \"ca48e6d89e79171ae4335db4a9c6a1f41ed88d40fb05d0b48da23e2f0843ef29\",\n   \"release\": \"recorded\",\n   \"claim\": \"recorded\",\n   \"claim_actor\": \"Grok-Builder-1\",\n   \"candidate\": \"0139.capture-handoff-0517\",\n   \"review\": {\n    \"member\": \"0139.capture-handoff-0517\",\n    \"receipt_sha256\": \"699d30e6b3eb052b0f313a737b15441888dce46a6a1f7ec826cd7d53691c6365\",\n    \"disposition\": \"held\",\n    \"terminal\": null,\n    \"reviewer\": \"Codex-Prime\",\n    \"followup\": \"0504.app-entry/05.18\"\n   },\n   \"publication\": {\n    \"status\": \"at-ref\",\n    \"ref\": \"workshop-snapshot\",\n    \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\"\n   }\n  },\n  {\n   \"label\": \"SUPPLIED\",\n   \"batch_id\": \"0508.return-capture/05.15\",\n   \"source_sha256\": \"966c440875366b74f8be682bf9d24a28491cc5e32bdd69baad94297b038e7049\",\n   \"release\": \"recorded\",\n   \"claim\": \"recorded\",\n   \"claim_actor\": \"Grok-Builder-2\",\n   \"candidate\": \"0142.batch-reader-header-0515\",\n   \"review\": {\n    \"member\": \"0142.batch-reader-header-0515\",\n    \"receipt_sha256\": \"45a455a64925addc37b9b2e1b27d9846831ac92b32058d3f78f9d3e47def7285\",\n    \"disposition\": \"accepted\",\n    \"terminal\": null,\n    \"reviewer\": \"Codex-Prime\",\n    \"followup\": null\n   },\n   \"publication\": {\n    \"status\": \"at-ref\",\n    \"ref\": \"workshop-snapshot\",\n    \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\"\n   }\n  },\n  {\n   \"label\": \"SUPPLIED\",\n   \"batch_id\": \"0507.prime-support/05.12\",\n   \"source_sha256\": \"dce336e1f4c3cd8d4679ddff45f517293b2e6fd991d8bb39560c0412f1f5f3f5\",\n   \"release\": \"recorded\",\n   \"claim\": \"recorded\",\n   \"claim_actor\": \"Claude\",\n   \"candidate\": \"0136.state-projection-0512\",\n   \"review\": {\n    \"member\": \"0136.state-projection-0512\",\n    \"receipt_sha256\": \"deec943938e07c29f28ef82cb5000e3af5758a0454330a4c53de606774c0cd44\",\n    \"disposition\": \"held\",\n    \"terminal\": null,\n    \"reviewer\": \"Codex-Prime\",\n    \"followup\": \"0507.prime-support/05.13\"\n   },\n   \"publication\": {\n    \"status\": \"at-ref\",\n    \"ref\": \"workshop-snapshot\",\n    \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\"\n   }\n  },\n  {\n   \"label\": \"SUPPLIED\",\n   \"batch_id\": \"0504.app-entry/05.18\",\n   \"source_sha256\": \"b421fa1c3a4378b2ee15522ea5d701e6ff3313260216482c979b5d3bf7eb0990\",\n   \"release\": \"unknown\",\n   \"claim\": \"unknown\",\n   \"claim_actor\": null,\n   \"candidate\": null,\n   \"review\": null,\n   \"publication\": {\n    \"status\": \"at-ref\",\n    \"ref\": \"workshop-snapshot\",\n    \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\"\n   }\n  },\n  {\n   \"label\": \"SUPPLIED\",\n   \"batch_id\": \"0508.return-capture/05.16\",\n   \"source_sha256\": \"576416338da27d9154c8c2845422529837f7229da2f714b98fbc5ed3c0500768\",\n   \"release\": \"unknown\",\n   \"claim\": \"unknown\",\n   \"claim_actor\": null,\n   \"candidate\": null,\n   \"review\": null,\n   \"publication\": {\n    \"status\": \"at-ref\",\n    \"ref\": \"workshop-snapshot\",\n    \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\"\n   }\n  }\n ]\n}"
+ },
+ "brief_runs": {
+  "json": {
+   "argv": [
+    "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+    "-B",
+    "D:\\Git\\lib-build\\labs\\prime-brief-pass01\\prime_brief.py",
+    "brief",
+    "--input",
+    "<temp>/adapter-input.json",
+    "--inspect",
+    "--json"
+   ],
+   "exit": 1,
+   "started_at": "2026-10-28T17:09:38.538818Z",
+   "finished_at": "2026-10-28T17:09:41.384795Z",
+   "stdout_sha256": "6c78754c2f34ee2944e698777b0bb5e08c674011f0114508af83fe2cd15957db",
+   "stdout_text": "{\r\n \"schema\": \"prime-brief/1\",\r\n \"tool\": {\r\n  \"path\": \"D:\\\\Git\\\\lib-build\\\\labs\\\\prime-brief-pass01\\\\prime_brief.py\",\r\n  \"sha256\": \"302ed832d2fa955a591420f13d3b22ce91e4a7669c69a778d443fc82627580d7\"\r\n },\r\n \"projection_tool\": {\r\n  \"path\": \"D:\\\\Git\\\\lib-build\\\\labs\\\\state-projection-pass01\\\\state_projection.py\",\r\n  \"sha256\": \"b349da5cef5178296a069c354002a600ba4e168c2710aa5d87789724d4951ecb\"\r\n },\r\n \"input_sha256\": \"1c848c5ef50b9db4d001a272a3ab508c27de4859d79915f7d55d842265097aeb\",\r\n \"scope\": {\r\n  \"book\": \"00.00.10.work\",\r\n  \"lanes\": [\r\n   \"0504.app-entry\",\r\n   \"0507.prime-support\",\r\n   \"0508.return-capture\"\r\n  ]\r\n },\r\n \"inspected\": true,\r\n \"inputs\": [\r\n  {\r\n   \"label\": \"SUPPLIED\",\r\n   \"note\": \"unchanged report of the pinned reader run by rehearse.py at 2026-10-28T17:09:30.131777Z; stdout sha256 0f85a13a78d20f4cbaa91fb3db6c8d73498b1187afeb79ba9774e79cfe319354\",\r\n   \"observation_sha256\": \"17d1a6430b8095cde6202c48e47baa0c16061c698a49e9c71df5e366b9975565\",\r\n   \"source_ref\": {\r\n    \"kind\": \"git-blob\",\r\n    \"repository\": \"D:\\\\Git\\\\lib-build\",\r\n    \"path\": \"00.kernel/00.00.10.work/0504.app-entry/05.17.md\",\r\n    \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\r\n    \"sha256\": \"ca48e6d89e79171ae4335db4a9c6a1f41ed88d40fb05d0b48da23e2f0843ef29\",\r\n    \"bytes\": 6885,\r\n    \"label\": \"git blob at the named commit\"\r\n   }\r\n  },\r\n  {\r\n   \"label\": \"SUPPLIED\",\r\n   \"note\": \"unchanged report of the pinned reader run by rehearse.py at 2026-10-28T17:09:32.092832Z; stdout sha256 97e72ae9ef3a07a4f0108f84bd7ff6530a01474463b64515bd55406724a0d791\",\r\n   \"observation_sha256\": \"93f47fc6f5b89fa7b21ad038f8170a6fad22b027224249c2679faa1dd3a4c927\",\r\n   \"source_ref\": {\r\n    \"kind\": \"git-blob\",\r\n    \"repository\": \"D:\\\\Git\\\\lib-build\",\r\n    \"path\": \"00.kernel/00.00.10.work/0508.return-capture/05.15.md\",\r\n    \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\r\n    \"sha256\": \"966c440875366b74f8be682bf9d24a28491cc5e32bdd69baad94297b038e7049\",\r\n    \"bytes\": 6533,\r\n    \"label\": \"git blob at the named commit\"\r\n   }\r\n  },\r\n  {\r\n   \"label\": \"SUPPLIED\",\r\n   \"note\": \"unchanged report of the pinned reader run by rehearse.py at 2026-10-28T17:09:34.780753Z; stdout sha256 214986bf74e6d96a661bff7fc33ace8bfb35af00073b9bcff2f76755afd2cd1e\",\r\n   \"observation_sha256\": \"d4f823dd08e1b91088373e4c6d33abb52a39e3521628b03c837306df471d9faa\",\r\n   \"source_ref\": {\r\n    \"kind\": \"git-blob\",\r\n    \"repository\": \"D:\\\\Git\\\\lib-build\",\r\n    \"path\": \"00.kernel/00.00.10.work/0507.prime-support/05.12.md\",\r\n    \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\r\n    \"sha256\": \"dce336e1f4c3cd8d4679ddff45f517293b2e6fd991d8bb39560c0412f1f5f3f5\",\r\n    \"bytes\": 8403,\r\n    \"label\": \"git blob at the named commit\"\r\n   }\r\n  },\r\n  {\r\n   \"label\": \"SUPPLIED\",\r\n   \"note\": \"unchanged report of the pinned reader run by rehearse.py at 2026-10-28T17:09:36.727830Z; stdout sha256 ee335674f5f814b305eada987c4c17b8985489e4bf2769a59d471c0b9d1dfda0\",\r\n   \"observation_sha256\": \"e9b8e8fc1a1d14435b59ac58eafba8981ddac88ffe43acdea54638042d7cc47a\",\r\n   \"source_ref\": {\r\n    \"kind\": \"git-blob\",\r\n    \"repository\": \"D:\\\\Git\\\\lib-build\",\r\n    \"path\": \"00.kernel/00.00.10.work/0504.app-entry/05.18.md\",\r\n    \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\r\n    \"sha256\": \"b421fa1c3a4378b2ee15522ea5d701e6ff3313260216482c979b5d3bf7eb0990\",\r\n    \"bytes\": 5620,\r\n    \"label\": \"git blob at the named commit\"\r\n   }\r\n  },\r\n  {\r\n   \"label\": \"SUPPLIED\",\r\n   \"note\": \"unchanged report of the pinned reader run by rehearse.py at 2026-10-28T17:09:38.048673Z; stdout sha256 23cc690b01f2bf55ed18ed8c120388511dba1dc8ae3a641affdb2e62dbb6562f\",\r\n   \"observation_sha256\": \"905badcf553c579ec60f58e684bf169b571715c06af3387aed1cb9d04df909ea\",\r\n   \"source_ref\": {\r\n    \"kind\": \"git-blob\",\r\n    \"repository\": \"D:\\\\Git\\\\lib-build\",\r\n    \"path\": \"00.kernel/00.00.10.work/0508.return-capture/05.16.md\",\r\n    \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\r\n    \"sha256\": \"576416338da27d9154c8c2845422529837f7229da2f714b98fbc5ed3c0500768\",\r\n    \"bytes\": 4813,\r\n    \"label\": \"git blob at the named commit\"\r\n   }\r\n  }\r\n ],\r\n \"mapping\": [\r\n  {\r\n   \"label\": \"SUPPLIED\",\r\n   \"note\": \"unchanged report of the pinned reader run by rehearse.py at 2026-10-28T17:09:30.131777Z; stdout sha256 0f85a13a78d20f4cbaa91fb3db6c8d73498b1187afeb79ba9774e79cfe319354\",\r\n   \"observation_sha256\": \"17d1a6430b8095cde6202c48e47baa0c16061c698a49e9c71df5e366b9975565\",\r\n   \"source_ref\": {\r\n    \"kind\": \"git-blob\",\r\n    \"repository\": \"D:\\\\Git\\\\lib-build\",\r\n    \"path\": \"00.kernel/00.00.10.work/0504.app-entry/05.17.md\",\r\n    \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\r\n    \"sha256\": \"ca48e6d89e79171ae4335db4a9c6a1f41ed88d40fb05d0b48da23e2f0843ef29\",\r\n    \"bytes\": 6885,\r\n    \"label\": \"git blob at the named commit\"\r\n   },\r\n   \"evidence_kept\": {\r\n    \"header_state_raw\": \"state: returned\",\r\n    \"release_raw\": \"Release: released by the Director, 2026-10-28.\",\r\n    \"claim_raw\": \"Claim: Grok 4.7 (xAI), session 01a179d2-387a-7661-8702-6e53f95e96b5, 2026-10-28, HEAD 4e7ebfc143330f98c9b8b55681b58f2602a85255.\",\r\n    \"executor_raw\": \"Executor: Grok Builder 1. Reviewer: Codex Prime.\",\r\n    \"legacy\": {\r\n     \"status\": \"unsupported\",\r\n     \"reason\": \"ambiguous heading line 83\",\r\n     \"revision_id\": null\r\n    },\r\n    \"reader_ambiguities\": [\r\n     \"legacy-ambiguous-heading\",\r\n     \"legacy-revision-withheld\"\r\n    ],\r\n    \"reader_attention\": [],\r\n    \"typed_declaration_ignored\": false\r\n   },\r\n   \"decisions\": [\r\n    \"provenance supplied-commit from source.kind git-blob (supplied, not verified here)\",\r\n    \"return.pointer present; members from pointer sections only (1)\",\r\n    \"release/claim from SUPPLIED coordination only\",\r\n    \"reader custody.primary not used as candidate\",\r\n    \"review bound from SUPPLIED coordination (a declared fixture decision, not authenticated)\"\r\n   ],\r\n   \"unprojected_reason\": null,\r\n   \"batch_id\": \"0504.app-entry/05.17\"\r\n  },\r\n  {\r\n   \"label\": \"SUPPLIED\",\r\n   \"note\": \"unchanged report of the pinned reader run by rehearse.py at 2026-10-28T17:09:32.092832Z; stdout sha256 97e72ae9ef3a07a4f0108f84bd7ff6530a01474463b64515bd55406724a0d791\",\r\n   \"observation_sha256\": \"93f47fc6f5b89fa7b21ad038f8170a6fad22b027224249c2679faa1dd3a4c927\",\r\n   \"source_ref\": {\r\n    \"kind\": \"git-blob\",\r\n    \"repository\": \"D:\\\\Git\\\\lib-build\",\r\n    \"path\": \"00.kernel/00.00.10.work/0508.return-capture/05.15.md\",\r\n    \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\r\n    \"sha256\": \"966c440875366b74f8be682bf9d24a28491cc5e32bdd69baad94297b038e7049\",\r\n    \"bytes\": 6533,\r\n    \"label\": \"git blob at the named commit\"\r\n   },\r\n   \"evidence_kept\": {\r\n    \"header_state_raw\": \"state: draft\",\r\n    \"release_raw\": null,\r\n    \"claim_raw\": \"Claim: Grok Builder 2, this session, 2026-10-28. pack05.15: 13 of 13 snapshots match their pins, and live equals all 13. Parser 700d60d2…, inspector 947915fe…, and helper 8f3da5c6… verified. Scope: this page only.\",\r\n    \"executor_raw\": \"Executor: Grok Builder 2. Reviewer: Codex Prime.\",\r\n    \"legacy\": {\r\n     \"status\": \"unsupported\",\r\n     \"reason\": \"ambiguous heading line 65\",\r\n     \"revision_id\": null\r\n    },\r\n    \"reader_ambiguities\": [\r\n     \"legacy-ambiguous-heading\",\r\n     \"legacy-revision-withheld\",\r\n     \"quoted-accepted-unbound\",\r\n     \"duplicate-release\"\r\n    ],\r\n    \"reader_attention\": [],\r\n    \"typed_declaration_ignored\": false\r\n   },\r\n   \"decisions\": [\r\n    \"provenance supplied-commit from source.kind git-blob (supplied, not verified here)\",\r\n    \"return.pointer present; members from pointer sections only (1)\",\r\n    \"release/claim from SUPPLIED coordination only\",\r\n    \"reader custody.primary not used as candidate\",\r\n    \"review bound from SUPPLIED coordination (a declared fixture decision, not authenticated)\"\r\n   ],\r\n   \"unprojected_reason\": null,\r\n   \"batch_id\": \"0508.return-capture/05.15\"\r\n  },\r\n  {\r\n   \"label\": \"SUPPLIED\",\r\n   \"note\": \"unchanged report of the pinned reader run by rehearse.py at 2026-10-28T17:09:34.780753Z; stdout sha256 214986bf74e6d96a661bff7fc33ace8bfb35af00073b9bcff2f76755afd2cd1e\",\r\n   \"observation_sha256\": \"d4f823dd08e1b91088373e4c6d33abb52a39e3521628b03c837306df471d9faa\",\r\n   \"source_ref\": {\r\n    \"kind\": \"git-blob\",\r\n    \"repository\": \"D:\\\\Git\\\\lib-build\",\r\n    \"path\": \"00.kernel/00.00.10.work/0507.prime-support/05.12.md\",\r\n    \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\r\n    \"sha256\": \"dce336e1f4c3cd8d4679ddff45f517293b2e6fd991d8bb39560c0412f1f5f3f5\",\r\n    \"bytes\": 8403,\r\n    \"label\": \"git blob at the named commit\"\r\n   },\r\n   \"evidence_kept\": {\r\n    \"header_state_raw\": \"state: draft\",\r\n    \"release_raw\": null,\r\n    \"claim_raw\": \"Claim: claude-opus-5-5 (Anthropic), Colab, executor, claimed 2026-10-27T20:05-05:00 on workshop at e97c70fff2984d59c26180e2ab146258dd9ac491. pack05.12: 10 of 10 snapshots match their pins, and live equals all 10. return_inspect 947915fe… and return_capture 8f3da5c6… verified. Scope: this batch only.\",\r\n    \"executor_raw\": \"Executor: Claude. Reviewer: Codex Prime.\",\r\n    \"legacy\": {\r\n     \"status\": \"unsupported\",\r\n     \"reason\": \"ambiguous heading line 89\",\r\n     \"revision_id\": null\r\n    },\r\n    \"reader_ambiguities\": [\r\n     \"legacy-ambiguous-heading\",\r\n     \"legacy-revision-withheld\",\r\n     \"duplicate-release\"\r\n    ],\r\n    \"reader_attention\": [],\r\n    \"typed_declaration_ignored\": false\r\n   },\r\n   \"decisions\": [\r\n    \"provenance supplied-commit from source.kind git-blob (supplied, not verified here)\",\r\n    \"return.pointer present; members from pointer sections only (1)\",\r\n    \"release/claim from SUPPLIED coordination only\",\r\n    \"reader custody.primary not used as candidate\",\r\n    \"review bound from SUPPLIED coordination (a declared fixture decision, not authenticated)\"\r\n   ],\r\n   \"unprojected_reason\": null,\r\n   \"batch_id\": \"0507.prime-support/05.12\"\r\n  },\r\n  {\r\n   \"label\": \"SUPPLIED\",\r\n   \"note\": \"unchanged report of the pinned reader run by rehearse.py at 2026-10-28T17:09:36.727830Z; stdout sha256 ee335674f5f814b305eada987c4c17b8985489e4bf2769a59d471c0b9d1dfda0\",\r\n   \"observation_sha256\": \"e9b8e8fc1a1d14435b59ac58eafba8981ddac88ffe43acdea54638042d7cc47a\",\r\n   \"source_ref\": {\r\n    \"kind\": \"git-blob\",\r\n    \"repository\": \"D:\\\\Git\\\\lib-build\",\r\n    \"path\": \"00.kernel/00.00.10.work/0504.app-entry/05.18.md\",\r\n    \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\r\n    \"sha256\": \"b421fa1c3a4378b2ee15522ea5d701e6ff3313260216482c979b5d3bf7eb0990\",\r\n    \"bytes\": 5620,\r\n    \"label\": \"git blob at the named commit\"\r\n   },\r\n   \"evidence_kept\": {\r\n    \"header_state_raw\": \"state: draft\",\r\n    \"release_raw\": \"Release and claim: recorded in the Return pointer. This draft grants no release.\",\r\n    \"claim_raw\": null,\r\n    \"executor_raw\": \"Executor: Grok Builder 1. Reviewer: Codex Prime.\",\r\n    \"legacy\": {\r\n     \"status\": \"unsupported\",\r\n     \"reason\": \"ambiguous heading line 72\",\r\n     \"revision_id\": null\r\n    },\r\n    \"reader_ambiguities\": [\r\n     \"legacy-ambiguous-heading\",\r\n     \"legacy-revision-withheld\"\r\n    ],\r\n    \"reader_attention\": [],\r\n    \"typed_declaration_ignored\": false\r\n   },\r\n   \"decisions\": [\r\n    \"provenance supplied-commit from source.kind git-blob (supplied, not verified here)\"\r\n   ],\r\n   \"unprojected_reason\": \"schema gap: state-observations/1 cannot express an unknown release or claim\",\r\n   \"batch_id\": \"0504.app-entry/05.18\"\r\n  },\r\n  {\r\n   \"label\": \"SUPPLIED\",\r\n   \"note\": \"unchanged report of the pinned reader run by rehearse.py at 2026-10-28T17:09:38.048673Z; stdout sha256 23cc690b01f2bf55ed18ed8c120388511dba1dc8ae3a641affdb2e62dbb6562f\",\r\n   \"observation_sha256\": \"905badcf553c579ec60f58e684bf169b571715c06af3387aed1cb9d04df909ea\",\r\n   \"source_ref\": {\r\n    \"kind\": \"git-blob\",\r\n    \"repository\": \"D:\\\\Git\\\\lib-build\",\r\n    \"path\": \"00.kernel/00.00.10.work/0508.return-capture/05.16.md\",\r\n    \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\r\n    \"sha256\": \"576416338da27d9154c8c2845422529837f7229da2f714b98fbc5ed3c0500768\",\r\n    \"bytes\": 4813,\r\n    \"label\": \"git blob at the named commit\"\r\n   },\r\n   \"evidence_kept\": {\r\n    \"header_state_raw\": \"state: draft\",\r\n    \"release_raw\": \"Release and claim: recorded in the Return pointer. This draft grants no release.\",\r\n    \"claim_raw\": null,\r\n    \"executor_raw\": \"Executor: Grok Builder 2. Reviewer: Codex Prime.\",\r\n    \"legacy\": {\r\n     \"status\": \"unsupported\",\r\n     \"reason\": \"ambiguous heading line 66\",\r\n     \"revision_id\": null\r\n    },\r\n    \"reader_ambiguities\": [\r\n     \"legacy-ambiguous-heading\",\r\n     \"legacy-revision-withheld\"\r\n    ],\r\n    \"reader_attention\": [],\r\n    \"typed_declaration_ignored\": false\r\n   },\r\n   \"decisions\": [\r\n    \"provenance supplied-commit from source.kind git-blob (supplied, not verified here)\"\r\n   ],\r\n   \"unprojected_reason\": \"schema gap: state-observations/1 cannot express an unknown release or claim\",\r\n   \"batch_id\": \"0508.return-capture/05.16\"\r\n  }\r\n ],\r\n \"reader_custody_snapshots\": [\r\n  {\r\n   \"batch_id\": \"0504.app-entry/05.17\",\r\n   \"basis\": \"live\",\r\n   \"reader_primary\": \"0139.capture-handoff-0517\",\r\n   \"roles\": [\r\n    {\r\n     \"member\": \"0139.capture-handoff-0517\",\r\n     \"role\": \"primary-current-candidate\"\r\n    }\r\n   ],\r\n   \"note\": \"earlier reader observation; not used for custody here\"\r\n  },\r\n  {\r\n   \"batch_id\": \"0508.return-capture/05.15\",\r\n   \"basis\": \"live\",\r\n   \"reader_primary\": \"0142.batch-reader-header-0515\",\r\n   \"roles\": [\r\n    {\r\n     \"member\": \"0142.batch-reader-header-0515\",\r\n     \"role\": \"primary-current-candidate\"\r\n    }\r\n   ],\r\n   \"note\": \"earlier reader observation; not used for custody here\"\r\n  },\r\n  {\r\n   \"batch_id\": \"0507.prime-support/05.12\",\r\n   \"basis\": \"live\",\r\n   \"reader_primary\": \"0136.state-projection-0512\",\r\n   \"roles\": [\r\n    {\r\n     \"member\": \"0136.state-projection-0512\",\r\n     \"role\": \"primary-current-candidate\"\r\n    }\r\n   ],\r\n   \"note\": \"earlier reader observation; not used for custody here\"\r\n  },\r\n  {\r\n   \"batch_id\": \"0504.app-entry/05.18\",\r\n   \"basis\": \"live\",\r\n   \"reader_primary\": null,\r\n   \"roles\": [],\r\n   \"note\": \"earlier reader observation; not used for custody here\"\r\n  },\r\n  {\r\n   \"batch_id\": \"0508.return-capture/05.16\",\r\n   \"basis\": \"live\",\r\n   \"reader_primary\": null,\r\n   \"roles\": [],\r\n   \"note\": \"earlier reader observation; not used for custody here\"\r\n  }\r\n ],\r\n \"projection\": {\r\n  \"schema\": \"state-projection/1\",\r\n  \"tool\": {\r\n   \"path\": \"D:\\\\Git\\\\lib-build\\\\labs\\\\state-projection-pass01\\\\state_projection.py\",\r\n   \"sha256\": \"b349da5cef5178296a069c354002a600ba4e168c2710aa5d87789724d4951ecb\"\r\n  },\r\n  \"input_sha256\": \"1c848c5ef50b9db4d001a272a3ab508c27de4859d79915f7d55d842265097aeb\",\r\n  \"scope\": {\r\n   \"book\": \"00.00.10.work\",\r\n   \"lanes\": [\r\n    \"0504.app-entry\",\r\n    \"0507.prime-support\",\r\n    \"0508.return-capture\"\r\n   ]\r\n  },\r\n  \"projected_at\": \"2026-10-28T17:09:41.352827Z\",\r\n  \"inspected\": true,\r\n  \"batches\": [\r\n   {\r\n    \"id\": \"0504.app-entry/05.17\",\r\n    \"lane\": \"0504.app-entry\",\r\n    \"batch\": \"05.17\",\r\n    \"provenance\": {\r\n     \"kind\": \"supplied-commit\",\r\n     \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\r\n     \"page_sha256\": \"ca48e6d89e79171ae4335db4a9c6a1f41ed88d40fb05d0b48da23e2f0843ef29\"\r\n    },\r\n    \"facets\": {\r\n     \"document\": {\r\n      \"header_state\": \"state: returned\"\r\n     },\r\n     \"release\": {\r\n      \"status\": \"recorded\",\r\n      \"text\": \"SUPPLIED coordination\"\r\n     },\r\n     \"claim\": {\r\n      \"status\": \"recorded\",\r\n      \"actor\": \"Grok-Builder-1\"\r\n     },\r\n     \"return\": {\r\n      \"pointer\": \"present\",\r\n      \"members_named\": [\r\n       \"0139.capture-handoff-0517\"\r\n      ],\r\n      \"candidate_declared\": \"0139.capture-handoff-0517\",\r\n      \"custody\": \"not-verifiable-here\",\r\n      \"primary\": null,\r\n      \"primary_receipt_sha256\": null,\r\n      \"secondary\": [],\r\n      \"ambiguous\": [],\r\n      \"problems\": []\r\n     },\r\n     \"review\": {\r\n      \"status\": \"bound\",\r\n      \"text\": \"Held for CH-03/CH-04: post-capture failure reporting omits capture writes and retains stale state; a failure-log OSError escapes. Independent suite/demo pass; fault evidence is in evidence/prime-review05.17/. Date: 2026-10-28.\",\r\n      \"binding_check\": \"current\",\r\n      \"disposition\": \"held\",\r\n      \"terminal\": null,\r\n      \"reviewer\": \"Codex-Prime\",\r\n      \"followup\": \"0504.app-entry/05.18\"\r\n     },\r\n     \"publication\": {\r\n      \"status\": \"at-ref\",\r\n      \"ref\": \"workshop-snapshot\",\r\n      \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\"\r\n     }\r\n    },\r\n    \"live_custody\": {\r\n     \"pointer\": \"present\",\r\n     \"members_named\": [\r\n      \"0139.capture-handoff-0517\"\r\n     ],\r\n     \"candidate_declared\": \"0139.capture-handoff-0517\",\r\n     \"custody\": \"primary\",\r\n     \"primary\": \"0139.capture-handoff-0517\",\r\n     \"primary_receipt_sha256\": \"699d30e6b3eb052b0f313a737b15441888dce46a6a1f7ec826cd7d53691c6365\",\r\n     \"secondary\": [],\r\n     \"ambiguous\": [],\r\n     \"problems\": []\r\n    },\r\n    \"inspections\": [\r\n     {\r\n      \"member\": \"0139.capture-handoff-0517\",\r\n      \"observed_at\": \"2026-10-28T17:09:39.699165Z\",\r\n      \"basis\": \"live\",\r\n      \"exit\": 0,\r\n      \"stdout_sha256\": \"ce50e3c9fdca98aab0b66ae4f354c00d121eca4471592e3f1c450c6c7a75d4f1\",\r\n      \"status\": \"complete\",\r\n      \"origin\": {\r\n       \"batch\": \"05.17\",\r\n       \"book\": \"00.00.10.work\",\r\n       \"page\": \"0504.app-entry\"\r\n      },\r\n      \"receipt_sha256\": \"699d30e6b3eb052b0f313a737b15441888dce46a6a1f7ec826cd7d53691c6365\",\r\n      \"retrospective\": false,\r\n      \"observation\": \"ok\"\r\n     }\r\n    ],\r\n    \"lifecycle\": \"open-held\",\r\n    \"attention\": [\r\n     \"review held; the item stays open until an explicit resolution\",\r\n     \"published bytes at a ref do not complete work\"\r\n    ],\r\n    \"followup\": \"0504.app-entry/05.18\"\r\n   },\r\n   {\r\n    \"id\": \"0508.return-capture/05.15\",\r\n    \"lane\": \"0508.return-capture\",\r\n    \"batch\": \"05.15\",\r\n    \"provenance\": {\r\n     \"kind\": \"supplied-commit\",\r\n     \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\r\n     \"page_sha256\": \"966c440875366b74f8be682bf9d24a28491cc5e32bdd69baad94297b038e7049\"\r\n    },\r\n    \"facets\": {\r\n     \"document\": {\r\n      \"header_state\": \"state: draft\"\r\n     },\r\n     \"release\": {\r\n      \"status\": \"recorded\",\r\n      \"text\": \"SUPPLIED coordination\"\r\n     },\r\n     \"claim\": {\r\n      \"status\": \"recorded\",\r\n      \"actor\": \"Grok-Builder-2\"\r\n     },\r\n     \"return\": {\r\n      \"pointer\": \"present\",\r\n      \"members_named\": [\r\n       \"0142.batch-reader-header-0515\"\r\n      ],\r\n      \"candidate_declared\": \"0142.batch-reader-header-0515\",\r\n      \"custody\": \"not-verifiable-here\",\r\n      \"primary\": null,\r\n      \"primary_receipt_sha256\": null,\r\n      \"secondary\": [],\r\n      \"ambiguous\": [],\r\n      \"problems\": []\r\n     },\r\n     \"review\": {\r\n      \"status\": \"bound\",\r\n      \"text\": \"Accepted as read-only batch-observation lab; BO-01–BO-05 corrected. Independent19-test suite and actual-header probe pass; custody0142 freshly verifies. No authority or lifecycle completion inferred. See evidence/prime-review05.15/review.md. Date: 2026-10-28.\",\r\n      \"binding_check\": \"current\",\r\n      \"disposition\": \"accepted\",\r\n      \"terminal\": null,\r\n      \"reviewer\": \"Codex-Prime\",\r\n      \"followup\": null\r\n     },\r\n     \"publication\": {\r\n      \"status\": \"at-ref\",\r\n      \"ref\": \"workshop-snapshot\",\r\n      \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\"\r\n     }\r\n    },\r\n    \"live_custody\": {\r\n     \"pointer\": \"present\",\r\n     \"members_named\": [\r\n      \"0142.batch-reader-header-0515\"\r\n     ],\r\n     \"candidate_declared\": \"0142.batch-reader-header-0515\",\r\n     \"custody\": \"primary\",\r\n     \"primary\": \"0142.batch-reader-header-0515\",\r\n     \"primary_receipt_sha256\": \"45a455a64925addc37b9b2e1b27d9846831ac92b32058d3f78f9d3e47def7285\",\r\n     \"secondary\": [],\r\n     \"ambiguous\": [],\r\n     \"problems\": []\r\n    },\r\n    \"inspections\": [\r\n     {\r\n      \"member\": \"0142.batch-reader-header-0515\",\r\n      \"observed_at\": \"2026-10-28T17:09:39.951719Z\",\r\n      \"basis\": \"live\",\r\n      \"exit\": 0,\r\n      \"stdout_sha256\": \"96e2328f8450b5b9904c4f594ed9b80dce0b0710c79fffb293c1d54cc1d4876f\",\r\n      \"status\": \"complete\",\r\n      \"origin\": {\r\n       \"batch\": \"05.15\",\r\n       \"book\": \"00.00.10.work\",\r\n       \"page\": \"0508.return-capture\"\r\n      },\r\n      \"receipt_sha256\": \"45a455a64925addc37b9b2e1b27d9846831ac92b32058d3f78f9d3e47def7285\",\r\n      \"retrospective\": false,\r\n      \"observation\": \"ok\"\r\n     }\r\n    ],\r\n    \"lifecycle\": \"open-accepted-not-terminal\",\r\n    \"attention\": [\r\n     \"accepted without an explicit terminal declaration\",\r\n     \"published bytes at a ref do not complete work\"\r\n    ],\r\n    \"followup\": null\r\n   },\r\n   {\r\n    \"id\": \"0507.prime-support/05.12\",\r\n    \"lane\": \"0507.prime-support\",\r\n    \"batch\": \"05.12\",\r\n    \"provenance\": {\r\n     \"kind\": \"supplied-commit\",\r\n     \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\r\n     \"page_sha256\": \"dce336e1f4c3cd8d4679ddff45f517293b2e6fd991d8bb39560c0412f1f5f3f5\"\r\n    },\r\n    \"facets\": {\r\n     \"document\": {\r\n      \"header_state\": \"state: draft\"\r\n     },\r\n     \"release\": {\r\n      \"status\": \"recorded\",\r\n      \"text\": \"SUPPLIED coordination\"\r\n     },\r\n     \"claim\": {\r\n      \"status\": \"recorded\",\r\n      \"actor\": \"Claude\"\r\n     },\r\n     \"return\": {\r\n      \"pointer\": \"present\",\r\n      \"members_named\": [\r\n       \"0136.state-projection-0512\"\r\n      ],\r\n      \"candidate_declared\": \"0136.state-projection-0512\",\r\n      \"custody\": \"not-verifiable-here\",\r\n      \"primary\": null,\r\n      \"primary_receipt_sha256\": null,\r\n      \"secondary\": [],\r\n      \"ambiguous\": [],\r\n      \"problems\": []\r\n     },\r\n     \"review\": {\r\n      \"status\": \"bound\",\r\n      \"text\": \"Held for SP-05: a same-origin retrospective capture can be projected as completed. Independent17-test suite passes; added real-capture countercase fails the intended boundary. See evidence/prime-review05.12/review.md. Date: 2026-10-28.\",\r\n      \"binding_check\": \"current\",\r\n      \"disposition\": \"held\",\r\n      \"terminal\": null,\r\n      \"reviewer\": \"Codex-Prime\",\r\n      \"followup\": \"0507.prime-support/05.13\"\r\n     },\r\n     \"publication\": {\r\n      \"status\": \"at-ref\",\r\n      \"ref\": \"workshop-snapshot\",\r\n      \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\"\r\n     }\r\n    },\r\n    \"live_custody\": {\r\n     \"pointer\": \"present\",\r\n     \"members_named\": [\r\n      \"0136.state-projection-0512\"\r\n     ],\r\n     \"candidate_declared\": \"0136.state-projection-0512\",\r\n     \"custody\": \"primary\",\r\n     \"primary\": \"0136.state-projection-0512\",\r\n     \"primary_receipt_sha256\": \"deec943938e07c29f28ef82cb5000e3af5758a0454330a4c53de606774c0cd44\",\r\n     \"secondary\": [],\r\n     \"ambiguous\": [],\r\n     \"problems\": []\r\n    },\r\n    \"inspections\": [\r\n     {\r\n      \"member\": \"0136.state-projection-0512\",\r\n      \"observed_at\": \"2026-10-28T17:09:41.098930Z\",\r\n      \"basis\": \"live\",\r\n      \"exit\": 0,\r\n      \"stdout_sha256\": \"d9a68397ce12f257496d0f4564b034f84489861925eac17be7a9c0a1f0f7f1a0\",\r\n      \"status\": \"complete\",\r\n      \"origin\": {\r\n       \"batch\": \"05.12\",\r\n       \"book\": \"00.00.10.work\",\r\n       \"page\": \"0507.prime-support\"\r\n      },\r\n      \"receipt_sha256\": \"deec943938e07c29f28ef82cb5000e3af5758a0454330a4c53de606774c0cd44\",\r\n      \"retrospective\": false,\r\n      \"observation\": \"ok\"\r\n     }\r\n    ],\r\n    \"lifecycle\": \"open-held\",\r\n    \"attention\": [\r\n     \"review held; the item stays open until an explicit resolution\",\r\n     \"published bytes at a ref do not complete work\"\r\n    ],\r\n    \"followup\": \"0507.prime-support/05.13\"\r\n   }\r\n  ],\r\n  \"lanes\": {\r\n   \"0504.app-entry\": {\r\n    \"open\": [\r\n     \"0504.app-entry/05.17\"\r\n    ],\r\n    \"awaiting_release\": [],\r\n    \"completed\": [],\r\n    \"conflicts\": []\r\n   },\r\n   \"0507.prime-support\": {\r\n    \"open\": [\r\n     \"0507.prime-support/05.12\"\r\n    ],\r\n    \"awaiting_release\": [],\r\n    \"completed\": [],\r\n    \"conflicts\": []\r\n   },\r\n   \"0508.return-capture\": {\r\n    \"open\": [\r\n     \"0508.return-capture/05.15\"\r\n    ],\r\n    \"awaiting_release\": [],\r\n    \"completed\": [],\r\n    \"conflicts\": []\r\n   }\r\n  },\r\n  \"attention_count\": 6,\r\n  \"authority\": \"none; a projection grants no release, acceptance, seat or work\",\r\n  \"note\": \"not a v1 assignment record and not canonical\"\r\n },\r\n \"brief\": {\r\n  \"awaiting_review\": [],\r\n  \"correction_or_held\": [\r\n   {\r\n    \"id\": \"0504.app-entry/05.17\",\r\n    \"source_ref\": {\r\n     \"kind\": \"git-blob\",\r\n     \"repository\": \"D:\\\\Git\\\\lib-build\",\r\n     \"path\": \"00.kernel/00.00.10.work/0504.app-entry/05.17.md\",\r\n     \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\r\n     \"sha256\": \"ca48e6d89e79171ae4335db4a9c6a1f41ed88d40fb05d0b48da23e2f0843ef29\",\r\n     \"bytes\": 6885,\r\n     \"label\": \"git blob at the named commit\"\r\n    },\r\n    \"lifecycle\": \"open-held\",\r\n    \"reason\": \"review held; the item stays open until an explicit resolution; published bytes at a ref do not complete work; reader: legacy-ambiguous-heading, legacy-revision-withheld\",\r\n    \"followup\": \"0504.app-entry/05.18\"\r\n   },\r\n   {\r\n    \"id\": \"0507.prime-support/05.12\",\r\n    \"source_ref\": {\r\n     \"kind\": \"git-blob\",\r\n     \"repository\": \"D:\\\\Git\\\\lib-build\",\r\n     \"path\": \"00.kernel/00.00.10.work/0507.prime-support/05.12.md\",\r\n     \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\r\n     \"sha256\": \"dce336e1f4c3cd8d4679ddff45f517293b2e6fd991d8bb39560c0412f1f5f3f5\",\r\n     \"bytes\": 8403,\r\n     \"label\": \"git blob at the named commit\"\r\n    },\r\n    \"lifecycle\": \"open-held\",\r\n    \"reason\": \"review held; the item stays open until an explicit resolution; published bytes at a ref do not complete work; reader: legacy-ambiguous-heading, legacy-revision-withheld, duplicate-release\",\r\n    \"followup\": \"0507.prime-support/05.13\"\r\n   }\r\n  ],\r\n  \"completed_fixtures\": [],\r\n  \"conflicts\": [],\r\n  \"other_open\": [\r\n   {\r\n    \"id\": \"0508.return-capture/05.15\",\r\n    \"source_ref\": {\r\n     \"kind\": \"git-blob\",\r\n     \"repository\": \"D:\\\\Git\\\\lib-build\",\r\n     \"path\": \"00.kernel/00.00.10.work/0508.return-capture/05.15.md\",\r\n     \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\r\n     \"sha256\": \"966c440875366b74f8be682bf9d24a28491cc5e32bdd69baad94297b038e7049\",\r\n     \"bytes\": 6533,\r\n     \"label\": \"git blob at the named commit\"\r\n    },\r\n    \"lifecycle\": \"open-accepted-not-terminal\",\r\n    \"reason\": \"accepted without an explicit terminal declaration; published bytes at a ref do not complete work; reader: legacy-ambiguous-heading, legacy-revision-withheld, quoted-accepted-unbound, duplicate-release\",\r\n    \"followup\": null\r\n   }\r\n  ],\r\n  \"unreleased\": [],\r\n  \"unprojected\": [\r\n   {\r\n    \"id\": \"0504.app-entry/05.18\",\r\n    \"source_ref\": {\r\n     \"kind\": \"git-blob\",\r\n     \"repository\": \"D:\\\\Git\\\\lib-build\",\r\n     \"path\": \"00.kernel/00.00.10.work/0504.app-entry/05.18.md\",\r\n     \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\r\n     \"sha256\": \"b421fa1c3a4378b2ee15522ea5d701e6ff3313260216482c979b5d3bf7eb0990\",\r\n     \"bytes\": 5620,\r\n     \"label\": \"git blob at the named commit\"\r\n    },\r\n    \"reason\": \"schema gap: state-observations/1 cannot express an unknown release or claim; reader: legacy-ambiguous-heading, legacy-revision-withheld\"\r\n   },\r\n   {\r\n    \"id\": \"0508.return-capture/05.16\",\r\n    \"source_ref\": {\r\n     \"kind\": \"git-blob\",\r\n     \"repository\": \"D:\\\\Git\\\\lib-build\",\r\n     \"path\": \"00.kernel/00.00.10.work/0508.return-capture/05.16.md\",\r\n     \"commit\": \"6d18d182535df8dc60b698c585b04cd276c5df85\",\r\n     \"sha256\": \"576416338da27d9154c8c2845422529837f7229da2f714b98fbc5ed3c0500768\",\r\n     \"bytes\": 4813,\r\n     \"label\": \"git blob at the named commit\"\r\n    },\r\n    \"reason\": \"schema gap: state-observations/1 cannot express an unknown release or claim; reader: legacy-ambiguous-heading, legacy-revision-withheld\"\r\n   }\r\n  ]\r\n },\r\n \"attention\": 8,\r\n \"authority\": \"none; a brief selects, releases, accepts and dispatches nothing\"\r\n}\r\n",
+   "stderr_text": ""
+  },
+  "text": {
+   "argv": [
+    "C:\\Users\\misg\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+    "-B",
+    "D:\\Git\\lib-build\\labs\\prime-brief-pass01\\prime_brief.py",
+    "brief",
+    "--input",
+    "<temp>/adapter-input.json",
+    "--inspect"
+   ],
+   "exit": 1,
+   "started_at": "2026-10-28T17:09:41.384849Z",
+   "finished_at": "2026-10-28T17:09:44.276458Z",
+   "stdout_sha256": "f815b09afa3b2b9dda879f1a697dcde82832bd6c535e6253a06e8bb2bec5e314",
+   "stdout_text": "Prime brief  scope 00.00.10.work  inspected True\r\nEvery state below is derived from SUPPLIED inputs (fixtures or labelled reader reports). Nothing here is a decision.\r\n\r\nAwaiting review (0)\r\n\r\nCorrection required / held (2)\r\n  - 0504.app-entry/05.17  [git-blob 6d18d182535d 00.kernel/00.00.10.work/0504.app-entry/05.17.md]  open-held: review held; the item stays open until an explicit resolution; published bytes at a ref do not complete work; reader: legacy-ambiguous-heading, legacy-revision-withheld\r\n      followup: 0504.app-entry/05.18\r\n  - 0507.prime-support/05.12  [git-blob 6d18d182535d 00.kernel/00.00.10.work/0507.prime-support/05.12.md]  open-held: review held; the item stays open until an explicit resolution; published bytes at a ref do not complete work; reader: legacy-ambiguous-heading, legacy-revision-withheld, duplicate-release\r\n      followup: 0507.prime-support/05.13\r\n\r\nCompleted FIXTURES (derived label; not approval) (0)\r\n\r\nConflicts (0)\r\n\r\nOther open (1)\r\n  - 0508.return-capture/05.15  [git-blob 6d18d182535d 00.kernel/00.00.10.work/0508.return-capture/05.15.md]  open-accepted-not-terminal: accepted without an explicit terminal declaration; published bytes at a ref do not complete work; reader: legacy-ambiguous-heading, legacy-revision-withheld, quoted-accepted-unbound, duplicate-release\r\n\r\nUnreleased (0)\r\n\r\nUnprojected / needs resolution (2)\r\n  - 0504.app-entry/05.18  [git-blob 6d18d182535d 00.kernel/00.00.10.work/0504.app-entry/05.18.md]  schema gap: state-observations/1 cannot express an unknown release or claim; reader: legacy-ambiguous-heading, legacy-revision-withheld\r\n  - 0508.return-capture/05.16  [git-blob 6d18d182535d 00.kernel/00.00.10.work/0508.return-capture/05.16.md]  schema gap: state-observations/1 cannot express an unknown release or claim; reader: legacy-ambiguous-heading, legacy-revision-withheld\r\n\r\nauthority none; a brief selects, releases, accepts and dispatches nothing\r\n",
+   "stderr_text": ""
+  }
+ },
+ "brief": {
+  "schema": "prime-brief/1",
+  "tool": {
+   "path": "D:\\Git\\lib-build\\labs\\prime-brief-pass01\\prime_brief.py",
+   "sha256": "302ed832d2fa955a591420f13d3b22ce91e4a7669c69a778d443fc82627580d7"
+  },
+  "projection_tool": {
+   "path": "D:\\Git\\lib-build\\labs\\state-projection-pass01\\state_projection.py",
+   "sha256": "b349da5cef5178296a069c354002a600ba4e168c2710aa5d87789724d4951ecb"
+  },
+  "input_sha256": "1c848c5ef50b9db4d001a272a3ab508c27de4859d79915f7d55d842265097aeb",
+  "scope": {
+   "book": "00.00.10.work",
+   "lanes": [
+    "0504.app-entry",
+    "0507.prime-support",
+    "0508.return-capture"
+   ]
+  },
+  "inspected": true,
+  "inputs": [
+   {
+    "label": "SUPPLIED",
+    "note": "unchanged report of the pinned reader run by rehearse.py at 2026-10-28T17:09:30.131777Z; stdout sha256 0f85a13a78d20f4cbaa91fb3db6c8d73498b1187afeb79ba9774e79cfe319354",
+    "observation_sha256": "17d1a6430b8095cde6202c48e47baa0c16061c698a49e9c71df5e366b9975565",
+    "source_ref": {
+     "kind": "git-blob",
+     "repository": "D:\\Git\\lib-build",
+     "path": "00.kernel/00.00.10.work/0504.app-entry/05.17.md",
+     "commit": "6d18d182535df8dc60b698c585b04cd276c5df85",
+     "sha256": "ca48e6d89e79171ae4335db4a9c6a1f41ed88d40fb05d0b48da23e2f0843ef29",
+     "bytes": 6885,
+     "label": "git blob at the named commit"
+    }
+   },
+   {
+    "label": "SUPPLIED",
+    "note": "unchanged report of the pinned reader run by rehearse.py at 2026-10-28T17:09:32.092832Z; stdout sha256 97e72ae9ef3a07a4f0108f84bd7ff6530a01474463b64515bd55406724a0d791",
+    "observation_sha256": "93f47fc6f5b89fa7b21ad038f8170a6fad22b027224249c2679faa1dd3a4c927",
+    "source_ref": {
+     "kind": "git-blob",
+     "repository": "D:\\Git\\lib-build",
+     "path": "00.kernel/00.00.10.work/0508.return-capture/05.15.md",
+     "commit": "6d18d182535df8dc60b698c585b04cd276c5df85",
+     "sha256": "966c440875366b74f8be682bf9d24a28491cc5e32bdd69baad94297b038e7049",
+     "bytes": 6533,
+     "label": "git blob at the named commit"
+    }
+   },
+   {
+    "label": "SUPPLIED",
+    "note": "unchanged report of the pinned reader run by rehearse.py at 2026-10-28T17:09:34.780753Z; stdout sha256 214986bf74e6d96a661bff7fc33ace8bfb35af00073b9bcff2f76755afd2cd1e",
+    "observation_sha256": "d4f823dd08e1b91088373e4c6d33abb52a39e3521628b03c837306df471d9faa",
+    "source_ref": {
+     "kind": "git-blob",
+     "repository": "D:\\Git\\lib-build",
+     "path": "00.kernel/00.00.10.work/0507.prime-support/05.12.md",
+     "commit": "6d18d182535df8dc60b698c585b04cd276c5df85",
+     "sha256": "dce336e1f4c3cd8d4679ddff45f517293b2e6fd991d8bb39560c0412f1f5f3f5",
+     "bytes": 8403,
+     "label": "git blob at the named commit"
+    }
+   },
+   {
+    "label": "SUPPLIED",
+    "note": "unchanged report of the pinned reader run by rehearse.py at 2026-10-28T17:09:36.727830Z; stdout sha256 ee335674f5f814b305eada987c4c17b8985489e4bf2769a59d471c0b9d1dfda0",
+    "observation_sha256": "e9b8e8fc1a1d14435b59ac58eafba8981ddac88ffe43acdea54638042d7cc47a",
+    "source_ref": {
+     "kind": "git-blob",
+     "repository": "D:\\Git\\lib-build",
+     "path": "00.kernel/00.00.10.work/0504.app-entry/05.18.md",
+     "commit": "6d18d182535df8dc60b698c585b04cd276c5df85",
+     "sha256": "b421fa1c3a4378b2ee15522ea5d701e6ff3313260216482c979b5d3bf7eb0990",
+     "bytes": 5620,
+     "label": "git blob at the named commit"
+    }
+   },
+   {
+    "label": "SUPPLIED",
+    "note": "unchanged report of the pinned reader run by rehearse.py at 2026-10-28T17:09:38.048673Z; stdout sha256 23cc690b01f2bf55ed18ed8c120388511dba1dc8ae3a641affdb2e62dbb6562f",
+    "observation_sha256": "905badcf553c579ec60f58e684bf169b571715c06af3387aed1cb9d04df909ea",
+    "source_ref": {
+     "kind": "git-blob",
+     "repository": "D:\\Git\\lib-build",
+     "path": "00.kernel/00.00.10.work/0508.return-capture/05.16.md",
+     "commit": "6d18d182535df8dc60b698c585b04cd276c5df85",
+     "sha256": "576416338da27d9154c8c2845422529837f7229da2f714b98fbc5ed3c0500768",
+     "bytes": 4813,
+     "label": "git blob at the named commit"
+    }
+   }
+  ],
+  "mapping": [
+   {
+    "label": "SUPPLIED",
+    "note": "unchanged report of the pinned reader run by rehearse.py at 2026-10-28T17:09:30.131777Z; stdout sha256 0f85a13a78d20f4cbaa91fb3db6c8d73498b1187afeb79ba9774e79cfe319354",
+    "observation_sha256": "17d1a6430b8095cde6202c48e47baa0c16061c698a49e9c71df5e366b9975565",
+    "source_ref": {
+     "kind": "git-blob",
+     "repository": "D:\\Git\\lib-build",
+     "path": "00.kernel/00.00.10.work/0504.app-entry/05.17.md",
+     "commit": "6d18d182535df8dc60b698c585b04cd276c5df85",
+     "sha256": "ca48e6d89e79171ae4335db4a9c6a1f41ed88d40fb05d0b48da23e2f0843ef29",
+     "bytes": 6885,
+     "label": "git blob at the named commit"
+    },
+    "evidence_kept": {
+     "header_state_raw": "state: returned",
+     "release_raw": "Release: released by the Director, 2026-10-28.",
+     "claim_raw": "Claim: Grok 4.7 (xAI), session 01a179d2-387a-7661-8702-6e53f95e96b5, 2026-10-28, HEAD 4e7ebfc143330f98c9b8b55681b58f2602a85255.",
+     "executor_raw": "Executor: Grok Builder 1. Reviewer: Codex Prime.",
+     "legacy": {
+      "status": "unsupported",
+      "reason": "ambiguous heading line 83",
+      "revision_id": null
+     },
+     "reader_ambiguities": [
+      "legacy-ambiguous-heading",
+      "legacy-revision-withheld"
+     ],
+     "reader_attention": [],
+     "typed_declaration_ignored": false
+    },
+    "decisions": [
+     "provenance supplied-commit from source.kind git-blob (supplied, not verified here)",
+     "return.pointer present; members from pointer sections only (1)",
+     "release/claim from SUPPLIED coordination only",
+     "reader custody.primary not used as candidate",
+     "review bound from SUPPLIED coordination (a declared fixture decision, not authenticated)"
+    ],
+    "unprojected_reason": null,
+    "batch_id": "0504.app-entry/05.17"
+   },
+   {
+    "label": "SUPPLIED",
+    "note": "unchanged report of the pinned reader run by rehearse.py at 2026-10-28T17:09:32.092832Z; stdout sha256 97e72ae9ef3a07a4f0108f84bd7ff6530a01474463b64515bd55406724a0d791",
+    "observation_sha256": "93f47fc6f5b89fa7b21ad038f8170a6fad22b027224249c2679faa1dd3a4c927",
+    "source_ref": {
+     "kind": "git-blob",
+     "repository": "D:\\Git\\lib-build",
+     "path": "00.kernel/00.00.10.work/0508.return-capture/05.15.md",
+     "commit": "6d18d182535df8dc60b698c585b04cd276c5df85",
+     "sha256": "966c440875366b74f8be682bf9d24a28491cc5e32bdd69baad94297b038e7049",
+     "bytes": 6533,
+     "label": "git blob at the named commit"
+    },
+    "evidence_kept": {
+     "header_state_raw": "state: draft",
+     "release_raw": null,
+     "claim_raw": "Claim: Grok Builder 2, this session, 2026-10-28. pack05.15: 13 of 13 snapshots match their pins, and live equals all 13. Parser 700d60d2…, inspector 947915fe…, and helper 8f3da5c6… verified. Scope: this page only.",
+     "executor_raw": "Executor: Grok Builder 2. Reviewer: Codex Prime.",
+     "legacy": {
+      "status": "unsupported",
+      "reason": "ambiguous heading line 65",
+      "revision_id": null
+     },
+     "reader_ambiguities": [
+      "legacy-ambiguous-heading",
+      "legacy-revision-withheld",
+      "quoted-accepted-unbound",
+      "duplicate-release"
+     ],
+     "reader_attention": [],
+     "typed_declaration_ignored": false
+    },
+    "decisions": [
+     "provenance supplied-commit from source.kind git-blob (supplied, not verified here)",
+     "return.pointer present; members from pointer sections only (1)",
+     "release/claim from SUPPLIED coordination only",
+     "reader custody.primary not used as candidate",
+     "review bound from SUPPLIED coordination (a declared fixture decision, not authenticated)"
+    ],
+    "unprojected_reason": null,
+    "batch_id": "0508.return-capture/05.15"
+   },
+   {
+    "label": "SUPPLIED",
+    "note": "unchanged report of the pinned reader run by rehearse.py at 2026-10-28T17:09:34.780753Z; stdout sha256 214986bf74e6d96a661bff7fc33ace8bfb35af00073b9bcff2f76755afd2cd1e",
+    "observation_sha256": "d4f823dd08e1b91088373e4c6d33abb52a39e3521628b03c837306df471d9faa",
+    "source_ref": {
+     "kind": "git-blob",
+     "repository": "D:\\Git\\lib-build",
+     "path": "00.kernel/00.00.10.work/0507.prime-support/05.12.md",
+     "commit": "6d18d182535df8dc60b698c585b04cd276c5df85",
+     "sha256": "dce336e1f4c3cd8d4679ddff45f517293b2e6fd991d8bb39560c0412f1f5f3f5",
+     "bytes": 8403,
+     "label": "git blob at the named commit"
+    },
+    "evidence_kept": {
+     "header_state_raw": "state: draft",
+     "release_raw": null,
+     "claim_raw": "Claim: claude-opus-5-5 (Anthropic), Colab, executor, claimed 2026-10-27T20:05-05:00 on workshop at e97c70fff2984d59c26180e2ab146258dd9ac491. pack05.12: 10 of 10 snapshots match their pins, and live equals all 10. return_inspect 947915fe… and return_capture 8f3da5c6… verified. Scope: this batch only.",
+     "executor_raw": "Executor: Claude. Reviewer: Codex Prime.",
+     "legacy": {
+      "status": "unsupported",
+      "reason": "ambiguous heading line 89",
+      "revision_id": null
+     },
+     "reader_ambiguities": [
+      "legacy-ambiguous-heading",
+      "legacy-revision-withheld",
+      "duplicate-release"
+     ],
+     "reader_attention": [],
+     "typed_declaration_ignored": false
+    },
+    "decisions": [
+     "provenance supplied-commit from source.kind git-blob (supplied, not verified here)",
+     "return.pointer present; members from pointer sections only (1)",
+     "release/claim from SUPPLIED coordination only",
+     "reader custody.primary not used as candidate",
+     "review bound from SUPPLIED coordination (a declared fixture decision, not authenticated)"
+    ],
+    "unprojected_reason": null,
+    "batch_id": "0507.prime-support/05.12"
+   },
+   {
+    "label": "SUPPLIED",
+    "note": "unchanged report of the pinned reader run by rehearse.py at 2026-10-28T17:09:36.727830Z; stdout sha256 ee335674f5f814b305eada987c4c17b8985489e4bf2769a59d471c0b9d1dfda0",
+    "observation_sha256": "e9b8e8fc1a1d14435b59ac58eafba8981ddac88ffe43acdea54638042d7cc47a",
+    "source_ref": {
+     "kind": "git-blob",
+     "repository": "D:\\Git\\lib-build",
+     "path": "00.kernel/00.00.10.work/0504.app-entry/05.18.md",
+     "commit": "6d18d182535df8dc60b698c585b04cd276c5df85",
+     "sha256": "b421fa1c3a4378b2ee15522ea5d701e6ff3313260216482c979b5d3bf7eb0990",
+     "bytes": 5620,
+     "label": "git blob at the named commit"
+    },
+    "evidence_kept": {
+     "header_state_raw": "state: draft",
+     "release_raw": "Release and claim: recorded in the Return pointer. This draft grants no release.",
+     "claim_raw": null,
+     "executor_raw": "Executor: Grok Builder 1. Reviewer: Codex Prime.",
+     "legacy": {
+      "status": "unsupported",
+      "reason": "ambiguous heading line 72",
+      "revision_id": null
+     },
+     "reader_ambiguities": [
+      "legacy-ambiguous-heading",
+      "legacy-revision-withheld"
+     ],
+     "reader_attention": [],
+     "typed_declaration_ignored": false
+    },
+    "decisions": [
+     "provenance supplied-commit from source.kind git-blob (supplied, not verified here)"
+    ],
+    "unprojected_reason": "schema gap: state-observations/1 cannot express an unknown release or claim",
+    "batch_id": "0504.app-entry/05.18"
+   },
+   {
+    "label": "SUPPLIED",
+    "note": "unchanged report of the pinned reader run by rehearse.py at 2026-10-28T17:09:38.048673Z; stdout sha256 23cc690b01f2bf55ed18ed8c120388511dba1dc8ae3a641affdb2e62dbb6562f",
+    "observation_sha256": "905badcf553c579ec60f58e684bf169b571715c06af3387aed1cb9d04df909ea",
+    "source_ref": {
+     "kind": "git-blob",
+     "repository": "D:\\Git\\lib-build",
+     "path": "00.kernel/00.00.10.work/0508.return-capture/05.16.md",
+     "commit": "6d18d182535df8dc60b698c585b04cd276c5df85",
+     "sha256": "576416338da27d9154c8c2845422529837f7229da2f714b98fbc5ed3c0500768",
+     "bytes": 4813,
+     "label": "git blob at the named commit"
+    },
+    "evidence_kept": {
+     "header_state_raw": "state: draft",
+     "release_raw": "Release and claim: recorded in the Return pointer. This draft grants no release.",
+     "claim_raw": null,
+     "executor_raw": "Executor: Grok Builder 2. Reviewer: Codex Prime.",
+     "legacy": {
+      "status": "unsupported",
+      "reason": "ambiguous heading line 66",
+      "revision_id": null
+     },
+     "reader_ambiguities": [
+      "legacy-ambiguous-heading",
+      "legacy-revision-withheld"
+     ],
+     "reader_attention": [],
+     "typed_declaration_ignored": false
+    },
+    "decisions": [
+     "provenance supplied-commit from source.kind git-blob (supplied, not verified here)"
+    ],
+    "unprojected_reason": "schema gap: state-observations/1 cannot express an unknown release or claim",
+    "batch_id": "0508.return-capture/05.16"
+   }
+  ],
+  "reader_custody_snapshots": [
+   {
+    "batch_id": "0504.app-entry/05.17",
+    "basis": "live",
+    "reader_primary": "0139.capture-handoff-0517",
+    "roles": [
+     {
+      "member": "0139.capture-handoff-0517",
+      "role": "primary-current-candidate"
+     }
+    ],
+    "note": "earlier reader observation; not used for custody here"
+   },
+   {
+    "batch_id": "0508.return-capture/05.15",
+    "basis": "live",
+    "reader_primary": "0142.batch-reader-header-0515",
+    "roles": [
+     {
+      "member": "0142.batch-reader-header-0515",
+      "role": "primary-current-candidate"
+     }
+    ],
+    "note": "earlier reader observation; not used for custody here"
+   },
+   {
+    "batch_id": "0507.prime-support/05.12",
+    "basis": "live",
+    "reader_primary": "0136.state-projection-0512",
+    "roles": [
+     {
+      "member": "0136.state-projection-0512",
+      "role": "primary-current-candidate"
+     }
+    ],
+    "note": "earlier reader observation; not used for custody here"
+   },
+   {
+    "batch_id": "0504.app-entry/05.18",
+    "basis": "live",
+    "reader_primary": null,
+    "roles": [],
+    "note": "earlier reader observation; not used for custody here"
+   },
+   {
+    "batch_id": "0508.return-capture/05.16",
+    "basis": "live",
+    "reader_primary": null,
+    "roles": [],
+    "note": "earlier reader observation; not used for custody here"
+   }
+  ],
+  "projection": {
+   "schema": "state-projection/1",
+   "tool": {
+    "path": "D:\\Git\\lib-build\\labs\\state-projection-pass01\\state_projection.py",
+    "sha256": "b349da5cef5178296a069c354002a600ba4e168c2710aa5d87789724d4951ecb"
+   },
+   "input_sha256": "1c848c5ef50b9db4d001a272a3ab508c27de4859d79915f7d55d842265097aeb",
+   "scope": {
+    "book": "00.00.10.work",
+    "lanes": [
+     "0504.app-entry",
+     "0507.prime-support",
+     "0508.return-capture"
+    ]
+   },
+   "projected_at": "2026-10-28T17:09:41.352827Z",
+   "inspected": true,
+   "batches": [
+    {
+     "id": "0504.app-entry/05.17",
+     "lane": "0504.app-entry",
+     "batch": "05.17",
+     "provenance": {
+      "kind": "supplied-commit",
+      "commit": "6d18d182535df8dc60b698c585b04cd276c5df85",
+      "page_sha256": "ca48e6d89e79171ae4335db4a9c6a1f41ed88d40fb05d0b48da23e2f0843ef29"
+     },
+     "facets": {
+      "document": {
+       "header_state": "state: returned"
+      },
+      "release": {
+       "status": "recorded",
+       "text": "SUPPLIED coordination"
+      },
+      "claim": {
+       "status": "recorded",
+       "actor": "Grok-Builder-1"
+      },
+      "return": {
+       "pointer": "present",
+       "members_named": [
+        "0139.capture-handoff-0517"
+       ],
+       "candidate_declared": "0139.capture-handoff-0517",
+       "custody": "not-verifiable-here",
+       "primary": null,
+       "primary_receipt_sha256": null,
+       "secondary": [],
+       "ambiguous": [],
+       "problems": []
+      },
+      "review": {
+       "status": "bound",
+       "text": "Held for CH-03/CH-04: post-capture failure reporting omits capture writes and retains stale state; a failure-log OSError escapes. Independent suite/demo pass; fault evidence is in evidence/prime-review05.17/. Date: 2026-10-28.",
+       "binding_check": "current",
+       "disposition": "held",
+       "terminal": null,
+       "reviewer": "Codex-Prime",
+       "followup": "0504.app-entry/05.18"
+      },
+      "publication": {
+       "status": "at-ref",
+       "ref": "workshop-snapshot",
+       "commit": "6d18d182535df8dc60b698c585b04cd276c5df85"
+      }
+     },
+     "live_custody": {
+      "pointer": "present",
+      "members_named": [
+       "0139.capture-handoff-0517"
+      ],
+      "candidate_declared": "0139.capture-handoff-0517",
+      "custody": "primary",
+      "primary": "0139.capture-handoff-0517",
+      "primary_receipt_sha256": "699d30e6b3eb052b0f313a737b15441888dce46a6a1f7ec826cd7d53691c6365",
+      "secondary": [],
+      "ambiguous": [],
+      "problems": []
+     },
+     "inspections": [
+      {
+       "member": "0139.capture-handoff-0517",
+       "observed_at": "2026-10-28T17:09:39.699165Z",
+       "basis": "live",
+       "exit": 0,
+       "stdout_sha256": "ce50e3c9fdca98aab0b66ae4f354c00d121eca4471592e3f1c450c6c7a75d4f1",
+       "status": "complete",
+       "origin": {
+        "batch": "05.17",
+        "book": "00.00.10.work",
+        "page": "0504.app-entry"
+       },
+       "receipt_sha256": "699d30e6b3eb052b0f313a737b15441888dce46a6a1f7ec826cd7d53691c6365",
+       "retrospective": false,
+       "observation": "ok"
+      }
+     ],
+     "lifecycle": "open-held",
+     "attention": [
+      "review held; the item stays open until an explicit resolution",
+      "published bytes at a ref do not complete work"
+     ],
+     "followup": "0504.app-entry/05.18"
+    },
+    {
+     "id": "0508.return-capture/05.15",
+     "lane": "0508.return-capture",
+     "batch": "05.15",
+     "provenance": {
+      "kind": "supplied-commit",
+      "commit": "6d18d182535df8dc60b698c585b04cd276c5df85",
+      "page_sha256": "966c440875366b74f8be682bf9d24a28491cc5e32bdd69baad94297b038e7049"
+     },
+     "facets": {
+      "document": {
+       "header_state": "state: draft"
+      },
+      "release": {
+       "status": "recorded",
+       "text": "SUPPLIED coordination"
+      },
+      "claim": {
+       "status": "recorded",
+       "actor": "Grok-Builder-2"
+      },
+      "return": {
+       "pointer": "present",
+       "members_named": [
+        "0142.batch-reader-header-0515"
+       ],
+       "candidate_declared": "0142.batch-reader-header-0515",
+       "custody": "not-verifiable-here",
+       "primary": null,
+       "primary_receipt_sha256": null,
+       "secondary": [],
+       "ambiguous": [],
+       "problems": []
+      },
+      "review": {
+       "status": "bound",
+       "text": "Accepted as read-only batch-observation lab; BO-01–BO-05 corrected. Independent19-test suite and actual-header probe pass; custody0142 freshly verifies. No authority or lifecycle completion inferred. See evidence/prime-review05.15/review.md. Date: 2026-10-28.",
+       "binding_check": "current",
+       "disposition": "accepted",
+       "terminal": null,
+       "reviewer": "Codex-Prime",
+       "followup": null
+      },
+      "publication": {
+       "status": "at-ref",
+       "ref": "workshop-snapshot",
+       "commit": "6d18d182535df8dc60b698c585b04cd276c5df85"
+      }
+     },
+     "live_custody": {
+      "pointer": "present",
+      "members_named": [
+       "0142.batch-reader-header-0515"
+      ],
+      "candidate_declared": "0142.batch-reader-header-0515",
+      "custody": "primary",
+      "primary": "0142.batch-reader-header-0515",
+      "primary_receipt_sha256": "45a455a64925addc37b9b2e1b27d9846831ac92b32058d3f78f9d3e47def7285",
+      "secondary": [],
+      "ambiguous": [],
+      "problems": []
+     },
+     "inspections": [
+      {
+       "member": "0142.batch-reader-header-0515",
+       "observed_at": "2026-10-28T17:09:39.951719Z",
+       "basis": "live",
+       "exit": 0,
+       "stdout_sha256": "96e2328f8450b5b9904c4f594ed9b80dce0b0710c79fffb293c1d54cc1d4876f",
+       "status": "complete",
+       "origin": {
+        "batch": "05.15",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+       },
+       "receipt_sha256": "45a455a64925addc37b9b2e1b27d9846831ac92b32058d3f78f9d3e47def7285",
+       "retrospective": false,
+       "observation": "ok"
+      }
+     ],
+     "lifecycle": "open-accepted-not-terminal",
+     "attention": [
+      "accepted without an explicit terminal declaration",
+      "published bytes at a ref do not complete work"
+     ],
+     "followup": null
+    },
+    {
+     "id": "0507.prime-support/05.12",
+     "lane": "0507.prime-support",
+     "batch": "05.12",
+     "provenance": {
+      "kind": "supplied-commit",
+      "commit": "6d18d182535df8dc60b698c585b04cd276c5df85",
+      "page_sha256": "dce336e1f4c3cd8d4679ddff45f517293b2e6fd991d8bb39560c0412f1f5f3f5"
+     },
+     "facets": {
+      "document": {
+       "header_state": "state: draft"
+      },
+      "release": {
+       "status": "recorded",
+       "text": "SUPPLIED coordination"
+      },
+      "claim": {
+       "status": "recorded",
+       "actor": "Claude"
+      },
+      "return": {
+       "pointer": "present",
+       "members_named": [
+        "0136.state-projection-0512"
+       ],
+       "candidate_declared": "0136.state-projection-0512",
+       "custody": "not-verifiable-here",
+       "primary": null,
+       "primary_receipt_sha256": null,
+       "secondary": [],
+       "ambiguous": [],
+       "problems": []
+      },
+      "review": {
+       "status": "bound",
+       "text": "Held for SP-05: a same-origin retrospective capture can be projected as completed. Independent17-test suite passes; added real-capture countercase fails the intended boundary. See evidence/prime-review05.12/review.md. Date: 2026-10-28.",
+       "binding_check": "current",
+       "disposition": "held",
+       "terminal": null,
+       "reviewer": "Codex-Prime",
+       "followup": "0507.prime-support/05.13"
+      },
+      "publication": {
+       "status": "at-ref",
+       "ref": "workshop-snapshot",
+       "commit": "6d18d182535df8dc60b698c585b04cd276c5df85"
+      }
+     },
+     "live_custody": {
+      "pointer": "present",
+      "members_named": [
+       "0136.state-projection-0512"
+      ],
+      "candidate_declared": "0136.state-projection-0512",
+      "custody": "primary",
+      "primary": "0136.state-projection-0512",
+      "primary_receipt_sha256": "deec943938e07c29f28ef82cb5000e3af5758a0454330a4c53de606774c0cd44",
+      "secondary": [],
+      "ambiguous": [],
+      "problems": []
+     },
+     "inspections": [
+      {
+       "member": "0136.state-projection-0512",
+       "observed_at": "2026-10-28T17:09:41.098930Z",
+       "basis": "live",
+       "exit": 0,
+       "stdout_sha256": "d9a68397ce12f257496d0f4564b034f84489861925eac17be7a9c0a1f0f7f1a0",
+       "status": "complete",
+       "origin": {
+        "batch": "05.12",
+        "book": "00.00.10.work",
+        "page": "0507.prime-support"
+       },
+       "receipt_sha256": "deec943938e07c29f28ef82cb5000e3af5758a0454330a4c53de606774c0cd44",
+       "retrospective": false,
+       "observation": "ok"
+      }
+     ],
+     "lifecycle": "open-held",
+     "attention": [
+      "review held; the item stays open until an explicit resolution",
+      "published bytes at a ref do not complete work"
+     ],
+     "followup": "0507.prime-support/05.13"
+    }
+   ],
+   "lanes": {
+    "0504.app-entry": {
+     "open": [
+      "0504.app-entry/05.17"
+     ],
+     "awaiting_release": [],
+     "completed": [],
+     "conflicts": []
+    },
+    "0507.prime-support": {
+     "open": [
+      "0507.prime-support/05.12"
+     ],
+     "awaiting_release": [],
+     "completed": [],
+     "conflicts": []
+    },
+    "0508.return-capture": {
+     "open": [
+      "0508.return-capture/05.15"
+     ],
+     "awaiting_release": [],
+     "completed": [],
+     "conflicts": []
+    }
+   },
+   "attention_count": 6,
+   "authority": "none; a projection grants no release, acceptance, seat or work",
+   "note": "not a v1 assignment record and not canonical"
+  },
+  "brief": {
+   "awaiting_review": [],
+   "correction_or_held": [
+    {
+     "id": "0504.app-entry/05.17",
+     "source_ref": {
+      "kind": "git-blob",
+      "repository": "D:\\Git\\lib-build",
+      "path": "00.kernel/00.00.10.work/0504.app-entry/05.17.md",
+      "commit": "6d18d182535df8dc60b698c585b04cd276c5df85",
+      "sha256": "ca48e6d89e79171ae4335db4a9c6a1f41ed88d40fb05d0b48da23e2f0843ef29",
+      "bytes": 6885,
+      "label": "git blob at the named commit"
+     },
+     "lifecycle": "open-held",
+     "reason": "review held; the item stays open until an explicit resolution; published bytes at a ref do not complete work; reader: legacy-ambiguous-heading, legacy-revision-withheld",
+     "followup": "0504.app-entry/05.18"
+    },
+    {
+     "id": "0507.prime-support/05.12",
+     "source_ref": {
+      "kind": "git-blob",
+      "repository": "D:\\Git\\lib-build",
+      "path": "00.kernel/00.00.10.work/0507.prime-support/05.12.md",
+      "commit": "6d18d182535df8dc60b698c585b04cd276c5df85",
+      "sha256": "dce336e1f4c3cd8d4679ddff45f517293b2e6fd991d8bb39560c0412f1f5f3f5",
+      "bytes": 8403,
+      "label": "git blob at the named commit"
+     },
+     "lifecycle": "open-held",
+     "reason": "review held; the item stays open until an explicit resolution; published bytes at a ref do not complete work; reader: legacy-ambiguous-heading, legacy-revision-withheld, duplicate-release",
+     "followup": "0507.prime-support/05.13"
+    }
+   ],
+   "completed_fixtures": [],
+   "conflicts": [],
+   "other_open": [
+    {
+     "id": "0508.return-capture/05.15",
+     "source_ref": {
+      "kind": "git-blob",
+      "repository": "D:\\Git\\lib-build",
+      "path": "00.kernel/00.00.10.work/0508.return-capture/05.15.md",
+      "commit": "6d18d182535df8dc60b698c585b04cd276c5df85",
+      "sha256": "966c440875366b74f8be682bf9d24a28491cc5e32bdd69baad94297b038e7049",
+      "bytes": 6533,
+      "label": "git blob at the named commit"
+     },
+     "lifecycle": "open-accepted-not-terminal",
+     "reason": "accepted without an explicit terminal declaration; published bytes at a ref do not complete work; reader: legacy-ambiguous-heading, legacy-revision-withheld, quoted-accepted-unbound, duplicate-release",
+     "followup": null
+    }
+   ],
+   "unreleased": [],
+   "unprojected": [
+    {
+     "id": "0504.app-entry/05.18",
+     "source_ref": {
+      "kind": "git-blob",
+      "repository": "D:\\Git\\lib-build",
+      "path": "00.kernel/00.00.10.work/0504.app-entry/05.18.md",
+      "commit": "6d18d182535df8dc60b698c585b04cd276c5df85",
+      "sha256": "b421fa1c3a4378b2ee15522ea5d701e6ff3313260216482c979b5d3bf7eb0990",
+      "bytes": 5620,
+      "label": "git blob at the named commit"
+     },
+     "reason": "schema gap: state-observations/1 cannot express an unknown release or claim; reader: legacy-ambiguous-heading, legacy-revision-withheld"
+    },
+    {
+     "id": "0508.return-capture/05.16",
+     "source_ref": {
+      "kind": "git-blob",
+      "repository": "D:\\Git\\lib-build",
+      "path": "00.kernel/00.00.10.work/0508.return-capture/05.16.md",
+      "commit": "6d18d182535df8dc60b698c585b04cd276c5df85",
+      "sha256": "576416338da27d9154c8c2845422529837f7229da2f714b98fbc5ed3c0500768",
+      "bytes": 4813,
+      "label": "git blob at the named commit"
+     },
+     "reason": "schema gap: state-observations/1 cannot express an unknown release or claim; reader: legacy-ambiguous-heading, legacy-revision-withheld"
+    }
+   ]
+  },
+  "attention": 8,
+  "authority": "none; a brief selects, releases, accepts and dispatches nothing"
+ },
+ "outcomes": [
+  {
+   "batch_id": "0504.app-entry/05.17",
+   "expected": "held declaration stays open",
+   "list": "correction_or_held",
+   "lifecycle": "open-held",
+   "reason": "review held; the item stays open until an explicit resolution; published bytes at a ref do not complete work; reader: legacy-ambiguous-heading, legacy-revision-withheld",
+   "followup": "0504.app-entry/05.18"
+  },
+  {
+   "batch_id": "0508.return-capture/05.15",
+   "expected": "accepted without terminal remains open/unverified, not completed",
+   "list": "other_open",
+   "lifecycle": "open-accepted-not-terminal",
+   "reason": "accepted without an explicit terminal declaration; published bytes at a ref do not complete work; reader: legacy-ambiguous-heading, legacy-revision-withheld, quoted-accepted-unbound, duplicate-release",
+   "followup": null
+  },
+  {
+   "batch_id": "0507.prime-support/05.12",
+   "expected": "held declaration stays open",
+   "list": "correction_or_held",
+   "lifecycle": "open-held",
+   "reason": "review held; the item stays open until an explicit resolution; published bytes at a ref do not complete work; reader: legacy-ambiguous-heading, legacy-revision-withheld, duplicate-release",
+   "followup": "0507.prime-support/05.13"
+  },
+  {
+   "batch_id": "0504.app-entry/05.18",
+   "expected": "unprojected unknown coordination",
+   "list": "unprojected",
+   "lifecycle": null,
+   "reason": "schema gap: state-observations/1 cannot express an unknown release or claim; reader: legacy-ambiguous-heading, legacy-revision-withheld",
+   "followup": null
+  },
+  {
+   "batch_id": "0508.return-capture/05.16",
+   "expected": "unprojected unknown coordination",
+   "list": "unprojected",
+   "lifecycle": null,
+   "reason": "schema gap: state-observations/1 cannot express an unknown release or claim; reader: legacy-ambiguous-heading, legacy-revision-withheld",
+   "followup": null
+  }
+ ],
+ "errors": []
+}
