@@ -1,7 +1,53 @@
 {
-  "status": "pending",
-  "capture_commit": null,
+  "status": "verified",
+  "capture_commit": "5be680b05f038b524161e930a464279534990889",
   "member": "0134.state-reconcile-0511",
   "receipt_sha256": "6c4693edb36fb9525755a592c993a582b14e9c67b642394d99c0e07418286da3",
-  "review_scope": "design input conditioned on SP-01\u2013SP-04; no live migration"
+  "review_scope": "design input conditioned on SP-01\u2013SP-04; no live migration",
+  "remote_head_verified_at_publication": "5be680b05f038b524161e930a464279534990889",
+  "contents_check": {
+    "schema": "book-orientation-check@1",
+    "revision_input": "5be680b05f038b524161e930a464279534990889",
+    "commit": "5be680b05f038b524161e930a464279534990889",
+    "book": "00.kernel/00.00.10.work",
+    "contents_path": "00.kernel/00.00.10.work/0011.contents/01.041.md",
+    "contents_sha256": "3d99814bef4af3b585baba963d371392762716adbf448b12f13c68f0c077f3fb",
+    "selection_source": "book 00.md pointer",
+    "sentinel_pointer": "contents in 0011.contents/01.041.md.",
+    "scope": "published tree at the commit only; working tree, index and untracked files not read",
+    "covered": [
+      "Pages table rows: page folders, direct files, direct subdirectories, recursive tracked-file counts",
+      "Book files list",
+      "Other books paths (relative to the book root)"
+    ],
+    "not_covered": [
+      "prose references and other links",
+      "face contents",
+      "whether a page should be published",
+      "the working tree, the index and untracked files"
+    ],
+    "counts": {
+      "rows": 57,
+      "tree_pages": 57,
+      "book_files_listed": 1,
+      "other_books": 2
+    },
+    "other_books": [
+      {
+        "label": "Syntax",
+        "path": "../00.00.00.syntax/00.001.md",
+        "resolved": "00.kernel/00.00.00.syntax/00.001.md",
+        "present": true
+      },
+      {
+        "label": "Law",
+        "path": "../00.00.01.law/00.001.md",
+        "resolved": "00.kernel/00.00.01.law/00.001.md",
+        "present": true
+      }
+    ],
+    "findings": [],
+    "result": "clean",
+    "advisory": true
+  }
 }
