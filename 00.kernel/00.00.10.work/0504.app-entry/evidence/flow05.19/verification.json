@@ -1,0 +1,126 @@
+{
+  "schema": "flow05.19-verification",
+  "date": "2026-10-28",
+  "head": "c1a11dc9014eed37506f19aba7d41e3ca3213106",
+  "claim_head": "c1a11dc9014eed37506f19aba7d41e3ca3213106",
+  "branch": "workshop",
+  "director_release": "2026-10-28",
+  "rehearsal": "disposable protocol-worker to capture composition",
+  "app_wired": false,
+  "model": false,
+  "live_job": false,
+  "pins": {
+    "manifest": "00.kernel/00.00.10.work/0504.app-entry/evidence/pack05.19/source-manifest.json",
+    "manifest_sha256": "5c492c54e15a47a5bdf6f9231d619de428335ba470899e09e1b077d098613ef0",
+    "manifest_bytes": 7167,
+    "provenance": "00.kernel/00.00.10.work/0504.app-entry/evidence/pack05.19/source-provenance.json",
+    "provenance_sha256": "b6b255dcafd42696525dd2600b2049c1fbfea6eb943fcdd27389bfc07d1c7909",
+    "provenance_bytes": 5499,
+    "baseline_commit": "d017f9f7e8271db6de3b72d31a82077c5ef588c4",
+    "bad": 0,
+    "runner": {
+      "path": "00.kernel/00.00.01.law/0302.run/02.run.003.py",
+      "sha256": "bbca135691ba4e873e27b9322b1ad6d79deeb59107eb7d377f7d20014067d50c",
+      "bytes": 10143,
+      "pack_snapshot": false
+    },
+    "librarian_snapshot_sha256": "a320f270dd87508d4fa9d3d5e78904108605fa308abb3ebd86513ae9c3c01fab",
+    "librarian_live_sha256": "694d44ae34739e6b41319ba1de6e84a9710fe13184d7329be769d62b71d8689a",
+    "librarian_copied": false,
+    "tools": {
+      "labs/clerk-handoff-pass02/clerk.py": {
+        "sha256": "f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c",
+        "bytes": 52279
+      },
+      "labs/return-capture-pass01/return_capture.py": {
+        "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+        "bytes": 45767
+      },
+      "labs/return-capture-pass01/return_inspect.py": {
+        "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+        "bytes": 11402
+      },
+      "labs/capture-handoff-pass01/handoff.py": {
+        "sha256": "a8380136a84469b8975b38f084a4d34802ccf079ed69cf85d107f6ca3643426a",
+        "bytes": 51828
+      }
+    }
+  },
+  "reservation": {
+    "member": "0146.capture-flow-rehearsal-0519",
+    "submission_id": "grok-1-0504-0519",
+    "sha256": "7475594d71ada71fdb2b5b53b4c3e3b8a586d4961280b3b4e4cf84c34f08385b",
+    "bytes": 1041
+  },
+  "proof": {
+    "command": "python -B labs/capture-flow-rehearsal-pass01/tests/test_rehearse.py",
+    "exit": 0,
+    "summary": "pass 4 expected-refusal 8 skip 0 fail 0",
+    "synthetic_report_sha256": "0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6",
+    "complete_event_sha256": "bf4420d1cc2e8ac182f8859b479722629a29f48d4d7f0b99e7b15112b92911bc",
+    "complete_receipt_sha256": "25dae1401abe02bb4a168d8a046783a17f869685ee2321cd4dee258d686ec00e",
+    "demo_command": "python -B labs/capture-flow-rehearsal-pass01/demo.py",
+    "demo_exit": 0,
+    "demo_event_sha256": "11adbd90172a2453664384d2d3b7cdea21fb2f06bc8d376fafbaf7cb953013b8",
+    "demo_receipt_sha256": "a8d3f53465dffc7826ef72bef2ad9418112897ca30d47420e09383e793e41dde",
+    "demo_retry": "writes none",
+    "custody": [
+      "result complete",
+      "not approved",
+      "not accepted",
+      "not published"
+    ],
+    "tests_txt_sha256": "46c053f2e060330fa190c2285eec67cd5a678a6d2efbadc9c4261bf2db69e4e0",
+    "results_sha256": "40c65530fcc541371dc94d70ea18cb5175b802b198a8ad34e62101c9653d2786"
+  },
+  "files": {
+    "labs/capture-flow-rehearsal-pass01/rehearse.py": {
+      "sha256": "4a92e5d1914ecc9e9b2b6d51099d7caf5441024b83c3aaa5d085811c6caf088e",
+      "bytes": 45513,
+      "newline": "lf"
+    },
+    "labs/capture-flow-rehearsal-pass01/README.md": {
+      "sha256": "b4f71b85b38a34a97f6c3f6b6f404ecf88243219f4b8105677ae86d2773840a6",
+      "bytes": 2923,
+      "newline": "lf"
+    },
+    "labs/capture-flow-rehearsal-pass01/tests/test_rehearse.py": {
+      "sha256": "7bb409de68eff52fdf6b04ae5d825e573cba4cb1fe80c78e5c3732eaa67a7dc6",
+      "bytes": 3956,
+      "newline": "lf"
+    },
+    "labs/capture-flow-rehearsal-pass01/demo.py": {
+      "sha256": "6e227f91dfb68fd2a27b2c5cc0d1155c6df86e8b4f513a462ac58618855ad970",
+      "bytes": 1457,
+      "newline": "lf"
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/06.19.md": {
+      "sha256": "237d1fefeb6d227d9e4aee5833514b7d48595c8330da55d9d4546ed8a1f1c230",
+      "bytes": 10901,
+      "newline": "lf"
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/evidence/flow05.19/CONTRACT.md": {
+      "sha256": "9e9777c06b75fdaace78fa6415f6f24e9ca4dcb068f327197b4a17a096eed4be",
+      "bytes": 7338,
+      "newline": "lf"
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/evidence/flow05.19/tests.txt": {
+      "sha256": "46c053f2e060330fa190c2285eec67cd5a678a6d2efbadc9c4261bf2db69e4e0",
+      "bytes": 668,
+      "newline": "crlf"
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/evidence/flow05.19/results.json": {
+      "sha256": "40c65530fcc541371dc94d70ea18cb5175b802b198a8ad34e62101c9653d2786",
+      "bytes": 43600,
+      "newline": "lf"
+    }
+  },
+  "limits": [
+    "A verified receipt is custody. It is not approval, acceptance, seating, publication, or finish.",
+    "The same-user gap between a hash read and a later write remains open. This rehearsal is not an operating-system sandbox.",
+    "The single-launch observation is not a general exactly-once guarantee.",
+    "File-symlink creation was not re-tested. WinError 1314 remains a platform limit.",
+    "Unknown pin, timeout, and inspection outcomes stay unknown. Recovery is outside this rehearsal.",
+    "No app wiring, no model, no live job, and no allocation around a partial."
+  ]
+}

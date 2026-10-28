@@ -1,0 +1,31 @@
+# Notes — cold-Prime acceptance plan (05.17)
+
+Date: 2026-10-28. Recorder: Grok Builder 2. These notes are written before the plan, the homework, the evaluator guide, and the dependency record. `06.01` through `06.17` stay as they are. No runtime file is edited. No model is called. This note does not boot a Prime.
+
+## Inputs
+
+Pack `evidence/pack05.17/source-manifest.json` is schema `prime-pack-sources/1` with 22 sources. Live bytes, snapshot bytes, and the declared SHA-256 and length match for all 22. Bad count is 0. This check was made before these notes.
+
+Workshop HEAD when these notes were opened is `c1a11dc9014eed37506f19aba7d41e3ca3213106`. Branch `workshop`. That commit is the frozen as-of snapshot for the proposed packet. It is not a publication of every live page.
+
+Reserved member `0147.cold-prime-plan-0517` held `01.md` and `reservation.json` when these notes were opened. `reservation.json` is 972 bytes, SHA-256 `a50366c75c896e6a2f16736de91d8a4c96c567d9443834fd10a39ad768bda69e`. Those reservation bytes stay as reserved.
+
+Prime review `evidence/prime-review05.16/review.md` accepts the batch-observe entry and names this plan as the next useful work. It says not to add another runtime and not to call a fixture a model boot.
+
+The accepted recorded-boot tool is `labs/prime-boot-pass01/prime_boot.py`, SHA-256 `54b23484f9e0812db92a623a8588175702682ebe14f8b0b915111daf51a91534`, 49229 bytes. Its caps are `MAX_REFS = 12` and `MAX_BYTES = 131072`. Nothing in that tool is truncated; overflow is an omission. Answer schema `prime-boot-answers/1` and judgement schema `prime-boot-judgement/1` stay as they are.
+
+## Choices
+
+The exercise is test preparation. It appoints no role and adds no module. The proposed packet is eleven commit blobs at the frozen HEAD, 70451 bytes, with one ref slot and 60621 bytes left. The twelfth ref is Claude's real-reader brief. That brief is not sealed. Member `0145.real-reader-brief-0514` held only `01.md` and `reservation.json` at this check. Its bytes are pending. They are not filled from the live lab, and they are not cut to fit.
+
+The dependency is described from released pack `0507.prime-support/evidence/pack05.14/source-manifest.json` and from the pack05.17 pin of `0507.prime-support/05.14.md`. The live page `40c96b9f77118ecfb0a75d1151331a7833b976acd619b521c54441ad4d89a6a1`, 8688 bytes, differs from the commit blob `dd3b9bade334b403f9b5f947c25c689690d317a4956894b6482837505953a290`, 7645 bytes. The live page records a claim and `Execution: IN PROGRESS`, and its review is still `PENDING`. Those live sentences are not committed bytes. Claude's active brief outputs were not opened.
+
+The canonical assignment `0401.goal/06.01.md` names `current_work` `0504.app-entry/05.06.md`. Prime review `0507/evidence/prime-review05.10/review.md` leaves that conflict open. This plan does not elect a lane and does not rewrite the assignment.
+
+The model-facing page is `HOMEWORK.md`. `EVALUATOR.md` stays out of the boot reading order. Expected answers that need the unsealed brief stay unbound.
+
+## Disposition
+
+The packet budget, the accepted pins, and the blocked gaps are in `evidence/cold-prime05.17/`. No unchanged runtime suite was rerun. No orientation attempt was started.
+
+When Prime accepts `0145`, measure that sealed brief against the remaining 60621 bytes and the one open ref. If it fits, add it whole. If it does not fit, record an omission and keep the text uncut. Only after that measurement may the Director run one prepare into an external records directory. This note does not contain a receipt.

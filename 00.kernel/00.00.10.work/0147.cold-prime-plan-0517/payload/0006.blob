@@ -1,0 +1,64 @@
+{
+  "schema": "cold-prime-plan-verification/1",
+  "built": "2026-10-28",
+  "frozen_commit": "c1a11dc9014eed37506f19aba7d41e3ca3213106",
+  "pack": {
+    "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/pack05.17/source-manifest.json",
+    "schema": "prime-pack-sources/1",
+    "sources": 22,
+    "bad": 0
+  },
+  "verified": [
+    "22 pack sources match live bytes and snapshots.",
+    "Eleven proposed refs match blobs at the frozen commit and total 70451 bytes.",
+    "Boot caps in the pinned prime_boot.py are 12 refs and 131072 bytes.",
+    "0145 holds 01.md and reservation.json only.",
+    "0147 held 01.md and reservation.json before capture.",
+    "Live 0507/05.14.md differs from the commit blob.",
+    "No runtime file was edited and no model was called."
+  ],
+  "proposed": [
+    "One later external prepare after the twelfth ref is sealed or omitted.",
+    "Model-facing reading order is the eleven refs plus HOMEWORK.md.",
+    "EVALUATOR.md stays withheld.",
+    "Permitted model commands are batch-observe, return_inspect on 0144, and boot-show after prepare."
+  ],
+  "blocked": [
+    "Twelfth ref bytes are unknown.",
+    "0504.app-entry/05.06.md is outside the packet.",
+    "D1 through D4 remain unresolved.",
+    "No orientation attempt was run.",
+    "No fresh Prime boot is claimed."
+  ],
+  "projection_integrated": false,
+  "runtime_changed": false,
+  "model_called": false,
+  "git_writes": false,
+  "fresh_prime_booted": false,
+  "artifacts": {
+    "00.kernel/00.00.10.work/0508.return-capture/06.18.md": {
+      "sha256": "6dcb76a4d16307472c280b9f4bf8537a0e82b97c9f5acd122ba79f1c1f671879",
+      "bytes": 3575
+    },
+    "00.kernel/00.00.10.work/0508.return-capture/evidence/cold-prime05.17/PLAN.md": {
+      "sha256": "b1d78bdb21f8b5357aae8d2606bf5bade5595a674bd0a8ce8790b9371ef77c21",
+      "bytes": 14591
+    },
+    "00.kernel/00.00.10.work/0508.return-capture/evidence/cold-prime05.17/HOMEWORK.md": {
+      "sha256": "9b6e03a29a2141190370748b9fcde5eaf73c5eac178e7ef3c3813bfdb27532af",
+      "bytes": 5205
+    },
+    "00.kernel/00.00.10.work/0508.return-capture/evidence/cold-prime05.17/EVALUATOR.md": {
+      "sha256": "aa9e506d6f5343891fd4f416d997a4fa54b6da7f1a493ff13976ece5d0a6db10",
+      "bytes": 4846
+    },
+    "00.kernel/00.00.10.work/0508.return-capture/evidence/cold-prime05.17/DEPENDENCIES.json": {
+      "sha256": "43fb30c41dcbb387abe1c9987fdc96af2ae86a5f54fa87c14d69c255268912c2",
+      "bytes": 6155
+    }
+  },
+  "reserved_member_contents_before_capture": [
+    "01.md",
+    "reservation.json"
+  ]
+}

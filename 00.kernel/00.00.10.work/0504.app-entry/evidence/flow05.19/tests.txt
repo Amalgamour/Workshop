@@ -1,0 +1,19 @@
+PASS closure
+REFUSAL malformed-binding
+REFUSAL unsafe-path
+REFUSAL failed-pin
+PASS complete-flow
+PASS repetition
+REFUSAL changed-binding
+REFUSAL changed-payload
+event bf4420d1cc2e8ac182f8859b479722629a29f48d4d7f0b99e7b15112b92911bc
+receipt 25dae1401abe02bb4a168d8a046783a17f869685ee2321cd4dee258d686ec00e
+report 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6
+launches ['bridge-0001 ok']
+REFUSAL failed-delivery
+REFUSAL stop-after-capture
+REFUSAL stop-retry
+stop-member 0101.flow
+stop-receipt d8fc586f6c530ecf0e36f5345b14a79f490eac4776f7fc91ee310d072d69f3eb
+PASS live-bytes-unchanged
+summary pass 4 expected-refusal 8 skip 0 fail 0

@@ -1,0 +1,633 @@
+{
+  "app_wired": false,
+  "cases": {
+    "changed-binding": {
+      "expected": "refusal",
+      "handoff": {
+        "code": 2,
+        "text": "refused: returned event does not match the binding\nobserved-record intent.json\nobserved-record completed.json\nhandoff-complete no\nretained D:\\librarian\\temp\\flow0519-complete-qsr60ck4\\handoff-record\\intent.json\nretained D:\\librarian\\temp\\flow0519-complete-qsr60ck4\\handoff-record\\completed.json\nwrites failure-log D:\\librarian\\temp\\flow0519-complete-qsr60ck4\\failure.log\nresult refused\n"
+      },
+      "launches": [
+        "bridge-0001 ok"
+      ],
+      "member_unchanged": true
+    },
+    "changed-payload": {
+      "expected": "refusal",
+      "handoff": {
+        "code": 2,
+        "text": "refused: report source bytes are not the outbox bytes\nobserved-record intent.json\nobserved-record completed.json\nhandoff-complete no\nretained D:\\librarian\\temp\\flow0519-complete-qsr60ck4\\handoff-record\\intent.json\nretained D:\\librarian\\temp\\flow0519-complete-qsr60ck4\\handoff-record\\completed.json\nretained D:\\librarian\\temp\\flow0519-complete-qsr60ck4\\failure.log\nwrites none\nresult refused\n"
+      },
+      "launches": [
+        "bridge-0001 ok"
+      ],
+      "member_unchanged": true
+    },
+    "closure": {
+      "bad": 0,
+      "excluded": {
+        "copied": false,
+        "live_bytes": 9268,
+        "live_sha256": "694d44ae34739e6b41319ba1de6e84a9710fe13184d7329be769d62b71d8689a",
+        "path": "app/librarian.py",
+        "reason": "not part of the tool closure; live bytes are not the accepted snapshot and are not copied",
+        "role": "excluded",
+        "snapshot_sha256": "a320f270dd87508d4fa9d3d5e78904108605fa308abb3ebd86513ae9c3c01fab"
+      },
+      "expected": "pass",
+      "files": [
+        {
+          "bytes": 22063,
+          "path": "app/context.py",
+          "role": "pack-snapshot",
+          "sha256": "5b1a31d47bb9f9b465a8492541467abbd9bd3a99ae524be7aa0dbffe2380eb9f"
+        },
+        {
+          "bytes": 31663,
+          "path": "app/clerk_seam.py",
+          "role": "pack-snapshot",
+          "sha256": "038962090cc2a18973fc87635625becee1719ed8f7a23ae980a58cfcb0e10159"
+        },
+        {
+          "bytes": 195,
+          "path": "app/clerk-seam.json",
+          "role": "pack-snapshot",
+          "sha256": "309a0618cab6673cd03e8d263ae28e663c855290e7c53822516412ae87f6a88f"
+        },
+        {
+          "bytes": 34532,
+          "path": "app/worker_bridge.py",
+          "role": "pack-snapshot",
+          "sha256": "29f29223f63146198be01f1a4015bb5f1a9143875a13b28db3b6dd7b117a208e"
+        },
+        {
+          "bytes": 1136,
+          "path": "app/worker-bridge.json",
+          "role": "pack-snapshot",
+          "sha256": "94dd3c4770d77f30482f75086d6ebc58335eb51b4a8641c86dcc6d55ce4385ea"
+        },
+        {
+          "bytes": 538,
+          "path": "app/development-workspace.json",
+          "role": "pack-snapshot",
+          "sha256": "b6f4e13b3157416a05b102dfe8a01605e007c2608ba6b0fd06987757d2e33018"
+        },
+        {
+          "bytes": 52279,
+          "path": "labs/clerk-handoff-pass02/clerk.py",
+          "role": "pack-snapshot",
+          "sha256": "f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c"
+        },
+        {
+          "bytes": 45767,
+          "path": "labs/return-capture-pass01/return_capture.py",
+          "role": "pack-snapshot",
+          "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac"
+        },
+        {
+          "bytes": 11402,
+          "path": "labs/return-capture-pass01/return_inspect.py",
+          "role": "pack-snapshot",
+          "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+        },
+        {
+          "bytes": 51828,
+          "path": "labs/capture-handoff-pass01/handoff.py",
+          "role": "pack-snapshot",
+          "sha256": "a8380136a84469b8975b38f084a4d34802ccf079ed69cf85d107f6ca3643426a"
+        },
+        {
+          "bytes": 211,
+          "path": "labs/worker-bridge-pass01/bridge/__init__.py",
+          "role": "pack-snapshot",
+          "sha256": "50f501a7eb4c1a8cef91317ca0dbc5222d63a9c2221ca9fdcbb90e5afc6cd7d1"
+        },
+        {
+          "bytes": 17038,
+          "path": "labs/worker-bridge-pass01/bridge/adapter.py",
+          "role": "pack-snapshot",
+          "sha256": "27d683b494c13bd120d5099f863bb68ab96c6d458dd2a7641c0129122b89c9de"
+        },
+        {
+          "bytes": 2061,
+          "path": "labs/worker-bridge-pass01/bridge/canon.py",
+          "role": "pack-snapshot",
+          "sha256": "6c1a761db08b60b381c1ea6e5d9516a80f7ce7d389bdb42797e394d31488d60d"
+        },
+        {
+          "bytes": 4243,
+          "path": "labs/worker-bridge-pass01/bridge/envelope.py",
+          "role": "pack-snapshot",
+          "sha256": "2b7b352b64a541a5f86a5b5abab2affddf82303a4bdb5c7246e20eb04b59a2d0"
+        },
+        {
+          "bytes": 2361,
+          "path": "labs/worker-bridge-pass01/bridge/ids.py",
+          "role": "pack-snapshot",
+          "sha256": "8913d0c2c569a1c0b5748f3f4d597a9bc57a498fa6b952b817790c399356ed66"
+        },
+        {
+          "bytes": 3290,
+          "path": "labs/worker-bridge-pass01/bridge/verify.py",
+          "role": "pack-snapshot",
+          "sha256": "8ffe8cac0f57399956f103da1d47a9d7a23faaed79682f4973b4cdeffc163f2f"
+        },
+        {
+          "bytes": 4296,
+          "path": "labs/worker-bridge-pass01/fixtures/worker_fixture.py",
+          "role": "pack-snapshot",
+          "sha256": "0d519c8b0eeb7106321748c88fed0dca0d855f2cc85a3904ada9aacc149d7cad"
+        },
+        {
+          "bytes": 2546,
+          "path": "labs/worker-bridge-pass01/profiles.json",
+          "role": "pack-snapshot",
+          "sha256": "407804f5bb2ece553f61adef9bb424cfbfd33615b10dcd0144d734ea4fc6b59d"
+        },
+        {
+          "bytes": 10143,
+          "pack_snapshot": false,
+          "path": "00.kernel/00.00.01.law/0302.run/02.run.003.py",
+          "role": "declared-config-pin",
+          "sha256": "bbca135691ba4e873e27b9322b1ad6d79deeb59107eb7d377f7d20014067d50c"
+        }
+      ],
+      "manifest_sha256": "5c492c54e15a47a5bdf6f9231d619de428335ba470899e09e1b077d098613ef0",
+      "provenance_sha256": "b6b255dcafd42696525dd2600b2049c1fbfea6eb943fcdd27389bfc07d1c7909",
+      "runner": {
+        "bytes": 10143,
+        "pack_snapshot": false,
+        "path": "00.kernel/00.00.01.law/0302.run/02.run.003.py",
+        "sha256": "bbca135691ba4e873e27b9322b1ad6d79deeb59107eb7d377f7d20014067d50c"
+      }
+    },
+    "complete": {
+      "expected": "pass",
+      "handoff": {
+        "code": 0,
+        "text": "returned-event 07066fb35bb97b78fcc818fbf80c008d00ba774aacd023463d71705230b98fbf\nwork-ref 00.kernel/00.00.10.work/0504.app-entry/05.01.md\nwork-ref-role declared-label\nreservation 6ec878b74d92f395a5ff498e3df6dcc851a8a3b8a09663ca9f3a8ada5c8b2028\nmanifest d77c8e3c526bfc9eb169a68c520f0fe24e0aad20a8bbe9830a44504878c3e93f\nreceipt 0b4ed659e91391483a6c170ccb839086febc412a73a2726a21fea0cbb071f3f9\npayload 0001.blob 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6\nresult complete\nnot approved\nnot accepted\nnot published\nwrites intent D:\\librarian\\temp\\flow0519-complete-qsr60ck4\\handoff-record\\intent.json\nwrites completed D:\\librarian\\temp\\flow0519-complete-qsr60ck4\\handoff-record\\completed.json\nresult ok\n"
+      },
+      "identities": {
+        "backend": "fixture-ok",
+        "delivery_id": "bridge-0001",
+        "job_id": "clerk-0001",
+        "label": "fixture",
+        "launches": [
+          "bridge-0001 ok"
+        ],
+        "member": "0101.flow",
+        "payload": {
+          "0001.blob": "0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6"
+        },
+        "receipt_sha256": "0b4ed659e91391483a6c170ccb839086febc412a73a2726a21fea0cbb071f3f9",
+        "report_bytes": 11,
+        "report_sha256": "0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6",
+        "report_text": "{\"count\":3}",
+        "return_md_equals_report": true,
+        "return_md_sha256": "0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6",
+        "returned_event_present": true,
+        "returned_event_sha256": "07066fb35bb97b78fcc818fbf80c008d00ba774aacd023463d71705230b98fbf",
+        "submission_id": "fixture-complete",
+        "work_ref": "00.kernel/00.00.10.work/0504.app-entry/05.01.md",
+        "work_ref_role": "declared-label"
+      },
+      "seam": {
+        "code": 0,
+        "kind": "result",
+        "stderr": "",
+        "text": "clerk_job: clerk-0001\ndelivery_id: bridge-0001\ntransport: delivered\ncollection: collected\nartifact: result.json sha256 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6 copied to clerk outbox\nclerk: returned\nreviewer: codex-prime (inbox projection; not invoked)\nreview: not performed\nacceptance: not performed\n"
+      },
+      "setup": {
+        "claim": {
+          "code": 0,
+          "stderr": "",
+          "stdout": "claimed clerk-0001\ntoken d9f5c7a5c993175d16b77925cb43b5b9\nevent 0002.claimed.json sha256=7b6e4f85482f31504f35bfbd877c2e30db832034cb3fed849690fe0477f7b8f0\ninstructions-usable sha256=6c913091d80948e3be49fa384b023ee3c43762599f3f61b47db885b4f846fe66\nresult ok\n"
+        },
+        "queue": {
+          "code": 0,
+          "stderr": "",
+          "stdout": "queued clerk-0001\nevent 0001.queued.json sha256=c205c7a331892c7600194089ce5e77c059dd17bf9edc157a034d8deb967a8ba4\nresult ok\n"
+        },
+        "reserve": {
+          "code": 0,
+          "stderr": "",
+          "stdout": "member 0101.flow\nsubmission fixture-complete\nresult reserved\n"
+        }
+      },
+      "show": {
+        "code": 0,
+        "document": {
+          "checks": {
+            "artifacts": "ok",
+            "completion": "ok",
+            "events": "ok",
+            "instructions": "usable"
+          },
+          "claim": {
+            "by": "fixture-worker",
+            "token": "d9f5c7a5c993175d16b77925cb43b5b9"
+          },
+          "job": {
+            "assignee": "fixture-worker",
+            "expected_outputs": [
+              "result.json"
+            ],
+            "instructions": {
+              "path": "task.md",
+              "sha256": "6c913091d80948e3be49fa384b023ee3c43762599f3f61b47db885b4f846fe66"
+            },
+            "job_id": "clerk-0001",
+            "release": "fixture release, design example 0506/05.03",
+            "reviewer": "codex-prime",
+            "routed_by": "router-fixture"
+          },
+          "job_id": "clerk-0001",
+          "problems": [],
+          "returned": {
+            "artifacts": [
+              {
+                "bytes": 11,
+                "path": "result.json",
+                "sha256": "0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6"
+              }
+            ],
+            "by": "fixture-worker",
+            "delivery": "bridge-0001",
+            "event_sha256": "07066fb35bb97b78fcc818fbf80c008d00ba774aacd023463d71705230b98fbf",
+            "evidence": "bridge delivery bridge-0001 request 9f106fc3714f33442806ac13ef85c362cb98e95b12bc9d8363cc3d1825e6d38f receipt 69818794e799a47fb54845ed76565641d0abe10caa227c6837b731215aa76b72 artifact result.json 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6 source bridge/delivery/bridge-0001/output/result.json"
+          },
+          "schema": "clerk-handoff-inspection/2",
+          "state": "returned"
+        },
+        "stderr": "",
+        "stdout": "{\"checks\":{\"artifacts\":\"ok\",\"completion\":\"ok\",\"events\":\"ok\",\"instructions\":\"usable\"},\"claim\":{\"by\":\"fixture-worker\",\"token\":\"d9f5c7a5c993175d16b77925cb43b5b9\"},\"job\":{\"assignee\":\"fixture-worker\",\"expected_outputs\":[\"result.json\"],\"instructions\":{\"path\":\"task.md\",\"sha256\":\"6c913091d80948e3be49fa384b023ee3c43762599f3f61b47db885b4f846fe66\"},\"job_id\":\"clerk-0001\",\"release\":\"fixture release, design example 0506/05.03\",\"reviewer\":\"codex-prime\",\"routed_by\":\"router-fixture\"},\"job_id\":\"clerk-0001\",\"problems\":[],\"returned\":{\"artifacts\":[{\"bytes\":11,\"path\":\"result.json\",\"sha256\":\"0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6\"}],\"by\":\"fixture-worker\",\"delivery\":\"bridge-0001\",\"event_sha256\":\"07066fb35bb97b78fcc818fbf80c008d00ba774aacd023463d71705230b98fbf\",\"evidence\":\"bridge delivery bridge-0001 request 9f106fc3714f33442806ac13ef85c362cb98e95b12bc9d8363cc3d1825e6d38f receipt 69818794e799a47fb54845ed76565641d0abe10caa227c6837b731215aa76b72 artifact result.json 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6 source bridge/delivery/bridge-0001/output/result.json\"},\"schema\":\"clerk-handoff-inspection/2\",\"state\":\"returned\"}\n"
+      },
+      "transport_distinct": true,
+      "transport_evidence": "bridge delivery bridge-0001 request 9f106fc3714f33442806ac13ef85c362cb98e95b12bc9d8363cc3d1825e6d38f receipt 69818794e799a47fb54845ed76565641d0abe10caa227c6837b731215aa76b72 artifact result.json 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6 source bridge/delivery/bridge-0001/output/result.json",
+      "tree": {
+        "job": {
+          "0001.queued.json": "c205c7a331892c7600194089ce5e77c059dd17bf9edc157a034d8deb967a8ba4",
+          "0002.claimed.json": "7b6e4f85482f31504f35bfbd877c2e30db832034cb3fed849690fe0477f7b8f0",
+          "0003.returned.json": "07066fb35bb97b78fcc818fbf80c008d00ba774aacd023463d71705230b98fbf",
+          "0003.witness.json": "1bd63dfbcad6624902a15beec78adfdc1873af2a9d496bfb1377defd679f297c",
+          "outbox/result.json": "0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6"
+        },
+        "launch_sha256": "75586534e438a6ca0377edc2ac499e6179061a3cb866105a8160fb781396be1b",
+        "member": {
+          "01.md": "80da731c9bf0865bfc793e98684f92bf3a15bd1778b6414d865a0a63fbf88b7e",
+          "manifest.json": "d77c8e3c526bfc9eb169a68c520f0fe24e0aad20a8bbe9830a44504878c3e93f",
+          "payload/0001.blob": "0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6",
+          "receipt.json": "0b4ed659e91391483a6c170ccb839086febc412a73a2726a21fea0cbb071f3f9",
+          "reservation.json": "6ec878b74d92f395a5ff498e3df6dcc851a8a3b8a09663ca9f3a8ada5c8b2028",
+          "return.md": "0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6"
+        },
+        "record": {
+          "completed.json": "cfc03ddfe361057f9c03dc9ab74d764daaf6b4aa0b4a52d5ad8d75b83f9aea02",
+          "intent.json": "19deecf4e9186069dc85776bd32629611d4e77ac16f4af384745e87c4cd1362c"
+        },
+        "result_sha256": "0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6",
+        "returned_event_sha256": "07066fb35bb97b78fcc818fbf80c008d00ba774aacd023463d71705230b98fbf",
+        "source": {
+          "result.json": "0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6"
+        }
+      }
+    },
+    "failed-delivery": {
+      "capture": "not called",
+      "expected": "refusal",
+      "launches": [
+        "bridge-0001 crash"
+      ],
+      "returned_event_present": false,
+      "seam": {
+        "code": 4,
+        "kind": "result",
+        "stderr": "",
+        "text": "seam: attention\nboundary: worker result is uncertain\nthis-call-wrote: nothing\nreview: not performed\nacceptance: not performed\ndelivery_id: bridge-0001\nworker_kind: protocol test worker\ntransport: crashed\nclaimed_outcome: none\ncollection: not attempted\nartifact: none\nreceipt: bridge/store/bridge-0001/receipt.json sha256 9c99ac44e1994571ca9f7415e29c6881e47e6759d5d07d5c3caf51e43c4ba5f5\nreview: not performed\nacceptance: not performed\nreason: exit 3\n"
+      },
+      "setup": {
+        "claim": {
+          "code": 0,
+          "stderr": "",
+          "stdout": "claimed clerk-0001\ntoken 4188c3acd525450b4efb0d5f006db00f\nevent 0002.claimed.json sha256=eec4f7397b38446fb3fb742d53468da4772fb102612daa93be6915135c75075d\ninstructions-usable sha256=6c913091d80948e3be49fa384b023ee3c43762599f3f61b47db885b4f846fe66\nresult ok\n"
+        },
+        "queue": {
+          "code": 0,
+          "stderr": "",
+          "stdout": "queued clerk-0001\nevent 0001.queued.json sha256=e5e811e892fbbc2911d5831897e19787d9e1a76d6200a0a1180c8a2cb09f3ed3\nresult ok\n"
+        }
+      }
+    },
+    "failed-pin": {
+      "claim": {
+        "code": 0,
+        "stderr": "",
+        "stdout": "claimed clerk-0001\ntoken 82532c48824f35e05ed8c8c15bb4c38c\nevent 0002.claimed.json sha256=8e44beba936a6d4c855e86b53bf60a56be0aca0e8074091a98a0baf354fabc30\ninstructions-usable sha256=6c913091d80948e3be49fa384b023ee3c43762599f3f61b47db885b4f846fe66\nresult ok\n"
+      },
+      "closure": "closure hash does not match: labs/clerk-handoff-pass02/clerk.py",
+      "expected": "refusal",
+      "launches": [],
+      "queue": {
+        "code": 0,
+        "stderr": "",
+        "stdout": "queued clerk-0001\nevent 0001.queued.json sha256=57bc927a42cc715df0c301e43f2b23f2af93a244e13c316035c80b8125a04d99\nresult ok\n"
+      },
+      "seam_stop": "clerk pin does not match"
+    },
+    "malformed-binding": {
+      "code": 2,
+      "expected": "refusal",
+      "launches": [],
+      "text": "refused: binding path must be absolute\nwrites none\nresult refused\n"
+    },
+    "repetition": {
+      "after": {
+        "job": {
+          "0001.queued.json": "c205c7a331892c7600194089ce5e77c059dd17bf9edc157a034d8deb967a8ba4",
+          "0002.claimed.json": "7b6e4f85482f31504f35bfbd877c2e30db832034cb3fed849690fe0477f7b8f0",
+          "0003.returned.json": "07066fb35bb97b78fcc818fbf80c008d00ba774aacd023463d71705230b98fbf",
+          "0003.witness.json": "1bd63dfbcad6624902a15beec78adfdc1873af2a9d496bfb1377defd679f297c",
+          "outbox/result.json": "0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6"
+        },
+        "launch_sha256": "75586534e438a6ca0377edc2ac499e6179061a3cb866105a8160fb781396be1b",
+        "member": {
+          "01.md": "80da731c9bf0865bfc793e98684f92bf3a15bd1778b6414d865a0a63fbf88b7e",
+          "manifest.json": "d77c8e3c526bfc9eb169a68c520f0fe24e0aad20a8bbe9830a44504878c3e93f",
+          "payload/0001.blob": "0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6",
+          "receipt.json": "0b4ed659e91391483a6c170ccb839086febc412a73a2726a21fea0cbb071f3f9",
+          "reservation.json": "6ec878b74d92f395a5ff498e3df6dcc851a8a3b8a09663ca9f3a8ada5c8b2028",
+          "return.md": "0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6"
+        },
+        "record": {
+          "completed.json": "cfc03ddfe361057f9c03dc9ab74d764daaf6b4aa0b4a52d5ad8d75b83f9aea02",
+          "intent.json": "19deecf4e9186069dc85776bd32629611d4e77ac16f4af384745e87c4cd1362c"
+        },
+        "result_sha256": "0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6",
+        "returned_event_sha256": "07066fb35bb97b78fcc818fbf80c008d00ba774aacd023463d71705230b98fbf",
+        "source": {
+          "result.json": "0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6"
+        }
+      },
+      "before": {
+        "job": {
+          "0001.queued.json": "c205c7a331892c7600194089ce5e77c059dd17bf9edc157a034d8deb967a8ba4",
+          "0002.claimed.json": "7b6e4f85482f31504f35bfbd877c2e30db832034cb3fed849690fe0477f7b8f0",
+          "0003.returned.json": "07066fb35bb97b78fcc818fbf80c008d00ba774aacd023463d71705230b98fbf",
+          "0003.witness.json": "1bd63dfbcad6624902a15beec78adfdc1873af2a9d496bfb1377defd679f297c",
+          "outbox/result.json": "0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6"
+        },
+        "launch_sha256": "75586534e438a6ca0377edc2ac499e6179061a3cb866105a8160fb781396be1b",
+        "member": {
+          "01.md": "80da731c9bf0865bfc793e98684f92bf3a15bd1778b6414d865a0a63fbf88b7e",
+          "manifest.json": "d77c8e3c526bfc9eb169a68c520f0fe24e0aad20a8bbe9830a44504878c3e93f",
+          "payload/0001.blob": "0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6",
+          "receipt.json": "0b4ed659e91391483a6c170ccb839086febc412a73a2726a21fea0cbb071f3f9",
+          "reservation.json": "6ec878b74d92f395a5ff498e3df6dcc851a8a3b8a09663ca9f3a8ada5c8b2028",
+          "return.md": "0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6"
+        },
+        "record": {
+          "completed.json": "cfc03ddfe361057f9c03dc9ab74d764daaf6b4aa0b4a52d5ad8d75b83f9aea02",
+          "intent.json": "19deecf4e9186069dc85776bd32629611d4e77ac16f4af384745e87c4cd1362c"
+        },
+        "result_sha256": "0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6",
+        "returned_event_sha256": "07066fb35bb97b78fcc818fbf80c008d00ba774aacd023463d71705230b98fbf",
+        "source": {
+          "result.json": "0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6"
+        }
+      },
+      "expected": "pass",
+      "handoff": {
+        "code": 0,
+        "text": "returned-event 07066fb35bb97b78fcc818fbf80c008d00ba774aacd023463d71705230b98fbf\nwork-ref 00.kernel/00.00.10.work/0504.app-entry/05.01.md\nwork-ref-role declared-label\nreservation 6ec878b74d92f395a5ff498e3df6dcc851a8a3b8a09663ca9f3a8ada5c8b2028\nmanifest d77c8e3c526bfc9eb169a68c520f0fe24e0aad20a8bbe9830a44504878c3e93f\nreceipt 0b4ed659e91391483a6c170ccb839086febc412a73a2726a21fea0cbb071f3f9\npayload 0001.blob 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6\nresult complete\nnot approved\nnot accepted\nnot published\nwrites none\nresult ok\n"
+      },
+      "launches": [
+        "bridge-0001 ok"
+      ],
+      "seam": {
+        "code": 0,
+        "kind": "result",
+        "stderr": "",
+        "text": "clerk_job: clerk-0001\ndelivery_id: bridge-0001\ntransport: delivered\ncollection: collected\nartifact: result.json sha256 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6 already in clerk outbox\nclerk: already-recorded\nreviewer: codex-prime (inbox projection; not invoked)\nreview: not performed\nacceptance: not performed\n"
+      },
+      "unchanged": true
+    },
+    "stop-after-capture": {
+      "expected": "refusal",
+      "failure_log": "{\"binding_sha256\":\"9dc6eee02a33105fa011633c07025d50812c36861bbb5575b13db43136f0dfb2\",\"capture\":{\"attempted\":true,\"child\":\"captured\",\"stdout\":\"capture 0101.flow\\nmanifest 37e32d82acac37b19b8018f535ad6e5a74584003337294327255ecd408e42517\\nreceipt 1056a61dc310df6d2593fef782c1c2f755460fe156a23eb1fa47d1b7283186a1\\nresult captured\\n\"},\"inspect\":{\"book\":\"D:\\\\librarian\\\\temp\\\\flow0519-stop-opup60f6\\\\book\",\"capture\":{\"captured_at\":\"2026-10-28T18:13:34.964417Z\",\"manifest_sha256\":\"37e32d82acac37b19b8018f535ad6e5a74584003337294327255ecd408e42517\",\"origin\":{\"batch\":\"05.19\",\"book\":\"00.00.10.work\",\"page\":\"0504.app-entry\"},\"payloads\":[{\"bytes\":11,\"logical\":\"result.json\",\"payload\":\"0001.blob\",\"sha256\":\"0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6\"}],\"receipt_sha256\":\"1056a61dc310df6d2593fef782c1c2f755460fe156a23eb1fa47d1b7283186a1\",\"reservation_sha256\":\"1253d0974255b72be9cee65134308dda646268838ef5187bbbfa2802e2bb9233\",\"retrospective\":false,\"return\":{\"bytes\":11,\"includes_prime_review\":false,\"sha256\":\"0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6\"},\"source_commit\":null,\"submission_id\":\"fixture-stop\"},\"member\":\"0101.flow\",\"problems\":[],\"reservation\":{\"destination\":{\"member\":\"0101\",\"name\":\"flow\",\"path\":\"0101.flow\"},\"expected_outputs\":[\"result.json\"],\"origin\":{\"batch\":\"05.19\",\"book\":\"00.00.10.work\",\"page\":\"0504.app-entry\"},\"release\":\"fixture reservation; not a release\",\"reservation_sha256\":\"1253d0974255b72be9cee65134308dda646268838ef5187bbbfa2802e2bb9233\",\"reserved_at\":\"2026-10-28T18:13:34.678355Z\",\"reviewer\":\"Fixture Reviewer\",\"submission_id\":\"fixture-stop\",\"submitter\":\"Fixture Submitter\",\"supersedes\":null},\"schema\":\"return-capture-inspection/1\",\"status\":\"complete\"},\"inspection\":{\"checks\":{\"artifacts\":\"ok\",\"completion\":\"ok\",\"events\":\"ok\",\"instructions\":\"usable\"},\"claim\":{\"by\":\"fixture-worker\",\"token\":\"ec49f2a6ec2ec98909dd83748129997e\"},\"job\":{\"assignee\":\"fixture-worker\",\"expected_outputs\":[\"result.json\"],\"instructions\":{\"path\":\"task.md\",\"sha256\":\"6c913091d80948e3be49fa384b023ee3c43762599f3f61b47db885b4f846fe66\"},\"job_id\":\"clerk-0001\",\"release\":\"fixture release, design example 0506/05.03\",\"reviewer\":\"codex-prime\",\"routed_by\":\"router-fixture\"},\"job_id\":\"clerk-0001\",\"problems\":[],\"returned\":{\"artifacts\":[{\"bytes\":11,\"path\":\"result.json\",\"sha256\":\"0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6\"}],\"by\":\"fixture-worker\",\"delivery\":\"bridge-0001\",\"event_sha256\":\"7a81d008ab009093f1572e0f72c137439802b088f4a54aadff1a3169f2262024\",\"evidence\":\"bridge delivery bridge-0001 request 8d99faabd24242ddf6611dcc1c77e043227d69947fe2b8fbf44abf9fe16f307e receipt fdcbc5767175c97c4a5b62af03789e9f7460b1be3255016833c24765891c94db artifact result.json 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6 source bridge/delivery/bridge-0001/output/result.json\"},\"schema\":\"clerk-handoff-inspection/2\",\"state\":\"returned\"},\"member_state\":\"observed\",\"observations\":[{\"at\":\"2026-10-28T18:13:34.874454Z\",\"inspect\":{\"book\":\"D:\\\\librarian\\\\temp\\\\flow0519-stop-opup60f6\\\\book\",\"capture\":null,\"member\":\"0101.flow\",\"problems\":[\"reservation only\"],\"reservation\":{\"destination\":{\"member\":\"0101\",\"name\":\"flow\",\"path\":\"0101.flow\"},\"expected_outputs\":[\"result.json\"],\"origin\":{\"batch\":\"05.19\",\"book\":\"00.00.10.work\",\"page\":\"0504.app-entry\"},\"release\":\"fixture reservation; not a release\",\"reservation_sha256\":\"1253d0974255b72be9cee65134308dda646268838ef5187bbbfa2802e2bb9233\",\"reserved_at\":\"2026-10-28T18:13:34.678355Z\",\"reviewer\":\"Fixture Reviewer\",\"submission_id\":\"fixture-stop\",\"submitter\":\"Fixture Submitter\",\"supersedes\":null},\"schema\":\"return-capture-inspection/1\",\"status\":\"reserved\"},\"phase\":\"before-capture\",\"status\":\"reserved\"},{\"attempted\":true,\"child\":\"captured\",\"phase\":\"capture\",\"stdout\":\"capture 0101.flow\\nmanifest 37e32d82acac37b19b8018f535ad6e5a74584003337294327255ecd408e42517\\nreceipt 1056a61dc310df6d2593fef782c1c2f755460fe156a23eb1fa47d1b7283186a1\\nresult captured\\n\"},{\"at\":\"2026-10-28T18:13:34.981420Z\",\"custody\":\"complete\",\"files\":[\"01.md\",\"manifest.json\",\"payload/0001.blob\",\"receipt.json\",\"reservation.json\",\"return.md\"],\"inspect\":{\"book\":\"D:\\\\librarian\\\\temp\\\\flow0519-stop-opup60f6\\\\book\",\"capture\":{\"captured_at\":\"2026-10-28T18:13:34.964417Z\",\"manifest_sha256\":\"37e32d82acac37b19b8018f535ad6e5a74584003337294327255ecd408e42517\",\"origin\":{\"batch\":\"05.19\",\"book\":\"00.00.10.work\",\"page\":\"0504.app-entry\"},\"payloads\":[{\"bytes\":11,\"logical\":\"result.json\",\"payload\":\"0001.blob\",\"sha256\":\"0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6\"}],\"receipt_sha256\":\"1056a61dc310df6d2593fef782c1c2f755460fe156a23eb1fa47d1b7283186a1\",\"reservation_sha256\":\"1253d0974255b72be9cee65134308dda646268838ef5187bbbfa2802e2bb9233\",\"retrospective\":false,\"return\":{\"bytes\":11,\"includes_prime_review\":false,\"sha256\":\"0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6\"},\"source_commit\":null,\"submission_id\":\"fixture-stop\"},\"member\":\"0101.flow\",\"problems\":[],\"reservation\":{\"destination\":{\"member\":\"0101\",\"name\":\"flow\",\"path\":\"0101.flow\"},\"expected_outputs\":[\"result.json\"],\"origin\":{\"batch\":\"05.19\",\"book\":\"00.00.10.work\",\"page\":\"0504.app-entry\"},\"release\":\"fixture reservation; not a release\",\"reservation_sha256\":\"1253d0974255b72be9cee65134308dda646268838ef5187bbbfa2802e2bb9233\",\"reserved_at\":\"2026-10-28T18:13:34.678355Z\",\"reviewer\":\"Fixture Reviewer\",\"submission_id\":\"fixture-stop\",\"submitter\":\"Fixture Submitter\",\"supersedes\":null},\"schema\":\"return-capture-inspection/1\",\"status\":\"complete\"},\"member_state\":\"observed\",\"phase\":\"after-capture\"}],\"reason\":\"stopped after-capture\",\"reporting_error\":null,\"retained\":[\"D:\\\\librarian\\\\temp\\\\flow0519-stop-opup60f6\\\\book\\\\0101.flow\\\\manifest.json\",\"D:\\\\librarian\\\\temp\\\\flow0519-stop-opup60f6\\\\book\\\\0101.flow\\\\payload\\\\0001.blob\",\"D:\\\\librarian\\\\temp\\\\flow0519-stop-opup60f6\\\\book\\\\0101.flow\\\\receipt.json\",\"D:\\\\librarian\\\\temp\\\\flow0519-stop-opup60f6\\\\book\\\\0101.flow\\\\return.md\",\"D:\\\\librarian\\\\temp\\\\flow0519-stop-opup60f6\\\\handoff-record\\\\intent.json\"],\"schema\":\"clerk-capture-handoff-failure/1\",\"tool_stdout\":[\"{\\\"checks\\\":{\\\"artifacts\\\":\\\"ok\\\",\\\"completion\\\":\\\"ok\\\",\\\"events\\\":\\\"ok\\\",\\\"instructions\\\":\\\"usable\\\"},\\\"claim\\\":{\\\"by\\\":\\\"fixture-worker\\\",\\\"token\\\":\\\"ec49f2a6ec2ec98909dd83748129997e\\\"},\\\"job\\\":{\\\"assignee\\\":\\\"fixture-worker\\\",\\\"expected_outputs\\\":[\\\"result.json\\\"],\\\"instructions\\\":{\\\"path\\\":\\\"task.md\\\",\\\"sha256\\\":\\\"6c913091d80948e3be49fa384b023ee3c43762599f3f61b47db885b4f846fe66\\\"},\\\"job_id\\\":\\\"clerk-0001\\\",\\\"release\\\":\\\"fixture release, design example 0506/05.03\\\",\\\"reviewer\\\":\\\"codex-prime\\\",\\\"routed_by\\\":\\\"router-fixture\\\"},\\\"job_id\\\":\\\"clerk-0001\\\",\\\"problems\\\":[],\\\"returned\\\":{\\\"artifacts\\\":[{\\\"bytes\\\":11,\\\"path\\\":\\\"result.json\\\",\\\"sha256\\\":\\\"0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6\\\"}],\\\"by\\\":\\\"fixture-worker\\\",\\\"delivery\\\":\\\"bridge-0001\\\",\\\"event_sha256\\\":\\\"7a81d008ab009093f1572e0f72c137439802b088f4a54aadff1a3169f2262024\\\",\\\"evidence\\\":\\\"bridge delivery bridge-0001 request 8d99faabd24242ddf6611dcc1c77e043227d69947fe2b8fbf44abf9fe16f307e receipt fdcbc5767175c97c4a5b62af03789e9f7460b1be3255016833c24765891c94db artifact result.json 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6 source bridge/delivery/bridge-0001/output/result.json\\\"},\\\"schema\\\":\\\"clerk-handoff-inspection/2\\\",\\\"state\\\":\\\"returned\\\"}\\n\",\"{\\\"book\\\":\\\"D:\\\\\\\\librarian\\\\\\\\temp\\\\\\\\flow0519-stop-opup60f6\\\\\\\\book\\\",\\\"capture\\\":null,\\\"member\\\":\\\"0101.flow\\\",\\\"problems\\\":[\\\"reservation only\\\"],\\\"reservation\\\":{\\\"destination\\\":{\\\"member\\\":\\\"0101\\\",\\\"name\\\":\\\"flow\\\",\\\"path\\\":\\\"0101.flow\\\"},\\\"expected_outputs\\\":[\\\"result.json\\\"],\\\"origin\\\":{\\\"batch\\\":\\\"05.19\\\",\\\"book\\\":\\\"00.00.10.work\\\",\\\"page\\\":\\\"0504.app-entry\\\"},\\\"release\\\":\\\"fixture reservation; not a release\\\",\\\"reservation_sha256\\\":\\\"1253d0974255b72be9cee65134308dda646268838ef5187bbbfa2802e2bb9233\\\",\\\"reserved_at\\\":\\\"2026-10-28T18:13:34.678355Z\\\",\\\"reviewer\\\":\\\"Fixture Reviewer\\\",\\\"submission_id\\\":\\\"fixture-stop\\\",\\\"submitter\\\":\\\"Fixture Submitter\\\",\\\"supersedes\\\":null},\\\"schema\\\":\\\"return-capture-inspection/1\\\",\\\"status\\\":\\\"reserved\\\"}\\n\",\"capture 0101.flow\\nmanifest 37e32d82acac37b19b8018f535ad6e5a74584003337294327255ecd408e42517\\nreceipt 1056a61dc310df6d2593fef782c1c2f755460fe156a23eb1fa47d1b7283186a1\\nresult captured\\n\",\"{\\\"book\\\":\\\"D:\\\\\\\\librarian\\\\\\\\temp\\\\\\\\flow0519-stop-opup60f6\\\\\\\\book\\\",\\\"capture\\\":{\\\"captured_at\\\":\\\"2026-10-28T18:13:34.964417Z\\\",\\\"manifest_sha256\\\":\\\"37e32d82acac37b19b8018f535ad6e5a74584003337294327255ecd408e42517\\\",\\\"origin\\\":{\\\"batch\\\":\\\"05.19\\\",\\\"book\\\":\\\"00.00.10.work\\\",\\\"page\\\":\\\"0504.app-entry\\\"},\\\"payloads\\\":[{\\\"bytes\\\":11,\\\"logical\\\":\\\"result.json\\\",\\\"payload\\\":\\\"0001.blob\\\",\\\"sha256\\\":\\\"0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6\\\"}],\\\"receipt_sha256\\\":\\\"1056a61dc310df6d2593fef782c1c2f755460fe156a23eb1fa47d1b7283186a1\\\",\\\"reservation_sha256\\\":\\\"1253d0974255b72be9cee65134308dda646268838ef5187bbbfa2802e2bb9233\\\",\\\"retrospective\\\":false,\\\"return\\\":{\\\"bytes\\\":11,\\\"includes_prime_review\\\":false,\\\"sha256\\\":\\\"0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6\\\"},\\\"source_commit\\\":null,\\\"submission_id\\\":\\\"fixture-stop\\\"},\\\"member\\\":\\\"0101.flow\\\",\\\"problems\\\":[],\\\"reservation\\\":{\\\"destination\\\":{\\\"member\\\":\\\"0101\\\",\\\"name\\\":\\\"flow\\\",\\\"path\\\":\\\"0101.flow\\\"},\\\"expected_outputs\\\":[\\\"result.json\\\"],\\\"origin\\\":{\\\"batch\\\":\\\"05.19\\\",\\\"book\\\":\\\"00.00.10.work\\\",\\\"page\\\":\\\"0504.app-entry\\\"},\\\"release\\\":\\\"fixture reservation; not a release\\\",\\\"reservation_sha256\\\":\\\"1253d0974255b72be9cee65134308dda646268838ef5187bbbfa2802e2bb9233\\\",\\\"reserved_at\\\":\\\"2026-10-28T18:13:34.678355Z\\\",\\\"reviewer\\\":\\\"Fixture Reviewer\\\",\\\"submission_id\\\":\\\"fixture-stop\\\",\\\"submitter\\\":\\\"Fixture Submitter\\\",\\\"supersedes\\\":null},\\\"schema\\\":\\\"return-capture-inspection/1\\\",\\\"status\\\":\\\"complete\\\"}\\n\",\"reservation 1253d0974255b72be9cee65134308dda646268838ef5187bbbfa2802e2bb9233\\nmanifest 37e32d82acac37b19b8018f535ad6e5a74584003337294327255ecd408e42517\\nreceipt 1056a61dc310df6d2593fef782c1c2f755460fe156a23eb1fa47d1b7283186a1\\npayload 0001.blob 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6\\nresult complete\\nnot approved\\nnot accepted\\nnot published\\n\"],\"writes\":[\"intent D:\\\\librarian\\\\temp\\\\flow0519-stop-opup60f6\\\\handoff-record\\\\intent.json\"]}\n",
+      "handoff": {
+        "code": 2,
+        "text": "attention: stopped after-capture\ncapture-attempt 0101.flow\ncapture-child captured\nobserved 01.md\nobserved manifest.json\nobserved payload/0001.blob\nobserved receipt.json\nobserved reservation.json\nobserved return.md\nmember-written observed\ncustody complete\nobserved-at 2026-10-28T18:13:34.981420Z\nobserved-record intent.json\nrecord-absent completed.json\nhandoff-complete no\nretained D:\\librarian\\temp\\flow0519-stop-opup60f6\\book\\0101.flow\\manifest.json\nretained D:\\librarian\\temp\\flow0519-stop-opup60f6\\book\\0101.flow\\payload\\0001.blob\nretained D:\\librarian\\temp\\flow0519-stop-opup60f6\\book\\0101.flow\\receipt.json\nretained D:\\librarian\\temp\\flow0519-stop-opup60f6\\book\\0101.flow\\return.md\nretained D:\\librarian\\temp\\flow0519-stop-opup60f6\\handoff-record\\intent.json\nwrites intent D:\\librarian\\temp\\flow0519-stop-opup60f6\\handoff-record\\intent.json\nwrites failure-log D:\\librarian\\temp\\flow0519-stop-opup60f6\\failure.log\nresult attention\n"
+      },
+      "identities": {
+        "backend": "fixture-ok",
+        "delivery_id": "bridge-0001",
+        "job_id": "clerk-0001",
+        "label": "fixture",
+        "launches": [
+          "bridge-0001 ok"
+        ],
+        "member": "0101.flow",
+        "payload": {
+          "0001.blob": "0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6"
+        },
+        "receipt_sha256": "1056a61dc310df6d2593fef782c1c2f755460fe156a23eb1fa47d1b7283186a1",
+        "report_bytes": 11,
+        "report_sha256": "0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6",
+        "report_text": "{\"count\":3}",
+        "return_md_equals_report": true,
+        "return_md_sha256": "0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6",
+        "returned_event_present": true,
+        "returned_event_sha256": "7a81d008ab009093f1572e0f72c137439802b088f4a54aadff1a3169f2262024",
+        "submission_id": "fixture-stop",
+        "work_ref": "00.kernel/00.00.10.work/0504.app-entry/05.01.md",
+        "work_ref_role": "declared-label"
+      },
+      "launches": [
+        "bridge-0001 ok"
+      ],
+      "seam": {
+        "code": 0,
+        "kind": "result",
+        "stderr": "",
+        "text": "clerk_job: clerk-0001\ndelivery_id: bridge-0001\ntransport: delivered\ncollection: collected\nartifact: result.json sha256 0c07187ea6d064441225b3cba26a7b1e8bc702fcf332b457dae8e26892ba68a6 copied to clerk outbox\nclerk: returned\nreviewer: codex-prime (inbox projection; not invoked)\nreview: not performed\nacceptance: not performed\n"
+      }
+    },
+    "stop-retry": {
+      "completed_absent": true,
+      "expected": "refusal",
+      "handoff": {
+        "code": 2,
+        "text": "attention: complete capture has no completed handoff record\nobserved-record intent.json\nrecord-absent completed.json\nhandoff-complete no\nretained D:\\librarian\\temp\\flow0519-stop-opup60f6\\handoff-record\\intent.json\nretained D:\\librarian\\temp\\flow0519-stop-opup60f6\\failure.log\nwrites none\nresult attention\n"
+      },
+      "launches": [
+        "bridge-0001 ok"
+      ],
+      "receipt_unchanged": true
+    },
+    "unsafe-path": {
+      "binding": {
+        "code": 2,
+        "text": "refused: report source is not a simple filename\nwrites none\nresult refused\n"
+      },
+      "expected": "refusal",
+      "launches": [],
+      "seam_stop": "fixture root is the live workspace"
+    }
+  },
+  "date": "2026-10-28",
+  "label": "fixture",
+  "live_hashes_unchanged": true,
+  "live_job": false,
+  "model": false,
+  "pack": {
+    "bad": 0,
+    "baseline_commit": "d017f9f7e8271db6de3b72d31a82077c5ef588c4",
+    "manifest_bytes": 7167,
+    "manifest_sha256": "5c492c54e15a47a5bdf6f9231d619de428335ba470899e09e1b077d098613ef0",
+    "provenance_bytes": 5499,
+    "provenance_sha256": "b6b255dcafd42696525dd2600b2049c1fbfea6eb943fcdd27389bfc07d1c7909"
+  },
+  "schema": "flow05.19-results",
+  "source_view": {
+    "excluded": {
+      "copied": false,
+      "live_bytes": 9268,
+      "live_sha256": "694d44ae34739e6b41319ba1de6e84a9710fe13184d7329be769d62b71d8689a",
+      "path": "app/librarian.py",
+      "reason": "not part of the tool closure; live bytes are not the accepted snapshot and are not copied",
+      "role": "excluded",
+      "snapshot_sha256": "a320f270dd87508d4fa9d3d5e78904108605fa308abb3ebd86513ae9c3c01fab"
+    },
+    "files": [
+      {
+        "bytes": 22063,
+        "path": "app/context.py",
+        "role": "pack-snapshot",
+        "sha256": "5b1a31d47bb9f9b465a8492541467abbd9bd3a99ae524be7aa0dbffe2380eb9f"
+      },
+      {
+        "bytes": 31663,
+        "path": "app/clerk_seam.py",
+        "role": "pack-snapshot",
+        "sha256": "038962090cc2a18973fc87635625becee1719ed8f7a23ae980a58cfcb0e10159"
+      },
+      {
+        "bytes": 195,
+        "path": "app/clerk-seam.json",
+        "role": "pack-snapshot",
+        "sha256": "309a0618cab6673cd03e8d263ae28e663c855290e7c53822516412ae87f6a88f"
+      },
+      {
+        "bytes": 34532,
+        "path": "app/worker_bridge.py",
+        "role": "pack-snapshot",
+        "sha256": "29f29223f63146198be01f1a4015bb5f1a9143875a13b28db3b6dd7b117a208e"
+      },
+      {
+        "bytes": 1136,
+        "path": "app/worker-bridge.json",
+        "role": "pack-snapshot",
+        "sha256": "94dd3c4770d77f30482f75086d6ebc58335eb51b4a8641c86dcc6d55ce4385ea"
+      },
+      {
+        "bytes": 538,
+        "path": "app/development-workspace.json",
+        "role": "pack-snapshot",
+        "sha256": "b6f4e13b3157416a05b102dfe8a01605e007c2608ba6b0fd06987757d2e33018"
+      },
+      {
+        "bytes": 52279,
+        "path": "labs/clerk-handoff-pass02/clerk.py",
+        "role": "pack-snapshot",
+        "sha256": "f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c"
+      },
+      {
+        "bytes": 45767,
+        "path": "labs/return-capture-pass01/return_capture.py",
+        "role": "pack-snapshot",
+        "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac"
+      },
+      {
+        "bytes": 11402,
+        "path": "labs/return-capture-pass01/return_inspect.py",
+        "role": "pack-snapshot",
+        "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+      },
+      {
+        "bytes": 51828,
+        "path": "labs/capture-handoff-pass01/handoff.py",
+        "role": "pack-snapshot",
+        "sha256": "a8380136a84469b8975b38f084a4d34802ccf079ed69cf85d107f6ca3643426a"
+      },
+      {
+        "bytes": 211,
+        "path": "labs/worker-bridge-pass01/bridge/__init__.py",
+        "role": "pack-snapshot",
+        "sha256": "50f501a7eb4c1a8cef91317ca0dbc5222d63a9c2221ca9fdcbb90e5afc6cd7d1"
+      },
+      {
+        "bytes": 17038,
+        "path": "labs/worker-bridge-pass01/bridge/adapter.py",
+        "role": "pack-snapshot",
+        "sha256": "27d683b494c13bd120d5099f863bb68ab96c6d458dd2a7641c0129122b89c9de"
+      },
+      {
+        "bytes": 2061,
+        "path": "labs/worker-bridge-pass01/bridge/canon.py",
+        "role": "pack-snapshot",
+        "sha256": "6c1a761db08b60b381c1ea6e5d9516a80f7ce7d389bdb42797e394d31488d60d"
+      },
+      {
+        "bytes": 4243,
+        "path": "labs/worker-bridge-pass01/bridge/envelope.py",
+        "role": "pack-snapshot",
+        "sha256": "2b7b352b64a541a5f86a5b5abab2affddf82303a4bdb5c7246e20eb04b59a2d0"
+      },
+      {
+        "bytes": 2361,
+        "path": "labs/worker-bridge-pass01/bridge/ids.py",
+        "role": "pack-snapshot",
+        "sha256": "8913d0c2c569a1c0b5748f3f4d597a9bc57a498fa6b952b817790c399356ed66"
+      },
+      {
+        "bytes": 3290,
+        "path": "labs/worker-bridge-pass01/bridge/verify.py",
+        "role": "pack-snapshot",
+        "sha256": "8ffe8cac0f57399956f103da1d47a9d7a23faaed79682f4973b4cdeffc163f2f"
+      },
+      {
+        "bytes": 4296,
+        "path": "labs/worker-bridge-pass01/fixtures/worker_fixture.py",
+        "role": "pack-snapshot",
+        "sha256": "0d519c8b0eeb7106321748c88fed0dca0d855f2cc85a3904ada9aacc149d7cad"
+      },
+      {
+        "bytes": 2546,
+        "path": "labs/worker-bridge-pass01/profiles.json",
+        "role": "pack-snapshot",
+        "sha256": "407804f5bb2ece553f61adef9bb424cfbfd33615b10dcd0144d734ea4fc6b59d"
+      },
+      {
+        "bytes": 10143,
+        "pack_snapshot": false,
+        "path": "00.kernel/00.00.01.law/0302.run/02.run.003.py",
+        "role": "declared-config-pin",
+        "sha256": "bbca135691ba4e873e27b9322b1ad6d79deeb59107eb7d377f7d20014067d50c"
+      }
+    ],
+    "runner": {
+      "bytes": 10143,
+      "pack_snapshot": false,
+      "path": "00.kernel/00.00.01.law/0302.run/02.run.003.py",
+      "sha256": "bbca135691ba4e873e27b9322b1ad6d79deeb59107eb7d377f7d20014067d50c"
+    }
+  },
+  "unknowns": [
+    "same-user gap between a hash read and a later write remains open",
+    "this rehearsal is not an operating-system sandbox",
+    "the single-launch observation is not a general exactly-once guarantee",
+    "an unknown pin, timeout, or inspection outcome stays unknown",
+    "recovery and a new submission are outside this rehearsal",
+    "file-symlink creation was not re-tested; WinError 1314 remains a platform limit"
+  ]
+}

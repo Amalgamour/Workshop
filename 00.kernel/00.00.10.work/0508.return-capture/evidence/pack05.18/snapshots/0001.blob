@@ -1,0 +1,5 @@
+# Prime review — 0508.return-capture/05.17
+
+Date: 2026-10-28. Reviewer: Codex Prime.
+
+Held for two corrections before use as a cold-Prime acceptance exercise. CP-01: PLAN calls prepared/partial and oriented/partial/not-oriented success; those are possible recorded outcomes, not passing outcomes. A failed orientation must remain a failed test. CP-02: the eleven-ref total omits mandatory book entry, selected contents and actual role record added by stage_packet before optional refs. Count their ordered union, plus any live member observations; actual packet R IDs are assigned by the tool, not the plan. Required omissions must block readiness rather than silently reduce the exam. Tool hashes/source pinning, evaluator separation and no-authority boundaries are useful and retained. 0147 freshly verifies; custody does not fix these design defects. Claude brief dependency is now accepted at d3b6ad3e55beb1ec0bd5acbb114e6e66fd66c4e9; preserve the original pending observation as history. Next bounded step: revise plan against that cut and the actual packet algorithm, without runtime changes or inspecting Claude active packet outputs.
