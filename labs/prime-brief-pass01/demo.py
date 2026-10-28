@@ -1,4 +1,5 @@
-"""End-to-end fixture demo for prime_brief.py (0507.prime-support/05.13). SYNTHETIC data only; no real desk state.
+"""End-to-end fixture demo for prime_brief.py (0507.prime-support/05.13; fixtures in the real reader shape since 05.14).
+SYNTHETIC data only; no real desk state. The actual-source rehearsal is evidence/realbrief05.14/rehearse.py.
 
   python -B demo.py
 

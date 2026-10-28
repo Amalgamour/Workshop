@@ -29,6 +29,8 @@ HEX64 = re.compile(r"^[0-9a-f]{64}$")
 MEMBER = re.compile(r"^01\d\d\.[a-z0-9][a-z0-9.-]*$")
 LABEL = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$")
 STATUS4 = ("recorded", "pending", "absent", "unknown")
+POINTER_AMBIGUITIES = {"unknown-return-heading"}  # named codes of the accepted reader 8bea1817… (05.14 CONTRACT §A3)
+POINTER_ATTENTION = {"conflicting-stated-receipts", "unparsed-member-line", "unpaired-receipt"}
 OPEN_OTHER = ("open-re-review-required", "open-review-unresolved", "open-candidate-ambiguous", "open-accepted-not-terminal",
               "open-commit-custody-unverified", "claimed", "released")
 
@@ -93,39 +95,67 @@ def load_projection():
 
 # ---------- strict input ----------
 
+def req(obj, key: str, pred, where: str, what: str) -> None:
+    """PB-08: the key must be present and its value must pass pred; checked before any lookup that uses it."""
+    need(isinstance(obj, dict), f"{where} must be an object")
+    need(key in obj, f"{where}.{key} is missing")
+    need(pred(obj[key]), f"{where}.{key} must be {what}")
+
+
+def is_obj(v) -> bool:
+    return isinstance(v, dict)
+
+
+def str_list(v) -> bool:
+    return isinstance(v, list) and all(is_str(x) for x in v)
+
+
 def check_reader(o, w: str) -> None:
-    """Only the batch-observation/1 fields this adapter reads (contract §B2), type-checked before use."""
-    need(isinstance(o, dict) and o.get("schema") == "batch-observation/1", f"{w}: not a batch-observation/1 object")
-    need(o.get("authority") == "none", f"{w}: authority must be none")
-    src = o.get("source")
-    need(isinstance(src, dict) and all(k in src for k in ("kind", "repository", "path", "commit", "sha256", "bytes", "label")), f"{w}.source has the wrong shape")
-    need(is_str(src["kind"]) and opt_str(src["repository"]) and is_str(src["path"]) and opt_str(src["label"])
-         and (src["commit"] is None or m(HEX40, src["commit"])) and m(HEX64, src["sha256"]) and type(src["bytes"]) is int,
-         f"{w}.source has a wrong value")
-    page = o.get("page")
-    need(page is None or (isinstance(page, dict) and set(page) == {"book", "page", "batch"} and all(is_str(page[k]) for k in page)),
-         f"{w}.page must be null or {{book, page, batch}} strings")
-    need(isinstance(o.get("document"), dict) and opt_str(o["document"].get("header_state_raw")), f"{w}.document has the wrong shape")
-    a = o.get("assignment")
-    need(isinstance(a, dict) and all(opt_str(a.get(k)) for k in ("executor_raw", "release_raw", "claim_raw")), f"{w}.assignment has the wrong shape")
-    leg = o.get("legacy")
-    need(isinstance(leg, dict) and opt_str(leg.get("status")) and opt_str(leg.get("reason")) and opt_str(leg.get("revision_id")),
-         f"{w}.legacy has the wrong shape")
-    ptr = o.get("pointers")
-    need(isinstance(ptr, list) and all(isinstance(p, dict) and isinstance(p.get("members"), list)
-                                       and all(isinstance(x, dict) and m(MEMBER, x.get("name")) for x in p["members"]) for p in ptr),
-         f"{w}.pointers must be a list of pointers whose members have member names")
-    am = o.get("assignment_mentions")
-    need(isinstance(am, list) and all(isinstance(x, dict) and is_str(x.get("member")) for x in am), f"{w}.assignment_mentions has the wrong shape")
-    cu = o.get("custody")
-    need(isinstance(cu, dict) and opt_str(cu.get("basis")) and opt_str(cu.get("primary")) and isinstance(cu.get("observations"), list)
-         and all(isinstance(x, dict) and is_str(x.get("member")) and opt_str(x.get("role")) for x in cu["observations"]),
-         f"{w}.custody has the wrong shape")
-    rv = o.get("review")
-    need(isinstance(rv, dict) and isinstance(rv.get("sections"), list) and all(isinstance(x, dict) and opt_str(x.get("text_raw")) for x in rv["sections"])
-         and opt_str(rv.get("text_raw")) and "binding" in rv and "typed_declaration" in rv, f"{w}.review has the wrong shape")
-    need(isinstance(o.get("ambiguities"), list) and all(is_str(x) for x in o["ambiguities"]), f"{w}.ambiguities must be strings")
-    need(isinstance(o.get("attention"), list) and all(is_str(x) for x in o["attention"]), f"{w}.attention must be strings")
+    """Every batch-observation/1 field this adapter reads (05.14 CONTRACT §A1), present and typed before use."""
+    req(o, "schema", lambda v: v == "batch-observation/1", w, "batch-observation/1")
+    req(o, "authority", lambda v: v == "none", w, "none")
+    for k in ("source", "document", "assignment", "legacy", "custody", "review"):
+        req(o, k, is_obj, w, "an object")
+    src = o["source"]
+    req(src, "kind", is_str, f"{w}.source", "a string")
+    req(src, "repository", opt_str, f"{w}.source", "a string or null")
+    req(src, "path", is_str, f"{w}.source", "a string")
+    req(src, "commit", lambda v: v is None or m(HEX40, v), f"{w}.source", "40 hex or null")
+    req(src, "sha256", lambda v: m(HEX64, v), f"{w}.source", "64 hex")
+    req(src, "bytes", lambda v: type(v) is int, f"{w}.source", "an integer")
+    for k in ("label", "time_basis", "live_observed_at", "observation_started_at", "observation_finished_at"):
+        req(src, k, opt_str, f"{w}.source", "a string or null")
+    req(o, "page", lambda v: v is None or (is_obj(v) and set(v) == {"book", "page", "batch"} and all(is_str(v[k]) for k in v)),
+        w, "null or {book, page, batch} strings")
+    req(o["document"], "header_state_raw", opt_str, f"{w}.document", "a string or null")
+    for k in ("executor_raw", "release_raw", "claim_raw"):
+        req(o["assignment"], k, opt_str, f"{w}.assignment", "a string or null")
+    for k in ("status", "reason", "revision_id"):
+        req(o["legacy"], k, opt_str, f"{w}.legacy", "a string or null")
+    req(o, "pointers", lambda v: isinstance(v, list) and all(is_obj(x) for x in v), w, "a list of objects")
+    for i, ptr in enumerate(o["pointers"]):
+        req(ptr, "members", lambda v: isinstance(v, list) and all(is_obj(x) for x in v), f"{w}.pointers[{i}]", "a list of objects")
+        for j, x in enumerate(ptr["members"]):
+            req(x, "name", is_str, f"{w}.pointers[{i}].members[{j}]", "a string")
+    req(o, "assignment_mentions", lambda v: isinstance(v, list) and all(is_obj(x) for x in v), w, "a list of objects")
+    for i, x in enumerate(o["assignment_mentions"]):
+        req(x, "member", is_str, f"{w}.assignment_mentions[{i}]", "a string")
+    cu = o["custody"]
+    req(cu, "basis", opt_str, f"{w}.custody", "a string or null")
+    req(cu, "primary", opt_str, f"{w}.custody", "a string or null")
+    req(cu, "observations", lambda v: isinstance(v, list) and all(is_obj(x) for x in v), f"{w}.custody", "a list of objects")
+    for i, x in enumerate(cu["observations"]):
+        req(x, "member", is_str, f"{w}.custody.observations[{i}]", "a string")
+        req(x, "role", opt_str, f"{w}.custody.observations[{i}]", "a string or null")
+    rv = o["review"]
+    req(rv, "sections", lambda v: isinstance(v, list) and all(is_obj(x) for x in v), f"{w}.review", "a list of objects")
+    for i, x in enumerate(rv["sections"]):
+        req(x, "text_raw", opt_str, f"{w}.review.sections[{i}]", "a string or null")
+    req(rv, "text_raw", opt_str, f"{w}.review", "a string or null")
+    req(rv, "binding", lambda v: True, f"{w}.review", "present")
+    req(rv, "typed_declaration", lambda v: True, f"{w}.review", "present")
+    req(o, "ambiguities", str_list, w, "a list of strings")
+    req(o, "attention", str_list, w, "a list of strings")
 
 
 def check_coordination(c, w: str) -> None:
@@ -156,8 +186,9 @@ def validate(doc) -> None:
     need(doc["members_book"] is None or (is_str(doc["members_book"]) and os.path.isabs(doc["members_book"])), "members_book must be null or absolute")
     need(isinstance(doc["observations"], list) and isinstance(doc["coordination"], list), "observations and coordination must be lists")
     for i, e in enumerate(doc["observations"]):
-        need(isinstance(e, dict) and set(e) == {"label", "note", "observation"} and e["label"] in LABELS and is_str(e["note"]),
-             f"observations[{i}] must be {{label, note, observation}} with a known label")
+        need(isinstance(e, dict) and set(e) == {"label", "note", "observation"}, f"observations[{i}] must be {{label, note, observation}}")
+        need(is_str(e["label"]) and e["label"] in LABELS, f"observations[{i}].label must be one of {sorted(LABELS)}")  # PB-08: type first
+        need(is_str(e["note"]), f"observations[{i}].note must be a string")
         check_reader(e["observation"], f"observations[{i}].observation")
     for i, c in enumerate(doc["coordination"]):
         check_coordination(c, f"coordination[{i}]")
@@ -191,9 +222,14 @@ def map_one(entry, coord, scope) -> tuple[dict | None, dict]:
         need(src["commit"] is not None, f"{bid}: a git-blob source must name a commit")
         prov = {"kind": "supplied-commit", "commit": src["commit"], "page_sha256": src["sha256"]}
         rec["decisions"].append("provenance supplied-commit from source.kind git-blob (supplied, not verified here)")
-    elif src["kind"] == "live":
+    elif src["kind"] == "live-file":  # PB-09: the accepted reader's actual tag
         prov = {"kind": "supplied-live", "commit": None, "page_sha256": src["sha256"]}
-        rec["decisions"].append("provenance supplied-live from source.kind live")
+        rec["decisions"].append("provenance supplied-live from source.kind live-file (supplied, not verified here)")
+        rec["evidence_kept"]["live_read"] = {k: src[k] for k in ("time_basis", "live_observed_at", "observation_started_at",
+                                                                 "observation_finished_at")}
+    elif src["kind"] == "supplied-text":
+        rec["unprojected_reason"] = "schema gap: supplied text has no commit or live basis"
+        return None, rec
     else:
         rec["unprojected_reason"] = f"schema gap: no commit/live basis for source kind {src['kind']}"
         return None, rec
@@ -211,9 +247,13 @@ def map_one(entry, coord, scope) -> tuple[dict | None, dict]:
         for x in p["members"]:
             if x["name"] not in members:
                 members.append(x["name"])
+    bad = [x for x in members if not m(MEMBER, x)]
+    if bad:
+        rec["unprojected_reason"] = f"member name outside the projection's member form: {', '.join(bad)}"
+        return None, rec
     if not o["pointers"]:
         pointer = "absent"
-    elif any("pointer" in a for a in o["ambiguities"]):
+    elif set(o["ambiguities"]) & POINTER_AMBIGUITIES or set(o["attention"]) & POINTER_ATTENTION:  # PB-10: named codes only
         pointer = "ambiguous"
     else:
         pointer = "present" if members else "pending"
@@ -266,7 +306,9 @@ def build(doc: dict, do_inspect: bool, input_sha: str) -> dict:
                           "roles": [{"member": x["member"], "role": x["role"]} for x in o["custody"]["observations"]],
                           "note": "earlier reader observation; not used for custody here"})
         if b is None:
-            unprojected.append({"id": bid, "source_ref": rec["source_ref"], "reason": rec["unprojected_reason"]})
+            codes = rec["evidence_kept"]["reader_ambiguities"] + rec["evidence_kept"]["reader_attention"]
+            unprojected.append({"id": bid, "source_ref": rec["source_ref"],
+                                "reason": rec["unprojected_reason"] + (f"; reader: {', '.join(codes)}" if codes else "")})
         else:
             batches.append(b)
     for bid in coords:
@@ -281,9 +323,13 @@ def build(doc: dict, do_inspect: bool, input_sha: str) -> dict:
             raise Refusal(f"projection refused the mapped input: {exc}") from None
     lists = {k: [] for k in ("awaiting_review", "correction_or_held", "completed_fixtures", "conflicts", "other_open", "unreleased")}
     src_by_id = {r.get("batch_id"): r["source_ref"] for r in mapping}
+    reader_codes = {r.get("batch_id"): r["evidence_kept"]["reader_ambiguities"] + r["evidence_kept"]["reader_attention"] for r in mapping}
     for r in (projection or {}).get("batches", []):
         life = r["lifecycle"]
         notes = list(r["attention"])
+        codes = reader_codes.get(r["id"])
+        if codes:
+            notes.append("reader: " + ", ".join(codes))
         hist = [x["member"] for x in r["facets"]["return"]["secondary"] if x.get("historical")]
         if hist:
             notes.append("historical retrospective member(s), never current: " + ", ".join(hist))
@@ -311,8 +357,8 @@ def build(doc: dict, do_inspect: bool, input_sha: str) -> dict:
 
 
 def view(b: dict) -> str:
-    out = [f"Prime brief (fixture)  scope {b['scope']['book']}  inspected {b['inspected']}",
-           "Every state below is derived from SUPPLIED fixtures. Nothing here is a decision.", ""]
+    out = [f"Prime brief  scope {b['scope']['book']}  inspected {b['inspected']}",
+           "Every state below is derived from SUPPLIED inputs (fixtures or labelled reader reports). Nothing here is a decision.", ""]
     titles = [("awaiting_review", "Awaiting review"), ("correction_or_held", "Correction required / held"),
               ("completed_fixtures", "Completed FIXTURES (derived label; not approval)"), ("conflicts", "Conflicts"),
               ("other_open", "Other open"), ("unreleased", "Unreleased"), ("unprojected", "Unprojected / needs resolution")]

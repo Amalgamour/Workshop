@@ -1,0 +1,734 @@
+# tests.txt — realbrief05.14 (0507.prime-support 05.14)
+
+Commands:
+- python -B [-X dev] labs/prime-brief-pass01/tests/test_prime_brief.py [-v] [TestRealReader]
+- python -B [-X dev] labs/prime-brief-pass01/demo.py
+- python -B 00.kernel/00.00.10.work/0507.prime-support/evidence/realbrief05.14/rehearse.py
+- python -B scratchpad/d0514/mutate.py
+Python 3.14.7, Windows. Every run is kept in order, failures included. There are no skips. Logs are decoded as UTF-8 with backslash escapes for invalid bytes (b-run2 has console code-page bytes in an assertion dump).
+The projection code is unchanged (b349da5c…), so its suite was not rerun.
+Integration tests use the real pinned reader, inspector and capture on disposable Git repositories and books.
+
+## b-run1: the 19 existing brief tests, unchanged, against the PB-08/09/10 repair (RETAINED: the old synthetic `live` fixtures are now refused, which is intended)
+```
+FFFFFFFFFFFFFFFFF..F
+======================================================================
+FAIL: test_e01_returned_awaiting_review (__main__.TestBrief.test_e01_returned_awaiting_review)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 142, in test_e01_returned_awaiting_review
+    _, b = self.run_cli(self.doc([(o, coord(o), "SYNTHETIC")]), code=0)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 131, in run_cli
+    self.assertEqual(r.returncode, code, out[:3000])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 0 : refused: observations[0].observation.source.time_basis is missing
+
+
+======================================================================
+FAIL: test_e02_bound_held_keeps_followup (__main__.TestBrief.test_e02_bound_held_keeps_followup)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 150, in test_e02_bound_held_keeps_followup
+    _, b = self.run_cli(self.doc([(o, c, "SYNTHETIC")]), code=1)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 131, in run_cli
+    self.assertEqual(r.returncode, code, out[:3000])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 1 : refused: observations[0].observation.source.time_basis is missing
+
+
+======================================================================
+FAIL: test_e03_bound_accepted_terminal_completes_as_fixture_label (__main__.TestBrief.test_e03_bound_accepted_terminal_completes_as_fixture_label)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 157, in test_e03_bound_accepted_terminal_completes_as_fixture_label
+    _, b = self.run_cli(self.doc([(o, coord(o, review=decision(m, self.receipt(m))), "SYNTHETIC")]), code=0)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 131, in run_cli
+    self.assertEqual(r.returncode, code, out[:3000])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 0 : refused: observations[0].observation.source.time_basis is missing
+
+
+======================================================================
+FAIL: test_e04_text_only_accepted_stays_open (__main__.TestBrief.test_e04_text_only_accepted_stays_open)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 165, in test_e04_text_only_accepted_stays_open
+    _, b = self.run_cli(self.doc([(o, coord(o), "SYNTHETIC")]), code=1)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 131, in run_cli
+    self.assertEqual(r.returncode, code, out[:3000])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 1 : refused: observations[0].observation.source.time_basis is missing
+
+
+======================================================================
+FAIL: test_e05_fenced_release_line_cannot_authorize (__main__.TestBrief.test_e05_fenced_release_line_cannot_authorize)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 170, in test_e05_fenced_release_line_cannot_authorize
+    _, b = self.run_cli(self.doc([(o, None, "SYNTHETIC")]), inspect=False, code=1)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 131, in run_cli
+    self.assertEqual(r.returncode, code, out[:3000])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 1 : refused: observations[0].observation.source.time_basis is missing
+
+
+======================================================================
+FAIL: test_e06_unknown_release_is_unprojected_not_coerced (__main__.TestBrief.test_e06_unknown_release_is_unprojected_not_coerced)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 179, in test_e06_unknown_release_is_unprojected_not_coerced
+    _, b = self.run_cli(self.doc([(o, coord(o, release="unknown"), "SYNTHETIC")]), inspect=False, code=1)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 131, in run_cli
+    self.assertEqual(r.returncode, code, out[:3000])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 1 : refused: observations[0].observation.source.time_basis is missing
+
+
+======================================================================
+FAIL: test_e07_stale_receipt_requires_re_review (__main__.TestBrief.test_e07_stale_receipt_requires_re_review)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 185, in test_e07_stale_receipt_requires_re_review
+    _, b = self.run_cli(self.doc([(o, coord(o, review=decision(m, "f" * 64)), "SYNTHETIC")]), code=1)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 131, in run_cli
+    self.assertEqual(r.returncode, code, out[:3000])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 1 : refused: observations[0].observation.source.time_basis is missing
+
+
+======================================================================
+FAIL: test_e08_two_current_members_are_ambiguous (__main__.TestBrief.test_e08_two_current_members_are_ambiguous)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 191, in test_e08_two_current_members_are_ambiguous
+    _, b = self.run_cli(self.doc([(o, coord(o), "SYNTHETIC")]), code=1)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 131, in run_cli
+    self.assertEqual(r.returncode, code, out[:3000])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 1 : refused: observations[0].observation.source.time_basis is missing
+
+
+======================================================================
+FAIL: test_e09_current_and_same_origin_retrospective_both_orders (__main__.TestBrief.test_e09_current_and_same_origin_retrospective_both_orders) (order=['0101.e09h', '0102.e09c'])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 200, in test_e09_current_and_same_origin_retrospective_both_orders
+    _, b = self.run_cli(self.doc([(o, coord(o, review=decision(cur, self.receipt(cur))), "SYNTHETIC")]), code=0)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 131, in run_cli
+    self.assertEqual(r.returncode, code, out[:3000])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 0 : refused: observations[0].observation.source.time_basis is missing
+
+
+======================================================================
+FAIL: test_e09_current_and_same_origin_retrospective_both_orders (__main__.TestBrief.test_e09_current_and_same_origin_retrospective_both_orders) (order=['0102.e09c', '0101.e09h'])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 200, in test_e09_current_and_same_origin_retrospective_both_orders
+    _, b = self.run_cli(self.doc([(o, coord(o, review=decision(cur, self.receipt(cur))), "SYNTHETIC")]), code=0)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 131, in run_cli
+    self.assertEqual(r.returncode, code, out[:3000])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 0 : refused: observations[0].observation.source.time_basis is missing
+
+
+======================================================================
+FAIL: test_e10_sole_retrospective_never_completes (__main__.TestBrief.test_e10_sole_retrospective_never_completes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 208, in test_e10_sole_retrospective_never_completes
+    _, b = self.run_cli(self.doc([(o, coord(o, review=decision(retro, self.receipt(retro))), "SYNTHETIC")]), code=1)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 131, in run_cli
+    self.assertEqual(r.returncode, code, out[:3000])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 1 : refused: observations[0].observation.source.time_basis is missing
+
+
+======================================================================
+FAIL: test_e11_explicit_retrospective_candidate_is_a_conflict (__main__.TestBrief.test_e11_explicit_retrospective_candidate_is_a_conflict)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 215, in test_e11_explicit_retrospective_candidate_is_a_conflict
+    _, b = self.run_cli(self.doc([(o, coord(o, candidate=retro, review=decision(retro, self.receipt(retro))), "SYNTHETIC")]), code=1)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 131, in run_cli
+    self.assertEqual(r.returncode, code, out[:3000])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 1 : refused: observations[0].observation.source.time_basis is missing
+
+
+======================================================================
+FAIL: test_e12_changed_source_against_decision (__main__.TestBrief.test_e12_changed_source_against_decision)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 223, in test_e12_changed_source_against_decision
+    _, b = self.run_cli(self.doc([(o, c, "SYNTHETIC")]), code=1)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 131, in run_cli
+    self.assertEqual(r.returncode, code, out[:3000])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 1 : refused: observations[0].observation.source.time_basis is missing
+
+
+======================================================================
+FAIL: test_e13_commit_source_is_not_recast_live (__main__.TestBrief.test_e13_commit_source_is_not_recast_live)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 230, in test_e13_commit_source_is_not_recast_live
+    _, b = self.run_cli(self.doc([(o, coord(o, review=decision(m, self.receipt(m))), "SYNTHETIC")]), code=1)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 131, in run_cli
+    self.assertEqual(r.returncode, code, out[:3000])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 1 : refused: observations[0].observation.source.time_basis is missing
+
+
+======================================================================
+FAIL: test_e14_published_held_stays_held (__main__.TestBrief.test_e14_published_held_stays_held)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 243, in test_e14_published_held_stays_held
+    _, b = self.run_cli(self.doc([(o, c, "SYNTHETIC")]), code=1)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 131, in run_cli
+    self.assertEqual(r.returncode, code, out[:3000])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 1 : refused: observations[0].observation.source.time_basis is missing
+
+
+======================================================================
+FAIL: test_e15_multiple_lanes_all_listed (__main__.TestBrief.test_e15_multiple_lanes_all_listed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 253, in test_e15_multiple_lanes_all_listed
+    _, b = self.run_cli(self.doc(pairs, lanes=["0504.app-entry", LANE, "0508.return-capture"]), code=0)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 131, in run_cli
+    self.assertEqual(r.returncode, code, out[:3000])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 0 : refused: observations[0].observation.source.time_basis is missing
+
+
+======================================================================
+FAIL: test_e16_derived_from_retained_reader_summary (__main__.TestBrief.test_e16_derived_from_retained_reader_summary)
+DERIVED-FROM-RETAINED-SUMMARY: facts from 0508 reader05.13/verification.json demo summary only.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 272, in test_e16_derived_from_retained_reader_summary
+    _, b = self.run_cli(doc, inspect=False, code=1)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 131, in run_cli
+    self.assertEqual(r.returncode, code, out[:3000])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 1 : refused: observations[0].observation.source.time_basis is missing
+
+
+======================================================================
+FAIL: test_e19_utf8_and_no_mutation (__main__.TestBrief.test_e19_utf8_and_no_mutation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 352, in test_e19_utf8_and_no_mutation
+    self.assertEqual((r.returncode, r.stderr), (1, b""))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: (2, b'') != (1, b'')
+
+First differing element 0:
+2
+1
+
+- (2, b'')
+?  ^
+
++ (1, b'')
+?  ^
+
+
+----------------------------------------------------------------------
+Ran 19 tests in 53.497s
+
+FAILED (failures=18)
+```
+
+## b-run2: fixtures updated to the real producer shape (RETAINED FAILURE: e19 found my comment naming the reader file in adapter source; comment reworded)
+```
+..................F
+======================================================================
+FAIL: test_e19_utf8_and_no_mutation (__main__.TestBrief.test_e19_utf8_and_no_mutation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 366, in test_e19_utf8_and_no_mutation
+    self.assertNotIn("batch_observe", src)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'batch_observe' unexpectedly found in '"""Fixture reader-to-projection adapter and readable Prime brief (0507.prime-support/05.13). Standard library only.\n\n  python -B prime_brief.py brief --input IN.json [--inspect] [--json]\n\nContract: 00.kernel/00.00.10.work/0507.prime-support/evidence/brief05.13/CONTRACT.md. Input is labelled\nbatch-observation/1 fixtures (Grok-2\'s reader shape; the reader is never launched or imported) plus explicit SUPPLIED\ncoordination records. Facts the projection schema cannot express stay visible as unprojected; nothing is coerced.\nThe pinned, repaired state projection does lifecycle and custody. Output goes to stdout. A brief selects, releases,\naccepts and dispatches nothing.\n"""\n\nfrom __future__ import annotations\n\nimport argparse\nimport hashlib\nimport importlib.util\nimport json\nimport os\nimport re\nimport sys\nfrom pathlib import Path\n\nPROJECTION = Path(__file__).resolve().parent.parent / "state-projection-pass01" / "state_projection.py"\nPROJECTION_SHA256 = "b349da5cef5178296a069c354002a600ba4e168c2710aa5d87789724d4951ecb"\nAUTHORITY = "none; a brief selects, releases, accepts and dispatches nothing"\nLABELS = {"SYNTHETIC", "SUPPLIED", "DERIVED-FROM-RETAINED-SUMMARY"}\nHEX40 = re.compile(r"^[0-9a-f]{40}$")\nHEX64 = re.compile(r"^[0-9a-f]{64}$")\nMEMBER = re.compile(r"^01\\d\\d\\.[a-z0-9][a-z0-9.-]*$")\nLABEL = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$")\nSTATUS4 = ("recorded", "pending", "absent", "unknown")\nPOINTER_AMBIGUITIES = {"unknown-return-heading"}  # reader codes from batch_observe.py 8bea1817\x85 (05.14 CONTRACT \xa7A3)\nPOINTER_ATTENTION = {"conflicting-stated-receipts", "unparsed-member-line", "unpaired-receipt"}\nOPEN_OTHER = ("open-re-review-required", "open-review-unresolved", "open-candidate-ambiguous", "open-accepted-not-terminal",\n              "open-commit-custody-unverified", "claimed", "released")\n\n\nclass Refusal(Exception):\n    pass\n\n\ndef need(cond: bool, message: str) -> None:\n    if not cond:\n        raise Refusal(message)\n\n\ndef strict_json(data: bytes, label: str):\n    def pairs(seq):\n        out = {}\n        for k, v in seq:\n            need(k not in out, f"{label}: duplicate key {k}")\n            out[k] = v\n        return out\n\n    def constant(name):\n        raise Refusal(f"{label}: nonfinite number {name}")\n\n    try:\n        return json.loads(data.decode("utf-8"), object_pairs_hook=pairs, parse_constant=constant)\n    except UnicodeDecodeError:\n        raise Refusal(f"{label}: not UTF-8") from None\n    except json.JSONDecodeError as exc:\n        raise Refusal(f"{label}: invalid JSON ({exc.msg})") from None\n\n\ndef canonical_sha(value) -> str:\n    return hashlib.sha256(json.dumps(value, sort_keys=True, ensure_ascii=False, separators=(",", ":")).encode()).hexdigest()\n\n\ndef is_str(v) -> bool:\n    return isinstance(v, str)\n\n\ndef opt_str(v) -> bool:\n    return v is None or isinstance(v, str)\n\n\ndef m(rx, v) -> bool:\n    return isinstance(v, str) and rx.fullmatch(v) is not None\n\n\ndef load_projection():\n    """Hash-check the repaired projection, then import it from that exact file."""\n    try:\n        data = PROJECTION.read_bytes()\n    except OSError:\n        data = None\n    got = hashlib.sha256(data).hexdigest() if data is not None else None\n    need(got == PROJECTION_SHA256, f"state projection at {PROJECTION} is not the pinned code (sha256 {got}); nothing was run")\n    spec = importlib.util.spec_from_file_location("state_projection_pinned", PROJECTION)\n    mod = importlib.util.module_from_spec(spec)\n    spec.loader.exec_module(mod)\n    return mod\n\n\n# ---------- strict input ----------\n\ndef req(obj, key: str, pred, where: str, what: str) -> None:\n    """PB-08: the key must be present and its value must pass pred; checked before any lookup that uses it."""\n    need(isinstance(obj, dict), f"{where} must be an object")\n    need(key in obj, f"{where}.{key} is missing")\n    need(pred(obj[key]), f"{where}.{key} must be {what}")\n\n\ndef is_obj(v) -> bool:\n    return isinstance(v, dict)\n\n\ndef str_list(v) -> bool:\n    return isinstance(v, list) and all(is_str(x) for x in v)\n\n\ndef check_reader(o, w: str) -> None:\n    """Every batch-observation/1 field this adapter reads (05.14 CONTRACT \xa7A1), present and typed before use."""\n    req(o, "schema", lambda v: v == "batch-observation/1", w, "batch-observation/1")\n    req(o, "authority", lambda v: v == "none", w, "none")\n    for k in ("source", "document", "assignment", "legacy", "custody", "review"):\n        req(o, k, is_obj, w, "an object")\n    src = o["source"]\n    req(src, "kind", is_str, f"{w}.source", "a string")\n    req(src, "repository", opt_str, f"{w}.source", "a string or null")\n    req(src, "path", is_str, f"{w}.source", "a string")\n    req(src, "commit", lambda v: v is None or m(HEX40, v), f"{w}.source", "40 hex or null")\n    req(src, "sha256", lambda v: m(HEX64, v), f"{w}.source", "64 hex")\n    req(src, "bytes", lambda v: type(v) is int, f"{w}.source", "an integer")\n    for k in ("label", "time_basis", "live_observed_at", "observation_started_at", "observation_finished_at"):\n        req(src, k, opt_str, f"{w}.source", "a string or null")\n    req(o, "page", lambda v: v is None or (is_obj(v) and set(v) == {"book", "page", "batch"} and all(is_str(v[k]) for k in v)),\n        w, "null or {book, page, batch} strings")\n    req(o["document"], "header_state_raw", opt_str, f"{w}.document", "a string or null")\n    for k in ("executor_raw", "release_raw", "claim_raw"):\n        req(o["assignment"], k, opt_str, f"{w}.assignment", "a string or null")\n    for k in ("status", "reason", "revision_id"):\n        req(o["legacy"], k, opt_str, f"{w}.legacy", "a string or null")\n    req(o, "pointers", lambda v: isinstance(v, list) and all(is_obj(x) for x in v), w, "a list of objects")\n    for i, ptr in enumerate(o["pointers"]):\n        req(ptr, "members", lambda v: isinstance(v, list) and all(is_obj(x) for x in v), f"{w}.pointers[{i}]", "a list of objects")\n        for j, x in enumerate(ptr["members"]):\n            req(x, "name", is_str, f"{w}.pointers[{i}].members[{j}]", "a string")\n    req(o, "assignment_mentions", lambda v: isinstance(v, list) and all(is_obj(x) for x in v), w, "a list of objects")\n    for i, x in enumerate(o["assignment_mentions"]):\n        req(x, "member", is_str, f"{w}.assignment_mentions[{i}]", "a string")\n    cu = o["custody"]\n    req(cu, "basis", opt_str, f"{w}.custody", "a string or null")\n    req(cu, "primary", opt_str, f"{w}.custody", "a string or null")\n    req(cu, "observations", lambda v: isinstance(v, list) and all(is_obj(x) for x in v), f"{w}.custody", "a list of objects")\n    for i, x in enumerate(cu["observations"]):\n        req(x, "member", is_str, f"{w}.custody.observations[{i}]", "a string")\n        req(x, "role", opt_str, f"{w}.custody.observations[{i}]", "a string or null")\n    rv = o["review"]\n    req(rv, "sections", lambda v: isinstance(v, list) and all(is_obj(x) for x in v), f"{w}.review", "a list of objects")\n    for i, x in enumerate(rv["sections"]):\n        req(x, "text_raw", opt_str, f"{w}.review.sections[{i}]", "a string or null")\n    req(rv, "text_raw", opt_str, f"{w}.review", "a string or null")\n    req(rv, "binding", lambda v: True, f"{w}.review", "present")\n    req(rv, "typed_declaration", lambda v: True, f"{w}.review", "present")\n    req(o, "ambiguities", str_list, w, "a list of strings")\n    req(o, "attention", str_list, w, "a list of strings")\n\n\ndef check_coordination(c, w: str) -> None:\n    keys = {"label", "batch_id", "source_sha256", "release", "claim", "claim_actor", "candidate", "review", "publication"}\n    need(isinstance(c, dict) and set(c) == keys, f"{w} must have exactly {sorted(keys)}")\n    need(c["label"] == "SUPPLIED", f"{w}.label must be SUPPLIED")\n    need(is_str(c["batch_id"]) and m(HEX64, c["source_sha256"]), f"{w}: batch_id or source_sha256 has the wrong form")\n    need(c["release"] in STATUS4 and c["claim"] in STATUS4 and opt_str(c["claim_actor"]), f"{w}: release/claim has a wrong value")\n    need(c["candidate"] is None or m(MEMBER, c["candidate"]), f"{w}.candidate must be null or a member name")\n    r = c["review"]\n    if r is not None:\n        rk = {"member", "receipt_sha256", "disposition", "terminal", "reviewer", "followup"}\n        need(isinstance(r, dict) and set(r) == rk, f"{w}.review must have exactly {sorted(rk)}")\n        need(m(MEMBER, r["member"]) and m(HEX64, r["receipt_sha256"]) and r["disposition"] in ("accepted", "held", "correction-required")\n             and r["terminal"] in ("completed", None) and m(LABEL, r["reviewer"]) and opt_str(r["followup"]), f"{w}.review has a wrong value")\n    pub = c["publication"]\n    need(isinstance(pub, dict) and set(pub) == {"status", "ref", "commit"} and pub["status"] in ("unknown", "at-ref")\n         and opt_str(pub["ref"]) and (pub["commit"] is None or m(HEX40, pub["commit"])), f"{w}.publication has a wrong value")\n\n\ndef validate(doc) -> None:\n    need(isinstance(doc, dict) and set(doc) == {"schema", "scope", "members_book", "observations", "coordination"},\n         "input must have exactly schema, scope, members_book, observations, coordination")\n    need(doc["schema"] == "prime-brief-input/1", "input: unsupported schema")\n    sc = doc["scope"]\n    need(isinstance(sc, dict) and set(sc) == {"book", "lanes"} and m(LABEL, sc["book"]) and isinstance(sc["lanes"], list)\n         and sc["lanes"] and all(is_str(x) for x in sc["lanes"]) and len(set(sc["lanes"])) == len(sc["lanes"]), "scope has the wrong shape")\n    need(doc["members_book"] is None or (is_str(doc["members_book"]) and os.path.isabs(doc["members_book"])), "members_book must be null or absolute")\n    need(isinstance(doc["observations"], list) and isinstance(doc["coordination"], list), "observations and coordination must be lists")\n    for i, e in enumerate(doc["observations"]):\n        need(isinstance(e, dict) and set(e) == {"label", "note", "observation"}, f"observations[{i}] must be {{label, note, observation}}")\n        need(is_str(e["label"]) and e["label"] in LABELS, f"observations[{i}].label must be one of {sorted(LABELS)}")  # PB-08: type first\n        need(is_str(e["note"]), f"observations[{i}].note must be a string")\n        check_reader(e["observation"], f"observations[{i}].observation")\n    for i, c in enumerate(doc["coordination"]):\n        check_coordination(c, f"coordination[{i}]")\n\n\n# ---------- mapping ----------\n\ndef batch_id(o) -> str | None:\n    p = o["page"]\n    return None if p is None else f"{p[\'page\']}/{p[\'batch\']}"\n\n\ndef map_one(entry, coord, scope) -> tuple[dict | None, dict]:\n    """(state-observations/1 batch or None, mapping record). Unknowns become an unprojected reason, never a default."""\n    o = entry["observation"]\n    src = o["source"]\n    rec = {"label": entry["label"], "note": entry["note"], "observation_sha256": canonical_sha(o),\n           "source_ref": {k: src[k] for k in ("kind", "repository", "path", "commit", "sha256", "bytes", "label")},\n           "evidence_kept": {"header_state_raw": o["document"]["header_state_raw"], "release_raw": o["assignment"]["release_raw"],\n                             "claim_raw": o["assignment"]["claim_raw"], "executor_raw": o["assignment"]["executor_raw"],\n                             "legacy": {"status": o["legacy"]["status"], "reason": o["legacy"]["reason"], "revision_id": o["legacy"]["revision_id"]},\n                             "reader_ambiguities": o["ambiguities"], "reader_attention": o["attention"],\n                             "typed_declaration_ignored": o["review"]["typed_declaration"] is not None},\n           "decisions": [], "unprojected_reason": None}\n    if o["page"] is None:\n        rec["unprojected_reason"] = "page unidentified: reader gives no book/page/batch"\n        return None, rec\n    bid = batch_id(o)\n    rec["batch_id"] = bid\n    if src["kind"] == "git-blob":\n        need(src["commit"] is not None, f"{bid}: a git-blob source must name a commit")\n        prov = {"kind": "supplied-commit", "commit": src["commit"], "page_sha256": src["sha256"]}\n        rec["decisions"].append("provenance supplied-commit from source.kind git-blob (supplied, not verified here)")\n    elif src["kind"] == "live-file":  # PB-09: the accepted reader\'s actual tag\n        prov = {"kind": "supplied-live", "commit": None, "page_sha256": src["sha256"]}\n        rec["decisions"].append("provenance supplied-live from source.kind live-file (supplied, not verified here)")\n        rec["evidence_kept"]["live_read"] = {k: src[k] for k in ("time_basis", "live_observed_at", "observation_started_at",\n                                                                 "observation_finished_at")}\n    elif src["kind"] == "supplied-text":\n        rec["unprojected_reason"] = "schema gap: supplied text has no commit or live basis"\n        return None, rec\n    else:\n        rec["unprojected_reason"] = f"schema gap: no commit/live basis for source kind {src[\'kind\']}"\n        return None, rec\n    if coord is None:\n        rec["unprojected_reason"] = "release and claim unknown: no SUPPLIED coordination record (raw reader lines are evidence, not decisions)"\n        return None, rec\n    if coord["source_sha256"] != src["sha256"]:\n        rec["unprojected_reason"] = "coordination is bound to a different source sha256 (changed source against decision)"\n        return None, rec\n    if "unknown" in (coord["release"], coord["claim"]):\n        rec["unprojected_reason"] = "schema gap: state-observations/1 cannot express an unknown release or claim"\n        return None, rec\n    members = []\n    for p in o["pointers"]:\n        for x in p["members"]:\n            if x["name"] not in members:\n                members.append(x["name"])\n    bad = [x for x in members if not m(MEMBER, x)]\n    if bad:\n        rec["unprojected_reason"] = f"member name outside the projection\'s member form: {\', \'.join(bad)}"\n        return None, rec\n    if not o["pointers"]:\n        pointer = "absent"\n    elif set(o["ambiguities"]) & POINTER_AMBIGUITIES or set(o["attention"]) & POINTER_ATTENTION:  # PB-10: named codes only\n        pointer = "ambiguous"\n    else:\n        pointer = "present" if members else "pending"\n    if coord["candidate"] is not None and coord["candidate"] not in members:\n        rec["unprojected_reason"] = "coordination candidate is not a member named by a reader pointer"\n        return None, rec\n    rec["decisions"] += [f"return.pointer {pointer}; members from pointer sections only ({len(members)})",\n                         "release/claim from SUPPLIED coordination only", "reader custody.primary not used as candidate"]\n    if coord["review"] is not None:\n        review = {"status": "bound", "text": o["review"]["text_raw"], "binding": coord["review"]}\n        rec["decisions"].append("review bound from SUPPLIED coordination (a declared fixture decision, not authenticated)")\n    else:\n        text = o["review"]["text_raw"]\n        if not o["review"]["sections"]:\n            review = {"status": "absent", "text": None, "binding": None}\n        elif text is not None and text.strip() == "PENDING.":\n            review = {"status": "pending", "text": text, "binding": None}\n        else:\n            review = {"status": "text", "text": text, "binding": None}\n        rec["decisions"].append(f"review {review[\'status\']} from reader text (exact-literal PENDING rule)")\n    batch = {"id": bid, "lane": o["page"]["page"], "batch": o["page"]["batch"], "provenance": prov,\n             "document": {"header_state": o["document"]["header_state_raw"]},\n             "release": {"status": coord["release"], "text": "SUPPLIED coordination"},\n             "claim": {"status": coord["claim"], "actor": coord["claim_actor"]},\n             "return": {"pointer": pointer, "members": members, "candidate": coord["candidate"]},\n             "review": review, "publication": coord["publication"]}\n    return batch, rec\n\n\ndef build(doc: dict, do_inspect: bool, input_sha: str) -> dict:\n    validate(doc)\n    sp = load_projection()\n    scope = doc["scope"]\n    coords = {}\n    for c in doc["coordination"]:\n        need(c["batch_id"] not in coords, f"duplicate coordination for {c[\'batch_id\']}")\n        coords[c["batch_id"]] = c\n    seen, batches, mapping, unprojected, snapshots = set(), [], [], [], []\n    for i, e in enumerate(doc["observations"]):\n        o = e["observation"]\n        bid = batch_id(o)\n        if o["page"] is not None:\n            need(o["page"]["book"] == scope["book"], f"observations[{i}]: book {o[\'page\'][\'book\']} is outside the declared scope")\n            need(o["page"]["page"] in scope["lanes"], f"observations[{i}]: lane {o[\'page\'][\'page\']} is outside the declared scope")\n            need(bid not in seen, f"duplicate observation for {bid}")\n            seen.add(bid)\n        b, rec = map_one(e, coords.get(bid) if bid else None, scope)\n        mapping.append(rec)\n        snapshots.append({"batch_id": bid, "basis": o["custody"]["basis"], "reader_primary": o["custody"]["primary"],\n                          "roles": [{"member": x["member"], "role": x["role"]} for x in o["custody"]["observations"]],\n                          "note": "earlier reader observation; not used for custody here"})\n        if b is None:\n            codes = rec["evidence_kept"]["reader_ambiguities"] + rec["evidence_kept"]["reader_attention"]\n            unprojected.append({"id": bid, "source_ref": rec["source_ref"],\n                                "reason": rec["unprojected_reason"] + (f"; reader: {\', \'.join(codes)}" if codes else "")})\n        else:\n            batches.append(b)\n    for bid in coords:\n        need(bid in seen, f"coordination for {bid} has no observation")\n    projection = None\n    if batches:\n        sdoc = {"schema": "state-observations/1", "scope": {"book": scope["book"], "lanes": scope["lanes"]},\n                "members_book": doc["members_book"], "batches": batches}\n        try:\n            projection = sp.project(sdoc, do_inspect, input_sha)\n        except sp.Refusal as exc:\n            raise Refusal(f"projection refused the mapped input: {exc}") from None\n    lists = {k: [] for k in ("awaiting_review", "correction_or_held", "completed_fixtures", "conflicts", "other_open", "unreleased")}\n    src_by_id = {r.get("batch_id"): r["source_ref"] for r in mapping}\n    reader_codes = {r.get("batch_id"): r["evidence_kept"]["reader_ambiguities"] + r["evidence_kept"]["reader_attention"] for r in mapping}\n    for r in (projection or {}).get("batches", []):\n        life = r["lifecycle"]\n        notes = list(r["attention"])\n        codes = reader_codes.get(r["id"])\n        if codes:\n            notes.append("reader: " + ", ".join(codes))\n        hist = [x["member"] for x in r["facets"]["return"]["secondary"] if x.get("historical")]\n        if hist:\n            notes.append("historical retrospective member(s), never current: " + ", ".join(hist))\n        item = {"id": r["id"], "source_ref": src_by_id.get(r["id"]), "lifecycle": life,\n                "reason": "; ".join(notes), "followup": r["followup"]}\n        if life == "returned-awaiting-review":\n            lists["awaiting_review"].append(item)\n        elif life in ("open-held", "open-correction-required"):\n            lists["correction_or_held"].append(item)\n        elif life == "completed":\n            lists["completed_fixtures"].append(dict(item, note="derived fixture label; not approval or release"))\n        elif life.startswith("conflict"):\n            lists["conflicts"].append(item)\n        elif life == "unreleased":\n            lists["unreleased"].append(item)\n        else:\n            lists["other_open"].append(item)\n    lists["unprojected"] = unprojected\n    return {"schema": "prime-brief/1", "tool": {"path": str(Path(__file__).resolve()), "sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest()},\n            "projection_tool": {"path": str(PROJECTION), "sha256": PROJECTION_SHA256}, "input_sha256": input_sha, "scope": scope,\n            "inspected": do_inspect, "inputs": [{"label": e["label"], "note": e["note"], "observation_sha256": rec["observation_sha256"],\n                                                 "source_ref": rec["source_ref"]} for e, rec in zip(doc["observations"], mapping)],\n            "mapping": mapping, "reader_custody_snapshots": snapshots, "projection": projection, "brief": lists,\n            "attention": (projection or {}).get("attention_count", 0) + len(unprojected), "authority": AUTHORITY}\n\n\ndef view(b: dict) -> str:\n    out = [f"Prime brief (fixture)  scope {b[\'scope\'][\'book\']}  inspected {b[\'inspected\']}",\n           "Every state below is derived from SUPPLIED fixtures. Nothing here is a decision.", ""]\n    titles = [("awaiting_review", "Awaiting review"), ("correction_or_held", "Correction required / held"),\n              ("completed_fixtures", "Completed FIXTURES (derived label; not approval)"), ("conflicts", "Conflicts"),\n              ("other_open", "Other open"), ("unreleased", "Unreleased"), ("unprojected", "Unprojected / needs resolution")]\n    for key, title in titles:\n        items = b["brief"][key]\n        out.append(f"{title} ({len(items)})")\n        for it in items:\n            ref = it.get("source_ref") or {}\n            line = f"  - {it[\'id\'] or \'(no page)\'}  [{ref.get(\'kind\')} {(ref.get(\'commit\') or \'\')[:12]} {ref.get(\'path\')}]"\n            if key == "unprojected":\n                line += f"  {it[\'reason\']}"\n            else:\n                line += f"  {it[\'lifecycle\']}" + (f": {it[\'reason\']}" if it["reason"] else "")\n            out.append(line)\n            if it.get("followup"):\n                out.append(f"      followup: {it[\'followup\']}")\n        out.append("")\n    out.append(f"authority {AUTHORITY}")\n    return "\\n".join(out) + "\\n"\n\n\ndef main(argv=None) -> int:\n    for s in (sys.stdout, sys.stderr):\n        if hasattr(s, "reconfigure"):\n            s.reconfigure(encoding="utf-8", errors="backslashreplace")\n    ap = argparse.ArgumentParser(prog="prime_brief.py")\n    sub = ap.add_subparsers(dest="command", required=True)\n    br = sub.add_parser("brief")\n    br.add_argument("--input", required=True)\n    br.add_argument("--inspect", action="store_true")\n    br.add_argument("--json", action="store_true")\n    args = ap.parse_args(argv)\n    try:\n        raw = Path(args.input).read_bytes()\n        result = build(strict_json(raw, "input"), args.inspect, hashlib.sha256(raw).hexdigest())\n    except Refusal as exc:\n        sys.stdout.write(f"refused: {exc}\\n")\n        return 2\n    except OSError as exc:\n        sys.stdout.write(f"refused: filesystem error: {type(exc).__name__}: {exc.strerror}\\n")\n        return 2\n    sys.stdout.write(json.dumps(result, indent=1, ensure_ascii=False) + "\\n" if args.json else view(result))\n    return 1 if result["attention"] else 0\n\n\nif __name__ == "__main__":\n    sys.exit(main())\n'
+
+----------------------------------------------------------------------
+Ran 19 tests in 62.523s
+
+FAILED (failures=1)
+```
+
+## b-run3: 19 tests, dev mode, after the rewording
+```
+...................
+----------------------------------------------------------------------
+Ran 19 tests in 79.190s
+
+OK
+```
+
+## r-run1: the new real-reader tests (RETAINED FAILURE: R10 fixture mentioned the pointer's own member; the reader only flags a non-pointer member)
+```
+test_m01_reader_and_brief_leave_repo_book_and_git_unchanged (__main__.TestRealReader.test_m01_reader_and_brief_leave_repo_book_and_git_unchanged) ... ok
+test_r01_live_file_report_maps_unchanged (__main__.TestRealReader.test_r01_live_file_report_maps_unchanged) ... ok
+test_r02_git_blob_report_is_commit_basis (__main__.TestRealReader.test_r02_git_blob_report_is_commit_basis) ... ok
+test_r03_supplied_text_stays_unprojected (__main__.TestRealReader.test_r03_supplied_text_stays_unprojected) ... ok
+test_r04_current_versus_same_origin_retrospective_both_orders (__main__.TestRealReader.test_r04_current_versus_same_origin_retrospective_both_orders) ... ok
+test_r05_stale_receipt_requires_re_review (__main__.TestRealReader.test_r05_stale_receipt_requires_re_review) ... ok
+test_r06_stale_source_against_decision (__main__.TestRealReader.test_r06_stale_source_against_decision) ... ok
+test_r07_conflicting_stated_receipts_make_the_pointer_ambiguous (__main__.TestRealReader.test_r07_conflicting_stated_receipts_make_the_pointer_ambiguous) ... ok
+test_r08_real_pending_review_section (__main__.TestRealReader.test_r08_real_pending_review_section) ... ok
+test_r09_accepted_without_terminal_stays_open (__main__.TestRealReader.test_r09_accepted_without_terminal_stays_open) ... ok
+test_r10_assignment_mention_is_not_pointer_ambiguity (__main__.TestRealReader.test_r10_assignment_mention_is_not_pointer_ambiguity) ... FAIL
+test_v_malformed_real_reports_refuse_before_projection_or_launch (__main__.TestRealReader.test_v_malformed_real_reports_refuse_before_projection_or_launch) ... ok
+
+======================================================================
+FAIL: test_r10_assignment_mention_is_not_pointer_ambiguity (__main__.TestRealReader.test_r10_assignment_mention_is_not_pointer_ambiguity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 525, in test_r10_assignment_mention_is_not_pointer_ambiguity
+    self.assertIn("assignment-mention-not-pointer", o["ambiguities"])
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'assignment-mention-not-pointer' not found in ['legacy-ambiguous-heading', 'legacy-revision-withheld', 'duplicate-release']
+
+----------------------------------------------------------------------
+Ran 12 tests in 74.743s
+
+FAILED (failures=1)
+```
+
+## b-run4: full suite (RETAINED FAILURE: R10 expected exit 1; reader codes do not change exit — my assumption, corrected)
+```
+test_e01_returned_awaiting_review (__main__.TestBrief.test_e01_returned_awaiting_review) ... ok
+test_e02_bound_held_keeps_followup (__main__.TestBrief.test_e02_bound_held_keeps_followup) ... ok
+test_e03_bound_accepted_terminal_completes_as_fixture_label (__main__.TestBrief.test_e03_bound_accepted_terminal_completes_as_fixture_label) ... ok
+test_e04_text_only_accepted_stays_open (__main__.TestBrief.test_e04_text_only_accepted_stays_open) ... ok
+test_e05_fenced_release_line_cannot_authorize (__main__.TestBrief.test_e05_fenced_release_line_cannot_authorize) ... ok
+test_e06_unknown_release_is_unprojected_not_coerced (__main__.TestBrief.test_e06_unknown_release_is_unprojected_not_coerced) ... ok
+test_e07_stale_receipt_requires_re_review (__main__.TestBrief.test_e07_stale_receipt_requires_re_review) ... ok
+test_e08_two_current_members_are_ambiguous (__main__.TestBrief.test_e08_two_current_members_are_ambiguous) ... ok
+test_e09_current_and_same_origin_retrospective_both_orders (__main__.TestBrief.test_e09_current_and_same_origin_retrospective_both_orders) ... ok
+test_e10_sole_retrospective_never_completes (__main__.TestBrief.test_e10_sole_retrospective_never_completes) ... ok
+test_e11_explicit_retrospective_candidate_is_a_conflict (__main__.TestBrief.test_e11_explicit_retrospective_candidate_is_a_conflict) ... ok
+test_e12_changed_source_against_decision (__main__.TestBrief.test_e12_changed_source_against_decision) ... ok
+test_e13_commit_source_is_not_recast_live (__main__.TestBrief.test_e13_commit_source_is_not_recast_live) ... ok
+test_e14_published_held_stays_held (__main__.TestBrief.test_e14_published_held_stays_held) ... ok
+test_e15_multiple_lanes_all_listed (__main__.TestBrief.test_e15_multiple_lanes_all_listed) ... ok
+test_e16_derived_from_retained_reader_summary (__main__.TestBrief.test_e16_derived_from_retained_reader_summary)
+DERIVED-FROM-RETAINED-SUMMARY: facts from 0508 reader05.13/verification.json demo summary only. ... ok
+test_e17_malformed_inputs_refuse (__main__.TestBrief.test_e17_malformed_inputs_refuse) ... ok
+test_e18_projection_inspector_or_helper_drift_refuses_before_launch (__main__.TestBrief.test_e18_projection_inspector_or_helper_drift_refuses_before_launch) ... ok
+test_e19_utf8_and_no_mutation (__main__.TestBrief.test_e19_utf8_and_no_mutation) ... ok
+test_m01_reader_and_brief_leave_repo_book_and_git_unchanged (__main__.TestRealReader.test_m01_reader_and_brief_leave_repo_book_and_git_unchanged) ... ok
+test_r01_live_file_report_maps_unchanged (__main__.TestRealReader.test_r01_live_file_report_maps_unchanged) ... ok
+test_r02_git_blob_report_is_commit_basis (__main__.TestRealReader.test_r02_git_blob_report_is_commit_basis) ... ok
+test_r03_supplied_text_stays_unprojected (__main__.TestRealReader.test_r03_supplied_text_stays_unprojected) ... ok
+test_r04_current_versus_same_origin_retrospective_both_orders (__main__.TestRealReader.test_r04_current_versus_same_origin_retrospective_both_orders) ... ok
+test_r05_stale_receipt_requires_re_review (__main__.TestRealReader.test_r05_stale_receipt_requires_re_review) ... ok
+test_r06_stale_source_against_decision (__main__.TestRealReader.test_r06_stale_source_against_decision) ... ok
+test_r07_conflicting_stated_receipts_make_the_pointer_ambiguous (__main__.TestRealReader.test_r07_conflicting_stated_receipts_make_the_pointer_ambiguous) ... ok
+test_r08_real_pending_review_section (__main__.TestRealReader.test_r08_real_pending_review_section) ... ok
+test_r09_accepted_without_terminal_stays_open (__main__.TestRealReader.test_r09_accepted_without_terminal_stays_open) ... ok
+test_r10_assignment_mention_is_not_pointer_ambiguity (__main__.TestRealReader.test_r10_assignment_mention_is_not_pointer_ambiguity) ... FAIL
+test_v_malformed_real_reports_refuse_before_projection_or_launch (__main__.TestRealReader.test_v_malformed_real_reports_refuse_before_projection_or_launch) ... ok
+
+======================================================================
+FAIL: test_r10_assignment_mention_is_not_pointer_ambiguity (__main__.TestRealReader.test_r10_assignment_mention_is_not_pointer_ambiguity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 527, in test_r10_assignment_mention_is_not_pointer_ambiguity
+    _, b = self.brief([o], [coord(o)], code=1)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 428, in brief
+    return self.run_cli(doc, inspect=inspect, code=code)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Git\lib-build\labs\prime-brief-pass01\tests\test_prime_brief.py", line 135, in run_cli
+    self.assertEqual(r.returncode, code, out[:3000])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 1 : {
+ "schema": "prime-brief/1",
+ "tool": {
+  "path": "D:\\Git\\lib-build\\labs\\prime-brief-pass01\\prime_brief.py",
+  "sha256": "63b739d2998c2e7d7f8cd84ccd2b6ddf73cf0b47ea82d61334ac0b08be0d8329"
+ },
+ "projection_tool": {
+  "path": "D:\\Git\\lib-build\\labs\\state-projection-pass01\\state_projection.py",
+  "sha256": "b349da5cef5178296a069c354002a600ba4e168c2710aa5d87789724d4951ecb"
+ },
+ "input_sha256": "7b084d51e2870ea76b8b68394e7b76563597b3186f554cdd20630106ebf61f31",
+ "scope": {
+  "book": "00.00.10.work",
+  "lanes": [
+   "0507.prime-support"
+  ]
+ },
+ "inspected": true,
+ "inputs": [
+  {
+   "label": "SUPPLIED",
+   "note": "real reader report, unchanged",
+   "observation_sha256": "88f9608c35975d5958f02f2aa8f475af0266d35b87638725063a2c24fa046f6a",
+   "source_ref": {
+    "kind": "live-file",
+    "repository": "C:\\Users\\misg\\AppData\\Local\\Temp\\pbr-r10_assignment_menti-kuztalfj\\repo",
+    "path": "00.kernel/00.00.10.work/0507.prime-support/05.10.md",
+    "commit": null,
+    "sha256": "3c70ea0130b57a6f79ab20be99c314e7920cc30c62040cb7e60dd30564bc0a2a",
+    "bytes": 515,
+    "label": "worktree file, not a git blob"
+   }
+  }
+ ],
+ "mapping": [
+  {
+   "label": "SUPPLIED",
+   "note": "real reader report, unchanged",
+   "observation_sha256": "88f9608c35975d5958f02f2aa8f475af0266d35b87638725063a2c24fa046f6a",
+   "source_ref": {
+    "kind": "live-file",
+    "repository": "C:\\Users\\misg\\AppData\\Local\\Temp\\pbr-r10_assignment_menti-kuztalfj\\repo",
+    "path": "00.kernel/00.00.10.work/0507.prime-support/05.10.md",
+    "commit": null,
+    "sha256": "3c70ea0130b57a6f79ab20be99c314e7920cc30c62040cb7e60dd30564bc0a2a",
+    "bytes": 515,
+    "label": "worktree file, not a git blob"
+   },
+   "evidence_kept": {
+    "header_state_raw": "state: draft",
+    "release_raw": null,
+    "claim_raw": "Claim: fixture claim.",
+    "executor_raw": "Executor: Claude. Reviewer: Codex Prime.",
+    "legacy": {
+     "status": "unsupported",
+     "reason": "ambiguous heading line 16",
+     "revision_id": null
+    },
+    "reader_ambiguities": [
+     "legacy-ambiguous-heading",
+     "legacy-revision-withheld",
+     "assignment-mention-not-pointer",
+     "duplicate-release"
+    ],
+    "reader_attention": [],
+    "typed_declaration_ignored": false,
+    "live_read": {
+     "time_basis": "live-read",
+     "live_observed_at": "2026-10-28T17:00:35.591424Z",
+     "observation_started_at": "2026-10-28T17:00:35.587294Z",
+     "observation_finished_at": "2026-10-28T17:00:35.591424Z"
+    }
+   },
+   "decisions": [
+    "provenance supplied-live from source.kind live-file (supplied, not verified here)",
+    "return.pointer present; members from pointer sections only (1)",
+    "release/claim from SUPPLIED coordination only",
+    "reader custody.primary not used as candidate",
+    "review pending from reader text (exact-literal PENDING rule)"
+   ],
+   "unprojected_reason": null,
+   "batch_id": "0507.prime-support/05.
+
+----------------------------------------------------------------------
+Ran 31 tests in 140.459s
+
+FAILED (failures=1)
+```
+
+## b-run5: full 31-test suite, dev mode
+```
+test_e01_returned_awaiting_review (__main__.TestBrief.test_e01_returned_awaiting_review) ... ok
+test_e02_bound_held_keeps_followup (__main__.TestBrief.test_e02_bound_held_keeps_followup) ... ok
+test_e03_bound_accepted_terminal_completes_as_fixture_label (__main__.TestBrief.test_e03_bound_accepted_terminal_completes_as_fixture_label) ... ok
+test_e04_text_only_accepted_stays_open (__main__.TestBrief.test_e04_text_only_accepted_stays_open) ... ok
+test_e05_fenced_release_line_cannot_authorize (__main__.TestBrief.test_e05_fenced_release_line_cannot_authorize) ... ok
+test_e06_unknown_release_is_unprojected_not_coerced (__main__.TestBrief.test_e06_unknown_release_is_unprojected_not_coerced) ... ok
+test_e07_stale_receipt_requires_re_review (__main__.TestBrief.test_e07_stale_receipt_requires_re_review) ... ok
+test_e08_two_current_members_are_ambiguous (__main__.TestBrief.test_e08_two_current_members_are_ambiguous) ... ok
+test_e09_current_and_same_origin_retrospective_both_orders (__main__.TestBrief.test_e09_current_and_same_origin_retrospective_both_orders) ... ok
+test_e10_sole_retrospective_never_completes (__main__.TestBrief.test_e10_sole_retrospective_never_completes) ... ok
+test_e11_explicit_retrospective_candidate_is_a_conflict (__main__.TestBrief.test_e11_explicit_retrospective_candidate_is_a_conflict) ... ok
+test_e12_changed_source_against_decision (__main__.TestBrief.test_e12_changed_source_against_decision) ... ok
+test_e13_commit_source_is_not_recast_live (__main__.TestBrief.test_e13_commit_source_is_not_recast_live) ... ok
+test_e14_published_held_stays_held (__main__.TestBrief.test_e14_published_held_stays_held) ... ok
+test_e15_multiple_lanes_all_listed (__main__.TestBrief.test_e15_multiple_lanes_all_listed) ... ok
+test_e16_derived_from_retained_reader_summary (__main__.TestBrief.test_e16_derived_from_retained_reader_summary)
+DERIVED-FROM-RETAINED-SUMMARY: facts from 0508 reader05.13/verification.json demo summary only. ... ok
+test_e17_malformed_inputs_refuse (__main__.TestBrief.test_e17_malformed_inputs_refuse) ... ok
+test_e18_projection_inspector_or_helper_drift_refuses_before_launch (__main__.TestBrief.test_e18_projection_inspector_or_helper_drift_refuses_before_launch) ... ok
+test_e19_utf8_and_no_mutation (__main__.TestBrief.test_e19_utf8_and_no_mutation) ... ok
+test_m01_reader_and_brief_leave_repo_book_and_git_unchanged (__main__.TestRealReader.test_m01_reader_and_brief_leave_repo_book_and_git_unchanged) ... ok
+test_r01_live_file_report_maps_unchanged (__main__.TestRealReader.test_r01_live_file_report_maps_unchanged) ... ok
+test_r02_git_blob_report_is_commit_basis (__main__.TestRealReader.test_r02_git_blob_report_is_commit_basis) ... ok
+test_r03_supplied_text_stays_unprojected (__main__.TestRealReader.test_r03_supplied_text_stays_unprojected) ... ok
+test_r04_current_versus_same_origin_retrospective_both_orders (__main__.TestRealReader.test_r04_current_versus_same_origin_retrospective_both_orders) ... ok
+test_r05_stale_receipt_requires_re_review (__main__.TestRealReader.test_r05_stale_receipt_requires_re_review) ... ok
+test_r06_stale_source_against_decision (__main__.TestRealReader.test_r06_stale_source_against_decision) ... ok
+test_r07_conflicting_stated_receipts_make_the_pointer_ambiguous (__main__.TestRealReader.test_r07_conflicting_stated_receipts_make_the_pointer_ambiguous) ... ok
+test_r08_real_pending_review_section (__main__.TestRealReader.test_r08_real_pending_review_section) ... ok
+test_r09_accepted_without_terminal_stays_open (__main__.TestRealReader.test_r09_accepted_without_terminal_stays_open) ... ok
+test_r10_assignment_mention_is_not_pointer_ambiguity (__main__.TestRealReader.test_r10_assignment_mention_is_not_pointer_ambiguity) ... ok
+test_v_malformed_real_reports_refuse_before_projection_or_launch (__main__.TestRealReader.test_v_malformed_real_reports_refuse_before_projection_or_launch) ... ok
+
+----------------------------------------------------------------------
+Ran 31 tests in 142.537s
+
+OK
+```
+
+## b-run6: full suite, dev mode, final brief 302ed832…
+```
+test_e01_returned_awaiting_review (__main__.TestBrief.test_e01_returned_awaiting_review) ... ok
+test_e02_bound_held_keeps_followup (__main__.TestBrief.test_e02_bound_held_keeps_followup) ... ok
+test_e03_bound_accepted_terminal_completes_as_fixture_label (__main__.TestBrief.test_e03_bound_accepted_terminal_completes_as_fixture_label) ... ok
+test_e04_text_only_accepted_stays_open (__main__.TestBrief.test_e04_text_only_accepted_stays_open) ... ok
+test_e05_fenced_release_line_cannot_authorize (__main__.TestBrief.test_e05_fenced_release_line_cannot_authorize) ... ok
+test_e06_unknown_release_is_unprojected_not_coerced (__main__.TestBrief.test_e06_unknown_release_is_unprojected_not_coerced) ... ok
+test_e07_stale_receipt_requires_re_review (__main__.TestBrief.test_e07_stale_receipt_requires_re_review) ... ok
+test_e08_two_current_members_are_ambiguous (__main__.TestBrief.test_e08_two_current_members_are_ambiguous) ... ok
+test_e09_current_and_same_origin_retrospective_both_orders (__main__.TestBrief.test_e09_current_and_same_origin_retrospective_both_orders) ... ok
+test_e10_sole_retrospective_never_completes (__main__.TestBrief.test_e10_sole_retrospective_never_completes) ... ok
+test_e11_explicit_retrospective_candidate_is_a_conflict (__main__.TestBrief.test_e11_explicit_retrospective_candidate_is_a_conflict) ... ok
+test_e12_changed_source_against_decision (__main__.TestBrief.test_e12_changed_source_against_decision) ... ok
+test_e13_commit_source_is_not_recast_live (__main__.TestBrief.test_e13_commit_source_is_not_recast_live) ... ok
+test_e14_published_held_stays_held (__main__.TestBrief.test_e14_published_held_stays_held) ... ok
+test_e15_multiple_lanes_all_listed (__main__.TestBrief.test_e15_multiple_lanes_all_listed) ... ok
+test_e16_derived_from_retained_reader_summary (__main__.TestBrief.test_e16_derived_from_retained_reader_summary)
+DERIVED-FROM-RETAINED-SUMMARY: facts from 0508 reader05.13/verification.json demo summary only. ... ok
+test_e17_malformed_inputs_refuse (__main__.TestBrief.test_e17_malformed_inputs_refuse) ... ok
+test_e18_projection_inspector_or_helper_drift_refuses_before_launch (__main__.TestBrief.test_e18_projection_inspector_or_helper_drift_refuses_before_launch) ... ok
+test_e19_utf8_and_no_mutation (__main__.TestBrief.test_e19_utf8_and_no_mutation) ... ok
+test_m01_reader_and_brief_leave_repo_book_and_git_unchanged (__main__.TestRealReader.test_m01_reader_and_brief_leave_repo_book_and_git_unchanged) ... ok
+test_r01_live_file_report_maps_unchanged (__main__.TestRealReader.test_r01_live_file_report_maps_unchanged) ... ok
+test_r02_git_blob_report_is_commit_basis (__main__.TestRealReader.test_r02_git_blob_report_is_commit_basis) ... ok
+test_r03_supplied_text_stays_unprojected (__main__.TestRealReader.test_r03_supplied_text_stays_unprojected) ... ok
+test_r04_current_versus_same_origin_retrospective_both_orders (__main__.TestRealReader.test_r04_current_versus_same_origin_retrospective_both_orders) ... ok
+test_r05_stale_receipt_requires_re_review (__main__.TestRealReader.test_r05_stale_receipt_requires_re_review) ... ok
+test_r06_stale_source_against_decision (__main__.TestRealReader.test_r06_stale_source_against_decision) ... ok
+test_r07_conflicting_stated_receipts_make_the_pointer_ambiguous (__main__.TestRealReader.test_r07_conflicting_stated_receipts_make_the_pointer_ambiguous) ... ok
+test_r08_real_pending_review_section (__main__.TestRealReader.test_r08_real_pending_review_section) ... ok
+test_r09_accepted_without_terminal_stays_open (__main__.TestRealReader.test_r09_accepted_without_terminal_stays_open) ... ok
+test_r10_assignment_mention_is_not_pointer_ambiguity (__main__.TestRealReader.test_r10_assignment_mention_is_not_pointer_ambiguity) ... ok
+test_v_malformed_real_reports_refuse_before_projection_or_launch (__main__.TestRealReader.test_v_malformed_real_reports_refuse_before_projection_or_launch) ... ok
+
+----------------------------------------------------------------------
+Ran 31 tests in 125.406s
+
+OK
+```
+
+## b-run7: full suite, default mode, final
+```
+test_e01_returned_awaiting_review (__main__.TestBrief.test_e01_returned_awaiting_review) ... ok
+test_e02_bound_held_keeps_followup (__main__.TestBrief.test_e02_bound_held_keeps_followup) ... ok
+test_e03_bound_accepted_terminal_completes_as_fixture_label (__main__.TestBrief.test_e03_bound_accepted_terminal_completes_as_fixture_label) ... ok
+test_e04_text_only_accepted_stays_open (__main__.TestBrief.test_e04_text_only_accepted_stays_open) ... ok
+test_e05_fenced_release_line_cannot_authorize (__main__.TestBrief.test_e05_fenced_release_line_cannot_authorize) ... ok
+test_e06_unknown_release_is_unprojected_not_coerced (__main__.TestBrief.test_e06_unknown_release_is_unprojected_not_coerced) ... ok
+test_e07_stale_receipt_requires_re_review (__main__.TestBrief.test_e07_stale_receipt_requires_re_review) ... ok
+test_e08_two_current_members_are_ambiguous (__main__.TestBrief.test_e08_two_current_members_are_ambiguous) ... ok
+test_e09_current_and_same_origin_retrospective_both_orders (__main__.TestBrief.test_e09_current_and_same_origin_retrospective_both_orders) ... ok
+test_e10_sole_retrospective_never_completes (__main__.TestBrief.test_e10_sole_retrospective_never_completes) ... ok
+test_e11_explicit_retrospective_candidate_is_a_conflict (__main__.TestBrief.test_e11_explicit_retrospective_candidate_is_a_conflict) ... ok
+test_e12_changed_source_against_decision (__main__.TestBrief.test_e12_changed_source_against_decision) ... ok
+test_e13_commit_source_is_not_recast_live (__main__.TestBrief.test_e13_commit_source_is_not_recast_live) ... ok
+test_e14_published_held_stays_held (__main__.TestBrief.test_e14_published_held_stays_held) ... ok
+test_e15_multiple_lanes_all_listed (__main__.TestBrief.test_e15_multiple_lanes_all_listed) ... ok
+test_e16_derived_from_retained_reader_summary (__main__.TestBrief.test_e16_derived_from_retained_reader_summary)
+DERIVED-FROM-RETAINED-SUMMARY: facts from 0508 reader05.13/verification.json demo summary only. ... ok
+test_e17_malformed_inputs_refuse (__main__.TestBrief.test_e17_malformed_inputs_refuse) ... ok
+test_e18_projection_inspector_or_helper_drift_refuses_before_launch (__main__.TestBrief.test_e18_projection_inspector_or_helper_drift_refuses_before_launch) ... ok
+test_e19_utf8_and_no_mutation (__main__.TestBrief.test_e19_utf8_and_no_mutation) ... ok
+test_m01_reader_and_brief_leave_repo_book_and_git_unchanged (__main__.TestRealReader.test_m01_reader_and_brief_leave_repo_book_and_git_unchanged) ... ok
+test_r01_live_file_report_maps_unchanged (__main__.TestRealReader.test_r01_live_file_report_maps_unchanged) ... ok
+test_r02_git_blob_report_is_commit_basis (__main__.TestRealReader.test_r02_git_blob_report_is_commit_basis) ... ok
+test_r03_supplied_text_stays_unprojected (__main__.TestRealReader.test_r03_supplied_text_stays_unprojected) ... ok
+test_r04_current_versus_same_origin_retrospective_both_orders (__main__.TestRealReader.test_r04_current_versus_same_origin_retrospective_both_orders) ... ok
+test_r05_stale_receipt_requires_re_review (__main__.TestRealReader.test_r05_stale_receipt_requires_re_review) ... ok
+test_r06_stale_source_against_decision (__main__.TestRealReader.test_r06_stale_source_against_decision) ... ok
+test_r07_conflicting_stated_receipts_make_the_pointer_ambiguous (__main__.TestRealReader.test_r07_conflicting_stated_receipts_make_the_pointer_ambiguous) ... ok
+test_r08_real_pending_review_section (__main__.TestRealReader.test_r08_real_pending_review_section) ... ok
+test_r09_accepted_without_terminal_stays_open (__main__.TestRealReader.test_r09_accepted_without_terminal_stays_open) ... ok
+test_r10_assignment_mention_is_not_pointer_ambiguity (__main__.TestRealReader.test_r10_assignment_mention_is_not_pointer_ambiguity) ... ok
+test_v_malformed_real_reports_refuse_before_projection_or_launch (__main__.TestRealReader.test_v_malformed_real_reports_refuse_before_projection_or_launch) ... ok
+
+----------------------------------------------------------------------
+Ran 31 tests in 142.677s
+
+OK
+```
+
+## b-run8: full suite, dev mode, disposable copy of the labs, final
+```
+...............................
+----------------------------------------------------------------------
+Ran 31 tests in 27.887s
+
+OK
+```
+
+## mutations: seven deliberate adapter faults on disposable copies
+```
+pb08-label-membership-before-type: exit 1; failing ['test_v_malformed_real_reports_refuse_before_projection_or_launch']
+pb09-live-file-unprojected: exit 1; failing ['test_e01_returned_awaiting_review', 'test_e02_bound_held_keeps_followup', 'test_e03_bound_accepted_terminal_completes_as_fixture_label', 'test_e04_text_only_accepted_stays_open', 'test_e05_fenced_release_line_cannot_authorize', 'test_e06_unknown_release_is_unprojected_not_coerced', 'test_e07_stale_receipt_requires_re_review', 'test_e08_two_current_members_are_ambiguous', 'test_e09_current_and_same_origin_retrospective_both_orders', 'test_e10_sole_retrospective_never_completes', 'test_e11_explicit_retrospective_candidate_is_a_conflict', 'test_e12_changed_source_against_decision', 'test_e14_published_held_stays_held', 'test_e15_multiple_lanes_all_listed', 'test_e18_projection_inspector_or_helper_drift_refuses_before_launch', 'test_e19_utf8_and_no_mutation', 'test_r01_live_file_report_maps_unchanged', 'test_r04_current_versus_same_origin_retrospective_both_orders', 'test_r05_stale_receipt_requires_re_review', 'test_r06_stale_source_against_decision', 'test_r07_conflicting_stated_receipts_make_the_pointer_ambiguous', 'test_r08_real_pending_review_section', 'test_r09_accepted_without_terminal_stays_open', 'test_r10_assignment_mention_is_not_pointer_ambiguity']
+pb10-substring-pointer-rule: exit 1; failing ['test_r10_assignment_mention_is_not_pointer_ambiguity']
+raw-release-line-authorizes: exit 1; failing ['test_e05_fenced_release_line_cannot_authorize']
+source-sha-mismatch-ignored: exit 1; failing ['test_e12_changed_source_against_decision', 'test_r06_stale_source_against_decision']
+unknown-coerced-to-pending: exit 1; failing ['test_e06_unknown_release_is_unprojected_not_coerced']
+reader-primary-as-candidate: exit 1; failing ['test_e08_two_current_members_are_ambiguous']
+```
+
+## rehearsal run 1 (brief 63b739d2…; header text then said 'SUPPLIED fixtures')
+```
+0504.app-entry/05.17: correction_or_held open-held | expected: held declaration stays open
+0508.return-capture/05.15: other_open open-accepted-not-terminal | expected: accepted without terminal remains open/unverified, not completed
+0507.prime-support/05.12: correction_or_held open-held | expected: held declaration stays open
+0504.app-entry/05.18: unprojected None | expected: unprojected unknown coordination
+0508.return-capture/05.16: unprojected None | expected: unprojected unknown coordination
+errors: []
+```
+
+## rehearsal run 2 (final brief 302ed832…), whose results.json and brief.txt are the captured outputs
+```
+0504.app-entry/05.17: correction_or_held open-held | expected: held declaration stays open
+0508.return-capture/05.15: other_open open-accepted-not-terminal | expected: accepted without terminal remains open/unverified, not completed
+0507.prime-support/05.12: correction_or_held open-held | expected: held declaration stays open
+0504.app-entry/05.18: unprojected None | expected: unprojected unknown coordination
+0508.return-capture/05.16: unprojected None | expected: unprojected unknown coordination
+errors: []
+```
+
+## demo: dev mode, in place
+```
+fixture member book C:\Users\misg\AppData\Local\Temp\pbr-st-6mqip2y6\book
+input C:\Users\misg\AppData\Local\Temp\pbr-st-6mqip2y6\demo-input.json
+
+Prime brief  scope 00.00.10.work  inspected True
+Every state below is derived from SUPPLIED inputs (fixtures or labelled reader reports). Nothing here is a decision.
+
+Awaiting review (1)
+  - 0507.prime-support/05.31  [live-file  00.kernel/00.00.10.work/0507.prime-support/05.31.md]  returned-awaiting-review
+
+Correction required / held (1)
+  - 0507.prime-support/05.32  [live-file  00.kernel/00.00.10.work/0507.prime-support/05.32.md]  open-correction-required: review correction-required; the item stays open until an explicit resolution
+      followup: 0507.prime-support/05.37 (fixture follow-up)
+
+Completed FIXTURES (derived label; not approval) (1)
+  - 0507.prime-support/05.34  [live-file  00.kernel/00.00.10.work/0507.prime-support/05.34.md]  completed
+
+Conflicts (0)
+
+Other open (1)
+  - 0507.prime-support/05.33  [live-file  00.kernel/00.00.10.work/0507.prime-support/05.33.md]  open-review-unresolved: review present without a validated candidate binding; nothing is closed; historical retrospective member(s), never current: 0103.retro
+
+Unreleased (0)
+
+Unprojected / needs resolution (2)
+  - 0507.prime-support/05.35  [live-file  00.kernel/00.00.10.work/0507.prime-support/05.35.md]  release and claim unknown: no SUPPLIED coordination record (raw reader lines are evidence, not decisions)
+  - 0507.prime-support/05.36  [live-file  00.kernel/00.00.10.work/0507.prime-support/05.36.md]  coordination is bound to a different source sha256 (changed source against decision)
+
+authority none; a brief selects, releases, accepts and dispatches nothing
+exit 1 (1 = brief with attention or unprojected items)
+
+SYNTHETIC fixtures only. Nothing was written, selected or dispatched. No authority was granted.
+```
+
+## demo: dev mode, disposable copy
+```
+fixture member book C:\Users\misg\AppData\Local\Temp\pbr-st-7vzzbwel\book
+input C:\Users\misg\AppData\Local\Temp\pbr-st-7vzzbwel\demo-input.json
+
+Prime brief  scope 00.00.10.work  inspected True
+Every state below is derived from SUPPLIED inputs (fixtures or labelled reader reports). Nothing here is a decision.
+
+Awaiting review (1)
+  - 0507.prime-support/05.31  [live-file  00.kernel/00.00.10.work/0507.prime-support/05.31.md]  returned-awaiting-review
+
+Correction required / held (1)
+  - 0507.prime-support/05.32  [live-file  00.kernel/00.00.10.work/0507.prime-support/05.32.md]  open-correction-required: review correction-required; the item stays open until an explicit resolution
+      followup: 0507.prime-support/05.37 (fixture follow-up)
+
+Completed FIXTURES (derived label; not approval) (1)
+  - 0507.prime-support/05.34  [live-file  00.kernel/00.00.10.work/0507.prime-support/05.34.md]  completed
+
+Conflicts (0)
+
+Other open (1)
+  - 0507.prime-support/05.33  [live-file  00.kernel/00.00.10.work/0507.prime-support/05.33.md]  open-review-unresolved: review present without a validated candidate binding; nothing is closed; historical retrospective member(s), never current: 0103.retro
+
+Unreleased (0)
+
+Unprojected / needs resolution (2)
+  - 0507.prime-support/05.35  [live-file  00.kernel/00.00.10.work/0507.prime-support/05.35.md]  release and claim unknown: no SUPPLIED coordination record (raw reader lines are evidence, not decisions)
+  - 0507.prime-support/05.36  [live-file  00.kernel/00.00.10.work/0507.prime-support/05.36.md]  coordination is bound to a different source sha256 (changed source against decision)
+
+authority none; a brief selects, releases, accepts and dispatches nothing
+exit 1 (1 = brief with attention or unprojected items)
+
+SYNTHETIC fixtures only. Nothing was written, selected or dispatched. No authority was granted.
+```
+
+## demo: default mode, in place
+```
+fixture member book C:\Users\misg\AppData\Local\Temp\pbr-st-uwuxtbye\book
+input C:\Users\misg\AppData\Local\Temp\pbr-st-uwuxtbye\demo-input.json
+
+Prime brief  scope 00.00.10.work  inspected True
+Every state below is derived from SUPPLIED inputs (fixtures or labelled reader reports). Nothing here is a decision.
+
+Awaiting review (1)
+  - 0507.prime-support/05.31  [live-file  00.kernel/00.00.10.work/0507.prime-support/05.31.md]  returned-awaiting-review
+
+Correction required / held (1)
+  - 0507.prime-support/05.32  [live-file  00.kernel/00.00.10.work/0507.prime-support/05.32.md]  open-correction-required: review correction-required; the item stays open until an explicit resolution
+      followup: 0507.prime-support/05.37 (fixture follow-up)
+
+Completed FIXTURES (derived label; not approval) (1)
+  - 0507.prime-support/05.34  [live-file  00.kernel/00.00.10.work/0507.prime-support/05.34.md]  completed
+
+Conflicts (0)
+
+Other open (1)
+  - 0507.prime-support/05.33  [live-file  00.kernel/00.00.10.work/0507.prime-support/05.33.md]  open-review-unresolved: review present without a validated candidate binding; nothing is closed; historical retrospective member(s), never current: 0103.retro
+
+Unreleased (0)
+
+Unprojected / needs resolution (2)
+  - 0507.prime-support/05.35  [live-file  00.kernel/00.00.10.work/0507.prime-support/05.35.md]  release and claim unknown: no SUPPLIED coordination record (raw reader lines are evidence, not decisions)
+  - 0507.prime-support/05.36  [live-file  00.kernel/00.00.10.work/0507.prime-support/05.36.md]  coordination is bound to a different source sha256 (changed source against decision)
+
+authority none; a brief selects, releases, accepts and dispatches nothing
+exit 1 (1 = brief with attention or unprojected items)
+
+SYNTHETIC fixtures only. Nothing was written, selected or dispatched. No authority was granted.
+```
+
+## rehearsal runs compared
+```
+0504.app-entry/05.17: run1 correction_or_held open-held | run2 correction_or_held open-held
+0508.return-capture/05.15: run1 other_open open-accepted-not-terminal | run2 other_open open-accepted-not-terminal
+0507.prime-support/05.12: run1 correction_or_held open-held | run2 correction_or_held open-held
+0504.app-entry/05.18: run1 unprojected None | run2 unprojected None
+0508.return-capture/05.16: run1 unprojected None | run2 unprojected None
+reader stdout sha256 run1 vs run2: [["0504.app-entry/05.17", "3c1d35542968", "0f85a13a78d2"], ["0508.return-capture/05.15", "449eeae56351", "97e72ae9ef3a"], ["0507.prime-support/05.12", "2b946502667e", "214986bf74e6"], ["0504.app-entry/05.18", "ee335674f5f8", "ee335674f5f8"], ["0508.return-capture/05.16", "23cc690b01f2", "23cc690b01f2"]]
+(stdout differs only where live inspection times differ; commit facts are identical)
+```

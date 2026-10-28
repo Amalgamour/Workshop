@@ -1,0 +1,201 @@
+{
+ "schema": "realbrief05.14-verification",
+ "batch": "0507.prime-support/05.14",
+ "who": "claude-opus-5-5",
+ "date": "2026-10-28",
+ "workshop_at_claim": "d017f9f7e8271db6de3b72d31a82077c5ef588c4",
+ "head_at_verification": "c1a11dc9014eed37506f19aba7d41e3ca3213106",
+ "pack05.14": "17 of 17 snapshots match pins and live",
+ "before_bytes_equal_pack": {
+  "prime_brief.py": true,
+  "README.md": true,
+  "demo.py": true,
+  "test_prime_brief.py": true
+ },
+ "brief": {
+  "before_sha256": "72eca44ce9d91b047b63180cb101b066c833e94ecb7fa94a14e689d59de4de35",
+  "final_sha256": "302ed832d2fa955a591420f13d3b22ce91e4a7669c69a778d443fc82627580d7",
+  "pinned_in_harness": true
+ },
+ "unchanged_pinned_sources": {
+  "labs/state-projection-pass01/state_projection.py": true,
+  "labs/batch-observation-pass01/batch_observe.py": true,
+  "labs/batch-observation-pass01/README.md": true,
+  "labs/prime-support-pass01/prime_support.py": true,
+  "labs/prime-support-pass01/clerk_adapter.py": true,
+  "labs/return-capture-pass01/return_capture.py": true,
+  "labs/return-capture-pass01/return_inspect.py": true,
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/prime-review05.13/review.md": true,
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/prime-review05.13/verification.json": true,
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/realbrief-input05.14/coordination.json": true,
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/realbrief-input05.14/coordination-provenance.json": true,
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/realbrief-input05.14/source-spec.json": true
+ },
+ "rehearsal": {
+  "source_commit": "6d18d182535df8dc60b698c585b04cd276c5df85",
+  "pins_all_match": true,
+  "reader_calls": [
+   {
+    "batch_id": "0504.app-entry/05.17",
+    "exit": 1,
+    "stdout_sha256": "0f85a13a78d20f4cbaa91fb3db6c8d73498b1187afeb79ba9774e79cfe319354",
+    "stdout_bytes": 10283,
+    "stderr_empty": true,
+    "source": {
+     "kind": "git-blob",
+     "commit": "6d18d182535df8dc60b698c585b04cd276c5df85",
+     "path": "00.kernel/00.00.10.work/0504.app-entry/05.17.md",
+     "sha256": "ca48e6d89e79171ae4335db4a9c6a1f41ed88d40fb05d0b48da23e2f0843ef29",
+     "bytes": 6885
+    }
+   },
+   {
+    "batch_id": "0508.return-capture/05.15",
+    "exit": 1,
+    "stdout_sha256": "97e72ae9ef3a07a4f0108f84bd7ff6530a01474463b64515bd55406724a0d791",
+    "stdout_bytes": 11960,
+    "stderr_empty": true,
+    "source": {
+     "kind": "git-blob",
+     "commit": "6d18d182535df8dc60b698c585b04cd276c5df85",
+     "path": "00.kernel/00.00.10.work/0508.return-capture/05.15.md",
+     "sha256": "966c440875366b74f8be682bf9d24a28491cc5e32bdd69baad94297b038e7049",
+     "bytes": 6533
+    }
+   },
+   {
+    "batch_id": "0507.prime-support/05.12",
+    "exit": 1,
+    "stdout_sha256": "214986bf74e6d96a661bff7fc33ace8bfb35af00073b9bcff2f76755afd2cd1e",
+    "stdout_bytes": 12095,
+    "stderr_empty": true,
+    "source": {
+     "kind": "git-blob",
+     "commit": "6d18d182535df8dc60b698c585b04cd276c5df85",
+     "path": "00.kernel/00.00.10.work/0507.prime-support/05.12.md",
+     "sha256": "dce336e1f4c3cd8d4679ddff45f517293b2e6fd991d8bb39560c0412f1f5f3f5",
+     "bytes": 8403
+    }
+   },
+   {
+    "batch_id": "0504.app-entry/05.18",
+    "exit": 1,
+    "stdout_sha256": "ee335674f5f814b305eada987c4c17b8985489e4bf2769a59d471c0b9d1dfda0",
+    "stdout_bytes": 3642,
+    "stderr_empty": true,
+    "source": {
+     "kind": "git-blob",
+     "commit": "6d18d182535df8dc60b698c585b04cd276c5df85",
+     "path": "00.kernel/00.00.10.work/0504.app-entry/05.18.md",
+     "sha256": "b421fa1c3a4378b2ee15522ea5d701e6ff3313260216482c979b5d3bf7eb0990",
+     "bytes": 5620
+    }
+   },
+   {
+    "batch_id": "0508.return-capture/05.16",
+    "exit": 1,
+    "stdout_sha256": "23cc690b01f2bf55ed18ed8c120388511dba1dc8ae3a641affdb2e62dbb6562f",
+    "stdout_bytes": 3652,
+    "stderr_empty": true,
+    "source": {
+     "kind": "git-blob",
+     "commit": "6d18d182535df8dc60b698c585b04cd276c5df85",
+     "path": "00.kernel/00.00.10.work/0508.return-capture/05.16.md",
+     "sha256": "576416338da27d9154c8c2845422529837f7229da2f714b98fbc5ed3c0500768",
+     "bytes": 4813
+    }
+   }
+  ],
+  "reports_fed_unchanged": true,
+  "coordination_fed_exactly": true,
+  "outcomes_match_contract_C": true,
+  "nothing_completed": true,
+  "commit_facts_identical_across_runs": true,
+  "errors": []
+ },
+ "tests": {
+  "brief_count": 31,
+  "existing": 19,
+  "added": 12,
+  "skips": 0,
+  "final_runs": [
+   "dev OK",
+   "default OK",
+   "copy dev OK"
+  ],
+  "projection_suite_rerun": false,
+  "mutations": [
+   "pb08-label-membership-before-type: exit 1; failing ['test_v_malformed_real_reports_refuse_before_projection_or_launch']",
+   "pb09-live-file-unprojected: exit 1; failing ['test_e01_returned_awaiting_review', 'test_e02_bound_held_keeps_followup', 'test_e03_bound_accepted_terminal_completes_as_fixture_label', 'test_e04_text_only_accepted_stays_open', 'test_e05_fenced_release_line_cannot_authorize', 'test_e06_unknown_release_is_unprojected_not_coerced', 'test_e07_stale_receipt_requires_re_review', 'test_e08_two_current_members_are_ambiguous', 'test_e09_current_and_same_origin_retrospective_both_orders', 'test_e10_sole_retrospective_never_completes', 'test_e11_explicit_retrospective_candidate_is_a_conflict', 'test_e12_changed_source_against_decision', 'test_e14_published_held_stays_held', 'test_e15_multiple_lanes_all_listed', 'test_e18_projection_inspector_or_helper_drift_refuses_before_launch', 'test_e19_utf8_and_no_mutation', 'test_r01_live_file_report_maps_unchanged', 'test_r04_current_versus_same_origin_retrospective_both_orders', 'test_r05_stale_receipt_requires_re_review', 'test_r06_stale_source_against_decision', 'test_r07_conflicting_stated_receipts_make_the_pointer_ambiguous', 'test_r08_real_pending_review_section', 'test_r09_accepted_without_terminal_stays_open', 'test_r10_assignment_mention_is_not_pointer_ambiguity']",
+   "pb10-substring-pointer-rule: exit 1; failing ['test_r10_assignment_mention_is_not_pointer_ambiguity']",
+   "raw-release-line-authorizes: exit 1; failing ['test_e05_fenced_release_line_cannot_authorize']",
+   "source-sha-mismatch-ignored: exit 1; failing ['test_e12_changed_source_against_decision', 'test_r06_stale_source_against_decision']",
+   "unknown-coerced-to-pending: exit 1; failing ['test_e06_unknown_release_is_unprojected_not_coerced']",
+   "reader-primary-as-candidate: exit 1; failing ['test_e08_two_current_members_are_ambiguous']"
+  ]
+ },
+ "concurrent_other_lane": [],
+ "writes_this_batch": [
+  " M 00.kernel/00.00.10.work/0507.prime-support/05.14.md",
+  " M labs/prime-brief-pass01/README.md",
+  " M labs/prime-brief-pass01/demo.py",
+  " M labs/prime-brief-pass01/prime_brief.py",
+  " M labs/prime-brief-pass01/tests/test_prime_brief.py",
+  "?? 00.kernel/00.00.10.work/0507.prime-support/06.15.md",
+  "?? 00.kernel/00.00.10.work/0507.prime-support/evidence/realbrief05.14/CONTRACT.md",
+  "?? 00.kernel/00.00.10.work/0507.prime-support/evidence/realbrief05.14/brief.txt",
+  "?? 00.kernel/00.00.10.work/0507.prime-support/evidence/realbrief05.14/rehearse.py",
+  "?? 00.kernel/00.00.10.work/0507.prime-support/evidence/realbrief05.14/results.json",
+  "?? 00.kernel/00.00.10.work/0507.prime-support/evidence/realbrief05.14/tests.txt"
+ ],
+ "staged": [],
+ "not_done": [
+  "no app wiring",
+  "no edits to reader, projection, app or other workers",
+  "no schema/law/lane change",
+  "no queue/model call",
+  "no shared Git stage/commit/push"
+ ],
+ "outputs": {
+  "labs/prime-brief-pass01/prime_brief.py": {
+   "sha256": "302ed832d2fa955a591420f13d3b22ce91e4a7669c69a778d443fc82627580d7",
+   "bytes": 22747
+  },
+  "labs/prime-brief-pass01/README.md": {
+   "sha256": "83595634354e9073df5482eeacb74ec4f77b84d65f3a41b6b9c57551f6f9773d",
+   "bytes": 5804
+  },
+  "labs/prime-brief-pass01/tests/test_prime_brief.py": {
+   "sha256": "dec82c68be257c311c988492e81b36d35b16fcc1f24391f95138615a694d457d",
+   "bytes": 36042
+  },
+  "labs/prime-brief-pass01/demo.py": {
+   "sha256": "3c301ebbf8800dfec0f9aa36d4f9a6b1a0cba359ac1b8db4399be6b06b8e2fca",
+   "bytes": 2996
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/06.15.md": {
+   "sha256": "36b63d44e6194e195a016bf96fe3ee37eb57995fbb6985061dcca857ef806ffd",
+   "bytes": 7653
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/realbrief05.14/CONTRACT.md": {
+   "sha256": "dd98982b5e9b8c0f1deb9af12ce86cfb0f7308384cc57f7610d87f6b7e3f9f5e",
+   "bytes": 7292
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/realbrief05.14/rehearse.py": {
+   "sha256": "20ad89cffc4673354543ddce33b1ef524340973fe35a6427401e4f42dbca61b2",
+   "bytes": 6831
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/realbrief05.14/results.json": {
+   "sha256": "d308733fa2452a609556dbe180fbef9f80a87147ba383d0d68de0adca56c8c07",
+   "bytes": 172747
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/realbrief05.14/brief.txt": {
+   "sha256": "0201b0134c5e0a9e83dc633335636537a1fcef2d39038a4753240ed5edd842a1",
+   "bytes": 1912
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/realbrief05.14/tests.txt": {
+   "sha256": "b0fb949898302465bb10eb29bcbbd588f5349e6661d042759d18179a5bb8f804",
+   "bytes": 74406
+  }
+ }
+}

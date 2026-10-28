@@ -33,13 +33,17 @@ def sha(text: str) -> str:
     return hashlib.sha256(text.encode()).hexdigest()
 
 
-def robs(batch="05.01", lane=LANE, members=(), kind="live", commit=None, review_text=None, release_raw=None,
+def robs(batch="05.01", lane=LANE, members=(), kind="live-file", commit=None, review_text=None, release_raw=None,
          ambiguities=(), reader_primary=None, typed_declaration=None, page_text=None):
-    """A SYNTHETIC batch-observation/1 fixture in Grok-2's reader shape (reader05.13 CONTRACT §3)."""
+    """A SYNTHETIC batch-observation/1 fixture in the accepted reader's actual shape (05.14: live-file, source time keys)."""
     path = f"00.kernel/{BOOK}/{lane}/{batch}.md"
     return {"schema": "batch-observation/1", "tool": {"name": "fixture", "path": None, "sha256": None}, "authority": "none",
             "source": {"kind": kind, "repository": None, "path": path, "commit": commit,
-                       "sha256": sha(page_text or f"{lane}/{batch}"), "bytes": 10, "label": "SYNTHETIC fixture"},
+                       "sha256": sha(page_text or f"{lane}/{batch}"), "bytes": 10, "label": "SYNTHETIC fixture",
+                       "time_basis": "live-read" if kind == "live-file" else kind,
+                       "live_observed_at": "2026-10-28T00:00:00Z" if kind == "live-file" else None,
+                       "observation_started_at": "2026-10-28T00:00:00Z" if kind == "live-file" else None,
+                       "observation_finished_at": "2026-10-28T00:00:00Z" if kind == "live-file" else None},
             "page": {"book": BOOK, "page": lane, "batch": batch},
             "document": {"header_state_raw": "draft"},
             "assignment": {"executor_raw": "Executor: fixture.", "release_raw": release_raw, "claim_raw": None},
@@ -361,6 +365,230 @@ class TestBrief(Fixture):
         src = TOOL.read_text(encoding="utf-8")
         self.assertNotIn("batch_observe", src)
         self.assertNotIn("import prime_support", src)
+
+
+# ---------- 05.14: the real accepted reader on disposable Git/book fixtures ----------
+
+READER = LABS / "batch-observation-pass01" / "batch_observe.py"
+PAGE_DIR = f"00.kernel/{BOOK}/{LANE}"
+GENV = dict(os.environ, GIT_AUTHOR_NAME="fixture", GIT_AUTHOR_EMAIL="fixture@local", GIT_COMMITTER_NAME="fixture",
+            GIT_COMMITTER_EMAIL="fixture@local", GIT_OPTIONAL_LOCKS="0", GIT_CONFIG_NOSYSTEM="1")
+
+
+def page_text(lines, review="PENDING."):
+    body = "\n".join(lines)
+    return (f"# 05 — Fixture batch\nversion: 001\nstate: draft\nFace: 05\nPPPP: 0507\nbook: {BOOK}\n\n## Assignment\n"
+            f"Executor: Claude. Reviewer: Codex Prime.\nRelease and claim: recorded in the Return pointer.\n\n"
+            f"## #01 — Do it\nWrite out.txt.\n\n## Return pointer\nRelease: fixture release.\nClaim: fixture claim.\n{body}\n\n"
+            f"## Review — Codex Prime\n{review}\n")
+
+
+class RealReader(Fixture):
+    def setUp(self):
+        super().setUp()
+        self.repo = self.tmp / "repo"
+        self.repo.mkdir()
+        self.git("init", "-q", "-b", "main")
+        self.mbook = self.repo / "00.kernel" / BOOK
+        self.mbook.mkdir(parents=True)
+
+    def git(self, *a):
+        return subprocess.run(["git", "-C", str(self.repo), *a], capture_output=True, env=GENV, check=True).stdout.decode().strip()
+
+    def write_page(self, batch, text):
+        path = self.repo / PAGE_DIR / f"{batch}.md"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(text.encode("utf-8"))
+        return f"{PAGE_DIR}/{batch}.md"
+
+    def commit(self):
+        self.git("add", "-A")
+        self.git("commit", "-q", "-m", "fixture")
+        return self.git("rev-parse", "HEAD")
+
+    def observe(self, rel, mode="live", commit=None, members=True):
+        args = [sys.executable, "-B", str(READER), "observe", "--json"]
+        if mode == "live":
+            args += ["--repo", str(self.repo), "--live", "--path", rel]
+        elif mode == "git":
+            args += ["--repo", str(self.repo), "--commit", commit, "--path", rel]
+        else:
+            args += ["--supplied", str(self.repo / rel), "--path", rel]
+        if members and mode != "supplied":
+            args += ["--members-book", str(self.mbook)]
+        r = subprocess.run(args, capture_output=True, timeout=120)
+        self.assertEqual(r.stderr, b"", r.stderr)
+        self.assertIn(r.returncode, (0, 1), r.stdout[:500])
+        return r.stdout, json.loads(r.stdout)
+
+    def brief(self, obs, coords, inspect=True, code=None):
+        doc = {"schema": "prime-brief-input/1", "scope": {"book": BOOK, "lanes": [LANE]}, "members_book": str(self.mbook),
+               "observations": [{"label": "SUPPLIED", "note": "real reader report, unchanged", "observation": o} for o in obs],
+               "coordination": coords}
+        return self.run_cli(doc, inspect=inspect, code=code)
+
+    def stated(self, member, receipt):
+        return f"Execution: returned. Member {member}. Receipt sha256 {receipt}. Fresh verify: result complete."
+
+
+class TestRealReader(RealReader):
+    def test_r01_live_file_report_maps_unchanged(self):
+        m = self.member("r01", batch="05.01")
+        rel = self.write_page("05.01", page_text([self.stated(m, self.receipt(m))]))
+        raw, o = self.observe(rel)
+        self.assertEqual(o["source"]["kind"], "live-file")
+        _, b = self.brief([o], [coord(o)], code=0)
+        self.assertEqual(b["inputs"][0]["observation_sha256"], pb.canonical_sha(json.loads(raw)))
+        self.assertEqual(self.ids(b, "awaiting_review"), [f"{LANE}/05.01"])
+        self.assertEqual(b["projection"]["batches"][0]["provenance"]["kind"], "supplied-live")
+        self.assertEqual(b["mapping"][0]["evidence_kept"]["live_read"]["live_observed_at"], o["source"]["live_observed_at"])
+
+    def test_r02_git_blob_report_is_commit_basis(self):
+        m = self.member("r02", batch="05.02")
+        rel = self.write_page("05.02", page_text([self.stated(m, self.receipt(m))]))
+        commit = self.commit()
+        _, o = self.observe(rel, mode="git", commit=commit)
+        self.assertEqual((o["source"]["kind"], o["source"]["commit"]), ("git-blob", commit))
+        _, b = self.brief([o], [coord(o, review=decision(m, self.receipt(m)))], code=1)
+        self.assertEqual([x["lifecycle"] for x in b["brief"]["other_open"]], ["open-commit-custody-unverified"])
+
+    def test_r03_supplied_text_stays_unprojected(self):
+        rel = self.write_page("05.03", page_text(["Execution: IN PROGRESS"]))
+        _, o = self.observe(rel, mode="supplied")
+        self.assertEqual(o["source"]["kind"], "supplied-text")
+        _, b = self.brief([o], [coord(o)], code=1)
+        self.assertIn("supplied text has no commit or live basis", b["brief"]["unprojected"][0]["reason"])
+
+    def test_r04_current_versus_same_origin_retrospective_both_orders(self):
+        retro, cur = self.member("r04h", batch="05.04", retrospective=True), self.member("r04c", batch="05.04")
+        for i, order in enumerate(([retro, cur], [cur, retro])):
+            with self.subTest(order=order):
+                rel = self.write_page("05.04", page_text([self.stated(x, self.receipt(x)) for x in order]))
+                _, o = self.observe(rel)
+                _, b = self.brief([o], [coord(o, review=decision(cur, self.receipt(cur)))], code=0)
+                ret = b["projection"]["batches"][0]["facets"]["return"]
+                self.assertEqual((ret["primary"], [x["member"] for x in ret["secondary"]]), (cur, [retro]))
+                self.assertEqual(self.ids(b, "completed_fixtures"), [f"{LANE}/05.04"])
+                roles = {x["member"]: x["role"] for x in b["reader_custody_snapshots"][0]["roles"]}
+                self.assertEqual(roles[retro], "same-page-retrospective")
+
+    def test_r05_stale_receipt_requires_re_review(self):
+        m = self.member("r05", batch="05.05")
+        rel = self.write_page("05.05", page_text([self.stated(m, self.receipt(m))]))
+        _, o = self.observe(rel)
+        _, b = self.brief([o], [coord(o, review=decision(m, "f" * 64))], code=1)
+        self.assertEqual([x["lifecycle"] for x in b["brief"]["other_open"]], ["open-re-review-required"])
+
+    def test_r06_stale_source_against_decision(self):
+        m = self.member("r06", batch="05.06")
+        rel = self.write_page("05.06", page_text([self.stated(m, self.receipt(m))]))
+        _, old = self.observe(rel)
+        c = coord(old, review=decision(m, self.receipt(m)))
+        self.write_page("05.06", page_text([self.stated(m, self.receipt(m)), "Note: page edited after the decision."]))
+        _, new = self.observe(rel)
+        self.assertNotEqual(old["source"]["sha256"], new["source"]["sha256"])
+        _, b = self.brief([new], [c], code=1)
+        self.assertIn("different source sha256", b["brief"]["unprojected"][0]["reason"])
+
+    def test_r07_conflicting_stated_receipts_make_the_pointer_ambiguous(self):
+        m = self.member("r07", batch="05.07")
+        rel = self.write_page("05.07", page_text([self.stated(m, self.receipt(m)), "Again. Member " + m + ". Receipt sha256 " + "e" * 64 + "."]))
+        _, o = self.observe(rel)
+        self.assertIn("conflicting-stated-receipts", o["attention"])
+        _, b = self.brief([o], [coord(o)], code=1)
+        row = b["projection"]["batches"][0]
+        self.assertEqual(row["facets"]["return"]["pointer"], "ambiguous")
+        item = (b["brief"]["awaiting_review"] + b["brief"]["other_open"])[0]
+        self.assertIn("conflicting-stated-receipts", item["reason"])
+
+    def test_r08_real_pending_review_section(self):
+        m = self.member("r08", batch="05.08")
+        rel = self.write_page("05.08", page_text([self.stated(m, self.receipt(m))], review="PENDING."))
+        _, o = self.observe(rel)
+        _, b = self.brief([o], [coord(o)], code=0)
+        self.assertEqual(b["projection"]["batches"][0]["facets"]["review"]["status"], "pending")
+        self.assertEqual(self.ids(b, "awaiting_review"), [f"{LANE}/05.08"])
+
+    def test_r09_accepted_without_terminal_stays_open(self):
+        m = self.member("r09", batch="05.09")
+        rel = self.write_page("05.09", page_text([self.stated(m, self.receipt(m))], review="Accepted within scope."))
+        _, o = self.observe(rel)
+        _, b = self.brief([o], [coord(o, review=decision(m, self.receipt(m), terminal=None))], code=1)
+        self.assertEqual([x["lifecycle"] for x in b["brief"]["other_open"]], ["open-accepted-not-terminal"])
+        self.assertEqual(b["brief"]["completed_fixtures"], [])
+
+    def test_r10_assignment_mention_is_not_pointer_ambiguity(self):
+        m = self.member("r10", batch="05.10")
+        other = self.member("r10b", batch="05.10")  # named only in an assignment sentence, never by a pointer
+        text = page_text([self.stated(m, self.receipt(m))]).replace("Write out.txt.", f"Write out.txt.\n{other} captures the evidence.")
+        rel = self.write_page("05.10", text)
+        _, o = self.observe(rel)
+        self.assertIn("assignment-mention-not-pointer", o["ambiguities"])
+        _, b = self.brief([o], [coord(o)], code=0)  # reader codes are shown on items; exit counts projection attention + unprojected
+        self.assertIn("assignment-mention-not-pointer", b["brief"]["awaiting_review"][0]["reason"])
+        ret = b["projection"]["batches"][0]["facets"]["return"]
+        self.assertEqual((ret["pointer"], ret["members_named"]), ("present", [m]))
+
+    def test_v_malformed_real_reports_refuse_before_projection_or_launch(self):
+        m = self.member("v", batch="05.11")
+        rel = self.write_page("05.11", page_text([self.stated(m, self.receipt(m))]))
+        _, o = self.observe(rel)
+
+        def drop(path):
+            def f(x):
+                t = x
+                for k in path[:-1]:
+                    t = t[k]
+                del t[path[-1]]
+            return f
+
+        def put(path, value):
+            def f(x):
+                t = x
+                for k in path[:-1]:
+                    t = t[k]
+                t[path[-1]] = value
+            return f
+        variants = {"missing-document-header": drop(("document", "header_state_raw")), "missing-release-raw": drop(("assignment", "release_raw")),
+                    "missing-source-time": drop(("source", "live_observed_at")), "missing-custody": drop(("custody",)),
+                    "missing-review-sections": drop(("review", "sections")), "missing-legacy-reason": drop(("legacy", "reason")),
+                    "pointer-member-no-name": put(("pointers", 0, "members", 0), {}), "source-bytes-str": put(("source", "bytes"), "10"),
+                    "ambiguities-int": put(("ambiguities",), [1]), "schema": put(("schema",), "batch-observation/2"),
+                    "custody-obs-role-list": put(("custody", "observations", 0, "role"), [])}
+        for name, mutate in variants.items():
+            with self.subTest(case=name):
+                bad = copy.deepcopy(o)
+                mutate(bad)
+                doc = {"schema": "prime-brief-input/1", "scope": {"book": BOOK, "lanes": [LANE]}, "members_book": str(self.mbook),
+                       "observations": [{"label": "SUPPLIED", "note": "x", "observation": bad}], "coordination": [coord(o)]}
+                with mock.patch.object(pb, "load_projection") as lp, mock.patch("subprocess.run") as run:
+                    with self.assertRaises(pb.Refusal):
+                        pb.build(doc, True, "x")
+                    lp.assert_not_called()
+                    run.assert_not_called()
+        for name, label in {"list-label": ["SUPPLIED"], "dict-label": {"a": 1}, "int-label": 1}.items():
+            with self.subTest(label=name):
+                doc = {"schema": "prime-brief-input/1", "scope": {"book": BOOK, "lanes": [LANE]}, "members_book": str(self.mbook),
+                       "observations": [{"label": label, "note": "x", "observation": o}], "coordination": [coord(o)]}
+                _, out = self.run_cli(doc, code=2)
+                self.assertTrue(out.startswith("refused: "), out)
+        for name, raw in {"nan": b'{"schema": "prime-brief-input/1", "x": NaN}', "dup": b'{"schema": "a", "schema": "b"}'}.items():
+            with self.subTest(raw=name):
+                _, out = self.run_cli(None, raw=raw, code=2)
+                self.assertTrue(out.startswith("refused: "))
+
+    def test_m01_reader_and_brief_leave_repo_book_and_git_unchanged(self):
+        m = self.member("m01", batch="05.12")
+        rel = self.write_page("05.12", page_text([self.stated(m, self.receipt(m))]))
+        commit = self.commit()
+        before = tree(self.repo)
+        _, o1 = self.observe(rel)
+        _, o2 = self.observe(rel, mode="git", commit=commit)
+        self.brief([o1], [coord(o1)])
+        self.brief([o2], [coord(o2)])
+        self.assertEqual(tree(self.repo), before)
+        self.assertEqual(self.git("rev-parse", "HEAD"), commit)
+        self.assertEqual(self.git("status", "--porcelain=v1", "-uall"), "")
 
 
 if __name__ == "__main__":
