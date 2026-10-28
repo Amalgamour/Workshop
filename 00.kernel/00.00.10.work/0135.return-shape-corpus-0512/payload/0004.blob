@@ -1,0 +1,57 @@
+{
+  "schema": "return-shape-verification/1",
+  "parser": {
+    "path": "labs/prime-support-pass01/prime_support.py",
+    "sha256": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70",
+    "bytes": 59791
+  },
+  "helper": {
+    "path": "labs/return-capture-pass01/return_capture.py",
+    "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+    "bytes": 45767
+  },
+  "reader": {
+    "path": "labs/return-capture-pass01/return_inspect.py",
+    "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+    "bytes": 11402
+  },
+  "source_commit": "4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5",
+  "live_pages_equal_commit": true,
+  "parser_changed": false,
+  "historical_pages_rewritten": false,
+  "product_code_changed": false,
+  "suite_rerun": false,
+  "real_cases": 16,
+  "unsupported": 14,
+  "ok_execution_unknown": 2,
+  "inspected_members": 19,
+  "inspected_members_complete": 19,
+  "commit_receipts_match_live": true,
+  "synthetic_controls": [
+    "S1",
+    "S2",
+    "S3",
+    "S4",
+    "S5",
+    "S6"
+  ],
+  "failures": [],
+  "artifacts": {
+    "06.13.md": {
+      "sha256": "51ab4552298d097f0c8a8761fe517fe5b81bed2a68d8961a800d53525bc99055",
+      "bytes": 3821
+    },
+    "corpus.json": {
+      "sha256": "591721b62f2bedafc2255e1638c64fa6642585b822defaf5c65253ea376e0b53",
+      "bytes": 441202
+    },
+    "diagnosis.md": {
+      "sha256": "098a1535184c3b19837ac41269cf7df06f49c0c1dd947ada8fbff731e2391993",
+      "bytes": 8063
+    }
+  },
+  "reserved_member_contents_before_capture": [
+    "01.md",
+    "reservation.json"
+  ]
+}

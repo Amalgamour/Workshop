@@ -1,0 +1,31 @@
+# Notes — return-shape corpus, 05.12
+Date: 2026-10-27
+Recorder: Grok 4.7, Grok Builder 2
+Session: 01a17dfa-bc23-7730-bec3-c49938f96187
+State: corpus notes for 05.12, written before corpus.json. Not a review and not an acceptance.
+
+06.01 through 06.12 stay as written. This file records a diagnostic corpus. It does not change the parser, rewrite a historical page, or allocate a member beyond the reserved current capture.
+
+## Pins
+
+`evidence/pack05.12/source-manifest.json` is schema `prime-pack-sources/1`, 24 sources. Checked before this claim. Every snapshot matches the manifest, and every live path matches that snapshot.
+
+The status parser is `labs/prime-support-pass01/prime_support.py`, SHA-256 `700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70`, 59791 bytes. The capture helper is `8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac`, 45767 bytes. The inspector is `947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b`, 11402 bytes. Those three files stay at those hashes. This batch does not edit them.
+
+`case-paths.json` names 16 pages and source commit `4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5`. That object is a commit. Branch `workshop` was `dc90fe1ff618a61071387f1d8052e22781475fce` when this note was opened. This builder does not commit.
+
+`0135.return-shape-corpus-0512` holds `01.md` and `reservation.json` only at this note. Reservation SHA-256 `8b97b3acffd3531e967bf437a7051bc0d871ac39a4690f2da8eb7781607f72c6`, 800 bytes.
+
+## Method
+
+The 16 page bytes are the Git blobs at the source commit. The live files were compared to those blobs and, at the pin check, also matched the pack snapshots. The harness calls `parse_source(data, "page-return")` only. It does not call `main`, `ack`, `store`, or a Git write. Heading lines are inventoried with the same fence rule the parser uses. When a page names a capture member, the pinned inspector reads that live member. A commit receipt is recorded only when `git cat-file` shows that blob at the source commit. A returned receipt is not a review. Review sentences on the page are source text. The parser's review object is a separate observation. Synthetic controls are labelled and are not desk history.
+
+## Disposition
+
+Reread after the corpus was written. All 16 commit blobs equal the live pages. `parse_source` on those bytes returns unsupported for 14 pages and ok with execution unknown for `0504.app-entry/05.01` and `0502.workflow-start/05.01`. The unsupported reason is an ambiguous return-family heading: `Return pointer`, `Return pointers`, or `Return archive pointer — date`. Those titles are outside the closed set `Return`, `Return — …`, `Review`, and `Review — …`. The parser then stores no revision id and no review object. The two recognized returns do not use the token `execution: returned`, so the parser leaves execution unknown and does not case-fold the prose.
+
+Nineteen named capture members were inspected with the pinned reader. All 19 are live status complete, and each receipt blob at `4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5` matches the live receipt. Where a manifest records its own `source_commit`, that commit is the capture's checkpoint and is not assumed to be this corpus commit. Origin plus the retrospective flag separates a primary current submission, a retrospective custody of the same page, a secondary historical capture, and a target named only in the assignment. Review sentences stay source text. A receipt is not a review.
+
+Corpus SHA-256 `591721b62f2bedafc2255e1638c64fa6642585b822defaf5c65253ea376e0b53`, 441202 bytes. The parser, helper, and inspector hashes are unchanged. No historical page was rewritten.
+
+The `0135` receipt is written by the later capture and recorded on the Return pointer of `05.12`. This note does not contain that receipt.

@@ -1,0 +1,86 @@
+{
+  "logs": {
+    "boot-entry": {
+      "reported_success": true,
+      "summary": "summary pass 7 expected-refusal 8 skip 1 fail 0",
+      "log_sha256": "89a2b2c51e2722aaa028ac81659b68ce67c034773b56b7353212a7be83c72d7f"
+    },
+    "entry": {
+      "reported_success": true,
+      "summary": "summary pass 12 expected-refusal 46 skip 1 fail 0",
+      "log_sha256": "26ee4d59c0aba766bc95920d77ad432d2348c8e44e9da1fdd221d28feae9c40a"
+    },
+    "intake": {
+      "reported_success": true,
+      "summary": "summary pass 6 expected-refusal 16 skip 1 fail 0",
+      "log_sha256": "68651fd77930fce152a131734911888f32d27836893f5971736909f946257e5f"
+    },
+    "sof-0": {
+      "reported_success": true,
+      "summary": "OK (skipped=4)",
+      "log_sha256": "1bc8aa7c6b853319c92f4c0bfcd9bf9264994b07c557b6ee7c18e8433dcfd2bf"
+    },
+    "sof-1": {
+      "reported_success": true,
+      "summary": "OK (skipped=4)",
+      "log_sha256": "02e1bff2f04a2bcaa32428c6812c304184800afc64def945665798f709e2238b"
+    }
+  },
+  "corpus": {
+    "real_cases": 16,
+    "synthetic_parse_controls": 5,
+    "synthetic_partial_capture_reproduced": true,
+    "members": 19,
+    "full_committed_package_blobs": 411,
+    "unsupported": 14,
+    "ok_execution_unknown": 2
+  },
+  "sof": {
+    "tests": 96,
+    "skips": 4,
+    "modes": [
+      "0",
+      "1"
+    ],
+    "pins": 91,
+    "custody_rows": 142
+  },
+  "captures": [
+    {
+      "member": "0130.boot-entry-0515",
+      "payloads": 9,
+      "package_files": {
+        "01.md": "5ba1fca80e81e36feecce7a52aefce505148dcb0bbaf2dcdc6f9f17aa95b86d6",
+        "manifest.json": "66e169abdd5f10029223f2d607cf3c2220396f34134d6c7bfc0b9dab91d90fe4",
+        "receipt.json": "bbae480098b46980e8d48cc707e763de016f7a7cd57d3243b5834aa22c2491c4",
+        "reservation.json": "34de8d57bdf9e8035abb85bed435ef274f82d91f9105deae2d4258827510ebfb",
+        "return.md": "2b51c358bedc570df110780eac2723ee6999073f579822b62f89ea48fc0218f2",
+        "payload/0001.blob": "a320f270dd87508d4fa9d3d5e78904108605fa308abb3ebd86513ae9c3c01fab",
+        "payload/0002.blob": "409901b1f18027b8b42a582cb14c0add82a4f5422aec9f66cda2e7a9efc2deac",
+        "payload/0003.blob": "5f8498cdfade721953c6312d669f1c7b1df5e6cccd3a37cfad73b5a7d405a924",
+        "payload/0004.blob": "8f2ef0a1804912cb88fc00d29d31558826611fa8c3c6c3c1cd11f44642d0eadc",
+        "payload/0005.blob": "6ccd7f519a41e0cb23f007f70c8f9fdc884e513696dca88a8c1a09385d4953e0",
+        "payload/0006.blob": "d01421c584305879ab1e5dcfe91e4e3dd795849ed9e3e330b69fd1f100d39897",
+        "payload/0007.blob": "7ff47df9b3909a0fa85d4b8a4eef49489aa05336cc1b53e784a68e74990fd038",
+        "payload/0008.blob": "aa3ba3b885773c4e77f11148ac6ed2571281d786a939ab77b4fbe4ee8e67619a",
+        "payload/0009.blob": "fb2c31d960e4ee48af81a5ca6afb3224ab24415bc9b72355fb9a43cfe26a9bad"
+      }
+    },
+    {
+      "member": "0135.return-shape-corpus-0512",
+      "payloads": 4,
+      "package_files": {
+        "01.md": "9959424e26890fa4c616463fede05f1c255c9365512b2a2543728f12a388174a",
+        "manifest.json": "5bf4fdb6f04afe9cbefee9f2ddc705edaee622d0489c61a1c68559bd34770d26",
+        "receipt.json": "eb26b3250c9b5a85c7b29f592bcced0ccfac32bf956704dbc65d053cbad422df",
+        "reservation.json": "8b97b3acffd3531e967bf437a7051bc0d871ac39a4690f2da8eb7781607f72c6",
+        "return.md": "103e19fd39fd91717b0d73c7f2eae75bf6d04b3a3efb85ffaa97978cc6b3cfd3",
+        "payload/0001.blob": "51ab4552298d097f0c8a8761fe517fe5b81bed2a68d8961a800d53525bc99055",
+        "payload/0002.blob": "591721b62f2bedafc2255e1638c64fa6642585b822defaf5c65253ea376e0b53",
+        "payload/0003.blob": "098a1535184c3b19837ac41269cf7df06f49c0c1dd947ada8fbff731e2391993",
+        "payload/0004.blob": "4e0d863fac22f8853513dd6df490e761e662595f6064c1d515d48fe48c89c52c"
+      }
+    }
+  ],
+  "harness_note": "First verifier assumed all6 synthetic controls were page parses; S5 is a custody fixture. Its KeyError was in the Prime verifier. Fixed by separately reproducing S5; successful product suites were not rerun. Original per-command return values were not serialized before that harness exception; preserved test logs report successful summaries."
+}

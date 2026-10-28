@@ -18,6 +18,10 @@ python <workspace>/app/librarian.py pack-preview --request <request.json> --repo
 python <workspace>/app/librarian.py pack-assemble --request <request.json> --repo <repository> --output <empty-or-absent-directory> --digest <sha256> [--json]
 python <workspace>/app/librarian.py pack-verify --pack <draft-pack> [--json]
 python <workspace>/app/librarian.py prime-status --registry <absolute-registry> --json
+python <workspace>/app/librarian.py boot-prepare --request <request.json> --records <absolute-directory> --attempt <id>
+python <workspace>/app/librarian.py boot-check --attempt <attempt-directory> --answers <answers.json>
+python <workspace>/app/librarian.py boot-judge --attempt <attempt-directory> --judgement <judgement.json>
+python <workspace>/app/librarian.py boot-show --attempt <attempt-directory> [--json]
 ```
 
 `where` and `validate` read `app/development-workspace.json` under `--root`, then the assignment record that file names. They report the desk, work book, workflow space, current work, assignment state, runtime book, runtime space, N3NN band, and the pinned runner path and SHA-256. They do not import the runner. `validate` adds `validate: pass` when the references resolve.
@@ -66,4 +70,10 @@ The only added command is `prime-status --registry <absolute-registry> --json`. 
 
 An attention item is a recommendation. It does not grant a role, a claim, an acknowledgment, a dispatch, or a model call. A status result is not release readiness. These pins are development wiring, not kernel law. The wrapper does not reimplement the status report. A registry can still name paths the tool reads. The same-user gap between the hash read and the subprocess is not closed. No model is called. `run` is still refused. Nothing here is seated or activated.
 
-Tests are `app/tests/test_entry.py`, `app/tests/test_worker_bridge.py`, `app/tests/test_prime_tools.py`, `app/tests/test_clerk_seam.py`, and `app/tests/test_prime_intake.py`.
+`boot-prepare`, `boot-check`, `boot-judge`, and `boot-show` call the accepted recorded-boot command pinned in `app/prime-boot.json` and `app/boot_tools.py`. The backend pin is `labs/prime-boot-pass01/prime_boot.py` at `54b23484f9e0812db92a623a8588175702682ebe14f8b0b915111daf51a91534`. The same declaration also pins `prime_support.py` `700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70`, `clerk_adapter.py` `2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4`, `check_book.py` `fc16d2f68a3645050b6766ce18ce55f8169a0e2bad52d3392b4d059c629073a4`, `return_capture.py` `8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac`, `return_inspect.py` `947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b`, and `clerk.py` `f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c`. All seven paths are relative to the workspace that contains this entry. All seven hashes are checked before the boot subprocess starts. A symlink or junction on the declaration or on a tool path is refused and is not followed.
+
+The caller supplies the request, the records root, the attempt id, and any answers or judgement. This entry does not invent a records root, an attempt, an answer, or a judgement. The subprocess is the current Python executable and one argument array: `prepare`, `check`, `judge`, or `show`, plus the flags that command allows. There is no shell and no tool-path override. The wrapper copies the tool's stdout and stderr bytes and keeps its exit. Exit 0 is a positive stage result. Exit 1 is a recorded negative result. Exit 2 from the tool stays the tool's own `refused:` or prepare-failure text. Exit 3 is an incomplete replay and is not turned into a stop. A bad argument or a pin mismatch prints `stop:` on stderr, exits 2, and does not start the tool.
+
+Prepare, check, and judge write only where the accepted tool writes, under the records root the caller named. Show is read-only. An orientation result is not authorization. A reviewer label is not authentication. These pins are development wiring, not kernel law. The wrapper does not reimplement the boot stages. A request can still name paths the tool reads. The same-user gap between the hash read and the subprocess is not closed. No model is called. `run` is still refused. Nothing here is seated or activated.
+
+Tests are `app/tests/test_entry.py`, `app/tests/test_worker_bridge.py`, `app/tests/test_prime_tools.py`, `app/tests/test_clerk_seam.py`, `app/tests/test_prime_intake.py`, and `app/tests/test_boot_tools.py`.

@@ -1,0 +1,39 @@
+command python -B app/tests/test_boot_tools.py
+repo D:/Git/lib-build
+python C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe
+limit subprocess-timeout-seconds 300
+limit no-model no-network no-live-install
+limit records one named attempt under the explicit root
+pass production-boundary
+evidence prepare exit 0 prepared authority none unicode path
+evidence check exit 0 checks ok
+evidence show read-only stage checked authority none
+evidence judge exit 1 not-oriented authority none reviewer label not authority
+pass valid-flow-matches-direct
+evidence malformed answers exit 1 checks failed
+pass malformed-answers-match-direct
+evidence incomplete replay exit 3 show read-only check-incomplete
+pass incomplete-replay-matches-direct
+evidence relative records exit 2 refused no directory
+pass relative-records-match-direct
+evidence not an attempt exit 2 refused
+pass not-attempt-matches-direct
+evidence argument refusals before pin
+expected-refusal arguments-before-pin
+expected-refusal wrong-clerk-pin
+expected-refusal wrong-backend-pin
+expected-refusal declaration-pin
+expected-refusal junction-pin
+skip file-symlink-pin file symlink privilege WinError 1314
+expected-refusal normal-bare
+expected-refusal normal-run
+expected-refusal unknown-command
+pass frozen-sources
+hash app/librarian.py a320f270dd87508d4fa9d3d5e78904108605fa308abb3ebd86513ae9c3c01fab 8721
+hash app/boot_tools.py 409901b1f18027b8b42a582cb14c0add82a4f5422aec9f66cda2e7a9efc2deac 9601
+hash app/prime-boot.json 5f8498cdfade721953c6312d669f1c7b1df5e6cccd3a37cfad73b5a7d405a924 1431
+hash app/README.md 6ccd7f519a41e0cb23f007f70c8f9fdc884e513696dca88a8c1a09385d4953e0 18501
+hash app/tests/test_boot_tools.py 8f2ef0a1804912cb88fc00d29d31558826611fa8c3c6c3c1cd11f44642d0eadc 35318
+summary pass 7 expected-refusal 8 skip 1 fail 0
+
+STDERR

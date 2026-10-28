@@ -1,0 +1,165 @@
+0504.app-entry/05.15 recorded-boot proof
+date: 2026-10-27
+recorder: Grok 4.7 (xAI)
+python: C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B
+PYTHONDONTWRITEBYTECODE=1
+cwd: D:/Git/lib-build
+Recorded once, sequentially. No full boot suite. No model boot. No live install.
+An orientation result is not authorization.
+
+command: C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B app/tests/test_boot_tools.py
+exit: 0
+stdout:
+command python -B app/tests/test_boot_tools.py
+repo D:/Git/lib-build
+python C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe
+limit subprocess-timeout-seconds 300
+limit no-model no-network no-live-install
+limit records one named attempt under the explicit root
+pass production-boundary
+evidence prepare exit 0 prepared authority none unicode path
+evidence check exit 0 checks ok
+evidence show read-only stage checked authority none
+evidence judge exit 1 not-oriented authority none reviewer label not authority
+pass valid-flow-matches-direct
+evidence malformed answers exit 1 checks failed
+pass malformed-answers-match-direct
+evidence incomplete replay exit 3 show read-only check-incomplete
+pass incomplete-replay-matches-direct
+evidence relative records exit 2 refused no directory
+pass relative-records-match-direct
+evidence not an attempt exit 2 refused
+pass not-attempt-matches-direct
+evidence argument refusals before pin
+expected-refusal arguments-before-pin
+expected-refusal wrong-clerk-pin
+expected-refusal wrong-backend-pin
+expected-refusal declaration-pin
+expected-refusal junction-pin
+skip file-symlink-pin file symlink privilege WinError 1314
+expected-refusal normal-bare
+expected-refusal normal-run
+expected-refusal unknown-command
+pass frozen-sources
+hash app/librarian.py a320f270dd87508d4fa9d3d5e78904108605fa308abb3ebd86513ae9c3c01fab 8721
+hash app/boot_tools.py 409901b1f18027b8b42a582cb14c0add82a4f5422aec9f66cda2e7a9efc2deac 9601
+hash app/prime-boot.json 5f8498cdfade721953c6312d669f1c7b1df5e6cccd3a37cfad73b5a7d405a924 1431
+hash app/README.md 6ccd7f519a41e0cb23f007f70c8f9fdc884e513696dca88a8c1a09385d4953e0 18501
+hash app/tests/test_boot_tools.py 8f2ef0a1804912cb88fc00d29d31558826611fa8c3c6c3c1cd11f44642d0eadc 35318
+summary pass 7 expected-refusal 8 skip 1 fail 0
+stderr:
+empty
+
+command: C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B app/tests/test_entry.py
+exit: 0
+stdout:
+PASS pinned sources still match the manifest
+PASS real workspace where and validate
+PASS fixture inventory from a foreign cwd and a relocated root
+REFUSAL test-run on the real workspace
+REFUSAL test-run on the real work book
+REFUSAL normal run
+REFUSAL direct runner 002 refuses
+REFUSAL direct runner 003 refuses
+PASS refused commands left the guarded files unchanged
+REFUSAL accepted assignment is not a fresh release
+PASS accepted context can be inspected and does not select a higher version
+REFUSAL accepted fixture with --test is not a fresh release
+REFUSAL missing work book
+REFUSAL missing work item
+REFUSAL undeclared workflow space
+REFUSAL wrong job book
+REFUSAL job book mapped onto the runtime book
+REFUSAL ambiguous compute title
+REFUSAL path escape
+REFUSAL payload outside its compute page
+REFUSAL wrong payload hash
+REFUSAL payload bytes do not match the declared hash
+REFUSAL compute page outside the band is not climbed to
+REFUSAL two compute pages for one keyword
+REFUSAL source folder app is not a fixture container
+REFUSAL source page is not a fixture container
+REFUSAL fixture allowed_root is not authority
+REFUSAL external container was not named
+REFUSAL external container overlaps the workspace
+REFUSAL filesystem root is not a container
+REFUSAL fixture root is a filesystem root
+REFUSAL junction to app is not a container
+REFUSAL junction output leaves the container
+PASS designated page fixtures container
+PASS protected source bytes stayed unchanged
+PASS fresh inventory when the output names are absent
+REFUSAL existing ordinary output
+REFUSAL existing ordinary temporary
+REFUSAL direct output hard link
+REFUSAL temporary hard link
+REFUSAL dangling temporary junction
+SKIP dangling file symlink: WinError 1314: a required privilege is not held by the client
+PASS occupied output names stayed unchanged
+REFUSAL reparse escape
+REFUSAL missing config
+REFUSAL malformed config
+REFUSAL duplicate config key
+REFUSAL config version type
+REFUSAL unknown config key
+REFUSAL config cannot widen fixture containers
+REFUSAL malformed record
+REFUSAL duplicate record key
+REFUSAL invalid assignment state
+REFUSAL record carriage return
+REFUSAL assignment path is the derived view
+PASS tampered 00.live does not change context
+REFUSAL wrong runner hash
+PASS guarded bytes were unchanged by the suite
+PASS no bytecode was written into the books or app
+summary pass 12 expected-refusal 46 skip 1 fail 0
+stderr:
+empty
+
+command: C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B app/tests/test_prime_intake.py
+exit: 0
+stdout:
+command python -B app/tests/test_prime_intake.py
+repo D:/Git/lib-build
+python C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe
+git C:\Users\misg\AppData\Local\grok\git\2.55.0.windows.5\cmd\git.exe
+fixture-head bd8c503d1c3e9c06fc16556741c1521d24d10b45
+evidence clean exit 0 attention 0 clerk [] newline crlf
+pass clean-matches-direct
+evidence attention exit 1 items [{"item": "lane status: page folder absent-pages not found", "kind": "missing"}, {"item": "lane status: absent-pages missing", "kind": "missing"}]
+pass attention-matches-direct
+evidence malformed exit 2 refused
+pass malformed-matches-direct
+evidence missing exit 2 bytes refused: registry is missing\r\n
+pass missing-matches-direct
+evidence registry store git worktree unchanged; no ack
+pass fixture-bytes-unchanged
+expected-refusal missing-json
+expected-refusal missing-registry
+expected-refusal relative-registry
+expected-refusal extra-argument
+expected-refusal intake-not-exposed
+expected-refusal repeated-registry
+expected-refusal unknown-flag
+expected-refusal normal-bare
+expected-refusal normal-run
+expected-refusal unknown-command
+expected-refusal wrong-prime-support-pin
+expected-refusal wrong-adapter-pin
+expected-refusal wrong-clerk-pin
+expected-refusal declaration-pin
+expected-refusal args-before-pin
+expected-refusal junction-pin
+skip file-symlink-pin file symlink privilege WinError 1314
+pass frozen-sources
+hash app/librarian.py a320f270dd87508d4fa9d3d5e78904108605fa308abb3ebd86513ae9c3c01fab 8721
+hash app/prime_intake.py 5a06c302dce4d9d6102cc11c78cb9adc961d49c9eb095e4fdd2632e49971611e 8501
+hash app/prime-intake.json 998278c445b293bc9df4b5ad2578c7596454ba25fd9a706a1076d79a778d37e6 735
+hash app/README.md 6ccd7f519a41e0cb23f007f70c8f9fdc884e513696dca88a8c1a09385d4953e0 18501
+hash app/tests/test_prime_intake.py 03464d3b52c4fd5e0db2659700076343c19006b208c0b8d39f0c0978685e56a0 25296
+hash labs/prime-support-pass01/prime_support.py 700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70 59791
+hash labs/prime-support-pass01/clerk_adapter.py 2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4 11774
+hash labs/clerk-handoff-pass02/clerk.py f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c 52279
+summary pass 6 expected-refusal 16 skip 1 fail 0
+stderr:
+empty

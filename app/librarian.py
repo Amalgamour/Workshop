@@ -6,10 +6,12 @@ bridge-test, bridge-status, and bridge-recover are the fixture-only worker excha
 clerk-deliver copies one collected fixture delivery into the caller's claimed Clerk job.
 pack-check, pack-preview, pack-assemble, and pack-verify call the pinned pack tools.
 prime-status calls the pinned read-only Prime status tool on a caller-supplied registry.
+boot-prepare, boot-check, boot-judge, and boot-show forward explicit arguments to the pinned recorded-boot tool.
 The writable container is designated before fixture metadata is read.
 run is refused. A --test flag does not authorize a fixture root.
 A clean pack check is not release readiness.
 A status result is not release readiness.
+An orientation result is not authorization.
 """
 
 from __future__ import annotations
@@ -73,10 +75,23 @@ def main(argv: list[str] | None = None) -> None:
         "pack-assemble",
         "pack-verify",
         "prime-status",
+        "boot-prepare",
+        "boot-check",
+        "boot-judge",
+        "boot-show",
     ):
         stop("normal run is not activated")
     command = args.pop(0)
     code_root = Path(__file__).resolve().parent.parent
+    if command in ("boot-prepare", "boot-check", "boot-judge", "boot-show"):
+        boot = load_module(Path(__file__).resolve().parent / "boot_tools.py", "librarian_boot_tools")
+        try:
+            code = boot.perform(command, args, code_root)
+        except boot.Refuse as exc:
+            stop(str(exc))
+        if type(code) is not int:
+            stop("pinned boot tool returned no exit code")
+        raise SystemExit(code)
     if command == "prime-status":
         intake = load_module(Path(__file__).resolve().parent / "prime_intake.py", "librarian_prime_intake")
         try:
