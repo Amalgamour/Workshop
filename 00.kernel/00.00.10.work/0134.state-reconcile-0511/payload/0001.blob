@@ -1,0 +1,42 @@
+# Notes — desk and lane current-state design (batch 05.11)
+Date: 2026-10-27
+Recorder: claude-opus-5-5, Colab, design executor
+State: **order fault, recorded.** The batch asks for these notes FIRST. I wrote them after the record survey and after the first draft of STATE-PROPOSAL.md. Before writing, I had marked the notes step done on my task list without writing anything. Everything below was true before the proposal draft. The disposition at the end is written after rereading every output. 06.01-06.11 stay as they are.
+
+## Inputs
+I01. pack05.11: 11 of 11 snapshots match their pins and live. 10 also match source commit 4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5. The 0134 reservation postdates that commit. Live HEAD at claim: dc90fe1.
+I02. Read at the commit:
+- the 0401.goal face and its record (v1 06.01, 3578934…);
+- 0408.seats (dbf2399d…) and the 0410 assignment-record schema (082314ff…);
+- the rehearsal report, Prime's review of 05.10 (36d901de…) and the judgement (432745c4…);
+- 0507/05.09, 0504/05.14 and 0508/05.10;
+- law 0005 and 0006 and law 0010's face-06 rule.
+I03. Grok-2's 0508/05.12 corpus is unreleased at the commit and live: its Return is PENDING and it has no corpus output. Coordination is therefore through its published records only:
+- the 05.12 page's planned corpus fields;
+- `evidence/pack05.12/case-paths.json` (16 cases).
+I don't duplicate its parser study or run prime_support.
+I04. A mechanical fact table (raw header, Assignment, Return and Review first lines, and the members named) for every 05.NN page of 0502-0509 at the commit. It lives in the scratchpad and is summarised in verification.json. It shows six header-state forms and six Return first-line forms across 50 pages (counts in verification.json).
+I05. Read-only inspector observations (live, labelled):
+- 0128 and 0132 are retrospective captures with origins 0509/05.01 and 0508/05.01. They are named first on 0508/05.10 and 05.11, whose own returns are 0129 and 0133.
+- 0130 is complete, origin 0504/05.15. At the commit it was reserved only, and the page was PENDING.
+- 0134 and 0135 are reserved only.
+
+## Choices
+C01. Three record classes: decisions and events, coordination, and derived. The flow is one-way. Only classes A and B are hand-written.
+C02. Lane "current" is derived from batch records; it is not a new hand file. The v1 key set is reused for the generated per-lane view.
+C03. The desk record becomes v2 coordination, with no current_work. It is a draft beside the seat, and seating is the Director's act. During migration, registries omit `canonical_assignment`, because the fixed prime_support reads only v1.
+C04. Six execution facets, and a precedence and escalation table. Compute never decides between two decision-level records.
+C05. Actor, role, session and executor references stay as they are. Projection rule: a claim with no release is a real gap; seat rows scoped to old batches are stale context.
+C06. A provisional `batch-observation/1` contract, mapped to the corpus field families. The primary member is chosen by inspector origin, not pointer order.
+C07. Decisions DEC-1 to DEC-5 are named, with an owner each. Routine names are proposed, not asked.
+C08. One first slice: `labs/state-projection-pass01` (proposed), fixture-only.
+C09. Worked cases W1-W7. Each is `actual` or `synthetic`. No real interrupted capture and no real stale-candidate review exist, so W5 and W6 are synthetic. W6 also carries the real wrong-first-member case.
+
+## Disposition (all outputs reread in full)
+- I01-I05: stand.
+- Correction found by verification, and fixed before capture: 0507/05.11 and 0508/05.12 do not exist at 4cca1d2; both were added in dc90fe1. W1, W2 and W7 first described them as drafts awaiting release at the commit. They now record "no draft at the commit" and give the drafts as later state. verification.json lists exactly those two paths as absent at the commit.
+- Second correction: the first proposal draft said "three header conventions" and attributed draft headers to every 0506 page. It now names the six header forms and the specific draft pages.
+- Third correction, found on the full reread: §2 had closed batches by "stated disposition" and mapped accepted versus held onto the v1 enum, which would have made compute classify review prose. Now a batch closes when its Review is no longer PENDING. Dispositions are verbatim. `accepted` and `stopped` come only from a bound review's `reviewed_disposition` (added to DEC-3). A text-only review stays `returned` with a read-the-text wait. The worked cases already matched this.
+- C01-C09: carried in STATE-PROPOSAL.md §1-§7 and worked-cases.json W1-W7. W5 is fully synthetic. W6 is synthetic for the stale review, plus the actual wrong-first-member case (0128/0129, 0132/0133).
+- Order fault (see State): the notes were written late. Nothing in the proposal depended on choices first written here; the choices C01-C09 match the proposal as drafted.
+- Not done, and outside scope: no code, core, app or law change; no assignment or seat change; no registry install; no historical command run; no product suite; no edits to Grok-2's lane.

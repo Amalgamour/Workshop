@@ -1,0 +1,199 @@
+{
+ "schema": "state05.11-verification",
+ "batch": "0507.prime-support/05.11",
+ "who": "claude-opus-5-5",
+ "date": "2026-10-27",
+ "source_commit": "4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5",
+ "head_at_verification": "dc90fe1ff618a61071387f1d8052e22781475fce",
+ "cited_real_records_at_commit": {
+  "00.kernel/00.00.10.work/0401.goal/01.md": true,
+  "00.kernel/00.00.10.work/0401.goal/06.01.md": true,
+  "00.kernel/00.00.10.work/0408.seats/01.md": true,
+  "00.kernel/00.00.10.work/0410.imports/01.md": true,
+  "00.kernel/00.00.10.work/0507.prime-support/05.09.md": true,
+  "00.kernel/00.00.10.work/0507.prime-support/05.10.md": true,
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/rehearsal05.10/rehearsal-report.md": true,
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/prime-review05.10/review.md": true,
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/prime-review05.10/prime-judgement.json": true,
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/prime-review05.09/review.md": true,
+  "00.kernel/00.00.10.work/0504.app-entry/05.14.md": true,
+  "00.kernel/00.00.10.work/0504.app-entry/05.15.md": true,
+  "00.kernel/00.00.10.work/0504.app-entry/05.10.md": true,
+  "00.kernel/00.00.10.work/0508.return-capture/05.10.md": true,
+  "00.kernel/00.00.10.work/0508.return-capture/05.11.md": true,
+  "00.kernel/00.00.10.work/0506.clerk-handoff/05.06.md": true,
+  "00.kernel/00.00.10.work/0126.boot-members-0509/receipt.json": true,
+  "00.kernel/00.00.10.work/0129.assembly-capture-0510/receipt.json": true,
+  "00.kernel/00.00.10.work/0133.original-capture-0511/receipt.json": true,
+  "00.kernel/00.00.10.work/0128.pack-assembly-0501/receipt.json": true,
+  "00.kernel/00.00.10.work/0132.return-capture-origin-0501/receipt.json": true,
+  "labs/prime-support-pass01/prime_support.py": true,
+  "00.kernel/00.00.01.law/0010.about/01.md": true,
+  "00.kernel/00.00.01.law/0005.ticket/01.md": true,
+  "00.kernel/00.00.01.law/0006.note/01.md": true
+ },
+ "all_cited_real_exist": true,
+ "cited_after_commit_marked_as_later": {
+  "00.kernel/00.00.10.work/0507.prime-support/05.11.md": {
+   "at_commit": false,
+   "live": true
+  },
+  "00.kernel/00.00.10.work/0508.return-capture/05.12.md": {
+   "at_commit": false,
+   "live": true
+  },
+  "00.kernel/00.00.10.work/0508.return-capture/evidence/pack05.12/case-paths.json": {
+   "at_commit": false,
+   "live": true
+  },
+  "00.kernel/00.00.10.work/0134.state-reconcile-0511/reservation.json": {
+   "at_commit": false,
+   "live": true
+  }
+ },
+ "proposed_paths_absent_everywhere": {
+  "00.kernel/00.00.10.work/0401.goal/06.01.002.md": {
+   "at_commit": false,
+   "live": false
+  },
+  "labs/state-projection-pass01": {
+   "at_commit": false,
+   "live": false
+  }
+ },
+ "worked_cases": [
+  {
+   "id": "W1",
+   "kind": "actual",
+   "fields_present": true,
+   "synthetic_labelled": true,
+   "commit_sources": 7,
+   "commit_sources_absent": [
+    "00.kernel/00.00.10.work/0507.prime-support/05.11.md",
+    "00.kernel/00.00.10.work/0508.return-capture/05.12.md"
+   ]
+  },
+  {
+   "id": "W2",
+   "kind": "actual",
+   "fields_present": true,
+   "synthetic_labelled": true,
+   "commit_sources": 1,
+   "commit_sources_absent": [
+    "00.kernel/00.00.10.work/0507.prime-support/05.11.md"
+   ]
+  },
+  {
+   "id": "W3",
+   "kind": "actual",
+   "fields_present": true,
+   "synthetic_labelled": true,
+   "commit_sources": 1,
+   "commit_sources_absent": []
+  },
+  {
+   "id": "W4",
+   "kind": "actual",
+   "fields_present": true,
+   "synthetic_labelled": true,
+   "commit_sources": 2,
+   "commit_sources_absent": []
+  },
+  {
+   "id": "W5",
+   "kind": "synthetic",
+   "fields_present": true,
+   "synthetic_labelled": true,
+   "commit_sources": 0,
+   "commit_sources_absent": []
+  },
+  {
+   "id": "W6",
+   "kind": "synthetic+actual",
+   "fields_present": true,
+   "synthetic_labelled": true,
+   "commit_sources": 2,
+   "commit_sources_absent": []
+  },
+  {
+   "id": "W7",
+   "kind": "actual",
+   "fields_present": true,
+   "synthetic_labelled": true,
+   "commit_sources": 4,
+   "commit_sources_absent": [
+    "00.kernel/00.00.10.work/0508.return-capture/05.12.md"
+   ]
+  }
+ ],
+ "worked_cases_commit_sources_absent_only_where_noted": [
+  "00.kernel/00.00.10.work/0507.prime-support/05.11.md",
+  "00.kernel/00.00.10.work/0508.return-capture/05.12.md"
+ ],
+ "pins_unchanged": {
+  "labs/prime-support-pass01/prime_support.py": true,
+  "labs/prime-boot-pass01/prime_boot.py": true,
+  "labs/return-capture-pass01/return_inspect.py": true,
+  "labs/return-capture-pass01/return_capture.py": true
+ },
+ "facts_table": {
+  "pages": 50,
+  "lanes": [
+   "0502.workflow-start",
+   "0503.worker-bridge",
+   "0504.app-entry",
+   "0506.clerk-handoff",
+   "0507.prime-support",
+   "0508.return-capture",
+   "0509.pack-assembly"
+  ],
+  "header_state_forms": {
+   "packed — awaits Director execution relea": 1,
+   "draft": 18,
+   "packed, awaiting Director release": 2,
+   "returned for Codex Prime review,": 1,
+   "returned": 14,
+   "released by the Director": 14
+  },
+  "return_first_line_forms": {
+   "Execution: line": 2,
+   "Release-first (0507 style)": 20,
+   "Did/prose": 12,
+   "Member X. Receipt (0504 style)": 6,
+   "PENDING": 1,
+   "Member: block (0508 style)": 9
+  },
+  "note": "raw first-line classes for orientation only; return-shape analysis belongs to Grok-2's 0508/05.12 corpus"
+ },
+ "writes_in_0507": [
+  " M 00.kernel/00.00.10.work/0507.prime-support/05.11.md",
+  "?? 00.kernel/00.00.10.work/0507.prime-support/06.12.md",
+  "?? 00.kernel/00.00.10.work/0507.prime-support/evidence/state05.11/STATE-PROPOSAL.md",
+  "?? 00.kernel/00.00.10.work/0507.prime-support/evidence/state05.11/verification.json",
+  "?? 00.kernel/00.00.10.work/0507.prime-support/evidence/state05.11/worked-cases.json"
+ ],
+ "writes_only_allowed": true,
+ "staged": [],
+ "not_done": [
+  "no code, core, app or law change",
+  "no assignment or seat record change",
+  "no live registry",
+  "no historical command executed",
+  "no product suite rerun",
+  "no other-lane writes"
+ ],
+ "outputs": {
+  "00.kernel/00.00.10.work/0507.prime-support/06.12.md": {
+   "sha256": "cb9e319585083667c4d15f3011bfbfdbd6c8fcfbe9974312c7dba52ebd98fb7c",
+   "bytes": 5146
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/state05.11/STATE-PROPOSAL.md": {
+   "sha256": "0020eb4f327175a3c5165b4619bebfb9cbad28883617a00edd2598ac88b91949",
+   "bytes": 17860
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/state05.11/worked-cases.json": {
+   "sha256": "43a7f61b4f13b3b5e5a233d97a7c66242fa552a55b254eda8bcef35caa9b9ccd",
+   "bytes": 15587
+  }
+ }
+}

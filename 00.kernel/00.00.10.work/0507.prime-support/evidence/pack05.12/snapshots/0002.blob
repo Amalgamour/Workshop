@@ -1,0 +1,434 @@
+{
+ "schema": "state-worked-cases/1",
+ "batch": "0507.prime-support/05.11",
+ "status": "PROPOSAL: examples of the proposed projection; not actual desk state and not a decision",
+ "source_commit": "4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5",
+ "live_observations": "each 'members' entry and every 'at: live' source is a read at design time, separate from the commit",
+ "cases": [
+  {
+   "id": "W1",
+   "title": "parallel Grok-1, Claude and Grok-2 lanes",
+   "kind": "actual",
+   "sources": [
+    {
+     "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+     "at": "commit",
+     "commit": "4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5",
+     "sha256": "3578934451fc98e1dcfcc0030adebad27478787c4c2b6177f82268ae6826c38c",
+     "bytes": 545
+    },
+    {
+     "path": "00.kernel/00.00.10.work/0504.app-entry/05.14.md",
+     "at": "commit",
+     "commit": "4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5",
+     "sha256": "ec826f7d2d0e566a5554bfe471fe99535c7fda3abc5485a8efe001d1d5c522c3",
+     "bytes": 4968
+    },
+    {
+     "path": "00.kernel/00.00.10.work/0504.app-entry/05.15.md",
+     "at": "commit",
+     "commit": "4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5",
+     "sha256": "7c0ceea8fa1ddf1a4db14729c8f5cfec31a03ea6774731d0b96dbd1a2b7b1ad3",
+     "bytes": 4801
+    },
+    {
+     "path": "00.kernel/00.00.10.work/0507.prime-support/05.10.md",
+     "at": "commit",
+     "commit": "4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5",
+     "sha256": "2db7798371a3f6e2e09c1ef8b57fa079928965807812fb59aee6d49aaf56da0e",
+     "bytes": 7344
+    },
+    {
+     "path": "00.kernel/00.00.10.work/0507.prime-support/05.11.md",
+     "at": "commit",
+     "commit": "4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5",
+     "absent": true
+    },
+    {
+     "path": "00.kernel/00.00.10.work/0508.return-capture/05.11.md",
+     "at": "commit",
+     "commit": "4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5",
+     "sha256": "7cf44ad1d16c8ea12ee96cd4f34dca5a62ec7bcdac7070f13885e10f6e16e1e8",
+     "bytes": 4585
+    },
+    {
+     "path": "00.kernel/00.00.10.work/0508.return-capture/05.12.md",
+     "at": "commit",
+     "commit": "4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5",
+     "absent": true
+    }
+   ],
+   "existing_homes": {
+    "desk": "0401.goal/06.01.md (v1, single current_work 0504.app-entry/05.06.md, accepted)",
+    "lanes": "batch pages 05.NN with Return pointer and Review sections; members 01NN"
+   },
+   "proposed_homes": {
+    "desk": "0401.goal/06.01.002.md (proposed, desk-coordination v2; no current_work)",
+    "lanes": "none hand-written; derived state-projection/1 (proposed)"
+   },
+   "derived_view_at_commit": {
+    "0504.app-entry (executor label Grok Builder 1)": {
+     "view": "idle",
+     "latest_closed": "05.14 review text 'Accepted within scope,2026-10-27.'",
+     "awaiting_release": [
+      "05.15"
+     ]
+    },
+    "0507.prime-support (Claude Colab)": {
+     "view": "idle",
+     "latest_closed": "05.10 review text 'Accepted within scope,2026-10-27.'",
+     "awaiting_release": [],
+     "later_state": "05.11 draft appears only from dc90fe1 (after the source commit); it is not commit evidence"
+    },
+    "0508.return-capture (executor label Grok Builder 2)": {
+     "view": "idle",
+     "latest_closed": "05.11 review text 'Accepted within scope,2026-10-27.'",
+     "awaiting_release": [],
+     "later_state": "05.12 draft appears only from dc90fe1"
+    },
+    "desk_record_check": "conflict: v1 current_work 0504.app-entry/05.06.md is closed (review text present) and is not any lane's open batch; shown, not repaired"
+   },
+   "permitted_next_step": "read-only at the commit: 0504 waits on a Director release of drafted 05.15; 0507 and 0508 have no draft at the commit",
+   "unresolved_authority": [
+    "DEC-1 desk record v2",
+    "DEC-5 active lane list"
+   ]
+  },
+  {
+   "id": "W2",
+   "title": "released and claimed, no return yet",
+   "kind": "actual",
+   "observed": "live, at design time (this batch)",
+   "sources": [
+    {
+     "path": "00.kernel/00.00.10.work/0507.prime-support/05.11.md",
+     "at": "commit",
+     "commit": "4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5",
+     "absent": true
+    },
+    {
+     "path": "00.kernel/00.00.10.work/0507.prime-support/05.11.md",
+     "at": "live",
+     "sha256": "69cf6ccf644580f48affb2a8bbecd9a2ac1d23008788f05f5ec277bcf3f4841b",
+     "bytes": 6963
+    }
+   ],
+   "members": [
+    {
+     "member": "0134.state-reconcile-0511",
+     "at": "live",
+     "via": "return_inspect.py 947915fe…",
+     "status": "reserved",
+     "exit": 1,
+     "origin": {
+      "batch": "05.11",
+      "book": "00.00.10.work",
+      "page": "0507.prime-support"
+     },
+     "retrospective": null,
+     "receipt_sha256": null,
+     "submission_id": "claude-0507-0511"
+    }
+   ],
+   "derived_view": {
+    "document": "header-legacy 'draft; awaiting Director release' (stale-duplicate notice)",
+    "release": "recorded (Return pointer Release: quote)",
+    "claim": "recorded (claude-opus-5-5, Colab)",
+    "return": "none (Execution: IN PROGRESS; member reserved only)",
+    "review": "pending",
+    "summary": "claimed",
+    "lane_view": "open: 05.11, assignment_state running"
+   },
+   "note": "the page is absent at the source commit (added in dc90fe1), so the commit view has no 05.11; the live and commit views are kept apart",
+   "permitted_next_step": "executor continues within the batch; no one else acts on 05.11",
+   "unresolved_authority": []
+  },
+  {
+   "id": "W3",
+   "title": "complete captured return, no review",
+   "kind": "actual",
+   "observed": "live",
+   "sources": [
+    {
+     "path": "00.kernel/00.00.10.work/0504.app-entry/05.15.md",
+     "at": "commit",
+     "commit": "4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5",
+     "sha256": "7c0ceea8fa1ddf1a4db14729c8f5cfec31a03ea6774731d0b96dbd1a2b7b1ad3",
+     "bytes": 4801
+    },
+    {
+     "path": "00.kernel/00.00.10.work/0504.app-entry/05.15.md",
+     "at": "live",
+     "sha256": "72a30670c58c4af4014635e5977624a89344a785fe3d144749331436626a9459",
+     "bytes": 5094
+    }
+   ],
+   "members": [
+    {
+     "member": "0130.boot-entry-0515",
+     "at": "live",
+     "via": "return_inspect.py 947915fe…",
+     "status": "complete",
+     "exit": 0,
+     "origin": {
+      "batch": "05.15",
+      "book": "00.00.10.work",
+      "page": "0504.app-entry"
+     },
+     "retrospective": false,
+     "receipt_sha256": "bbae480098b46980e8d48cc707e763de016f7a7cd57d3243b5834aa22c2491c4",
+     "submission_id": "grok-1-0504-0515"
+    }
+   ],
+   "derived_view": {
+    "release": "recorded or legacy form (read by the reader slice, not by this design)",
+    "return": "captured: 0130 complete, origin 0504.app-entry 05.15 equals the batch",
+    "review": "pending",
+    "summary": "captured",
+    "lane_view": "open: 05.15, assignment_state returned, waits_on Prime review"
+   },
+   "note": "at the commit, 0130 was reserved only and the page was PENDING. Live: the pointer names 0130 and its receipt. Custody only, and not acceptance. The live header says 'state: returned'; that is header-legacy, shown verbatim",
+   "permitted_next_step": "Prime reviews; nobody else treats the receipt as approval",
+   "unresolved_authority": [
+    "Prime's review disposition"
+   ]
+  },
+  {
+   "id": "W4",
+   "title": "accepted review text with a stale draft header",
+   "kind": "actual",
+   "sources": [
+    {
+     "path": "00.kernel/00.00.10.work/0507.prime-support/05.09.md",
+     "at": "commit",
+     "commit": "4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5",
+     "sha256": "de861a4c7e0120873349cbdf358357aa6ad89b1cceeb77a17dc2f4d8ee12487a",
+     "bytes": 7652
+    },
+    {
+     "path": "00.kernel/00.00.10.work/0507.prime-support/evidence/prime-review05.09/review.md",
+     "at": "commit",
+     "commit": "4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5",
+     "sha256": "5aa68483028ccfd661d0459a6ac8d0aac49a70f0db36dd40f58affe2139fd8fb",
+     "bytes": 983
+    }
+   ],
+   "members": [
+    {
+     "member": "0126.boot-members-0509",
+     "at": "live",
+     "via": "return_inspect.py 947915fe…",
+     "status": "complete",
+     "exit": 0,
+     "origin": {
+      "batch": "05.09",
+      "book": "00.00.10.work",
+      "page": "0507.prime-support"
+     },
+     "retrospective": false,
+     "receipt_sha256": "706ed69c2083a0859bd7e9ab22dc055d7ef7886f67484d9330086a057ef893d1",
+     "submission_id": "claude-0507-0509"
+    }
+   ],
+   "derived_view": {
+    "document": "header-legacy 'draft; awaiting Director release'",
+    "release": "recorded (Return pointer); Assignment 'Release: PENDING.' gives a stale-duplicate notice, not a conflict",
+    "claim": "recorded; Assignment 'Claim: PENDING.' gives a stale-duplicate notice",
+    "return": "captured: 0126 complete, origin 0507.prime-support 05.09; receipt equals the pointer's",
+    "review": "text: 'Accepted within scope,2026-10-27.' plus record path; not bound (no reviewed_receipt field)",
+    "publication": "at-ref if the review bytes are present at refs/remotes/origin/workshop (a Git fact)",
+    "summary": "reviewed:'Accepted within scope'",
+    "lane_view": "closed"
+   },
+   "permitted_next_step": "none for 05.09; a fresh reader must read the Return and Review sections, not the header",
+   "unresolved_authority": [
+    "DEC-3 review binding for future reviews",
+    "DEC-4 header convention"
+   ]
+  },
+  {
+   "id": "W5",
+   "title": "interrupted capture",
+   "kind": "synthetic",
+   "label": "SYNTHETIC EXAMPLE: not desk history. No real interrupted capture exists at the commit. The nearest real state is 0130 reserved-only at 4cca1d2, which is not an interruption",
+   "example_inputs": {
+    "page": "05.NN Return pointer PENDING",
+    "member": "01NN.example: reservation.json and manifest.json present, receipt.json absent",
+    "inspector": "status incomplete, problem 'missing receipt.json', exit 2"
+   },
+   "derived_view": {
+    "return": "custody-problem",
+    "summary": "claimed",
+    "attention": [
+     "custody-problem: member incomplete; no pointer"
+    ]
+   },
+   "permitted_next_step": "executor reports it; no overwrite, removal or reallocation; Prime decides",
+   "unresolved_authority": [
+    "Prime: whether a new member may be reserved"
+   ]
+  },
+  {
+   "id": "W6",
+   "title": "review against a stale or wrong candidate",
+   "kind": "synthetic+actual",
+   "synthetic": {
+    "label": "SYNTHETIC EXAMPLE: not desk history",
+    "example_inputs": {
+     "review_record": "reviewed_member 01NN.a, reviewed_receipt_sha256 R1",
+     "current_primary": "01NN.b with receipt R2 (a superseding member for the same batch)"
+    },
+    "derived_view": {
+     "review": "stale-candidate",
+     "attention": [
+      "re-review needed: review binds R1, current primary R2"
+     ]
+    }
+   },
+   "actual": {
+    "note": "the real wrong-first-member shape: the pointer names a retrospective capture first",
+    "sources": [
+     {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/05.10.md",
+      "at": "commit",
+      "commit": "4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5",
+      "sha256": "5af717d97c9e3c6d198b39de16154be1a1f1b54ada5146c5af4cb538e310e53c",
+      "bytes": 4178
+     },
+     {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/05.11.md",
+      "at": "commit",
+      "commit": "4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5",
+      "sha256": "7cf44ad1d16c8ea12ee96cd4f34dca5a62ec7bcdac7070f13885e10f6e16e1e8",
+      "bytes": 4585
+     }
+    ],
+    "members": [
+     {
+      "member": "0128.pack-assembly-0501",
+      "at": "live",
+      "via": "return_inspect.py 947915fe…",
+      "status": "complete",
+      "exit": 0,
+      "origin": {
+       "batch": "05.01",
+       "book": "00.00.10.work",
+       "page": "0509.pack-assembly"
+      },
+      "retrospective": true,
+      "receipt_sha256": "8aefe871d65c9fc6d98388f2eca6492bc03e4f44795f89fc4fe84994e5ba5727",
+      "submission_id": "historical-0509-0501"
+     },
+     {
+      "member": "0129.assembly-capture-0510",
+      "at": "live",
+      "via": "return_inspect.py 947915fe…",
+      "status": "complete",
+      "exit": 0,
+      "origin": {
+       "batch": "05.10",
+       "book": "00.00.10.work",
+       "page": "0508.return-capture"
+      },
+      "retrospective": false,
+      "receipt_sha256": "7049fb4a2105ee5590aa0ed67686a3f4e358378cdea7d05b8453c4adba0818f7",
+      "submission_id": "grok-2-0508-0510"
+     },
+     {
+      "member": "0132.return-capture-origin-0501",
+      "at": "live",
+      "via": "return_inspect.py 947915fe…",
+      "status": "complete",
+      "exit": 0,
+      "origin": {
+       "batch": "05.01",
+       "book": "00.00.10.work",
+       "page": "0508.return-capture"
+      },
+      "retrospective": true,
+      "receipt_sha256": "8526f3e38c3118ae9dea0d371f051cc85f1370133b2c464e6fbf8c870b96422d",
+      "submission_id": "historical-0508-0501"
+     },
+     {
+      "member": "0133.original-capture-0511",
+      "at": "live",
+      "via": "return_inspect.py 947915fe…",
+      "status": "complete",
+      "exit": 0,
+      "origin": {
+       "batch": "05.11",
+       "book": "00.00.10.work",
+       "page": "0508.return-capture"
+      },
+      "retrospective": false,
+      "receipt_sha256": "7516c5be81768d5656ec7fc8423ae4ac29186ff15fd9789047a464a2a75df88f",
+      "submission_id": "grok-2-0508-0511"
+     }
+    ],
+    "derived_view": {
+     "0508/05.10 primary": "0129 (origin 0508.return-capture 05.10)",
+     "0508/05.10 secondary": "0128 (origin 0509.pack-assembly 05.01, retrospective)",
+     "0508/05.11 primary": "0133",
+     "0508/05.11 secondary": "0132 (retrospective)",
+     "rule": "primary by inspector origin page/batch; pointer order is not evidence"
+    }
+   },
+   "permitted_next_step": "for the synthetic case, Prime re-reviews; for the actual case, nothing (both closed)",
+   "unresolved_authority": [
+    "DEC-3"
+   ]
+  },
+  {
+   "id": "W7",
+   "title": "lane with no open assignment",
+   "kind": "actual",
+   "sources": [
+    {
+     "path": "00.kernel/00.00.10.work/0508.return-capture/05.11.md",
+     "at": "commit",
+     "commit": "4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5",
+     "sha256": "7cf44ad1d16c8ea12ee96cd4f34dca5a62ec7bcdac7070f13885e10f6e16e1e8",
+     "bytes": 4585
+    },
+    {
+     "path": "00.kernel/00.00.10.work/0508.return-capture/05.12.md",
+     "at": "commit",
+     "commit": "4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5",
+     "absent": true
+    },
+    {
+     "path": "00.kernel/00.00.10.work/0506.clerk-handoff/05.06.md",
+     "at": "commit",
+     "commit": "4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5",
+     "sha256": "e8762ea29d92a9bbca3fcf3dfceec8a3249c38cab0d61cfb03065726da62f4e0",
+     "bytes": 11394
+    },
+    {
+     "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+     "at": "commit",
+     "commit": "4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5",
+     "sha256": "3578934451fc98e1dcfcc0030adebad27478787c4c2b6177f82268ae6826c38c",
+     "bytes": 545
+    }
+   ],
+   "derived_view": {
+    "0508.return-capture": {
+     "view": "idle",
+     "latest_closed": "05.11",
+     "awaiting_release": [],
+     "later_state": "05.12 draft from dc90fe1; still Release PENDING live"
+    },
+    "0506.clerk-handoff": {
+     "view": "idle",
+     "latest_closed": "05.06 review 'Disposition: INSPECTION/2 ACCEPTED FOR DEVELOPMENT CONSUMERS; CI-01–03 VERIFIED FIXED.'",
+     "awaiting_release": []
+    },
+    "desk_record": "v1 names no lane at all (single current_work), so lane assignment is absent rather than stale; v2 would list the lane as active (DEC-5) and the projection would show idle"
+   },
+   "permitted_next_step": "read-only; at live HEAD a 05.12 draft exists that only the Director can release",
+   "unresolved_authority": [
+    "DEC-5 whether 0506 is still an active lane"
+   ]
+  }
+ ]
+}
