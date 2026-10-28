@@ -1,0 +1,53 @@
+{
+ "schema": "prime-support-registry",
+ "version": 1,
+ "repositories": {
+  "workshop": {
+   "local": "D:/Git/lib-build",
+   "branch": "workshop",
+   "remote_ref": "refs/remotes/origin/workshop",
+   "worktree": "registered-paths",
+   "history_limit": 50
+  }
+ },
+ "lanes": [
+  {
+   "lane": "0504.app-entry",
+   "project": "workshop",
+   "owner_label": "Grok-Builder-1 (per-batch executor label)",
+   "repository": "workshop",
+   "pages": [
+    "00.kernel/00.00.10.work/0504.app-entry"
+   ],
+   "return_files": [],
+   "review_sources": []
+  },
+  {
+   "lane": "0507.prime-support",
+   "project": "workshop",
+   "owner_label": "Claude Colab (per-batch executor label)",
+   "repository": "workshop",
+   "pages": [
+    "00.kernel/00.00.10.work/0507.prime-support"
+   ],
+   "return_files": [],
+   "review_sources": []
+  },
+  {
+   "lane": "0508.return-capture",
+   "project": "workshop",
+   "owner_label": "Grok-Builder-2 (per-batch executor label)",
+   "repository": "workshop",
+   "pages": [
+    "00.kernel/00.00.10.work/0508.return-capture"
+   ],
+   "return_files": [],
+   "review_sources": []
+  }
+ ],
+ "canonical_assignment": {
+  "repository": "workshop",
+  "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+  "lane": "0504.app-entry"
+ }
+}

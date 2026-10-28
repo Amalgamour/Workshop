@@ -1,0 +1,62 @@
+# Notes — recorded Prime boot packet candidate (batch 05.15)
+Date: 2026-10-28
+Recorder: claude-opus-5-5, Colab, executor (packet preparation only)
+State: written FIRST, before PLAN.md, the registry, the request and any tool run. 06.01-06.15 stay as they are.
+
+**What this is, and is not.** This prepares one packet candidate. It is not a fresh Prime boot, not an exam and not a Prime retirement. There are no answers, no check and no judge.
+
+## Inputs
+I01. pack05.15: 20 of 20 snapshots match their pins, and live matches all 20, at workshop b4f3048. The pack includes:
+- the accepted prime_boot 54b23484… and its README;
+- the app front door: librarian.py 694d44ae…, boot_tools.py 409901b1…, prime-boot.json 5f8498cd…, README 59fe0395…;
+- the boot dependencies: prime_support, clerk_adapter, check_book, return_capture, return_inspect;
+- the accepted brief (realbrief05.14/brief.txt 0201b013…), results.json (d308733f…, 172,747 bytes) and coordination-provenance (6c9b24a7…);
+- prime-review05.14 (3b1c1c8f…);
+- the 05.10 rehearsal report and verification, and prime-review05.10;
+- Grok-2's 0508/05.17 page (d4fa8e9e…). I record its hash only. The batch says it is unreviewed, so I don't read its outputs and don't treat them as approved.
+I02. Source cut: d3b6ad3e55beb1ec0bd5acbb114e6e66fd66c4e9, as named; no HEAD selection. At that cut:
+- the book's 00.md points to contents `0011.contents/01.051.md` (9,952 bytes);
+- the canonical record `0401.goal/06.01.md` still says 0504/05.06 `accepted`, with an old waits_on. That is the known stale record. I keep it, and don't edit it.
+I03. **The brief's cut differs from the packet's cut.** The brief describes observations at 6d18d18. Three of its five pages are byte-identical at d3b6ad3: 0504/05.17, 0508/05.15 and 0507/05.12. Two changed after the brief: 0504/05.18 (commit c1a11dc) and 0508/05.16 (commit 21ad4f8). So the packet's copy of a changed page is newer than the brief's "unknown". PACKET-ENTRY must say this.
+I04. Sizes at the cut: results.json is 172,747 bytes, more than the 128 KiB cap, so it can't go in the packet. It stays as an exact external evidence link. The candidate selection (PLAN) is 12 refs and about 45.5 KB.
+
+## Choices (before any run)
+C01. **Registry** (strict v1, the accepted form):
+- one repository, `workshop` (D:/Git/lib-build, refs/remotes/origin/workshop, registered-paths);
+- three lanes: 0504.app-entry, 0507.prime-support and 0508.return-capture, the brief's lanes;
+- canonical_assignment `0401.goal/06.01.md`, bound to lane 0504.app-entry, the lane its current_work names. That is a factual binding, not a migration;
+- no Clerk jobs.
+The registry is preparation input, not an installation.
+C02. **Request** prime-boot-request/1:
+- role `Prime`; model `unassigned-preparation-only`; attempt 1; commit d3b6ad3…;
+- members ["0145.real-reader-brief-0514"], live custody only;
+- packet, in order: brief.txt, coordination-provenance.json, coordination.json, prime-review05.14/review.md, 0504/05.17 (held), 0508/05.15 (accepted, not terminal), 0504/05.18 (unknown as of the brief);
+- limits 12 refs and 131072 bytes.
+Deliberately excluded, with reasons recorded in PLAN: results.json, which is over the cap; 0507/05.12, a second held page with the same pattern as 05.17; 0508/05.16, a second unknown with the same pattern as 05.18.
+C03. **Records.** A new external records root `tempfile.mkdtemp(prefix="pb-packet-0515-")`, outside Git, and attempt id `p1`. The root is kept for Prime, and nothing is cleaned up.
+C04. **Commands.**
+- `python -B app/librarian.py boot-prepare --request … --records … --attempt p1`;
+- then `boot-show --attempt … --json` and the text form.
+Exact stdout, stderr and exits are kept. No check or judge.
+C05. **records.json** uses the 0131 approach: a base64 file map with safe names, sha256 and bytes. It holds every attempt file, plus the command logs and metadata: the request, registry, cut, tool identities and exits. It never contains its own capture's commit.
+C06. **If prepare is partial or failed,** keep it exactly as it is, explain it, and only open a new linked attempt for an input I got wrong, keeping the first.
+
+## Disposition (all outputs reread in full)
+- I01-I04: stand. The brief's cut (6d18d18) and the packet's cut (d3b6ad3) are both kept. 0504/05.18 and 0508/05.16 changed after the brief, and this is stated in PLAN and PACKET-ENTRY.
+- C01-C04: carried as written.
+  - `boot-prepare` exited 0 with `prepared` on the first attempt: 12 refs, 45,460 bytes, 0 absences, 0 omissions, stable, member 0145 complete (receipt 62a74558…).
+  - `boot-show`, in JSON and text, exited 0: `prepared; awaiting answers; not oriented`.
+  - No file 20 or later exists. No retry was needed.
+- **Not resolved.** With the canonical record bound to lane 0504, live status reports *no conflict*. The record is still stale: R04 says 0504/05.06 `accepted`. PACKET-ENTRY lists this as unresolved gap 1, not as a resolution.
+- C05: records.json holds 23 entries: 15 attempt files, 6 command streams and 2 drivers. All verify byte-for-byte against the originals.
+- C06: not needed.
+- **Packet reread as a bounded evidence bundle.** It is complete for its declared purpose, snapshot orientation at d3b6ad3. A reader can find the cut, the brief and the brief's own earlier cut, the supplied coordination and its provenance, one page for each outcome type, the role and assignment records, and live custody kept apart. It is **not** complete for current live work, and for the brief's two omitted pages it relies on the brief's own listing. No model has read it.
+- **Kept.** The records root (`C:\Users\misg\AppData\Local\Temp\pb-packet-0515-zidw8krt`) is kept for Prime. No temp cleanup.
+- **Not done:** no answers, check, judge, model call, app, module or law change; Grok-2's 0508/05.17 is recorded by hash only.
+
+## Smallest next step toward the actual fresh-Prime test
+After the Director and Prime review this candidate and Grok-2's 0508/05.17 plan, the Director releases one test with three things bound:
+- the candidate's identity and a fresh session;
+- this packet's identity: `09.packet.json` sha256 in verification.json, and the cut d3b6ad3;
+- the question set, reconciled with 0508/05.17.
+The candidate then answers from the packet only. `boot-check` records the answers, and Prime judges separately.
