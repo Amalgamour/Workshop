@@ -1,0 +1,42 @@
+# Notes — read-only batch observation (05.13)
+
+Date: 2026-10-27. Recorder: Grok Builder 2. These notes are written before the contract and before any lab code. `06.01` through `06.13` stay as they are.
+
+## Inputs
+
+Pack `evidence/pack05.13/source-manifest.json` is schema `prime-pack-sources/1` with 10 sources. Live bytes, snapshot bytes, and the declared SHA-256 and length match for all 10.
+
+- Corpus `591721b62f2bedafc2255e1638c64fa6642585b822defaf5c65253ea376e0b53`, 441202 bytes.
+- Diagnosis `098a1535184c3b19837ac41269cf7df06f49c0c1dd947ada8fbff731e2391993`, 8063 bytes.
+- Prime review of that corpus `a8afc4424ce27e2d76ffab84addea2677b63fa65a205da5d8acb8e6ed23abb09`, 1452 bytes. Accepted as diagnostic input. Receipt-byte equality is not proof that a whole package was committed.
+- State proposal `0020eb4f327175a3c5165b4619bebfb9cbad28883617a00edd2598ac88b91949`.
+- Prime review `93bf65cd6d1ac5a442f779a8ecc003255b2807b07b3d5f97c9021e51b8066951`, which states SP-01 through SP-04.
+- Parser `700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70`, 59791 bytes, and sibling `2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4`, 11774 bytes.
+- Inspector `947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b`, 11402 bytes, and helper `8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac`, 45767 bytes.
+- Reservation `0138` `b2484b6235ba6674c65732f53dfaaaa2bcd7a6f0adf4fc6aa736671e8a5798d5`, 974 bytes.
+
+Workshop HEAD at the time of these notes is `0cc237b1e1ae9b4892c8439ce3ac231dd422e892`. The sixteen page bytes are read at corpus commit `4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5`. That commit is the source identity. HEAD is not substituted for it.
+
+SP-01: review text is not closure. SP-02: live custody stays live and is not written back onto a commit. SP-03: the output is a tagged observation, not a v1 assignment. SP-04: a primary candidate needs origin book, page, and batch together. More than one match stays ambiguous. A typed label is not a grant.
+
+The page header stays `state: draft`. DEC-4 records release and claim on the Return pointer. This note does not release the batch.
+
+## Choices
+
+The lab is `labs/batch-observation-pass01/`. It is a new standard-library reader. It imports `parse_source` only after the parser and sibling hashes match. It does not edit `prime_support.py`, the inspector, the helper, the state-projection lab, or the sixteen pages.
+
+The CLI reads one repository, one full commit, and one relative path with `git rev-parse --verify` and `git cat-file`. Those are the only Git commands. Caller-supplied bytes and worktree bytes are separate source kinds and are not labelled as Git blobs.
+
+A second channel lists unfenced `Return`, `Return — …`, `Return pointer`, `Return pointers`, and `Return archive pointer — …` headings and their `Member` / `Receipt` lines. Fenced headings, assignment sentences of the form `NNNN.name captures`, and other prose names stay out of the primary list. When `parse_source` refuses, `revision_id` stays null.
+
+Custody is optional. Named pointer members are passed to the pinned inspector. Assignment mentions are not inspected. Roles use origin plus the retrospective flag. The first pointer is not the primary. A stated receipt that differs from the live receipt is attention. Matching `receipt.json` bytes at the commit do not establish that the whole package was committed.
+
+The output schema is `batch-observation/1`. It has no accepted, closed, or ready state. A typed declaration is copied and marked not authenticated. Binding stays unbound. No old review hash is searched in Git history.
+
+## Disposition
+
+The first test run exited 1. `test_sixteen_real_shapes` raised `KeyError: 0102.prime-support-0501`. The archive pointer names that member in backticks, and several pages put `Member NAME` and `Receipt sha256` on one execution line. A `Release:` quotation is not read as a pointer. The inventory was corrected to those observed spellings. The contract gained that sentence. No parser, inspector, helper, or historical page was edited.
+
+The saved run after that correction exited 0: 10 tests, no failures, no skips. The demo reads `0508.return-capture/05.10.md` at `4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5`. Its exit is 1 because the legacy heading is ambiguous. That is an observation, not a refused run. The primary is `0129.assembly-capture-0510`. `0128.pack-assembly-0501` stays secondary. Both committed receipt blobs match the live receipts. `package_at_commit` remains `not-established`. Review binding remains unbound. Commands and hashes are in `evidence/reader05.13/tests.txt`.
+
+The lab is not integrated into the state-projection tool. Capture of this lab into `0138.batch-reader-0513` is recorded on the Return pointer. This note does not contain that receipt.

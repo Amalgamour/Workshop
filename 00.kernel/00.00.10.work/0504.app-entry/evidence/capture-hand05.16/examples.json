@@ -1,0 +1,122 @@
+{
+  "schema": "clerk-capture-handoff/1",
+  "kind": "proposal",
+  "note": "Not kernel law and not an adapter. Every field is supplied by the named owner. No field selects a current version or infers a Director release. Runtime hashes are recorded by the fixture transcript, not in this example.",
+  "binding": {
+    "clerk_store": {
+      "owner": "caller",
+      "form": "absolute path outside every Git working tree"
+    },
+    "job_id": {
+      "owner": "caller",
+      "must_equal": "inspection.job_id"
+    },
+    "instructions_base": {
+      "owner": "caller",
+      "form": "absolute path",
+      "required_check": "inspection.checks.instructions is usable"
+    },
+    "returned_event_sha256": {
+      "owner": "caller",
+      "must_equal": "inspection.returned.event_sha256",
+      "source": "clerk show --json schema clerk-handoff-inspection/2"
+    },
+    "assignee": {
+      "owner": "caller",
+      "must_equal": "inspection.returned.by"
+    },
+    "work_ref": {
+      "owner": "caller",
+      "example": "fixture-work-0516",
+      "not_read_from": "the Clerk job"
+    },
+    "origin": {
+      "owner": "caller",
+      "must_equal": "reservation.origin",
+      "book": "00.00.10.work",
+      "page": "0504.app-entry",
+      "batch": "05.16"
+    },
+    "book": {
+      "owner": "caller",
+      "form": "absolute disposable book directory"
+    },
+    "submission_id": {
+      "owner": "caller",
+      "must_equal": "reservation.submission_id",
+      "example": "fixture-happy"
+    },
+    "member": {
+      "owner": "caller",
+      "must_equal": "reservation.destination.path"
+    },
+    "source_root": {
+      "owner": "caller",
+      "form": "absolute plain directory"
+    },
+    "report": {
+      "owner": "caller",
+      "role": "builder-final-report",
+      "form": "relative path under source_root",
+      "example": "final-report.md",
+      "bytes": "copied whole to return.md; not summarized"
+    },
+    "report_sha256": {
+      "owner": "caller",
+      "must_equal": "sha256 of the report file before capture"
+    },
+    "artifacts": [
+      {
+        "source": "piece.txt",
+        "logical": "piece.txt",
+        "sha256_owner": "caller",
+        "must_equal": "returned.artifacts item for path piece.txt"
+      }
+    ]
+  },
+  "transport_is_not_the_report": {
+    "delivery": {
+      "owner": "inspection.returned.delivery",
+      "example": "fixture-delivery",
+      "role": "transport id"
+    },
+    "evidence": {
+      "owner": "inspection.returned.evidence",
+      "example": "transport line only",
+      "role": "one printable transport line"
+    },
+    "worker_result": "A worker transport result is not substituted for final-report.md."
+  },
+  "cases": [
+    {
+      "id": "claimed-not-returned",
+      "adapter_expectation": "refuse before capture",
+      "enforced_by_current_tools": false,
+      "why": "clerk show can report state claimed and returned null. return_capture does not read that document."
+    },
+    {
+      "id": "dirty-artifact",
+      "adapter_expectation": "refuse before capture",
+      "enforced_by_current_tools": false,
+      "why": "show --json keeps event_sha256 and sets checks.artifacts to changed. capture copies the bytes it is given and does not compare them to the event."
+    },
+    {
+      "id": "mismatched-origin",
+      "adapter_expectation": "refuse before capture",
+      "enforced_by_current_tools": false,
+      "why": "capture has no origin argument. A side document with another batch is not read."
+    },
+    {
+      "id": "partial-capture",
+      "adapter_expectation": "stop, keep retained bytes, do not allocate another member",
+      "enforced_by_current_tools": true,
+      "why": "capture reports partial, lists retained paths, and writes nothing when the member does not verify."
+    },
+    {
+      "id": "report-outside-source-root",
+      "adapter_expectation": "refuse",
+      "enforced_by_current_tools": false,
+      "why": "The proposed adapter keeps the report under source_root. The capture tool accepts an absolute return file outside that root."
+    }
+  ]
+}

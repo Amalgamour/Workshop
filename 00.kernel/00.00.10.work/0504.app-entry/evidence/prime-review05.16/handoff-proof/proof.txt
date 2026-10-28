@@ -1,0 +1,619 @@
+# capture-hand05.16 disposable proof
+# This transcript composes pinned tools. It does not implement the adapter guard.
+# The bytes-changed-before-capture race was not reproduced.
+
+## queue-happy
+exit 0
+stdout_sha256 fc39fcae7da1371f3df20716fc95774d0b360b85bdf09a36cecdb99c8e35e598
+stdout_crlf True
+label fixture queue
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+queued fixture-0516
+event 0001.queued.json sha256=d3fa60d249916a717c09eefa47ff0221970f9cd6d96b84a3d3f18a26c6dbaad2
+result ok
+
+## claim-happy
+exit 0
+stdout_sha256 627fbdf17bf8eefc397a82046dde9ef3245cba1ccab879afbf1c75f08ed55dda
+stdout_crlf True
+label fixture claim
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+claimed fixture-0516
+token 4db8fbe173c5f66f6f53fb2b1911fb6f
+event 0002.claimed.json sha256=d706ce9d2666137a9660d5ddef746263ce13a2c35fd1ac1d316926e988f84913
+instructions-usable sha256=4aea972412f21d390abdd984d0b1a1980efebf9c1fbb8be5b0955f6a2866dc55
+result ok
+
+## return-happy
+exit 0
+stdout_sha256 c1e47264f050478d101e2915b6ef340bb3cca25d4a847882b4c7cb9019c12b3e
+stdout_crlf True
+label fixture return records the transport line, not the builder report
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+returned fixture-0516
+delivery fixture-delivery
+event 0003.returned.json sha256=34fce9ca26a310986cae5ff65b1d3fe53a71724fb0a1bdc9090d7a88652d6e8d
+witness 0003.witness.json records event sha256=34fce9ca26a310986cae5ff65b1d3fe53a71724fb0a1bdc9090d7a88652d6e8d
+artifact piece.txt sha256=4aff221c44f72c6c0c9f54043ef0eb9b7375e50f321517ca6641569024ef3a3f bytes=20
+result ok
+
+## show-happy-json
+exit 0
+stdout_sha256 e02a3546f2b60d96a76a06f1af6ea07886e5095b1f534cb49d930fad3917451b
+stdout_crlf True
+label clean returned inspection is schema clerk-handoff-inspection/2
+enforced_by_current_tools True
+adapter_expectation require this shape before capture
+--- stdout ---
+{"checks":{"artifacts":"ok","completion":"ok","events":"ok","instructions":"usable"},"claim":{"by":"fixture-builder","token":"4db8fbe173c5f66f6f53fb2b1911fb6f"},"job":{"assignee":"fixture-builder","expected_outputs":["piece.txt"],"instructions":{"path":"task.txt","sha256":"4aea972412f21d390abdd984d0b1a1980efebf9c1fbb8be5b0955f6a2866dc55"},"job_id":"fixture-0516","release":"fixture job label; not a release","reviewer":"fixture-reviewer","routed_by":"fixture-router"},"job_id":"fixture-0516","problems":[],"returned":{"artifacts":[{"bytes":20,"path":"piece.txt","sha256":"4aff221c44f72c6c0c9f54043ef0eb9b7375e50f321517ca6641569024ef3a3f"}],"by":"fixture-builder","delivery":"fixture-delivery","event_sha256":"34fce9ca26a310986cae5ff65b1d3fe53a71724fb0a1bdc9090d7a88652d6e8d","evidence":"transport line only"},"schema":"clerk-handoff-inspection/2","state":"returned"}
+
+## show-happy-text
+exit 0
+stdout_sha256 a2420eca744433e8822b1ab75aaceea0e75fb0a62517210ef5823b20b21efc47
+stdout_crlf True
+label human show of a clean return
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+show fixture-0516
+state returned
+claim 4db8fbe173c5f66f6f53fb2b1911fb6f
+states queued claimed returned
+chain ok
+event 0001.queued.json sha256=d3fa60d249916a717c09eefa47ff0221970f9cd6d96b84a3d3f18a26c6dbaad2 prev=null
+event 0002.claimed.json sha256=d706ce9d2666137a9660d5ddef746263ce13a2c35fd1ac1d316926e988f84913 prev=d3fa60d249916a717c09eefa47ff0221970f9cd6d96b84a3d3f18a26c6dbaad2
+event 0003.returned.json sha256=34fce9ca26a310986cae5ff65b1d3fe53a71724fb0a1bdc9090d7a88652d6e8d prev=d706ce9d2666137a9660d5ddef746263ce13a2c35fd1ac1d316926e988f84913
+artifact piece.txt sha256=4aff221c44f72c6c0c9f54043ef0eb9b7375e50f321517ca6641569024ef3a3f bytes=20 ok
+instructions-usable sha256=4aea972412f21d390abdd984d0b1a1980efebf9c1fbb8be5b0955f6a2866dc55
+result ok
+
+## show-happy-no-base
+exit 0
+stdout_sha256 9106976dfc5400860772bf8186ab1d5291a4ee7a39dbf7b4e34dc9c8525e7c0f
+stdout_crlf True
+label exit 0 with instructions not-checked is not a clean handoff for the adapter
+enforced_by_current_tools False
+adapter_expectation refuse before capture
+--- stdout ---
+{"checks":{"artifacts":"ok","completion":"ok","events":"ok","instructions":"not-checked"},"claim":{"by":"fixture-builder","token":"4db8fbe173c5f66f6f53fb2b1911fb6f"},"job":{"assignee":"fixture-builder","expected_outputs":["piece.txt"],"instructions":{"path":"task.txt","sha256":"4aea972412f21d390abdd984d0b1a1980efebf9c1fbb8be5b0955f6a2866dc55"},"job_id":"fixture-0516","release":"fixture job label; not a release","reviewer":"fixture-reviewer","routed_by":"fixture-router"},"job_id":"fixture-0516","problems":[],"returned":{"artifacts":[{"bytes":20,"path":"piece.txt","sha256":"4aff221c44f72c6c0c9f54043ef0eb9b7375e50f321517ca6641569024ef3a3f"}],"by":"fixture-builder","delivery":"fixture-delivery","event_sha256":"34fce9ca26a310986cae5ff65b1d3fe53a71724fb0a1bdc9090d7a88652d6e8d","evidence":"transport line only"},"schema":"clerk-handoff-inspection/2","state":"returned"}
+
+## return-already-recorded
+exit 0
+stdout_sha256 aa645e13259605748971a0be310d0b220ac8102af93c6d840edc0114e9713d76
+stdout_crlf True
+label identical return writes nothing
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+already-recorded fixture-0516
+delivery fixture-delivery
+result ok
+
+## reserve-happy
+exit 0
+stdout_sha256 213722859eaeb546aa3a4d24aa15c2d9ebdb1d9fc6eab2e4476369690c85fd4b
+stdout_crlf True
+label fixture reserve in the disposable book
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+member 0101.happy
+submission fixture-happy
+result reserved
+
+## inspect-happy-reserved
+exit 1
+stdout_sha256 ce8daf58fd0978074481f3bfa6126b42dc15bda1a360704c3dbf157b565b7db1
+stdout_crlf False
+label reserved inspection exits 1 and is not acceptance
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+{"book":"C:\\Users\\misg\\AppData\\Local\\Temp\\handoff0516-kcpcuzbm\\book","capture":null,"member":"0101.happy","problems":["reservation only"],"reservation":{"destination":{"member":"0101","name":"happy","path":"0101.happy"},"expected_outputs":["piece.txt"],"origin":{"batch":"05.16","book":"00.00.10.work","page":"0504.app-entry"},"release":"Reservation only; fixture label, not a Director release.","reservation_sha256":"da9721d5a8540acb2d71de1f4ceeb6e7e8dcd5ed7bcc37a753023142ebf553a6","reserved_at":"2026-10-28T15:36:55.869070Z","reviewer":"Codex Prime","submission_id":"fixture-happy","submitter":"Grok Builder 1","supersedes":null},"schema":"return-capture-inspection/1","status":"reserved"}
+
+## capture-happy
+exit 0
+stdout_sha256 cdee30445a2d42190db224a869ca32599fa38ac6cd229b970d0d0292087867a6
+stdout_crlf True
+label happy capture copies the named report and artifact; it does not read Clerk
+enforced_by_current_tools True
+adapter_expectation call capture only after the binding checks
+--- stdout ---
+capture 0101.happy
+manifest 4916efad23cb75dd0ce0918c673bfd5cc5dfd56c9cd1a9e2e1d21f6829af533a
+receipt 7583283a2fa8a3878f34b0a6b7cbc29e80c6eb5413320696d60b9dc0a23440fa
+result captured
+
+## verify-happy
+exit 0
+stdout_sha256 de6ef4f843f572d20982fa6d8da560944d4f34c7d54161e2865fe418269600f6
+stdout_crlf True
+label verify is custody, not acceptance
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+reservation da9721d5a8540acb2d71de1f4ceeb6e7e8dcd5ed7bcc37a753023142ebf553a6
+manifest 4916efad23cb75dd0ce0918c673bfd5cc5dfd56c9cd1a9e2e1d21f6829af533a
+receipt 7583283a2fa8a3878f34b0a6b7cbc29e80c6eb5413320696d60b9dc0a23440fa
+payload 0001.blob 4aff221c44f72c6c0c9f54043ef0eb9b7375e50f321517ca6641569024ef3a3f
+result complete
+not approved
+not accepted
+not published
+
+## inspect-happy-complete
+exit 0
+stdout_sha256 75e511829f90b1e1884b60914f8c2e5e0838e4dd7df5f3a1da2d4ed92985d697
+stdout_crlf False
+label complete inspection exits 0 and does not approve
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+{"book":"C:\\Users\\misg\\AppData\\Local\\Temp\\handoff0516-kcpcuzbm\\book","capture":{"captured_at":"2026-10-28T15:36:57.160799Z","manifest_sha256":"4916efad23cb75dd0ce0918c673bfd5cc5dfd56c9cd1a9e2e1d21f6829af533a","origin":{"batch":"05.16","book":"00.00.10.work","page":"0504.app-entry"},"payloads":[{"bytes":20,"logical":"piece.txt","payload":"0001.blob","sha256":"4aff221c44f72c6c0c9f54043ef0eb9b7375e50f321517ca6641569024ef3a3f"}],"receipt_sha256":"7583283a2fa8a3878f34b0a6b7cbc29e80c6eb5413320696d60b9dc0a23440fa","reservation_sha256":"da9721d5a8540acb2d71de1f4ceeb6e7e8dcd5ed7bcc37a753023142ebf553a6","retrospective":false,"return":{"bytes":99,"includes_prime_review":false,"sha256":"7a05045df23c6c8443da1a8398ea165abbe27bcfbfc6ea00315bea612f24ad56"},"source_commit":null,"submission_id":"fixture-happy"},"member":"0101.happy","problems":[],"reservation":{"destination":{"member":"0101","name":"happy","path":"0101.happy"},"expected_outputs":["piece.txt"],"origin":{"batch":"05.16","book":"00.00.10.work","page":"0504.app-entry"},"release":"Reservation only; fixture label, not a Director release.","reservation_sha256":"da9721d5a8540acb2d71de1f4ceeb6e7e8dcd5ed7bcc37a753023142ebf553a6","reserved_at":"2026-10-28T15:36:55.869070Z","reviewer":"Codex Prime","submission_id":"fixture-happy","submitter":"Grok Builder 1","supersedes":null},"schema":"return-capture-inspection/1","status":"complete"}
+
+## capture-happy-again
+exit 0
+stdout_sha256 bf09fd12fbdd84b94c51495b7e2ad32b82af76460043b4e746ce756dad08729f
+stdout_crlf True
+label identical second capture writes nothing
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+capture 0101.happy
+manifest 4916efad23cb75dd0ce0918c673bfd5cc5dfd56c9cd1a9e2e1d21f6829af533a
+receipt 7583283a2fa8a3878f34b0a6b7cbc29e80c6eb5413320696d60b9dc0a23440fa
+result already-captured
+
+## show-dirty-json
+exit 1
+stdout_sha256 dee7dc893e2494ea99453dee671e41b3574ae3be9b03e70f25e72ae885b00948
+stdout_crlf True
+label dirty outbox keeps event_sha256 and exits 1
+enforced_by_current_tools True
+adapter_expectation refuse before capture
+--- stdout ---
+{"checks":{"artifacts":"changed","completion":"ok","events":"ok","instructions":"usable"},"claim":{"by":"fixture-builder","token":"4db8fbe173c5f66f6f53fb2b1911fb6f"},"job":{"assignee":"fixture-builder","expected_outputs":["piece.txt"],"instructions":{"path":"task.txt","sha256":"4aea972412f21d390abdd984d0b1a1980efebf9c1fbb8be5b0955f6a2866dc55"},"job_id":"fixture-0516","release":"fixture job label; not a release","reviewer":"fixture-reviewer","routed_by":"fixture-router"},"job_id":"fixture-0516","problems":[{"detail":"artifact piece.txt sha256=4aff221c44f72c6c0c9f54043ef0eb9b7375e50f321517ca6641569024ef3a3f artifact changed","kind":"artifact-changed","path":"piece.txt"}],"returned":{"artifacts":[{"bytes":20,"path":"piece.txt","sha256":"4aff221c44f72c6c0c9f54043ef0eb9b7375e50f321517ca6641569024ef3a3f"}],"by":"fixture-builder","delivery":"fixture-delivery","event_sha256":"34fce9ca26a310986cae5ff65b1d3fe53a71724fb0a1bdc9090d7a88652d6e8d","evidence":"transport line only"},"schema":"clerk-handoff-inspection/2","state":"returned"}
+
+## show-dirty-text
+exit 1
+stdout_sha256 450a93005ea4c12e5f47cb738a7e0993e67dc199bf6d6f95461beb4ced5affba
+stdout_crlf True
+label human show names not-returned-clean
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+show fixture-0516
+state returned
+claim 4db8fbe173c5f66f6f53fb2b1911fb6f
+states queued claimed returned
+chain ok
+event 0001.queued.json sha256=d3fa60d249916a717c09eefa47ff0221970f9cd6d96b84a3d3f18a26c6dbaad2 prev=null
+event 0002.claimed.json sha256=d706ce9d2666137a9660d5ddef746263ce13a2c35fd1ac1d316926e988f84913 prev=d3fa60d249916a717c09eefa47ff0221970f9cd6d96b84a3d3f18a26c6dbaad2
+event 0003.returned.json sha256=34fce9ca26a310986cae5ff65b1d3fe53a71724fb0a1bdc9090d7a88652d6e8d prev=d706ce9d2666137a9660d5ddef746263ce13a2c35fd1ac1d316926e988f84913
+artifact piece.txt sha256=4aff221c44f72c6c0c9f54043ef0eb9b7375e50f321517ca6641569024ef3a3f artifact changed
+not-returned-clean
+instructions-usable sha256=4aea972412f21d390abdd984d0b1a1980efebf9c1fbb8be5b0955f6a2866dc55
+result findings
+
+## return-delivery-conflict
+exit 2
+stdout_sha256 4d24d57aa67267beb90bd2d6e54f1ad356f62d8797b13b1316363a203f635f2b
+stdout_crlf True
+label same delivery id with changed artifact bytes writes nothing
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+refused: delivery conflict
+result refused
+
+## return-delivery-conflict-evidence
+exit 2
+stdout_sha256 4d24d57aa67267beb90bd2d6e54f1ad356f62d8797b13b1316363a203f635f2b
+stdout_crlf True
+label same delivery id with different evidence writes nothing
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+refused: delivery conflict
+result refused
+
+## capture-happy-after-dirty-outbox
+exit 0
+stdout_sha256 bf09fd12fbdd84b94c51495b7e2ad32b82af76460043b4e746ce756dad08729f
+stdout_crlf True
+label the original source bytes are unchanged, so the tool still reports already-captured
+enforced_by_current_tools True
+adapter_expectation a new capture of the dirty bytes is a different request and must be refused
+--- stdout ---
+capture 0101.happy
+manifest 4916efad23cb75dd0ce0918c673bfd5cc5dfd56c9cd1a9e2e1d21f6829af533a
+receipt 7583283a2fa8a3878f34b0a6b7cbc29e80c6eb5413320696d60b9dc0a23440fa
+result already-captured
+
+## reserve-dirty
+exit 0
+stdout_sha256 8cd2c75a4d65bd0ff089b3b325628ec670276dee77d50f2b9d8099f81e6ae6e3
+stdout_crlf True
+label fixture reserve in the disposable book
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+member 0102.dirty
+submission fixture-dirty
+result reserved
+
+## capture-dirty
+exit 0
+stdout_sha256 f846be769ce07aca12dd773a0cfc761f2d185c589f0c85ff4c43d79c9ea578e7
+stdout_crlf True
+label GAP: capture copies the mutated bytes because it does not read the Clerk event
+enforced_by_current_tools False
+adapter_expectation refuse before capture
+--- stdout ---
+capture 0102.dirty
+manifest 18eae8671c3ba6a9ee1786c26a2a3706a76d857502826b12776aa7215ad60f3d
+receipt 45cbbdf038f132595808b445358194c2a9fcd67b0f463dc4405b9029dbf5c725
+result captured
+
+## verify-dirty
+exit 0
+stdout_sha256 d810d183d494dba9f9d863b725c5466fd44aa56a78d8693fbd29b8a856ea934a
+stdout_crlf True
+label verify is custody, not acceptance
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+reservation 52009cfb9afa3827a035e139f01912b285f161c7582d818e6ba3fff1d2f7b8af
+manifest 18eae8671c3ba6a9ee1786c26a2a3706a76d857502826b12776aa7215ad60f3d
+receipt 45cbbdf038f132595808b445358194c2a9fcd67b0f463dc4405b9029dbf5c725
+payload 0001.blob 2847bbcbe490afac8871d2ceff071f72d506fdbd93aa94f1aa12e538b6ead9b0
+result complete
+not approved
+not accepted
+not published
+
+## queue-claimed
+exit 0
+stdout_sha256 d955fa03ad1c65233297d0a315aea2112c3b1b192d5d19dcd92964a0764c955e
+stdout_crlf True
+label second fixture job
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+queued fixture-claimed
+event 0001.queued.json sha256=88b13f2e55fbb57abdfac0f79544a668e8856cd5cbf4432e1308ce4107194415
+result ok
+
+## claim-claimed
+exit 0
+stdout_sha256 e6e76c7cdac64c046a277aecee77511f8ecac7bece024cbb2e69da550a477fa4
+stdout_crlf True
+label claim without return
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+claimed fixture-claimed
+token 9ce768c48c64bb4e2debab0b093de4de
+event 0002.claimed.json sha256=3c2785d874b1202efd3bfc2ed1a2b3cfcf864145eb49e8dfc2f48439ea6eda1e
+instructions-usable sha256=4aea972412f21d390abdd984d0b1a1980efebf9c1fbb8be5b0955f6a2866dc55
+result ok
+
+## show-claimed-json
+exit 0
+stdout_sha256 9f8abb04bf210bdf569d6457d197f4f8c578988276f571a085993d7d07937e73
+stdout_crlf True
+label claimed projection has returned null
+enforced_by_current_tools True
+adapter_expectation refuse before capture
+--- stdout ---
+{"checks":{"artifacts":"not-applicable","completion":"not-applicable","events":"ok","instructions":"usable"},"claim":{"by":"fixture-builder","token":"9ce768c48c64bb4e2debab0b093de4de"},"job":{"assignee":"fixture-builder","expected_outputs":["piece.txt"],"instructions":{"path":"task.txt","sha256":"4aea972412f21d390abdd984d0b1a1980efebf9c1fbb8be5b0955f6a2866dc55"},"job_id":"fixture-claimed","release":"fixture job label; not a release","reviewer":"fixture-reviewer","routed_by":"fixture-router"},"job_id":"fixture-claimed","problems":[],"returned":null,"schema":"clerk-handoff-inspection/2","state":"claimed"}
+
+## reserve-claimed
+exit 0
+stdout_sha256 35fea84dde2ea56190ed703d7ba4b8e9cc871a45c58325badfd3624f6b9f8b03
+stdout_crlf True
+label fixture reserve in the disposable book
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+member 0103.claimed
+submission fixture-claimed
+result reserved
+
+## capture-claimed
+exit 0
+stdout_sha256 9b0d212c3af6963d58bd93e80baed57cc9ea8865e64d0c53a3c961e1e879e2f3
+stdout_crlf True
+label GAP: capture does not read the claimed Clerk job
+enforced_by_current_tools False
+adapter_expectation refuse before capture
+--- stdout ---
+capture 0103.claimed
+manifest a3cb05348daaa364a0759ecf6ed3c56f6634a6bc850e185b67ecbd4cdcdb897d
+receipt 864cf68400dedb04110e0be77c5bac27c968b633b0329cae72dbcc0c049b5399
+result captured
+
+## verify-claimed
+exit 0
+stdout_sha256 f467dc49e427e09e85f7180fe4e84982973058a5002c876c1ed319debffc3e2d
+stdout_crlf True
+label verify is custody, not acceptance
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+reservation 7e351afd101686d2e218118d76793073c3826769e41d681ff3f539b86f0a9f15
+manifest a3cb05348daaa364a0759ecf6ed3c56f6634a6bc850e185b67ecbd4cdcdb897d
+receipt 864cf68400dedb04110e0be77c5bac27c968b633b0329cae72dbcc0c049b5399
+payload 0001.blob 3a055da7b4bd9211a821336751b787cd8f212d61b5865a4bb76173ae7183d9f7
+result complete
+not approved
+not accepted
+not published
+
+## reserve-partial
+exit 0
+stdout_sha256 08d3ca6bc75f30669b57acee96a36d1548aac31b8f6b9cffca3d785a294f85fa
+stdout_crlf True
+label fixture reserve in the disposable book
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+member 0104.partial
+submission fixture-partial
+result reserved
+
+## capture-partial
+exit 2
+stdout_sha256 bc15a095b47223263fe64b555f257a2a112607abcd558c49ba1ac0603af1c6cd
+stdout_crlf True
+label planted partial member stays partial; the CLI has no interrupt flag
+enforced_by_current_tools True
+adapter_expectation stop, keep retained bytes, do not allocate another member
+--- stdout ---
+partial 0104.partial
+retained return.md
+result refused
+
+## inspect-partial
+exit 2
+stdout_sha256 b929ca0da2502cb76b6074b093bdba276d39aca5ca74069a277a9a7146aa896e
+stdout_crlf False
+label incomplete inspection exits 2
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+{"book":"C:\\Users\\misg\\AppData\\Local\\Temp\\handoff0516-kcpcuzbm\\book","capture":null,"member":"0104.partial","problems":["missing manifest.json"],"reservation":{"destination":{"member":"0104","name":"partial","path":"0104.partial"},"expected_outputs":["piece.txt"],"origin":{"batch":"05.16","book":"00.00.10.work","page":"0504.app-entry"},"release":"Reservation only; fixture label, not a Director release.","reservation_sha256":"08419c1854a9c00e3129b9735f02700d943b47b9601b26dc20006c0a8c7553c1","reserved_at":"2026-10-28T15:37:08.841009Z","reviewer":"Codex Prime","submission_id":"fixture-partial","submitter":"Grok Builder 1","supersedes":null},"schema":"return-capture-inspection/1","status":"incomplete"}
+
+## reserve-escape
+exit 0
+stdout_sha256 b80f1145bf065b6a549cf5c1799d9dd2d63ad36d14d51cd0e6faaa1dd3a51d1d
+stdout_crlf True
+label fixture reserve in the disposable book
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+member 0105.escape
+submission fixture-escape
+result reserved
+
+## capture-escape
+exit 2
+stdout_sha256 5f380e26207170c1dd7a8db6f65af0bc7a292a8ccd3c92c553027108d0c350e7
+stdout_crlf True
+label path escape is refused before a write
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+artifact path has an unsafe segment
+result refused
+
+## reserve-hardlink
+exit 0
+stdout_sha256 45c3e06ed6aa4454d124c1147dc780eb6bbced48a0542195b9fca8d7291935b8
+stdout_crlf True
+label fixture reserve in the disposable book
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+member 0106.hardlink
+submission fixture-hardlink
+result reserved
+
+## capture-hardlink
+exit 2
+stdout_sha256 2841d60a58d32931afd32ee516f446f5e77d752023ee817e918f75c4f201db79
+stdout_crlf True
+label hard link is refused and is not copied
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+link-count: linked.txt
+result refused
+
+## reserve-junction
+exit 0
+stdout_sha256 c5e6ac74c7432a80d58b8021ecb9ea4b3a816a24d5a3ccc5940303aa71bb707d
+stdout_crlf True
+label fixture reserve in the disposable book
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+member 0107.junction
+submission fixture-junction
+result reserved
+
+## capture-junction
+exit 2
+stdout_sha256 5624d45bb2eca2935cfb425259cbecba865681aaa1ff191e5561403bd5e49999
+stdout_crlf True
+label junction is refused and is not followed
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+link: C:\Users\misg\AppData\Local\Temp\handoff0516-kcpcuzbm\source\linkdir
+result refused
+
+## reserve-outside
+exit 0
+stdout_sha256 f2984d0cfd8093f402133e53a049762f8ea48800672c6e6fd16fcb5de2a6dc1d
+stdout_crlf True
+label fixture reserve in the disposable book
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+member 0108.outside
+submission fixture-outside
+result reserved
+
+## capture-outside
+exit 0
+stdout_sha256 10dd404f694bff25c5d4ecc23e4475b72a6cef3b5947263d355c08037c7aa864
+stdout_crlf True
+label GAP: the tool accepts a return file outside the source root
+enforced_by_current_tools False
+adapter_expectation refuse
+--- stdout ---
+capture 0108.outside
+manifest c2c2cfb543d70cdafbcb894579fc89f6ffe4de1bebe791185e5db6eee9cc96d2
+receipt fc586d0e493a4cfbca3d52520adf53b81bfc9fcb4066d58ea3c0094f32724218
+result captured
+
+## verify-outside
+exit 0
+stdout_sha256 d168eb20bcb0c9086c32f941f5c3b426f47bab13b2524b90c85293279e718f5b
+stdout_crlf True
+label verify is custody, not acceptance
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+reservation f4e1f8269c9fd1986fc2207df1e53878477876ed433efdc454a0e303e45654fe
+manifest c2c2cfb543d70cdafbcb894579fc89f6ffe4de1bebe791185e5db6eee9cc96d2
+receipt fc586d0e493a4cfbca3d52520adf53b81bfc9fcb4066d58ea3c0094f32724218
+payload 0001.blob 4aff221c44f72c6c0c9f54043ef0eb9b7375e50f321517ca6641569024ef3a3f
+result complete
+not approved
+not accepted
+not published
+
+## capture-changed-report
+exit 2
+stdout_sha256 7eb7617ea6e3390fbe3598d70e0e1ec003d7556ad32a96aeffaccb5995de10cf
+stdout_crlf True
+label changed return bytes on a complete member write nothing
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+conflict submission fixture-happy
+existing 0101.happy
+result refused
+
+## verify-happy-final
+exit 0
+stdout_sha256 de6ef4f843f572d20982fa6d8da560944d4f34c7d54161e2865fe418269600f6
+stdout_crlf True
+label verify is custody, not acceptance
+enforced_by_current_tools True
+adapter_expectation None
+--- stdout ---
+reservation da9721d5a8540acb2d71de1f4ceeb6e7e8dcd5ed7bcc37a753023142ebf553a6
+manifest 4916efad23cb75dd0ce0918c673bfd5cc5dfd56c9cd1a9e2e1d21f6829af533a
+receipt 7583283a2fa8a3878f34b0a6b7cbc29e80c6eb5413320696d60b9dc0a23440fa
+payload 0001.blob 4aff221c44f72c6c0c9f54043ef0eb9b7375e50f321517ca6641569024ef3a3f
+result complete
+not approved
+not accepted
+not published
+
+## cases
+[
+  {
+    "id": "instructions-not-checked",
+    "adapter_expectation": "refuse before capture",
+    "enforced_by_current_tools": false,
+    "observed": "show --json without a base exits 0, state returned, instructions not-checked, problems empty",
+    "detail": "The tool exit is not the adapter guard."
+  },
+  {
+    "id": "mismatched-origin",
+    "adapter_expectation": "refuse before capture",
+    "enforced_by_current_tools": false,
+    "observed": "side file batch 05.99 was not passed to any command; inspect origin.batch stayed 05.16; capture has no origin argument",
+    "detail": "A hand-composed capture does not read that side file. The tool success is not the guard."
+  },
+  {
+    "id": "dirty-artifact",
+    "adapter_expectation": "refuse before capture",
+    "enforced_by_current_tools": false,
+    "observed": "show exits 1 with artifact-changed and the same event_sha256; a new member capture still exits 0 and stores the mutated payload",
+    "detail": "The capture command does not compare payload bytes to returned.artifacts. Its success is not the guard."
+  },
+  {
+    "id": "claimed-not-returned",
+    "adapter_expectation": "refuse before capture",
+    "enforced_by_current_tools": false,
+    "observed": "show state is claimed and returned is null; a separate capture still exits 0",
+    "detail": "The capture command has no Clerk argument. Its success is not the guard."
+  },
+  {
+    "id": "partial-capture",
+    "adapter_expectation": "stop, keep retained bytes, do not allocate another member",
+    "enforced_by_current_tools": true,
+    "observed": "planted return.md was retained, capture wrote nothing, inspect status is incomplete",
+    "detail": "The plant is a fixture. interrupt is not a CLI flag. The refusal is the tool's partial behavior."
+  },
+  {
+    "id": "path-escape",
+    "adapter_expectation": "refuse",
+    "enforced_by_current_tools": true,
+    "observed": "capture refused artifact path has an unsafe segment and left the member reserved",
+    "detail": "The tool walks the declared relative path and rejects .."
+  },
+  {
+    "id": "hardlink",
+    "adapter_expectation": "refuse and do not follow",
+    "enforced_by_current_tools": true,
+    "observed": "capture refused link-count: linked.txt and left the member reserved",
+    "detail": "plain_file_problem requires link count one"
+  },
+  {
+    "id": "junction",
+    "adapter_expectation": "refuse and do not follow",
+    "enforced_by_current_tools": true,
+    "observed": "capture refused link: on the junction segment and left the member reserved",
+    "detail": "The reparse point is not followed."
+  },
+  {
+    "id": "file-symlink",
+    "adapter_expectation": "refuse and do not follow",
+    "enforced_by_current_tools": null,
+    "observed": "skipped",
+    "detail": "File symlink creation returned WinError 1314. The tool was not asked to follow one."
+  },
+  {
+    "id": "report-outside-source-root",
+    "adapter_expectation": "refuse",
+    "enforced_by_current_tools": false,
+    "observed": "capture exit 0 copied the absolute return file that is outside source_root",
+    "detail": "The proposed adapter keeps the report under source_root. The tool does not. This success is not the guard."
+  },
+  {
+    "id": "changed-return-on-complete",
+    "adapter_expectation": "refuse and require attention",
+    "enforced_by_current_tools": true,
+    "observed": "capture reported conflict and left return.md and the receipt unchanged",
+    "detail": "An already complete member is read-only unless the bytes and flags are identical."
+  },
+  {
+    "id": "missing-batch-pointer",
+    "adapter_expectation": "do not rewrite the batch page in the first adapter",
+    "enforced_by_current_tools": true,
+    "observed": "verify still says result complete while the disposable book has no 05.16.md",
+    "detail": "A missing pointer after complete capture is a later projection."
+  }
+]

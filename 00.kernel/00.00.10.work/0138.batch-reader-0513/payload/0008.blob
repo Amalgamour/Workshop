@@ -1,0 +1,96 @@
+{
+  "schema": "batch-observation-verification/1",
+  "built": "2026-10-27",
+  "source_commit": "4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5",
+  "workshop_head_at_notes": "0cc237b1e1ae9b4892c8439ce3ac231dd422e892",
+  "pins": {
+    "labs/prime-support-pass01/prime_support.py": {
+      "sha256": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70",
+      "bytes": 59791
+    },
+    "labs/prime-support-pass01/clerk_adapter.py": {
+      "sha256": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4",
+      "bytes": 11774
+    },
+    "labs/return-capture-pass01/return_inspect.py": {
+      "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+      "bytes": 11402
+    },
+    "labs/return-capture-pass01/return_capture.py": {
+      "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+      "bytes": 45767
+    }
+  },
+  "parser_changed": false,
+  "helper_changed": false,
+  "inspector_changed": false,
+  "projection_integrated": false,
+  "historical_pages_rewritten": false,
+  "git_writes": false,
+  "first_failure": {
+    "command": "python -B labs/batch-observation-pass01/tests/test_batch_observe.py",
+    "exit": 1,
+    "skips": 0,
+    "error": "test_sixteen_real_shapes KeyError 0102.prime-support-0501",
+    "cause": "archive pointer names the member in backticks; some pages use Member NAME and Receipt sha256 on one line"
+  },
+  "tests": {
+    "command": "python -B labs/batch-observation-pass01/tests/test_batch_observe.py",
+    "cwd": "D:/Git/lib-build",
+    "exit": 0,
+    "count": 10,
+    "failures": 0,
+    "skips": 0,
+    "record": {
+      "sha256": "fabd4cc2af395a85791b23c998352645b82fc5f3ce80ebb40b2c66436e4bd44e",
+      "bytes": 1479
+    }
+  },
+  "demo": {
+    "command": "python -B labs/batch-observation-pass01/demo.py",
+    "page": "00.kernel/00.00.10.work/0508.return-capture/05.10.md",
+    "commit": "4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5",
+    "exit": 1,
+    "exit_meaning": "observation emitted with ambiguities; legacy heading is ambiguous",
+    "stdout_sha256": "46737b6dc5bfcce1d2ee6d40f585b9acf3bf5fe5653744dc56416ae2f02d3254",
+    "primary": "0129.assembly-capture-0510",
+    "package_at_commit": "not-established",
+    "binding": "unbound",
+    "stdout_bytes": 28995
+  },
+  "artifacts": {
+    "labs/batch-observation-pass01/batch_observe.py": {
+      "sha256": "0b09c19f4b9dc960e20a81dad5dfde6dd5a213cdc6de5aaac63218554d4e31d8",
+      "bytes": 36494
+    },
+    "labs/batch-observation-pass01/README.md": {
+      "sha256": "9f5447ed885ecdbd7583bcf39c60d8d247d7056adae2cce7c5f423c0b9adac65",
+      "bytes": 912
+    },
+    "labs/batch-observation-pass01/tests/test_batch_observe.py": {
+      "sha256": "82919ab5ce21fa8ff232e905c105d5889c53f9407aabfa320430b212389f64ff",
+      "bytes": 28398
+    },
+    "labs/batch-observation-pass01/demo.py": {
+      "sha256": "9ee21779da7887ffce5652cdc008f660a7b1423e69495922170209a7a835e75a",
+      "bytes": 797
+    },
+    "00.kernel/00.00.10.work/0508.return-capture/06.14.md": {
+      "sha256": "f56ab22b7cb61b9cf361084bc8ad5ab30862b14d980cb7518a226592ca589a5e",
+      "bytes": 4824
+    },
+    "00.kernel/00.00.10.work/0508.return-capture/evidence/reader05.13/CONTRACT.md": {
+      "sha256": "be118f746b8e240caa2ddd1c9835d65d88742b1f759091e22f7f6732fcf0c1a2",
+      "bytes": 9355
+    },
+    "00.kernel/00.00.10.work/0508.return-capture/evidence/reader05.13/tests.txt": {
+      "sha256": "fabd4cc2af395a85791b23c998352645b82fc5f3ce80ebb40b2c66436e4bd44e",
+      "bytes": 1479
+    }
+  },
+  "reserved_member_contents_before_capture": [
+    "01.md",
+    "reservation.json"
+  ],
+  "failures": []
+}

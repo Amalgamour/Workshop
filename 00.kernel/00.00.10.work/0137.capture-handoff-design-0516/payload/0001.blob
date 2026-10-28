@@ -1,0 +1,50 @@
+# Notes — Clerk job to book capture design
+Date: 2026-10-28
+Recorder: Grok 4.7 (xAI)
+State: notes for the 05.16 design, written before the handoff contract and before any fixture command. Not seated kernel law. This draft grants no release.
+
+## Reading
+These notes follow the pin check. `evidence/pack05.16/source-manifest.json` is schema `prime-pack-sources/1`, sha256 `6f5c066ae9834546bc4b37f6753afd88c6815e259775eadf18149b1c76253073`, 2281 bytes. It names 10 sources. Every snapshot matches its declared sha256 and byte length, and every live file matches that snapshot. 0 bad.
+
+The pinned tools this design may call, and must not edit, are `labs/clerk-handoff-pass02/clerk.py` `f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c` (52279 bytes), `labs/return-capture-pass01/return_capture.py` `8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac` (45767 bytes), and `labs/return-capture-pass01/return_inspect.py` `947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b` (11402 bytes). `app/clerk_seam.py` and `app/worker_bridge.py` are pinned so this slice does not route through them. Their bytes stay as packed.
+
+`evidence/prime-review05.15/review.md` accepts the recorded-boot entry inside its fixture scope and names this next design: link an already returned Clerk job to a pre-reserved book capture, preserving bytes and returned-event identity, with no new routing or acceptance. `0508.return-capture/evidence/prime-review05.12/review.md` is accepted as diagnostic input. A verified receipt is custody of copied bytes. It is not approval, acceptance, seating, or publication. This slice does not build the read-only batch reader that review names as a different next step.
+
+`0137.capture-handoff-design-0516/reservation.json` is schema `return-capture/1`, sha256 `f9d79cef61327eda76f2618e05e4d08d245db205d7f58c8fd47d59d4a401d1cf`, 794 bytes. Submission `grok-1-0504-0516`. The member held `01.md` and `reservation.json` only. Its release string says the reservation is not a Director release. `05.16.md` says this draft grants no release, and that release and claim are recorded in the return pointer. No Release line and no Claim line are added to the assignment header.
+
+HEAD observed while these notes were written: `0cc237b1e1ae9b4892c8439ce3ac231dd422e892`. This slice does not pull, reset, stage, commit, or push. That observation is not rewritten if HEAD later moves.
+
+## Design planned
+The missing link is one explicit binding from a Clerk inspection/2 returned event to one pre-reserved capture member. It is not a queue, not a route, and not an adapter yet. `evidence/capture-hand05.16/HANDOFF.md` is the contract. `examples.json` is the proposed binding shape and the rejection labels. Both are written before the fixture commands.
+
+The caller supplies the store, job, returned-event sha256, work ref, origin, book, submission, member, source root, final-report path, and artifact map. Clerk `show --json` supplies the returned event. The reservation supplies origin, expected outputs, and the stored release string. The release string is text. It is not authority. The builder final report is a file copied whole. Clerk `delivery` and `evidence` are the transport id and one transport line. They are not the report.
+
+Complete capture remains custody. The adapter proposed for the next slice must not reserve a second member, must not return the Clerk job again, and must not write a batch-page pointer.
+
+## Checks planned
+A disposable store and a disposable book, both outside this checkout, will queue, claim, write a synthetic report and artifact, return, inspect, reserve, capture, verify, and inspect again. The commands are the pinned tools. A harness under `evidence/capture-hand05.16/` retains the transcript. It is not an adapter and it is not app wiring.
+
+The same run will show a claimed job that was not returned, a dirty artifact, a mismatched origin document, and a planted partial member. Each one is labeled as an adapter expectation or as behavior the current tool already enforces. Composing those commands by hand does not implement the guard.
+
+No live model, no worker launch, and no full runtime suite.
+
+## Out of scope
+No adapter module, no `app/librarian.py` change, and no edit to Clerk, the capture tools, the seam, or the bridge. No live job, store, or registry. No repair of a partial member. No acceptance and no publication.
+
+## Gaps
+The capture tool does not read Clerk. A reserved member can be captured while the named job is only claimed, while outbox bytes differ from the returned event, or while a side document names another origin. Those are adapter refusals. They are not current tool guards. Path containment, link refusal, link-count refusal, identical `already-captured`, and partial retention are current tool behavior. The double-read that refuses `bytes changed before capture` is the tool's rule. This fixture does not race that read. File-symlink creation may skip on WinError 1314. The same-user gap remains. An inspection exit 0 is not acceptance. A capture receipt is not acceptance.
+
+## Outcome
+Reread after the disposable proof. The reading, the pins, and the handoff contract still match. HEAD is still `0cc237b1e1ae9b4892c8439ce3ac231dd422e892` on `workshop`. No Release line and no Claim line were added.
+
+The transcript is `evidence/capture-hand05.16/proof.txt`, sha256 `2e4748940fcd08e8a2bab458baf27a83c825a5da5565abf74f9b7f1f6ae80905`, 27802 bytes. `proof.json` and `harness.py` are retained data beside it. The harness called the pinned CLIs with argument arrays, `shell` false, and `-B`. The store and the book were temporary directories outside this checkout, and the harness removed them. Forty-one tool commands ran. Clerk and capture text on the pipe was CRLF. The three `return_inspect.py` JSON documents stayed LF.
+
+Happy fixture `fixture-0516` was queued, claimed, given synthetic `piece.txt` and `final-report.md`, and returned. The returned event sha256 is `3456fe7563145fd22f478e5bb1f3918614101dca7ad1eec81de9468f4fd9f21f`, and that digest is the sha256 of `0003.returned.json`. `show --json` with the instructions base is schema `clerk-handoff-inspection/2`, state `returned`, checks `events`, `completion`, and `artifacts` `ok`, instructions `usable`, problems empty. `returned.delivery` is `fixture-delivery`. `returned.evidence` is `transport line only`. The artifact is `piece.txt`, sha256 `4aff221c44f72c6c0c9f54043ef0eb9b7375e50f321517ca6641569024ef3a3f`, 20 bytes. The report sha256 is `7a05045df23c6c8443da1a8398ea165abbe27bcfbfc6ea00315bea612f24ad56`. Disposable member `0101.happy` captured those bytes: `return.md` equals the report, and `payload/0001.blob` equals `piece.txt`. The transport id and the transport line are absent from `return.md`. Manifest sha256 `83817a0de3e265cb98907ad98fec876859c9a43b689b6d92f3d512bd850abb90`. Receipt sha256 `e4b280e43152161c33fe721d87ae00fc7d8e88cbe1cabbcca7f34fdd940e7eee`. Verify printed `result complete`, `not approved`, `not accepted`, and `not published`. Inspect of the reservation was exit 1, status `reserved`. Inspect of the capture was exit 0, status `complete`. An identical Clerk return printed `already-recorded` and left the event file in place. An identical capture printed `already-captured` and left that receipt hash in place.
+
+The same event sha256 remained after the outbox was mutated. `show --json` then exited 1, `checks.artifacts` was `changed`, and the problem kind was `artifact-changed`. The human show added `not-returned-clean`. A return with the same delivery id and the mutated bytes printed `delivery conflict` and wrote nothing. A return with the same delivery id and different evidence did the same. The original source bytes still produced `already-captured` on `0101.happy`.
+
+These tool successes are adapter refusals, and the transcript labels them that way. `show --json` without an instructions base exited 0 with `instructions` `not-checked` and an empty problem list. A side file naming batch `05.99` was not passed to any command; inspect kept origin batch `05.16`, and capture has no origin argument. A new member, `0102.dirty`, captured the mutated bytes, sha256 `2847bbcbe490afac8871d2ceff071f72d506fdbd93aa94f1aa12e538b6ead9b0`, and verify said complete. Job `fixture-claimed` stayed `claimed` with `returned` null, and a separate capture still exited 0. An absolute return file outside the source root was copied whole, and that capture exited 0. Composing those commands does not implement the guard.
+
+The current tools enforced the other cases. A planted `return.md` on `0104.partial` was retained. Capture printed `partial`, `retained return.md`, and `result refused`. Inspect status was `incomplete` and the problem was `missing manifest.json`. No receipt was added. `../outside.txt` was refused with `artifact path has an unsafe segment`, and `0105.escape` stayed reserved. The hard link was refused with `link-count: linked.txt`. The junction was refused with `link:` and was not followed. File symlink creation returned WinError 1314, so that tool case was skipped. A different report on the complete member printed `conflict submission fixture-happy` and left `return.md` and the receipt unchanged. The final verify of `0101.happy` still printed the same receipt and the custody lines. The disposable book had no `05.16.md`. It did hold the tool's return door `0100.band.returns`. A missing batch pointer is a later projection.
+
+The double-read that refuses `bytes changed before capture` was not raced. No adapter module was written. No pinned tool, app file, or live member was edited. This draft grants no release. Review stays pending. Capture of the four design artifacts follows this outcome.

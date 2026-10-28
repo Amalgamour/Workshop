@@ -1,0 +1,89 @@
+{
+  "schema": "capture-hand05.16-verification",
+  "date": "2026-10-28",
+  "head": "0cc237b1e1ae9b4892c8439ce3ac231dd422e892",
+  "branch": "workshop",
+  "draft_grants_no_release": true,
+  "adapter_implemented": false,
+  "pins": {
+    "manifest": "00.kernel/00.00.10.work/0504.app-entry/evidence/pack05.16/source-manifest.json",
+    "manifest_sha256": "6f5c066ae9834546bc4b37f6753afd88c6815e259775eadf18149b1c76253073",
+    "manifest_bytes": 2281,
+    "tools": {
+      "labs/clerk-handoff-pass02/clerk.py": {
+        "sha256": "f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c",
+        "bytes": 52279
+      },
+      "labs/return-capture-pass01/return_capture.py": {
+        "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+        "bytes": 45767
+      },
+      "labs/return-capture-pass01/return_inspect.py": {
+        "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+        "bytes": 11402
+      }
+    }
+  },
+  "reservation": {
+    "member": "0137.capture-handoff-design-0516",
+    "submission_id": "grok-1-0504-0516",
+    "sha256": "f9d79cef61327eda76f2618e05e4d08d245db205d7f58c8fd47d59d4a401d1cf",
+    "bytes": 794
+  },
+  "proof": {
+    "command": "python -B 00.kernel/00.00.10.work/0504.app-entry/evidence/capture-hand05.16/harness.py",
+    "exit": 0,
+    "steps": 41,
+    "returned_event_sha256": "3456fe7563145fd22f478e5bb1f3918614101dca7ad1eec81de9468f4fd9f21f",
+    "happy_member": "0101.happy",
+    "manifest_sha256": "83817a0de3e265cb98907ad98fec876859c9a43b689b6d92f3d512bd850abb90",
+    "receipt_sha256": "e4b280e43152161c33fe721d87ae00fc7d8e88cbe1cabbcca7f34fdd940e7eee",
+    "report_sha256": "7a05045df23c6c8443da1a8398ea165abbe27bcfbfc6ea00315bea612f24ad56",
+    "piece_sha256": "4aff221c44f72c6c0c9f54043ef0eb9b7375e50f321517ca6641569024ef3a3f",
+    "custody": [
+      "result complete",
+      "not approved",
+      "not accepted",
+      "not published"
+    ]
+  },
+  "files": {
+    "00.kernel/00.00.10.work/0504.app-entry/06.16.md": {
+      "sha256": "7dc73bf572a7698e41fc4dc92206804779058e7b71ed8e1a769c3cdcc2c352e8",
+      "bytes": 9736,
+      "newline": "lf"
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/evidence/capture-hand05.16/HANDOFF.md": {
+      "sha256": "0116aac46a70a51135848409b2c75255246fe6b2bf3c6f1dd24b78f87ff907d2",
+      "bytes": 10488,
+      "newline": "lf"
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/evidence/capture-hand05.16/examples.json": {
+      "sha256": "5ee521f51409f8e2ae809252d5ea83297485a306f9c563e8c0090f0e4c4f737a",
+      "bytes": 4045,
+      "newline": "lf"
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/evidence/capture-hand05.16/harness.py": {
+      "sha256": "1de9fc69b6265c0bbe065ff1200329ad78515629753d3ea43044429f0c029995",
+      "bytes": 40654,
+      "newline": "lf"
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/evidence/capture-hand05.16/proof.txt": {
+      "sha256": "2e4748940fcd08e8a2bab458baf27a83c825a5da5565abf74f9b7f1f6ae80905",
+      "bytes": 27802,
+      "newline": "crlf"
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/evidence/capture-hand05.16/proof.json": {
+      "sha256": "063ea1da41f6668c1b0d5021fd971aefb626b5ae00a4575362f620f42d19bfcd",
+      "bytes": 71345,
+      "newline": "lf"
+    }
+  },
+  "limits": [
+    "A hand-composed capture is not the adapter guard.",
+    "Claimed-not-returned, dirty bytes, an unread origin document, unchecked instructions, and a return file outside the source root are tool successes that the proposed adapter must refuse.",
+    "File symlink creation returned WinError 1314 and that case was skipped.",
+    "The bytes-changed-before-capture race was not reproduced.",
+    "A verified receipt is custody. It is not approval, acceptance, or publication."
+  ]
+}

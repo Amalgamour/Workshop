@@ -1,0 +1,32 @@
+{
+  "reader_tests_exit": 0,
+  "handoff_proof_exit": 0,
+  "malformed_declaration_probes": [
+    {
+      "case": "disposition-list",
+      "uncaught": "TypeError",
+      "message": "unhashable type: 'list'"
+    },
+    {
+      "case": "disposition-object",
+      "uncaught": "TypeError",
+      "message": "unhashable type: 'dict'"
+    },
+    {
+      "case": "nonfinite",
+      "uncaught": "ValueError",
+      "message": "non-finite"
+    }
+  ],
+  "fenced_header_probe": {
+    "exit": 1,
+    "document": {
+      "header_state_raw": "state: accepted"
+    },
+    "assignment": {
+      "executor_raw": "Executor: fake executor",
+      "release_raw": "Release: fake release",
+      "claim_raw": "Claim: fake claim"
+    }
+  }
+}
