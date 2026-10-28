@@ -1,0 +1,117 @@
+{
+  "after_capture": {
+    "exit": 2,
+    "stdout": "attention: stopped after-capture\nwrites intent C:\\Users\\misg\\AppData\\Local\\Temp\\handoff0517-prime-stop-report-02kxr3sp\\handoff-record\\intent.json\nwrites failure-log C:\\Users\\misg\\AppData\\Local\\Temp\\handoff0517-prime-stop-report-02kxr3sp\\failure.log\nresult attention\n",
+    "failure_log": {
+      "binding_sha256": "36cac80d7c8d046e73d06fa54149cb9b1a9eabb3be4d8a211c2bdb09bfe6de8e",
+      "inspect": {
+        "book": "C:\\Users\\misg\\AppData\\Local\\Temp\\handoff0517-prime-stop-report-02kxr3sp\\book",
+        "capture": null,
+        "member": "0101.handoff",
+        "problems": [
+          "reservation only"
+        ],
+        "reservation": {
+          "destination": {
+            "member": "0101",
+            "name": "handoff",
+            "path": "0101.handoff"
+          },
+          "expected_outputs": [
+            "final-report.md",
+            "piece.txt"
+          ],
+          "origin": {
+            "batch": "05.17",
+            "book": "00.00.10.work",
+            "page": "0504.app-entry"
+          },
+          "release": "fixture reservation; not a release",
+          "reservation_sha256": "70196b8e9b9ec026c9bc53c78ef947e2f88e8b17506157e576240ce491b5c1b5",
+          "reserved_at": "2026-10-28T16:17:34.176767Z",
+          "reviewer": "Fixture Reviewer",
+          "submission_id": "fixture-prime-stop-report",
+          "submitter": "Fixture Submitter",
+          "supersedes": null
+        },
+        "schema": "return-capture-inspection/1",
+        "status": "reserved"
+      },
+      "inspection": {
+        "checks": {
+          "artifacts": "ok",
+          "completion": "ok",
+          "events": "ok",
+          "instructions": "usable"
+        },
+        "claim": {
+          "by": "fixture-builder",
+          "token": "bdbd2f53c7cc99274699111d3f9a359f"
+        },
+        "job": {
+          "assignee": "fixture-builder",
+          "expected_outputs": [
+            "final-report.md",
+            "piece.txt"
+          ],
+          "instructions": {
+            "path": "task.txt",
+            "sha256": "a9ae53f4cafe005290bd04c254c816d1c3063d59a03116530a8f9c05ef87bbc8"
+          },
+          "job_id": "fixture-0517",
+          "release": "fixture job label; not a release",
+          "reviewer": "fixture-reviewer",
+          "routed_by": "fixture-router"
+        },
+        "job_id": "fixture-0517",
+        "problems": [],
+        "returned": {
+          "artifacts": [
+            {
+              "bytes": 18,
+              "path": "final-report.md",
+              "sha256": "9319a73189e04e4dd0d75da0eb71be8fad0017c3eacf781b021d3cd7dc364cbc"
+            },
+            {
+              "bytes": 16,
+              "path": "piece.txt",
+              "sha256": "9ef1f47bb0e25f04db1efb699c1d0310b8384344897abffed7894f1615eae227"
+            }
+          ],
+          "by": "fixture-builder",
+          "delivery": "fixture-delivery",
+          "event_sha256": "3888bbee28a182e45229c8084e51be1ffbeef3b73fd426937aac0abf3de44dc9",
+          "evidence": "transport line only"
+        },
+        "schema": "clerk-handoff-inspection/2",
+        "state": "returned"
+      },
+      "reason": "stopped after-capture",
+      "retained": [],
+      "schema": "clerk-capture-handoff-failure/1",
+      "tool_stdout": [
+        "{\"checks\":{\"artifacts\":\"ok\",\"completion\":\"ok\",\"events\":\"ok\",\"instructions\":\"usable\"},\"claim\":{\"by\":\"fixture-builder\",\"token\":\"bdbd2f53c7cc99274699111d3f9a359f\"},\"job\":{\"assignee\":\"fixture-builder\",\"expected_outputs\":[\"final-report.md\",\"piece.txt\"],\"instructions\":{\"path\":\"task.txt\",\"sha256\":\"a9ae53f4cafe005290bd04c254c816d1c3063d59a03116530a8f9c05ef87bbc8\"},\"job_id\":\"fixture-0517\",\"release\":\"fixture job label; not a release\",\"reviewer\":\"fixture-reviewer\",\"routed_by\":\"fixture-router\"},\"job_id\":\"fixture-0517\",\"problems\":[],\"returned\":{\"artifacts\":[{\"bytes\":18,\"path\":\"final-report.md\",\"sha256\":\"9319a73189e04e4dd0d75da0eb71be8fad0017c3eacf781b021d3cd7dc364cbc\"},{\"bytes\":16,\"path\":\"piece.txt\",\"sha256\":\"9ef1f47bb0e25f04db1efb699c1d0310b8384344897abffed7894f1615eae227\"}],\"by\":\"fixture-builder\",\"delivery\":\"fixture-delivery\",\"event_sha256\":\"3888bbee28a182e45229c8084e51be1ffbeef3b73fd426937aac0abf3de44dc9\",\"evidence\":\"transport line only\"},\"schema\":\"clerk-handoff-inspection/2\",\"state\":\"returned\"}\n",
+        "{\"book\":\"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\handoff0517-prime-stop-report-02kxr3sp\\\\book\",\"capture\":null,\"member\":\"0101.handoff\",\"problems\":[\"reservation only\"],\"reservation\":{\"destination\":{\"member\":\"0101\",\"name\":\"handoff\",\"path\":\"0101.handoff\"},\"expected_outputs\":[\"final-report.md\",\"piece.txt\"],\"origin\":{\"batch\":\"05.17\",\"book\":\"00.00.10.work\",\"page\":\"0504.app-entry\"},\"release\":\"fixture reservation; not a release\",\"reservation_sha256\":\"70196b8e9b9ec026c9bc53c78ef947e2f88e8b17506157e576240ce491b5c1b5\",\"reserved_at\":\"2026-10-28T16:17:34.176767Z\",\"reviewer\":\"Fixture Reviewer\",\"submission_id\":\"fixture-prime-stop-report\",\"submitter\":\"Fixture Submitter\",\"supersedes\":null},\"schema\":\"return-capture-inspection/1\",\"status\":\"reserved\"}\n",
+        "capture 0101.handoff\nmanifest 11d22431fb19e79cac1fc2dfda85e2b6d971063f1d8514129a7123ef1626fd66\nreceipt c9da543b227d90e971c5cf8a2d66ac97c2ddce560002d2da941a96b002e985f3\nresult captured\n"
+      ],
+      "writes": [
+        "intent C:\\Users\\misg\\AppData\\Local\\Temp\\handoff0517-prime-stop-report-02kxr3sp\\handoff-record\\intent.json"
+      ]
+    },
+    "member_files": [
+      "01.md",
+      "manifest.json",
+      "receipt.json",
+      "reservation.json",
+      "return.md",
+      "payload/0001.blob",
+      "payload/0002.blob"
+    ]
+  },
+  "log_failure": {
+    "uncaught": "OSError",
+    "message": "injected failure-log write error"
+  },
+  "tests_exit": 0,
+  "demo_exit": 0
+}

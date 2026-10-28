@@ -1,0 +1,98 @@
+{
+  "schema": "handoff05.17-verification",
+  "date": "2026-10-28",
+  "head": "2c5be603697d04a756933aa26de297c69fe8d138",
+  "claim_head": "4e7ebfc143330f98c9b8b55681b58f2602a85255",
+  "branch": "workshop",
+  "director_release": "2026-10-28",
+  "adapter_implemented": true,
+  "app_wired": false,
+  "pins": {
+    "manifest": "00.kernel/00.00.10.work/0504.app-entry/evidence/pack05.17/source-manifest.json",
+    "manifest_sha256": "ca26e114b1f33b2cebcbbf27b530fc1262f1b7e5ba4a0011cd00dbbde9eb5d6a",
+    "manifest_bytes": 1952,
+    "tools": {
+      "labs/clerk-handoff-pass02/clerk.py": {
+        "sha256": "f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c",
+        "bytes": 52279
+      },
+      "labs/return-capture-pass01/return_capture.py": {
+        "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+        "bytes": 45767
+      },
+      "labs/return-capture-pass01/return_inspect.py": {
+        "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+        "bytes": 11402
+      }
+    }
+  },
+  "reservation": {
+    "member": "0139.capture-handoff-0517",
+    "submission_id": "grok-1-0504-0517",
+    "sha256": "3cce81c4a1806083e054a33b31afb8d7c0ebc3a5ad8b9cad0caabc5e80f96ad2",
+    "bytes": 933
+  },
+  "proof": {
+    "command": "python -B labs/capture-handoff-pass01/tests/test_handoff.py",
+    "exit": 0,
+    "summary": "pass 1 expected-refusal 25 skip 1 fail 0",
+    "clean_event_sha256": "3c2972a21a6a84b9ffeb93a269d3ec385dde1be63a9fc761951bf0e6e389fb02",
+    "clean_receipt_sha256": "f9ff2cfa4b03892b94d1cb1a80f6defb7103460a1c06c27058dc8282b5259fb1",
+    "demo_command": "python -B labs/capture-handoff-pass01/demo.py",
+    "demo_exit": 0,
+    "demo_event_sha256": "ac08bcc5555e7951cdb6da93deb8107c52da3dc68ceeb661296a3db7ef1f4b38",
+    "demo_receipt_sha256": "4784e326f3a6d32bc185754c2a3c25389cfd2532b13894cbf341ba87352577b7",
+    "demo_retry": "writes none",
+    "custody": [
+      "result complete",
+      "not approved",
+      "not accepted",
+      "not published"
+    ],
+    "symlink_skip": "WinError 1314"
+  },
+  "files": {
+    "labs/capture-handoff-pass01/handoff.py": {
+      "sha256": "ce9bcef0d101755d3e83c10353286d82c060aaaefcebcfb6b7491bba341558b7",
+      "bytes": 39856,
+      "newline": "lf"
+    },
+    "labs/capture-handoff-pass01/README.md": {
+      "sha256": "97669610c1d2bd22940fe3ad986e87dc99c466eacdfdf2de9872749ac59b54db",
+      "bytes": 1589,
+      "newline": "lf"
+    },
+    "labs/capture-handoff-pass01/tests/test_handoff.py": {
+      "sha256": "a950a31250aacf46ab0b8ddddadc9eb4e4ecbf9a0b249c51aa6659daa25de69d",
+      "bytes": 39317,
+      "newline": "lf"
+    },
+    "labs/capture-handoff-pass01/demo.py": {
+      "sha256": "70a7122a06ba87d155815b70678e3ab786dac16a197cef814728859f4d655e19",
+      "bytes": 7211,
+      "newline": "lf"
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/06.17.md": {
+      "sha256": "91e6c1b222e1ef3657f1e6c925c5c219d4904be7e50ef2a3bb9c031ab3fe507f",
+      "bytes": 9129,
+      "newline": "lf"
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/evidence/handoff05.17/CONTRACT.md": {
+      "sha256": "dbec46989aaabb7f8c55467b0ad2efee2ccf9c5926dcfeef30a1446eed09c6db",
+      "bytes": 8426,
+      "newline": "lf"
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/evidence/handoff05.17/tests.txt": {
+      "sha256": "fbda0c29003d5806367406e20b4405f3d96367a5e67b5f7c7cf4f85d2b5f81d9",
+      "bytes": 2373,
+      "newline": "crlf"
+    }
+  },
+  "limits": [
+    "A verified receipt is custody. It is not approval, acceptance, or publication.",
+    "The same-user gap between a hash read and a later write remains open. This module is not an operating-system sandbox.",
+    "File symlink creation returned WinError 1314 and that case was skipped.",
+    "perform always passes instructions_base, so not-checked is covered by load_returned rather than by a show without a base.",
+    "A late pin mismatch is result refused. A late source change is result attention. Neither writes completed.json."
+  ]
+}

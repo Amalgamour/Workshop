@@ -1,0 +1,28 @@
+pass clean-and-identical-retry event=3c2972a21a6a84b9ffeb93a269d3ec385dde1be63a9fc761951bf0e6e389fb02 receipt=f9ff2cfa4b03892b94d1cb1a80f6defb7103460a1c06c27058dc8282b5259fb1
+expected-refusal changed-event-and-work-ref: returned event does not match the binding; completed handoff record does not match the binding
+expected-refusal unrelated-report: report is not a returned artifact
+expected-refusal dirty-artifacts: artifacts are changed
+expected-refusal claimed-job: state is claimed
+expected-refusal unusable-instructions: instructions are unusable
+expected-refusal not-checked-instructions: instructions are not-checked
+expected-refusal wrong-origin: origin does not match the reservation
+expected-refusal wrong-submission: submission does not match the reservation
+expected-refusal wrong-order: logical outputs do not match the reservation
+expected-refusal preexisting-complete: complete capture has no completed handoff record
+expected-refusal partial-member: partial capture is retained
+expected-refusal hardlink: link-count: artifact source
+expected-refusal junction: link: C:\Users\misg\AppData\Local\Temp\handoff0517-junction-6tm7hve6\linked-source
+skip file-symlink: WinError 1314
+expected-refusal bad-pins: pin hash mismatch: capture
+expected-refusal stop-before-intent: stopped before-intent
+expected-refusal stop-after-intent: stopped after-intent; intent is retained
+expected-refusal stop-after-capture: stopped after-capture; complete capture has no completed handoff record
+expected-refusal stop-before-final-record: stopped before-final-record; complete capture has no completed handoff record
+expected-refusal source-changed-after-capture: source bytes changed before the handoff record
+expected-refusal pin-changed-after-capture: pin hash mismatch: clerk
+expected-refusal competing-writers: loser intent is retained; winner result ok
+expected-refusal planted-intent: intent is retained
+expected-refusal git-store: state is unknown
+expected-refusal malformed-binding: binding repeats schema; binding has unknown field hook; binding misses instructions_base; clerk_store must be absolute; report source is not the clerk path; report bytes is not an integer; binding has trailing data; artifact mapping is ambiguous
+expected-refusal cli-fault-switch: cli rejects a fault switch
+summary pass 1 expected-refusal 25 skip 1 fail 0
