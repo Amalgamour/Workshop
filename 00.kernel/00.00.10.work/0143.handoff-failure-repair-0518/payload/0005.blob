@@ -1,0 +1,53 @@
+# Notes — partial capture writes and failure-log errors
+Date: 2026-10-28
+Recorder: Grok 4.7 (xAI)
+State: notes for the 05.18 failure-reporting repair, written before the contract and before code.
+
+## Reading
+`evidence/pack05.18/source-manifest.json` is schema `prime-pack-sources/1`, sha256 `cdc02fe6afa125b77c96b58bfe3e90b2ab73e9a874f5b170cac1d311d94fbbda`, 2557 bytes. It names 11 sources. Every snapshot matches its declared sha256 and byte length, and every live file matched that snapshot before the release line was recorded. 0 bad.
+
+The pinned tools are `labs/clerk-handoff-pass02/clerk.py` `f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c` (52279 bytes), `labs/return-capture-pass01/return_capture.py` `8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac` (45767 bytes), and `labs/return-capture-pass01/return_inspect.py` `947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b` (11402 bytes).
+
+`evidence/prime-review05.17/review.md` holds 05.17 for CH-03 and CH-04 before any app integration. CH-01 and CH-02 stay as implemented. The attached `verification.json` is the before-example: a stop immediately after a successful capture left `return.md`, `manifest.json`, `receipt.json`, and payload blobs in the member, while stdout named only the intent and the failure log, and `failure.log` still stored the pre-capture reserved inspection. An injected `OSError` while writing that log escaped `execute()` uncaught.
+
+Release: released by the Director, 2026-10-28. Claim: Grok 4.7 (xAI), session 01a179d2-387a-7661-8702-6e53f95e96b5, 2026-10-28, HEAD `befac9fe0dacdae15522187a14a887dadad571bc` on `workshop`. This slice does not pull, reset, stage, commit, or push. That claim is not rewritten if HEAD later moves.
+
+`0143.handoff-failure-repair-0518/reservation.json` is schema `return-capture/1`, sha256 `8f37c6f22fb257fafa2af35e3be39183ec2a58a6c7d5e16d33afddf886bf4b03`, 947 bytes. Submission `grok-1-0504-0518`. The member held `01.md` and `reservation.json` only. Its release string says the reservation is not this Director release. `0139.capture-handoff-0517` stays closed.
+
+## Work planned
+`evidence/failure05.18/CONTRACT.md` states the reporting repair before code. The module remains `labs/capture-handoff-pass01/handoff.py`. The public call stays `perform(binding_path)`, with keyword-only `hook`, `pins`, and `fault`. `fault` is a private in-process seam. The CLI stays `perform --binding` and gains no fault switch.
+
+CH-03 separates the capture attempt and the observed member from the adapter's own record writes. A capture the tool reported as captured, followed by a stop or a later error, reports that the member files were observed and remain retained even when `completed.json` is absent. The failure record keeps the reserved inspection as an earlier phase with its time. The current `inspect` field is a later observation, or null when that later read is not safe. Exact tool stdout is kept. `return_inspect` is the status interface. `verify` runs only after that later status is `complete`, because verify refuses a reserved member. A missing success code is not evidence that the child wrote nothing. A listing that does not show `return.md`, `manifest.json`, and `receipt.json` says `capture-files absent`. Pins, timeout, a failed inspection, or bytes that cannot be read say `unknown` or `unverified`. The listing touches only the explicit member, its `payload` directory, the record directory, and the failure-log path.
+
+CH-04 catches `OSError` and a controlled refusal while writing the failure log. Stdout keeps the original handoff reason, adds the secondary log error, and returns exit 2 without a traceback. Partial log bytes stay. An existing log is not overwritten. The error path does not write `completed.json` and does not turn an incomplete capture into success. Programming errors are not caught as a successful result.
+
+A child timeout is recorded before the wait ends. Any captured stdout is kept, and the member outcome stays unknown until a later pin-safe observation. A partial intent write and a partial or readback-failed completed write stay on disk and are not called a completed handoff. Retries do not delete those bytes, do not redraw them, and do not capture again.
+
+The clean success path still launches show, inspect, capture, verify, and inspect, in that order. An identical completed retry still writes nothing, including no new failure log.
+
+## Out of scope
+No `app/librarian.py` wiring, no live job, and no model. `perform` does not call queue, claim, return, or reserve. Nothing is deleted, resumed, cleaned, or allocated around a partial. A verified receipt is custody. It is not review, acceptance, acknowledgement, closure, or publication. No second receipt or package validator is added.
+
+## Limits
+The same-user gap between a hash read and a later write remains open. A pin or source change found before the completed record stops the record and keeps the conflict. This is not an operating-system sandbox. File-symlink creation may skip on WinError 1314. The bytes-changed-before-capture race is rechecked, not closed. A later observation can itself fail; that failure stays unverified and does not erase the attempt.
+
+## Outcome
+Reread after the suite and the demo. The reading, the pins, and `CONTRACT.md` still match. The suite did not require a contract correction.
+
+Claim HEAD remains `befac9fe0dacdae15522187a14a887dadad571bc`. At this disposition, `git rev-parse HEAD` on `workshop` is the same commit. The claim line is not rewritten.
+
+The transcript is `evidence/failure05.18/tests.txt`, sha256 `2608af93343feea462c9954fef2caa52609155dbd6616cd2d68070e932d41aae`, 2851 bytes, CRLF. The command was `python -B labs/capture-handoff-pass01/tests/test_handoff.py` from `D:\Git\lib-build`. Exit 0. Summary: pass 1, expected-refusal 31, skip 1, fail 0. The one pass is the clean handoff together with its identical retry. Its commands stayed show, inspect, capture, verify, and inspect.
+
+That clean event is `4c2cce50409912edf49d817c5cb061d6514c8a37361a0aebea6b602c302edf3f`. Its disposable receipt is `007c9db193cb03a0bcadc8f1bd3572c344302d68d6a50c6e249104d938e54f7c`. The retry printed `writes none` and left the tree unchanged.
+
+`python -B labs/capture-handoff-pass01/demo.py` exited 0. It printed `result complete`, `not approved`, `not accepted`, and `not published`, then `writes none` on the retry, then `demo failure-log absent`, then the line that this demo is custody only. Demo event `60a65cb50b87216ac377efa9569390fee082cfc7286d7cc06f9fbc4cbdf83bd7`. Demo receipt `1bf833cd7d1f16b5cde0009fa347f3cce2ff398fa485364a2adbc7ac0c22a038`. Those disposable directories were removed.
+
+The repaired stop immediately after capture still begins `attention: stopped after-capture` and ends `result attention`. It also reports `member-written observed`, `custody complete`, `observed-record intent.json`, `record-absent completed.json`, `handoff-complete no`, and the retained `return.md` path. The failure record's current `inspect.status` is `complete`. Its `before-capture` phase stays `reserved`. `tool_stdout` still contains `result captured`. `completed.json` is absent. The retry does not finish the record, does not overwrite the log, and does not change the receipt. The same member report holds for a stop before the final record and for a source change after capture. A pin change after capture reports `custody unverified`, keeps the member files, stores no current inspection, and does not launch verify.
+
+A capture timeout reports `tool timed out: capture`, `capture-child unknown`, and `capture-files absent`, with no `return.md` and no phrase that the child wrote nothing. The retry stops at `intent is retained` and does not capture. A partial intent file stays `partial\n`, with `handoff-complete no`, and the retry does not redraw it or capture. A partial completed file stays `partial\n`; the retry refuses `completed handoff record is not readable` and does not capture. A readback fault leaves the full payload, refuses `record write did not land intact: completed.json` with `handoff-complete no`, and the later call is the existing read-only identical retry.
+
+A failure-log `OSError` before any bytes leaves no file. Stdout still starts with the original pin reason, then `reporting-error failure log: OSError: injected failure-log write error`, and returns exit 2 with no traceback. A partial failure log stays `partial\n` across the retry and is not overwritten.
+
+The earlier Prime stop reported only the intent write, the failure-log write, and `result attention`, while the member already held `return.md`, the manifest, the receipt, and the payloads, and the log still carried the reserved inspection. An injected failure-log `OSError` then escaped uncaught. Those two reports are the before-example in `evidence/prime-review05.17/verification.json`. This repair does not rewrite that file or `0139`.
+
+File symlink creation returned WinError 1314, so that case was skipped. The same-user gap remains open. This module is not an operating-system sandbox. No pinned tool, app file, or live member was edited. Review stays pending. The receipt that follows is custody, not acceptance.

@@ -721,6 +721,34 @@ def case_stop(point: str, label: str) -> tuple[str, str]:
         if point in ("after-capture", "before-final-record"):
             if (world.member_dir() / "return.md").read_bytes() != REPORT:
                 raise AssertionError("capture did not keep the report")
+            if "member-written observed" not in text or "custody complete" not in text:
+                raise AssertionError(text)
+            if "handoff-complete no" not in text or "observed-record intent.json" not in text:
+                raise AssertionError(text)
+            if "record-absent completed.json" not in text:
+                raise AssertionError(text)
+            retained_return = "retained " + str(world.member_dir() / "return.md")
+            if retained_return not in text:
+                raise AssertionError(text)
+            log = json.loads(world.failure_log.read_bytes().decode("utf-8"))
+            if log["inspect"]["status"] != "complete":
+                raise AssertionError(log["inspect"])
+            phases = [item["phase"] for item in log["observations"]]
+            if phases[:3] != ["before-capture", "capture", "after-capture"]:
+                raise AssertionError(phases)
+            if log["observations"][0]["status"] != "reserved":
+                raise AssertionError(log["observations"][0])
+            if not any("result captured" in item for item in log["tool_stdout"]):
+                raise AssertionError(log["tool_stdout"])
+            names = set(os.listdir(world.member_dir()))
+            for required in ("return.md", "manifest.json", "receipt.json"):
+                if required not in names:
+                    raise AssertionError(names)
+            if not os.listdir(world.member_dir() / "payload"):
+                raise AssertionError("payload blobs missing")
+            if log["reporting_error"] is not None:
+                raise AssertionError(log["reporting_error"])
+            receipt_before = (world.member_dir() / "receipt.json").read_bytes()
         log_bytes = world.failure_log.read_bytes()
         code, text = perform(path)
         reason2 = assert_refused(
@@ -734,6 +762,9 @@ def case_stop(point: str, label: str) -> tuple[str, str]:
             raise AssertionError("retry overwrote the failure log")
         if completed.exists():
             raise AssertionError("retry finished the record")
+        if point in ("after-capture", "before-final-record"):
+            if (world.member_dir() / "receipt.json").read_bytes() != receipt_before:
+                raise AssertionError("retry changed the receipt")
         if point != "before-intent" and world.job_names() != before_job:
             raise AssertionError("stop changed the job directory")
         return "expected-refusal", f": {reason}; {reason2}"
@@ -760,6 +791,10 @@ def case_source_changed() -> tuple[str, str]:
             raise AssertionError("captured report changed with the later source")
         if (world.outbox / "piece.txt").read_bytes() != PIECE:
             raise AssertionError("outbox was rewritten")
+        if "member-written observed" not in text or "handoff-complete no" not in text:
+            raise AssertionError(text)
+        if "record-absent completed.json" not in text:
+            raise AssertionError(text)
         return "expected-refusal", f": {reason}"
     finally:
         world.close()
@@ -784,6 +819,20 @@ def case_pin_changed() -> tuple[str, str]:
             raise AssertionError("late pin change wrote completed.json")
         if not (world.record / "intent.json").exists():
             raise AssertionError("late pin change dropped the intent")
+        if "member-written observed" not in text or "custody unverified" not in text:
+            raise AssertionError(text)
+        if "handoff-complete no" not in text:
+            raise AssertionError(text)
+        for required in ("return.md", "manifest.json", "receipt.json"):
+            if not (world.member_dir() / required).is_file():
+                raise AssertionError(f"missing {required}")
+        log = json.loads(world.failure_log.read_bytes().decode("utf-8"))
+        if log["inspect"] is not None:
+            raise AssertionError("pin failure stored an unverified inspection as current")
+        if any("not approved" in item for item in log["tool_stdout"]):
+            raise AssertionError("verify ran after the pin change")
+        if not any("result captured" in item for item in log["tool_stdout"]):
+            raise AssertionError("capture result missing from the failure record")
         return "expected-refusal", f": {reason}"
     finally:
         world.close()
@@ -957,6 +1006,183 @@ def case_malformed() -> tuple[str, str]:
         world.close()
 
 
+def watched(calls: list[str]):
+    real = handoff.launch
+
+    def wrapped(script, args, pins):
+        calls.append(args[0])
+        return real(script, args, pins)
+
+    return real, wrapped
+
+
+def case_capture_timeout() -> tuple[str, str]:
+    world = World("timeout")
+    calls: list[str] = []
+    real, wrapped = watched(calls)
+
+    def fault(event):
+        if event == "launch:capture":
+            return "timeout"
+        return None
+
+    try:
+        world.returned()
+        path = world.binding()
+        handoff.launch = wrapped
+        code, text = perform(path, fault=fault)
+        reason = assert_refused(code, text, "tool timed out: capture")
+        if "Traceback" in text or "no capture writes" in text:
+            raise AssertionError(text)
+        if "capture-child unknown" not in text:
+            raise AssertionError(text)
+        if "capture-files absent" not in text and "member-written unknown" not in text:
+            raise AssertionError(text)
+        if (world.member_dir() / "return.md").exists() or (world.member_dir() / "receipt.json").exists():
+            raise AssertionError("timeout left capture files")
+        if calls.count("capture") != 1:
+            raise AssertionError(calls)
+        calls.clear()
+        code, text = perform(path)
+        assert_refused(code, text, "intent is retained")
+        if (world.member_dir() / "return.md").exists():
+            raise AssertionError("retry captured after timeout")
+        if "capture" in calls:
+            raise AssertionError(calls)
+        return "expected-refusal", f": {reason}"
+    finally:
+        handoff.launch = real
+        world.close()
+
+
+def case_intent_partial() -> tuple[str, str]:
+    world = World("intentpart")
+    calls: list[str] = []
+    real, wrapped = watched(calls)
+
+    def fault(event):
+        if event == "write:intent":
+            return "oserror-partial"
+        return None
+
+    try:
+        world.returned()
+        path = world.binding()
+        handoff.launch = wrapped
+        code, text = perform(path, fault=fault)
+        reason = assert_refused(code, text, "filesystem: OSError: injected record write error")
+        intent = world.record / "intent.json"
+        if intent.read_bytes() != b"partial\n":
+            raise AssertionError(intent.read_bytes())
+        if (world.member_dir() / "return.md").exists() or (world.record / "completed.json").exists():
+            raise AssertionError("partial intent captured")
+        if "handoff-complete no" not in text or "observed-record intent.json" not in text:
+            raise AssertionError(text)
+        if "record-absent completed.json" not in text or "capture" in calls:
+            raise AssertionError(calls or text)
+        calls.clear()
+        code, text = perform(path)
+        assert_refused(code, text, "intent is retained")
+        if intent.read_bytes() != b"partial\n":
+            raise AssertionError("retry redrew intent.json")
+        if (world.member_dir() / "return.md").exists() or "capture" in calls:
+            raise AssertionError("retry captured")
+        return "expected-refusal", f": {reason}"
+    finally:
+        handoff.launch = real
+        world.close()
+
+
+def case_completed_fault(marker: str, label: str) -> tuple[str, str]:
+    world = World(label)
+    calls: list[str] = []
+    real, wrapped = watched(calls)
+
+    def fault(event):
+        if event == "write:completed":
+            return marker
+        return None
+
+    try:
+        world.returned()
+        path = world.binding()
+        handoff.launch = wrapped
+        code, text = perform(path, fault=fault)
+        completed = world.record / "completed.json"
+        receipt = (world.member_dir() / "receipt.json").read_bytes()
+        if "handoff-complete no" not in text or "member-written observed" not in text:
+            raise AssertionError(text)
+        if marker == "oserror-partial":
+            reason = assert_refused(code, text, "filesystem: OSError: injected record write error")
+            if completed.read_bytes() != b"partial\n":
+                raise AssertionError(completed.read_bytes())
+            calls.clear()
+            code, text = perform(path)
+            assert_refused(code, text, "completed handoff record is not readable")
+        else:
+            reason = assert_refused(code, text, "record write did not land intact: completed.json")
+            data = completed.read_bytes()
+            if not data.startswith(b"{") or b"partial\n" == data:
+                raise AssertionError(data)
+            calls.clear()
+            code, retry = perform(path)
+            if code != 0 or "writes none" not in retry or "result ok" not in retry:
+                raise AssertionError(retry)
+            if completed.read_bytes() != data:
+                raise AssertionError("retry redrew completed.json")
+        if completed.read_bytes() != (b"partial\n" if marker == "oserror-partial" else completed.read_bytes()):
+            raise AssertionError("retry redrew completed.json")
+        if "capture" in calls:
+            raise AssertionError(calls)
+        if (world.member_dir() / "receipt.json").read_bytes() != receipt:
+            raise AssertionError("receipt changed")
+        return "expected-refusal", f": {reason}"
+    finally:
+        handoff.launch = real
+        world.close()
+
+
+def case_log_oserror(marker: str, label: str) -> tuple[str, str]:
+    world = World(label)
+    try:
+        world.store.mkdir()
+        world.member = "0101.pins"
+        pins = handoff.default_pins()
+        path, _digest = pins["capture"]
+        pins["capture"] = (path, "ab" * 32)
+
+        def fault(event):
+            if event == "write:failure-log":
+                return marker
+            return None
+
+        code, text = perform(world.binding(), pins=pins, fault=fault)
+        reason = assert_refused(code, text, "pin hash mismatch: capture")
+        if not text.startswith("refused: pin hash mismatch: capture\n"):
+            raise AssertionError(text)
+        if "Traceback" in text or "reporting-error" not in text:
+            raise AssertionError(text)
+        if "OSError" not in text or "injected failure-log write error" not in text:
+            raise AssertionError(text)
+        if marker == "oserror-before":
+            if world.failure_log.exists():
+                raise AssertionError("oserror-before created a failure log")
+            code, text = perform(str(world.binding_path), pins=pins, fault=fault)
+            assert_refused(code, text, "pin hash mismatch: capture")
+            if world.failure_log.exists():
+                raise AssertionError("retry created a failure log")
+        else:
+            if world.failure_log.read_bytes() != b"partial\n":
+                raise AssertionError(world.failure_log.read_bytes())
+            code, text = perform(str(world.binding_path), pins=pins, fault=fault)
+            assert_refused(code, text, "pin hash mismatch: capture")
+            if world.failure_log.read_bytes() != b"partial\n":
+                raise AssertionError("retry overwrote the partial failure log")
+        return "expected-refusal", f": {reason}"
+    finally:
+        world.close()
+
+
 def case_cli() -> tuple[str, str]:
     buf = io.StringIO()
     err = io.StringIO()
@@ -991,6 +1217,12 @@ def main() -> int:
         ("stop-before-final-record", lambda: case_stop("before-final-record", "stop3")),
         ("source-changed-after-capture", case_source_changed),
         ("pin-changed-after-capture", case_pin_changed),
+        ("capture-timeout", case_capture_timeout),
+        ("intent-oserror-partial", case_intent_partial),
+        ("completed-oserror-partial", lambda: case_completed_fault("oserror-partial", "completedpart")),
+        ("completed-readback", lambda: case_completed_fault("readback", "completedread")),
+        ("failure-log-oserror-before", lambda: case_log_oserror("oserror-before", "logbefore")),
+        ("failure-log-oserror-partial", lambda: case_log_oserror("oserror-partial", "logpartial")),
         ("competing-writers", case_compete),
         ("planted-intent", case_planted_intent),
         ("git-store", case_git_store),

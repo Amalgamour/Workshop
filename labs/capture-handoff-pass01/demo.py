@@ -192,6 +192,10 @@ def main() -> int:
         second = handoff.perform(str(binding_path))
         if second != 0:
             return second
+        if (root / "failure.log").exists():
+            print("demo failure log exists after custody")
+            return 2
+        print("demo failure-log absent")
         print("demo custody only; not review, acceptance, or closure")
         return 0
     finally:

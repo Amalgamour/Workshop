@@ -1,0 +1,101 @@
+{
+  "schema": "failure05.18-verification",
+  "date": "2026-10-28",
+  "head": "befac9fe0dacdae15522187a14a887dadad571bc",
+  "claim_head": "befac9fe0dacdae15522187a14a887dadad571bc",
+  "branch": "workshop",
+  "director_release": "2026-10-28",
+  "repair": "CH-03 and CH-04 failure reporting",
+  "app_wired": false,
+  "pins": {
+    "manifest": "00.kernel/00.00.10.work/0504.app-entry/evidence/pack05.18/source-manifest.json",
+    "manifest_sha256": "cdc02fe6afa125b77c96b58bfe3e90b2ab73e9a874f5b170cac1d311d94fbbda",
+    "manifest_bytes": 2557,
+    "tools": {
+      "labs/clerk-handoff-pass02/clerk.py": {
+        "sha256": "f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c",
+        "bytes": 52279
+      },
+      "labs/return-capture-pass01/return_capture.py": {
+        "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+        "bytes": 45767
+      },
+      "labs/return-capture-pass01/return_inspect.py": {
+        "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+        "bytes": 11402
+      }
+    }
+  },
+  "reservation": {
+    "member": "0143.handoff-failure-repair-0518",
+    "submission_id": "grok-1-0504-0518",
+    "sha256": "8f37c6f22fb257fafa2af35e3be39183ec2a58a6c7d5e16d33afddf886bf4b03",
+    "bytes": 947
+  },
+  "proof": {
+    "command": "python -B labs/capture-handoff-pass01/tests/test_handoff.py",
+    "exit": 0,
+    "summary": "pass 1 expected-refusal 31 skip 1 fail 0",
+    "clean_event_sha256": "4c2cce50409912edf49d817c5cb061d6514c8a37361a0aebea6b602c302edf3f",
+    "clean_receipt_sha256": "007c9db193cb03a0bcadc8f1bd3572c344302d68d6a50c6e249104d938e54f7c",
+    "demo_command": "python -B labs/capture-handoff-pass01/demo.py",
+    "demo_exit": 0,
+    "demo_event_sha256": "60a65cb50b87216ac377efa9569390fee082cfc7286d7cc06f9fbc4cbdf83bd7",
+    "demo_receipt_sha256": "1bf833cd7d1f16b5cde0009fa347f3cce2ff398fa485364a2adbc7ac0c22a038",
+    "demo_retry": "writes none",
+    "demo_failure_log": "absent",
+    "custody": [
+      "result complete",
+      "not approved",
+      "not accepted",
+      "not published"
+    ],
+    "symlink_skip": "WinError 1314",
+    "tests_txt_sha256": "2608af93343feea462c9954fef2caa52609155dbd6616cd2d68070e932d41aae"
+  },
+  "files": {
+    "labs/capture-handoff-pass01/handoff.py": {
+      "sha256": "a8380136a84469b8975b38f084a4d34802ccf079ed69cf85d107f6ca3643426a",
+      "bytes": 51828,
+      "newline": "lf"
+    },
+    "labs/capture-handoff-pass01/README.md": {
+      "sha256": "886742695e33f515a5ebeee4641dd0bada27ca26b18f71827058cf50b26d0d72",
+      "bytes": 2179,
+      "newline": "lf"
+    },
+    "labs/capture-handoff-pass01/tests/test_handoff.py": {
+      "sha256": "56abb1ee6abb63516825fa40c5f513eccb120ac4f0cb06a766dd14b6f5a65519",
+      "bytes": 50019,
+      "newline": "lf"
+    },
+    "labs/capture-handoff-pass01/demo.py": {
+      "sha256": "b3b3bb24db34199c8841c46bbf4942bd9f3b0b6b77ed95ccf8b2d6a33681695b",
+      "bytes": 7376,
+      "newline": "lf"
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/06.18.md": {
+      "sha256": "d848496eebcc0331a4667c4c1716bdeca585a7003e8ac287d4321c17a3617f9c",
+      "bytes": 9223,
+      "newline": "lf"
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/evidence/failure05.18/CONTRACT.md": {
+      "sha256": "df010f5a242c7b4d09cb2647a1d5a1328158d7152a189119cca6d07accfe2fec",
+      "bytes": 8407,
+      "newline": "lf"
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/evidence/failure05.18/tests.txt": {
+      "sha256": "2608af93343feea462c9954fef2caa52609155dbd6616cd2d68070e932d41aae",
+      "bytes": 2851,
+      "newline": "crlf"
+    }
+  },
+  "limits": [
+    "A verified receipt is custody. It is not approval, acceptance, or publication.",
+    "The same-user gap between a hash read and a later write remains open. This module is not an operating-system sandbox.",
+    "File symlink creation returned WinError 1314 and that case was skipped.",
+    "A missing capture success code is not evidence that the child wrote nothing. Unreadable or unpinned observation stays unknown or unverified.",
+    "A readback fault that leaves a matching completed record is not success on that call. A later call is the existing read-only identical retry.",
+    "No app wiring, no automatic recovery, and no allocation around a partial."
+  ]
+}

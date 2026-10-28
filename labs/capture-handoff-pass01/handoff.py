@@ -4,11 +4,15 @@ This module is not app wiring and not kernel law. It does not import the
 pinned tools. A verified receipt is custody, not review, acceptance,
 acknowledgement, closure, or publication. work_ref is a declared label.
 The same-user gap between a hash read and a later write stays open.
+A capture attempt is reported from later observation. A failure-log write
+error stays a controlled refusal and does not erase earlier bytes.
 """
 
 from __future__ import annotations
 
 import argparse
+import contextvars
+import datetime
 import hashlib
 import json
 import os
@@ -86,6 +90,9 @@ INSPECT_EXIT = {
 }
 HOOK_POINTS = {"before-intent", "after-intent", "after-capture", "before-final-record"}
 CUSTODY = ("result complete", "not approved", "not accepted", "not published")
+CAPTURE_MARKERS = ("return.md", "manifest.json", "receipt.json")
+FAULT_MARKERS = {"oserror-before", "oserror-partial", "readback", "timeout"}
+FAULT = contextvars.ContextVar("handoff_fault", default=None)
 
 
 class Refuse(Exception):
@@ -101,8 +108,37 @@ class Stop(Exception):
         self.point = point
 
 
+class ToolTimeout(Exception):
+    def __init__(self, command: str, stdout: str = "") -> None:
+        super().__init__(command)
+        self.command = command
+        self.stdout = stdout
+
+
 def refuse(message: str, *, attention: bool = False) -> None:
     raise Refuse(message, attention=attention)
+
+
+def now_stamp() -> str:
+    return datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+
+
+def fault_marker(event: str) -> str | None:
+    fault = FAULT.get()
+    if fault is None:
+        return None
+    marker = fault(event)
+    if marker is None:
+        return None
+    if marker not in FAULT_MARKERS:
+        refuse("fault returned an unknown marker")
+    return marker
+
+
+def inject_message(role: str) -> str:
+    if role == "failure-log":
+        return "injected failure-log write error"
+    return "injected record write error"
 
 
 def canonical(value) -> bytes:
@@ -473,8 +509,22 @@ def binding_sha(body: bytes) -> str:
     return sha256_bytes(body)
 
 
+def tool_text_bytes(raw) -> str:
+    if raw is None:
+        return ""
+    if isinstance(raw, str):
+        return raw.replace("\r\n", "\n")
+    return raw.replace(b"\r\n", b"\n").decode("utf-8", errors="backslashreplace")
+
+
 def launch(script: str, args: list[str], pins: dict) -> tuple[int, str, str]:
     check_pins(pins)
+    command = args[0] if args else ""
+    marker = fault_marker(f"launch:{command}")
+    if marker is not None and marker != "timeout":
+        refuse(f"fault marker is not usable here: {marker}")
+    if marker == "timeout":
+        raise ToolTimeout(command, "")
     env = os.environ.copy()
     env["PYTHONDONTWRITEBYTECODE"] = "1"
     env["GIT_OPTIONAL_LOCKS"] = "0"
@@ -489,10 +539,10 @@ def launch(script: str, args: list[str], pins: dict) -> tuple[int, str, str]:
             shell=False,
             timeout=TIMEOUT_S,
         )
-    except subprocess.TimeoutExpired:
-        refuse("tool timed out")
-    stdout = proc.stdout.replace(b"\r\n", b"\n").decode("utf-8", errors="backslashreplace")
-    stderr = proc.stderr.replace(b"\r\n", b"\n").decode("utf-8", errors="backslashreplace")
+    except subprocess.TimeoutExpired as exc:
+        raise ToolTimeout(command, tool_text_bytes(exc.stdout)) from None
+    stdout = tool_text_bytes(proc.stdout)
+    stderr = tool_text_bytes(proc.stderr)
     return proc.returncode, stdout, stderr
 
 
@@ -649,7 +699,15 @@ def show_job(parsed: dict, pins: dict) -> tuple[int, dict, str]:
     return code, document, text
 
 
-def write_exclusive(path: Path, data: bytes) -> None:
+def write_exclusive(path: Path, data: bytes, *, role: str) -> None:
+    # An existing failure log is retained. The fault must not overwrite it.
+    if role == "failure-log" and os.path.lexists(path):
+        raise FileExistsError(path)
+    marker = fault_marker(f"write:{role}")
+    if marker == "timeout":
+        refuse("fault marker is not usable here: timeout")
+    if marker == "oserror-before":
+        raise OSError(inject_message(role))
     flags = os.O_CREAT | os.O_EXCL | os.O_WRONLY
     if hasattr(os, "O_BINARY"):
         flags |= os.O_BINARY
@@ -658,6 +716,15 @@ def write_exclusive(path: Path, data: bytes) -> None:
     except FileExistsError:
         raise
     try:
+        if marker == "oserror-partial":
+            view = memoryview(b"partial\n")
+            while view:
+                written = os.write(fd, view)
+                if written <= 0:
+                    raise OSError("short write")
+                view = view[written:]
+            os.fsync(fd)
+            raise OSError(inject_message(role))
         view = memoryview(data)
         while view:
             written = os.write(fd, view)
@@ -667,7 +734,7 @@ def write_exclusive(path: Path, data: bytes) -> None:
         os.fsync(fd)
     finally:
         os.close(fd)
-    if path.read_bytes() != data:
+    if marker == "readback" or path.read_bytes() != data:
         refuse(f"record write did not land intact: {path.name}", attention=True)
 
 
@@ -797,6 +864,152 @@ def reread_sources(parsed: dict, sources: dict[str, bytes]) -> None:
             refuse("source bytes changed before the handoff record", attention=True)
 
 
+def dedupe(items: list[str]) -> list[str]:
+    seen = []
+    for item in items:
+        if item not in seen:
+            seen.append(item)
+    return seen
+
+
+def list_member_entries(member: Path) -> tuple[str, list[str]]:
+    if not os.path.lexists(member) or is_reparse(member) or plain_dir_problem(member):
+        return "unknown", []
+    try:
+        names = sorted(os.listdir(member))
+    except OSError:
+        return "unknown", []
+    rels: list[str] = []
+    for name in names:
+        child = member / name
+        try:
+            if is_reparse(child):
+                return "unknown", []
+            info = os.lstat(child)
+        except OSError:
+            return "unknown", []
+        if name == "payload" and stat.S_ISDIR(info.st_mode):
+            try:
+                blobs = sorted(os.listdir(child))
+            except OSError:
+                return "unknown", []
+            for blob in blobs:
+                blob_path = child / blob
+                try:
+                    if is_reparse(blob_path):
+                        return "unknown", []
+                    blob_info = os.lstat(blob_path)
+                except OSError:
+                    return "unknown", []
+                if not stat.S_ISREG(blob_info.st_mode):
+                    return "unknown", []
+                rels.append("payload/" + blob)
+            continue
+        if not stat.S_ISREG(info.st_mode):
+            return "unknown", []
+        rels.append(name)
+    found = [name for name in CAPTURE_MARKERS if name in rels]
+    if len(found) == 3:
+        return "observed", rels
+    if found:
+        return "partial", rels
+    return "absent", rels
+
+
+def observe_record(parsed, retained: list[str]) -> list[str]:
+    if parsed is None:
+        return []
+    record = Path(parsed["record"])
+    if not os.path.lexists(record):
+        return ["record absent", "handoff-complete no"]
+    if is_reparse(record) or plain_dir_problem(record):
+        return ["record unobserved", "handoff-complete no"]
+    try:
+        names = set(os.listdir(record))
+    except OSError:
+        return ["record unobserved", "handoff-complete no"]
+    lines = []
+    for name in (INTENT_NAME, COMPLETED_NAME):
+        path = record / name
+        if name not in names:
+            lines.append(f"record-absent {name}")
+            continue
+        try:
+            if is_reparse(path):
+                lines.append("record unobserved")
+                continue
+            info = os.lstat(path)
+        except OSError:
+            lines.append("record unobserved")
+            continue
+        if not stat.S_ISREG(info.st_mode):
+            lines.append("record unobserved")
+            continue
+        lines.append(f"observed-record {name}")
+        text = str(path)
+        if text not in retained:
+            retained.append(text)
+    lines.append("handoff-complete no")
+    return lines
+
+
+def observe_after(parsed, pins, tool_text: list[str], retained: list[str]) -> tuple[str, list[str], list[str], dict | None]:
+    lines = []
+    view = None
+    member = Path(parsed["book"]) / parsed["member"]
+    state, rels = list_member_entries(member)
+    if state == "unknown":
+        lines.append("member-written unknown")
+    else:
+        for rel in rels:
+            lines.append("observed " + rel)
+            if rel in CAPTURE_MARKERS or rel.startswith("payload/"):
+                text = str(member.joinpath(*rel.split("/")))
+                if text not in retained:
+                    retained.append(text)
+        if state == "observed":
+            lines.append("member-written observed")
+        elif state == "partial":
+            lines.append("member-written partial")
+        else:
+            lines.append("capture-files absent")
+    stamp = now_stamp()
+    custody = "unverified"
+    if pins is not None and pin_problem(pins) is None:
+        try:
+            _code, view, text = inspect_member(parsed, pins)
+            tool_text.append(text)
+            custody = str(view.get("status"))
+            if view.get("status") == "complete":
+                # verify refuses a reserved member, so it runs only after a complete inspection.
+                try:
+                    vcode, vtext, _verr = launch(
+                        pins["capture"][0],
+                        ["verify", "--book", parsed["book"], "--member", parsed["member"]],
+                        pins,
+                    )
+                    tool_text.append(vtext)
+                    if vcode != 0 or any(line not in vtext for line in CUSTODY):
+                        lines.append("custody " + custody)
+                        lines.append("verify unverified")
+                        custody = "unverified-verify"
+                    else:
+                        lines.append("custody " + custody)
+                except (Refuse, OSError, ToolTimeout):
+                    lines.append("custody " + custody)
+                    lines.append("verify unverified")
+            else:
+                lines.append("custody " + custody)
+        except (Refuse, OSError, ToolTimeout):
+            lines.append("custody unverified")
+            view = None
+            custody = "unverified"
+    else:
+        lines.append("custody unverified")
+    lines.append("observed-at " + stamp)
+    return state, rels, lines, view
+
+
 def finish(kind: str, reason: str, writes: list[str], retained: list[str], extra: list[str]) -> tuple[int, str]:
     lines = []
     if kind == "ok":
@@ -809,6 +1022,7 @@ def finish(kind: str, reason: str, writes: list[str], retained: list[str], extra
         return 0, "\n".join(lines) + "\n"
     label = "attention" if kind == "attention" else "refused"
     lines.append(f"{label}: {reason}")
+    lines.extend(extra)
     lines.extend("retained " + item for item in retained)
     if writes:
         lines.extend("writes " + item for item in writes)
@@ -818,28 +1032,37 @@ def finish(kind: str, reason: str, writes: list[str], retained: list[str], extra
     return 2, "\n".join(lines) + "\n"
 
 
-def try_failure_log(parsed: dict | None, safe: bool, payload: dict, writes: list[str], retained: list[str]) -> None:
+def try_failure_log(parsed: dict | None, safe: bool, payload: dict, writes: list[str], retained: list[str]) -> str | None:
     if not safe or parsed is None:
-        return
+        return None
     path = Path(parsed["failure_log"])
     if os.path.lexists(path):
-        retained.append(str(path))
-        return
+        if str(path) not in retained:
+            retained.append(str(path))
+        return None
     parent = path.parent
     if plain_dir_problem(parent) or is_reparse(parent):
-        return
+        return "failure log: parent is not a plain directory"
     try:
-        write_exclusive(path, canonical(payload))
+        write_exclusive(path, canonical(payload), role="failure-log")
     except FileExistsError:
-        retained.append(str(path))
-        return
-    except Refuse:
-        retained.append(str(path))
-        return
+        if str(path) not in retained:
+            retained.append(str(path))
+        return None
+    except Refuse as exc:
+        if os.path.lexists(path) and str(path) not in retained:
+            retained.append(str(path))
+        return "failure log: " + exc.message
+    except OSError as exc:
+        if os.path.lexists(path) and str(path) not in retained:
+            retained.append(str(path))
+        return f"failure log: OSError: {exc.strerror or exc}"
     writes.append("failure-log " + str(path))
+    return None
 
 
-def execute(binding_path: str, *, hook=None, pins=None) -> tuple[int, str]:
+def execute(binding_path: str, *, hook=None, pins=None, fault=None) -> tuple[int, str]:
+    token = FAULT.set(fault)
     parsed = None
     log_safe = False
     writes: list[str] = []
@@ -849,8 +1072,17 @@ def execute(binding_path: str, *, hook=None, pins=None) -> tuple[int, str]:
     member_view = None
     digest = None
     sources: dict[str, bytes] = {}
+    active_pins = pins
+    capture_state = {
+        "attempted": False,
+        "child": None,
+        "inspected_at": None,
+        "before": None,
+        "capture_stdout": "",
+    }
     try:
-        pins = default_pins() if pins is None else pins
+        active_pins = default_pins() if pins is None else pins
+        pins = active_pins
         parsed, body = parse_binding(binding_path)
         digest = binding_sha(body)
         log_parent = Path(parsed["failure_log"]).parent
@@ -878,6 +1110,8 @@ def execute(binding_path: str, *, hook=None, pins=None) -> tuple[int, str]:
             sources[item["clerk_path"]] = read_identity(parsed, item, "artifact")
         _inspect_code, member_view, inspect_text = inspect_member(parsed, pins)
         tool_text.append(inspect_text)
+        capture_state["inspected_at"] = now_stamp()
+        capture_state["before"] = member_view
         problem = reservation_problem(member_view, parsed)
         if problem and member_view.get("status") in ("reserved", "complete", "incomplete"):
             refuse(problem, attention=member_view.get("status") != "reserved")
@@ -902,7 +1136,7 @@ def execute(binding_path: str, *, hook=None, pins=None) -> tuple[int, str]:
         intent = intent_body(parsed, digest, transport, identities)
         intent_path = Path(parsed["record"]) / INTENT_NAME
         try:
-            write_exclusive(intent_path, intent)
+            write_exclusive(intent_path, intent, role="intent")
         except FileExistsError:
             retained.append(str(intent_path))
             refuse("intent is retained", attention=True)
@@ -910,14 +1144,20 @@ def execute(binding_path: str, *, hook=None, pins=None) -> tuple[int, str]:
         call_hook(hook, "after-intent")
         check_pins(pins)
         reread_sources(parsed, sources)
+        capture_state["attempted"] = True
+        capture_state["child"] = "unknown"
         code, capture_text, _err = launch(pins["capture"][0], capture_command(parsed), pins)
         tool_text.append(capture_text)
+        capture_state["capture_stdout"] = capture_text
         if code != 0 or "result captured" not in capture_text.splitlines():
+            capture_state["child"] = "returned"
             retained.append(str(intent_path))
             refuse("capture did not complete", attention=True)
         if f"capture {parsed['member']}" not in capture_text:
+            capture_state["child"] = "returned"
             retained.append(str(intent_path))
             refuse("capture member does not match the binding", attention=True)
+        capture_state["child"] = "captured"
         call_hook(hook, "after-capture")
         check_pins(pins)
         reread_sources(parsed, sources)
@@ -938,7 +1178,7 @@ def execute(binding_path: str, *, hook=None, pins=None) -> tuple[int, str]:
         completed = completed_body(parsed, digest, member_view["capture"])
         completed_path = Path(parsed["record"]) / COMPLETED_NAME
         try:
-            write_exclusive(completed_path, completed)
+            write_exclusive(completed_path, completed, role="completed")
         except FileExistsError:
             retained.extend([str(intent_path), str(completed_path)])
             existing = completed_path.read_bytes()
@@ -950,18 +1190,29 @@ def execute(binding_path: str, *, hook=None, pins=None) -> tuple[int, str]:
     except Stop as exc:
         return fail(
             parsed, log_safe, True, f"stopped {exc.point}", writes, retained,
-            inspection, member_view, tool_text, digest,
+            inspection, member_view, tool_text, digest, capture_state, active_pins,
         )
     except Refuse as exc:
         return fail(
             parsed, log_safe, exc.attention, exc.message, writes, retained,
-            inspection, member_view, tool_text, digest,
+            inspection, member_view, tool_text, digest, capture_state, active_pins,
         )
     except OSError as exc:
         return fail(
             parsed, log_safe, True, f"filesystem: {type(exc).__name__}: {exc.strerror or exc}",
-            writes, retained, inspection, member_view, tool_text, digest,
+            writes, retained, inspection, member_view, tool_text, digest, capture_state, active_pins,
         )
+    except ToolTimeout as exc:
+        if exc.stdout:
+            tool_text.append(exc.stdout)
+        if capture_state["attempted"] and capture_state["child"] == "unknown":
+            capture_state["capture_stdout"] = exc.stdout or ""
+        return fail(
+            parsed, log_safe, True, f"tool timed out: {exc.command}", writes, retained,
+            inspection, member_view, tool_text, digest, capture_state, active_pins,
+        )
+    finally:
+        FAULT.reset(token)
 
 
 def custody_lines(verified: str, parsed: dict) -> list[str]:
@@ -1017,8 +1268,62 @@ def complete_retry(parsed, pins, digest, sources, member_view, writes, retained)
     return finish("ok", "", writes, retained, custody_lines(verified, parsed))
 
 
-def fail(parsed, log_safe, attention, reason, writes, retained, inspection, member_view, tool_text, digest):
+def fail(parsed, log_safe, attention, reason, writes, retained, inspection, member_view, tool_text, digest, capture_state, pins):
     kind = "attention" if attention else "refused"
+    extra: list[str] = []
+    observations = []
+    attempted = bool(capture_state and capture_state.get("attempted"))
+    later_view = None
+    member_state = None
+    if attempted and parsed is not None:
+        child = capture_state.get("child") or "unknown"
+        extra.append(f"capture-attempt {parsed['member']}")
+        extra.append(f"capture-child {child}")
+        if capture_state.get("before") is not None:
+            observations.append({
+                "phase": "before-capture",
+                "at": capture_state.get("inspected_at"),
+                "status": capture_state["before"].get("status"),
+                "inspect": capture_state["before"],
+            })
+        observations.append({
+            "phase": "capture",
+            "attempted": True,
+            "child": child,
+            "stdout": capture_state.get("capture_stdout") or "",
+        })
+        try:
+            state, rels, lines, later_view = observe_after(parsed, pins, tool_text, retained)
+        except (Refuse, OSError, ToolTimeout):
+            state, rels, lines, later_view = (
+                "unknown",
+                [],
+                ["member-written unknown", "custody unverified"],
+                None,
+            )
+        extra.extend(lines)
+        member_state = state
+        custody = "unverified"
+        observed_at = None
+        for line in lines:
+            if line == "custody unverified":
+                custody = "unverified"
+            elif line.startswith("custody "):
+                custody = line[len("custody "):]
+            elif line.startswith("observed-at "):
+                observed_at = line[len("observed-at "):]
+        current_inspect = None if custody == "unverified" else later_view
+        observations.append({
+            "phase": "after-capture",
+            "at": observed_at,
+            "member_state": member_state,
+            "files": rels,
+            "custody": custody,
+            "inspect": current_inspect,
+        })
+    else:
+        current_inspect = member_view
+    extra.extend(observe_record(parsed, retained))
     payload = {
         "schema": FAILURE_SCHEMA,
         "binding_sha256": digest,
@@ -1026,19 +1331,30 @@ def fail(parsed, log_safe, attention, reason, writes, retained, inspection, memb
         "writes": list(writes),
         "retained": list(retained),
         "inspection": inspection,
-        "inspect": member_view,
-        "tool_stdout": tool_text,
+        "inspect": current_inspect,
+        "member_state": member_state,
+        "observations": observations,
+        "capture": {
+            "attempted": attempted,
+            "child": capture_state.get("child") if attempted else None,
+            "stdout": (capture_state.get("capture_stdout") or "") if attempted else "",
+        },
+        "reporting_error": None,
+        "tool_stdout": list(tool_text),
     }
     before = len(writes)
-    try_failure_log(parsed, log_safe, payload, writes, retained)
+    secondary = try_failure_log(parsed, log_safe, payload, writes, retained)
+    if secondary:
+        extra.insert(0, "reporting-error " + secondary)
     if len(writes) == before and log_safe and parsed is not None and os.path.lexists(parsed["failure_log"]):
         if str(parsed["failure_log"]) not in retained:
             retained.append(str(parsed["failure_log"]))
-    return finish(kind, reason, writes, retained, [])
+    retained[:] = dedupe(retained)
+    return finish(kind, reason, writes, retained, extra)
 
 
-def perform(binding_path: str, *, hook=None, pins=None) -> int:
-    code, text = execute(binding_path, hook=hook, pins=pins)
+def perform(binding_path: str, *, hook=None, pins=None, fault=None) -> int:
+    code, text = execute(binding_path, hook=hook, pins=pins, fault=fault)
     sys.stdout.write(text)
     return code
 
