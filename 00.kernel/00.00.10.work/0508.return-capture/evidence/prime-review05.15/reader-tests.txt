@@ -1,0 +1,39 @@
+test_ambiguous_primary_cross_book_partial_and_foreign_first (test_batch_observe.CustodyFixtures.test_ambiguous_primary_cross_book_partial_and_foreign_first) ... ok
+test_reservation_fixture_leaves_the_sealed_member (test_batch_observe.CustodyFixtures.test_reservation_fixture_leaves_the_sealed_member) ... ok
+test_duplicate_and_missing_header_state (test_batch_observe.EligibleFields.test_duplicate_and_missing_header_state) ... ok
+test_duplicate_lines_stay_visible (test_batch_observe.EligibleFields.test_duplicate_lines_stay_visible) ... ok
+test_fence_quote_and_later_title_do_not_supply_header_state (test_batch_observe.EligibleFields.test_fence_quote_and_later_title_do_not_supply_header_state) ... ok
+test_fences_quotes_and_other_sections_do_not_fill_fields (test_batch_observe.EligibleFields.test_fences_quotes_and_other_sections_do_not_fill_fields) ... ok
+test_live_0514_page_keeps_draft_state (test_batch_observe.EligibleFields.test_live_0514_page_keeps_draft_state) ... ERROR
+test_malformed_utf8_is_visible (test_batch_observe.EligibleFields.test_malformed_utf8_is_visible) ... ok
+test_title_free_state_remains_eligible (test_batch_observe.EligibleFields.test_title_free_state_remains_eligible) ... ok
+test_titled_page_keeps_header_state_and_body_fields (test_batch_observe.EligibleFields.test_titled_page_keeps_header_state_and_body_fields) ... ok
+test_live_file_is_not_a_blob_and_git_stays_unmoved (test_batch_observe.GitAndSupplied.test_live_file_is_not_a_blob_and_git_stays_unmoved) ... ok
+test_malformed_declarations_refuse_without_traceback (test_batch_observe.GitAndSupplied.test_malformed_declarations_refuse_without_traceback) ... ok
+test_typed_declaration_is_not_authority (test_batch_observe.GitAndSupplied.test_typed_declaration_is_not_authority) ... ok
+test_git_write_commands_are_refused (test_batch_observe.PinsAndRefusals.test_git_write_commands_are_refused) ... ok
+test_helper_pin_mismatch_runs_no_inspect (test_batch_observe.PinsAndRefusals.test_helper_pin_mismatch_runs_no_inspect) ... ok
+test_malformed_inputs_and_unknown_schema (test_batch_observe.PinsAndRefusals.test_malformed_inputs_and_unknown_schema) ... ok
+test_parser_pin_mismatch_runs_no_git (test_batch_observe.PinsAndRefusals.test_parser_pin_mismatch_runs_no_git) ... ok
+test_corpus_controls_and_real_missing (test_batch_observe.RealCorpus.test_corpus_controls_and_real_missing) ... ok
+test_sixteen_real_shapes (test_batch_observe.RealCorpus.test_sixteen_real_shapes) ... ok
+
+======================================================================
+ERROR: test_live_0514_page_keeps_draft_state (test_batch_observe.EligibleFields.test_live_0514_page_keeps_draft_state)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\librarian\temp\review-oct28-groks\checkout\labs\batch-observation-pass01\tests\test_batch_observe.py", line 718, in test_live_0514_page_keeps_draft_state
+    before = hashlib.sha256(page.read_bytes()).hexdigest()
+                            ^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\librarian\\temp\\review-oct28-groks\\checkout\\00.kernel\\00.00.10.work\\0508.return-capture\\05.14.md'
+
+----------------------------------------------------------------------
+Ran 19 tests in 49.657s
+
+FAILED (errors=1)

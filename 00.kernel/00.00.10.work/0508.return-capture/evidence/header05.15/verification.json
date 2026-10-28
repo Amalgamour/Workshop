@@ -1,0 +1,107 @@
+{
+  "schema": "batch-observation-verification/1",
+  "built": "2026-10-28",
+  "source_commit": "4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5",
+  "workshop_head_at_notes": "25a0e5e15f2bbb9f8b3c4a88167672e50972feeb",
+  "pins": {
+    "labs/prime-support-pass01/prime_support.py": {
+      "sha256": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70",
+      "bytes": 59791
+    },
+    "labs/prime-support-pass01/clerk_adapter.py": {
+      "sha256": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4",
+      "bytes": 11774
+    },
+    "labs/return-capture-pass01/return_inspect.py": {
+      "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+      "bytes": 11402
+    },
+    "labs/return-capture-pass01/return_capture.py": {
+      "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+      "bytes": 45767
+    }
+  },
+  "parser_changed": false,
+  "helper_changed": false,
+  "inspector_changed": false,
+  "projection_integrated": false,
+  "historical_pages_rewritten": false,
+  "git_writes": false,
+  "first_failure": {
+    "suite_before": {
+      "command": "python -B labs/batch-observation-pass01/tests/test_batch_observe.py",
+      "exit": 0,
+      "count": 14,
+      "seconds": 18.254,
+      "skips": 0
+    },
+    "probe": "collect_fields state list empty on sixteen corpus pages and live 05.14",
+    "cause": "the opening level-1 title moved the scanner out of the header before state:"
+  },
+  "tests": {
+    "command": "python -B labs/batch-observation-pass01/tests/test_batch_observe.py",
+    "cwd": "disposable local clone with sealed 0138 and 0140",
+    "exit": 0,
+    "count": 19,
+    "failures": 0,
+    "skips": 0,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_bytes": 0,
+    "stderr_sha256": "a13b01a1c1ce0dbde4cdc62e96d9e67c0376f746fa834d1559486b72996321db",
+    "stderr_bytes": 124,
+    "record": {
+      "sha256": "b6e4bf2956dc4ea326902b1dfe64192a5554e2c2e108b50a984f3734c00eed1c",
+      "bytes": 2046
+    }
+  },
+  "demo": {
+    "command": "python -B labs/batch-observation-pass01/demo.py",
+    "exit": 0,
+    "observation_exit": 1,
+    "declaration_exit": 2,
+    "header_state_raw": "state: draft",
+    "header_state_line": 3,
+    "declaration_refusal": "declaration disposition is not usable",
+    "release_raw": "Release: actual release",
+    "claim_raw": "Claim: actual claim",
+    "stdout_sha256": "76a3f9bd768fd8d536786608358a4e204b70584d292815aa91160724597f3052",
+    "stdout_bytes": 301,
+    "package_at_commit": "not-established",
+    "binding": "unbound"
+  },
+  "artifacts": {
+    "labs/batch-observation-pass01/batch_observe.py": {
+      "sha256": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4",
+      "bytes": 40516
+    },
+    "labs/batch-observation-pass01/README.md": {
+      "sha256": "b2c09ea5599b826fa286b265c29537546ccc904180768ba18365a0e5124ca4cc",
+      "bytes": 1827
+    },
+    "labs/batch-observation-pass01/tests/test_batch_observe.py": {
+      "sha256": "75c1bdc81dbf20832f00f5d166b1f95f718dce0701e8f14678e96846a1354c85",
+      "bytes": 59546
+    },
+    "labs/batch-observation-pass01/demo.py": {
+      "sha256": "6b44d5876cdf45424a28310fa3dd4d222a5407752c25b37747236c2ea7214a99",
+      "bytes": 3969
+    },
+    "00.kernel/00.00.10.work/0508.return-capture/06.16.md": {
+      "sha256": "b8040b2e209a7b18829b3a7f4606ba3338bc8d25218ff2c64cccfe490a03fd0e",
+      "bytes": 3421
+    },
+    "00.kernel/00.00.10.work/0508.return-capture/evidence/header05.15/CONTRACT.md": {
+      "sha256": "a7d671fe1ac08d60aadfb1c16c24d486ad9ebb89a28eb5bd883f5cbb8e9b44ab",
+      "bytes": 3140
+    },
+    "00.kernel/00.00.10.work/0508.return-capture/evidence/header05.15/tests.txt": {
+      "sha256": "b6e4bf2956dc4ea326902b1dfe64192a5554e2c2e108b50a984f3734c00eed1c",
+      "bytes": 2046
+    }
+  },
+  "reserved_member_contents_before_capture": [
+    "01.md",
+    "reservation.json"
+  ],
+  "failures": []
+}

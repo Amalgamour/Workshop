@@ -12,8 +12,11 @@ sys.path.insert(0, str(LAB))
 
 import batch_observe
 
-PAGE = """state: draft
+PAGE = """# 05 — Header demonstration
+version: 001
+state: draft
 ```
+state: fenced-draft
 Release: false release from a fence
 Claim: false claim from a fence
 ```
@@ -48,7 +51,7 @@ def main() -> int:
                 "--supplied",
                 str(page),
                 "--path",
-                "label/00.00.10.work/0508.return-capture/05.14.md",
+                "label/00.00.10.work/0508.return-capture/05.15.md",
                 "--json",
             ]
         )
@@ -58,13 +61,22 @@ def main() -> int:
         body = json.loads(payload.decode("utf-8"))
         release = body["assignment"]["release_raw"]
         claim = body["assignment"]["claim_raw"]
+        state = body["document"]["header_state_raw"]
+        state_lines = body["document"]["lines"]
         texts = [item["text"] for item in body["assignment"]["release_lines"]]
         texts.extend(item["text"] for item in body["assignment"]["claim_lines"])
+        texts.extend(item["text"] for item in state_lines)
+        if state != "state: draft" or state_lines != [{"line": 3, "text": "state: draft"}]:
+            sys.stderr.write("header state was not kept\n")
+            return 1
         if release != "Release: actual release" or claim != "Claim: actual claim":
             sys.stderr.write("eligible fields were not kept\n")
             return 1
-        if any("false" in text for text in texts):
-            sys.stderr.write("fenced or quoted release was kept\n")
+        if body["assignment"]["executor_raw"] != "Executor: Grok Builder 2":
+            sys.stderr.write("assignment executor was not kept\n")
+            return 1
+        if any("false" in text or "fenced-draft" in text for text in texts):
+            sys.stderr.write("fenced or quoted field was kept\n")
             return 1
         declaration = root / "declaration.json"
         declaration.write_text(DECLARATION, encoding="utf-8")
@@ -74,7 +86,7 @@ def main() -> int:
                 "--supplied",
                 str(page),
                 "--path",
-                "label/00.00.10.work/0508.return-capture/05.14.md",
+                "label/00.00.10.work/0508.return-capture/05.15.md",
                 "--declaration",
                 str(declaration),
                 "--json",
@@ -86,7 +98,11 @@ def main() -> int:
         sys.stdout.write(
             "\n".join(
                 [
-                    "fenced release ignored",
+                    "titled page",
+                    "fenced field ignored",
+                    f"header_state_raw: {state}",
+                    f"header_state_line: {state_lines[0]['line']}",
+                    f"executor_raw: {body['assignment']['executor_raw']}",
                     f"release_raw: {release}",
                     f"claim_raw: {claim}",
                     f"observation_exit: {code}",

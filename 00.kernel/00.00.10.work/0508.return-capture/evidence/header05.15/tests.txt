@@ -1,0 +1,54 @@
+Pre-repair suite, before the header boundary change.
+Command: python -B labs/batch-observation-pass01/tests/test_batch_observe.py
+Working directory: D:/Git/lib-build
+Exit: 0. Failures: 0. Skips: 0.
+Ran 14 tests in 18.254s
+OK
+That suite does not assert header state.
+
+Header probe on the same bytes, before the repair.
+The sixteen corpus blobs at 4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5 each contain one state: line.
+Live 05.14 contains state: draft on line 5.
+collect_fields returned an empty state list for all seventeen pages.
+
+In-place suite after the repair.
+Command: python -B labs/batch-observation-pass01/tests/test_batch_observe.py
+Working directory: D:/Git/lib-build
+Exit: 0. Failures: 0. Skips: 0.
+Ran 19 tests in 18.924s
+OK
+
+Disposable checkout with sealed 0138 and 0140 present.
+Command: python -B labs/batch-observation-pass01/tests/test_batch_observe.py
+The checkout was a local clone plus the repaired lab, the live 05.14 page, and those two sealed members.
+Exit: 0
+stdout sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stdout bytes: 0
+stderr sha256: a13b01a1c1ce0dbde4cdc62e96d9e67c0376f746fa834d1559486b72996321db
+stderr bytes: 124
+--- text ---
+...................
+----------------------------------------------------------------------
+Ran 19 tests in 22.899s
+
+OK
+
+Demo command: python -B labs/batch-observation-pass01/demo.py
+Demo process exit: 0
+The titled page keeps state: draft on line 3. The fenced field is ignored.
+The actual release and claim are kept. The list disposition refuses with exit 2.
+stdout sha256: 76a3f9bd768fd8d536786608358a4e204b70584d292815aa91160724597f3052
+stdout bytes: 301
+stderr sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+stderr bytes: 0
+--- text ---
+titled page
+fenced field ignored
+header_state_raw: state: draft
+header_state_line: 3
+executor_raw: Executor: Grok Builder 2
+release_raw: Release: actual release
+claim_raw: Claim: actual claim
+observation_exit: 1
+declaration_refusal: declaration disposition is not usable
+declaration_exit: 2

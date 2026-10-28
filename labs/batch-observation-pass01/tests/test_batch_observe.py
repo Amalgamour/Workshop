@@ -22,6 +22,24 @@ import batch_observe
 COMMIT = "4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5"
 CORPUS = ROOT / "00.kernel/00.00.10.work/0508.return-capture/evidence/corpus05.12/corpus.json"
 CORPUS_SHA = "591721b62f2bedafc2255e1638c64fa6642585b822defaf5c65253ea376e0b53"
+HEADER_STATE = {
+    "C01": (5, "state: draft; awaiting Director release"),
+    "C02": (5, "state: draft; awaiting Director release"),
+    "C03": (5, "state: draft; awaiting Director release"),
+    "C04": (5, "state: draft; awaiting Director release"),
+    "C05": (5, "state: draft; awaiting Director release"),
+    "C06": (5, "state: draft; awaiting Director release"),
+    "C07": (5, "state: returned"),
+    "C08": (5, "state: returned"),
+    "C09": (5, "state: returned"),
+    "C10": (5, "state: returned"),
+    "C11": (5, "state: released by the Director 2026-10-27; claimed by Grok Builder 2"),
+    "C12": (5, "state: released by the Director 2026-10-27; claimed by Grok Builder 2"),
+    "C13": (5, "state: released by the Director 2026-10-27; claimed by Grok Builder 2"),
+    "C14": (5, "state: released by the Director 2026-10-27; claimed by Grok Builder 2"),
+    "C15": (5, "state: released by the Director 2026-10-27; claimed by Grok Builder 2"),
+    "C16": (6, "state: packed — awaits Director execution release"),
+}
 BOOK = ROOT / "00.kernel/00.00.10.work"
 HELPER = ROOT / "labs/return-capture-pass01/return_capture.py"
 PY = sys.executable
@@ -558,6 +576,180 @@ class EligibleFields(unittest.TestCase):
         self.assertIsNone(body["assignment"]["claim_raw"])
         self.assertNotIn("Traceback", error)
 
+    def test_titled_page_keeps_header_state_and_body_fields(self):
+        text = "\n".join(
+            [
+                "# 05 — Normally shaped page",
+                "version: 001",
+                "Authorization: draft — 2026-10-28",
+                "who: Codex Prime",
+                "state: draft",
+                "Face: 05",
+                "PPPP: 0508",
+                "book: 00.00.10.work",
+                "",
+                "## Assignment",
+                "Executor: Grok Builder 2. Reviewer: Codex Prime.",
+                "Release and claim: recorded in the Return pointer. This draft grants no release.",
+                "",
+                "## Return pointer",
+                "Release: actual release",
+                "Claim: actual claim",
+            ]
+        )
+        code, body, error = self.observe_text(text + "\n")
+        self.assertEqual(code, 1, error)
+        assert_open(self, body)
+        self.assertEqual(body["document"]["header_state_raw"], "state: draft")
+        self.assertEqual(body["document"]["lines"], [{"line": 5, "text": "state: draft"}])
+        self.assertFalse(body["document"]["ambiguous"])
+        self.assertEqual(body["assignment"]["executor_raw"], "Executor: Grok Builder 2. Reviewer: Codex Prime.")
+        self.assertIsNone(body["assignment"]["release_raw"])
+        self.assertEqual(
+            [item["line"] for item in body["assignment"]["release_lines"]],
+            [12, 15],
+        )
+        self.assertEqual(body["assignment"]["claim_raw"], "Claim: actual claim")
+        self.assertIn("duplicate-release", body["ambiguities"])
+        self.assertNotIn("duplicate-header-state", body["ambiguities"])
+        self.assertEqual(body["pointers"][0]["line"], 14)
+
+    def test_fence_quote_and_later_title_do_not_supply_header_state(self):
+        lines = [
+            "```",
+            "# 05 — Fenced title",
+            "state: fenced-draft",
+            "```",
+            "> # 05 — Quoted title",
+            "> state: quoted-draft",
+            "# 05 — Real page",
+            "version: 001",
+            "state: draft",
+            "````",
+            "```",
+            "state: nested-false",
+            "```",
+            "state: still-fenced",
+            "````",
+            "## Notes",
+            "state: notes-draft",
+            "# Later title",
+            "state: later-draft",
+            "## Assignment",
+            "Executor: Actual Executor",
+            "## Return pointer",
+            "Member: 0140.batch-reader-repair-0514",
+            "Receipt: " + ("ab" * 32),
+            "Claim: actual claim",
+        ]
+        code, body, error = self.observe_text("\n".join(lines) + "\n")
+        self.assertEqual(code, 1, error)
+        assert_open(self, body)
+        self.assertEqual(body["document"]["lines"], [{"line": 9, "text": "state: draft"}])
+        self.assertEqual(body["document"]["header_state_raw"], "state: draft")
+        self.assertFalse(body["document"]["ambiguous"])
+        self.assertEqual(body["assignment"]["executor_raw"], "Executor: Actual Executor")
+        self.assertEqual(body["assignment"]["claim_raw"], "Claim: actual claim")
+        self.assertEqual(body["pointers"][0]["members"][0]["name"], "0140.batch-reader-repair-0514")
+        joined = json.dumps(body["document"]) + json.dumps(body["assignment"])
+        for stray in ("fenced-draft", "quoted-draft", "nested-false", "still-fenced", "notes-draft", "later-draft"):
+            self.assertNotIn(stray, joined)
+
+    def test_duplicate_and_missing_header_state(self):
+        duplicate = "\n".join(
+            [
+                "# 05 — Duplicate state",
+                "state: draft",
+                "state: published",
+                "## Assignment",
+                "Executor: Grok Builder 2",
+                "## Return",
+                "execution: returned",
+            ]
+        )
+        code, body, error = self.observe_text(duplicate + "\n")
+        self.assertEqual(code, 1, error)
+        self.assertIsNone(body["document"]["header_state_raw"])
+        self.assertEqual(
+            body["document"]["lines"],
+            [{"line": 2, "text": "state: draft"}, {"line": 3, "text": "state: published"}],
+        )
+        self.assertTrue(body["document"]["ambiguous"])
+        self.assertIn("duplicate-header-state", body["ambiguities"])
+        self.assertEqual(body["assignment"]["executor_raw"], "Executor: Grok Builder 2")
+        missing = "\n".join(
+            [
+                "# 05 — Missing state",
+                "version: 001",
+                "## Assignment",
+                "Executor: Grok Builder 2",
+                "## Return",
+                "execution: returned",
+            ]
+        )
+        code, body, error = self.observe_text(missing + "\n")
+        self.assertEqual(code, 0, error)
+        self.assertIsNone(body["document"]["header_state_raw"])
+        self.assertEqual(body["document"]["lines"], [])
+        self.assertFalse(body["document"]["ambiguous"])
+        self.assertEqual(body["assignment"]["executor_raw"], "Executor: Grok Builder 2")
+        self.assertEqual(body["legacy"]["execution"], "returned")
+
+    def test_title_free_state_remains_eligible(self):
+        text = "\n".join(
+            [
+                "state: draft",
+                "## Assignment",
+                "Executor: Grok Builder 2",
+                "## Return",
+                "execution: returned",
+            ]
+        )
+        code, body, error = self.observe_text(text + "\n")
+        self.assertEqual(code, 0, error)
+        self.assertEqual(body["document"]["header_state_raw"], "state: draft")
+        self.assertEqual(body["document"]["lines"], [{"line": 1, "text": "state: draft"}])
+        self.assertFalse(body["document"]["ambiguous"])
+        self.assertEqual(body["legacy"]["status"], "ok")
+
+    def test_live_0514_page_keeps_draft_state(self):
+        rel = "00.kernel/00.00.10.work/0508.return-capture/05.14.md"
+        page = ROOT / rel
+        before = hashlib.sha256(page.read_bytes()).hexdigest()
+        member = BOOK / "0140.batch-reader-repair-0514"
+        member_before = tree_fingerprint(member)
+        code, body, error = run(
+            ["observe", "--repo", str(ROOT), "--live", "--path", rel, "--json"]
+        )
+        self.assertEqual(code, 1, error)
+        assert_open(self, body)
+        self.assertEqual(body["source"]["kind"], "live-file")
+        self.assertEqual(body["source"]["label"], "worktree file, not a git blob")
+        self.assertIsNone(body["source"]["commit"])
+        self.assertEqual(body["source"]["time_basis"], "live-read")
+        self.assertRegex(body["source"]["live_observed_at"], Z_STAMP)
+        self.assertEqual(body["document"]["header_state_raw"], "state: draft")
+        self.assertEqual(body["document"]["lines"], [{"line": 5, "text": "state: draft"}])
+        self.assertFalse(body["document"]["ambiguous"])
+        self.assertEqual(
+            body["assignment"]["executor_raw"],
+            "Executor: Grok Builder 2. Reviewer: Codex Prime.",
+        )
+        self.assertEqual([item["line"] for item in body["assignment"]["executor_lines"]], [11])
+        self.assertEqual([item["line"] for item in body["assignment"]["release_lines"]], [12, 67])
+        self.assertEqual([item["line"] for item in body["assignment"]["claim_lines"]], [68])
+        self.assertIsNone(body["assignment"]["release_raw"])
+        self.assertIn("duplicate-release", body["ambiguities"])
+        pointer = body["pointers"][0]
+        self.assertEqual(pointer["line"], 66)
+        self.assertEqual(pointer["members"][0]["name"], "0140.batch-reader-repair-0514")
+        self.assertEqual(
+            pointer["members"][0]["receipts"][0]["sha256"],
+            "e8a63de8b635cecd0693395ab172de83a0e77d71807b2c3af144af36363fc238",
+        )
+        self.assertEqual(hashlib.sha256(page.read_bytes()).hexdigest(), before)
+        self.assertEqual(tree_fingerprint(member), member_before)
+
 
 class RealCorpus(unittest.TestCase):
     @classmethod
@@ -603,6 +795,18 @@ class RealCorpus(unittest.TestCase):
             self.assertIsNone(body["source"]["live_observed_at"])
             self.assertIsNone(body["source"]["observation_started_at"])
             self.assertIsNone(body["source"]["observation_finished_at"])
+            line_no, state_text = HEADER_STATE[case["id"]]
+            blob = subprocess.run(
+                ["git", "-C", str(ROOT), "cat-file", "blob", f"{COMMIT}:{rel}"],
+                capture_output=True,
+                check=True,
+            ).stdout.decode("utf-8").split("\n")
+            state_lines = [index for index, line in enumerate(blob, 1) if line.lstrip(" \t").startswith("state:")]
+            self.assertEqual(state_lines, [line_no], case["id"])
+            self.assertEqual(blob[line_no - 1], state_text, case["id"])
+            self.assertEqual(body["document"]["lines"], [{"line": line_no, "text": state_text}], case["id"])
+            self.assertEqual(body["document"]["header_state_raw"], state_text, case["id"])
+            self.assertFalse(body["document"]["ambiguous"], case["id"])
             legacy = body["legacy"]
             observed = case["observation"]
             self.assertEqual(legacy["status"], observed["status"], case["id"])

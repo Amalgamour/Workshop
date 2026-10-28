@@ -351,9 +351,16 @@ def is_blockquote(line: str) -> bool:
 
 
 def collect_fields(lines: list[str]) -> dict[str, list[dict]]:
-    """Eligible header, Assignment, and Return lines. Fences and blockquotes stay out."""
+    """Eligible header, Assignment, and Return lines. Fences and blockquotes stay out.
+
+    Lines before the first unfenced, unquoted heading are header lines. When that
+    heading is a level-1 title, header lines continue until the next unfenced,
+    unquoted heading. That next heading is the body boundary. Header mode does
+    not resume.
+    """
     buckets = {"state": [], "executor": [], "release": [], "claim": []}
     section = "header"
+    seen_heading = False
     fence = None
     for number, line in enumerate(lines, start=1):
         if fence:
@@ -365,19 +372,23 @@ def collect_fields(lines: list[str]) -> dict[str, list[dict]]:
         if opened:
             fence = opened
             continue
+        if is_blockquote(line):
+            continue
         heading = re.match(r"^(#{1,6}) (.*)$", line)
         if heading:
             level = len(heading.group(1))
             title = heading.group(2)
             form = form_of(title)
+            if not seen_heading and level == 1:
+                seen_heading = True
+                continue
+            seen_heading = True
             if level == 2 and title.casefold().startswith("assignment"):
                 section = "assignment"
             elif level == 2 and form in POINTER_FORMS:
                 section = "return"
             else:
                 section = "other"
-            continue
-        if is_blockquote(line):
             continue
         stripped = line.lstrip(" \t")
         if section == "header" and stripped.startswith("state:"):
