@@ -1,0 +1,46 @@
+# Notes — pinned batch-observe entry (05.16)
+
+Date: 2026-10-28. Recorder: Grok Builder 2. These notes are written before the app command and before any code change. `06.01` through `06.16` stay as they are. Member `0142.batch-reader-header-0515` stays as captured. The accepted reader stays as captured.
+
+## Inputs
+
+Pack `evidence/pack05.16/source-manifest.json` is schema `prime-pack-sources/1` with 16 sources. Live bytes, snapshot bytes, and the declared SHA-256 and length match for all 16. Bad count is 0. This check was made before the app edit.
+
+Workshop HEAD when these notes were opened is `d017f9f7e8271db6de3b72d31a82077c5ef588c4`. Branch `workshop`. That fact is not the corpus commit. The corpus page used by this entry stays at `4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5`.
+
+Pre-edit app bytes that this batch is allowed to change:
+
+- `app/librarian.py` `a320f270dd87508d4fa9d3d5e78904108605fa308abb3ebd86513ae9c3c01fab`, 8721 bytes.
+- `app/README.md` `6ccd7f519a41e0cb23f007f70c8f9fdc884e513696dca88a8c1a09385d4953e0`, 18501 bytes.
+
+Pins that stay exact:
+
+- `labs/batch-observation-pass01/batch_observe.py` `8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4`, 40516 bytes.
+- `labs/prime-support-pass01/prime_support.py` `700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70`, 59791 bytes.
+- `labs/prime-support-pass01/clerk_adapter.py` `2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4`, 11774 bytes.
+- `labs/return-capture-pass01/return_inspect.py` `947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b`, 11402 bytes.
+- `labs/return-capture-pass01/return_capture.py` `8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac`, 45767 bytes.
+
+`app/boot_tools.py`, `app/prime-boot.json`, `app/prime_intake.py`, `app/tests/test_entry.py`, and `app/tests/test_boot_tools.py` matched the pack and are not edit targets. The state-projection lab is not combined with this entry.
+
+Reserved member `0144.batch-reader-entry-0516` held `01.md` and `reservation.json` when these notes were opened. `reservation.json` is 828 bytes, SHA-256 `e604492b0b4d3e00b38d08898d9f01abe54421bcc070abb3885faf0061d3f5da`. Those reservation bytes stay as reserved.
+
+Prime review `evidence/prime-review05.15/review.md` accepts the reader as a read-only lab and names a thin pinned app front door as the next bounded work. It is not an acceptance of this entry. The page header stays `state: draft`. Release and claim go on the Return pointer. This note does not release the batch.
+
+## Choices
+
+The front door is `batch-observe` on `app/librarian.py`, routed through `app/batch_tools.py` and the fixed declaration `app/batch-observer.json`. Schema `librarian-batch-observer`, version 1. The declaration names the five pins above and no other tool. The code constant and the declaration must agree. A caller cannot pass an executable, a script path, or another declaration.
+
+The call is only `--repo` absolute, `--commit` 40 lowercase hex, `--path` contained relative, optional `--members-book` absolute, and `--json`. Missing, repeated, and unknown flags refuse first. `--live`, `--supplied`, and `--declaration` refuse first. There is no default HEAD. Malformed commits and paths refuse first. The pin check is second. The subprocess is third: current Python, `-B`, an argument array, no shell. Stdout and stderr bytes are copied. Exit 0, 1, and 2 stay the backend exit. Exit 1 is attention, a valid observation. A backend refusal with empty stdout stays empty. This entry does not invent current work, closure, or a package at the commit.
+
+`source.kind` for this command is `git-blob`. Source observation times stay null. Inspector timestamps, when a members book is named, stay on the custody items. `package_at_commit` stays `not-established`. `review.binding` stays `unbound`.
+
+Existing app commands stay on their current routes. `run` stays refused. Boot registration and boot policy stay as they are.
+
+## Disposition
+
+`python -B app/tests/test_batch_tools.py` from `D:\Git\lib-build` exited 0. Summary: pass 7, expected-refusal 37, skip 1, fail 0. The skip is `file-symlink-pin` with WinError 1314. The junction check passed. The corpus page `05.10.md` at `4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5` matched the direct reader bytes and exited 1. With the live members book, facets matched and the inspector stamps stayed distinct from each other and from the null source times. `package_at_commit` stayed `not-established`. Review binding stayed `unbound`. Primary was `0129.assembly-capture-0510`.
+
+`python -B app/tests/test_entry.py` from `D:\Git\lib-build` exited 0. Summary: pass 12, expected-refusal 46, skip 1, fail 0. The skip is the dangling file symlink with WinError 1314. `run` still refuses. There was no first failure and no rerun. The unchanged backend and core suites were not run. The record is `evidence/entry05.16/tests.txt`.
+
+Parser, adapter, inspector, helper, and the accepted reader are unchanged. Boot files are unchanged. This note does not contain a receipt.

@@ -1,0 +1,129 @@
+first-run record
+date 2026-10-28
+cwd D:/Git/lib-build
+python C:\Users\misg\AppData\Local\Programs\Python\Python314\python.exe
+first_failure none
+rerun none
+unchanged backend and core suites were not run
+
+=== python -B app/tests/test_batch_tools.py ===
+exit 0
+command python -B app/tests/test_batch_tools.py
+repo D:/Git/lib-build
+python C:\Users\misg\AppData\Local\Programs\Python\Python314\python.exe
+git C:\Users\misg\AppData\Local\grok\git\2.55.0.windows.5\cmd\git.exe
+workshop-head d017f9f7e8271db6de3b72d31a82077c5ef588c4
+pass corpus-bytes-match-direct
+pass members-facets-stamps-distinct
+pass utf8-bytes-match-direct
+pass missing-blob-preserved
+pass absent-commit-preserved
+pass fixture-git-unchanged
+expected-refusal duplicate-repo
+expected-refusal duplicate-commit
+expected-refusal duplicate-path
+expected-refusal duplicate-members-book
+expected-refusal duplicate-json
+expected-refusal unknown-flag
+expected-refusal live-not-exposed
+expected-refusal supplied-not-exposed
+expected-refusal declaration-not-exposed
+expected-refusal missing-repo
+expected-refusal missing-commit
+expected-refusal missing-path
+expected-refusal missing-json
+expected-refusal relative-repo
+expected-refusal relative-members-book
+expected-refusal abbreviated-commit
+expected-refusal uppercase-commit
+expected-refusal path-traversal
+expected-refusal nested-traversal
+expected-refusal absolute-path
+expected-refusal normal-run
+expected-refusal wrong-reader-pin
+expected-refusal wrong-support-pin
+expected-refusal wrong-adapter-pin
+expected-refusal wrong-inspect-pin
+expected-refusal wrong-helper-pin
+expected-refusal missing-reader
+expected-refusal declaration-bom
+expected-refusal declaration-trailing
+expected-refusal declaration-repeat
+expected-refusal declaration-unknown
+expected-refusal declaration-schema
+expected-refusal declaration-version
+expected-refusal declaration-hash
+expected-refusal declaration-escape
+expected-refusal declaration-missing
+expected-refusal junction-pin
+skip file-symlink-pin file symlink privilege WinError 1314
+pass frozen-sources
+hash app/librarian.py 694d44ae34739e6b41319ba1de6e84a9710fe13184d7329be769d62b71d8689a 9268
+hash app/batch_tools.py 555cd07daf778f9faaa95fcb5ccdcf0653c9118252a203c748c171f244e0a8be 11299
+hash app/batch-observer.json d401d3fa1544437e6e4742a0ab2836ff9d5e6cc370f357f74aab322ebb29e054 1111
+hash app/README.md 59fe0395ab1e2961c8c349ff745828ce3094d78549322d6a74737b4743546d87 21560
+hash app/tests/test_batch_tools.py f6340799c72533a795221ef6a31b0796c83af9918a8bed1e84c98913e58ad3c0 33911
+summary pass 7 expected-refusal 37 skip 1 fail 0
+
+=== python -B app/tests/test_entry.py ===
+exit 0
+PASS pinned sources still match the manifest
+PASS real workspace where and validate
+PASS fixture inventory from a foreign cwd and a relocated root
+REFUSAL test-run on the real workspace
+REFUSAL test-run on the real work book
+REFUSAL normal run
+REFUSAL direct runner 002 refuses
+REFUSAL direct runner 003 refuses
+PASS refused commands left the guarded files unchanged
+REFUSAL accepted assignment is not a fresh release
+PASS accepted context can be inspected and does not select a higher version
+REFUSAL accepted fixture with --test is not a fresh release
+REFUSAL missing work book
+REFUSAL missing work item
+REFUSAL undeclared workflow space
+REFUSAL wrong job book
+REFUSAL job book mapped onto the runtime book
+REFUSAL ambiguous compute title
+REFUSAL path escape
+REFUSAL payload outside its compute page
+REFUSAL wrong payload hash
+REFUSAL payload bytes do not match the declared hash
+REFUSAL compute page outside the band is not climbed to
+REFUSAL two compute pages for one keyword
+REFUSAL source folder app is not a fixture container
+REFUSAL source page is not a fixture container
+REFUSAL fixture allowed_root is not authority
+REFUSAL external container was not named
+REFUSAL external container overlaps the workspace
+REFUSAL filesystem root is not a container
+REFUSAL fixture root is a filesystem root
+REFUSAL junction to app is not a container
+REFUSAL junction output leaves the container
+PASS designated page fixtures container
+PASS protected source bytes stayed unchanged
+PASS fresh inventory when the output names are absent
+REFUSAL existing ordinary output
+REFUSAL existing ordinary temporary
+REFUSAL direct output hard link
+REFUSAL temporary hard link
+REFUSAL dangling temporary junction
+SKIP dangling file symlink: WinError 1314: a required privilege is not held by the client
+PASS occupied output names stayed unchanged
+REFUSAL reparse escape
+REFUSAL missing config
+REFUSAL malformed config
+REFUSAL duplicate config key
+REFUSAL config version type
+REFUSAL unknown config key
+REFUSAL config cannot widen fixture containers
+REFUSAL malformed record
+REFUSAL duplicate record key
+REFUSAL invalid assignment state
+REFUSAL record carriage return
+REFUSAL assignment path is the derived view
+PASS tampered 00.live does not change context
+REFUSAL wrong runner hash
+PASS guarded bytes were unchanged by the suite
+PASS no bytecode was written into the books or app
+summary pass 12 expected-refusal 46 skip 1 fail 0

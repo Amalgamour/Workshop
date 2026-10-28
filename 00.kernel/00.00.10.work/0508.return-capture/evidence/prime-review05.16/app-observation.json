@@ -1,0 +1,165 @@
+{
+  "schema": "batch-observation/1",
+  "tool": {
+    "name": "batch-observation-pass01",
+    "path": "labs/batch-observation-pass01/batch_observe.py",
+    "sha256": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4"
+  },
+  "authority": "none",
+  "source": {
+    "kind": "git-blob",
+    "repository": "D:\\Git\\lib-build",
+    "path": "00.kernel/00.00.10.work/0504.app-entry/05.18.md",
+    "commit": "21ad4f882afdd5c79b23b76657e0d57924e6df87",
+    "sha256": "1db284750536129c190b6904597f4ab1d228a34e01510c1381d55b0b9b3cc5e3",
+    "bytes": 6188,
+    "label": "git blob at the named commit",
+    "time_basis": "git-blob",
+    "live_observed_at": null,
+    "observation_started_at": null,
+    "observation_finished_at": null
+  },
+  "page": {
+    "book": "00.00.10.work",
+    "page": "0504.app-entry",
+    "batch": "05.18"
+  },
+  "document": {
+    "header_state_raw": "state: returned",
+    "lines": [
+      {
+        "line": 5,
+        "text": "state: returned"
+      }
+    ],
+    "ambiguous": false
+  },
+  "assignment": {
+    "executor_raw": "Executor: Grok Builder 1. Reviewer: Codex Prime.",
+    "executor_lines": [
+      {
+        "line": 11,
+        "text": "Executor: Grok Builder 1. Reviewer: Codex Prime."
+      }
+    ],
+    "release_raw": "Release: released by the Director, 2026-10-28.",
+    "release_lines": [
+      {
+        "line": 12,
+        "text": "Release: released by the Director, 2026-10-28."
+      }
+    ],
+    "claim_raw": "Claim: Grok 4.7 (xAI), session 01a179d2-387a-7661-8702-6e53f95e96b5, 2026-10-28, HEAD befac9fe0dacdae15522187a14a887dadad571bc.",
+    "claim_lines": [
+      {
+        "line": 13,
+        "text": "Claim: Grok 4.7 (xAI), session 01a179d2-387a-7661-8702-6e53f95e96b5, 2026-10-28, HEAD befac9fe0dacdae15522187a14a887dadad571bc."
+      }
+    ],
+    "ambiguous": false
+  },
+  "legacy": {
+    "tool": "labs/prime-support-pass01/prime_support.py",
+    "sha256": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70",
+    "sibling": "labs/prime-support-pass01/clerk_adapter.py",
+    "sibling_sha256": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4",
+    "kind": "page-return",
+    "status": "unsupported",
+    "reason": "ambiguous heading line 73",
+    "revision_id": null,
+    "execution": null,
+    "whole": "1db284750536129c190b6904597f4ab1d228a34e01510c1381d55b0b9b3cc5e3",
+    "review": null
+  },
+  "channels": {
+    "legacy": "parse_source page-return, unmodified",
+    "inventory": "unfenced return-family headings and Member/Receipt blocks",
+    "revision_repaired": false
+  },
+  "sections": [
+    {
+      "line": 73,
+      "level": 2,
+      "title": "Return pointer",
+      "form": "return-pointer",
+      "fenced": false,
+      "text": "## Return pointer"
+    },
+    {
+      "line": 76,
+      "level": 2,
+      "title": "Review — Codex Prime",
+      "form": "review-em",
+      "fenced": false,
+      "text": "## Review — Codex Prime"
+    }
+  ],
+  "fenced_headings": [],
+  "pointers": [
+    {
+      "line": 73,
+      "form": "return-pointer",
+      "title": "Return pointer",
+      "execution_raw": "Member 0143.handoff-failure-repair-0518. Receipt sha256 f3e94c74d3a40c0b00df6297411a8d1113f43d3187a7adec07ad20565586b7e8. Verify exit 0: result complete; not approved; not accepted; not published. The receipt is custody, not acceptance.",
+      "members": [
+        {
+          "name": "0143.handoff-failure-repair-0518",
+          "line": 74,
+          "receipts": [
+            {
+              "sha256": "f3e94c74d3a40c0b00df6297411a8d1113f43d3187a7adec07ad20565586b7e8",
+              "line": 74
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "assignment_mentions": [],
+  "custody": {
+    "basis": "not-observed",
+    "members_book": null,
+    "package_at_commit": "not-established",
+    "primary": null,
+    "primary_rule": "origin book, page, and batch match this page and retrospective is false; more than one match stays ambiguous",
+    "observations": [
+      {
+        "member": "0143.handoff-failure-repair-0518",
+        "how_named": "pointer",
+        "stated_receipts": [
+          "f3e94c74d3a40c0b00df6297411a8d1113f43d3187a7adec07ad20565586b7e8"
+        ],
+        "inspection": null,
+        "exit": null,
+        "role": "not-observed",
+        "commit_receipt_sha256": null,
+        "commit_receipt_present": null,
+        "receipt_bytes_match": null,
+        "attention": [],
+        "observation_started_at": null,
+        "observation_finished_at": null
+      }
+    ]
+  },
+  "review": {
+    "parser_object": null,
+    "sections": [
+      {
+        "line": 76,
+        "title": "Review — Codex Prime",
+        "text_raw": "Accepted within fixture handoff scope; CH-03/CH-04 corrected. Independent suite/demo and post-capture/logging-failure probes pass. Fresh0143 custody verifies. No app wiring or live authority. See evidence/prime-review05.18/review.md. Date: 2026-10-28."
+      }
+    ],
+    "text_raw": "Accepted within fixture handoff scope; CH-03/CH-04 corrected. Independent suite/demo and post-capture/logging-failure probes pass. Fresh0143 custody verifies. No app wiring or live authority. See evidence/prime-review05.18/review.md. Date: 2026-10-28.",
+    "legacy_hashes": [],
+    "binding": "unbound",
+    "typed_declaration": null
+  },
+  "ambiguities": [
+    "legacy-ambiguous-heading",
+    "legacy-revision-withheld",
+    "custody-not-observed",
+    "quoted-accepted-unbound"
+  ],
+  "attention": []
+}

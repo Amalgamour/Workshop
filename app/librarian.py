@@ -7,11 +7,13 @@ clerk-deliver copies one collected fixture delivery into the caller's claimed Cl
 pack-check, pack-preview, pack-assemble, and pack-verify call the pinned pack tools.
 prime-status calls the pinned read-only Prime status tool on a caller-supplied registry.
 boot-prepare, boot-check, boot-judge, and boot-show forward explicit arguments to the pinned recorded-boot tool.
+batch-observe calls the pinned read-only batch observation tool on one explicit commit and path.
 The writable container is designated before fixture metadata is read.
 run is refused. A --test flag does not authorize a fixture root.
 A clean pack check is not release readiness.
 A status result is not release readiness.
 An orientation result is not authorization.
+An observation is not closure.
 """
 
 from __future__ import annotations
@@ -79,6 +81,7 @@ def main(argv: list[str] | None = None) -> None:
         "boot-check",
         "boot-judge",
         "boot-show",
+        "batch-observe",
     ):
         stop("normal run is not activated")
     command = args.pop(0)
@@ -100,6 +103,15 @@ def main(argv: list[str] | None = None) -> None:
             stop(str(exc))
         if type(code) is not int:
             stop("pinned status tool returned no exit code")
+        raise SystemExit(code)
+    if command == "batch-observe":
+        door = load_module(Path(__file__).resolve().parent / "batch_tools.py", "librarian_batch_tools")
+        try:
+            code = door.perform(args, code_root)
+        except door.Refuse as exc:
+            stop(str(exc))
+        if type(code) is not int:
+            stop("pinned observation tool returned no exit code")
         raise SystemExit(code)
     if command in ("pack-check", "pack-preview", "pack-assemble", "pack-verify"):
         tools = load_module(Path(__file__).resolve().parent / "prime_tools.py", "librarian_prime_tools")

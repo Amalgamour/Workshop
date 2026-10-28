@@ -1,0 +1,27 @@
+{
+  "schema": "librarian-batch-observer",
+  "version": 1,
+  "_note": "Development wiring for the accepted read-only batch observation tool. Not kernel law. An observation is not closure and is not release readiness.",
+  "tools": {
+    "batch_observe": {
+      "path": "labs/batch-observation-pass01/batch_observe.py",
+      "sha256": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4"
+    },
+    "prime_support": {
+      "path": "labs/prime-support-pass01/prime_support.py",
+      "sha256": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70"
+    },
+    "clerk_adapter": {
+      "path": "labs/prime-support-pass01/clerk_adapter.py",
+      "sha256": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4"
+    },
+    "return_inspect": {
+      "path": "labs/return-capture-pass01/return_inspect.py",
+      "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+    },
+    "return_capture": {
+      "path": "labs/return-capture-pass01/return_capture.py",
+      "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "tests": [
+    {
+      "test": "app/tests/test_batch_tools.py",
+      "exit": 0
+    },
+    {
+      "test": "app/tests/test_entry.py",
+      "exit": 0
+    }
+  ],
+  "direct_comparison": {
+    "exit": 1,
+    "stdout_sha256": "5bb2af44b82ac1b061d20d9d0f684f8a6b59a2e618c8dde0892c4e330d020358",
+    "exact_stdout_stderr_exit_match": true,
+    "source": {
+      "kind": "git-blob",
+      "repository": "D:\\Git\\lib-build",
+      "path": "00.kernel/00.00.10.work/0504.app-entry/05.18.md",
+      "commit": "21ad4f882afdd5c79b23b76657e0d57924e6df87",
+      "sha256": "1db284750536129c190b6904597f4ab1d228a34e01510c1381d55b0b9b3cc5e3",
+      "bytes": 6188,
+      "label": "git blob at the named commit",
+      "time_basis": "git-blob",
+      "live_observed_at": null,
+      "observation_started_at": null,
+      "observation_finished_at": null
+    }
+  }
+}

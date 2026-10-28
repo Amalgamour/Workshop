@@ -1,0 +1,56 @@
+command python -B app/tests/test_batch_tools.py
+repo D:/Git/lib-build
+python C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe
+git C:\Program Files\Git\cmd\git.exe
+workshop-head 0cc237b1e1ae9b4892c8439ce3ac231dd422e892
+pass corpus-bytes-match-direct
+pass members-facets-stamps-distinct
+pass utf8-bytes-match-direct
+pass missing-blob-preserved
+pass absent-commit-preserved
+pass fixture-git-unchanged
+expected-refusal duplicate-repo
+expected-refusal duplicate-commit
+expected-refusal duplicate-path
+expected-refusal duplicate-members-book
+expected-refusal duplicate-json
+expected-refusal unknown-flag
+expected-refusal live-not-exposed
+expected-refusal supplied-not-exposed
+expected-refusal declaration-not-exposed
+expected-refusal missing-repo
+expected-refusal missing-commit
+expected-refusal missing-path
+expected-refusal missing-json
+expected-refusal relative-repo
+expected-refusal relative-members-book
+expected-refusal abbreviated-commit
+expected-refusal uppercase-commit
+expected-refusal path-traversal
+expected-refusal nested-traversal
+expected-refusal absolute-path
+expected-refusal normal-run
+expected-refusal wrong-reader-pin
+expected-refusal wrong-support-pin
+expected-refusal wrong-adapter-pin
+expected-refusal wrong-inspect-pin
+expected-refusal wrong-helper-pin
+expected-refusal missing-reader
+expected-refusal declaration-bom
+expected-refusal declaration-trailing
+expected-refusal declaration-repeat
+expected-refusal declaration-unknown
+expected-refusal declaration-schema
+expected-refusal declaration-version
+expected-refusal declaration-hash
+expected-refusal declaration-escape
+expected-refusal declaration-missing
+expected-refusal junction-pin
+skip file-symlink-pin file symlink privilege WinError 1314
+pass frozen-sources
+hash app/librarian.py 694d44ae34739e6b41319ba1de6e84a9710fe13184d7329be769d62b71d8689a 9268
+hash app/batch_tools.py 555cd07daf778f9faaa95fcb5ccdcf0653c9118252a203c748c171f244e0a8be 11299
+hash app/batch-observer.json d401d3fa1544437e6e4742a0ab2836ff9d5e6cc370f357f74aab322ebb29e054 1111
+hash app/README.md 59fe0395ab1e2961c8c349ff745828ce3094d78549322d6a74737b4743546d87 21560
+hash app/tests/test_batch_tools.py f6340799c72533a795221ef6a31b0796c83af9918a8bed1e84c98913e58ad3c0 33911
+summary pass 7 expected-refusal 37 skip 1 fail 0

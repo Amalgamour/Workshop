@@ -1,0 +1,98 @@
+{
+  "schema": "batch-reader-entry-verification/1",
+  "built": "2026-10-28",
+  "workshop_head_at_notes": "d017f9f7e8271db6de3b72d31a82077c5ef588c4",
+  "corpus_commit": "4cca1d2e9ac845e82a2d44df432f8f7f6584f1e5",
+  "pins": {
+    "labs/batch-observation-pass01/batch_observe.py": {
+      "sha256": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4",
+      "bytes": 40516
+    },
+    "labs/prime-support-pass01/prime_support.py": {
+      "sha256": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70",
+      "bytes": 59791
+    },
+    "labs/prime-support-pass01/clerk_adapter.py": {
+      "sha256": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4",
+      "bytes": 11774
+    },
+    "labs/return-capture-pass01/return_inspect.py": {
+      "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+      "bytes": 11402
+    },
+    "labs/return-capture-pass01/return_capture.py": {
+      "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+      "bytes": 45767
+    }
+  },
+  "projection_integrated": false,
+  "parser_changed": false,
+  "adapter_changed": false,
+  "reader_changed": false,
+  "helper_changed": false,
+  "inspector_changed": false,
+  "boot_changed": false,
+  "git_writes": false,
+  "first_failure": null,
+  "rerun": null,
+  "tests": [
+    {
+      "command": "python -B app/tests/test_batch_tools.py",
+      "cwd": "D:/Git/lib-build",
+      "exit": 0,
+      "pass": 7,
+      "expected_refusal": 37,
+      "skip": 1,
+      "fail": 0,
+      "skip_reason": "file-symlink-pin file symlink privilege WinError 1314"
+    },
+    {
+      "command": "python -B app/tests/test_entry.py",
+      "cwd": "D:/Git/lib-build",
+      "exit": 0,
+      "pass": 12,
+      "expected_refusal": 46,
+      "skip": 1,
+      "fail": 0,
+      "skip_reason": "dangling file symlink WinError 1314"
+    }
+  ],
+  "skipped_suites": [
+    "unchanged backend and core suites"
+  ],
+  "artifacts": {
+    "app/librarian.py": {
+      "sha256": "694d44ae34739e6b41319ba1de6e84a9710fe13184d7329be769d62b71d8689a",
+      "bytes": 9268
+    },
+    "app/batch_tools.py": {
+      "sha256": "555cd07daf778f9faaa95fcb5ccdcf0653c9118252a203c748c171f244e0a8be",
+      "bytes": 11299
+    },
+    "app/batch-observer.json": {
+      "sha256": "d401d3fa1544437e6e4742a0ab2836ff9d5e6cc370f357f74aab322ebb29e054",
+      "bytes": 1111
+    },
+    "app/tests/test_batch_tools.py": {
+      "sha256": "f6340799c72533a795221ef6a31b0796c83af9918a8bed1e84c98913e58ad3c0",
+      "bytes": 33911
+    },
+    "app/README.md": {
+      "sha256": "59fe0395ab1e2961c8c349ff745828ce3094d78549322d6a74737b4743546d87",
+      "bytes": 21560
+    },
+    "00.kernel/00.00.10.work/0508.return-capture/06.17.md": {
+      "sha256": "f2e7074dd8651bcb9686d720918d563df741eba16f8aff78da772b36240d7da5",
+      "bytes": 5038
+    },
+    "00.kernel/00.00.10.work/0508.return-capture/evidence/entry05.16/tests.txt": {
+      "sha256": "70ef8fa223436158447706e173099184adfa74564657934fbe580b662f55e333",
+      "bytes": 5037
+    }
+  },
+  "reserved_member_contents_before_capture": [
+    "01.md",
+    "reservation.json"
+  ],
+  "failures": []
+}
