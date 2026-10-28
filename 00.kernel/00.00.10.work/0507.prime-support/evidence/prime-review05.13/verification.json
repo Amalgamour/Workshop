@@ -1,0 +1,56 @@
+{
+  "probes": [
+    {
+      "case": "list-label",
+      "uncaught": "TypeError",
+      "message": "unhashable type: 'list'"
+    },
+    {
+      "case": "missing-header-key",
+      "uncaught": "KeyError",
+      "message": "'header_state_raw'"
+    },
+    {
+      "case": "missing-assignment-keys",
+      "uncaught": "KeyError",
+      "message": "'release_raw'"
+    },
+    {
+      "case": "actual-live-file-tag",
+      "result": {
+        "awaiting_review": [],
+        "correction_or_held": [],
+        "completed_fixtures": [],
+        "conflicts": [],
+        "other_open": [],
+        "unreleased": [],
+        "unprojected": [
+          {
+            "id": "0507.prime-support/05.01",
+            "source_ref": {
+              "kind": "live-file",
+              "repository": null,
+              "path": "00.kernel/00.00.10.work/0507.prime-support/05.01.md",
+              "commit": null,
+              "sha256": "f0bafd6e70991df1f24edc858a3f1fd51a773414cb36ddc29f6a599614b217e6",
+              "bytes": 10,
+              "label": "SYNTHETIC fixture"
+            },
+            "reason": "schema gap: no commit/live basis for source kind live-file"
+          }
+        ]
+      }
+    }
+  ],
+  "tests": [
+    {
+      "lab": "state-projection-pass01",
+      "exit": 0
+    },
+    {
+      "lab": "prime-brief-pass01",
+      "exit": 0
+    }
+  ],
+  "demo_exit": 0
+}

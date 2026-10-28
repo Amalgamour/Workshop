@@ -1,0 +1,170 @@
+{
+ "schema": "brief05.13-verification",
+ "batch": "0507.prime-support/05.13",
+ "who": "claude-opus-5-5",
+ "date": "2026-10-28",
+ "workshop_at_claim": "2c5be603697d04a756933aa26de297c69fe8d138",
+ "head_at_verification": "df007b211dc57e1f640c17f0c33a51129cf28951",
+ "pack05.13": "13 of 13 snapshots match pins and live",
+ "before_bytes_equal_pack": {
+  "state_projection.py": true,
+  "README.md": true,
+  "test_state_projection.py": true,
+  "demo.py": true
+ },
+ "projection": {
+  "before_sha256": "be501a581cc7ecd07827dbfec5b6aa8bf67cc0bd3074a2fc4b7679b46620f7ea",
+  "repaired_sha256": "b349da5cef5178296a069c354002a600ba4e168c2710aa5d87789724d4951ecb",
+  "pinned_in_brief": true,
+  "demo_unchanged": true,
+  "original_17_tests_unchanged_text": true
+ },
+ "pins": {
+  "labs/return-capture-pass01/return_inspect.py": {
+   "expected": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+   "live": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+   "match": true,
+   "in_projection": true
+  },
+  "labs/return-capture-pass01/return_capture.py": {
+   "expected": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+   "live": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+   "match": true,
+   "in_projection": true
+  }
+ },
+ "grok2_reader_lab_tree_sha256": "a31a6a281fd6d79e4d06f14196b6a86b9e08364b91ce058e4712a4759ee52b53",
+ "grok2_reader_lab_unchanged_by_this_batch": true,
+ "member_0136_still_complete": true,
+ "code_scan_brief": {
+  "imports_or_launches_reader": false,
+  "imports_prime_support_boot_or_app": false,
+  "subprocess_in_brief": false,
+  "writes_files": false
+ },
+ "tests": {
+  "projection": {
+   "count": 21,
+   "existing": 17,
+   "added": 4,
+   "runs": [
+    "p-run1 existing 17 OK",
+    "p-run2 new 4 on unrepaired code: FAILED (failures=4, errors=4), expected",
+    "p-run3 dev OK",
+    "p-run4 default OK",
+    "p-run5 copy dev OK"
+   ]
+  },
+  "brief": {
+   "count": 19,
+   "runs": [
+    "b-run1 dev OK (first)",
+    "b-run2 dev OK",
+    "b-run3 default OK",
+    "b-run4 copy dev OK"
+   ],
+   "mutations_first": [
+    "raw-release-line-authorizes: exit 1; failing ['test_e05_fenced_release_line_cannot_authorize']",
+    "source-sha-mismatch-ignored: exit 1; failing ['test_e12_changed_source_against_decision']",
+    "unknown-coerced-to-pending: exit 1; failing ['test_e06_unknown_release_is_unprojected_not_coerced']",
+    "reader-primary-as-candidate: exit 1; failing ['test_e08_two_current_members_are_ambiguous']"
+   ],
+   "mutations_final": [
+    "raw-release-line-authorizes: exit 1; failing ['test_e05_fenced_release_line_cannot_authorize']",
+    "source-sha-mismatch-ignored: exit 1; failing ['test_e12_changed_source_against_decision']",
+    "unknown-coerced-to-pending: exit 1; failing ['test_e06_unknown_release_is_unprojected_not_coerced']",
+    "reader-primary-as-candidate: exit 1; failing ['test_e08_two_current_members_are_ambiguous']"
+   ]
+  },
+  "skips": 0
+ },
+ "expected_results_table": {
+  "E01": "test_e01",
+  "E02": "test_e02",
+  "E03": "test_e03",
+  "E04": "test_e04",
+  "E05": "test_e05",
+  "E06": "test_e06",
+  "E07": "test_e07",
+  "E08": "test_e08",
+  "E09": "test_e09",
+  "E10": "test_e10",
+  "E11": "test_e11",
+  "E12": "test_e12",
+  "E13": "test_e13",
+  "E14": "test_e14",
+  "E15": "test_e15",
+  "E16": "test_e16",
+  "E17": "test_e17",
+  "E18": "test_e18",
+  "E19": "test_e19"
+ },
+ "residue_not_mine": "18 sp-* temp folders at 10:44 local, from a run of the old 17-test projection suite plus demo (consistent with Prime's 05.12 review probe at 15:46Z); left untouched",
+ "writes_this_batch": [
+  " M 00.kernel/00.00.10.work/0507.prime-support/05.13.md",
+  " M labs/state-projection-pass01/README.md",
+  " M labs/state-projection-pass01/state_projection.py",
+  " M labs/state-projection-pass01/tests/test_state_projection.py",
+  "?? 00.kernel/00.00.10.work/0507.prime-support/06.14.md",
+  "?? 00.kernel/00.00.10.work/0507.prime-support/evidence/brief05.13/CONTRACT.md",
+  "?? 00.kernel/00.00.10.work/0507.prime-support/evidence/brief05.13/tests.txt",
+  "?? labs/prime-brief-pass01/README.md",
+  "?? labs/prime-brief-pass01/demo.py",
+  "?? labs/prime-brief-pass01/prime_brief.py",
+  "?? labs/prime-brief-pass01/tests/test_prime_brief.py"
+ ],
+ "staged": [],
+ "not_done": [
+  "no reader launch, import or change",
+  "no app wiring",
+  "no registry, schema, law or lane change",
+  "no edits to prime_support, prime_boot, inspector or helper",
+  "no shared Git stage/commit/push"
+ ],
+ "outputs": {
+  "labs/state-projection-pass01/state_projection.py": {
+   "sha256": "b349da5cef5178296a069c354002a600ba4e168c2710aa5d87789724d4951ecb",
+   "bytes": 20338
+  },
+  "labs/state-projection-pass01/README.md": {
+   "sha256": "06485f928d7b92f58e1952e8ef671fb27565e733e26a93c59485232082b16d96",
+   "bytes": 4848
+  },
+  "labs/state-projection-pass01/tests/test_state_projection.py": {
+   "sha256": "48a00ece4c4f8f40d081349c7b4366bff15f78889d85353e864e1d99f09d3536",
+   "bytes": 29149
+  },
+  "labs/state-projection-pass01/demo.py": {
+   "sha256": "3728d4baaa2b6255f19f5c85009951d35afae53046a68d2f64d8911f817cc0e4",
+   "bytes": 2687
+  },
+  "labs/prime-brief-pass01/prime_brief.py": {
+   "sha256": "72eca44ce9d91b047b63180cb101b066c833e94ecb7fa94a14e689d59de4de35",
+   "bytes": 20348
+  },
+  "labs/prime-brief-pass01/README.md": {
+   "sha256": "e3028acf281a283b11474b0b4aaa18e6f4fd7b91b4ea44f038c5bd1e478aedd5",
+   "bytes": 3338
+  },
+  "labs/prime-brief-pass01/tests/test_prime_brief.py": {
+   "sha256": "675a7a121a37cb6c5015c9d5f104a98e0b0682b6d4d11c69741845ff4f06d6df",
+   "bytes": 22698
+  },
+  "labs/prime-brief-pass01/demo.py": {
+   "sha256": "de1d8953d9a44b927c487a216c283292bee1724dc4f3deaf58b31415e5dca2af",
+   "bytes": 2881
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/06.14.md": {
+   "sha256": "c178e8d940045955e1d544e1ee01fd2de378113b88acc1b70904ee0533e5ce89",
+   "bytes": 6953
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/brief05.13/CONTRACT.md": {
+   "sha256": "c8145058d619d630f92d6f0c95c7b08587955662021b293fb94e4800e81328d3",
+   "bytes": 8617
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/brief05.13/tests.txt": {
+   "sha256": "04b209b6f33b8f7b4c2296dd8efd062e67fc9c27272eb0daae840a7f5e92a006",
+   "bytes": 40034
+  }
+ }
+}

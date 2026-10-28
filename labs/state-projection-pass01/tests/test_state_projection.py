@@ -400,5 +400,72 @@ class TestClosure(Fixture):
         self.assertFalse(any(p.suffix == ".pyc" for p in LAB.rglob("*")))
 
 
+class TestRetrospective(Fixture):
+    """05.13, SP-05: a same-origin retrospective capture is historical, never a current primary."""
+
+    def test_18_sole_same_origin_retrospective_cannot_complete(self):
+        retro = self.member("retro", retrospective=True)
+        o = obs(**{"return": {"pointer": "present", "members": [retro], "candidate": None}, "review": bound(retro, self.receipt(retro))})
+        _, p = self.run_cli(self.doc([o]), code=1)
+        r = self.row(p, o["id"])
+        ret = r["facets"]["return"]
+        self.assertEqual((ret["custody"], ret["primary"]), ("none", None))
+        self.assertEqual(ret["secondary"], [{"member": retro, "origin": {"book": BOOK, "page": "0507.prime-support", "batch": "05.01"},
+                                             "retrospective": True, "historical": "same-origin retrospective"}])
+        self.assertEqual(r["lifecycle"], "open-review-unresolved")
+        self.assertEqual(p["lanes"]["0507.prime-support"]["completed"], [])
+
+    def test_19_explicit_historical_candidate_is_a_conflict(self):
+        retro = self.member("retroc", retrospective=True)
+        o = obs(**{"return": {"pointer": "present", "members": [retro], "candidate": retro}, "review": bound(retro, self.receipt(retro))})
+        _, p = self.run_cli(self.doc([o]), code=1)
+        r = self.row(p, o["id"])
+        self.assertEqual((r["facets"]["return"]["custody"], r["lifecycle"]), ("candidate-historical", "conflict-candidate"))
+        self.assertIn("declared candidate is a retrospective (historical) capture", r["attention"])
+        self.assertEqual(p["lanes"]["0507.prime-support"]["conflicts"], [o["id"]])
+
+    def test_20_historical_plus_current_in_both_orders(self):
+        retro = self.member("hist2", retrospective=True)
+        cur = self.member("cur2")
+        for order in ([retro, cur], [cur, retro]):
+            with self.subTest(order=order):
+                o = obs(**{"return": {"pointer": "present", "members": order, "candidate": None}, "review": bound(cur, self.receipt(cur))})
+                _, p = self.run_cli(self.doc([o]), code=0)
+                r = self.row(p, o["id"])
+                ret = r["facets"]["return"]
+                self.assertEqual((ret["custody"], ret["primary"], ret["ambiguous"]), ("primary", cur, []))
+                self.assertEqual([x["member"] for x in ret["secondary"]], [retro])
+                self.assertEqual(r["lifecycle"], "completed")
+                wrong = copy.deepcopy(o)
+                wrong["review"] = bound(retro, self.receipt(retro))
+                _, p2 = self.run_cli(self.doc([wrong]), code=1)
+                self.assertEqual(self.row(p2, o["id"])["lifecycle"], "open-re-review-required")
+                cand = copy.deepcopy(o)
+                cand["return"]["candidate"] = retro
+                _, p3 = self.run_cli(self.doc([cand]), code=1)
+                self.assertEqual(self.row(p3, o["id"])["lifecycle"], "conflict-candidate")
+
+    def test_21_retrospective_must_be_an_actual_boolean(self):
+        m = self.member("flag")
+        doc = self.doc([obs(**{"return": {"pointer": "present", "members": [m], "candidate": None}, "review": bound(m, self.receipt(m))})])
+        real = subprocess.run
+        for name, change in {"missing": lambda c: c.pop("retrospective"), "string": lambda c: c.update(retrospective="false"),
+                             "int": lambda c: c.update(retrospective=0), "null": lambda c: c.update(retrospective=None)}.items():
+            with self.subTest(case=name):
+                def fake(argv, change=change, **kw):
+                    out = real(argv, **kw)
+                    if "inspect" in argv:
+                        d = json.loads(out.stdout)
+                        change(d["capture"])
+                        return subprocess.CompletedProcess(argv, out.returncode, json.dumps(d).encode(), b"")
+                    return out
+                with mock.patch.object(sp.subprocess, "run", fake):
+                    p = sp.project(copy.deepcopy(doc), True, "x")
+                r = p["batches"][0]
+                self.assertEqual((r["inspections"][0]["observation"], r["inspections"][0]["reason"]),
+                                 ("failed", "complete report lacks a boolean retrospective flag"))
+                self.assertNotEqual(r["lifecycle"], "completed")
+
+
 if __name__ == "__main__":
     unittest.main()

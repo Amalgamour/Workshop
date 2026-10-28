@@ -1,0 +1,72 @@
+# Notes — retrospective repair and fixture Prime brief (batch 05.13)
+Date: 2026-10-28
+Recorder: claude-opus-5-5, Colab, executor
+State: written FIRST, before the contract and before any code. 06.01-06.13 stay as they are. The 05.12 evidence and member 0136 stay unchanged.
+
+## Inputs
+I01. pack05.13: 13 of 13 snapshots match their pins, and live matches all 13, at workshop 2c5be60. The pack includes:
+- the 05.12 sources: projection be501a58…, README edc9ec42…, tests 58851476…, demo 3728d4ba…;
+- the 05.12 contract (6ada33d1…);
+- prime-review05.12 (8ad9ec0b…) and its verification (c1a15ef6…);
+- the inspector 947915fe… and helper 8f3da5c6…;
+- Grok-2's reader contract reader05.13 (be118f74…) and prime-review 0508/05.13 (0aec2b11…).
+I02. **SP-05 (Prime).** `custody()` accepts any complete member whose origin matches, without checking `retrospective`. A same-origin retrospective capture with an accepted terminal review projects `completed`. Prime reproduced this with a real disposable capture. My 05.12 test_07 used a retrospective capture with a *different* origin, so it missed the case. It is my defect.
+I03. Grok-2's reader (`labs/batch-observation-pass01`) is HELD for BO-01 to BO-04. BO-01 matters most here: raw Release and Claim lines can come from fenced examples. I don't launch, import or change it.
+- Its output schema `batch-observation/1` is defined in reader05.13/CONTRACT.md. My fixtures follow that shape.
+- No full reader report is retained anywhere. reader05.13/verification.json keeps only a demo summary: page 0508/05.10 at 4cca1d2, legacy unsupported with an ambiguous heading at line 47, revision null, primary 0129, package_at_commit not-established, binding unbound, stdout sha 46737b6d… (28,995 bytes).
+- So a "derived" fixture can carry only those summary facts. It is labelled DERIVED-FROM-RETAINED-SUMMARY, and it does not claim the stdout hash.
+
+## Choices (before code)
+C01. **SP-05 repair**, in `state_projection.py` only:
+- A complete report must carry a boolean `retrospective`. Missing or non-boolean is a failed observation.
+- A same-origin capture with `retrospective: true` is a historical secondary, never a candidate.
+- An explicit candidate that is historical gives `candidate-historical`, which is a conflict and can never be primary.
+- The 17 existing tests stay unchanged. New tests use real reserve and capture, including `--retrospective`.
+C02. **New lab** `labs/prime-brief-pass01`: prime_brief.py, README, tests and demo. Command:
+`brief --input IN.json [--inspect] [--json]`.
+- The input is `prime-brief-input/1`: a scope, the members book, labelled reader-observation fixtures, and explicit SUPPLIED coordination records.
+- Coordination records give release, claim, candidate, a typed review decision and publication. Each is bound to `batch_id` and the observation's `source.sha256`.
+C03. **Mapping rules:**
+- Release and claim come only from coordination, never from raw reader lines.
+- A raw line is kept as evidence in the brief.
+- Members come only from reader pointer sections, never from assignment mentions.
+- The reader's custody snapshot is shown as an earlier, separate observation, and is never used as the candidate.
+- Review: a coordination decision gives `bound`. Otherwise, reader review text equal to the exact literal `PENDING.` gives `pending`, any other text gives `text`, and no section gives `absent`.
+- The reader's unauthenticated `typed_declaration` never binds.
+C04. **Unprojected batches.** Facts `state-observations/1` can't express go to a visible `unprojected` list, with a reason, and are never coerced. That covers:
+- no coordination record, so release unknown;
+- `unknown` in coordination;
+- a page that can't be identified;
+- a source kind that is neither git-blob nor live;
+- a decision bound to a different source sha.
+C05. **Pins.** The adapter loads the repaired projection by fixed relative path, after checking its exact hash, which is set once the repair is final. The projection keeps its own inspector and helper pins.
+- No caller tool paths.
+- The only subprocess is the projection's inspector launch.
+C06. **The brief** has lists for:
+- awaiting review;
+- correction or held;
+- completed FIXTURES;
+- conflicts;
+- other open;
+- unprojected.
+Each item gives its id, source ref, reason and follow-up. The raw projection and the mapping record sit alongside, so the summary can be checked. Authority is none, and nothing is selected or dispatched.
+C07. **Expected results.** The table is written into the contract before the harness.
+
+## Disposition (all outputs reread in full)
+- I01-I03: stand. These notes were written first, then the contract with its expected-results table, then the code.
+- C01: done.
+  - The SP-05 repair touches `inspect()` (the boolean flag) and `custody()` (retrospective captures become historical secondaries; an explicit historical candidate gives `candidate-historical`), plus one lifecycle branch.
+  - The original 17 tests pass unchanged after the repair.
+  - The new tests 18-21 use real `--retrospective` captures. Run against the *unrepaired* code in a disposable copy, they fail (4 failures, 4 errors), which reproduces Prime's finding. Run against the repair, they pass.
+  - The projection demo is byte-unchanged (3728d4ba…). The repaired projection is b349da5c….
+- C02-C06: carried as written. Expectations E01-E19 are each tested.
+  - The brief suite (19 tests) passed on its first run. Four adapter mutations were each caught: the raw release line authorises (E05); a source-sha mismatch is ignored (E12); unknown is coerced to pending (E06); the reader's primary is used as the candidate (E08).
+  - After the first demo I made one display change: each item now names its historical members, and no longer repeats the lifecycle as the reason. The suites and the mutations were rerun on the final code.
+- Grok-2's lab is untouched. verification.json hashes `labs/batch-observation-pass01` before and after; test_e19 also checks its tree.
+- Residue that isn't mine: 18 `sp-*` temp folders, timestamped 10:44 local today, from a run of the old 17-test projection suite plus demo. That matches Prime's 05.12 review run (its probe is at 15:46Z). I left them alone; my runs leave none.
+- Not done, and outside scope: no reader launch or integration; no app, registry, schema, law or lane change; no edits to prime_support, prime_boot, the inspector or the helper.
+
+## Recommended next slice (one)
+After Prime accepts Grok-2's repaired reader (BO-01 to BO-04), run one *read-only* pass with the pinned, accepted reader over a declared set of real pages at a fixed commit. Feed its outputs, unchanged, into this adapter, with coordination records still SUPPLIED by Prime. Compare the brief against Prime's own reading.
+- Acceptance: no unprojected batch is silently dropped, every projected item matches Prime's reading, and nothing is closed by text.
+- Still no app wiring and no authority.

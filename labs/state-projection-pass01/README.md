@@ -67,3 +67,12 @@ Everything else stays open, or is a conflict:
 - Reviewer and actor labels are recorded text, not authentication or grants.
 - Two inspector reads are two observations.
 - The projection grants no release, acceptance, seat or work.
+
+## SP-05 repair (05.13)
+
+The contract amendment is `00.kernel/00.00.10.work/0507.prime-support/evidence/brief05.13/CONTRACT.md` §A.
+
+- **Boolean flag.** A complete inspector report must carry `capture.retrospective` as a real boolean. Anything else is a failed observation.
+- **Retrospective captures are historical.** A same-origin capture with `retrospective: true` is listed under `secondary` with `historical: same-origin retrospective`. It is never a candidate, never counts toward ambiguity, and can never complete the current batch.
+- **Explicit historical candidate.** An explicit candidate that is a retrospective capture gives custody `candidate-historical`, and the lifecycle `conflict-candidate`.
+- **Unchanged.** The 17 original tests and the demo are unchanged. Tests 18-21 add the countercases, using real `--retrospective` captures.

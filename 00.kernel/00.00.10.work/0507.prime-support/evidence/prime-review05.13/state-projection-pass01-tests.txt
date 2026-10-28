@@ -1,0 +1,26 @@
+test_01_text_only_accepted_cannot_close (test_state_projection.TestClosure.test_01_text_only_accepted_cannot_close) ... ok
+test_02_bound_held_and_correction_remain_open_with_followup (test_state_projection.TestClosure.test_02_bound_held_and_correction_remain_open_with_followup) ... ok
+test_03_bound_accepted_with_terminal_completes_only_with_live_primary (test_state_projection.TestClosure.test_03_bound_accepted_with_terminal_completes_only_with_live_primary) ... ok
+test_04_stale_receipt_or_member_requires_re_review (test_state_projection.TestClosure.test_04_stale_receipt_or_member_requires_re_review) ... ok
+test_05_two_matching_members_are_ambiguous_until_explicit_candidate (test_state_projection.TestClosure.test_05_two_matching_members_are_ambiguous_until_explicit_candidate) ... ok
+test_06_same_page_batch_in_a_different_origin_book_is_not_primary (test_state_projection.TestClosure.test_06_same_page_batch_in_a_different_origin_book_is_not_primary) ... ok
+test_07_primary_versus_historical_secondary_regardless_of_pointer_order (test_state_projection.TestClosure.test_07_primary_versus_historical_secondary_regardless_of_pointer_order) ... ok
+test_08_live_custody_never_sets_a_commit_time_return (test_state_projection.TestClosure.test_08_live_custody_never_sets_a_commit_time_return) ... ok
+test_09_published_held_work_stays_held (test_state_projection.TestClosure.test_09_published_held_work_stays_held) ... ok
+test_10_multiple_open_lanes_and_items_are_all_listed (test_state_projection.TestClosure.test_10_multiple_open_lanes_and_items_are_all_listed) ... ok
+test_11_missing_release_is_a_conflict_not_an_inferred_release (test_state_projection.TestClosure.test_11_missing_release_is_a_conflict_not_an_inferred_release) ... ok
+test_12_contradictory_review_and_incomplete_member (test_state_projection.TestClosure.test_12_contradictory_review_and_incomplete_member) ... ok
+test_13_malformed_or_duplicate_inputs_refuse_before_projection (test_state_projection.TestClosure.test_13_malformed_or_duplicate_inputs_refuse_before_projection) ... ok
+test_14_wrong_or_missing_reader_or_helper_pin_refuses_before_launch (test_state_projection.TestClosure.test_14_wrong_or_missing_reader_or_helper_pin_refuses_before_launch) ... ok
+test_15_malformed_inspector_report_is_a_failed_observation (test_state_projection.TestClosure.test_15_malformed_inspector_report_is_a_failed_observation) ... ok
+test_16_worked_cases_w1_to_w7_with_corrected_expectations (test_state_projection.TestClosure.test_16_worked_cases_w1_to_w7_with_corrected_expectations) ... ok
+test_17_no_input_store_code_or_git_mutation (test_state_projection.TestClosure.test_17_no_input_store_code_or_git_mutation) ... ok
+test_18_sole_same_origin_retrospective_cannot_complete (test_state_projection.TestRetrospective.test_18_sole_same_origin_retrospective_cannot_complete) ... ok
+test_19_explicit_historical_candidate_is_a_conflict (test_state_projection.TestRetrospective.test_19_explicit_historical_candidate_is_a_conflict) ... ok
+test_20_historical_plus_current_in_both_orders (test_state_projection.TestRetrospective.test_20_historical_plus_current_in_both_orders) ... ok
+test_21_retrospective_must_be_an_actual_boolean (test_state_projection.TestRetrospective.test_21_retrospective_must_be_an_actual_boolean) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 32.005s
+
+OK

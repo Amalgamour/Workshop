@@ -1,0 +1,810 @@
+# tests.txt — brief05.13 (0507.prime-support 05.13, SP-05 repair and fixture Prime brief)
+
+Commands (from each lab folder):
+- python -B [-X dev] tests/test_state_projection.py [-v] [TestRetrospective]
+- python -B [-X dev] tests/test_prime_brief.py [-v]
+- python -B [-X dev] demo.py
+- python -B scratchpad/d0513/mutate.py
+Python 3.14.7, Windows. Every run is kept in order, the expected failures included. There are no skips.
+Custody uses the real pinned return_capture.py and return_inspect.py on disposable books. Grok-2's reader was never launched or imported.
+Reader observations are SYNTHETIC fixtures in its batch-observation/1 shape, plus one DERIVED-FROM-RETAINED-SUMMARY fixture.
+
+## projection p-run1: the 17 EXISTING tests, dev mode, after the SP-05 repair
+```
+.................
+----------------------------------------------------------------------
+Ran 17 tests in 89.320s
+
+OK
+```
+
+## projection p-run2: the NEW SP-05 tests 18-21 against the UNREPAIRED code (be501a58…), disposable copy (RETAINED EXPECTED FAILURES: reproduces Prime's SP-05)
+```
+test_18_sole_same_origin_retrospective_cannot_complete (__main__.TestRetrospective.test_18_sole_same_origin_retrospective_cannot_complete) ... FAIL
+test_19_explicit_historical_candidate_is_a_conflict (__main__.TestRetrospective.test_19_explicit_historical_candidate_is_a_conflict) ... FAIL
+test_20_historical_plus_current_in_both_orders (__main__.TestRetrospective.test_20_historical_plus_current_in_both_orders) ... 
+  test_20_historical_plus_current_in_both_orders (__main__.TestRetrospective.test_20_historical_plus_current_in_both_orders) (order=['0101.hist2', '0102.cur2']) ... FAIL
+  test_20_historical_plus_current_in_both_orders (__main__.TestRetrospective.test_20_historical_plus_current_in_both_orders) (order=['0102.cur2', '0101.hist2']) ... FAIL
+test_21_retrospective_must_be_an_actual_boolean (__main__.TestRetrospective.test_21_retrospective_must_be_an_actual_boolean) ... 
+  test_21_retrospective_must_be_an_actual_boolean (__main__.TestRetrospective.test_21_retrospective_must_be_an_actual_boolean) (case='missing') ... ERROR
+  test_21_retrospective_must_be_an_actual_boolean (__main__.TestRetrospective.test_21_retrospective_must_be_an_actual_boolean) (case='string') ... ERROR
+  test_21_retrospective_must_be_an_actual_boolean (__main__.TestRetrospective.test_21_retrospective_must_be_an_actual_boolean) (case='int') ... ERROR
+  test_21_retrospective_must_be_an_actual_boolean (__main__.TestRetrospective.test_21_retrospective_must_be_an_actual_boolean) (case='null') ... ERROR
+
+======================================================================
+ERROR: test_21_retrospective_must_be_an_actual_boolean (__main__.TestRetrospective.test_21_retrospective_must_be_an_actual_boolean) (case='missing')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\d0513\oldcopy\labs\state-projection-pass01\tests\test_state_projection.py", line 465, in test_21_retrospective_must_be_an_actual_boolean
+    self.assertEqual((r["inspections"][0]["observation"], r["inspections"][0]["reason"]),
+                                                          ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+KeyError: 'reason'
+
+======================================================================
+ERROR: test_21_retrospective_must_be_an_actual_boolean (__main__.TestRetrospective.test_21_retrospective_must_be_an_actual_boolean) (case='string')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\d0513\oldcopy\labs\state-projection-pass01\tests\test_state_projection.py", line 465, in test_21_retrospective_must_be_an_actual_boolean
+    self.assertEqual((r["inspections"][0]["observation"], r["inspections"][0]["reason"]),
+                                                          ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+KeyError: 'reason'
+
+======================================================================
+ERROR: test_21_retrospective_must_be_an_actual_boolean (__main__.TestRetrospective.test_21_retrospective_must_be_an_actual_boolean) (case='int')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\d0513\oldcopy\labs\state-projection-pass01\tests\test_state_projection.py", line 465, in test_21_retrospective_must_be_an_actual_boolean
+    self.assertEqual((r["inspections"][0]["observation"], r["inspections"][0]["reason"]),
+                                                          ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+KeyError: 'reason'
+
+======================================================================
+ERROR: test_21_retrospective_must_be_an_actual_boolean (__main__.TestRetrospective.test_21_retrospective_must_be_an_actual_boolean) (case='null')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\d0513\oldcopy\labs\state-projection-pass01\tests\test_state_projection.py", line 465, in test_21_retrospective_must_be_an_actual_boolean
+    self.assertEqual((r["inspections"][0]["observation"], r["inspections"][0]["reason"]),
+                                                          ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+KeyError: 'reason'
+
+======================================================================
+FAIL: test_18_sole_same_origin_retrospective_cannot_complete (__main__.TestRetrospective.test_18_sole_same_origin_retrospective_cannot_complete)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\d0513\oldcopy\labs\state-projection-pass01\tests\test_state_projection.py", line 409, in test_18_sole_same_origin_retrospective_cannot_complete
+    _, p = self.run_cli(self.doc([o]), code=1)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\d0513\oldcopy\labs\state-projection-pass01\tests\test_state_projection.py", line 107, in run_cli
+    self.assertEqual(r.returncode, code, r.stdout[:2000])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 1 : {
+ "schema": "state-projection/1",
+ "tool": {
+  "path": "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\d0513\\oldcopy\\labs\\state-projection-pass01\\state_projection.py",
+  "sha256": "be501a581cc7ecd07827dbfec5b6aa8bf67cc0bd3074a2fc4b7679b46620f7ea"
+ },
+ "input_sha256": "ea4de7564433d8f63663c2b32f96e110b1244cac188155c3fc3e9736ab4f231f",
+ "scope": {
+  "book": "00.00.10.work",
+  "lanes": [
+   "0507.prime-support"
+  ]
+ },
+ "projected_at": "2026-10-28T16:02:28.582001Z",
+ "inspected": true,
+ "batches": [
+  {
+   "id": "0507.prime-support/05.01",
+   "lane": "0507.prime-support",
+   "batch": "05.01",
+   "provenance": {
+    "kind": "supplied-live",
+    "commit": null,
+    "page_sha256": null
+   },
+   "facets": {
+    "document": {
+     "header_state": "draft"
+    },
+    "release": {
+     "status": "recorded",
+     "text": "Release: fixture"
+    },
+    "claim": {
+     "status": "recorded",
+     "actor": "fixture-actor"
+    },
+    "return": {
+     "pointer": "present",
+     "members_named": [
+      "0101.retro"
+     ],
+     "candidate_declared": null,
+     "custody": "primary",
+     "primary": "0101.retro",
+     "primary_receipt_sha256": "82ad4110530ff2d1e419f770e3982d41454c2a837998a609d0df50376bb5ab0f",
+     "secondary": [],
+     "ambiguous": [],
+     "problems": []
+    },
+    "review": {
+     "status": "bound",
+     "text": "fixture review",
+     "binding_check": "current",
+     "disposition": "accepted",
+     "terminal": "completed",
+     "reviewer": "fixture-prime",
+     "followup": null
+    },
+    "publication": {
+     "status": "unknown",
+     "ref": null,
+     "commit": null
+    }
+   },
+   "live_custody": null,
+   "inspections": [
+    {
+     "member": "0101.retro",
+     "observed_at": "2026-10-28T16:02:28.380084Z",
+     "basis": "live",
+     "exit": 0,
+     "stdout_sha256": "1f46b23c793b41cd0dc7c0f3fe8144153747b4223d88963daf72680b575ffa8b",
+     "status": "complete",
+     "origin": {
+      "batch": "05
+
+======================================================================
+FAIL: test_19_explicit_historical_candidate_is_a_conflict (__main__.TestRetrospective.test_19_explicit_historical_candidate_is_a_conflict)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\d0513\oldcopy\labs\state-projection-pass01\tests\test_state_projection.py", line 421, in test_19_explicit_historical_candidate_is_a_conflict
+    _, p = self.run_cli(self.doc([o]), code=1)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\d0513\oldcopy\labs\state-projection-pass01\tests\test_state_projection.py", line 107, in run_cli
+    self.assertEqual(r.returncode, code, r.stdout[:2000])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 1 : {
+ "schema": "state-projection/1",
+ "tool": {
+  "path": "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\d0513\\oldcopy\\labs\\state-projection-pass01\\state_projection.py",
+  "sha256": "be501a581cc7ecd07827dbfec5b6aa8bf67cc0bd3074a2fc4b7679b46620f7ea"
+ },
+ "input_sha256": "c452e9d0ccde985fedd9daa6e95218da0666d99de2cfcb2d5e3a2ae87b578675",
+ "scope": {
+  "book": "00.00.10.work",
+  "lanes": [
+   "0507.prime-support"
+  ]
+ },
+ "projected_at": "2026-10-28T16:02:31.540969Z",
+ "inspected": true,
+ "batches": [
+  {
+   "id": "0507.prime-support/05.01",
+   "lane": "0507.prime-support",
+   "batch": "05.01",
+   "provenance": {
+    "kind": "supplied-live",
+    "commit": null,
+    "page_sha256": null
+   },
+   "facets": {
+    "document": {
+     "header_state": "draft"
+    },
+    "release": {
+     "status": "recorded",
+     "text": "Release: fixture"
+    },
+    "claim": {
+     "status": "recorded",
+     "actor": "fixture-actor"
+    },
+    "return": {
+     "pointer": "present",
+     "members_named": [
+      "0101.retroc"
+     ],
+     "candidate_declared": "0101.retroc",
+     "custody": "primary",
+     "primary": "0101.retroc",
+     "primary_receipt_sha256": "f8f807f3cc8338633a0e1829688d87e94c1b88a1c23ceb9701bd941cb284eeb7",
+     "secondary": [],
+     "ambiguous": [],
+     "problems": []
+    },
+    "review": {
+     "status": "bound",
+     "text": "fixture review",
+     "binding_check": "current",
+     "disposition": "accepted",
+     "terminal": "completed",
+     "reviewer": "fixture-prime",
+     "followup": null
+    },
+    "publication": {
+     "status": "unknown",
+     "ref": null,
+     "commit": null
+    }
+   },
+   "live_custody": null,
+   "inspections": [
+    {
+     "member": "0101.retroc",
+     "observed_at": "2026-10-28T16:02:31.317228Z",
+     "basis": "live",
+     "exit": 0,
+     "stdout_sha256": "5de21a5fc84241ccb5a2936cd3a1f5a417725488f02fd35c433a20724ec4d7fb",
+     "status": "complete",
+     "origin": {
+      
+
+======================================================================
+FAIL: test_20_historical_plus_current_in_both_orders (__main__.TestRetrospective.test_20_historical_plus_current_in_both_orders) (order=['0101.hist2', '0102.cur2'])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\d0513\oldcopy\labs\state-projection-pass01\tests\test_state_projection.py", line 433, in test_20_historical_plus_current_in_both_orders
+    _, p = self.run_cli(self.doc([o]), code=0)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\d0513\oldcopy\labs\state-projection-pass01\tests\test_state_projection.py", line 107, in run_cli
+    self.assertEqual(r.returncode, code, r.stdout[:2000])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : {
+ "schema": "state-projection/1",
+ "tool": {
+  "path": "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\d0513\\oldcopy\\labs\\state-projection-pass01\\state_projection.py",
+  "sha256": "be501a581cc7ecd07827dbfec5b6aa8bf67cc0bd3074a2fc4b7679b46620f7ea"
+ },
+ "input_sha256": "4c7c1ee2777a8a647de2060dc5373b60843806df028e521923053f1bedf9f6f9",
+ "scope": {
+  "book": "00.00.10.work",
+  "lanes": [
+   "0507.prime-support"
+  ]
+ },
+ "projected_at": "2026-10-28T16:02:37.017244Z",
+ "inspected": true,
+ "batches": [
+  {
+   "id": "0507.prime-support/05.01",
+   "lane": "0507.prime-support",
+   "batch": "05.01",
+   "provenance": {
+    "kind": "supplied-live",
+    "commit": null,
+    "page_sha256": null
+   },
+   "facets": {
+    "document": {
+     "header_state": "draft"
+    },
+    "release": {
+     "status": "recorded",
+     "text": "Release: fixture"
+    },
+    "claim": {
+     "status": "recorded",
+     "actor": "fixture-actor"
+    },
+    "return": {
+     "pointer": "present",
+     "members_named": [
+      "0101.hist2",
+      "0102.cur2"
+     ],
+     "candidate_declared": null,
+     "custody": "ambiguous",
+     "primary": null,
+     "primary_receipt_sha256": null,
+     "secondary": [],
+     "ambiguous": [
+      "0101.hist2",
+      "0102.cur2"
+     ],
+     "problems": []
+    },
+    "review": {
+     "status": "bound",
+     "text": "fixture review",
+     "binding_check": "unverifiable",
+     "disposition": "accepted",
+     "terminal": "completed",
+     "reviewer": "fixture-prime",
+     "followup": null
+    },
+    "publication": {
+     "status": "unknown",
+     "ref": null,
+     "commit": null
+    }
+   },
+   "live_custody": null,
+   "inspections": [
+    {
+     "member": "0101.hist2",
+     "observed_at": "2026-10-28T16:02:35.641414Z",
+     "basis": "live",
+     "exit": 0,
+     "stdout_sha256": "7b8cc8c971fe3052155882254f5de697d23c3d40ca859104a1959d8c2f255a7e",
+     "status": "complete",
+     "origin": {
+      "batch": "05
+
+======================================================================
+FAIL: test_20_historical_plus_current_in_both_orders (__main__.TestRetrospective.test_20_historical_plus_current_in_both_orders) (order=['0102.cur2', '0101.hist2'])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\d0513\oldcopy\labs\state-projection-pass01\tests\test_state_projection.py", line 433, in test_20_historical_plus_current_in_both_orders
+    _, p = self.run_cli(self.doc([o]), code=0)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Temp\claude\D--Git-Librarian\4140ea48-5474-4146-a868-fc4d4b12c29c\scratchpad\d0513\oldcopy\labs\state-projection-pass01\tests\test_state_projection.py", line 107, in run_cli
+    self.assertEqual(r.returncode, code, r.stdout[:2000])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : {
+ "schema": "state-projection/1",
+ "tool": {
+  "path": "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\d0513\\oldcopy\\labs\\state-projection-pass01\\state_projection.py",
+  "sha256": "be501a581cc7ecd07827dbfec5b6aa8bf67cc0bd3074a2fc4b7679b46620f7ea"
+ },
+ "input_sha256": "25c676e646ec3592e55535be7831fef73e84de4bbd61bd326bc990769d731bae",
+ "scope": {
+  "book": "00.00.10.work",
+  "lanes": [
+   "0507.prime-support"
+  ]
+ },
+ "projected_at": "2026-10-28T16:02:39.740784Z",
+ "inspected": true,
+ "batches": [
+  {
+   "id": "0507.prime-support/05.01",
+   "lane": "0507.prime-support",
+   "batch": "05.01",
+   "provenance": {
+    "kind": "supplied-live",
+    "commit": null,
+    "page_sha256": null
+   },
+   "facets": {
+    "document": {
+     "header_state": "draft"
+    },
+    "release": {
+     "status": "recorded",
+     "text": "Release: fixture"
+    },
+    "claim": {
+     "status": "recorded",
+     "actor": "fixture-actor"
+    },
+    "return": {
+     "pointer": "present",
+     "members_named": [
+      "0102.cur2",
+      "0101.hist2"
+     ],
+     "candidate_declared": null,
+     "custody": "ambiguous",
+     "primary": null,
+     "primary_receipt_sha256": null,
+     "secondary": [],
+     "ambiguous": [
+      "0102.cur2",
+      "0101.hist2"
+     ],
+     "problems": []
+    },
+    "review": {
+     "status": "bound",
+     "text": "fixture review",
+     "binding_check": "unverifiable",
+     "disposition": "accepted",
+     "terminal": "completed",
+     "reviewer": "fixture-prime",
+     "followup": null
+    },
+    "publication": {
+     "status": "unknown",
+     "ref": null,
+     "commit": null
+    }
+   },
+   "live_custody": null,
+   "inspections": [
+    {
+     "member": "0102.cur2",
+     "observed_at": "2026-10-28T16:02:38.368221Z",
+     "basis": "live",
+     "exit": 0,
+     "stdout_sha256": "8d887aef67c2402de00761860cf12e8ce8504b8890dc53d9f660e9128d111fd4",
+     "status": "complete",
+     "origin": {
+      "batch": "05.
+
+----------------------------------------------------------------------
+Ran 4 tests in 19.272s
+
+FAILED (failures=4, errors=4)
+```
+
+## projection p-run3: full repaired suite, 21 tests, dev mode, -v
+```
+test_01_text_only_accepted_cannot_close (__main__.TestClosure.test_01_text_only_accepted_cannot_close) ... ok
+test_02_bound_held_and_correction_remain_open_with_followup (__main__.TestClosure.test_02_bound_held_and_correction_remain_open_with_followup) ... ok
+test_03_bound_accepted_with_terminal_completes_only_with_live_primary (__main__.TestClosure.test_03_bound_accepted_with_terminal_completes_only_with_live_primary) ... ok
+test_04_stale_receipt_or_member_requires_re_review (__main__.TestClosure.test_04_stale_receipt_or_member_requires_re_review) ... ok
+test_05_two_matching_members_are_ambiguous_until_explicit_candidate (__main__.TestClosure.test_05_two_matching_members_are_ambiguous_until_explicit_candidate) ... ok
+test_06_same_page_batch_in_a_different_origin_book_is_not_primary (__main__.TestClosure.test_06_same_page_batch_in_a_different_origin_book_is_not_primary) ... ok
+test_07_primary_versus_historical_secondary_regardless_of_pointer_order (__main__.TestClosure.test_07_primary_versus_historical_secondary_regardless_of_pointer_order) ... ok
+test_08_live_custody_never_sets_a_commit_time_return (__main__.TestClosure.test_08_live_custody_never_sets_a_commit_time_return) ... ok
+test_09_published_held_work_stays_held (__main__.TestClosure.test_09_published_held_work_stays_held) ... ok
+test_10_multiple_open_lanes_and_items_are_all_listed (__main__.TestClosure.test_10_multiple_open_lanes_and_items_are_all_listed) ... ok
+test_11_missing_release_is_a_conflict_not_an_inferred_release (__main__.TestClosure.test_11_missing_release_is_a_conflict_not_an_inferred_release) ... ok
+test_12_contradictory_review_and_incomplete_member (__main__.TestClosure.test_12_contradictory_review_and_incomplete_member) ... ok
+test_13_malformed_or_duplicate_inputs_refuse_before_projection (__main__.TestClosure.test_13_malformed_or_duplicate_inputs_refuse_before_projection) ... ok
+test_14_wrong_or_missing_reader_or_helper_pin_refuses_before_launch (__main__.TestClosure.test_14_wrong_or_missing_reader_or_helper_pin_refuses_before_launch) ... ok
+test_15_malformed_inspector_report_is_a_failed_observation (__main__.TestClosure.test_15_malformed_inspector_report_is_a_failed_observation) ... ok
+test_16_worked_cases_w1_to_w7_with_corrected_expectations (__main__.TestClosure.test_16_worked_cases_w1_to_w7_with_corrected_expectations) ... ok
+test_17_no_input_store_code_or_git_mutation (__main__.TestClosure.test_17_no_input_store_code_or_git_mutation) ... ok
+test_18_sole_same_origin_retrospective_cannot_complete (__main__.TestRetrospective.test_18_sole_same_origin_retrospective_cannot_complete) ... ok
+test_19_explicit_historical_candidate_is_a_conflict (__main__.TestRetrospective.test_19_explicit_historical_candidate_is_a_conflict) ... ok
+test_20_historical_plus_current_in_both_orders (__main__.TestRetrospective.test_20_historical_plus_current_in_both_orders) ... ok
+test_21_retrospective_must_be_an_actual_boolean (__main__.TestRetrospective.test_21_retrospective_must_be_an_actual_boolean) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 119.015s
+
+OK
+```
+
+## projection p-run4: full repaired suite, default mode, -v
+```
+test_01_text_only_accepted_cannot_close (__main__.TestClosure.test_01_text_only_accepted_cannot_close) ... ok
+test_02_bound_held_and_correction_remain_open_with_followup (__main__.TestClosure.test_02_bound_held_and_correction_remain_open_with_followup) ... ok
+test_03_bound_accepted_with_terminal_completes_only_with_live_primary (__main__.TestClosure.test_03_bound_accepted_with_terminal_completes_only_with_live_primary) ... ok
+test_04_stale_receipt_or_member_requires_re_review (__main__.TestClosure.test_04_stale_receipt_or_member_requires_re_review) ... ok
+test_05_two_matching_members_are_ambiguous_until_explicit_candidate (__main__.TestClosure.test_05_two_matching_members_are_ambiguous_until_explicit_candidate) ... ok
+test_06_same_page_batch_in_a_different_origin_book_is_not_primary (__main__.TestClosure.test_06_same_page_batch_in_a_different_origin_book_is_not_primary) ... ok
+test_07_primary_versus_historical_secondary_regardless_of_pointer_order (__main__.TestClosure.test_07_primary_versus_historical_secondary_regardless_of_pointer_order) ... ok
+test_08_live_custody_never_sets_a_commit_time_return (__main__.TestClosure.test_08_live_custody_never_sets_a_commit_time_return) ... ok
+test_09_published_held_work_stays_held (__main__.TestClosure.test_09_published_held_work_stays_held) ... ok
+test_10_multiple_open_lanes_and_items_are_all_listed (__main__.TestClosure.test_10_multiple_open_lanes_and_items_are_all_listed) ... ok
+test_11_missing_release_is_a_conflict_not_an_inferred_release (__main__.TestClosure.test_11_missing_release_is_a_conflict_not_an_inferred_release) ... ok
+test_12_contradictory_review_and_incomplete_member (__main__.TestClosure.test_12_contradictory_review_and_incomplete_member) ... ok
+test_13_malformed_or_duplicate_inputs_refuse_before_projection (__main__.TestClosure.test_13_malformed_or_duplicate_inputs_refuse_before_projection) ... ok
+test_14_wrong_or_missing_reader_or_helper_pin_refuses_before_launch (__main__.TestClosure.test_14_wrong_or_missing_reader_or_helper_pin_refuses_before_launch) ... ok
+test_15_malformed_inspector_report_is_a_failed_observation (__main__.TestClosure.test_15_malformed_inspector_report_is_a_failed_observation) ... ok
+test_16_worked_cases_w1_to_w7_with_corrected_expectations (__main__.TestClosure.test_16_worked_cases_w1_to_w7_with_corrected_expectations) ... ok
+test_17_no_input_store_code_or_git_mutation (__main__.TestClosure.test_17_no_input_store_code_or_git_mutation) ... ok
+test_18_sole_same_origin_retrospective_cannot_complete (__main__.TestRetrospective.test_18_sole_same_origin_retrospective_cannot_complete) ... ok
+test_19_explicit_historical_candidate_is_a_conflict (__main__.TestRetrospective.test_19_explicit_historical_candidate_is_a_conflict) ... ok
+test_20_historical_plus_current_in_both_orders (__main__.TestRetrospective.test_20_historical_plus_current_in_both_orders) ... ok
+test_21_retrospective_must_be_an_actual_boolean (__main__.TestRetrospective.test_21_retrospective_must_be_an_actual_boolean) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 79.616s
+
+OK
+```
+
+## projection p-run5: full repaired suite, dev mode, disposable copy
+```
+.....................
+----------------------------------------------------------------------
+Ran 21 tests in 102.582s
+
+OK
+```
+
+## projection demo: unchanged demo.py (3728d4ba…), dev mode, on the repaired code
+```
+fixture member book C:\Users\misg\AppData\Local\Temp\sp-st-xa94eheu\book
+input C:\Users\misg\AppData\Local\Temp\sp-st-xa94eheu\demo-input.json
+
+state-projection/1  scope 00.00.10.work  inspected True  (not a v1 assignment record and not canonical)
+0507.prime-support/05.21  open-correction-required  [supplied-live]  release recorded  claim recorded  custody primary  review bound/current  publication unknown
+    ! review correction-required; the item stays open until an explicit resolution
+    followup: 0507.prime-support/05.24 (fixture follow-up)
+0507.prime-support/05.22  open-re-review-required  [supplied-live]  release recorded  claim recorded  custody primary  review bound/stale  publication unknown
+    ! the bound review names a different member or receipt than the current primary
+0507.prime-support/05.23  completed  [supplied-live]  release recorded  claim recorded  custody primary  review bound/current  publication at-ref
+lane 0507.prime-support: open ['0507.prime-support/05.21', '0507.prime-support/05.22']; awaiting_release []; completed ['0507.prime-support/05.23']; conflicts []
+authority none; a projection grants no release, acceptance, seat or work
+exit 1 (1 = projected with attention)
+
+Fixture data only. Nothing was written. No release, acceptance, seat or work was granted.
+```
+
+## brief b-run1: 19 tests, dev mode, -v; the first run, before the display change
+```
+test_e01_returned_awaiting_review (__main__.TestBrief.test_e01_returned_awaiting_review) ... ok
+test_e02_bound_held_keeps_followup (__main__.TestBrief.test_e02_bound_held_keeps_followup) ... ok
+test_e03_bound_accepted_terminal_completes_as_fixture_label (__main__.TestBrief.test_e03_bound_accepted_terminal_completes_as_fixture_label) ... ok
+test_e04_text_only_accepted_stays_open (__main__.TestBrief.test_e04_text_only_accepted_stays_open) ... ok
+test_e05_fenced_release_line_cannot_authorize (__main__.TestBrief.test_e05_fenced_release_line_cannot_authorize) ... ok
+test_e06_unknown_release_is_unprojected_not_coerced (__main__.TestBrief.test_e06_unknown_release_is_unprojected_not_coerced) ... ok
+test_e07_stale_receipt_requires_re_review (__main__.TestBrief.test_e07_stale_receipt_requires_re_review) ... ok
+test_e08_two_current_members_are_ambiguous (__main__.TestBrief.test_e08_two_current_members_are_ambiguous) ... ok
+test_e09_current_and_same_origin_retrospective_both_orders (__main__.TestBrief.test_e09_current_and_same_origin_retrospective_both_orders) ... ok
+test_e10_sole_retrospective_never_completes (__main__.TestBrief.test_e10_sole_retrospective_never_completes) ... ok
+test_e11_explicit_retrospective_candidate_is_a_conflict (__main__.TestBrief.test_e11_explicit_retrospective_candidate_is_a_conflict) ... ok
+test_e12_changed_source_against_decision (__main__.TestBrief.test_e12_changed_source_against_decision) ... ok
+test_e13_commit_source_is_not_recast_live (__main__.TestBrief.test_e13_commit_source_is_not_recast_live) ... ok
+test_e14_published_held_stays_held (__main__.TestBrief.test_e14_published_held_stays_held) ... ok
+test_e15_multiple_lanes_all_listed (__main__.TestBrief.test_e15_multiple_lanes_all_listed) ... ok
+test_e16_derived_from_retained_reader_summary (__main__.TestBrief.test_e16_derived_from_retained_reader_summary)
+DERIVED-FROM-RETAINED-SUMMARY: facts from 0508 reader05.13/verification.json demo summary only. ... ok
+test_e17_malformed_inputs_refuse (__main__.TestBrief.test_e17_malformed_inputs_refuse) ... ok
+test_e18_projection_inspector_or_helper_drift_refuses_before_launch (__main__.TestBrief.test_e18_projection_inspector_or_helper_drift_refuses_before_launch) ... ok
+test_e19_utf8_and_no_mutation (__main__.TestBrief.test_e19_utf8_and_no_mutation) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 40.216s
+
+OK
+```
+
+## brief b-run2: 19 tests, dev mode, -v; final code
+```
+test_e01_returned_awaiting_review (__main__.TestBrief.test_e01_returned_awaiting_review) ... ok
+test_e02_bound_held_keeps_followup (__main__.TestBrief.test_e02_bound_held_keeps_followup) ... ok
+test_e03_bound_accepted_terminal_completes_as_fixture_label (__main__.TestBrief.test_e03_bound_accepted_terminal_completes_as_fixture_label) ... ok
+test_e04_text_only_accepted_stays_open (__main__.TestBrief.test_e04_text_only_accepted_stays_open) ... ok
+test_e05_fenced_release_line_cannot_authorize (__main__.TestBrief.test_e05_fenced_release_line_cannot_authorize) ... ok
+test_e06_unknown_release_is_unprojected_not_coerced (__main__.TestBrief.test_e06_unknown_release_is_unprojected_not_coerced) ... ok
+test_e07_stale_receipt_requires_re_review (__main__.TestBrief.test_e07_stale_receipt_requires_re_review) ... ok
+test_e08_two_current_members_are_ambiguous (__main__.TestBrief.test_e08_two_current_members_are_ambiguous) ... ok
+test_e09_current_and_same_origin_retrospective_both_orders (__main__.TestBrief.test_e09_current_and_same_origin_retrospective_both_orders) ... ok
+test_e10_sole_retrospective_never_completes (__main__.TestBrief.test_e10_sole_retrospective_never_completes) ... ok
+test_e11_explicit_retrospective_candidate_is_a_conflict (__main__.TestBrief.test_e11_explicit_retrospective_candidate_is_a_conflict) ... ok
+test_e12_changed_source_against_decision (__main__.TestBrief.test_e12_changed_source_against_decision) ... ok
+test_e13_commit_source_is_not_recast_live (__main__.TestBrief.test_e13_commit_source_is_not_recast_live) ... ok
+test_e14_published_held_stays_held (__main__.TestBrief.test_e14_published_held_stays_held) ... ok
+test_e15_multiple_lanes_all_listed (__main__.TestBrief.test_e15_multiple_lanes_all_listed) ... ok
+test_e16_derived_from_retained_reader_summary (__main__.TestBrief.test_e16_derived_from_retained_reader_summary)
+DERIVED-FROM-RETAINED-SUMMARY: facts from 0508 reader05.13/verification.json demo summary only. ... ok
+test_e17_malformed_inputs_refuse (__main__.TestBrief.test_e17_malformed_inputs_refuse) ... ok
+test_e18_projection_inspector_or_helper_drift_refuses_before_launch (__main__.TestBrief.test_e18_projection_inspector_or_helper_drift_refuses_before_launch) ... ok
+test_e19_utf8_and_no_mutation (__main__.TestBrief.test_e19_utf8_and_no_mutation) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 38.079s
+
+OK
+```
+
+## brief b-run3: 19 tests, default mode, -v; final code
+```
+test_e01_returned_awaiting_review (__main__.TestBrief.test_e01_returned_awaiting_review) ... ok
+test_e02_bound_held_keeps_followup (__main__.TestBrief.test_e02_bound_held_keeps_followup) ... ok
+test_e03_bound_accepted_terminal_completes_as_fixture_label (__main__.TestBrief.test_e03_bound_accepted_terminal_completes_as_fixture_label) ... ok
+test_e04_text_only_accepted_stays_open (__main__.TestBrief.test_e04_text_only_accepted_stays_open) ... ok
+test_e05_fenced_release_line_cannot_authorize (__main__.TestBrief.test_e05_fenced_release_line_cannot_authorize) ... ok
+test_e06_unknown_release_is_unprojected_not_coerced (__main__.TestBrief.test_e06_unknown_release_is_unprojected_not_coerced) ... ok
+test_e07_stale_receipt_requires_re_review (__main__.TestBrief.test_e07_stale_receipt_requires_re_review) ... ok
+test_e08_two_current_members_are_ambiguous (__main__.TestBrief.test_e08_two_current_members_are_ambiguous) ... ok
+test_e09_current_and_same_origin_retrospective_both_orders (__main__.TestBrief.test_e09_current_and_same_origin_retrospective_both_orders) ... ok
+test_e10_sole_retrospective_never_completes (__main__.TestBrief.test_e10_sole_retrospective_never_completes) ... ok
+test_e11_explicit_retrospective_candidate_is_a_conflict (__main__.TestBrief.test_e11_explicit_retrospective_candidate_is_a_conflict) ... ok
+test_e12_changed_source_against_decision (__main__.TestBrief.test_e12_changed_source_against_decision) ... ok
+test_e13_commit_source_is_not_recast_live (__main__.TestBrief.test_e13_commit_source_is_not_recast_live) ... ok
+test_e14_published_held_stays_held (__main__.TestBrief.test_e14_published_held_stays_held) ... ok
+test_e15_multiple_lanes_all_listed (__main__.TestBrief.test_e15_multiple_lanes_all_listed) ... ok
+test_e16_derived_from_retained_reader_summary (__main__.TestBrief.test_e16_derived_from_retained_reader_summary)
+DERIVED-FROM-RETAINED-SUMMARY: facts from 0508 reader05.13/verification.json demo summary only. ... ok
+test_e17_malformed_inputs_refuse (__main__.TestBrief.test_e17_malformed_inputs_refuse) ... ok
+test_e18_projection_inspector_or_helper_drift_refuses_before_launch (__main__.TestBrief.test_e18_projection_inspector_or_helper_drift_refuses_before_launch) ... ok
+test_e19_utf8_and_no_mutation (__main__.TestBrief.test_e19_utf8_and_no_mutation) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 64.200s
+
+OK
+```
+
+## brief b-run4: 19 tests, dev mode, disposable copy; final code
+```
+...................
+----------------------------------------------------------------------
+Ran 19 tests in 27.594s
+
+OK
+```
+
+## brief mutations, first run (before the display change)
+```
+raw-release-line-authorizes: exit 1; failing ['test_e05_fenced_release_line_cannot_authorize']
+source-sha-mismatch-ignored: exit 1; failing ['test_e12_changed_source_against_decision']
+unknown-coerced-to-pending: exit 1; failing ['test_e06_unknown_release_is_unprojected_not_coerced']
+reader-primary-as-candidate: exit 1; failing ['test_e08_two_current_members_are_ambiguous']
+```
+
+## brief mutations, rerun on the final code
+```
+raw-release-line-authorizes: exit 1; failing ['test_e05_fenced_release_line_cannot_authorize']
+source-sha-mismatch-ignored: exit 1; failing ['test_e12_changed_source_against_decision']
+unknown-coerced-to-pending: exit 1; failing ['test_e06_unknown_release_is_unprojected_not_coerced']
+reader-primary-as-candidate: exit 1; failing ['test_e08_two_current_members_are_ambiguous']
+```
+
+## end-to-end demo b-demo1: dev mode; first demo, before the display change
+```
+fixture member book C:\Users\misg\AppData\Local\Temp\pbr-st-pq7hb0o2\book
+input C:\Users\misg\AppData\Local\Temp\pbr-st-pq7hb0o2\demo-input.json
+
+Prime brief (fixture)  scope 00.00.10.work  inspected True
+
+Every state below is derived from SUPPLIED fixtures. Nothing here is a decision.
+
+
+
+Awaiting review (1)
+
+  - 0507.prime-support/05.31  [live  00.kernel/00.00.10.work/0507.prime-support/05.31.md]  returned-awaiting-review: returned-awaiting-review
+
+
+
+Correction required / held (1)
+
+  - 0507.prime-support/05.32  [live  00.kernel/00.00.10.work/0507.prime-support/05.32.md]  open-correction-required: review correction-required; the item stays open until an explicit resolution
+
+      followup: 0507.prime-support/05.37 (fixture follow-up)
+
+
+
+Completed FIXTURES (derived label; not approval) (1)
+
+  - 0507.prime-support/05.34  [live  00.kernel/00.00.10.work/0507.prime-support/05.34.md]  completed: completed
+
+
+
+Conflicts (0)
+
+
+
+Other open (1)
+
+  - 0507.prime-support/05.33  [live  00.kernel/00.00.10.work/0507.prime-support/05.33.md]  open-review-unresolved: review present without a validated candidate binding; nothing is closed
+
+
+
+Unreleased (0)
+
+
+
+Unprojected / needs resolution (2)
+
+  - 0507.prime-support/05.35  [live  00.kernel/00.00.10.work/0507.prime-support/05.35.md]  release and claim unknown: no SUPPLIED coordination record (raw reader lines are evidence, not decisions)
+
+  - 0507.prime-support/05.36  [live  00.kernel/00.00.10.work/0507.prime-support/05.36.md]  coordination is bound to a different source sha256 (changed source against decision)
+
+
+
+authority none; a brief selects, releases, accepts and dispatches nothing
+
+exit 1 (1 = brief with attention or unprojected items)
+
+SYNTHETIC fixtures only. Nothing was written, selected or dispatched. No authority was granted.
+```
+
+## end-to-end demo b-demo2: default mode; final code
+```
+fixture member book C:\Users\misg\AppData\Local\Temp\pbr-st-ka8ljyxe\book
+input C:\Users\misg\AppData\Local\Temp\pbr-st-ka8ljyxe\demo-input.json
+
+Prime brief (fixture)  scope 00.00.10.work  inspected True
+
+Every state below is derived from SUPPLIED fixtures. Nothing here is a decision.
+
+
+
+Awaiting review (1)
+
+  - 0507.prime-support/05.31  [live  00.kernel/00.00.10.work/0507.prime-support/05.31.md]  returned-awaiting-review
+
+
+
+Correction required / held (1)
+
+  - 0507.prime-support/05.32  [live  00.kernel/00.00.10.work/0507.prime-support/05.32.md]  open-correction-required: review correction-required; the item stays open until an explicit resolution
+
+      followup: 0507.prime-support/05.37 (fixture follow-up)
+
+
+
+Completed FIXTURES (derived label; not approval) (1)
+
+  - 0507.prime-support/05.34  [live  00.kernel/00.00.10.work/0507.prime-support/05.34.md]  completed
+
+
+
+Conflicts (0)
+
+
+
+Other open (1)
+
+  - 0507.prime-support/05.33  [live  00.kernel/00.00.10.work/0507.prime-support/05.33.md]  open-review-unresolved: review present without a validated candidate binding; nothing is closed; historical retrospective member(s), never current: 0103.retro
+
+
+
+Unreleased (0)
+
+
+
+Unprojected / needs resolution (2)
+
+  - 0507.prime-support/05.35  [live  00.kernel/00.00.10.work/0507.prime-support/05.35.md]  release and claim unknown: no SUPPLIED coordination record (raw reader lines are evidence, not decisions)
+
+  - 0507.prime-support/05.36  [live  00.kernel/00.00.10.work/0507.prime-support/05.36.md]  coordination is bound to a different source sha256 (changed source against decision)
+
+
+
+authority none; a brief selects, releases, accepts and dispatches nothing
+
+exit 1 (1 = brief with attention or unprojected items)
+
+SYNTHETIC fixtures only. Nothing was written, selected or dispatched. No authority was granted.
+```
+
+## end-to-end demo b-demo3: dev mode, disposable copy; final code
+```
+fixture member book C:\Users\misg\AppData\Local\Temp\pbr-st-94fve5z8\book
+input C:\Users\misg\AppData\Local\Temp\pbr-st-94fve5z8\demo-input.json
+
+Prime brief (fixture)  scope 00.00.10.work  inspected True
+
+Every state below is derived from SUPPLIED fixtures. Nothing here is a decision.
+
+
+
+Awaiting review (1)
+
+  - 0507.prime-support/05.31  [live  00.kernel/00.00.10.work/0507.prime-support/05.31.md]  returned-awaiting-review
+
+
+
+Correction required / held (1)
+
+  - 0507.prime-support/05.32  [live  00.kernel/00.00.10.work/0507.prime-support/05.32.md]  open-correction-required: review correction-required; the item stays open until an explicit resolution
+
+      followup: 0507.prime-support/05.37 (fixture follow-up)
+
+
+
+Completed FIXTURES (derived label; not approval) (1)
+
+  - 0507.prime-support/05.34  [live  00.kernel/00.00.10.work/0507.prime-support/05.34.md]  completed
+
+
+
+Conflicts (0)
+
+
+
+Other open (1)
+
+  - 0507.prime-support/05.33  [live  00.kernel/00.00.10.work/0507.prime-support/05.33.md]  open-review-unresolved: review present without a validated candidate binding; nothing is closed; historical retrospective member(s), never current: 0103.retro
+
+
+
+Unreleased (0)
+
+
+
+Unprojected / needs resolution (2)
+
+  - 0507.prime-support/05.35  [live  00.kernel/00.00.10.work/0507.prime-support/05.35.md]  release and claim unknown: no SUPPLIED coordination record (raw reader lines are evidence, not decisions)
+
+  - 0507.prime-support/05.36  [live  00.kernel/00.00.10.work/0507.prime-support/05.36.md]  coordination is bound to a different source sha256 (changed source against decision)
+
+
+
+authority none; a brief selects, releases, accepts and dispatches nothing
+
+exit 1 (1 = brief with attention or unprojected items)
+
+SYNTHETIC fixtures only. Nothing was written, selected or dispatched. No authority was granted.
+```

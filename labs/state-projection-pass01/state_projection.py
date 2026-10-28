@@ -182,6 +182,8 @@ def inspect(members_book: str, member: str) -> dict:
     if d["status"] == "complete" and (not isinstance(origin, dict) or not all(isinstance(origin.get(k), str) for k in ("book", "page", "batch"))
                                       or not match(HEX64, cap.get("receipt_sha256"))):
         return dict(rec, observation="failed", reason="complete report lacks a usable origin or receipt")
+    if d["status"] == "complete" and type(cap.get("retrospective")) is not bool:  # SP-05: an actual boolean or nothing
+        return dict(rec, observation="failed", reason="complete report lacks a boolean retrospective flag")
     return dict(rec, status=d["status"], origin=origin, receipt_sha256=(cap or {}).get("receipt_sha256"),
                 retrospective=(cap or {}).get("retrospective"))
 
@@ -202,6 +204,9 @@ def custody(o: dict, scope_book: str, inspections: list[dict] | None) -> dict:
     for ins in inspections:
         if ins["observation"] != "ok":
             failed.append(ins["member"])
+        elif ins["status"] == "complete" and ins["origin"] == want and ins["retrospective"] is True:
+            out["secondary"].append({"member": ins["member"], "origin": ins["origin"], "retrospective": True,
+                                     "historical": "same-origin retrospective"})  # SP-05: never a candidate
         elif ins["status"] == "complete" and ins["origin"] == want:
             matching.append(ins)
         elif ins["status"] == "complete":
@@ -212,6 +217,9 @@ def custody(o: dict, scope_book: str, inspections: list[dict] | None) -> dict:
     cand = r["candidate"]
     if cand is not None:
         hit = next((m for m in matching if m["member"] == cand), None)
+        if hit is None and any(s.get("historical") and s["member"] == cand for s in out["secondary"]):
+            out["custody"] = "candidate-historical"
+            return out
         if hit is None:
             out["custody"] = "candidate-mismatch"
             return out
@@ -255,6 +263,9 @@ def project_batch(o: dict, scope_book: str, inspections: list[dict] | None) -> d
     elif b is not None and b["terminal"] == "completed" and b["disposition"] != "accepted":
         life = "conflict-contradictory-review"
         attention.append("a terminal completion with a non-accepted disposition")
+    elif live["custody"] == "candidate-historical":
+        life = "conflict-candidate"
+        attention.append("declared candidate is a retrospective (historical) capture")
     elif live["custody"] == "candidate-mismatch":
         life = "conflict-candidate"
         attention.append("the declared candidate is not a complete member with this origin book/page/batch")
