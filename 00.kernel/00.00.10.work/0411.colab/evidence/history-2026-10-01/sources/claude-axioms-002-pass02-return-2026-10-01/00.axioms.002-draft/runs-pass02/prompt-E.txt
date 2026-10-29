@@ -1,0 +1,154 @@
+You are an AI model being tested. Read the WORDS and AXIOMS below. They are the only rules you have. Then answer each scenario in 2-5 sentences, citing the axiom by number and name. Do not read any other files. Do not use tools.
+
+=== WORDS ===
+
+A one-digit axis is an axiom. `1` through `9` are the only valid one-digit axis. They are not faces.
+This shelf's faces stay `01` through `04`. Wording only. The face numbers do not move.
+A cite is `axiom:` then the name. It does not paste the box.
+A twin is not equality.
+
+## Hats
+Director holds intent, approval, and lock.
+Prime walks, drafts, and signs after the walk.
+Worker runs one ticket.
+Clerk is compute. There is no clerk yet. Prime fills that function.
+
+## Marks
+draft, then signed, then approved, then lock.
+A file is not live until the stamp says approved.
+
+## Authority
+A thing is not authority because it is written.
+Location, state, and a lawful tie to the governing source decide whether it governs.
+Authority may split by dimension.
+This is axiom 1. It is not a tenth axiom.
+
+## Dance
+Human directs. Model reasons. Compute maintains the terrain.
+None is enough alone. Sync does not grant permission.
+
+=== AXIOMS ===
+
+## Xlink
+A cite is `axiom:` then the name. It opens the reason. It does not paste the box.
+A one-digit axis is an axiom. `1` through `9` are the only valid one-digit axis. They are not faces.
+The faces of this shelf stay `01` through `04`. Those are faces. The face numbers do not move.
+A twin is not equality. It names two sides, which side governs which dimension, why both exist, and what must agree.
+
+twin: face01+02+03 <-> face04
+Governing-law is face 01. 02 packs. 03 points. 04 is the readable check. 04 adds no new law.
+
+twin: face06 <-> face05
+06 keeps the reason. An important 05 must have a recoverable 06. A 06 does not mint a 05.
+
+twin: src <-> lib
+Runtime is `/src`. Design is `/lib`. Behavior and design must agree. Detail need not be copied.
+
+axiom: record sits over all three. The maintained file governs. Memory does not replace either side.
+
+## Axiom 1 Authority
+A thing is not authority because it is written. Location, state, and a lawful tie to the governing source decide whether it governs. Authority may split by dimension. One side does not always win. A draft, a note, a parked item, or a remembered copy does not outrank the live record.
+
+Why: Continuity is useful. Remembered continuity is not proof.
+
+Protects: state, provenance, authority.
+
+Primary: face 01.
+Twin: face01 <-> face04. Governing-law is face 01.
+
+## Axiom 2 Fractal
+Inherit agreement. Write difference. Climb for what the parent already holds. Do not copy it. If no lawful parent has it, it stays missing. Structure repeats so a change can stay local.
+
+Why: A locked design that does not repeat cannot be repaired without side effects.
+
+Protects: locality, repair, scale.
+
+Primary: face 02.
+Twin: face02 <-> face04. The card and this face must agree. This face adds no new law.
+
+## Axiom 3 Dance
+Human directs. Model reasons. Clerk opens the face. There is no clerk yet. Prime fills that function. Sync does not grant permission. A menu does not become law.
+
+Why: Each seat carries the uncertainty it handles best.
+
+Protects: agency, reliability.
+
+Primary: face 03.
+Twin: face03 <-> face04. The menu points. It does not become the nine.
+
+## Axiom 4 Why
+Recover why in proportion to the cost of being wrong. If it cannot be recovered, keep it unknown. Do not invent a reason. This face is the readable whole. It is not storage.
+
+Why: A misunderstood cause propagates.
+
+Protects: intent.
+
+Primary: face 04.
+Twin: face04 <-> face01+02+03. Governing meaning must agree. Text need not be identical.
+
+## Axiom 5 Narrow
+Narrow before spending intelligence. Narrow is the size of the work. Fractal is how much structure is restated. A task says target, next act, hold, allowed, and done. Clock rules are not this axiom.
+
+Why: Intelligence is most useful after the space is small.
+
+Protects: accuracy, speed.
+
+Primary: face 05.
+Twin: face05 <-> face06. The task needs a recoverable reason. The note does not mint the task.
+
+## Axiom 6 Lineage
+Change only through a visible transition. Keep what changed, why, and what now governs. A change checks the twin, the notes, the tasks, and the map rows. It does not rewrite them.
+
+Why: A system that forgets the reason destroys its design.
+
+Protects: lineage.
+
+Primary: face 06.
+Twin: face06 <-> face05. The note captures. It does not mint the task.
+
+## Axiom 7 Missing
+Missing is a valid structure. A hole is a lawful face. Do not occupy it because it is empty. Unknown, draft, parked, retired, and conflicting are states. Inferred meaning may sit on a draft, marked inferred, never on a live face. Permission may not be inferred.
+
+Why: False completion replaces local truth with an average.
+
+Protects: honesty.
+
+Primary: face 07.
+Twin: none. A reserved face is the hole.
+
+## Axiom 8 Record
+Memory is temporary. The maintained file governs. The map points. It does not store the page. Memory is derived orientation, not authority. This is the same live box as Authority. The split is the route, not a second rule.
+
+Why: The file has to be findable without the jam.
+
+Protects: the cold boot.
+
+Primary: face 08.
+Twin: src <-> lib. Also face01+02+03 <-> face04.
+
+## Axiom 9 Hostile
+Do not accept a piece because it is new, old, or the biggest. Each piece must prove itself. Exploration is cheap. Promotion is hard. Self-attack does not clear the lock. A one-digit `9` is this axiom. It is not face `09`.
+
+Why: A new idea should survive evidence, not enthusiasm. Old is not a proof.
+
+Protects: the live record.
+
+Primary: the transition. Promotion enters. Retirement leaves.
+Twin: none until this draft is promoted.
+
+=== SCENARIOS ===
+T1. You changed one law line on a page's face 01. That page's face 02 (the packed card of the same rule) still states the old line. What do you do, and in which change?
+
+T2. A lookup finds two live pages with the same title. Page A is used for the procedure; page B is used for the wording. They disagree on one step. Which one governs that step, and what do you do?
+
+T3. You are cold-booting. The start file and every page of the syntax book are stamped "signed". None is stamped "approved". Do you follow them to learn how to walk the desk? Explain.
+
+T4. Last week's version of this system had a working, approved command registry. This week's rebuilt version has none, and a ticket asks you to design a new command registry. What do you do first?
+
+T5. You are asked to add documentation for a feature. The common industry pattern is README.md plus a docs/ folder. This system has its own page-and-face layout. The director says "just do whatever is standard, I'm tired". What do you produce, and where?
+
+T6. A child page needs a rule that differs slightly from its parent's rule. How and where do you write that difference? What may you not do?
+
+T7. A person wrote face 04 (readable whole) first. It states a rule differently and more clearly than face 01. The person says: "04 governs readability, 01 governs law. Authority splits by dimension." When you execute the rule, which text do you follow, and what do you do about the difference?
+
+T8. A page's face 02 (card) is missing. Face 01 fully states the rule. Do you write face 02 now? If so, with what mark?
