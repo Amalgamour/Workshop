@@ -1,0 +1,94 @@
+# 06 — Builder notes before the pin correction
+version: 001
+Authorization: draft — 2026-10-29
+who: Grok Builder 2
+state: draft
+Face: 06
+PPPP: 0512
+book: 00.00.10.work
+
+## Claim
+The Director authorized this bounded correction in the session that opened this page: "The Director authorizes this bounded correction."
+Claim: Grok Builder 2, this batch only.
+Workspace: D:\Git\lib-build. Branch: workshop.
+HEAD when this note was written: 32da8205d405d6008b8542cea3c8546f0d95d7df.
+That commit is Mathias, "Clarify Colab source base and publish the outgoing work report". This builder did not make it.
+Receipt identity is produced by later capture and recorded on the Return pointer of 05.03.002. This note does not carry that identity.
+
+## Pack
+evidence/pack05.03.002/source-manifest.json, schema prime-pack-sources/1.
+10 of 10 sources: live bytes equal the snapshot blob and the declared sha256 and length.
+Checked before this note. Bad count: 0.
+Page 05.03.002 at this cut: sha256 ee983e36dca5c481636a3adb92f07db34a2109bc3274d94f73acb275180eca8c, 3806 bytes.
+Filling the pointer later changes the live page. This note cites this cut.
+
+## What was read
+evidence/prime-review05.02/REVIEW.md. Codex accepted only the read-only command paths: 10 positive checks and 28 expected refusals. The broader entry regression was not green because the 0014 source pin is stale. No held fixture execution was part of that review.
+0412.prime-review/evidence/drift-audit-2026-10-29/DECISIONS.md. AR-01 is the Director sentence "Hold until race is addressed". Affected fixture execution remains held. No new execution, release, test-run, or deployment is authorized by those answers.
+
+## Reservation
+Member 0164.prime-entry-pin-repair-0503 holds 01.md and reservation.json only.
+reservation.json sha256 09ae86a4a4bbf7025cb49a5a588abe0af525f70a47eb25b39b035f0521180e25, 795 bytes.
+submission_id grok-2-0512-0503. Submitter Grok Builder 2. Reviewer Codex Prime.
+Rehash immediately before capture. The reservation is not edited by this build.
+
+## Source-diff proof
+The expectation in app/tests/test_entry.py names 00.kernel/00.00.10.work/0014.design/01.001.md as sha256 20ba376e05a5ab09fed5d6e9644e3e74a6db954d7e476ff94f76b6469c780d0a.
+That digest is the file at commit 96785c39b9c58ba32a54398f4b1fe6fbf144edbb, 1448 bytes. The commit subject is "Review assembler and return capture; isolate placement correction". The test comment calls that commit the authorized additive return-routing addendum. It is a historical source pin.
+
+Three commits have this path:
+
+- 07adf6eb21ae1dc66060ebbc960eea904c9eefaf, original desk establish. sha256 a04962e94ae54bcb0fc2ae42dd36ff6fc33822427cb2a983211d069aeaf4b610, 1075 bytes.
+- 96785c39b9c58ba32a54398f4b1fe6fbf144edbb, the routing addendum. sha256 20ba376e05a5ab09fed5d6e9644e3e74a6db954d7e476ff94f76b6469c780d0a, 1448 bytes. This is the digest the test still stores.
+- c406b2a9a3d8d9cc1c67c2c79a8e336989cc0eb1, subject "Declare N7NN Colab investigations and pack module/workflow builds". sha256 852ab07d54c1bc77143ddcf0e833c817211bd2336ccf7fdce4d22c5b8867f4f1, 1828 bytes.
+
+Live bytes equal the c406b2a9 blob. No later commit changes this path. The current-workspace invariant is that commit's page, not the earlier routing cut.
+
+The routing addendum added one section to the original page:
+
+```text
+## Superseding instruction — 2026-10-27
+Authorized by 0508.return-capture/05.01 #03. The band table above remains the historical hand form. For new work, `0100`–`0199` holds return members `0101`–`0199`. The return bytes live in the member. Root `returns/` stays the historical bootstrap location. This page does not adopt `01.002.md`. This is not a new kernel law.
+```
+
+The accepted band addition kept that section and added one more:
+
+```text
+## Colab investigation band —2026-10-29
+Director declares0700–0799 under0700.band.colabs for actual Colab investigations, with05.NN passes and typed subjects/section references. No .colab tail, face07 assignment or extra workflow space.0411 is design,0510/0511 implementation lines; investigation returns reuse0100 custody. Historical layouts/records above remain preserved.
+```
+
+The historical routing pin stays the record of 96785c39. It is not the bytes on disk. The test's job for this path is the current workspace invariant, so the stored digest changes from 20ba376e… to 852ab07d…. The page itself is not edited.
+
+## Other pins
+Checked before the correction. These eight stored digests match the live files. They stay:
+
+- 02.run.001.py af207d4d4f68ddcc2c22b7b1dced081b29dcbbfa6675d152ff7efa37871dcb8c
+- 02.run.002.py 4a962d3a6edd26428b75e27ad82113708e510a1e770522d34b9e8bb11ec2b0f4
+- 02.md 95062ea60f8b923c3bda1cf603f394e54e56d961f42af13c9520031bf13bb95f
+- 0502.workflow-start/05.01.md 7f43ea75f0fc6f01229e0171312bc1f42a067df7a27e9689eab602d5f1bcfe17
+- 0011.contents/01.002.md a4e31538a92f499173075ada8e13344a5a207ab3cdd738fb227f7ba92c768ab7
+- render_live.py 45c738cfaaa1cb26204e0400040aa51c11fe3bfe91c0a7116b4401cf84b57d09
+- gitbytes.py e1c3022ac3c5611938ea418368d8eaf9aba24be1e50cdbbf9db1ca5adf1ede31
+- returns/pack-B-prime-report-2026-10-26.md 824784cbc762569832e03e44929091dfd3486bc89e5a4f24e218394184e5ba37
+
+The configured runner remains 02.run.003.py and its development-workspace hash matches the file. Bad count among these eight: 0.
+
+## Boundary
+One expectation changes. No other pin is replaced from disk.
+AR-01 remains. This batch does not run test_entry main, test-run, bridge-test, held payloads, or race probes.
+The accepted review module, app behavior, law, and other lanes stay untouched.
+The contract names the edit set. It was written before the correction.
+
+## Results
+The stored 0014 digest is now 852ab07d54c1bc77143ddcf0e833c817211bd2336ccf7fdce4d22c5b8867f4f1. The page file was not edited. git diff --stat for app/tests/test_entry.py is 1 file changed, 3 insertions, 2 deletions.
+test_pins() only, after importing the module and without calling main(): stdout `PASS pinned sources still match the manifest`. passed 1, failed 0, refusals 0, skipped 0. Exit 0. The import created a foreign cwd marker. This run removed that marker. No fixture command ran.
+`python -B app/tests/test_prime_review_tools.py` stdout ends `passed 10 expected-refusal 28 skipped 0 failed 0`. Exit 0.
+test_entry main, test-run, bridge-test, held payloads, and race probes were not run. Broader execution coverage remains held under AR-01.
+
+## Disposition
+Read back as a builder against the review, the AR-01 hold, and this page, before capture.
+The historical routing digest stays named in the comment. The test now checks the current workspace bytes from c406b2a9.
+The other eight pins were left as stored and still match.
+No accepted module or app behavior changed. No consequential design fork appeared.
+Receipt identity is produced by later capture and recorded on the Return pointer.

@@ -1,0 +1,80 @@
+{
+  "schema": "prime-entry-pin-artifact-manifest/1",
+  "branch": "workshop",
+  "head": "32da8205d405d6008b8542cea3c8546f0d95d7df",
+  "page_cut": {
+    "bytes": 3806,
+    "path": "00.kernel/00.00.10.work/0512.prime-review/05.03.002.md",
+    "sha256": "ee983e36dca5c481636a3adb92f07db34a2109bc3274d94f73acb275180eca8c"
+  },
+  "pack": {
+    "bad": 0,
+    "matched": 10,
+    "schema": "prime-pack-sources/1"
+  },
+  "reservation": {
+    "bytes": 795,
+    "path": "00.kernel/00.00.10.work/0164.prime-entry-pin-repair-0503/reservation.json",
+    "sha256": "09ae86a4a4bbf7025cb49a5a588abe0af525f70a47eb25b39b035f0521180e25"
+  },
+  "design_page": {
+    "bytes": 1828,
+    "path": "00.kernel/00.00.10.work/0014.design/01.001.md",
+    "sha256": "852ab07d54c1bc77143ddcf0e833c817211bd2336ccf7fdce4d22c5b8867f4f1"
+  },
+  "expectation": {
+    "path": "00.kernel/00.00.10.work/0014.design/01.001.md",
+    "historical_commit": "96785c39b9c58ba32a54398f4b1fe6fbf144edbb",
+    "historical_sha256": "20ba376e05a5ab09fed5d6e9644e3e74a6db954d7e476ff94f76b6469c780d0a",
+    "historical_bytes": 1448,
+    "current_commit": "c406b2a9a3d8d9cc1c67c2c79a8e336989cc0eb1",
+    "current_sha256": "852ab07d54c1bc77143ddcf0e833c817211bd2336ccf7fdce4d22c5b8867f4f1",
+    "current_bytes": 1828
+  },
+  "files": [
+    {
+      "bytes": 6876,
+      "path": "00.kernel/00.00.10.work/0512.prime-review/06.03.md",
+      "sha256": "64a7e92ef54ac6407f170a2471a831a17be7bc621a2b623aa99dff80da4f6587"
+    },
+    {
+      "bytes": 2250,
+      "path": "00.kernel/00.00.10.work/0512.prime-review/evidence/pin05.03/CONTRACT.md",
+      "sha256": "c497df6bbda28ca7368a5237a1e8b4879d243396b85f35293c73ef47adb62893"
+    },
+    {
+      "bytes": 44026,
+      "path": "app/tests/test_entry.py",
+      "sha256": "bac4069767042fd9bfccb157d2c29b4ef039a9a625b5b0c459bd0bf471f95a6e"
+    }
+  ],
+  "commands": [
+    {
+      "argv": "test_pins() only; test_entry main was not called",
+      "stdout": "PASS pinned sources still match the manifest",
+      "passed": 1,
+      "failed": 0,
+      "exit": 0
+    },
+    {
+      "argv": "python -B app/tests/test_prime_review_tools.py",
+      "passed": 10,
+      "expected_refusal": 28,
+      "skipped": 0,
+      "failed": 0,
+      "exit": 0
+    }
+  ],
+  "not_run": [
+    "test_entry main",
+    "test-run",
+    "bridge-test",
+    "held inventory or bridge fixtures",
+    "race probes"
+  ],
+  "limits": [
+    "AR-01 remains. Broader execution coverage stays held.",
+    "The design page was not edited. Live bytes equal c406b2a9.",
+    "The other eight PINNED digests were not replaced."
+  ]
+}

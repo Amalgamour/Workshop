@@ -1,0 +1,119 @@
+# 05.01 return — Can our Prime benchmark distinguish support benefits from measurement bias
+
+Submission grok-1-0701-0501. These bytes are the Colab return. They are not a review and they authorize no page change.
+
+## Identity
+Grok 4.7 (xAI), Grok Builder 1 acting as Colab. Session 01a179d2-387a-7661-8702-6e53f95e96b5. Date 2026-10-29.
+Prior involvement: in this workspace I built the Colab workflow in labs/colab-workflow-pass01 and labs/colab-workflow-pass02. This return criticizes the benchmark method. It is not a certification of that workflow. I did not read or edit Claude's unfinished harness.
+
+## Inputs actually read
+Resolved inside 0701.bench-method/package05.01/, then checked against the prepared package named by evidence/launch05.01.json. The prepared copies matched these bytes.
+
+- package05.01/ENTRY.md, sha256 b386ec961949783bee61cb731012662c057ae75baad161ab1dc278ba69810ba7, 4139 bytes.
+- package05.01/05.01.pack.md, sha256 4e40310798c0f47966366f2f9466a6ce07e9e0e88a2b9769f5bb04771ec140c3, 3490 bytes. This is the instruction source.
+- package05.01/06.01.notes.md, sha256 a4fbfbe6bd9409c0c8b73c6dcf2199b4015f31ac87019b3faf77da4268464290, 1964 bytes. Preparation notes, not a review.
+- snapshots/0001.blob = 00.kernel/00.00.10.work/0414.bench/01.md, sha256 d226c3b5d645b651b8b8d945cb3716da267d421509dd03572cb7254cf5d6e8be, 3311 bytes. Target T01, whole file.
+- snapshots/0002.blob = 00.kernel/00.00.10.work/0414.bench/06.01.md, sha256 3ed826e1be9fb576d66311b2eab97e803c4a1e410c260d7541be67b45b8faf1c, 649 bytes.
+- snapshots/0003.blob = 00.kernel/00.00.10.work/0412.prime-review/evidence/drift-audit-2026-10-29/DECISIONS.md, sha256 91c6c7a8c1759d3f35c1455df8df3f137b1b6154e382d1742b6f7e3f52eee739, 671 bytes.
+- templates/05.01.return.TEMPLATE.md, sha256 c06dff54ddfe90a4a20dbd8a9eeb78b2a5dc957e151c74d9a23aec606e974d0b, 1456 bytes.
+- package05.01/source-manifest.json. The three snapshot rows match the hashes above.
+- 0701.bench-method/03.002.md, the investigation menu.
+- evidence/launch05.01.json. Digest 9abb705bae1a0f919c1363f51b52b464b86e49c72131cf5bebb2a2e443076b69. The field package_sha256 equals the prepared ZIP, sha256 7d3c16bb31686bb95e8eb212d746921e6d7babdfa59b64c3beb672e4e5a640ba, 35531 bytes.
+- The reservation for 0165.bench-method-colab-0501, to read origin and the one expected output.
+- The local colab-config/2 named in the launch record, to run intake. I am not copying that config into this return.
+
+Pinned v2 verify of the prepared output returned result intact, exit 0, digest 9abb705bae1a0f919c1363f51b52b464b86e49c72131cf5bebb2a2e443076b69, investigation 00.00.10.work / 0701.bench-method / 05.01, commit 81c9db24a6ca812ea381a6bd00a804987a2f1b22. The verifier stdout contains a temporary path, so I am not storing it.
+
+I could not open Claude's active benchmark implementation. The package withholds it. I did not open it.
+
+## Answer
+The design already says the useful things: assistance need not win, sessions must be fresh, criteria come before answers, subscription percentages are not token cost, and a matched pair is not equal difficulty. Those sentences are cautions. They are not yet checks. A faster, shorter assisted report can still be an omitted conflicting record, a missed fork, a package edited after the other answer, or cost that sat outside the timer.
+
+Qualitative result: this method does not yet distinguish a support benefit from measurement bias. The smallest repairs are a sealed manifest diff, a commitment rubric scored on the proposed action, a preparer who stops before any return exists, and a cost log that keeps failures in the comparison. No score is invented here. No benchmark was run.
+
+The illustrations below use the supplied AR-01 decision as a specimen of conflicting evidence. They are method examples. They are not a report of an assisted run or a baseline run.
+
+## Cases
+C01. Unfair source parity. Result: the design can count a missing conflict as speed.
+
+The design says matched variants have equivalent decisive evidence and that both conditions receive equal task and source content. It also says exact sources are retained, and that matched cases do not guarantee equal difficulty. Nothing in those sentences compares the bytes each session received.
+
+Specimen. The baseline package contains both supplied records: the decision "Hold until race is addressed" and the later note that the pre-planted-name fix was verified. The assisted package keeps only the later note. The assisted session has less to read, finishes sooner, and can treat the fix as if it settled the race. A coordinator who then writes "exact sources" as a prose list of files each model mentioned can still call the variants matched, because both packages were "about the race."
+
+Repair. Seal both recipient manifests before either session. The only allowed difference is a pre-listed set of reviewed module interface files. Every other path needs the same sha256 and the same length. Recompute the manifests from the bytes the session actually received. A missing conflicting snapshot is a parity failure. That pair has no productivity reading. Parity still does not mean equal difficulty. The design's own warning on difficulty stays in force when the bytes match.
+
+Discriminating evidence. A pair whose manifests differ by the withheld decision is parity-fail even if the assisted answer is faster and agrees with the files it saw. A pair that differs only by the pre-listed interface files can be read for a support effect. A procedure that accepts the first pair as a win does not detect unfair source parity.
+
+C02. Missed Director fork. Result: a neat quote can hide a contradicted action.
+
+The design includes a Director-required design fork and says to check finding accuracy, appropriate escalation, and preservation of reasons and quotes. A string match on the official sentence rewards predetermined wording. A timer rewards the shorter file.
+
+Specimen, three illustrated returns about the supplied AR-01 answer. Return A quotes "Hold until race is addressed" and proposes no fixture execution. Return B quotes the same sentence and then proposes a test run of the affected inventory fixtures. Return C uses none of the official words. It says the name-fix result leaves the concurrent race unproved, and it proposes no execution, no release, and no deployment. A wording search marks A and B as hits and C as a miss. B missed the fork. C kept it. A neatness rule can prefer B because it is short and contains the official line.
+
+Repair. Before any answer, write the fork as commitments about the proposed next action. For this specimen the commitments are: the affected fixture class stays unexecuted; the name-fix result is not treated as proof that the race is safe; these answers authorize no new release or deployment. Score each commitment present, contradicted, or absent by reading the proposed action. A quote can show that a reason was preserved. A quote does not satisfy a commitment that the action contradicts. A paraphrase that keeps the commitments satisfies them. The word "hold", and any one required sentence, is not a point.
+
+Discriminating evidence. A and C meet the fork. B contradicts it. A rubric that groups A with B, or that rejects C, is still a wording test.
+
+C03. Contamination. Result: a fresh assisted session can still receive an input edited with knowledge of the baseline answer.
+
+The design says baseline and assisted work run in separate fresh sessions, and that one model solving both sequentially is not a clean comparison. The notes say the coordinator must not solve both conditions in the same context. The same coordinator is also told to prepare the runs and to collect them. Those sentences separate the models. They do not separate preparation from collection.
+
+Specimen. The baseline return arrives first and misses the hold. The coordinator then adds a highlighted copy of the decision to the assisted package, or deletes the file the baseline misread. The assisted model starts in a fresh session and never sees the baseline transcript. The fresh-session rule holds. The comparison is contaminated. A second form of the same leak: the coordinator writes the commitment rubric after seeing the baseline's particular mistake. The key is hidden from both models and is still fitted to one result. The design says to fix criteria before answers and to keep the assessment key away from the tested Prime. A key written after an answer fails that rule even when neither Prime sees the key.
+
+Repair. One preparer seals the case, both packages, the allowed interface diff, the commitment rubric, and the cost units, and stops before any evaluated return exists. Launch the two sessions from clean contexts. Neither receives the other's transcript, tool log, or the rubric. A collector who did not prepare the packages receives the returns and does not edit the seal. Record each package sha256 at seal time and again at collection. Record order. A hash change after the first return invalidates the pair. A rerun after a repair is a new pre-registered case, or it is logged as failed or abandoned on the original case. It does not replace that result.
+
+Discriminating evidence. An assisted package whose hash changes after the baseline return is contaminated even though both sessions were fresh. Matching hashes at seal and at collection close this leak. Session freshness alone does not show that the packages were isolated.
+
+C04. Hidden preparation and correction cost. Result: less typing inside the session is not less work.
+
+The design lists manual tool operations, elapsed time, usage and caching when exposed, and correction and reviewer effort. It says subscription percentages are not automatically token cost, and that failed and abandoned runs remain in the dataset. It does not say whose clock, what one operation is, or that a failure kept only in an archive still counts in the comparison.
+
+Specimen. The assisted session log shows a short elapsed time and module calls. Off that log, someone authored the package, repaired a rejected request, and asked the Director a question the baseline condition never asked. The comparison shows the in-session calls. The assisted side looks cheaper. The moved cost is invisible. I am not supplying counts for this specimen. A made-up tally would be a fake measurement.
+
+Repair. The report keeps these fields for every condition, and the field list is sealed before any ratio is written. Who prepared the package, and which edits happened before the session opened. Elapsed time with a named start and stop: first byte the session read, last byte of its return. Tool operations by tool name, including failed attempts, with one declared unit used for both conditions. Each correction loop: what was rejected, whether the change touched the task, the tool, or the answer, and who made it. Director and reviewer questions, and whether both conditions had the same question available. Failed and abandoned launches inside the comparison, not only in an archive. Usage only with its unit; a missing unit is unknown. Session order and whether a cache was already warm. Deviations from the sealed package. The report does not collapse these fields into a productivity multiple. The design already requires repeated balanced runs and unseen cases before that claim.
+
+Discriminating evidence. A lower in-session call count with a blank preparation log is an incomplete report. A report that fills the log can show a real drop in attention, or a cost that moved outside the timer. Those two reports are distinguishable without a score.
+
+## Actual operations
+I read the files listed above and compared the package snapshots with the prepared output. They matched. I ran the pinned v2 verifier once, as named in the launch record. Result intact, exit 0. I wrote this submission and evidence/pass05.01/recipient-notes.md. I did not write a return face or a review face on the investigation page. The intake and the fresh verify of member 0165 are the capture step after these bytes. This text does not contain their receipt.
+
+I did not run a held app fixture, launch a model, start a benchmark session, edit a source page, or write Git. The operations above are what this session did, not a self-graded score.
+
+## Hostile
+Failing path: an assisted report is shorter and faster, and the comparison calls that a support benefit. First misleading sentence in the design's First slice: "Matched variants with equivalent decisive evidence." "Matched" and "equivalent" name an intention. They do not name a byte check, so C01 can pass the sentence while failing parity. Missing relationship: fresh session isolation is not preparation isolation, so C03 survives the Roles rule as written. Protective rule: the AR-01 hold blocks execution of the affected inventory and bridge fixtures. That block is legitimate. A benchmark that treats the hold as a hole to fill by running those fixtures would break the hold. The design already points the harness at new synthetic records. A run of the held fixtures is outside this benchmark.
+
+## Factfind
+F01. Page 0414.bench, face 01, section First slice, snapshot 0001. The equal-content sentence has no manifest comparison. Observation: two packages can both be described as the same case while one omits a conflicting snapshot. Test: seal both manifests, allow only a pre-listed interface diff, and mark any other hash or length difference as parity-fail before the pair is read for speed.
+
+F02. Page 0414.bench, face 01, section Measurement, snapshot 0001. "Appropriate escalation" and "preservation of reasons/quotes" can be implemented as a sentence search. Observation: return B in C02 preserves the sentence and contradicts the fork; return C drops the sentence and keeps the fork. Test: score the three illustrated returns on the three commitments. A and C pass. B fails. A rubric that does otherwise is a wording test.
+
+F03. Page 0414.bench, face 01, section Roles and isolation, snapshot 0001, together with the coordinator sentence in snapshot 0002. Observation: the coordinator who prepares the assisted package is allowed, by the text, to have already collected the baseline return. Test: hash the assisted package at seal time and after the baseline return. A difference is contamination even when the assisted session is fresh.
+
+F04. Page 0414.bench, face 01, section Measurement, snapshot 0001. The cost list has no owner, no unit, and no rule that an archived failure stays in the published comparison. Observation: in-session calls can fall while authoring, repair, and a Director question sit outside the table. Test: a comparison that leaves the preparation and correction fields blank is incomplete. A comparison that omits a failed launch of the same sealed case is incomplete.
+
+F05. Snapshot 0003, AR-01, and snapshot 0001, section Build and use. The hold still says affected fixture execution remains held, and the name-fix verification did not prove the race safe. Observation: this return runs nothing. Test: a later harness result that executes the old inventory or bridge fixtures is not evidence for this benchmark while AR-01 stands.
+
+## Pack and tool defects
+The package states that measured baseline and assisted runs are unavailable because the harness has not been run. That is a tool limit. It is not a finding about the design.
+
+The launch record's package_sha256 equals prepared-colab.zip, not 05.01.pack.md. The pack file hash is 4e40310798c0f47966366f2f9466a6ce07e9e0e88a2b9769f5bb04771ec140c3. I treated the launch value as the ZIP. A later reader who treats it as the pack file will not find that hash.
+
+The verifier stdout names a temporary directory. I did not copy it into this return or into the notes.
+
+I did not find a missing snapshot. source-manifest.json listed three sources and all three opened.
+
+## Overflow
+The design's fourth case family is genuinely complete work. A rubric that counts findings as accuracy rewards extra proposed edits on a case whose right next action is no page change. The repair belongs with C02: score the proposed action against a pre-written commitment, and count unrequested edits as unnecessary work.
+
+The design says section identifiers stay separate. This return does not add one.
+
+The design says a contextual Colab may challenge the method before the first benchmark. This file is that challenge. It does not edit 0414.bench/01.md.
+
+## Unprompted
+Seal the manifest diff, the allowed interface list, the commitment rubric, and the cost units as one pre-session record before 0513 launches any model. Drop any published ratio whose cost log is blank. Refuse to replace a case with a rerun that edits the package. Investigate, without using the unfinished harness as evidence, whether ordinary read and search tools can open every byte the assisted module opens. If they cannot, the baseline is artificially helpless, which the design already forbids and does not yet check. I did not open the module code, so this last item is a question, not an observation of the harness.
+
+## Director replies
+none.
+
+## Limits
+This return does not establish that workshop support helps, hurts, or is neutral. It establishes places where the written method can mistake something else for help. It does not score a model. It does not review Claude's harness and does not know what that harness implements. It does not lift AR-01. A later capture receipt is custody, not acceptance, seating, or publication. My prior work on the Colab workflow means I am the wrong person to be the assisted subject for that module.

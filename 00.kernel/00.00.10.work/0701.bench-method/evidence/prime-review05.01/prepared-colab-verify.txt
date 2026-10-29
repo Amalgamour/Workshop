@@ -1,0 +1,142 @@
+{
+  "assembler_verify": {
+    "args": [
+      "verify",
+      "--pack",
+      "<temporary projection>",
+      "--checker",
+      "<pinned checker>",
+      "--json"
+    ],
+    "exit": 0,
+    "stderr": "",
+    "stdout": "{\n  \"schema\": \"pack-assembly-report/1\",\n  \"command\": \"verify\",\n  \"result\": \"intact\",\n  \"digest\": null,\n  \"supplied_digest\": null,\n  \"template\": \"pack-assembly-draft/1\",\n  \"commit\": null,\n  \"request_sha256\": null,\n  \"request_bytes\": null,\n  \"batch\": null,\n  \"sources\": [],\n  \"planned\": [],\n  \"target\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\colab2-verify-lxa9l14s\\\\pack\",\n  \"checker\": {\n    \"sha256\": \"9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d\",\n    \"bytes\": 21563,\n    \"result\": \"pass\",\n    \"exit\": 0,\n    \"rows_checked\": 3\n  },\n  \"receipt\": \"completion-receipt.json\",\n  \"findings\": [],\n  \"not_checked\": [\n    {\n      \"item\": \"meaning\",\n      \"detail\": \"This tool does not say what the draft means.\"\n    },\n    {\n      \"item\": \"instruction-sufficiency\",\n      \"detail\": \"This tool does not decide whether the instructions are sufficient.\"\n    },\n    {\n      \"item\": \"approval-release\",\n      \"detail\": \"This tool does not approve or release the draft. A receipt is not acceptance.\"\n    },\n    {\n      \"item\": \"dependencies\",\n      \"detail\": \"Dependencies are copied as supplied or left unresolved. None are installed or fetched.\"\n    },\n    {\n      \"item\": \"execution-safety\",\n      \"detail\": \"Request text and pinned sources are data. This tool does not execute them.\"\n    },\n    {\n      \"item\": \"return-slot\",\n      \"detail\": \"Live return-slot allocation is not checked.\"\n    },\n    {\n      \"item\": \"clerk-readiness\",\n      \"detail\": \"Clerk readiness is not checked.\"\n    }\n  ]\n}\n",
+    "tool": "assembler"
+  },
+  "command": "verify",
+  "commit": "81c9db24a6ca812ea381a6bd00a804987a2f1b22",
+  "digest": "9abb705bae1a0f919c1363f51b52b464b86e49c72131cf5bebb2a2e443076b69",
+  "exchange": {
+    "notes": "06.01.notes.md",
+    "pack": "05.01.pack.md",
+    "pass": "05.01",
+    "return_name": "05.01.return.md",
+    "return_template": "templates/05.01.return.TEMPLATE.md",
+    "review_name": "06.01.review.md",
+    "review_template": "templates/06.01.review.TEMPLATE.md"
+  },
+  "findings": [],
+  "investigation": {
+    "book": "00.00.10.work",
+    "page": "0701.bench-method",
+    "pass": "05.01"
+  },
+  "layout": "colab-exchange-layout/2",
+  "not_checked": [
+    "meaning, adequacy and design findings",
+    "authenticity of labels and quoted replies",
+    "permission: nothing is released, reviewed, accepted, seated or published",
+    "workflow integration: no consumer of this layout has been reviewed"
+  ],
+  "planned": [
+    {
+      "bytes": 3490,
+      "path": "package/05.01.pack.md",
+      "sha256": "4e40310798c0f47966366f2f9466a6ce07e9e0e88a2b9769f5bb04771ec140c3"
+    },
+    {
+      "bytes": 1964,
+      "path": "package/06.01.notes.md",
+      "sha256": "a4fbfbe6bd9409c0c8b73c6dcf2199b4015f31ac87019b3faf77da4268464290"
+    },
+    {
+      "bytes": 4139,
+      "path": "package/ENTRY.md",
+      "sha256": "b386ec961949783bee61cb731012662c057ae75baad161ab1dc278ba69810ba7"
+    },
+    {
+      "bytes": 565,
+      "path": "package/binding.json",
+      "sha256": "6ad812e7868428b985c03648cd2b167a77208f000bef37e46b113887c5989861"
+    },
+    {
+      "bytes": 5799,
+      "path": "package/colab-request.json",
+      "sha256": "e7f78a23d6f19c1533d863436c0681b3c0010cd546b96ee92030a6184dd10f44"
+    },
+    {
+      "bytes": 3311,
+      "path": "package/snapshots/0001.blob",
+      "sha256": "d226c3b5d645b651b8b8d945cb3716da267d421509dd03572cb7254cf5d6e8be"
+    },
+    {
+      "bytes": 649,
+      "path": "package/snapshots/0002.blob",
+      "sha256": "3ed826e1be9fb576d66311b2eab97e803c4a1e410c260d7541be67b45b8faf1c"
+    },
+    {
+      "bytes": 671,
+      "path": "package/snapshots/0003.blob",
+      "sha256": "91c6c7a8c1759d3f35c1455df8df3f137b1b6154e382d1742b6f7e3f52eee739"
+    },
+    {
+      "bytes": 837,
+      "path": "package/source-manifest.json",
+      "sha256": "902ed8c09c55bc39c4f5adbe7a4e303342228ec30d290ad52c73d6df810a2431"
+    },
+    {
+      "bytes": 574,
+      "path": "package/support/SUPPORT.md",
+      "sha256": "8cc3b97b405b20e3bd15710deafd95dd449b58cdbab65731b10ff85947594e38"
+    },
+    {
+      "bytes": 3441,
+      "path": "package/support/assembler/05.01.md",
+      "sha256": "d1aaec4a932c522387bcd88138549ed3145fccbcc8f34caae40bf8894d266451"
+    },
+    {
+      "bytes": 2037,
+      "path": "package/support/assembler/completion-receipt.json",
+      "sha256": "df37a56509d0d969bba2f01a793c32c3a816df33abbb41cdcf7d8a816cf0427e"
+    },
+    {
+      "bytes": 3779,
+      "path": "package/support/assembler/request.snapshot",
+      "sha256": "c0df77c4762190a66e98db50a29e4492a22339c66021d317459e2d759b385207"
+    },
+    {
+      "bytes": 1456,
+      "path": "package/templates/05.01.return.TEMPLATE.md",
+      "sha256": "c06dff54ddfe90a4a20dbd8a9eeb78b2a5dc957e151c74d9a23aec606e974d0b"
+    },
+    {
+      "bytes": 999,
+      "path": "package/templates/06.01.review.TEMPLATE.md",
+      "sha256": "09e1172223fc026732ba13fea5798b64529375b1abe9fcc44baeb69076c59e48"
+    },
+    {
+      "bytes": 35531,
+      "path": "prepared-colab.zip",
+      "sha256": "7d3c16bb31686bb95e8eb212d746921e6d7babdfa59b64c3beb672e4e5a640ba"
+    }
+  ],
+  "result": "intact",
+  "schema": "colab-support-report/2",
+  "statements": [
+    "This package is a draft. Preparation is not a Director release.",
+    "05.NN.pack.md is the one primary instruction source; support/ is transport support only.",
+    "No 05.NN.return.md or 06.NN.review.md exists at preparation. Templates are templates.",
+    "A verified package or receipt is custody, not review or acceptance.",
+    "The investigation binding is supplied by Prime; it does not open a live investigation.",
+    "Labels and quoted Director text do not authenticate anyone."
+  ],
+  "targets": [
+    {
+      "bytes": 3311,
+      "kind": "whole-file",
+      "sha256": "d226c3b5d645b651b8b8d945cb3716da267d421509dd03572cb7254cf5d6e8be",
+      "target": "T01"
+    }
+  ]
+}
+
