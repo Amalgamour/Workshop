@@ -1,0 +1,54 @@
+{
+  "schema": "pack-assembly-receipt/1",
+  "result": "completed",
+  "template": "pack-assembly-draft/1",
+  "digest": "dccae89d41716a13e21f38616f252210e94b97854f22e7bea3347ba4f50c205f",
+  "request_sha256": "c0df77c4762190a66e98db50a29e4492a22339c66021d317459e2d759b385207",
+  "request_bytes": 3779,
+  "commit": "81c9db24a6ca812ea381a6bd00a804987a2f1b22",
+  "batch": "05.01",
+  "batch_file": "05.01.md",
+  "batch_sha256": "d1aaec4a932c522387bcd88138549ed3145fccbcc8f34caae40bf8894d266451",
+  "batch_bytes": 3441,
+  "sources": [
+    {
+      "path": "00.kernel/00.00.10.work/0414.bench/01.md",
+      "sha256": "d226c3b5d645b651b8b8d945cb3716da267d421509dd03572cb7254cf5d6e8be",
+      "bytes": 3311,
+      "snapshot": "snapshots/0001.blob"
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0414.bench/06.01.md",
+      "sha256": "3ed826e1be9fb576d66311b2eab97e803c4a1e410c260d7541be67b45b8faf1c",
+      "bytes": 649,
+      "snapshot": "snapshots/0002.blob"
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0412.prime-review/evidence/drift-audit-2026-10-29/DECISIONS.md",
+      "sha256": "91c6c7a8c1759d3f35c1455df8df3f137b1b6154e382d1742b6f7e3f52eee739",
+      "bytes": 671,
+      "snapshot": "snapshots/0003.blob"
+    }
+  ],
+  "manifest_file": "source-manifest.json",
+  "manifest_sha256": "902ed8c09c55bc39c4f5adbe7a4e303342228ec30d290ad52c73d6df810a2431",
+  "manifest_bytes": 837,
+  "checker": {
+    "sha256": "9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d",
+    "bytes": 21563,
+    "result": "pass",
+    "exit": 0,
+    "rows_checked": 3
+  },
+  "return_destination": {
+    "state": "supplied",
+    "path": "Write evidence/pass05.01/submission.md and recipient-notes.md under this investigation page, then use the reserved intake named in the launch prompt."
+  },
+  "repository_label": "workshop",
+  "limits": [
+    "This receipt does not approve, release, or accept the draft.",
+    "Live return-slot allocation was not checked.",
+    "Clerk readiness was not checked.",
+    "Pinned sources were not executed."
+  ]
+}

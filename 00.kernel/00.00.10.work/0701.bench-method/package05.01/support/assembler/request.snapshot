@@ -1,0 +1,86 @@
+{
+  "schema": "pack-assembly-request/1",
+  "template": "pack-assembly-draft/1",
+  "title": "Can our Prime benchmark distinguish support benefits from measurement bias",
+  "date": "2026-10-29",
+  "author": "Codex Prime",
+  "origin": {
+    "book": "00.00.10.work",
+    "page": "0701.bench-method",
+    "batch": "05.01"
+  },
+  "identity": {
+    "book": "00.00.10.work",
+    "pppp": "0701",
+    "keyword": "bench-method",
+    "batch": "05.01"
+  },
+  "executor": "Grok Builder 1 acting as Colab",
+  "reviewer": "Codex Prime",
+  "goal": "Question: Where could this method reward the assisted Prime unfairly, miss important failures, or mistake less typing for better work? Give concrete counterexamples and the smallest useful repairs.\nWhy: A benchmark that favors our tool by construction would not tell us whether Prime support is worthwhile. We need independent criticism before treating results as productivity evidence.",
+  "scope": [
+    "Recipient writes: Only your submission and notes under the named investigation evidence directory, plus its reserved capture through the accepted intake."
+  ],
+  "revision": "81c9db24a6ca812ea381a6bd00a804987a2f1b22",
+  "paths": [
+    "00.kernel/00.00.10.work/0414.bench/01.md",
+    "00.kernel/00.00.10.work/0414.bench/06.01.md",
+    "00.kernel/00.00.10.work/0412.prime-review/evidence/drift-audit-2026-10-29/DECISIONS.md"
+  ],
+  "instructions": [
+    {
+      "nn": "01",
+      "heading": "Transport support only",
+      "text": "This is the accepted assembler's draft, kept under support/ for custody checks. It is not an instruction source. Read ENTRY.md, then 05.01.pack.md."
+    },
+    {
+      "nn": "02",
+      "heading": "Method",
+      "text": "Read the definition and its notes, then propose failure cases. Separate what the design says from your inference. Explain what evidence would discriminate your proposed failure from a successful benchmark. Preserve useful ideas outside the ask."
+    },
+    {
+      "nn": "03",
+      "heading": "Case C01",
+      "text": "An assisted run is faster because its case quietly omits a conflicting record. Show how to detect unfair source parity."
+    },
+    {
+      "nn": "04",
+      "heading": "Case C02",
+      "text": "A Prime produces a neat report but misses the Director-required fork. Explain a rubric that catches this without rewarding a predetermined wording."
+    },
+    {
+      "nn": "05",
+      "heading": "Case C03",
+      "text": "A coordinator sees the baseline answer before preparing assisted input. Identify contamination and a practical fresh-session procedure."
+    },
+    {
+      "nn": "06",
+      "heading": "Case C04",
+      "text": "The tool saves manual calls but requires extensive request authoring and correction. What costs and logs must the report retain?"
+    },
+    {
+      "nn": "07",
+      "heading": "Return",
+      "text": "Return one file shaped like templates/05.01.return.TEMPLATE.md. Prime places it as 05.01.return.md only after capture; this package does not contain it."
+    }
+  ],
+  "evidence": "One return file in the return template shape. A receipt of it is custody, not acceptance.",
+  "dependencies": {
+    "state": "supplied",
+    "items": [
+      {
+        "name": "withheld Claude active benchmark implementation",
+        "detail": "Independent method review should not depend on unreviewed worker output."
+      },
+      {
+        "name": "tool-limitation Measured baseline and assisted model runs",
+        "detail": "The harness has not yet been built or run."
+      }
+    ]
+  },
+  "return_destination": {
+    "state": "supplied",
+    "path": "Write evidence/pass05.01/submission.md and recipient-notes.md under this investigation page, then use the reserved intake named in the launch prompt."
+  },
+  "repository_label": "workshop"
+}

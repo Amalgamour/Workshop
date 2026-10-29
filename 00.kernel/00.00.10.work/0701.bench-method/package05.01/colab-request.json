@@ -1,0 +1,115 @@
+{
+  "schema": "colab-request/2",
+  "binding": {
+    "schema": "colab-binding/1",
+    "investigation": {
+      "book": "00.00.10.work",
+      "page": "0701.bench-method",
+      "pass": "05.01"
+    },
+    "targets": [
+      {
+        "id": "T01",
+        "book": "00.00.10.work",
+        "page": "0414.bench",
+        "file": "01.md",
+        "section": null,
+        "source": {
+          "repository": "workshop",
+          "commit": "81c9db24a6ca812ea381a6bd00a804987a2f1b22",
+          "path": "00.kernel/00.00.10.work/0414.bench/01.md",
+          "sha256": "d226c3b5d645b651b8b8d945cb3716da267d421509dd03572cb7254cf5d6e8be"
+        }
+      }
+    ]
+  },
+  "title": "Can our Prime benchmark distinguish support benefits from measurement bias",
+  "date": "2026-10-29",
+  "author": "Codex Prime",
+  "recipient": "Grok Builder 1 acting as Colab",
+  "reviewer": "Codex Prime",
+  "mode": "open-design",
+  "scoring": {
+    "state": "unscored"
+  },
+  "context": "The Director wants a separate Codex benchmark coordinator. Claude is building the first harness from the committed design. Your independent task is to challenge the method and suggest discriminating examples, not inspect or alter Claude's unfinished code. The new Colab exchange and source-custody modules have passed bounded tests; this is their first real method investigation.",
+  "question": "Where could this method reward the assisted Prime unfairly, miss important failures, or mistake less typing for better work? Give concrete counterexamples and the smallest useful repairs.",
+  "why": "A benchmark that favors our tool by construction would not tell us whether Prime support is worthwhile. We need independent criticism before treating results as productivity evidence.",
+  "built_state": "A design and released harness assignment exist. The harness and model benchmark results do not exist yet. No benchmark coordinator or tested model is launched by this pack.",
+  "known_gaps": [
+    "Matched variants may not have equal difficulty.",
+    "A coordinator that solves both conditions can contaminate the comparison.",
+    "Timing and subscription percentages may not measure inference cost.",
+    "AR-01 affected inventory and bridge execution remains held."
+  ],
+  "method": "Read the definition and its notes, then propose failure cases. Separate what the design says from your inference. Explain what evidence would discriminate your proposed failure from a successful benchmark. Preserve useful ideas outside the ask.",
+  "cases": [
+    {
+      "id": "C01",
+      "text": "An assisted run is faster because its case quietly omits a conflicting record. Show how to detect unfair source parity."
+    },
+    {
+      "id": "C02",
+      "text": "A Prime produces a neat report but misses the Director-required fork. Explain a rubric that catches this without rewarding a predetermined wording."
+    },
+    {
+      "id": "C03",
+      "text": "A coordinator sees the baseline answer before preparing assisted input. Identify contamination and a practical fresh-session procedure."
+    },
+    {
+      "id": "C04",
+      "text": "The tool saves manual calls but requires extensive request authoring and correction. What costs and logs must the report retain?"
+    }
+  ],
+  "environment": {
+    "kind": "local-tools",
+    "read": "Included snapshots and the named published project files; no unfinished worker output.",
+    "write": "Only your submission and notes under the named investigation evidence directory, plus its reserved capture through the accepted intake.",
+    "execute": "Read-only source examination and the specified capture/verify intake. No held app fixtures, model calls, sessions, installs or benchmark execution.",
+    "network": "Not needed."
+  },
+  "permissions": [
+    "Challenge the design and propose better methods.",
+    "Write your findings and working notes in the allowed evidence directory.",
+    "Capture the exact return with the reserved investigation origin."
+  ],
+  "stop": [
+    "Stop affected work if a Director choice or design fork is required; retain it as a finding.",
+    "Do not read or edit Claude's active harness outputs.",
+    "Do not run held app fixtures, launch another model, change source pages or write Git."
+  ],
+  "prior_involvement": "You built the Colab workflow. Disclose that prior involvement; this is not a blind independent certification of your own module. The benchmark method is the subject.",
+  "required_sources": [
+    {
+      "path": "00.kernel/00.00.10.work/0414.bench/06.01.md",
+      "role": "Prime preparation notes for the benchmark method"
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0412.prime-review/evidence/drift-audit-2026-10-29/DECISIONS.md",
+      "role": "Director decisions including the continuing AR-01 hold"
+    }
+  ],
+  "withheld": [
+    {
+      "item": "Claude active benchmark implementation",
+      "reason": "Independent method review should not depend on unreviewed worker output."
+    }
+  ],
+  "unavailable": [
+    {
+      "item": "Measured baseline and assisted model runs",
+      "reason": "The harness has not yet been built or run.",
+      "kind": "tool-limitation"
+    }
+  ],
+  "director_replies": [],
+  "return_route": {
+    "destination": "Write evidence/pass05.01/submission.md and recipient-notes.md under this investigation page, then use the reserved intake named in the launch prompt.",
+    "submission_hint": "grok-1-0701-0501"
+  },
+  "preparation_notes": [
+    "This is an actual contextual Colab, not a synthetic acceptance run.",
+    "No score is requested. Concrete counterexamples and evidence matter.",
+    "A later review will disposition findings before changing the benchmark definition."
+  ]
+}
