@@ -1,0 +1,21 @@
+{
+  "label": "SYNTHETIC independent review probes; no model called",
+  "retained_scratch": "C:\\Users\\misg\\AppData\\Local\\Temp\\bench-test-ka751hoz",
+  "probes": [
+    {
+      "probe": "candidate evidence changed after prepare",
+      "candidate_file": "C:\\Users\\misg\\AppData\\Local\\Temp\\bench-test-ka751hoz\\cand-r0901-1\\sources\\consumer-note.md",
+      "collect_exit": 0,
+      "compare_exit": 0,
+      "clean": true,
+      "reasons": [],
+      "expected": "Input drift must be recorded as invalid/not clean, not a clean comparison."
+    },
+    {
+      "probe": "correct outcome line and quotation followed by contradictory next action",
+      "deterministic_pass": true,
+      "kind": "deterministic string checks",
+      "interpretation": "String checks are explicitly labelled, so this is not a claimed semantic verdict. Fixed action commitments are still needed in the evaluator rubric."
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+test_drift_after_case_edit (__main__.TestBench.test_drift_after_case_edit) ... ok
+test_four_families_matched_and_synthetic (__main__.TestBench.test_four_families_matched_and_synthetic) ... ok
+test_planted_canary_in_candidate_is_leakage (__main__.TestBench.test_planted_canary_in_candidate_is_leakage) ... ok
+test_validate_real_bench (__main__.TestBench.test_validate_real_bench) ... ok
+test_all_families_both_conditions_synthetic (__main__.TestCollectAndAssess.test_all_families_both_conditions_synthetic) ... ok
+test_bad_usage_events_and_times_refused (__main__.TestCollectAndAssess.test_bad_usage_events_and_times_refused) ... ok
+test_contaminated_and_shared_context (__main__.TestCollectAndAssess.test_contaminated_and_shared_context) ... ok
+test_duplicate_and_conflicting_collection (__main__.TestCollectAndAssess.test_duplicate_and_conflicting_collection) ... ok
+test_evaluator_leakage_in_response (__main__.TestCollectAndAssess.test_evaluator_leakage_in_response) ... ok
+test_events_are_separate_and_interventions_unclean (__main__.TestCollectAndAssess.test_events_are_separate_and_interventions_unclean) ... ok
+test_failed_and_abandoned_runs_are_kept (__main__.TestCollectAndAssess.test_failed_and_abandoned_runs_are_kept) ... ok
+test_partial_collection_kept (__main__.TestCollectAndAssess.test_partial_collection_kept) ... ok
+test_quote_must_be_exact (__main__.TestCollectAndAssess.test_quote_must_be_exact) ... ok
+test_raw_bytes_kept_and_missing_usage_unavailable (__main__.TestCollectAndAssess.test_raw_bytes_kept_and_missing_usage_unavailable) ... ok
+test_unsafe_inputs (__main__.TestCollectAndAssess.test_unsafe_inputs) ... ok
+test_usage_times_and_tool_events (__main__.TestCollectAndAssess.test_usage_times_and_tool_events) ... ok
+test_wrong_identity (__main__.TestCollectAndAssess.test_wrong_identity) ... ok
+test_export_adapter (__main__.TestCompareAndExport.test_export_adapter) ... ok
+test_mixed_and_duplicate_refused (__main__.TestCompareAndExport.test_mixed_and_duplicate_refused) ... ok
+test_cli_exit_codes (__main__.TestInputs.test_cli_exit_codes) ... usage: prime_bench.py [-h]
+                      {validate,manifest,prepare,collect,event,assess,review,compare,export}
+                      ...
+prime_bench.py: error: argument command: invalid choice: 'no-such-command' (choose from validate, manifest, prepare, collect, event, assess, review, compare, export)
+ok
+test_director_reply_kept_exact (__main__.TestInputs.test_director_reply_kept_exact) ... ok
+test_investigation_strict (__main__.TestInputs.test_investigation_strict) ... ok
+test_candidate_has_no_identity_key_or_canary (__main__.TestPrepare.test_candidate_has_no_identity_key_or_canary) ... ok
+test_junction_ancestor_refused (__main__.TestPrepare.test_junction_ancestor_refused) ... ok
+test_kits_equal_except_tools_and_support (__main__.TestPrepare.test_kits_equal_except_tools_and_support) ... ok
+test_partial_run_folder_is_never_collected (__main__.TestPrepare.test_partial_run_folder_is_never_collected) ... ok
+test_partial_write_is_kept_and_not_resumed (__main__.TestPrepare.test_partial_write_is_kept_and_not_resumed) ... ok
+test_refusals (__main__.TestPrepare.test_refusals) ... ok
+test_unsafe_destinations (__main__.TestPrepare.test_unsafe_destinations) ... ok
+test_changed_rubric_after_prepare (__main__.TestReview.test_changed_rubric_after_prepare) ... ok
+test_review_bound_and_counted (__main__.TestReview.test_review_bound_and_counted) ... ok
+test_review_refusals (__main__.TestReview.test_review_refusals) ... ok
+
+----------------------------------------------------------------------
+Ran 32 tests in 7.960s
+
+OK

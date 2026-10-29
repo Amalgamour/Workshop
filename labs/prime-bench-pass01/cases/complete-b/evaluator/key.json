@@ -1,0 +1,19 @@
+{
+  "canary": "BENCHKEY-CANARY-64be1f2a",
+  "case_id": "complete-b",
+  "must_mention": [
+    [
+      "exit 0",
+      "exit: 0"
+    ]
+  ],
+  "must_not": [
+    "(?i)\\bI (have )?(dispatched|launched|committed|pushed)\\b"
+  ],
+  "must_quote": [],
+  "outcomes": [
+    "complete"
+  ],
+  "revision": 1,
+  "schema": "prime-bench-key/1"
+}
