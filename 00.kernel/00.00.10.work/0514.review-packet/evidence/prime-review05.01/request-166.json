@@ -1,0 +1,47 @@
+{
+  "schema": "review-packet-request/1",
+  "book": "D:/Git/lib-build/00.kernel/00.00.10.work",
+  "member": "0166.prime-bench-controls-0502",
+  "origin": {
+    "book": "00.00.10.work",
+    "page": "0513.bench-build",
+    "pass": "05.02"
+  },
+  "repo": "D:/Git/lib-build",
+  "python": "C:/Users/misg/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+  "inspector": "D:/Git/lib-build/labs/return-capture-pass01/return_inspect.py",
+  "helper": "D:/Git/lib-build/labs/return-capture-pass01/return_capture.py",
+  "output": "D:\\librarian\\temp\\review-returns-166-168\\packet-166",
+  "bounds": {
+    "max_sources": 8,
+    "max_source_bytes": 2000000,
+    "max_total_bytes": 8000000,
+    "max_output_bytes": 12000000
+  },
+  "sources": [
+    {
+      "id": "return",
+      "role": "builder-claim",
+      "kind": "member-file",
+      "name": "return.md"
+    },
+    {
+      "id": "receipt",
+      "role": "custody",
+      "kind": "member-file",
+      "name": "receipt.json"
+    },
+    {
+      "id": "manifest",
+      "role": "custody",
+      "kind": "member-file",
+      "name": "manifest.json"
+    },
+    {
+      "id": "reservation",
+      "role": "custody",
+      "kind": "member-file",
+      "name": "reservation.json"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "schema": "review-packet-verification/1",
+  "tests": {
+    "command": "python -B -m unittest discover -s labs/review-packet-pass01/tests -v",
+    "interpreter": "C:/Users/misg/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+    "ran": 10,
+    "skipped": 1,
+    "skip": "file symlink WinError 1314",
+    "failed": 0,
+    "exit": 0
+  },
+  "assemble": [
+    {
+      "request": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/request-0164.json",
+      "exit": 0,
+      "assembly": "complete",
+      "custody": "complete",
+      "acceptance": false,
+      "artifact_result": "unsupported-schema",
+      "packet_sha256": "bfcd0ee84d2505b06ebea0593bc66dc4504393ea966e357d58fae580ce98d6e4",
+      "packet_bytes": 8393,
+      "readable_sha256": "83b4d69f95910aaca4af4e4400e0d72551265f3700599f1564305363f86e0f20",
+      "readable_bytes": 1999
+    },
+    {
+      "request": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/request-0163.json",
+      "exit": 0,
+      "assembly": "complete",
+      "custody": "complete",
+      "acceptance": false,
+      "rows": 69,
+      "historical_match": 41,
+      "changed_live_working_copy": 28,
+      "absent_git_blob": "80f7025425d7bb3fdcf3b0ee56057cd6d8b6b9fe",
+      "live_file_was_not_read_for_absent_blob": true,
+      "packet_sha256": "c6eeaa6bfa5a1c03577152f6d4b4df5a33601fb7f67ef58bbbace23fbb5599ad",
+      "packet_bytes": 57915,
+      "readable_sha256": "2443bc01d88d00590adccc47fd6749be75b484e083d6aa7ff3b81edf2dea0c18",
+      "readable_bytes": 25501
+    }
+  ],
+  "pins": {
+    "pack_sources": 13,
+    "pack_bad": 0,
+    "helper_sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+    "helper_bytes": 45767,
+    "inspector_sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+    "inspector_bytes": 11402
+  }
+}

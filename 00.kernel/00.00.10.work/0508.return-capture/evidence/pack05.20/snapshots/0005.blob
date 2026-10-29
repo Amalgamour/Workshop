@@ -1,0 +1,267 @@
+{
+  "schema": "desk-state/1",
+  "desk": "librarian-workshop",
+  "book": "00.00.10.work",
+  "goal": {
+    "statement": "Fresh-Prime continuity: a new session can read a declared historical snapshot, identify its gaps and conflicts, and propose one safe next action. Passing that snapshot test does not recover all current work, settle D1, replace Prime, or hand over authority.",
+    "evidence": [
+      {
+        "repository": "D:\\Git\\lib-build",
+        "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.18/RECONCILIATION.md",
+        "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+        "sha256": "cea41365e952d38e179a2e512aff8eba3ed7f8605197b3c8940c5b1ca2defa94",
+        "note": "Prime reconciliation. Proposed final-exam binding, not an execution release."
+      },
+      {
+        "repository": "D:\\Git\\lib-build",
+        "path": "00.kernel/00.00.10.work/0508.return-capture/05.19.md",
+        "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+        "sha256": "7b3d4964f48d074dd8fd29956f19959465c4cdba2001fe5225d5814914ab1e55",
+        "note": "Authorizing assignment at this commit, before the return pointer is filled."
+      }
+    ]
+  },
+  "milestone": {
+    "statement": "The current snapshot orientation test is one step toward fresh-Prime continuity. It is not that goal, and it is not an authority handover.",
+    "evidence": [
+      {
+        "repository": "D:\\Git\\lib-build",
+        "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.18/review.md",
+        "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+        "sha256": "e3a075ca2cf440ef37e28cf56a962f4b63da0e04764c0c6b495995c8fe679664",
+        "note": "Accepted as the CP-01/CP-02 correction, not a handover."
+      }
+    ]
+  },
+  "lanes": [
+    {
+      "id": "orientation-correction",
+      "page_id": "p0518",
+      "worker": null,
+      "task": "0508/05.18 planning correction captured in 0150. Accepted as that correction only."
+    },
+    {
+      "id": "capture-handoff",
+      "page_id": "p0520",
+      "worker": null,
+      "task": "0504/05.20 capture-handoff door captured in 0149. Accepted within that backend scope only."
+    },
+    {
+      "id": "projection-held",
+      "page_id": "p0512",
+      "worker": null,
+      "task": "0507/05.12 remains held for SP-05. The 05.14 coordination still matches these bytes."
+    },
+    {
+      "id": "legacy-assignment",
+      "page_id": "p0601",
+      "worker": null,
+      "task": "0401/06.01 is the legacy assignment record. It is not identified as a 05 page and is not elected."
+    }
+  ],
+  "blockers": [
+    {
+      "id": "D1",
+      "statement": "D1 remains unresolved. packet05.15/registry.json is Prime's proposed registry choice in RECONCILIATION.md, not a Director decision that a lane is canonical.",
+      "status": "unresolved",
+      "evidence": [
+        {
+          "repository": "D:\\Git\\lib-build",
+          "path": "00.kernel/00.00.10.work/0507.prime-support/evidence/packet05.15/registry.json",
+          "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+          "sha256": "8a068546390d49c3958511d805be0b7c06ce9bf277b25ba575bc3780e4bd5cdb",
+          "note": "Cited proposal. This view does not settle D1 and does not open Claude's active outputs."
+        }
+      ]
+    }
+  ],
+  "handoff": {
+    "statement": "Next work is one final prepared test bundle and Director-led trial, with schema ambiguities resolved above. Director must launch/name the actual fresh session; no identity is invented by compute or this review.",
+    "author": "Codex Prime",
+    "evidence": [
+      {
+        "repository": "D:\\Git\\lib-build",
+        "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.18/RECONCILIATION.md",
+        "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+        "sha256": "cea41365e952d38e179a2e512aff8eba3ed7f8605197b3c8940c5b1ca2defa94",
+        "note": "Recorded Prime intent. Not a new instruction from this module."
+      }
+    ]
+  },
+  "pages": [
+    {
+      "id": "p0518",
+      "repository": "D:\\Git\\lib-build",
+      "path": "00.kernel/00.00.10.work/0508.return-capture/05.18.md",
+      "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+      "observation": "git-blob"
+    },
+    {
+      "id": "p0520",
+      "repository": "D:\\Git\\lib-build",
+      "path": "00.kernel/00.00.10.work/0504.app-entry/05.20.md",
+      "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+      "observation": "git-blob"
+    },
+    {
+      "id": "p0512",
+      "repository": "D:\\Git\\lib-build",
+      "path": "00.kernel/00.00.10.work/0507.prime-support/05.12.md",
+      "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+      "observation": "git-blob"
+    },
+    {
+      "id": "p0601",
+      "repository": "D:\\Git\\lib-build",
+      "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+      "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+      "observation": "git-blob"
+    },
+    {
+      "id": "plive",
+      "repository": "D:\\Git\\lib-build",
+      "path": "00.kernel/00.live.md",
+      "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+      "observation": "git-blob"
+    }
+  ],
+  "members": [
+    {
+      "name": "0150.cold-prime-plan-revision-0518",
+      "role": "declared"
+    },
+    {
+      "name": "0149.capture-handoff-entry-0520",
+      "role": "declared"
+    },
+    {
+      "name": "0136.state-projection-0512",
+      "role": "declared"
+    }
+  ],
+  "coordination": [
+    {
+      "label": "SUPPLIED",
+      "batch_id": "0508.return-capture/05.18",
+      "source_sha256": "314f96a4b87b35e0bb5f8a2c1a85f42a6eb0fac42c7a264f7e691baf741b5395",
+      "release": "recorded",
+      "claim": "recorded",
+      "claim_actor": "Grok Builder 2",
+      "candidate": "0150.cold-prime-plan-revision-0518",
+      "review": {
+        "member": "0150.cold-prime-plan-revision-0518",
+        "receipt_sha256": "66a7475d73a882ead5db8f0c7d9e798f26e4cd4cfa3a1a6a07ec3297104b7586",
+        "disposition": "accepted",
+        "terminal": null,
+        "reviewer": "Codex-Prime",
+        "followup": null
+      },
+      "publication": {
+        "status": "unknown",
+        "ref": null,
+        "commit": null
+      }
+    },
+    {
+      "label": "SUPPLIED",
+      "batch_id": "0504.app-entry/05.20",
+      "source_sha256": "76b18077d9e57935aa661f018d7fae27469206c524e882cd424cb0a5f054669b",
+      "release": "recorded",
+      "claim": "recorded",
+      "claim_actor": "Grok 4.7 (xAI)",
+      "candidate": "0149.capture-handoff-entry-0520",
+      "review": {
+        "member": "0149.capture-handoff-entry-0520",
+        "receipt_sha256": "eca76fcfd83ac609a423a2d2ee6951ea8e153a1aa26641429a3e86cfdd8aff0c",
+        "disposition": "accepted",
+        "terminal": null,
+        "reviewer": "Codex-Prime",
+        "followup": null
+      },
+      "publication": {
+        "status": "unknown",
+        "ref": null,
+        "commit": null
+      }
+    },
+    {
+      "label": "SUPPLIED",
+      "batch_id": "0507.prime-support/05.12",
+      "source_sha256": "dce336e1f4c3cd8d4679ddff45f517293b2e6fd991d8bb39560c0412f1f5f3f5",
+      "release": "recorded",
+      "claim": "recorded",
+      "claim_actor": "Claude",
+      "candidate": "0136.state-projection-0512",
+      "review": {
+        "member": "0136.state-projection-0512",
+        "receipt_sha256": "deec943938e07c29f28ef82cb5000e3af5758a0454330a4c53de606774c0cd44",
+        "disposition": "held",
+        "terminal": null,
+        "reviewer": "Codex-Prime",
+        "followup": "0507.prime-support/05.13"
+      },
+      "publication": {
+        "status": "at-ref",
+        "ref": "workshop-snapshot",
+        "commit": "6d18d182535df8dc60b698c585b04cd276c5df85"
+      }
+    }
+  ],
+  "uninspected": [
+    {
+      "label": "Claude active 0507/05.16 outputs",
+      "reason": "Out of scope for this pass. Not opened."
+    },
+    {
+      "label": "SoF source repository",
+      "reason": "Out of scope for this pass. Not opened."
+    }
+  ],
+  "legacy": {
+    "repository": "D:\\Git\\lib-build",
+    "path": "00.kernel/00.live.md",
+    "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+    "sha256": "a69245972915b6e140b7528239216ff1a1bc97941cfb1a4de4868d88a541a30d",
+    "note": "Stale legacy mirror of 0401/06.01. Not rewritten. Not an input to this view."
+  },
+  "tools": {
+    "batch_observe": {
+      "path": "D:\\Git\\lib-build\\labs\\batch-observation-pass01\\batch_observe.py",
+      "sha256": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4"
+    },
+    "return_inspect": {
+      "path": "D:\\Git\\lib-build\\labs\\return-capture-pass01\\return_inspect.py",
+      "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+    },
+    "return_capture": {
+      "path": "D:\\Git\\lib-build\\labs\\return-capture-pass01\\return_capture.py",
+      "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac"
+    },
+    "state_projection": {
+      "path": "D:\\Git\\lib-build\\labs\\state-projection-pass01\\state_projection.py",
+      "sha256": "b349da5cef5178296a069c354002a600ba4e168c2710aa5d87789724d4951ecb"
+    },
+    "prime_brief": {
+      "path": "D:\\Git\\lib-build\\labs\\prime-brief-pass01\\prime_brief.py",
+      "sha256": "302ed832d2fa955a591420f13d3b22ce91e4a7669c69a778d443fc82627580d7"
+    }
+  },
+  "bounds": {
+    "max_sources": 32,
+    "max_source_bytes": 262144,
+    "max_total_bytes": 1048576,
+    "max_output_bytes": 1048576
+  },
+  "roots": {
+    "repository": "D:\\Git\\lib-build",
+    "tools": "D:\\Git\\lib-build",
+    "members_book": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+    "output": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0508.return-capture\\evidence\\deskstate05.19"
+  },
+  "revision": {
+    "reason": "First desk-state record for 0508/05.19. Coordination for 05.18 and 05.20 is supplied from those pages' pointer text and accepted review pages. Coordination for 05.12 is the accepted 05.14 record, reused because the blob hash still matches.",
+    "authorizing": "0508.return-capture/05.19 #02; Director request 2026-10-29",
+    "predecessor": null
+  },
+  "custody": "inspect-named-members"
+}

@@ -1,0 +1,85 @@
+{
+  "files": [
+    {
+      "bytes": 3239,
+      "path": "custody.json",
+      "sha256": "de43c29a8e07944162acf2016c43b9f0ed033ea17a4ca85441ce89b2ffb396d4"
+    },
+    {
+      "bytes": 0,
+      "path": "custody-stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 875,
+      "path": "helper-verify.txt",
+      "sha256": "d7dfb0fd39138f67eb10453bbf24a4784c6e81902a127e2388f892e55bf98dc5"
+    },
+    {
+      "bytes": 0,
+      "path": "helper-verify-stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 2313,
+      "path": "sources/0001-return.blob",
+      "sha256": "b7c4fe25278f7fe09cc7fc18699bf06ab3034bb38abc6787360365e39d488fef"
+    },
+    {
+      "bytes": 299,
+      "path": "sources/0002-receipt.blob",
+      "sha256": "bf8cef9fe88b09316c69d4f1c37d824bc5b7378403d49ac3dccf486905fe0fff"
+    },
+    {
+      "bytes": 2349,
+      "path": "sources/0003-manifest.blob",
+      "sha256": "a48339feaa93339e51f407f438b7714d2095d7cf1c38c6703f9965d9425f1ecb"
+    },
+    {
+      "bytes": 1018,
+      "path": "sources/0004-reservation.blob",
+      "sha256": "f86ceefcec3ca971e091815c3eb743bffde2ca0ab3267de37742a7d7b194de6b"
+    },
+    {
+      "bytes": 8020,
+      "path": "packet.json",
+      "sha256": "7fddccdaa45899c5a012643ce65949af158804ba8e9fb830fa86a52542d090cc"
+    },
+    {
+      "bytes": 1807,
+      "path": "PACKET.md",
+      "sha256": "e62807d823210b7d444f90ae48d228fa1b7f10c9cf2c1db071a3fc291c603edf"
+    }
+  ],
+  "schema": "review-packet-manifest/1",
+  "sources": [
+    {
+      "bytes": 2313,
+      "embedded": true,
+      "id": "return",
+      "sha256": "b7c4fe25278f7fe09cc7fc18699bf06ab3034bb38abc6787360365e39d488fef",
+      "snapshot": "sources/0001-return.blob"
+    },
+    {
+      "bytes": 299,
+      "embedded": true,
+      "id": "receipt",
+      "sha256": "bf8cef9fe88b09316c69d4f1c37d824bc5b7378403d49ac3dccf486905fe0fff",
+      "snapshot": "sources/0002-receipt.blob"
+    },
+    {
+      "bytes": 2349,
+      "embedded": true,
+      "id": "manifest",
+      "sha256": "a48339feaa93339e51f407f438b7714d2095d7cf1c38c6703f9965d9425f1ecb",
+      "snapshot": "sources/0003-manifest.blob"
+    },
+    {
+      "bytes": 1018,
+      "embedded": true,
+      "id": "reservation",
+      "sha256": "f86ceefcec3ca971e091815c3eb743bffde2ca0ab3267de37742a7d7b194de6b",
+      "snapshot": "sources/0004-reservation.blob"
+    }
+  ]
+}

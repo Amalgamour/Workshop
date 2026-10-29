@@ -1,0 +1,40 @@
+test_action_record_refusals (__main__.TestActions.test_action_record_refusals) ... ok
+test_specimens_distinguish_quote_action_and_paraphrase (__main__.TestActions.test_specimens_distinguish_quote_action_and_paraphrase) ... ok
+test_unnecessary_edit_on_complete_case (__main__.TestActions.test_unnecessary_edit_on_complete_case) ... ok
+test_drift_and_planted_canary (__main__.TestBench.test_drift_and_planted_canary) ... ok
+test_validate_rules_2 (__main__.TestBench.test_validate_rules_2) ... ok
+test_all_families_both_conditions_synthetic (__main__.TestCollect.test_all_families_both_conditions_synthetic) ... ok
+test_failed_abandoned_shared_leakage_intervention (__main__.TestCollect.test_failed_abandoned_shared_leakage_intervention) ... ok
+test_identity_duplicate_and_conflict (__main__.TestCollect.test_identity_duplicate_and_conflict) ... ok
+test_partial_collection_kept (__main__.TestCollect.test_partial_collection_kept) ... ok
+test_unsafe_and_bad_inputs (__main__.TestCollect.test_unsafe_and_bad_inputs) ... ok
+test_cost_record_refusals (__main__.TestCostsAndReview.test_cost_record_refusals) ... ok
+test_costs_complete_incomplete_unknown (__main__.TestCostsAndReview.test_costs_complete_incomplete_unknown) ... ok
+test_review_bound (__main__.TestCostsAndReview.test_review_bound) ... ok
+test_drift_after_collection_and_removed_candidate (__main__.TestDeliveredInputs.test_drift_after_collection_and_removed_candidate) ... ok
+test_missing_extra_and_linked (__main__.TestDeliveredInputs.test_missing_extra_and_linked) ... ok
+test_post_prepare_hint_probe_never_clean (__main__.TestDeliveredInputs.test_post_prepare_hint_probe_never_clean) ... ok
+test_working_notes_do_not_invalidate (__main__.TestDeliveredInputs.test_working_notes_do_not_invalidate) ... ok
+test_export_trial (__main__.TestExport.test_export_trial) ... ok
+test_corrected_input_is_new_late_identity (__main__.TestRerunAndRoster.test_corrected_input_is_new_late_identity) ... ok
+test_legacy_rules_1_run_refused (__main__.TestRerunAndRoster.test_legacy_rules_1_run_refused) ... ok
+test_omitted_runs_and_incomplete_trial (__main__.TestRerunAndRoster.test_omitted_runs_and_incomplete_trial) ... ok
+test_tampered_plan_and_changed_definitions_refuse (__main__.TestRerunAndRoster.test_tampered_plan_and_changed_definitions_refuse) ... ok
+test_tampered_run_json_and_start_before_seal (__main__.TestRerunAndRoster.test_tampered_run_json_and_start_before_seal) ... ok
+test_parity_fail_missing_conflicting_source (__main__.TestSeal.test_parity_fail_missing_conflicting_source) ... ok
+test_partial_seal_is_kept_and_unsealed (__main__.TestSeal.test_partial_seal_is_kept_and_unsealed) ... ok
+test_plan_refusals_write_nothing (__main__.TestSeal.test_plan_refusals_write_nothing) ... ok
+test_seal_binds_roster_parity_and_definitions (__main__.TestSeal.test_seal_binds_roster_parity_and_definitions) ... ok
+test_unsafe_destinations (__main__.TestSeal.test_unsafe_destinations) ... ok
+test_variants_are_not_compared_byte_for_byte (__main__.TestSeal.test_variants_are_not_compared_byte_for_byte) ... ok
+test_cli (__main__.TestStrict.test_cli) ... usage: prime_bench.py [-h]
+                      {validate,manifest,seal,check-inputs,collect,event,assess,review,actions,rerun,compare,export}
+                      ...
+prime_bench.py: error: argument command: invalid choice: 'prepare' (choose from validate, manifest, seal, check-inputs, collect, event, assess, review, actions, rerun, compare, export)
+ok
+test_investigation_strict (__main__.TestStrict.test_investigation_strict) ... ok
+
+----------------------------------------------------------------------
+Ran 31 tests in 12.021s
+
+OK

@@ -1,0 +1,53 @@
+# Review packet
+
+Assembly: complete
+Member: 0167.review-packet-0501
+Book: D:\Git\lib-build\00.kernel\00.00.10.work
+
+## Custody observation
+
+Status: complete
+Inspector exit: 0
+Helper verify exit: 0
+Problems: none
+
+A verified receipt is custody, not acceptance.
+
+Helper verify text, stored exact:
+
+reservation f86ceefcec3ca971e091815c3eb743bffde2ca0ab3267de37742a7d7b194de6b
+manifest a48339feaa93339e51f407f438b7714d2095d7cf1c38c6703f9965d9425f1ecb
+receipt bf8cef9fe88b09316c69d4f1c37d824bc5b7378403d49ac3dccf486905fe0fff
+payload 0001.blob 9faced923ed6f4e300985106127fd8b6866789d2b95e45c8deb00b734ff06771
+payload 0002.blob 2d805f84ae9743b38ae07b0b376c1fa008623bbfeac9d594148ad3e6c1d9976a
+payload 0003.blob d3f5b1fb6cdf3a4f2ee36e917a034f682c8e27cb70f848837eb98c79993e6e39
+payload 0004.blob 3cdbc0a3b9497756d357fa824bdf67cbc11bcfd33c59c1c8f5117e1cee1daf7f
+payload 0005.blob 8e474e82e71948b4dd9a7c53160a7751eb2d6a8ab980d011421ee8d30709af75
+payload 0006.blob bfcd0ee84d2505b06ebea0593bc66dc4504393ea966e357d58fae580ce98d6e4
+payload 0007.blob 83b4d69f95910aaca4af4e4400e0d72551265f3700599f1564305363f86e0f20
+result complete
+not approved
+not accepted
+not published
+
+## Builder-reported claims
+
+Return claims remain claims even when a hash matches.
+- return: status present; sha256 b7c4fe25278f7fe09cc7fc18699bf06ab3034bb38abc6787360365e39d488fef; bytes 2313; snapshot sources/0001-return.blob
+
+## Artifact checks
+
+None.
+## Absent, conflicting, and unverified
+
+None.
+
+## Director quotations
+
+None.
+These quotations are source bytes. They do not confer authority.
+
+## Limits
+
+A verified receipt is custody, not acceptance. Return claims remain claims even when a hash matches. These checks are not an OS sandbox or a same-user race guarantee.
+This packet does not accept, approve, publish, seat, or name a next task.

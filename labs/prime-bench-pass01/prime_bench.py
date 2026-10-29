@@ -1,21 +1,25 @@
 #!/usr/bin/env python3
-"""Bounded Prime benchmark harness: fixed cases, run folders, collection, checks, comparison.
+"""Bounded Prime benchmark harness, rules 2: sealed trials, input checks, commitments, costs.
 
 Standard library only. No model call, no session launch, no network, no Git.
-A coordinator prepares runs, starts fresh sessions by hand, and collects what they said.
-Deterministic checks are string checks. Semantic quality is a supplied reviewer record.
+A coordinator seals a whole trial before any answer, starts fresh sessions by hand,
+and collects what they said. Deterministic checks are string checks. Rubric scores and
+action dispositions are supplied judgment; code checks only their shape and bindings.
 
   python -B prime_bench.py validate [--json]
   python -B prime_bench.py manifest
-  python -B prime_bench.py prepare --investigation ABS --run-id ID --case ID --condition C ... --run-dir ABS --candidate-dir ABS
-  python -B prime_bench.py collect --run-dir ABS --expect-run ID --expect-condition C --status S ...
-  python -B prime_bench.py event   --run-dir ABS --kind K --text TEXT [--attachment ABS]
-  python -B prime_bench.py assess  --run-dir ABS [--json]
-  python -B prime_bench.py review  --run-dir ABS --record ABS [--json]
-  python -B prime_bench.py compare --run-dir ABS [...] [--json]
-  python -B prime_bench.py export  --run-dir ABS [...] --investigation ABS --dest ABS
+  python -B prime_bench.py seal         --plan ABS --investigation ABS --dest ABS
+  python -B prime_bench.py check-inputs --run-dir ABS
+  python -B prime_bench.py collect      --run-dir ABS --expect-run ID --expect-condition C --status S ...
+  python -B prime_bench.py event        --run-dir ABS --kind K --text TEXT [--attachment ABS]
+  python -B prime_bench.py assess       --run-dir ABS
+  python -B prime_bench.py review       --run-dir ABS --record ABS
+  python -B prime_bench.py actions      --run-dir ABS --record ABS
+  python -B prime_bench.py rerun        --trial ABS --supersedes ID --run-id ID --reason TEXT
+  python -B prime_bench.py compare      --trial ABS
+  python -B prime_bench.py export       --trial ABS --dest ABS
 
-Contract: 00.kernel/00.00.10.work/0513.bench-build/evidence/build05.01/CONTRACT.md
+Contract: 00.kernel/00.00.10.work/0513.bench-build/evidence/build05.02/CONTRACT.md
 """
 
 from __future__ import annotations
@@ -27,6 +31,7 @@ import os
 import re
 import stat
 import sys
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -37,16 +42,26 @@ SCHEMA_BENCH = "prime-bench/1"
 SCHEMA_CONDITIONS = "prime-bench-conditions/1"
 SCHEMA_KEY = "prime-bench-key/1"
 SCHEMA_RUBRIC = "prime-bench-rubric/1"
+SCHEMA_COMMITMENTS = "prime-bench-commitments/1"
+SCHEMA_MEASURES = "prime-bench-measures/1"
 SCHEMA_META = "prime-bench-case-meta/1"
 SCHEMA_INVESTIGATION = "prime-bench-investigation/1"
-SCHEMA_RUN = "prime-bench-run/1"
-SCHEMA_COLLECTION = "prime-bench-collection/1"
+SCHEMA_PLAN = "prime-bench-plan/1"
+SCHEMA_SEAL = "prime-bench-seal/1"
+SCHEMA_AMENDMENT = "prime-bench-amendment/1"
+SCHEMA_RUN = "prime-bench-run/2"
+SCHEMA_RUN_LEGACY = "prime-bench-run/1"
+SCHEMA_COLLECTION = "prime-bench-collection/2"
+SCHEMA_INPUT_CHECK = "prime-bench-input-check/1"
 SCHEMA_EVENT = "prime-bench-event/1"
 SCHEMA_TOOL_EVENT = "prime-bench-tool-event/1"
 SCHEMA_ASSESSMENT = "prime-bench-assessment/1"
 SCHEMA_REVIEW = "prime-bench-review/1"
-SCHEMA_COMPARISON = "prime-bench-comparison/1"
-RULES = "prime-bench-rules/1"
+SCHEMA_ACTIONS = "prime-bench-action-assessment/1"
+SCHEMA_COSTS = "prime-bench-costs/1"
+SCHEMA_COMPARISON = "prime-bench-comparison/2"
+RULES = "prime-bench-rules/2"
+BENCH_REVISION = 2
 
 FAMILIES = ("correction", "false-completion", "design-fork", "complete")
 VARIANTS = ("a", "b")
@@ -57,15 +72,27 @@ CAPABILITY_KEYS = ("fresh_session", "workspace_confined", "tool_log", "usage")
 STATUSES = ("completed", "failed", "abandoned")
 ISOLATION_USED = ("fresh", "shared", "unknown")
 EVENT_KINDS = ("correction", "intervention", "note")
+COMMITMENT_KINDS = ("required-action", "hold", "prohibited", "no-further-edit")
+DISPOSITIONS = ("present", "contradicted", "absent")
+AMORTIZATION = ("not-amortized", "equal-split-over-planned-runs")
+CACHE_STATES = ("cold", "warm", "unknown")
 USAGE_KEYS = ("input_tokens", "output_tokens", "cache_read_tokens", "cache_write_tokens", "total_tokens")
+COST_COUNTS = ("launch_order", "tool_operations", "failed_tool_calls", "request_repairs", "repair_minutes",
+               "correction_loops", "correction_minutes", "director_attention_events", "director_attention_minutes")
+COST_KEYS = ("schema", "run_id", "observer", *COST_COUNTS, "cache_state", "prior_involvement")
+WORK_DIR = "work"
+PROMPT_DIFFERENCE = "PROMPT.md#tools-paragraph-and-run-id"
 
 MAX_JSON = 262144
 MAX_RESPONSE = 1048576
 MAX_TOOL_LOG = 8388608
 MAX_TEXT = 4000
 MAX_EVENTS = 9999
+MAX_RUNS = 200
 
 _RUN_ID = re.compile(r"r[0-9]{4}")
+_TRIAL_ID = re.compile(r"t[0-9]{4}")
+_PAIR_ID = re.compile(r"p[0-9]{2,4}")
 _CASE_ID = re.compile(r"[a-z][a-z0-9-]{0,40}")
 _SEGMENT = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,80}")
 _HEX64 = re.compile(r"[0-9a-f]{64}")
@@ -89,12 +116,16 @@ SUPPORT = (
     {"role": "custody", "path": "labs/return-capture-pass01/return_inspect.py", "copy_to": None,
      "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b", "bytes": 11402},
 )
+ASSISTED_COPIES = tuple(item["copy_to"] for item in SUPPORT if item["role"] == "assisted")
+ALLOWED_DIFFERENCES = (PROMPT_DIFFERENCE, *ASSISTED_COPIES)
 
 PROMPT = """# Prime review run {run_id}
 
 Work only inside this folder. Read TASK.md, then everything in sources/.
 This must be a fresh session with no earlier context. Do not open any other folder or repository.
 No one will help or answer questions during this run.
+Do not change, add or delete anything outside work/. Put any notes you want to keep in work/.
+If you run Python, use `python -B`.
 
 ## Tools
 {tools}
@@ -110,22 +141,26 @@ Then give your findings, the reasons and evidence for each, and one proposed nex
 
 COORDINATOR = """# Coordinator steps for run {run_id}
 
+Trial {trial_id}, pair {pair_id}, planned order {order}{late}.
 Case {case_id} revision {revision}, condition {condition}. Model label {model}, effort label {effort}.
 Candidate folder: {candidate}
 Declared: fresh-session {fresh_session}, workspace-confined {workspace_confined}, tool-log {tool_log}, usage {usage}.
 
-1. Start one new session with no earlier context. Confine it to the candidate folder only; it must not
-   be able to read this run folder, the bench lab or the repository. If you cannot, record that below.
-2. Paste PROMPT.md from the candidate folder as the first message. Record the start time.
-3. Do not help, hint, repair or answer questions. Any help is an intervention and must be recorded.
-4. Save the final message exactly, byte for byte, to a file outside the candidate folder. Export the
-   tool log and usage if the surface offers them. Record the finish time.
-5. Never reuse this session for another run, case or condition.
-6. Collect:
+1. Before the first launch of the trial, send the seal digest to Prime. Never edit the trial after that.
+2. Check the inputs: python -B {module} check-inputs --run-dir "{run_dir}"
+   It must say intact. If it says drift, do not repair it: record the run as failed and use rerun.
+3. Start one new session with no earlier context, confined to the candidate folder only. It must not
+   be able to read this run folder, other candidates, the bench lab or the repository.
+4. Paste PROMPT.md from the candidate folder as the first message (session start). Record the time.
+5. Do not help, hint, repair or answer questions. Any help is an intervention and must be recorded.
+6. Save the final message exactly (session stop). Record the time. Export the tool log and usage if
+   the surface offers them. Fill a prime-bench-costs/1 record; unknown fields stay null.
+7. Never reuse this session for another run, case or condition.
+8. Collect:
 
-python -B {module} collect --run-dir "{run_dir}" --expect-run {run_id} --expect-condition {condition} --status completed --label ACTUAL --session-label LABEL --isolation-used fresh|shared|unknown --response ABS [--tool-log ABS] [--tool-events ABS] [--usage ABS] --started ISO --finished ISO [--intervention TEXT]
+python -B {module} collect --run-dir "{run_dir}" --expect-run {run_id} --expect-condition {condition} --status completed --label ACTUAL --session-label LABEL --isolation-used fresh|shared|unknown --response ABS [--tool-log ABS] [--tool-events ABS] [--usage ABS] [--costs ABS] --started ISO --finished ISO [--intervention TEXT]
 
-A failed or abandoned run is collected with --status failed|abandoned --reason TEXT. It stays in the dataset.
+A failed or abandoned run is collected with --status failed|abandoned --reason TEXT. It stays in the trial.
 """
 
 
@@ -149,6 +184,10 @@ def sha256(data: bytes) -> str:
 
 def dumps(obj: object) -> bytes:
     return (json.dumps(obj, indent=2, sort_keys=True, ensure_ascii=False) + "\n").encode("utf-8")
+
+
+def utc_now() -> str:
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
 
 def strict_json(data: bytes, what: str, limit: int = MAX_JSON) -> object:
@@ -355,10 +394,13 @@ def _case_files(case_id: str) -> list[str]:
     for folder, dirs, files in os.walk(base):
         dirs.sort()
         for name in sorted(files):
-            full = Path(folder) / name
-            rel = full.relative_to(base).as_posix()
-            out.append(rel)
+            out.append((Path(folder) / name).relative_to(base).as_posix())
     return sorted(out)
+
+
+def _file_row(path: Path, rel: str) -> dict:
+    data = read_regular(path, rel, MAX_JSON)
+    return {"path": rel, "sha256": sha256(data), "bytes": len(data)}
 
 
 def manifest_object() -> dict:
@@ -370,25 +412,29 @@ def manifest_object() -> dict:
         files = []
         for rel in _case_files(case_id):
             need_rel(rel, f"case file {case_id}/{rel}")
-            data = read_regular(LAB / "cases" / case_id / rel, f"case file {case_id}/{rel}", MAX_JSON)
-            files.append({"path": rel, "sha256": sha256(data), "bytes": len(data)})
+            files.append(_file_row(LAB / "cases" / case_id / rel, rel))
         meta = strict_json(read_regular(LAB / "cases" / case_id / "coordinator" / "meta.json", "meta", MAX_JSON), "meta")
         revision = meta.get("revision") if isinstance(meta, dict) else None
         cases.append({"case_id": case_id, "revision": revision, "files": files})
-    cond = read_regular(LAB / "conditions.json", "conditions.json", MAX_JSON)
     return {
         "schema": SCHEMA_BENCH,
         "bench_id": "prime-bench-pass01",
+        "revision": BENCH_REVISION,
         "rules": RULES,
-        "conditions": {"path": "conditions.json", "sha256": sha256(cond), "bytes": len(cond)},
+        "conditions": _file_row(LAB / "conditions.json", "conditions.json"),
+        "measures": _file_row(LAB / "measures.json", "measures.json"),
         "support": [{k: item[k] for k in ("role", "path", "copy_to", "sha256", "bytes")} for item in SUPPORT],
         "cases": cases,
     }
 
 
+REQUIRED_CASE_FILES = ("candidate/TASK.md", "evaluator/key.json", "evaluator/rubric.json",
+                       "evaluator/commitments.json", "coordinator/meta.json")
+
+
 def _check_case_records(case_id: str, revision: object, files: set[str]) -> list[str]:
     problems = []
-    for rel in ("candidate/TASK.md", "evaluator/key.json", "evaluator/rubric.json", "coordinator/meta.json"):
+    for rel in REQUIRED_CASE_FILES:
         if rel not in files:
             problems.append(f"{case_id}: {rel} is missing")
     if not any(rel.startswith("candidate/sources/") for rel in files):
@@ -398,9 +444,12 @@ def _check_case_records(case_id: str, revision: object, files: set[str]) -> list
             problems.append(f"{case_id}: {rel} is outside the three case trees")
     if problems:
         return problems
+    if revision != BENCH_REVISION:
+        return [f"{case_id}: revision {revision} is not bench revision {BENCH_REVISION}"]
     base = LAB / "cases" / case_id
     key = load_key(base, case_id, revision)
     load_rubric(base, case_id, revision)
+    commitments = load_commitments(base, case_id, revision)
     meta = exact_keys(strict_json(read_regular(base / "coordinator/meta.json", "meta", MAX_JSON), "meta"),
                       ("schema", "case_id", "revision", "family", "variant", "matched_with", "label",
                        "decisive_evidence", "ambiguity", "provenance"), f"{case_id} meta")
@@ -410,6 +459,8 @@ def _check_case_records(case_id: str, revision: object, files: set[str]) -> list
         problems.append(f"{case_id}: family or variant is unknown")
     if meta["label"] != "SYNTHETIC":
         problems.append(f"{case_id}: meta label is not SYNTHETIC")
+    if meta["family"] == "complete" and not any(i["kind"] == "no-further-edit" for i in commitments["items"]):
+        problems.append(f"{case_id}: a complete case needs a no-further-edit commitment")
     if not isinstance(meta["provenance"], list) or not meta["provenance"]:
         problems.append(f"{case_id}: provenance is empty")
     else:
@@ -467,8 +518,39 @@ def load_rubric(base: Path, case_id: str, revision: object) -> dict:
     return rubric
 
 
+def load_commitments(base: Path, case_id: str, revision: object) -> dict:
+    com = exact_keys(strict_json(read_regular(base / "evaluator/commitments.json", "commitments", MAX_JSON),
+                                 "commitments"), ("schema", "case_id", "revision", "items"), f"{case_id} commitments")
+    if com["schema"] != SCHEMA_COMMITMENTS or com["case_id"] != case_id or com["revision"] != revision:
+        raise Refused("malformed", f"{case_id} commitments identity differs")
+    if not isinstance(com["items"], list) or not com["items"]:
+        raise Refused("malformed", f"{case_id} commitments are empty")
+    ids = []
+    for item in com["items"]:
+        exact_keys(item, ("id", "kind", "text"), f"{case_id} commitment")
+        need_label(item["id"], "commitment id")
+        need_choice(item["kind"], COMMITMENT_KINDS, "commitment kind")
+        need_text(item["text"], "commitment text")
+        ids.append(item["id"])
+    if len(set(ids)) != len(ids):
+        raise Refused("malformed", f"{case_id} commitment ids repeat")
+    return com
+
+
+def load_measures() -> dict:
+    measures = exact_keys(strict_json(read_regular(LAB / "measures.json", "measures.json", MAX_JSON), "measures"),
+                          ("schema", "operation_unit", "session_start", "session_stop", "preparation_timing",
+                           "fields", "amortization", "unknown"), "measures")
+    if measures["schema"] != SCHEMA_MEASURES:
+        raise Refused("malformed", "measures schema differs")
+    names = [f.get("field") for f in measures["fields"] if isinstance(f, dict)]
+    if names != [*COST_COUNTS, "cache_state", "prior_involvement"]:
+        raise Refused("malformed", "measures fields differ from the costs record")
+    return measures
+
+
 def validate() -> dict:
-    """Re-hash the bench against bench.json and the support pins. Refusals are malformed bench files."""
+    """Re-hash the bench against bench.json and the support pins."""
     raw = read_regular(LAB / "bench.json", "bench.json", MAX_JSON)
     recorded = strict_json(raw, "bench.json")
     current = manifest_object()
@@ -493,9 +575,10 @@ def validate() -> dict:
     for name in CONDITIONS:
         entry = exact_keys(cond[name], ("tools", "support"), f"condition {name}")
         need_text(entry["tools"], f"{name} tools")
-        wanted = [s["copy_to"] for s in SUPPORT if s["role"] == "assisted"] if name == "assisted" else []
+        wanted = list(ASSISTED_COPIES) if name == "assisted" else []
         if entry["support"] != wanted:
             drift.append(f"condition {name} support differs from the pinned copy list")
+    load_measures()
     families: dict[tuple[str, str], str] = {}
     canaries = {}
     for case in current["cases"]:
@@ -514,15 +597,14 @@ def validate() -> dict:
                 drift.append(f"family {family} variant {variant} has no case")
     for (family, variant), case_id in families.items():
         meta = strict_json(read_regular(LAB / "cases" / case_id / "coordinator/meta.json", "meta", MAX_JSON), "meta")
-        other = families.get((family, "b" if variant == "a" else "a"))
-        if meta["matched_with"] != other:
+        if meta["matched_with"] != families.get((family, "b" if variant == "a" else "a")):
             drift.append(f"{case_id}: matched_with is not its other variant")
-    leaks = candidate_leaks(current, canaries)
-    drift.extend(leaks)
+    drift.extend(candidate_leaks(current, canaries))
     return {
         "schema": "prime-bench-validation/1",
         "result": "valid" if not drift else "drift",
         "bench_version": sha256(raw),
+        "rules": RULES,
         "cases": [c["case_id"] for c in current["cases"]],
         "drift": drift,
     }
@@ -576,11 +658,25 @@ def all_canaries() -> list[str]:
     return out
 
 
-# ---------------------------------------------------------------- investigation
+def _secret_material(manifest: dict, canaries: dict[str, str]) -> list[tuple[str, bytes]]:
+    secret = [(f"canary of {cid}", c.encode("utf-8")) for cid, c in canaries.items()]
+    for other in manifest["cases"]:
+        for f in other["files"]:
+            if not f["path"].startswith("candidate/"):
+                secret.append((f"{other['case_id']}/{f['path']}",
+                               read_regular(LAB / "cases" / other["case_id"] / f["path"], f["path"], MAX_JSON)))
+    return secret
+
+
+# ---------------------------------------------------------------- investigation and plan
 
 def load_investigation(raw: str) -> tuple[dict, bytes]:
     path = need_abs(raw, "investigation")
     data = read_regular(path, "investigation", MAX_JSON)
+    return parse_investigation(data), data
+
+
+def parse_investigation(data: bytes) -> dict:
     inv = exact_keys(strict_json(data, "investigation"),
                      ("schema", "page", "pass", "question", "director_replies", "sources", "coordinator_label"),
                      "investigation")
@@ -606,38 +702,66 @@ def load_investigation(raw: str) -> tuple[dict, bytes]:
         exact_keys(source, ("path", "sha256"), "investigation source")
         need_rel(source["path"], "investigation source path")
         need_hex(source["sha256"], "investigation source sha256")
-    return inv, data
+    return inv
 
 
-# ---------------------------------------------------------------- prepare
+def parse_plan(data: bytes, inv_sha: str, case_ids: list[str]) -> dict:
+    plan = exact_keys(strict_json(data, "plan"),
+                      ("schema", "trial_id", "investigation_sha256", "capabilities", "allowed_differences",
+                       "preparation", "runs"), "plan")
+    if plan["schema"] != SCHEMA_PLAN:
+        raise Refused("malformed", "plan schema differs")
+    if not isinstance(plan["trial_id"], str) or not _TRIAL_ID.fullmatch(plan["trial_id"]):
+        raise Refused("malformed", "trial id is not t followed by four digits")
+    if need_hex(plan["investigation_sha256"], "plan investigation sha256") != inv_sha:
+        raise Refused("mixed-investigation", "plan names a different investigation file")
+    caps = exact_keys(plan["capabilities"], CAPABILITY_KEYS, "plan capabilities")
+    for key in CAPABILITY_KEYS:
+        need_choice(caps[key], CAPABILITY, f"capability {key}")
+    if plan["allowed_differences"] != list(ALLOWED_DIFFERENCES):
+        raise Refused("malformed", f"allowed_differences must be exactly {list(ALLOWED_DIFFERENCES)}")
+    prep = exact_keys(plan["preparation"], ("owner", "reusable_setup_minutes", "per_run_setup_minutes", "amortization"),
+                      "plan preparation")
+    need_label(prep["owner"], "preparation owner")
+    need_count(prep["reusable_setup_minutes"], "reusable_setup_minutes")
+    need_count(prep["per_run_setup_minutes"], "per_run_setup_minutes")
+    need_choice(prep["amortization"], AMORTIZATION, "amortization")
+    runs = plan["runs"]
+    if not isinstance(runs, list) or not runs or len(runs) > MAX_RUNS:
+        raise Refused("malformed", f"plan runs is not a list of 1 to {MAX_RUNS}")
+    pairs: dict[str, list[dict]] = {}
+    for run in runs:
+        exact_keys(run, ("run_id", "pair_id", "case_id", "condition", "order", "model_label", "effort_label"), "plan run")
+        if not isinstance(run["run_id"], str) or not _RUN_ID.fullmatch(run["run_id"]):
+            raise Refused("malformed", "plan run id is not r followed by four digits")
+        if not isinstance(run["pair_id"], str) or not _PAIR_ID.fullmatch(run["pair_id"]):
+            raise Refused("malformed", "plan pair id is not p followed by two to four digits")
+        if run["case_id"] not in case_ids:
+            raise Refused("malformed", f"plan case is not in the bench: {run['case_id']}")
+        need_choice(run["condition"], CONDITIONS, "plan condition")
+        need_count(run["order"], "plan order", nullable=False)
+        need_label(run["model_label"], "model label")
+        need_label(run["effort_label"], "effort label")
+        pairs.setdefault(run["pair_id"], []).append(run)
+    ids = [r["run_id"] for r in runs]
+    if len(set(ids)) != len(ids):
+        raise Refused("duplicate", "plan run ids repeat")
+    if sorted(r["order"] for r in runs) != list(range(1, len(runs) + 1)):
+        raise Refused("malformed", "plan orders must be exactly 1..N")
+    for pair_id, members in pairs.items():
+        if len(members) != 2 or {m["condition"] for m in members} != set(CONDITIONS):
+            raise Refused("incomplete-pair", f"pair {pair_id} needs exactly one baseline and one assisted run")
+        if len({m["case_id"] for m in members}) != 1:
+            raise Refused("incomplete-pair", f"pair {pair_id} mixes cases")
+        if len({(m["model_label"], m["effort_label"]) for m in members}) != 1:
+            raise Refused("incomplete-pair", f"pair {pair_id} mixes model or effort labels")
+    return plan
 
-def prepare(args: argparse.Namespace) -> dict:
-    run_id = args.run_id
-    if not isinstance(run_id, str) or not _RUN_ID.fullmatch(run_id):
-        raise Refused("malformed", "run id is not r followed by four digits")
-    condition = need_choice(args.condition, CONDITIONS, "condition")
-    model = need_label(args.model_label, "model label")
-    effort = need_label(args.effort_label, "effort label")
-    caps = {
-        "fresh_session": need_choice(args.fresh_session, CAPABILITY, "fresh-session"),
-        "workspace_confined": need_choice(args.workspace_confined, CAPABILITY, "workspace-confined"),
-        "tool_log": need_choice(args.tool_log, CAPABILITY, "tool-log"),
-        "usage": need_choice(args.usage, CAPABILITY, "usage"),
-    }
-    inv, inv_bytes = load_investigation(args.investigation)
-    run_dir = fresh_dest(args.run_dir, "run folder")
-    cand_dir = fresh_dest(args.candidate_dir, "candidate folder")
-    if inside(run_dir, cand_dir) or inside(cand_dir, run_dir):
-        raise Refused("unsafe-path", "run and candidate folders must not contain each other")
-    if inside(run_dir, LAB) or inside(cand_dir, LAB):
-        raise Refused("unsafe-path", "a run folder cannot sit inside the bench lab")
-    manifest, version, canaries = bench_state()
-    case = next((c for c in manifest["cases"] if c["case_id"] == args.case), None)
-    if case is None:
-        raise Refused("malformed", f"case is not in the bench: {args.case}")
-    base = LAB / "cases" / case["case_id"]
-    cond = strict_json(read_regular(LAB / "conditions.json", "conditions.json", MAX_JSON), "conditions")[condition]
 
+# ---------------------------------------------------------------- kits and parity
+
+def kit_files(base: Path, case: dict, condition: str, run_id: str, tools: str) -> dict[str, bytes]:
+    """Every file delivered to one candidate, by relative path."""
     files: dict[str, bytes] = {}
     for f in case["files"]:
         if f["path"].startswith("candidate/"):
@@ -650,83 +774,304 @@ def prepare(args: argparse.Namespace) -> dict:
             if sha256(data) != item["sha256"]:
                 raise Refused("bench-drift", f"support {item['path']} differs from its pin")
             files[item["copy_to"]] = data
-    files["PROMPT.md"] = PROMPT.format(run_id=run_id, tools=cond["tools"]).encode("utf-8")
+    files["PROMPT.md"] = PROMPT.format(run_id=run_id, tools=tools).encode("utf-8")
+    return files
 
-    secret = [(f"canary of {cid}", c.encode("utf-8")) for cid, c in canaries.items()]
-    for other in manifest["cases"]:
-        for f in other["files"]:
-            if not f["path"].startswith("candidate/"):
-                secret.append((f"{other['case_id']}/{f['path']}",
-                               read_regular(LAB / "cases" / other["case_id"] / f["path"], f["path"], MAX_JSON)))
-    leaks = leak_hits(sorted(files.items()), secret)
-    if leaks:
-        raise Refused("evaluator-leakage", "; ".join(leaks))
 
-    pins = {
-        "task_sha256": sha256(files["TASK.md"]),
-        "key_sha256": sha256(read_regular(base / "evaluator/key.json", "key", MAX_JSON)),
-        "rubric_sha256": sha256(read_regular(base / "evaluator/rubric.json", "rubric", MAX_JSON)),
-        "candidate_files": [{"path": p, "sha256": sha256(d), "bytes": len(d)} for p, d in sorted(files.items())],
-    }
-    run = {
+def pair_parity(kits: dict[str, dict[str, bytes]], runs: dict[str, dict], tools: dict[str, str]) -> dict:
+    """Byte parity inside one pair, except the declared allowed differences."""
+    by_cond = {runs[rid]["condition"]: rid for rid in kits}
+    base_id, asst_id = by_cond["baseline"], by_cond["assisted"]
+    base, asst = kits[base_id], kits[asst_id]
+    problems = []
+    extra = sorted(set(asst) - set(base))
+    if extra != sorted(ASSISTED_COPIES):
+        problems.append(f"assisted-only files are {extra}, not the allowed support files")
+    missing_in_assisted = sorted(set(base) - set(asst))
+    if missing_in_assisted:
+        problems.append(f"missing from assisted: {missing_in_assisted}")
+    compared = 0
+    for rel in sorted(set(base) & set(asst)):
+        if rel == "PROMPT.md":
+            continue
+        compared += 1
+        if base[rel] != asst[rel]:
+            problems.append(f"decisive bytes differ: {rel}")
+    for rid in (base_id, asst_id):
+        want = PROMPT.format(run_id=rid, tools=tools[runs[rid]["condition"]]).encode("utf-8")
+        if kits[rid].get("PROMPT.md") != want:
+            problems.append(f"{rid} PROMPT.md is not the fixed template for its condition")
+    decisive = sorted(rel for rel in base if rel == "TASK.md" or rel.startswith("sources/"))
+    reach = all(rel in base for rel in decisive) and bool(decisive)
+    return {"baseline": base_id, "assisted": asst_id, "compared_files": compared, "decisive_files": decisive,
+            "baseline_reach": "all decisive files delivered to baseline" if reach else "incomplete",
+            "parity": "identical-except-allowed" if not problems else "fail", "problems": problems}
+
+
+def delivery_rows(files: dict[str, bytes]) -> list[dict]:
+    return [{"path": p, "sha256": sha256(d), "bytes": len(d)} for p, d in sorted(files.items())]
+
+
+def check_inputs(run: dict) -> dict:
+    """Recheck the candidate folder against its sealed delivery manifest. Ignores work/."""
+    cand = Path(run["candidate_dir"])
+    out = {"schema": SCHEMA_INPUT_CHECK, "run_id": run["run_id"], "candidate_dir": str(cand), "kind": "mechanical"}
+    if not cand.is_dir() or is_linked(cand):
+        out.update({"result": "drift", "problems": ["unavailable: candidate folder is missing or linked"]})
+        return out
+    delivered = {row["path"]: row for row in run["delivery"]}
+    problems = []
+    seen = set()
+    work = cand / WORK_DIR
+    if is_linked(work):
+        problems.append("linked: work/")
+    for folder, dirs, files in os.walk(cand):
+        here = Path(folder)
+        rel_dir = here.relative_to(cand).as_posix()
+        if rel_dir == WORK_DIR or rel_dir.startswith(WORK_DIR + "/"):
+            dirs[:] = []
+            continue
+        for name in sorted(dirs):
+            path = here / name
+            rel = (path.relative_to(cand)).as_posix()
+            if is_linked(path):
+                problems.append(f"linked: {rel}/")
+        dirs[:] = [d for d in sorted(dirs) if not is_linked(here / d)]
+        for name in sorted(files):
+            path = here / name
+            rel = path.relative_to(cand).as_posix()
+            if rel not in delivered:
+                problems.append(f"extra: {rel}")
+                continue
+            seen.add(rel)
+            st = os.lstat(path)
+            if is_linked(path) or not stat.S_ISREG(st.st_mode) or st.st_nlink != 1:
+                problems.append(f"linked: {rel}")
+                continue
+            with open(path, "rb") as handle:
+                data = handle.read(MAX_TOOL_LOG + 1)
+            if sha256(data) != delivered[rel]["sha256"] or len(data) != delivered[rel]["bytes"]:
+                problems.append(f"changed: {rel}")
+    for rel in sorted(set(delivered) - seen):
+        if not any(p.endswith(f": {rel}") for p in problems):
+            problems.append(f"missing: {rel}")
+    out.update({"result": "intact" if not problems else "drift", "problems": sorted(problems)})
+    return out
+
+
+# ---------------------------------------------------------------- seal
+
+def _run_record(trial_id: str, plan_run: dict, version: str, inv: dict, inv_sha: str, case: dict, cand: Path,
+                caps: dict, files: dict[str, bytes], late: bool, supersedes: str | None) -> dict:
+    base = LAB / "cases" / case["case_id"]
+    return {
         "schema": SCHEMA_RUN,
-        "run_id": run_id,
+        "trial_id": trial_id,
+        "run_id": plan_run["run_id"],
+        "pair_id": plan_run["pair_id"],
+        "order": plan_run["order"],
+        "late": late,
+        "supersedes": supersedes,
         "bench_version": version,
-        "investigation_sha256": sha256(inv_bytes),
+        "investigation_sha256": inv_sha,
         "investigation": {"page": inv["page"], "pass": inv["pass"]},
         "case_id": case["case_id"],
         "case_revision": case["revision"],
-        "condition": condition,
-        "model_label": model,
-        "effort_label": effort,
+        "condition": plan_run["condition"],
+        "model_label": plan_run["model_label"],
+        "effort_label": plan_run["effort_label"],
         "capabilities": caps,
-        "candidate_dir": str(cand_dir),
-        "pins": pins,
-        "prepared_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+        "candidate_dir": str(cand),
+        "pins": {
+            "task_sha256": sha256(files["TASK.md"]),
+            "key_sha256": sha256(read_regular(base / "evaluator/key.json", "key", MAX_JSON)),
+            "rubric_sha256": sha256(read_regular(base / "evaluator/rubric.json", "rubric", MAX_JSON)),
+            "commitments_sha256": sha256(read_regular(base / "evaluator/commitments.json", "commitments", MAX_JSON)),
+            "measures_sha256": sha256(read_regular(LAB / "measures.json", "measures", MAX_JSON)),
+        },
+        "delivery": delivery_rows(files),
+        "working_dir": WORK_DIR,
+        "prepared_at": utc_now(),
     }
-    coordinator = COORDINATOR.format(
-        run_id=run_id, case_id=case["case_id"], revision=case["revision"], condition=condition, model=model,
-        effort=effort, candidate=cand_dir, module=Path(os.path.abspath(__file__)), run_dir=run_dir, **caps)
 
+
+def _coordinator_text(run: dict, run_dir: Path) -> bytes:
+    return COORDINATOR.format(
+        run_id=run["run_id"], trial_id=run["trial_id"], pair_id=run["pair_id"], order=run["order"],
+        late=f" (LATE, supersedes {run['supersedes']}; not part of the pre-answer seal)" if run["late"] else "",
+        case_id=run["case_id"], revision=run["case_revision"], condition=run["condition"], model=run["model_label"],
+        effort=run["effort_label"], candidate=run["candidate_dir"], module=Path(os.path.abspath(__file__)),
+        run_dir=run_dir, **run["capabilities"]).encode("utf-8")
+
+
+def _write_kit(writer: Writer, cand: Path, files: dict[str, bytes]) -> None:
+    writer.mkdir(cand)
+    for rel, data in sorted(files.items()):
+        writer.file(cand.joinpath(*rel.split("/")), data)
+    writer.mkdir(cand / WORK_DIR)
+    for rel, data in files.items():
+        if read_regular(cand.joinpath(*rel.split("/")), rel, 1 << 22) != data:
+            raise OSError(f"candidate file differs after write: {rel}")
+
+
+def seal(args: argparse.Namespace) -> dict:
+    started = time.monotonic()
+    seal_started_at = utc_now()
+    inv, inv_bytes = load_investigation(args.investigation)
+    inv_sha = sha256(inv_bytes)
+    plan_bytes = read_regular(need_abs(args.plan, "plan"), "plan", MAX_JSON)
+    manifest, version, canaries = bench_state()
+    cases = {c["case_id"]: c for c in manifest["cases"]}
+    plan = parse_plan(plan_bytes, inv_sha, sorted(cases))
+    dest = fresh_dest(args.dest, "trial folder")
+    if inside(dest, LAB):
+        raise Refused("unsafe-path", "a trial folder cannot sit inside the bench lab")
+    cond = strict_json(read_regular(LAB / "conditions.json", "conditions.json", MAX_JSON), "conditions")
+    tools = {name: cond[name]["tools"] for name in CONDITIONS}
+    secret = _secret_material(manifest, canaries)
+    runs = {r["run_id"]: r for r in plan["runs"]}
+    kits: dict[str, dict[str, bytes]] = {}
+    for rid, run in runs.items():
+        kits[rid] = kit_files(LAB / "cases" / run["case_id"], cases[run["case_id"]], run["condition"], rid,
+                              tools[run["condition"]])
+        leaks = leak_hits(sorted(kits[rid].items()), secret)
+        if leaks:
+            raise Refused("evaluator-leakage", f"{rid}: " + "; ".join(leaks))
+    pairs = {}
+    for rid, run in runs.items():
+        pairs.setdefault(run["pair_id"], {})[rid] = kits[rid]
+    parity = {}
+    for pair_id, members in sorted(pairs.items()):
+        result = pair_parity(members, runs, tools)
+        if result["parity"] != "identical-except-allowed" or result["baseline_reach"] != "all decisive files delivered to baseline":
+            raise Refused("parity-fail", f"pair {pair_id}: " + "; ".join(result["problems"] or [result["baseline_reach"]]))
+        parity[pair_id] = result
+    records = {}
+    for rid, run in runs.items():
+        cand = dest / "candidates" / rid
+        records[rid] = _run_record(plan["trial_id"], run, version, inv, inv_sha, cases[run["case_id"]], cand,
+                                   plan["capabilities"], kits[rid], False, None)
+    assessment = {}
+    for case_id in sorted({r["case_id"] for r in runs.values()}):
+        base = LAB / "cases" / case_id
+        assessment[case_id] = {
+            "revision": cases[case_id]["revision"],
+            "key_sha256": sha256(read_regular(base / "evaluator/key.json", "key", MAX_JSON)),
+            "rubric_sha256": sha256(read_regular(base / "evaluator/rubric.json", "rubric", MAX_JSON)),
+            "commitments_sha256": sha256(read_regular(base / "evaluator/commitments.json", "commitments", MAX_JSON)),
+        }
+    run_bytes = {rid: dumps(rec) for rid, rec in records.items()}
     writer = Writer()
+    sealed: dict = {}
 
     def write_all() -> None:
-        writer.mkdir(cand_dir)
-        for rel, data in sorted(files.items()):
-            target = cand_dir.joinpath(*rel.split("/"))
-            writer.file(target, data)
-        for rel, data in files.items():
-            if read_regular(cand_dir.joinpath(*rel.split("/")), rel, 1 << 22) != data:
-                raise OSError(f"candidate file differs after write: {rel}")
-        writer.mkdir(run_dir)
-        writer.file(run_dir / "COORDINATOR.md", coordinator.encode("utf-8"))
-        writer.file(run_dir / "run.json", dumps(run))
+        writer.mkdir(dest)
+        writer.file(dest / "plan.json", plan_bytes)
+        writer.file(dest / "investigation.json", inv_bytes)
+        writer.mkdir(dest / "candidates")
+        writer.mkdir(dest / "runs")
+        for rid in sorted(runs):
+            _write_kit(writer, dest / "candidates" / rid, kits[rid])
+            run_dir = dest / "runs" / rid
+            writer.mkdir(run_dir)
+            writer.file(run_dir / "COORDINATOR.md", _coordinator_text(records[rid], run_dir))
+            writer.file(run_dir / "run.json", run_bytes[rid])
+        sealed.update({
+            "schema": SCHEMA_SEAL,
+            "trial_id": plan["trial_id"],
+            "plan_sha256": sha256(plan_bytes),
+            "investigation_sha256": inv_sha,
+            "bench_version": version,
+            "rules": RULES,
+            "harness": {"prime_bench.py": sha256(read_regular(Path(os.path.abspath(__file__)), "harness", 1 << 22)),
+                        "conditions.json": sha256(read_regular(LAB / "conditions.json", "conditions", MAX_JSON)),
+                        "measures.json": sha256(read_regular(LAB / "measures.json", "measures", MAX_JSON))},
+            "support": [{"path": s["path"], "sha256": s["sha256"]} for s in SUPPORT],
+            "allowed_differences": list(ALLOWED_DIFFERENCES),
+            "assessment": assessment,
+            "runs": [{"run_id": rid, "pair_id": runs[rid]["pair_id"], "order": runs[rid]["order"],
+                      "case_id": runs[rid]["case_id"], "condition": runs[rid]["condition"],
+                      "run_json_sha256": sha256(run_bytes[rid]),
+                      "delivery_sha256": sha256(dumps(records[rid]["delivery"]))}
+                     for rid in sorted(runs, key=lambda r: runs[r]["order"])],
+            "pairs": parity,
+            "preparation": plan["preparation"],
+            "capabilities": plan["capabilities"],
+            "seal_started_at": seal_started_at,
+            "sealed_at": utc_now(),
+            "preparation_machine_seconds": round(time.monotonic() - started, 3),
+        })
+        writer.file(dest / "seal.json", dumps(sealed))
 
-    guarded(writer, "prepare", write_all)
-    return {"result": "prepared", "run_id": run_id, "case_id": case["case_id"], "condition": condition,
-            "run_dir": str(run_dir), "candidate_dir": str(cand_dir), "candidate_files": len(files),
-            "bench_version": version}
+    guarded(writer, "seal", write_all)
+    return {"result": "sealed", "trial_id": plan["trial_id"], "dest": str(dest), "runs": len(runs),
+            "pairs": len(pairs), "seal_sha256": sha256(dumps(sealed)), "bench_version": version}
 
 
-# ---------------------------------------------------------------- collect
+# ---------------------------------------------------------------- run loading
 
 def load_run(run_dir: Path) -> dict:
     path = run_dir / "run.json"
     if not os.path.lexists(path):
         raise Refused("partial-present", f"run folder has no run.json (unprepared or partial): {run_dir}")
-    run = exact_keys(strict_json(read_regular(path, "run.json", MAX_JSON), "run.json"),
-                     ("schema", "run_id", "bench_version", "investigation_sha256", "investigation", "case_id",
-                      "case_revision", "condition", "model_label", "effort_label", "capabilities", "candidate_dir",
-                      "pins", "prepared_at"), "run.json")
+    obj = strict_json(read_regular(path, "run.json", MAX_JSON), "run.json")
+    if isinstance(obj, dict) and obj.get("schema") == SCHEMA_RUN_LEGACY:
+        raise Refused("legacy-run", "run was prepared under rules 1 without a trial seal; it cannot satisfy rules 2")
+    run = exact_keys(obj, ("schema", "trial_id", "run_id", "pair_id", "order", "late", "supersedes", "bench_version",
+                           "investigation_sha256", "investigation", "case_id", "case_revision", "condition",
+                           "model_label", "effort_label", "capabilities", "candidate_dir", "pins", "delivery",
+                           "working_dir", "prepared_at"), "run.json")
     if run["schema"] != SCHEMA_RUN or not isinstance(run["run_id"], str) or not _RUN_ID.fullmatch(run["run_id"]):
         raise Refused("malformed", "run.json identity is unusable")
     need_choice(run["condition"], CONDITIONS, "run condition")
     need_hex(run["bench_version"], "run bench version")
     need_hex(run["investigation_sha256"], "run investigation sha256")
     exact_keys(run["capabilities"], CAPABILITY_KEYS, "run capabilities")
-    exact_keys(run["pins"], ("task_sha256", "key_sha256", "rubric_sha256", "candidate_files"), "run pins")
+    exact_keys(run["pins"], ("task_sha256", "key_sha256", "rubric_sha256", "commitments_sha256", "measures_sha256"),
+               "run pins")
+    for row in run["delivery"]:
+        exact_keys(row, ("path", "sha256", "bytes"), "delivery row")
+        need_rel(row["path"], "delivery path")
     return run
 
+
+def trial_of(run_dir: Path) -> Path:
+    return run_dir.parent.parent
+
+
+def seal_check(run_dir: Path, run: dict) -> dict:
+    """Is this run.json the one the trial sealed (or a recorded late amendment)?"""
+    trial = trial_of(run_dir)
+    run_sha = sha256(read_regular(run_dir / "run.json", "run.json", MAX_JSON))
+    seal_path = trial / "seal.json"
+    if not os.path.lexists(seal_path):
+        return {"result": "unsealed", "kind": "mechanical", "detail": "trial has no seal.json"}
+    sealed = strict_json(read_regular(seal_path, "seal.json", MAX_JSON), "seal.json")
+    for row in sealed.get("runs", []):
+        if row.get("run_id") == run["run_id"]:
+            ok = row.get("run_json_sha256") == run_sha
+            return {"result": "sealed" if ok else "mismatch", "kind": "mechanical",
+                    "detail": "run.json equals the sealed bytes" if ok else "run.json differs from the sealed bytes"}
+    for amendment in load_amendments(trial):
+        if amendment.get("run_id") == run["run_id"]:
+            ok = amendment.get("run_json_sha256") == run_sha
+            return {"result": "late" if ok else "mismatch", "kind": "mechanical",
+                    "detail": "prepared after the seal by amendment" if ok else "run.json differs from its amendment"}
+    return {"result": "mismatch", "kind": "mechanical", "detail": "run is neither sealed nor amended in this trial"}
+
+
+def load_amendments(trial: Path) -> list[dict]:
+    folder = trial / "amendments"
+    if not folder.is_dir():
+        return []
+    out = []
+    for name in sorted(os.listdir(folder)):
+        if re.fullmatch(r"[0-9]{4}\.json", name):
+            out.append(strict_json(read_regular(folder / name, name, MAX_JSON), name))
+    return out
+
+
+# ---------------------------------------------------------------- collect
 
 def parse_time(raw: str | None, what: str) -> str | None:
     if raw is None:
@@ -738,6 +1083,10 @@ def parse_time(raw: str | None, what: str) -> str | None:
     if value.tzinfo is None:
         raise Refused("malformed", f"{what} has no UTC offset")
     return raw
+
+
+def as_time(raw: str) -> datetime:
+    return datetime.fromisoformat(raw.replace("Z", "+00:00"))
 
 
 def run_line(response: bytes) -> str | None:
@@ -782,6 +1131,21 @@ def parse_usage(data: bytes) -> dict:
     return usage
 
 
+def parse_costs(data: bytes, run_id: str) -> dict:
+    costs = exact_keys(strict_json(data, "costs"), COST_KEYS, "costs")
+    if costs["schema"] != SCHEMA_COSTS:
+        raise Refused("malformed", "costs schema differs")
+    if costs["run_id"] != run_id:
+        raise Refused("wrong-identity", f"costs name run {costs['run_id']}, not {run_id}")
+    need_label(costs["observer"], "costs observer")
+    for key in COST_COUNTS:
+        need_count(costs[key], f"costs {key}")
+    need_choice(costs["cache_state"], CACHE_STATES, "cache_state")
+    if costs["prior_involvement"] is not None:
+        need_text(costs["prior_involvement"], "prior_involvement")
+    return costs
+
+
 def collect(args: argparse.Namespace) -> dict:
     run_dir = existing_dir(args.run_dir, "run folder")
     run = load_run(run_dir)
@@ -802,21 +1166,23 @@ def collect(args: argparse.Namespace) -> dict:
         raise Refused("malformed", f"a {status} run needs --reason")
     started = parse_time(args.started, "started")
     finished = parse_time(args.finished, "finished")
-    if started and finished and datetime.fromisoformat(finished.replace("Z", "+00:00")) < datetime.fromisoformat(
-            started.replace("Z", "+00:00")):
+    if started and finished and as_time(finished) < as_time(started):
         raise Refused("malformed", "finished is before started")
 
     inputs: dict[str, tuple[str, bytes] | None] = {}
     for name, raw, limit, out in (("response", args.response, MAX_RESPONSE, "response.txt"),
                                   ("tool_log", args.tool_log, MAX_TOOL_LOG, "tool-log.raw"),
                                   ("tool_events", args.tool_events, MAX_TOOL_LOG, "tool-events.jsonl"),
-                                  ("usage", args.usage, MAX_JSON, "usage.json")):
+                                  ("usage", args.usage, MAX_JSON, "usage.json"),
+                                  ("costs", args.costs, MAX_JSON, "costs.json")):
         if raw is None:
             inputs[name] = None
             continue
         path = need_abs(raw, name)
         if inside(path, run_dir):
             raise Refused("unsafe-path", f"{name} is inside the run folder")
+        if inside(path, Path(run["candidate_dir"])):
+            raise Refused("unsafe-path", f"{name} is inside the candidate folder")
         inputs[name] = (out, read_regular(path, name, limit))
 
     identity = "unavailable"
@@ -830,6 +1196,7 @@ def collect(args: argparse.Namespace) -> dict:
             identity = "matched"
     tool_event_count = parse_tool_events(inputs["tool_events"][1]) if inputs["tool_events"] else None
     usage = parse_usage(inputs["usage"][1]) if inputs["usage"] else None
+    costs = parse_costs(inputs["costs"][1], run["run_id"]) if inputs["costs"] else None
     scanned = b"".join(item[1] for key, item in inputs.items() if item and key in ("response", "tool_log"))
     leakage = any(c.encode("utf-8") in scanned for c in all_canaries())
 
@@ -844,14 +1211,17 @@ def collect(args: argparse.Namespace) -> dict:
         "isolation_used": isolation,
         "started": started,
         "finished": finished,
-        "times_source": "coordinator-supplied",
+        "times_source": "declared by the coordinator",
         "intervention": intervention,
         "identity": identity,
         "leakage": leakage,
+        "input_check": check_inputs(run),
+        "seal_check": seal_check(run_dir, run),
         "files": {name: (None if item is None else {"path": f"collected/{item[0]}", "sha256": sha256(item[1]),
                                                     "bytes": len(item[1])}) for name, item in inputs.items()},
         "tool_event_count": tool_event_count,
         "usage": usage,
+        "costs": costs,
     }
     record_bytes = dumps(record)
     existing = run_dir / "collection.json"
@@ -876,7 +1246,8 @@ def collect(args: argparse.Namespace) -> dict:
 
     guarded(writer, "collect", write_all)
     return {"result": "collected", "run_id": run["run_id"], "status": status, "identity": identity,
-            "leakage": leakage, "collection_sha256": sha256(record_bytes)}
+            "leakage": leakage, "input_check": record["input_check"]["result"],
+            "seal_check": record["seal_check"]["result"], "collection_sha256": sha256(record_bytes)}
 
 
 def load_collection(run_dir: Path) -> tuple[dict, bytes] | None:
@@ -897,6 +1268,13 @@ def load_collection(run_dir: Path) -> tuple[dict, bytes] | None:
     return col, data
 
 
+def collected_response(run_dir: Path, col: dict | None) -> str | None:
+    if col is None or col["files"]["response"] is None:
+        return None
+    rel = col["files"]["response"]["path"]
+    return read_regular(run_dir.joinpath(*rel.split("/")), rel, MAX_RESPONSE).decode("utf-8", errors="replace")
+
+
 # ---------------------------------------------------------------- events
 
 def load_events(run_dir: Path) -> list[dict]:
@@ -905,9 +1283,8 @@ def load_events(run_dir: Path) -> list[dict]:
         return []
     out = []
     for name in sorted(os.listdir(folder)):
-        if not re.fullmatch(r"[0-9]{4}\.json", name):
-            continue
-        out.append(strict_json(read_regular(folder / name, name, MAX_JSON), name))
+        if re.fullmatch(r"[0-9]{4}\.json", name):
+            out.append(strict_json(read_regular(folder / name, name, MAX_JSON), name))
     return out
 
 
@@ -955,30 +1332,33 @@ def event(args: argparse.Namespace) -> dict:
 
 # ---------------------------------------------------------------- assess
 
-def pinned_case(run: dict) -> tuple[dict, dict]:
+def pinned_case(run: dict) -> tuple[dict, dict, dict]:
     base = LAB / "cases" / run["case_id"]
     if not _CASE_ID.fullmatch(run["case_id"]) or not base.is_dir():
         raise Refused("key-changed", f"case {run['case_id']} is not in the bench")
     pins = run["pins"]
-    for rel, pin, what in (("evaluator/key.json", pins["key_sha256"], "key"),
-                           ("evaluator/rubric.json", pins["rubric_sha256"], "rubric"),
-                           ("candidate/TASK.md", pins["task_sha256"], "task")):
-        if sha256(read_regular(base / rel, rel, MAX_JSON)) != pin:
-            raise Refused("key-changed" if what != "rubric" else "rubric-changed",
-                          f"{run['case_id']} {what} differs from the pin taken at prepare; no post-answer grading change")
-    return load_key(base, run["case_id"], run["case_revision"]), load_rubric(base, run["case_id"], run["case_revision"])
+    for rel, pin, code in (("evaluator/key.json", pins["key_sha256"], "key-changed"),
+                           ("evaluator/rubric.json", pins["rubric_sha256"], "rubric-changed"),
+                           ("evaluator/commitments.json", pins["commitments_sha256"], "commitments-changed"),
+                           ("candidate/TASK.md", pins["task_sha256"], "key-changed")):
+        if not os.path.lexists(base / rel) or sha256(read_regular(base / rel, rel, MAX_JSON)) != pin:
+            raise Refused(code, f"{run['case_id']} {rel} differs from the pin taken at seal; "
+                                "no post-answer grading change")
+    if sha256(read_regular(LAB / "measures.json", "measures", MAX_JSON)) != pins["measures_sha256"]:
+        raise Refused("measures-changed", "measures.json differs from the pin taken at seal")
+    return (load_key(base, run["case_id"], run["case_revision"]),
+            load_rubric(base, run["case_id"], run["case_revision"]),
+            load_commitments(base, run["case_id"], run["case_revision"]))
 
 
 def assess_run(run_dir: Path) -> dict:
     run = load_run(run_dir)
-    key, _rubric = pinned_case(run)
+    key, _rubric, _com = pinned_case(run)
     loaded = load_collection(run_dir)
     out = {"schema": SCHEMA_ASSESSMENT, "run_id": run["run_id"], "case_id": run["case_id"],
-           "case_revision": run["case_revision"], "condition": run["condition"], "kind": "deterministic string checks"}
-    response = None
-    if loaded is not None and loaded[0]["files"]["response"] is not None:
-        rel = loaded[0]["files"]["response"]["path"]
-        response = read_regular(run_dir.joinpath(*rel.split("/")), rel, MAX_RESPONSE).decode("utf-8", errors="replace")
+           "case_revision": run["case_revision"], "condition": run["condition"],
+           "kind": "deterministic string checks; not a semantic or action verdict"}
+    response = collected_response(run_dir, loaded[0] if loaded else None)
     if response is None:
         out.update({"response": "unavailable", "deterministic_pass": False, "checks": None})
         return out
@@ -996,20 +1376,31 @@ def assess_run(run_dir: Path) -> dict:
     }
     passed = (checks["run_line"] == "matched" and checks["outcome"]["pass"] and checks["canary_absent"]
               and all(c["pass"] for c in checks["must_mention"] + checks["must_quote"] + checks["must_not"]))
-    out.update({"response": "present", "checks": checks, "deterministic_pass": passed})
+    out.update({"response": "present", "checks": checks, "deterministic_pass": passed,
+                "quotes_preserved": all(c["pass"] for c in checks["must_quote"]) if checks["must_quote"] else None})
     return out
 
 
-# ---------------------------------------------------------------- review
+# ---------------------------------------------------------------- supplied records
+
+def _store_once(run_dir: Path, name: str, data: bytes, same_code: str) -> None:
+    target = run_dir / name
+    if os.path.lexists(target):
+        same = read_regular(target, name, MAX_JSON) == data
+        raise Refused(same_code if same else "conflict",
+                      f"run already has this {name}; nothing was written" if same
+                      else f"run already has a different {name}; nothing was written")
+    writer = Writer()
+    guarded(writer, name, lambda: writer.file(target, data))
+
 
 def review(args: argparse.Namespace) -> dict:
     run_dir = existing_dir(args.run_dir, "run folder")
     run = load_run(run_dir)
-    _key, rubric = pinned_case(run)
+    _key, rubric, _com = pinned_case(run)
     if load_collection(run_dir) is None:
         raise Refused("not-collected", "a review follows a collection; collect first")
-    path = need_abs(args.record, "review record")
-    data = read_regular(path, "review record", MAX_JSON)
+    data = read_regular(need_abs(args.record, "review record"), "review record", MAX_JSON)
     rec = exact_keys(strict_json(data, "review record"),
                      ("schema", "run_id", "case_id", "case_revision", "rubric_sha256", "reviewer_label",
                       "blind_to_condition", "scores", "reviewer_minutes", "director_attention_events", "notes"),
@@ -1042,32 +1433,140 @@ def review(args: argparse.Namespace) -> dict:
         seen.append(score["item"])
     if sorted(seen) != sorted(wanted):
         raise Refused("malformed", "scores do not cover every rubric item exactly once")
-    target = run_dir / "review.json"
-    if os.path.lexists(target):
-        same = read_regular(target, "review.json", MAX_JSON) == data
-        raise Refused("already-reviewed" if same else "conflict",
-                      "run already has this review; nothing was written" if same
-                      else "run already has a different review; nothing was written")
-    writer = Writer()
-    guarded(writer, "review", lambda: writer.file(target, data))
+    _store_once(run_dir, "review.json", data, "already-reviewed")
     return {"result": "reviewed", "run_id": run["run_id"], "review_sha256": sha256(data)}
 
 
-def load_review(run_dir: Path) -> dict | None:
-    path = run_dir / "review.json"
+def actions(args: argparse.Namespace) -> dict:
+    run_dir = existing_dir(args.run_dir, "run folder")
+    run = load_run(run_dir)
+    _key, _rubric, com = pinned_case(run)
+    loaded = load_collection(run_dir)
+    if loaded is None:
+        raise Refused("not-collected", "an action assessment follows a collection; collect first")
+    response = collected_response(run_dir, loaded[0])
+    data = read_regular(need_abs(args.record, "action record"), "action record", MAX_JSON)
+    rec = exact_keys(strict_json(data, "action record"),
+                     ("schema", "run_id", "case_id", "case_revision", "commitments_sha256", "assessor_label",
+                      "blind_to_condition", "dispositions", "notes"), "action record")
+    if rec["schema"] != SCHEMA_ACTIONS:
+        raise Refused("malformed", "action record schema differs")
+    if rec["run_id"] != run["run_id"] or rec["case_id"] != run["case_id"] or rec["case_revision"] != run["case_revision"]:
+        raise Refused("wrong-identity", "action record names another run, case or revision")
+    if need_hex(rec["commitments_sha256"], "commitments sha256") != run["pins"]["commitments_sha256"]:
+        raise Refused("commitments-changed", "action record was made against different commitments")
+    need_label(rec["assessor_label"], "assessor label")
+    if rec["blind_to_condition"] not in (True, False, None):
+        raise Refused("malformed", "blind_to_condition is not true, false or null")
+    if rec["notes"] is not None:
+        need_text(rec["notes"], "action notes")
+    if not isinstance(rec["dispositions"], list):
+        raise Refused("malformed", "dispositions is not a list")
+    wanted = [item["id"] for item in com["items"]]
+    seen = []
+    for disp in rec["dispositions"]:
+        exact_keys(disp, ("commitment", "status", "evidence"), "disposition")
+        if disp["commitment"] not in wanted or disp["commitment"] in seen:
+            raise Refused("malformed", f"commitment is unknown or repeated: {disp['commitment']}")
+        need_choice(disp["status"], DISPOSITIONS, "disposition status")
+        if disp["status"] == "absent":
+            if disp["evidence"] is not None:
+                raise Refused("malformed", f"{disp['commitment']}: absent takes no evidence")
+        else:
+            need_text(disp["evidence"], f"{disp['commitment']} evidence")
+            if response is None or disp["evidence"] not in response:
+                raise Refused("evidence-not-in-response",
+                              f"{disp['commitment']}: evidence is not an exact part of the collected response")
+        seen.append(disp["commitment"])
+    if sorted(seen) != sorted(wanted):
+        raise Refused("malformed", "dispositions do not cover every commitment exactly once")
+    _store_once(run_dir, "actions.json", data, "already-assessed")
+    return {"result": "assessed", "run_id": run["run_id"], "actions_sha256": sha256(data)}
+
+
+def load_supplied(run_dir: Path, name: str) -> dict | None:
+    path = run_dir / name
     if not os.path.lexists(path):
         return None
-    return strict_json(read_regular(path, "review.json", MAX_JSON), "review.json")
+    return strict_json(read_regular(path, name, MAX_JSON), name)
+
+
+# ---------------------------------------------------------------- rerun
+
+def rerun(args: argparse.Namespace) -> dict:
+    trial = existing_dir(args.trial, "trial folder")
+    reason = need_text(args.reason, "reason")
+    if not isinstance(args.run_id, str) or not _RUN_ID.fullmatch(args.run_id):
+        raise Refused("malformed", "run id is not r followed by four digits")
+    sealed = load_seal(trial)
+    original_dir = trial / "runs" / args.supersedes
+    original = load_run(existing_dir(str(original_dir), "original run folder"))
+    if seal_check(original_dir, original)["result"] != "sealed":
+        raise Refused("malformed", "only a sealed run of this trial can be superseded")
+    taken = {r["run_id"] for r in sealed["runs"]} | {a.get("run_id") for a in load_amendments(trial)}
+    if args.run_id in taken or os.path.lexists(trial / "runs" / args.run_id):
+        raise Refused("duplicate", f"run id {args.run_id} is already used in this trial")
+    manifest, version, canaries = bench_state()
+    if version != original["bench_version"]:
+        raise Refused("mixed-version", "the bench changed since the seal; plan a new trial")
+    case = next(c for c in manifest["cases"] if c["case_id"] == original["case_id"])
+    inv_bytes = read_regular(trial / "investigation.json", "investigation", MAX_JSON)
+    inv = parse_investigation(inv_bytes)
+    cond = strict_json(read_regular(LAB / "conditions.json", "conditions.json", MAX_JSON), "conditions")
+    files = kit_files(LAB / "cases" / case["case_id"], case, original["condition"], args.run_id,
+                      cond[original["condition"]]["tools"])
+    leaks = leak_hits(sorted(files.items()), _secret_material(manifest, canaries))
+    if leaks:
+        raise Refused("evaluator-leakage", "; ".join(leaks))
+    old = {row["path"]: row["sha256"] for row in original["delivery"]}
+    new = {p: sha256(d) for p, d in files.items()}
+    differ = sorted(p for p in set(old) | set(new) if p != "PROMPT.md" and old.get(p) != new.get(p))
+    if differ:
+        raise Refused("parity-fail", f"replacement kit differs from the original delivery: {differ}")
+    plan_run = {"run_id": args.run_id, "pair_id": original["pair_id"], "order": original["order"],
+                "condition": original["condition"], "model_label": original["model_label"],
+                "effort_label": original["effort_label"]}
+    cand = trial / "candidates" / args.run_id
+    if os.path.lexists(cand):
+        raise Refused("occupied", f"candidate folder already exists: {cand}")
+    record = _run_record(original["trial_id"], plan_run, version, inv, original["investigation_sha256"], case, cand,
+                         original["capabilities"], files, True, original["run_id"])
+    run_bytes = dumps(record)
+    seq = len(load_amendments(trial)) + 1
+    amendment = {"schema": SCHEMA_AMENDMENT, "seq": seq, "trial_id": original["trial_id"], "run_id": args.run_id,
+                 "supersedes": original["run_id"], "reason": reason, "run_json_sha256": sha256(run_bytes),
+                 "prepared_at": record["prepared_at"],
+                 "note": "Late run: prepared after the seal. It is reported, never clean; a clean replacement needs a new sealed trial."}
+    writer = Writer()
+
+    def write_all() -> None:
+        _write_kit(writer, cand, files)
+        run_dir = trial / "runs" / args.run_id
+        writer.mkdir(run_dir)
+        writer.file(run_dir / "COORDINATOR.md", _coordinator_text(record, run_dir))
+        writer.file(run_dir / "run.json", run_bytes)
+        if not (trial / "amendments").is_dir():
+            writer.mkdir(trial / "amendments")
+        writer.file(trial / "amendments" / f"{seq:04d}.json", dumps(amendment))
+
+    guarded(writer, "rerun", write_all)
+    return {"result": "prepared-late", "run_id": args.run_id, "supersedes": original["run_id"], "amendment": seq}
 
 
 # ---------------------------------------------------------------- compare
 
-def _elapsed(col: dict) -> float | None:
-    if not col.get("started") or not col.get("finished"):
-        return None
-    a = datetime.fromisoformat(col["started"].replace("Z", "+00:00"))
-    b = datetime.fromisoformat(col["finished"].replace("Z", "+00:00"))
-    return (b - a).total_seconds()
+def load_seal(trial: Path) -> dict:
+    path = trial / "seal.json"
+    if not os.path.lexists(path):
+        raise Refused("unsealed", "trial has no seal.json; nothing was sealed, so nothing can be compared")
+    sealed = strict_json(read_regular(path, "seal.json", MAX_JSON), "seal.json")
+    if not isinstance(sealed, dict) or sealed.get("schema") != SCHEMA_SEAL or sealed.get("rules") != RULES:
+        raise Refused("malformed", "seal.json schema or rules differ")
+    if sha256(read_regular(trial / "plan.json", "plan.json", MAX_JSON)) != sealed["plan_sha256"]:
+        raise Refused("tampered", "plan.json differs from the seal")
+    if sha256(read_regular(trial / "investigation.json", "investigation.json", MAX_JSON)) != sealed["investigation_sha256"]:
+        raise Refused("tampered", "investigation.json differs from the seal")
+    return sealed
 
 
 def record_hashes(run_dir: Path) -> dict:
@@ -1085,41 +1584,71 @@ def record_hashes(run_dir: Path) -> dict:
     return out
 
 
-def compare_runs(raw_dirs: list[str]) -> dict:
-    if not raw_dirs:
-        raise Refused("malformed", "compare needs at least one run folder")
-    dirs = [existing_dir(raw, "run folder") for raw in raw_dirs]
-    normal = [os.path.normcase(os.path.abspath(d)) for d in dirs]
-    if len(set(normal)) != len(normal):
-        raise Refused("duplicate", "a run folder is given twice")
-    runs = [load_run(d) for d in dirs]
-    ids = [r["run_id"] for r in runs]
-    if len(set(ids)) != len(ids):
-        raise Refused("duplicate", "two run folders carry the same run id")
-    if len({r["bench_version"] for r in runs}) != 1:
-        raise Refused("mixed-version", "runs were prepared from different bench versions")
-    if len({r["investigation_sha256"] for r in runs}) != 1:
-        raise Refused("mixed-investigation", "runs are bound to different investigations")
-    metas = {}
+def _elapsed(col: dict) -> float | None:
+    if not col.get("started") or not col.get("finished"):
+        return None
+    return (as_time(col["finished"]) - as_time(col["started"])).total_seconds()
+
+
+def _cost_view(costs: dict | None) -> dict:
+    if costs is None:
+        return {"supplied": False, "complete": False, "missing": [*COST_COUNTS, "cache_state", "prior_involvement"],
+                "values": None, "kind": "declared"}
+    missing = [k for k in COST_COUNTS if costs[k] is None]
+    if costs["cache_state"] == "unknown":
+        missing.append("cache_state")
+    values = {k: costs[k] for k in (*COST_COUNTS, "cache_state", "prior_involvement")}
+    return {"supplied": True, "complete": not missing, "missing": missing, "values": values,
+            "observer": costs["observer"], "kind": "declared"}
+
+
+def compare_trial(raw_trial: str) -> dict:
+    trial = existing_dir(raw_trial, "trial folder")
+    sealed = load_seal(trial)
+    sealed_at = as_time(sealed["sealed_at"])
+    meta_cache: dict[str, dict] = {}
     rows = []
+    entries = [(r["run_id"], False) for r in sealed["runs"]]
+    entries += [(a["run_id"], True) for a in load_amendments(trial)]
+    loaded = []
+    for run_id, late_entry in entries:
+        run_dir = trial / "runs" / run_id
+        if not os.path.lexists(run_dir / "run.json"):
+            loaded.append((run_id, run_dir, None, None))
+            continue
+        run = load_run(run_dir)
+        pinned_case(run)
+        lc = load_collection(run_dir)
+        loaded.append((run_id, run_dir, run, lc[0] if lc else None))
     sessions: dict[str, list[str]] = {}
-    for run_dir, run in zip(dirs, runs):
-        loaded = load_collection(run_dir)
-        col = loaded[0] if loaded else None
+    for run_id, _d, run, col in loaded:
         if col is not None:
-            if col["run_id"] != run["run_id"] or col["condition"] != run["condition"]:
-                raise Refused("wrong-identity", f"{run_dir} collection names another run or condition")
-            sessions.setdefault(col["session_label"], []).append(run["run_id"])
-        if run["case_id"] not in metas:
-            metas[run["case_id"]] = strict_json(read_regular(
+            sessions.setdefault(col["session_label"], []).append(run_id)
+    sealed_rows = {r["run_id"]: r for r in sealed["runs"]}
+    for run_id, run_dir, run, col in loaded:
+        planned = sealed_rows.get(run_id)
+        if run is None:
+            rows.append({"run_id": run_id, "status": "missing", "clean": False, "late": planned is None,
+                         "pair_id": planned["pair_id"] if planned else None,
+                         "condition": planned["condition"] if planned else None,
+                         "case_id": planned["case_id"] if planned else None,
+                         "not_clean_reasons": ["run folder or run.json is missing"]})
+            continue
+        if run["case_id"] not in meta_cache:
+            meta_cache[run["case_id"]] = strict_json(read_regular(
                 LAB / "cases" / run["case_id"] / "coordinator/meta.json", "meta", MAX_JSON), "meta")
-        rows.append((run_dir, run, col))
-    out_rows = []
-    for run_dir, run, col in rows:
+        meta = meta_cache[run["case_id"]]
         assessment = assess_run(run_dir)
-        rev = load_review(run_dir)
+        rev = load_supplied(run_dir, "review.json")
+        act = load_supplied(run_dir, "actions.json")
         events = load_events(run_dir)
+        seal_now = seal_check(run_dir, run)
+        input_now = check_inputs(run)
         reasons = []
+        if run["late"] or seal_now["result"] == "late":
+            reasons.append(f"late-prepared after the seal (supersedes {run['supersedes']})")
+        elif seal_now["result"] != "sealed":
+            reasons.append(f"seal {seal_now['result']}: {seal_now['detail']}")
         if col is None:
             reasons.append("uncollected")
         else:
@@ -1132,16 +1661,40 @@ def compare_runs(raw_dirs: list[str]) -> dict:
             if col["isolation_used"] != "fresh":
                 reasons.append(f"isolation used {col['isolation_used']}")
             if len(sessions.get(col["session_label"], [])) > 1:
-                reasons.append("shared session: " + ", ".join(sessions[col["session_label"]]))
+                reasons.append("shared session: " + ", ".join(sorted(sessions[col["session_label"]])))
             if col["intervention"] is not None or any(e.get("kind") == "intervention" for e in events):
                 reasons.append("intervention")
             if col["leakage"]:
                 reasons.append("evaluator-leakage")
             if col["status"] == "completed" and col["identity"] != "matched":
                 reasons.append(f"identity {col['identity']}")
-        meta = metas[run["case_id"]]
-        out_rows.append({
-            "run_id": run["run_id"],
+            if col["input_check"]["result"] != "intact":
+                reasons.append("input drift at collection: " + ", ".join(col["input_check"]["problems"]))
+            if col["seal_check"]["result"] not in ("sealed", "late"):
+                reasons.append(f"seal {col['seal_check']['result']} at collection")
+            if col["started"] and as_time(col["started"]) < sealed_at:
+                reasons.append("declared start is before the seal")
+        if input_now["result"] != "intact" and not (
+                col is not None and col["input_check"]["problems"] == input_now["problems"]):
+            reasons.append("input drift at compare: " + ", ".join(input_now["problems"]))
+        cost = _cost_view(col["costs"] if col else None)
+        planned_order = run["order"]
+        launch_order = cost["values"]["launch_order"] if cost["values"] else None
+        action_view = None
+        if act is not None:
+            com = load_commitments(LAB / "cases" / run["case_id"], run["case_id"], run["case_revision"])
+            kinds = {i["id"]: i["kind"] for i in com["items"]}
+            action_view = {"assessor_label": act["assessor_label"], "blind_to_condition": act["blind_to_condition"],
+                           "dispositions": [{"commitment": d["commitment"], "kind": kinds[d["commitment"]],
+                                             "status": d["status"]} for d in act["dispositions"]],
+                           "kind": "supplied judgment"}
+        rows.append({
+            "run_id": run_id,
+            "pair_id": run["pair_id"],
+            "order": planned_order,
+            "launch_order": launch_order,
+            "late": run["late"],
+            "supersedes": run["supersedes"],
             "case_id": run["case_id"],
             "case_revision": run["case_revision"],
             "family": meta["family"],
@@ -1153,14 +1706,20 @@ def compare_runs(raw_dirs: list[str]) -> dict:
             "status": "uncollected" if col is None else col["status"],
             "clean": not reasons,
             "not_clean_reasons": reasons,
+            "input_check_collect": None if col is None else col["input_check"]["result"],
+            "input_check_now": input_now["result"],
+            "seal_check": seal_now["result"],
             "deterministic_pass": assessment["deterministic_pass"],
+            "quotes_preserved": assessment.get("quotes_preserved"),
             "outcome_found": (assessment["checks"] or {}).get("outcome", {}).get("found"),
             "assessment": assessment,
+            "actions": action_view,
             "review": None if rev is None else {
                 "reviewer_label": rev["reviewer_label"], "blind_to_condition": rev["blind_to_condition"],
                 "scores": {s["item"]: s["score"] for s in rev["scores"]},
                 "reviewer_minutes": rev["reviewer_minutes"],
-                "director_attention_events": rev["director_attention_events"]},
+                "director_attention_events": rev["director_attention_events"], "kind": "supplied judgment"},
+            "costs": cost,
             "elapsed_seconds": None if col is None else _elapsed(col),
             "tool_events": None if col is None else col["tool_event_count"],
             "usage": None if col is None else col["usage"],
@@ -1169,34 +1728,76 @@ def compare_runs(raw_dirs: list[str]) -> dict:
             "interventions": sum(1 for e in events if e.get("kind") == "intervention")
             + (1 if col is not None and col["intervention"] is not None else 0),
         })
+    by_id = {r["run_id"]: r for r in rows}
+    pairs = []
+    for pair_id, parity in sorted(sealed["pairs"].items()):
+        members = [by_id[parity["baseline"]], by_id[parity["assisted"]]]
+        why = [f"{m['run_id']} not clean" for m in members if not m["clean"]]
+        pairs.append({"pair_id": pair_id, "case_id": members[0]["case_id"], "baseline": parity["baseline"],
+                      "assisted": parity["assisted"], "parity": parity["parity"],
+                      "baseline_reach": parity["baseline_reach"], "readable": not why, "not_readable": why,
+                      "assisted_first": sealed_rows[parity["assisted"]]["order"] < sealed_rows[parity["baseline"]]["order"]})
     counts = {}
     for cond in CONDITIONS:
-        mine = [r for r in out_rows if r["condition"] == cond]
+        mine = [r for r in rows if r.get("condition") == cond and not r.get("late")]
         clean = [r for r in mine if r["clean"]]
         items: dict[str, dict] = {}
+        tallies: dict[str, dict] = {}
         for r in clean:
-            if r["review"]:
+            if r.get("review"):
                 for item, score in r["review"]["scores"].items():
                     slot = items.setdefault(item, {"reviewed_clean_runs": 0, "score_sum": 0})
                     slot["reviewed_clean_runs"] += 1
                     slot["score_sum"] += score
+            if r.get("actions"):
+                for d in r["actions"]["dispositions"]:
+                    slot = tallies.setdefault(d["kind"], {s: 0 for s in DISPOSITIONS})
+                    slot[d["status"]] += 1
         counts[cond] = {
-            "runs": len(mine),
-            "by_status": {s: sum(1 for r in mine if r["status"] == s) for s in (*STATUSES, "uncollected")},
+            "planned_runs": len(mine),
+            "by_status": {s: sum(1 for r in mine if r["status"] == s) for s in (*STATUSES, "uncollected", "missing")},
             "clean": len(clean),
-            "clean_deterministic_pass": sum(1 for r in clean if r["deterministic_pass"]),
+            "clean_deterministic_pass": sum(1 for r in clean if r.get("deterministic_pass")),
+            "clean_with_action_record": sum(1 for r in clean if r.get("actions")),
+            "commitments_by_kind": dict(sorted(tallies.items())),
             "rubric_items": dict(sorted(items.items())),
+            "cost_complete": sum(1 for r in mine if r.get("costs", {}).get("complete")),
         }
-    inv = runs[0]["investigation"]
+    prep = sealed["preparation"]
+    planned = len(sealed["runs"])
+    share = None
+    if prep["amortization"] == "equal-split-over-planned-runs" and prep["reusable_setup_minutes"] is not None:
+        share = round(prep["reusable_setup_minutes"] / planned, 2)
+    trial_summary = {
+        "trial_id": sealed["trial_id"],
+        "seal_sha256": sha256(read_regular(trial / "seal.json", "seal.json", MAX_JSON)),
+        "sealed_at": sealed["sealed_at"],
+        "planned_runs": planned,
+        "collected_planned_runs": sum(1 for r in rows if not r.get("late") and r["status"] not in ("uncollected", "missing")),
+        "late_runs": sum(1 for r in rows if r.get("late")),
+        "pairs": len(pairs),
+        "readable_pairs": sum(1 for p in pairs if p["readable"]),
+        "assisted_first_pairs": sum(1 for p in pairs if p["assisted_first"]),
+        "preparation": {**prep, "machine_seconds": sealed["preparation_machine_seconds"],
+                        "machine_seconds_kind": "mechanical", "minutes_kind": "declared",
+                        "reusable_setup_share_per_planned_run": share},
+    }
+    trial_summary["complete"] = (trial_summary["collected_planned_runs"] == planned
+                                 and trial_summary["readable_pairs"] == len(pairs))
+    inv = parse_investigation(read_regular(trial / "investigation.json", "investigation.json", MAX_JSON))
     result = {
         "schema": SCHEMA_COMPARISON,
-        "bench_version": runs[0]["bench_version"],
-        "investigation_sha256": runs[0]["investigation_sha256"],
-        "investigation": inv,
-        "synthetic": any(r["label"] == "SYNTHETIC" for r in out_rows),
-        "rows": out_rows,
+        "rules": RULES,
+        "bench_version": sealed["bench_version"],
+        "investigation_sha256": sealed["investigation_sha256"],
+        "investigation": {"page": inv["page"], "pass": inv["pass"]},
+        "trial": trial_summary,
+        "synthetic": any(r.get("label") == "SYNTHETIC" for r in rows),
+        "pairs": pairs,
+        "rows": rows,
         "counts": counts,
-        "not_computed": ["ratios between conditions", "time or token savings", "rankings", "a pass score"],
+        "not_computed": ["ratios between conditions", "time or token savings", "rankings", "a pass score",
+                         "subscription or provider cost conversion"],
     }
     markdown = render(result)
     result["markdown"] = markdown
@@ -1206,103 +1807,159 @@ def compare_runs(raw_dirs: list[str]) -> dict:
 
 def _cell(value: object) -> str:
     if value is None:
-        return "unavailable"
+        return "unknown"
     if isinstance(value, float):
         return f"{value:g}"
     return str(value).replace("|", "\\|")
 
 
 def render(result: dict) -> str:
+    t = result["trial"]
     lines = ["# Prime bench comparison", ""]
     if result["synthetic"]:
         lines += ["**SYNTHETIC.** At least one run is labelled SYNTHETIC. These records demonstrate the harness and "
                   "its report format. They show no model performance.", ""]
     inv = result["investigation"]
-    lines += [f"Bench version `{result['bench_version']}`. Investigation {inv['page']} pass {inv['pass']} "
-              f"(`{result['investigation_sha256']}`). Runs: {len(result['rows'])}.", ""]
+    lines += [f"Rules `{result['rules']}`. Bench version `{result['bench_version']}`. Investigation {inv['page']} "
+              f"pass {inv['pass']}. Trial {t['trial_id']}, seal `{t['seal_sha256']}`, sealed {t['sealed_at']} "
+              "(machine clock).", ""]
+    status = "complete" if t["complete"] else "INCOMPLETE"
+    lines += [f"**Trial {status}.** Planned runs {t['planned_runs']}; collected {t['collected_planned_runs']}; "
+              f"late runs {t['late_runs']} (reported, never clean). Pairs {t['pairs']}; readable {t['readable_pairs']}; "
+              f"assisted first in {t['assisted_first_pairs']}. A trial is complete only when every planned run is "
+              "collected and every pair is readable.", ""]
+    lines += ["## Kinds of fact",
+              "- **mechanical**: computed by the harness: hashes, pair parity, baseline reach, input checks, seal "
+              "binding, record bindings, string checks, the seal's own clock.",
+              "- **declared**: supplied by people: session times, isolation and confinement, tool events, usage, "
+              "costs, launch order, cache state.",
+              "- **supplied judgment**: rubric scores and action dispositions. Code checked only their shape, "
+              "identity and that action evidence occurs in the response.",
+              "- Hashes do not prove when a session started or what else it could see.", ""]
     lines += ["## What is counted",
-              "- A run is clean only when it completed, fresh-session and workspace-confined were declared supported, "
-              "the session was fresh and used by no other run here, no intervention, no evaluator leakage, and the run "
-              "line matched.",
-              "- Deterministic pass: the run line, the outcome label, the decisive mentions, the exact quotes, the "
-              "forbidden claims and the canary, all as string checks. It is not a judgment that the review is right.",
-              "- Reviewer scores are supplied records, summed per rubric item over clean reviewed runs, with the count.",
-              "- Elapsed time uses coordinator-supplied start and finish. Tool events and usage are as supplied. "
-              "Missing values are `unavailable`, never 0.", ""]
-    lines += ["## Runs", "",
-              "| run | case | family/variant | condition | model / effort | label | status | clean | outcome | "
-              "deterministic | review | elapsed s | tool events | usage |",
-              "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+              "- A run is clean only when it was sealed before answers, its inputs were intact at collection and at "
+              "compare, it completed, isolation was declared supported and used fresh, its session was used by no "
+              "other run, there was no intervention or leakage, its run line matched, and its declared start is not "
+              "before the seal.",
+              "- A pair is readable only when both its runs are clean.",
+              "- String checks: run line, outcome label, mentions, exact quotes, forbidden patterns, canary. They are "
+              "not a semantic or action verdict. Quote preservation is reported on its own.",
+              "- Action commitments: per kind, the count of present, contradicted and absent dispositions among clean "
+              "runs with a supplied record. No universal score.",
+              "- Unknown values are shown as `unknown`, never 0. A cost record is complete only when every field is "
+              "known.", ""]
+    lines += ["## Pairs", "", "| pair | case | baseline | assisted | parity | baseline reach | readable |",
+              "|---|---|---|---|---|---|---|"]
+    for p in result["pairs"]:
+        lines.append(f"| {p['pair_id']} | {p['case_id']} | {p['baseline']} | {p['assisted']} | {p['parity']} "
+                     f"| {p['baseline_reach']} | {'yes' if p['readable'] else 'no: ' + '; '.join(p['not_readable'])} |")
+    lines += ["", "## Runs", "",
+              "| run | pair | order (plan / launch) | case | condition | label | status | clean | inputs (collect / now) "
+              "| outcome | string checks | quotes | actions | review | elapsed s | costs |",
+              "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for r in result["rows"]:
-        review = "unavailable" if r["review"] is None else ", ".join(
+        if r["status"] == "missing":
+            lines.append(f"| {r['run_id']} | {_cell(r['pair_id'])} | | {_cell(r['case_id'])} | {_cell(r['condition'])} "
+                         "| | missing | no | | | | | | | | |")
+            continue
+        acts = "unknown" if r["actions"] is None else ", ".join(
+            f"{d['commitment']}={d['status']}" for d in r["actions"]["dispositions"])
+        review = "unknown" if r["review"] is None else ", ".join(
             f"{k}={v}" for k, v in sorted(r["review"]["scores"].items()))
-        usage = "unavailable" if r["usage"] is None else ", ".join(
-            f"{k}={v}" for k, v in sorted(r["usage"].items()) if k != "source")
+        cost = r["costs"]
+        cost_cell = "not supplied" if not cost["supplied"] else (
+            "complete" if cost["complete"] else "incomplete: " + ", ".join(cost["missing"]))
+        quotes = "n/a" if r["quotes_preserved"] is None else ("kept" if r["quotes_preserved"] else "not kept")
         lines.append(
-            f"| {r['run_id']} | {r['case_id']} r{r['case_revision']} | {r['family']}/{r['variant']} | {r['condition']} "
-            f"| {_cell(r['model_label'])} / {_cell(r['effort_label'])} | {_cell(r['label'])} | {r['status']} "
-            f"| {'yes' if r['clean'] else 'no'} | {_cell(r['outcome_found'])} "
-            f"| {'pass' if r['deterministic_pass'] else 'fail'} | {review} | {_cell(r['elapsed_seconds'])} "
-            f"| {_cell(r['tool_events'])} | {usage} |")
-    lines += ["", "## Counts by condition", ""]
+            f"| {r['run_id']}{' (late)' if r['late'] else ''} | {r['pair_id']} | {r['order']} / {_cell(r['launch_order'])} "
+            f"| {r['case_id']} r{r['case_revision']} | {r['condition']} | {_cell(r['label'])} | {r['status']} "
+            f"| {'yes' if r['clean'] else 'no'} | {_cell(r['input_check_collect'])} / {r['input_check_now']} "
+            f"| {_cell(r['outcome_found'])} | {'pass' if r['deterministic_pass'] else 'fail'} | {quotes} | {acts} "
+            f"| {review} | {_cell(r['elapsed_seconds'])} | {cost_cell} |")
+    lines += ["", "## Costs (declared unless marked)", "",
+              "| run | tool ops | failed calls | repairs (n / min) | corrections (n / min) | Director (n / min) "
+              "| cache | tool events | usage |", "|---|---|---|---|---|---|---|---|---|"]
+    for r in result["rows"]:
+        if r["status"] == "missing":
+            continue
+        v = r["costs"]["values"] or {}
+        usage = "unknown" if r["usage"] is None else ", ".join(
+            f"{k}={val}" for k, val in sorted(r["usage"].items()) if k != "source")
+        lines.append(
+            f"| {r['run_id']} | {_cell(v.get('tool_operations'))} | {_cell(v.get('failed_tool_calls'))} "
+            f"| {_cell(v.get('request_repairs'))} / {_cell(v.get('repair_minutes'))} "
+            f"| {_cell(v.get('correction_loops'))} / {_cell(v.get('correction_minutes'))} "
+            f"| {_cell(v.get('director_attention_events'))} / {_cell(v.get('director_attention_minutes'))} "
+            f"| {_cell(v.get('cache_state'))} | {_cell(r['tool_events'])} | {usage} |")
+    prep = t["preparation"]
+    lines += ["", f"Preparation: owner {prep['owner']}; seal took {prep['machine_seconds']} s (mechanical); reusable "
+              f"setup {_cell(prep['reusable_setup_minutes'])} min and per-run setup {_cell(prep['per_run_setup_minutes'])} "
+              f"min (declared); amortization {prep['amortization']}"
+              + (f", reusable share per planned run {prep['reusable_setup_share_per_planned_run']} min."
+                 if prep["reusable_setup_share_per_planned_run"] is not None else "."), ""]
+    lines += ["## Counts by condition (planned runs; late runs excluded)", ""]
     for cond, c in result["counts"].items():
-        status = ", ".join(f"{k} {v}" for k, v in c["by_status"].items())
-        lines.append(f"- **{cond}**: {c['runs']} runs ({status}); clean {c['clean']}; "
-                     f"clean with deterministic pass {c['clean_deterministic_pass']}.")
+        status_text = ", ".join(f"{k} {v}" for k, v in c["by_status"].items())
+        lines.append(f"- **{cond}**: {c['planned_runs']} planned ({status_text}); clean {c['clean']}; clean with "
+                     f"string checks passing {c['clean_deterministic_pass']}; clean with an action record "
+                     f"{c['clean_with_action_record']}; cost records complete {c['cost_complete']}.")
+        for kind, slot in c["commitments_by_kind"].items():
+            lines.append(f"  - {kind}: present {slot['present']}, contradicted {slot['contradicted']}, "
+                         f"absent {slot['absent']}.")
         for item, slot in c["rubric_items"].items():
-            lines.append(f"  - {item}: {slot['reviewed_clean_runs']} clean reviewed runs, score sum {slot['score_sum']}.")
-    lines += ["", "## Not clean, failed or uncollected (kept, not dropped)", ""]
+            lines.append(f"  - rubric {item}: {slot['reviewed_clean_runs']} clean reviewed runs, score sum "
+                         f"{slot['score_sum']}.")
+    lines += ["", "## Not clean, failed, late or missing (kept, not dropped)", ""]
     unclean = [r for r in result["rows"] if not r["clean"]]
-    lines += [f"- {r['run_id']} ({r['condition']}): {'; '.join(r['not_clean_reasons'])}" for r in unclean] or ["- none"]
+    lines += [f"- {r['run_id']} ({_cell(r.get('condition'))}): {'; '.join(r['not_clean_reasons'])}"
+              for r in unclean] or ["- none"]
     lines += ["", "## Corrections and interventions (separate from the original runs)", ""]
-    extra = [r for r in result["rows"] if r["corrections"] or r["interventions"]]
-    lines += [f"- {r['run_id']}: corrections {r['corrections']}, interventions {r['interventions']}" for r in extra] or ["- none"]
+    extra = [r for r in result["rows"] if r.get("corrections") or r.get("interventions")]
+    lines += [f"- {r['run_id']}: corrections {r['corrections']}, interventions {r['interventions']}"
+              for r in extra] or ["- none"]
     lines += ["", "## Not computed", "",
-              "No ratio between conditions, no time or token saving, no ranking and no pass score. "
-              "A small fixed bench cannot establish general productivity.", ""]
+              "No ratio between conditions, no time or token saving, no ranking, no pass score and no provider or "
+              "subscription cost conversion. One trial of fixed cases cannot establish general productivity.", ""]
     return "\n".join(lines)
 
 
 # ---------------------------------------------------------------- export
 
 def export(args: argparse.Namespace) -> dict:
-    result = compare_runs(args.run_dir)
-    inv, inv_bytes = load_investigation(args.investigation)
-    if sha256(inv_bytes) != result["investigation_sha256"]:
-        raise Refused("mixed-investigation", "investigation file differs from the one the runs are bound to")
+    result = compare_trial(args.trial)
+    trial = existing_dir(args.trial, "trial folder")
     dest = fresh_dest(args.dest, "export folder")
+    inv = result["investigation"]
     nn = inv["pass"].split(".")[1]
     files: dict[str, bytes] = {
         "comparison.md": result["markdown"].encode("utf-8"),
         "comparison.json": dumps({k: v for k, v in result.items() if k != "markdown"}),
-        "investigation.json": inv_bytes,
+        "seal.json": read_regular(trial / "seal.json", "seal.json", MAX_JSON),
+        "plan.json": read_regular(trial / "plan.json", "plan.json", MAX_JSON),
+        "investigation.json": read_regular(trial / "investigation.json", "investigation.json", MAX_JSON),
     }
-    for raw in args.run_dir:
-        run_dir = existing_dir(raw, "run folder")
-        run = load_run(run_dir)
-        for rel in ("run.json", "COORDINATOR.md", "collection.json", "review.json"):
-            if os.path.lexists(run_dir / rel):
-                files[f"runs/{run['run_id']}/{rel}"] = read_regular(run_dir / rel, rel, MAX_JSON)
-        for sub in ("collected", "events"):
-            folder = run_dir / sub
-            if folder.is_dir():
-                for name in sorted(os.listdir(folder)):
-                    need_rel(name, f"{sub} file")
-                    files[f"runs/{run['run_id']}/{sub}/{name}"] = read_regular(folder / name, name, MAX_TOOL_LOG)
+    for amendment in sorted(os.listdir(trial / "amendments")) if (trial / "amendments").is_dir() else []:
+        files[f"amendments/{need_rel(amendment, 'amendment')}"] = read_regular(
+            trial / "amendments" / amendment, amendment, MAX_JSON)
+    for row in result["rows"]:
+        run_dir = trial / "runs" / row["run_id"]
+        for rel in row.get("records", {}):
+            files[f"runs/{row['run_id']}/{rel}"] = read_regular(run_dir.joinpath(*rel.split("/")), rel, MAX_TOOL_LOG)
     template = (
         f"# 05.{nn}.return.md — TEMPLATE for the bench coordinator\n\n"
-        f"Investigation {inv['page']}, pass 05.{nn}. Bench version {result['bench_version']}.\n"
+        f"Investigation {inv['page']}, pass 05.{nn}. Trial {result['trial']['trial_id']}, seal "
+        f"{result['trial']['seal_sha256']}.\n"
         "This is a TEMPLATE. The coordinator writes every section in their own words before capture.\n"
         "Nothing below is a completed return or a review.\n\n"
-        "## Did\nTEMPLATE: runs prepared, collected and reviewed; exact commands; what comparison.md shows.\n\n"
-        "## Blocked\nTEMPLATE: anything that stopped a run or a review.\n\n"
+        "## Did\nTEMPLATE: trial sealed, runs launched and collected, records supplied; exact commands.\n\n"
+        "## Blocked\nTEMPLATE: anything that stopped a run, an input check or a review.\n\n"
         "## Need\nTEMPLATE: the Director or Prime choices needed next.\n\n"
         "## Records\n"
         f"comparison.md sha256 {sha256(files['comparison.md'])}\n"
         f"comparison.json sha256 {sha256(files['comparison.json'])}\n"
-        f"investigation.json sha256 {sha256(inv_bytes)}\n")
+        f"seal.json sha256 {sha256(files['seal.json'])}\n")
     files[f"05.{nn}.return.TEMPLATE.md"] = template.encode("utf-8")
-    artifacts = ["comparison.md", "comparison.json", "investigation.json"]
+    artifacts = ["comparison.md", "comparison.json", "seal.json"]
     capture = (
         "Coordinator custody (N1NN). Not run by this harness.\n"
         f"1. Write {dest}\\05.{nn}.return.md from the TEMPLATE, starting Did, Blocked, Need.\n"
@@ -1313,8 +1970,9 @@ def export(args: argparse.Namespace) -> dict:
         f"--return-file \"{dest}\\05.{nn}.return.md\" --source-root \"{dest}\" "
         + " ".join(f"--artifact \"{a}|{a}\"" for a in artifacts) + "\n"
         "python -B labs/return-capture-pass01/return_capture.py verify --book \"ABS-BOOK\" --member RESERVED-MEMBER\n\n"
-        "4. Prime places the captured return into the N7NN page with the reviewed workflow. "
-        "Run records under runs/ stay in this export folder, bound by comparison.json.\n")
+        "4. Prime places the captured return into the N7NN page with the reviewed workflow. Run records under runs/, "
+        "plan.json, investigation.json and amendments/ stay in this export folder, bound by comparison.json and "
+        "seal.json.\n")
     files["CAPTURE.txt"] = capture.encode("utf-8")
     writer = Writer()
 
@@ -1325,50 +1983,39 @@ def export(args: argparse.Namespace) -> dict:
 
     guarded(writer, "export", write_all)
     return {"result": "exported", "dest": str(dest), "files": len(files),
-            "comparison_sha256": sha256(files["comparison.md"])}
+            "comparison_sha256": sha256(files["comparison.md"]), "trial_complete": result["trial"]["complete"]}
 
 
 # ---------------------------------------------------------------- cli
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="prime_bench.py", description="Bounded Prime benchmark harness.")
+    parser = argparse.ArgumentParser(prog="prime_bench.py", description="Bounded Prime benchmark harness, rules 2.")
     sub = parser.add_subparsers(dest="command", required=True)
-    p = sub.add_parser("validate")
-    p.add_argument("--json", action="store_true")
+
+    def add(name: str, required: tuple[str, ...], optional: tuple[str, ...] = (), multi: tuple[str, ...] = ()):
+        p = sub.add_parser(name)
+        for flag in required:
+            p.add_argument(flag, required=True)
+        for flag in optional:
+            p.add_argument(flag)
+        p.add_argument("--json", action="store_true")
+        return p
+
+    add("validate", ())
     sub.add_parser("manifest")
-    p = sub.add_parser("prepare")
-    for name in ("--investigation", "--run-id", "--case", "--condition", "--model-label", "--effort-label",
-                 "--fresh-session", "--workspace-confined", "--tool-log", "--usage", "--run-dir", "--candidate-dir"):
-        p.add_argument(name, required=True)
-    p.add_argument("--json", action="store_true")
-    p = sub.add_parser("collect")
-    for name in ("--run-dir", "--expect-run", "--expect-condition", "--status", "--label", "--session-label",
-                 "--isolation-used"):
-        p.add_argument(name, required=True)
-    for name in ("--reason", "--response", "--tool-log", "--tool-events", "--usage", "--started", "--finished",
-                 "--intervention"):
-        p.add_argument(name)
-    p.add_argument("--json", action="store_true")
-    p = sub.add_parser("event")
-    for name in ("--run-dir", "--kind", "--text"):
-        p.add_argument(name, required=True)
-    p.add_argument("--attachment")
-    p.add_argument("--json", action="store_true")
-    p = sub.add_parser("assess")
-    p.add_argument("--run-dir", required=True)
-    p.add_argument("--json", action="store_true")
-    p = sub.add_parser("review")
-    p.add_argument("--run-dir", required=True)
-    p.add_argument("--record", required=True)
-    p.add_argument("--json", action="store_true")
-    p = sub.add_parser("compare")
-    p.add_argument("--run-dir", action="append", required=True)
-    p.add_argument("--json", action="store_true")
-    p = sub.add_parser("export")
-    p.add_argument("--run-dir", action="append", required=True)
-    p.add_argument("--investigation", required=True)
-    p.add_argument("--dest", required=True)
-    p.add_argument("--json", action="store_true")
+    add("seal", ("--plan", "--investigation", "--dest"))
+    add("check-inputs", ("--run-dir",))
+    add("collect", ("--run-dir", "--expect-run", "--expect-condition", "--status", "--label", "--session-label",
+                    "--isolation-used"),
+        ("--reason", "--response", "--tool-log", "--tool-events", "--usage", "--costs", "--started", "--finished",
+         "--intervention"))
+    add("event", ("--run-dir", "--kind", "--text"), ("--attachment",))
+    add("assess", ("--run-dir",))
+    add("review", ("--run-dir", "--record"))
+    add("actions", ("--run-dir", "--record"))
+    add("rerun", ("--trial", "--supersedes", "--run-id", "--reason"))
+    add("compare", ("--trial",))
+    add("export", ("--trial", "--dest"))
     return parser
 
 
@@ -1394,15 +2041,22 @@ def main(argv: list[str] | None = None) -> int:
         if args.command == "manifest":
             sys.stdout.buffer.write(dumps(manifest_object()))
             return 0
+        if args.command == "check-inputs":
+            result = check_inputs(load_run(existing_dir(args.run_dir, "run folder")))
+            emit(result, as_json, f"{result['run_id']} inputs {result['result']}\n"
+                 + "".join(f"  {p}\n" for p in result["problems"]))
+            return 0 if result["result"] == "intact" else 1
         if args.command == "assess":
             result = assess_run(existing_dir(args.run_dir, "run folder"))
-            emit(result, as_json, f"{result['run_id']} deterministic {'pass' if result['deterministic_pass'] else 'fail'}\n")
+            emit(result, as_json, f"{result['run_id']} string checks "
+                 f"{'pass' if result['deterministic_pass'] else 'fail'}\n")
             return 0
         if args.command == "compare":
-            result = compare_runs(args.run_dir)
+            result = compare_trial(args.trial)
             emit(result, as_json, result["markdown"])
             return 0
-        handler = {"prepare": prepare, "collect": collect, "event": event, "review": review, "export": export}
+        handler = {"seal": seal, "collect": collect, "event": event, "review": review, "actions": actions,
+                   "rerun": rerun, "export": export}
         result = handler[args.command](args)
         emit(result, as_json, " ".join(f"{k}={v}" for k, v in result.items()) + "\n")
         return 0

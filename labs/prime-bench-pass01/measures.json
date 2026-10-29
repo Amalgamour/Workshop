@@ -1,0 +1,55 @@
+{
+  "amortization": "Reusable setup is reported as declared. When the plan says equal-split-over-planned-runs, the report shows the per-run share beside the total; it is never folded into session time.",
+  "fields": [
+    {
+      "field": "launch_order",
+      "unit": "position among all launched runs of the trial, 1-based"
+    },
+    {
+      "field": "tool_operations",
+      "unit": "operations, as defined by operation_unit"
+    },
+    {
+      "field": "failed_tool_calls",
+      "unit": "operations that returned an error"
+    },
+    {
+      "field": "request_repairs",
+      "unit": "times a tool request or input had to be repaired outside the answer"
+    },
+    {
+      "field": "repair_minutes",
+      "unit": "whole minutes of human or coordinator time on those repairs"
+    },
+    {
+      "field": "correction_loops",
+      "unit": "post-answer correction rounds, recorded separately from the original run"
+    },
+    {
+      "field": "correction_minutes",
+      "unit": "whole minutes spent on those rounds"
+    },
+    {
+      "field": "director_attention_events",
+      "unit": "questions or decisions put to the Director for this run"
+    },
+    {
+      "field": "director_attention_minutes",
+      "unit": "whole minutes of Director time, as declared"
+    },
+    {
+      "field": "cache_state",
+      "unit": "cold, warm or unknown, as exposed by the surface"
+    },
+    {
+      "field": "prior_involvement",
+      "unit": "text: the tested model's prior involvement with this material, or null"
+    }
+  ],
+  "operation_unit": "One tool invocation by the tested session, successful or failed, as recorded by the session surface. Both conditions use this unit.",
+  "preparation_timing": "Mechanical: the seal command's own machine clock from start to the seal write. Declared: setup minutes supplied by the preparation owner in the plan.",
+  "schema": "prime-bench-measures/1",
+  "session_start": "The first byte of PROMPT.md sent to the fresh session.",
+  "session_stop": "The last byte of the session's final message.",
+  "unknown": "null or unknown means unknown and is reported as unknown, never 0."
+}

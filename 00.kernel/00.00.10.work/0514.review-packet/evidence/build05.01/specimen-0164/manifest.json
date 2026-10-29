@@ -1,0 +1,109 @@
+{
+  "files": [
+    {
+      "bytes": 2415,
+      "path": "custody.json",
+      "sha256": "0d6cdeca15ebd1f442aca7edcd91c9439ded4f1b230a523f5d8e28575ff3d42b"
+    },
+    {
+      "bytes": 0,
+      "path": "custody-stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 623,
+      "path": "helper-verify.txt",
+      "sha256": "3512b105a0a3fd4358f64365d0d20905bf1ce29d27ec823061187d0fea4109ed"
+    },
+    {
+      "bytes": 0,
+      "path": "helper-verify-stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1605,
+      "path": "sources/0001-return-text.blob",
+      "sha256": "c0d1d2c65b02f0ce4486b408a9d691b94b2afe6d28df9fd55dc610c2a83fb7da"
+    },
+    {
+      "bytes": 299,
+      "path": "sources/0002-receipt.blob",
+      "sha256": "f1209253990119c91525a8d170aeb77723502553c2ceb8f3db0e59f1e034a1cd"
+    },
+    {
+      "bytes": 1501,
+      "path": "sources/0003-capture-manifest.blob",
+      "sha256": "64075529703ef1e5a96238f0993f69a1956496cf2d80be3928f02648f0645471"
+    },
+    {
+      "bytes": 795,
+      "path": "sources/0004-reservation.blob",
+      "sha256": "09ae86a4a4bbf7025cb49a5a588abe0af525f70a47eb25b39b035f0521180e25"
+    },
+    {
+      "bytes": 2571,
+      "path": "sources/0005-pin-manifest.blob",
+      "sha256": "f40a86ba6c707b55e4186b131b956e3ac4181e43048739711be8d5bb1a2c8d2a"
+    },
+    {
+      "bytes": 1823,
+      "path": "sources/0006-director-agreement.blob",
+      "sha256": "3b2a6ce8bc7dc0e88c2460f961a4a88dd335141e4e212ded45d70bc4202eb136"
+    },
+    {
+      "bytes": 8393,
+      "path": "packet.json",
+      "sha256": "bfcd0ee84d2505b06ebea0593bc66dc4504393ea966e357d58fae580ce98d6e4"
+    },
+    {
+      "bytes": 1999,
+      "path": "PACKET.md",
+      "sha256": "83b4d69f95910aaca4af4e4400e0d72551265f3700599f1564305363f86e0f20"
+    }
+  ],
+  "schema": "review-packet-manifest/1",
+  "sources": [
+    {
+      "bytes": 1605,
+      "embedded": true,
+      "id": "return-text",
+      "sha256": "c0d1d2c65b02f0ce4486b408a9d691b94b2afe6d28df9fd55dc610c2a83fb7da",
+      "snapshot": "sources/0001-return-text.blob"
+    },
+    {
+      "bytes": 299,
+      "embedded": true,
+      "id": "receipt",
+      "sha256": "f1209253990119c91525a8d170aeb77723502553c2ceb8f3db0e59f1e034a1cd",
+      "snapshot": "sources/0002-receipt.blob"
+    },
+    {
+      "bytes": 1501,
+      "embedded": true,
+      "id": "capture-manifest",
+      "sha256": "64075529703ef1e5a96238f0993f69a1956496cf2d80be3928f02648f0645471",
+      "snapshot": "sources/0003-capture-manifest.blob"
+    },
+    {
+      "bytes": 795,
+      "embedded": true,
+      "id": "reservation",
+      "sha256": "09ae86a4a4bbf7025cb49a5a588abe0af525f70a47eb25b39b035f0521180e25",
+      "snapshot": "sources/0004-reservation.blob"
+    },
+    {
+      "bytes": 2571,
+      "embedded": true,
+      "id": "pin-manifest",
+      "sha256": "f40a86ba6c707b55e4186b131b956e3ac4181e43048739711be8d5bb1a2c8d2a",
+      "snapshot": "sources/0005-pin-manifest.blob"
+    },
+    {
+      "bytes": 1823,
+      "embedded": true,
+      "id": "director-agreement",
+      "sha256": "3b2a6ce8bc7dc0e88c2460f961a4a88dd335141e4e212ded45d70bc4202eb136",
+      "snapshot": "sources/0006-director-agreement.blob"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "case_id": "correction-b",
+  "items": [
+    {
+      "id": "A1",
+      "kind": "required-action",
+      "text": "Proposes a bounded correction so that a sibling path such as /data/root2 refuses, with a sibling test."
+    },
+    {
+      "id": "A2",
+      "kind": "prohibited",
+      "text": "Does not accept or close the batch as complete."
+    },
+    {
+      "id": "A3",
+      "kind": "prohibited",
+      "text": "Does not escalate to the Director; the correction is inside the existing direction."
+    }
+  ],
+  "revision": 2,
+  "schema": "prime-bench-commitments/1"
+}
