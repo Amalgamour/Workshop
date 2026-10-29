@@ -1,0 +1,146 @@
+{
+  "schema": "colab-support-report/2",
+  "command": "verify",
+  "result": "intact",
+  "layout": "colab-exchange-layout/2",
+  "digest": "42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184",
+  "investigation": {
+    "book": "00.00.10.work",
+    "page": "0701.colab-exchange-layout",
+    "pass": "05.01"
+  },
+  "exchange": {
+    "pass": "05.01",
+    "pack": "05.01.pack.md",
+    "notes": "06.01.notes.md",
+    "return_name": "05.01.return.md",
+    "review_name": "06.01.review.md",
+    "return_template": "templates/05.01.return.TEMPLATE.md",
+    "review_template": "templates/06.01.review.TEMPLATE.md"
+  },
+  "commit": "6896224510fe0bcebac291fce7ed311a2cd085cb",
+  "targets": [
+    {
+      "target": "T01",
+      "kind": "whole-file",
+      "sha256": "1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9",
+      "bytes": 3776
+    }
+  ],
+  "planned": [
+    {
+      "path": "package/05.01.pack.md",
+      "sha256": "b46713a78cea87597d04578949d21f4539518133ff58a8c007377fb222ea5a29",
+      "bytes": 3584
+    },
+    {
+      "path": "package/06.01.notes.md",
+      "sha256": "2d7fe940fcfbd2a9b88c655ebbbd3f113c290182a18e8f875c2c10758c5349f9",
+      "bytes": 2552
+    },
+    {
+      "path": "package/ENTRY.md",
+      "sha256": "1085c83d57c313844a83964e65489ebac71df7bf1f0623e74ddc35b8ba67aff7",
+      "bytes": 4777
+    },
+    {
+      "path": "package/binding.json",
+      "sha256": "d6bfabb615200c91009deb8631bd834c52286037aae2cfb14e5827f49a1a81b1",
+      "bytes": 642
+    },
+    {
+      "path": "package/colab-request.json",
+      "sha256": "5778b69507ff4eadd67e0b3eb2bdb3aa7d22440110d1ddb16e09b5e5e7c0b1fa",
+      "bytes": 6270
+    },
+    {
+      "path": "package/snapshots/0001.blob",
+      "sha256": "1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9",
+      "bytes": 3776
+    },
+    {
+      "path": "package/snapshots/0002.blob",
+      "sha256": "b82b263ea18f8fe7432c3f0190671c5d9d816d4712a5c64921a0697d2ab701e5",
+      "bytes": 434
+    },
+    {
+      "path": "package/snapshots/0003.blob",
+      "sha256": "246189acdba7c4559c1bda5ba9a6314d60dca9bf1710b87c4eaf59cbde5f6f42",
+      "bytes": 4489
+    },
+    {
+      "path": "package/snapshots/0004.blob",
+      "sha256": "a4231ad09ec5a14a320779f29574ca0cd8912eb0b1e8a25d2462d94c6b4dfeed",
+      "bytes": 1321
+    },
+    {
+      "path": "package/source-manifest.json",
+      "sha256": "419d863333779d4cf723dbfc0eacf5a9622cf1ab41b1b0ddbcce660daf2a09c0",
+      "bytes": 1109
+    },
+    {
+      "path": "package/support/SUPPORT.md",
+      "sha256": "8cc3b97b405b20e3bd15710deafd95dd449b58cdbab65731b10ff85947594e38",
+      "bytes": 574
+    },
+    {
+      "path": "package/support/assembler/05.01.md",
+      "sha256": "bbc9e48853ff5720b1184734343672a1f8432612fb1397f8929ef0dcb602dd82",
+      "bytes": 3377
+    },
+    {
+      "path": "package/support/assembler/completion-receipt.json",
+      "sha256": "0b51d84d96ff560148f2eec959004ec34b8838da4d155f38dbec524eec4d4170",
+      "bytes": 2232
+    },
+    {
+      "path": "package/support/assembler/request.snapshot",
+      "sha256": "bb1d670be230884b6f47655016907133eadc0005bb9a4c166b0116e18a27c4e5",
+      "bytes": 3581
+    },
+    {
+      "path": "package/templates/05.01.return.TEMPLATE.md",
+      "sha256": "fcaeaa71c097b2dba66e670057597b0b2ea3f66c93998c606e420282dbd1ef8f",
+      "bytes": 1439
+    },
+    {
+      "path": "package/templates/06.01.review.TEMPLATE.md",
+      "sha256": "a6c3a88abbed4c80880b0bdca193c51e7f369e846a672253e7d9f8828eefc943",
+      "bytes": 1008
+    },
+    {
+      "path": "prepared-colab.zip",
+      "sha256": "5f77b08318a40b9329f51a9178e274637271d1cf06d4aa3e9e1ea3c354862cfe",
+      "bytes": 43099
+    }
+  ],
+  "findings": [],
+  "statements": [
+    "This package is a draft. Preparation is not a Director release.",
+    "05.NN.pack.md is the one primary instruction source; support/ is transport support only.",
+    "No 05.NN.return.md or 06.NN.review.md exists at preparation. Templates are templates.",
+    "A verified package or receipt is custody, not review or acceptance.",
+    "The investigation binding is supplied by Prime; it does not open a live investigation.",
+    "Labels and quoted Director text do not authenticate anyone."
+  ],
+  "not_checked": [
+    "meaning, adequacy and design findings",
+    "authenticity of labels and quoted replies",
+    "permission: nothing is released, reviewed, accepted, seated or published",
+    "workflow integration: no consumer of this layout has been reviewed"
+  ],
+  "assembler_verify": {
+    "tool": "assembler",
+    "args": [
+      "verify",
+      "--pack",
+      "<temporary projection>",
+      "--checker",
+      "<pinned checker>",
+      "--json"
+    ],
+    "exit": 0,
+    "stdout": "{\n  \"schema\": \"pack-assembly-report/1\",\n  \"command\": \"verify\",\n  \"result\": \"intact\",\n  \"digest\": null,\n  \"supplied_digest\": null,\n  \"template\": \"pack-assembly-draft/1\",\n  \"commit\": null,\n  \"request_sha256\": null,\n  \"request_bytes\": null,\n  \"batch\": null,\n  \"sources\": [],\n  \"planned\": [],\n  \"target\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\colab2-verify-izede0_x\\\\pack\",\n  \"checker\": {\n    \"sha256\": \"9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d\",\n    \"bytes\": 21563,\n    \"result\": \"pass\",\n    \"exit\": 0,\n    \"rows_checked\": 4\n  },\n  \"receipt\": \"completion-receipt.json\",\n  \"findings\": [],\n  \"not_checked\": [\n    {\n      \"item\": \"meaning\",\n      \"detail\": \"This tool does not say what the draft means.\"\n    },\n    {\n      \"item\": \"instruction-sufficiency\",\n      \"detail\": \"This tool does not decide whether the instructions are sufficient.\"\n    },\n    {\n      \"item\": \"approval-release\",\n      \"detail\": \"This tool does not approve or release the draft. A receipt is not acceptance.\"\n    },\n    {\n      \"item\": \"dependencies\",\n      \"detail\": \"Dependencies are copied as supplied or left unresolved. None are installed or fetched.\"\n    },\n    {\n      \"item\": \"execution-safety\",\n      \"detail\": \"Request text and pinned sources are data. This tool does not execute them.\"\n    },\n    {\n      \"item\": \"return-slot\",\n      \"detail\": \"Live return-slot allocation is not checked.\"\n    },\n    {\n      \"item\": \"clerk-readiness\",\n      \"detail\": \"Clerk readiness is not checked.\"\n    }\n  ]\n}\n",
+    "stderr": ""
+  }
+}

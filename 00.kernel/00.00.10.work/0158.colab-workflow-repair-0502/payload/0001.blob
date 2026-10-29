@@ -1,0 +1,28 @@
+# 06 — Repair the workflow against the accepted producer
+
+version: 001
+batch: 0511.workflow-colab/05.02
+Claim: Grok 4.7 (xAI), session 01a179d2-387a-7661-8702-6e53f95e96b5, 2026-10-29, HEAD 5a72d6468ca26236017f8b4cb2dc15c9509c179f.
+
+## Read before the repair
+Pack evidence/pack05.02/source-manifest.json sha256 c0385100f2f4b677403ddd4e5e3eac384f7d15031a4135ce7dd87e48ccc332d5, 7753 bytes, schema prime-pack-sources/1, matched 30 of 30 live files and snapshots, bad 0, before this claim. Reservation 0158.colab-workflow-repair-0502 sha256 45eef5277690ea070ce0500ce45e223f1f39ebf8c915ce979f2334b82cade188, 982 bytes. It is still only a reservation.
+
+Prime review evidence/prime-review05.01/REVIEW.md holds 0511/05.01 for CW01, CW02, and CW03. The three reproductions are malformed package, colab tail on 0411.colab/01.md, and a fenced heading accepted. 0510/05.02 is accepted bounded lab input. Producer labs/colab-support-pass01/colab_support.py sha256 33bbe41c52485fc7b2b611d830bae8a15129721ad807a931e8193f17944c467c, 67781 bytes. Its four dependencies stay assembler 75d49679cbf3e624a82573229ca8c7cd9b758799bc26b6f080111feb6eaa275c, checker 9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d, helper 8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac, inspector 947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b.
+
+The supplied envelope evidence/real-producer05.02 was verified with that producer before this repair. Result intact, exit 0, digest a4b91dd63d2f7b845d1ee43ad3a3da63253851231cb79659c0fdaed6fc46d7c4. That probe did not write the envelope. This repair does not edit the producer, the envelope, 05.01 evidence, or member 0156.
+
+## Decisions
+CW01. Attach calls the pinned producer `verify` on the original output directory. It copies package bytes, the ZIP, and verification.json. It does not rebuild them as the 05.01 synthetic package. The name colab-package-digest/1 means only the producer length-prefixed preimage. The old line-oriented preimage is labelled legacy-line-preimage and is refused on attach.
+
+CW02. A source path may name 0411.colab or a file 07.md. Those are references. The workflow still does not create face 07 and does not emit a filename ending in .colab.
+
+CW03. A heading counts only outside fences, and only as the exact line. Duplicate headings need an occurrence. Kind id refuses as unsupported section id. This repair does not invent a section-id line.
+
+G01 through G07 in the Prime review stay recorded dispositions. This pass does not edit shared law or the binding schema. A verifier result is mechanical evidence, not approval. Local config paths are not stored in the investigation. Evaluator files and assembler side files are not copied.
+
+The live work book stays refused. The tool still does not reserve, capture, call a model, or write 00.live. Fixture setup outside the tool may call the pinned helper and the pinned producer intake.
+
+## Suite
+Recorded after the repaired suite and the disposable handoff. The counts below are the runs, not acceptance.
+
+Unit suite executed 15, skipped 1, failed 0. The skip is file-symlink creation, WinError 1314. Junction refusal passed. Disposable handoff exit 0. The disposable book was removed after the report. The live book was not written. The accepted envelope bytes were unchanged.

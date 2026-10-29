@@ -1,0 +1,60 @@
+{
+  "schema": "pack-assembly-receipt/1",
+  "result": "completed",
+  "template": "pack-assembly-draft/1",
+  "digest": "ef61018444eafda6bc7869b4b819f5149a14db32fcc7e67d8d69702b2d6eab01",
+  "request_sha256": "bb1d670be230884b6f47655016907133eadc0005bb9a4c166b0116e18a27c4e5",
+  "request_bytes": 3581,
+  "commit": "6896224510fe0bcebac291fce7ed311a2cd085cb",
+  "batch": "05.01",
+  "batch_file": "05.01.md",
+  "batch_sha256": "bbc9e48853ff5720b1184734343672a1f8432612fb1397f8929ef0dcb602dd82",
+  "batch_bytes": 3377,
+  "sources": [
+    {
+      "path": "00.kernel/00.00.10.work/0411.colab/evidence/exchange-layout-v2/CONTRACT.md",
+      "sha256": "1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9",
+      "bytes": 3776,
+      "snapshot": "snapshots/0001.blob"
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0411.colab/evidence/exchange-layout-v2/NOTES.md",
+      "sha256": "b82b263ea18f8fe7432c3f0190671c5d9d816d4712a5c64921a0697d2ab701e5",
+      "bytes": 434,
+      "snapshot": "snapshots/0002.blob"
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0411.colab/evidence/n7nn-interface-v1/CONTRACT.md",
+      "sha256": "246189acdba7c4559c1bda5ba9a6314d60dca9bf1710b87c4eaf59cbde5f6f42",
+      "bytes": 4489,
+      "snapshot": "snapshots/0003.blob"
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0700.band.colabs/01.md",
+      "sha256": "a4231ad09ec5a14a320779f29574ca0cd8912eb0b1e8a25d2462d94c6b4dfeed",
+      "bytes": 1321,
+      "snapshot": "snapshots/0004.blob"
+    }
+  ],
+  "manifest_file": "source-manifest.json",
+  "manifest_sha256": "419d863333779d4cf723dbfc0eacf5a9622cf1ab41b1b0ddbcce660daf2a09c0",
+  "manifest_bytes": 1109,
+  "checker": {
+    "sha256": "9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d",
+    "bytes": 21563,
+    "result": "pass",
+    "exit": 0,
+    "rows_checked": 4
+  },
+  "return_destination": {
+    "state": "supplied",
+    "path": "return one file to Prime in the conversation that gave you this package"
+  },
+  "repository_label": "workshop",
+  "limits": [
+    "This receipt does not approve, release, or accept the draft.",
+    "Live return-slot allocation was not checked.",
+    "Clerk readiness was not checked.",
+    "Pinned sources were not executed."
+  ]
+}

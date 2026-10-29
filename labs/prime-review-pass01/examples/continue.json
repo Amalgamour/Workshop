@@ -1,0 +1,87 @@
+{
+  "agreement": {
+    "director_required": "A design change is not in this grant.",
+    "finish_criteria": [
+      {
+        "id": "typo",
+        "text": "The granted typo is corrected."
+      }
+    ],
+    "goal": "Correct the typo inside the granted page.",
+    "prime_discretion": "Prime may accept a wording repair inside that grant.",
+    "recorded_decisions": [
+      {
+        "id": "D1",
+        "source_sha256": "3492ad65d05a973fef8c825521eeb41ae64625a672a8aeeeabc696e16d62a020",
+        "text": "The pack was released for this repair."
+      }
+    ],
+    "scope": "The granted pack page only."
+  },
+  "answers": [],
+  "attribution": {
+    "actor_label": "Codex Prime",
+    "evidence": "SUPPLIED EXAMPLE. The label is not authentication.",
+    "role": "prime"
+  },
+  "gaps": [],
+  "holds": [],
+  "judgment": {
+    "design_fork": null,
+    "finding": "The correction stays inside the granted wording repair.",
+    "next_action": "Return the corrected page on the next pack pass.",
+    "outcome": "continue",
+    "reasons": [
+      "The change is the typo named in the grant."
+    ],
+    "sections": {
+      "affected": null,
+      "assumptions": null,
+      "consequences": null,
+      "exploration": null,
+      "findings_account": null,
+      "finish_assessments": null,
+      "for_model": {
+        "model": "builder",
+        "prompt": "Apply only the granted typo correction and return the page."
+      },
+      "issue": null,
+      "learning": null,
+      "limits": null,
+      "next_bounded_action": "Hand the corrected page back for the next pack pass.",
+      "open_questions": null,
+      "options": null,
+      "outcome_evidence": null,
+      "preservation": null,
+      "prime_finding": "The correction stays inside the granted wording repair.",
+      "proposed_plan": null,
+      "question": null,
+      "recommendation": null,
+      "remaining_choices": null,
+      "return_result": "The builder returned the corrected page.",
+      "tests_note": null,
+      "tests_passed": null,
+      "within_direction": "This is a routine repair inside the existing grant."
+    },
+    "semantic_conflict": false
+  },
+  "review_passes": [],
+  "schema": "prime-review-record/1",
+  "sources": [
+    {
+      "bind": false,
+      "content_bytes": 73,
+      "content_sha256": "6af836b206e40f137b37368e61abd27e52cb7f17d11b7b482f0ac9229ddbc270",
+      "identity": {
+        "schema": "page-bytes/1"
+      },
+      "kind": "page",
+      "logical_path": "notes/page.md",
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": "Routine page note. The builder corrected a typo inside the granted pack.\n",
+      "transport_bytes": 73,
+      "transport_sha256": "6af836b206e40f137b37368e61abd27e52cb7f17d11b7b482f0ac9229ddbc270"
+    }
+  ]
+}

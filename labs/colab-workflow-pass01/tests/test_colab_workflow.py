@@ -503,16 +503,76 @@ def test_targets_and_sources() -> None:
         root = Path(tmp)
         good = request_for([target("T01", "subj/note.md", section_id("S1"), NOTE)], title="By id")
         book, _request, sources, path, _note = make_world(root, targets=good["targets"], title="By id")
-        code, body, _err = open_cmd(book, path, sources)
-        if code != 0:
+        _code, body, _err = open_cmd(book, path, sources)
+        if body["reason"] != "unsupported section id":
             raise AssertionError(body)
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp)
         bad = [target("T01", "subj/note.md", section_id("S9"), NOTE)]
         book, _request, sources, path, _note = make_world(root, targets=bad, title="Missing id")
         _code, body, _err = open_cmd(book, path, sources)
+        if body["reason"] != "unsupported section id":
+            raise AssertionError(body)
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        fenced = "\n".join(["# Page", "", "```", "## Alpha", "```", "", "body", ""]).encode("utf-8")
+        book, _request, sources, path, _note = make_world(root, note=fenced, targets=[target("T01", "subj/note.md", heading("## Alpha"), fenced)], title="Fenced only")
+        _code, body, _err = open_cmd(book, path, sources)
         if body["reason"] != "unresolved section":
             raise AssertionError(body)
+        real = "\n".join(["# Page", "", "```", "## Alpha", "```", "", "## Alpha", "", "outside", ""]).encode("utf-8")
+        (sources / "subj" / "note.md").write_bytes(real)
+        request = request_for([target("T01", "subj/note.md", heading("## Alpha"), real)], title="Fence ignored")
+        write_json(path, request)
+        code, body, _err = open_cmd(book, path, sources)
+        if code != 0:
+            raise AssertionError(body)
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        book = root / "book"
+        book.mkdir()
+        sources = root / "sources"
+        text = "\n".join(["# Design", "", "## Compute module — proposed operations", "", "five operations", ""]).encode("utf-8")
+        path = sources / "00.kernel/00.00.10.work/0411.colab/01.md"
+        path.parent.mkdir(parents=True)
+        path.write_bytes(text)
+        chosen = {
+            "book": "00.00.10.work",
+            "file": "01.md",
+            "id": "T01",
+            "page": "0411.colab",
+            "section": heading("## Compute module — proposed operations"),
+            "source": {
+                "commit": COMMIT,
+                "path": "00.kernel/00.00.10.work/0411.colab/01.md",
+                "repository": "synthetic",
+                "sha256": cw.sha256(text),
+            },
+        }
+        request = request_for([chosen], title="Existing colab page")
+        request_path = root / "request.json"
+        write_json(request_path, request)
+        code, body, _err = open_cmd(book, request_path, sources)
+        if code != 0:
+            raise AssertionError(body)
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        book = root / "book"
+        book.mkdir()
+        sources = root / "sources"
+        text = "\n".join(["# Seven", "", "## Only", "", "text", ""]).encode("utf-8")
+        (sources / "subj").mkdir(parents=True)
+        (sources / "subj" / "07.md").write_bytes(text)
+        chosen = target("T01", "subj/07.md", heading("## Only"), text, "07.md")
+        request = request_for([chosen], title="Source seven")
+        request_path = root / "request.json"
+        write_json(request_path, request)
+        code, body, _err = open_cmd(book, request_path, sources)
+        if code != 0:
+            raise AssertionError(body)
+        names = [item.name for item in (book / "0701.sample").rglob("*") if item.is_file()]
+        if "07.md" in names:
+            raise AssertionError(names)
 
 
 def test_malformed() -> None:
@@ -551,159 +611,44 @@ def test_package_attach() -> None:
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp)
         book, request, _sources, _path, note = must_open(root)
-        dest, digest = package_for(root, request, note)
+        dest, _digest = package_for(root, request, note)
+        config = root / "config.json"
+        config.write_bytes(b'{"schema":"colab-config/1"}\n')
         before = hashes(dest)
-        code, body, _err = run(
-            [
-                "attach",
-                "--book",
-                str(book),
-                "--page",
-                "0701.sample",
-                "--pass",
-                "05.01",
-                "--package",
-                str(dest),
-                "--expect-digest",
-                digest,
-            ]
-        )
-        if code != 0 or hashes(dest) != before:
-            raise AssertionError(body)
         page_before = hashes(book / "0701.sample")
-        code, body, _err = run(
-            [
-                "attach",
-                "--book",
-                str(book),
-                "--page",
-                "0701.sample",
-                "--pass",
-                "05.01",
-                "--package",
-                str(dest),
-                "--expect-digest",
-                digest,
-            ]
-        )
-        if body["result"] != "repeat" or body["wrote"] is not False or hashes(book / "0701.sample") != page_before:
+
+        def boom(_argv):
+            raise AssertionError("launched")
+
+        cw.RUN_PROCESS = boom
+        try:
+            _code, body, _err = run(
+                [
+                    "attach",
+                    "--book",
+                    str(book),
+                    "--page",
+                    "0701.sample",
+                    "--pass",
+                    "05.01",
+                    "--output",
+                    str(dest),
+                    "--config",
+                    str(config),
+                    "--expect-digest",
+                    "0" * 64,
+                ]
+            )
+        finally:
+            cw.RUN_PROCESS = None
+        if body["reason"] != "legacy package" or hashes(dest) != before or hashes(book / "0701.sample") != page_before:
             raise AssertionError(body)
-        _code, body, _err = run(
-            [
-                "attach",
-                "--book",
-                str(book),
-                "--page",
-                "0701.sample",
-                "--pass",
-                "05.01",
-                "--package",
-                str(dest),
-                "--expect-digest",
-                "0" * 64,
-            ]
-        )
-        if body["reason"] != "stale expected hash" or hashes(book / "0701.sample") != page_before:
+        code, body, _err = run(["legacy-diagnose", "--package", str(dest)])
+        if code != 0 or body["result"] != "legacy" or body["wrote"] is not False or body["label"] != "legacy-synthetic-05.01":
             raise AssertionError(body)
-        files = cw.read_package(dest)
-        files["05.01.md"] = b"# 05.01\n\nDifferent supplied instructions.\n"
-        files.pop("verification.json")
-        digest2 = cw.digest_preimage(files)
-        listed = [{"bytes": len(files[name]), "path": name, "sha256": cw.sha256(files[name])} for name in sorted(files)]
-        files["verification.json"] = cw.canonical(
-            {
-                "binding_sha256": cw.sha256(files["binding.json"]),
-                "digest": digest2,
-                "digest_alg": cw.DIGEST_ALG,
-                "files": listed,
-                "request_sha256": cw.sha256(files["request.json"]),
-                "schema": "colab-package-verification/1",
-            }
-        )
-        other = root / "other-package"
-        for name, data in files.items():
-            path = other / name
-            path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_bytes(data)
-        _code, body, _err = run(
-            [
-                "attach",
-                "--book",
-                str(book),
-                "--page",
-                "0701.sample",
-                "--pass",
-                "05.01",
-                "--package",
-                str(other),
-                "--expect-digest",
-                digest2,
-            ]
-        )
-        if body["reason"] != "conflicting bytes":
-            raise AssertionError(body)
-        files = cw.read_package(dest)
-        binding = json.loads(files["binding.json"].decode("utf-8"))
-        binding["investigation"]["page"] = "0702.other"
-        wrong = root / "wrong-package"
-        shutil.copytree(dest, wrong)
-        (wrong / "binding.json").write_bytes(cw.canonical(binding))
-        _code, body, _err = run(
-            [
-                "attach",
-                "--book",
-                str(book),
-                "--page",
-                "0701.sample",
-                "--pass",
-                "05.01",
-                "--package",
-                str(wrong),
-                "--expect-digest",
-                digest,
-            ]
-        )
-        if body["reason"] != "wrong origin":
-            raise AssertionError(body)
-        tail = root / "tail-package"
-        shutil.copytree(dest, tail)
-        (tail / "note.colab").write_bytes(b"tail\n")
-        _code, body, _err = run(
-            [
-                "attach",
-                "--book",
-                str(book),
-                "--page",
-                "0701.sample",
-                "--pass",
-                "05.01",
-                "--package",
-                str(tail),
-                "--expect-digest",
-                digest,
-            ]
-        )
-        if body["reason"] != "colab tail":
-            raise AssertionError(body)
-        scored = root / "scored-package"
-        shutil.copytree(dest, scored)
-        (scored / "ENTRY.md").write_bytes((FORBIDDEN + "\n").encode("utf-8"))
-        _code, body, _err = run(
-            [
-                "attach",
-                "--book",
-                str(book),
-                "--page",
-                "0701.sample",
-                "--pass",
-                "05.01",
-                "--package",
-                str(scored),
-                "--expect-digest",
-                digest,
-            ]
-        )
-        if body["reason"] != "scored-exam default in ENTRY.md":
+        if hashes(dest) != before or hashes(book / "0701.sample") != page_before:
+            raise AssertionError("diagnose wrote")
+        if body["note"] != "The former line-oriented preimage is not colab-package-digest/1.":
             raise AssertionError(body)
 
 
@@ -966,7 +911,9 @@ def test_symlink() -> None:
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp)
         book, request, _sources, _path, note = must_open(root)
-        dest, digest = package_for(root, request, note)
+        dest, _digest = package_for(root, request, note)
+        config = root / "config.json"
+        config.write_bytes(b'{"schema":"colab-config/1"}\n')
         link = dest / "linked.md"
         try:
             os.symlink(dest / "ENTRY.md", link)
@@ -983,10 +930,12 @@ def test_symlink() -> None:
                 "0701.sample",
                 "--pass",
                 "05.01",
-                "--package",
+                "--output",
                 str(dest),
+                "--config",
+                str(config),
                 "--expect-digest",
-                digest,
+                "0" * 64,
             ]
         )
         if body["reason"] != "unsafe path":

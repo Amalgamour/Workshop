@@ -1,0 +1,115 @@
+{
+  "batch": "0510.colab-tools/05.03",
+  "code_tests_examples": [
+    {
+      "bytes": 4842,
+      "path": "labs/colab-support-pass02/README.md",
+      "sha256": "1b410759e85f8527bd2b27d5d1b5986f8a1928230de276179bf5e9e36ad5146b"
+    },
+    {
+      "bytes": 53892,
+      "path": "labs/colab-support-pass02/colab_support.py",
+      "sha256": "2b720434ac4c4331835c1484b0eca362e01e8afbecde0ab800ca392530abf68b"
+    },
+    {
+      "bytes": 517,
+      "path": "labs/colab-support-pass02/examples/config.example.json",
+      "sha256": "a95440a63e4c96d639f5a5296d257de1b8e8b5eeb82b1cfa21d6d505c3c88278"
+    },
+    {
+      "bytes": 6270,
+      "path": "labs/colab-support-pass02/examples/request-exchange-layout.json",
+      "sha256": "5778b69507ff4eadd67e0b3eb2bdb3aa7d22440110d1ddb16e09b5e5e7c0b1fa"
+    },
+    {
+      "bytes": 6228,
+      "path": "labs/colab-support-pass02/handoff_check.py",
+      "sha256": "db921e1cc84483b74da0a475fa40dcee8d66bddea6ee778abe948e71336261ce"
+    },
+    {
+      "bytes": 26748,
+      "path": "labs/colab-support-pass02/tests/test_colab_support_v2.py",
+      "sha256": "13eaa1178bdfb432210bbd1535126b40ae75c4e1c3ce12addeb8ccc0cea3d1a5"
+    }
+  ],
+  "date": "2026-10-29",
+  "evidence": [
+    {
+      "bytes": 10677,
+      "path": "00.kernel/00.00.10.work/0510.colab-tools/06.03.md",
+      "sha256": "f0c45a282cd782a157ef79cdce10a0dda71216787c77caa15ecb1f8d3a22af2a"
+    },
+    {
+      "bytes": 7361,
+      "path": "00.kernel/00.00.10.work/0510.colab-tools/evidence/exchange05.03/CONTRACT.md",
+      "sha256": "d6da4eec4fef1f7ac53cbb3a68455f1876b3db88fb76cb61d8e8e47b9dfd2811"
+    },
+    {
+      "bytes": 7245,
+      "path": "00.kernel/00.00.10.work/0510.colab-tools/evidence/exchange05.03/REAL-USE.md",
+      "sha256": "2f4a321e50a09f62bd175c6ae5511580e5feab99f01ee6d761d52be706e626f1"
+    },
+    {
+      "bytes": 2685,
+      "path": "00.kernel/00.00.10.work/0510.colab-tools/evidence/exchange05.03/ADOPTION.md",
+      "sha256": "0728703ae705eb309a20d03b7f6efc932500c947b5430084d012b76006581b1b"
+    },
+    {
+      "bytes": 64260,
+      "path": "00.kernel/00.00.10.work/0510.colab-tools/evidence/exchange05.03/verification.json",
+      "sha256": "0e8139e0acf3457f71e6c2e75d973a05983963f0b4697f0355201f8151b04ac1"
+    },
+    {
+      "bytes": 43099,
+      "path": "00.kernel/00.00.10.work/0510.colab-tools/evidence/exchange05.03/prepared-colab.zip",
+      "sha256": "5f77b08318a40b9329f51a9178e274637271d1cf06d4aa3e9e1ea3c354862cfe"
+    }
+  ],
+  "frozen_dependencies": {
+    "labs/colab-support-pass01/README.md": "8b04686131fb00f35987754c10a3b540a02f13b736d99761f033c156b2b12d8e",
+    "labs/colab-support-pass01/colab_support.py": "33bbe41c52485fc7b2b611d830bae8a15129721ad807a931e8193f17944c467c",
+    "labs/colab-support-pass01/tests/test_colab_support.py": "f6be57f6bccf9a9aada4e32e0fc2681964cd2ead7bcb4e1f5ff6dc5983212ff8",
+    "labs/pack-assembly-pass01/pack_assembly.py": "75d49679cbf3e624a82573229ca8c7cd9b758799bc26b6f080111feb6eaa275c",
+    "labs/pack-custody-pass01/pack_check.py": "9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d",
+    "labs/return-capture-pass01/return_capture.py": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+    "labs/return-capture-pass01/return_inspect.py": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+  },
+  "not_captured_note": "Lab code is not in the reserved capture list; it is bound here by hash.",
+  "real_package": {
+    "digest": "42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184",
+    "exchange_files": {
+      "package/05.01.pack.md": {
+        "bytes": 3584,
+        "sha256": "b46713a78cea87597d04578949d21f4539518133ff58a8c007377fb222ea5a29"
+      },
+      "package/06.01.notes.md": {
+        "bytes": 2552,
+        "sha256": "2d7fe940fcfbd2a9b88c655ebbbd3f113c290182a18e8f875c2c10758c5349f9"
+      }
+    },
+    "handoff_json": {
+      "bytes": 12279,
+      "sha256": "5d8d8f5115d0b9630afda61a29199f35baf43f06e5e5ac84c8d1b21c42fde755"
+    },
+    "location_note": "OUT lives in session temp; regenerate byte-identically with prepare at the digest",
+    "out_verification_json": {
+      "bytes": 5883,
+      "sha256": "2a8557373a3370d27015ac6475c3c24bff991e165617e989bc2295833fe0cbf1"
+    },
+    "templates": {
+      "package/templates/05.01.return.TEMPLATE.md": {
+        "bytes": 1439,
+        "sha256": "fcaeaa71c097b2dba66e670057597b0b2ea3f66c93998c606e420282dbd1ef8f"
+      },
+      "package/templates/06.01.review.TEMPLATE.md": {
+        "bytes": 1008,
+        "sha256": "a6c3a88abbed4c80880b0bdca193c51e7f369e846a672253e7d9f8828eefc943"
+      }
+    },
+    "zip": {
+      "bytes": 43099,
+      "sha256": "5f77b08318a40b9329f51a9178e274637271d1cf06d4aa3e9e1ea3c354862cfe"
+    }
+  },
+  "schema": "colab-artifact-manifest/2"
+}

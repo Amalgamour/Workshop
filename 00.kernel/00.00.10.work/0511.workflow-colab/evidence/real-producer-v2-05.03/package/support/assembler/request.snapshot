@@ -1,0 +1,82 @@
+{
+  "schema": "pack-assembly-request/1",
+  "template": "pack-assembly-draft/1",
+  "title": "Does the four-file N7NN exchange keep return custody and review separate",
+  "date": "2026-10-29",
+  "author": "Codex Prime (request drafted by the 0510/05.03 executor as a declared fixture)",
+  "origin": {
+    "book": "00.00.10.work",
+    "page": "0701.colab-exchange-layout",
+    "batch": "05.01"
+  },
+  "identity": {
+    "book": "00.00.10.work",
+    "pppp": "0701",
+    "keyword": "colab-exchange-layout",
+    "batch": "05.01"
+  },
+  "executor": "fresh Colab, unassigned",
+  "reviewer": "Codex Prime",
+  "goal": "Question: Where could the four-file exchange let a template, a note or a placed return be mistaken for a completed review, an edited return or a release?\nWhy: The exchange is meant to keep exact return custody and Prime's assessment apart. If a reader can confuse them, a Colab's words could be silently promoted, or a review could appear complete when no review happened.",
+  "scope": [
+    "Recipient writes: your one return file"
+  ],
+  "revision": "6896224510fe0bcebac291fce7ed311a2cd085cb",
+  "paths": [
+    "00.kernel/00.00.10.work/0411.colab/evidence/exchange-layout-v2/CONTRACT.md",
+    "00.kernel/00.00.10.work/0411.colab/evidence/exchange-layout-v2/NOTES.md",
+    "00.kernel/00.00.10.work/0411.colab/evidence/n7nn-interface-v1/CONTRACT.md",
+    "00.kernel/00.00.10.work/0700.band.colabs/01.md"
+  ],
+  "instructions": [
+    {
+      "nn": "01",
+      "heading": "Transport support only",
+      "text": "This is the accepted assembler's draft, kept under support/ for custody checks. It is not an instruction source. Read ENTRY.md, then 05.01.pack.md."
+    },
+    {
+      "nn": "02",
+      "heading": "Method",
+      "text": "Read the target contract as if you had to implement a consumer of it. Try to construct a sequence of files and events where a reader would believe a review or acceptance exists when it does not, or where two editable copies of a return could diverge. Say which sentence of the contract allows it, and what single rule would stop it."
+    },
+    {
+      "nn": "03",
+      "heading": "Case C01",
+      "text": "A review template is copied into the investigation page before any return arrives. What tells a later reader it is not a review?"
+    },
+    {
+      "nn": "04",
+      "heading": "Case C02",
+      "text": "A return arrives, is captured, and is then edited on the investigation page to fix a typo. Which record wins, and how would anyone notice?"
+    },
+    {
+      "nn": "05",
+      "heading": "Case C03",
+      "text": "The Director replies informally in chat and nobody records it. What does 06.01.review.md show, and is that safe?"
+    },
+    {
+      "nn": "06",
+      "heading": "Return",
+      "text": "Return one file shaped like templates/05.01.return.TEMPLATE.md. Prime places it as 05.01.return.md only after capture; this package does not contain it."
+    }
+  ],
+  "evidence": "One return file in the return template shape. A receipt of it is custody, not acceptance.",
+  "dependencies": {
+    "state": "supplied",
+    "items": [
+      {
+        "name": "withheld workflow and review builds on 0511 and 0512",
+        "detail": "unfinished and unreviewed work by other builders"
+      },
+      {
+        "name": "required-omission a reviewed consumer of layout v2",
+        "detail": "workflow naming integration is pending"
+      }
+    ]
+  },
+  "return_destination": {
+    "state": "supplied",
+    "path": "return one file to Prime in the conversation that gave you this package"
+  },
+  "repository_label": "workshop"
+}

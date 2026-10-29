@@ -1,0 +1,1320 @@
+{
+  "batch": "00.kernel/00.00.10.work/0510.colab-tools/05.03.md",
+  "boundary": "No 0511, 0512, labs/colab-workflow-pass01 or labs/prime-review-pass01 file was read or changed. No v2 workflow integration is claimed.",
+  "claim_commit": "6896224510fe0bcebac291fce7ed311a2cd085cb",
+  "date": "2026-10-29",
+  "executor": "claude-opus-5-5 (Anthropic), Colab, executor",
+  "frozen_dependencies": [
+    {
+      "after": "33bbe41c52485fc7b2b611d830bae8a15129721ad807a931e8193f17944c467c",
+      "before": "33bbe41c52485fc7b2b611d830bae8a15129721ad807a931e8193f17944c467c",
+      "path": "labs/colab-support-pass01/colab_support.py",
+      "unchanged": true
+    },
+    {
+      "after": "8b04686131fb00f35987754c10a3b540a02f13b736d99761f033c156b2b12d8e",
+      "before": "8b04686131fb00f35987754c10a3b540a02f13b736d99761f033c156b2b12d8e",
+      "path": "labs/colab-support-pass01/README.md",
+      "unchanged": true
+    },
+    {
+      "after": "f6be57f6bccf9a9aada4e32e0fc2681964cd2ead7bcb4e1f5ff6dc5983212ff8",
+      "before": "f6be57f6bccf9a9aada4e32e0fc2681964cd2ead7bcb4e1f5ff6dc5983212ff8",
+      "path": "labs/colab-support-pass01/tests/test_colab_support.py",
+      "unchanged": true
+    },
+    {
+      "after": "75d49679cbf3e624a82573229ca8c7cd9b758799bc26b6f080111feb6eaa275c",
+      "before": "75d49679cbf3e624a82573229ca8c7cd9b758799bc26b6f080111feb6eaa275c",
+      "path": "labs/pack-assembly-pass01/pack_assembly.py",
+      "unchanged": true
+    },
+    {
+      "after": "9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d",
+      "before": "9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d",
+      "path": "labs/pack-custody-pass01/pack_check.py",
+      "unchanged": true
+    },
+    {
+      "after": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+      "before": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+      "path": "labs/return-capture-pass01/return_capture.py",
+      "unchanged": true
+    },
+    {
+      "after": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+      "before": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+      "path": "labs/return-capture-pass01/return_inspect.py",
+      "unchanged": true
+    }
+  ],
+  "git_status_after": [
+    " M 00.kernel/00.00.10.work/0508.return-capture/05.19.md",
+    " M 00.kernel/00.00.10.work/0510.colab-tools/05.03.md",
+    " M 00.kernel/00.00.10.work/0511.workflow-colab/05.02.md",
+    " M 00.kernel/00.00.10.work/0512.prime-review/05.01.md",
+    " M labs/colab-workflow-pass01/README.md",
+    " M labs/colab-workflow-pass01/colab_workflow.py",
+    " M labs/colab-workflow-pass01/tests/test_colab_workflow.py",
+    "?? 00.kernel/00.00.00.syntax.zip",
+    "?? 00.kernel/00.00.10.work.zip",
+    "?? 00.kernel/00.00.10.work/0152.desk-state-view-0519/manifest.json",
+    "?? 00.kernel/00.00.10.work/0152.desk-state-view-0519/payload/",
+    "?? 00.kernel/00.00.10.work/0152.desk-state-view-0519/receipt.json",
+    "?? 00.kernel/00.00.10.work/0152.desk-state-view-0519/return.md",
+    "?? 00.kernel/00.00.10.work/0157.prime-review-0501/manifest.json",
+    "?? 00.kernel/00.00.10.work/0157.prime-review-0501/payload/",
+    "?? 00.kernel/00.00.10.work/0157.prime-review-0501/receipt.json",
+    "?? 00.kernel/00.00.10.work/0157.prime-review-0501/return.md",
+    "?? 00.kernel/00.00.10.work/0158.colab-workflow-repair-0502/manifest.json",
+    "?? 00.kernel/00.00.10.work/0158.colab-workflow-repair-0502/payload/",
+    "?? 00.kernel/00.00.10.work/0158.colab-workflow-repair-0502/receipt.json",
+    "?? 00.kernel/00.00.10.work/0158.colab-workflow-repair-0502/return.md",
+    "?? 00.kernel/00.00.10.work/0508.return-capture/06.20.md",
+    "?? 00.kernel/00.00.10.work/0508.return-capture/evidence/deskstate05.19/",
+    "?? 00.kernel/00.00.10.work/0510.colab-tools/06.03.md",
+    "?? 00.kernel/00.00.10.work/0510.colab-tools/evidence/exchange05.03/",
+    "?? 00.kernel/00.00.10.work/0511.workflow-colab/06.02.md",
+    "?? 00.kernel/00.00.10.work/0511.workflow-colab/evidence/build05.02/",
+    "?? 00.kernel/00.00.10.work/0512.prime-review/06.01.md",
+    "?? 00.kernel/00.00.10.work/0512.prime-review/evidence/build05.01/",
+    "?? labs/colab-support-pass02/",
+    "?? labs/colab-workflow-pass01/tests/test_real_handoff.py",
+    "?? labs/desk-state-pass01/",
+    "?? labs/prime-review-pass01/"
+  ],
+  "head_after": "6896224510fe0bcebac291fce7ed311a2cd085cb",
+  "lab_files": {
+    "labs/colab-support-pass02/README.md": {
+      "bytes": 4842,
+      "sha256": "1b410759e85f8527bd2b27d5d1b5986f8a1928230de276179bf5e9e36ad5146b"
+    },
+    "labs/colab-support-pass02/colab_support.py": {
+      "bytes": 53892,
+      "sha256": "2b720434ac4c4331835c1484b0eca362e01e8afbecde0ab800ca392530abf68b"
+    },
+    "labs/colab-support-pass02/examples/config.example.json": {
+      "bytes": 517,
+      "sha256": "a95440a63e4c96d639f5a5296d257de1b8e8b5eeb82b1cfa21d6d505c3c88278"
+    },
+    "labs/colab-support-pass02/examples/request-exchange-layout.json": {
+      "bytes": 6270,
+      "sha256": "5778b69507ff4eadd67e0b3eb2bdb3aa7d22440110d1ddb16e09b5e5e7c0b1fa"
+    },
+    "labs/colab-support-pass02/handoff_check.py": {
+      "bytes": 6228,
+      "sha256": "db921e1cc84483b74da0a475fa40dcee8d66bddea6ee778abe948e71336261ce"
+    },
+    "labs/colab-support-pass02/tests/test_colab_support_v2.py": {
+      "bytes": 26748,
+      "sha256": "13eaa1178bdfb432210bbd1535126b40ae75c4e1c3ce12addeb8ccc0cea3d1a5"
+    }
+  },
+  "pack": {
+    "live_equals_pins": "16 of 16",
+    "manifest_sha256": "67bd74af0ea433f84ee719873606fd614858b00e06aa10a7148b108efe8f4b00",
+    "snapshots_match_pins": "16 of 16"
+  },
+  "real_package": {
+    "assembler_run": {
+      "args": [
+        "assemble",
+        "--request",
+        "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--librarian\\2c19315e-118c-4c89-bbde-d177d3a541c1\\scratchpad\\v2\\real\\assembler-request.json",
+        "--repo",
+        "D:/Git/lib-build",
+        "--checker",
+        "D:/Git/lib-build/labs/pack-custody-pass01/pack_check.py",
+        "--output",
+        "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--librarian\\2c19315e-118c-4c89-bbde-d177d3a541c1\\scratchpad\\v2\\real\\assembler-output",
+        "--digest",
+        "ef61018444eafda6bc7869b4b819f5149a14db32fcc7e67d8d69702b2d6eab01",
+        "--json"
+      ],
+      "exit": 0,
+      "stderr": "",
+      "stdout": "{\n  \"schema\": \"pack-assembly-report/1\",\n  \"command\": \"assemble\",\n  \"result\": \"completed\",\n  \"digest\": \"ef61018444eafda6bc7869b4b819f5149a14db32fcc7e67d8d69702b2d6eab01\",\n  \"supplied_digest\": \"ef61018444eafda6bc7869b4b819f5149a14db32fcc7e67d8d69702b2d6eab01\",\n  \"template\": \"pack-assembly-draft/1\",\n  \"commit\": \"6896224510fe0bcebac291fce7ed311a2cd085cb\",\n  \"request_sha256\": \"bb1d670be230884b6f47655016907133eadc0005bb9a4c166b0116e18a27c4e5\",\n  \"request_bytes\": 3581,\n  \"batch\": \"05.01\",\n  \"sources\": [\n    {\n      \"path\": \"00.kernel/00.00.10.work/0411.colab/evidence/exchange-layout-v2/CONTRACT.md\",\n      \"sha256\": \"1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9\",\n      \"bytes\": 3776,\n      \"snapshot\": \"snapshots/0001.blob\"\n    },\n    {\n      \"path\": \"00.kernel/00.00.10.work/0411.colab/evidence/exchange-layout-v2/NOTES.md\",\n      \"sha256\": \"b82b263ea18f8fe7432c3f0190671c5d9d816d4712a5c64921a0697d2ab701e5\",\n      \"bytes\": 434,\n      \"snapshot\": \"snapshots/0002.blob\"\n    },\n    {\n      \"path\": \"00.kernel/00.00.10.work/0411.colab/evidence/n7nn-interface-v1/CONTRACT.md\",\n      \"sha256\": \"246189acdba7c4559c1bda5ba9a6314d60dca9bf1710b87c4eaf59cbde5f6f42\",\n      \"bytes\": 4489,\n      \"snapshot\": \"snapshots/0003.blob\"\n    },\n    {\n      \"path\": \"00.kernel/00.00.10.work/0700.band.colabs/01.md\",\n      \"sha256\": \"a4231ad09ec5a14a320779f29574ca0cd8912eb0b1e8a25d2462d94c6b4dfeed\",\n      \"bytes\": 1321,\n      \"snapshot\": \"snapshots/0004.blob\"\n    }\n  ],\n  \"planned\": [\n    {\n      \"path\": \"05.01.md\",\n      \"sha256\": \"bbc9e48853ff5720b1184734343672a1f8432612fb1397f8929ef0dcb602dd82\",\n      \"bytes\": 3377\n    },\n    {\n      \"path\": \"request.snapshot\",\n      \"sha256\": \"bb1d670be230884b6f47655016907133eadc0005bb9a4c166b0116e18a27c4e5\",\n      \"bytes\": 3581\n    },\n    {\n      \"path\": \"source-manifest.json\",\n      \"sha256\": \"419d863333779d4cf723dbfc0eacf5a9622cf1ab41b1b0ddbcce660daf2a09c0\",\n      \"bytes\": 1109\n    },\n    {\n      \"path\": \"snapshots/0001.blob\",\n      \"sha256\": \"1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9\",\n      \"bytes\": 3776\n    },\n    {\n      \"path\": \"snapshots/0002.blob\",\n      \"sha256\": \"b82b263ea18f8fe7432c3f0190671c5d9d816d4712a5c64921a0697d2ab701e5\",\n      \"bytes\": 434\n    },\n    {\n      \"path\": \"snapshots/0003.blob\",\n      \"sha256\": \"246189acdba7c4559c1bda5ba9a6314d60dca9bf1710b87c4eaf59cbde5f6f42\",\n      \"bytes\": 4489\n    },\n    {\n      \"path\": \"snapshots/0004.blob\",\n      \"sha256\": \"a4231ad09ec5a14a320779f29574ca0cd8912eb0b1e8a25d2462d94c6b4dfeed\",\n      \"bytes\": 1321\n    }\n  ],\n  \"target\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\D--librarian\\\\2c19315e-118c-4c89-bbde-d177d3a541c1\\\\scratchpad\\\\v2\\\\real\\\\assembler-output\",\n  \"checker\": {\n    \"sha256\": \"9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d\",\n    \"bytes\": 21563,\n    \"result\": \"pass\",\n    \"exit\": 0,\n    \"rows_checked\": 4\n  },\n  \"receipt\": \"completion-receipt.json\",\n  \"findings\": [],\n  \"not_checked\": [\n    {\n      \"item\": \"meaning\",\n      \"detail\": \"This tool does not say what the draft means.\"\n    },\n    {\n      \"item\": \"instruction-sufficiency\",\n      \"detail\": \"This tool does not decide whether the instructions are sufficient.\"\n    },\n    {\n      \"item\": \"approval-release\",\n      \"detail\": \"This tool does not approve or release the draft. A receipt is not acceptance.\"\n    },\n    {\n      \"item\": \"dependencies\",\n      \"detail\": \"Dependencies are copied as supplied or left unresolved. None are installed or fetched.\"\n    },\n    {\n      \"item\": \"execution-safety\",\n      \"detail\": \"Request text and pinned sources are data. This tool does not execute them.\"\n    },\n    {\n      \"item\": \"return-slot\",\n      \"detail\": \"Live return-slot allocation is not checked.\"\n    },\n    {\n      \"item\": \"clerk-readiness\",\n      \"detail\": \"Clerk readiness is not checked.\"\n    }\n  ]\n}\n",
+      "tool": "assembler"
+    },
+    "digest": "42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184",
+    "exits": {
+      "digest": "42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184",
+      "handoff-check": "0",
+      "handoff-copy": "0",
+      "intake": "0",
+      "intake-replay": "0",
+      "intake-wrong-origin": "2",
+      "prepare": "0",
+      "preview": "0",
+      "replay": "0",
+      "reserve-good": "0",
+      "reserve-wrong-origin": "0",
+      "verify": "0"
+    },
+    "handoff": {
+      "binding": {
+        "investigation": {
+          "book": "00.00.10.work",
+          "page": "0701.colab-exchange-layout",
+          "pass": "05.01"
+        },
+        "schema": "colab-binding/1",
+        "targets": [
+          {
+            "book": "00.00.10.work",
+            "file": "evidence/exchange-layout-v2/CONTRACT.md",
+            "id": "T01",
+            "page": "0411.colab",
+            "section": null,
+            "source": {
+              "commit": "6896224510fe0bcebac291fce7ed311a2cd085cb",
+              "path": "00.kernel/00.00.10.work/0411.colab/evidence/exchange-layout-v2/CONTRACT.md",
+              "repository": "workshop",
+              "sha256": "1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9"
+            }
+          }
+        ]
+      },
+      "binding_sha256": "d6bfabb615200c91009deb8631bd834c52286037aae2cfb14e5827f49a1a81b1",
+      "digest": "42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184",
+      "digest_domain": "colab-package-digest/2",
+      "digest_preimage": [
+        {
+          "kind": "text",
+          "value": "colab-package-digest/2"
+        },
+        {
+          "kind": "text",
+          "value": "colab-exchange-layout/2"
+        },
+        {
+          "kind": "file",
+          "value": "package/colab-request.json"
+        },
+        {
+          "kind": "file",
+          "value": "package/binding.json"
+        },
+        {
+          "kind": "text",
+          "value": "ef61018444eafda6bc7869b4b819f5149a14db32fcc7e67d8d69702b2d6eab01"
+        },
+        {
+          "kind": "text",
+          "value": "package/ENTRY.md"
+        },
+        {
+          "kind": "text",
+          "value": "1085c83d57c313844a83964e65489ebac71df7bf1f0623e74ddc35b8ba67aff7"
+        },
+        {
+          "kind": "text",
+          "value": "4777"
+        },
+        {
+          "kind": "text",
+          "value": "package/05.01.pack.md"
+        },
+        {
+          "kind": "text",
+          "value": "b46713a78cea87597d04578949d21f4539518133ff58a8c007377fb222ea5a29"
+        },
+        {
+          "kind": "text",
+          "value": "3584"
+        },
+        {
+          "kind": "text",
+          "value": "package/06.01.notes.md"
+        },
+        {
+          "kind": "text",
+          "value": "2d7fe940fcfbd2a9b88c655ebbbd3f113c290182a18e8f875c2c10758c5349f9"
+        },
+        {
+          "kind": "text",
+          "value": "2552"
+        },
+        {
+          "kind": "text",
+          "value": "package/templates/05.01.return.TEMPLATE.md"
+        },
+        {
+          "kind": "text",
+          "value": "fcaeaa71c097b2dba66e670057597b0b2ea3f66c93998c606e420282dbd1ef8f"
+        },
+        {
+          "kind": "text",
+          "value": "1439"
+        },
+        {
+          "kind": "text",
+          "value": "package/templates/06.01.review.TEMPLATE.md"
+        },
+        {
+          "kind": "text",
+          "value": "a6c3a88abbed4c80880b0bdca193c51e7f369e846a672253e7d9f8828eefc943"
+        },
+        {
+          "kind": "text",
+          "value": "1008"
+        },
+        {
+          "kind": "text",
+          "value": "package/binding.json"
+        },
+        {
+          "kind": "text",
+          "value": "d6bfabb615200c91009deb8631bd834c52286037aae2cfb14e5827f49a1a81b1"
+        },
+        {
+          "kind": "text",
+          "value": "642"
+        },
+        {
+          "kind": "text",
+          "value": "package/colab-request.json"
+        },
+        {
+          "kind": "text",
+          "value": "5778b69507ff4eadd67e0b3eb2bdb3aa7d22440110d1ddb16e09b5e5e7c0b1fa"
+        },
+        {
+          "kind": "text",
+          "value": "6270"
+        },
+        {
+          "kind": "text",
+          "value": "package/support/SUPPORT.md"
+        },
+        {
+          "kind": "text",
+          "value": "8cc3b97b405b20e3bd15710deafd95dd449b58cdbab65731b10ff85947594e38"
+        },
+        {
+          "kind": "text",
+          "value": "574"
+        },
+        {
+          "kind": "text",
+          "value": "package/support/assembler/05.01.md"
+        },
+        {
+          "kind": "text",
+          "value": "05.01.md"
+        },
+        {
+          "kind": "text",
+          "value": "package/support/assembler/request.snapshot"
+        },
+        {
+          "kind": "text",
+          "value": "request.snapshot"
+        },
+        {
+          "kind": "text",
+          "value": "package/support/assembler/completion-receipt.json"
+        },
+        {
+          "kind": "text",
+          "value": "completion-receipt.json"
+        },
+        {
+          "kind": "text",
+          "value": "5f77b08318a40b9329f51a9178e274637271d1cf06d4aa3e9e1ea3c354862cfe"
+        },
+        {
+          "kind": "text",
+          "value": "43099"
+        }
+      ],
+      "digest_rule": "sha256 over parts in order; each part is an 8-byte big-endian length then its bytes; a 'text' part is its UTF-8 value, a 'file' part is the bytes of that OUT path",
+      "envelope": [
+        {
+          "bytes": 3584,
+          "path": "package/05.01.pack.md",
+          "role": "pack-primary-instruction",
+          "sha256": "b46713a78cea87597d04578949d21f4539518133ff58a8c007377fb222ea5a29"
+        },
+        {
+          "bytes": 2552,
+          "path": "package/06.01.notes.md",
+          "role": "notes",
+          "sha256": "2d7fe940fcfbd2a9b88c655ebbbd3f113c290182a18e8f875c2c10758c5349f9"
+        },
+        {
+          "bytes": 4777,
+          "path": "package/ENTRY.md",
+          "role": "entry",
+          "sha256": "1085c83d57c313844a83964e65489ebac71df7bf1f0623e74ddc35b8ba67aff7"
+        },
+        {
+          "bytes": 642,
+          "path": "package/binding.json",
+          "role": "binding",
+          "sha256": "d6bfabb615200c91009deb8631bd834c52286037aae2cfb14e5827f49a1a81b1"
+        },
+        {
+          "bytes": 6270,
+          "path": "package/colab-request.json",
+          "role": "request",
+          "sha256": "5778b69507ff4eadd67e0b3eb2bdb3aa7d22440110d1ddb16e09b5e5e7c0b1fa"
+        },
+        {
+          "bytes": 3776,
+          "path": "package/snapshots/0001.blob",
+          "role": "snapshot",
+          "sha256": "1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9"
+        },
+        {
+          "bytes": 434,
+          "path": "package/snapshots/0002.blob",
+          "role": "snapshot",
+          "sha256": "b82b263ea18f8fe7432c3f0190671c5d9d816d4712a5c64921a0697d2ab701e5"
+        },
+        {
+          "bytes": 4489,
+          "path": "package/snapshots/0003.blob",
+          "role": "snapshot",
+          "sha256": "246189acdba7c4559c1bda5ba9a6314d60dca9bf1710b87c4eaf59cbde5f6f42"
+        },
+        {
+          "bytes": 1321,
+          "path": "package/snapshots/0004.blob",
+          "role": "snapshot",
+          "sha256": "a4231ad09ec5a14a320779f29574ca0cd8912eb0b1e8a25d2462d94c6b4dfeed"
+        },
+        {
+          "bytes": 1109,
+          "path": "package/source-manifest.json",
+          "role": "source-manifest",
+          "sha256": "419d863333779d4cf723dbfc0eacf5a9622cf1ab41b1b0ddbcce660daf2a09c0"
+        },
+        {
+          "bytes": 574,
+          "path": "package/support/SUPPORT.md",
+          "role": "support-declaration",
+          "sha256": "8cc3b97b405b20e3bd15710deafd95dd449b58cdbab65731b10ff85947594e38"
+        },
+        {
+          "bytes": 3377,
+          "path": "package/support/assembler/05.01.md",
+          "role": "support-assembler",
+          "sha256": "bbc9e48853ff5720b1184734343672a1f8432612fb1397f8929ef0dcb602dd82"
+        },
+        {
+          "bytes": 2232,
+          "path": "package/support/assembler/completion-receipt.json",
+          "role": "support-assembler",
+          "sha256": "0b51d84d96ff560148f2eec959004ec34b8838da4d155f38dbec524eec4d4170"
+        },
+        {
+          "bytes": 3581,
+          "path": "package/support/assembler/request.snapshot",
+          "role": "support-assembler",
+          "sha256": "bb1d670be230884b6f47655016907133eadc0005bb9a4c166b0116e18a27c4e5"
+        },
+        {
+          "bytes": 1439,
+          "path": "package/templates/05.01.return.TEMPLATE.md",
+          "role": "template-return",
+          "sha256": "fcaeaa71c097b2dba66e670057597b0b2ea3f66c93998c606e420282dbd1ef8f"
+        },
+        {
+          "bytes": 1008,
+          "path": "package/templates/06.01.review.TEMPLATE.md",
+          "role": "template-review",
+          "sha256": "a6c3a88abbed4c80880b0bdca193c51e7f369e846a672253e7d9f8828eefc943"
+        }
+      ],
+      "evaluator": [],
+      "exchange": {
+        "nn": "01",
+        "notes": "06.01.notes.md",
+        "pack": "05.01.pack.md",
+        "pass": "05.01",
+        "primary_instruction": "05.01.pack.md",
+        "return_name": "05.01.return.md",
+        "return_template": "templates/05.01.return.TEMPLATE.md",
+        "review_name": "06.01.review.md",
+        "review_template": "templates/06.01.review.TEMPLATE.md"
+      },
+      "investigation": {
+        "book": "00.00.10.work",
+        "page": "0701.colab-exchange-layout",
+        "pass": "05.01"
+      },
+      "layout": "colab-exchange-layout/2",
+      "not_created": [
+        "05.01.return.md",
+        "06.01.review.md"
+      ],
+      "schema": "colab-handoff/2",
+      "source_map": [
+        {
+          "bytes": 3776,
+          "role": "target",
+          "sha256": "1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9",
+          "snapshot": "package/snapshots/0001.blob",
+          "source_path": "00.kernel/00.00.10.work/0411.colab/evidence/exchange-layout-v2/CONTRACT.md",
+          "targets": [
+            "T01"
+          ]
+        },
+        {
+          "bytes": 434,
+          "role": "required",
+          "sha256": "b82b263ea18f8fe7432c3f0190671c5d9d816d4712a5c64921a0697d2ab701e5",
+          "snapshot": "package/snapshots/0002.blob",
+          "source_path": "00.kernel/00.00.10.work/0411.colab/evidence/exchange-layout-v2/NOTES.md",
+          "targets": []
+        },
+        {
+          "bytes": 4489,
+          "role": "required",
+          "sha256": "246189acdba7c4559c1bda5ba9a6314d60dca9bf1710b87c4eaf59cbde5f6f42",
+          "snapshot": "package/snapshots/0003.blob",
+          "source_path": "00.kernel/00.00.10.work/0411.colab/evidence/n7nn-interface-v1/CONTRACT.md",
+          "targets": []
+        },
+        {
+          "bytes": 1321,
+          "role": "required",
+          "sha256": "a4231ad09ec5a14a320779f29574ca0cd8912eb0b1e8a25d2462d94c6b4dfeed",
+          "snapshot": "package/snapshots/0004.blob",
+          "source_path": "00.kernel/00.00.10.work/0700.band.colabs/01.md",
+          "targets": []
+        }
+      ],
+      "statements": [
+        "This package is a draft. Preparation is not a Director release.",
+        "05.NN.pack.md is the one primary instruction source; support/ is transport support only.",
+        "No 05.NN.return.md or 06.NN.review.md exists at preparation. Templates are templates.",
+        "A verified package or receipt is custody, not review or acceptance.",
+        "The investigation binding is supplied by Prime; it does not open a live investigation.",
+        "Labels and quoted Director text do not authenticate anyone."
+      ],
+      "support_projection": [
+        {
+          "assembler_name": "05.01.md",
+          "bytes": 3377,
+          "sha256": "bbc9e48853ff5720b1184734343672a1f8432612fb1397f8929ef0dcb602dd82",
+          "support_path": "package/support/assembler/05.01.md"
+        },
+        {
+          "assembler_name": "request.snapshot",
+          "bytes": 3581,
+          "sha256": "bb1d670be230884b6f47655016907133eadc0005bb9a4c166b0116e18a27c4e5",
+          "support_path": "package/support/assembler/request.snapshot"
+        },
+        {
+          "assembler_name": "completion-receipt.json",
+          "bytes": 2232,
+          "sha256": "0b51d84d96ff560148f2eec959004ec34b8838da4d155f38dbec524eec4d4170",
+          "support_path": "package/support/assembler/completion-receipt.json"
+        }
+      ],
+      "verify": {
+        "argv": [
+          "python",
+          "-B",
+          "labs/colab-support-pass02/colab_support.py",
+          "verify",
+          "--output",
+          "<OUT>",
+          "--config",
+          "<CONFIG>",
+          "--json"
+        ],
+        "config_keys": [
+          "schema",
+          "repositories",
+          "python",
+          "assembler",
+          "checker",
+          "helper",
+          "inspector",
+          "producer_v1"
+        ],
+        "config_schema": "colab-config/2",
+        "pins": {
+          "assembler": "75d49679cbf3e624a82573229ca8c7cd9b758799bc26b6f080111feb6eaa275c",
+          "checker": "9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d",
+          "helper": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+          "inspector": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+          "producer_v1": "33bbe41c52485fc7b2b611d830bae8a15129721ad807a931e8193f17944c467c"
+        },
+        "standalone": [
+          "python",
+          "-B",
+          "labs/colab-support-pass02/handoff_check.py",
+          "check",
+          "--output",
+          "<OUT>",
+          "--expected-digest",
+          "<DIGEST>",
+          "--json"
+        ]
+      },
+      "zip": {
+        "bytes": 43099,
+        "members": [
+          "05.01.pack.md",
+          "06.01.notes.md",
+          "ENTRY.md",
+          "binding.json",
+          "colab-request.json",
+          "snapshots/0001.blob",
+          "snapshots/0002.blob",
+          "snapshots/0003.blob",
+          "snapshots/0004.blob",
+          "source-manifest.json",
+          "support/SUPPORT.md",
+          "support/assembler/05.01.md",
+          "support/assembler/completion-receipt.json",
+          "support/assembler/request.snapshot",
+          "templates/05.01.return.TEMPLATE.md",
+          "templates/06.01.review.TEMPLATE.md"
+        ],
+        "path": "prepared-colab.zip",
+        "sha256": "5f77b08318a40b9329f51a9178e274637271d1cf06d4aa3e9e1ea3c354862cfe"
+      }
+    },
+    "handoff_check": {
+      "digest": "42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184",
+      "exchange": {
+        "nn": "01",
+        "notes": "06.01.notes.md",
+        "pack": "05.01.pack.md",
+        "pass": "05.01",
+        "primary_instruction": "05.01.pack.md",
+        "return_name": "05.01.return.md",
+        "return_template": "templates/05.01.return.TEMPLATE.md",
+        "review_name": "06.01.review.md",
+        "review_template": "templates/06.01.review.TEMPLATE.md"
+      },
+      "investigation": {
+        "book": "00.00.10.work",
+        "page": "0701.colab-exchange-layout",
+        "pass": "05.01"
+      },
+      "problems": [],
+      "result": "valid"
+    },
+    "handoff_copy": {
+      "copied": 16,
+      "result": "copied"
+    },
+    "out_files": {
+      "assembler-output/05.01.md": {
+        "bytes": 3377,
+        "sha256": "bbc9e48853ff5720b1184734343672a1f8432612fb1397f8929ef0dcb602dd82"
+      },
+      "assembler-output/completion-receipt.json": {
+        "bytes": 2232,
+        "sha256": "0b51d84d96ff560148f2eec959004ec34b8838da4d155f38dbec524eec4d4170"
+      },
+      "assembler-output/request.snapshot": {
+        "bytes": 3581,
+        "sha256": "bb1d670be230884b6f47655016907133eadc0005bb9a4c166b0116e18a27c4e5"
+      },
+      "assembler-output/snapshots/0001.blob": {
+        "bytes": 3776,
+        "sha256": "1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9"
+      },
+      "assembler-output/snapshots/0002.blob": {
+        "bytes": 434,
+        "sha256": "b82b263ea18f8fe7432c3f0190671c5d9d816d4712a5c64921a0697d2ab701e5"
+      },
+      "assembler-output/snapshots/0003.blob": {
+        "bytes": 4489,
+        "sha256": "246189acdba7c4559c1bda5ba9a6314d60dca9bf1710b87c4eaf59cbde5f6f42"
+      },
+      "assembler-output/snapshots/0004.blob": {
+        "bytes": 1321,
+        "sha256": "a4231ad09ec5a14a320779f29574ca0cd8912eb0b1e8a25d2462d94c6b4dfeed"
+      },
+      "assembler-output/source-manifest.json": {
+        "bytes": 1109,
+        "sha256": "419d863333779d4cf723dbfc0eacf5a9622cf1ab41b1b0ddbcce660daf2a09c0"
+      },
+      "assembler-request.json": {
+        "bytes": 3581,
+        "sha256": "bb1d670be230884b6f47655016907133eadc0005bb9a4c166b0116e18a27c4e5"
+      },
+      "assembler-run.json": {
+        "bytes": 4886,
+        "sha256": "b7c2f59e5050be08a777befab49c768894d4a6a65339a85642b06e0c258306ac"
+      },
+      "handoff.json": {
+        "bytes": 12279,
+        "sha256": "5d8d8f5115d0b9630afda61a29199f35baf43f06e5e5ac84c8d1b21c42fde755"
+      },
+      "package/05.01.pack.md": {
+        "bytes": 3584,
+        "sha256": "b46713a78cea87597d04578949d21f4539518133ff58a8c007377fb222ea5a29"
+      },
+      "package/06.01.notes.md": {
+        "bytes": 2552,
+        "sha256": "2d7fe940fcfbd2a9b88c655ebbbd3f113c290182a18e8f875c2c10758c5349f9"
+      },
+      "package/ENTRY.md": {
+        "bytes": 4777,
+        "sha256": "1085c83d57c313844a83964e65489ebac71df7bf1f0623e74ddc35b8ba67aff7"
+      },
+      "package/binding.json": {
+        "bytes": 642,
+        "sha256": "d6bfabb615200c91009deb8631bd834c52286037aae2cfb14e5827f49a1a81b1"
+      },
+      "package/colab-request.json": {
+        "bytes": 6270,
+        "sha256": "5778b69507ff4eadd67e0b3eb2bdb3aa7d22440110d1ddb16e09b5e5e7c0b1fa"
+      },
+      "package/snapshots/0001.blob": {
+        "bytes": 3776,
+        "sha256": "1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9"
+      },
+      "package/snapshots/0002.blob": {
+        "bytes": 434,
+        "sha256": "b82b263ea18f8fe7432c3f0190671c5d9d816d4712a5c64921a0697d2ab701e5"
+      },
+      "package/snapshots/0003.blob": {
+        "bytes": 4489,
+        "sha256": "246189acdba7c4559c1bda5ba9a6314d60dca9bf1710b87c4eaf59cbde5f6f42"
+      },
+      "package/snapshots/0004.blob": {
+        "bytes": 1321,
+        "sha256": "a4231ad09ec5a14a320779f29574ca0cd8912eb0b1e8a25d2462d94c6b4dfeed"
+      },
+      "package/source-manifest.json": {
+        "bytes": 1109,
+        "sha256": "419d863333779d4cf723dbfc0eacf5a9622cf1ab41b1b0ddbcce660daf2a09c0"
+      },
+      "package/support/SUPPORT.md": {
+        "bytes": 574,
+        "sha256": "8cc3b97b405b20e3bd15710deafd95dd449b58cdbab65731b10ff85947594e38"
+      },
+      "package/support/assembler/05.01.md": {
+        "bytes": 3377,
+        "sha256": "bbc9e48853ff5720b1184734343672a1f8432612fb1397f8929ef0dcb602dd82"
+      },
+      "package/support/assembler/completion-receipt.json": {
+        "bytes": 2232,
+        "sha256": "0b51d84d96ff560148f2eec959004ec34b8838da4d155f38dbec524eec4d4170"
+      },
+      "package/support/assembler/request.snapshot": {
+        "bytes": 3581,
+        "sha256": "bb1d670be230884b6f47655016907133eadc0005bb9a4c166b0116e18a27c4e5"
+      },
+      "package/templates/05.01.return.TEMPLATE.md": {
+        "bytes": 1439,
+        "sha256": "fcaeaa71c097b2dba66e670057597b0b2ea3f66c93998c606e420282dbd1ef8f"
+      },
+      "package/templates/06.01.review.TEMPLATE.md": {
+        "bytes": 1008,
+        "sha256": "a6c3a88abbed4c80880b0bdca193c51e7f369e846a672253e7d9f8828eefc943"
+      },
+      "prepared-colab.zip": {
+        "bytes": 43099,
+        "sha256": "5f77b08318a40b9329f51a9178e274637271d1cf06d4aa3e9e1ea3c354862cfe"
+      },
+      "verification.json": {
+        "bytes": 5883,
+        "sha256": "2a8557373a3370d27015ac6475c3c24bff991e165617e989bc2295833fe0cbf1"
+      }
+    },
+    "out_verification": {
+      "assembler_digest": "ef61018444eafda6bc7869b4b819f5149a14db32fcc7e67d8d69702b2d6eab01",
+      "binding_sha256": "d6bfabb615200c91009deb8631bd834c52286037aae2cfb14e5827f49a1a81b1",
+      "commit": "6896224510fe0bcebac291fce7ed311a2cd085cb",
+      "digest": "42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184",
+      "handoff_sha256": "5d8d8f5115d0b9630afda61a29199f35baf43f06e5e5ac84c8d1b21c42fde755",
+      "investigation": {
+        "book": "00.00.10.work",
+        "page": "0701.colab-exchange-layout",
+        "pass": "05.01"
+      },
+      "layout": "colab-exchange-layout/2",
+      "out_files": [
+        {
+          "bytes": 3377,
+          "path": "assembler-output/05.01.md",
+          "sha256": "bbc9e48853ff5720b1184734343672a1f8432612fb1397f8929ef0dcb602dd82"
+        },
+        {
+          "bytes": 2232,
+          "path": "assembler-output/completion-receipt.json",
+          "sha256": "0b51d84d96ff560148f2eec959004ec34b8838da4d155f38dbec524eec4d4170"
+        },
+        {
+          "bytes": 3581,
+          "path": "assembler-output/request.snapshot",
+          "sha256": "bb1d670be230884b6f47655016907133eadc0005bb9a4c166b0116e18a27c4e5"
+        },
+        {
+          "bytes": 3776,
+          "path": "assembler-output/snapshots/0001.blob",
+          "sha256": "1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9"
+        },
+        {
+          "bytes": 434,
+          "path": "assembler-output/snapshots/0002.blob",
+          "sha256": "b82b263ea18f8fe7432c3f0190671c5d9d816d4712a5c64921a0697d2ab701e5"
+        },
+        {
+          "bytes": 4489,
+          "path": "assembler-output/snapshots/0003.blob",
+          "sha256": "246189acdba7c4559c1bda5ba9a6314d60dca9bf1710b87c4eaf59cbde5f6f42"
+        },
+        {
+          "bytes": 1321,
+          "path": "assembler-output/snapshots/0004.blob",
+          "sha256": "a4231ad09ec5a14a320779f29574ca0cd8912eb0b1e8a25d2462d94c6b4dfeed"
+        },
+        {
+          "bytes": 1109,
+          "path": "assembler-output/source-manifest.json",
+          "sha256": "419d863333779d4cf723dbfc0eacf5a9622cf1ab41b1b0ddbcce660daf2a09c0"
+        },
+        {
+          "bytes": 3581,
+          "path": "assembler-request.json",
+          "sha256": "bb1d670be230884b6f47655016907133eadc0005bb9a4c166b0116e18a27c4e5"
+        },
+        {
+          "bytes": 12279,
+          "path": "handoff.json",
+          "sha256": "5d8d8f5115d0b9630afda61a29199f35baf43f06e5e5ac84c8d1b21c42fde755"
+        },
+        {
+          "bytes": 3584,
+          "path": "package/05.01.pack.md",
+          "sha256": "b46713a78cea87597d04578949d21f4539518133ff58a8c007377fb222ea5a29"
+        },
+        {
+          "bytes": 2552,
+          "path": "package/06.01.notes.md",
+          "sha256": "2d7fe940fcfbd2a9b88c655ebbbd3f113c290182a18e8f875c2c10758c5349f9"
+        },
+        {
+          "bytes": 4777,
+          "path": "package/ENTRY.md",
+          "sha256": "1085c83d57c313844a83964e65489ebac71df7bf1f0623e74ddc35b8ba67aff7"
+        },
+        {
+          "bytes": 642,
+          "path": "package/binding.json",
+          "sha256": "d6bfabb615200c91009deb8631bd834c52286037aae2cfb14e5827f49a1a81b1"
+        },
+        {
+          "bytes": 6270,
+          "path": "package/colab-request.json",
+          "sha256": "5778b69507ff4eadd67e0b3eb2bdb3aa7d22440110d1ddb16e09b5e5e7c0b1fa"
+        },
+        {
+          "bytes": 3776,
+          "path": "package/snapshots/0001.blob",
+          "sha256": "1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9"
+        },
+        {
+          "bytes": 434,
+          "path": "package/snapshots/0002.blob",
+          "sha256": "b82b263ea18f8fe7432c3f0190671c5d9d816d4712a5c64921a0697d2ab701e5"
+        },
+        {
+          "bytes": 4489,
+          "path": "package/snapshots/0003.blob",
+          "sha256": "246189acdba7c4559c1bda5ba9a6314d60dca9bf1710b87c4eaf59cbde5f6f42"
+        },
+        {
+          "bytes": 1321,
+          "path": "package/snapshots/0004.blob",
+          "sha256": "a4231ad09ec5a14a320779f29574ca0cd8912eb0b1e8a25d2462d94c6b4dfeed"
+        },
+        {
+          "bytes": 1109,
+          "path": "package/source-manifest.json",
+          "sha256": "419d863333779d4cf723dbfc0eacf5a9622cf1ab41b1b0ddbcce660daf2a09c0"
+        },
+        {
+          "bytes": 574,
+          "path": "package/support/SUPPORT.md",
+          "sha256": "8cc3b97b405b20e3bd15710deafd95dd449b58cdbab65731b10ff85947594e38"
+        },
+        {
+          "bytes": 3377,
+          "path": "package/support/assembler/05.01.md",
+          "sha256": "bbc9e48853ff5720b1184734343672a1f8432612fb1397f8929ef0dcb602dd82"
+        },
+        {
+          "bytes": 2232,
+          "path": "package/support/assembler/completion-receipt.json",
+          "sha256": "0b51d84d96ff560148f2eec959004ec34b8838da4d155f38dbec524eec4d4170"
+        },
+        {
+          "bytes": 3581,
+          "path": "package/support/assembler/request.snapshot",
+          "sha256": "bb1d670be230884b6f47655016907133eadc0005bb9a4c166b0116e18a27c4e5"
+        },
+        {
+          "bytes": 1439,
+          "path": "package/templates/05.01.return.TEMPLATE.md",
+          "sha256": "fcaeaa71c097b2dba66e670057597b0b2ea3f66c93998c606e420282dbd1ef8f"
+        },
+        {
+          "bytes": 1008,
+          "path": "package/templates/06.01.review.TEMPLATE.md",
+          "sha256": "a6c3a88abbed4c80880b0bdca193c51e7f369e846a672253e7d9f8828eefc943"
+        },
+        {
+          "bytes": 43099,
+          "path": "prepared-colab.zip",
+          "sha256": "5f77b08318a40b9329f51a9178e274637271d1cf06d4aa3e9e1ea3c354862cfe"
+        }
+      ],
+      "raw_records": [
+        "assembler-run.json"
+      ],
+      "repository": "workshop",
+      "result": "prepared",
+      "schema": "colab-package-verification/2",
+      "sections": [
+        {
+          "bytes": 3776,
+          "kind": "whole-file",
+          "sha256": "1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9",
+          "target": "T01"
+        }
+      ],
+      "statements": [
+        "This package is a draft. Preparation is not a Director release.",
+        "05.NN.pack.md is the one primary instruction source; support/ is transport support only.",
+        "No 05.NN.return.md or 06.NN.review.md exists at preparation. Templates are templates.",
+        "A verified package or receipt is custody, not review or acceptance.",
+        "The investigation binding is supplied by Prime; it does not open a live investigation.",
+        "Labels and quoted Director text do not authenticate anyone."
+      ]
+    },
+    "replay": {
+      "result": "already-prepared",
+      "written": []
+    },
+    "request": {
+      "bytes": 6270,
+      "path": "labs/colab-support-pass02/examples/request-exchange-layout.json",
+      "sha256": "5778b69507ff4eadd67e0b3eb2bdb3aa7d22440110d1ddb16e09b5e5e7c0b1fa"
+    },
+    "verify": {
+      "assembler_verify_exit": 0,
+      "result": "intact"
+    },
+    "zip_copy": {
+      "bytes": 43099,
+      "path": "evidence/exchange05.03/prepared-colab.zip",
+      "sha256": "5f77b08318a40b9329f51a9178e274637271d1cf06d4aa3e9e1ea3c354862cfe"
+    }
+  },
+  "schema": "colab-support-batch-verification/2",
+  "statements": [
+    "No return or review was created.",
+    "Receipts are custody, not acceptance.",
+    "No stage, commit or push."
+  ],
+  "synthetic_intake": {
+    "intake": {
+      "binding_sha256": "d6bfabb615200c91009deb8631bd834c52286037aae2cfb14e5827f49a1a81b1",
+      "capture": {
+        "captured_at": "2026-10-29T19:00:00.625285Z",
+        "manifest_sha256": "3709acf8b303988c0bd1087073bd2b977ad4df5170bacd08026a26a809812a6e",
+        "origin": {
+          "batch": "05.01",
+          "book": "00.00.10.work",
+          "page": "0701.colab-exchange-layout"
+        },
+        "payloads": [
+          {
+            "bytes": 40,
+            "logical": "return-notes",
+            "payload": "0001.blob",
+            "sha256": "55c599bdaabdc4e9f1dd839cc05ff85bab248ba79ea1c47ad0ca252d0d6f4a87"
+          }
+        ],
+        "receipt_sha256": "7cc266af19a6a68b3effd212239d13323023887a95224f6b068f16703ac912fd",
+        "reservation_sha256": "bfed553d99349e8525815e3df8b697c500da05e97766ec92fc09711ef65c068f",
+        "retrospective": false,
+        "return": {
+          "bytes": 334,
+          "includes_prime_review": false,
+          "sha256": "ee9650a9d9873fe7bdef3f1b9affd3e385bcc967275ba340bf75a727dacedb06"
+        },
+        "source_commit": null,
+        "submission_id": "synthetic-layout-0701-0501"
+      },
+      "exchange": {
+        "nn": "01",
+        "notes": "06.01.notes.md",
+        "pack": "05.01.pack.md",
+        "pass": "05.01",
+        "primary_instruction": "05.01.pack.md",
+        "return_name": "05.01.return.md",
+        "return_template": "templates/05.01.return.TEMPLATE.md",
+        "review_name": "06.01.review.md",
+        "review_template": "templates/06.01.review.TEMPLATE.md"
+      },
+      "findings": [],
+      "helper_capture": "captured",
+      "investigation": {
+        "book": "00.00.10.work",
+        "page": "0701.colab-exchange-layout",
+        "pass": "05.01"
+      },
+      "member": "0101.synthetic-layout-0701",
+      "package_digest": "42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184",
+      "placement": {
+        "action": "proposed; not written",
+        "destination": {
+          "book": "00.00.10.work",
+          "file": "05.01.return.md",
+          "page": "0701.colab-exchange-layout"
+        },
+        "review": "06.01.review.md is not created by intake",
+        "rule": "exact bytes from the verified capture; provenance stays in this record, not in the text",
+        "schema": "colab-placement-proposal/2",
+        "source": {
+          "bytes": 334,
+          "file": "return.md",
+          "manifest_sha256": "3709acf8b303988c0bd1087073bd2b977ad4df5170bacd08026a26a809812a6e",
+          "member": "0101.synthetic-layout-0701",
+          "receipt_sha256": "7cc266af19a6a68b3effd212239d13323023887a95224f6b068f16703ac912fd",
+          "sha256": "ee9650a9d9873fe7bdef3f1b9affd3e385bcc967275ba340bf75a727dacedb06"
+        }
+      },
+      "pointer": "Member 0101.synthetic-layout-0701. Receipt sha256 7cc266af19a6a68b3effd212239d13323023887a95224f6b068f16703ac912fd. Verify exit 0: result complete; not approved; not accepted; not published. Package digest 42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184.",
+      "result": "captured",
+      "return_headings": {
+        "Director replies": true,
+        "Factfind": true,
+        "Hostile": true,
+        "Overflow": true,
+        "Unprompted": true
+      },
+      "runs": [
+        {
+          "args": [
+            "inspect",
+            "--book",
+            "C:/Users/misg/AppData/Local/Temp/claude/D--librarian/2c19315e-118c-4c89-bbde-d177d3a541c1/scratchpad/v2/dbook/00.kernel/00.00.10.work",
+            "--member",
+            "0101.synthetic-layout-0701",
+            "--json"
+          ],
+          "exit": 1,
+          "stderr": "",
+          "stdout": "{\"book\":\"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\D--librarian\\\\2c19315e-118c-4c89-bbde-d177d3a541c1\\\\scratchpad\\\\v2\\\\dbook\\\\00.kernel\\\\00.00.10.work\",\"capture\":null,\"member\":\"0101.synthetic-layout-0701\",\"problems\":[\"reservation only\"],\"reservation\":{\"destination\":{\"member\":\"0101\",\"name\":\"synthetic-layout-0701\",\"path\":\"0101.synthetic-layout-0701\"},\"expected_outputs\":[\"return-notes\"],\"origin\":{\"batch\":\"05.01\",\"book\":\"00.00.10.work\",\"page\":\"0701.colab-exchange-layout\"},\"release\":\"fixture only; no release\",\"reservation_sha256\":\"bfed553d99349e8525815e3df8b697c500da05e97766ec92fc09711ef65c068f\",\"reserved_at\":\"2026-10-29T18:59:59.716676Z\",\"reviewer\":\"Codex Prime\",\"submission_id\":\"synthetic-layout-0701-0501\",\"submitter\":\"SYNTHETIC FIXTURE, not a model return\",\"supersedes\":null},\"schema\":\"return-capture-inspection/1\",\"status\":\"reserved\"}\n",
+          "tool": "inspector"
+        },
+        {
+          "args": [
+            "capture",
+            "--book",
+            "C:/Users/misg/AppData/Local/Temp/claude/D--librarian/2c19315e-118c-4c89-bbde-d177d3a541c1/scratchpad/v2/dbook/00.kernel/00.00.10.work",
+            "--submission",
+            "synthetic-layout-0701-0501",
+            "--return-file",
+            "C:/Users/misg/AppData/Local/Temp/claude/D--librarian/2c19315e-118c-4c89-bbde-d177d3a541c1/scratchpad/v2/dsrc/return.md",
+            "--source-root",
+            "C:/Users/misg/AppData/Local/Temp/claude/D--librarian/2c19315e-118c-4c89-bbde-d177d3a541c1/scratchpad/v2/dsrc",
+            "--artifact",
+            "notes.txt|return-notes"
+          ],
+          "exit": 0,
+          "stderr": "",
+          "stdout": "capture 0101.synthetic-layout-0701\r\nmanifest 3709acf8b303988c0bd1087073bd2b977ad4df5170bacd08026a26a809812a6e\r\nreceipt 7cc266af19a6a68b3effd212239d13323023887a95224f6b068f16703ac912fd\r\nresult captured\r\n",
+          "tool": "helper"
+        },
+        {
+          "args": [
+            "verify",
+            "--book",
+            "C:/Users/misg/AppData/Local/Temp/claude/D--librarian/2c19315e-118c-4c89-bbde-d177d3a541c1/scratchpad/v2/dbook/00.kernel/00.00.10.work",
+            "--member",
+            "0101.synthetic-layout-0701"
+          ],
+          "exit": 0,
+          "stderr": "",
+          "stdout": "reservation bfed553d99349e8525815e3df8b697c500da05e97766ec92fc09711ef65c068f\r\nmanifest 3709acf8b303988c0bd1087073bd2b977ad4df5170bacd08026a26a809812a6e\r\nreceipt 7cc266af19a6a68b3effd212239d13323023887a95224f6b068f16703ac912fd\r\npayload 0001.blob 55c599bdaabdc4e9f1dd839cc05ff85bab248ba79ea1c47ad0ca252d0d6f4a87\r\nresult complete\r\nnot approved\r\nnot accepted\r\nnot published\r\n",
+          "tool": "helper"
+        },
+        {
+          "args": [
+            "inspect",
+            "--book",
+            "C:/Users/misg/AppData/Local/Temp/claude/D--librarian/2c19315e-118c-4c89-bbde-d177d3a541c1/scratchpad/v2/dbook/00.kernel/00.00.10.work",
+            "--member",
+            "0101.synthetic-layout-0701",
+            "--json"
+          ],
+          "exit": 0,
+          "stderr": "",
+          "stdout": "{\"book\":\"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\D--librarian\\\\2c19315e-118c-4c89-bbde-d177d3a541c1\\\\scratchpad\\\\v2\\\\dbook\\\\00.kernel\\\\00.00.10.work\",\"capture\":{\"captured_at\":\"2026-10-29T19:00:00.625285Z\",\"manifest_sha256\":\"3709acf8b303988c0bd1087073bd2b977ad4df5170bacd08026a26a809812a6e\",\"origin\":{\"batch\":\"05.01\",\"book\":\"00.00.10.work\",\"page\":\"0701.colab-exchange-layout\"},\"payloads\":[{\"bytes\":40,\"logical\":\"return-notes\",\"payload\":\"0001.blob\",\"sha256\":\"55c599bdaabdc4e9f1dd839cc05ff85bab248ba79ea1c47ad0ca252d0d6f4a87\"}],\"receipt_sha256\":\"7cc266af19a6a68b3effd212239d13323023887a95224f6b068f16703ac912fd\",\"reservation_sha256\":\"bfed553d99349e8525815e3df8b697c500da05e97766ec92fc09711ef65c068f\",\"retrospective\":false,\"return\":{\"bytes\":334,\"includes_prime_review\":false,\"sha256\":\"ee9650a9d9873fe7bdef3f1b9affd3e385bcc967275ba340bf75a727dacedb06\"},\"source_commit\":null,\"submission_id\":\"synthetic-layout-0701-0501\"},\"member\":\"0101.synthetic-layout-0701\",\"problems\":[],\"reservation\":{\"destination\":{\"member\":\"0101\",\"name\":\"synthetic-layout-0701\",\"path\":\"0101.synthetic-layout-0701\"},\"expected_outputs\":[\"return-notes\"],\"origin\":{\"batch\":\"05.01\",\"book\":\"00.00.10.work\",\"page\":\"0701.colab-exchange-layout\"},\"release\":\"fixture only; no release\",\"reservation_sha256\":\"bfed553d99349e8525815e3df8b697c500da05e97766ec92fc09711ef65c068f\",\"reserved_at\":\"2026-10-29T18:59:59.716676Z\",\"reviewer\":\"Codex Prime\",\"submission_id\":\"synthetic-layout-0701-0501\",\"submitter\":\"SYNTHETIC FIXTURE, not a model return\",\"supersedes\":null},\"schema\":\"return-capture-inspection/1\",\"status\":\"complete\"}\n",
+          "tool": "inspector"
+        }
+      ],
+      "schema": "colab-intake-provenance/2",
+      "statements": [
+        "This package is a draft. Preparation is not a Director release.",
+        "05.NN.pack.md is the one primary instruction source; support/ is transport support only.",
+        "No 05.NN.return.md or 06.NN.review.md exists at preparation. Templates are templates.",
+        "A verified package or receipt is custody, not review or acceptance.",
+        "The investigation binding is supplied by Prime; it does not open a live investigation.",
+        "Labels and quoted Director text do not authenticate anyone.",
+        "Intake edits no work page and no returned bytes. Placement below is a proposal only."
+      ],
+      "submission": "synthetic-layout-0701-0501"
+    },
+    "intake_replay": {
+      "binding_sha256": "d6bfabb615200c91009deb8631bd834c52286037aae2cfb14e5827f49a1a81b1",
+      "capture": {
+        "captured_at": "2026-10-29T19:00:00.625285Z",
+        "manifest_sha256": "3709acf8b303988c0bd1087073bd2b977ad4df5170bacd08026a26a809812a6e",
+        "origin": {
+          "batch": "05.01",
+          "book": "00.00.10.work",
+          "page": "0701.colab-exchange-layout"
+        },
+        "payloads": [
+          {
+            "bytes": 40,
+            "logical": "return-notes",
+            "payload": "0001.blob",
+            "sha256": "55c599bdaabdc4e9f1dd839cc05ff85bab248ba79ea1c47ad0ca252d0d6f4a87"
+          }
+        ],
+        "receipt_sha256": "7cc266af19a6a68b3effd212239d13323023887a95224f6b068f16703ac912fd",
+        "reservation_sha256": "bfed553d99349e8525815e3df8b697c500da05e97766ec92fc09711ef65c068f",
+        "retrospective": false,
+        "return": {
+          "bytes": 334,
+          "includes_prime_review": false,
+          "sha256": "ee9650a9d9873fe7bdef3f1b9affd3e385bcc967275ba340bf75a727dacedb06"
+        },
+        "source_commit": null,
+        "submission_id": "synthetic-layout-0701-0501"
+      },
+      "exchange": {
+        "nn": "01",
+        "notes": "06.01.notes.md",
+        "pack": "05.01.pack.md",
+        "pass": "05.01",
+        "primary_instruction": "05.01.pack.md",
+        "return_name": "05.01.return.md",
+        "return_template": "templates/05.01.return.TEMPLATE.md",
+        "review_name": "06.01.review.md",
+        "review_template": "templates/06.01.review.TEMPLATE.md"
+      },
+      "findings": [],
+      "helper_capture": "already-captured",
+      "investigation": {
+        "book": "00.00.10.work",
+        "page": "0701.colab-exchange-layout",
+        "pass": "05.01"
+      },
+      "member": "0101.synthetic-layout-0701",
+      "package_digest": "42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184",
+      "placement": {
+        "action": "proposed; not written",
+        "destination": {
+          "book": "00.00.10.work",
+          "file": "05.01.return.md",
+          "page": "0701.colab-exchange-layout"
+        },
+        "review": "06.01.review.md is not created by intake",
+        "rule": "exact bytes from the verified capture; provenance stays in this record, not in the text",
+        "schema": "colab-placement-proposal/2",
+        "source": {
+          "bytes": 334,
+          "file": "return.md",
+          "manifest_sha256": "3709acf8b303988c0bd1087073bd2b977ad4df5170bacd08026a26a809812a6e",
+          "member": "0101.synthetic-layout-0701",
+          "receipt_sha256": "7cc266af19a6a68b3effd212239d13323023887a95224f6b068f16703ac912fd",
+          "sha256": "ee9650a9d9873fe7bdef3f1b9affd3e385bcc967275ba340bf75a727dacedb06"
+        }
+      },
+      "pointer": "Member 0101.synthetic-layout-0701. Receipt sha256 7cc266af19a6a68b3effd212239d13323023887a95224f6b068f16703ac912fd. Verify exit 0: result complete; not approved; not accepted; not published. Package digest 42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184.",
+      "result": "already-captured",
+      "return_headings": {
+        "Director replies": true,
+        "Factfind": true,
+        "Hostile": true,
+        "Overflow": true,
+        "Unprompted": true
+      },
+      "runs": [
+        {
+          "args": [
+            "inspect",
+            "--book",
+            "C:/Users/misg/AppData/Local/Temp/claude/D--librarian/2c19315e-118c-4c89-bbde-d177d3a541c1/scratchpad/v2/dbook/00.kernel/00.00.10.work",
+            "--member",
+            "0101.synthetic-layout-0701",
+            "--json"
+          ],
+          "exit": 0,
+          "stderr": "",
+          "stdout": "{\"book\":\"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\D--librarian\\\\2c19315e-118c-4c89-bbde-d177d3a541c1\\\\scratchpad\\\\v2\\\\dbook\\\\00.kernel\\\\00.00.10.work\",\"capture\":{\"captured_at\":\"2026-10-29T19:00:00.625285Z\",\"manifest_sha256\":\"3709acf8b303988c0bd1087073bd2b977ad4df5170bacd08026a26a809812a6e\",\"origin\":{\"batch\":\"05.01\",\"book\":\"00.00.10.work\",\"page\":\"0701.colab-exchange-layout\"},\"payloads\":[{\"bytes\":40,\"logical\":\"return-notes\",\"payload\":\"0001.blob\",\"sha256\":\"55c599bdaabdc4e9f1dd839cc05ff85bab248ba79ea1c47ad0ca252d0d6f4a87\"}],\"receipt_sha256\":\"7cc266af19a6a68b3effd212239d13323023887a95224f6b068f16703ac912fd\",\"reservation_sha256\":\"bfed553d99349e8525815e3df8b697c500da05e97766ec92fc09711ef65c068f\",\"retrospective\":false,\"return\":{\"bytes\":334,\"includes_prime_review\":false,\"sha256\":\"ee9650a9d9873fe7bdef3f1b9affd3e385bcc967275ba340bf75a727dacedb06\"},\"source_commit\":null,\"submission_id\":\"synthetic-layout-0701-0501\"},\"member\":\"0101.synthetic-layout-0701\",\"problems\":[],\"reservation\":{\"destination\":{\"member\":\"0101\",\"name\":\"synthetic-layout-0701\",\"path\":\"0101.synthetic-layout-0701\"},\"expected_outputs\":[\"return-notes\"],\"origin\":{\"batch\":\"05.01\",\"book\":\"00.00.10.work\",\"page\":\"0701.colab-exchange-layout\"},\"release\":\"fixture only; no release\",\"reservation_sha256\":\"bfed553d99349e8525815e3df8b697c500da05e97766ec92fc09711ef65c068f\",\"reserved_at\":\"2026-10-29T18:59:59.716676Z\",\"reviewer\":\"Codex Prime\",\"submission_id\":\"synthetic-layout-0701-0501\",\"submitter\":\"SYNTHETIC FIXTURE, not a model return\",\"supersedes\":null},\"schema\":\"return-capture-inspection/1\",\"status\":\"complete\"}\n",
+          "tool": "inspector"
+        },
+        {
+          "args": [
+            "capture",
+            "--book",
+            "C:/Users/misg/AppData/Local/Temp/claude/D--librarian/2c19315e-118c-4c89-bbde-d177d3a541c1/scratchpad/v2/dbook/00.kernel/00.00.10.work",
+            "--submission",
+            "synthetic-layout-0701-0501",
+            "--return-file",
+            "C:/Users/misg/AppData/Local/Temp/claude/D--librarian/2c19315e-118c-4c89-bbde-d177d3a541c1/scratchpad/v2/dsrc/return.md",
+            "--source-root",
+            "C:/Users/misg/AppData/Local/Temp/claude/D--librarian/2c19315e-118c-4c89-bbde-d177d3a541c1/scratchpad/v2/dsrc",
+            "--artifact",
+            "notes.txt|return-notes"
+          ],
+          "exit": 0,
+          "stderr": "",
+          "stdout": "capture 0101.synthetic-layout-0701\r\nmanifest 3709acf8b303988c0bd1087073bd2b977ad4df5170bacd08026a26a809812a6e\r\nreceipt 7cc266af19a6a68b3effd212239d13323023887a95224f6b068f16703ac912fd\r\nresult already-captured\r\n",
+          "tool": "helper"
+        },
+        {
+          "args": [
+            "verify",
+            "--book",
+            "C:/Users/misg/AppData/Local/Temp/claude/D--librarian/2c19315e-118c-4c89-bbde-d177d3a541c1/scratchpad/v2/dbook/00.kernel/00.00.10.work",
+            "--member",
+            "0101.synthetic-layout-0701"
+          ],
+          "exit": 0,
+          "stderr": "",
+          "stdout": "reservation bfed553d99349e8525815e3df8b697c500da05e97766ec92fc09711ef65c068f\r\nmanifest 3709acf8b303988c0bd1087073bd2b977ad4df5170bacd08026a26a809812a6e\r\nreceipt 7cc266af19a6a68b3effd212239d13323023887a95224f6b068f16703ac912fd\r\npayload 0001.blob 55c599bdaabdc4e9f1dd839cc05ff85bab248ba79ea1c47ad0ca252d0d6f4a87\r\nresult complete\r\nnot approved\r\nnot accepted\r\nnot published\r\n",
+          "tool": "helper"
+        },
+        {
+          "args": [
+            "inspect",
+            "--book",
+            "C:/Users/misg/AppData/Local/Temp/claude/D--librarian/2c19315e-118c-4c89-bbde-d177d3a541c1/scratchpad/v2/dbook/00.kernel/00.00.10.work",
+            "--member",
+            "0101.synthetic-layout-0701",
+            "--json"
+          ],
+          "exit": 0,
+          "stderr": "",
+          "stdout": "{\"book\":\"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\D--librarian\\\\2c19315e-118c-4c89-bbde-d177d3a541c1\\\\scratchpad\\\\v2\\\\dbook\\\\00.kernel\\\\00.00.10.work\",\"capture\":{\"captured_at\":\"2026-10-29T19:00:00.625285Z\",\"manifest_sha256\":\"3709acf8b303988c0bd1087073bd2b977ad4df5170bacd08026a26a809812a6e\",\"origin\":{\"batch\":\"05.01\",\"book\":\"00.00.10.work\",\"page\":\"0701.colab-exchange-layout\"},\"payloads\":[{\"bytes\":40,\"logical\":\"return-notes\",\"payload\":\"0001.blob\",\"sha256\":\"55c599bdaabdc4e9f1dd839cc05ff85bab248ba79ea1c47ad0ca252d0d6f4a87\"}],\"receipt_sha256\":\"7cc266af19a6a68b3effd212239d13323023887a95224f6b068f16703ac912fd\",\"reservation_sha256\":\"bfed553d99349e8525815e3df8b697c500da05e97766ec92fc09711ef65c068f\",\"retrospective\":false,\"return\":{\"bytes\":334,\"includes_prime_review\":false,\"sha256\":\"ee9650a9d9873fe7bdef3f1b9affd3e385bcc967275ba340bf75a727dacedb06\"},\"source_commit\":null,\"submission_id\":\"synthetic-layout-0701-0501\"},\"member\":\"0101.synthetic-layout-0701\",\"problems\":[],\"reservation\":{\"destination\":{\"member\":\"0101\",\"name\":\"synthetic-layout-0701\",\"path\":\"0101.synthetic-layout-0701\"},\"expected_outputs\":[\"return-notes\"],\"origin\":{\"batch\":\"05.01\",\"book\":\"00.00.10.work\",\"page\":\"0701.colab-exchange-layout\"},\"release\":\"fixture only; no release\",\"reservation_sha256\":\"bfed553d99349e8525815e3df8b697c500da05e97766ec92fc09711ef65c068f\",\"reserved_at\":\"2026-10-29T18:59:59.716676Z\",\"reviewer\":\"Codex Prime\",\"submission_id\":\"synthetic-layout-0701-0501\",\"submitter\":\"SYNTHETIC FIXTURE, not a model return\",\"supersedes\":null},\"schema\":\"return-capture-inspection/1\",\"status\":\"complete\"}\n",
+          "tool": "inspector"
+        }
+      ],
+      "schema": "colab-intake-provenance/2",
+      "statements": [
+        "This package is a draft. Preparation is not a Director release.",
+        "05.NN.pack.md is the one primary instruction source; support/ is transport support only.",
+        "No 05.NN.return.md or 06.NN.review.md exists at preparation. Templates are templates.",
+        "A verified package or receipt is custody, not review or acceptance.",
+        "The investigation binding is supplied by Prime; it does not open a live investigation.",
+        "Labels and quoted Director text do not authenticate anyone.",
+        "Intake edits no work page and no returned bytes. Placement below is a proposal only."
+      ],
+      "submission": "synthetic-layout-0701-0501"
+    },
+    "intake_wrong_origin": {
+      "binding_sha256": "d6bfabb615200c91009deb8631bd834c52286037aae2cfb14e5827f49a1a81b1",
+      "exchange": {
+        "nn": "01",
+        "notes": "06.01.notes.md",
+        "pack": "05.01.pack.md",
+        "pass": "05.01",
+        "primary_instruction": "05.01.pack.md",
+        "return_name": "05.01.return.md",
+        "return_template": "templates/05.01.return.TEMPLATE.md",
+        "review_name": "06.01.review.md",
+        "review_template": "templates/06.01.review.TEMPLATE.md"
+      },
+      "findings": [
+        {
+          "code": "wrong-origin",
+          "detail": "reservation origin {'batch': '05.01', 'book': '00.00.10.work', 'page': '0411.colab'} is not the investigation {'book': '00.00.10.work', 'page': '0701.colab-exchange-layout', 'batch': '05.01'}",
+          "kind": "input-defect"
+        }
+      ],
+      "investigation": {
+        "book": "00.00.10.work",
+        "page": "0701.colab-exchange-layout",
+        "pass": "05.01"
+      },
+      "member": "0102.synthetic-layout-target",
+      "package_digest": "42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184",
+      "result": "wrong-origin",
+      "runs": [
+        {
+          "args": [
+            "inspect",
+            "--book",
+            "C:/Users/misg/AppData/Local/Temp/claude/D--librarian/2c19315e-118c-4c89-bbde-d177d3a541c1/scratchpad/v2/dbook/00.kernel/00.00.10.work",
+            "--member",
+            "0102.synthetic-layout-target",
+            "--json"
+          ],
+          "exit": 1,
+          "stderr": "",
+          "stdout": "{\"book\":\"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\D--librarian\\\\2c19315e-118c-4c89-bbde-d177d3a541c1\\\\scratchpad\\\\v2\\\\dbook\\\\00.kernel\\\\00.00.10.work\",\"capture\":null,\"member\":\"0102.synthetic-layout-target\",\"problems\":[\"reservation only\"],\"reservation\":{\"destination\":{\"member\":\"0102\",\"name\":\"synthetic-layout-target\",\"path\":\"0102.synthetic-layout-target\"},\"expected_outputs\":[\"return-notes\"],\"origin\":{\"batch\":\"05.01\",\"book\":\"00.00.10.work\",\"page\":\"0411.colab\"},\"release\":\"fixture only; no release\",\"reservation_sha256\":\"822c9e743d08d84d4b3cc48ba91a327f6e517f2169630724f7b32072296529a4\",\"reserved_at\":\"2026-10-29T18:59:59.859238Z\",\"reviewer\":\"Codex Prime\",\"submission_id\":\"synthetic-layout-target\",\"submitter\":\"SYNTHETIC FIXTURE\",\"supersedes\":null},\"schema\":\"return-capture-inspection/1\",\"status\":\"reserved\"}\n",
+          "tool": "inspector"
+        }
+      ],
+      "schema": "colab-intake-provenance/2",
+      "statements": [
+        "This package is a draft. Preparation is not a Director release.",
+        "05.NN.pack.md is the one primary instruction source; support/ is transport support only.",
+        "No 05.NN.return.md or 06.NN.review.md exists at preparation. Templates are templates.",
+        "A verified package or receipt is custody, not review or acceptance.",
+        "The investigation binding is supplied by Prime; it does not open a live investigation.",
+        "Labels and quoted Director text do not authenticate anyone.",
+        "Intake edits no work page and no returned bytes. Placement below is a proposal only."
+      ]
+    },
+    "label": "SYNTHETIC FIXTURE in a disposable book; no model called; not a Colab finding",
+    "reserve_good": "member 0101.synthetic-layout-0701\nsubmission synthetic-layout-0701-0501\nresult reserved\n",
+    "reserve_wrong_origin": "member 0102.synthetic-layout-target\nsubmission synthetic-layout-target\nresult reserved\n"
+  },
+  "tests": {
+    "command": "python -B -X dev tests/test_colab_support_v2.py -v  (cwd labs/colab-support-pass02)",
+    "final_log": "test_cli_no_traceback (__main__.Cli.test_cli_no_traceback) ... ok\ntest_notes_and_quotes_exact (__main__.Content.test_notes_and_quotes_exact) ... ok\ntest_support_is_declared_not_instruction (__main__.Content.test_support_is_declared_not_instruction) ... ok\ntest_template_is_not_review (__main__.Content.test_template_is_not_review) ... ok\ntest_blind_evaluator_absent_from_package (__main__.Custody.test_blind_evaluator_absent_from_package) ... ok\ntest_digest_mismatch (__main__.Custody.test_digest_mismatch) ... ok\ntest_linked_output_and_entries (__main__.Custody.test_linked_output_and_entries) ... ok\ntest_mutations_detected (__main__.Custody.test_mutations_detected) ... ok\ntest_partials_retained (__main__.Custody.test_partials_retained) ... ok\ntest_replay_and_collision (__main__.Custody.test_replay_and_collision) ... ok\ntest_handoff_preimage_recomputes_digest (__main__.Handoff.test_handoff_preimage_recomputes_digest) ... ok\ntest_standalone_check_and_copy (__main__.Handoff.test_standalone_check_and_copy) ... ok\ntest_capture_placement_replay_conflict (__main__.Intake.test_capture_placement_replay_conflict) ... ok\ntest_wrong_target_origin_refused (__main__.Intake.test_wrong_target_origin_refused) ... ok\ntest_exchange_names_follow_pass (__main__.Names.test_exchange_names_follow_pass) ... ok\ntest_fabricated_return_or_review_is_a_defect (__main__.Names.test_fabricated_return_or_review_is_a_defect) ... ok\ntest_missing_misnamed_extra (__main__.Names.test_missing_misnamed_extra) ... ok\ntest_no_return_or_review_before_receipt (__main__.Names.test_no_return_or_review_before_receipt) ... ok\ntest_source_names_are_data (__main__.Names.test_source_names_are_data) ... ok\ntest_v1_output_refused_by_v2_and_v2_output_refused_by_v1 (__main__.Versions.test_v1_output_refused_by_v2_and_v2_output_refused_by_v1) ... ok\ntest_v1_rules_still_apply (__main__.Versions.test_v1_rules_still_apply) ... ok\ntest_wrong_config_version (__main__.Versions.test_wrong_config_version) ... ok\ntest_wrong_producer_pin (__main__.Versions.test_wrong_producer_pin) ... ok\ntest_wrong_request_versions (__main__.Versions.test_wrong_request_versions) ... ok\n\n----------------------------------------------------------------------\nRan 24 tests in 46.127s\n\nOK\n",
+    "not_run": [
+      "code mutation testing",
+      "any Grok code"
+    ],
+    "runs": [
+      {
+        "first_failure": "TypeError: Intake.run() missing 1 required positional argument: 'src' (test helper named run shadowed TestCase.run); renamed run_intake",
+        "result": "error after 12 tests",
+        "run": 1
+      },
+      {
+        "exit": 0,
+        "result": "24 tests OK",
+        "run": 2
+      },
+      {
+        "exit": 0,
+        "note": "final",
+        "result": "24 tests OK",
+        "run": 3
+      }
+    ],
+    "skips": "none",
+    "v1_regression": {
+      "command": "python -B -X dev tests/test_colab_support.py (labs/colab-support-pass01, unchanged)",
+      "result": [
+        "Ran 50 tests in 31.212s",
+        "",
+        "OK"
+      ]
+    }
+  }
+}

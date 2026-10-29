@@ -1,0 +1,25 @@
+open exit 0 result complete extra None
+attach exit 0 result complete extra a4b91dd63d2f7b845d1ee43ad3a3da63253851231cb79659c0fdaed6fc46d7c4
+repeat exit 0 result repeat extra False
+show exit 0 result False extra None
+wrong-digest exit 2 result stale expected hash extra None
+wrong-origin exit 2 result wrong origin extra None
+tampered exit 2 result conflicting bytes extra None
+missing-envelope exit 2 result malformed package extra None
+extra exit 2 result conflicting bytes extra None
+evaluator exit 2 result conflicting bytes extra None
+bad-producer exit 2 result pin mismatch extra None
+bad-helper exit 2 result pin mismatch extra None
+interrupt exit 2 result interrupted write extra True
+resume exit 2 result resume refused extra None
+reserve exit 0 result member 0101.colab-fixture-0501
+
+submission fixture-0701-0501
+
+result reserved extra None
+intake exit 0 result captured extra None
+return-pointer exit 0 result complete extra 0101.colab-fixture-0501
+pending exit 0 result False extra True
+close exit 0 result complete extra None
+explicit exit 0 result True extra True
+handoff exit 0
