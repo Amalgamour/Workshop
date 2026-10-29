@@ -1,0 +1,320 @@
+{
+ "schema": "finaltest05.16-verification",
+ "batch": "0507.prime-support/05.16",
+ "who": "claude-opus-5-5",
+ "date": "2026-10-29",
+ "workshop_at_claim": "59af350e2517956b726aab3a4725f993f085c8f8",
+ "head_at_verification": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+ "pack05.16": "29 of 29 snapshots match pins and live",
+ "pack_live_now": {
+  "00.kernel/00.00.10.work/0507.prime-support/05.16.md": false,
+  "00.kernel/00.00.10.work/0507.prime-support/05.15.md": true,
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/prime-review05.15/review.md": true,
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/packet05.15/registry.json": true,
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/packet05.15/request.json": true,
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/packet05.15/records.json": true,
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/packet05.15/PLAN.md": true,
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/packet05.15/PACKET-ENTRY.md": true,
+  "00.kernel/00.00.10.work/0508.return-capture/05.18.md": true,
+  "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.18/review.md": true,
+  "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.18/RECONCILIATION.md": true,
+  "00.kernel/00.00.10.work/0508.return-capture/evidence/cold-prime05.18/PLAN.md": true,
+  "00.kernel/00.00.10.work/0508.return-capture/evidence/cold-prime05.18/HOMEWORK.md": true,
+  "00.kernel/00.00.10.work/0508.return-capture/evidence/cold-prime05.18/EVALUATOR.md": true,
+  "00.kernel/00.00.10.work/0508.return-capture/evidence/cold-prime05.18/DEPENDENCIES.json": true,
+  "00.kernel/00.00.10.work/0508.return-capture/evidence/cold-prime05.18/verification.json": true,
+  "app/librarian.py": true,
+  "app/boot_tools.py": true,
+  "app/prime-boot.json": true,
+  "app/README.md": true,
+  "labs/prime-boot-pass01/prime_boot.py": true,
+  "labs/prime-boot-pass01/README.md": true,
+  "labs/prime-support-pass01/prime_support.py": true,
+  "labs/prime-support-pass01/clerk_adapter.py": true,
+  "labs/book-orientation-pass01/check_book.py": true,
+  "labs/return-capture-pass01/return_capture.py": true,
+  "labs/return-capture-pass01/return_inspect.py": true,
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/realbrief05.14/brief.txt": true,
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/prime-review05.14/review.md": true
+ },
+ "app_pins_live": {
+  "prime_boot": true,
+  "prime_support": true,
+  "clerk_adapter": true,
+  "check_book": true,
+  "return_capture": true,
+  "return_inspect": true,
+  "clerk": true
+ },
+ "registry_sha256_ok": true,
+ "request": {
+  "sha256": "84d95fc19d252503c0a80b5ee94027274d2ff5b5036378ed2c3ab4a236684590",
+  "equals_attempt_raw": true,
+  "attempt": 2,
+  "model": "unassigned-preparation-only",
+  "members": [],
+  "members_book": null
+ },
+ "predecessor": {
+  "link": {
+   "previous_attempt": "C:\\Users\\misg\\AppData\\Local\\Temp\\pb-packet-0515-zidw8krt\\p1",
+   "previous_attempt_id": "p1",
+   "previous_attempt_number": 1,
+   "previous_intent_sha256": "1573f3bf1ff1e40888bf2a5886700baf773b256a8be7405100bdcb8ec6cc3e71",
+   "previous_outcome_present": false,
+   "stage": "links",
+   "status": "ok"
+  },
+  "original_intact": true
+ },
+ "commands": [
+  {
+   "name": "boot-prepare",
+   "exit": 0
+  },
+  {
+   "name": "boot-show-json",
+   "exit": 0
+  },
+  {
+   "name": "boot-show-text",
+   "exit": 0
+  }
+ ],
+ "first_failures": "none; prepared on the first attempt",
+ "attempt": {
+  "files": [
+   "00.intent.json",
+   "00.request.raw",
+   "01.request.json",
+   "02.links.json",
+   "03.tools.json",
+   "04.git.json",
+   "05.book.json",
+   "06.records.json",
+   "07.status.json",
+   "08.members.json",
+   "09.packet.json",
+   "10.stability.json",
+   "19.prepare-outcome.json"
+  ],
+  "no_answer_or_judgement_files": true,
+  "prepare_outcome": {
+   "absences": 0,
+   "authority": "none; orientation grants no new work authority",
+   "omitted": 0,
+   "reasons": [],
+   "refs": 12,
+   "remediation": [],
+   "status": "prepared"
+  },
+  "stable": true
+ },
+ "packet": {
+  "sha256": "834b41c465798f4a69481b6c81bd67d0e1ed010fb1858b64f1e034a90576e7ad",
+  "bytes": 57393,
+  "refs": 12,
+  "raw_bytes": 52701,
+  "absences": [],
+  "omitted": [],
+  "ref_checks": [
+   {
+    "id": "R01",
+    "path": "00.kernel/00.00.10.work/00.md",
+    "matches_dependencies": true,
+    "equals_commit_blob": true,
+    "live": "differs"
+   },
+   {
+    "id": "R02",
+    "path": "00.kernel/00.00.10.work/0011.contents/01.051.md",
+    "matches_dependencies": true,
+    "equals_commit_blob": true,
+    "live": "same"
+   },
+   {
+    "id": "R03",
+    "path": "00.kernel/00.00.10.work/0408.seats/01.md",
+    "matches_dependencies": true,
+    "equals_commit_blob": true,
+    "live": "same"
+   },
+   {
+    "id": "R04",
+    "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+    "matches_dependencies": true,
+    "equals_commit_blob": true,
+    "live": "same"
+   },
+   {
+    "id": "R05",
+    "path": "00.kernel/00.00.10.work/0507.prime-support/evidence/realbrief05.14/brief.txt",
+    "matches_dependencies": true,
+    "equals_commit_blob": true,
+    "live": "same"
+   },
+   {
+    "id": "R06",
+    "path": "00.kernel/00.00.10.work/0507.prime-support/evidence/prime-review05.14/review.md",
+    "matches_dependencies": true,
+    "equals_commit_blob": true,
+    "live": "same"
+   },
+   {
+    "id": "R07",
+    "path": "00.kernel/00.00.10.work/0507.prime-support/evidence/realbrief05.14/submission.md",
+    "matches_dependencies": true,
+    "equals_commit_blob": true,
+    "live": "same"
+   },
+   {
+    "id": "R08",
+    "path": "00.kernel/00.00.10.work/0507.prime-support/evidence/prime-review05.10/review.md",
+    "matches_dependencies": true,
+    "equals_commit_blob": true,
+    "live": "same"
+   },
+   {
+    "id": "R09",
+    "path": "00.kernel/00.00.10.work/0504.app-entry/05.17.md",
+    "matches_dependencies": true,
+    "equals_commit_blob": true,
+    "live": "same"
+   },
+   {
+    "id": "R10",
+    "path": "00.kernel/00.00.10.work/0507.prime-support/05.12.md",
+    "matches_dependencies": true,
+    "equals_commit_blob": true,
+    "live": "same"
+   },
+   {
+    "id": "R11",
+    "path": "00.kernel/00.00.10.work/0508.return-capture/05.15.md",
+    "matches_dependencies": true,
+    "equals_commit_blob": true,
+    "live": "same"
+   },
+   {
+    "id": "R12",
+    "path": "labs/prime-boot-pass01/README.md",
+    "matches_dependencies": true,
+    "equals_commit_blob": true,
+    "live": "same"
+   }
+  ],
+  "all_match_dependencies_and_blobs": true
+ },
+ "status_live": {
+  "conflicts": [],
+  "attention_items": 72
+ },
+ "records_map": {
+  "entries": 23,
+  "all_verified": true
+ },
+ "candidate_zip": {
+  "sha256": "8e08074a62afb186b03653d5fbd240c9e4da43cfc3dd8738060863fa586f430c",
+  "entries": [
+   "ENTRY.md",
+   "HOMEWORK.md",
+   "attempt/t2/00.intent.json",
+   "attempt/t2/00.request.raw",
+   "attempt/t2/01.request.json",
+   "attempt/t2/02.links.json",
+   "attempt/t2/03.tools.json",
+   "attempt/t2/04.git.json",
+   "attempt/t2/05.book.json",
+   "attempt/t2/06.records.json",
+   "attempt/t2/07.status.json",
+   "attempt/t2/08.members.json",
+   "attempt/t2/09.packet.json",
+   "attempt/t2/10.stability.json",
+   "attempt/t2/19.prepare-outcome.json",
+   "MANIFEST.json"
+  ],
+  "manifest_ok": true,
+  "exact_entry_set": true,
+  "evaluator_leakage": {},
+  "evaluator_absent": true
+ },
+ "evaluator_zip": {
+  "sha256": "afbbf1cd0bfb5e6794b3c561bf2012776dd4854e23018c69558564f05900e01a",
+  "entries": [
+   "BINDING.json",
+   "DIRECTOR-PRIME-ONLY.txt",
+   "EVALUATOR.md",
+   "MANIFEST.json"
+  ],
+  "manifest_ok": true,
+  "exact_entry_set": true
+ },
+ "deterministic_rebuild": true,
+ "grok2_originals_unchanged": {
+  "00.kernel/00.00.10.work/0508.return-capture/evidence/cold-prime05.18/HOMEWORK.md": true,
+  "00.kernel/00.00.10.work/0508.return-capture/evidence/cold-prime05.18/EVALUATOR.md": true
+ },
+ "writes_this_batch": [
+  " M 00.kernel/00.00.10.work/0507.prime-support/05.16.md",
+  "?? 00.kernel/00.00.10.work/0507.prime-support/06.17.md",
+  "?? 00.kernel/00.00.10.work/0507.prime-support/evidence/finaltest05.16/ENTRY.md",
+  "?? 00.kernel/00.00.10.work/0507.prime-support/evidence/finaltest05.16/EVALUATOR.md",
+  "?? 00.kernel/00.00.10.work/0507.prime-support/evidence/finaltest05.16/HOMEWORK.md",
+  "?? 00.kernel/00.00.10.work/0507.prime-support/evidence/finaltest05.16/LAUNCH.md",
+  "?? 00.kernel/00.00.10.work/0507.prime-support/evidence/finaltest05.16/PLAN.md",
+  "?? 00.kernel/00.00.10.work/0507.prime-support/evidence/finaltest05.16/candidate.zip",
+  "?? 00.kernel/00.00.10.work/0507.prime-support/evidence/finaltest05.16/evaluator.zip",
+  "?? 00.kernel/00.00.10.work/0507.prime-support/evidence/finaltest05.16/records.json",
+  "?? 00.kernel/00.00.10.work/0507.prime-support/evidence/finaltest05.16/request.json",
+  "?? 00.kernel/00.00.10.work/0507.prime-support/evidence/finaltest05.16/verification.json"
+ ],
+ "staged": [],
+ "not_done": [
+  "no answers, check or judge",
+  "no model call or fresh-session trial",
+  "no app/core/law/other-lane edits",
+  "no Git stage/commit/push"
+ ],
+ "outputs": {
+  "00.kernel/00.00.10.work/0507.prime-support/06.17.md": {
+   "sha256": "35168af55a32fcb5b5d735f072ef30e97f04d7353346e3872b9260956834de8a",
+   "bytes": 6123
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/finaltest05.16/PLAN.md": {
+   "sha256": "39c5dc46a34e37079a84f0e8d8e5dc3f3dae18213b6e5de2868e0f56470c612d",
+   "bytes": 4270
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/finaltest05.16/request.json": {
+   "sha256": "84d95fc19d252503c0a80b5ee94027274d2ff5b5036378ed2c3ab4a236684590",
+   "bytes": 1632
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/finaltest05.16/records.json": {
+   "sha256": "a480ca163c26594fd2e6c34ce05b9321c2b29ab819ccae28b21fb8f80e17345c",
+   "bytes": 279180
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/finaltest05.16/ENTRY.md": {
+   "sha256": "4cf0daf6597563a75be18179dd82dc678c0b049b78459e614a8eeb5e02f6e435",
+   "bytes": 3899
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/finaltest05.16/HOMEWORK.md": {
+   "sha256": "ddc289d8a3b798a9eb1aea6edc3f61522987c28d50116bc6cfd9018c36254b19",
+   "bytes": 6453
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/finaltest05.16/EVALUATOR.md": {
+   "sha256": "97e9b36564a34611068b8e4abe05aeb27c5aa394aa864dff315d45cce215dd74",
+   "bytes": 8568
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/finaltest05.16/LAUNCH.md": {
+   "sha256": "231da9c0d10a8e90038cb47ba5ce672db04c00a72416f22df2953e0d4a828361",
+   "bytes": 4347
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/finaltest05.16/candidate.zip": {
+   "sha256": "8e08074a62afb186b03653d5fbd240c9e4da43cfc3dd8738060863fa586f430c",
+   "bytes": 38141
+  },
+  "00.kernel/00.00.10.work/0507.prime-support/evidence/finaltest05.16/evaluator.zip": {
+   "sha256": "afbbf1cd0bfb5e6794b3c561bf2012776dd4854e23018c69558564f05900e01a",
+   "bytes": 5951
+  }
+ }
+}
