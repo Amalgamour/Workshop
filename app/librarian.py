@@ -8,6 +8,7 @@ pack-check, pack-preview, pack-assemble, and pack-verify call the pinned pack to
 prime-status calls the pinned read-only Prime status tool on a caller-supplied registry.
 boot-prepare, boot-check, boot-judge, and boot-show forward explicit arguments to the pinned recorded-boot tool.
 batch-observe calls the pinned read-only batch observation tool on one explicit commit and path.
+capture-return calls the pinned capture handoff on one absolute binding. It does not launch a worker.
 The writable container is designated before fixture metadata is read.
 run is refused. A --test flag does not authorize a fixture root.
 A clean pack check is not release readiness.
@@ -82,6 +83,7 @@ def main(argv: list[str] | None = None) -> None:
         "boot-judge",
         "boot-show",
         "batch-observe",
+        "capture-return",
     ):
         stop("normal run is not activated")
     command = args.pop(0)
@@ -112,6 +114,15 @@ def main(argv: list[str] | None = None) -> None:
             stop(str(exc))
         if type(code) is not int:
             stop("pinned observation tool returned no exit code")
+        raise SystemExit(code)
+    if command == "capture-return":
+        door = load_module(Path(__file__).resolve().parent / "handoff_tools.py", "librarian_handoff_tools")
+        try:
+            code = door.perform(args, code_root)
+        except door.Refuse as exc:
+            stop(str(exc))
+        if type(code) is not int:
+            stop("pinned handoff tool returned no exit code")
         raise SystemExit(code)
     if command in ("pack-check", "pack-preview", "pack-assemble", "pack-verify"):
         tools = load_module(Path(__file__).resolve().parent / "prime_tools.py", "librarian_prime_tools")

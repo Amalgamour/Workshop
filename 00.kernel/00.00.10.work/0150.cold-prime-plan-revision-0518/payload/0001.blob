@@ -1,0 +1,31 @@
+# Notes — cold-Prime acceptance revision (05.18)
+
+Date: 2026-10-28. Recorder: Grok Builder 2. These notes are written before the revised plan, homework, evaluator guide, and dependency record. `06.01` through `06.18` stay as they are. `evidence/cold-prime05.17/` and member `0147.cold-prime-plan-0517` stay as captured. No runtime file is edited. No model is called. This note does not boot a Prime.
+
+## Inputs
+
+Pack `evidence/pack05.18/source-manifest.json` is schema `prime-pack-sources/1` with 13 sources. Live bytes, snapshot bytes, and the declared SHA-256 and length match for all 13. Bad count is 0. This check was made before these notes.
+
+Workshop HEAD when these notes were opened is `aa9bf59f610e58e24067c4173ec8bce1c684bcf9`. Branch `workshop`. The packet snapshot is the assigned source cut `d3b6ad3e55beb1ec0bd5acbb114e6e66fd66c4e9`, not that later HEAD.
+
+Reserved member `0150.cold-prime-plan-revision-0518` held `01.md` and `reservation.json` when these notes were opened. `01.md` is 340 bytes, SHA-256 `f76c14ba9317e2f508a558c53e0688260a000d40636680698612c23c1f117876`. `reservation.json` is 990 bytes, SHA-256 `6fe8410716d35782dcf32e1ec581c7c1fd74408ec31ca69fd9d7689e5db4bb80`. Those reservation bytes stay as reserved.
+
+Prime review `evidence/prime-review05.17/review.md` holds the 05.17 plan for CP-01 and CP-02. That review is live evidence for this revision. It is absent at the source cut, so it is not a packet blob.
+
+The accepted recorded-boot tool at the source cut is `labs/prime-boot-pass01/prime_boot.py`, SHA-256 `54b23484f9e0812db92a623a8588175702682ebe14f8b0b915111daf51a91534`, 49229 bytes. `stage_packet` builds the wanted list at lines 432–434: book entry, selected contents, role record, assignment record, then live member observations, then optional paths that are not already in that list. Caps are `MAX_REFS = 12` and `MAX_BYTES = 131072` at line 47. Overflow is an omission. The judge’s pass path is line 791: prepare `prepared`, checks `ok`, and every grade `pass`.
+
+## Choices
+
+The pass rule is separated into four records. A preserved attempt can have any outcome. Mechanical validation is the accepted `check`. A semantic pass is only an `oriented` judgement under that tool, with the required evidence present and no critical violation. Director release and handover are a later act. `partial` is remediation. `not-oriented` is failure. The 05.17 sentence that treated `prepared` or `partial`, and `oriented`, `partial`, or `not-oriented`, as success is withdrawn in the new plan. The captured 05.17 files are not rewritten.
+
+The calculated packet at the source cut is 12 refs and 52701 bytes. No selected ref is omitted. Live member observations are none, so their runtime bytes are not in the budget. The book entry at the cut is `00.kernel/00.00.10.work/00.md`, 98 bytes, SHA-256 `51b28d92360249c6901646960a1269970c6108b370a8103ad4ac094c74956d65`, and it points at `0011.contents/01.051.md`. The live entry is 98 bytes, SHA-256 `df49a9ce5fd2c7aee1284d64a9d8bb3f3f310e52faa8ba9a586b1a390ef66cc9`, and it points at `0011.contents/01.054.md`. That later face is 10474 bytes, SHA-256 `2915e09ed1629dfe13fe2d3de82e59ecf9939a62589ccb5df35d3acb9d145623`, and it is absent at the cut.
+
+The accepted brief `evidence/realbrief05.14/brief.txt` is 1912 bytes, SHA-256 `0201b0134c5e0a9e83dc633335636537a1fcef2d39038a4753240ed5edd842a1`, at the cut and live. Prime review `evidence/prime-review05.14/review.md` is 1745 bytes, SHA-256 `3b1c1c8f6cee4a2df58a1ba0f5140988c11129f1ca149f12dac3356a527f55a5`. `results.json` is 172747 bytes, SHA-256 `d308733fa2452a609556dbe180fbef9f80a87147ba383d0d68de0adca56c8c07`. It cannot enter the packet. The exact link is the committed `submission.md` line that records that hash and length.
+
+Member `0145.real-reader-brief-0514` at the cut contains a receipt file, 299 bytes, SHA-256 `62a745580ba75f601b24530ca93f2a887b1b99d31653fcfeea705197cc6cfc5d`, manifest `301b043a342e9af98c509f6876f58c89721120d38641be7aa46b9fb5c4ca92c3`, captured at `2026-10-28T17:22:58.812330Z`. That receipt is custody. The acceptance is the Prime review. The 05.17 observation that `0145` then held only `01.md` and `reservation.json` stays historical in the captured plan.
+
+Claude’s active `0507/05.15` packet outputs were not opened. No file from that work is selected.
+
+## Disposition
+
+CP-01 and CP-02 are answered in `evidence/cold-prime05.18/`. The snapshot exam can be specified from the 12 refs. Running it still waits on a committed registry named by the Director. Recovering all current work still waits on the open D1 conflict, the `05.06` page body, and the live contents face. No prepare, check, or judge was run. This note does not contain a receipt.

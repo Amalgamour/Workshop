@@ -1,0 +1,21 @@
+{
+  "handoff-tests": {
+    "exit": 0,
+    "tail": "09mt\\failure.log\r\nwrites none\r\nresult attention\r\n--- stderr\n--- end\n--- partial-direct exit 2\n--- stdout\nattention: complete capture has no completed handoff record\r\nobserved-record intent.json\r\nrecord-absent completed.json\r\nhandoff-complete no\r\nretained D:\\librarian\\temp\\handoff0520-partial-oxp709mt\\handoff-record\\intent.json\r\nretained D:\\librarian\\temp\\handoff0520-partial-oxp709mt\\failure.log\r\nwrites none\r\nresult attention\r\n--- stderr\n--- end\npartial-receipt a21087c44c4068962575dcf3d467a61f021546b84b8c1bf20eaa0e284e9ed1db 298\r\npass partial-forwarded\r\n--- malformed-app exit 2\n--- stdout\nrefused: binding is not strict json\r\nwrites none\r\nresult refused\r\n--- stderr\n--- end\n--- malformed-direct exit 2\n--- stdout\nrefused: binding is not strict json\r\nwrites none\r\nresult refused\r\n--- stderr\n--- end\nexpected-refusal malformed-binding\r\nexpected-refusal relative-binding\r\nexpected-refusal missing-binding\r\nexpected-refusal linked-binding\r\nexpected-refusal tool-override\r\nexpected-refusal caller-timeout\r\nexpected-refusal unknown-flag\r\nexpected-refusal repeated-binding\r\nexpected-refusal normal-run\r\nunknown-exit stderr attention: handoff outcome is unknown; inspect retained state; this call does not retry\r\npass unknown-exit\r\npass missing-exit\r\npass known-exit-forwarded\r\nexpected-refusal start-failed\r\nexpected-refusal declaration-hash\r\nexpected-refusal declaration-unknown\r\nexpected-refusal declaration-repeat\r\nexpected-refusal tool-bytes\r\nexpected-refusal tool-junction\r\nskip file-symlink file symlink privilege WinError 1314\r\npass untouched\r\nsummary pass 6 expected-refusal 15 skip 1 fail 0\r\n"
+  },
+  "entry-tests": {
+    "exit": 0,
+    "tail": "do not match the declared hash\r\nREFUSAL compute page outside the band is not climbed to\r\nREFUSAL two compute pages for one keyword\r\nREFUSAL source folder app is not a fixture container\r\nREFUSAL source page is not a fixture container\r\nREFUSAL fixture allowed_root is not authority\r\nREFUSAL external container was not named\r\nREFUSAL external container overlaps the workspace\r\nREFUSAL filesystem root is not a container\r\nREFUSAL fixture root is a filesystem root\r\nREFUSAL junction to app is not a container\r\nREFUSAL junction output leaves the container\r\nPASS designated page fixtures container\r\nPASS protected source bytes stayed unchanged\r\nPASS fresh inventory when the output names are absent\r\nREFUSAL existing ordinary output\r\nREFUSAL existing ordinary temporary\r\nREFUSAL direct output hard link\r\nREFUSAL temporary hard link\r\nREFUSAL dangling temporary junction\r\nSKIP dangling file symlink: WinError 1314: a required privilege is not held by the client\r\nPASS occupied output names stayed unchanged\r\nREFUSAL reparse escape\r\nREFUSAL missing config\r\nREFUSAL malformed config\r\nREFUSAL duplicate config key\r\nREFUSAL config version type\r\nREFUSAL unknown config key\r\nREFUSAL config cannot widen fixture containers\r\nREFUSAL malformed record\r\nREFUSAL duplicate record key\r\nREFUSAL invalid assignment state\r\nREFUSAL record carriage return\r\nREFUSAL assignment path is the derived view\r\nPASS tampered 00.live does not change context\r\nREFUSAL wrong runner hash\r\nPASS guarded bytes were unchanged by the suite\r\nPASS no bytecode was written into the books or app\r\nsummary pass 12 expected-refusal 46 skip 1 fail 0\r\n"
+  },
+  "0149.capture-handoff-entry-0520": {
+    "exit": 0
+  },
+  "0150.cold-prime-plan-revision-0518": {
+    "exit": 0
+  },
+  "revised_packet_budget": {
+    "refs": 12,
+    "bytes": 52701,
+    "all_blob_pins_match": true
+  }
+}

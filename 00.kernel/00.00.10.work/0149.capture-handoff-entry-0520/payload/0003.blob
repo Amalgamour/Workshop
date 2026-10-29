@@ -1,0 +1,128 @@
+{
+  "schema": "apphandoff05.20-verification",
+  "date": "2026-10-28",
+  "head": "aa9bf59f610e58e24067c4173ec8bce1c684bcf9",
+  "claim_head": "aa9bf59f610e58e24067c4173ec8bce1c684bcf9",
+  "branch": "workshop",
+  "director_release": "2026-10-28",
+  "door": "capture-return --binding ABS",
+  "worker_launch": false,
+  "model": false,
+  "live_job": false,
+  "outer_timeout": false,
+  "pins": {
+    "manifest": "00.kernel/00.00.10.work/0504.app-entry/evidence/pack05.20/source-manifest.json",
+    "manifest_sha256": "de83297511303a827b3ad9a2660399444153968463190c535dd9a0d4cdb1a28e",
+    "manifest_bytes": 4275,
+    "bad": 0,
+    "provenance": null,
+    "librarian_baseline_sha256": "694d44ae34739e6b41319ba1de6e84a9710fe13184d7329be769d62b71d8689a",
+    "librarian_baseline_bytes": 9268,
+    "tools": {
+      "labs/capture-handoff-pass01/handoff.py": {
+        "sha256": "a8380136a84469b8975b38f084a4d34802ccf079ed69cf85d107f6ca3643426a",
+        "bytes": 51828
+      },
+      "labs/clerk-handoff-pass02/clerk.py": {
+        "sha256": "f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c",
+        "bytes": 52279
+      },
+      "labs/return-capture-pass01/return_capture.py": {
+        "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+        "bytes": 45767
+      },
+      "labs/return-capture-pass01/return_inspect.py": {
+        "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+        "bytes": 11402
+      }
+    }
+  },
+  "reservation": {
+    "member": "0149.capture-handoff-entry-0520",
+    "submission_id": "grok-1-0504-0520",
+    "sha256": "4428933a2953f58a33037d39dd4d2792ebb81cc4a169bb5cccec601f87fdda85",
+    "bytes": 707
+  },
+  "proof": {
+    "command": "python -B app/tests/test_handoff_tools.py",
+    "exit": 0,
+    "summary": "pass 6 expected-refusal 15 skip 1 fail 0",
+    "skip": "file symlink privilege WinError 1314",
+    "report_sha256": "9319a73189e04e4dd0d75da0eb71be8fad0017c3eacf781b021d3cd7dc364cbc",
+    "app_receipt_sha256": "6f58bde80b21b13d0c9c64d65370adb38be19e163afc4f85be75307f3825cc67",
+    "direct_receipt_sha256": "9535114958dbcb3f0a6a56b17189e10db8ca18dfc62d7ba9fee8072b5b9dd6ee",
+    "shared_reservation_sha256": "724b7e59eb1f85c66153eec47957a55bc4bf69cc60a5db3ad3e5ce28fd280fc9",
+    "repeat": "writes none",
+    "partial_receipt_sha256": "aab42ac953f6158db4c40d3055bb2807e703e6e3ac951ed31d3c30e05a1c08cd",
+    "partial_receipt_bytes": 298,
+    "entry_command": "python -B app/tests/test_entry.py",
+    "entry_exit": 0,
+    "entry_summary": "pass 12 expected-refusal 46 skip 1 fail 0",
+    "entry_skip": "dangling file symlink WinError 1314",
+    "custody": [
+      "result complete",
+      "not approved",
+      "not accepted",
+      "not published"
+    ],
+    "tests_txt_sha256": "0d697a1e0c4430964ff07c345a0a938b65d314a682c501d22c77e52dd3f622a7",
+    "entry_tests_sha256": "9d539694959f49bba685fbb93203d67ccd72650e893a2ca061602d35ae281b56"
+  },
+  "limits": [
+    "Two first captures do not share manifest or receipt hashes because captured_at is inside those bytes.",
+    "Exit 0 and exit 2 are copied unchanged, including a backend writes-none line on a completed exit 2.",
+    "An unknown or missing exit is not success, is not retried, and the wrapper does not add writes none.",
+    "There is no outer timeout.",
+    "The same-user gap between the hash read and the subprocess remains open.",
+    "Path checks are not an operating-system sandbox.",
+    "File symlink creation skipped with WinError 1314.",
+    "A verified receipt is custody, not approval, acceptance, seating, or publication."
+  ],
+  "files": {
+    "00.kernel/00.00.10.work/0504.app-entry/06.20.md": {
+      "sha256": "4b9b2ef1cee764c5368175fecd04c28521a8905e037cd0e26ee0b291c8bb15af",
+      "bytes": 7719,
+      "newline": "lf"
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/evidence/apphandoff05.20/CONTRACT.md": {
+      "sha256": "8e812306ad0a7ec416830b42b8950712b48f6f9301fd4b19c519f6005d493f1e",
+      "bytes": 6738,
+      "newline": "lf"
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/evidence/apphandoff05.20/tests.txt": {
+      "sha256": "0d697a1e0c4430964ff07c345a0a938b65d314a682c501d22c77e52dd3f622a7",
+      "bytes": 8746,
+      "newline": "crlf"
+    },
+    "00.kernel/00.00.10.work/0504.app-entry/evidence/apphandoff05.20/entry-tests.txt": {
+      "sha256": "9d539694959f49bba685fbb93203d67ccd72650e893a2ca061602d35ae281b56",
+      "bytes": 2472,
+      "newline": "crlf"
+    },
+    "app/librarian.py": {
+      "sha256": "cfb209e5f1cbeeada345d208d2aeea623b70969d199effdd17fe97ef2c690572",
+      "bytes": 9791,
+      "newline": "lf"
+    },
+    "app/handoff_tools.py": {
+      "sha256": "f1d76a517b64a82ff8e348b811a5c59dfe8870385e6737b67878e0749e705bc2",
+      "bytes": 9901,
+      "newline": "lf"
+    },
+    "app/capture-handoff.json": {
+      "sha256": "9e1cdbbf89d9aa9edbb959b2c1c1944777a9420daf5551a510abe38d4f0ab854",
+      "bytes": 894,
+      "newline": "lf"
+    },
+    "app/tests/test_handoff_tools.py": {
+      "sha256": "8ab810e2f2cd915364fbef507c9f1fcdd193107faad883fe8262354c1c31f597",
+      "bytes": 38476,
+      "newline": "lf"
+    },
+    "app/README.md": {
+      "sha256": "fd0a330d99d221b72fa237f1787903e0723cfbf0f3af4e5018abe2f3d7ed4015",
+      "bytes": 24078,
+      "newline": "lf"
+    }
+  }
+}

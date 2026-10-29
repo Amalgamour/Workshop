@@ -1,0 +1,217 @@
+command python -B app/tests/test_handoff_tools.py
+repo D:/Git/lib-build
+python C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe
+report 9319a73189e04e4dd0d75da0eb71be8fad0017c3eacf781b021d3cd7dc364cbc 18
+--- complete-app exit 0
+--- stdout
+returned-event 88ee528d41408fbb647052cf27236ee02ce11acb037903cfad6d5a89e0514969
+work-ref work-ref-flow
+work-ref-role declared-label
+reservation 3086778b6ffd08d0293d0c6b9f43dbbfd883508675424564163c5e21b74bbb30
+manifest 09ba898a3348bd2e96f2c1bf6e1bbf399c34ca377ca6f2eb637831af1df3729e
+receipt f490314acb4ec44d62c9d72d506a3fde7b384fde9c406603858e6097882cdf58
+payload 0001.blob 9319a73189e04e4dd0d75da0eb71be8fad0017c3eacf781b021d3cd7dc364cbc
+payload 0002.blob 56d9eda87303cddefe0b912e43f65e1a44556c491181a278b486e14c0a32d72a
+result complete
+not approved
+not accepted
+not published
+writes intent D:\librarian\temp\handoff0520-flow-z6tome1w\handoff-record\intent.json
+writes completed D:\librarian\temp\handoff0520-flow-z6tome1w\handoff-record\completed.json
+result ok
+--- stderr
+--- end
+--- complete-direct exit 0
+--- stdout
+returned-event 88ee528d41408fbb647052cf27236ee02ce11acb037903cfad6d5a89e0514969
+work-ref work-ref-flow
+work-ref-role declared-label
+reservation 3086778b6ffd08d0293d0c6b9f43dbbfd883508675424564163c5e21b74bbb30
+manifest 69ffe0c7cc8a977d731199f46084d4c6023effccf92319c49cf03a57fec94f4c
+receipt f79768656aafbeb91777215901be8d69008fec97ddfa4e0f4ef1b46260122d20
+payload 0001.blob 9319a73189e04e4dd0d75da0eb71be8fad0017c3eacf781b021d3cd7dc364cbc
+payload 0002.blob 56d9eda87303cddefe0b912e43f65e1a44556c491181a278b486e14c0a32d72a
+result complete
+not approved
+not accepted
+not published
+writes intent D:\librarian\temp\handoff0520-flow-z6tome1w\handoff-record\intent.json
+writes completed D:\librarian\temp\handoff0520-flow-z6tome1w\handoff-record\completed.json
+result ok
+--- stderr
+--- end
+complete-return 9319a73189e04e4dd0d75da0eb71be8fad0017c3eacf781b021d3cd7dc364cbc
+--- repeat-app exit 0
+--- stdout
+returned-event 88ee528d41408fbb647052cf27236ee02ce11acb037903cfad6d5a89e0514969
+work-ref work-ref-flow
+work-ref-role declared-label
+reservation 3086778b6ffd08d0293d0c6b9f43dbbfd883508675424564163c5e21b74bbb30
+manifest 69ffe0c7cc8a977d731199f46084d4c6023effccf92319c49cf03a57fec94f4c
+receipt f79768656aafbeb91777215901be8d69008fec97ddfa4e0f4ef1b46260122d20
+payload 0001.blob 9319a73189e04e4dd0d75da0eb71be8fad0017c3eacf781b021d3cd7dc364cbc
+payload 0002.blob 56d9eda87303cddefe0b912e43f65e1a44556c491181a278b486e14c0a32d72a
+result complete
+not approved
+not accepted
+not published
+writes none
+result ok
+--- stderr
+--- end
+--- repeat-direct exit 0
+--- stdout
+returned-event 88ee528d41408fbb647052cf27236ee02ce11acb037903cfad6d5a89e0514969
+work-ref work-ref-flow
+work-ref-role declared-label
+reservation 3086778b6ffd08d0293d0c6b9f43dbbfd883508675424564163c5e21b74bbb30
+manifest 69ffe0c7cc8a977d731199f46084d4c6023effccf92319c49cf03a57fec94f4c
+receipt f79768656aafbeb91777215901be8d69008fec97ddfa4e0f4ef1b46260122d20
+payload 0001.blob 9319a73189e04e4dd0d75da0eb71be8fad0017c3eacf781b021d3cd7dc364cbc
+payload 0002.blob 56d9eda87303cddefe0b912e43f65e1a44556c491181a278b486e14c0a32d72a
+result complete
+not approved
+not accepted
+not published
+writes none
+result ok
+--- stderr
+--- end
+repeat-member b08d435dca35337a702a5e818fec65b350f884d672be23db2439ca6f57299154
+--- changed-event-app exit 2
+--- stdout
+refused: returned event does not match the binding
+observed-record intent.json
+observed-record completed.json
+handoff-complete no
+retained D:\librarian\temp\handoff0520-flow-z6tome1w\handoff-record\intent.json
+retained D:\librarian\temp\handoff0520-flow-z6tome1w\handoff-record\completed.json
+writes failure-log D:\librarian\temp\handoff0520-flow-z6tome1w\failure.log
+result refused
+--- stderr
+--- end
+--- changed-event-direct exit 2
+--- stdout
+refused: returned event does not match the binding
+observed-record intent.json
+observed-record completed.json
+handoff-complete no
+retained D:\librarian\temp\handoff0520-flow-z6tome1w\handoff-record\intent.json
+retained D:\librarian\temp\handoff0520-flow-z6tome1w\handoff-record\completed.json
+writes failure-log D:\librarian\temp\handoff0520-flow-z6tome1w\failure.log
+result refused
+--- stderr
+--- end
+--- changed-payload-app exit 2
+--- stdout
+refused: report source bytes are not the outbox bytes
+observed-record intent.json
+observed-record completed.json
+handoff-complete no
+retained D:\librarian\temp\handoff0520-flow-z6tome1w\handoff-record\intent.json
+retained D:\librarian\temp\handoff0520-flow-z6tome1w\handoff-record\completed.json
+writes failure-log D:\librarian\temp\handoff0520-flow-z6tome1w\failure.log
+result refused
+--- stderr
+--- end
+--- changed-payload-direct exit 2
+--- stdout
+refused: report source bytes are not the outbox bytes
+observed-record intent.json
+observed-record completed.json
+handoff-complete no
+retained D:\librarian\temp\handoff0520-flow-z6tome1w\handoff-record\intent.json
+retained D:\librarian\temp\handoff0520-flow-z6tome1w\handoff-record\completed.json
+writes failure-log D:\librarian\temp\handoff0520-flow-z6tome1w\failure.log
+result refused
+--- stderr
+--- end
+pass complete-and-repeat
+--- partial-stop exit 2
+attention: stopped after-capture
+capture-attempt 0101.handoff
+capture-child captured
+observed 01.md
+observed manifest.json
+observed payload/0001.blob
+observed payload/0002.blob
+observed receipt.json
+observed reservation.json
+observed return.md
+member-written observed
+custody complete
+observed-at 2026-10-29T15:27:40.388086Z
+observed-record intent.json
+record-absent completed.json
+handoff-complete no
+retained D:\librarian\temp\handoff0520-partial-oxp709mt\book\0101.handoff\manifest.json
+retained D:\librarian\temp\handoff0520-partial-oxp709mt\book\0101.handoff\payload\0001.blob
+retained D:\librarian\temp\handoff0520-partial-oxp709mt\book\0101.handoff\payload\0002.blob
+retained D:\librarian\temp\handoff0520-partial-oxp709mt\book\0101.handoff\receipt.json
+retained D:\librarian\temp\handoff0520-partial-oxp709mt\book\0101.handoff\return.md
+retained D:\librarian\temp\handoff0520-partial-oxp709mt\handoff-record\intent.json
+writes intent D:\librarian\temp\handoff0520-partial-oxp709mt\handoff-record\intent.json
+writes failure-log D:\librarian\temp\handoff0520-partial-oxp709mt\failure.log
+result attention
+--- partial-app exit 2
+--- stdout
+attention: complete capture has no completed handoff record
+observed-record intent.json
+record-absent completed.json
+handoff-complete no
+retained D:\librarian\temp\handoff0520-partial-oxp709mt\handoff-record\intent.json
+retained D:\librarian\temp\handoff0520-partial-oxp709mt\failure.log
+writes none
+result attention
+--- stderr
+--- end
+--- partial-direct exit 2
+--- stdout
+attention: complete capture has no completed handoff record
+observed-record intent.json
+record-absent completed.json
+handoff-complete no
+retained D:\librarian\temp\handoff0520-partial-oxp709mt\handoff-record\intent.json
+retained D:\librarian\temp\handoff0520-partial-oxp709mt\failure.log
+writes none
+result attention
+--- stderr
+--- end
+partial-receipt a21087c44c4068962575dcf3d467a61f021546b84b8c1bf20eaa0e284e9ed1db 298
+pass partial-forwarded
+--- malformed-app exit 2
+--- stdout
+refused: binding is not strict json
+writes none
+result refused
+--- stderr
+--- end
+--- malformed-direct exit 2
+--- stdout
+refused: binding is not strict json
+writes none
+result refused
+--- stderr
+--- end
+expected-refusal malformed-binding
+expected-refusal relative-binding
+expected-refusal missing-binding
+expected-refusal linked-binding
+expected-refusal tool-override
+expected-refusal caller-timeout
+expected-refusal unknown-flag
+expected-refusal repeated-binding
+expected-refusal normal-run
+unknown-exit stderr attention: handoff outcome is unknown; inspect retained state; this call does not retry
+pass unknown-exit
+pass missing-exit
+pass known-exit-forwarded
+expected-refusal start-failed
+expected-refusal declaration-hash
+expected-refusal declaration-unknown
+expected-refusal declaration-repeat
+expected-refusal tool-bytes
+expected-refusal tool-junction
+skip file-symlink file symlink privilege WinError 1314
+pass untouched
+summary pass 6 expected-refusal 15 skip 1 fail 0

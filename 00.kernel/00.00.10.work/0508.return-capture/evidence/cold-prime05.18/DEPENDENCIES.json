@@ -1,0 +1,108 @@
+{
+  "schema": "cold-prime-revision-dependencies/1",
+  "built": "2026-10-28",
+  "source_cut": "d3b6ad3e55beb1ec0bd5acbb114e6e66fd66c4e9",
+  "head_when_planned": "aa9bf59f610e58e24067c4173ec8bce1c684bcf9",
+  "branch": "workshop",
+  "limits": {
+    "max_refs": 12,
+    "max_bytes": 131072,
+    "code": "labs/prime-boot-pass01/prime_boot.py:47"
+  },
+  "assembly": {
+    "code": "labs/prime-boot-pass01/prime_boot.py:431-490",
+    "order": [
+      "book entry",
+      "selected contents",
+      "role record",
+      "assignment record",
+      "live member observations",
+      "distinct optional paths"
+    ],
+    "duplicate_rule": "packet paths already present in the mandatory four are dropped; the mandatory four are not deduped against each other; a repeated path inside packet fails the request"
+  },
+  "packet": {
+    "sealed_refs": 12,
+    "sealed_bytes": 52701,
+    "refs_remaining": 0,
+    "bytes_remaining": 78371,
+    "live_member_observations": 0,
+    "live_member_bytes": 0,
+    "omissions_of_selected": 0,
+    "refs": [
+      {"id_if_this_request": "R01", "path": "00.kernel/00.00.10.work/00.md", "sha256": "51b28d92360249c6901646960a1269970c6108b370a8103ad4ac094c74956d65", "bytes": 98, "kind": "commit-blob"},
+      {"id_if_this_request": "R02", "path": "00.kernel/00.00.10.work/0011.contents/01.051.md", "sha256": "941f310246e159586ad4af23596edcb6af962ed130704c5ec00519735d681f27", "bytes": 9952, "kind": "commit-blob"},
+      {"id_if_this_request": "R03", "path": "00.kernel/00.00.10.work/0408.seats/01.md", "sha256": "dbf2399d528586afd48b51be5b6b6901e568937733295fb8b4390b25249a02e4", "bytes": 2031, "kind": "commit-blob"},
+      {"id_if_this_request": "R04", "path": "00.kernel/00.00.10.work/0401.goal/06.01.md", "sha256": "3578934451fc98e1dcfcc0030adebad27478787c4c2b6177f82268ae6826c38c", "bytes": 545, "kind": "commit-blob"},
+      {"id_if_this_request": "R05", "path": "00.kernel/00.00.10.work/0507.prime-support/evidence/realbrief05.14/brief.txt", "sha256": "0201b0134c5e0a9e83dc633335636537a1fcef2d39038a4753240ed5edd842a1", "bytes": 1912, "kind": "commit-blob"},
+      {"id_if_this_request": "R06", "path": "00.kernel/00.00.10.work/0507.prime-support/evidence/prime-review05.14/review.md", "sha256": "3b1c1c8f6cee4a2df58a1ba0f5140988c11129f1ca149f12dac3356a527f55a5", "bytes": 1745, "kind": "commit-blob"},
+      {"id_if_this_request": "R07", "path": "00.kernel/00.00.10.work/0507.prime-support/evidence/realbrief05.14/submission.md", "sha256": "6497129228d3b4e58edbecd6e3ed04624eb2704eed718eb46e296a9a6aa7ba2d", "bytes": 5127, "kind": "commit-blob"},
+      {"id_if_this_request": "R08", "path": "00.kernel/00.00.10.work/0507.prime-support/evidence/prime-review05.10/review.md", "sha256": "36d901de4e9ed2dc5258e8c702ad5519957ad3f75a6520ac786ce74d5602593e", "bytes": 2365, "kind": "commit-blob"},
+      {"id_if_this_request": "R09", "path": "00.kernel/00.00.10.work/0504.app-entry/05.17.md", "sha256": "ca48e6d89e79171ae4335db4a9c6a1f41ed88d40fb05d0b48da23e2f0843ef29", "bytes": 6885, "kind": "commit-blob"},
+      {"id_if_this_request": "R10", "path": "00.kernel/00.00.10.work/0507.prime-support/05.12.md", "sha256": "dce336e1f4c3cd8d4679ddff45f517293b2e6fd991d8bb39560c0412f1f5f3f5", "bytes": 8403, "kind": "commit-blob"},
+      {"id_if_this_request": "R11", "path": "00.kernel/00.00.10.work/0508.return-capture/05.15.md", "sha256": "966c440875366b74f8be682bf9d24a28491cc5e32bdd69baad94297b038e7049", "bytes": 6533, "kind": "commit-blob"},
+      {"id_if_this_request": "R12", "path": "labs/prime-boot-pass01/README.md", "sha256": "fbe8a2e7062ac1bc64273ad7d6011484dc2eeb5ff57e507b310878e7921f5b7f", "bytes": 7105, "kind": "commit-blob"}
+    ]
+  },
+  "accepted_brief": {
+    "path": "00.kernel/00.00.10.work/0507.prime-support/evidence/realbrief05.14/brief.txt",
+    "sha256": "0201b0134c5e0a9e83dc633335636537a1fcef2d39038a4753240ed5edd842a1",
+    "bytes": 1912,
+    "review_path": "00.kernel/00.00.10.work/0507.prime-support/evidence/prime-review05.14/review.md",
+    "review_sha256": "3b1c1c8f6cee4a2df58a1ba0f5140988c11129f1ca149f12dac3356a527f55a5",
+    "review_bytes": 1745,
+    "rehearsal_commit": "6d18d182535df8dc60b698c585b04cd276c5df85",
+    "custody_member": "0145.real-reader-brief-0514",
+    "receipt_file_sha256": "62a745580ba75f601b24530ca93f2a887b1b99d31653fcfeea705197cc6cfc5d",
+    "receipt_file_bytes": 299,
+    "manifest_sha256": "301b043a342e9af98c509f6876f58c89721120d38641be7aa46b9fb5c4ca92c3",
+    "captured_at": "2026-10-28T17:22:58.812330Z",
+    "historical_pending_observation": "preserved in captured 05.17; not rewritten"
+  },
+  "results_link": {
+    "path": "00.kernel/00.00.10.work/0507.prime-support/evidence/realbrief05.14/results.json",
+    "sha256": "d308733fa2452a609556dbe180fbef9f80a87147ba383d0d68de0adca56c8c07",
+    "bytes": 172747,
+    "in_packet": false,
+    "reason": "exceeds max_bytes even alone",
+    "link_ref": "R07"
+  },
+  "identity_differences": [
+    {
+      "path": "00.kernel/00.00.10.work/0504.app-entry/05.18.md",
+      "cut_sha256": "1db284750536129c190b6904597f4ab1d228a34e01510c1381d55b0b9b3cc5e3",
+      "cut_bytes": 6188,
+      "rehearsal_sha256": "b421fa1c3a4378b2ee15522ea5d701e6ff3313260216482c979b5d3bf7eb0990",
+      "rehearsal_bytes": 5620,
+      "selected": false
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/05.16.md",
+      "cut_sha256": "1651fd530eb5a1ea2f283845bbd176f65b09dc11ac79dd8d51b258d5554aeb85",
+      "cut_bytes": 6091,
+      "rehearsal_sha256": "576416338da27d9154c8c2845422529837f7229da2f714b98fbc5ed3c0500768",
+      "rehearsal_bytes": 4813,
+      "selected": false
+    }
+  ],
+  "live_not_in_cut": {
+    "entry_live_sha256": "df49a9ce5fd2c7aee1284d64a9d8bb3f3f310e52faa8ba9a586b1a390ef66cc9",
+    "entry_live_pointer": "0011.contents/01.054.md",
+    "later_contents_sha256": "2915e09ed1629dfe13fe2d3de82e59ecf9939a62589ccb5df35d3acb9d145623",
+    "later_contents_bytes": 10474,
+    "later_contents_at_cut": "absent"
+  },
+  "open_gaps": [
+    "D1 through D4 remain unresolved in prime-review05.10",
+    "0504.app-entry/05.06.md body is outside the twelve refs",
+    "registry for a later prepare is unnamed",
+    "active 0507/05.15 packet outputs were not read"
+  ],
+  "preserved": [
+    "00.kernel/00.00.10.work/0508.return-capture/evidence/cold-prime05.17/",
+    "00.kernel/00.00.10.work/0147.cold-prime-plan-0517"
+  ],
+  "model_called": false,
+  "runtime_changed": false,
+  "prepare_ran": false
+}
