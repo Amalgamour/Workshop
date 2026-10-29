@@ -1,0 +1,144 @@
+{
+  "schema": "prime-review-entry-artifact-manifest/1",
+  "branch": "workshop",
+  "head": "215671c15794529cb3320d9ce22a27766b74e848",
+  "page_cut": {
+    "bytes": 5396,
+    "path": "00.kernel/00.00.10.work/0512.prime-review/05.02.md",
+    "sha256": "2257736c70b008d21de0f632534fe348495fe31615fe82868f331cea879caf2f"
+  },
+  "pack": {
+    "bad": 0,
+    "matched": 15,
+    "schema": "prime-pack-sources/1"
+  },
+  "reservation": {
+    "bytes": 861,
+    "path": "00.kernel/00.00.10.work/0162.prime-review-entry-0502/reservation.json",
+    "sha256": "e99429c8ab11f400c8d1d3dcec7a0586f74354695ab12541709347ae43faeeb0"
+  },
+  "pins_before": {
+    "app/librarian.py": {
+      "bytes": 9791,
+      "sha256": "cfb209e5f1cbeeada345d208d2aeea623b70969d199effdd17fe97ef2c690572"
+    },
+    "labs/prime-review-pass01/prime_review.py": {
+      "bytes": 58324,
+      "sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0"
+    }
+  },
+  "pins_after": {
+    "app/librarian.py": {
+      "bytes": 10463,
+      "path": "app/librarian.py",
+      "sha256": "939484f152c9227482e857f9ce88eaf40649f433a57d6c9d213a07bde16baee5"
+    },
+    "app/prime_intake.py": {
+      "bytes": 8501,
+      "path": "app/prime_intake.py",
+      "sha256": "5a06c302dce4d9d6102cc11c78cb9adc961d49c9eb095e4fdd2632e49971611e"
+    },
+    "app/prime-intake.json": {
+      "bytes": 735,
+      "path": "app/prime-intake.json",
+      "sha256": "998278c445b293bc9df4b5ad2578c7596454ba25fd9a706a1076d79a778d37e6"
+    },
+    "app/prime_tools.py": {
+      "bytes": 7800,
+      "path": "app/prime_tools.py",
+      "sha256": "4725efba6caeda1589c78a81b26e5bc4cb8b04ddefed1b1916db1a01e3e5640c"
+    },
+    "app/prime-tools.json": {
+      "bytes": 593,
+      "path": "app/prime-tools.json",
+      "sha256": "e70e951cd229da0a3320ccf9a2d3b59e99dacdcf9b6c82c12d275578b62395e8"
+    },
+    "app/tests/test_entry.py": {
+      "bytes": 43920,
+      "path": "app/tests/test_entry.py",
+      "sha256": "2cfc166d3ddea46876535f642042285ec1331ebd14a13c0f67f5c94bac9373a2"
+    },
+    "labs/prime-review-pass01/prime_review.py": {
+      "bytes": 58324,
+      "path": "labs/prime-review-pass01/prime_review.py",
+      "sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0"
+    }
+  },
+  "files": [
+    {
+      "bytes": 5051,
+      "path": "00.kernel/00.00.10.work/0512.prime-review/06.02.md",
+      "sha256": "b9d82ae79f5522927191b064c5b3abe24d9fcfab033fc950d856529d628339c2"
+    },
+    {
+      "bytes": 4248,
+      "path": "00.kernel/00.00.10.work/0512.prime-review/evidence/app05.02/CONTRACT.md",
+      "sha256": "ee8bccc3017e2bd6d60fe94c0aba9cf87d2067f6695d19e2c860ab6ccff75f83"
+    },
+    {
+      "bytes": 1784,
+      "path": "00.kernel/00.00.10.work/0512.prime-review/evidence/app05.02/REAL-USE.md",
+      "sha256": "ed505d35b1b2cdecad0b8680ee21ca120dbae6ba1452c35cb62bff89f6e56e05"
+    },
+    {
+      "bytes": 26362,
+      "path": "app/README.md",
+      "sha256": "4164ee218ac7e2bffdfea5bbf8c6f7b0d2a7edf01bb1dd4684d60d4e909c535d"
+    },
+    {
+      "bytes": 10463,
+      "path": "app/librarian.py",
+      "sha256": "939484f152c9227482e857f9ce88eaf40649f433a57d6c9d213a07bde16baee5"
+    },
+    {
+      "bytes": 403,
+      "path": "app/prime-review.json",
+      "sha256": "dfdab3fa784bd1fb1bfcce4cc594e12278e0bb95eb2848b4754c50dc75743073"
+    },
+    {
+      "bytes": 10770,
+      "path": "app/prime_review_tools.py",
+      "sha256": "2a5a59a3fd4cbab97f078c024fc31e2fa0dd34f4aec9ce1d4ebf404961f5246f"
+    },
+    {
+      "bytes": 25468,
+      "path": "app/tests/test_prime_review_tools.py",
+      "sha256": "02ccce2626016d4f8f834039f2136de466039540f7aba8b8db6eff82f0eb2a62"
+    }
+  ],
+  "commands": [
+    {
+      "argv": "python -B app/tests/test_prime_review_tools.py",
+      "passed": 10,
+      "expected_refusal": 28,
+      "skipped": 0,
+      "failed": 0
+    },
+    {
+      "argv": "python -B app/tests/test_entry.py",
+      "passed": 11,
+      "expected_refusal": 46,
+      "skipped": 1,
+      "failed": 1,
+      "failure": "pins: 00.kernel/00.00.10.work/0014.design/01.001.md"
+    },
+    {
+      "argv": "python -B app/librarian.py prime-review --input D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0512.prime-review\\evidence\\prime-review05.01\\actual-prime-review-input.json --root D:\\Git\\lib-build --json",
+      "exit": 0,
+      "stdout_bytes": 5011,
+      "stdout_sha256": "deb4c1cb5fd53dc84a046ead990bde2d2d0322dc48846b155e7165cb1d60bf5f",
+      "effective": "continue",
+      "closes_work": false,
+      "releases_action": false
+    }
+  ],
+  "skips": [
+    "app/tests/test_entry.py dangling file symlink: WinError 1314"
+  ],
+  "limits": [
+    "0014.design/01.001.md live sha256 852ab07d54c1bc77143ddcf0e833c817211bd2336ccf7fdce4d22c5b8867f4f1, 1828 bytes. test_entry.py still stores 20ba376e05a5ab09fed5d6e9644e3e74a6db954d7e476ff94f76b6469c780d0a. This batch did not edit that page or the test.",
+    "The new suite created directory junctions and refused them. It did not create a file symlink.",
+    "The accepted review lab suite was not re-run. prime_review.py bytes stayed on the pin.",
+    "No outer timeout. No draft command. No token total and no clock."
+  ]
+}

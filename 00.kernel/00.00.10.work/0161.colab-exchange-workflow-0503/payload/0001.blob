@@ -1,0 +1,34 @@
+# 06 — N7NN exchange workflow
+
+version: 001
+batch: 0511.workflow-colab/05.03
+Claim: Grok 4.7 (xAI), session 01a179d2-387a-7661-8702-6e53f95e96b5, 2026-10-29, HEAD 215671c15794529cb3320d9ce22a27766b74e848.
+
+## Read before the build
+Pack evidence/pack05.03/source-manifest.json sha256 ff755ecc3302c67b7cf10d6b8b14f7c2d8f0791c792aea6542cf1b18b50263fb, 10970 bytes, schema prime-pack-sources/1, matched 41 of 41 live files and snapshots, bad 0, before this claim. Reservation 0161.colab-exchange-workflow-0503 sha256 f3839482476355e61f6d7ae76df5f01a48fd211257956b2cbee23d8b0441cfe3, 1001 bytes. It is still only a reservation.
+
+0411.colab/evidence/exchange-layout-v2 names four files for one pass: 05.NN.pack.md, 05.NN.return.md, 06.NN.notes.md, and 06.NN.review.md. The binding pass stays 05.NN. Prime review 0510/05.03 accepts the v2 producer as a bounded lab and holds the standalone checker for HC01. Prime review 0511/05.02 accepts the v1 workflow repair. Prime review 0512/05.01 accepts the report lab. This pass does not import that report lab and does not edit it.
+
+Producer labs/colab-support-pass02/colab_support.py sha256 2b720434ac4c4331835c1484b0eca362e01e8afbecde0ab800ca392530abf68b, 53892 bytes. The supplied envelope evidence/real-producer-v2-05.03 was verified with that producer before this build. Result intact, exit 0, digest 42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184. The verifier stdout contains a temporary path, so this workflow does not store that stdout. The probe did not write the envelope.
+
+## Decisions
+The new tool is labs/colab-workflow-pass02. Accepted labs/colab-workflow-pass01 stays in place. This tool calls the pinned v2 producer `verify`. It does not call handoff_check.py. A change that full verify rejects is conflicting bytes, including an identity change that the held standalone checker would miss.
+
+Attach copies package bytes, the ZIP, and verification.json. It writes 05.NN.pack.md as those exact pack bytes. It stores the preparation notes as those exact bytes under the pass artifacts. The page file 06.NN.notes.md is a projection: a length-prefixed launch snapshot, then append-only working lines. An append does not change the stored snapshot or the package digest.
+
+05.NN.return.md is written only by place-return, and only as the exact return.md bytes from a verified capture. Member, receipt, and return sha256 are a separate record and the 08.md projection. The return file does not gain a provenance footer.
+
+06.NN.review.md is rendered only from a supplied review record after the return is placed. A missing director reply refuses. The tool does not fill one in. Routes are hold, finish, request-next, and route-n5nn. request-next records the caller-named next pass and does not create that pack. finish is not approval. Unresolved findings stay in the review projection.
+
+One pass holds one package, one return, and one review. The same bytes are a readonly repeat. Different bytes stay refused and the previous bytes remain. This tool does not reserve, capture, allocate a member, or allocate a next pass.
+
+The live work book stays refused as the book. The tool does not write 00.live. Source paths may name 0411.colab or a file 07.md. The tool still does not create face 07 or a filename ending in .colab.
+
+## Suite
+Recorded after the runs. The counts below are the runs, not acceptance.
+
+Working directory D:\Git\lib-build. Interpreter C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe. Environment PYTHONDONTWRITEBYTECODE=1. Both commands use python -B.
+
+python -B labs/colab-workflow-pass02/tests/test_exchange_workflow.py exited 0. Executed 7, skipped 1, failed 0. The skip is file-symlink creation, WinError 1314. The junction refusal passed. This suite stubs the producer process. It is not the producer proof. It covers the band, fenced headings, kind id, the four routes on separate pages, custody refusals, an interrupted write, and a bad producer pin.
+
+python -B labs/colab-workflow-pass02/tests/test_real_handoff.py exited 0. That run called the pinned v2 verifier and the accepted intake. It did not call handoff_check.py. Digest 42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184. Member 0101.colab-fixture-0501. Return sha256 a74e4ade57f6c1ea369f41a799fae8a30598ce779e005dccbca0e31a13a51ee7, 180 bytes. The review route on that page is hold. The director reply in the supplied record starts with hypothetical-fixture. The envelope bytes and labs/colab-workflow-pass01/colab_workflow.py sha256 4507760c3b374d89add77d66a02dc5df437dd7c2f4d1214e09ff309381cd2da3, 83008 bytes, were the same after the run. The live book was not an argument.

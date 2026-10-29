@@ -1,0 +1,856 @@
+{
+  "assembler_digest_independent_recompute": {
+    "recomputed": "ef61018444eafda6bc7869b4b819f5149a14db32fcc7e67d8d69702b2d6eab01",
+    "recorded": "ef61018444eafda6bc7869b4b819f5149a14db32fcc7e67d8d69702b2d6eab01"
+  },
+  "batch": "00.kernel/00.00.10.work/0510.colab-tools/05.04.md",
+  "boundary": "No producer, v1, helper, workflow, Grok-2 or shared contract change. No 0511/0512 outputs read beyond the Prime reviews included in pack05.04.",
+  "changed": [
+    {
+      "after": {
+        "bytes": 27722,
+        "sha256": "7d62dde48165c5ac80f7f92a2a91f73a66b40c1e8dd2383f0269027038c6a268"
+      },
+      "before": "db921e1cc84483b74da0a475fa40dcee8d66bddea6ee778abe948e71336261ce",
+      "path": "labs/colab-support-pass02/handoff_check.py"
+    },
+    {
+      "after": {
+        "bytes": 5885,
+        "sha256": "36cb2f668212e93b3aaa9ff82f4267d94c8d04686ee90d83bb22cc4371dd8b88"
+      },
+      "before": "1b410759e85f8527bd2b27d5d1b5986f8a1928230de276179bf5e9e36ad5146b",
+      "path": "labs/colab-support-pass02/README.md"
+    },
+    {
+      "after": {
+        "bytes": 21579,
+        "sha256": "6e5a056f95f628b60fa301a125a4a10d3ee6eea67e6e15fd1709c50d26b7219d"
+      },
+      "before": null,
+      "path": "labs/colab-support-pass02/tests/test_handoff_check.py"
+    }
+  ],
+  "claim_commit": "e66248378657977d304cf4ed1b7ecbeb1209b27d",
+  "comparison_real_package": [
+    {
+      "case": "clean",
+      "frozen_producer_verify": {
+        "exit": 0,
+        "result": "intact"
+      },
+      "held_checker_db921e1c": {
+        "exit": 0,
+        "investigation": {
+          "book": "00.00.10.work",
+          "page": "0701.colab-exchange-layout",
+          "pass": "05.01"
+        },
+        "result": "valid"
+      },
+      "raw": {
+        "held_stdout": "{\n  \"digest\": \"42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184\",\n  \"exchange\": {\n    \"nn\": \"01\",\n    \"notes\": \"06.01.notes.md\",\n    \"pack\": \"05.01.pack.md\",\n    \"pass\": \"05.01\",\n    \"primary_instruction\": \"05.01.pack.md\",\n    \"return_name\": \"05.01.return.md\",\n    \"return_template\": \"templates/05.01.return.TEMPLATE.md\",\n    \"review_name\": \"06.01.review.md\",\n    \"review_template\": \"templates/06.01.review.TEMPLATE.md\"\n  },\n  \"investigation\": {\n    \"book\": \"00.00.10.work\",\n    \"page\": \"0701.colab-exchange-layout\",\n    \"pass\": \"05.01\"\n  },\n  \"problems\": [],\n  \"result\": \"valid\"\n}\n",
+        "producer_stdout": "{\n  \"assembler_verify\": {\n    \"args\": [\n      \"verify\",\n      \"--pack\",\n      \"<temporary projection>\",\n      \"--checker\",\n      \"<pinned checker>\",\n      \"--json\"\n    ],\n    \"exit\": 0,\n    \"stderr\": \"\",\n    \"stdout\": \"{\\n  \\\"schema\\\": \\\"pack-assembly-report/1\\\",\\n  \\\"command\\\": \\\"verify\\\",\\n  \\\"result\\\": \\\"intact\\\",\\n  \\\"digest\\\": null,\\n  \\\"supplied_digest\\\": null,\\n  \\\"template\\\": \\\"pack-assembly-draft/1\\\",\\n  \\\"commit\\\": null,\\n  \\\"request_sha256\\\": null,\\n  \\\"request_bytes\\\": null,\\n  \\\"batch\\\": null,\\n  \\\"sources\\\": [],\\n  \\\"planned\\\": [],\\n  \\\"target\\\": \\\"C:\\\\\\\\Users\\\\\\\\misg\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\colab2-verify-xod4bi9l\\\\\\\\pack\\\",\\n  \\\"checker\\\": {\\n    \\\"sha256\\\": \\\"9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d\\\",\\n    \\\"bytes\\\": 21563,\\n    \\\"result\\\": \\\"pass\\\",\\n    \\\"exit\\\": 0,\\n    \\\"rows_checked\\\": 4\\n  },\\n  \\\"receipt\\\": \\\"completion-receipt.json\\\",\\n  \\\"findings\\\": [],\\n  \\\"not_checked\\\": [\\n    {\\n      \\\"item\\\": \\\"meaning\\\",\\n      \\\"detail\\\": \\\"This tool does not say what the draft means.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"instruction-sufficiency\\\",\\n      \\\"detail\\\": \\\"This tool does not decide whether the instructions are sufficient.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"approval-release\\\",\\n      \\\"detail\\\": \\\"This tool does not approve or release the draft. A receipt is not acceptance.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"dependencies\\\",\\n      \\\"detail\\\": \\\"Dependencies are copied as supplied or left unresolved. None are installed or fetched.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"execution-safety\\\",\\n      \\\"detail\\\": \\\"Request text and pinned sources are data. This tool does not execute them.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"return-slot\\\",\\n      \\\"detail\\\": \\\"Live return-slot allocation is not checked.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"clerk-readiness\\\",\\n      \\\"detail\\\": \\\"Clerk readiness is not checked.\\\"\\n    }\\n  ]\\n}\\n\",\n    \"tool\": \"assembler\"\n  },\n  \"command\": \"verify\",\n  \"commit\": \"6896224510fe0bcebac291fce7ed311a2cd085cb\",\n  \"digest\": \"42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184\",\n  \"exchange\": {\n    \"notes\": \"06.01.notes.md\",\n    \"pack\": \"05.01.pack.md\",\n    \"pass\": \"05.01\",\n    \"return_name\": \"05.01.return.md\",\n    \"return_template\": \"templates/05.01.return.TEMPLATE.md\",\n    \"review_name\": \"06.01.review.md\",\n    \"review_template\": \"templates/06.01.review.TEMPLATE.md\"\n  },\n  \"findings\": [],\n  \"investigation\": {\n    \"book\": \"00.00.10.work\",\n    \"page\": \"0701.colab-exchange-layout\",\n    \"pass\": \"05.01\"\n  },\n  \"layout\": \"colab-exchange-layout/2\",\n  \"not_checked\": [\n    \"meaning, adequacy and design findings\",\n    \"authenticity of labels and quoted replies\",\n    \"permission: nothing is released, reviewed, accepted, seated or published\",\n    \"workflow integration: no consumer of this layout has been reviewed\"\n  ],\n  \"planned\": [\n    {\n      \"bytes\": 3584,\n      \"path\": \"package/05.01.pack.md\",\n      \"sha256\": \"b46713a78cea87597d04578949d21f4539518133ff58a8c007377fb222ea5a29\"\n    },\n    {\n      \"bytes\": 2552,\n      \"path\": \"package/06.01.notes.md\",\n      \"sha256\": \"2d7fe940fcfbd2a9b88c655ebbbd3f113c290182a18e8f875c2c10758c5349f9\"\n    },\n    {\n      \"bytes\": 4777,\n      \"path\": \"package/ENTRY.md\",\n      \"sha256\": \"1085c83d57c313844a83964e65489ebac71df7bf1f0623e74ddc35b8ba67aff7\"\n    },\n    {\n      \"bytes\": 642,\n      \"path\": \"package/binding.json\",\n      \"sha256\": \"d6bfabb615200c91009deb8631bd834c52286037aae2cfb14e5827f49a1a81b1\"\n    },\n    {\n      \"bytes\": 6270,\n      \"path\": \"package/colab-request.json\",\n      \"sha256\": \"5778b69507ff4eadd67e0b3eb2bdb3aa7d22440110d1ddb16e09b5e5e7c0b1fa\"\n    },\n    {\n      \"bytes\": 3776,\n      \"path\": \"package/snapshots/0001.blob\",\n      \"sha256\": \"1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9\"\n    },\n    {\n      \"bytes\": 434,\n      \"path\": \"package/snapshots/0002.blob\",\n      \"sha256\": \"b82b263ea18f8fe7432c3f0190671c5d9d816d4712a5c64921a0697d2ab701e5\"\n    },\n    {\n      \"bytes\": 4489,\n      \"path\": \"package/snapshots/0003.blob\",\n      \"sha256\": \"246189acdba7c4559c1bda5ba9a6314d60dca9bf1710b87c4eaf59cbde5f6f42\"\n    },\n    {\n      \"bytes\": 1321,\n      \"path\": \"package/snapshots/0004.blob\",\n      \"sha256\": \"a4231ad09ec5a14a320779f29574ca0cd8912eb0b1e8a25d2462d94c6b4dfeed\"\n    },\n    {\n      \"bytes\": 1109,\n      \"path\": \"package/source-manifest.json\",\n      \"sha256\": \"419d863333779d4cf723dbfc0eacf5a9622cf1ab41b1b0ddbcce660daf2a09c0\"\n    },\n    {\n      \"bytes\": 574,\n      \"path\": \"package/support/SUPPORT.md\",\n      \"sha256\": \"8cc3b97b405b20e3bd15710deafd95dd449b58cdbab65731b10ff85947594e38\"\n    },\n    {\n      \"bytes\": 3377,\n      \"path\": \"package/support/assembler/05.01.md\",\n      \"sha256\": \"bbc9e48853ff5720b1184734343672a1f8432612fb1397f8929ef0dcb602dd82\"\n    },\n    {\n      \"bytes\": 2232,\n      \"path\": \"package/support/assembler/completion-receipt.json\",\n      \"sha256\": \"0b51d84d96ff560148f2eec959004ec34b8838da4d155f38dbec524eec4d4170\"\n    },\n    {\n      \"bytes\": 3581,\n      \"path\": \"package/support/assembler/request.snapshot\",\n      \"sha256\": \"bb1d670be230884b6f47655016907133eadc0005bb9a4c166b0116e18a27c4e5\"\n    },\n    {\n      \"bytes\": 1439,\n      \"path\": \"package/templates/05.01.return.TEMPLATE.md\",\n      \"sha256\": \"fcaeaa71c097b2dba66e670057597b0b2ea3f66c93998c606e420282dbd1ef8f\"\n    },\n    {\n      \"bytes\": 1008,\n      \"path\": \"package/templates/06.01.review.TEMPLATE.md\",\n      \"sha256\": \"a6c3a88abbed4c80880b0bdca193c51e7f369e846a672253e7d9f8828eefc943\"\n    },\n    {\n      \"bytes\": 43099,\n      \"path\": \"prepared-colab.zip\",\n      \"sha256\": \"5f77b08318a40b9329f51a9178e274637271d1cf06d4aa3e9e1ea3c354862cfe\"\n    }\n  ],\n  \"result\": \"intact\",\n  \"schema\": \"colab-support-report/2\",\n  \"statements\": [\n    \"This package is a draft. Preparation is not a Director release.\",\n    \"05.NN.pack.md is the one primary instruction source; support/ is transport support only.\",\n    \"No 05.NN.return.md or 06.NN.review.md exists at preparation. Templates are templates.\",\n    \"A verified package or receipt is custody, not review or acceptance.\",\n    \"The investigation binding is supplied by Prime; it does not open a live investigation.\",\n    \"Labels and quoted Director text do not authenticate anyone.\"\n  ],\n  \"targets\": [\n    {\n      \"bytes\": 3776,\n      \"kind\": \"whole-file\",\n      \"sha256\": \"1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9\",\n      \"target\": \"T01\"\n    }\n  ]\n}\n",
+        "repaired_stdout": "{\n  \"capability\": \"Derives investigation, binding, exchange names and roles, source-to-snapshot map, support projection, ZIP membership, evaluator separation and the full digest preimage from digest-bound bytes by fixed v2 rules; recomputes the assembler and package digests. Does not re-render prose.\",\n  \"not_verified\": [\n    \"rendered text of ENTRY, pack, notes, templates, SUPPORT.md and the assembler draft: bound by the digest, not re-rendered\",\n    \"heading-section line ranges of targets\",\n    \"assembler completion receipt content and the custody checker result: bound bytes, not re-run\",\n    \"tool pins and v1 request rules beyond schema and binding shape\",\n    \"use the pinned full producer verify (colab_support.py verify) for these\"\n  ],\n  \"problems\": [],\n  \"result\": \"valid\",\n  \"schema\": \"colab-handoff-check/2\",\n  \"trusted\": {\n    \"binding_sha256\": \"d6bfabb615200c91009deb8631bd834c52286037aae2cfb14e5827f49a1a81b1\",\n    \"digest\": \"42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184\",\n    \"evaluator\": [],\n    \"exchange\": {\n      \"nn\": \"01\",\n      \"notes\": \"06.01.notes.md\",\n      \"pack\": \"05.01.pack.md\",\n      \"pass\": \"05.01\",\n      \"primary_instruction\": \"05.01.pack.md\",\n      \"return_name\": \"05.01.return.md\",\n      \"return_template\": \"templates/05.01.return.TEMPLATE.md\",\n      \"review_name\": \"06.01.review.md\",\n      \"review_template\": \"templates/06.01.review.TEMPLATE.md\"\n    },\n    \"investigation\": {\n      \"book\": \"00.00.10.work\",\n      \"page\": \"0701.colab-exchange-layout\",\n      \"pass\": \"05.01\"\n    },\n    \"layout\": \"colab-exchange-layout/2\",\n    \"not_created\": [\n      \"05.01.return.md\",\n      \"06.01.review.md\"\n    ],\n    \"source_map\": [\n      {\n        \"bytes\": 3776,\n        \"role\": \"target\",\n        \"sha256\": \"1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9\",\n        \"snapshot\": \"package/snapshots/0001.blob\",\n        \"source_path\": \"00.kernel/00.00.10.work/0411.colab/evidence/exchange-layout-v2/CONTRACT.md\",\n        \"targets\": [\n          \"T01\"\n        ]\n      },\n      {\n        \"bytes\": 434,\n        \"role\": \"required\",\n        \"sha256\": \"b82b263ea18f8fe7432c3f0190671c5d9d816d4712a5c64921a0697d2ab701e5\",\n        \"snapshot\": \"package/snapshots/0002.blob\",\n        \"source_path\": \"00.kernel/00.00.10.work/0411.colab/evidence/exchange-layout-v2/NOTES.md\",\n        \"targets\": []\n      },\n      {\n        \"bytes\": 4489,\n        \"role\": \"required\",\n        \"sha256\": \"246189acdba7c4559c1bda5ba9a6314d60dca9bf1710b87c4eaf59cbde5f6f42\",\n        \"snapshot\": \"package/snapshots/0003.blob\",\n        \"source_path\": \"00.kernel/00.00.10.work/0411.colab/evidence/n7nn-interface-v1/CONTRACT.md\",\n        \"targets\": []\n      },\n      {\n        \"bytes\": 1321,\n        \"role\": \"required\",\n        \"sha256\": \"a4231ad09ec5a14a320779f29574ca0cd8912eb0b1e8a25d2462d94c6b4dfeed\",\n        \"snapshot\": \"package/snapshots/0004.blob\",\n        \"source_path\": \"00.kernel/00.00.10.work/0700.band.colabs/01.md\",\n        \"targets\": []\n      }\n    ],\n    \"support_projection\": [\n      {\n        \"assembler_name\": \"05.01.md\",\n        \"bytes\": 3377,\n        \"sha256\": \"bbc9e48853ff5720b1184734343672a1f8432612fb1397f8929ef0dcb602dd82\",\n        \"support_path\": \"package/support/assembler/05.01.md\"\n      },\n      {\n        \"assembler_name\": \"request.snapshot\",\n        \"bytes\": 3581,\n        \"sha256\": \"bb1d670be230884b6f47655016907133eadc0005bb9a4c166b0116e18a27c4e5\",\n        \"support_path\": \"package/support/assembler/request.snapshot\"\n      },\n      {\n        \"assembler_name\": \"completion-receipt.json\",\n        \"bytes\": 2232,\n        \"sha256\": \"0b51d84d96ff560148f2eec959004ec34b8838da4d155f38dbec524eec4d4170\",\n        \"support_path\": \"package/support/assembler/completion-receipt.json\"\n      }\n    ],\n    \"zip\": {\n      \"bytes\": 43099,\n      \"members\": [\n        \"05.01.pack.md\",\n        \"06.01.notes.md\",\n        \"ENTRY.md\",\n        \"binding.json\",\n        \"colab-request.json\",\n        \"snapshots/0001.blob\",\n        \"snapshots/0002.blob\",\n        \"snapshots/0003.blob\",\n        \"snapshots/0004.blob\",\n        \"source-manifest.json\",\n        \"support/SUPPORT.md\",\n        \"support/assembler/05.01.md\",\n        \"support/assembler/completion-receipt.json\",\n        \"support/assembler/request.snapshot\",\n        \"templates/05.01.return.TEMPLATE.md\",\n        \"templates/06.01.review.TEMPLATE.md\"\n      ],\n      \"path\": \"prepared-colab.zip\",\n      \"sha256\": \"5f77b08318a40b9329f51a9178e274637271d1cf06d4aa3e9e1ea3c354862cfe\"\n    }\n  },\n  \"unbound_informational\": {\n    \"digest_rule\": \"sha256 over parts in order; each part is an 8-byte big-endian length then its bytes; a 'text' part is its UTF-8 value, a 'file' part is the bytes of that OUT path\",\n    \"statements\": [\n      \"This package is a draft. Preparation is not a Director release.\",\n      \"05.NN.pack.md is the one primary instruction source; support/ is transport support only.\",\n      \"No 05.NN.return.md or 06.NN.review.md exists at preparation. Templates are templates.\",\n      \"A verified package or receipt is custody, not review or acceptance.\",\n      \"The investigation binding is supplied by Prime; it does not open a live investigation.\",\n      \"Labels and quoted Director text do not authenticate anyone.\"\n    ],\n    \"verify\": {\n      \"argv\": [\n        \"python\",\n        \"-B\",\n        \"labs/colab-support-pass02/colab_support.py\",\n        \"verify\",\n        \"--output\",\n        \"<OUT>\",\n        \"--config\",\n        \"<CONFIG>\",\n        \"--json\"\n      ],\n      \"config_keys\": [\n        \"schema\",\n        \"repositories\",\n        \"python\",\n        \"assembler\",\n        \"checker\",\n        \"helper\",\n        \"inspector\",\n        \"producer_v1\"\n      ],\n      \"config_schema\": \"colab-config/2\",\n      \"pins\": {\n        \"assembler\": \"75d49679cbf3e624a82573229ca8c7cd9b758799bc26b6f080111feb6eaa275c\",\n        \"checker\": \"9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d\",\n        \"helper\": \"8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac\",\n        \"inspector\": \"947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b\",\n        \"producer_v1\": \"33bbe41c52485fc7b2b611d830bae8a15129721ad807a931e8193f17944c467c\"\n      },\n      \"standalone\": [\n        \"python\",\n        \"-B\",\n        \"labs/colab-support-pass02/handoff_check.py\",\n        \"check\",\n        \"--output\",\n        \"<OUT>\",\n        \"--expected-digest\",\n        \"<DIGEST>\",\n        \"--json\"\n      ]\n    }\n  }\n}\n",
+        "stderr": [
+          "",
+          "",
+          ""
+        ]
+      },
+      "repaired_checker": {
+        "exit": 0,
+        "problems": [],
+        "result": "valid",
+        "trusted_present": true
+      }
+    },
+    {
+      "case": "HC01 investigation.page",
+      "frozen_producer_verify": {
+        "exit": 1,
+        "result": "mismatch"
+      },
+      "held_checker_db921e1c": {
+        "exit": 0,
+        "investigation": {
+          "book": "00.00.10.work",
+          "page": "0799.wrong-investigation",
+          "pass": "05.01"
+        },
+        "result": "valid"
+      },
+      "raw": {
+        "held_stdout": "{\n  \"digest\": \"42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184\",\n  \"exchange\": {\n    \"nn\": \"01\",\n    \"notes\": \"06.01.notes.md\",\n    \"pack\": \"05.01.pack.md\",\n    \"pass\": \"05.01\",\n    \"primary_instruction\": \"05.01.pack.md\",\n    \"return_name\": \"05.01.return.md\",\n    \"return_template\": \"templates/05.01.return.TEMPLATE.md\",\n    \"review_name\": \"06.01.review.md\",\n    \"review_template\": \"templates/06.01.review.TEMPLATE.md\"\n  },\n  \"investigation\": {\n    \"book\": \"00.00.10.work\",\n    \"page\": \"0799.wrong-investigation\",\n    \"pass\": \"05.01\"\n  },\n  \"problems\": [],\n  \"result\": \"valid\"\n}\n",
+        "producer_stdout": "{\n  \"assembler_verify\": {\n    \"args\": [\n      \"verify\",\n      \"--pack\",\n      \"<temporary projection>\",\n      \"--checker\",\n      \"<pinned checker>\",\n      \"--json\"\n    ],\n    \"exit\": 0,\n    \"stderr\": \"\",\n    \"stdout\": \"{\\n  \\\"schema\\\": \\\"pack-assembly-report/1\\\",\\n  \\\"command\\\": \\\"verify\\\",\\n  \\\"result\\\": \\\"intact\\\",\\n  \\\"digest\\\": null,\\n  \\\"supplied_digest\\\": null,\\n  \\\"template\\\": \\\"pack-assembly-draft/1\\\",\\n  \\\"commit\\\": null,\\n  \\\"request_sha256\\\": null,\\n  \\\"request_bytes\\\": null,\\n  \\\"batch\\\": null,\\n  \\\"sources\\\": [],\\n  \\\"planned\\\": [],\\n  \\\"target\\\": \\\"C:\\\\\\\\Users\\\\\\\\misg\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\colab2-verify-pbghbcp3\\\\\\\\pack\\\",\\n  \\\"checker\\\": {\\n    \\\"sha256\\\": \\\"9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d\\\",\\n    \\\"bytes\\\": 21563,\\n    \\\"result\\\": \\\"pass\\\",\\n    \\\"exit\\\": 0,\\n    \\\"rows_checked\\\": 4\\n  },\\n  \\\"receipt\\\": \\\"completion-receipt.json\\\",\\n  \\\"findings\\\": [],\\n  \\\"not_checked\\\": [\\n    {\\n      \\\"item\\\": \\\"meaning\\\",\\n      \\\"detail\\\": \\\"This tool does not say what the draft means.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"instruction-sufficiency\\\",\\n      \\\"detail\\\": \\\"This tool does not decide whether the instructions are sufficient.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"approval-release\\\",\\n      \\\"detail\\\": \\\"This tool does not approve or release the draft. A receipt is not acceptance.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"dependencies\\\",\\n      \\\"detail\\\": \\\"Dependencies are copied as supplied or left unresolved. None are installed or fetched.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"execution-safety\\\",\\n      \\\"detail\\\": \\\"Request text and pinned sources are data. This tool does not execute them.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"return-slot\\\",\\n      \\\"detail\\\": \\\"Live return-slot allocation is not checked.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"clerk-readiness\\\",\\n      \\\"detail\\\": \\\"Clerk readiness is not checked.\\\"\\n    }\\n  ]\\n}\\n\",\n    \"tool\": \"assembler\"\n  },\n  \"command\": \"verify\",\n  \"commit\": \"6896224510fe0bcebac291fce7ed311a2cd085cb\",\n  \"digest\": \"42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184\",\n  \"exchange\": {\n    \"notes\": \"06.01.notes.md\",\n    \"pack\": \"05.01.pack.md\",\n    \"pass\": \"05.01\",\n    \"return_name\": \"05.01.return.md\",\n    \"return_template\": \"templates/05.01.return.TEMPLATE.md\",\n    \"review_name\": \"06.01.review.md\",\n    \"review_template\": \"templates/06.01.review.TEMPLATE.md\"\n  },\n  \"findings\": [\n    {\n      \"code\": \"differs\",\n      \"detail\": \"handoff.json differs from the recomputed plan\",\n      \"kind\": \"pack-defect\"\n    }\n  ],\n  \"investigation\": {\n    \"book\": \"00.00.10.work\",\n    \"page\": \"0701.colab-exchange-layout\",\n    \"pass\": \"05.01\"\n  },\n  \"layout\": \"colab-exchange-layout/2\",\n  \"not_checked\": [\n    \"meaning, adequacy and design findings\",\n    \"authenticity of labels and quoted replies\",\n    \"permission: nothing is released, reviewed, accepted, seated or published\",\n    \"workflow integration: no consumer of this layout has been reviewed\"\n  ],\n  \"planned\": [\n    {\n      \"bytes\": 3584,\n      \"path\": \"package/05.01.pack.md\",\n      \"sha256\": \"b46713a78cea87597d04578949d21f4539518133ff58a8c007377fb222ea5a29\"\n    },\n    {\n      \"bytes\": 2552,\n      \"path\": \"package/06.01.notes.md\",\n      \"sha256\": \"2d7fe940fcfbd2a9b88c655ebbbd3f113c290182a18e8f875c2c10758c5349f9\"\n    },\n    {\n      \"bytes\": 4777,\n      \"path\": \"package/ENTRY.md\",\n      \"sha256\": \"1085c83d57c313844a83964e65489ebac71df7bf1f0623e74ddc35b8ba67aff7\"\n    },\n    {\n      \"bytes\": 642,\n      \"path\": \"package/binding.json\",\n      \"sha256\": \"d6bfabb615200c91009deb8631bd834c52286037aae2cfb14e5827f49a1a81b1\"\n    },\n    {\n      \"bytes\": 6270,\n      \"path\": \"package/colab-request.json\",\n      \"sha256\": \"5778b69507ff4eadd67e0b3eb2bdb3aa7d22440110d1ddb16e09b5e5e7c0b1fa\"\n    },\n    {\n      \"bytes\": 3776,\n      \"path\": \"package/snapshots/0001.blob\",\n      \"sha256\": \"1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9\"\n    },\n    {\n      \"bytes\": 434,\n      \"path\": \"package/snapshots/0002.blob\",\n      \"sha256\": \"b82b263ea18f8fe7432c3f0190671c5d9d816d4712a5c64921a0697d2ab701e5\"\n    },\n    {\n      \"bytes\": 4489,\n      \"path\": \"package/snapshots/0003.blob\",\n      \"sha256\": \"246189acdba7c4559c1bda5ba9a6314d60dca9bf1710b87c4eaf59cbde5f6f42\"\n    },\n    {\n      \"bytes\": 1321,\n      \"path\": \"package/snapshots/0004.blob\",\n      \"sha256\": \"a4231ad09ec5a14a320779f29574ca0cd8912eb0b1e8a25d2462d94c6b4dfeed\"\n    },\n    {\n      \"bytes\": 1109,\n      \"path\": \"package/source-manifest.json\",\n      \"sha256\": \"419d863333779d4cf723dbfc0eacf5a9622cf1ab41b1b0ddbcce660daf2a09c0\"\n    },\n    {\n      \"bytes\": 574,\n      \"path\": \"package/support/SUPPORT.md\",\n      \"sha256\": \"8cc3b97b405b20e3bd15710deafd95dd449b58cdbab65731b10ff85947594e38\"\n    },\n    {\n      \"bytes\": 3377,\n      \"path\": \"package/support/assembler/05.01.md\",\n      \"sha256\": \"bbc9e48853ff5720b1184734343672a1f8432612fb1397f8929ef0dcb602dd82\"\n    },\n    {\n      \"bytes\": 2232,\n      \"path\": \"package/support/assembler/completion-receipt.json\",\n      \"sha256\": \"0b51d84d96ff560148f2eec959004ec34b8838da4d155f38dbec524eec4d4170\"\n    },\n    {\n      \"bytes\": 3581,\n      \"path\": \"package/support/assembler/request.snapshot\",\n      \"sha256\": \"bb1d670be230884b6f47655016907133eadc0005bb9a4c166b0116e18a27c4e5\"\n    },\n    {\n      \"bytes\": 1439,\n      \"path\": \"package/templates/05.01.return.TEMPLATE.md\",\n      \"sha256\": \"fcaeaa71c097b2dba66e670057597b0b2ea3f66c93998c606e420282dbd1ef8f\"\n    },\n    {\n      \"bytes\": 1008,\n      \"path\": \"package/templates/06.01.review.TEMPLATE.md\",\n      \"sha256\": \"a6c3a88abbed4c80880b0bdca193c51e7f369e846a672253e7d9f8828eefc943\"\n    },\n    {\n      \"bytes\": 43099,\n      \"path\": \"prepared-colab.zip\",\n      \"sha256\": \"5f77b08318a40b9329f51a9178e274637271d1cf06d4aa3e9e1ea3c354862cfe\"\n    }\n  ],\n  \"result\": \"mismatch\",\n  \"schema\": \"colab-support-report/2\",\n  \"statements\": [\n    \"This package is a draft. Preparation is not a Director release.\",\n    \"05.NN.pack.md is the one primary instruction source; support/ is transport support only.\",\n    \"No 05.NN.return.md or 06.NN.review.md exists at preparation. Templates are templates.\",\n    \"A verified package or receipt is custody, not review or acceptance.\",\n    \"The investigation binding is supplied by Prime; it does not open a live investigation.\",\n    \"Labels and quoted Director text do not authenticate anyone.\"\n  ],\n  \"targets\": [\n    {\n      \"bytes\": 3776,\n      \"kind\": \"whole-file\",\n      \"sha256\": \"1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9\",\n      \"target\": \"T01\"\n    }\n  ]\n}\n",
+        "repaired_stdout": "{\n  \"capability\": \"Derives investigation, binding, exchange names and roles, source-to-snapshot map, support projection, ZIP membership, evaluator separation and the full digest preimage from digest-bound bytes by fixed v2 rules; recomputes the assembler and package digests. Does not re-render prose.\",\n  \"not_verified\": [\n    \"rendered text of ENTRY, pack, notes, templates, SUPPORT.md and the assembler draft: bound by the digest, not re-rendered\",\n    \"heading-section line ranges of targets\",\n    \"assembler completion receipt content and the custody checker result: bound bytes, not re-run\",\n    \"tool pins and v1 request rules beyond schema and binding shape\",\n    \"use the pinned full producer verify (colab_support.py verify) for these\"\n  ],\n  \"problems\": [\n    {\n      \"code\": \"handoff-claim\",\n      \"detail\": \"handoff.investigation differs from the value derived from bound bytes\"\n    }\n  ],\n  \"result\": \"mismatch\",\n  \"schema\": \"colab-handoff-check/2\"\n}\n",
+        "stderr": [
+          "",
+          "",
+          ""
+        ]
+      },
+      "repaired_checker": {
+        "exit": 1,
+        "problems": [
+          {
+            "code": "handoff-claim",
+            "detail": "handoff.investigation differs from the value derived from bound bytes"
+          }
+        ],
+        "result": "mismatch",
+        "trusted_present": false
+      }
+    },
+    {
+      "case": "exchange.primary_instruction",
+      "frozen_producer_verify": {
+        "exit": 1,
+        "result": "mismatch"
+      },
+      "held_checker_db921e1c": {
+        "exit": 1,
+        "investigation": {
+          "book": "00.00.10.work",
+          "page": "0701.colab-exchange-layout",
+          "pass": "05.01"
+        },
+        "result": "invalid"
+      },
+      "raw": {
+        "held_stdout": "{\n  \"digest\": \"42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184\",\n  \"exchange\": {\n    \"nn\": \"01\",\n    \"notes\": \"06.01.notes.md\",\n    \"pack\": \"05.01.pack.md\",\n    \"pass\": \"05.01\",\n    \"primary_instruction\": \"support/assembler/05.01.md\",\n    \"return_name\": \"05.01.return.md\",\n    \"return_template\": \"templates/05.01.return.TEMPLATE.md\",\n    \"review_name\": \"06.01.review.md\",\n    \"review_template\": \"templates/06.01.review.TEMPLATE.md\"\n  },\n  \"investigation\": {\n    \"book\": \"00.00.10.work\",\n    \"page\": \"0701.colab-exchange-layout\",\n    \"pass\": \"05.01\"\n  },\n  \"problems\": [\n    \"the handoff does not name exactly one primary instruction file\"\n  ],\n  \"result\": \"invalid\"\n}\n",
+        "producer_stdout": "{\n  \"assembler_verify\": {\n    \"args\": [\n      \"verify\",\n      \"--pack\",\n      \"<temporary projection>\",\n      \"--checker\",\n      \"<pinned checker>\",\n      \"--json\"\n    ],\n    \"exit\": 0,\n    \"stderr\": \"\",\n    \"stdout\": \"{\\n  \\\"schema\\\": \\\"pack-assembly-report/1\\\",\\n  \\\"command\\\": \\\"verify\\\",\\n  \\\"result\\\": \\\"intact\\\",\\n  \\\"digest\\\": null,\\n  \\\"supplied_digest\\\": null,\\n  \\\"template\\\": \\\"pack-assembly-draft/1\\\",\\n  \\\"commit\\\": null,\\n  \\\"request_sha256\\\": null,\\n  \\\"request_bytes\\\": null,\\n  \\\"batch\\\": null,\\n  \\\"sources\\\": [],\\n  \\\"planned\\\": [],\\n  \\\"target\\\": \\\"C:\\\\\\\\Users\\\\\\\\misg\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\colab2-verify-geqhq3bl\\\\\\\\pack\\\",\\n  \\\"checker\\\": {\\n    \\\"sha256\\\": \\\"9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d\\\",\\n    \\\"bytes\\\": 21563,\\n    \\\"result\\\": \\\"pass\\\",\\n    \\\"exit\\\": 0,\\n    \\\"rows_checked\\\": 4\\n  },\\n  \\\"receipt\\\": \\\"completion-receipt.json\\\",\\n  \\\"findings\\\": [],\\n  \\\"not_checked\\\": [\\n    {\\n      \\\"item\\\": \\\"meaning\\\",\\n      \\\"detail\\\": \\\"This tool does not say what the draft means.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"instruction-sufficiency\\\",\\n      \\\"detail\\\": \\\"This tool does not decide whether the instructions are sufficient.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"approval-release\\\",\\n      \\\"detail\\\": \\\"This tool does not approve or release the draft. A receipt is not acceptance.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"dependencies\\\",\\n      \\\"detail\\\": \\\"Dependencies are copied as supplied or left unresolved. None are installed or fetched.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"execution-safety\\\",\\n      \\\"detail\\\": \\\"Request text and pinned sources are data. This tool does not execute them.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"return-slot\\\",\\n      \\\"detail\\\": \\\"Live return-slot allocation is not checked.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"clerk-readiness\\\",\\n      \\\"detail\\\": \\\"Clerk readiness is not checked.\\\"\\n    }\\n  ]\\n}\\n\",\n    \"tool\": \"assembler\"\n  },\n  \"command\": \"verify\",\n  \"commit\": \"6896224510fe0bcebac291fce7ed311a2cd085cb\",\n  \"digest\": \"42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184\",\n  \"exchange\": {\n    \"notes\": \"06.01.notes.md\",\n    \"pack\": \"05.01.pack.md\",\n    \"pass\": \"05.01\",\n    \"return_name\": \"05.01.return.md\",\n    \"return_template\": \"templates/05.01.return.TEMPLATE.md\",\n    \"review_name\": \"06.01.review.md\",\n    \"review_template\": \"templates/06.01.review.TEMPLATE.md\"\n  },\n  \"findings\": [\n    {\n      \"code\": \"differs\",\n      \"detail\": \"handoff.json differs from the recomputed plan\",\n      \"kind\": \"pack-defect\"\n    }\n  ],\n  \"investigation\": {\n    \"book\": \"00.00.10.work\",\n    \"page\": \"0701.colab-exchange-layout\",\n    \"pass\": \"05.01\"\n  },\n  \"layout\": \"colab-exchange-layout/2\",\n  \"not_checked\": [\n    \"meaning, adequacy and design findings\",\n    \"authenticity of labels and quoted replies\",\n    \"permission: nothing is released, reviewed, accepted, seated or published\",\n    \"workflow integration: no consumer of this layout has been reviewed\"\n  ],\n  \"planned\": [\n    {\n      \"bytes\": 3584,\n      \"path\": \"package/05.01.pack.md\",\n      \"sha256\": \"b46713a78cea87597d04578949d21f4539518133ff58a8c007377fb222ea5a29\"\n    },\n    {\n      \"bytes\": 2552,\n      \"path\": \"package/06.01.notes.md\",\n      \"sha256\": \"2d7fe940fcfbd2a9b88c655ebbbd3f113c290182a18e8f875c2c10758c5349f9\"\n    },\n    {\n      \"bytes\": 4777,\n      \"path\": \"package/ENTRY.md\",\n      \"sha256\": \"1085c83d57c313844a83964e65489ebac71df7bf1f0623e74ddc35b8ba67aff7\"\n    },\n    {\n      \"bytes\": 642,\n      \"path\": \"package/binding.json\",\n      \"sha256\": \"d6bfabb615200c91009deb8631bd834c52286037aae2cfb14e5827f49a1a81b1\"\n    },\n    {\n      \"bytes\": 6270,\n      \"path\": \"package/colab-request.json\",\n      \"sha256\": \"5778b69507ff4eadd67e0b3eb2bdb3aa7d22440110d1ddb16e09b5e5e7c0b1fa\"\n    },\n    {\n      \"bytes\": 3776,\n      \"path\": \"package/snapshots/0001.blob\",\n      \"sha256\": \"1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9\"\n    },\n    {\n      \"bytes\": 434,\n      \"path\": \"package/snapshots/0002.blob\",\n      \"sha256\": \"b82b263ea18f8fe7432c3f0190671c5d9d816d4712a5c64921a0697d2ab701e5\"\n    },\n    {\n      \"bytes\": 4489,\n      \"path\": \"package/snapshots/0003.blob\",\n      \"sha256\": \"246189acdba7c4559c1bda5ba9a6314d60dca9bf1710b87c4eaf59cbde5f6f42\"\n    },\n    {\n      \"bytes\": 1321,\n      \"path\": \"package/snapshots/0004.blob\",\n      \"sha256\": \"a4231ad09ec5a14a320779f29574ca0cd8912eb0b1e8a25d2462d94c6b4dfeed\"\n    },\n    {\n      \"bytes\": 1109,\n      \"path\": \"package/source-manifest.json\",\n      \"sha256\": \"419d863333779d4cf723dbfc0eacf5a9622cf1ab41b1b0ddbcce660daf2a09c0\"\n    },\n    {\n      \"bytes\": 574,\n      \"path\": \"package/support/SUPPORT.md\",\n      \"sha256\": \"8cc3b97b405b20e3bd15710deafd95dd449b58cdbab65731b10ff85947594e38\"\n    },\n    {\n      \"bytes\": 3377,\n      \"path\": \"package/support/assembler/05.01.md\",\n      \"sha256\": \"bbc9e48853ff5720b1184734343672a1f8432612fb1397f8929ef0dcb602dd82\"\n    },\n    {\n      \"bytes\": 2232,\n      \"path\": \"package/support/assembler/completion-receipt.json\",\n      \"sha256\": \"0b51d84d96ff560148f2eec959004ec34b8838da4d155f38dbec524eec4d4170\"\n    },\n    {\n      \"bytes\": 3581,\n      \"path\": \"package/support/assembler/request.snapshot\",\n      \"sha256\": \"bb1d670be230884b6f47655016907133eadc0005bb9a4c166b0116e18a27c4e5\"\n    },\n    {\n      \"bytes\": 1439,\n      \"path\": \"package/templates/05.01.return.TEMPLATE.md\",\n      \"sha256\": \"fcaeaa71c097b2dba66e670057597b0b2ea3f66c93998c606e420282dbd1ef8f\"\n    },\n    {\n      \"bytes\": 1008,\n      \"path\": \"package/templates/06.01.review.TEMPLATE.md\",\n      \"sha256\": \"a6c3a88abbed4c80880b0bdca193c51e7f369e846a672253e7d9f8828eefc943\"\n    },\n    {\n      \"bytes\": 43099,\n      \"path\": \"prepared-colab.zip\",\n      \"sha256\": \"5f77b08318a40b9329f51a9178e274637271d1cf06d4aa3e9e1ea3c354862cfe\"\n    }\n  ],\n  \"result\": \"mismatch\",\n  \"schema\": \"colab-support-report/2\",\n  \"statements\": [\n    \"This package is a draft. Preparation is not a Director release.\",\n    \"05.NN.pack.md is the one primary instruction source; support/ is transport support only.\",\n    \"No 05.NN.return.md or 06.NN.review.md exists at preparation. Templates are templates.\",\n    \"A verified package or receipt is custody, not review or acceptance.\",\n    \"The investigation binding is supplied by Prime; it does not open a live investigation.\",\n    \"Labels and quoted Director text do not authenticate anyone.\"\n  ],\n  \"targets\": [\n    {\n      \"bytes\": 3776,\n      \"kind\": \"whole-file\",\n      \"sha256\": \"1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9\",\n      \"target\": \"T01\"\n    }\n  ]\n}\n",
+        "repaired_stdout": "{\n  \"capability\": \"Derives investigation, binding, exchange names and roles, source-to-snapshot map, support projection, ZIP membership, evaluator separation and the full digest preimage from digest-bound bytes by fixed v2 rules; recomputes the assembler and package digests. Does not re-render prose.\",\n  \"not_verified\": [\n    \"rendered text of ENTRY, pack, notes, templates, SUPPORT.md and the assembler draft: bound by the digest, not re-rendered\",\n    \"heading-section line ranges of targets\",\n    \"assembler completion receipt content and the custody checker result: bound bytes, not re-run\",\n    \"tool pins and v1 request rules beyond schema and binding shape\",\n    \"use the pinned full producer verify (colab_support.py verify) for these\"\n  ],\n  \"problems\": [\n    {\n      \"code\": \"handoff-claim\",\n      \"detail\": \"handoff.exchange differs from the value derived from bound bytes\"\n    }\n  ],\n  \"result\": \"mismatch\",\n  \"schema\": \"colab-handoff-check/2\"\n}\n",
+        "stderr": [
+          "",
+          "",
+          ""
+        ]
+      },
+      "repaired_checker": {
+        "exit": 1,
+        "problems": [
+          {
+            "code": "handoff-claim",
+            "detail": "handoff.exchange differs from the value derived from bound bytes"
+          }
+        ],
+        "result": "mismatch",
+        "trusted_present": false
+      }
+    },
+    {
+      "case": "envelope pack role",
+      "frozen_producer_verify": {
+        "exit": 1,
+        "result": "mismatch"
+      },
+      "held_checker_db921e1c": {
+        "exit": 1,
+        "investigation": {
+          "book": "00.00.10.work",
+          "page": "0701.colab-exchange-layout",
+          "pass": "05.01"
+        },
+        "result": "invalid"
+      },
+      "raw": {
+        "held_stdout": "{\n  \"digest\": \"42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184\",\n  \"exchange\": {\n    \"nn\": \"01\",\n    \"notes\": \"06.01.notes.md\",\n    \"pack\": \"05.01.pack.md\",\n    \"pass\": \"05.01\",\n    \"primary_instruction\": \"05.01.pack.md\",\n    \"return_name\": \"05.01.return.md\",\n    \"return_template\": \"templates/05.01.return.TEMPLATE.md\",\n    \"review_name\": \"06.01.review.md\",\n    \"review_template\": \"templates/06.01.review.TEMPLATE.md\"\n  },\n  \"investigation\": {\n    \"book\": \"00.00.10.work\",\n    \"page\": \"0701.colab-exchange-layout\",\n    \"pass\": \"05.01\"\n  },\n  \"problems\": [\n    \"the handoff does not name exactly one primary instruction file\"\n  ],\n  \"result\": \"invalid\"\n}\n",
+        "producer_stdout": "{\n  \"assembler_verify\": {\n    \"args\": [\n      \"verify\",\n      \"--pack\",\n      \"<temporary projection>\",\n      \"--checker\",\n      \"<pinned checker>\",\n      \"--json\"\n    ],\n    \"exit\": 0,\n    \"stderr\": \"\",\n    \"stdout\": \"{\\n  \\\"schema\\\": \\\"pack-assembly-report/1\\\",\\n  \\\"command\\\": \\\"verify\\\",\\n  \\\"result\\\": \\\"intact\\\",\\n  \\\"digest\\\": null,\\n  \\\"supplied_digest\\\": null,\\n  \\\"template\\\": \\\"pack-assembly-draft/1\\\",\\n  \\\"commit\\\": null,\\n  \\\"request_sha256\\\": null,\\n  \\\"request_bytes\\\": null,\\n  \\\"batch\\\": null,\\n  \\\"sources\\\": [],\\n  \\\"planned\\\": [],\\n  \\\"target\\\": \\\"C:\\\\\\\\Users\\\\\\\\misg\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\colab2-verify-j392vmj5\\\\\\\\pack\\\",\\n  \\\"checker\\\": {\\n    \\\"sha256\\\": \\\"9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d\\\",\\n    \\\"bytes\\\": 21563,\\n    \\\"result\\\": \\\"pass\\\",\\n    \\\"exit\\\": 0,\\n    \\\"rows_checked\\\": 4\\n  },\\n  \\\"receipt\\\": \\\"completion-receipt.json\\\",\\n  \\\"findings\\\": [],\\n  \\\"not_checked\\\": [\\n    {\\n      \\\"item\\\": \\\"meaning\\\",\\n      \\\"detail\\\": \\\"This tool does not say what the draft means.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"instruction-sufficiency\\\",\\n      \\\"detail\\\": \\\"This tool does not decide whether the instructions are sufficient.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"approval-release\\\",\\n      \\\"detail\\\": \\\"This tool does not approve or release the draft. A receipt is not acceptance.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"dependencies\\\",\\n      \\\"detail\\\": \\\"Dependencies are copied as supplied or left unresolved. None are installed or fetched.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"execution-safety\\\",\\n      \\\"detail\\\": \\\"Request text and pinned sources are data. This tool does not execute them.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"return-slot\\\",\\n      \\\"detail\\\": \\\"Live return-slot allocation is not checked.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"clerk-readiness\\\",\\n      \\\"detail\\\": \\\"Clerk readiness is not checked.\\\"\\n    }\\n  ]\\n}\\n\",\n    \"tool\": \"assembler\"\n  },\n  \"command\": \"verify\",\n  \"commit\": \"6896224510fe0bcebac291fce7ed311a2cd085cb\",\n  \"digest\": \"42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184\",\n  \"exchange\": {\n    \"notes\": \"06.01.notes.md\",\n    \"pack\": \"05.01.pack.md\",\n    \"pass\": \"05.01\",\n    \"return_name\": \"05.01.return.md\",\n    \"return_template\": \"templates/05.01.return.TEMPLATE.md\",\n    \"review_name\": \"06.01.review.md\",\n    \"review_template\": \"templates/06.01.review.TEMPLATE.md\"\n  },\n  \"findings\": [\n    {\n      \"code\": \"differs\",\n      \"detail\": \"handoff.json differs from the recomputed plan\",\n      \"kind\": \"pack-defect\"\n    }\n  ],\n  \"investigation\": {\n    \"book\": \"00.00.10.work\",\n    \"page\": \"0701.colab-exchange-layout\",\n    \"pass\": \"05.01\"\n  },\n  \"layout\": \"colab-exchange-layout/2\",\n  \"not_checked\": [\n    \"meaning, adequacy and design findings\",\n    \"authenticity of labels and quoted replies\",\n    \"permission: nothing is released, reviewed, accepted, seated or published\",\n    \"workflow integration: no consumer of this layout has been reviewed\"\n  ],\n  \"planned\": [\n    {\n      \"bytes\": 3584,\n      \"path\": \"package/05.01.pack.md\",\n      \"sha256\": \"b46713a78cea87597d04578949d21f4539518133ff58a8c007377fb222ea5a29\"\n    },\n    {\n      \"bytes\": 2552,\n      \"path\": \"package/06.01.notes.md\",\n      \"sha256\": \"2d7fe940fcfbd2a9b88c655ebbbd3f113c290182a18e8f875c2c10758c5349f9\"\n    },\n    {\n      \"bytes\": 4777,\n      \"path\": \"package/ENTRY.md\",\n      \"sha256\": \"1085c83d57c313844a83964e65489ebac71df7bf1f0623e74ddc35b8ba67aff7\"\n    },\n    {\n      \"bytes\": 642,\n      \"path\": \"package/binding.json\",\n      \"sha256\": \"d6bfabb615200c91009deb8631bd834c52286037aae2cfb14e5827f49a1a81b1\"\n    },\n    {\n      \"bytes\": 6270,\n      \"path\": \"package/colab-request.json\",\n      \"sha256\": \"5778b69507ff4eadd67e0b3eb2bdb3aa7d22440110d1ddb16e09b5e5e7c0b1fa\"\n    },\n    {\n      \"bytes\": 3776,\n      \"path\": \"package/snapshots/0001.blob\",\n      \"sha256\": \"1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9\"\n    },\n    {\n      \"bytes\": 434,\n      \"path\": \"package/snapshots/0002.blob\",\n      \"sha256\": \"b82b263ea18f8fe7432c3f0190671c5d9d816d4712a5c64921a0697d2ab701e5\"\n    },\n    {\n      \"bytes\": 4489,\n      \"path\": \"package/snapshots/0003.blob\",\n      \"sha256\": \"246189acdba7c4559c1bda5ba9a6314d60dca9bf1710b87c4eaf59cbde5f6f42\"\n    },\n    {\n      \"bytes\": 1321,\n      \"path\": \"package/snapshots/0004.blob\",\n      \"sha256\": \"a4231ad09ec5a14a320779f29574ca0cd8912eb0b1e8a25d2462d94c6b4dfeed\"\n    },\n    {\n      \"bytes\": 1109,\n      \"path\": \"package/source-manifest.json\",\n      \"sha256\": \"419d863333779d4cf723dbfc0eacf5a9622cf1ab41b1b0ddbcce660daf2a09c0\"\n    },\n    {\n      \"bytes\": 574,\n      \"path\": \"package/support/SUPPORT.md\",\n      \"sha256\": \"8cc3b97b405b20e3bd15710deafd95dd449b58cdbab65731b10ff85947594e38\"\n    },\n    {\n      \"bytes\": 3377,\n      \"path\": \"package/support/assembler/05.01.md\",\n      \"sha256\": \"bbc9e48853ff5720b1184734343672a1f8432612fb1397f8929ef0dcb602dd82\"\n    },\n    {\n      \"bytes\": 2232,\n      \"path\": \"package/support/assembler/completion-receipt.json\",\n      \"sha256\": \"0b51d84d96ff560148f2eec959004ec34b8838da4d155f38dbec524eec4d4170\"\n    },\n    {\n      \"bytes\": 3581,\n      \"path\": \"package/support/assembler/request.snapshot\",\n      \"sha256\": \"bb1d670be230884b6f47655016907133eadc0005bb9a4c166b0116e18a27c4e5\"\n    },\n    {\n      \"bytes\": 1439,\n      \"path\": \"package/templates/05.01.return.TEMPLATE.md\",\n      \"sha256\": \"fcaeaa71c097b2dba66e670057597b0b2ea3f66c93998c606e420282dbd1ef8f\"\n    },\n    {\n      \"bytes\": 1008,\n      \"path\": \"package/templates/06.01.review.TEMPLATE.md\",\n      \"sha256\": \"a6c3a88abbed4c80880b0bdca193c51e7f369e846a672253e7d9f8828eefc943\"\n    },\n    {\n      \"bytes\": 43099,\n      \"path\": \"prepared-colab.zip\",\n      \"sha256\": \"5f77b08318a40b9329f51a9178e274637271d1cf06d4aa3e9e1ea3c354862cfe\"\n    }\n  ],\n  \"result\": \"mismatch\",\n  \"schema\": \"colab-support-report/2\",\n  \"statements\": [\n    \"This package is a draft. Preparation is not a Director release.\",\n    \"05.NN.pack.md is the one primary instruction source; support/ is transport support only.\",\n    \"No 05.NN.return.md or 06.NN.review.md exists at preparation. Templates are templates.\",\n    \"A verified package or receipt is custody, not review or acceptance.\",\n    \"The investigation binding is supplied by Prime; it does not open a live investigation.\",\n    \"Labels and quoted Director text do not authenticate anyone.\"\n  ],\n  \"targets\": [\n    {\n      \"bytes\": 3776,\n      \"kind\": \"whole-file\",\n      \"sha256\": \"1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9\",\n      \"target\": \"T01\"\n    }\n  ]\n}\n",
+        "repaired_stdout": "{\n  \"capability\": \"Derives investigation, binding, exchange names and roles, source-to-snapshot map, support projection, ZIP membership, evaluator separation and the full digest preimage from digest-bound bytes by fixed v2 rules; recomputes the assembler and package digests. Does not re-render prose.\",\n  \"not_verified\": [\n    \"rendered text of ENTRY, pack, notes, templates, SUPPORT.md and the assembler draft: bound by the digest, not re-rendered\",\n    \"heading-section line ranges of targets\",\n    \"assembler completion receipt content and the custody checker result: bound bytes, not re-run\",\n    \"tool pins and v1 request rules beyond schema and binding shape\",\n    \"use the pinned full producer verify (colab_support.py verify) for these\"\n  ],\n  \"problems\": [\n    {\n      \"code\": \"handoff-claim\",\n      \"detail\": \"handoff.envelope differs from the value derived from bound bytes\"\n    }\n  ],\n  \"result\": \"mismatch\",\n  \"schema\": \"colab-handoff-check/2\"\n}\n",
+        "stderr": [
+          "",
+          "",
+          ""
+        ]
+      },
+      "repaired_checker": {
+        "exit": 1,
+        "problems": [
+          {
+            "code": "handoff-claim",
+            "detail": "handoff.envelope differs from the value derived from bound bytes"
+          }
+        ],
+        "result": "mismatch",
+        "trusted_present": false
+      }
+    },
+    {
+      "case": "source_map role",
+      "frozen_producer_verify": {
+        "exit": 1,
+        "result": "mismatch"
+      },
+      "held_checker_db921e1c": {
+        "exit": 0,
+        "investigation": {
+          "book": "00.00.10.work",
+          "page": "0701.colab-exchange-layout",
+          "pass": "05.01"
+        },
+        "result": "valid"
+      },
+      "raw": {
+        "held_stdout": "{\n  \"digest\": \"42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184\",\n  \"exchange\": {\n    \"nn\": \"01\",\n    \"notes\": \"06.01.notes.md\",\n    \"pack\": \"05.01.pack.md\",\n    \"pass\": \"05.01\",\n    \"primary_instruction\": \"05.01.pack.md\",\n    \"return_name\": \"05.01.return.md\",\n    \"return_template\": \"templates/05.01.return.TEMPLATE.md\",\n    \"review_name\": \"06.01.review.md\",\n    \"review_template\": \"templates/06.01.review.TEMPLATE.md\"\n  },\n  \"investigation\": {\n    \"book\": \"00.00.10.work\",\n    \"page\": \"0701.colab-exchange-layout\",\n    \"pass\": \"05.01\"\n  },\n  \"problems\": [],\n  \"result\": \"valid\"\n}\n",
+        "producer_stdout": "{\n  \"assembler_verify\": {\n    \"args\": [\n      \"verify\",\n      \"--pack\",\n      \"<temporary projection>\",\n      \"--checker\",\n      \"<pinned checker>\",\n      \"--json\"\n    ],\n    \"exit\": 0,\n    \"stderr\": \"\",\n    \"stdout\": \"{\\n  \\\"schema\\\": \\\"pack-assembly-report/1\\\",\\n  \\\"command\\\": \\\"verify\\\",\\n  \\\"result\\\": \\\"intact\\\",\\n  \\\"digest\\\": null,\\n  \\\"supplied_digest\\\": null,\\n  \\\"template\\\": \\\"pack-assembly-draft/1\\\",\\n  \\\"commit\\\": null,\\n  \\\"request_sha256\\\": null,\\n  \\\"request_bytes\\\": null,\\n  \\\"batch\\\": null,\\n  \\\"sources\\\": [],\\n  \\\"planned\\\": [],\\n  \\\"target\\\": \\\"C:\\\\\\\\Users\\\\\\\\misg\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\colab2-verify-m_vmqp5m\\\\\\\\pack\\\",\\n  \\\"checker\\\": {\\n    \\\"sha256\\\": \\\"9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d\\\",\\n    \\\"bytes\\\": 21563,\\n    \\\"result\\\": \\\"pass\\\",\\n    \\\"exit\\\": 0,\\n    \\\"rows_checked\\\": 4\\n  },\\n  \\\"receipt\\\": \\\"completion-receipt.json\\\",\\n  \\\"findings\\\": [],\\n  \\\"not_checked\\\": [\\n    {\\n      \\\"item\\\": \\\"meaning\\\",\\n      \\\"detail\\\": \\\"This tool does not say what the draft means.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"instruction-sufficiency\\\",\\n      \\\"detail\\\": \\\"This tool does not decide whether the instructions are sufficient.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"approval-release\\\",\\n      \\\"detail\\\": \\\"This tool does not approve or release the draft. A receipt is not acceptance.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"dependencies\\\",\\n      \\\"detail\\\": \\\"Dependencies are copied as supplied or left unresolved. None are installed or fetched.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"execution-safety\\\",\\n      \\\"detail\\\": \\\"Request text and pinned sources are data. This tool does not execute them.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"return-slot\\\",\\n      \\\"detail\\\": \\\"Live return-slot allocation is not checked.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"clerk-readiness\\\",\\n      \\\"detail\\\": \\\"Clerk readiness is not checked.\\\"\\n    }\\n  ]\\n}\\n\",\n    \"tool\": \"assembler\"\n  },\n  \"command\": \"verify\",\n  \"commit\": \"6896224510fe0bcebac291fce7ed311a2cd085cb\",\n  \"digest\": \"42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184\",\n  \"exchange\": {\n    \"notes\": \"06.01.notes.md\",\n    \"pack\": \"05.01.pack.md\",\n    \"pass\": \"05.01\",\n    \"return_name\": \"05.01.return.md\",\n    \"return_template\": \"templates/05.01.return.TEMPLATE.md\",\n    \"review_name\": \"06.01.review.md\",\n    \"review_template\": \"templates/06.01.review.TEMPLATE.md\"\n  },\n  \"findings\": [\n    {\n      \"code\": \"differs\",\n      \"detail\": \"handoff.json differs from the recomputed plan\",\n      \"kind\": \"pack-defect\"\n    }\n  ],\n  \"investigation\": {\n    \"book\": \"00.00.10.work\",\n    \"page\": \"0701.colab-exchange-layout\",\n    \"pass\": \"05.01\"\n  },\n  \"layout\": \"colab-exchange-layout/2\",\n  \"not_checked\": [\n    \"meaning, adequacy and design findings\",\n    \"authenticity of labels and quoted replies\",\n    \"permission: nothing is released, reviewed, accepted, seated or published\",\n    \"workflow integration: no consumer of this layout has been reviewed\"\n  ],\n  \"planned\": [\n    {\n      \"bytes\": 3584,\n      \"path\": \"package/05.01.pack.md\",\n      \"sha256\": \"b46713a78cea87597d04578949d21f4539518133ff58a8c007377fb222ea5a29\"\n    },\n    {\n      \"bytes\": 2552,\n      \"path\": \"package/06.01.notes.md\",\n      \"sha256\": \"2d7fe940fcfbd2a9b88c655ebbbd3f113c290182a18e8f875c2c10758c5349f9\"\n    },\n    {\n      \"bytes\": 4777,\n      \"path\": \"package/ENTRY.md\",\n      \"sha256\": \"1085c83d57c313844a83964e65489ebac71df7bf1f0623e74ddc35b8ba67aff7\"\n    },\n    {\n      \"bytes\": 642,\n      \"path\": \"package/binding.json\",\n      \"sha256\": \"d6bfabb615200c91009deb8631bd834c52286037aae2cfb14e5827f49a1a81b1\"\n    },\n    {\n      \"bytes\": 6270,\n      \"path\": \"package/colab-request.json\",\n      \"sha256\": \"5778b69507ff4eadd67e0b3eb2bdb3aa7d22440110d1ddb16e09b5e5e7c0b1fa\"\n    },\n    {\n      \"bytes\": 3776,\n      \"path\": \"package/snapshots/0001.blob\",\n      \"sha256\": \"1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9\"\n    },\n    {\n      \"bytes\": 434,\n      \"path\": \"package/snapshots/0002.blob\",\n      \"sha256\": \"b82b263ea18f8fe7432c3f0190671c5d9d816d4712a5c64921a0697d2ab701e5\"\n    },\n    {\n      \"bytes\": 4489,\n      \"path\": \"package/snapshots/0003.blob\",\n      \"sha256\": \"246189acdba7c4559c1bda5ba9a6314d60dca9bf1710b87c4eaf59cbde5f6f42\"\n    },\n    {\n      \"bytes\": 1321,\n      \"path\": \"package/snapshots/0004.blob\",\n      \"sha256\": \"a4231ad09ec5a14a320779f29574ca0cd8912eb0b1e8a25d2462d94c6b4dfeed\"\n    },\n    {\n      \"bytes\": 1109,\n      \"path\": \"package/source-manifest.json\",\n      \"sha256\": \"419d863333779d4cf723dbfc0eacf5a9622cf1ab41b1b0ddbcce660daf2a09c0\"\n    },\n    {\n      \"bytes\": 574,\n      \"path\": \"package/support/SUPPORT.md\",\n      \"sha256\": \"8cc3b97b405b20e3bd15710deafd95dd449b58cdbab65731b10ff85947594e38\"\n    },\n    {\n      \"bytes\": 3377,\n      \"path\": \"package/support/assembler/05.01.md\",\n      \"sha256\": \"bbc9e48853ff5720b1184734343672a1f8432612fb1397f8929ef0dcb602dd82\"\n    },\n    {\n      \"bytes\": 2232,\n      \"path\": \"package/support/assembler/completion-receipt.json\",\n      \"sha256\": \"0b51d84d96ff560148f2eec959004ec34b8838da4d155f38dbec524eec4d4170\"\n    },\n    {\n      \"bytes\": 3581,\n      \"path\": \"package/support/assembler/request.snapshot\",\n      \"sha256\": \"bb1d670be230884b6f47655016907133eadc0005bb9a4c166b0116e18a27c4e5\"\n    },\n    {\n      \"bytes\": 1439,\n      \"path\": \"package/templates/05.01.return.TEMPLATE.md\",\n      \"sha256\": \"fcaeaa71c097b2dba66e670057597b0b2ea3f66c93998c606e420282dbd1ef8f\"\n    },\n    {\n      \"bytes\": 1008,\n      \"path\": \"package/templates/06.01.review.TEMPLATE.md\",\n      \"sha256\": \"a6c3a88abbed4c80880b0bdca193c51e7f369e846a672253e7d9f8828eefc943\"\n    },\n    {\n      \"bytes\": 43099,\n      \"path\": \"prepared-colab.zip\",\n      \"sha256\": \"5f77b08318a40b9329f51a9178e274637271d1cf06d4aa3e9e1ea3c354862cfe\"\n    }\n  ],\n  \"result\": \"mismatch\",\n  \"schema\": \"colab-support-report/2\",\n  \"statements\": [\n    \"This package is a draft. Preparation is not a Director release.\",\n    \"05.NN.pack.md is the one primary instruction source; support/ is transport support only.\",\n    \"No 05.NN.return.md or 06.NN.review.md exists at preparation. Templates are templates.\",\n    \"A verified package or receipt is custody, not review or acceptance.\",\n    \"The investigation binding is supplied by Prime; it does not open a live investigation.\",\n    \"Labels and quoted Director text do not authenticate anyone.\"\n  ],\n  \"targets\": [\n    {\n      \"bytes\": 3776,\n      \"kind\": \"whole-file\",\n      \"sha256\": \"1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9\",\n      \"target\": \"T01\"\n    }\n  ]\n}\n",
+        "repaired_stdout": "{\n  \"capability\": \"Derives investigation, binding, exchange names and roles, source-to-snapshot map, support projection, ZIP membership, evaluator separation and the full digest preimage from digest-bound bytes by fixed v2 rules; recomputes the assembler and package digests. Does not re-render prose.\",\n  \"not_verified\": [\n    \"rendered text of ENTRY, pack, notes, templates, SUPPORT.md and the assembler draft: bound by the digest, not re-rendered\",\n    \"heading-section line ranges of targets\",\n    \"assembler completion receipt content and the custody checker result: bound bytes, not re-run\",\n    \"tool pins and v1 request rules beyond schema and binding shape\",\n    \"use the pinned full producer verify (colab_support.py verify) for these\"\n  ],\n  \"problems\": [\n    {\n      \"code\": \"handoff-claim\",\n      \"detail\": \"handoff.source_map differs from the value derived from bound bytes\"\n    }\n  ],\n  \"result\": \"mismatch\",\n  \"schema\": \"colab-handoff-check/2\"\n}\n",
+        "stderr": [
+          "",
+          "",
+          ""
+        ]
+      },
+      "repaired_checker": {
+        "exit": 1,
+        "problems": [
+          {
+            "code": "handoff-claim",
+            "detail": "handoff.source_map differs from the value derived from bound bytes"
+          }
+        ],
+        "result": "mismatch",
+        "trusted_present": false
+      }
+    },
+    {
+      "case": "not_created emptied",
+      "frozen_producer_verify": {
+        "exit": 1,
+        "result": "mismatch"
+      },
+      "held_checker_db921e1c": {
+        "exit": 0,
+        "investigation": {
+          "book": "00.00.10.work",
+          "page": "0701.colab-exchange-layout",
+          "pass": "05.01"
+        },
+        "result": "valid"
+      },
+      "raw": {
+        "held_stdout": "{\n  \"digest\": \"42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184\",\n  \"exchange\": {\n    \"nn\": \"01\",\n    \"notes\": \"06.01.notes.md\",\n    \"pack\": \"05.01.pack.md\",\n    \"pass\": \"05.01\",\n    \"primary_instruction\": \"05.01.pack.md\",\n    \"return_name\": \"05.01.return.md\",\n    \"return_template\": \"templates/05.01.return.TEMPLATE.md\",\n    \"review_name\": \"06.01.review.md\",\n    \"review_template\": \"templates/06.01.review.TEMPLATE.md\"\n  },\n  \"investigation\": {\n    \"book\": \"00.00.10.work\",\n    \"page\": \"0701.colab-exchange-layout\",\n    \"pass\": \"05.01\"\n  },\n  \"problems\": [],\n  \"result\": \"valid\"\n}\n",
+        "producer_stdout": "{\n  \"assembler_verify\": {\n    \"args\": [\n      \"verify\",\n      \"--pack\",\n      \"<temporary projection>\",\n      \"--checker\",\n      \"<pinned checker>\",\n      \"--json\"\n    ],\n    \"exit\": 0,\n    \"stderr\": \"\",\n    \"stdout\": \"{\\n  \\\"schema\\\": \\\"pack-assembly-report/1\\\",\\n  \\\"command\\\": \\\"verify\\\",\\n  \\\"result\\\": \\\"intact\\\",\\n  \\\"digest\\\": null,\\n  \\\"supplied_digest\\\": null,\\n  \\\"template\\\": \\\"pack-assembly-draft/1\\\",\\n  \\\"commit\\\": null,\\n  \\\"request_sha256\\\": null,\\n  \\\"request_bytes\\\": null,\\n  \\\"batch\\\": null,\\n  \\\"sources\\\": [],\\n  \\\"planned\\\": [],\\n  \\\"target\\\": \\\"C:\\\\\\\\Users\\\\\\\\misg\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\colab2-verify-_s9l0z66\\\\\\\\pack\\\",\\n  \\\"checker\\\": {\\n    \\\"sha256\\\": \\\"9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d\\\",\\n    \\\"bytes\\\": 21563,\\n    \\\"result\\\": \\\"pass\\\",\\n    \\\"exit\\\": 0,\\n    \\\"rows_checked\\\": 4\\n  },\\n  \\\"receipt\\\": \\\"completion-receipt.json\\\",\\n  \\\"findings\\\": [],\\n  \\\"not_checked\\\": [\\n    {\\n      \\\"item\\\": \\\"meaning\\\",\\n      \\\"detail\\\": \\\"This tool does not say what the draft means.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"instruction-sufficiency\\\",\\n      \\\"detail\\\": \\\"This tool does not decide whether the instructions are sufficient.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"approval-release\\\",\\n      \\\"detail\\\": \\\"This tool does not approve or release the draft. A receipt is not acceptance.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"dependencies\\\",\\n      \\\"detail\\\": \\\"Dependencies are copied as supplied or left unresolved. None are installed or fetched.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"execution-safety\\\",\\n      \\\"detail\\\": \\\"Request text and pinned sources are data. This tool does not execute them.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"return-slot\\\",\\n      \\\"detail\\\": \\\"Live return-slot allocation is not checked.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"clerk-readiness\\\",\\n      \\\"detail\\\": \\\"Clerk readiness is not checked.\\\"\\n    }\\n  ]\\n}\\n\",\n    \"tool\": \"assembler\"\n  },\n  \"command\": \"verify\",\n  \"commit\": \"6896224510fe0bcebac291fce7ed311a2cd085cb\",\n  \"digest\": \"42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184\",\n  \"exchange\": {\n    \"notes\": \"06.01.notes.md\",\n    \"pack\": \"05.01.pack.md\",\n    \"pass\": \"05.01\",\n    \"return_name\": \"05.01.return.md\",\n    \"return_template\": \"templates/05.01.return.TEMPLATE.md\",\n    \"review_name\": \"06.01.review.md\",\n    \"review_template\": \"templates/06.01.review.TEMPLATE.md\"\n  },\n  \"findings\": [\n    {\n      \"code\": \"differs\",\n      \"detail\": \"handoff.json differs from the recomputed plan\",\n      \"kind\": \"pack-defect\"\n    }\n  ],\n  \"investigation\": {\n    \"book\": \"00.00.10.work\",\n    \"page\": \"0701.colab-exchange-layout\",\n    \"pass\": \"05.01\"\n  },\n  \"layout\": \"colab-exchange-layout/2\",\n  \"not_checked\": [\n    \"meaning, adequacy and design findings\",\n    \"authenticity of labels and quoted replies\",\n    \"permission: nothing is released, reviewed, accepted, seated or published\",\n    \"workflow integration: no consumer of this layout has been reviewed\"\n  ],\n  \"planned\": [\n    {\n      \"bytes\": 3584,\n      \"path\": \"package/05.01.pack.md\",\n      \"sha256\": \"b46713a78cea87597d04578949d21f4539518133ff58a8c007377fb222ea5a29\"\n    },\n    {\n      \"bytes\": 2552,\n      \"path\": \"package/06.01.notes.md\",\n      \"sha256\": \"2d7fe940fcfbd2a9b88c655ebbbd3f113c290182a18e8f875c2c10758c5349f9\"\n    },\n    {\n      \"bytes\": 4777,\n      \"path\": \"package/ENTRY.md\",\n      \"sha256\": \"1085c83d57c313844a83964e65489ebac71df7bf1f0623e74ddc35b8ba67aff7\"\n    },\n    {\n      \"bytes\": 642,\n      \"path\": \"package/binding.json\",\n      \"sha256\": \"d6bfabb615200c91009deb8631bd834c52286037aae2cfb14e5827f49a1a81b1\"\n    },\n    {\n      \"bytes\": 6270,\n      \"path\": \"package/colab-request.json\",\n      \"sha256\": \"5778b69507ff4eadd67e0b3eb2bdb3aa7d22440110d1ddb16e09b5e5e7c0b1fa\"\n    },\n    {\n      \"bytes\": 3776,\n      \"path\": \"package/snapshots/0001.blob\",\n      \"sha256\": \"1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9\"\n    },\n    {\n      \"bytes\": 434,\n      \"path\": \"package/snapshots/0002.blob\",\n      \"sha256\": \"b82b263ea18f8fe7432c3f0190671c5d9d816d4712a5c64921a0697d2ab701e5\"\n    },\n    {\n      \"bytes\": 4489,\n      \"path\": \"package/snapshots/0003.blob\",\n      \"sha256\": \"246189acdba7c4559c1bda5ba9a6314d60dca9bf1710b87c4eaf59cbde5f6f42\"\n    },\n    {\n      \"bytes\": 1321,\n      \"path\": \"package/snapshots/0004.blob\",\n      \"sha256\": \"a4231ad09ec5a14a320779f29574ca0cd8912eb0b1e8a25d2462d94c6b4dfeed\"\n    },\n    {\n      \"bytes\": 1109,\n      \"path\": \"package/source-manifest.json\",\n      \"sha256\": \"419d863333779d4cf723dbfc0eacf5a9622cf1ab41b1b0ddbcce660daf2a09c0\"\n    },\n    {\n      \"bytes\": 574,\n      \"path\": \"package/support/SUPPORT.md\",\n      \"sha256\": \"8cc3b97b405b20e3bd15710deafd95dd449b58cdbab65731b10ff85947594e38\"\n    },\n    {\n      \"bytes\": 3377,\n      \"path\": \"package/support/assembler/05.01.md\",\n      \"sha256\": \"bbc9e48853ff5720b1184734343672a1f8432612fb1397f8929ef0dcb602dd82\"\n    },\n    {\n      \"bytes\": 2232,\n      \"path\": \"package/support/assembler/completion-receipt.json\",\n      \"sha256\": \"0b51d84d96ff560148f2eec959004ec34b8838da4d155f38dbec524eec4d4170\"\n    },\n    {\n      \"bytes\": 3581,\n      \"path\": \"package/support/assembler/request.snapshot\",\n      \"sha256\": \"bb1d670be230884b6f47655016907133eadc0005bb9a4c166b0116e18a27c4e5\"\n    },\n    {\n      \"bytes\": 1439,\n      \"path\": \"package/templates/05.01.return.TEMPLATE.md\",\n      \"sha256\": \"fcaeaa71c097b2dba66e670057597b0b2ea3f66c93998c606e420282dbd1ef8f\"\n    },\n    {\n      \"bytes\": 1008,\n      \"path\": \"package/templates/06.01.review.TEMPLATE.md\",\n      \"sha256\": \"a6c3a88abbed4c80880b0bdca193c51e7f369e846a672253e7d9f8828eefc943\"\n    },\n    {\n      \"bytes\": 43099,\n      \"path\": \"prepared-colab.zip\",\n      \"sha256\": \"5f77b08318a40b9329f51a9178e274637271d1cf06d4aa3e9e1ea3c354862cfe\"\n    }\n  ],\n  \"result\": \"mismatch\",\n  \"schema\": \"colab-support-report/2\",\n  \"statements\": [\n    \"This package is a draft. Preparation is not a Director release.\",\n    \"05.NN.pack.md is the one primary instruction source; support/ is transport support only.\",\n    \"No 05.NN.return.md or 06.NN.review.md exists at preparation. Templates are templates.\",\n    \"A verified package or receipt is custody, not review or acceptance.\",\n    \"The investigation binding is supplied by Prime; it does not open a live investigation.\",\n    \"Labels and quoted Director text do not authenticate anyone.\"\n  ],\n  \"targets\": [\n    {\n      \"bytes\": 3776,\n      \"kind\": \"whole-file\",\n      \"sha256\": \"1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9\",\n      \"target\": \"T01\"\n    }\n  ]\n}\n",
+        "repaired_stdout": "{\n  \"capability\": \"Derives investigation, binding, exchange names and roles, source-to-snapshot map, support projection, ZIP membership, evaluator separation and the full digest preimage from digest-bound bytes by fixed v2 rules; recomputes the assembler and package digests. Does not re-render prose.\",\n  \"not_verified\": [\n    \"rendered text of ENTRY, pack, notes, templates, SUPPORT.md and the assembler draft: bound by the digest, not re-rendered\",\n    \"heading-section line ranges of targets\",\n    \"assembler completion receipt content and the custody checker result: bound bytes, not re-run\",\n    \"tool pins and v1 request rules beyond schema and binding shape\",\n    \"use the pinned full producer verify (colab_support.py verify) for these\"\n  ],\n  \"problems\": [\n    {\n      \"code\": \"handoff-claim\",\n      \"detail\": \"handoff.not_created differs from the value derived from bound bytes\"\n    }\n  ],\n  \"result\": \"mismatch\",\n  \"schema\": \"colab-handoff-check/2\"\n}\n",
+        "stderr": [
+          "",
+          "",
+          ""
+        ]
+      },
+      "repaired_checker": {
+        "exit": 1,
+        "problems": [
+          {
+            "code": "handoff-claim",
+            "detail": "handoff.not_created differs from the value derived from bound bytes"
+          }
+        ],
+        "result": "mismatch",
+        "trusted_present": false
+      }
+    },
+    {
+      "case": "preimage order",
+      "frozen_producer_verify": {
+        "exit": 1,
+        "result": "mismatch"
+      },
+      "held_checker_db921e1c": {
+        "exit": 1,
+        "investigation": {
+          "book": "00.00.10.work",
+          "page": "0701.colab-exchange-layout",
+          "pass": "05.01"
+        },
+        "result": "invalid"
+      },
+      "raw": {
+        "held_stdout": "{\n  \"digest\": \"42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184\",\n  \"exchange\": {\n    \"nn\": \"01\",\n    \"notes\": \"06.01.notes.md\",\n    \"pack\": \"05.01.pack.md\",\n    \"pass\": \"05.01\",\n    \"primary_instruction\": \"05.01.pack.md\",\n    \"return_name\": \"05.01.return.md\",\n    \"return_template\": \"templates/05.01.return.TEMPLATE.md\",\n    \"review_name\": \"06.01.review.md\",\n    \"review_template\": \"templates/06.01.review.TEMPLATE.md\"\n  },\n  \"investigation\": {\n    \"book\": \"00.00.10.work\",\n    \"page\": \"0701.colab-exchange-layout\",\n    \"pass\": \"05.01\"\n  },\n  \"problems\": [\n    \"digest recomputed from the preimage is not the expected digest\"\n  ],\n  \"result\": \"invalid\"\n}\n",
+        "producer_stdout": "{\n  \"assembler_verify\": {\n    \"args\": [\n      \"verify\",\n      \"--pack\",\n      \"<temporary projection>\",\n      \"--checker\",\n      \"<pinned checker>\",\n      \"--json\"\n    ],\n    \"exit\": 0,\n    \"stderr\": \"\",\n    \"stdout\": \"{\\n  \\\"schema\\\": \\\"pack-assembly-report/1\\\",\\n  \\\"command\\\": \\\"verify\\\",\\n  \\\"result\\\": \\\"intact\\\",\\n  \\\"digest\\\": null,\\n  \\\"supplied_digest\\\": null,\\n  \\\"template\\\": \\\"pack-assembly-draft/1\\\",\\n  \\\"commit\\\": null,\\n  \\\"request_sha256\\\": null,\\n  \\\"request_bytes\\\": null,\\n  \\\"batch\\\": null,\\n  \\\"sources\\\": [],\\n  \\\"planned\\\": [],\\n  \\\"target\\\": \\\"C:\\\\\\\\Users\\\\\\\\misg\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\colab2-verify-frupl0jk\\\\\\\\pack\\\",\\n  \\\"checker\\\": {\\n    \\\"sha256\\\": \\\"9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d\\\",\\n    \\\"bytes\\\": 21563,\\n    \\\"result\\\": \\\"pass\\\",\\n    \\\"exit\\\": 0,\\n    \\\"rows_checked\\\": 4\\n  },\\n  \\\"receipt\\\": \\\"completion-receipt.json\\\",\\n  \\\"findings\\\": [],\\n  \\\"not_checked\\\": [\\n    {\\n      \\\"item\\\": \\\"meaning\\\",\\n      \\\"detail\\\": \\\"This tool does not say what the draft means.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"instruction-sufficiency\\\",\\n      \\\"detail\\\": \\\"This tool does not decide whether the instructions are sufficient.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"approval-release\\\",\\n      \\\"detail\\\": \\\"This tool does not approve or release the draft. A receipt is not acceptance.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"dependencies\\\",\\n      \\\"detail\\\": \\\"Dependencies are copied as supplied or left unresolved. None are installed or fetched.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"execution-safety\\\",\\n      \\\"detail\\\": \\\"Request text and pinned sources are data. This tool does not execute them.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"return-slot\\\",\\n      \\\"detail\\\": \\\"Live return-slot allocation is not checked.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"clerk-readiness\\\",\\n      \\\"detail\\\": \\\"Clerk readiness is not checked.\\\"\\n    }\\n  ]\\n}\\n\",\n    \"tool\": \"assembler\"\n  },\n  \"command\": \"verify\",\n  \"commit\": \"6896224510fe0bcebac291fce7ed311a2cd085cb\",\n  \"digest\": \"42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184\",\n  \"exchange\": {\n    \"notes\": \"06.01.notes.md\",\n    \"pack\": \"05.01.pack.md\",\n    \"pass\": \"05.01\",\n    \"return_name\": \"05.01.return.md\",\n    \"return_template\": \"templates/05.01.return.TEMPLATE.md\",\n    \"review_name\": \"06.01.review.md\",\n    \"review_template\": \"templates/06.01.review.TEMPLATE.md\"\n  },\n  \"findings\": [\n    {\n      \"code\": \"differs\",\n      \"detail\": \"handoff.json differs from the recomputed plan\",\n      \"kind\": \"pack-defect\"\n    }\n  ],\n  \"investigation\": {\n    \"book\": \"00.00.10.work\",\n    \"page\": \"0701.colab-exchange-layout\",\n    \"pass\": \"05.01\"\n  },\n  \"layout\": \"colab-exchange-layout/2\",\n  \"not_checked\": [\n    \"meaning, adequacy and design findings\",\n    \"authenticity of labels and quoted replies\",\n    \"permission: nothing is released, reviewed, accepted, seated or published\",\n    \"workflow integration: no consumer of this layout has been reviewed\"\n  ],\n  \"planned\": [\n    {\n      \"bytes\": 3584,\n      \"path\": \"package/05.01.pack.md\",\n      \"sha256\": \"b46713a78cea87597d04578949d21f4539518133ff58a8c007377fb222ea5a29\"\n    },\n    {\n      \"bytes\": 2552,\n      \"path\": \"package/06.01.notes.md\",\n      \"sha256\": \"2d7fe940fcfbd2a9b88c655ebbbd3f113c290182a18e8f875c2c10758c5349f9\"\n    },\n    {\n      \"bytes\": 4777,\n      \"path\": \"package/ENTRY.md\",\n      \"sha256\": \"1085c83d57c313844a83964e65489ebac71df7bf1f0623e74ddc35b8ba67aff7\"\n    },\n    {\n      \"bytes\": 642,\n      \"path\": \"package/binding.json\",\n      \"sha256\": \"d6bfabb615200c91009deb8631bd834c52286037aae2cfb14e5827f49a1a81b1\"\n    },\n    {\n      \"bytes\": 6270,\n      \"path\": \"package/colab-request.json\",\n      \"sha256\": \"5778b69507ff4eadd67e0b3eb2bdb3aa7d22440110d1ddb16e09b5e5e7c0b1fa\"\n    },\n    {\n      \"bytes\": 3776,\n      \"path\": \"package/snapshots/0001.blob\",\n      \"sha256\": \"1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9\"\n    },\n    {\n      \"bytes\": 434,\n      \"path\": \"package/snapshots/0002.blob\",\n      \"sha256\": \"b82b263ea18f8fe7432c3f0190671c5d9d816d4712a5c64921a0697d2ab701e5\"\n    },\n    {\n      \"bytes\": 4489,\n      \"path\": \"package/snapshots/0003.blob\",\n      \"sha256\": \"246189acdba7c4559c1bda5ba9a6314d60dca9bf1710b87c4eaf59cbde5f6f42\"\n    },\n    {\n      \"bytes\": 1321,\n      \"path\": \"package/snapshots/0004.blob\",\n      \"sha256\": \"a4231ad09ec5a14a320779f29574ca0cd8912eb0b1e8a25d2462d94c6b4dfeed\"\n    },\n    {\n      \"bytes\": 1109,\n      \"path\": \"package/source-manifest.json\",\n      \"sha256\": \"419d863333779d4cf723dbfc0eacf5a9622cf1ab41b1b0ddbcce660daf2a09c0\"\n    },\n    {\n      \"bytes\": 574,\n      \"path\": \"package/support/SUPPORT.md\",\n      \"sha256\": \"8cc3b97b405b20e3bd15710deafd95dd449b58cdbab65731b10ff85947594e38\"\n    },\n    {\n      \"bytes\": 3377,\n      \"path\": \"package/support/assembler/05.01.md\",\n      \"sha256\": \"bbc9e48853ff5720b1184734343672a1f8432612fb1397f8929ef0dcb602dd82\"\n    },\n    {\n      \"bytes\": 2232,\n      \"path\": \"package/support/assembler/completion-receipt.json\",\n      \"sha256\": \"0b51d84d96ff560148f2eec959004ec34b8838da4d155f38dbec524eec4d4170\"\n    },\n    {\n      \"bytes\": 3581,\n      \"path\": \"package/support/assembler/request.snapshot\",\n      \"sha256\": \"bb1d670be230884b6f47655016907133eadc0005bb9a4c166b0116e18a27c4e5\"\n    },\n    {\n      \"bytes\": 1439,\n      \"path\": \"package/templates/05.01.return.TEMPLATE.md\",\n      \"sha256\": \"fcaeaa71c097b2dba66e670057597b0b2ea3f66c93998c606e420282dbd1ef8f\"\n    },\n    {\n      \"bytes\": 1008,\n      \"path\": \"package/templates/06.01.review.TEMPLATE.md\",\n      \"sha256\": \"a6c3a88abbed4c80880b0bdca193c51e7f369e846a672253e7d9f8828eefc943\"\n    },\n    {\n      \"bytes\": 43099,\n      \"path\": \"prepared-colab.zip\",\n      \"sha256\": \"5f77b08318a40b9329f51a9178e274637271d1cf06d4aa3e9e1ea3c354862cfe\"\n    }\n  ],\n  \"result\": \"mismatch\",\n  \"schema\": \"colab-support-report/2\",\n  \"statements\": [\n    \"This package is a draft. Preparation is not a Director release.\",\n    \"05.NN.pack.md is the one primary instruction source; support/ is transport support only.\",\n    \"No 05.NN.return.md or 06.NN.review.md exists at preparation. Templates are templates.\",\n    \"A verified package or receipt is custody, not review or acceptance.\",\n    \"The investigation binding is supplied by Prime; it does not open a live investigation.\",\n    \"Labels and quoted Director text do not authenticate anyone.\"\n  ],\n  \"targets\": [\n    {\n      \"bytes\": 3776,\n      \"kind\": \"whole-file\",\n      \"sha256\": \"1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9\",\n      \"target\": \"T01\"\n    }\n  ]\n}\n",
+        "repaired_stdout": "{\n  \"capability\": \"Derives investigation, binding, exchange names and roles, source-to-snapshot map, support projection, ZIP membership, evaluator separation and the full digest preimage from digest-bound bytes by fixed v2 rules; recomputes the assembler and package digests. Does not re-render prose.\",\n  \"not_verified\": [\n    \"rendered text of ENTRY, pack, notes, templates, SUPPORT.md and the assembler draft: bound by the digest, not re-rendered\",\n    \"heading-section line ranges of targets\",\n    \"assembler completion receipt content and the custody checker result: bound bytes, not re-run\",\n    \"tool pins and v1 request rules beyond schema and binding shape\",\n    \"use the pinned full producer verify (colab_support.py verify) for these\"\n  ],\n  \"problems\": [\n    {\n      \"code\": \"handoff-claim\",\n      \"detail\": \"handoff.digest_preimage differs from the value derived from bound bytes\"\n    }\n  ],\n  \"result\": \"mismatch\",\n  \"schema\": \"colab-handoff-check/2\"\n}\n",
+        "stderr": [
+          "",
+          "",
+          ""
+        ]
+      },
+      "repaired_checker": {
+        "exit": 1,
+        "problems": [
+          {
+            "code": "handoff-claim",
+            "detail": "handoff.digest_preimage differs from the value derived from bound bytes"
+          }
+        ],
+        "result": "mismatch",
+        "trusted_present": false
+      }
+    },
+    {
+      "case": "zip.members drop",
+      "frozen_producer_verify": {
+        "exit": 1,
+        "result": "mismatch"
+      },
+      "held_checker_db921e1c": {
+        "exit": 1,
+        "investigation": {
+          "book": "00.00.10.work",
+          "page": "0701.colab-exchange-layout",
+          "pass": "05.01"
+        },
+        "result": "invalid"
+      },
+      "raw": {
+        "held_stdout": "{\n  \"digest\": \"42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184\",\n  \"exchange\": {\n    \"nn\": \"01\",\n    \"notes\": \"06.01.notes.md\",\n    \"pack\": \"05.01.pack.md\",\n    \"pass\": \"05.01\",\n    \"primary_instruction\": \"05.01.pack.md\",\n    \"return_name\": \"05.01.return.md\",\n    \"return_template\": \"templates/05.01.return.TEMPLATE.md\",\n    \"review_name\": \"06.01.review.md\",\n    \"review_template\": \"templates/06.01.review.TEMPLATE.md\"\n  },\n  \"investigation\": {\n    \"book\": \"00.00.10.work\",\n    \"page\": \"0701.colab-exchange-layout\",\n    \"pass\": \"05.01\"\n  },\n  \"problems\": [\n    \"ZIP members differ from the handoff\"\n  ],\n  \"result\": \"invalid\"\n}\n",
+        "producer_stdout": "{\n  \"assembler_verify\": {\n    \"args\": [\n      \"verify\",\n      \"--pack\",\n      \"<temporary projection>\",\n      \"--checker\",\n      \"<pinned checker>\",\n      \"--json\"\n    ],\n    \"exit\": 0,\n    \"stderr\": \"\",\n    \"stdout\": \"{\\n  \\\"schema\\\": \\\"pack-assembly-report/1\\\",\\n  \\\"command\\\": \\\"verify\\\",\\n  \\\"result\\\": \\\"intact\\\",\\n  \\\"digest\\\": null,\\n  \\\"supplied_digest\\\": null,\\n  \\\"template\\\": \\\"pack-assembly-draft/1\\\",\\n  \\\"commit\\\": null,\\n  \\\"request_sha256\\\": null,\\n  \\\"request_bytes\\\": null,\\n  \\\"batch\\\": null,\\n  \\\"sources\\\": [],\\n  \\\"planned\\\": [],\\n  \\\"target\\\": \\\"C:\\\\\\\\Users\\\\\\\\misg\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\colab2-verify-lry_mc_2\\\\\\\\pack\\\",\\n  \\\"checker\\\": {\\n    \\\"sha256\\\": \\\"9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d\\\",\\n    \\\"bytes\\\": 21563,\\n    \\\"result\\\": \\\"pass\\\",\\n    \\\"exit\\\": 0,\\n    \\\"rows_checked\\\": 4\\n  },\\n  \\\"receipt\\\": \\\"completion-receipt.json\\\",\\n  \\\"findings\\\": [],\\n  \\\"not_checked\\\": [\\n    {\\n      \\\"item\\\": \\\"meaning\\\",\\n      \\\"detail\\\": \\\"This tool does not say what the draft means.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"instruction-sufficiency\\\",\\n      \\\"detail\\\": \\\"This tool does not decide whether the instructions are sufficient.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"approval-release\\\",\\n      \\\"detail\\\": \\\"This tool does not approve or release the draft. A receipt is not acceptance.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"dependencies\\\",\\n      \\\"detail\\\": \\\"Dependencies are copied as supplied or left unresolved. None are installed or fetched.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"execution-safety\\\",\\n      \\\"detail\\\": \\\"Request text and pinned sources are data. This tool does not execute them.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"return-slot\\\",\\n      \\\"detail\\\": \\\"Live return-slot allocation is not checked.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"clerk-readiness\\\",\\n      \\\"detail\\\": \\\"Clerk readiness is not checked.\\\"\\n    }\\n  ]\\n}\\n\",\n    \"tool\": \"assembler\"\n  },\n  \"command\": \"verify\",\n  \"commit\": \"6896224510fe0bcebac291fce7ed311a2cd085cb\",\n  \"digest\": \"42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184\",\n  \"exchange\": {\n    \"notes\": \"06.01.notes.md\",\n    \"pack\": \"05.01.pack.md\",\n    \"pass\": \"05.01\",\n    \"return_name\": \"05.01.return.md\",\n    \"return_template\": \"templates/05.01.return.TEMPLATE.md\",\n    \"review_name\": \"06.01.review.md\",\n    \"review_template\": \"templates/06.01.review.TEMPLATE.md\"\n  },\n  \"findings\": [\n    {\n      \"code\": \"differs\",\n      \"detail\": \"handoff.json differs from the recomputed plan\",\n      \"kind\": \"pack-defect\"\n    }\n  ],\n  \"investigation\": {\n    \"book\": \"00.00.10.work\",\n    \"page\": \"0701.colab-exchange-layout\",\n    \"pass\": \"05.01\"\n  },\n  \"layout\": \"colab-exchange-layout/2\",\n  \"not_checked\": [\n    \"meaning, adequacy and design findings\",\n    \"authenticity of labels and quoted replies\",\n    \"permission: nothing is released, reviewed, accepted, seated or published\",\n    \"workflow integration: no consumer of this layout has been reviewed\"\n  ],\n  \"planned\": [\n    {\n      \"bytes\": 3584,\n      \"path\": \"package/05.01.pack.md\",\n      \"sha256\": \"b46713a78cea87597d04578949d21f4539518133ff58a8c007377fb222ea5a29\"\n    },\n    {\n      \"bytes\": 2552,\n      \"path\": \"package/06.01.notes.md\",\n      \"sha256\": \"2d7fe940fcfbd2a9b88c655ebbbd3f113c290182a18e8f875c2c10758c5349f9\"\n    },\n    {\n      \"bytes\": 4777,\n      \"path\": \"package/ENTRY.md\",\n      \"sha256\": \"1085c83d57c313844a83964e65489ebac71df7bf1f0623e74ddc35b8ba67aff7\"\n    },\n    {\n      \"bytes\": 642,\n      \"path\": \"package/binding.json\",\n      \"sha256\": \"d6bfabb615200c91009deb8631bd834c52286037aae2cfb14e5827f49a1a81b1\"\n    },\n    {\n      \"bytes\": 6270,\n      \"path\": \"package/colab-request.json\",\n      \"sha256\": \"5778b69507ff4eadd67e0b3eb2bdb3aa7d22440110d1ddb16e09b5e5e7c0b1fa\"\n    },\n    {\n      \"bytes\": 3776,\n      \"path\": \"package/snapshots/0001.blob\",\n      \"sha256\": \"1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9\"\n    },\n    {\n      \"bytes\": 434,\n      \"path\": \"package/snapshots/0002.blob\",\n      \"sha256\": \"b82b263ea18f8fe7432c3f0190671c5d9d816d4712a5c64921a0697d2ab701e5\"\n    },\n    {\n      \"bytes\": 4489,\n      \"path\": \"package/snapshots/0003.blob\",\n      \"sha256\": \"246189acdba7c4559c1bda5ba9a6314d60dca9bf1710b87c4eaf59cbde5f6f42\"\n    },\n    {\n      \"bytes\": 1321,\n      \"path\": \"package/snapshots/0004.blob\",\n      \"sha256\": \"a4231ad09ec5a14a320779f29574ca0cd8912eb0b1e8a25d2462d94c6b4dfeed\"\n    },\n    {\n      \"bytes\": 1109,\n      \"path\": \"package/source-manifest.json\",\n      \"sha256\": \"419d863333779d4cf723dbfc0eacf5a9622cf1ab41b1b0ddbcce660daf2a09c0\"\n    },\n    {\n      \"bytes\": 574,\n      \"path\": \"package/support/SUPPORT.md\",\n      \"sha256\": \"8cc3b97b405b20e3bd15710deafd95dd449b58cdbab65731b10ff85947594e38\"\n    },\n    {\n      \"bytes\": 3377,\n      \"path\": \"package/support/assembler/05.01.md\",\n      \"sha256\": \"bbc9e48853ff5720b1184734343672a1f8432612fb1397f8929ef0dcb602dd82\"\n    },\n    {\n      \"bytes\": 2232,\n      \"path\": \"package/support/assembler/completion-receipt.json\",\n      \"sha256\": \"0b51d84d96ff560148f2eec959004ec34b8838da4d155f38dbec524eec4d4170\"\n    },\n    {\n      \"bytes\": 3581,\n      \"path\": \"package/support/assembler/request.snapshot\",\n      \"sha256\": \"bb1d670be230884b6f47655016907133eadc0005bb9a4c166b0116e18a27c4e5\"\n    },\n    {\n      \"bytes\": 1439,\n      \"path\": \"package/templates/05.01.return.TEMPLATE.md\",\n      \"sha256\": \"fcaeaa71c097b2dba66e670057597b0b2ea3f66c93998c606e420282dbd1ef8f\"\n    },\n    {\n      \"bytes\": 1008,\n      \"path\": \"package/templates/06.01.review.TEMPLATE.md\",\n      \"sha256\": \"a6c3a88abbed4c80880b0bdca193c51e7f369e846a672253e7d9f8828eefc943\"\n    },\n    {\n      \"bytes\": 43099,\n      \"path\": \"prepared-colab.zip\",\n      \"sha256\": \"5f77b08318a40b9329f51a9178e274637271d1cf06d4aa3e9e1ea3c354862cfe\"\n    }\n  ],\n  \"result\": \"mismatch\",\n  \"schema\": \"colab-support-report/2\",\n  \"statements\": [\n    \"This package is a draft. Preparation is not a Director release.\",\n    \"05.NN.pack.md is the one primary instruction source; support/ is transport support only.\",\n    \"No 05.NN.return.md or 06.NN.review.md exists at preparation. Templates are templates.\",\n    \"A verified package or receipt is custody, not review or acceptance.\",\n    \"The investigation binding is supplied by Prime; it does not open a live investigation.\",\n    \"Labels and quoted Director text do not authenticate anyone.\"\n  ],\n  \"targets\": [\n    {\n      \"bytes\": 3776,\n      \"kind\": \"whole-file\",\n      \"sha256\": \"1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9\",\n      \"target\": \"T01\"\n    }\n  ]\n}\n",
+        "repaired_stdout": "{\n  \"capability\": \"Derives investigation, binding, exchange names and roles, source-to-snapshot map, support projection, ZIP membership, evaluator separation and the full digest preimage from digest-bound bytes by fixed v2 rules; recomputes the assembler and package digests. Does not re-render prose.\",\n  \"not_verified\": [\n    \"rendered text of ENTRY, pack, notes, templates, SUPPORT.md and the assembler draft: bound by the digest, not re-rendered\",\n    \"heading-section line ranges of targets\",\n    \"assembler completion receipt content and the custody checker result: bound bytes, not re-run\",\n    \"tool pins and v1 request rules beyond schema and binding shape\",\n    \"use the pinned full producer verify (colab_support.py verify) for these\"\n  ],\n  \"problems\": [\n    {\n      \"code\": \"handoff-claim\",\n      \"detail\": \"handoff.zip differs from the value derived from bound bytes\"\n    }\n  ],\n  \"result\": \"mismatch\",\n  \"schema\": \"colab-handoff-check/2\"\n}\n",
+        "stderr": [
+          "",
+          "",
+          ""
+        ]
+      },
+      "repaired_checker": {
+        "exit": 1,
+        "problems": [
+          {
+            "code": "handoff-claim",
+            "detail": "handoff.zip differs from the value derived from bound bytes"
+          }
+        ],
+        "result": "mismatch",
+        "trusted_present": false
+      }
+    },
+    {
+      "case": "pack bytes",
+      "frozen_producer_verify": {
+        "exit": 1,
+        "result": "mismatch"
+      },
+      "held_checker_db921e1c": {
+        "exit": 1,
+        "investigation": {
+          "book": "00.00.10.work",
+          "page": "0701.colab-exchange-layout",
+          "pass": "05.01"
+        },
+        "result": "invalid"
+      },
+      "raw": {
+        "held_stdout": "{\n  \"digest\": \"42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184\",\n  \"exchange\": {\n    \"nn\": \"01\",\n    \"notes\": \"06.01.notes.md\",\n    \"pack\": \"05.01.pack.md\",\n    \"pass\": \"05.01\",\n    \"primary_instruction\": \"05.01.pack.md\",\n    \"return_name\": \"05.01.return.md\",\n    \"return_template\": \"templates/05.01.return.TEMPLATE.md\",\n    \"review_name\": \"06.01.review.md\",\n    \"review_template\": \"templates/06.01.review.TEMPLATE.md\"\n  },\n  \"investigation\": {\n    \"book\": \"00.00.10.work\",\n    \"page\": \"0701.colab-exchange-layout\",\n    \"pass\": \"05.01\"\n  },\n  \"problems\": [\n    \"package/05.01.pack.md differs from the handoff\",\n    \"ZIP member 05.01.pack.md differs from package/\"\n  ],\n  \"result\": \"invalid\"\n}\n",
+        "producer_stdout": "{\n  \"assembler_verify\": {\n    \"args\": [\n      \"verify\",\n      \"--pack\",\n      \"<temporary projection>\",\n      \"--checker\",\n      \"<pinned checker>\",\n      \"--json\"\n    ],\n    \"exit\": 0,\n    \"stderr\": \"\",\n    \"stdout\": \"{\\n  \\\"schema\\\": \\\"pack-assembly-report/1\\\",\\n  \\\"command\\\": \\\"verify\\\",\\n  \\\"result\\\": \\\"intact\\\",\\n  \\\"digest\\\": null,\\n  \\\"supplied_digest\\\": null,\\n  \\\"template\\\": \\\"pack-assembly-draft/1\\\",\\n  \\\"commit\\\": null,\\n  \\\"request_sha256\\\": null,\\n  \\\"request_bytes\\\": null,\\n  \\\"batch\\\": null,\\n  \\\"sources\\\": [],\\n  \\\"planned\\\": [],\\n  \\\"target\\\": \\\"C:\\\\\\\\Users\\\\\\\\misg\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\colab2-verify-qzhul47c\\\\\\\\pack\\\",\\n  \\\"checker\\\": {\\n    \\\"sha256\\\": \\\"9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d\\\",\\n    \\\"bytes\\\": 21563,\\n    \\\"result\\\": \\\"pass\\\",\\n    \\\"exit\\\": 0,\\n    \\\"rows_checked\\\": 4\\n  },\\n  \\\"receipt\\\": \\\"completion-receipt.json\\\",\\n  \\\"findings\\\": [],\\n  \\\"not_checked\\\": [\\n    {\\n      \\\"item\\\": \\\"meaning\\\",\\n      \\\"detail\\\": \\\"This tool does not say what the draft means.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"instruction-sufficiency\\\",\\n      \\\"detail\\\": \\\"This tool does not decide whether the instructions are sufficient.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"approval-release\\\",\\n      \\\"detail\\\": \\\"This tool does not approve or release the draft. A receipt is not acceptance.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"dependencies\\\",\\n      \\\"detail\\\": \\\"Dependencies are copied as supplied or left unresolved. None are installed or fetched.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"execution-safety\\\",\\n      \\\"detail\\\": \\\"Request text and pinned sources are data. This tool does not execute them.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"return-slot\\\",\\n      \\\"detail\\\": \\\"Live return-slot allocation is not checked.\\\"\\n    },\\n    {\\n      \\\"item\\\": \\\"clerk-readiness\\\",\\n      \\\"detail\\\": \\\"Clerk readiness is not checked.\\\"\\n    }\\n  ]\\n}\\n\",\n    \"tool\": \"assembler\"\n  },\n  \"command\": \"verify\",\n  \"commit\": \"6896224510fe0bcebac291fce7ed311a2cd085cb\",\n  \"digest\": \"42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184\",\n  \"exchange\": {\n    \"notes\": \"06.01.notes.md\",\n    \"pack\": \"05.01.pack.md\",\n    \"pass\": \"05.01\",\n    \"return_name\": \"05.01.return.md\",\n    \"return_template\": \"templates/05.01.return.TEMPLATE.md\",\n    \"review_name\": \"06.01.review.md\",\n    \"review_template\": \"templates/06.01.review.TEMPLATE.md\"\n  },\n  \"findings\": [\n    {\n      \"code\": \"differs\",\n      \"detail\": \"package/05.01.pack.md differs from the recomputed plan\",\n      \"kind\": \"pack-defect\"\n    }\n  ],\n  \"investigation\": {\n    \"book\": \"00.00.10.work\",\n    \"page\": \"0701.colab-exchange-layout\",\n    \"pass\": \"05.01\"\n  },\n  \"layout\": \"colab-exchange-layout/2\",\n  \"not_checked\": [\n    \"meaning, adequacy and design findings\",\n    \"authenticity of labels and quoted replies\",\n    \"permission: nothing is released, reviewed, accepted, seated or published\",\n    \"workflow integration: no consumer of this layout has been reviewed\"\n  ],\n  \"planned\": [\n    {\n      \"bytes\": 3584,\n      \"path\": \"package/05.01.pack.md\",\n      \"sha256\": \"b46713a78cea87597d04578949d21f4539518133ff58a8c007377fb222ea5a29\"\n    },\n    {\n      \"bytes\": 2552,\n      \"path\": \"package/06.01.notes.md\",\n      \"sha256\": \"2d7fe940fcfbd2a9b88c655ebbbd3f113c290182a18e8f875c2c10758c5349f9\"\n    },\n    {\n      \"bytes\": 4777,\n      \"path\": \"package/ENTRY.md\",\n      \"sha256\": \"1085c83d57c313844a83964e65489ebac71df7bf1f0623e74ddc35b8ba67aff7\"\n    },\n    {\n      \"bytes\": 642,\n      \"path\": \"package/binding.json\",\n      \"sha256\": \"d6bfabb615200c91009deb8631bd834c52286037aae2cfb14e5827f49a1a81b1\"\n    },\n    {\n      \"bytes\": 6270,\n      \"path\": \"package/colab-request.json\",\n      \"sha256\": \"5778b69507ff4eadd67e0b3eb2bdb3aa7d22440110d1ddb16e09b5e5e7c0b1fa\"\n    },\n    {\n      \"bytes\": 3776,\n      \"path\": \"package/snapshots/0001.blob\",\n      \"sha256\": \"1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9\"\n    },\n    {\n      \"bytes\": 434,\n      \"path\": \"package/snapshots/0002.blob\",\n      \"sha256\": \"b82b263ea18f8fe7432c3f0190671c5d9d816d4712a5c64921a0697d2ab701e5\"\n    },\n    {\n      \"bytes\": 4489,\n      \"path\": \"package/snapshots/0003.blob\",\n      \"sha256\": \"246189acdba7c4559c1bda5ba9a6314d60dca9bf1710b87c4eaf59cbde5f6f42\"\n    },\n    {\n      \"bytes\": 1321,\n      \"path\": \"package/snapshots/0004.blob\",\n      \"sha256\": \"a4231ad09ec5a14a320779f29574ca0cd8912eb0b1e8a25d2462d94c6b4dfeed\"\n    },\n    {\n      \"bytes\": 1109,\n      \"path\": \"package/source-manifest.json\",\n      \"sha256\": \"419d863333779d4cf723dbfc0eacf5a9622cf1ab41b1b0ddbcce660daf2a09c0\"\n    },\n    {\n      \"bytes\": 574,\n      \"path\": \"package/support/SUPPORT.md\",\n      \"sha256\": \"8cc3b97b405b20e3bd15710deafd95dd449b58cdbab65731b10ff85947594e38\"\n    },\n    {\n      \"bytes\": 3377,\n      \"path\": \"package/support/assembler/05.01.md\",\n      \"sha256\": \"bbc9e48853ff5720b1184734343672a1f8432612fb1397f8929ef0dcb602dd82\"\n    },\n    {\n      \"bytes\": 2232,\n      \"path\": \"package/support/assembler/completion-receipt.json\",\n      \"sha256\": \"0b51d84d96ff560148f2eec959004ec34b8838da4d155f38dbec524eec4d4170\"\n    },\n    {\n      \"bytes\": 3581,\n      \"path\": \"package/support/assembler/request.snapshot\",\n      \"sha256\": \"bb1d670be230884b6f47655016907133eadc0005bb9a4c166b0116e18a27c4e5\"\n    },\n    {\n      \"bytes\": 1439,\n      \"path\": \"package/templates/05.01.return.TEMPLATE.md\",\n      \"sha256\": \"fcaeaa71c097b2dba66e670057597b0b2ea3f66c93998c606e420282dbd1ef8f\"\n    },\n    {\n      \"bytes\": 1008,\n      \"path\": \"package/templates/06.01.review.TEMPLATE.md\",\n      \"sha256\": \"a6c3a88abbed4c80880b0bdca193c51e7f369e846a672253e7d9f8828eefc943\"\n    },\n    {\n      \"bytes\": 43099,\n      \"path\": \"prepared-colab.zip\",\n      \"sha256\": \"5f77b08318a40b9329f51a9178e274637271d1cf06d4aa3e9e1ea3c354862cfe\"\n    }\n  ],\n  \"result\": \"mismatch\",\n  \"schema\": \"colab-support-report/2\",\n  \"statements\": [\n    \"This package is a draft. Preparation is not a Director release.\",\n    \"05.NN.pack.md is the one primary instruction source; support/ is transport support only.\",\n    \"No 05.NN.return.md or 06.NN.review.md exists at preparation. Templates are templates.\",\n    \"A verified package or receipt is custody, not review or acceptance.\",\n    \"The investigation binding is supplied by Prime; it does not open a live investigation.\",\n    \"Labels and quoted Director text do not authenticate anyone.\"\n  ],\n  \"targets\": [\n    {\n      \"bytes\": 3776,\n      \"kind\": \"whole-file\",\n      \"sha256\": \"1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9\",\n      \"target\": \"T01\"\n    }\n  ]\n}\n",
+        "repaired_stdout": "{\n  \"capability\": \"Derives investigation, binding, exchange names and roles, source-to-snapshot map, support projection, ZIP membership, evaluator separation and the full digest preimage from digest-bound bytes by fixed v2 rules; recomputes the assembler and package digests. Does not re-render prose.\",\n  \"not_verified\": [\n    \"rendered text of ENTRY, pack, notes, templates, SUPPORT.md and the assembler draft: bound by the digest, not re-rendered\",\n    \"heading-section line ranges of targets\",\n    \"assembler completion receipt content and the custody checker result: bound bytes, not re-run\",\n    \"tool pins and v1 request rules beyond schema and binding shape\",\n    \"use the pinned full producer verify (colab_support.py verify) for these\"\n  ],\n  \"problems\": [\n    {\n      \"code\": \"zip\",\n      \"detail\": \"ZIP members differ from the package files\"\n    }\n  ],\n  \"result\": \"mismatch\",\n  \"schema\": \"colab-handoff-check/2\"\n}\n",
+        "stderr": [
+          "",
+          "",
+          ""
+        ]
+      },
+      "repaired_checker": {
+        "exit": 1,
+        "problems": [
+          {
+            "code": "zip",
+            "detail": "ZIP members differ from the package files"
+          }
+        ],
+        "result": "mismatch",
+        "trusted_present": false
+      }
+    }
+  ],
+  "date": "2026-10-29",
+  "executor": "claude-opus-5-5 (Anthropic), Colab, executor",
+  "frozen": [
+    {
+      "after": "2b720434ac4c4331835c1484b0eca362e01e8afbecde0ab800ca392530abf68b",
+      "before": "2b720434ac4c4331835c1484b0eca362e01e8afbecde0ab800ca392530abf68b",
+      "path": "labs/colab-support-pass02/colab_support.py",
+      "unchanged": true
+    },
+    {
+      "after": "13eaa1178bdfb432210bbd1535126b40ae75c4e1c3ce12addeb8ccc0cea3d1a5",
+      "before": "13eaa1178bdfb432210bbd1535126b40ae75c4e1c3ce12addeb8ccc0cea3d1a5",
+      "path": "labs/colab-support-pass02/tests/test_colab_support_v2.py",
+      "unchanged": true
+    },
+    {
+      "after": "a95440a63e4c96d639f5a5296d257de1b8e8b5eeb82b1cfa21d6d505c3c88278",
+      "before": "a95440a63e4c96d639f5a5296d257de1b8e8b5eeb82b1cfa21d6d505c3c88278",
+      "path": "labs/colab-support-pass02/examples/config.example.json",
+      "unchanged": true
+    },
+    {
+      "after": "5778b69507ff4eadd67e0b3eb2bdb3aa7d22440110d1ddb16e09b5e5e7c0b1fa",
+      "before": "5778b69507ff4eadd67e0b3eb2bdb3aa7d22440110d1ddb16e09b5e5e7c0b1fa",
+      "path": "labs/colab-support-pass02/examples/request-exchange-layout.json",
+      "unchanged": true
+    },
+    {
+      "after": "33bbe41c52485fc7b2b611d830bae8a15129721ad807a931e8193f17944c467c",
+      "before": "33bbe41c52485fc7b2b611d830bae8a15129721ad807a931e8193f17944c467c",
+      "path": "labs/colab-support-pass01/colab_support.py",
+      "unchanged": true
+    },
+    {
+      "after": "75d49679cbf3e624a82573229ca8c7cd9b758799bc26b6f080111feb6eaa275c",
+      "before": "75d49679cbf3e624a82573229ca8c7cd9b758799bc26b6f080111feb6eaa275c",
+      "path": "labs/pack-assembly-pass01/pack_assembly.py",
+      "unchanged": true
+    },
+    {
+      "after": "9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d",
+      "before": "9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d",
+      "path": "labs/pack-custody-pass01/pack_check.py",
+      "unchanged": true
+    },
+    {
+      "after": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+      "before": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+      "path": "labs/return-capture-pass01/return_capture.py",
+      "unchanged": true
+    },
+    {
+      "after": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+      "before": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+      "path": "labs/return-capture-pass01/return_inspect.py",
+      "unchanged": true
+    }
+  ],
+  "git_status_after": [
+    " M 00.kernel/00.00.10.work/0508.return-capture/05.19.md",
+    " M 00.kernel/00.00.10.work/0510.colab-tools/05.04.md",
+    " M 00.kernel/00.00.10.work/0511.workflow-colab/05.03.md",
+    " M app/README.md",
+    " M app/librarian.py",
+    " M labs/colab-support-pass02/README.md",
+    " M labs/colab-support-pass02/handoff_check.py",
+    "?? 00.kernel/00.00.00.syntax.zip",
+    "?? 00.kernel/00.00.10.work.zip",
+    "?? 00.kernel/00.00.10.work/0152.desk-state-view-0519/manifest.json",
+    "?? 00.kernel/00.00.10.work/0152.desk-state-view-0519/payload/",
+    "?? 00.kernel/00.00.10.work/0152.desk-state-view-0519/receipt.json",
+    "?? 00.kernel/00.00.10.work/0152.desk-state-view-0519/return.md",
+    "?? 00.kernel/00.00.10.work/0508.return-capture/06.20.md",
+    "?? 00.kernel/00.00.10.work/0508.return-capture/evidence/deskstate05.19/",
+    "?? 00.kernel/00.00.10.work/0510.colab-tools/06.04.md",
+    "?? 00.kernel/00.00.10.work/0510.colab-tools/evidence/checker05.04/",
+    "?? 00.kernel/00.00.10.work/0511.workflow-colab/06.03.md",
+    "?? 00.kernel/00.00.10.work/0511.workflow-colab/evidence/exchange05.03/",
+    "?? 00.kernel/00.00.10.work/0512.prime-review/06.02.md",
+    "?? 00.kernel/00.00.10.work/0512.prime-review/evidence/app05.02/",
+    "?? app/prime-review.json",
+    "?? app/prime_review_tools.py",
+    "?? app/tests/test_prime_review_tools.py",
+    "?? labs/colab-support-pass02/tests/test_handoff_check.py",
+    "?? labs/colab-workflow-pass02/",
+    "?? labs/desk-state-pass01/"
+  ],
+  "hc01_proof": {
+    "exits": [
+      "old checker exit=0",
+      "producer verify exit=1",
+      "hc01 new exit=1"
+    ],
+    "frozen_producer_stdout_findings": [
+      {
+        "code": "differs",
+        "detail": "handoff.json differs from the recomputed plan",
+        "kind": "pack-defect"
+      }
+    ],
+    "held_checker_db921e1c_stdout": "{\n  \"digest\": \"42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184\",\n  \"exchange\": {\n    \"nn\": \"01\",\n    \"notes\": \"06.01.notes.md\",\n    \"pack\": \"05.01.pack.md\",\n    \"pass\": \"05.01\",\n    \"primary_instruction\": \"05.01.pack.md\",\n    \"return_name\": \"05.01.return.md\",\n    \"return_template\": \"templates/05.01.return.TEMPLATE.md\",\n    \"review_name\": \"06.01.review.md\",\n    \"review_template\": \"templates/06.01.review.TEMPLATE.md\"\n  },\n  \"investigation\": {\n    \"book\": \"00.00.10.work\",\n    \"page\": \"0799.wrong-investigation\",\n    \"pass\": \"05.01\"\n  },\n  \"problems\": [],\n  \"result\": \"valid\"\n}\n",
+    "repaired_checker_stdout": "{\n  \"capability\": \"Derives investigation, binding, exchange names and roles, source-to-snapshot map, support projection, ZIP membership, evaluator separation and the full digest preimage from digest-bound bytes by fixed v2 rules; recomputes the assembler and package digests. Does not re-render prose.\",\n  \"not_verified\": [\n    \"rendered text of ENTRY, pack, notes, templates, SUPPORT.md and the assembler draft: bound by the digest, not re-rendered\",\n    \"heading-section line ranges of targets\",\n    \"assembler completion receipt content and the custody checker result: bound bytes, not re-run\",\n    \"tool pins and v1 request rules beyond schema and binding shape\",\n    \"use the pinned full producer verify (colab_support.py verify) for these\"\n  ],\n  \"problems\": [\n    {\n      \"code\": \"handoff-claim\",\n      \"detail\": \"handoff.investigation differs from the value derived from bound bytes\"\n    }\n  ],\n  \"result\": \"mismatch\",\n  \"schema\": \"colab-handoff-check/2\"\n}\n",
+    "tamper": "handoff.investigation.page -> 0799.wrong-investigation (only change)"
+  },
+  "head_after": "215671c15794529cb3320d9ce22a27766b74e848",
+  "pack": {
+    "live_equals_pins": "14 of 14",
+    "manifest_sha256": "d0814925e1d57700967dfadd5897c22bb6347ac8b4f4141c5d7bb339df0c2a46",
+    "snapshots_match_pins": "14 of 14"
+  },
+  "real_package_runs": {
+    "check": {
+      "capability": "Derives investigation, binding, exchange names and roles, source-to-snapshot map, support projection, ZIP membership, evaluator separation and the full digest preimage from digest-bound bytes by fixed v2 rules; recomputes the assembler and package digests. Does not re-render prose.",
+      "not_verified": [
+        "rendered text of ENTRY, pack, notes, templates, SUPPORT.md and the assembler draft: bound by the digest, not re-rendered",
+        "heading-section line ranges of targets",
+        "assembler completion receipt content and the custody checker result: bound bytes, not re-run",
+        "tool pins and v1 request rules beyond schema and binding shape",
+        "use the pinned full producer verify (colab_support.py verify) for these"
+      ],
+      "problems": [],
+      "result": "valid",
+      "schema": "colab-handoff-check/2",
+      "trusted": {
+        "binding_sha256": "d6bfabb615200c91009deb8631bd834c52286037aae2cfb14e5827f49a1a81b1",
+        "digest": "42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184",
+        "evaluator": [],
+        "exchange": {
+          "nn": "01",
+          "notes": "06.01.notes.md",
+          "pack": "05.01.pack.md",
+          "pass": "05.01",
+          "primary_instruction": "05.01.pack.md",
+          "return_name": "05.01.return.md",
+          "return_template": "templates/05.01.return.TEMPLATE.md",
+          "review_name": "06.01.review.md",
+          "review_template": "templates/06.01.review.TEMPLATE.md"
+        },
+        "investigation": {
+          "book": "00.00.10.work",
+          "page": "0701.colab-exchange-layout",
+          "pass": "05.01"
+        },
+        "layout": "colab-exchange-layout/2",
+        "not_created": [
+          "05.01.return.md",
+          "06.01.review.md"
+        ],
+        "source_map": [
+          {
+            "bytes": 3776,
+            "role": "target",
+            "sha256": "1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9",
+            "snapshot": "package/snapshots/0001.blob",
+            "source_path": "00.kernel/00.00.10.work/0411.colab/evidence/exchange-layout-v2/CONTRACT.md",
+            "targets": [
+              "T01"
+            ]
+          },
+          {
+            "bytes": 434,
+            "role": "required",
+            "sha256": "b82b263ea18f8fe7432c3f0190671c5d9d816d4712a5c64921a0697d2ab701e5",
+            "snapshot": "package/snapshots/0002.blob",
+            "source_path": "00.kernel/00.00.10.work/0411.colab/evidence/exchange-layout-v2/NOTES.md",
+            "targets": []
+          },
+          {
+            "bytes": 4489,
+            "role": "required",
+            "sha256": "246189acdba7c4559c1bda5ba9a6314d60dca9bf1710b87c4eaf59cbde5f6f42",
+            "snapshot": "package/snapshots/0003.blob",
+            "source_path": "00.kernel/00.00.10.work/0411.colab/evidence/n7nn-interface-v1/CONTRACT.md",
+            "targets": []
+          },
+          {
+            "bytes": 1321,
+            "role": "required",
+            "sha256": "a4231ad09ec5a14a320779f29574ca0cd8912eb0b1e8a25d2462d94c6b4dfeed",
+            "snapshot": "package/snapshots/0004.blob",
+            "source_path": "00.kernel/00.00.10.work/0700.band.colabs/01.md",
+            "targets": []
+          }
+        ],
+        "support_projection": [
+          {
+            "assembler_name": "05.01.md",
+            "bytes": 3377,
+            "sha256": "bbc9e48853ff5720b1184734343672a1f8432612fb1397f8929ef0dcb602dd82",
+            "support_path": "package/support/assembler/05.01.md"
+          },
+          {
+            "assembler_name": "request.snapshot",
+            "bytes": 3581,
+            "sha256": "bb1d670be230884b6f47655016907133eadc0005bb9a4c166b0116e18a27c4e5",
+            "support_path": "package/support/assembler/request.snapshot"
+          },
+          {
+            "assembler_name": "completion-receipt.json",
+            "bytes": 2232,
+            "sha256": "0b51d84d96ff560148f2eec959004ec34b8838da4d155f38dbec524eec4d4170",
+            "support_path": "package/support/assembler/completion-receipt.json"
+          }
+        ],
+        "zip": {
+          "bytes": 43099,
+          "members": [
+            "05.01.pack.md",
+            "06.01.notes.md",
+            "ENTRY.md",
+            "binding.json",
+            "colab-request.json",
+            "snapshots/0001.blob",
+            "snapshots/0002.blob",
+            "snapshots/0003.blob",
+            "snapshots/0004.blob",
+            "source-manifest.json",
+            "support/SUPPORT.md",
+            "support/assembler/05.01.md",
+            "support/assembler/completion-receipt.json",
+            "support/assembler/request.snapshot",
+            "templates/05.01.return.TEMPLATE.md",
+            "templates/06.01.review.TEMPLATE.md"
+          ],
+          "path": "prepared-colab.zip",
+          "sha256": "5f77b08318a40b9329f51a9178e274637271d1cf06d4aa3e9e1ea3c354862cfe"
+        }
+      },
+      "unbound_informational": {
+        "digest_rule": "sha256 over parts in order; each part is an 8-byte big-endian length then its bytes; a 'text' part is its UTF-8 value, a 'file' part is the bytes of that OUT path",
+        "statements": [
+          "This package is a draft. Preparation is not a Director release.",
+          "05.NN.pack.md is the one primary instruction source; support/ is transport support only.",
+          "No 05.NN.return.md or 06.NN.review.md exists at preparation. Templates are templates.",
+          "A verified package or receipt is custody, not review or acceptance.",
+          "The investigation binding is supplied by Prime; it does not open a live investigation.",
+          "Labels and quoted Director text do not authenticate anyone."
+        ],
+        "verify": {
+          "argv": [
+            "python",
+            "-B",
+            "labs/colab-support-pass02/colab_support.py",
+            "verify",
+            "--output",
+            "<OUT>",
+            "--config",
+            "<CONFIG>",
+            "--json"
+          ],
+          "config_keys": [
+            "schema",
+            "repositories",
+            "python",
+            "assembler",
+            "checker",
+            "helper",
+            "inspector",
+            "producer_v1"
+          ],
+          "config_schema": "colab-config/2",
+          "pins": {
+            "assembler": "75d49679cbf3e624a82573229ca8c7cd9b758799bc26b6f080111feb6eaa275c",
+            "checker": "9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d",
+            "helper": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+            "inspector": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+            "producer_v1": "33bbe41c52485fc7b2b611d830bae8a15129721ad807a931e8193f17944c467c"
+          },
+          "standalone": [
+            "python",
+            "-B",
+            "labs/colab-support-pass02/handoff_check.py",
+            "check",
+            "--output",
+            "<OUT>",
+            "--expected-digest",
+            "<DIGEST>",
+            "--json"
+          ]
+        }
+      }
+    },
+    "copy": {
+      "capability": "Derives investigation, binding, exchange names and roles, source-to-snapshot map, support projection, ZIP membership, evaluator separation and the full digest preimage from digest-bound bytes by fixed v2 rules; recomputes the assembler and package digests. Does not re-render prose.",
+      "not_verified": [
+        "rendered text of ENTRY, pack, notes, templates, SUPPORT.md and the assembler draft: bound by the digest, not re-rendered",
+        "heading-section line ranges of targets",
+        "assembler completion receipt content and the custody checker result: bound bytes, not re-run",
+        "tool pins and v1 request rules beyond schema and binding shape",
+        "use the pinned full producer verify (colab_support.py verify) for these"
+      ],
+      "problems": [],
+      "result": "copied",
+      "retained": [],
+      "schema": "colab-handoff-check/2",
+      "trusted": {
+        "binding_sha256": "d6bfabb615200c91009deb8631bd834c52286037aae2cfb14e5827f49a1a81b1",
+        "digest": "42734b859dca535dfe88b6c145fb03912d57a43636a2d7e67d5d3c7b75914184",
+        "evaluator": [],
+        "exchange": {
+          "nn": "01",
+          "notes": "06.01.notes.md",
+          "pack": "05.01.pack.md",
+          "pass": "05.01",
+          "primary_instruction": "05.01.pack.md",
+          "return_name": "05.01.return.md",
+          "return_template": "templates/05.01.return.TEMPLATE.md",
+          "review_name": "06.01.review.md",
+          "review_template": "templates/06.01.review.TEMPLATE.md"
+        },
+        "investigation": {
+          "book": "00.00.10.work",
+          "page": "0701.colab-exchange-layout",
+          "pass": "05.01"
+        },
+        "layout": "colab-exchange-layout/2",
+        "not_created": [
+          "05.01.return.md",
+          "06.01.review.md"
+        ],
+        "source_map": [
+          {
+            "bytes": 3776,
+            "role": "target",
+            "sha256": "1cff00588bde14723b7058aa3698a30eb727a3632892bb8ad7029b4d049617d9",
+            "snapshot": "package/snapshots/0001.blob",
+            "source_path": "00.kernel/00.00.10.work/0411.colab/evidence/exchange-layout-v2/CONTRACT.md",
+            "targets": [
+              "T01"
+            ]
+          },
+          {
+            "bytes": 434,
+            "role": "required",
+            "sha256": "b82b263ea18f8fe7432c3f0190671c5d9d816d4712a5c64921a0697d2ab701e5",
+            "snapshot": "package/snapshots/0002.blob",
+            "source_path": "00.kernel/00.00.10.work/0411.colab/evidence/exchange-layout-v2/NOTES.md",
+            "targets": []
+          },
+          {
+            "bytes": 4489,
+            "role": "required",
+            "sha256": "246189acdba7c4559c1bda5ba9a6314d60dca9bf1710b87c4eaf59cbde5f6f42",
+            "snapshot": "package/snapshots/0003.blob",
+            "source_path": "00.kernel/00.00.10.work/0411.colab/evidence/n7nn-interface-v1/CONTRACT.md",
+            "targets": []
+          },
+          {
+            "bytes": 1321,
+            "role": "required",
+            "sha256": "a4231ad09ec5a14a320779f29574ca0cd8912eb0b1e8a25d2462d94c6b4dfeed",
+            "snapshot": "package/snapshots/0004.blob",
+            "source_path": "00.kernel/00.00.10.work/0700.band.colabs/01.md",
+            "targets": []
+          }
+        ],
+        "support_projection": [
+          {
+            "assembler_name": "05.01.md",
+            "bytes": 3377,
+            "sha256": "bbc9e48853ff5720b1184734343672a1f8432612fb1397f8929ef0dcb602dd82",
+            "support_path": "package/support/assembler/05.01.md"
+          },
+          {
+            "assembler_name": "request.snapshot",
+            "bytes": 3581,
+            "sha256": "bb1d670be230884b6f47655016907133eadc0005bb9a4c166b0116e18a27c4e5",
+            "support_path": "package/support/assembler/request.snapshot"
+          },
+          {
+            "assembler_name": "completion-receipt.json",
+            "bytes": 2232,
+            "sha256": "0b51d84d96ff560148f2eec959004ec34b8838da4d155f38dbec524eec4d4170",
+            "support_path": "package/support/assembler/completion-receipt.json"
+          }
+        ],
+        "zip": {
+          "bytes": 43099,
+          "members": [
+            "05.01.pack.md",
+            "06.01.notes.md",
+            "ENTRY.md",
+            "binding.json",
+            "colab-request.json",
+            "snapshots/0001.blob",
+            "snapshots/0002.blob",
+            "snapshots/0003.blob",
+            "snapshots/0004.blob",
+            "source-manifest.json",
+            "support/SUPPORT.md",
+            "support/assembler/05.01.md",
+            "support/assembler/completion-receipt.json",
+            "support/assembler/request.snapshot",
+            "templates/05.01.return.TEMPLATE.md",
+            "templates/06.01.review.TEMPLATE.md"
+          ],
+          "path": "prepared-colab.zip",
+          "sha256": "5f77b08318a40b9329f51a9178e274637271d1cf06d4aa3e9e1ea3c354862cfe"
+        }
+      },
+      "written": [
+        "05.01.pack.md",
+        "06.01.notes.md",
+        "ENTRY.md",
+        "binding.json",
+        "colab-request.json",
+        "snapshots/0001.blob",
+        "snapshots/0002.blob",
+        "snapshots/0003.blob",
+        "snapshots/0004.blob",
+        "source-manifest.json",
+        "support/SUPPORT.md",
+        "support/assembler/05.01.md",
+        "support/assembler/completion-receipt.json",
+        "support/assembler/request.snapshot",
+        "templates/05.01.return.TEMPLATE.md",
+        "templates/06.01.review.TEMPLATE.md"
+      ]
+    },
+    "copy_replay": {
+      "capability": "Derives investigation, binding, exchange names and roles, source-to-snapshot map, support projection, ZIP membership, evaluator separation and the full digest preimage from digest-bound bytes by fixed v2 rules; recomputes the assembler and package digests. Does not re-render prose.",
+      "not_verified": [
+        "rendered text of ENTRY, pack, notes, templates, SUPPORT.md and the assembler draft: bound by the digest, not re-rendered",
+        "heading-section line ranges of targets",
+        "assembler completion receipt content and the custody checker result: bound bytes, not re-run",
+        "tool pins and v1 request rules beyond schema and binding shape",
+        "use the pinned full producer verify (colab_support.py verify) for these"
+      ],
+      "problems": [
+        {
+          "code": "already-copied",
+          "detail": "destination already holds an identical copy; nothing written"
+        }
+      ],
+      "result": "refused",
+      "retained": [
+        "05.01.pack.md",
+        "06.01.notes.md",
+        "ENTRY.md",
+        "binding.json",
+        "colab-request.json",
+        "snapshots/0001.blob",
+        "snapshots/0002.blob",
+        "snapshots/0003.blob",
+        "snapshots/0004.blob",
+        "source-manifest.json",
+        "support/SUPPORT.md",
+        "support/assembler/05.01.md",
+        "support/assembler/completion-receipt.json",
+        "support/assembler/request.snapshot",
+        "templates/05.01.return.TEMPLATE.md",
+        "templates/06.01.review.TEMPLATE.md"
+      ],
+      "schema": "colab-handoff-check/2",
+      "written": []
+    },
+    "exits": [
+      "check 0",
+      "copy 0",
+      "copy-replay 2"
+    ]
+  },
+  "schema": "colab-checker-repair-verification/1",
+  "tests": {
+    "mutation_probes": [
+      "M1 no handoff-claim comparison (BOUND_KEYS=()): tests run 31, failures 9, errors 0 -> CAUGHT",
+      "M2 no linked-ancestor check: tests run 31, failures 1, errors 0 -> CAUGHT",
+      "M3 accept non-canonical binding: tests run 31, failures 9, errors 0 -> CAUGHT"
+    ],
+    "new_suite": {
+      "command": "python -B -X dev tests/test_handoff_check.py -v (cwd labs/colab-support-pass02)",
+      "final_log": "test_consistent_relabel_of_bound_files_fails_digest (__main__.BoundBytes.test_consistent_relabel_of_bound_files_fails_digest) ... ok\ntest_duplicate_zip_entry (__main__.BoundBytes.test_duplicate_zip_entry) ... ok\ntest_evaluator_tampers (__main__.BoundBytes.test_evaluator_tampers) ... ok\ntest_manifest_commit_and_assembler_request (__main__.BoundBytes.test_manifest_commit_and_assembler_request) ... ok\ntest_missing_extra_and_fabricated (__main__.BoundBytes.test_missing_extra_and_fabricated) ... ok\ntest_noncanonical_binding (__main__.BoundBytes.test_noncanonical_binding) ... ok\ntest_package_byte_tampers (__main__.BoundBytes.test_package_byte_tampers) ... ok\ntest_wrong_expected_digest (__main__.BoundBytes.test_wrong_expected_digest) ... ok\ntest_cli_exit_codes_no_traceback (__main__.Cli.test_cli_exit_codes_no_traceback) ... ok\ntest_binding_and_hash (__main__.HandoffClaims.test_binding_and_hash) ... ok\ntest_envelope_roles_and_hashes (__main__.HandoffClaims.test_envelope_roles_and_hashes) ... ok\ntest_evaluator_claim (__main__.HandoffClaims.test_evaluator_claim) ... ok\ntest_exchange_names_and_not_created (__main__.HandoffClaims.test_exchange_names_and_not_created) ... ok\ntest_hc01_investigation_page (__main__.HandoffClaims.test_hc01_investigation_page) ... ok\ntest_investigation_book_and_pass (__main__.HandoffClaims.test_investigation_book_and_pass) ... ok\ntest_preimage (__main__.HandoffClaims.test_preimage) ... ok\ntest_source_map (__main__.HandoffClaims.test_source_map) ... ok\ntest_support_zip_layout_domain_digest (__main__.HandoffClaims.test_support_zip_layout_domain_digest) ... ok\ntest_version_and_keys (__main__.HandoffClaims.test_version_and_keys) ... ok\ntest_hardlinked_file (__main__.Links.test_hardlinked_file) ... ok\ntest_linked_directory_inside_package (__main__.Links.test_linked_directory_inside_package) ... ok\ntest_linked_output_ancestor (__main__.Links.test_linked_output_ancestor) ... ok\ntest_missing_handoff_and_relative_output (__main__.Malformed.test_missing_handoff_and_relative_output) ... ok\ntest_preimage_part_shape (__main__.Malformed.test_preimage_part_shape) ... ok\ntest_strict_json (__main__.Malformed.test_strict_json) ... ok\ntest_unsafe_paths (__main__.Malformed.test_unsafe_paths) ... ok\ntest_copy_exact_and_read_only_replay (__main__.Valid.test_copy_exact_and_read_only_replay) ... ok\ntest_copy_occupied_and_overlap_refused (__main__.Valid.test_copy_occupied_and_overlap_refused) ... ok\ntest_copy_partial_is_retained (__main__.Valid.test_copy_partial_is_retained) ... ok\ntest_valid_actual_envelope_checks (__main__.Valid.test_valid_actual_envelope_checks) ... ok\ntest_valid_blind_package_checks (__main__.Valid.test_valid_blind_package_checks) ... ok\n\n----------------------------------------------------------------------\nRan 31 tests in 27.016s\n\nOK\n",
+      "runs": [
+        "run 1: 31 tests OK (first run)",
+        "final: 31 tests OK"
+      ],
+      "skips": 0
+    },
+    "not_run": [
+      "v1 unchanged suite (pack: no unchanged v1 sweep)",
+      "any Grok or workflow code"
+    ],
+    "v2_regression": {
+      "command": "python -B -X dev tests/test_colab_support_v2.py -v (unchanged file)",
+      "result": [
+        "Ran 24 tests in 47.620s",
+        "",
+        "OK"
+      ]
+    }
+  }
+}

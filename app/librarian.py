@@ -6,6 +6,7 @@ bridge-test, bridge-status, and bridge-recover are the fixture-only worker excha
 clerk-deliver copies one collected fixture delivery into the caller's claimed Clerk job.
 pack-check, pack-preview, pack-assemble, and pack-verify call the pinned pack tools.
 prime-status calls the pinned read-only Prime status tool on a caller-supplied registry.
+prime-review, prime-guard, and prime-check-next call the pinned read-only Prime review tool on one explicit input.
 boot-prepare, boot-check, boot-judge, and boot-show forward explicit arguments to the pinned recorded-boot tool.
 batch-observe calls the pinned read-only batch observation tool on one explicit commit and path.
 capture-return calls the pinned capture handoff on one absolute binding. It does not launch a worker.
@@ -13,6 +14,7 @@ The writable container is designated before fixture metadata is read.
 run is refused. A --test flag does not authorize a fixture root.
 A clean pack check is not release readiness.
 A status result is not release readiness.
+A review result is not a release.
 An orientation result is not authorization.
 An observation is not closure.
 """
@@ -78,6 +80,9 @@ def main(argv: list[str] | None = None) -> None:
         "pack-assemble",
         "pack-verify",
         "prime-status",
+        "prime-review",
+        "prime-guard",
+        "prime-check-next",
         "boot-prepare",
         "boot-check",
         "boot-judge",
@@ -105,6 +110,15 @@ def main(argv: list[str] | None = None) -> None:
             stop(str(exc))
         if type(code) is not int:
             stop("pinned status tool returned no exit code")
+        raise SystemExit(code)
+    if command in ("prime-review", "prime-guard", "prime-check-next"):
+        door = load_module(Path(__file__).resolve().parent / "prime_review_tools.py", "librarian_prime_review_tools")
+        try:
+            code = door.perform(command, args, code_root)
+        except door.Refuse as exc:
+            stop(str(exc))
+        if type(code) is not int:
+            stop("pinned review tool returned no exit code")
         raise SystemExit(code)
     if command == "batch-observe":
         door = load_module(Path(__file__).resolve().parent / "batch_tools.py", "librarian_batch_tools")

@@ -34,6 +34,7 @@ python -B colab_support.py intake  --output ABS --config ABS --book ABS --member
 python -B handoff_check.py check --output ABS --expected-digest HEX --json
 python -B handoff_check.py copy  --output ABS --expected-digest HEX --to ABS --json
 python -B -X dev tests/test_colab_support_v2.py -v
+python -B -X dev tests/test_handoff_check.py -v
 ```
 Examples: `examples/config.example.json` and `examples/request-exchange-layout.json` (the real-source request).
 
@@ -58,7 +59,14 @@ Examples: `examples/config.example.json` and `examples/request-exchange-layout.j
 - the ZIP identity;
 - the verify invocation and the config contract.
 
-`handoff_check.py` imports no producer and no workflow code. It validates a package against the expected launch digest and can make an exclusive byte copy, so a consumer never has to parse prose.
+`handoff_check.py` imports no producer and no workflow code. Since batch 05.04 (contract `evidence/checker05.04/CONTRACT.md`), the expected launch digest is its only trust anchor.
+- It **derives** every claim from digest-bound bytes by fixed v2 rules and recomputes both the assembler and package digests. The claims are: investigation, binding, exchange names and roles, the source to snapshot map, the support projection, ZIP membership, evaluator separation and the full preimage.
+- It refuses any handoff field that differs from what it derived. Identity is output only under `trusted`, and only when the result is `valid`.
+- It validates every path and refuses links, junctions, hard links, unknown extras, duplicate ZIP entries and pre-created return or review files.
+- `copy` needs a fresh destination and writes exclusively. A replay is a read-only refusal (`already-copied` or `occupied`). A failed copy stays `partial`, with no deletion and no resume.
+- It does NOT re-render the prose files or recompute section line ranges; it lists these under `not_verified`. Use the pinned producer `verify` when those matter.
+
+Exit codes: 0 valid or copied; 1 mismatch or partial; 2 refused.
 
 ## Intake
 Intake requires the reservation origin to equal the investigation book, page and pass. It runs the pinned capture, verify and inspect, and keeps the raw runs. It returns a separate `colab-placement-proposal/2`: the member, receipt and return hash mapped to `<page>/05.NN.return.md`, with `action: proposed; not written`. Returned bytes are never edited and nothing is written to a live book. No review is produced.

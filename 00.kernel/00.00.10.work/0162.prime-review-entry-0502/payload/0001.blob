@@ -1,0 +1,68 @@
+# 06 — Builder notes before the app entry
+version: 001
+Authorization: draft — 2026-10-29
+who: Grok Builder 2
+state: draft
+Face: 06
+PPPP: 0512
+book: 00.00.10.work
+
+## Claim
+The Director authorized this scoped integration in the session that opened this page: "The Director authorizes this scoped integration."
+Claim: Grok Builder 2, this batch only.
+Workspace: D:\Git\lib-build. Branch: workshop.
+HEAD when this note was written: 215671c15794529cb3320d9ce22a27766b74e848.
+That commit is Mathias, "Pack read-only Prime report and guard app integration". This builder did not make it.
+The Return pointer on 05.02 remains the release record. It stays PENDING until capture, verify, and inspect succeed. This note has no receipt.
+
+## Pack
+evidence/pack05.02/source-manifest.json, schema prime-pack-sources/1.
+15 of 15 sources: live bytes equal the snapshot blob and the declared sha256 and length.
+Checked before this note. Bad count: 0.
+Page 05.02 at this cut: sha256 2257736c70b008d21de0f632534fe348495fe31615fe82868f331cea879caf2f, 5396 bytes.
+Filling the pointer later changes the live page. This note cites this cut.
+Accepted module pin from the pack and from 05.02: labs/prime-review-pass01/prime_review.py sha256 805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0, 58324 bytes.
+app/librarian.py at this cut: sha256 cfb209e5f1cbeeada345d208d2aeea623b70969d199effdd17fe97ef2c690572, 9791 bytes.
+
+## What was read
+0512.prime-review/05.02.md.
+evidence/prime-review05.01/REVIEW.md. Codex accepted the bounded report and declared-hold lab. The review records exit 0, a coherent continue, no fake Director reply, and no release or closure. Compute checked records. Codex supplied the judgment text.
+evidence/prime-review05.01/actual-prime-review-input.json and actual-prime-review-output.json.
+evidence/build05.01/ADOPTION.md and the accepted module's report, guard, and check-next surface.
+The three bound return files named by the actual input still match the hashes and lengths in that input.
+The front door pattern in app/librarian.py, app/prime_intake.py, app/prime_tools.py, app/handoff_tools.py, and app/README.md.
+
+## Reservation
+Member 0162.prime-review-entry-0502 holds 01.md and reservation.json only.
+reservation.json sha256 e99429c8ab11f400c8d1d3dcec7a0586f74354695ab12541709347ae43faeeb0, 861 bytes.
+submission_id grok-2-0512-0502. Submitter Grok Builder 2. Reviewer Codex Prime.
+Rehash immediately before capture. The reservation is not edited by this build.
+
+## Boundary
+This batch exposes the accepted read-only commands. It does not build another report engine and it does not qualify or activate another Prime.
+The accepted module stays frozen. This entry does not import it until the pin matches, and a pin mismatch does not launch it.
+Commands assess one supplied record. They do not grant authority, authenticate an actor, close work, or release work. Exit 0 is not a release.
+The draft writer stays a direct lab command. This entry does not add a draft command and does not write live pages.
+No new semantic classification. The caller cannot choose a module path, a registry, or a source.
+Claude's checker work and Grok-1's workflow are other lanes. They are not imported and their files are not edited.
+Law pages, 00.live, other adapter pins, and the accepted review lab stay untouched.
+Existing librarian commands stay on their current doors.
+
+## Intended files
+The contract names the exact edit set. It was written before the app code.
+This note has no receipt.
+
+## Results
+`python -B app/tests/test_prime_review_tools.py` passed 10, expected-refusal 28, skipped 0, failed 0.
+Continue, develop, and a supplied complete account exited 0 with closes_work false. The director-hold and stale-source records exited 1. Reading the pinned 05.17 page was independent-of-holds, exit 0. appoint-candidate was blocked, exit 1. check-next matched guard. The actual three-return input matched the retained Prime output, exit 0, effective continue, attention empty.
+A changed pin and a linked tool path stopped before launch.
+`python -B app/tests/test_entry.py` passed its behavior checks: pass 11, expected-refusal 46, skip 1. The skip is a dangling file symlink, WinError 1314. The pins check failed on 00.kernel/00.00.10.work/0014.design/01.001.md. Live sha256 852ab07d54c1bc77143ddcf0e833c817211bd2336ccf7fdce4d22c5b8867f4f1, 1828 bytes. The test still stores 20ba376e05a5ab09fed5d6e9644e3e74a6db954d7e476ff94f76b6469c780d0a. This batch did not edit that page or test_entry.py.
+
+## Disposition
+Read back as a builder against the review and this page, before capture.
+The accepted module is still 805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0.
+The entry copies the tool's bytes and its exit. It does not treat exit 0 as a release.
+A report label is not authority. The draft command stays on the lab.
+Law, other adapters, Claude's checker, and Grok-1's workflow were not edited.
+No consequential design fork stopped this entry. The 0014 pin drift is outside this edit set.
+This note still has no receipt.
