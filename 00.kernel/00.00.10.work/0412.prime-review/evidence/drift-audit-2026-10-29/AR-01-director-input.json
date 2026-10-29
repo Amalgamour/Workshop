@@ -1,0 +1,103 @@
+{
+  "agreement": {
+    "goal": "Resolve the named Director item without rewriting historical evidence.",
+    "scope": "This question and affected action only.",
+    "prime_discretion": "Preserve records and explain evidence.",
+    "director_required": "Confirm authority or choose risk policy.",
+    "finish_criteria": [
+      {
+        "id": "answer",
+        "text": "Exact Director response preserved beside original issue."
+      }
+    ],
+    "recorded_decisions": []
+  },
+  "answers": [],
+  "attribution": {
+    "actor_label": "Codex Prime",
+    "role": "prime",
+    "evidence": "Actual Director drift-audit escalation. Answers are recorded separately as direct user replies, not inferred by the model."
+  },
+  "gaps": [],
+  "holds": [
+    {
+      "dependent_scope": [
+        "run-affected-fixture"
+      ],
+      "finding_id": "00.kernel/00.00.10.work/0412.prime-review/evidence/drift-audit-2026-10-29/AR-01-question.md#AR-01",
+      "hold_id": "H-AR-01",
+      "kind": "director-judgment",
+      "question_id": "Q-AR-01",
+      "question_revision": "r1",
+      "question_sha256": "e2e6a1a8b02d258da37a30c42e7dc90f4bef6cbc60180c30b9937f005f56e987"
+    }
+  ],
+  "judgment": {
+    "design_fork": null,
+    "finding": "The Director decision is required; no inferred answer.",
+    "next_action": "Wait for the exact answer, then preserve its scope.",
+    "outcome": "director-input",
+    "reasons": [
+      "Historical open item escalated by the Director drift check."
+    ],
+    "sections": {
+      "affected": [
+        {
+          "action_id": "run-affected-fixture",
+          "dependency": "AR-01"
+        }
+      ],
+      "assumptions": null,
+      "consequences": "Proceeding without a recorded answer would conceal an unresolved authority or risk choice.",
+      "exploration": null,
+      "findings_account": null,
+      "finish_assessments": null,
+      "for_model": null,
+      "issue": "AR-01 was not brought back promptly.",
+      "learning": null,
+      "limits": null,
+      "next_bounded_action": null,
+      "open_questions": null,
+      "options": [
+        "Confirm/approve within the stated scope.",
+        "Keep or impose the affected hold."
+      ],
+      "outcome_evidence": null,
+      "preservation": null,
+      "prime_finding": null,
+      "proposed_plan": null,
+      "question": {
+        "content_sha256": "e2e6a1a8b02d258da37a30c42e7dc90f4bef6cbc60180c30b9937f005f56e987",
+        "id": "Q-AR-01",
+        "revision": "r1",
+        "text": "Accept fixture-only repair with the concurrent hard-link race excluded, or hold until addressed?"
+      },
+      "recommendation": "Preserve the original record and resolve only the named question.",
+      "remaining_choices": null,
+      "return_result": null,
+      "tests_note": null,
+      "tests_passed": null,
+      "within_direction": null
+    },
+    "semantic_conflict": false
+  },
+  "review_passes": [],
+  "schema": "prime-review-record/1",
+  "sources": [
+    {
+      "kind": "page",
+      "logical_path": "00.kernel/00.00.10.work/0412.prime-review/evidence/drift-audit-2026-10-29/AR-01-question.md",
+      "content_sha256": "e2e6a1a8b02d258da37a30c42e7dc90f4bef6cbc60180c30b9937f005f56e987",
+      "content_bytes": 97,
+      "transport_sha256": "e2e6a1a8b02d258da37a30c42e7dc90f4bef6cbc60180c30b9937f005f56e987",
+      "transport_bytes": 97,
+      "prior_content_sha256": null,
+      "prior_transport_sha256": null,
+      "record": null,
+      "bind": true,
+      "identity": {
+        "schema": "page-bytes/1"
+      }
+    }
+  ]
+}
