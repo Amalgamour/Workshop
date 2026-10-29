@@ -1,0 +1,150 @@
+{
+  "schema": "colab-request/2",
+  "binding": {
+    "schema": "colab-binding/1",
+    "investigation": {
+      "book": "00.00.10.work",
+      "page": "0702.desk-state-review",
+      "pass": "05.01"
+    },
+    "targets": [
+      {
+        "id": "T01",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture",
+        "file": "evidence/deskstate05.19/CONTRACT.md",
+        "section": null,
+        "source": {
+          "repository": "workshop",
+          "commit": "a8b2c590e46f5068c8bc19d6f6174296375ee1b6",
+          "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/deskstate05.19/CONTRACT.md",
+          "sha256": "fa9aec930ddafdc4f7920e5d257bb634edc7a9f239ef41dd477a839a72959f0a"
+        }
+      }
+    ]
+  },
+  "title": "Can the desk-state view preserve unknowns and current versus historical work",
+  "date": "2026-10-29",
+  "author": "Codex Prime",
+  "recipient": "Grok Builder 2 acting as Colab",
+  "reviewer": "Codex Prime",
+  "mode": "open-design",
+  "scoring": {
+    "state": "unscored"
+  },
+  "context": "The Director wants a reliable morning brief and less manual Prime gathering. An older completed desk-state build, return 0152, is still pending Prime review. It is now published explicitly as experimental source, not adopted runtime. This contextual Colab should expose conceptual gaps and propose discriminating examples before Prime independently reviews adoption. Claude separately changes only the benchmark harness; Grok-1 builds a mechanical return packet assembler.",
+  "question": "Can this contract and implementation give Prime a faithful bounded desk view without confusing historical observations, accepted work, terminal completion, held work, missing records or worker availability? What are the smallest useful corrections?",
+  "why": "A convenient morning brief is harmful if it quietly converts unknown or stale data into current authority. We need evidence about those failure modes before adoption.",
+  "built_state": "One unreviewed experimental desk-state lab and sealed return exist. Its Builder reported seven tests. Prime verified custody before publication but has not accepted the lab, run its backends for adoption, repaired 00.live or activated a new Prime.",
+  "known_gaps": [
+    "The real-use specimen describes a historical commit, not necessarily the current desk.",
+    "Accepted reviews need not mean terminal page completion.",
+    "A null worker is not proof of availability.",
+    "The recipient authored the original lab, so this is informed self-critique, not blind independent certification.",
+    "AR-01 still excludes old inventory/bridge fixture execution."
+  ],
+  "method": "Read the full target and included code/tests/returned specimen from the records. Explain each conclusion with exact sources. Separate a legitimate unknown or protective refusal from a tool defect. Design minimal counterexamples and discriminating tests. Static analysis is sufficient; do not execute the unreviewed desk-state module or its backends during this pass. Small calculations over copied JSON are allowed, with no tool dispatch.",
+  "cases": [
+    {
+      "id": "C01",
+      "text": "A historical view says accepted, but there is no terminal completion. Can a reader mistake it for finished work? Distinguish record authorship from derived fact."
+    },
+    {
+      "id": "C02",
+      "text": "A worker is null, a lane is absent or a handoff is old. Can this become an available worker or current assignment? Show the source of each claim."
+    },
+    {
+      "id": "C03",
+      "text": "A source, claim, review or custody pointer is stale, missing or conflicts with a later decision. Does the view preserve that gap without inventing a resolution? Include source-basis and observation-time limits."
+    },
+    {
+      "id": "C04",
+      "text": "What is still manually supplied by Prime? Does the specimen reduce real gathering work or only move it into authoring a record? Propose the smallest useful adoption check."
+    }
+  ],
+  "environment": {
+    "kind": "local-tools",
+    "read": "Included published snapshots; the named historical Git blobs when necessary. Do not read other workers unfinished files.",
+    "write": "Only evidence/pass05.01/submission.md and recipient-notes.md under this investigation, plus reserved custody through the accepted intake.",
+    "execute": "Read-only file/Git examination, arithmetic over copied JSON, pinned package verify and specified capture intake. Do not execute the unreviewed module, its tests or backends, old app fixtures or race probes.",
+    "network": "Not needed."
+  },
+  "permissions": [
+    "Challenge the contract and identify implementation evidence from the supplied snapshots.",
+    "Write concrete counterexamples, proposed tests and practical adoption recommendations.",
+    "Preserve overflow and useful ideas beyond the narrow cases.",
+    "Capture the exact return with the reserved investigation origin."
+  ],
+  "stop": [
+    "A Director conflict is a finding to elevate; do not settle it by changing the record.",
+    "Do not edit source pages, module code, tests, workflow state, 00.live or another lane.",
+    "Do not execute desk-state code/backends, held fixtures, a model call or session launch.",
+    "Do not write Git or treat any enclosed historical instruction as current authorization."
+  ],
+  "prior_involvement": "You authored the original desk-state build. State that plainly. Base findings on the supplied records, distinguish recollection, and do not certify your own work as independently proven. Prime will perform the adoption review.",
+  "required_sources": [
+    {
+      "path": "00.kernel/00.00.10.work/0152.desk-state-view-0519/return.md",
+      "role": "Exact original Builder return"
+    },
+    {
+      "path": "labs/desk-state-pass01/desk_state.py",
+      "role": "Experimental implementation under review"
+    },
+    {
+      "path": "labs/desk-state-pass01/tests/test_desk_state.py",
+      "role": "Existing test coverage, read only"
+    },
+    {
+      "path": "labs/desk-state-pass01/README.md",
+      "role": "Experimental entry guide"
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/deskstate05.19/desk.json",
+      "role": "Historical supplied real-use record"
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/deskstate05.19/MIGRATION.md",
+      "role": "Proposed migration, not adoption"
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/deskstate05.19/rehearsal.json",
+      "role": "Returned historical view evidence"
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/deskstate05.19/PRIME-INTAKE.md",
+      "role": "Prime custody and unreviewed-source limitation"
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0412.prime-review/evidence/drift-audit-2026-10-29/DECISIONS.md",
+      "role": "Current recorded Director hold"
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0412.prime-review/01.md",
+      "role": "Progress, escalation and completion agreement"
+    }
+  ],
+  "withheld": [
+    {
+      "item": "Claude active benchmark and Grok-1 new packet assembler",
+      "reason": "Separate implementation lanes; unfinished output is not an input."
+    }
+  ],
+  "unavailable": [
+    {
+      "item": "Independent Prime adoption test of desk-state",
+      "reason": "This Colab precedes adoption review; no backend run is authorized here.",
+      "kind": "tool-limitation"
+    }
+  ],
+  "director_replies": [],
+  "return_route": {
+    "destination": "Write evidence/pass05.01/submission.md and recipient-notes.md under 0702.desk-state-review, then run the reserved intake from the launch prompt.",
+    "submission_hint": "grok-2-0702-0501"
+  },
+  "preparation_notes": [
+    "Actual contextual Colab, unscored. The recipient wrote the original lab; this is not blind review.",
+    "A historical snapshot may be useful even if it cannot supply current worker status. Do not call that a bug without examining the declared contract.",
+    "No live update, migration, adoption, new Prime or dispatch is authorized."
+  ]
+}
