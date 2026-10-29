@@ -1,0 +1,2512 @@
+{
+  "schema": "desk-state-rehearsal/1",
+  "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+  "command": [
+    "python",
+    "-B",
+    "labs/desk-state-pass01/desk_state.py",
+    "view",
+    "--input",
+    "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0508.return-capture\\evidence\\deskstate05.19\\desk.json",
+    "--json",
+    "--candidate",
+    "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0508.return-capture\\evidence\\deskstate05.19\\00.live.candidate.md"
+  ],
+  "exit": 1,
+  "stderr": "",
+  "tests": {
+    "command": "python -B -m unittest labs.desk-state-pass01.tests.test_desk_state",
+    "result": "7 passed, exit 0",
+    "file_symlink": "WinError 1314; a directory junction was refused instead"
+  },
+  "view": {
+    "attention": [
+      "orientation-correction: open-accepted-not-terminal",
+      "orientation-correction: accepted without an explicit terminal declaration",
+      "capture-handoff: open-accepted-not-terminal",
+      "capture-handoff: accepted without an explicit terminal declaration",
+      "projection-held: open-held",
+      "projection-held: review held; the item stays open until an explicit resolution",
+      "projection-held: published bytes at a ref do not complete work",
+      "legacy-assignment: unprojected",
+      "unresolved D1: D1 remains unresolved. packet05.15/registry.json is Prime's proposed registry choice in RECONCILIATION.md, not a Director decision that a lane is canonical."
+    ],
+    "authority": "none; this view selects, releases, accepts, completes and dispatches nothing",
+    "blockers": [
+      {
+        "evidence": [
+          {
+            "bytes": 1239,
+            "command": [
+              "git",
+              "-C",
+              "D:\\Git\\lib-build",
+              "cat-file",
+              "blob",
+              "--end-of-options",
+              "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841:00.kernel/00.00.10.work/0507.prime-support/evidence/packet05.15/registry.json"
+            ],
+            "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+            "exit": 0,
+            "expected_sha256": "8a068546390d49c3958511d805be0b7c06ce9bf277b25ba575bc3780e4bd5cdb",
+            "note": "Cited proposal. This view does not settle D1 and does not open Claude's active outputs.",
+            "path": "00.kernel/00.00.10.work/0507.prime-support/evidence/packet05.15/registry.json",
+            "reason": null,
+            "sha256": "8a068546390d49c3958511d805be0b7c06ce9bf277b25ba575bc3780e4bd5cdb",
+            "status": "match"
+          }
+        ],
+        "id": "D1",
+        "statement": "D1 remains unresolved. packet05.15/registry.json is Prime's proposed registry choice in RECONCILIATION.md, not a Director decision that a lane is canonical.",
+        "status": "unresolved"
+      }
+    ],
+    "book": "00.00.10.work",
+    "desk": "librarian-workshop",
+    "elected": null,
+    "exit": 1,
+    "goal": {
+      "evidence": [
+        {
+          "bytes": 3897,
+          "command": [
+            "git",
+            "-C",
+            "D:\\Git\\lib-build",
+            "cat-file",
+            "blob",
+            "--end-of-options",
+            "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841:00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.18/RECONCILIATION.md"
+          ],
+          "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+          "exit": 0,
+          "expected_sha256": "cea41365e952d38e179a2e512aff8eba3ed7f8605197b3c8940c5b1ca2defa94",
+          "note": "Prime reconciliation. Proposed final-exam binding, not an execution release.",
+          "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.18/RECONCILIATION.md",
+          "reason": null,
+          "sha256": "cea41365e952d38e179a2e512aff8eba3ed7f8605197b3c8940c5b1ca2defa94",
+          "status": "match"
+        },
+        {
+          "bytes": 11435,
+          "command": [
+            "git",
+            "-C",
+            "D:\\Git\\lib-build",
+            "cat-file",
+            "blob",
+            "--end-of-options",
+            "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841:00.kernel/00.00.10.work/0508.return-capture/05.19.md"
+          ],
+          "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+          "exit": 0,
+          "expected_sha256": "7b3d4964f48d074dd8fd29956f19959465c4cdba2001fe5225d5814914ab1e55",
+          "note": "Authorizing assignment at this commit, before the return pointer is filled.",
+          "path": "00.kernel/00.00.10.work/0508.return-capture/05.19.md",
+          "reason": null,
+          "sha256": "7b3d4964f48d074dd8fd29956f19959465c4cdba2001fe5225d5814914ab1e55",
+          "status": "match"
+        }
+      ],
+      "statement": "Fresh-Prime continuity: a new session can read a declared historical snapshot, identify its gaps and conflicts, and propose one safe next action. Passing that snapshot test does not recover all current work, settle D1, replace Prime, or hand over authority."
+    },
+    "handoff": {
+      "author": "Codex Prime",
+      "evidence": [
+        {
+          "bytes": 3897,
+          "command": [
+            "git",
+            "-C",
+            "D:\\Git\\lib-build",
+            "cat-file",
+            "blob",
+            "--end-of-options",
+            "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841:00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.18/RECONCILIATION.md"
+          ],
+          "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+          "exit": 0,
+          "expected_sha256": "cea41365e952d38e179a2e512aff8eba3ed7f8605197b3c8940c5b1ca2defa94",
+          "note": "Prime reconciliation. Proposed final-exam binding, not an execution release.",
+          "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.18/RECONCILIATION.md",
+          "reason": null,
+          "sha256": "cea41365e952d38e179a2e512aff8eba3ed7f8605197b3c8940c5b1ca2defa94",
+          "status": "match"
+        }
+      ],
+      "kind": "recorded-prime-intent",
+      "statement": "Next work is one final prepared test bundle and Director-led trial, with schema ambiguities resolved above. Director must launch/name the actual fresh session; no identity is invented by compute or this review."
+    },
+    "lanes": [
+      {
+        "attention": [
+          "accepted without an explicit terminal declaration"
+        ],
+        "batch_id": "0508.return-capture/05.18",
+        "claim_raw": "Claim: Grok Builder 2, this session, 2026-10-28. pack05.18: 13 of 13 snapshots match their pins, and live equals all 13. The packet budget is calculated at source cut d3b6ad3e55beb1ec0bd5acbb114e6e66fd66c4e9. Boot tool 54b23484… verified at that cut. Scope: this page only.",
+        "followup": null,
+        "id": "orientation-correction",
+        "lifecycle": "open-accepted-not-terminal",
+        "page_id": "p0518",
+        "reader_ambiguities": [
+          "legacy-ambiguous-heading",
+          "legacy-revision-withheld",
+          "custody-not-observed",
+          "quoted-accepted-unbound",
+          "duplicate-release"
+        ],
+        "reader_attention": [],
+        "release_raw": null,
+        "source": {
+          "bytes": 8139,
+          "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+          "kind": "git-blob",
+          "path": "00.kernel/00.00.10.work/0508.return-capture/05.18.md",
+          "sha256": "314f96a4b87b35e0bb5f8a2c1a85f42a6eb0fac42c7a264f7e691baf741b5395"
+        },
+        "task": "0508/05.18 planning correction captured in 0150. Accepted as that correction only.",
+        "unprojected_reason": null,
+        "worker": null,
+        "worker_meaning": "unrecorded"
+      },
+      {
+        "attention": [
+          "accepted without an explicit terminal declaration"
+        ],
+        "batch_id": "0504.app-entry/05.20",
+        "claim_raw": "Claim: Grok 4.7 (xAI), session 01a179d2-387a-7661-8702-6e53f95e96b5, 2026-10-28, HEAD aa9bf59f610e58e24067c4173ec8bce1c684bcf9.",
+        "followup": null,
+        "id": "capture-handoff",
+        "lifecycle": "open-accepted-not-terminal",
+        "page_id": "p0520",
+        "reader_ambiguities": [
+          "legacy-ambiguous-heading",
+          "legacy-revision-withheld",
+          "custody-not-observed",
+          "quoted-accepted-unbound"
+        ],
+        "reader_attention": [],
+        "release_raw": "Release: released by the Director, 2026-10-28.",
+        "source": {
+          "bytes": 5729,
+          "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+          "kind": "git-blob",
+          "path": "00.kernel/00.00.10.work/0504.app-entry/05.20.md",
+          "sha256": "76b18077d9e57935aa661f018d7fae27469206c524e882cd424cb0a5f054669b"
+        },
+        "task": "0504/05.20 capture-handoff door captured in 0149. Accepted within that backend scope only.",
+        "unprojected_reason": null,
+        "worker": null,
+        "worker_meaning": "unrecorded"
+      },
+      {
+        "attention": [
+          "review held; the item stays open until an explicit resolution",
+          "published bytes at a ref do not complete work"
+        ],
+        "batch_id": "0507.prime-support/05.12",
+        "claim_raw": "Claim: claude-opus-5-5 (Anthropic), Colab, executor, claimed 2026-10-27T20:05-05:00 on workshop at e97c70fff2984d59c26180e2ab146258dd9ac491. pack05.12: 10 of 10 snapshots match their pins, and live equals all 10. return_inspect 947915fe… and return_capture 8f3da5c6… verified. Scope: this batch only.",
+        "followup": "0507.prime-support/05.13",
+        "id": "projection-held",
+        "lifecycle": "open-held",
+        "page_id": "p0512",
+        "reader_ambiguities": [
+          "legacy-ambiguous-heading",
+          "legacy-revision-withheld",
+          "custody-not-observed",
+          "duplicate-release"
+        ],
+        "reader_attention": [],
+        "release_raw": null,
+        "source": {
+          "bytes": 8403,
+          "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+          "kind": "git-blob",
+          "path": "00.kernel/00.00.10.work/0507.prime-support/05.12.md",
+          "sha256": "dce336e1f4c3cd8d4679ddff45f517293b2e6fd991d8bb39560c0412f1f5f3f5"
+        },
+        "task": "0507/05.12 remains held for SP-05. The 05.14 coordination still matches these bytes.",
+        "unprojected_reason": null,
+        "worker": null,
+        "worker_meaning": "unrecorded"
+      },
+      {
+        "attention": [],
+        "batch_id": null,
+        "claim_raw": null,
+        "followup": null,
+        "id": "legacy-assignment",
+        "lifecycle": "unprojected",
+        "page_id": "p0601",
+        "reader_ambiguities": [
+          "legacy-no-return",
+          "legacy-revision-withheld"
+        ],
+        "reader_attention": [],
+        "release_raw": null,
+        "source": {
+          "bytes": 545,
+          "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+          "kind": "git-blob",
+          "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+          "sha256": "3578934451fc98e1dcfcc0030adebad27478787c4c2b6177f82268ae6826c38c"
+        },
+        "task": "0401/06.01 is the legacy assignment record. It is not identified as a 05 page and is not elected.",
+        "unprojected_reason": "page unidentified: reader gives no book/page/batch",
+        "worker": null,
+        "worker_meaning": "unrecorded"
+      }
+    ],
+    "legacy": {
+      "bytes": 1160,
+      "command": [
+        "git",
+        "-C",
+        "D:\\Git\\lib-build",
+        "cat-file",
+        "blob",
+        "--end-of-options",
+        "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841:00.kernel/00.live.md"
+      ],
+      "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+      "exit": 0,
+      "expected_sha256": "a69245972915b6e140b7528239216ff1a1bc97941cfb1a4de4868d88a541a30d",
+      "note": "Stale legacy mirror of 0401/06.01. Not rewritten. Not an input to this view.",
+      "path": "00.kernel/00.live.md",
+      "reason": null,
+      "sha256": "a69245972915b6e140b7528239216ff1a1bc97941cfb1a4de4868d88a541a30d",
+      "status": "match"
+    },
+    "live_times": [
+      "0150.cold-prime-plan-revision-0518 captured_at 2026-10-28T18:28:40.563826Z",
+      "0149.capture-handoff-entry-0520 captured_at 2026-10-28T18:37:49.618537Z",
+      "0136.state-projection-0512 captured_at 2026-10-28T00:36:15.423334Z"
+    ],
+    "milestone": {
+      "evidence": [
+        {
+          "bytes": 1084,
+          "command": [
+            "git",
+            "-C",
+            "D:\\Git\\lib-build",
+            "cat-file",
+            "blob",
+            "--end-of-options",
+            "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841:00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.18/review.md"
+          ],
+          "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+          "exit": 0,
+          "expected_sha256": "e3a075ca2cf440ef37e28cf56a962f4b63da0e04764c0c6b495995c8fe679664",
+          "note": "Accepted as the CP-01/CP-02 correction, not a handover.",
+          "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.18/review.md",
+          "reason": null,
+          "sha256": "e3a075ca2cf440ef37e28cf56a962f4b63da0e04764c0c6b495995c8fe679664",
+          "status": "match"
+        }
+      ],
+      "statement": "The current snapshot orientation test is one step toward fresh-Prime continuity. It is not that goal, and it is not an authority handover."
+    },
+    "raw": {
+      "brief": {
+        "attention": 6,
+        "authority": "none; a brief selects, releases, accepts and dispatches nothing",
+        "brief": {
+          "awaiting_review": [],
+          "completed_fixtures": [],
+          "conflicts": [],
+          "correction_or_held": [
+            {
+              "followup": "0507.prime-support/05.13",
+              "id": "0507.prime-support/05.12",
+              "lifecycle": "open-held",
+              "reason": "review held; the item stays open until an explicit resolution; published bytes at a ref do not complete work; reader: legacy-ambiguous-heading, legacy-revision-withheld, custody-not-observed, duplicate-release",
+              "source_ref": {
+                "bytes": 8403,
+                "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+                "kind": "git-blob",
+                "label": "git blob at the named commit",
+                "path": "00.kernel/00.00.10.work/0507.prime-support/05.12.md",
+                "repository": "D:\\Git\\lib-build",
+                "sha256": "dce336e1f4c3cd8d4679ddff45f517293b2e6fd991d8bb39560c0412f1f5f3f5"
+              }
+            }
+          ],
+          "other_open": [
+            {
+              "followup": null,
+              "id": "0508.return-capture/05.18",
+              "lifecycle": "open-accepted-not-terminal",
+              "reason": "accepted without an explicit terminal declaration; reader: legacy-ambiguous-heading, legacy-revision-withheld, custody-not-observed, quoted-accepted-unbound, duplicate-release",
+              "source_ref": {
+                "bytes": 8139,
+                "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+                "kind": "git-blob",
+                "label": "git blob at the named commit",
+                "path": "00.kernel/00.00.10.work/0508.return-capture/05.18.md",
+                "repository": "D:\\Git\\lib-build",
+                "sha256": "314f96a4b87b35e0bb5f8a2c1a85f42a6eb0fac42c7a264f7e691baf741b5395"
+              }
+            },
+            {
+              "followup": null,
+              "id": "0504.app-entry/05.20",
+              "lifecycle": "open-accepted-not-terminal",
+              "reason": "accepted without an explicit terminal declaration; reader: legacy-ambiguous-heading, legacy-revision-withheld, custody-not-observed, quoted-accepted-unbound",
+              "source_ref": {
+                "bytes": 5729,
+                "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+                "kind": "git-blob",
+                "label": "git blob at the named commit",
+                "path": "00.kernel/00.00.10.work/0504.app-entry/05.20.md",
+                "repository": "D:\\Git\\lib-build",
+                "sha256": "76b18077d9e57935aa661f018d7fae27469206c524e882cd424cb0a5f054669b"
+              }
+            }
+          ],
+          "unprojected": [
+            {
+              "id": null,
+              "reason": "page unidentified: reader gives no book/page/batch; reader: legacy-no-return, legacy-revision-withheld",
+              "source_ref": {
+                "bytes": 545,
+                "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+                "kind": "git-blob",
+                "label": "git blob at the named commit",
+                "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+                "repository": "D:\\Git\\lib-build",
+                "sha256": "3578934451fc98e1dcfcc0030adebad27478787c4c2b6177f82268ae6826c38c"
+              }
+            },
+            {
+              "id": null,
+              "reason": "page unidentified: reader gives no book/page/batch; reader: legacy-no-return, legacy-revision-withheld",
+              "source_ref": {
+                "bytes": 1160,
+                "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+                "kind": "git-blob",
+                "label": "git blob at the named commit",
+                "path": "00.kernel/00.live.md",
+                "repository": "D:\\Git\\lib-build",
+                "sha256": "a69245972915b6e140b7528239216ff1a1bc97941cfb1a4de4868d88a541a30d"
+              }
+            }
+          ],
+          "unreleased": []
+        },
+        "input_sha256": "41bf2d153e93f9165b2909bd55ddd697191def91aa49016e252cc7f4c0600c57",
+        "inputs": [
+          {
+            "label": "SUPPLIED",
+            "note": "reader stdout at the declared source; not a workflow decision",
+            "observation_sha256": "9c1b1f49f7713fa92b9a9948a3a34f043422b525052dffac0a779e0f174e594f",
+            "source_ref": {
+              "bytes": 8139,
+              "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+              "kind": "git-blob",
+              "label": "git blob at the named commit",
+              "path": "00.kernel/00.00.10.work/0508.return-capture/05.18.md",
+              "repository": "D:\\Git\\lib-build",
+              "sha256": "314f96a4b87b35e0bb5f8a2c1a85f42a6eb0fac42c7a264f7e691baf741b5395"
+            }
+          },
+          {
+            "label": "SUPPLIED",
+            "note": "reader stdout at the declared source; not a workflow decision",
+            "observation_sha256": "42dad794ce3f981f6f211941ba290d55c03957ef0882c97f0594664bf8685407",
+            "source_ref": {
+              "bytes": 5729,
+              "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+              "kind": "git-blob",
+              "label": "git blob at the named commit",
+              "path": "00.kernel/00.00.10.work/0504.app-entry/05.20.md",
+              "repository": "D:\\Git\\lib-build",
+              "sha256": "76b18077d9e57935aa661f018d7fae27469206c524e882cd424cb0a5f054669b"
+            }
+          },
+          {
+            "label": "SUPPLIED",
+            "note": "reader stdout at the declared source; not a workflow decision",
+            "observation_sha256": "65a517534cefe27ae87f9f16ddc8a3a5524dba19dc3f92a782b680bd2d53d039",
+            "source_ref": {
+              "bytes": 8403,
+              "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+              "kind": "git-blob",
+              "label": "git blob at the named commit",
+              "path": "00.kernel/00.00.10.work/0507.prime-support/05.12.md",
+              "repository": "D:\\Git\\lib-build",
+              "sha256": "dce336e1f4c3cd8d4679ddff45f517293b2e6fd991d8bb39560c0412f1f5f3f5"
+            }
+          },
+          {
+            "label": "SUPPLIED",
+            "note": "reader stdout at the declared source; not a workflow decision",
+            "observation_sha256": "75a44e4be7f2db543fd568bfce100a3d4d7b6f12c62f77201e605afbdbd0410b",
+            "source_ref": {
+              "bytes": 545,
+              "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+              "kind": "git-blob",
+              "label": "git blob at the named commit",
+              "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+              "repository": "D:\\Git\\lib-build",
+              "sha256": "3578934451fc98e1dcfcc0030adebad27478787c4c2b6177f82268ae6826c38c"
+            }
+          },
+          {
+            "label": "SUPPLIED",
+            "note": "reader stdout at the declared source; not a workflow decision",
+            "observation_sha256": "8faffe067f86d889aff2666e175b1f1a3636e319a61fd01675151d40a5c31584",
+            "source_ref": {
+              "bytes": 1160,
+              "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+              "kind": "git-blob",
+              "label": "git blob at the named commit",
+              "path": "00.kernel/00.live.md",
+              "repository": "D:\\Git\\lib-build",
+              "sha256": "a69245972915b6e140b7528239216ff1a1bc97941cfb1a4de4868d88a541a30d"
+            }
+          }
+        ],
+        "inspected": true,
+        "mapping": [
+          {
+            "batch_id": "0508.return-capture/05.18",
+            "decisions": [
+              "provenance supplied-commit from source.kind git-blob (supplied, not verified here)",
+              "return.pointer present; members from pointer sections only (1)",
+              "release/claim from SUPPLIED coordination only",
+              "reader custody.primary not used as candidate",
+              "review bound from SUPPLIED coordination (a declared fixture decision, not authenticated)"
+            ],
+            "evidence_kept": {
+              "claim_raw": "Claim: Grok Builder 2, this session, 2026-10-28. pack05.18: 13 of 13 snapshots match their pins, and live equals all 13. The packet budget is calculated at source cut d3b6ad3e55beb1ec0bd5acbb114e6e66fd66c4e9. Boot tool 54b23484… verified at that cut. Scope: this page only.",
+              "executor_raw": "Executor: Grok Builder 2. Reviewer: Codex Prime.",
+              "header_state_raw": "state: draft",
+              "legacy": {
+                "reason": "ambiguous heading line 81",
+                "revision_id": null,
+                "status": "unsupported"
+              },
+              "reader_ambiguities": [
+                "legacy-ambiguous-heading",
+                "legacy-revision-withheld",
+                "custody-not-observed",
+                "quoted-accepted-unbound",
+                "duplicate-release"
+              ],
+              "reader_attention": [],
+              "release_raw": null,
+              "typed_declaration_ignored": false
+            },
+            "label": "SUPPLIED",
+            "note": "reader stdout at the declared source; not a workflow decision",
+            "observation_sha256": "9c1b1f49f7713fa92b9a9948a3a34f043422b525052dffac0a779e0f174e594f",
+            "source_ref": {
+              "bytes": 8139,
+              "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+              "kind": "git-blob",
+              "label": "git blob at the named commit",
+              "path": "00.kernel/00.00.10.work/0508.return-capture/05.18.md",
+              "repository": "D:\\Git\\lib-build",
+              "sha256": "314f96a4b87b35e0bb5f8a2c1a85f42a6eb0fac42c7a264f7e691baf741b5395"
+            },
+            "unprojected_reason": null
+          },
+          {
+            "batch_id": "0504.app-entry/05.20",
+            "decisions": [
+              "provenance supplied-commit from source.kind git-blob (supplied, not verified here)",
+              "return.pointer present; members from pointer sections only (1)",
+              "release/claim from SUPPLIED coordination only",
+              "reader custody.primary not used as candidate",
+              "review bound from SUPPLIED coordination (a declared fixture decision, not authenticated)"
+            ],
+            "evidence_kept": {
+              "claim_raw": "Claim: Grok 4.7 (xAI), session 01a179d2-387a-7661-8702-6e53f95e96b5, 2026-10-28, HEAD aa9bf59f610e58e24067c4173ec8bce1c684bcf9.",
+              "executor_raw": "Executor: Grok Builder 1. Reviewer: Codex Prime.",
+              "header_state_raw": "state: returned",
+              "legacy": {
+                "reason": "ambiguous heading line 66",
+                "revision_id": null,
+                "status": "unsupported"
+              },
+              "reader_ambiguities": [
+                "legacy-ambiguous-heading",
+                "legacy-revision-withheld",
+                "custody-not-observed",
+                "quoted-accepted-unbound"
+              ],
+              "reader_attention": [],
+              "release_raw": "Release: released by the Director, 2026-10-28.",
+              "typed_declaration_ignored": false
+            },
+            "label": "SUPPLIED",
+            "note": "reader stdout at the declared source; not a workflow decision",
+            "observation_sha256": "42dad794ce3f981f6f211941ba290d55c03957ef0882c97f0594664bf8685407",
+            "source_ref": {
+              "bytes": 5729,
+              "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+              "kind": "git-blob",
+              "label": "git blob at the named commit",
+              "path": "00.kernel/00.00.10.work/0504.app-entry/05.20.md",
+              "repository": "D:\\Git\\lib-build",
+              "sha256": "76b18077d9e57935aa661f018d7fae27469206c524e882cd424cb0a5f054669b"
+            },
+            "unprojected_reason": null
+          },
+          {
+            "batch_id": "0507.prime-support/05.12",
+            "decisions": [
+              "provenance supplied-commit from source.kind git-blob (supplied, not verified here)",
+              "return.pointer present; members from pointer sections only (1)",
+              "release/claim from SUPPLIED coordination only",
+              "reader custody.primary not used as candidate",
+              "review bound from SUPPLIED coordination (a declared fixture decision, not authenticated)"
+            ],
+            "evidence_kept": {
+              "claim_raw": "Claim: claude-opus-5-5 (Anthropic), Colab, executor, claimed 2026-10-27T20:05-05:00 on workshop at e97c70fff2984d59c26180e2ab146258dd9ac491. pack05.12: 10 of 10 snapshots match their pins, and live equals all 10. return_inspect 947915fe… and return_capture 8f3da5c6… verified. Scope: this batch only.",
+              "executor_raw": "Executor: Claude. Reviewer: Codex Prime.",
+              "header_state_raw": "state: draft",
+              "legacy": {
+                "reason": "ambiguous heading line 89",
+                "revision_id": null,
+                "status": "unsupported"
+              },
+              "reader_ambiguities": [
+                "legacy-ambiguous-heading",
+                "legacy-revision-withheld",
+                "custody-not-observed",
+                "duplicate-release"
+              ],
+              "reader_attention": [],
+              "release_raw": null,
+              "typed_declaration_ignored": false
+            },
+            "label": "SUPPLIED",
+            "note": "reader stdout at the declared source; not a workflow decision",
+            "observation_sha256": "65a517534cefe27ae87f9f16ddc8a3a5524dba19dc3f92a782b680bd2d53d039",
+            "source_ref": {
+              "bytes": 8403,
+              "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+              "kind": "git-blob",
+              "label": "git blob at the named commit",
+              "path": "00.kernel/00.00.10.work/0507.prime-support/05.12.md",
+              "repository": "D:\\Git\\lib-build",
+              "sha256": "dce336e1f4c3cd8d4679ddff45f517293b2e6fd991d8bb39560c0412f1f5f3f5"
+            },
+            "unprojected_reason": null
+          },
+          {
+            "decisions": [],
+            "evidence_kept": {
+              "claim_raw": null,
+              "executor_raw": null,
+              "header_state_raw": null,
+              "legacy": {
+                "reason": "no Return section",
+                "revision_id": null,
+                "status": "no-return"
+              },
+              "reader_ambiguities": [
+                "legacy-no-return",
+                "legacy-revision-withheld"
+              ],
+              "reader_attention": [],
+              "release_raw": null,
+              "typed_declaration_ignored": false
+            },
+            "label": "SUPPLIED",
+            "note": "reader stdout at the declared source; not a workflow decision",
+            "observation_sha256": "75a44e4be7f2db543fd568bfce100a3d4d7b6f12c62f77201e605afbdbd0410b",
+            "source_ref": {
+              "bytes": 545,
+              "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+              "kind": "git-blob",
+              "label": "git blob at the named commit",
+              "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+              "repository": "D:\\Git\\lib-build",
+              "sha256": "3578934451fc98e1dcfcc0030adebad27478787c4c2b6177f82268ae6826c38c"
+            },
+            "unprojected_reason": "page unidentified: reader gives no book/page/batch"
+          },
+          {
+            "decisions": [],
+            "evidence_kept": {
+              "claim_raw": null,
+              "executor_raw": null,
+              "header_state_raw": null,
+              "legacy": {
+                "reason": "no Return section",
+                "revision_id": null,
+                "status": "no-return"
+              },
+              "reader_ambiguities": [
+                "legacy-no-return",
+                "legacy-revision-withheld"
+              ],
+              "reader_attention": [],
+              "release_raw": null,
+              "typed_declaration_ignored": false
+            },
+            "label": "SUPPLIED",
+            "note": "reader stdout at the declared source; not a workflow decision",
+            "observation_sha256": "8faffe067f86d889aff2666e175b1f1a3636e319a61fd01675151d40a5c31584",
+            "source_ref": {
+              "bytes": 1160,
+              "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+              "kind": "git-blob",
+              "label": "git blob at the named commit",
+              "path": "00.kernel/00.live.md",
+              "repository": "D:\\Git\\lib-build",
+              "sha256": "a69245972915b6e140b7528239216ff1a1bc97941cfb1a4de4868d88a541a30d"
+            },
+            "unprojected_reason": "page unidentified: reader gives no book/page/batch"
+          }
+        ],
+        "projection": {
+          "attention_count": 4,
+          "authority": "none; a projection grants no release, acceptance, seat or work",
+          "batches": [
+            {
+              "attention": [
+                "accepted without an explicit terminal declaration"
+              ],
+              "batch": "05.18",
+              "facets": {
+                "claim": {
+                  "actor": "Grok Builder 2",
+                  "status": "recorded"
+                },
+                "document": {
+                  "header_state": "state: draft"
+                },
+                "publication": {
+                  "commit": null,
+                  "ref": null,
+                  "status": "unknown"
+                },
+                "release": {
+                  "status": "recorded",
+                  "text": "SUPPLIED coordination"
+                },
+                "return": {
+                  "ambiguous": [],
+                  "candidate_declared": "0150.cold-prime-plan-revision-0518",
+                  "custody": "not-verifiable-here",
+                  "members_named": [
+                    "0150.cold-prime-plan-revision-0518"
+                  ],
+                  "pointer": "present",
+                  "primary": null,
+                  "primary_receipt_sha256": null,
+                  "problems": [],
+                  "secondary": []
+                },
+                "review": {
+                  "binding_check": "current",
+                  "disposition": "accepted",
+                  "followup": null,
+                  "reviewer": "Codex-Prime",
+                  "status": "bound",
+                  "terminal": null,
+                  "text": "Accepted as the bounded CP-01/CP-02 planning correction, not a prepared attempt, fresh-model pass or current-work handover. Prime verified all12 selected committed blobs against d3b6ad3e55beb1ec0bd5acbb114e6e66fd66c4e9 and independently summed52701 bytes. Mandatory refs are now counted; no live member observation is claimed. Success correctly requires prepared + mechanical checks ok + all semantic grades pass + oriented, with authority none. Partial/failure remain remediation/failure. Missing bodies and stale assignment stay explicit. Fresh0150 verification passes. The revised selection differs from Claude's accepted0148 packet (45460 bytes, including one live observation); its evaluator must not be applied to0148 unchanged. Final exam needs explicit O1 evidence-target and O2 single-field-set instructions. See RECONCILIATION.md for the proposed binding, preserved-source rule and grading clarifications. No further builder repair is needed merely to restate the two corrected findings. Date:2026-10-29."
+                }
+              },
+              "followup": null,
+              "id": "0508.return-capture/05.18",
+              "inspections": [
+                {
+                  "basis": "live",
+                  "exit": 0,
+                  "member": "0150.cold-prime-plan-revision-0518",
+                  "observation": "ok",
+                  "observed_at": "2026-10-29T16:25:05.776298Z",
+                  "origin": {
+                    "batch": "05.18",
+                    "book": "00.00.10.work",
+                    "page": "0508.return-capture"
+                  },
+                  "receipt_sha256": "66a7475d73a882ead5db8f0c7d9e798f26e4cd4cfa3a1a6a07ec3297104b7586",
+                  "retrospective": false,
+                  "status": "complete",
+                  "stdout_sha256": "07bf229e9918d0c57022d8971d5e089e0821d97cb8f9b9caf81c3a210a9101a9"
+                }
+              ],
+              "lane": "0508.return-capture",
+              "lifecycle": "open-accepted-not-terminal",
+              "live_custody": {
+                "ambiguous": [],
+                "candidate_declared": "0150.cold-prime-plan-revision-0518",
+                "custody": "primary",
+                "members_named": [
+                  "0150.cold-prime-plan-revision-0518"
+                ],
+                "pointer": "present",
+                "primary": "0150.cold-prime-plan-revision-0518",
+                "primary_receipt_sha256": "66a7475d73a882ead5db8f0c7d9e798f26e4cd4cfa3a1a6a07ec3297104b7586",
+                "problems": [],
+                "secondary": []
+              },
+              "provenance": {
+                "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+                "kind": "supplied-commit",
+                "page_sha256": "314f96a4b87b35e0bb5f8a2c1a85f42a6eb0fac42c7a264f7e691baf741b5395"
+              }
+            },
+            {
+              "attention": [
+                "accepted without an explicit terminal declaration"
+              ],
+              "batch": "05.20",
+              "facets": {
+                "claim": {
+                  "actor": "Grok 4.7 (xAI)",
+                  "status": "recorded"
+                },
+                "document": {
+                  "header_state": "state: returned"
+                },
+                "publication": {
+                  "commit": null,
+                  "ref": null,
+                  "status": "unknown"
+                },
+                "release": {
+                  "status": "recorded",
+                  "text": "SUPPLIED coordination"
+                },
+                "return": {
+                  "ambiguous": [],
+                  "candidate_declared": "0149.capture-handoff-entry-0520",
+                  "custody": "not-verifiable-here",
+                  "members_named": [
+                    "0149.capture-handoff-entry-0520"
+                  ],
+                  "pointer": "present",
+                  "primary": null,
+                  "primary_receipt_sha256": null,
+                  "problems": [],
+                  "secondary": []
+                },
+                "review": {
+                  "binding_check": "current",
+                  "disposition": "accepted",
+                  "followup": null,
+                  "reviewer": "Codex-Prime",
+                  "status": "bound",
+                  "terminal": null,
+                  "text": "Accepted within the existing capture-handoff backend scope. Prime independently ran the app handoff suite:6 passes,15 expected refusals,1 file-symlink privilege skip,0 failures. Existing app-entry suite:12 passes,46 expected refusals,1 privilege skip,0 failures. Tests ran in a disposable checkout, not the live book. Complete capture matches backend semantics (timestamp-derived hashes differ between separate successful captures); identical readonly repeat is byte-identical. Changed bindings/payloads refuse without replacing custody. Partial handoff remains attention, unknown child exit is not success, and no automatic retry/outer timeout was added. New door uses four fixed backend pins. Fresh0149 verification passes. The app now exposes capture-return --binding ABS; it does not reserve, queue, claim, deliver a worker or approve work. No general exactly-once or OS-sandbox guarantee is implied. Date:2026-10-29."
+                }
+              },
+              "followup": null,
+              "id": "0504.app-entry/05.20",
+              "inspections": [
+                {
+                  "basis": "live",
+                  "exit": 0,
+                  "member": "0149.capture-handoff-entry-0520",
+                  "observation": "ok",
+                  "observed_at": "2026-10-29T16:25:05.878305Z",
+                  "origin": {
+                    "batch": "05.20",
+                    "book": "00.00.10.work",
+                    "page": "0504.app-entry"
+                  },
+                  "receipt_sha256": "eca76fcfd83ac609a423a2d2ee6951ea8e153a1aa26641429a3e86cfdd8aff0c",
+                  "retrospective": false,
+                  "status": "complete",
+                  "stdout_sha256": "fbc15f47bb320e79fbf1ceddd727725071a0d2187b9b9265a4a85a0e554ded81"
+                }
+              ],
+              "lane": "0504.app-entry",
+              "lifecycle": "open-accepted-not-terminal",
+              "live_custody": {
+                "ambiguous": [],
+                "candidate_declared": "0149.capture-handoff-entry-0520",
+                "custody": "primary",
+                "members_named": [
+                  "0149.capture-handoff-entry-0520"
+                ],
+                "pointer": "present",
+                "primary": "0149.capture-handoff-entry-0520",
+                "primary_receipt_sha256": "eca76fcfd83ac609a423a2d2ee6951ea8e153a1aa26641429a3e86cfdd8aff0c",
+                "problems": [],
+                "secondary": []
+              },
+              "provenance": {
+                "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+                "kind": "supplied-commit",
+                "page_sha256": "76b18077d9e57935aa661f018d7fae27469206c524e882cd424cb0a5f054669b"
+              }
+            },
+            {
+              "attention": [
+                "review held; the item stays open until an explicit resolution",
+                "published bytes at a ref do not complete work"
+              ],
+              "batch": "05.12",
+              "facets": {
+                "claim": {
+                  "actor": "Claude",
+                  "status": "recorded"
+                },
+                "document": {
+                  "header_state": "state: draft"
+                },
+                "publication": {
+                  "commit": "6d18d182535df8dc60b698c585b04cd276c5df85",
+                  "ref": "workshop-snapshot",
+                  "status": "at-ref"
+                },
+                "release": {
+                  "status": "recorded",
+                  "text": "SUPPLIED coordination"
+                },
+                "return": {
+                  "ambiguous": [],
+                  "candidate_declared": "0136.state-projection-0512",
+                  "custody": "not-verifiable-here",
+                  "members_named": [
+                    "0136.state-projection-0512"
+                  ],
+                  "pointer": "present",
+                  "primary": null,
+                  "primary_receipt_sha256": null,
+                  "problems": [],
+                  "secondary": []
+                },
+                "review": {
+                  "binding_check": "current",
+                  "disposition": "held",
+                  "followup": "0507.prime-support/05.13",
+                  "reviewer": "Codex-Prime",
+                  "status": "bound",
+                  "terminal": null,
+                  "text": "Held for SP-05: a same-origin retrospective capture can be projected as completed. Independent17-test suite passes; added real-capture countercase fails the intended boundary. See evidence/prime-review05.12/review.md. Date: 2026-10-28."
+                }
+              },
+              "followup": "0507.prime-support/05.13",
+              "id": "0507.prime-support/05.12",
+              "inspections": [
+                {
+                  "basis": "live",
+                  "exit": 0,
+                  "member": "0136.state-projection-0512",
+                  "observation": "ok",
+                  "observed_at": "2026-10-29T16:25:05.979959Z",
+                  "origin": {
+                    "batch": "05.12",
+                    "book": "00.00.10.work",
+                    "page": "0507.prime-support"
+                  },
+                  "receipt_sha256": "deec943938e07c29f28ef82cb5000e3af5758a0454330a4c53de606774c0cd44",
+                  "retrospective": false,
+                  "status": "complete",
+                  "stdout_sha256": "d9a68397ce12f257496d0f4564b034f84489861925eac17be7a9c0a1f0f7f1a0"
+                }
+              ],
+              "lane": "0507.prime-support",
+              "lifecycle": "open-held",
+              "live_custody": {
+                "ambiguous": [],
+                "candidate_declared": "0136.state-projection-0512",
+                "custody": "primary",
+                "members_named": [
+                  "0136.state-projection-0512"
+                ],
+                "pointer": "present",
+                "primary": "0136.state-projection-0512",
+                "primary_receipt_sha256": "deec943938e07c29f28ef82cb5000e3af5758a0454330a4c53de606774c0cd44",
+                "problems": [],
+                "secondary": []
+              },
+              "provenance": {
+                "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+                "kind": "supplied-commit",
+                "page_sha256": "dce336e1f4c3cd8d4679ddff45f517293b2e6fd991d8bb39560c0412f1f5f3f5"
+              }
+            }
+          ],
+          "input_sha256": "41bf2d153e93f9165b2909bd55ddd697191def91aa49016e252cc7f4c0600c57",
+          "inspected": true,
+          "lanes": {
+            "0504.app-entry": {
+              "awaiting_release": [],
+              "completed": [],
+              "conflicts": [],
+              "open": [
+                "0504.app-entry/05.20"
+              ]
+            },
+            "0507.prime-support": {
+              "awaiting_release": [],
+              "completed": [],
+              "conflicts": [],
+              "open": [
+                "0507.prime-support/05.12"
+              ]
+            },
+            "0508.return-capture": {
+              "awaiting_release": [],
+              "completed": [],
+              "conflicts": [],
+              "open": [
+                "0508.return-capture/05.18"
+              ]
+            }
+          },
+          "note": "not a v1 assignment record and not canonical",
+          "projected_at": "2026-10-29T16:25:06.082906Z",
+          "schema": "state-projection/1",
+          "scope": {
+            "book": "00.00.10.work",
+            "lanes": [
+              "0508.return-capture",
+              "0504.app-entry",
+              "0507.prime-support"
+            ]
+          },
+          "tool": {
+            "path": "D:\\Git\\lib-build\\labs\\state-projection-pass01\\state_projection.py",
+            "sha256": "b349da5cef5178296a069c354002a600ba4e168c2710aa5d87789724d4951ecb"
+          }
+        },
+        "projection_tool": {
+          "path": "D:\\Git\\lib-build\\labs\\state-projection-pass01\\state_projection.py",
+          "sha256": "b349da5cef5178296a069c354002a600ba4e168c2710aa5d87789724d4951ecb"
+        },
+        "reader_custody_snapshots": [
+          {
+            "basis": "not-observed",
+            "batch_id": "0508.return-capture/05.18",
+            "note": "earlier reader observation; not used for custody here",
+            "reader_primary": null,
+            "roles": [
+              {
+                "member": "0150.cold-prime-plan-revision-0518",
+                "role": "not-observed"
+              }
+            ]
+          },
+          {
+            "basis": "not-observed",
+            "batch_id": "0504.app-entry/05.20",
+            "note": "earlier reader observation; not used for custody here",
+            "reader_primary": null,
+            "roles": [
+              {
+                "member": "0149.capture-handoff-entry-0520",
+                "role": "not-observed"
+              }
+            ]
+          },
+          {
+            "basis": "not-observed",
+            "batch_id": "0507.prime-support/05.12",
+            "note": "earlier reader observation; not used for custody here",
+            "reader_primary": null,
+            "roles": [
+              {
+                "member": "0136.state-projection-0512",
+                "role": "not-observed"
+              }
+            ]
+          },
+          {
+            "basis": "not-observed",
+            "batch_id": null,
+            "note": "earlier reader observation; not used for custody here",
+            "reader_primary": null,
+            "roles": []
+          },
+          {
+            "basis": "not-observed",
+            "batch_id": null,
+            "note": "earlier reader observation; not used for custody here",
+            "reader_primary": null,
+            "roles": []
+          }
+        ],
+        "schema": "prime-brief/1",
+        "scope": {
+          "book": "00.00.10.work",
+          "lanes": [
+            "0508.return-capture",
+            "0504.app-entry",
+            "0507.prime-support"
+          ]
+        },
+        "tool": {
+          "path": "D:\\Git\\lib-build\\labs\\prime-brief-pass01\\prime_brief.py",
+          "sha256": "302ed832d2fa955a591420f13d3b22ce91e4a7669c69a778d443fc82627580d7"
+        }
+      },
+      "citations": [
+        {
+          "bytes": 3897,
+          "command": [
+            "git",
+            "-C",
+            "D:\\Git\\lib-build",
+            "cat-file",
+            "blob",
+            "--end-of-options",
+            "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841:00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.18/RECONCILIATION.md"
+          ],
+          "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+          "exit": 0,
+          "expected_sha256": "cea41365e952d38e179a2e512aff8eba3ed7f8605197b3c8940c5b1ca2defa94",
+          "note": "Prime reconciliation. Proposed final-exam binding, not an execution release.",
+          "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.18/RECONCILIATION.md",
+          "reason": null,
+          "sha256": "cea41365e952d38e179a2e512aff8eba3ed7f8605197b3c8940c5b1ca2defa94",
+          "status": "match"
+        },
+        {
+          "bytes": 11435,
+          "command": [
+            "git",
+            "-C",
+            "D:\\Git\\lib-build",
+            "cat-file",
+            "blob",
+            "--end-of-options",
+            "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841:00.kernel/00.00.10.work/0508.return-capture/05.19.md"
+          ],
+          "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+          "exit": 0,
+          "expected_sha256": "7b3d4964f48d074dd8fd29956f19959465c4cdba2001fe5225d5814914ab1e55",
+          "note": "Authorizing assignment at this commit, before the return pointer is filled.",
+          "path": "00.kernel/00.00.10.work/0508.return-capture/05.19.md",
+          "reason": null,
+          "sha256": "7b3d4964f48d074dd8fd29956f19959465c4cdba2001fe5225d5814914ab1e55",
+          "status": "match"
+        },
+        {
+          "bytes": 1084,
+          "command": [
+            "git",
+            "-C",
+            "D:\\Git\\lib-build",
+            "cat-file",
+            "blob",
+            "--end-of-options",
+            "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841:00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.18/review.md"
+          ],
+          "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+          "exit": 0,
+          "expected_sha256": "e3a075ca2cf440ef37e28cf56a962f4b63da0e04764c0c6b495995c8fe679664",
+          "note": "Accepted as the CP-01/CP-02 correction, not a handover.",
+          "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.18/review.md",
+          "reason": null,
+          "sha256": "e3a075ca2cf440ef37e28cf56a962f4b63da0e04764c0c6b495995c8fe679664",
+          "status": "match"
+        },
+        {
+          "bytes": 3897,
+          "command": [
+            "git",
+            "-C",
+            "D:\\Git\\lib-build",
+            "cat-file",
+            "blob",
+            "--end-of-options",
+            "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841:00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.18/RECONCILIATION.md"
+          ],
+          "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+          "exit": 0,
+          "expected_sha256": "cea41365e952d38e179a2e512aff8eba3ed7f8605197b3c8940c5b1ca2defa94",
+          "note": "Recorded Prime intent. Not a new instruction from this module.",
+          "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.18/RECONCILIATION.md",
+          "reason": null,
+          "sha256": "cea41365e952d38e179a2e512aff8eba3ed7f8605197b3c8940c5b1ca2defa94",
+          "status": "match"
+        },
+        {
+          "bytes": 1160,
+          "command": [
+            "git",
+            "-C",
+            "D:\\Git\\lib-build",
+            "cat-file",
+            "blob",
+            "--end-of-options",
+            "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841:00.kernel/00.live.md"
+          ],
+          "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+          "exit": 0,
+          "expected_sha256": "a69245972915b6e140b7528239216ff1a1bc97941cfb1a4de4868d88a541a30d",
+          "note": "Stale legacy mirror of 0401/06.01. Not rewritten. Not an input to this view.",
+          "path": "00.kernel/00.live.md",
+          "reason": null,
+          "sha256": "a69245972915b6e140b7528239216ff1a1bc97941cfb1a4de4868d88a541a30d",
+          "status": "match"
+        },
+        {
+          "bytes": 1239,
+          "command": [
+            "git",
+            "-C",
+            "D:\\Git\\lib-build",
+            "cat-file",
+            "blob",
+            "--end-of-options",
+            "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841:00.kernel/00.00.10.work/0507.prime-support/evidence/packet05.15/registry.json"
+          ],
+          "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+          "exit": 0,
+          "expected_sha256": "8a068546390d49c3958511d805be0b7c06ce9bf277b25ba575bc3780e4bd5cdb",
+          "note": "Cited proposal. This view does not settle D1 and does not open Claude's active outputs.",
+          "path": "00.kernel/00.00.10.work/0507.prime-support/evidence/packet05.15/registry.json",
+          "reason": null,
+          "sha256": "8a068546390d49c3958511d805be0b7c06ce9bf277b25ba575bc3780e4bd5cdb",
+          "status": "match"
+        }
+      ],
+      "commands": [
+        [
+          "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+          "-B",
+          "D:\\Git\\lib-build\\labs\\batch-observation-pass01\\batch_observe.py",
+          "observe",
+          "--json",
+          "--repo",
+          "D:\\Git\\lib-build",
+          "--commit",
+          "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+          "--path",
+          "00.kernel/00.00.10.work/0508.return-capture/05.18.md"
+        ],
+        [
+          "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+          "-B",
+          "D:\\Git\\lib-build\\labs\\batch-observation-pass01\\batch_observe.py",
+          "observe",
+          "--json",
+          "--repo",
+          "D:\\Git\\lib-build",
+          "--commit",
+          "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+          "--path",
+          "00.kernel/00.00.10.work/0504.app-entry/05.20.md"
+        ],
+        [
+          "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+          "-B",
+          "D:\\Git\\lib-build\\labs\\batch-observation-pass01\\batch_observe.py",
+          "observe",
+          "--json",
+          "--repo",
+          "D:\\Git\\lib-build",
+          "--commit",
+          "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+          "--path",
+          "00.kernel/00.00.10.work/0507.prime-support/05.12.md"
+        ],
+        [
+          "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+          "-B",
+          "D:\\Git\\lib-build\\labs\\batch-observation-pass01\\batch_observe.py",
+          "observe",
+          "--json",
+          "--repo",
+          "D:\\Git\\lib-build",
+          "--commit",
+          "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+          "--path",
+          "00.kernel/00.00.10.work/0401.goal/06.01.md"
+        ],
+        [
+          "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+          "-B",
+          "D:\\Git\\lib-build\\labs\\batch-observation-pass01\\batch_observe.py",
+          "observe",
+          "--json",
+          "--repo",
+          "D:\\Git\\lib-build",
+          "--commit",
+          "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+          "--path",
+          "00.kernel/00.live.md"
+        ],
+        [
+          "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+          "-B",
+          "D:\\Git\\lib-build\\labs\\return-capture-pass01\\return_inspect.py",
+          "inspect",
+          "--book",
+          "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+          "--member",
+          "0150.cold-prime-plan-revision-0518",
+          "--json"
+        ],
+        [
+          "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+          "-B",
+          "D:\\Git\\lib-build\\labs\\return-capture-pass01\\return_inspect.py",
+          "inspect",
+          "--book",
+          "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+          "--member",
+          "0149.capture-handoff-entry-0520",
+          "--json"
+        ],
+        [
+          "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+          "-B",
+          "D:\\Git\\lib-build\\labs\\return-capture-pass01\\return_inspect.py",
+          "inspect",
+          "--book",
+          "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+          "--member",
+          "0136.state-projection-0512",
+          "--json"
+        ],
+        [
+          "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+          "-B",
+          "D:\\Git\\lib-build\\labs\\prime-brief-pass01\\prime_brief.py",
+          "brief",
+          "--input",
+          "<temp>",
+          "--json",
+          "--inspect"
+        ]
+      ],
+      "inspections": [
+        {
+          "command": [
+            "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+            "-B",
+            "D:\\Git\\lib-build\\labs\\return-capture-pass01\\return_inspect.py",
+            "inspect",
+            "--book",
+            "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+            "--member",
+            "0150.cold-prime-plan-revision-0518",
+            "--json"
+          ],
+          "exit": 0,
+          "member": "0150.cold-prime-plan-revision-0518",
+          "reason": null,
+          "report": {
+            "book": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+            "capture": {
+              "captured_at": "2026-10-28T18:28:40.563826Z",
+              "manifest_sha256": "13230c1704b01d91e7f0ff8febc1340282f115f7963e4e178a48e7137b6ed468",
+              "origin": {
+                "batch": "05.18",
+                "book": "00.00.10.work",
+                "page": "0508.return-capture"
+              },
+              "payloads": [
+                {
+                  "bytes": 4720,
+                  "logical": "00.kernel/00.00.10.work/0508.return-capture/06.19.md",
+                  "payload": "0001.blob",
+                  "sha256": "454540132a3fd9c1d7999440c7c62a6390d04aba949cbcaaa51bcba2e1a1dd76"
+                },
+                {
+                  "bytes": 14805,
+                  "logical": "00.kernel/00.00.10.work/0508.return-capture/evidence/cold-prime05.18/PLAN.md",
+                  "payload": "0002.blob",
+                  "sha256": "1093a3d1b2f4393e8bf52e665dd1e0fecd5d3195dd359b0deb38d651cd835175"
+                },
+                {
+                  "bytes": 5655,
+                  "logical": "00.kernel/00.00.10.work/0508.return-capture/evidence/cold-prime05.18/HOMEWORK.md",
+                  "payload": "0003.blob",
+                  "sha256": "9711776524affba8d849bd91071bec7d0b2f5a702701b8fce1426259e9b3c5c5"
+                },
+                {
+                  "bytes": 6471,
+                  "logical": "00.kernel/00.00.10.work/0508.return-capture/evidence/cold-prime05.18/EVALUATOR.md",
+                  "payload": "0004.blob",
+                  "sha256": "4b0f2b624a262a8e380bd85d71f64ed6f5056e7dbf08f80a41ccc3c3c70b74f7"
+                },
+                {
+                  "bytes": 6432,
+                  "logical": "00.kernel/00.00.10.work/0508.return-capture/evidence/cold-prime05.18/DEPENDENCIES.json",
+                  "payload": "0005.blob",
+                  "sha256": "52d3d291da4934c5f4d2f9544f8230fd53a1a752494e2fb59b3c51cee159ed04"
+                },
+                {
+                  "bytes": 5144,
+                  "logical": "00.kernel/00.00.10.work/0508.return-capture/evidence/cold-prime05.18/verification.json",
+                  "payload": "0006.blob",
+                  "sha256": "269b4802bbd53e0b867a1cc8aa6613e9e4c403d20fe3e7223b16c3d0c2bc8816"
+                }
+              ],
+              "receipt_sha256": "66a7475d73a882ead5db8f0c7d9e798f26e4cd4cfa3a1a6a07ec3297104b7586",
+              "reservation_sha256": "6fe8410716d35782dcf32e1ec581c7c1fd74408ec31ca69fd9d7689e5db4bb80",
+              "retrospective": false,
+              "return": {
+                "bytes": 1524,
+                "includes_prime_review": false,
+                "sha256": "0a7ea9372d943572da29958e77ed544d35219e081a4e4ac0c0e7c2c6378b9924"
+              },
+              "source_commit": null,
+              "submission_id": "grok-2-0508-0518"
+            },
+            "member": "0150.cold-prime-plan-revision-0518",
+            "problems": [],
+            "reservation": {
+              "destination": {
+                "member": "0150",
+                "name": "cold-prime-plan-revision-0518",
+                "path": "0150.cold-prime-plan-revision-0518"
+              },
+              "expected_outputs": [
+                "00.kernel/00.00.10.work/0508.return-capture/06.19.md",
+                "00.kernel/00.00.10.work/0508.return-capture/evidence/cold-prime05.18/PLAN.md",
+                "00.kernel/00.00.10.work/0508.return-capture/evidence/cold-prime05.18/HOMEWORK.md",
+                "00.kernel/00.00.10.work/0508.return-capture/evidence/cold-prime05.18/EVALUATOR.md",
+                "00.kernel/00.00.10.work/0508.return-capture/evidence/cold-prime05.18/DEPENDENCIES.json",
+                "00.kernel/00.00.10.work/0508.return-capture/evidence/cold-prime05.18/verification.json"
+              ],
+              "origin": {
+                "batch": "05.18",
+                "book": "00.00.10.work",
+                "page": "0508.return-capture"
+              },
+              "release": "Reservation only; Director release must be recorded on 0508.return-capture/05.18.",
+              "reservation_sha256": "6fe8410716d35782dcf32e1ec581c7c1fd74408ec31ca69fd9d7689e5db4bb80",
+              "reserved_at": "2026-10-28T18:15:13.404589Z",
+              "reviewer": "Codex Prime",
+              "submission_id": "grok-2-0508-0518",
+              "submitter": "Grok Builder 2",
+              "supersedes": null
+            },
+            "schema": "return-capture-inspection/1",
+            "status": "complete"
+          },
+          "status": "inspected",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+            "-B",
+            "D:\\Git\\lib-build\\labs\\return-capture-pass01\\return_inspect.py",
+            "inspect",
+            "--book",
+            "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+            "--member",
+            "0149.capture-handoff-entry-0520",
+            "--json"
+          ],
+          "exit": 0,
+          "member": "0149.capture-handoff-entry-0520",
+          "reason": null,
+          "report": {
+            "book": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+            "capture": {
+              "captured_at": "2026-10-28T18:37:49.618537Z",
+              "manifest_sha256": "37328eaba63cd78d3a15ea3cecd9d3753215649a057b8217204182c6c6ebd094",
+              "origin": {
+                "batch": "05.20",
+                "book": "00.00.10.work",
+                "page": "0504.app-entry"
+              },
+              "payloads": [
+                {
+                  "bytes": 7719,
+                  "logical": "00.kernel/00.00.10.work/0504.app-entry/06.20.md",
+                  "payload": "0001.blob",
+                  "sha256": "4b9b2ef1cee764c5368175fecd04c28521a8905e037cd0e26ee0b291c8bb15af"
+                },
+                {
+                  "bytes": 6738,
+                  "logical": "00.kernel/00.00.10.work/0504.app-entry/evidence/apphandoff05.20/CONTRACT.md",
+                  "payload": "0002.blob",
+                  "sha256": "8e812306ad0a7ec416830b42b8950712b48f6f9301fd4b19c519f6005d493f1e"
+                },
+                {
+                  "bytes": 5304,
+                  "logical": "00.kernel/00.00.10.work/0504.app-entry/evidence/apphandoff05.20/verification.json",
+                  "payload": "0003.blob",
+                  "sha256": "427d71ead6cb04b9ab144e2b7aaa4f370299fc57cd947081b412045f01994601"
+                }
+              ],
+              "receipt_sha256": "eca76fcfd83ac609a423a2d2ee6951ea8e153a1aa26641429a3e86cfdd8aff0c",
+              "reservation_sha256": "4428933a2953f58a33037d39dd4d2792ebb81cc4a169bb5cccec601f87fdda85",
+              "retrospective": false,
+              "return": {
+                "bytes": 2984,
+                "includes_prime_review": false,
+                "sha256": "4f24bd138c30f064c4f53ff63e573e03fe2fe26defa95a3769b27c71f5dfe108"
+              },
+              "source_commit": null,
+              "submission_id": "grok-1-0504-0520"
+            },
+            "member": "0149.capture-handoff-entry-0520",
+            "problems": [],
+            "reservation": {
+              "destination": {
+                "member": "0149",
+                "name": "capture-handoff-entry-0520",
+                "path": "0149.capture-handoff-entry-0520"
+              },
+              "expected_outputs": [
+                "00.kernel/00.00.10.work/0504.app-entry/06.20.md",
+                "00.kernel/00.00.10.work/0504.app-entry/evidence/apphandoff05.20/CONTRACT.md",
+                "00.kernel/00.00.10.work/0504.app-entry/evidence/apphandoff05.20/verification.json"
+              ],
+              "origin": {
+                "batch": "05.20",
+                "book": "00.00.10.work",
+                "page": "0504.app-entry"
+              },
+              "release": "Reservation only; Director release must be recorded on 0504.app-entry/05.20.",
+              "reservation_sha256": "4428933a2953f58a33037d39dd4d2792ebb81cc4a169bb5cccec601f87fdda85",
+              "reserved_at": "2026-10-28T18:15:13.356578Z",
+              "reviewer": "Codex Prime",
+              "submission_id": "grok-1-0504-0520",
+              "submitter": "Grok Builder 1",
+              "supersedes": null
+            },
+            "schema": "return-capture-inspection/1",
+            "status": "complete"
+          },
+          "status": "inspected",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+            "-B",
+            "D:\\Git\\lib-build\\labs\\return-capture-pass01\\return_inspect.py",
+            "inspect",
+            "--book",
+            "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+            "--member",
+            "0136.state-projection-0512",
+            "--json"
+          ],
+          "exit": 0,
+          "member": "0136.state-projection-0512",
+          "reason": null,
+          "report": {
+            "book": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+            "capture": {
+              "captured_at": "2026-10-28T00:36:15.423334Z",
+              "manifest_sha256": "f175a1c75678661a90e6d5967e7852fac0d3331fdf17c469b5473cc8854d7442",
+              "origin": {
+                "batch": "05.12",
+                "book": "00.00.10.work",
+                "page": "0507.prime-support"
+              },
+              "payloads": [
+                {
+                  "bytes": 19437,
+                  "logical": "labs/state-projection-pass01/state_projection.py",
+                  "payload": "0001.blob",
+                  "sha256": "be501a581cc7ecd07827dbfec5b6aa8bf67cc0bd3074a2fc4b7679b46620f7ea"
+                },
+                {
+                  "bytes": 3997,
+                  "logical": "labs/state-projection-pass01/README.md",
+                  "payload": "0002.blob",
+                  "sha256": "edc9ec42a9f585a4aa6bec1f27bbf90cdd18825dbf9d853635e92def5eb3ca83"
+                },
+                {
+                  "bytes": 24827,
+                  "logical": "labs/state-projection-pass01/tests/test_state_projection.py",
+                  "payload": "0003.blob",
+                  "sha256": "58851476cf7df52e7a523ced54c610177e6766a38d9911922d3fc5dafcaa22de"
+                },
+                {
+                  "bytes": 2687,
+                  "logical": "labs/state-projection-pass01/demo.py",
+                  "payload": "0004.blob",
+                  "sha256": "3728d4baaa2b6255f19f5c85009951d35afae53046a68d2f64d8911f817cc0e4"
+                },
+                {
+                  "bytes": 5346,
+                  "logical": "00.kernel/00.00.10.work/0507.prime-support/06.13.md",
+                  "payload": "0005.blob",
+                  "sha256": "f9f76e3d0ebfb8f996144a861a85ba5f0bc5d69808854d4e0df3ffee22e4cb39"
+                },
+                {
+                  "bytes": 8916,
+                  "logical": "00.kernel/00.00.10.work/0507.prime-support/evidence/projection05.12/CONTRACT.md",
+                  "payload": "0006.blob",
+                  "sha256": "6ada33d1219e3285e2a3f86b8d2eb47cf676bc3b162fee9e7ad42e2f8f1a0b66"
+                },
+                {
+                  "bytes": 13230,
+                  "logical": "00.kernel/00.00.10.work/0507.prime-support/evidence/projection05.12/tests.txt",
+                  "payload": "0007.blob",
+                  "sha256": "6a353888a6e404e045e50065a4cbc81994b4fe7f9359196356cf727d5693efb5"
+                },
+                {
+                  "bytes": 5086,
+                  "logical": "00.kernel/00.00.10.work/0507.prime-support/evidence/projection05.12/verification.json",
+                  "payload": "0008.blob",
+                  "sha256": "41c1999531eaab25823f06df59fb2240f687fa4f22088cf0a0510b555eceada6"
+                }
+              ],
+              "receipt_sha256": "deec943938e07c29f28ef82cb5000e3af5758a0454330a4c53de606774c0cd44",
+              "reservation_sha256": "329ce987e49938358bac34af95a28af6834d16f7d73e17090228dfc90738cf39",
+              "retrospective": false,
+              "return": {
+                "bytes": 4752,
+                "includes_prime_review": false,
+                "sha256": "1587491046041bc2113ee6be14e9f5bd83b3bb150540a566dce1ec9fe95f8b82"
+              },
+              "source_commit": null,
+              "submission_id": "claude-0507-0512"
+            },
+            "member": "0136.state-projection-0512",
+            "problems": [],
+            "reservation": {
+              "destination": {
+                "member": "0136",
+                "name": "state-projection-0512",
+                "path": "0136.state-projection-0512"
+              },
+              "expected_outputs": [
+                "labs/state-projection-pass01/state_projection.py",
+                "labs/state-projection-pass01/README.md",
+                "labs/state-projection-pass01/tests/test_state_projection.py",
+                "labs/state-projection-pass01/demo.py",
+                "00.kernel/00.00.10.work/0507.prime-support/06.13.md",
+                "00.kernel/00.00.10.work/0507.prime-support/evidence/projection05.12/CONTRACT.md",
+                "00.kernel/00.00.10.work/0507.prime-support/evidence/projection05.12/tests.txt",
+                "00.kernel/00.00.10.work/0507.prime-support/evidence/projection05.12/verification.json"
+              ],
+              "origin": {
+                "batch": "05.12",
+                "book": "00.00.10.work",
+                "page": "0507.prime-support"
+              },
+              "release": "Reservation only; Director release must be recorded on 0507.prime-support/05.12.",
+              "reservation_sha256": "329ce987e49938358bac34af95a28af6834d16f7d73e17090228dfc90738cf39",
+              "reserved_at": "2026-10-28T00:25:55.675328Z",
+              "reviewer": "Codex Prime",
+              "submission_id": "claude-0507-0512",
+              "submitter": "Claude",
+              "supersedes": null
+            },
+            "schema": "return-capture-inspection/1",
+            "status": "complete"
+          },
+          "status": "inspected",
+          "stderr": ""
+        }
+      ],
+      "observations": [
+        {
+          "command": [
+            "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+            "-B",
+            "D:\\Git\\lib-build\\labs\\batch-observation-pass01\\batch_observe.py",
+            "observe",
+            "--json",
+            "--repo",
+            "D:\\Git\\lib-build",
+            "--commit",
+            "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+            "--path",
+            "00.kernel/00.00.10.work/0508.return-capture/05.18.md"
+          ],
+          "exit": 1,
+          "observation": {
+            "ambiguities": [
+              "legacy-ambiguous-heading",
+              "legacy-revision-withheld",
+              "custody-not-observed",
+              "quoted-accepted-unbound",
+              "duplicate-release"
+            ],
+            "assignment": {
+              "ambiguous": true,
+              "claim_lines": [
+                {
+                  "line": 83,
+                  "text": "Claim: Grok Builder 2, this session, 2026-10-28. pack05.18: 13 of 13 snapshots match their pins, and live equals all 13. The packet budget is calculated at source cut d3b6ad3e55beb1ec0bd5acbb114e6e66fd66c4e9. Boot tool 54b23484… verified at that cut. Scope: this page only."
+                }
+              ],
+              "claim_raw": "Claim: Grok Builder 2, this session, 2026-10-28. pack05.18: 13 of 13 snapshots match their pins, and live equals all 13. The packet budget is calculated at source cut d3b6ad3e55beb1ec0bd5acbb114e6e66fd66c4e9. Boot tool 54b23484… verified at that cut. Scope: this page only.",
+              "executor_lines": [
+                {
+                  "line": 11,
+                  "text": "Executor: Grok Builder 2. Reviewer: Codex Prime."
+                }
+              ],
+              "executor_raw": "Executor: Grok Builder 2. Reviewer: Codex Prime.",
+              "release_lines": [
+                {
+                  "line": 12,
+                  "text": "Release and claim: recorded in the Return pointer. This draft grants no release."
+                },
+                {
+                  "line": 82,
+                  "text": "Release: the Director, chat 2026-10-28: \"Run 0508.return-capture/05.18.md in D:\\Git\\lib-build. Director releases this pack. Correct the cold-Prime acceptance criteria and actual packet budget. Planning only; leave Claude's active packet work untouched. Capture locally and verify. No Git writes.\""
+                }
+              ],
+              "release_raw": null
+            },
+            "assignment_mentions": [],
+            "attention": [],
+            "authority": "none",
+            "channels": {
+              "inventory": "unfenced return-family headings and Member/Receipt blocks",
+              "legacy": "parse_source page-return, unmodified",
+              "revision_repaired": false
+            },
+            "custody": {
+              "basis": "not-observed",
+              "members_book": null,
+              "observations": [
+                {
+                  "attention": [],
+                  "commit_receipt_present": null,
+                  "commit_receipt_sha256": null,
+                  "exit": null,
+                  "how_named": "pointer",
+                  "inspection": null,
+                  "member": "0150.cold-prime-plan-revision-0518",
+                  "observation_finished_at": null,
+                  "observation_started_at": null,
+                  "receipt_bytes_match": null,
+                  "role": "not-observed",
+                  "stated_receipts": [
+                    "66a7475d73a882ead5db8f0c7d9e798f26e4cd4cfa3a1a6a07ec3297104b7586"
+                  ]
+                }
+              ],
+              "package_at_commit": "not-established",
+              "primary": null,
+              "primary_rule": "origin book, page, and batch match this page and retrospective is false; more than one match stays ambiguous"
+            },
+            "document": {
+              "ambiguous": false,
+              "header_state_raw": "state: draft",
+              "lines": [
+                {
+                  "line": 5,
+                  "text": "state: draft"
+                }
+              ]
+            },
+            "fenced_headings": [],
+            "legacy": {
+              "execution": null,
+              "kind": "page-return",
+              "reason": "ambiguous heading line 81",
+              "review": null,
+              "revision_id": null,
+              "sha256": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70",
+              "sibling": "labs/prime-support-pass01/clerk_adapter.py",
+              "sibling_sha256": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4",
+              "status": "unsupported",
+              "tool": "labs/prime-support-pass01/prime_support.py",
+              "whole": "314f96a4b87b35e0bb5f8a2c1a85f42a6eb0fac42c7a264f7e691baf741b5395"
+            },
+            "page": {
+              "batch": "05.18",
+              "book": "00.00.10.work",
+              "page": "0508.return-capture"
+            },
+            "pointers": [
+              {
+                "execution_raw": "Release: the Director, chat 2026-10-28: \"Run 0508.return-capture/05.18.md in D:\\Git\\lib-build. Director releases this pack. Correct the cold-Prime acceptance criteria and actual packet budget. Planning only; leave Claude's active packet work untouched. Capture locally and verify. No Git writes.\"",
+                "form": "return-pointer",
+                "line": 81,
+                "members": [
+                  {
+                    "line": 84,
+                    "name": "0150.cold-prime-plan-revision-0518",
+                    "receipts": [
+                      {
+                        "line": 85,
+                        "sha256": "66a7475d73a882ead5db8f0c7d9e798f26e4cd4cfa3a1a6a07ec3297104b7586"
+                      }
+                    ]
+                  }
+                ],
+                "title": "Return pointer"
+              }
+            ],
+            "review": {
+              "binding": "unbound",
+              "legacy_hashes": [],
+              "parser_object": null,
+              "sections": [
+                {
+                  "line": 89,
+                  "text_raw": "Accepted as the bounded CP-01/CP-02 planning correction, not a prepared attempt, fresh-model pass or current-work handover. Prime verified all12 selected committed blobs against d3b6ad3e55beb1ec0bd5acbb114e6e66fd66c4e9 and independently summed52701 bytes. Mandatory refs are now counted; no live member observation is claimed. Success correctly requires prepared + mechanical checks ok + all semantic grades pass + oriented, with authority none. Partial/failure remain remediation/failure. Missing bodies and stale assignment stay explicit. Fresh0150 verification passes. The revised selection differs from Claude's accepted0148 packet (45460 bytes, including one live observation); its evaluator must not be applied to0148 unchanged. Final exam needs explicit O1 evidence-target and O2 single-field-set instructions. See RECONCILIATION.md for the proposed binding, preserved-source rule and grading clarifications. No further builder repair is needed merely to restate the two corrected findings. Date:2026-10-29.",
+                  "title": "Review — Codex Prime"
+                }
+              ],
+              "text_raw": "Accepted as the bounded CP-01/CP-02 planning correction, not a prepared attempt, fresh-model pass or current-work handover. Prime verified all12 selected committed blobs against d3b6ad3e55beb1ec0bd5acbb114e6e66fd66c4e9 and independently summed52701 bytes. Mandatory refs are now counted; no live member observation is claimed. Success correctly requires prepared + mechanical checks ok + all semantic grades pass + oriented, with authority none. Partial/failure remain remediation/failure. Missing bodies and stale assignment stay explicit. Fresh0150 verification passes. The revised selection differs from Claude's accepted0148 packet (45460 bytes, including one live observation); its evaluator must not be applied to0148 unchanged. Final exam needs explicit O1 evidence-target and O2 single-field-set instructions. See RECONCILIATION.md for the proposed binding, preserved-source rule and grading clarifications. No further builder repair is needed merely to restate the two corrected findings. Date:2026-10-29.",
+              "typed_declaration": null
+            },
+            "schema": "batch-observation/1",
+            "sections": [
+              {
+                "fenced": false,
+                "form": "return-pointer",
+                "level": 2,
+                "line": 81,
+                "text": "## Return pointer",
+                "title": "Return pointer"
+              },
+              {
+                "fenced": false,
+                "form": "review-em",
+                "level": 2,
+                "line": 89,
+                "text": "## Review — Codex Prime",
+                "title": "Review — Codex Prime"
+              }
+            ],
+            "source": {
+              "bytes": 8139,
+              "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+              "kind": "git-blob",
+              "label": "git blob at the named commit",
+              "live_observed_at": null,
+              "observation_finished_at": null,
+              "observation_started_at": null,
+              "path": "00.kernel/00.00.10.work/0508.return-capture/05.18.md",
+              "repository": "D:\\Git\\lib-build",
+              "sha256": "314f96a4b87b35e0bb5f8a2c1a85f42a6eb0fac42c7a264f7e691baf741b5395",
+              "time_basis": "git-blob"
+            },
+            "tool": {
+              "name": "batch-observation-pass01",
+              "path": "labs/batch-observation-pass01/batch_observe.py",
+              "sha256": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4"
+            }
+          },
+          "page_id": "p0518",
+          "reason": null,
+          "status": "observed",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+            "-B",
+            "D:\\Git\\lib-build\\labs\\batch-observation-pass01\\batch_observe.py",
+            "observe",
+            "--json",
+            "--repo",
+            "D:\\Git\\lib-build",
+            "--commit",
+            "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+            "--path",
+            "00.kernel/00.00.10.work/0504.app-entry/05.20.md"
+          ],
+          "exit": 1,
+          "observation": {
+            "ambiguities": [
+              "legacy-ambiguous-heading",
+              "legacy-revision-withheld",
+              "custody-not-observed",
+              "quoted-accepted-unbound"
+            ],
+            "assignment": {
+              "ambiguous": false,
+              "claim_lines": [
+                {
+                  "line": 13,
+                  "text": "Claim: Grok 4.7 (xAI), session 01a179d2-387a-7661-8702-6e53f95e96b5, 2026-10-28, HEAD aa9bf59f610e58e24067c4173ec8bce1c684bcf9."
+                }
+              ],
+              "claim_raw": "Claim: Grok 4.7 (xAI), session 01a179d2-387a-7661-8702-6e53f95e96b5, 2026-10-28, HEAD aa9bf59f610e58e24067c4173ec8bce1c684bcf9.",
+              "executor_lines": [
+                {
+                  "line": 11,
+                  "text": "Executor: Grok Builder 1. Reviewer: Codex Prime."
+                }
+              ],
+              "executor_raw": "Executor: Grok Builder 1. Reviewer: Codex Prime.",
+              "release_lines": [
+                {
+                  "line": 12,
+                  "text": "Release: released by the Director, 2026-10-28."
+                }
+              ],
+              "release_raw": "Release: released by the Director, 2026-10-28."
+            },
+            "assignment_mentions": [],
+            "attention": [],
+            "authority": "none",
+            "channels": {
+              "inventory": "unfenced return-family headings and Member/Receipt blocks",
+              "legacy": "parse_source page-return, unmodified",
+              "revision_repaired": false
+            },
+            "custody": {
+              "basis": "not-observed",
+              "members_book": null,
+              "observations": [
+                {
+                  "attention": [],
+                  "commit_receipt_present": null,
+                  "commit_receipt_sha256": null,
+                  "exit": null,
+                  "how_named": "pointer",
+                  "inspection": null,
+                  "member": "0149.capture-handoff-entry-0520",
+                  "observation_finished_at": null,
+                  "observation_started_at": null,
+                  "receipt_bytes_match": null,
+                  "role": "not-observed",
+                  "stated_receipts": [
+                    "eca76fcfd83ac609a423a2d2ee6951ea8e153a1aa26641429a3e86cfdd8aff0c"
+                  ]
+                }
+              ],
+              "package_at_commit": "not-established",
+              "primary": null,
+              "primary_rule": "origin book, page, and batch match this page and retrospective is false; more than one match stays ambiguous"
+            },
+            "document": {
+              "ambiguous": false,
+              "header_state_raw": "state: returned",
+              "lines": [
+                {
+                  "line": 5,
+                  "text": "state: returned"
+                }
+              ]
+            },
+            "fenced_headings": [],
+            "legacy": {
+              "execution": null,
+              "kind": "page-return",
+              "reason": "ambiguous heading line 66",
+              "review": null,
+              "revision_id": null,
+              "sha256": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70",
+              "sibling": "labs/prime-support-pass01/clerk_adapter.py",
+              "sibling_sha256": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4",
+              "status": "unsupported",
+              "tool": "labs/prime-support-pass01/prime_support.py",
+              "whole": "76b18077d9e57935aa661f018d7fae27469206c524e882cd424cb0a5f054669b"
+            },
+            "page": {
+              "batch": "05.20",
+              "book": "00.00.10.work",
+              "page": "0504.app-entry"
+            },
+            "pointers": [
+              {
+                "execution_raw": "Member 0149.capture-handoff-entry-0520. Receipt sha256 eca76fcfd83ac609a423a2d2ee6951ea8e153a1aa26641429a3e86cfdd8aff0c. Verify exit 0: result complete; not approved; not accepted; not published. The receipt is custody, not acceptance.",
+                "form": "return-pointer",
+                "line": 66,
+                "members": [
+                  {
+                    "line": 67,
+                    "name": "0149.capture-handoff-entry-0520",
+                    "receipts": [
+                      {
+                        "line": 67,
+                        "sha256": "eca76fcfd83ac609a423a2d2ee6951ea8e153a1aa26641429a3e86cfdd8aff0c"
+                      }
+                    ]
+                  }
+                ],
+                "title": "Return pointer"
+              }
+            ],
+            "review": {
+              "binding": "unbound",
+              "legacy_hashes": [],
+              "parser_object": null,
+              "sections": [
+                {
+                  "line": 69,
+                  "text_raw": "Accepted within the existing capture-handoff backend scope. Prime independently ran the app handoff suite:6 passes,15 expected refusals,1 file-symlink privilege skip,0 failures. Existing app-entry suite:12 passes,46 expected refusals,1 privilege skip,0 failures. Tests ran in a disposable checkout, not the live book. Complete capture matches backend semantics (timestamp-derived hashes differ between separate successful captures); identical readonly repeat is byte-identical. Changed bindings/payloads refuse without replacing custody. Partial handoff remains attention, unknown child exit is not success, and no automatic retry/outer timeout was added. New door uses four fixed backend pins. Fresh0149 verification passes. The app now exposes capture-return --binding ABS; it does not reserve, queue, claim, deliver a worker or approve work. No general exactly-once or OS-sandbox guarantee is implied. Date:2026-10-29.",
+                  "title": "Review — Codex Prime"
+                }
+              ],
+              "text_raw": "Accepted within the existing capture-handoff backend scope. Prime independently ran the app handoff suite:6 passes,15 expected refusals,1 file-symlink privilege skip,0 failures. Existing app-entry suite:12 passes,46 expected refusals,1 privilege skip,0 failures. Tests ran in a disposable checkout, not the live book. Complete capture matches backend semantics (timestamp-derived hashes differ between separate successful captures); identical readonly repeat is byte-identical. Changed bindings/payloads refuse without replacing custody. Partial handoff remains attention, unknown child exit is not success, and no automatic retry/outer timeout was added. New door uses four fixed backend pins. Fresh0149 verification passes. The app now exposes capture-return --binding ABS; it does not reserve, queue, claim, deliver a worker or approve work. No general exactly-once or OS-sandbox guarantee is implied. Date:2026-10-29.",
+              "typed_declaration": null
+            },
+            "schema": "batch-observation/1",
+            "sections": [
+              {
+                "fenced": false,
+                "form": "return-pointer",
+                "level": 2,
+                "line": 66,
+                "text": "## Return pointer",
+                "title": "Return pointer"
+              },
+              {
+                "fenced": false,
+                "form": "review-em",
+                "level": 2,
+                "line": 69,
+                "text": "## Review — Codex Prime",
+                "title": "Review — Codex Prime"
+              }
+            ],
+            "source": {
+              "bytes": 5729,
+              "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+              "kind": "git-blob",
+              "label": "git blob at the named commit",
+              "live_observed_at": null,
+              "observation_finished_at": null,
+              "observation_started_at": null,
+              "path": "00.kernel/00.00.10.work/0504.app-entry/05.20.md",
+              "repository": "D:\\Git\\lib-build",
+              "sha256": "76b18077d9e57935aa661f018d7fae27469206c524e882cd424cb0a5f054669b",
+              "time_basis": "git-blob"
+            },
+            "tool": {
+              "name": "batch-observation-pass01",
+              "path": "labs/batch-observation-pass01/batch_observe.py",
+              "sha256": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4"
+            }
+          },
+          "page_id": "p0520",
+          "reason": null,
+          "status": "observed",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+            "-B",
+            "D:\\Git\\lib-build\\labs\\batch-observation-pass01\\batch_observe.py",
+            "observe",
+            "--json",
+            "--repo",
+            "D:\\Git\\lib-build",
+            "--commit",
+            "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+            "--path",
+            "00.kernel/00.00.10.work/0507.prime-support/05.12.md"
+          ],
+          "exit": 1,
+          "observation": {
+            "ambiguities": [
+              "legacy-ambiguous-heading",
+              "legacy-revision-withheld",
+              "custody-not-observed",
+              "duplicate-release"
+            ],
+            "assignment": {
+              "ambiguous": true,
+              "claim_lines": [
+                {
+                  "line": 91,
+                  "text": "Claim: claude-opus-5-5 (Anthropic), Colab, executor, claimed 2026-10-27T20:05-05:00 on workshop at e97c70fff2984d59c26180e2ab146258dd9ac491. pack05.12: 10 of 10 snapshots match their pins, and live equals all 10. return_inspect 947915fe… and return_capture 8f3da5c6… verified. Scope: this batch only."
+                }
+              ],
+              "claim_raw": "Claim: claude-opus-5-5 (Anthropic), Colab, executor, claimed 2026-10-27T20:05-05:00 on workshop at e97c70fff2984d59c26180e2ab146258dd9ac491. pack05.12: 10 of 10 snapshots match their pins, and live equals all 10. return_inspect 947915fe… and return_capture 8f3da5c6… verified. Scope: this batch only.",
+              "executor_lines": [
+                {
+                  "line": 11,
+                  "text": "Executor: Claude. Reviewer: Codex Prime."
+                }
+              ],
+              "executor_raw": "Executor: Claude. Reviewer: Codex Prime.",
+              "release_lines": [
+                {
+                  "line": 12,
+                  "text": "Release and claim: recorded in the Return pointer. This draft grants no release."
+                },
+                {
+                  "line": 90,
+                  "text": "Release: the Director, chat 2026-10-27: \"The Director releases 0507.prime-support/05.12. Workspace: D:\\Git\\lib-build Branch: workshop Read 00.kernel/00.00.10.work/0507.prime-support/05.12.md. Verify pins and record release/claim. Build the fixture-only state-projection lab under Prime's SP-01–SP-04 conditions. Review presence must not close work. Preserve held/correction states, candidate ambiguity and separate publication facts. Completion requires explicit, candidate-bound evidence. Use the accepted inspector; do not recreate custody validation or change existing tools, assignments, roles or law. Run the required countercases and demo. Capture into reserved 0136.state-projection-0512 and freshly verify. No shared Git commits or pushes.\""
+                }
+              ],
+              "release_raw": null
+            },
+            "assignment_mentions": [],
+            "attention": [],
+            "authority": "none",
+            "channels": {
+              "inventory": "unfenced return-family headings and Member/Receipt blocks",
+              "legacy": "parse_source page-return, unmodified",
+              "revision_repaired": false
+            },
+            "custody": {
+              "basis": "not-observed",
+              "members_book": null,
+              "observations": [
+                {
+                  "attention": [],
+                  "commit_receipt_present": null,
+                  "commit_receipt_sha256": null,
+                  "exit": null,
+                  "how_named": "pointer",
+                  "inspection": null,
+                  "member": "0136.state-projection-0512",
+                  "observation_finished_at": null,
+                  "observation_started_at": null,
+                  "receipt_bytes_match": null,
+                  "role": "not-observed",
+                  "stated_receipts": [
+                    "deec943938e07c29f28ef82cb5000e3af5758a0454330a4c53de606774c0cd44"
+                  ]
+                }
+              ],
+              "package_at_commit": "not-established",
+              "primary": null,
+              "primary_rule": "origin book, page, and batch match this page and retrospective is false; more than one match stays ambiguous"
+            },
+            "document": {
+              "ambiguous": false,
+              "header_state_raw": "state: draft",
+              "lines": [
+                {
+                  "line": 5,
+                  "text": "state: draft"
+                }
+              ]
+            },
+            "fenced_headings": [],
+            "legacy": {
+              "execution": null,
+              "kind": "page-return",
+              "reason": "ambiguous heading line 89",
+              "review": null,
+              "revision_id": null,
+              "sha256": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70",
+              "sibling": "labs/prime-support-pass01/clerk_adapter.py",
+              "sibling_sha256": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4",
+              "status": "unsupported",
+              "tool": "labs/prime-support-pass01/prime_support.py",
+              "whole": "dce336e1f4c3cd8d4679ddff45f517293b2e6fd991d8bb39560c0412f1f5f3f5"
+            },
+            "page": {
+              "batch": "05.12",
+              "book": "00.00.10.work",
+              "page": "0507.prime-support"
+            },
+            "pointers": [
+              {
+                "execution_raw": "Release: the Director, chat 2026-10-27: \"The Director releases 0507.prime-support/05.12. Workspace: D:\\Git\\lib-build Branch: workshop Read 00.kernel/00.00.10.work/0507.prime-support/05.12.md. Verify pins and record release/claim. Build the fixture-only state-projection lab under Prime's SP-01–SP-04 conditions. Review presence must not close work. Preserve held/correction states, candidate ambiguity and separate publication facts. Completion requires explicit, candidate-bound evidence. Use the accepted inspector; do not recreate custody validation or change existing tools, assignments, roles or law. Run the required countercases and demo. Capture into reserved 0136.state-projection-0512 and freshly verify. No shared Git commits or pushes.\"",
+                "form": "return-pointer",
+                "line": 89,
+                "members": [
+                  {
+                    "line": 92,
+                    "name": "0136.state-projection-0512",
+                    "receipts": [
+                      {
+                        "line": 92,
+                        "sha256": "deec943938e07c29f28ef82cb5000e3af5758a0454330a4c53de606774c0cd44"
+                      }
+                    ]
+                  }
+                ],
+                "title": "Return pointer"
+              }
+            ],
+            "review": {
+              "binding": "unbound",
+              "legacy_hashes": [],
+              "parser_object": null,
+              "sections": [
+                {
+                  "line": 94,
+                  "text_raw": "Held for SP-05: a same-origin retrospective capture can be projected as completed. Independent17-test suite passes; added real-capture countercase fails the intended boundary. See evidence/prime-review05.12/review.md. Date: 2026-10-28.",
+                  "title": "Review — Codex Prime"
+                }
+              ],
+              "text_raw": "Held for SP-05: a same-origin retrospective capture can be projected as completed. Independent17-test suite passes; added real-capture countercase fails the intended boundary. See evidence/prime-review05.12/review.md. Date: 2026-10-28.",
+              "typed_declaration": null
+            },
+            "schema": "batch-observation/1",
+            "sections": [
+              {
+                "fenced": false,
+                "form": "return-pointer",
+                "level": 2,
+                "line": 89,
+                "text": "## Return pointer",
+                "title": "Return pointer"
+              },
+              {
+                "fenced": false,
+                "form": "review-em",
+                "level": 2,
+                "line": 94,
+                "text": "## Review — Codex Prime",
+                "title": "Review — Codex Prime"
+              }
+            ],
+            "source": {
+              "bytes": 8403,
+              "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+              "kind": "git-blob",
+              "label": "git blob at the named commit",
+              "live_observed_at": null,
+              "observation_finished_at": null,
+              "observation_started_at": null,
+              "path": "00.kernel/00.00.10.work/0507.prime-support/05.12.md",
+              "repository": "D:\\Git\\lib-build",
+              "sha256": "dce336e1f4c3cd8d4679ddff45f517293b2e6fd991d8bb39560c0412f1f5f3f5",
+              "time_basis": "git-blob"
+            },
+            "tool": {
+              "name": "batch-observation-pass01",
+              "path": "labs/batch-observation-pass01/batch_observe.py",
+              "sha256": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4"
+            }
+          },
+          "page_id": "p0512",
+          "reason": null,
+          "status": "observed",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+            "-B",
+            "D:\\Git\\lib-build\\labs\\batch-observation-pass01\\batch_observe.py",
+            "observe",
+            "--json",
+            "--repo",
+            "D:\\Git\\lib-build",
+            "--commit",
+            "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+            "--path",
+            "00.kernel/00.00.10.work/0401.goal/06.01.md"
+          ],
+          "exit": 1,
+          "observation": {
+            "ambiguities": [
+              "legacy-no-return",
+              "legacy-revision-withheld"
+            ],
+            "assignment": {
+              "ambiguous": false,
+              "claim_lines": [],
+              "claim_raw": null,
+              "executor_lines": [],
+              "executor_raw": null,
+              "release_lines": [],
+              "release_raw": null
+            },
+            "assignment_mentions": [],
+            "attention": [],
+            "authority": "none",
+            "channels": {
+              "inventory": "unfenced return-family headings and Member/Receipt blocks",
+              "legacy": "parse_source page-return, unmodified",
+              "revision_repaired": false
+            },
+            "custody": {
+              "basis": "not-observed",
+              "members_book": null,
+              "observations": [],
+              "package_at_commit": "not-established",
+              "primary": null,
+              "primary_rule": "origin book, page, and batch match this page and retrospective is false; more than one match stays ambiguous"
+            },
+            "document": {
+              "ambiguous": false,
+              "header_state_raw": null,
+              "lines": []
+            },
+            "fenced_headings": [],
+            "legacy": {
+              "execution": null,
+              "kind": "page-return",
+              "reason": "no Return section",
+              "review": null,
+              "revision_id": null,
+              "sha256": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70",
+              "sibling": "labs/prime-support-pass01/clerk_adapter.py",
+              "sibling_sha256": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4",
+              "status": "no-return",
+              "tool": "labs/prime-support-pass01/prime_support.py",
+              "whole": "3578934451fc98e1dcfcc0030adebad27478787c4c2b6177f82268ae6826c38c"
+            },
+            "page": null,
+            "pointers": [],
+            "review": {
+              "binding": "unbound",
+              "legacy_hashes": [],
+              "parser_object": null,
+              "sections": [],
+              "text_raw": null,
+              "typed_declaration": null
+            },
+            "schema": "batch-observation/1",
+            "sections": [],
+            "source": {
+              "bytes": 545,
+              "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+              "kind": "git-blob",
+              "label": "git blob at the named commit",
+              "live_observed_at": null,
+              "observation_finished_at": null,
+              "observation_started_at": null,
+              "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+              "repository": "D:\\Git\\lib-build",
+              "sha256": "3578934451fc98e1dcfcc0030adebad27478787c4c2b6177f82268ae6826c38c",
+              "time_basis": "git-blob"
+            },
+            "tool": {
+              "name": "batch-observation-pass01",
+              "path": "labs/batch-observation-pass01/batch_observe.py",
+              "sha256": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4"
+            }
+          },
+          "page_id": "p0601",
+          "reason": null,
+          "status": "observed",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+            "-B",
+            "D:\\Git\\lib-build\\labs\\batch-observation-pass01\\batch_observe.py",
+            "observe",
+            "--json",
+            "--repo",
+            "D:\\Git\\lib-build",
+            "--commit",
+            "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+            "--path",
+            "00.kernel/00.live.md"
+          ],
+          "exit": 1,
+          "observation": {
+            "ambiguities": [
+              "legacy-no-return",
+              "legacy-revision-withheld"
+            ],
+            "assignment": {
+              "ambiguous": false,
+              "claim_lines": [],
+              "claim_raw": null,
+              "executor_lines": [],
+              "executor_raw": null,
+              "release_lines": [],
+              "release_raw": null
+            },
+            "assignment_mentions": [],
+            "attention": [],
+            "authority": "none",
+            "channels": {
+              "inventory": "unfenced return-family headings and Member/Receipt blocks",
+              "legacy": "parse_source page-return, unmodified",
+              "revision_repaired": false
+            },
+            "custody": {
+              "basis": "not-observed",
+              "members_book": null,
+              "observations": [],
+              "package_at_commit": "not-established",
+              "primary": null,
+              "primary_rule": "origin book, page, and batch match this page and retrospective is false; more than one match stays ambiguous"
+            },
+            "document": {
+              "ambiguous": false,
+              "header_state_raw": null,
+              "lines": []
+            },
+            "fenced_headings": [],
+            "legacy": {
+              "execution": null,
+              "kind": "page-return",
+              "reason": "no Return section",
+              "review": null,
+              "revision_id": null,
+              "sha256": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70",
+              "sibling": "labs/prime-support-pass01/clerk_adapter.py",
+              "sibling_sha256": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4",
+              "status": "no-return",
+              "tool": "labs/prime-support-pass01/prime_support.py",
+              "whole": "a69245972915b6e140b7528239216ff1a1bc97941cfb1a4de4868d88a541a30d"
+            },
+            "page": null,
+            "pointers": [],
+            "review": {
+              "binding": "unbound",
+              "legacy_hashes": [],
+              "parser_object": null,
+              "sections": [],
+              "text_raw": null,
+              "typed_declaration": null
+            },
+            "schema": "batch-observation/1",
+            "sections": [],
+            "source": {
+              "bytes": 1160,
+              "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+              "kind": "git-blob",
+              "label": "git blob at the named commit",
+              "live_observed_at": null,
+              "observation_finished_at": null,
+              "observation_started_at": null,
+              "path": "00.kernel/00.live.md",
+              "repository": "D:\\Git\\lib-build",
+              "sha256": "a69245972915b6e140b7528239216ff1a1bc97941cfb1a4de4868d88a541a30d",
+              "time_basis": "git-blob"
+            },
+            "tool": {
+              "name": "batch-observation-pass01",
+              "path": "labs/batch-observation-pass01/batch_observe.py",
+              "sha256": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4"
+            }
+          },
+          "page_id": "plive",
+          "reason": null,
+          "status": "observed",
+          "stderr": ""
+        }
+      ]
+    },
+    "record": {
+      "bytes": 10117,
+      "path": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0508.return-capture\\evidence\\deskstate05.19\\desk.json",
+      "sha256": "18d44923dfc0995c2d9078ba6d2b36807a0c98fb19ff3840ee1386ddee4b8933"
+    },
+    "returns": {
+      "awaiting_review": [],
+      "completed_fixtures": [],
+      "conflicts": [],
+      "correction_or_held": [
+        {
+          "followup": "0507.prime-support/05.13",
+          "id": "0507.prime-support/05.12",
+          "lifecycle": "open-held",
+          "reason": "review held; the item stays open until an explicit resolution; published bytes at a ref do not complete work; reader: legacy-ambiguous-heading, legacy-revision-withheld, custody-not-observed, duplicate-release",
+          "source_ref": {
+            "bytes": 8403,
+            "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+            "kind": "git-blob",
+            "label": "git blob at the named commit",
+            "path": "00.kernel/00.00.10.work/0507.prime-support/05.12.md",
+            "repository": "D:\\Git\\lib-build",
+            "sha256": "dce336e1f4c3cd8d4679ddff45f517293b2e6fd991d8bb39560c0412f1f5f3f5"
+          }
+        }
+      ],
+      "other_open": [
+        {
+          "followup": null,
+          "id": "0508.return-capture/05.18",
+          "lifecycle": "open-accepted-not-terminal",
+          "reason": "accepted without an explicit terminal declaration; reader: legacy-ambiguous-heading, legacy-revision-withheld, custody-not-observed, quoted-accepted-unbound, duplicate-release",
+          "source_ref": {
+            "bytes": 8139,
+            "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+            "kind": "git-blob",
+            "label": "git blob at the named commit",
+            "path": "00.kernel/00.00.10.work/0508.return-capture/05.18.md",
+            "repository": "D:\\Git\\lib-build",
+            "sha256": "314f96a4b87b35e0bb5f8a2c1a85f42a6eb0fac42c7a264f7e691baf741b5395"
+          }
+        },
+        {
+          "followup": null,
+          "id": "0504.app-entry/05.20",
+          "lifecycle": "open-accepted-not-terminal",
+          "reason": "accepted without an explicit terminal declaration; reader: legacy-ambiguous-heading, legacy-revision-withheld, custody-not-observed, quoted-accepted-unbound",
+          "source_ref": {
+            "bytes": 5729,
+            "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+            "kind": "git-blob",
+            "label": "git blob at the named commit",
+            "path": "00.kernel/00.00.10.work/0504.app-entry/05.20.md",
+            "repository": "D:\\Git\\lib-build",
+            "sha256": "76b18077d9e57935aa661f018d7fae27469206c524e882cd424cb0a5f054669b"
+          }
+        }
+      ],
+      "unprojected": [
+        {
+          "id": null,
+          "reason": "page unidentified: reader gives no book/page/batch; reader: legacy-no-return, legacy-revision-withheld",
+          "source_ref": {
+            "bytes": 545,
+            "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+            "kind": "git-blob",
+            "label": "git blob at the named commit",
+            "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+            "repository": "D:\\Git\\lib-build",
+            "sha256": "3578934451fc98e1dcfcc0030adebad27478787c4c2b6177f82268ae6826c38c"
+          }
+        },
+        {
+          "id": null,
+          "reason": "page unidentified: reader gives no book/page/batch; reader: legacy-no-return, legacy-revision-withheld",
+          "source_ref": {
+            "bytes": 1160,
+            "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+            "kind": "git-blob",
+            "label": "git blob at the named commit",
+            "path": "00.kernel/00.live.md",
+            "repository": "D:\\Git\\lib-build",
+            "sha256": "a69245972915b6e140b7528239216ff1a1bc97941cfb1a4de4868d88a541a30d"
+          }
+        }
+      ],
+      "unreleased": []
+    },
+    "schema": "desk-view/1",
+    "sources": [
+      {
+        "bytes": 8139,
+        "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+        "kind": "git-blob",
+        "page_id": "p0518",
+        "path": "00.kernel/00.00.10.work/0508.return-capture/05.18.md",
+        "sha256": "314f96a4b87b35e0bb5f8a2c1a85f42a6eb0fac42c7a264f7e691baf741b5395"
+      },
+      {
+        "bytes": 5729,
+        "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+        "kind": "git-blob",
+        "page_id": "p0520",
+        "path": "00.kernel/00.00.10.work/0504.app-entry/05.20.md",
+        "sha256": "76b18077d9e57935aa661f018d7fae27469206c524e882cd424cb0a5f054669b"
+      },
+      {
+        "bytes": 8403,
+        "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+        "kind": "git-blob",
+        "page_id": "p0512",
+        "path": "00.kernel/00.00.10.work/0507.prime-support/05.12.md",
+        "sha256": "dce336e1f4c3cd8d4679ddff45f517293b2e6fd991d8bb39560c0412f1f5f3f5"
+      },
+      {
+        "bytes": 545,
+        "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+        "kind": "git-blob",
+        "page_id": "p0601",
+        "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+        "sha256": "3578934451fc98e1dcfcc0030adebad27478787c4c2b6177f82268ae6826c38c"
+      },
+      {
+        "bytes": 1160,
+        "commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+        "kind": "git-blob",
+        "page_id": "plive",
+        "path": "00.kernel/00.live.md",
+        "sha256": "a69245972915b6e140b7528239216ff1a1bc97941cfb1a4de4868d88a541a30d"
+      }
+    ],
+    "uninspected": [
+      {
+        "label": "Claude active 0507/05.16 outputs",
+        "reason": "Out of scope for this pass. Not opened."
+      },
+      {
+        "label": "SoF source repository",
+        "reason": "Out of scope for this pass. Not opened."
+      }
+    ],
+    "unknowns": [
+      "legacy-assignment: page unidentified: reader gives no book/page/batch",
+      "00.kernel/00.00.10.work/0401.goal/06.01.md: page unidentified: reader gives no book/page/batch; reader: legacy-no-return, legacy-revision-withheld",
+      "00.kernel/00.live.md: page unidentified: reader gives no book/page/batch; reader: legacy-no-return, legacy-revision-withheld"
+    ]
+  }
+}

@@ -1,0 +1,43 @@
+# Notes — desk-state view (05.19)
+
+Date: 2026-10-29. Recorder: Grok Builder 2. These notes are written before the contract, the module, the example record, and the rehearsal. `06.01` through `06.19` stay as they are. No runtime file is edited. No model is called. This note does not boot a Prime, seat a module, or adopt a route.
+
+## Release and claim
+
+Release: the Director, this session, 2026-10-29: "Director releases 0508.return-capture/05.19." The workspace is `D:\Git\lib-build`, branch `workshop`.
+
+Claim: Grok Builder 2, this session, 2026-10-29. Scope is this page only. Workshop HEAD when these notes were opened is `5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841`. The fresh-session snapshot cut `d3b6ad3e55beb1ec0bd5acbb114e6e66fd66c4e9` is not checked out and is not modified.
+
+Pack `evidence/pack05.19/source-manifest.json` is schema `prime-pack-sources/1` with 28 sources. Live bytes equal the declared SHA-256 and length for all 28. Bad count is 0. That check was repeated before these notes.
+
+Reserved member `0152.desk-state-view-0519` holds `01.md` and `reservation.json`. `01.md` is 331 bytes, SHA-256 `24f11cbc1cb5af8dc27d5dff92ad3690082982167c52d89dd1cceb32c6f2a42c`. `reservation.json` is 1057 bytes, SHA-256 `dde863aef37842a77e6181aaca6a5d903c73c2c0930a832f7ea5b3b2f3e60411`, reserved at `2026-10-29T15:47:59.313833Z`, submission `grok-2-0508-0519`. `01.md` is an index. A later receipt is custody, not approval, acceptance, seating, or publication.
+
+## What was read
+
+The pinned reader at commit `5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841` identifies these blobs:
+
+- `0508.return-capture/05.18.md` is 8139 bytes, SHA-256 `314f96a4b87b35e0bb5f8a2c1a85f42a6eb0fac42c7a264f7e691baf741b5395`. The pointer names `0150.cold-prime-plan-revision-0518`. The reader leaves `release_raw` empty and records `duplicate-release`. The claim line is present. The review text accepts the CP-01/CP-02 correction and withholds handover.
+- `0504.app-entry/05.20.md` is 5729 bytes, SHA-256 `76b18077d9e57935aa661f018d7fae27469206c524e882cd424cb0a5f054669b`. The pointer names `0149.capture-handoff-entry-0520`. Release and claim lines are present. The review text accepts the capture-handoff scope only.
+- `0507.prime-support/05.12.md` is 8403 bytes, SHA-256 `dce336e1f4c3cd8d4679ddff45f517293b2e6fd991d8bb39560c0412f1f5f3f5`. That is the same blob hash as the accepted `realbrief-input05.14` coordination record. The pointer names `0136.state-projection-0512`. The review text is still Held for SP-05.
+- `0401.goal/06.01.md` is 545 bytes, SHA-256 `3578934451fc98e1dcfcc0030adebad27478787c4c2b6177f82268ae6826c38c`. The reader does not identify a `05.NN` page.
+- `00.kernel/00.live.md` is 1160 bytes, SHA-256 `a69245972915b6e140b7528239216ff1a1bc97941cfb1a4de4868d88a541a30d`. The reader does not identify a page. It stays a stale legacy mirror. This pass does not rewrite it.
+
+Live inspection, separate from those commit facts:
+
+- `0150.cold-prime-plan-revision-0518` is complete, not retrospective, origin `0508.return-capture/05.18`, receipt `66a7475d73a882ead5db8f0c7d9e798f26e4cd4cfa3a1a6a07ec3297104b7586`.
+- `0149.capture-handoff-entry-0520` is complete, not retrospective, origin `0504.app-entry/05.20`, receipt `eca76fcfd83ac609a423a2d2ee6951ea8e153a1aa26641429a3e86cfdd8aff0c`.
+- `0136.state-projection-0512` is complete, not retrospective, origin `0507.prime-support/05.12`, receipt `deec943938e07c29f28ef82cb5000e3af5758a0454330a4c53de606774c0cd44`. That receipt is the one already in the accepted coordination record.
+
+`0401.goal/06.01.md`, `00.kernel/00.live.md`, the accepted backends, and the boot tools are not edited. Claude's active `0507/05.16` outputs are not opened. The SoF source repository is not opened. Both are named later as uninspected links.
+
+## Choices
+
+The practical result is one command, `view --input ABS [--json]`. It reads one strict `desk-state/1` record and emits a `desk-view/1` view. The view shows the desk goal, every declared lane, returns that need review, unresolved blockers, and the recorded Prime handoff. `elected` is always null. A worker label is a label. A null worker stays unrecorded. The module does not infer that an absent worker is available, and it does not pick a winner by page number.
+
+Commit observations and live inspections stay separate. The module shells out to the pinned reader, inspector, and brief after the pin check. It does not import them and does not edit them. The brief is asked to inspect only when the record says `inspect-named-members`. Coordination is supplied and source-bound. A different source hash stays unprojected. Judgments are not rebound to new bytes.
+
+The `05.12` coordination is the accepted 05.14 record reused because the blob hash still matches. The `05.18` and `05.20` coordination records are supplied for this rehearsal from those pages' pointer text and the accepted review pages. Reader ambiguities, including `duplicate-release` on `05.18`, stay visible. Terminal completion is not inferred from an accepted review. The recorded next step is the Prime sentence in `RECONCILIATION.md`: one final prepared test bundle and a Director-led trial. D1 stays unresolved. The packet registry cited there is a Prime proposal, not a Director lane.
+
+The example `desk.json` is a proposed working configuration. It is not a second assignment. `render_live.py` does not read this view. No migration runs.
+
+Exit 0 means the view has no attention item and no unknown. Exit 1 means attention or an unknown is visible. Exit 2 means the record, the pin, the path, or the output is refused. Reader legacy codes are shown and do not by themselves change the exit. This note does not contain a receipt.
