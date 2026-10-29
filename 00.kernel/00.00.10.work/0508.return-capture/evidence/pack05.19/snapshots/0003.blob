@@ -1,0 +1,5 @@
+# Prime review — 0508.return-capture/05.18
+
+Date:2026-10-29. Reviewer:Codex Prime.
+
+Accepted as the bounded CP-01/CP-02 planning correction, not a prepared attempt, fresh-model pass or current-work handover. Prime verified all12 selected committed blobs against d3b6ad3e55beb1ec0bd5acbb114e6e66fd66c4e9 and independently summed52701 bytes. Mandatory refs are now counted; no live member observation is claimed. Success correctly requires prepared + mechanical checks ok + all semantic grades pass + oriented, with authority none. Partial/failure remain remediation/failure. Missing bodies and stale assignment stay explicit. Fresh0150 verification passes. The revised selection differs from Claude's accepted0148 packet (45460 bytes, including one live observation); its evaluator must not be applied to0148 unchanged. Final exam needs explicit O1 evidence-target and O2 single-field-set instructions. See RECONCILIATION.md for the proposed binding, preserved-source rule and grading clarifications. No further builder repair is needed merely to restate the two corrected findings.
