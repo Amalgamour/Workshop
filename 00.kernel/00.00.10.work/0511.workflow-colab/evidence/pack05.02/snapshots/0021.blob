@@ -1,0 +1,66 @@
+{
+  "schema": "pack-assembly-receipt/1",
+  "result": "completed",
+  "template": "pack-assembly-draft/1",
+  "digest": "19ccfd8bc3cd9b06f54656adb005cf515c78e319e8dfaa3c18fa2999701bbe51",
+  "request_sha256": "a5c2058aed8481898b1bf7e612fd8e296a1fac0fe6d3b8e6c0d6cc2a3a6e3196",
+  "request_bytes": 3866,
+  "commit": "c406b2a9a3d8d9cc1c67c2c79a8e336989cc0eb1",
+  "batch": "05.01",
+  "batch_file": "05.01.md",
+  "batch_sha256": "f9d1cb17c381919662916da8adaea46918e85d1d13bdee35c6681de2c6e79fb7",
+  "batch_bytes": 3696,
+  "sources": [
+    {
+      "path": "00.kernel/00.00.10.work/0411.colab/01.md",
+      "sha256": "1a9b2ce890e1ab4078154ed26b218cdea7bf9d6624d06ca5b1d43dfb5f29e3e0",
+      "bytes": 10475,
+      "snapshot": "snapshots/0001.blob"
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0411.colab/evidence/n7nn-interface-v1/CONTRACT.md",
+      "sha256": "246189acdba7c4559c1bda5ba9a6314d60dca9bf1710b87c4eaf59cbde5f6f42",
+      "bytes": 4489,
+      "snapshot": "snapshots/0002.blob"
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0411.colab/02.md",
+      "sha256": "af31b46d9b8e6c350b699cd241668a225b0d66d62913dc843cf15a2a2a9308a0",
+      "bytes": 1498,
+      "snapshot": "snapshots/0003.blob"
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0700.band.colabs/01.md",
+      "sha256": "a4231ad09ec5a14a320779f29574ca0cd8912eb0b1e8a25d2462d94c6b4dfeed",
+      "bytes": 1321,
+      "snapshot": "snapshots/0004.blob"
+    },
+    {
+      "path": "00.kernel/00.00.01.law/0036.colab/01.md",
+      "sha256": "37dcab8f35e69eaf675e7ce2b41c1614dd38d8b750f8e538f9f6cce0add3002d",
+      "bytes": 4463,
+      "snapshot": "snapshots/0005.blob"
+    }
+  ],
+  "manifest_file": "source-manifest.json",
+  "manifest_sha256": "e4f523a080a3d6f9cd1b3f4b5840bf6a6568cd64b84f2c7c3b3b89c34cdf71a4",
+  "manifest_bytes": 1261,
+  "checker": {
+    "sha256": "9bbd9d57f3b7da43234ac2e6ae4ce40a0ab6af2f53c8135ecfb2ee0c8a6e322d",
+    "bytes": 21563,
+    "result": "pass",
+    "exit": 0,
+    "rows_checked": 5
+  },
+  "return_destination": {
+    "state": "supplied",
+    "path": "return one file to Prime in the conversation that gave you this package"
+  },
+  "repository_label": "workshop",
+  "limits": [
+    "This receipt does not approve, release, or accept the draft.",
+    "Live return-slot allocation was not checked.",
+    "Clerk readiness was not checked.",
+    "Pinned sources were not executed."
+  ]
+}

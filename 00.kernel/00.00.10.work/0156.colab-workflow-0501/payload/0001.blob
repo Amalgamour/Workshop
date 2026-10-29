@@ -1,0 +1,57 @@
+# 06 — Workflow notes for N7NN Colab investigations
+
+version: 001
+projection: none
+who: Grok Builder 1
+state: notes
+Face: 06
+PPPP: 0511
+book: 00.00.10.work
+
+## Boundary
+0411.colab is the design. 0510.colab-tools is Claude's package module. 0511.workflow-colab is this implementation job. Neither batch is an investigation. Actual investigations are caller-selected pages 0701–0799 under the declared door 0700.band.colabs. This build does not open one in the live book.
+
+The live claim on 05.01 stays at HEAD c406b2a9a3d8d9cc1c67c2c79a8e336989cc0eb1. Pack source-manifest.json matched 32 of 32 before that claim. Manifest sha256 7d4d0e8e1ce968b6fead27ff72cf41dacffc6d2f509545c99f322bf44a708c23.
+
+Claude's labs/colab-support-pass01 and 0510 outputs were not opened. The package this suite attaches is synthetic.
+
+## One record
+investigation.json on the investigation page is the only fact store. 01.md, 03.md, 08.md, 05.NN.md, and 06.NN.md are regenerated projections. Show/index is computed and not stored. There is no editable status field. Draft, pending review, held/followup, accepted-without-terminal, and explicit completion are flags derived in STATE-MAP.md.
+
+A release, claim, or review line is a supplied statement. The tool stores it and does not treat it as authority. A receipt is custody. Sitting in 0700 does not release a draft.
+
+## Interface gaps
+These stay in this note. The shared interface files were not edited.
+
+G1. The shared contract requires a digest bound to the request, the binding, and the selected bytes, and it does not name the algorithm. Local algorithm: colab-package-digest/1 in CONTRACT.md.
+
+G2. The shared contract does not define section-id syntax. A target kind id matches a whole line `section-id: VALUE`. No fuzzy heading match.
+
+G3. Package 06.NN.md is supplied purpose and reason. Findings are a later caller-supplied list. Prose is not parsed into findings.
+
+G4. No sub-band inside 0700–0799 is declared. 0700 is the door and is not an investigation. 0701–0799 are members when the caller selects one. 0710 is not a special door. A free integer is not allocated.
+
+G5. source.commit is a stored 40-hex label. The sha256 binds the snapshot bytes. This tool does not call Git and does not follow HEAD.
+
+G6. binding-example.json names 0701.desk-state. That page is an example, not an investigation and not a release. It is not created here.
+
+G7. Law 0007 keeps face 07 absent. Law 0040 reserves kernel pages 0000–0009 for notes that are not about those pages. This tool creates neither.
+
+## Custody
+The return pointer launches the pinned return_inspect.py and return_capture.py verify after a byte pin. Origin must be the investigation book, page, and pass. A 0508 subject member or a 0510 implementation member does not bind by name or title. Two non-retrospective matches require an explicit member. A retrospective capture stays secondary. The pass page stores the member pointer. The return body stays in 0100.
+
+## Not done here
+No model, no network Colab, no live-book investigation, no edit to 00.live, app entry, registry, law, 0411, 0700, or the pinned helpers. Subject notes are proposals under the investigation. They are not written onto the subject page.
+
+## Disposition of these gaps
+G1–G7 are recorded for Prime. They are not applied as silent edits to the shared contract or to law. The local digest and the section-id line are the rules this adapter enforces until Prime aligns them with the reviewed 0510 output.
+
+## Suite
+Command: `python -B labs/colab-workflow-pass01/tests/test_colab_workflow.py`
+Result: executed 15, skipped 1, failed 0.
+The skip is file-symlink creation, WinError 1314. Junction refusal ran and passed.
+The 15 checks cover the declared band, explicit open, a second pass, multiple targets, duplicate title and target and section, a stale digest, unknown claim/release, custody that is complete while review stays pending, held with followup, accepted without closure, explicit close that keeps a rejection, wrong-origin and partial and ambiguous and retrospective custody, a repeated attach, conflicting bytes, malformed input, unsafe paths, both helper pin mismatches, and an interrupted write that keeps its files and refuses resume.
+No model was launched. The live work book was refused. Claude's package module was not imported.
+
+## Disposition of the suite
+The cases above are the builder's evidence. They do not accept the adapter, seat it, or publish it. Prime still reviews the captured return. G1–G7 stay open as interface gaps.

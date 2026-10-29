@@ -1,0 +1,64 @@
+# Notes — N7NN-bound Colab preparation, verification and intake (batch 05.02)
+Date: 2026-10-29
+Recorder: claude-opus-5-5, Colab, executor
+State: written FIRST, before the contract and any code. 0411, its interface, band 0700, the helpers and law stay byte-identical. 05.01 and reserved 0154 are untouched.
+
+## Inputs
+I01. pack05.02: 32 of 32 snapshots match their pins, and live equals all 32, on workshop at c406b2a9. Manifest sha256 3cad964d….
+I02. **Older batch 05.01.** I never began it. There is no 06.01.md, no evidence/build05.01 and no labs/colab-support-pass01, and 0154 is a reservation only. Nothing needed preserving or explaining beyond this line.
+I03. **Shared interface** (0411 evidence/n7nn-interface-v1). Three identities: the design (0411), the implementation jobs (0510/05.02 and 0511/05.01), and the investigation (an N7NN page with 05.NN passes). Targets are subjects; they are never the origin. binding.json is `colab-binding/1`: `schema`, `investigation{book,page,pass}`, `targets[]` with `id`, `book`, `page`, `file`, `section` and `source{repository,commit,path,sha256}`.
+I04. **Accepted assembler** pack_assembly.py 75d49679… takes `pack-assembly-request/1` with ONE `revision`. It writes `05.NN.md`, `request.snapshot`, `source-manifest.json`, `snapshots/NNNN.blob` and `completion-receipt.json` into an absent or empty directory outside the repository. Its `verify` demands EXACTLY that file set. Its text fields refuse structural headings.
+I05. **Accepted checker** pack_check.py 9bbd9d57…, loaded by the assembler under its own pin.
+I06. **Accepted capture** return_capture.py 8f3da5c6… reserves, captures and verifies. **Inspector** return_inspect.py 947915fe… reports `return-capture-inspection/1`, exit 0 complete, 1 reserved or missing, 2 refused or incomplete.
+I07. **Law and design.** 0036 (Hostile, Check, Factfind, Overflow, Unprompted, two passes), 0037, 0038, 0039, 0040 and 0064 are sources only. 0411/06.02 records the score-first tension: score only under a declared scoring method.
+I08. **Grok-1** owns labs/colab-workflow-pass01 and 0511. I don't read them. 0156 is its reservation, which I saw only as a directory name in a listing.
+
+## Choices (before code)
+C01. **One module** labs/colab-support-pass01/colab_support.py, standard library only, with commands `preview`, `prepare`, `verify` and `intake`. It covers no review, find, scheduler or model call.
+C02. **Request** `colab-request/1`: strict JSON (duplicate keys, BOM, trailing data, NaN/Infinity, wrong types and unknown keys refuse). It holds the exact `colab-binding/1` object as `binding`, plus title, date, author, recipient, reviewer, mode, scoring, context, question, why, built state, known gaps, method, cases, environment, permissions, stop, prior involvement, required sources, withheld, unavailable, Director replies and return route. Size and count limits are explicit.
+C03. **Investigation origin** must be an N7NN member, 0701–0799, in the declared book. The door 0700 and any other band (N5NN and the rest) refuse. A target that names the investigation page itself refuses.
+C04. **Target binding.** `source.path` must end in the segments `book/page/file`; nothing is guessed about the desk prefix. Each target's blob is read from Git at its commit and must match `source.sha256`; a mismatch is stale and refuses. A heading section is the exact line, outside fences, with an explicit 1-based occurrence when the line appears more than once; null occurrence with two matches refuses. The section runs to the next heading of the same or higher level. `kind: id` refuses because v1 declares no section-id syntax; that is a gap for Prime, not an invented convention.
+C05. **Repository roots** come from a separate `colab-config/1` file (label to absolute root). They never appear in the package or the digest. The repository label does.
+C06. **Assembler reuse, with an adapter.** The colab request is turned deterministically into a `pack-assembly-request/1`. The pinned assembler module is loaded in-process for preview (planning only, no writes), and the pinned assembler CLI is run by subprocess for the real assemble. Its raw stdout, stderr and exit are retained. Two limits follow from its shape and are refused, not worked around: every target and required source must share one repository and one commit, and recipient-facing assembler fields must not hold structural headings.
+C07. **Package layout.** `OUT/package/` holds the assembler's exact files plus binding.json, ENTRY.md, 06.NN.md, RETURN-TEMPLATE.md and colab-request.json. Beside it, `OUT/prepared-colab.zip` is a deterministic ZIP of package/. `OUT/evaluator/` holds blinded evaluator material, outside the ZIP, only when a scored blind method is declared. `OUT/assembler-run.json` keeps the raw helper output. `OUT/verification.json` is written last.
+C08. **Digest** `colab-package-digest/1`: length-prefixed parts covering the colab request bytes, canonical binding bytes, the assembler's own digest (request, commit, sources, assembler outputs), each colab-planned file's path, sha256 and length, and the planned ZIP. Preview is read-only. Prepare writes only after the recomputed digest equals the supplied one.
+C09. **Collisions and replay.** A non-empty output is never overwritten. If it holds an intact package with the same digest, prepare reports `already-prepared` and writes nothing. A different or partial package refuses and stays on disk. There is no automatic retry or new name.
+C10. **Verify** checks the exact package file set and hashes, recomputes the digest, re-resolves sections against the snapshots, checks the ZIP members against the package bytes, checks that evaluator files are absent from the candidate inputs, and runs the pinned assembler `verify` on a byte-identical projection of its own file set. That projection is needed because the extra colab files would fail its exact-set rule. Findings are tagged `pack-defect`, `input-defect` or `tool-limitation`; verify makes no design findings.
+C11. **Intake** verifies the package, pins and runs the inspector, and requires the reservation origin to equal the binding's investigation book, page and pass. It then runs the pinned helper `capture`, then `verify`, then the inspector again, and keeps every raw output and exit. An identical replay is the helper's own `already-captured`; changed bytes are its conflict; a partial package stays as attention. It prints a small `colab-intake-provenance/1` object. It edits no work page and grants no review, acceptance or release.
+C12. **Retention.** ENTRY, 06.NN and RETURN-TEMPLATE carry Hostile, Factfind, Overflow and Unprompted, plus Director replies verbatim with an `actual` or `hypothetical-fixture` label. Required omissions (`unavailable`) stay distinct from deliberate withholds. Tool limitations stay distinct from design findings. Unscored mode carries no score field. ZIP-only recipients get readable inputs, and absolute local paths in recipient-facing text refuse.
+C13. **Tests** use disposable repositories, books and outputs, the real pinned assembler, checker, helper and inspector, and private in-process hooks only. Raw helper output and exits are retained.
+C14. **Real use.** One real-source package targets 0411.colab/01.md `## Compute module — proposed operations` at c406b2a9. Its 0701 investigation binding is a declared FIXTURE, not a live investigation. No model is called. One labelled synthetic return goes through intake in a disposable book with origin 0701/05.01, and a wrong origin is refused.
+
+## Risks to watch
+R01. Re-implementing custody that the helpers already own. Mitigation: delegate, and keep raw outputs.
+R02. Over-validating into a competing grammar. Mitigation: only the binding and request rules above.
+R03. Claiming integration with Grok's adapter. I won't; REAL-USE gives the contract only.
+
+## Dispositions
+Reread completed 2026-10-29, after the final test run. I read the package as the recipient (ENTRY, 05.01, 06.01, RETURN-TEMPLATE, manifest) and the interface, CONTRACT and REAL-USE as Prime.
+- I01–I08 held. Every reread source still equals its pack pin (evidence/n7nn05.02/verification.json `sources_unchanged`).
+- C01 done. Review and find are not built.
+- C02 done, with one change during the build. A blind method now carries NO rubric text in the request; it names only committed `evaluator_sources`. The first draft let rubric text into colab-request.json, which travels inside the ZIP. I found that while writing the limits, before any return. The contract row records the change, and test `test_blind_rubric_text_not_allowed_in_request` holds it.
+- C03 done (`origin-band`, the 0700 door, `target-is-origin`).
+- C04 done. One addition: a stale hash now reports the actual blob hash as a fact and says nothing was retargeted (from real-use friction U01).
+- C05 done. No local root appears in package files; a test asserts this for ENTRY and binding.json.
+- C06 done. The single-commit limit and the `#` limit are refusals before any write. The adapter maps `environment.write` to the assembler's writable scope, changed from the permissions list during the build because permissions are not a writable scope.
+- C07 and C08 done. The assembler receipt is planned with its own `receipt_bytes` and compared after it writes.
+- C09 done. `already-prepared` writes nothing. A different package, a partial package or foreign content gives `collision` with the retained paths listed.
+- C10 done. Verify recomputes every colab file from the packaged request and snapshots, which is stronger than scanning ENTRY's source lines.
+- C11 done. The real intake runs were inspector 1, capture 0, verify 0, inspector 0. The replay was `already-captured`. The wrong origin was refused before capture.
+- C12 done. Withholds, required omissions and tool limitations are labelled separately. Replies are verbatim and labelled. Tests hold Hostile, Factfind, Overflow and Unprompted.
+- C13 done. Three recorded full runs all passed: 49, then 50, then 50 tests, with no skips. Mutation testing was not done.
+- C14 done. Digest a4b91dd6…, verified intact. The fixture binding is labelled as a fixture throughout.
+- R01 held: no custody logic is re-implemented. Receipt and package checks belong to the helper and the assembler.
+- R02 held: the only new grammar is `colab-request/1` and `colab-config/1`.
+- R03 held: no claim of integration with 0511.
+
+## Interface gaps for Prime (reported, not edited)
+G01. Interface v1 says `id` selects an "explicitly declared section id" but declares no id syntax. The tool refuses `kind: id`.
+G02. The binding allows a commit per target, but the accepted assembler reads one revision. Mixed commits refuse here. A later slice could split packs, or Prime could allow one commit per investigation pass.
+G03. The interface does not say where a ZIP-only recipient finds the package digest. It sits in OUT/verification.json, outside the ZIP, and is bound again at intake.
+G04. Who reserves the investigation's return member, and what its `expected_outputs` should name, is not in the interface. Intake accepts any reservation whose origin is the investigation.
+G05. The binding schema allows pass `05.00` and id `T00`. The assembler refuses `05.00`, so I refuse it as a tool limitation. `T00` is accepted as the schema says.
+G06. I read "N7NN investigation" as members 0701–0799, excluding the 0700 door. Please confirm.
+G07. 0411/02's `sources.availability` and `withhold_reason` are expressed here as `withheld` and `unavailable` with kind `required-omission` or `tool-limitation`. This needs alignment if 02 becomes a schema.

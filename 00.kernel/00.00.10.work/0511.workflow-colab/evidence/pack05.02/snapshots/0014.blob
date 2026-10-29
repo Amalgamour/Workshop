@@ -1,0 +1,137 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "investigation",
+    "targets"
+  ],
+  "properties": {
+    "schema": {
+      "const": "colab-binding/1"
+    },
+    "investigation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "book",
+        "page",
+        "pass"
+      ],
+      "properties": {
+        "book": {
+          "type": "string",
+          "minLength": 1
+        },
+        "page": {
+          "type": "string",
+          "pattern": "^[0-9]{4}\\.[a-z][a-z0-9-]*$"
+        },
+        "pass": {
+          "type": "string",
+          "pattern": "^05\\.[0-9]{2}$"
+        }
+      }
+    },
+    "targets": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 32,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "book",
+          "page",
+          "file",
+          "section",
+          "source"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^T[0-9]{2}$"
+          },
+          "book": {
+            "type": "string",
+            "minLength": 1
+          },
+          "page": {
+            "type": "string",
+            "pattern": "^[0-9]{4}\\.[a-z][a-z0-9-]*$"
+          },
+          "file": {
+            "type": "string",
+            "minLength": 1
+          },
+          "section": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "kind",
+                  "value",
+                  "occurrence"
+                ],
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "id",
+                      "heading"
+                    ]
+                  },
+                  "value": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "occurrence": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ],
+                    "minimum": 1
+                  }
+                }
+              }
+            ]
+          },
+          "source": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "repository",
+              "commit",
+              "path",
+              "sha256"
+            ],
+            "properties": {
+              "repository": {
+                "type": "string",
+                "minLength": 1
+              },
+              "commit": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{40}$"
+              },
+              "path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "colab-binding/1"
+}

@@ -1,0 +1,87 @@
+{
+  "schema": "pack-assembly-request/1",
+  "template": "pack-assembly-draft/1",
+  "title": "Are the five proposed Colab compute operations the right split",
+  "date": "2026-10-29",
+  "author": "Codex Prime (request drafted by the 0510/05.02 executor as a declared fixture)",
+  "origin": {
+    "book": "00.00.10.work",
+    "page": "0701.colab-compute-ops",
+    "batch": "05.01"
+  },
+  "identity": {
+    "book": "00.00.10.work",
+    "pppp": "0701",
+    "keyword": "colab-compute-ops",
+    "batch": "05.01"
+  },
+  "executor": "fresh Colab, unassigned",
+  "reviewer": "Codex Prime",
+  "goal": "Question: Do the five proposed operations divide deterministic compute work from intelligence work at the right places, and which operation boundary is most likely to make Prime repeat manual work or lose a finding?\nWhy: If the split is wrong, the module either automates a judgement it should only record, or leaves Prime re-typing context and custody facts on every Colab. Both failures were seen before the design was recovered.",
+  "scope": [
+    "Recipient writes: your one return file"
+  ],
+  "revision": "c406b2a9a3d8d9cc1c67c2c79a8e336989cc0eb1",
+  "paths": [
+    "00.kernel/00.00.10.work/0411.colab/01.md",
+    "00.kernel/00.00.10.work/0411.colab/evidence/n7nn-interface-v1/CONTRACT.md",
+    "00.kernel/00.00.10.work/0411.colab/02.md",
+    "00.kernel/00.00.10.work/0700.band.colabs/01.md",
+    "00.kernel/00.00.01.law/0036.colab/01.md"
+  ],
+  "instructions": [
+    {
+      "nn": "01",
+      "heading": "Read the entry first",
+      "text": "ENTRY.md is the self-contained brief: role, question, targets, reading order, environment, permissions and stop points. 06 holds the supplied reasons. RETURN-TEMPLATE.md is the return shape."
+    },
+    {
+      "nn": "02",
+      "heading": "Method",
+      "text": "Read the target section first, then the interface contract and the record groups. For each operation, say what input it needs, what it may decide by itself, and what it must leave to Prime or the Director. You may propose a different split or a different first slice if you can show why."
+    },
+    {
+      "nn": "03",
+      "heading": "Case C01",
+      "text": "A return arrives with a Hostile finding that contradicts a Director decision. Walk it through intake, review and find. Where could it be lost or silently promoted?"
+    },
+    {
+      "nn": "04",
+      "heading": "Case C02",
+      "text": "Prime wants to reuse a prior experiment on the same subject page. Which operation must expose that, and from what record?"
+    },
+    {
+      "nn": "05",
+      "heading": "Case C03",
+      "text": "A package is prepared for a ZIP-only recipient, and one required source is an image that was never committed. Which operation should stop it, and with what message?"
+    },
+    {
+      "nn": "06",
+      "heading": "Return",
+      "text": "Return one file in the RETURN-TEMPLATE.md shape to the destination named in ENTRY.md. Keep Hostile, Factfind, Overflow and Unprompted even when empty."
+    }
+  ],
+  "evidence": "One return file in the RETURN-TEMPLATE.md shape. A receipt of it is custody, not acceptance.",
+  "dependencies": {
+    "state": "supplied",
+    "items": [
+      {
+        "name": "withheld 0411.colab/evidence/history-2026-10-01",
+        "detail": "historical Colab packages are large and not needed for this boundary question"
+      },
+      {
+        "name": "required-omission the workflow adapter on 0511",
+        "detail": "built in parallel by another builder and not reviewed yet"
+      },
+      {
+        "name": "tool-limitation section ids",
+        "detail": "interface v1 declares no section-id syntax, so the tool refuses kind id"
+      }
+    ]
+  },
+  "return_destination": {
+    "state": "supplied",
+    "path": "return one file to Prime in the conversation that gave you this package"
+  },
+  "repository_label": "workshop"
+}

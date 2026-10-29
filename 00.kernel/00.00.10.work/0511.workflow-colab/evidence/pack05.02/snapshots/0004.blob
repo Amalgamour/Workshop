@@ -1,0 +1,22 @@
+{
+  "refused": "malformed package",
+  "exception": "Refuse",
+  "expected_digest": "a4b91dd63d2f7b845d1ee43ad3a3da63253851231cb79659c0fdaed6fc46d7c4",
+  "package_files": [
+    "05.01.md",
+    "06.01.md",
+    "ENTRY.md",
+    "RETURN-TEMPLATE.md",
+    "binding.json",
+    "colab-request.json",
+    "completion-receipt.json",
+    "request.snapshot",
+    "snapshots/0001.blob",
+    "snapshots/0002.blob",
+    "snapshots/0003.blob",
+    "snapshots/0004.blob",
+    "snapshots/0005.blob",
+    "source-manifest.json"
+  ],
+  "explanation": "Workflow requires request.json, in-package verification.json and different manifest/digest. Real producer uses colab-request.json, outside verification and accepted assembler manifest."
+}

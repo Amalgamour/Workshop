@@ -1,0 +1,35 @@
+# 06 — Supplied purpose and reasons — Are the five proposed Colab compute operations the right split
+version: 001
+Authorization: draft — 2026-10-29
+who: Codex Prime (request drafted by the 0510/05.02 executor as a declared fixture)
+state: draft; supplied reasons only, no findings
+Face: 06
+PPPP: 0701
+book: 00.00.10.work
+keyword: colab-compute-ops
+
+## Supplied purpose
+Do the five proposed operations divide deterministic compute work from intelligence work at the right places, and which operation boundary is most likely to make Prime repeat manual work or lose a finding?
+
+If the split is wrong, the module either automates a judgement it should only record, or leaves Prime re-typing context and custody facts on every Colab. Both failures were seen before the design was recovered.
+
+## Supplied context
+0411.colab designs a Colab support module. Its section on compute proposes five operations: prepare, verify, intake, review and find. The first implementation (0510.colab-tools/05.02) builds prepare, verify and intake only. Review and find are not built. Prime will use the tool on real work before a fresh Colab probes it.
+
+## Supplied known gaps
+G01. No investigation member exists in 0700.band.colabs yet; this binding names a declared fixture page.
+G02. The workflow adapter that attaches a package to an investigation pass is being built separately and is not part of this package.
+G03. Section ids have no declared syntax in interface v1, so only exact headings can select a section.
+
+## Director replies
+D01 [actual] 2026-10-29 0411.colab/evidence/n7nn-interface-v1/DIRECTOR-DECISION.md
+```text
+reply: Ok I like it no tail we go with N7NN for it. I think it's the best way. I believe this is ready to get working on. Pick who you want to work on this. Then pack so we can get colab module done. We also need to update our workflow as well. Fix workflow with this new understanding. I'm thinking a grok for that. Claude for the module. Any other work we should get going on this?
+```
+D02 [hypothetical-fixture] 2026-10-29 fixture written by the 0510/05.02 executor
+```text
+reply: Example only: "Keep review manual for now."
+```
+
+## Findings
+None. This face holds supplied reasons only. Findings arrive in the captured return and in Prime's later dispositions.

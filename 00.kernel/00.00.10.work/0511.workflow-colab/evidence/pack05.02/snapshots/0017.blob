@@ -1,0 +1,67 @@
+# 05 — Are the five proposed Colab compute operations the right split
+version: 001
+Authorization: draft — 2026-10-29
+who: Codex Prime (request drafted by the 0510/05.02 executor as a declared fixture)
+state: draft
+Face: 05
+PPPP: 0701
+book: 00.00.10.work
+keyword: colab-compute-ops
+
+## Assignment
+Executor: fresh Colab, unassigned
+Reviewer: Codex Prime
+Release: PENDING.
+Claim: PENDING.
+Origin book: 00.00.10.work
+Origin page: 0701.colab-compute-ops
+Origin batch: 05.01
+Return destination: return one file to Prime in the conversation that gave you this package
+Dependencies: supplied
+- withheld 0411.colab/evidence/history-2026-10-01: historical Colab packages are large and not needed for this boundary question
+- required-omission the workflow adapter on 0511: built in parallel by another builder and not reviewed yet
+- tool-limitation section ids: interface v1 declares no section-id syntax, so the tool refuses kind id
+Live return-slot allocation is not checked.
+Clerk readiness is not checked.
+This file is a draft. It does not certify release readiness.
+
+## Goal
+Question: Do the five proposed operations divide deterministic compute work from intelligence work at the right places, and which operation boundary is most likely to make Prime repeat manual work or lose a finding?
+Why: If the split is wrong, the module either automates a judgement it should only record, or leaves Prime re-typing context and custody facts on every Colab. Both failures were seen before the design was recovered.
+
+## Writable scope
+- Recipient writes: your one return file
+
+## Evidence expected
+One return file in the RETURN-TEMPLATE.md shape. A receipt of it is custody, not acceptance.
+
+## Sources
+- 00.kernel/00.00.10.work/0411.colab/01.md 1a9b2ce890e1ab4078154ed26b218cdea7bf9d6624d06ca5b1d43dfb5f29e3e0 10475 snapshots/0001.blob
+- 00.kernel/00.00.10.work/0411.colab/evidence/n7nn-interface-v1/CONTRACT.md 246189acdba7c4559c1bda5ba9a6314d60dca9bf1710b87c4eaf59cbde5f6f42 4489 snapshots/0002.blob
+- 00.kernel/00.00.10.work/0411.colab/02.md af31b46d9b8e6c350b699cd241668a225b0d66d62913dc843cf15a2a2a9308a0 1498 snapshots/0003.blob
+- 00.kernel/00.00.10.work/0700.band.colabs/01.md a4231ad09ec5a14a320779f29574ca0cd8912eb0b1e8a25d2462d94c6b4dfeed 1321 snapshots/0004.blob
+- 00.kernel/00.00.01.law/0036.colab/01.md 37dcab8f35e69eaf675e7ce2b41c1614dd38d8b750f8e538f9f6cce0add3002d 4463 snapshots/0005.blob
+
+## #01 — Read the entry first
+ENTRY.md is the self-contained brief: role, question, targets, reading order, environment, permissions and stop points. 06 holds the supplied reasons. RETURN-TEMPLATE.md is the return shape.
+
+## #02 — Method
+Read the target section first, then the interface contract and the record groups. For each operation, say what input it needs, what it may decide by itself, and what it must leave to Prime or the Director. You may propose a different split or a different first slice if you can show why.
+
+## #03 — Case C01
+A return arrives with a Hostile finding that contradicts a Director decision. Walk it through intake, review and find. Where could it be lost or silently promoted?
+
+## #04 — Case C02
+Prime wants to reuse a prior experiment on the same subject page. Which operation must expose that, and from what record?
+
+## #05 — Case C03
+A package is prepared for a ZIP-only recipient, and one required source is an image that was never committed. Which operation should stop it, and with what message?
+
+## #06 — Return
+Return one file in the RETURN-TEMPLATE.md shape to the destination named in ENTRY.md. Keep Hostile, Factfind, Overflow and Unprompted even when empty.
+
+## Return — fresh Colab, unassigned
+PENDING.
+
+## Review — Codex Prime
+PENDING.
