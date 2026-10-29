@@ -1,0 +1,111 @@
+{
+  "schema": "cold-prime-revision-verification/1",
+  "built": "2026-10-28",
+  "source_cut": "d3b6ad3e55beb1ec0bd5acbb114e6e66fd66c4e9",
+  "head_when_planned": "aa9bf59f610e58e24067c4173ec8bce1c684bcf9",
+  "pack": {
+    "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/pack05.18/source-manifest.json",
+    "schema": "prime-pack-sources/1",
+    "sources": 13,
+    "bad": 0
+  },
+  "code": {
+    "tool": "labs/prime-boot-pass01/prime_boot.py",
+    "sha256": "54b23484f9e0812db92a623a8588175702682ebe14f8b0b915111daf51a91534",
+    "bytes": 49229,
+    "caps": "line 47: MAX_REFS, MAX_BYTES = 12, 131072",
+    "wanted": "lines 432-434: entry, contents, role_record, assignment_record, members, then packet paths not already wanted",
+    "omit": "lines 442-445 and 469-477: max_refs, max_bytes, or not UTF-8; no truncation",
+    "prepare_partial": "lines 580-585: omissions, instability, or an unready member",
+    "oriented": "lines 791-796: prepared and checks ok and every grade pass"
+  },
+  "calculation": {
+    "refs": 12,
+    "bytes": 52701,
+    "refs_remaining": 0,
+    "bytes_remaining": 78371,
+    "live_member_observations": 0,
+    "selected_omissions": 0,
+    "order": [
+      "00.kernel/00.00.10.work/00.md",
+      "00.kernel/00.00.10.work/0011.contents/01.051.md",
+      "00.kernel/00.00.10.work/0408.seats/01.md",
+      "00.kernel/00.00.10.work/0401.goal/06.01.md",
+      "00.kernel/00.00.10.work/0507.prime-support/evidence/realbrief05.14/brief.txt",
+      "00.kernel/00.00.10.work/0507.prime-support/evidence/prime-review05.14/review.md",
+      "00.kernel/00.00.10.work/0507.prime-support/evidence/realbrief05.14/submission.md",
+      "00.kernel/00.00.10.work/0507.prime-support/evidence/prime-review05.10/review.md",
+      "00.kernel/00.00.10.work/0504.app-entry/05.17.md",
+      "00.kernel/00.00.10.work/0507.prime-support/05.12.md",
+      "00.kernel/00.00.10.work/0508.return-capture/05.15.md",
+      "labs/prime-boot-pass01/README.md"
+    ]
+  },
+  "cp01": "withdrawn: prepared, partial, oriented, partial, and not-oriented are recorded outcomes. A pass is oriented only, with required evidence present and no critical violation. partial is remediation. not-oriented is failure.",
+  "cp02": "the union is 4 mandatory commit paths, 0 live member observations, and 8 distinct optional paths. Ids are the tool's runtime assignment for that order.",
+  "verified": [
+    "13 pack sources match live bytes and snapshots.",
+    "Twelve selected blobs match the source cut and total 52701 bytes.",
+    "brief.txt is 1912 bytes at the source cut.",
+    "No selected ref is omitted by the 12-ref or 131072-byte caps.",
+    "0147 and cold-prime05.17 were left unchanged.",
+    "0150 held 01.md and reservation.json before capture.",
+    "No runtime file was edited and no model was called."
+  ],
+  "proposed": [
+    "One later external prepare of this 12-ref request after the Director names a committed registry.",
+    "Model-facing reading order is the twelve paths plus HOMEWORK.md.",
+    "EVALUATOR.md stays withheld.",
+    "The model command is read-only show on the external attempt."
+  ],
+  "blocked": [
+    "Registry for prepare is unnamed.",
+    "results.json is 172747 bytes and cannot be a ref.",
+    "0504.app-entry/05.18.md and 0508.return-capture/05.16.md differ from the brief's commit and are not selected.",
+    "0504.app-entry/05.06.md body is outside the twelve refs.",
+    "D1 through D4 remain unresolved.",
+    "No orientation attempt was run.",
+    "No fresh Prime boot is claimed."
+  ],
+  "readiness": {
+    "snapshot_packet_budget": "calculated",
+    "orientation_attempt": "blocked_on_registry",
+    "all_current_work": "blocked_on_D1_and_missing_bodies"
+  },
+  "runtime_changed": false,
+  "model_called": false,
+  "git_writes": false,
+  "prepare_ran": false,
+  "fresh_prime_booted": false,
+  "artifacts": {
+    "00.kernel/00.00.10.work/0508.return-capture/06.19.md": {
+      "sha256": "454540132a3fd9c1d7999440c7c62a6390d04aba949cbcaaa51bcba2e1a1dd76",
+      "bytes": 4720
+    },
+    "00.kernel/00.00.10.work/0508.return-capture/evidence/cold-prime05.18/PLAN.md": {
+      "sha256": "1093a3d1b2f4393e8bf52e665dd1e0fecd5d3195dd359b0deb38d651cd835175",
+      "bytes": 14805
+    },
+    "00.kernel/00.00.10.work/0508.return-capture/evidence/cold-prime05.18/HOMEWORK.md": {
+      "sha256": "9711776524affba8d849bd91071bec7d0b2f5a702701b8fce1426259e9b3c5c5",
+      "bytes": 5655
+    },
+    "00.kernel/00.00.10.work/0508.return-capture/evidence/cold-prime05.18/EVALUATOR.md": {
+      "sha256": "4b0f2b624a262a8e380bd85d71f64ed6f5056e7dbf08f80a41ccc3c3c70b74f7",
+      "bytes": 6471
+    },
+    "00.kernel/00.00.10.work/0508.return-capture/evidence/cold-prime05.18/DEPENDENCIES.json": {
+      "sha256": "52d3d291da4934c5f4d2f9544f8230fd53a1a752494e2fb59b3c51cee159ed04",
+      "bytes": 6432
+    }
+  },
+  "return_file": {
+    "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/cold-prime05.18/submission.md",
+    "sha256": "0a7ea9372d943572da29958e77ed544d35219e081a4e4ac0c0e7c2c6378b9924",
+    "bytes": 1524
+  },
+  "reserved_member_contents_before_capture": [
+    "01.md",
+    "reservation.json"
+  ]
+}
