@@ -1,0 +1,59 @@
+{
+  "tests": {
+    "existing": 14,
+    "binding_journal": 12,
+    "observation": 6,
+    "failures": 0,
+    "skips": 0
+  },
+  "test_durations_seconds": [
+    35.515,
+    31.692,
+    9.317
+  ],
+  "artifact_rows": 12,
+  "capture": "0175 freshly verified complete with six payloads",
+  "actual_prime_operations": [
+    {
+      "operation": "read",
+      "argv": [
+        "read",
+        "--registration",
+        "D:\\librarian\\prime-cycle-out\\2026-10-30\\registration.json",
+        "--journal-root",
+        "D:\\librarian\\prime-cycle-out\\2026-10-30\\journal",
+        "--caller",
+        "Codex Prime",
+        "--json"
+      ],
+      "exit": 0,
+      "stdout_sha256": "047eb4d2014fc25b32badf6e984bae1f2925178f1bed6449de9e5f672c49cb6b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "operation": "packet",
+      "argv": [
+        "packet",
+        "--registration",
+        "D:\\librarian\\prime-cycle-out\\2026-10-30\\registration.json",
+        "--journal-root",
+        "D:\\librarian\\prime-cycle-out\\2026-10-30\\journal",
+        "--caller",
+        "Codex Prime",
+        "--work",
+        "deskstate-0520",
+        "--out",
+        "D:\\librarian\\prime-cycle-out\\2026-10-30\\packet-reader-repair"
+      ],
+      "exit": 0,
+      "stdout_sha256": "37c82d4c2c75927fa49126a3737e6bf1ef3ce929853be2b7b5d030b38c94f486",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "tool_sha256": "19ede9c2125307595d0be867bae1a3cb71bf3db0515ad83e7c04d3333e17861d",
+  "diagnostic_excerpt_probe": {
+    "observed_characters": 2012,
+    "declared_max_characters": 2000,
+    "note": "Implementation uses 2000 content chars plus truncation marker. Bounded, but contract wording is narrower."
+  }
+}

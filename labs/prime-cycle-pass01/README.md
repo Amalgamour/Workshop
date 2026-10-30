@@ -6,6 +6,7 @@ The Prime read-record-read cycle over one registered work book (0515.prime-cycle
 - **Design:** `0415.prime-cycle/01.md`
 - **Current-Prime guide:** `evidence/build05.02/PRIME-USE.md` (it replaces the 05.01 guide)
 - **Daily log:** `evidence/build05.02/DAILY-LOG.md`
+- **05.03 states and coverage:** `evidence/build05.03/CONTRACT.md`, `evidence/build05.03/PRIME-USE.md`
 
 ```
 python -B labs/prime-cycle-pass01/prime_cycle.py read     --registration ABS [--json] [--templates DIR]
@@ -16,6 +17,7 @@ python -B labs/prime-cycle-pass01/prime_cycle.py packet   --registration ABS --w
 python -B labs/prime-cycle-pass01/prime_cycle.py day      --journal-root ABS [--date YYYY-MM-DD] [--registration ABS] [--json]
 python -B -X dev labs/prime-cycle-pass01/tests/test_prime_cycle.py -v
 python -B -X dev labs/prime-cycle-pass01/tests/test_binding_log.py -v
+python -B -X dev labs/prime-cycle-pass01/tests/test_observation.py -v
 python -B labs/prime-cycle-pass01/demo.py
 ```
 
@@ -46,6 +48,21 @@ With `--templates`, read also writes one decision template per work. The templat
 Otherwise the view shows `unknown (historical … in <review>, <reason>)` and counts nothing as finished or completed.
 
 **Direction (05.02).** A template binds the work's agreement, field by field, plus its review location and book. Changing any of them makes record refuse the old template; read again.
+
+**Observation states (05.03).** Every work has an `observation` (`observed`, or `failed` with `part` source or custody, a `kind` and a bounded diagnostic) and a `custody.state`: `present`, `absent`, `unresolved` or `unknown`.
+- `no-return` means the read succeeded and saw no current return.
+- `custody-unresolved` means custody was seen but is incomplete, refused or ambiguous.
+- `observation-failed` means the page or custody could not be observed. A head review's declarations are then historical, never stale or current, and holds still block.
+- With `--journal-root`, the reader's full stdout and stderr are kept beside the operation's events, and the view names their path.
+- `record` refuses a template made from a failed read, and refuses on a failed fresh observation, with the cause.
+
+**Packet coverage (05.03).** `packet` ends with what its own request gathered:
+- the sources and their status;
+- the artifact checks requested;
+- whether the page was included;
+- the member's captured payloads it did not gather.
+
+It is not a complete artifact inventory, and the request is unchanged.
 
 **Journal (05.02).** `--journal-root` writes `<root>/<date>/<op_id>/start.json … end.json` for every read, record, inspect and packet: refusals, partials and replays included. A missing end means incomplete. `day` summarises one day from those events and from the review records themselves. DAILY-LOG.md has the detail.
 

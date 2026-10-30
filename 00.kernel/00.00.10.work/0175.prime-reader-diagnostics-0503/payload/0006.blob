@@ -1,0 +1,531 @@
+{
+ "schema": "prime-cycle-sample/3",
+ "label": "SYNTHETIC SUPPLIED decisions on a disposable book; no model",
+ "cycle": {
+  "steps": [
+   {
+    "step": "1 read --json, clerk_adapter.py missing",
+    "labs": "noadapter",
+    "argv": [
+     "python",
+     "-B",
+     "<noadapter>/prime-cycle-pass01/prime_cycle.py",
+     "read",
+     "--registration",
+     "<desk>\\reg.json",
+     "--json",
+     "--journal-root",
+     "<desk>\\out\\journal",
+     "--caller",
+     "Codex Prime (SYNTHETIC SAMPLE)"
+    ],
+    "exit": 1,
+    "stdout": "{\n \"attention_count\": 2,\n \"authority\": \"none; this tool records supplied judgment and derives a view; it authenticates no actor and grants no work\",\n \"book\": \"00.kernel/00.00.10.work\",\n \"elected\": null,\n \"journal\": {\n  \"dir\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\pcy-s503-7xz8wa35\\\\out\\\\journal\\\\2026-10-30\\\\20261030T201511.256891Z-8da7f9db2d45\",\n  \"enabled\": true,\n  \"op_id\": \"20261030T201511.256891Z-8da7f9db2d45\",\n  \"root\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\pcy-s503-7xz8wa35\\\\out\\\\journal\"\n },\n \"note\": \"derived from work-local review records and fresh reader observations; noncanonical; rebuildable\",\n \"registration_sha256\": \"74916f4b59db3b6cad60c887d5153c2cc12afe855226ee7dac72a1e6255f46d6\",\n \"schema\": \"prime-cycle-view/3\",\n \"source\": {\n  \"commit\": null,\n  \"kind\": \"live-file\"\n },\n \"summary\": {\n  \"awaiting_review\": 0,\n  \"basis\": \"current values only; historical declarations of stale or unusable reviews are not counted\",\n  \"completed_goals\": 0,\n  \"custody_unresolved\": 0,\n  \"finished_passes\": 0,\n  \"observation_failed\": 2,\n  \"open_holds\": 0,\n  \"reviewed_current\": 0,\n  \"stale_or_unusable\": 0,\n  \"works\": 2\n },\n \"works\": [\n  {\n   \"attention\": [\n    \"observation-failed (source): reader-exit-2: missing clerk_adapter.py; full output C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\pcy-s503-7xz8wa35\\\\out\\\\journal\\\\2026-10-30\\\\20261030T201511.256891Z-8da7f9db2d45\\\\reader-A-stderr.txt\"\n   ],\n   \"custody\": {\n    \"basis\": \"live inspection at read time; custody is not acceptance\",\n    \"member\": \"0101.ma\",\n    \"receipt_sha256\": null,\n    \"retrospective\": null,\n    \"role\": null,\n    \"state\": \"unknown\",\n    \"state_reason\": \"the page could not be observed\"\n   },\n   \"disposition\": \"unknown\",\n   \"goal\": {\n    \"goal_id\": \"g1\",\n    \"goal_sha256\": \"2b31ef6fb02f5aeabdb80c0cfaab4b248810c6e81775de673d36dd56bd96adef\"\n   },\n   \"goal_terminal\": \"unknown\",\n   \"historical\": null,\n   \"holds\": [],\n   \"latest_review\": null,\n   \"next_action\": null,\n   \"next_action_guard\": [],\n   \"observation\": {\n    \"diagnostic\": {\n     \"excerpt\": \"missing clerk_adapter.py\\n\",\n     \"reader_exit\": 2,\n     \"retained\": {\n      \"stderr\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\pcy-s503-7xz8wa35\\\\out\\\\journal\\\\2026-10-30\\\\20261030T201511.256891Z-8da7f9db2d45\\\\reader-A-stderr.txt\",\n      \"stdout\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\pcy-s503-7xz8wa35\\\\out\\\\journal\\\\2026-10-30\\\\20261030T201511.256891Z-8da7f9db2d45\\\\reader-A-stdout.txt\"\n     },\n     \"retained_note\": \"full child output retained in this operation's journal folder\",\n     \"source\": \"batch_observe stderr\",\n     \"stderr_bytes\": 25,\n     \"stderr_sha256\": \"0883f546a9907c3d23934dacd17c884f5d1760b5d2b7d2cbc907940c16a07072\",\n     \"stdout_bytes\": 0,\n     \"stdout_sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"\n    },\n    \"kind\": \"reader-exit-2\",\n    \"part\": \"source\",\n    \"state\": \"failed\"\n   },\n   \"page\": \"00.kernel/00.00.10.work/0599.cycle-a/05.01.md\",\n   \"pass\": \"05.01\",\n   \"pass_state\": \"observation-failed\",\n   \"pass_terminal\": \"unknown\",\n   \"reader\": {\n    \"ambiguities\": [],\n    \"attention\": [],\n    \"exit\": 2,\n    \"failed\": \"reader exit 2\",\n    \"stdout_sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"\n   },\n   \"reviews\": {\n    \"committed\": [],\n    \"heads\": [],\n    \"invalid\": [],\n    \"partial\": []\n   },\n   \"source\": {\n    \"commit\": null,\n    \"kind\": \"live-file\",\n    \"page_sha256\": null\n   },\n   \"template\": {\n    \"attribution\": {\n     \"actor_label\": null,\n     \"evidence\": null,\n     \"role\": \"prime\"\n    },\n    \"binding\": {\n     \"direction\": {\n      \"agreement_sha256\": \"ccda006d38bff2473baca85f10e911d57d2119fdc78742dbeb70bacc48744370\",\n      \"book\": \"00.kernel/00.00.10.work\",\n      \"fields\": {\n       \"director_required\": \"ec2d23b176e1faf0edd8aab3c7aef7ebb374ad45b9a63ac6868ef5835cf99c67\",\n       \"finish_criteria\": \"91fdfae213db8cf94a829f35dd784699036450abebba947a1ca68120d1a6d451\",\n       \"goal\": \"d8ad5981dea9ed7c5dee427e98c3e2c4025813f56afb7bc2d8babca4d68b7688\",\n       \"prime_discretion\": \"704477072fb4897037b0c03e3a577a3c92ea61584b50d820eafc8f154500caf2\",\n       \"recorded_decisions\": \"c34ffaf44ef1502aa94307e16b579842e670386b5709a9314fb1a7370b460dfa\",\n       \"scope\": \"bd1436823a04563be96ae26ec64f9861a4b3de2d44b9011a58ba37e37ff421c6\"\n      },\n      \"review_location\": \"00.kernel/00.00.10.work/0599.cycle-a/evidence/prime-cycle-reviews/05.01\",\n      \"schema\": \"prime-cycle-direction/1\"\n     },\n     \"expected_prior\": null,\n     \"fingerprint\": \"32c2df53873d6e91681226daffb27a59a31c7af00be1b5004c947063c2619b12\",\n     \"goal\": {\n      \"goal_id\": \"g1\",\n      \"goal_sha256\": \"2b31ef6fb02f5aeabdb80c0cfaab4b248810c6e81775de673d36dd56bd96adef\"\n     },\n     \"member\": \"0101.ma\",\n     \"member_role\": null,\n     \"origin\": null,\n     \"page\": \"00.kernel/00.00.10.work/0599.cycle-a/05.01.md\",\n     \"pass\": \"05.01\",\n     \"receipt_sha256\": null,\n     \"retrospective\": null,\n     \"source\": {\n      \"commit\": null,\n      \"kind\": \"live-file\",\n      \"page_bytes\": null,\n      \"page_sha256\": null\n     },\n     \"submission_id\": null,\n     \"work_id\": \"A\"\n    },\n    \"judgment\": {\n     \"answers\": [],\n     \"design_fork\": null,\n     \"disposition\": null,\n     \"finding\": null,\n     \"goal\": {\n      \"evidence\": [],\n      \"goal_id\": \"g1\",\n      \"goal_sha256\": \"2b31ef6fb02f5aeabdb80c0cfaab4b248810c6e81775de673d36dd56bd96adef\",\n      \"terminal\": null\n     },\n     \"holds\": [],\n     \"next_action\": null,\n     \"outcome\": null,\n     \"pass_terminal\": null,\n     \"reasons\": [],\n     \"sections\": {\n      \"affected\": null,\n      \"assumptions\": null,\n      \"consequences\": null,\n      \"exploration\": null,\n      \"findings_account\": null,\n      \"finish_assessments\": null,\n      \"for_model\": null,\n      \"issue\": null,\n      \"learning\": null,\n      \"limits\": null,\n      \"next_bounded_action\": null,\n      \"open_questions\": null,\n      \"options\": null,\n      \"outcome_evidence\": null,\n      \"preservation\": null,\n      \"prime_finding\": null,\n      \"proposed_plan\": null,\n      \"question\": null,\n      \"recommendation\": null,\n      \"remaining_choices\": null,\n      \"return_result\": null,\n      \"tests_note\": null,\n      \"tests_passed\": null,\n      \"within_direction\": null\n     },\n     \"semantic_conflict\": null,\n     \"source_refs\": [],\n     \"unresolved\": []\n    },\n    \"recovers\": null,\n    \"review_id\": \"05.01-r1\",\n    \"schema\": \"prime-cycle-decision/2\",\n    \"supersedes\": null\n   },\n   \"unresolved\": [],\n   \"work_id\": \"A\"\n  },\n  {\n   \"attention\": [\n    \"observation-failed (source): reader-exit-2: missing clerk_adapter.py; full output C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\pcy-s503-7xz8wa35\\\\out\\\\journal\\\\2026-10-30\\\\20261030T201511.256891Z-8da7f9db2d45\\\\reader-N-stderr.txt\"\n   ],\n   \"custody\": {\n    \"basis\": \"live inspection at read time; custody is not acceptance\",\n    \"member\": null,\n    \"receipt_sha256\": null,\n    \"retrospective\": null,\n    \"role\": null,\n    \"state\": \"unknown\",\n    \"state_reason\": \"the page could not be observed\"\n   },\n   \"disposition\": \"unknown\",\n   \"goal\": {\n    \"goal_id\": \"g1\",\n    \"goal_sha256\": \"2b31ef6fb02f5aeabdb80c0cfaab4b248810c6e81775de673d36dd56bd96adef\"\n   },\n   \"goal_terminal\": \"unknown\",\n   \"historical\": null,\n   \"holds\": [],\n   \"latest_review\": null,\n   \"next_action\": null,\n   \"next_action_guard\": [],\n   \"observation\": {\n    \"diagnostic\": {\n     \"excerpt\": \"missing clerk_adapter.py\\n\",\n     \"reader_exit\": 2,\n     \"retained\": {\n      \"stderr\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\pcy-s503-7xz8wa35\\\\out\\\\journal\\\\2026-10-30\\\\20261030T201511.256891Z-8da7f9db2d45\\\\reader-N-stderr.txt\",\n      \"stdout\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\pcy-s503-7xz8wa35\\\\out\\\\journal\\\\2026-10-30\\\\20261030T201511.256891Z-8da7f9db2d45\\\\reader-N-stdout.txt\"\n     },\n     \"retained_note\": \"full child output retained in this operation's journal folder\",\n     \"source\": \"batch_observe stderr\",\n     \"stderr_bytes\": 25,\n     \"stderr_sha256\": \"0883f546a9907c3d23934dacd17c884f5d1760b5d2b7d2cbc907940c16a07072\",\n     \"stdout_bytes\": 0,\n     \"stdout_sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"\n    },\n    \"kind\": \"reader-exit-2\",\n    \"part\": \"source\",\n    \"state\": \"failed\"\n   },\n   \"page\": \"00.kernel/00.00.10.work/0599.cycle-a/05.02.md\",\n   \"pass\": \"05.02\",\n   \"pass_state\": \"observation-failed\",\n   \"pass_terminal\": \"unknown\",\n   \"reader\": {\n    \"ambiguities\": [],\n    \"attention\": [],\n    \"exit\": 2,\n    \"failed\": \"reader exit 2\",\n    \"stdout_sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"\n   },\n   \"reviews\": {\n    \"committed\": [],\n    \"heads\": [],\n    \"invalid\": [],\n    \"partial\": []\n   },\n   \"source\": {\n    \"commit\": null,\n    \"kind\": \"live-file\",\n    \"page_sha256\": null\n   },\n   \"template\": {\n    \"attribution\": {\n     \"actor_label\": null,\n     \"evidence\": null,\n     \"role\": \"prime\"\n    },\n    \"binding\": {\n     \"direction\": {\n      \"agreement_sha256\": \"ccda006d38bff2473baca85f10e911d57d2119fdc78742dbeb70bacc48744370\",\n      \"book\": \"00.kernel/00.00.10.work\",\n      \"fields\": {\n       \"director_required\": \"ec2d23b176e1faf0edd8aab3c7aef7ebb374ad45b9a63ac6868ef5835cf99c67\",\n       \"finish_criteria\": \"91fdfae213db8cf94a829f35dd784699036450abebba947a1ca68120d1a6d451\",\n       \"goal\": \"d8ad5981dea9ed7c5dee427e98c3e2c4025813f56afb7bc2d8babca4d68b7688\",\n       \"prime_discretion\": \"704477072fb4897037b0c03e3a577a3c92ea61584b50d820eafc8f154500caf2\",\n       \"recorded_decisions\": \"c34ffaf44ef1502aa94307e16b579842e670386b5709a9314fb1a7370b460dfa\",\n       \"scope\": \"bd1436823a04563be96ae26ec64f9861a4b3de2d44b9011a58ba37e37ff421c6\"\n      },\n      \"review_location\": \"00.kernel/00.00.10.work/0599.cycle-a/evidence/prime-cycle-reviews/05.02\",\n      \"schema\": \"prime-cycle-direction/1\"\n     },\n     \"expected_prior\": null,\n     \"fingerprint\": \"77173f71c9cb51358dbb79ffe623a82a5ad445e9b3021813f70197614e32863a\",\n     \"goal\": {\n      \"goal_id\": \"g1\",\n      \"goal_sha256\": \"2b31ef6fb02f5aeabdb80c0cfaab4b248810c6e81775de673d36dd56bd96adef\"\n     },\n     \"member\": null,\n     \"member_role\": null,\n     \"origin\": null,\n     \"page\": \"00.kernel/00.00.10.work/0599.cycle-a/05.02.md\",\n     \"pass\": \"05.02\",\n     \"receipt_sha256\": null,\n     \"retrospective\": null,\n     \"source\": {\n      \"commit\": null,\n      \"kind\": \"live-file\",\n      \"page_bytes\": null,\n      \"page_sha256\": null\n     },\n     \"submission_id\": null,\n     \"work_id\": \"N\"\n    },\n    \"judgment\": {\n     \"answers\": [],\n     \"design_fork\": null,\n     \"disposition\": null,\n     \"finding\": null,\n     \"goal\": {\n      \"evidence\": [],\n      \"goal_id\": \"g1\",\n      \"goal_sha256\": \"2b31ef6fb02f5aeabdb80c0cfaab4b248810c6e81775de673d36dd56bd96adef\",\n      \"terminal\": null\n     },\n     \"holds\": [],\n     \"next_action\": null,\n     \"outcome\": null,\n     \"pass_terminal\": null,\n     \"reasons\": [],\n     \"sections\": {\n      \"affected\": null,\n      \"assumptions\": null,\n      \"consequences\": null,\n      \"exploration\": null,\n      \"findings_account\": null,\n      \"finish_assessments\": null,\n      \"for_model\": null,\n      \"issue\": null,\n      \"learning\": null,\n      \"limits\": null,\n      \"next_bounded_action\": null,\n      \"open_questions\": null,\n      \"options\": null,\n      \"outcome_evidence\": null,\n      \"preservation\": null,\n      \"prime_finding\": null,\n      \"proposed_plan\": null,\n      \"question\": null,\n      \"recommendation\": null,\n      \"remaining_choices\": null,\n      \"return_result\": null,\n      \"tests_note\": null,\n      \"tests_passed\": null,\n      \"within_direction\": null\n     },\n     \"semantic_conflict\": null,\n     \"source_refs\": [],\n     \"unresolved\": []\n    },\n    \"recovers\": null,\n    \"review_id\": \"05.02-r1\",\n    \"schema\": \"prime-cycle-decision/2\",\n    \"supersedes\": null\n   },\n   \"unresolved\": [],\n   \"work_id\": \"N\"\n  }\n ]\n}\n",
+    "stderr": ""
+   },
+   {
+    "step": "2 read text, clerk_adapter.py missing",
+    "labs": "noadapter",
+    "argv": [
+     "python",
+     "-B",
+     "<noadapter>/prime-cycle-pass01/prime_cycle.py",
+     "read",
+     "--registration",
+     "<desk>\\reg.json",
+     "--journal-root",
+     "<desk>\\out\\journal",
+     "--caller",
+     "Codex Prime (SYNTHETIC SAMPLE)"
+    ],
+    "exit": 1,
+    "stdout": "Prime cycle view  book 00.kernel/00.00.10.work  source live-file (live files)\nDerived from work-local review records. Noncanonical. Nothing is elected or dispatched.\nsummary (current only): works 2, awaiting review 0, reviewed current 0, stale or unusable 0, finished passes 0, completed goals 0, open holds 0, observation failed 2, custody unresolved 0\n\nA  00.kernel/00.00.10.work/0599.cycle-a/05.01.md\n  pass state: observation-failed   review disposition: unknown   pass terminal: unknown\n  goal g1: unknown\n  custody: 0101.ma role None state unknown receipt none (custody is not acceptance)\n  ! observation-failed (source): reader-exit-2: missing clerk_adapter.py; full output <desk>\\out\\journal\\2026-10-30\\20261030T201511.674353Z-324f64d75cf2\\reader-A-stderr.txt\n\nN  00.kernel/00.00.10.work/0599.cycle-a/05.02.md\n  pass state: observation-failed   review disposition: unknown   pass terminal: unknown\n  goal g1: unknown\n  custody: None role None state unknown receipt none (custody is not acceptance)\n  ! observation-failed (source): reader-exit-2: missing clerk_adapter.py; full output <desk>\\out\\journal\\2026-10-30\\20261030T201511.674353Z-324f64d75cf2\\reader-N-stderr.txt\n\nauthority none; this tool records supplied judgment and derives a view; it authenticates no actor and grants no work\njournal: <desk>\\out\\journal op 20261030T201511.674353Z-324f64d75cf2\n",
+    "stderr": ""
+   },
+   {
+    "step": "3 read --json, complete labs",
+    "labs": "full",
+    "argv": [
+     "python",
+     "-B",
+     "<full>/prime-cycle-pass01/prime_cycle.py",
+     "read",
+     "--registration",
+     "<desk>\\reg.json",
+     "--json",
+     "--journal-root",
+     "<desk>\\out\\journal",
+     "--caller",
+     "Codex Prime (SYNTHETIC SAMPLE)"
+    ],
+    "exit": 1,
+    "stdout": "{\n \"attention_count\": 1,\n \"authority\": \"none; this tool records supplied judgment and derives a view; it authenticates no actor and grants no work\",\n \"book\": \"00.kernel/00.00.10.work\",\n \"elected\": null,\n \"journal\": {\n  \"dir\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\pcy-s503-7xz8wa35\\\\out\\\\journal\\\\2026-10-30\\\\20261030T201512.068603Z-44a4983674a0\",\n  \"enabled\": true,\n  \"op_id\": \"20261030T201512.068603Z-44a4983674a0\",\n  \"root\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\pcy-s503-7xz8wa35\\\\out\\\\journal\"\n },\n \"note\": \"derived from work-local review records and fresh reader observations; noncanonical; rebuildable\",\n \"registration_sha256\": \"74916f4b59db3b6cad60c887d5153c2cc12afe855226ee7dac72a1e6255f46d6\",\n \"schema\": \"prime-cycle-view/3\",\n \"source\": {\n  \"commit\": null,\n  \"kind\": \"live-file\"\n },\n \"summary\": {\n  \"awaiting_review\": 1,\n  \"basis\": \"current values only; historical declarations of stale or unusable reviews are not counted\",\n  \"completed_goals\": 0,\n  \"custody_unresolved\": 0,\n  \"finished_passes\": 0,\n  \"observation_failed\": 0,\n  \"open_holds\": 0,\n  \"reviewed_current\": 0,\n  \"stale_or_unusable\": 0,\n  \"works\": 2\n },\n \"works\": [\n  {\n   \"attention\": [\n    \"awaiting-review: a captured return has no recorded review\"\n   ],\n   \"custody\": {\n    \"basis\": \"live inspection at read time; custody is not acceptance\",\n    \"member\": \"0101.ma\",\n    \"receipt_sha256\": \"f8ae9b268261cd2405150c44b3c357abe31093d9777fc4c0519599b5731fbb51\",\n    \"retrospective\": false,\n    \"role\": \"primary-current-candidate\",\n    \"state\": \"present\",\n    \"state_reason\": null\n   },\n   \"disposition\": \"unknown\",\n   \"goal\": {\n    \"goal_id\": \"g1\",\n    \"goal_sha256\": \"2b31ef6fb02f5aeabdb80c0cfaab4b248810c6e81775de673d36dd56bd96adef\"\n   },\n   \"goal_terminal\": \"unknown\",\n   \"historical\": null,\n   \"holds\": [],\n   \"latest_review\": null,\n   \"next_action\": null,\n   \"next_action_guard\": [],\n   \"observation\": {\n    \"diagnostic\": null,\n    \"kind\": null,\n    \"part\": null,\n    \"state\": \"observed\"\n   },\n   \"page\": \"00.kernel/00.00.10.work/0599.cycle-a/05.01.md\",\n   \"pass\": \"05.01\",\n   \"pass_state\": \"awaiting-review\",\n   \"pass_terminal\": \"unknown\",\n   \"reader\": {\n    \"ambiguities\": [\n     \"legacy-ambiguous-heading\",\n     \"legacy-revision-withheld\"\n    ],\n    \"attention\": [],\n    \"exit\": 1,\n    \"failed\": null,\n    \"stdout_sha256\": \"f144e3be91e213f1266b392df784c3876dfb60a89ef1142bf372cfae5fe7acb2\"\n   },\n   \"reviews\": {\n    \"committed\": [],\n    \"heads\": [],\n    \"invalid\": [],\n    \"partial\": []\n   },\n   \"source\": {\n    \"commit\": null,\n    \"kind\": \"live-file\",\n    \"page_sha256\": \"ef90f467fc61cb9261c7014bbb4948413e36326635d96f7c54e900a8eaf51e2c\"\n   },\n   \"template\": {\n    \"attribution\": {\n     \"actor_label\": null,\n     \"evidence\": null,\n     \"role\": \"prime\"\n    },\n    \"binding\": {\n     \"direction\": {\n      \"agreement_sha256\": \"ccda006d38bff2473baca85f10e911d57d2119fdc78742dbeb70bacc48744370\",\n      \"book\": \"00.kernel/00.00.10.work\",\n      \"fields\": {\n       \"director_required\": \"ec2d23b176e1faf0edd8aab3c7aef7ebb374ad45b9a63ac6868ef5835cf99c67\",\n       \"finish_criteria\": \"91fdfae213db8cf94a829f35dd784699036450abebba947a1ca68120d1a6d451\",\n       \"goal\": \"d8ad5981dea9ed7c5dee427e98c3e2c4025813f56afb7bc2d8babca4d68b7688\",\n       \"prime_discretion\": \"704477072fb4897037b0c03e3a577a3c92ea61584b50d820eafc8f154500caf2\",\n       \"recorded_decisions\": \"c34ffaf44ef1502aa94307e16b579842e670386b5709a9314fb1a7370b460dfa\",\n       \"scope\": \"bd1436823a04563be96ae26ec64f9861a4b3de2d44b9011a58ba37e37ff421c6\"\n      },\n      \"review_location\": \"00.kernel/00.00.10.work/0599.cycle-a/evidence/prime-cycle-reviews/05.01\",\n      \"schema\": \"prime-cycle-direction/1\"\n     },\n     \"expected_prior\": null,\n     \"fingerprint\": \"233a43f15d2da5635f4e6c6c998dc63b810c24e4e4ad51b98566bd4d568895f7\",\n     \"goal\": {\n      \"goal_id\": \"g1\",\n      \"goal_sha256\": \"2b31ef6fb02f5aeabdb80c0cfaab4b248810c6e81775de673d36dd56bd96adef\"\n     },\n     \"member\": \"0101.ma\",\n     \"member_role\": \"primary-current-candidate\",\n     \"origin\": {\n      \"batch\": \"05.01\",\n      \"book\": \"00.00.10.work\",\n      \"page\": \"0599.cycle-a\"\n     },\n     \"page\": \"00.kernel/00.00.10.work/0599.cycle-a/05.01.md\",\n     \"pass\": \"05.01\",\n     \"receipt_sha256\": \"f8ae9b268261cd2405150c44b3c357abe31093d9777fc4c0519599b5731fbb51\",\n     \"retrospective\": false,\n     \"source\": {\n      \"commit\": null,\n      \"kind\": \"live-file\",\n      \"page_bytes\": 399,\n      \"page_sha256\": \"ef90f467fc61cb9261c7014bbb4948413e36326635d96f7c54e900a8eaf51e2c\"\n     },\n     \"submission_id\": \"fx-ma\",\n     \"work_id\": \"A\"\n    },\n    \"judgment\": {\n     \"answers\": [],\n     \"design_fork\": null,\n     \"disposition\": null,\n     \"finding\": null,\n     \"goal\": {\n      \"evidence\": [],\n      \"goal_id\": \"g1\",\n      \"goal_sha256\": \"2b31ef6fb02f5aeabdb80c0cfaab4b248810c6e81775de673d36dd56bd96adef\",\n      \"terminal\": null\n     },\n     \"holds\": [],\n     \"next_action\": null,\n     \"outcome\": null,\n     \"pass_terminal\": null,\n     \"reasons\": [],\n     \"sections\": {\n      \"affected\": null,\n      \"assumptions\": null,\n      \"consequences\": null,\n      \"exploration\": null,\n      \"findings_account\": null,\n      \"finish_assessments\": null,\n      \"for_model\": null,\n      \"issue\": null,\n      \"learning\": null,\n      \"limits\": null,\n      \"next_bounded_action\": null,\n      \"open_questions\": null,\n      \"options\": null,\n      \"outcome_evidence\": null,\n      \"preservation\": null,\n      \"prime_finding\": null,\n      \"proposed_plan\": null,\n      \"question\": null,\n      \"recommendation\": null,\n      \"remaining_choices\": null,\n      \"return_result\": null,\n      \"tests_note\": null,\n      \"tests_passed\": null,\n      \"within_direction\": null\n     },\n     \"semantic_conflict\": null,\n     \"source_refs\": [],\n     \"unresolved\": []\n    },\n    \"recovers\": null,\n    \"review_id\": \"05.01-r1\",\n    \"schema\": \"prime-cycle-decision/2\",\n    \"supersedes\": null\n   },\n   \"unresolved\": [],\n   \"work_id\": \"A\"\n  },\n  {\n   \"attention\": [],\n   \"custody\": {\n    \"basis\": \"live inspection at read time; custody is not acceptance\",\n    \"member\": null,\n    \"receipt_sha256\": null,\n    \"retrospective\": null,\n    \"role\": null,\n    \"state\": \"absent\",\n    \"state_reason\": \"no member is named by the page and none is registered\"\n   },\n   \"disposition\": \"unknown\",\n   \"goal\": {\n    \"goal_id\": \"g1\",\n    \"goal_sha256\": \"2b31ef6fb02f5aeabdb80c0cfaab4b248810c6e81775de673d36dd56bd96adef\"\n   },\n   \"goal_terminal\": \"unknown\",\n   \"historical\": null,\n   \"holds\": [],\n   \"latest_review\": null,\n   \"next_action\": null,\n   \"next_action_guard\": [],\n   \"observation\": {\n    \"diagnostic\": null,\n    \"kind\": null,\n    \"part\": null,\n    \"state\": \"observed\"\n   },\n   \"page\": \"00.kernel/00.00.10.work/0599.cycle-a/05.02.md\",\n   \"pass\": \"05.02\",\n   \"pass_state\": \"no-return\",\n   \"pass_terminal\": \"unknown\",\n   \"reader\": {\n    \"ambiguities\": [\n     \"legacy-ambiguous-heading\",\n     \"legacy-revision-withheld\"\n    ],\n    \"attention\": [],\n    \"exit\": 1,\n    \"failed\": null,\n    \"stdout_sha256\": \"5380575e278c15d19097089463112e44e0a480ea78b98f2ac8d8d758352c1aba\"\n   },\n   \"reviews\": {\n    \"committed\": [],\n    \"heads\": [],\n    \"invalid\": [],\n    \"partial\": []\n   },\n   \"source\": {\n    \"commit\": null,\n    \"kind\": \"live-file\",\n    \"page_sha256\": \"5bfa8ff96a2d7b1df53c56ebd9a43a868e9c5b1b59a4ac177b2519ad02eb7d83\"\n   },\n   \"template\": {\n    \"attribution\": {\n     \"actor_label\": null,\n     \"evidence\": null,\n     \"role\": \"prime\"\n    },\n    \"binding\": {\n     \"direction\": {\n      \"agreement_sha256\": \"ccda006d38bff2473baca85f10e911d57d2119fdc78742dbeb70bacc48744370\",\n      \"book\": \"00.kernel/00.00.10.work\",\n      \"fields\": {\n       \"director_required\": \"ec2d23b176e1faf0edd8aab3c7aef7ebb374ad45b9a63ac6868ef5835cf99c67\",\n       \"finish_criteria\": \"91fdfae213db8cf94a829f35dd784699036450abebba947a1ca68120d1a6d451\",\n       \"goal\": \"d8ad5981dea9ed7c5dee427e98c3e2c4025813f56afb7bc2d8babca4d68b7688\",\n       \"prime_discretion\": \"704477072fb4897037b0c03e3a577a3c92ea61584b50d820eafc8f154500caf2\",\n       \"recorded_decisions\": \"c34ffaf44ef1502aa94307e16b579842e670386b5709a9314fb1a7370b460dfa\",\n       \"scope\": \"bd1436823a04563be96ae26ec64f9861a4b3de2d44b9011a58ba37e37ff421c6\"\n      },\n      \"review_location\": \"00.kernel/00.00.10.work/0599.cycle-a/evidence/prime-cycle-reviews/05.02\",\n      \"schema\": \"prime-cycle-direction/1\"\n     },\n     \"expected_prior\": null,\n     \"fingerprint\": \"86a6049e8ed4b1433b9a0da1623f885f95244dc9421f538a69d7282034432fa9\",\n     \"goal\": {\n      \"goal_id\": \"g1\",\n      \"goal_sha256\": \"2b31ef6fb02f5aeabdb80c0cfaab4b248810c6e81775de673d36dd56bd96adef\"\n     },\n     \"member\": null,\n     \"member_role\": null,\n     \"origin\": null,\n     \"page\": \"00.kernel/00.00.10.work/0599.cycle-a/05.02.md\",\n     \"pass\": \"05.02\",\n     \"receipt_sha256\": null,\n     \"retrospective\": null,\n     \"source\": {\n      \"commit\": null,\n      \"kind\": \"live-file\",\n      \"page_bytes\": 259,\n      \"page_sha256\": \"5bfa8ff96a2d7b1df53c56ebd9a43a868e9c5b1b59a4ac177b2519ad02eb7d83\"\n     },\n     \"submission_id\": null,\n     \"work_id\": \"N\"\n    },\n    \"judgment\": {\n     \"answers\": [],\n     \"design_fork\": null,\n     \"disposition\": null,\n     \"finding\": null,\n     \"goal\": {\n      \"evidence\": [],\n      \"goal_id\": \"g1\",\n      \"goal_sha256\": \"2b31ef6fb02f5aeabdb80c0cfaab4b248810c6e81775de673d36dd56bd96adef\",\n      \"terminal\": null\n     },\n     \"holds\": [],\n     \"next_action\": null,\n     \"outcome\": null,\n     \"pass_terminal\": null,\n     \"reasons\": [],\n     \"sections\": {\n      \"affected\": null,\n      \"assumptions\": null,\n      \"consequences\": null,\n      \"exploration\": null,\n      \"findings_account\": null,\n      \"finish_assessments\": null,\n      \"for_model\": null,\n      \"issue\": null,\n      \"learning\": null,\n      \"limits\": null,\n      \"next_bounded_action\": null,\n      \"open_questions\": null,\n      \"options\": null,\n      \"outcome_evidence\": null,\n      \"preservation\": null,\n      \"prime_finding\": null,\n      \"proposed_plan\": null,\n      \"question\": null,\n      \"recommendation\": null,\n      \"remaining_choices\": null,\n      \"return_result\": null,\n      \"tests_note\": null,\n      \"tests_passed\": null,\n      \"within_direction\": null\n     },\n     \"semantic_conflict\": null,\n     \"source_refs\": [],\n     \"unresolved\": []\n    },\n    \"recovers\": null,\n    \"review_id\": \"05.02-r1\",\n    \"schema\": \"prime-cycle-decision/2\",\n    \"supersedes\": null\n   },\n   \"unresolved\": [],\n   \"work_id\": \"N\"\n  }\n ]\n}\n",
+    "stderr": ""
+   },
+   {
+    "step": "4 record while the reader cannot run: refused",
+    "labs": "noadapter",
+    "argv": [
+     "python",
+     "-B",
+     "<noadapter>/prime-cycle-pass01/prime_cycle.py",
+     "record",
+     "--registration",
+     "<desk>\\reg.json",
+     "--decision",
+     "<desk>\\accept.json",
+     "--journal-root",
+     "<desk>\\out\\journal",
+     "--caller",
+     "Codex Prime (SYNTHETIC SAMPLE)"
+    ],
+    "exit": 2,
+    "stdout": "refused: observation failed (source): reader-exit-2: missing clerk_adapter.py; full output <desk>\\out\\journal\\2026-10-30\\20261030T201512.647597Z-d77d6dbec508\\reader-A-stderr.txt; nothing was recorded\njournal: <desk>\\out\\journal op 20261030T201512.647597Z-d77d6dbec508\n",
+    "stderr": ""
+   },
+   {
+    "step": "5 record on complete labs",
+    "labs": "full",
+    "argv": [
+     "python",
+     "-B",
+     "<full>/prime-cycle-pass01/prime_cycle.py",
+     "record",
+     "--registration",
+     "<desk>\\reg.json",
+     "--decision",
+     "<desk>\\accept.json",
+     "--journal-root",
+     "<desk>\\out\\journal",
+     "--caller",
+     "Codex Prime (SYNTHETIC SAMPLE)"
+    ],
+    "exit": 0,
+    "stdout": "recorded <desk>\\repo\\00.kernel\\00.00.10.work\\0599.cycle-a\\evidence\\prime-cycle-reviews\\05.01\\05.01-r1\nprime_review effective continue\njournal: <desk>\\out\\journal op 20261030T201512.915228Z-e6754b60007a\n",
+    "stderr": ""
+   },
+   {
+    "step": "6 packet with coverage",
+    "labs": "full",
+    "argv": [
+     "python",
+     "-B",
+     "<full>/prime-cycle-pass01/prime_cycle.py",
+     "packet",
+     "--registration",
+     "<desk>\\reg.json",
+     "--work",
+     "A",
+     "--out",
+     "<desk>\\out\\packet-A",
+     "--journal-root",
+     "<desk>\\out\\journal",
+     "--caller",
+     "Codex Prime (SYNTHETIC SAMPLE)"
+    ],
+    "exit": 0,
+    "stdout": "coverage (this packet's own request; not a complete artifact inventory):\n  requested: return (member-file) present 8 b sha e847a829d3866cde; receipt (member-file) present 288 b sha f8ae9b268261cd24\n  artifact checks requested: 0\n  page included: no (not requested: the default request adds the page only for a git-blob registration)\n  member captured payloads not gathered: 1 - note.txt\njournal: <desk>\\out\\journal op 20261030T201513.472912Z-42c98d5350fe\n",
+    "stderr": ""
+   },
+   {
+    "step": "7 read text, complete labs",
+    "labs": "full",
+    "argv": [
+     "python",
+     "-B",
+     "<full>/prime-cycle-pass01/prime_cycle.py",
+     "read",
+     "--registration",
+     "<desk>\\reg.json",
+     "--journal-root",
+     "<desk>\\out\\journal",
+     "--caller",
+     "Codex Prime (SYNTHETIC SAMPLE)"
+    ],
+    "exit": 0,
+    "stdout": "Prime cycle view  book 00.kernel/00.00.10.work  source live-file (live files)\nDerived from work-local review records. Noncanonical. Nothing is elected or dispatched.\nsummary (current only): works 2, awaiting review 0, reviewed current 1, stale or unusable 0, finished passes 1, completed goals 0, open holds 0, observation failed 0, custody unresolved 0\n\nA  00.kernel/00.00.10.work/0599.cycle-a/05.01.md\n  pass state: reviewed   review disposition: accepted   pass terminal: finished\n  goal g1: open\n  custody: 0101.ma role primary-current-candidate state present receipt f8ae9b268261cd24 (custody is not acceptance)\n  latest review: 05.01-r1 by Codex Prime (SUPPLIED FIXTURE) outcome continue (prime_review effective continue)\n  recorded next action (Codex Prime (SUPPLIED FIXTURE), 00.kernel/00.00.10.work/0599.cycle-a/evidence/prime-cycle-reviews/05.01/05.01-r1/record.json): next-pass: Pack the next bounded pass toward the page goal.\n\nN  00.kernel/00.00.10.work/0599.cycle-a/05.02.md\n  pass state: no-return   review disposition: unknown   pass terminal: unknown\n  goal g1: unknown\n  custody: None role None state absent receipt none (custody is not acceptance)\n\nauthority none; this tool records supplied judgment and derives a view; it authenticates no actor and grants no work\njournal: <desk>\\out\\journal op 20261030T201514.014976Z-5ae1d5df2329\n",
+    "stderr": ""
+   },
+   {
+    "step": "8 read text after the review, clerk_adapter.py missing",
+    "labs": "noadapter",
+    "argv": [
+     "python",
+     "-B",
+     "<noadapter>/prime-cycle-pass01/prime_cycle.py",
+     "read",
+     "--registration",
+     "<desk>\\reg.json",
+     "--journal-root",
+     "<desk>\\out\\journal",
+     "--caller",
+     "Codex Prime (SYNTHETIC SAMPLE)"
+    ],
+    "exit": 1,
+    "stdout": "Prime cycle view  book 00.kernel/00.00.10.work  source live-file (live files)\nDerived from work-local review records. Noncanonical. Nothing is elected or dispatched.\nsummary (current only): works 2, awaiting review 0, reviewed current 0, stale or unusable 0, finished passes 0, completed goals 0, open holds 0, observation failed 2, custody unresolved 0\n\nA  00.kernel/00.00.10.work/0599.cycle-a/05.01.md\n  pass state: observation-failed   review disposition: unknown (historical accepted in 05.01-r1, observation-failed)   pass terminal: unknown (historical finished in 05.01-r1, observation-failed)\n  goal g1: unknown (historical open in 05.01-r1, observation-failed)\n  custody: 0101.ma role None state unknown receipt none (custody is not acceptance)\n  latest review: 05.01-r1 by Codex Prime (SUPPLIED FIXTURE) outcome continue (prime_review effective continue)  [not current]\n  historical next action (not current; Codex Prime (SUPPLIED FIXTURE), 00.kernel/00.00.10.work/0599.cycle-a/evidence/prime-cycle-reviews/05.01/05.01-r1/record.json): next-pass: Pack the next bounded pass toward the page goal.\n  ! observation-failed (source): reader-exit-2: missing clerk_adapter.py; full output <desk>\\out\\journal\\2026-10-30\\20261030T201514.588334Z-4845b6426bbf\\reader-A-stderr.txt\n  ! observation-failed: 05.01-r1 declarations are historical; the current evidence could not be observed\n\nN  00.kernel/00.00.10.work/0599.cycle-a/05.02.md\n  pass state: observation-failed   review disposition: unknown   pass terminal: unknown\n  goal g1: unknown\n  custody: None role None state unknown receipt none (custody is not acceptance)\n  ! observation-failed (source): reader-exit-2: missing clerk_adapter.py; full output <desk>\\out\\journal\\2026-10-30\\20261030T201514.588334Z-4845b6426bbf\\reader-N-stderr.txt\n\nauthority none; this tool records supplied judgment and derives a view; it authenticates no actor and grants no work\njournal: <desk>\\out\\journal op 20261030T201514.588334Z-4845b6426bbf\n",
+    "stderr": ""
+   },
+   {
+    "step": "9 day view (not logged)",
+    "labs": "full",
+    "argv": [
+     "python",
+     "-B",
+     "<full>/prime-cycle-pass01/prime_cycle.py",
+     "day",
+     "--journal-root",
+     "<desk>\\out\\journal",
+     "--date",
+     "2026-10-30",
+     "--registration",
+     "<desk>\\reg.json"
+    ],
+    "exit": 0,
+    "stdout": "Prime cycle day 2026-10-30  journal <desk>\\out\\journal  (read-only; this view is not logged)\nattempts: packet ok 1; read ok 1, ok-attention 4; record recorded 1, refused 1\n\n  20261030T201511.256891Z-8da7f9db2d45  read    ok-attention       exit 1  2026-10-30T15:15:11.256845-05:00  0.276s  caller Codex Prime (SYNTHETIC SAMPLE)\n  20261030T201511.674353Z-324f64d75cf2  read    ok-attention       exit 1  2026-10-30T15:15:11.674320-05:00  0.258s  caller Codex Prime (SYNTHETIC SAMPLE)\n  20261030T201512.068603Z-44a4983674a0  read    ok-attention       exit 1  2026-10-30T15:15:12.068571-05:00  0.436s  caller Codex Prime (SYNTHETIC SAMPLE)\n  20261030T201512.647597Z-d77d6dbec508  record  refused            exit 2  2026-10-30T15:15:12.647563-05:00  0.130s  caller Codex Prime (SYNTHETIC SAMPLE)\n      refused: observation failed (source): reader-exit-2: missing clerk_adapter.py; full output <desk>\\out\\journal\\2026-10-30\\20261030T201512.647597Z-d77d6dbec508\\reader-A-stderr.txt; nothing was recorded\n  20261030T201512.915228Z-e6754b60007a  record  recorded           exit 0  2026-10-30T15:15:12.915197-05:00  0.422s  caller Codex Prime (SYNTHETIC SAMPLE)\n      review 05.01-r1 record cc9f86bf0279c6f4\n  20261030T201513.472912Z-42c98d5350fe  packet  ok                 exit 0  2026-10-30T15:15:13.472883-05:00  0.405s  caller Codex Prime (SYNTHETIC SAMPLE)\n  20261030T201514.014976Z-5ae1d5df2329  read    ok                 exit 0  2026-10-30T15:15:14.014944-05:00  0.436s  caller Codex Prime (SYNTHETIC SAMPLE)\n  20261030T201514.588334Z-4845b6426bbf  read    ok-attention       exit 1  2026-10-30T15:15:14.588289-05:00  0.281s  caller Codex Prime (SYNTHETIC SAMPLE)\n\nunique reviews (re-verified now): 1 from 1 record invocations\n  A 05.01-r1 by Codex Prime (SUPPLIED FIXTURE): accepted, pass finished, goal g1 open; invocations 1 (replays 0); current head yes\ndeclared in unique verified records (each work pass and goal once; not current status): finished passes 1, completed goals 0, holds none\ncurrent (fresh read): finished passes A; completed goals none; open holds none; not current none\nper-operation durations only; incomplete operations have unknown duration; no totals or productivity are derived\n",
+    "stderr": ""
+   }
+  ],
+  "retained_reader_output": {
+   "<desk>\\out\\journal\\2026-10-30\\20261030T201511.256891Z-8da7f9db2d45\\reader-A-stderr.txt": {
+    "sha256": "0883f546a9907c3d23934dacd17c884f5d1760b5d2b7d2cbc907940c16a07072",
+    "bytes": 25,
+    "text": "missing clerk_adapter.py\n"
+   },
+   "<desk>\\out\\journal\\2026-10-30\\20261030T201511.256891Z-8da7f9db2d45\\reader-A-stdout.txt": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0,
+    "text": ""
+   },
+   "<desk>\\out\\journal\\2026-10-30\\20261030T201511.256891Z-8da7f9db2d45\\reader-N-stderr.txt": {
+    "sha256": "0883f546a9907c3d23934dacd17c884f5d1760b5d2b7d2cbc907940c16a07072",
+    "bytes": 25,
+    "text": "missing clerk_adapter.py\n"
+   },
+   "<desk>\\out\\journal\\2026-10-30\\20261030T201511.256891Z-8da7f9db2d45\\reader-N-stdout.txt": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0,
+    "text": ""
+   },
+   "<desk>\\out\\journal\\2026-10-30\\20261030T201511.674353Z-324f64d75cf2\\reader-A-stderr.txt": {
+    "sha256": "0883f546a9907c3d23934dacd17c884f5d1760b5d2b7d2cbc907940c16a07072",
+    "bytes": 25,
+    "text": "missing clerk_adapter.py\n"
+   },
+   "<desk>\\out\\journal\\2026-10-30\\20261030T201511.674353Z-324f64d75cf2\\reader-A-stdout.txt": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0,
+    "text": ""
+   },
+   "<desk>\\out\\journal\\2026-10-30\\20261030T201511.674353Z-324f64d75cf2\\reader-N-stderr.txt": {
+    "sha256": "0883f546a9907c3d23934dacd17c884f5d1760b5d2b7d2cbc907940c16a07072",
+    "bytes": 25,
+    "text": "missing clerk_adapter.py\n"
+   },
+   "<desk>\\out\\journal\\2026-10-30\\20261030T201511.674353Z-324f64d75cf2\\reader-N-stdout.txt": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0,
+    "text": ""
+   },
+   "<desk>\\out\\journal\\2026-10-30\\20261030T201512.647597Z-d77d6dbec508\\reader-A-stderr.txt": {
+    "sha256": "0883f546a9907c3d23934dacd17c884f5d1760b5d2b7d2cbc907940c16a07072",
+    "bytes": 25,
+    "text": "missing clerk_adapter.py\n"
+   },
+   "<desk>\\out\\journal\\2026-10-30\\20261030T201512.647597Z-d77d6dbec508\\reader-A-stdout.txt": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0,
+    "text": ""
+   },
+   "<desk>\\out\\journal\\2026-10-30\\20261030T201514.588334Z-4845b6426bbf\\reader-A-stderr.txt": {
+    "sha256": "0883f546a9907c3d23934dacd17c884f5d1760b5d2b7d2cbc907940c16a07072",
+    "bytes": 25,
+    "text": "missing clerk_adapter.py\n"
+   },
+   "<desk>\\out\\journal\\2026-10-30\\20261030T201514.588334Z-4845b6426bbf\\reader-A-stdout.txt": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0,
+    "text": ""
+   },
+   "<desk>\\out\\journal\\2026-10-30\\20261030T201514.588334Z-4845b6426bbf\\reader-N-stderr.txt": {
+    "sha256": "0883f546a9907c3d23934dacd17c884f5d1760b5d2b7d2cbc907940c16a07072",
+    "bytes": 25,
+    "text": "missing clerk_adapter.py\n"
+   },
+   "<desk>\\out\\journal\\2026-10-30\\20261030T201514.588334Z-4845b6426bbf\\reader-N-stdout.txt": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0,
+    "text": ""
+   }
+  }
+ },
+ "reproduction": {
+  "before": {
+   "tool_sha256": "dd5319a46a88e05020ee7b0715b8edca26031066c3f2ee867f590a6056581338",
+   "cases": [
+    {
+     "case": "missing adapter",
+     "read_exit": 1,
+     "works": [
+      {
+       "work_id": "A",
+       "pass_state": "no-return",
+       "reader": {
+        "ambiguities": [],
+        "attention": [],
+        "exit": 2,
+        "failed": "reader exit 2",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+       },
+       "custody": {
+        "basis": "live inspection at read time; custody is not acceptance",
+        "member": "0101.ma",
+        "receipt_sha256": null,
+        "retrospective": null,
+        "role": null
+       },
+       "attention": [
+        "observation-failed: reader exit 2"
+       ]
+      },
+      {
+       "work_id": "N",
+       "pass_state": "no-return",
+       "reader": {
+        "ambiguities": [],
+        "attention": [],
+        "exit": 2,
+        "failed": "reader exit 2",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+       },
+       "custody": {
+        "basis": "live inspection at read time; custody is not acceptance",
+        "member": null,
+        "receipt_sha256": null,
+        "retrospective": null,
+        "role": null
+       },
+       "attention": [
+        "observation-failed: reader exit 2"
+       ]
+      }
+     ],
+     "raw_reader": {
+      "exit": 2,
+      "stdout": "",
+      "stderr": "missing clerk_adapter.py\n"
+     }
+    },
+    {
+     "case": "complete labs: captured return and genuinely absent return",
+     "read_exit": 1,
+     "works": [
+      {
+       "work_id": "A",
+       "pass_state": "awaiting-review",
+       "custody": {
+        "basis": "live inspection at read time; custody is not acceptance",
+        "member": "0101.ma",
+        "receipt_sha256": "03744749868836b132703703c34ba23bb612e936ed29745162275fb8be4c96a2",
+        "retrospective": false,
+        "role": "primary-current-candidate"
+       },
+       "attention": [
+        "awaiting-review: a captured return has no recorded review"
+       ]
+      },
+      {
+       "work_id": "N",
+       "pass_state": "no-return",
+       "custody": {
+        "basis": "live inspection at read time; custody is not acceptance",
+        "member": null,
+        "receipt_sha256": null,
+        "retrospective": null,
+        "role": null
+       },
+       "attention": []
+      }
+     ]
+    },
+    {
+     "case": "completed review, then observation fails",
+     "record_exit": 0,
+     "read_exit": 1,
+     "work_A": {
+      "pass_state": "review-stale",
+      "disposition": "unknown",
+      "pass_terminal": "unknown",
+      "goal_terminal": "unknown",
+      "historical": {
+       "disposition": "accepted",
+       "goal_id": "g1",
+       "goal_terminal": "completed",
+       "next_action": null,
+       "pass_terminal": "finished",
+       "reason": "review-stale",
+       "record_sha256": "6976b7c960b74f41a0162e3f589654864a613efee41b0aae508e9c100e59fe77",
+       "review_id": "05.01-r1"
+      },
+      "attention": [
+       "observation-failed: reader exit 2",
+       "review-stale: 05.01-r1 binds a different page, member_role, receipt_sha256, submission_id, origin, retrospective; its declarations are historical; re-review required"
+      ]
+     },
+     "summary": {
+      "awaiting_review": 0,
+      "basis": "current values only; historical declarations of stale or unusable reviews are not counted",
+      "completed_goals": 0,
+      "finished_passes": 0,
+      "open_holds": 0,
+      "reviewed_current": 0,
+      "stale_or_unusable": 1,
+      "works": 2
+     },
+     "record_again": {
+      "exit": 2,
+      "stdout": "refused: observation failed: reader exit 2\njournal: disabled (no --journal-root; this operation is not logged)\n"
+     }
+    }
+   ]
+  },
+  "after": {
+   "tool_sha256": "19ede9c2125307595d0be867bae1a3cb71bf3db0515ad83e7c04d3333e17861d",
+   "cases": [
+    {
+     "case": "missing adapter",
+     "read_exit": 1,
+     "works": [
+      {
+       "work_id": "A",
+       "pass_state": "observation-failed",
+       "reader": {
+        "ambiguities": [],
+        "attention": [],
+        "exit": 2,
+        "failed": "reader exit 2",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+       },
+       "custody": {
+        "basis": "live inspection at read time; custody is not acceptance",
+        "member": "0101.ma",
+        "receipt_sha256": null,
+        "retrospective": null,
+        "role": null,
+        "state": "unknown",
+        "state_reason": "the page could not be observed"
+       },
+       "attention": [
+        "observation-failed (source): reader-exit-2: missing clerk_adapter.py; not retained: no --journal-root on this operation"
+       ]
+      },
+      {
+       "work_id": "N",
+       "pass_state": "observation-failed",
+       "reader": {
+        "ambiguities": [],
+        "attention": [],
+        "exit": 2,
+        "failed": "reader exit 2",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+       },
+       "custody": {
+        "basis": "live inspection at read time; custody is not acceptance",
+        "member": null,
+        "receipt_sha256": null,
+        "retrospective": null,
+        "role": null,
+        "state": "unknown",
+        "state_reason": "the page could not be observed"
+       },
+       "attention": [
+        "observation-failed (source): reader-exit-2: missing clerk_adapter.py; not retained: no --journal-root on this operation"
+       ]
+      }
+     ],
+     "raw_reader": {
+      "exit": 2,
+      "stdout": "",
+      "stderr": "missing clerk_adapter.py\n"
+     }
+    },
+    {
+     "case": "complete labs: captured return and genuinely absent return",
+     "read_exit": 1,
+     "works": [
+      {
+       "work_id": "A",
+       "pass_state": "awaiting-review",
+       "custody": {
+        "basis": "live inspection at read time; custody is not acceptance",
+        "member": "0101.ma",
+        "receipt_sha256": "269525ec55e3ca8173a34ff50cf18ad927a2839b28e177926c0db600191f5d2c",
+        "retrospective": false,
+        "role": "primary-current-candidate",
+        "state": "present",
+        "state_reason": null
+       },
+       "attention": [
+        "awaiting-review: a captured return has no recorded review"
+       ]
+      },
+      {
+       "work_id": "N",
+       "pass_state": "no-return",
+       "custody": {
+        "basis": "live inspection at read time; custody is not acceptance",
+        "member": null,
+        "receipt_sha256": null,
+        "retrospective": null,
+        "role": null,
+        "state": "absent",
+        "state_reason": "no member is named by the page and none is registered"
+       },
+       "attention": []
+      }
+     ]
+    },
+    {
+     "case": "completed review, then observation fails",
+     "record_exit": 0,
+     "read_exit": 1,
+     "work_A": {
+      "pass_state": "observation-failed",
+      "disposition": "unknown",
+      "pass_terminal": "unknown",
+      "goal_terminal": "unknown",
+      "historical": {
+       "disposition": "accepted",
+       "goal_id": "g1",
+       "goal_terminal": "completed",
+       "next_action": null,
+       "pass_terminal": "finished",
+       "reason": "observation-failed",
+       "record_sha256": "aa1b71f29dd4de26a3f9ad6ce69b9dae2f038178cf0ee9a4edc6c043abecfaef",
+       "review_id": "05.01-r1"
+      },
+      "attention": [
+       "observation-failed (source): reader-exit-2: missing clerk_adapter.py; not retained: no --journal-root on this operation",
+       "observation-failed: 05.01-r1 declarations are historical; the current evidence could not be observed"
+      ]
+     },
+     "summary": {
+      "awaiting_review": 0,
+      "basis": "current values only; historical declarations of stale or unusable reviews are not counted",
+      "completed_goals": 0,
+      "custody_unresolved": 0,
+      "finished_passes": 0,
+      "observation_failed": 2,
+      "open_holds": 0,
+      "reviewed_current": 0,
+      "stale_or_unusable": 0,
+      "works": 2
+     },
+     "record_again": {
+      "exit": 2,
+      "stdout": "refused: observation failed (source): reader-exit-2: missing clerk_adapter.py; not retained: no --journal-root on this operation; nothing was recorded\njournal: disabled (no --journal-root; this operation is not logged)\n"
+     }
+    }
+   ]
+  }
+ }
+}

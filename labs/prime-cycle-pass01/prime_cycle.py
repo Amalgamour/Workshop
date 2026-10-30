@@ -1,4 +1,4 @@
-"""Prime read-record-read cycle over one registered work book (0515.prime-cycle/05.01, corrected in 05.02). Standard library only.
+"""Prime read-record-read cycle over one registered work book (0515.prime-cycle/05.01, corrected in 05.02 and 05.03). Standard library only.
 
   python -B prime_cycle.py read     --registration ABS [--json] [--templates DIR]   [JOURNAL]
   python -B prime_cycle.py record   --registration ABS --decision ABS               [JOURNAL]
@@ -7,11 +7,12 @@
   python -B prime_cycle.py day      --journal-root ABS [--date YYYY-MM-DD] [--registration ABS] [--json]
   JOURNAL = --journal-root ABS [--caller TEXT] [--note TEXT]
 
-Contracts: 0515.prime-cycle/evidence/build05.01/CONTRACT.md and its delta build05.02/CONTRACT.md. Compute gathers evidence
+Contracts: 0515.prime-cycle/evidence/build05.01/CONTRACT.md and its deltas build05.02 and build05.03/CONTRACT.md. Compute gathers evidence
 through the pinned reader (which runs the pinned inspector), validates Prime's supplied judgment through the pinned
 prime_review, writes one work-local review record with a completion marker, and derives the next view from those records.
 A review's declarations are current only while its binding (page, custody, direction) still holds; otherwise they are shown
-as historical. An explicit journal root logs each operation as start/end events. Prime supplies the judgment. Nothing here
+as historical. A failed observation is never shown as absent custody (no-return) or as stale; its reader diagnostic is
+kept, bounded, with the full child output retained under the journal. An explicit journal root logs each operation as start/end events. Prime supplies the judgment. Nothing here
 authenticates an actor, grants authority, elects work or dispatches anything.
 """
 
@@ -59,6 +60,9 @@ DIRECTION_FIELDS = ("goal", "scope", "prime_discretion", "director_required", "f
 RECORD_SCHEMAS = ("prime-cycle-review/1", "prime-cycle-review/2")  # /1 is legacy: read, kept, never current (05.02 C04)
 CURRENT_KEYS = ("member", "member_role", "receipt_sha256", "submission_id", "origin", "retrospective", "direction")
 MAX_STDOUT_SNAPSHOT = 2097152
+JSON_EXCERPT = 2000   # characters of child diagnostic kept in JSON views (05.03 §1)
+TEXT_EXCERPT = 240    # characters on one line in text views
+ABSENT_ROLES = {"missing", "reserved", "origin-mismatch", "cross-book-origin", "secondary-historical", "same-page-retrospective"}
 MAX_DAY_OPS = 5000
 DATE = re.compile(r"^\d{4}-\d\d-\d\d$")
 
@@ -214,25 +218,58 @@ def goal_sha(w) -> str:
 
 # ---------- observation ----------
 
-def observe(reg, w) -> dict:
+def one_line(text: str, limit: int = TEXT_EXCERPT) -> str:
+    """A bounded single-line rendering of child output for text views: control characters escaped, never unbounded."""
+    out = []
+    for ch in text.strip():
+        out.append({"\n": "\\n", "\r": "\\r", "\t": "\\t"}.get(ch) or (f"\\x{ord(ch):02x}" if ord(ch) < 32 or ord(ch) == 127 else ch))
+    s = "".join(out).strip()
+    return s if len(s) <= limit else s[:limit - 12] + "…[truncated]"
+
+
+def reader_diagnostic(w, p, reason: str, retain) -> dict:
+    """Bounded diagnostic for a failed reader call, with the full child output retained when a journal is given (05.03 §1)."""
+    err = p.stderr.decode("utf-8", "replace")
+    text = err if err.strip() else reason
+    diag = {"source": "batch_observe stderr" if err.strip() else "prime_cycle reason (reader stderr was empty)",
+            "reader_exit": p.returncode, "stderr_sha256": sha(p.stderr), "stderr_bytes": len(p.stderr),
+            "stdout_sha256": sha(p.stdout), "stdout_bytes": len(p.stdout),
+            "excerpt": text if len(text) <= JSON_EXCERPT else text[:JSON_EXCERPT] + "…[truncated]",
+            "retained": None, "retained_note": "not retained: no --journal-root on this operation"}
+    if retain is not None:
+        try:
+            diag["retained"] = {"stdout": retain(f"reader-{w['work_id']}-stdout.txt", p.stdout),
+                                "stderr": retain(f"reader-{w['work_id']}-stderr.txt", p.stderr)}
+            diag["retained_note"] = "full child output retained in this operation's journal folder"
+        except (OSError, JournalError) as exc:
+            diag["retained_note"] = f"retention failed: {type(exc).__name__}: {exc}"
+    return diag
+
+
+def observe(reg, w, retain=None) -> dict:
     args = ["observe", "--json", "--repo", reg["repository"]]
     args += ["--commit", reg["source"]["commit"]] if reg["source"]["kind"] == "git-blob" else ["--live"]
     args += ["--path", w["page"]]
     if reg["members_book"] is not None:
         args += ["--members-book", reg["members_book"]]
     p = run("batch_observe", args)
-    rec = {"exit": p.returncode, "stdout_sha256": sha(p.stdout), "stderr": p.stderr.decode("utf-8", "replace")[:2000]}
-    if p.returncode not in (0, 1) or len(p.stdout) > reg["bounds"]["max_output_bytes"]:
-        return dict(rec, failed=f"reader exit {p.returncode}")
+    rec = {"exit": p.returncode, "stdout_sha256": sha(p.stdout), "stderr": p.stderr.decode("utf-8", "replace")[:JSON_EXCERPT]}
+
+    def failed(kind, reason):
+        return dict(rec, failed=reason, failed_kind=kind, diagnostic=reader_diagnostic(w, p, reason, retain))
+    if p.returncode not in (0, 1):
+        return failed(f"reader-exit-{p.returncode}", f"reader exit {p.returncode}")
+    if len(p.stdout) > reg["bounds"]["max_output_bytes"]:
+        return failed("reader-output-over-bound", f"reader output {len(p.stdout)} bytes is over max_output_bytes")
     try:
         o = strict_json(p.stdout, "reader report")
     except Refusal as exc:
-        return dict(rec, failed=str(exc))
+        return failed("reader-report-invalid", str(exc))
     src, page = o.get("source") or {}, o.get("page")
     if not isinstance(src, dict) or not m(HEX64, src.get("sha256")) or type(src.get("bytes")) is not int:
-        return dict(rec, failed="reader report lacks a usable source identity")
+        return failed("no-source-identity", "reader report lacks a usable source identity")
     if src["bytes"] > reg["bounds"]["max_page_bytes"]:
-        return dict(rec, failed="page is over max_page_bytes")
+        return failed("page-over-bound", "page is over max_page_bytes")
     cu = o.get("custody") if isinstance(o.get("custody"), dict) else {}
     members = []
     for x in cu.get("observations") or []:
@@ -241,11 +278,59 @@ def observe(reg, w) -> dict:
         members.append({"member": x.get("member"), "role": x.get("role"), "status": (ins or {}).get("status"),
                         "submission_id": (cap or {}).get("submission_id"),
                         "receipt_sha256": (cap or {}).get("receipt_sha256"), "origin": (cap or {}).get("origin"),
-                        "retrospective": (cap or {}).get("retrospective")})
+                        "retrospective": (cap or {}).get("retrospective"),
+                        "inspect_exit": x.get("exit"), "attention": list(x.get("attention") or [])})
     review = o.get("review") if isinstance(o.get("review"), dict) else {}
     return dict(rec, failed=None, page=page, source={k: src.get(k) for k in ("kind", "commit", "path", "sha256", "bytes", "live_observed_at")},
                 primary=cu.get("primary"), members=members, review_text=review.get("text_raw"),
                 ambiguities=o.get("ambiguities") or [], attention=o.get("attention") or [])
+
+
+def observation_outcome(w, obs) -> dict:
+    """observed / failed (source or custody), plus the custody state when observed (05.03 §1-2)."""
+    if obs.get("failed"):
+        return {"state": "failed", "part": "source", "kind": obs["failed_kind"], "reason": obs["failed"],
+                "diagnostic": obs["diagnostic"], "custody_state": "unknown", "custody_reason": "the page could not be observed"}
+    members = [x for x in obs["members"] if x["role"] != "assignment-mention"]
+    want = w["member"]
+    if want:
+        sel = [x for x in members if x["member"] == want]
+        if not sel:
+            return {"state": "observed", "part": None, "kind": None, "diagnostic": None, "custody_state": "unresolved",
+                    "custody_reason": f"registered member {want} is not named by the page"}
+        x = sel[0]
+    elif obs["primary"]:
+        x = next((y for y in members if y["member"] == obs["primary"]), None)
+    else:
+        bad = [y for y in members if y["role"] not in ABSENT_ROLES]
+        if not members:
+            return {"state": "observed", "part": None, "kind": None, "diagnostic": None, "custody_state": "absent",
+                    "custody_reason": "no member is named by the page and none is registered"}
+        x = bad[0] if bad else members[0]
+    if x is None:
+        return {"state": "observed", "part": None, "kind": None, "diagnostic": None, "custody_state": "unresolved",
+                "custody_reason": "the reader named a primary member it did not list"}
+    role = x["role"]
+    if role == "observation-failed":
+        text = f"member {x['member']} inspection could not be observed (inspect exit {x['inspect_exit']}; attention {', '.join(x['attention']) or 'none'})"
+        return {"state": "failed", "part": "custody", "kind": "member-observation-failed", "reason": text,
+                "diagnostic": {"source": "batch_observe custody observation", "reader_exit": obs["exit"], "inspect_exit": x["inspect_exit"],
+                               "excerpt": text, "retained": None,
+                               "retained_note": "the reader reports the inspector's exit and attention only; run return_inspect.py inspect for the member"},
+                "custody_state": "unknown", "custody_reason": text}
+    if role == "primary-current-candidate":
+        return {"state": "observed", "part": None, "kind": None, "diagnostic": None, "custody_state": "present", "custody_reason": None}
+    if role in ABSENT_ROLES:
+        return {"state": "observed", "part": None, "kind": None, "diagnostic": None, "custody_state": "absent",
+                "custody_reason": f"member {x['member']} role {role}: no current return for this page"}
+    return {"state": "observed", "part": None, "kind": None, "diagnostic": None, "custody_state": "unresolved",
+            "custody_reason": f"member {x['member']} role {role}"}
+
+
+def failure_line(out: dict) -> str:
+    d = out["diagnostic"] or {}
+    where = (f"full output {d['retained']['stderr']}" if d.get("retained") else d.get("retained_note") or "no retained output")
+    return f"observation-failed ({out['part']}): {out['kind']}: {one_line(d.get('excerpt') or out.get('reason') or '')}; {where}"
 
 
 def current_binding(reg, w, obs, prior) -> dict:
@@ -373,15 +458,23 @@ def derive(reg, w, obs, scan) -> dict:
                         "retrospective": binding["retrospective"], "basis": "live inspection at read time; custody is not acceptance"},
             "reviews": {"committed": sorted(scan["committed"]), "partial": scan["partial"], "invalid": scan["invalid"], "heads": heads},
             "goal": {"goal_id": w["goal"]["goal_id"], "goal_sha256": goal_sha(w)}}
-    if obs.get("failed"):
-        attention.append(f"observation-failed: {obs['failed']}")
+    out = observation_outcome(w, obs)
+    obs_failed = out["state"] == "failed"
+    item["observation"] = {k: out[k] for k in ("state", "part", "kind", "diagnostic")}
+    item["custody"].update(state=out["custody_state"], state_reason=out["custody_reason"])
+    if obs_failed:
+        attention.append(failure_line(out))
     for p in scan["partial"]:
         attention.append(f"partial review {p['review_id']} ({p['phase']}); see inspect; recover with a new review_id")
     for p in scan["invalid"]:
         attention.append(f"invalid review directory {p['review_id']}: {p['reason']}")
     head = scan["committed"][heads[0]] if len(heads) == 1 else None
-    if head is None:
-        pass_state = "no-return" if binding["receipt_sha256"] is None else "awaiting-review"
+    if head is None:  # no-return only for successfully observed absent custody (05.03 §2)
+        pass_state = {"present": "awaiting-review", "absent": "no-return", "unresolved": "custody-unresolved"}.get(out["custody_state"], "observation-failed")
+        if pass_state == "awaiting-review" and binding["receipt_sha256"] is None:
+            pass_state = "custody-unresolved"
+        if pass_state == "custody-unresolved":
+            attention.append(f"custody-unresolved: {out['custody_reason'] or 'no verified receipt'}; not treated as no-return")
     if head is None and (obs.get("review_text") or "").strip() not in ("", "PENDING."):  # exact-literal PENDING is not a review
         attention.append("legacy-review-unmapped: the page has review prose and no recorded cycle review; adopt only by an attributed review")
         item["legacy_review_text"] = obs["review_text"]
@@ -402,7 +495,10 @@ def derive(reg, w, obs, scan) -> dict:
         altered = [p["review_id"] for p in scan["partial"] if p.get("marker") == "hash-mismatch" and p["review_id"] not in recovered]
         changed = (["page"] if hb["source"]["page_sha256"] != binding["source"]["page_sha256"] else []) + \
                   [k for k in CURRENT_KEYS if hb.get(k) != binding[k]]
-        if head["record"]["schema"] != "prime-cycle-review/2":
+        if obs_failed:  # unobservable evidence is neither current nor stale
+            pass_state, reason = "observation-failed", "observation-failed"
+            attention.append(f"observation-failed: {rid} declarations are historical; the current evidence could not be observed")
+        elif head["record"]["schema"] != "prime-cycle-review/2":
             pass_state, reason = "review-unusable", "legacy-binding"
             attention.append(f"review-unusable: {rid} is a {head['record']['schema']} record without a direction binding; "
                              "its declarations are historical only; record a successor review")
@@ -489,11 +585,11 @@ def inside(child: Path, parent: Path) -> bool:
         return False
 
 
-def read(reg_path: Path, templates: Path | None = None, forbid: Path | None = None) -> dict:
+def read(reg_path: Path, templates: Path | None = None, forbid: Path | None = None, retain=None) -> dict:
     reg = load_registration(reg_path)
     items, scans = [], []
     for w in reg["works"]:
-        obs = observe(reg, w)
+        obs = observe(reg, w, retain)
         scan = scan_reviews(reg, w)
         items.append(derive(reg, w, obs, scan))
         scans.append(scan)
@@ -504,8 +600,10 @@ def read(reg_path: Path, templates: Path | None = None, forbid: Path | None = No
                "finished_passes": sum(i["pass_terminal"] == "finished" for i in items),
                "completed_goals": sum(i["goal_terminal"] == "completed" for i in items),
                "open_holds": sum(h["status"] != "reply-bound" for i in items for h in i["holds"]),
+               "observation_failed": sum(i["pass_state"] == "observation-failed" for i in items),
+               "custody_unresolved": sum(i["pass_state"] == "custody-unresolved" for i in items),
                "basis": "current values only; historical declarations of stale or unusable reviews are not counted"}
-    view = {"schema": "prime-cycle-view/2", "registration_sha256": sha(reg_path.read_bytes()), "book": reg["book"],
+    view = {"schema": "prime-cycle-view/3", "registration_sha256": sha(reg_path.read_bytes()), "book": reg["book"],
             "source": reg["source"], "summary": summary, "works": items, "elected": None,
             "attention_count": sum(len(i["attention"]) for i in items), "authority": AUTHORITY,
             "note": "derived from work-local review records and fresh reader observations; noncanonical; rebuildable"}
@@ -528,7 +626,7 @@ def view_text(v: dict) -> str:
     s = v["summary"]
     out += [f"summary (current only): works {s['works']}, awaiting review {s['awaiting_review']}, reviewed current {s['reviewed_current']}, "
             f"stale or unusable {s['stale_or_unusable']}, finished passes {s['finished_passes']}, completed goals {s['completed_goals']}, "
-            f"open holds {s['open_holds']}", ""]
+            f"open holds {s['open_holds']}, observation failed {s['observation_failed']}, custody unresolved {s['custody_unresolved']}", ""]
     for it in v["works"]:
         hist = it.get("historical")
 
@@ -538,7 +636,7 @@ def view_text(v: dict) -> str:
         out.append(f"  pass state: {it['pass_state']}   review disposition: {shown('disposition')}   pass terminal: {shown('pass_terminal')}")
         out.append(f"  goal {it['goal']['goal_id']}: {shown('goal_terminal')}")
         c = it["custody"]
-        out.append(f"  custody: {c['member']} role {c['role']} receipt {(c['receipt_sha256'] or 'none')[:16]} (custody is not acceptance)")
+        out.append(f"  custody: {c['member']} role {c['role']} state {c['state']} receipt {(c['receipt_sha256'] or 'none')[:16]} (custody is not acceptance)")
         if it["latest_review"]:
             lr = it["latest_review"]
             out.append(f"  latest review: {lr['review_id']} by {lr['author']} outcome {lr['outcome']} (prime_review effective {lr['effective']})"
@@ -626,7 +724,7 @@ def write_file(path: Path, data: bytes) -> None:
         os.fsync(h.fileno())
 
 
-def record(reg_path: Path, decision_path: Path) -> tuple[int, str]:
+def record(reg_path: Path, decision_path: Path, retain=None) -> tuple[int, str]:
     reg = load_registration(reg_path)
     d = strict_json(read_bounded(decision_path, MAX_DOC, "decision"), "decision")
     exact(d, DECISION_KEYS, "decision")
@@ -640,6 +738,9 @@ def record(reg_path: Path, decision_path: Path) -> tuple[int, str]:
     w = next((x for x in reg["works"] if x["work_id"] == b["work_id"]), None)
     need(w is not None, f"work {b.get('work_id')} is not registered")
     check_judgment(d["judgment"], w)
+    bsrc = b.get("source") if isinstance(b.get("source"), dict) else {}
+    need(m(HEX64, bsrc.get("page_sha256")) and type(bsrc.get("page_bytes")) is int and bsrc["page_bytes"] >= 0,
+         "template binding has no observed source identity (made from a failed read); read again")
     rdir = review_dir(reg, w)
     lane_evidence = Path(reg["repository"]) / w["page"].rsplit("/", 1)[0] / "evidence"
     need(lane_evidence.is_dir() and not is_link(lane_evidence), "the lane's evidence directory must exist as a plain directory")
@@ -649,8 +750,10 @@ def record(reg_path: Path, decision_path: Path) -> tuple[int, str]:
         raise Refusal(f"partial review present at {target}; run inspect, then record under a new review_id with recovers")
     prior = prior_of(scan)
     need(prior != "fork", "lineage-fork: more than one committed head; record a successor of one head explicitly is not supported here")
-    obs = observe(reg, w)
-    need(obs.get("failed") is None, f"observation failed: {obs.get('failed')}")
+    obs = observe(reg, w, retain)
+    out = observation_outcome(w, obs)
+    if out["state"] == "failed":
+        raise Refusal(failure_line(out).replace("observation-failed", "observation failed", 1) + "; nothing was recorded")
     replay = target.exists()
     if not replay:  # the prior-state check comes first so a stale template gets the specific reason
         need(b.get("expected_prior") == prior, f"expected_prior {b.get('expected_prior')} does not equal the latest committed review {prior}")
@@ -755,7 +858,48 @@ def packet(reg_path: Path, work_id: str, out_dir: str, forbid: Path | None = Non
         f = Path(t) / "packet-request.json"
         f.write_bytes(canonical(req))
         p = run("review_packet", ["assemble", "--request", str(f)])
-    return (0 if p.returncode == 0 else 2), p.stdout.decode("utf-8", "replace") + p.stderr.decode("utf-8", "replace")
+    text = p.stdout.decode("utf-8", "replace") + p.stderr.decode("utf-8", "replace")
+    cov = packet_coverage(out, req) if p.returncode == 0 else {"available": False, "reason": f"review_packet exit {p.returncode}"}
+    return (0 if p.returncode == 0 else 2), text + coverage_text(cov), cov
+
+
+def packet_coverage(out: Path, req: dict) -> dict:
+    """What this packet's own request gathered, and the member's captured payloads it did not gather (05.03 §4).
+    Read-only over the packet output; the request and default gathering are unchanged."""
+    try:
+        pk = strict_json(read_bounded(out / "packet.json", MAX_STDOUT_SNAPSHOT, "packet.json"), "packet.json")
+        cu = strict_json(read_bounded(out / "custody.json", MAX_STDOUT_SNAPSHOT, "custody.json"), "custody.json")
+    except (Refusal, OSError) as exc:
+        return {"available": False, "reason": str(exc)}
+    srcs = [{"id": x.get("id"), "role": x.get("role"), "kind": x.get("kind"), "status": x.get("status"),
+             "bytes": x.get("bytes"), "sha256": x.get("sha256")} for x in pk.get("sources") or [] if isinstance(x, dict)]
+    gathered = {x["id"] for x in srcs if x["status"] == "present"}
+    cap = cu.get("capture") if isinstance(cu.get("capture"), dict) else {}
+    payloads = [x.get("logical") for x in cap.get("payloads") or [] if isinstance(x, dict)]
+    requested_payloads = {x.get("name") for x in req["sources"] if x.get("kind") == "member-file"}
+    return {"available": True, "basis": "this packet's own request; not a complete artifact inventory",
+            "requested": srcs, "gathered": sorted(gathered),
+            "absent_or_unverified": [x["id"] for x in srcs if x["status"] != "present"],
+            "artifact_checks_requested": sum(1 for x in req["sources"] if x.get("artifact_manifest")),
+            "page_included": any(x.get("id") == "page" for x in req["sources"]),
+            "page_note": None if any(x.get("id") == "page" for x in req["sources"]) else
+            "not requested: the default request adds the page only for a git-blob registration",
+            "member_payloads_not_gathered": [lp for lp in payloads if lp and not any(n.startswith("payload/") for n in requested_payloads)],
+            "custody_status": cu.get("status")}
+
+
+def coverage_text(cov: dict) -> str:
+    if not cov.get("available"):
+        return f"coverage: unavailable ({cov.get('reason')})\n"
+    lines = [f"coverage ({cov['basis']}):",
+             "  requested: " + "; ".join(f"{x['id']} ({x['kind']}) {x['status']} {x['bytes']} b sha {(x['sha256'] or 'none')[:16]}" for x in cov["requested"]),
+             f"  artifact checks requested: {cov['artifact_checks_requested']}",
+             f"  page included: {'yes' if cov['page_included'] else 'no (' + cov['page_note'] + ')'}",
+             f"  member captured payloads not gathered: {len(cov['member_payloads_not_gathered'])}"
+             + ("" if not cov["member_payloads_not_gathered"] else " - " + ", ".join(cov["member_payloads_not_gathered"]))]
+    if cov["absent_or_unverified"]:
+        lines.append("  absent or unverified: " + ", ".join(cov["absent_or_unverified"]))
+    return "\n".join(lines) + "\n"
 
 
 # ---------- journal (05.02 CONTRACT §5) ----------
@@ -840,6 +984,12 @@ class Journal:
         jwrite(self.dir / "start.json", canonical(start))
         self.info = {"enabled": True, "root": str(self.root), "op_id": self.op_id, "dir": str(self.dir)}
 
+    def retain(self, name: str, data: bytes) -> str:
+        """Keep one exact child output beside this operation's events (exclusive create); return its path."""
+        need_j(m(LABEL, name), f"retained name {name!r} is not a plain label")
+        jwrite(self.dir / name, data)
+        return str(self.dir / name)
+
     def end(self, code: int, status: str, stdout: bytes, result: dict) -> None:
         local, utc = now_stamp()
         snap = stdout[:MAX_STDOUT_SNAPSHOT]
@@ -860,12 +1010,12 @@ def need_j(cond, message):
 JOURNAL_OFF = {"enabled": False, "note": "no --journal-root; this operation is not logged"}
 
 
-def operate(a, forbid) -> tuple[int, object, str, dict]:
+def operate(a, forbid, retain=None) -> tuple[int, object, str, dict]:
     """Run one command; return (exit, payload dict-or-text, journal status, journal result). Never raises Refusal."""
     try:
         reg = abs_path(a.registration, "--registration")
         if a.command == "read":
-            v = read(reg, Path(a.templates) if a.templates else None, forbid)
+            v = read(reg, Path(a.templates) if a.templates else None, forbid, retain)
             code = 1 if v["attention_count"] else 0
             tpl = [{"path": str(p), "sha256": sha(p.read_bytes())} for p in
                    ([Path(os.path.abspath(a.templates)) / f"template-{it['work_id']}.json" for it in v["works"]] if a.templates else [])]
@@ -873,7 +1023,7 @@ def operate(a, forbid) -> tuple[int, object, str, dict]:
                       "works": [{"work_id": it["work_id"], "page_sha256": it["source"]["page_sha256"], "pass_state": it["pass_state"]} for it in v["works"]]}
             return code, (v if a.json else view_text(v)), ("ok-attention" if code else "ok"), result
         if a.command == "record":
-            code, text = record(reg, abs_path(a.decision, "--decision"))
+            code, text = record(reg, abs_path(a.decision, "--decision"), retain)
             word, _, rest = text.partition(" ")
             ref = review_ref(Path(rest.splitlines()[0])) if word in ("recorded", "already-recorded") else {}
             status = "replay" if word == "already-recorded" else ("recorded" if code == 0 else "recorded-attention")
@@ -881,10 +1031,11 @@ def operate(a, forbid) -> tuple[int, object, str, dict]:
         if a.command == "inspect":
             code, out = inspect(reg, a.work)
             return code, out, ("ok-attention" if code else "ok"), {"phases": {r["review_id"]: r["phase"] for r in out["reviews"]}}
-        code, text = packet(reg, a.work, a.out, forbid)
+        code, text, cov = packet(reg, a.work, a.out, forbid)
         st = Path(os.path.abspath(a.out)) / "assembly-status.json"
         return code, text, ("ok" if code == 0 else "refused"), {"out": str(Path(os.path.abspath(a.out))),
-                                                                  "assembly_status_sha256": sha(st.read_bytes()) if st.is_file() else None}
+                                                                  "assembly_status_sha256": sha(st.read_bytes()) if st.is_file() else None,
+                                                                  "coverage": cov}
     except PartialWrite as exc:
         return 3, f"partial: {exc}\n", "partial", {"review": review_ref(exc.target) if exc.target else {}}
     except Refusal as exc:
@@ -1081,7 +1232,7 @@ def main(argv=None) -> int:
             sys.stdout.write(f"refused: journal start failed: {type(exc).__name__}: {exc}; nothing was run\n")
             return 4
     try:
-        code, payload, status, result = operate(a, j.root if j else None)
+        code, payload, status, result = operate(a, j.root if j else None, j.retain if j else None)
     except Exception as exc:  # unexpected: say so, log it as error, never as success
         code, payload, status, result = 6, f"error: {type(exc).__name__}: {exc}\n", "error", {}
     jinfo = j.info if j else JOURNAL_OFF

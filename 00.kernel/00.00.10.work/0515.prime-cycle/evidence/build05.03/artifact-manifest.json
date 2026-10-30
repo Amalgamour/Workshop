@@ -1,0 +1,100 @@
+{
+ "schema": "prime-cycle-artifact-manifest/3",
+ "batch": "0515.prime-cycle/05.03",
+ "artifacts": [
+  {
+   "path": "labs/prime-cycle-pass01/prime_cycle.py",
+   "bytes": 77846,
+   "sha256": "19ede9c2125307595d0be867bae1a3cb71bf3db0515ad83e7c04d3333e17861d",
+   "vs_pack05_03": "changed"
+  },
+  {
+   "path": "labs/prime-cycle-pass01/README.md",
+   "bytes": 6204,
+   "sha256": "f78d3def65a4ed6c8e604d5b7cb63ebe935bfec427d796304b14752647561d67",
+   "vs_pack05_03": "changed"
+  },
+  {
+   "path": "labs/prime-cycle-pass01/tests/test_observation.py",
+   "bytes": 13347,
+   "sha256": "85c26b4fb7cd4ef3e56d4a8de97acb04ea591087549877dd69cad40d8f277946",
+   "vs_pack05_03": "new"
+  },
+  {
+   "path": "00.kernel/00.00.10.work/0515.prime-cycle/06.03.md",
+   "bytes": 7087,
+   "sha256": "cf45fd84513077de3359b043f68d6408160e64e6584fb8f363957798c7e64aec",
+   "vs_pack05_03": "new"
+  },
+  {
+   "path": "00.kernel/00.00.10.work/0515.prime-cycle/evidence/build05.03/CONTRACT.md",
+   "bytes": 6118,
+   "sha256": "df71f915e3c4726d0b0dff9202235d5bad859ad7ffb140d5872d66e0c3b0cccf",
+   "vs_pack05_03": "new"
+  },
+  {
+   "path": "00.kernel/00.00.10.work/0515.prime-cycle/evidence/build05.03/PRIME-USE.md",
+   "bytes": 3530,
+   "sha256": "7e62147456826712f5e9ba29b6c990dacc2acc0cd17feaa63f7de856110a977e",
+   "vs_pack05_03": "new"
+  },
+  {
+   "path": "00.kernel/00.00.10.work/0515.prime-cycle/evidence/build05.03/sample-cycle.json",
+   "bytes": 48023,
+   "sha256": "63f0dc26e53eca4db45ebd207045a71e7116eb5c0dcad0a70ec336bc7f522f2a",
+   "vs_pack05_03": "new"
+  },
+  {
+   "path": "00.kernel/00.00.10.work/0515.prime-cycle/evidence/build05.03/verification.json",
+   "bytes": 15376,
+   "sha256": "9a35ca2898ccec8c97f77d65220192448a3ea4350ba29095a9f0dd63e5a5f3f2",
+   "vs_pack05_03": "new"
+  },
+  {
+   "path": "labs/prime-cycle-pass01/tests/test_prime_cycle.py",
+   "bytes": 22078,
+   "sha256": "d1e6f45ca690b28ed6178daa0f64650b3f38e70784d12135c6d9797df9838d13",
+   "vs_pack05_03": "unchanged"
+  },
+  {
+   "path": "labs/prime-cycle-pass01/tests/test_binding_log.py",
+   "bytes": 19367,
+   "sha256": "199f89e66932529a9e268d4f3389f3ea579e4c01a268e07a6e1af97b11c91b0a",
+   "vs_pack05_03": "unchanged"
+  },
+  {
+   "path": "labs/prime-cycle-pass01/tests/fixture.py",
+   "bytes": 9313,
+   "sha256": "6b51dfbdd7744889906fae5d2367f44ac5e7e478c3ba54b12dde1661aa46468d",
+   "vs_pack05_03": "unchanged"
+  },
+  {
+   "path": "labs/prime-cycle-pass01/demo.py",
+   "bytes": 3639,
+   "sha256": "abdac14a03981cdb6df0bfa5974cf25f397c911408ed15a05cb550bc7d3959fc",
+   "vs_pack05_03": "unchanged"
+  }
+ ],
+ "changed": [
+  "labs/prime-cycle-pass01/prime_cycle.py",
+  "labs/prime-cycle-pass01/README.md"
+ ],
+ "new": [
+  "labs/prime-cycle-pass01/tests/test_observation.py",
+  "00.kernel/00.00.10.work/0515.prime-cycle/06.03.md",
+  "00.kernel/00.00.10.work/0515.prime-cycle/evidence/build05.03/CONTRACT.md",
+  "00.kernel/00.00.10.work/0515.prime-cycle/evidence/build05.03/PRIME-USE.md",
+  "00.kernel/00.00.10.work/0515.prime-cycle/evidence/build05.03/sample-cycle.json",
+  "00.kernel/00.00.10.work/0515.prime-cycle/evidence/build05.03/verification.json"
+ ],
+ "unchanged_bound_for_context": [
+  "labs/prime-cycle-pass01/tests/test_prime_cycle.py",
+  "labs/prime-cycle-pass01/tests/test_binding_log.py",
+  "labs/prime-cycle-pass01/tests/fixture.py",
+  "labs/prime-cycle-pass01/demo.py"
+ ],
+ "not_bound_here": [
+  "this manifest (self)",
+  "submission.md (declares this manifest's hash)"
+ ]
+}

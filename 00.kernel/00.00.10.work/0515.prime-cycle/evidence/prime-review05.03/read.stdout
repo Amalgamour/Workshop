@@ -1,0 +1,215 @@
+{
+ "attention_count": 0,
+ "authority": "none; this tool records supplied judgment and derives a view; it authenticates no actor and grants no work",
+ "book": "00.kernel/00.00.10.work",
+ "elected": null,
+ "journal": {
+  "dir": "D:\\librarian\\prime-cycle-out\\2026-10-30\\journal\\2026-10-30\\20261030T202212.116687Z-cec4d4a6e822",
+  "enabled": true,
+  "op_id": "20261030T202212.116687Z-cec4d4a6e822",
+  "root": "D:\\librarian\\prime-cycle-out\\2026-10-30\\journal"
+ },
+ "note": "derived from work-local review records and fresh reader observations; noncanonical; rebuildable",
+ "registration_sha256": "bf7a6ae66e0a3c10095392112a49ca56d63097886fbd13ba4a82ac94baa57b30",
+ "schema": "prime-cycle-view/3",
+ "source": {
+  "commit": "d19241074e8db09723ddf44e0900c839a62bc526",
+  "kind": "git-blob"
+ },
+ "summary": {
+  "awaiting_review": 0,
+  "basis": "current values only; historical declarations of stale or unusable reviews are not counted",
+  "completed_goals": 0,
+  "custody_unresolved": 0,
+  "finished_passes": 1,
+  "observation_failed": 0,
+  "open_holds": 0,
+  "reviewed_current": 1,
+  "stale_or_unusable": 0,
+  "works": 1
+ },
+ "works": [
+  {
+   "attention": [],
+   "custody": {
+    "basis": "live inspection at read time; custody is not acceptance",
+    "member": "0169.desk-state-preservation-0520",
+    "receipt_sha256": "94a5fe21286c95187c456c28ebd45a95f7ed2faaa06da6779d9ce220197424bc",
+    "retrospective": false,
+    "role": "primary-current-candidate",
+    "state": "present",
+    "state_reason": null
+   },
+   "disposition": "accepted",
+   "goal": {
+    "goal_id": "deskstate-current-use",
+    "goal_sha256": "4332d2abc1d6cb15b3410cb31a4c3bd95a82df11c3c680d9ec02fef2935551ec"
+   },
+   "goal_terminal": "open",
+   "historical": null,
+   "holds": [],
+   "latest_review": {
+    "author": "Codex Prime",
+    "current": true,
+    "effective": "continue",
+    "outcome": "continue",
+    "record_sha256": "aea93db545f1c5f57790b82cd543688d7a93d6fbb0db7b652f91191122c913df",
+    "review_id": "05.20-r1"
+   },
+   "next_action": {
+    "action_id": "review-current-desk-integration",
+    "author": "Codex Prime",
+    "authorized_in_grant": false,
+    "record_sha256": "aea93db545f1c5f57790b82cd543688d7a93d6fbb0db7b652f91191122c913df",
+    "source": "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-cycle-reviews/05.20/05.20-r1/record.json",
+    "text": "Discuss the next bounded connection to a current desk record before any canonical adoption or new feature build."
+   },
+   "next_action_guard": [],
+   "observation": {
+    "diagnostic": null,
+    "kind": null,
+    "part": null,
+    "state": "observed"
+   },
+   "page": "00.kernel/00.00.10.work/0508.return-capture/05.20.md",
+   "pass": "05.20",
+   "pass_state": "reviewed",
+   "pass_terminal": "finished",
+   "reader": {
+    "ambiguities": [
+     "legacy-ambiguous-heading",
+     "legacy-revision-withheld",
+     "quoted-accepted-unbound",
+     "duplicate-release"
+    ],
+    "attention": [],
+    "exit": 1,
+    "failed": null,
+    "stdout_sha256": "54c663ed017a2985ced58bf56b20b96b84224b2f9f2da16342b2b81cf397b936"
+   },
+   "reviews": {
+    "committed": [
+     "05.20-r1"
+    ],
+    "heads": [
+     "05.20-r1"
+    ],
+    "invalid": [],
+    "partial": []
+   },
+   "source": {
+    "commit": "d19241074e8db09723ddf44e0900c839a62bc526",
+    "kind": "git-blob",
+    "page_sha256": "306dcd15d9987fa9bb0ff511b61e663efd8e2b1f7e0490eaeabf2fedc6032b85"
+   },
+   "template": {
+    "attribution": {
+     "actor_label": null,
+     "evidence": null,
+     "role": "prime"
+    },
+    "binding": {
+     "direction": {
+      "agreement_sha256": "c06e15bcb2a3e4b8a79095c9c91b7fbf558927ec0a3a819c58d735c589718097",
+      "book": "00.kernel/00.00.10.work",
+      "fields": {
+       "director_required": "016dac7c5cf343aa0ee70e66377dc3a7ed340897de48e37a4b9eef69c6a924c9",
+       "finish_criteria": "5d793877982a216618f5e73dfebb6490e18df01202db6789ad574549bd7b4169",
+       "goal": "344587ed228b6213426b442200090a463175c187420f565ccb62076e2931b128",
+       "prime_discretion": "a3a9f78355069816c916573fc1d01fc0ab5f9e4b6d3891b0170e1eeec8621ba6",
+       "recorded_decisions": "18fc7364a79f58ea9398039c995a2d0d984008e9b76bab5bfdd71d83d0ed4e78",
+       "scope": "8d2516628d3b7a27111a054e9ec1a383afe6afaee29f2bdaf811baa553ceb9eb"
+      },
+      "review_location": "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-cycle-reviews/05.20",
+      "schema": "prime-cycle-direction/1"
+     },
+     "expected_prior": {
+      "record_sha256": "aea93db545f1c5f57790b82cd543688d7a93d6fbb0db7b652f91191122c913df",
+      "review_id": "05.20-r1"
+     },
+     "fingerprint": "84cf21c301cd6ff3f4242eb7860811a308c12dd657b8dc4aa94189f829aac9ce",
+     "goal": {
+      "goal_id": "deskstate-current-use",
+      "goal_sha256": "4332d2abc1d6cb15b3410cb31a4c3bd95a82df11c3c680d9ec02fef2935551ec"
+     },
+     "member": "0169.desk-state-preservation-0520",
+     "member_role": "primary-current-candidate",
+     "origin": {
+      "batch": "05.20",
+      "book": "00.00.10.work",
+      "page": "0508.return-capture"
+     },
+     "page": "00.kernel/00.00.10.work/0508.return-capture/05.20.md",
+     "pass": "05.20",
+     "receipt_sha256": "94a5fe21286c95187c456c28ebd45a95f7ed2faaa06da6779d9ce220197424bc",
+     "retrospective": false,
+     "source": {
+      "commit": "d19241074e8db09723ddf44e0900c839a62bc526",
+      "kind": "git-blob",
+      "page_bytes": 7096,
+      "page_sha256": "306dcd15d9987fa9bb0ff511b61e663efd8e2b1f7e0490eaeabf2fedc6032b85"
+     },
+     "submission_id": "grok-2-0508-0520",
+     "work_id": "deskstate-0520"
+    },
+    "judgment": {
+     "answers": [],
+     "design_fork": null,
+     "disposition": null,
+     "finding": null,
+     "goal": {
+      "evidence": [],
+      "goal_id": "deskstate-current-use",
+      "goal_sha256": "4332d2abc1d6cb15b3410cb31a4c3bd95a82df11c3c680d9ec02fef2935551ec",
+      "terminal": null
+     },
+     "holds": [],
+     "next_action": null,
+     "outcome": null,
+     "pass_terminal": null,
+     "reasons": [],
+     "sections": {
+      "affected": null,
+      "assumptions": null,
+      "consequences": null,
+      "exploration": null,
+      "findings_account": null,
+      "finish_assessments": null,
+      "for_model": null,
+      "issue": null,
+      "learning": null,
+      "limits": null,
+      "next_bounded_action": null,
+      "open_questions": null,
+      "options": null,
+      "outcome_evidence": null,
+      "preservation": null,
+      "prime_finding": null,
+      "proposed_plan": null,
+      "question": null,
+      "recommendation": null,
+      "remaining_choices": null,
+      "return_result": null,
+      "tests_note": null,
+      "tests_passed": null,
+      "within_direction": null
+     },
+     "semantic_conflict": null,
+     "source_refs": [],
+     "unresolved": []
+    },
+    "recovers": null,
+    "review_id": "05.20-r2",
+    "schema": "prime-cycle-decision/2",
+    "supersedes": {
+     "record_sha256": "aea93db545f1c5f57790b82cd543688d7a93d6fbb0db7b652f91191122c913df",
+     "review_id": "05.20-r1"
+    }
+   },
+   "unresolved": [
+    "An explicitly maintained current desk record and integration remain unbuilt."
+   ],
+   "work_id": "deskstate-0520"
+  }
+ ]
+}

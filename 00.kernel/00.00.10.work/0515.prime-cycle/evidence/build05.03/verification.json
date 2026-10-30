@@ -1,0 +1,411 @@
+{
+ "schema": "prime-cycle-verification/3",
+ "batch": "0515.prime-cycle/05.03",
+ "branch": "workshop",
+ "head": "ea7ee1fff053ca4a5be70a5328c903aa895f537c",
+ "pins": {
+  "batch_observe": {
+   "path": "batch-observation-pass01/batch_observe.py",
+   "pinned": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4",
+   "actual": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4",
+   "match": true,
+   "clean_vs_HEAD": true
+  },
+  "return_inspect": {
+   "path": "return-capture-pass01/return_inspect.py",
+   "pinned": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+   "actual": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+   "match": true,
+   "clean_vs_HEAD": true
+  },
+  "return_capture": {
+   "path": "return-capture-pass01/return_capture.py",
+   "pinned": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+   "actual": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+   "match": true,
+   "clean_vs_HEAD": true
+  },
+  "prime_review": {
+   "path": "prime-review-pass01/prime_review.py",
+   "pinned": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+   "actual": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+   "match": true,
+   "clean_vs_HEAD": true
+  },
+  "review_packet": {
+   "path": "review-packet-pass01/review_packet.py",
+   "pinned": "f658cbe48a3a76b908e5af0bcf0b7a68abc90571d983ca785e36667268f6ee72",
+   "actual": "f658cbe48a3a76b908e5af0bcf0b7a68abc90571d983ca785e36667268f6ee72",
+   "match": true,
+   "clean_vs_HEAD": true
+  }
+ },
+ "runs": [
+  {
+   "id": "repro-before",
+   "argv": "python -B <scratch>/repro.py D:/Git/lib-build/labs <out> (unchanged 05.02 code)",
+   "exit": 0,
+   "tool_sha256": "dd5319a46a88e05020ee7b0715b8edca26031066c3f2ee867f590a6056581338",
+   "states": {
+    "missing adapter": {
+     "A": "no-return",
+     "N": "no-return"
+    },
+    "complete labs: captured return and genuinely absent return": {
+     "A": "awaiting-review",
+     "N": "no-return"
+    },
+    "completed review, then observation fails": {
+     "A": "review-stale",
+     "record_again_exit": 2,
+     "record_again": "refused: observation failed: reader exit 2"
+    }
+   }
+  },
+  {
+   "log": "run1-test_prime_cycle-dev.txt",
+   "log_sha256": "8b10a5fcd37000520289815a0e23421721bf72d8959247fe2e1a9eacaf16357f",
+   "tail": [
+    "",
+    "OK",
+    "exit 0"
+   ],
+   "id": "run1a",
+   "argv": "python -B -X dev labs/prime-cycle-pass01/tests/test_prime_cycle.py",
+   "exit": 0,
+   "result": "OK, 14 existing tests, first run after the change"
+  },
+  {
+   "log": "run1-test_binding_log-dev.txt",
+   "log_sha256": "e4e52c275831916101493194bc4e8f8a9262d540c00ec1941ffb23cc3822cb3b",
+   "tail": [
+    "",
+    "OK",
+    "exit 0"
+   ],
+   "id": "run1b",
+   "argv": "python -B -X dev labs/prime-cycle-pass01/tests/test_binding_log.py",
+   "exit": 0,
+   "result": "OK, 12 existing tests, first run after the change"
+  },
+  {
+   "log": "run1-test_observation-dev.txt",
+   "log_sha256": "1dd53a7dc109866963b4c6e4fb3ac65f6b7118a30f0a41b9a250e466bf96416a",
+   "tail": [
+    "",
+    "FAILED (failures=2)",
+    "exit 1"
+   ],
+   "id": "run1c",
+   "argv": "python -B -X dev labs/prime-cycle-pass01/tests/test_observation.py -v",
+   "exit": 1,
+   "result": "FAILED (failures=2) of 6",
+   "first_failures": [
+    "test_25: expected the 'full output' line in a text read made WITHOUT a journal; the tool correctly said 'not retained'. Test error, corrected.",
+    "test_27: appending a byte to receipt.json does not break custody (the receipt is the root of trust; the inspector reported complete with a new receipt). Test assumption wrong; changed to a payload-blob tamper, which the inspector reports incomplete (probed directly)."
+   ]
+  },
+  {
+   "log": "run2-test_observation-dev.txt",
+   "log_sha256": "4493723d96670cd9f1abac6c857cb846998130797e6a65cb10593e1140b452a3",
+   "tail": [
+    "",
+    "FAILED (failures=1)",
+    "exit 1"
+   ],
+   "id": "run2",
+   "argv": "python -B -X dev labs/prime-cycle-pass01/tests/test_observation.py -v",
+   "exit": 1,
+   "result": "FAILED (failures=1) of 6",
+   "first_failures": [
+    "test_27: my guess that custody.role would be None; the view correctly shows the reader role 'incomplete'. Test expectation corrected."
+   ]
+  },
+  {
+   "log": "run3-test_observation-dev.txt",
+   "log_sha256": "cc674b09f48cf96b08dfb80885212b49a343002294142371b1e471ffe2928c19",
+   "tail": [
+    "",
+    "OK",
+    "exit 0"
+   ],
+   "id": "run3",
+   "argv": "python -B -X dev labs/prime-cycle-pass01/tests/test_observation.py -v",
+   "exit": 0,
+   "result": "OK, 6 tests"
+  },
+  {
+   "id": "repro-after",
+   "argv": "python -B <scratch>/repro.py D:/Git/lib-build/labs <out> (final code)",
+   "exit": 0,
+   "tool_sha256": "19ede9c2125307595d0be867bae1a3cb71bf3db0515ad83e7c04d3333e17861d",
+   "states": {
+    "missing adapter": {
+     "A": "observation-failed",
+     "N": "observation-failed"
+    },
+    "complete labs: captured return and genuinely absent return": {
+     "A": "awaiting-review",
+     "N": "no-return"
+    },
+    "completed review, then observation fails": {
+     "A": "observation-failed",
+     "record_again_exit": 2,
+     "record_again": "refused: observation failed (source): reader-exit-2: missing clerk_adapter.py; not retained: no --journal-root on this operation; nothing was recorded"
+    }
+   }
+  },
+  {
+   "log": "final-test_prime_cycle-dev.txt",
+   "log_sha256": "bcf6229681152b65a22c64a6bf2c30871f3327e7805d271dffab4defbb8be766",
+   "tail": [
+    "",
+    "OK",
+    "exit 0"
+   ],
+   "id": "final-test_prime_cycle-dev",
+   "argv": "python -B -X dev labs/prime-cycle-pass01/tests/test_prime_cycle.py",
+   "exit": 0,
+   "result": "final bytes"
+  },
+  {
+   "log": "final-test_prime_cycle-default.txt",
+   "log_sha256": "f56956d949d8602cdc1161bbb1e68e5e18dce0eea448c929fa926915b2222bf8",
+   "tail": [
+    "",
+    "OK",
+    "exit 0"
+   ],
+   "id": "final-test_prime_cycle-default",
+   "argv": "python -B labs/prime-cycle-pass01/tests/test_prime_cycle.py",
+   "exit": 0,
+   "result": "final bytes"
+  },
+  {
+   "log": "final-test_binding_log-dev.txt",
+   "log_sha256": "cbaa5c68df2dd29e75a402e8a7a4e7ff502d052bd152103a825c0e1b9cf108e4",
+   "tail": [
+    "",
+    "OK",
+    "exit 0"
+   ],
+   "id": "final-test_binding_log-dev",
+   "argv": "python -B -X dev labs/prime-cycle-pass01/tests/test_binding_log.py",
+   "exit": 0,
+   "result": "final bytes"
+  },
+  {
+   "log": "final-test_binding_log-default.txt",
+   "log_sha256": "01810223f5ae013ceed5006a847ef80c0bbdc8a714d4c4f12b58061775dee3df",
+   "tail": [
+    "",
+    "OK",
+    "exit 0"
+   ],
+   "id": "final-test_binding_log-default",
+   "argv": "python -B labs/prime-cycle-pass01/tests/test_binding_log.py",
+   "exit": 0,
+   "result": "final bytes"
+  },
+  {
+   "log": "final-test_observation-dev.txt",
+   "log_sha256": "23c9d448b2e5d106d8e5b375444f2ab7152b16888ae0116669f1a9c6413ad5f9",
+   "tail": [
+    "",
+    "OK",
+    "exit 0"
+   ],
+   "id": "final-test_observation-dev",
+   "argv": "python -B -X dev labs/prime-cycle-pass01/tests/test_observation.py",
+   "exit": 0,
+   "result": "final bytes"
+  },
+  {
+   "log": "final-test_observation-default.txt",
+   "log_sha256": "9c4ae3df101878501d0b1b8d33630640a241db7730938def3dcb19b8ca62edc1",
+   "tail": [
+    "",
+    "OK",
+    "exit 0"
+   ],
+   "id": "final-test_observation-default",
+   "argv": "python -B labs/prime-cycle-pass01/tests/test_observation.py",
+   "exit": 0,
+   "result": "final bytes"
+  },
+  {
+   "log": "mutations.txt",
+   "log_sha256": "656b7b893ee2dc47c6b06531d8924967b2c442db6d3ba36921a407702eb5eb84",
+   "tail": [
+    "binding-check-removed ['TestFailedVersusAbsent.test_25_missing_adapter_is_observation_failed_with_retained_diagnostic']: exit 1; failing ['test_25_missing_adapter_is_observation_failed_with_retained_diagnostic']",
+    "custody-failure-not-refused ['TestFailedVersusAbsent.test_28_failed_custody_observation_is_failed_not_absent']: exit 1; failing ['test_28_failed_custody_observation_is_failed_not_absent']",
+    "text-unbounded ['TestFailedVersusAbsent.test_26_invalid_reader_results_are_classified_and_bounded']: exit 1; failing ['test_26_invalid_reader_results_are_classified_and_bounded']"
+   ],
+   "id": "mutations",
+   "argv": "python -B <scratch>/mutate.py (disposable copies)",
+   "exit": 0,
+   "result": "7 of 7 caught; the module docstring and README were edited during this run, which changes no behaviour",
+   "lines": [
+    "failure-not-precedent ['TestHistoryUnderFailure']: exit 1; failing ['test_29_completed_review_and_hold_under_failed_observation']",
+    "failure-shown-as-no-return ['TestFailedVersusAbsent.test_25_missing_adapter_is_observation_failed_with_retained_diagnostic']: exit 1; failing ['test_25_missing_adapter_is_observation_failed_with_retained_diagnostic']",
+    "stderr-dropped ['TestFailedVersusAbsent.test_25_missing_adapter_is_observation_failed_with_retained_diagnostic']: exit 1; failing ['test_25_missing_adapter_is_observation_failed_with_retained_diagnostic']",
+    "unresolved-as-absent ['TestFailedVersusAbsent.test_27_observed_absent_present_and_unresolved_stay_distinct']: exit 1; failing ['test_27_observed_absent_present_and_unresolved_stay_distinct']",
+    "binding-check-removed ['TestFailedVersusAbsent.test_25_missing_adapter_is_observation_failed_with_retained_diagnostic']: exit 1; failing ['test_25_missing_adapter_is_observation_failed_with_retained_diagnostic']",
+    "custody-failure-not-refused ['TestFailedVersusAbsent.test_28_failed_custody_observation_is_failed_not_absent']: exit 1; failing ['test_28_failed_custody_observation_is_failed_not_absent']",
+    "text-unbounded ['TestFailedVersusAbsent.test_26_invalid_reader_results_are_classified_and_bounded']: exit 1; failing ['test_26_invalid_reader_results_are_classified_and_bounded']"
+   ]
+  },
+  {
+   "log": "colab-selftest.txt",
+   "log_sha256": "f2e3293cfe37e6660ce282060e2eaded9d0469c9b18209ffaba32644dcceb516",
+   "tail": [
+    " }",
+    "}",
+    "exit 0"
+   ],
+   "id": "colab",
+   "argv": "python -B -X dev labs/prime-cycle-pass01/colab/selftest.py",
+   "exit": 0,
+   "result": "unchanged: correct 0 failures; unjournalled fails only the journal check"
+  },
+  {
+   "log": "demo-dev.txt",
+   "log_sha256": "5eef41a56bbf7836546bd64a6598dfbedc503634b5baa82732a53ca17b869749",
+   "tail": [
+    "per-operation durations only; incomplete operations have unknown duration; no totals or productivity are derived",
+    "",
+    "exit 0"
+   ],
+   "id": "demo",
+   "argv": "python -B -X dev labs/prime-cycle-pass01/demo.py",
+   "exit": 0,
+   "result": "unchanged step exits 1,0,0,0,1,0,1,1,0"
+  },
+  {
+   "log": "sample-stdout-1-old-after.txt",
+   "log_sha256": "4f0e9f168a686a85712113e97647248da5ba273eb1450868027bc864c96daf84",
+   "tail": [
+    "[('1 read --json, clerk_adapter.py missing', 1), ('2 read text, clerk_adapter.py missing', 1), ('3 read --json, complete labs', 1), ('4 record while the reader cannot run: refused', 2), ('5 record on complete labs', 0), ('6 packet with coverage', 0), ('7 read text, complete labs', 0), ('8 read text after the review, clerk_adapter.py missing', 1), ('9 day view (not logged)', 0)]",
+    "14 retained files",
+    "exit 0"
+   ],
+   "id": "sample1",
+   "argv": "python -B -X dev <scratch>/sample.py <scratch> <out>",
+   "exit": 0,
+   "result": "superseded: embedded the first after-reproduction (before the one_line trim fix); the file was regenerated"
+  },
+  {
+   "log": "sample-stdout.txt",
+   "log_sha256": "4f0e9f168a686a85712113e97647248da5ba273eb1450868027bc864c96daf84",
+   "tail": [
+    "[('1 read --json, clerk_adapter.py missing', 1), ('2 read text, clerk_adapter.py missing', 1), ('3 read --json, complete labs', 1), ('4 record while the reader cannot run: refused', 2), ('5 record on complete labs', 0), ('6 packet with coverage', 0), ('7 read text, complete labs', 0), ('8 read text after the review, clerk_adapter.py missing', 1), ('9 day view (not logged)', 0)]",
+    "14 retained files",
+    "exit 0"
+   ],
+   "id": "sample2",
+   "argv": "python -B -X dev <scratch>/sample.py <scratch> evidence/build05.03/sample-cycle.json",
+   "exit": 0
+  }
+ ],
+ "skips": [
+  "no real link or junction journal-root test (privilege on this host; is_link reused unchanged)",
+  "reserved-only custody (role reserved -> absent) is mapped by contract but has no fixture test: the fixture helper reserves and captures together"
+ ],
+ "final_hashes": [
+  "19ede9c2125307595d0be867bae1a3cb71bf3db0515ad83e7c04d3333e17861d *labs/prime-cycle-pass01/prime_cycle.py",
+  "f78d3def65a4ed6c8e604d5b7cb63ebe935bfec427d796304b14752647561d67 *labs/prime-cycle-pass01/README.md",
+  "6b51dfbdd7744889906fae5d2367f44ac5e7e478c3ba54b12dde1661aa46468d *labs/prime-cycle-pass01/tests/fixture.py",
+  "199f89e66932529a9e268d4f3389f3ea579e4c01a268e07a6e1af97b11c91b0a *labs/prime-cycle-pass01/tests/test_binding_log.py",
+  "85c26b4fb7cd4ef3e56d4a8de97acb04ea591087549877dd69cad40d8f277946 *labs/prime-cycle-pass01/tests/test_observation.py",
+  "d1e6f45ca690b28ed6178daa0f64650b3f38e70784d12135c6d9797df9838d13 *labs/prime-cycle-pass01/tests/test_prime_cycle.py"
+ ],
+ "protected_status": {
+  "00.kernel/00.live.md": {
+   "exists": true,
+   "status": ""
+  },
+  "00.kernel/00.00.10.work/0170.prime-cycle-integration-0501": {
+   "exists": true,
+   "status": ""
+  },
+  "00.kernel/00.00.10.work/0171.prime-cycle-binding-log-0502": {
+   "exists": true,
+   "status": ""
+  },
+  "00.kernel/00.00.10.work/0515.prime-cycle/06.01.md": {
+   "exists": true,
+   "status": ""
+  },
+  "00.kernel/00.00.10.work/0515.prime-cycle/06.02.md": {
+   "exists": true,
+   "status": ""
+  },
+  "00.kernel/00.00.10.work/0515.prime-cycle/evidence/build05.01": {
+   "exists": true,
+   "status": ""
+  },
+  "00.kernel/00.00.10.work/0515.prime-cycle/evidence/build05.02": {
+   "exists": true,
+   "status": ""
+  },
+  "00.kernel/00.00.10.work/0703.prime-replay": {
+   "exists": true,
+   "status": ""
+  },
+  "colab/labs/prime-replay-pass01": {
+   "exists": true,
+   "status": ""
+  },
+  "00.kernel/00.00.10.work/0516.replay-readiness": {
+   "exists": false,
+   "status": ""
+  },
+  "labs/batch-observation-pass01": {
+   "exists": true,
+   "status": ""
+  },
+  "labs/return-capture-pass01": {
+   "exists": true,
+   "status": ""
+  },
+  "labs/prime-review-pass01": {
+   "exists": true,
+   "status": ""
+  },
+  "labs/review-packet-pass01": {
+   "exists": true,
+   "status": ""
+  },
+  "labs/prime-support-pass01": {
+   "exists": true,
+   "status": ""
+  },
+  "labs/prime-cycle-pass01/demo.py": {
+   "exists": true,
+   "status": ""
+  },
+  "labs/prime-cycle-pass01/colab": {
+   "exists": true,
+   "status": ""
+  },
+  "labs/prime-cycle-pass01/tests/test_prime_cycle.py": {
+   "exists": true,
+   "status": ""
+  },
+  "labs/prime-cycle-pass01/tests/test_binding_log.py": {
+   "exists": true,
+   "status": ""
+  },
+  "labs/prime-cycle-pass01/tests/fixture.py": {
+   "exists": true,
+   "status": ""
+  }
+ },
+ "protected_note": "untracked labs/desk-state-pass01 __pycache__ (2026-10-29) predates this batch; demo.py, colab/, fixture.py and the two existing test files are unchanged",
+ "staged": [],
+ "manual_duties": [
+  "Prime: review and pin the new prime_cycle.py identity before 0516 packages any bundle",
+  "Prime: decide any default packet change in 0516 (coverage is now visible, gathering unchanged)"
+ ],
+ "label": "Synthetic disposable checks only; no model run, no performance claim"
+}

@@ -1,0 +1,77 @@
+# Notes — reader diagnostics and the observation-failed state (0515.prime-cycle 05.03)
+Date: 2026-10-30
+Recorder: claude-opus-5-5, the executor this page names as "Claude Builder"
+State: written FIRST, before the contract and any code change. 06.01, 06.02, build05.01/05.02, 0170, 0171 and the first replay are not changed.
+
+## Inputs
+I01. **pack05.03:** 19 of 19 snapshots match their pins, and live matches all 19, at workshop b876c7a. Source base 19fc336.
+- The tool under correction is the 05.02 final: prime_cycle.py dd5319a4…, and test_binding_log.py and test_prime_cycle.py as pinned.
+- An untouched copy is kept outside the repository.
+I02. **Prime's review 0703/06.03, C-03 and C-04, plus REPORT §Repair work.**
+- Distinguish observation-failed or unknown from verified absent custody.
+- Keep actionable diagnostics.
+- Do not broaden packet gathering or build 0516.
+- Codex's 05.01 return reports the same two symptoms independently.
+I03. **The reader's custody roles** (batch_observe.py, pinned 8bea1817…, unchanged):
+- the inspector's statuses `complete`, `missing`, `reserved`, `incomplete` and `refused`;
+- `observation-failed` for a member whose inspection could not run or parse;
+- after classification, `primary-current-candidate`, `ambiguous-primary-candidate`, `same-page-retrospective`, `secondary-historical`, `origin-mismatch`, `cross-book-origin`, `page-unidentified`, `not-observed` (no members book) and `assignment-mention`.
+I04. **Reproduced on the unchanged code** (repro-before, kept), on disposable fixtures:
+- **Missing `clerk_adapter.py`:** the reader exits 2 with stderr `missing clerk_adapter.py`. Both a captured work and a page with no return then read `no-return`, with only "reader exit 2". The stderr is dropped in `derive()`.
+- **With complete labs:** the absent case is `no-return` and the captured case is `awaiting-review` (correct).
+- **A completed review, then failed observation:** the view says `review-stale … binds a different page, member_role, receipt…`. The evidence did not change; it could not be observed. The historical shape and the zero counts were already right; the label and cause were wrong.
+- **Record** refused with only "observation failed: reader exit 2".
+
+## Choices
+C01. **One observation outcome per work**, `observation`, with `state` and `part`:
+- `state: observed`;
+- `state: failed` with `part: source`: the reader failed, or its report is unusable;
+- `state: failed` with `part: custody`: the named member's inspection failed.
+
+Failures override review status: `pass_state` becomes `observation-failed`. A head review's declarations move to `historical`, with reason `observation-failed`. They are never shown as stale or as current.
+C02. **Custody states, on a successful observation only:**
+- `present`: `primary-current-candidate`.
+- `absent`: no member named and none registered; `missing` or `reserved`; or an origin-family role that is not this page's current return (`origin-mismatch`, `cross-book-origin`, `secondary-historical`, `same-page-retrospective`). Only this gives `no-return`.
+- `unresolved`: `incomplete`, `refused`, `ambiguous-primary-candidate`, `page-unidentified`, `not-observed`; or a registered member the page does not name. This gives a new `pass_state: custody-unresolved`.
+
+With a head review, the existing stale rules apply to present, absent and unresolved custody, because the custody really was observed.
+C03. **Diagnostics.** On failure, keep the reader exit, stdout and stderr sha256 and byte counts, and a bounded excerpt: at most 2000 characters in JSON, at most 240 characters on one line in text, control characters escaped. The source is named (`batch_observe stderr`).
+
+With `--journal-root`, the full child stdout and stderr are written exclusive-create into that operation's journal folder, and the view and the record refusal give their path and sha. Without a journal, the view says they were not retained.
+
+Record's refusal names the part, the kind and the excerpt.
+C04. **Invalid bindings.** Record refuses, before observing, a template whose binding has no observed source identity: `source.page_sha256` must be 64 hex, and `page_bytes` an int. The message is "template made from a failed read; read again". The existing rules stay unchanged: freshness, fingerprint, direction, and accepted needing a receipt.
+C05. **Packet coverage, exposed but not broadened.** After assembly, `packet` reads the packet's own `packet.json` and `custody.json`. It reports:
+- the sources requested and gathered (id, kind, status, bytes, sha);
+- the artifact checks requested;
+- the member's captured payloads, by logical path, that this packet did not gather;
+- whether the page was included (only for git-blob registrations).
+
+This goes in the text output and the journal result. The request is unchanged, and nothing is written into the packet folder.
+C06. **Schemas.** The view becomes `prime-cycle-view/3`: it adds `observation`, `custody.state`, the pass states `observation-failed` and `custody-unresolved`, and summary counts `observation_failed` and `custody_unresolved`. The decision (`/2`) and record (`/2`) schemas are unchanged, and the dependency pins are unchanged.
+C07. **Scope.**
+- Code, tests and docs change in labs/prime-cycle-pass01 only. The demo and the Colab materials are left alone: their exposed states do not change on complete fixtures.
+- No 0516 work, no Git writes, no model runs.
+
+## Disposition — 2026-10-30, claude-opus-5-5 (Claude Builder)
+C01-C07 were built as written. Changes made during the build:
+- **`one_line()` trims before escaping,** so an excerpt never ends in a literal `\n`. The first after-reproduction showed the flaw.
+- **Packet coverage** reads the packet's own `packet.json` and `custody.json` after assembly. Nothing is added to the packet folder.
+
+**First-run failures**, kept as runs in verification.json; all were test errors, and the tool was right:
+- run1 test_25 expected a "full output" path from a read made without a journal.
+- run1 test_27 assumed appending a byte to receipt.json breaks custody. The receipt is the root of trust, so the inspector reports complete with a new receipt; I probed it directly. The test now tampers a payload blob, which reports incomplete.
+- run2 test_27 guessed `custody.role` None; the view correctly shows `incomplete`.
+
+**Results:**
+- 14 + 12 existing and 6 new tests OK on the final bytes, in dev and default mode;
+- 7 targeted mutations, all caught;
+- the Colab self-test and the demo are unchanged;
+- the reproduction now gives `observation-failed` for a missing adapter, `no-return` only for observed absence, and historical (not stale) declarations under a failure.
+
+**Not done:**
+- No real symlink test.
+- No reserved-only fixture: the helper reserves and captures together, so that mapping is contract-only.
+- No 0516 work, and no change to the default packet gathering.
+
+**Overflow:** the custody-part diagnostic has only the inspector's exit and attention, because the reader passes no inspector stderr. Exposing more needs a reader change, which is out of scope.
