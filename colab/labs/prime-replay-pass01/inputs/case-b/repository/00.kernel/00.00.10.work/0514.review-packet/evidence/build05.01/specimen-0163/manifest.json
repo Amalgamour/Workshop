@@ -1,0 +1,104 @@
+{
+  "files": [
+    {
+      "bytes": 2963,
+      "path": "custody.json",
+      "sha256": "a93cf66955aaa8d73424bb6f2158cd3875f2012dea6d202a4d16dc0f8b45edf9"
+    },
+    {
+      "bytes": 0,
+      "path": "custody-stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 791,
+      "path": "helper-verify.txt",
+      "sha256": "c1675606f9daafdc9496dc17cee2b624da10643a13b65a8cb5d1fe195b5c550f"
+    },
+    {
+      "bytes": 0,
+      "path": "helper-verify-stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 6655,
+      "path": "sources/0001-return-text.blob",
+      "sha256": "742beefbf856429ce3dfcf59e675a06f618c1b75b74f8f09b87c67dc6575198e"
+    },
+    {
+      "bytes": 299,
+      "path": "sources/0002-receipt.blob",
+      "sha256": "7efb07af0f08d3cbaf1b490e97889bb3caa601b932762fcf32820854e45f7e4f"
+    },
+    {
+      "bytes": 2069,
+      "path": "sources/0003-capture-manifest.blob",
+      "sha256": "39d9404e159b8d04a865387724b1e4f8cae62c5261f81b5347987f7b89d37a6a"
+    },
+    {
+      "bytes": 937,
+      "path": "sources/0004-reservation.blob",
+      "sha256": "04e5152c777ff175da3a35f621f04d6b6d270f79c98e6cd426662327e0ccb47a"
+    },
+    {
+      "bytes": 14030,
+      "path": "sources/0005-artifact-manifest.blob",
+      "sha256": "da06ab6cfdee15497c1d19394fb9e22433e5c1db6623a3fd8462d20749274634"
+    },
+    {
+      "bytes": 57915,
+      "path": "packet.json",
+      "sha256": "c6eeaa6bfa5a1c03577152f6d4b4df5a33601fb7f67ef58bbbace23fbb5599ad"
+    },
+    {
+      "bytes": 25501,
+      "path": "PACKET.md",
+      "sha256": "2443bc01d88d00590adccc47fd6749be75b484e083d6aa7ff3b81edf2dea0c18"
+    }
+  ],
+  "schema": "review-packet-manifest/1",
+  "sources": [
+    {
+      "bytes": 6655,
+      "embedded": true,
+      "id": "return-text",
+      "sha256": "742beefbf856429ce3dfcf59e675a06f618c1b75b74f8f09b87c67dc6575198e",
+      "snapshot": "sources/0001-return-text.blob"
+    },
+    {
+      "bytes": 299,
+      "embedded": true,
+      "id": "receipt",
+      "sha256": "7efb07af0f08d3cbaf1b490e97889bb3caa601b932762fcf32820854e45f7e4f",
+      "snapshot": "sources/0002-receipt.blob"
+    },
+    {
+      "bytes": 2069,
+      "embedded": true,
+      "id": "capture-manifest",
+      "sha256": "39d9404e159b8d04a865387724b1e4f8cae62c5261f81b5347987f7b89d37a6a",
+      "snapshot": "sources/0003-capture-manifest.blob"
+    },
+    {
+      "bytes": 937,
+      "embedded": true,
+      "id": "reservation",
+      "sha256": "04e5152c777ff175da3a35f621f04d6b6d270f79c98e6cd426662327e0ccb47a",
+      "snapshot": "sources/0004-reservation.blob"
+    },
+    {
+      "bytes": 14030,
+      "embedded": true,
+      "id": "artifact-manifest",
+      "sha256": "da06ab6cfdee15497c1d19394fb9e22433e5c1db6623a3fd8462d20749274634",
+      "snapshot": "sources/0005-artifact-manifest.blob"
+    },
+    {
+      "bytes": null,
+      "embedded": false,
+      "id": "manifest-at-claimed-head",
+      "sha256": null,
+      "snapshot": null
+    }
+  ]
+}

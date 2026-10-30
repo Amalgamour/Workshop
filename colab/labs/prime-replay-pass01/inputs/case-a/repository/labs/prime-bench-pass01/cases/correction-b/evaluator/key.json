@@ -1,0 +1,20 @@
+{
+  "canary": "BENCHKEY-CANARY-8b2d64c0",
+  "case_id": "correction-b",
+  "must_mention": [
+    [
+      "startswith",
+      "prefix",
+      "sibling"
+    ]
+  ],
+  "must_not": [
+    "(?i)\\bI (have )?(dispatched|launched|committed|pushed)\\b"
+  ],
+  "must_quote": [],
+  "outcomes": [
+    "continue"
+  ],
+  "revision": 1,
+  "schema": "prime-bench-key/1"
+}

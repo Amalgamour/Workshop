@@ -1,0 +1,130 @@
+{
+  "label": "Setup only; no participant judgment or target tests",
+  "results": [
+    {
+      "argv": [
+        "D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\replay_lab.py",
+        "verify"
+      ],
+      "exit": 0,
+      "stdout": "seal verified 175 files\r\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\replay_lab.py",
+        "prepare",
+        "--model",
+        "codex"
+      ],
+      "exit": 0,
+      "stdout": "D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\runs\\codex\r\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\replay_lab.py",
+        "command",
+        "--model",
+        "codex",
+        "--run",
+        "02-case-a-assisted",
+        "--",
+        "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\assistance\\labs\\prime-cycle-pass01\\prime_cycle.py",
+        "read",
+        "--registration",
+        "D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\runs\\codex\\02-case-a-assisted\\registration.json",
+        "--templates",
+        "D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\runs\\codex\\02-case-a-assisted\\out\\templates",
+        "--journal-root",
+        "D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\runs\\codex\\02-case-a-assisted\\out\\journal",
+        "--caller",
+        "SETUP SMOKE, NOT PARTICIPANT"
+      ],
+      "exit": 1,
+      "stdout": "operation D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\runs\\codex\\02-case-a-assisted\\operations\\173823ea624c48babd9394b770c2f558 exit 1\r\nPrime cycle view  book 00.kernel/00.00.10.work  source live-file (live files)\r\nDerived from work-local review records. Noncanonical. Nothing is elected or dispatched.\r\nsummary (current only): works 1, awaiting review 0, reviewed current 0, stale or unusable 0, finished passes 0, completed goals 0, open holds 0\r\n\r\ncase-a  00.kernel/00.00.10.work/0513.bench-build/05.01.md\r\n  pass state: no-return   review disposition: unknown   pass terminal: unknown\r\n  goal case-a-goal: unknown\r\n  custody: 0163.prime-bench-harness-0501 role None receipt none (custody is not acceptance)\r\n  ! observation-failed: reader exit 2\r\n\r\nauthority none; this tool records supplied judgment and derives a view; it authenticates no actor and grants no work\r\njournal: D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\runs\\codex\\02-case-a-assisted\\out\\journal op 20261030T185554.123868Z-86b88fb0a9e2\r\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\replay_lab.py",
+        "command",
+        "--model",
+        "codex",
+        "--run",
+        "02-case-a-assisted",
+        "--",
+        "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\assistance\\labs\\prime-cycle-pass01\\prime_cycle.py",
+        "packet",
+        "--registration",
+        "D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\runs\\codex\\02-case-a-assisted\\registration.json",
+        "--work",
+        "case-a",
+        "--out",
+        "D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\runs\\codex\\02-case-a-assisted\\out\\packet",
+        "--journal-root",
+        "D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\runs\\codex\\02-case-a-assisted\\out\\journal"
+      ],
+      "exit": 0,
+      "stdout": "operation D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\runs\\codex\\02-case-a-assisted\\operations\\083581f880814e7d9e4e2dccc1518189 exit 0\r\njournal: D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\runs\\codex\\02-case-a-assisted\\out\\journal op 20261030T185554.434626Z-ea2a9ed8749c\r\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\replay_lab.py",
+        "command",
+        "--model",
+        "codex",
+        "--run",
+        "03-case-b-assisted",
+        "--",
+        "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\assistance\\labs\\prime-cycle-pass01\\prime_cycle.py",
+        "read",
+        "--registration",
+        "D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\runs\\codex\\03-case-b-assisted\\registration.json",
+        "--templates",
+        "D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\runs\\codex\\03-case-b-assisted\\out\\templates",
+        "--journal-root",
+        "D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\runs\\codex\\03-case-b-assisted\\out\\journal",
+        "--caller",
+        "SETUP SMOKE, NOT PARTICIPANT"
+      ],
+      "exit": 1,
+      "stdout": "operation D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\runs\\codex\\03-case-b-assisted\\operations\\33bcedbbf6eb45fd8cd3fe23fa432e96 exit 1\r\nPrime cycle view  book 00.kernel/00.00.10.work  source live-file (live files)\r\nDerived from work-local review records. Noncanonical. Nothing is elected or dispatched.\r\nsummary (current only): works 1, awaiting review 0, reviewed current 0, stale or unusable 0, finished passes 0, completed goals 0, open holds 0\r\n\r\ncase-b  00.kernel/00.00.10.work/0514.review-packet/05.01.md\r\n  pass state: no-return   review disposition: unknown   pass terminal: unknown\r\n  goal case-b-goal: unknown\r\n  custody: 0167.review-packet-0501 role None receipt none (custody is not acceptance)\r\n  ! observation-failed: reader exit 2\r\n\r\nauthority none; this tool records supplied judgment and derives a view; it authenticates no actor and grants no work\r\njournal: D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\runs\\codex\\03-case-b-assisted\\out\\journal op 20261030T185555.012167Z-39c8e1721395\r\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\replay_lab.py",
+        "command",
+        "--model",
+        "codex",
+        "--run",
+        "03-case-b-assisted",
+        "--",
+        "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\assistance\\labs\\prime-cycle-pass01\\prime_cycle.py",
+        "packet",
+        "--registration",
+        "D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\runs\\codex\\03-case-b-assisted\\registration.json",
+        "--work",
+        "case-b",
+        "--out",
+        "D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\runs\\codex\\03-case-b-assisted\\out\\packet",
+        "--journal-root",
+        "D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\runs\\codex\\03-case-b-assisted\\out\\journal"
+      ],
+      "exit": 0,
+      "stdout": "operation D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\runs\\codex\\03-case-b-assisted\\operations\\b9be8753312d4efd8c684c600cb6103e exit 0\r\njournal: D:\\librarian\\temp\\prime-replay-smoke-kg2_wyit\\lab\\runs\\codex\\03-case-b-assisted\\out\\journal op 20261030T185555.317190Z-656bda81d040\r\n",
+      "stderr": ""
+    }
+  ],
+  "source_parity": true
+}

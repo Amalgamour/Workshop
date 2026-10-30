@@ -1,0 +1,23 @@
+{
+  "ambiguity": "Counts and suite are clean, so a quick reader may accept it; the defect is visible only by reading the bound check against F1.",
+  "case_id": "correction-a",
+  "decisive_evidence": "check_limit uses `limit < 0`, so 0 is accepted although F1 says 0 refuses; no test covers 0. The return is honest about counts.",
+  "family": "correction",
+  "label": "SYNTHETIC",
+  "matched_with": "correction-b",
+  "provenance": [
+    {
+      "path": "00.kernel/00.00.10.work/0414.bench/01.md",
+      "rule": "0414 first slice: four families, matched variants, equal sources.",
+      "sha256": "d226c3b5d645b651b8b8d945cb3716da267d421509dd03572cb7254cf5d6e8be"
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.01/CONTRACT.md",
+      "rule": "0512 CONTRACT continue: a bounded next action inside the existing direction.",
+      "sha256": "4235ff83966ea28a0264f03cfb57ccf98891203dbd2b73eb476aa0e6495f478b"
+    }
+  ],
+  "revision": 1,
+  "schema": "prime-bench-case-meta/1",
+  "variant": "a"
+}

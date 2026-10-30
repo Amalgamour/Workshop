@@ -1,0 +1,15 @@
+{
+  "assisted": {
+    "support": [
+      "support/prime_review.py",
+      "support/README.md",
+      "support/CONTRACT.md"
+    ],
+    "tools": "Ordinary file reading, text search and shell commands, used only inside this folder. You also have the reviewed Prime support module in support/: `python -B support/prime_review.py report|guard|check-next --input ABS [--root ABS] [--json]` checks a prime-review-record/1 you write and renders the report; support/README.md and support/CONTRACT.md describe it. Using it is optional. It checks shape and declared holds; it does not decide the review for you."
+  },
+  "baseline": {
+    "support": [],
+    "tools": "Ordinary file reading, text search and shell commands, used only inside this folder."
+  },
+  "schema": "prime-bench-conditions/1"
+}

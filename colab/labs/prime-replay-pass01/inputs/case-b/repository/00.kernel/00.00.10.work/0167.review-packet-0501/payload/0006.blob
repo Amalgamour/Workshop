@@ -1,0 +1,217 @@
+{
+  "acceptance": false,
+  "approved": false,
+  "artifact_checks": [
+    {
+      "not_interpreted_keys": [
+        "branch",
+        "commands",
+        "design_page",
+        "expectation",
+        "files",
+        "head",
+        "limits",
+        "not_run",
+        "pack",
+        "page_cut",
+        "reservation"
+      ],
+      "observed_schema": "prime-entry-pin-artifact-manifest/1",
+      "result": "unsupported-schema",
+      "rows": [],
+      "rows_interpreted": false,
+      "source": "pin-manifest"
+    }
+  ],
+  "assembly": "complete",
+  "authority_inferred": false,
+  "book": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+  "checks_are_not_sandbox": true,
+  "custody": {
+    "capture": {
+      "captured_at": "2026-10-29T21:33:10.840720Z",
+      "manifest_sha256": "64075529703ef1e5a96238f0993f69a1956496cf2d80be3928f02648f0645471",
+      "origin": {
+        "batch": "05.03",
+        "book": "00.00.10.work",
+        "page": "0512.prime-review"
+      },
+      "payloads": [
+        {
+          "bytes": 6876,
+          "logical": "00.kernel/00.00.10.work/0512.prime-review/06.03.md",
+          "payload": "0001.blob",
+          "sha256": "64a7e92ef54ac6407f170a2471a831a17be7bc621a2b623aa99dff80da4f6587"
+        },
+        {
+          "bytes": 2250,
+          "logical": "00.kernel/00.00.10.work/0512.prime-review/evidence/pin05.03/CONTRACT.md",
+          "payload": "0002.blob",
+          "sha256": "c497df6bbda28ca7368a5237a1e8b4879d243396b85f35293c73ef47adb62893"
+        },
+        {
+          "bytes": 967,
+          "logical": "00.kernel/00.00.10.work/0512.prime-review/evidence/pin05.03/verification.json",
+          "payload": "0003.blob",
+          "sha256": "a34d0a7276cb57dbc00aaada1d69866dfbc440ef36f986822fe50222e9e81b40"
+        },
+        {
+          "bytes": 2571,
+          "logical": "00.kernel/00.00.10.work/0512.prime-review/evidence/pin05.03/artifact-manifest.json",
+          "payload": "0004.blob",
+          "sha256": "f40a86ba6c707b55e4186b131b956e3ac4181e43048739711be8d5bb1a2c8d2a"
+        }
+      ],
+      "receipt_sha256": "f1209253990119c91525a8d170aeb77723502553c2ceb8f3db0e59f1e034a1cd",
+      "reservation_sha256": "09ae86a4a4bbf7025cb49a5a588abe0af525f70a47eb25b39b035f0521180e25",
+      "retrospective": false,
+      "return": {
+        "bytes": 1605,
+        "includes_prime_review": false,
+        "sha256": "c0d1d2c65b02f0ce4486b408a9d691b94b2afe6d28df9fd55dc610c2a83fb7da"
+      },
+      "source_commit": null,
+      "submission_id": "grok-2-0512-0503"
+    },
+    "exit": 0,
+    "problems": [],
+    "reservation": {
+      "destination": {
+        "member": "0164",
+        "name": "prime-entry-pin-repair-0503",
+        "path": "0164.prime-entry-pin-repair-0503"
+      },
+      "expected_outputs": [
+        "00.kernel/00.00.10.work/0512.prime-review/06.03.md",
+        "00.kernel/00.00.10.work/0512.prime-review/evidence/pin05.03/CONTRACT.md",
+        "00.kernel/00.00.10.work/0512.prime-review/evidence/pin05.03/verification.json",
+        "00.kernel/00.00.10.work/0512.prime-review/evidence/pin05.03/artifact-manifest.json"
+      ],
+      "origin": {
+        "batch": "05.03",
+        "book": "00.00.10.work",
+        "page": "0512.prime-review"
+      },
+      "release": "Reservation only; Director release must be recorded on 0512.prime-review/05.03.",
+      "reservation_sha256": "09ae86a4a4bbf7025cb49a5a588abe0af525f70a47eb25b39b035f0521180e25",
+      "reserved_at": "2026-10-29T21:24:16.450051Z",
+      "reviewer": "Codex Prime",
+      "submission_id": "grok-2-0512-0503",
+      "submitter": "Grok Builder 2",
+      "supersedes": null
+    },
+    "sha256": "0d6cdeca15ebd1f442aca7edcd91c9439ded4f1b230a523f5d8e28575ff3d42b",
+    "status": "complete",
+    "verify_exit": 0,
+    "verify_sha256": "3512b105a0a3fd4358f64365d0d20905bf1ce29d27ec823061187d0fea4109ed",
+    "verify_text": "reservation 09ae86a4a4bbf7025cb49a5a588abe0af525f70a47eb25b39b035f0521180e25\r\nmanifest 64075529703ef1e5a96238f0993f69a1956496cf2d80be3928f02648f0645471\r\nreceipt f1209253990119c91525a8d170aeb77723502553c2ceb8f3db0e59f1e034a1cd\r\npayload 0001.blob 64a7e92ef54ac6407f170a2471a831a17be7bc621a2b623aa99dff80da4f6587\r\npayload 0002.blob c497df6bbda28ca7368a5237a1e8b4879d243396b85f35293c73ef47adb62893\r\npayload 0003.blob a34d0a7276cb57dbc00aaada1d69866dfbc440ef36f986822fe50222e9e81b40\r\npayload 0004.blob f40a86ba6c707b55e4186b131b956e3ac4181e43048739711be8d5bb1a2c8d2a\r\nresult complete\r\nnot approved\r\nnot accepted\r\nnot published\r\n"
+  },
+  "custody_is_acceptance": false,
+  "member": "0164.prime-entry-pin-repair-0503",
+  "next_task": null,
+  "origin_conflicts": [],
+  "origin_requested": {
+    "book": "00.00.10.work",
+    "page": "0512.prime-review",
+    "pass": "05.03"
+  },
+  "published": false,
+  "schema": "review-packet/1",
+  "seated": false,
+  "semantic_review": false,
+  "sources": [
+    {
+      "bytes": 1605,
+      "embedded": true,
+      "expect_sha256": "c0d1d2c65b02f0ce4486b408a9d691b94b2afe6d28df9fd55dc610c2a83fb7da",
+      "expected_match": true,
+      "id": "return-text",
+      "kind": "member-file",
+      "live_opened": false,
+      "problems": [],
+      "role": "builder-claim",
+      "sha256": "c0d1d2c65b02f0ce4486b408a9d691b94b2afe6d28df9fd55dc610c2a83fb7da",
+      "snapshot": "sources/0001-return-text.blob",
+      "status": "present"
+    },
+    {
+      "bytes": 299,
+      "embedded": true,
+      "expect_sha256": "f1209253990119c91525a8d170aeb77723502553c2ceb8f3db0e59f1e034a1cd",
+      "expected_match": true,
+      "id": "receipt",
+      "kind": "member-file",
+      "live_opened": false,
+      "problems": [],
+      "role": "custody",
+      "sha256": "f1209253990119c91525a8d170aeb77723502553c2ceb8f3db0e59f1e034a1cd",
+      "snapshot": "sources/0002-receipt.blob",
+      "status": "present"
+    },
+    {
+      "bytes": 1501,
+      "embedded": true,
+      "expect_sha256": "64075529703ef1e5a96238f0993f69a1956496cf2d80be3928f02648f0645471",
+      "expected_match": true,
+      "id": "capture-manifest",
+      "kind": "member-file",
+      "live_opened": false,
+      "problems": [],
+      "role": "custody",
+      "sha256": "64075529703ef1e5a96238f0993f69a1956496cf2d80be3928f02648f0645471",
+      "snapshot": "sources/0003-capture-manifest.blob",
+      "status": "present"
+    },
+    {
+      "bytes": 795,
+      "embedded": true,
+      "expect_sha256": "09ae86a4a4bbf7025cb49a5a588abe0af525f70a47eb25b39b035f0521180e25",
+      "expected_match": true,
+      "id": "reservation",
+      "kind": "member-file",
+      "live_opened": false,
+      "problems": [],
+      "role": "custody",
+      "sha256": "09ae86a4a4bbf7025cb49a5a588abe0af525f70a47eb25b39b035f0521180e25",
+      "snapshot": "sources/0004-reservation.blob",
+      "status": "present"
+    },
+    {
+      "bytes": 2571,
+      "embedded": true,
+      "expect_sha256": "f40a86ba6c707b55e4186b131b956e3ac4181e43048739711be8d5bb1a2c8d2a",
+      "expected_match": true,
+      "id": "pin-manifest",
+      "kind": "live",
+      "live_opened": true,
+      "problems": [],
+      "role": "supporting",
+      "sha256": "f40a86ba6c707b55e4186b131b956e3ac4181e43048739711be8d5bb1a2c8d2a",
+      "snapshot": "sources/0005-pin-manifest.blob",
+      "status": "present"
+    },
+    {
+      "bytes": 1823,
+      "embedded": true,
+      "expect_sha256": "3b2a6ce8bc7dc0e88c2460f961a4a88dd335141e4e212ded45d70bc4202eb136",
+      "expected_match": true,
+      "id": "director-agreement",
+      "kind": "live",
+      "live_opened": true,
+      "problems": [],
+      "role": "director-quotation",
+      "sha256": "3b2a6ce8bc7dc0e88c2460f961a4a88dd335141e4e212ded45d70bc4202eb136",
+      "snapshot": "sources/0006-director-agreement.blob",
+      "status": "present"
+    }
+  ],
+  "statement": "A verified receipt is custody, not acceptance. Return claims remain claims even when a hash matches. These checks are not an OS sandbox or a same-user race guarantee.",
+  "tools": {
+    "helper": "D:\\Git\\lib-build\\labs\\return-capture-pass01\\return_capture.py",
+    "helper_sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+    "inspector": "D:\\Git\\lib-build\\labs\\return-capture-pass01\\return_inspect.py",
+    "inspector_sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+    "python": "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe"
+  },
+  "unverified": []
+}

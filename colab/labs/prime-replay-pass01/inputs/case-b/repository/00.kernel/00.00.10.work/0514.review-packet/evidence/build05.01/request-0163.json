@@ -1,0 +1,70 @@
+{
+  "schema": "review-packet-request/1",
+  "book": "D:/Git/lib-build/00.kernel/00.00.10.work",
+  "member": "0163.prime-bench-harness-0501",
+  "origin": {
+    "book": "00.00.10.work",
+    "page": "0513.bench-build",
+    "pass": "05.01"
+  },
+  "repo": "D:/Git/lib-build",
+  "python": "C:/Users/misg/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+  "inspector": "D:/Git/lib-build/labs/return-capture-pass01/return_inspect.py",
+  "helper": "D:/Git/lib-build/labs/return-capture-pass01/return_capture.py",
+  "output": "D:/Git/lib-build/00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/specimen-0163",
+  "bounds": {
+    "max_sources": 8,
+    "max_source_bytes": 2000000,
+    "max_total_bytes": 8000000,
+    "max_output_bytes": 12000000
+  },
+  "sources": [
+    {
+      "id": "return-text",
+      "kind": "member-file",
+      "role": "builder-claim",
+      "name": "return.md",
+      "expect_sha256": "742beefbf856429ce3dfcf59e675a06f618c1b75b74f8f09b87c67dc6575198e"
+    },
+    {
+      "id": "receipt",
+      "kind": "member-file",
+      "role": "custody",
+      "name": "receipt.json",
+      "expect_sha256": "7efb07af0f08d3cbaf1b490e97889bb3caa601b932762fcf32820854e45f7e4f"
+    },
+    {
+      "id": "capture-manifest",
+      "kind": "member-file",
+      "role": "custody",
+      "name": "manifest.json",
+      "expect_sha256": "39d9404e159b8d04a865387724b1e4f8cae62c5261f81b5347987f7b89d37a6a"
+    },
+    {
+      "id": "reservation",
+      "kind": "member-file",
+      "role": "custody",
+      "name": "reservation.json",
+      "expect_sha256": "04e5152c777ff175da3a35f621f04d6b6d270f79c98e6cd426662327e0ccb47a"
+    },
+    {
+      "id": "artifact-manifest",
+      "kind": "git-blob",
+      "role": "supporting",
+      "commit": "749cfd9c670fe77fbedd232c2630f98b0529025d",
+      "path": "00.kernel/00.00.10.work/0513.bench-build/evidence/build05.01/artifact-manifest.json",
+      "expect_sha256": "da06ab6cfdee15497c1d19394fb9e22433e5c1db6623a3fd8462d20749274634",
+      "artifact_manifest": {
+        "compare_commit": "749cfd9c670fe77fbedd232c2630f98b0529025d",
+        "compare_live": true
+      }
+    },
+    {
+      "id": "manifest-at-claimed-head",
+      "kind": "git-blob",
+      "role": "supporting",
+      "commit": "80f7025425d7bb3fdcf3b0ee56057cd6d8b6b9fe",
+      "path": "00.kernel/00.00.10.work/0513.bench-build/evidence/build05.01/artifact-manifest.json"
+    }
+  ]
+}

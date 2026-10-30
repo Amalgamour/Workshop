@@ -1,0 +1,103 @@
+# 05 — Assemble a source-bound return-review packet
+version: 001
+Authorization: draft — 2026-10-29
+who: Codex Prime
+state: draft
+Face: 05
+PPPP: 0514
+book: 00.00.10.work
+
+## Assignment
+Executor: Grok Builder 1. Reviewer: Codex Prime.
+Release and claim: recorded in the Return pointer. This draft grants no release.
+Workspace D:/Git/lib-build, branch workshop. Verify evidence/pack05.01/source-manifest.json.
+
+## #01 — Notes, purpose and boundaries
+
+Write 06.01.md first, then evidence/build05.01/CONTRACT.md. Build a standard-library
+lab in labs/review-packet-pass01. It prepares the mechanical evidence for Prime's
+review of one explicitly named return. No model, API, credentials, install, worker
+launch or routing. It must not infer acceptance, semantic completeness, Director
+approval or the next task. Return claims remain claims even when a hash matches.
+Read 0412's reporting agreement and 0413's division of compute and intelligence.
+This is a mechanical helper, not the model-assistant runtime proposed on 0413.
+
+## #02 — Explicit request and source basis
+
+Design a small strict request with one named local book/member, its originating
+work page and pass, an explicit allowlist of supporting sources, bounds, and a
+fresh output destination. Do not scan the entire desk or select work automatically.
+Use the accepted pinned return inspector/helper for custody. Treat absent, reserved,
+incomplete or refused custody honestly; never capture, repair or overwrite it.
+Check that requested page/pass agrees with the reservation origin; report conflicts.
+
+For supporting files, declare either exact Git-blob revision/path/hash or explicitly
+requested live-file observation. Preserve that distinction. Do not silently replace
+a missing committed source with a live file. Capture payloads remain exact sealed
+sources. Use known explicit artifact-manifest/1 rows when requested to check declared
+artifact bytes; unsupported schemas must be reported, not guessed. Distinguish a
+historical artifact matching its declared commit from a changed live working copy.
+Do not execute return text, source files, captured payloads or test commands.
+
+## #03 — Output for Prime
+
+Emit machine-readable packet.json and a readable PACKET.md, plus a manifest binding
+all gathered source bytes, raw return, custody result, receipt and mechanically
+checked outcomes. Keep snapshots or an exact portable evidence copy with source
+identities so Prime can open the decisive evidence. Do not replace evidence with
+an extract or synthesized semantic summary. Clearly separate Builder-reported
+claims, custody observations, artifact checks and absent/conflicting/unverified
+material. Preserve exact Director quotations when included as source; do not infer
+authority from their presence. A verified receipt is custody, not acceptance.
+
+Output is a new external directory, not a live work page or seated report. Bound
+source count, per-source bytes, total bytes and output bytes explicitly. No silent
+truncation. Reject malformed JSON, duplicate keys, traversal, linked source/ancestor,
+unsafe output containment and occupied destinations. Retain partial output and a
+clear partial status; never overwrite or silently resume. State that these checks
+are not an OS sandbox or a same-user race guarantee. No automatic retry loop.
+
+## #04 — Tests and actual-use specimens
+
+Test complete, reserved, missing and incomplete custody; wrong member/page/pass;
+changed artifact; historical Git source versus changed live file; unknown manifest
+schema; source bounds; unsafe/linked paths; collision and partial writes; exact
+return preservation; no acceptance/authority inference. New synthetic fixtures only.
+Do not run old inventory/bridge fixtures, broad app suites or race probes.
+
+Prepare one real packet for accepted return 0164.prime-entry-pin-repair-0503 and one
+for 0163.prime-bench-harness-0501. Read those historical artifact bytes from the
+published revision where necessary; Claude may currently change the live harness.
+Do not open Claude's uncommitted benchmark work. The helper must explain differing
+live bytes rather than diagnosing an authorized later edit as historical corruption.
+Keep both specimens as evidence; nominate the 0164 packet for the captured packet
+outputs below. Compare only observed manual fields/operations with this command.
+Do not invent token savings, accuracy gains, completion or benchmark readiness.
+
+## #05 — Finish and return
+
+Allowed writes: new labs/review-packet-pass01, this page's 06.01 notes and new
+build05.01 evidence, this pack claim/return pointer and reserved capture only.
+No existing app/module/law/other-lane changes and no Git stage, commit or push.
+Provide exact invocation, useful real specimen, verification command/exits, test
+counts/skips, artifact hashes and remaining Prime duties. Read back the complete
+packet and return for normal spacing and accurate labels. Return Did, Blocked, Need.
+Stop affected work if a consequential design choice needs the Director.
+
+## Local capture
+Dedicated submission starts Did, Blocked, Need. Use reserved 0167.review-packet-0501:
+```text
+python -B labs/return-capture-pass01/return_capture.py capture --book "D:/Git/lib-build/00.kernel/00.00.10.work" --submission grok-1-0514-0501 --return-file "D:/Git/lib-build/00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/submission.md" --source-root "D:/Git/lib-build" --artifact "00.kernel/00.00.10.work/0514.review-packet/06.01.md|00.kernel/00.00.10.work/0514.review-packet/06.01.md" --artifact "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/CONTRACT.md|00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/CONTRACT.md" --artifact "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/verification.json|00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/verification.json" --artifact "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/artifact-manifest.json|00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/artifact-manifest.json" --artifact "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/REAL-USE.md|00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/REAL-USE.md" --artifact "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/packet.json|00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/packet.json" --artifact "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/PACKET.md|00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/PACKET.md"
+python -B labs/return-capture-pass01/return_capture.py verify --book "D:/Git/lib-build/00.kernel/00.00.10.work" --member 0167.review-packet-0501
+```
+Keep submitted sources and partial evidence. Never overwrite/remove captures or
+allocate around failure. Append pointers/receipt/fresh verify below. No shared Git
+stage/commit/push, other-lane changes or new authority. Prime reviews/publishes.
+Draft/reservation is not Director release.
+
+## Return pointer
+Release: The Director authorizes this bounded build. Claim: Grok Builder 1, session 01a179d2-387a-7661-8702-6e53f95e96b5, branch workshop, HEAD a8825689ab3220396841b144f3a7ebe95c9c9a66, 2026-10-29. Member 0167.review-packet-0501. Receipt sha256 bf8cef9fe88b09316c69d4f1c37d824bc5b7378403d49ac3dccf486905fe0fff. Verify exit 0: result complete; not approved; not accepted; not published. The receipt is custody, not acceptance.
+
+## Review — Codex Prime
+Accepted as bounded mechanical lab helper; actually used by Prime for two returns.
+See evidence/prime-review05.01/REVIEW.md.

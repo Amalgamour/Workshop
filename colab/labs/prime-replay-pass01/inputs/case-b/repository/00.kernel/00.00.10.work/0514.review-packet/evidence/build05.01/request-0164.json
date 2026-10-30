@@ -1,0 +1,71 @@
+{
+  "schema": "review-packet-request/1",
+  "book": "D:/Git/lib-build/00.kernel/00.00.10.work",
+  "member": "0164.prime-entry-pin-repair-0503",
+  "origin": {
+    "book": "00.00.10.work",
+    "page": "0512.prime-review",
+    "pass": "05.03"
+  },
+  "repo": "D:/Git/lib-build",
+  "python": "C:/Users/misg/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+  "inspector": "D:/Git/lib-build/labs/return-capture-pass01/return_inspect.py",
+  "helper": "D:/Git/lib-build/labs/return-capture-pass01/return_capture.py",
+  "output": "D:/Git/lib-build/00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/specimen-0164",
+  "bounds": {
+    "max_sources": 8,
+    "max_source_bytes": 2000000,
+    "max_total_bytes": 8000000,
+    "max_output_bytes": 12000000
+  },
+  "sources": [
+    {
+      "id": "return-text",
+      "kind": "member-file",
+      "role": "builder-claim",
+      "name": "return.md",
+      "expect_sha256": "c0d1d2c65b02f0ce4486b408a9d691b94b2afe6d28df9fd55dc610c2a83fb7da"
+    },
+    {
+      "id": "receipt",
+      "kind": "member-file",
+      "role": "custody",
+      "name": "receipt.json",
+      "expect_sha256": "f1209253990119c91525a8d170aeb77723502553c2ceb8f3db0e59f1e034a1cd"
+    },
+    {
+      "id": "capture-manifest",
+      "kind": "member-file",
+      "role": "custody",
+      "name": "manifest.json",
+      "expect_sha256": "64075529703ef1e5a96238f0993f69a1956496cf2d80be3928f02648f0645471"
+    },
+    {
+      "id": "reservation",
+      "kind": "member-file",
+      "role": "custody",
+      "name": "reservation.json",
+      "expect_sha256": "09ae86a4a4bbf7025cb49a5a588abe0af525f70a47eb25b39b035f0521180e25"
+    },
+    {
+      "id": "pin-manifest",
+      "kind": "live",
+      "role": "supporting",
+      "path": "00.kernel/00.00.10.work/0512.prime-review/evidence/pin05.03/artifact-manifest.json",
+      "embed": true,
+      "expect_sha256": "f40a86ba6c707b55e4186b131b956e3ac4181e43048739711be8d5bb1a2c8d2a",
+      "artifact_manifest": {
+        "compare_commit": null,
+        "compare_live": false
+      }
+    },
+    {
+      "id": "director-agreement",
+      "kind": "live",
+      "role": "director-quotation",
+      "path": "00.kernel/00.00.10.work/0412.prime-review/evidence/director-agreement.md",
+      "embed": true,
+      "expect_sha256": "3b2a6ce8bc7dc0e88c2460f961a4a88dd335141e4e212ded45d70bc4202eb136"
+    }
+  ]
+}
