@@ -1,0 +1,109 @@
+# Notes — bind direction, keep stale history, log operations (0515.prime-cycle 05.02)
+Date: 2026-10-30
+Recorder: claude-opus-5-5, the executor this page names as "Claude Builder"
+State: written FIRST, before the contract and any code change. 06.01, build05.01 and capture 0170 are not changed.
+
+## Inputs
+I01. **pack05.02:** 11 of 11 snapshots match their pins, and live matches all 11, at workshop d192410. The tool under correction is the 05.01 final (snapshot 0007, sha256 2124bcde…). An untouched copy is kept outside the repository, for before/after evidence.
+I02. **Prime's review (evidence/prime-review05.01):**
+- the first build is retained;
+- PC-01 and PC-02 are confirmed;
+- daily logging is a new bounded requirement, not a failure of the original pack;
+- the review location `<lane>/evidence/prime-cycle-reviews/<pass>` is approved for Prime's later bounded use;
+- AR-01 stays held.
+I03. **0415/06.03 (daily logging):**
+- instrument only this tool's read, record, inspect and packet, failures included;
+- reasons stay on the review record, and the journal points to it;
+- machine facts are separate from supplied text;
+- a replay is not a second completion;
+- missing time stays unknown;
+- a failed logger never hides a committed review.
+I04. **Reproduced on the unchanged code** (repro-before, kept in evidence):
+- **PC-01:** complete, then edit the page, then read. Result: `review-stale`, but `pass_terminal finished` and `goal_terminal completed` as current fields.
+- **PC-02:** read, change `agreement.scope`, then record the old decision. Result: exit 0.
+I05. **Cause.**
+- **PC-01:** `derive` copies the head's terminals whatever the staleness. Staleness looks only at page and receipt, and a custody loss turns into `no-return` while the head's terminals stay current.
+- **PC-02:** `current_binding` holds no agreement, so its fingerprint cannot change with direction.
+
+## Choices
+C01. **Current versus historical (PC-01).** A head review is *current* only when all of these hold:
+- its recorded binding equals the current observation on page sha, member, role, receipt, submission, origin, retrospective and **direction**;
+- its record schema carries the direction binding (`prime-cycle-review/2`);
+- no committed-looking review in that location has been altered after commit without a recovery.
+
+Otherwise:
+- `disposition`, `pass_terminal` and `goal_terminal` read `unknown`;
+- the old declarations move to `historical`, with the reason;
+- the next action moves to `historical.next_action` and is not guarded as current;
+- `pass_state` is `review-stale` (the binding changed) or `review-unusable` (a legacy-binding or altered record).
+
+Holds stay current and blocking: a Director hold does not lapse because a page changed. The changed-goal behaviour is kept as it was: the pass stays reviewed, and the goal reads open with a prior-completion note. The view gains a `summary` that counts only current values.
+C02. **Altered versus torn.** A marker that parses with hashes that do not match is `hash-mismatch`, meaning altered after commit. A marker that does not parse is `torn`, meaning interrupted. Both keep the phase `partial-marker-mismatch`. Only an unrecovered `hash-mismatch` makes the head unusable, so test_07's torn interrupted marker still allows recovery.
+C03. **Direction binding (PC-02).** The decision template becomes `prime-cycle-decision/2`. Its binding gains `direction`:
+- `agreement_sha256` (canonical JSON of the work's whole agreement);
+- a per-field sha for goal, scope, prime_discretion, director_required, finish_criteria and recorded_decisions, so a refusal names the field that changed;
+- `review_location`, and the book.
+
+Not bound, and why:
+- output_root, bounds and other works do not change this work's judgment;
+- the registration file bytes would change with unrelated edits;
+- the reader's stdout hash and `live_observed_at` are clock-dependent.
+
+The page goal stays in `binding.goal`, as before. Record refuses a `/1` template with "read again". Record refuses a changed direction, naming the field, with no silent refresh.
+C04. **Legacy limit.** A `prime-cycle-review/1` record is still read and kept. It never becomes current under the stronger contract: it shows as historical with `legacy-binding`. A successor review restores current status.
+C05. **The journal.** It is opt-in through `--journal-root ABS` on read, record, inspect and packet; with no root, the tool says "journal: disabled". The layout is `<root>/<local date>/<op_id>/`:
+- `start.json`, written before the operation;
+- input snapshots;
+- `stdout.txt`;
+- `end.json`, written after.
+
+Every file is exclusive-create and no event is ever rewritten. Supplied text (`--caller`, `--note`) is kept apart from machine facts. A missing `end.json` means incomplete.
+
+The journal root may not lie inside the repository or the members book, nor pass through a link. `--templates` and `--out` may not lie inside the journal root.
+
+Failure rules:
+- **start fails:** exit 4, and nothing is run;
+- **end fails after the operation:** the result stands; stderr names what happened (for record, the committed review path) and the exit is 5;
+- **an unexpected exception:** the end event says `error`, and the exit is 6;
+- **an interrupt** (KeyboardInterrupt or a kill): no end event, so the operation stays incomplete.
+
+Argument-parse errors happen before a root is known, and are not logged.
+C06. **The day view.** `day --journal-root ABS [--date] [--registration ABS] [--json]` is read-only and is not itself logged. It shows:
+- attempts by operation and status;
+- incomplete and unreadable operations;
+- refusals and partials;
+- unique reviews, keyed by directory and record sha and re-verified against their marker now;
+- replays, counted as invocations and never as reviews;
+- declared finished passes, completed goals and holds, from unique verified records.
+
+With `--registration`, a fresh read gives the *current* finished passes and completed goals; without it, current status reads "not checked". Durations are shown per operation, with no totals, and unknown stays unknown.
+C07. **Scope.**
+- Code, tests, docs, the demo and the Colab materials change only in labs/prime-cycle-pass01.
+- The new candidate entry goes in build05.02. build05.01 stays as it is.
+- No dependency changes, no live review, no 00.live, no Git writes, no model runs.
+
+## Disposition — 2026-10-30, claude-opus-5-5 (Claude Builder)
+C01-C07 were built as written. Changes made during the build:
+- **Day-view declared counts.** These now count each work's pass and each work goal once, not each record. The demo showed one work's two successive reviews counted as two finished passes. test_21 now covers a second completion review of the same goal.
+- **Journal root.** It is created only after the containment check, so a refused root inside the repository leaves nothing behind.
+- **First-run failure.** run2 test_23 was a test error, kept in the evidence: its templates path was outside output_root. The test was corrected; the tool was right.
+
+**Results:**
+- 14 existing and 12 new tests OK on the final bytes, in dev and default mode;
+- 10 targeted mutations, all caught;
+- the Colab self-test passed;
+- the demo and the sample cycle passed;
+- the real preview at d192410 was read-only, with the journal in external temp.
+
+My own scripting slips (an edit not applied, a script syntax error, mutation-string escaping) are kept as runs in verification.json.
+
+**Not done:**
+- No live review, and no adoption of 0169.
+- No Colab launch, and no N7NN.
+- No symlink test: creating links needs privileges on this host.
+- AR-01 stays held.
+
+**Overflow:**
+- REVIEW.md still prints `supersedes` as a Python dict repr.
+- The existing `--templates` and `--out` output_root checks use a string-prefix test, which `inside()` would tighten. Left as it was.
+- The two external preview roots (`pcy-preview-*`) stay in temp, as recorded.

@@ -1,0 +1,426 @@
+{
+ "schema": "prime-cycle-verification/2",
+ "batch": "0515.prime-cycle/05.02",
+ "branch": "workshop",
+ "head": "d19241074e8db09723ddf44e0900c839a62bc526",
+ "pins": {
+  "batch_observe": {
+   "path": "batch-observation-pass01/batch_observe.py",
+   "pinned": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4",
+   "actual": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4",
+   "match": true,
+   "clean_vs_HEAD": true
+  },
+  "return_inspect": {
+   "path": "return-capture-pass01/return_inspect.py",
+   "pinned": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+   "actual": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+   "match": true,
+   "clean_vs_HEAD": true
+  },
+  "return_capture": {
+   "path": "return-capture-pass01/return_capture.py",
+   "pinned": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+   "actual": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+   "match": true,
+   "clean_vs_HEAD": true
+  },
+  "prime_review": {
+   "path": "prime-review-pass01/prime_review.py",
+   "pinned": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+   "actual": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+   "match": true,
+   "clean_vs_HEAD": true
+  },
+  "review_packet": {
+   "path": "review-packet-pass01/review_packet.py",
+   "pinned": "f658cbe48a3a76b908e5af0bcf0b7a68abc90571d983ca785e36667268f6ee72",
+   "actual": "f658cbe48a3a76b908e5af0bcf0b7a68abc90571d983ca785e36667268f6ee72",
+   "match": true,
+   "clean_vs_HEAD": true
+  }
+ },
+ "runs": [
+  {
+   "log": "run1-existing-dev.txt",
+   "log_sha256": "174c040f21d1a11fdc6ef8404f22e8c03cfee9d4d4a108e2e8b100f07aa79e98",
+   "tail": [
+    "",
+    "OK",
+    "exit 0"
+   ],
+   "id": "run1",
+   "argv": "python -B -X dev labs/prime-cycle-pass01/tests/test_prime_cycle.py",
+   "exit": 0,
+   "result": "OK, 14 existing tests, first run after the PC-01/PC-02 change"
+  },
+  {
+   "log": "run2-new-dev.txt",
+   "log_sha256": "86f32fd5289e8255447b93e3ffb07591459ff4b6ab8360c1c640d60564e33e32",
+   "tail": [
+    "",
+    "FAILED (failures=1)",
+    "exit 1"
+   ],
+   "id": "run2",
+   "argv": "python -B -X dev labs/prime-cycle-pass01/tests/test_binding_log.py -v",
+   "exit": 1,
+   "result": "FAILED (failures=1) of 12",
+   "first_failures": [
+    "test_23: the templates path was outside output_root, so the output_root refusal fired before the journal-root check; the test was wrong (the tool was right) and was corrected to put that journal under output_root"
+   ]
+  },
+  {
+   "log": "run3-new-one.txt",
+   "log_sha256": "8c029f8e1c2d7f95aa18c31a4a03f5f21019475bb56c0c3fe5f8517ca5a91be6",
+   "tail": [
+    "",
+    "OK",
+    "exit 0"
+   ],
+   "id": "run3",
+   "argv": "python -B -X dev labs/prime-cycle-pass01/tests/test_binding_log.py -v TestJournal.test_23_journal_failures_never_run_blind_or_hide_a_committed_review",
+   "exit": 0,
+   "result": "OK, 1 test"
+  },
+  {
+   "log": "run4-journal-dev.txt",
+   "log_sha256": "edd3776e2dd88495e8679aef22f048961ae7f9aba5208fabb3b269c31a194e48",
+   "tail": [
+    "",
+    "OK",
+    "exit 0"
+   ],
+   "id": "run4",
+   "argv": "python -B -X dev labs/prime-cycle-pass01/tests/test_binding_log.py -v TestJournal",
+   "exit": 0,
+   "result": "OK, 5 tests, after changing declared counts to once per work pass/goal and extending test_21"
+  },
+  {
+   "log": "final-test_prime_cycle-dev.txt",
+   "log_sha256": "0795aa67352720dfde0ef6e394203fa9bfa311b9cdcb3aff6adcb7546543d7e5",
+   "tail": [
+    "",
+    "OK",
+    "exit 0"
+   ],
+   "id": "final-1",
+   "argv": "python -B -X dev labs/prime-cycle-pass01/tests/test_prime_cycle.py -v",
+   "exit": 0,
+   "result": "OK, 14 tests, final bytes"
+  },
+  {
+   "log": "final-test_prime_cycle-default.txt",
+   "log_sha256": "734a204cdff717a4d4691a9fbe089afcaee18d9539dcab5d72afc27d81287c56",
+   "tail": [
+    "",
+    "OK",
+    "exit 0"
+   ],
+   "id": "final-2",
+   "argv": "python -B labs/prime-cycle-pass01/tests/test_prime_cycle.py",
+   "exit": 0,
+   "result": "OK, 14 tests, final bytes, default mode"
+  },
+  {
+   "log": "final-test_binding_log-dev.txt",
+   "log_sha256": "99fa5f9f08d7c1013f62f8953824cb136da056e68885cb521290f44bbec7ab03",
+   "tail": [
+    "",
+    "OK",
+    "exit 0"
+   ],
+   "id": "final-3",
+   "argv": "python -B -X dev labs/prime-cycle-pass01/tests/test_binding_log.py -v",
+   "exit": 0,
+   "result": "OK, 12 tests, final bytes"
+  },
+  {
+   "log": "final-test_binding_log-default.txt",
+   "log_sha256": "c9f63790cd3b6cf1491125692da1734f11af0bc73cdf0bac0d88ec5ef6e5a2d0",
+   "tail": [
+    "",
+    "OK",
+    "exit 0"
+   ],
+   "id": "final-4",
+   "argv": "python -B labs/prime-cycle-pass01/tests/test_binding_log.py",
+   "exit": 0,
+   "result": "OK, 12 tests, final bytes, default mode"
+  },
+  {
+   "id": "probes",
+   "argv": "python -B <scratch>/repro.py <lab> <out>",
+   "before": {
+    "tool_sha256": "2124bcde4ea08c8148987416c7b84113860fde7b95382f94bb4377e6bc044a06",
+    "PC-01": {
+     "pass_state": "review-stale",
+     "pass_terminal": "finished",
+     "goal_terminal": "completed"
+    },
+    "PC-02": {
+     "record_exit": 0
+    }
+   },
+   "after": {
+    "tool_sha256": "29bc803ceba4a414020e89271ea7561cf39f58ee49f1ecfb4e88ef7345423d72",
+    "PC-01": {
+     "pass_state": "review-stale",
+     "pass_terminal": "unknown",
+     "goal_terminal": "unknown"
+    },
+    "PC-02": {
+     "record_exit": 2,
+     "stdout": "refused: direction changed since read: agreement.scope; read again for a new template"
+    }
+   },
+   "note": "the after run was on the first corrected bytes; the final suites (test_13, test_18) cover the final bytes"
+  },
+  {
+   "log": "demo-dev-1-incomplete-steps.txt",
+   "log_sha256": "d34bf48adb8dd37d36cc2bbdad44eefa4766e727275ea0ab3a1b437917bc5f86",
+   "tail": [
+    "journal: C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-g8qur8i5\\out\\journal op 20261030T181136.511490Z-5d18224554fe",
+    "",
+    "exit 0"
+   ],
+   "id": "demo1",
+   "argv": "python -B -X dev labs/prime-cycle-pass01/demo.py --transcript <scratch>",
+   "exit": 0,
+   "result": "steps 6-7 missing: my scripted edit to demo.py did not apply"
+  },
+  {
+   "log": "demo-dev-2-edit-not-applied.txt",
+   "log_sha256": "989ac287d190adfad2649987a9f2d4205c0266561d40bc39640b96257cf86634",
+   "tail": [
+    "journal: C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-rqiqli73\\out\\journal op 20261030T181226.228044Z-5ff470f30e64",
+    "",
+    "exit 0"
+   ],
+   "id": "demo2",
+   "argv": "(same)",
+   "exit": 0,
+   "result": "same as demo1: the Edit was refused (file not re-read in this session) and the run went ahead"
+  },
+  {
+   "log": "demo-dev-3-before-count-change.txt",
+   "log_sha256": "37d2afe0cb0e30a8e5b4f57ed98a748d46f13c1d154c4e7936d3fc0b248077c6",
+   "tail": [
+    "per-operation durations only; incomplete operations have unknown duration; no totals or productivity are derived",
+    "",
+    "exit 0"
+   ],
+   "id": "demo3",
+   "argv": "(same)",
+   "exit": 0,
+   "result": "complete; ran before the declared-count change"
+  },
+  {
+   "log": "demo-dev.txt",
+   "log_sha256": "2754b9338fcb1cb00bc88a13e21e7395e985c8f1ed65e9c5ae9650092b34da9c",
+   "tail": [
+    "per-operation durations only; incomplete operations have unknown duration; no totals or productivity are derived",
+    "",
+    "exit 0"
+   ],
+   "id": "demo4",
+   "argv": "(same)",
+   "exit": 0,
+   "result": "complete on final bytes; transcript in sample-cycle.json"
+  },
+  {
+   "log": "preview-stdout-1-syntax-error.txt",
+   "log_sha256": "45c50aa05ad1007b48b40ddd90a71c676abdeafad5da182a816502250458ef38",
+   "tail": [
+    "                                                                                    ^",
+    "SyntaxError: unterminated string literal (detected at line 75)",
+    "exit 1"
+   ],
+   "id": "preview1",
+   "argv": "python -B <scratch>/preview.py <out>",
+   "exit": 1,
+   "result": "my generated script had a broken string literal; nothing ran"
+  },
+  {
+   "log": "preview-stdout.txt",
+   "log_sha256": "312af757be21ff062e120386312441acc75dabb80e11f645a0e81704e3fdd4e8",
+   "tail": [
+    "per-operation durations only; incomplete operations have unknown duration; no totals or productivity are derived",
+    "",
+    "exit 0"
+   ],
+   "id": "preview2",
+   "argv": "python -B <scratch>/preview.py <out>",
+   "exit": 0,
+   "result": "read-only real preview at d192410, journal in external temp",
+   "git_status_before": "",
+   "git_status_after": ""
+  },
+  {
+   "log": "mutations-run1-first8.txt",
+   "log_sha256": "bd363af5b034c8564dcb4fdc23b4bb247be351207b1ca85bec5d325e9b2d7e0e",
+   "tail": [
+    "AssertionError: ('end-failure-concealed', 0)",
+    "",
+    "[exited with code 1]"
+   ],
+   "id": "mut1",
+   "argv": "python -B <scratch>/mutate.py",
+   "exit": 1,
+   "result": "8 of 10 mutations caught; the script then stopped: the end-failure-concealed search string did not match (my escaping)"
+  },
+  {
+   "id": "mut1b",
+   "argv": "python fix script; then python -B <scratch>/mutate.py end-failure-concealed journal-in-repo-allowed",
+   "exit": 1,
+   "result": "my fix script asserted and changed nothing; mutate.py did not yet filter arguments, re-ran the same 8 (all caught again) and stopped on the same string; that output was on the terminal only, not kept as a file"
+  },
+  {
+   "log": "mutations-rest.txt",
+   "log_sha256": "6ba7ffc847558f17d78d2ade213589d79ac5321c8af7f2d585331d9c5b262085",
+   "tail": [
+    "end-failure-concealed ['TestJournal.test_23_journal_failures_never_run_blind_or_hide_a_committed_review']: exit 1; failing ['test_23_journal_failures_never_run_blind_or_hide_a_committed_review']",
+    "journal-in-repo-allowed ['TestJournal.test_23_journal_failures_never_run_blind_or_hide_a_committed_review']: exit 1; failing ['test_23_journal_failures_never_run_blind_or_hide_a_committed_review']"
+   ],
+   "id": "mut2",
+   "argv": "python -B <scratch>/mutate.py end-failure-concealed journal-in-repo-allowed",
+   "exit": 0,
+   "result": "2 of 2 caught"
+  },
+  {
+   "log": "colab-selftest.txt",
+   "log_sha256": "f2e3293cfe37e6660ce282060e2eaded9d0469c9b18209ffaba32644dcceb516",
+   "tail": [
+    " }",
+    "}",
+    "exit 0"
+   ],
+   "id": "colab",
+   "argv": "python -B -X dev labs/prime-cycle-pass01/colab/selftest.py",
+   "exit": 0
+  },
+  {
+   "log": "sample-stdout.txt",
+   "log_sha256": "9ed22a0df28b877d7aba9b531a5f81c01140be1acfebb4af649c277b531f6169",
+   "tail": [
+    "[('1 read with templates', 1), ('2 record accept (pass finished, goal open)', 0), ('3 identical replay', 0), ('4 read --json', 0), ('5 refused: completion without evidence', 2), ('6 record goal completion (successor)', 0), ('7 read: completed and current', 0), ('8 read after the page changed: historical', 1), ('9 day view, new process (not logged)', 0), ('10 day view --json, new process (not logged)', 0)]",
+    "exit 0"
+   ],
+   "id": "sample",
+   "argv": "python -B -X dev <scratch>/sample.py <scratch> evidence/build05.02/sample-cycle.json",
+   "exit": 0
+  }
+ ],
+ "skips": [
+  "no symlink/junction journal-root test: creating links needs privileges on this host; the 05.01 is_link check is reused unchanged"
+ ],
+ "mutations": {
+  "stale-terminals-shown-current": "stale-terminals-shown-current 1 ['test_13_page_change_keeps_completion_historical_until_a_fresh_successor', 'test_14_custody_change_makes_declarations_and_next_action_historical']",
+  "direction-not-checked": "direction-not-checked 1 ['test_18_changed_direction_refuses_the_old_template_and_a_new_read_records']",
+  "direction-fields-dropped": "direction-fields-dropped 1 ['test_18_changed_direction_refuses_the_old_template_and_a_new_read_records']",
+  "altered-treated-as-torn": "altered-treated-as-torn 1 ['test_15_altered_latest_review_is_not_replaced_by_its_predecessor']",
+  "legacy-record-current": "legacy-record-current 1 ['test_16_legacy_record_is_never_current_under_the_stronger_contract']",
+  "replay-double-counted": "replay-double-counted 1 ['test_21_refusal_replay_and_completion_are_counted_once']",
+  "goal-counted-per-record": "goal-counted-per-record 1 ['test_21_refusal_replay_and_completion_are_counted_once']",
+  "missing-end-reported-ok": "missing-end-reported-ok 1 ['test_22_interrupted_review_and_missing_end_stay_incomplete']",
+  "end-failure-concealed": "end-failure-concealed ['TestJournal.test_23_journal_failures_never_run_blind_or_hide_a_committed_review']: exit 1; failing ['test_23_journal_failures_never_run_blind_or_hide_a_committed_review']",
+  "journal-in-repo-allowed": "journal-in-repo-allowed ['TestJournal.test_23_journal_failures_never_run_blind_or_hide_a_committed_review']: exit 1; failing ['test_23_journal_failures_never_run_blind_or_hide_a_committed_review']"
+ },
+ "final_hashes": [
+  "dd5319a46a88e05020ee7b0715b8edca26031066c3f2ee867f590a6056581338 *labs/prime-cycle-pass01/prime_cycle.py",
+  "6b51dfbdd7744889906fae5d2367f44ac5e7e478c3ba54b12dde1661aa46468d *labs/prime-cycle-pass01/tests/fixture.py",
+  "199f89e66932529a9e268d4f3389f3ea579e4c01a268e07a6e1af97b11c91b0a *labs/prime-cycle-pass01/tests/test_binding_log.py",
+  "d1e6f45ca690b28ed6178daa0f64650b3f38e70784d12135c6d9797df9838d13 *labs/prime-cycle-pass01/tests/test_prime_cycle.py",
+  "abdac14a03981cdb6df0bfa5974cf25f397c911408ed15a05cb550bc7d3959fc *labs/prime-cycle-pass01/demo.py",
+  "1f79795c9acf8423e4064c2bc6eea98d58f1f0a3860ced34a264a582f1625e89 *labs/prime-cycle-pass01/colab/build_colab_desk.py",
+  "967acc704c30237e565fb6bbab2f444d8650a7084cbd6004032d1c3800ffad96 *labs/prime-cycle-pass01/colab/evaluate.py",
+  "63bfcd9726607f287ba2ebd006b4c55872988b839e9836307712577034977140 *labs/prime-cycle-pass01/colab/selftest.py"
+ ],
+ "protected_status": {
+  "00.kernel/00.live.md": {
+   "exists": true,
+   "status": ""
+  },
+  "00.kernel/00.00.10.work/0401.goal": {
+   "exists": true,
+   "status": ""
+  },
+  "00.kernel/00.00.10.work/0508.return-capture": {
+   "exists": true,
+   "status": ""
+  },
+  "00.kernel/00.00.10.work/0169.desk-state-preservation-0520": {
+   "exists": true,
+   "status": ""
+  },
+  "00.kernel/00.00.10.work/0170.prime-cycle-integration-0501": {
+   "exists": true,
+   "status": ""
+  },
+  "00.kernel/00.00.10.work/0515.prime-cycle/06.01.md": {
+   "exists": true,
+   "status": ""
+  },
+  "00.kernel/00.00.10.work/0515.prime-cycle/evidence/build05.01": {
+   "exists": true,
+   "status": ""
+  },
+  "00.kernel/00.00.10.work/0515.prime-cycle/evidence/prime-review05.01": {
+   "exists": true,
+   "status": ""
+  },
+  "00.kernel/00.00.10.work/0515.prime-cycle/05.01.md": {
+   "exists": true,
+   "status": ""
+  },
+  "00.kernel/00.00.10.work/0415.prime-cycle": {
+   "exists": true,
+   "status": ""
+  },
+  "labs/batch-observation-pass01": {
+   "exists": true,
+   "status": ""
+  },
+  "labs/return-capture-pass01": {
+   "exists": true,
+   "status": ""
+  },
+  "labs/prime-review-pass01": {
+   "exists": true,
+   "status": ""
+  },
+  "labs/review-packet-pass01": {
+   "exists": true,
+   "status": ""
+  },
+  "labs/prime-support-pass01": {
+   "exists": true,
+   "status": ""
+  },
+  "labs/desk-state-pass01": {
+   "exists": true,
+   "status": "?? labs/desk-state-pass01/__pycache__/\n?? labs/desk-state-pass01/tests/__pycache__/"
+  }
+ },
+ "pack_sources_unchanged_now": {
+  "00.kernel/00.00.10.work/0415.prime-cycle/01.md": true,
+  "00.kernel/00.00.10.work/0415.prime-cycle/06.03.md": true,
+  "00.kernel/00.00.10.work/0515.prime-cycle/evidence/prime-review05.01/REVIEW.md": true,
+  "00.kernel/00.00.10.work/0515.prime-cycle/evidence/prime-review05.01/probes.json": true,
+  "00.kernel/00.00.10.work/0515.prime-cycle/evidence/build05.01/CONTRACT.md": true,
+  "00.kernel/00.00.10.work/0515.prime-cycle/evidence/build05.01/PRIME-USE.md": true,
+  "labs/prime-cycle-pass01/prime_cycle.py": false,
+  "labs/prime-cycle-pass01/README.md": false,
+  "labs/prime-cycle-pass01/tests/test_prime_cycle.py": true,
+  "labs/prime-cycle-pass01/tests/fixture.py": true,
+  "00.kernel/00.00.10.work/0412.prime-review/evidence/drift-audit-2026-10-29/DECISIONS.md": true
+ },
+ "protected_note": "labs/desk-state-pass01 __pycache__ (2026-10-29) predates this batch and was left alone. Pack sources that changed (prime_cycle.py, README.md) are the allowed corrections; test_prime_cycle.py and fixture.py are unchanged.",
+ "staged": [],
+ "manual_duties": [
+  "Prime: review the corrections; supply goal, agreement and judgment for a first real journalled read-record-read (PRIME-USE)",
+  "Prime: choose the journal root outside the repository (proposed D:/prime-cycle-out/journal)",
+  "Director: any later Colab launch or N7NN allocation; AR-01 stays held"
+ ],
+ "label": "Synthetic checks: not a model benchmark, not a live dispatcher, not a fresh-Prime boot"
+}

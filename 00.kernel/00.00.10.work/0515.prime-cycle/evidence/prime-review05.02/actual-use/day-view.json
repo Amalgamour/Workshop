@@ -1,0 +1,105 @@
+{
+ "counts": {
+  "read": {
+   "ok": 1,
+   "ok-attention": 1
+  },
+  "record": {
+   "recorded": 1
+  }
+ },
+ "current": {
+  "checked": true,
+  "completed_goals": [],
+  "finished_passes": [
+   "deskstate-0520"
+  ],
+  "not_current": [],
+  "open_holds": [],
+  "registration_sha256": "bf7a6ae66e0a3c10095392112a49ca56d63097886fbd13ba4a82ac94baa57b30",
+  "summary": {
+   "awaiting_review": 0,
+   "basis": "current values only; historical declarations of stale or unusable reviews are not counted",
+   "completed_goals": 0,
+   "finished_passes": 1,
+   "open_holds": 0,
+   "reviewed_current": 1,
+   "stale_or_unusable": 0,
+   "works": 1
+  }
+ },
+ "date": "2026-10-30",
+ "declared": {
+  "basis": "declared in unique committed records journalled this day and re-verified now; each work's pass and each work goal counts once however many reviews or replays declare it; declared is not current",
+  "completed_goals": 0,
+  "finished_passes": 1,
+  "holds": []
+ },
+ "incomplete": [],
+ "journal_root": "D:\\librarian\\prime-cycle-out\\2026-10-30\\journal",
+ "note": "read-only; this view is not itself logged; reasons and decisions stay on the work-local review records",
+ "operations": [
+  {
+   "caller_label": "Codex Prime",
+   "duration_seconds": 0.359,
+   "exit": 1,
+   "note": null,
+   "op_id": "20261030T184030.851958Z-f868279aaf6e",
+   "operation": "read",
+   "started_at_local": "2026-10-30T13:40:30.851958-05:00",
+   "status": "ok-attention"
+  },
+  {
+   "caller_label": "Codex Prime",
+   "duration_seconds": 0.468,
+   "exit": 0,
+   "note": null,
+   "op_id": "20261030T184057.565499Z-dd300f49dec7",
+   "operation": "record",
+   "review": {
+    "dir": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0508.return-capture\\evidence\\prime-cycle-reviews\\05.20\\05.20-r1",
+    "record_sha256": "aea93db545f1c5f57790b82cd543688d7a93d6fbb0db7b652f91191122c913df",
+    "review_id": "05.20-r1"
+   },
+   "started_at_local": "2026-10-30T13:40:57.565499-05:00",
+   "status": "recorded"
+  },
+  {
+   "caller_label": "Codex Prime",
+   "duration_seconds": 0.359,
+   "exit": 0,
+   "note": null,
+   "op_id": "20261030T184101.696692Z-4c63d46b4ba3",
+   "operation": "read",
+   "started_at_local": "2026-10-30T13:41:01.696692-05:00",
+   "status": "ok"
+  }
+ ],
+ "record_invocations": 1,
+ "schema": "prime-cycle-day/1",
+ "time": "per-operation durations only; incomplete operations have unknown duration; no totals or productivity are derived",
+ "unique_reviews": [
+  {
+   "author": "Codex Prime",
+   "current_head": true,
+   "dir": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work\\0508.return-capture\\evidence\\prime-cycle-reviews\\05.20\\05.20-r1",
+   "disposition": "accepted",
+   "goal_id": "deskstate-current-use",
+   "goal_sha256": "4332d2abc1d6cb15b3410cb31a4c3bd95a82df11c3c680d9ec02fef2935551ec",
+   "goal_terminal": "open",
+   "holds": [],
+   "invocations": [
+    "20261030T184057.565499Z-dd300f49dec7"
+   ],
+   "page": "00.kernel/00.00.10.work/0508.return-capture/05.20.md",
+   "pass_terminal": "finished",
+   "record_sha256": "aea93db545f1c5f57790b82cd543688d7a93d6fbb0db7b652f91191122c913df",
+   "replays": 0,
+   "review_id": "05.20-r1",
+   "schema": "prime-cycle-review/2",
+   "verified": true,
+   "work_id": "deskstate-0520"
+  }
+ ],
+ "unreadable": []
+}

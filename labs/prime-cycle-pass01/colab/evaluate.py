@@ -49,6 +49,11 @@ def evaluate(base: dict) -> list:
     j = (rec.get("decision") or {}).get("judgment") or {}
     check(f"{rw} goal not completed without its own evidence", j.get("goal", {}).get("terminal") != "completed" or j["goal"].get("evidence"),
           str(j.get("goal")))
+    jr = Path(base.get("journal_root") or "")  # 05.02: the recording is journalled and points at the committed record
+    ends = [json.loads(e.read_text(encoding="utf-8")) for e in jr.glob("*/*/end.json")] if base.get("journal_root") and jr.is_dir() else []
+    hit = [e for e in ends if e["machine"]["status"] in ("recorded", "recorded-attention")
+           and (e["machine"]["result"].get("review") or {}).get("record_sha256") == lr.get("record_sha256")]
+    check(f"{rw} recording is in the journal with its record hash", bool(lr) and len(hit) == 1, f"{len(ends)} end events")
     return checks
 
 

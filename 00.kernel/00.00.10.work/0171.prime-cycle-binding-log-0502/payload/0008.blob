@@ -1,0 +1,1695 @@
+{
+ "schema": "prime-cycle-sample/2",
+ "label": "SYNTHETIC SUPPLIED decisions on disposable books; the real preview is read-only on published sources; no model",
+ "cycle": {
+  "steps": [
+   {
+    "step": "1 read with templates",
+    "argv": [
+     "python",
+     "-B",
+     "labs/prime-cycle-pass01/prime_cycle.py",
+     "read",
+     "--registration",
+     "<desk>\\reg.json",
+     "--templates",
+     "<desk>\\out\\t1",
+     "--journal-root",
+     "<desk>\\out\\journal",
+     "--caller",
+     "Codex Prime (SYNTHETIC SAMPLE)"
+    ],
+    "exit": 1,
+    "stdout": "Prime cycle view  book 00.kernel/00.00.10.work  source live-file (live files)\nDerived from work-local review records. Noncanonical. Nothing is elected or dispatched.\nsummary (current only): works 1, awaiting review 1, reviewed current 0, stale or unusable 0, finished passes 0, completed goals 0, open holds 0\n\nS  00.kernel/00.00.10.work/0590.sample/05.01.md\n  pass state: awaiting-review   review disposition: unknown   pass terminal: unknown\n  goal g1: unknown\n  custody: 0101.s role primary-current-candidate receipt 0177f77e08979a31 (custody is not acceptance)\n  ! awaiting-review: a captured return has no recorded review\n\nauthority none; this tool records supplied judgment and derives a view; it authenticates no actor and grants no work\njournal: <desk>\\out\\journal op 20261030T182530.351413Z-3d8dc35fa981\n",
+    "stderr": ""
+   },
+   {
+    "step": "2 record accept (pass finished, goal open)",
+    "argv": [
+     "python",
+     "-B",
+     "labs/prime-cycle-pass01/prime_cycle.py",
+     "record",
+     "--registration",
+     "<desk>\\reg.json",
+     "--decision",
+     "<desk>\\accept.json",
+     "--journal-root",
+     "<desk>\\out\\journal",
+     "--caller",
+     "Codex Prime (SYNTHETIC SAMPLE)"
+    ],
+    "exit": 0,
+    "stdout": "recorded <desk>\\repo\\00.kernel\\00.00.10.work\\0590.sample\\evidence\\prime-cycle-reviews\\05.01\\05.01-r1\nprime_review effective continue\njournal: <desk>\\out\\journal op 20261030T182532.280023Z-62c1e14e58a4\n",
+    "stderr": ""
+   },
+   {
+    "step": "3 identical replay",
+    "argv": [
+     "python",
+     "-B",
+     "labs/prime-cycle-pass01/prime_cycle.py",
+     "record",
+     "--registration",
+     "<desk>\\reg.json",
+     "--decision",
+     "<desk>\\accept.json",
+     "--journal-root",
+     "<desk>\\out\\journal",
+     "--caller",
+     "Codex Prime (SYNTHETIC SAMPLE)"
+    ],
+    "exit": 0,
+    "stdout": "already-recorded <desk>\\repo\\00.kernel\\00.00.10.work\\0590.sample\\evidence\\prime-cycle-reviews\\05.01\\05.01-r1\njournal: <desk>\\out\\journal op 20261030T182534.260562Z-b772e69bf156\n",
+    "stderr": ""
+   },
+   {
+    "step": "4 read --json",
+    "argv": [
+     "python",
+     "-B",
+     "labs/prime-cycle-pass01/prime_cycle.py",
+     "read",
+     "--registration",
+     "<desk>\\reg.json",
+     "--json",
+     "--journal-root",
+     "<desk>\\out\\journal",
+     "--caller",
+     "Codex Prime (SYNTHETIC SAMPLE)"
+    ],
+    "exit": 0,
+    "stdout": "{\n \"attention_count\": 0,\n \"authority\": \"none; this tool records supplied judgment and derives a view; it authenticates no actor and grants no work\",\n \"book\": \"00.kernel/00.00.10.work\",\n \"elected\": null,\n \"journal\": {\n  \"dir\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\pcy-sample-5ycv2hzz\\\\out\\\\journal\\\\2026-10-30\\\\20261030T182537.300001Z-1dd7c773cf16\",\n  \"enabled\": true,\n  \"op_id\": \"20261030T182537.300001Z-1dd7c773cf16\",\n  \"root\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\pcy-sample-5ycv2hzz\\\\out\\\\journal\"\n },\n \"note\": \"derived from work-local review records and fresh reader observations; noncanonical; rebuildable\",\n \"registration_sha256\": \"3180a961fd1e39a6ff95723250a96ac4590752fe019a3644a4791d224daca594\",\n \"schema\": \"prime-cycle-view/2\",\n \"source\": {\n  \"commit\": null,\n  \"kind\": \"live-file\"\n },\n \"summary\": {\n  \"awaiting_review\": 0,\n  \"basis\": \"current values only; historical declarations of stale or unusable reviews are not counted\",\n  \"completed_goals\": 0,\n  \"finished_passes\": 1,\n  \"open_holds\": 0,\n  \"reviewed_current\": 1,\n  \"stale_or_unusable\": 0,\n  \"works\": 1\n },\n \"works\": [\n  {\n   \"attention\": [],\n   \"custody\": {\n    \"basis\": \"live inspection at read time; custody is not acceptance\",\n    \"member\": \"0101.s\",\n    \"receipt_sha256\": \"0177f77e08979a31804751cbd727251b63aa38b2b3c66e8d52e5e07053052995\",\n    \"retrospective\": false,\n    \"role\": \"primary-current-candidate\"\n   },\n   \"disposition\": \"accepted\",\n   \"goal\": {\n    \"goal_id\": \"g1\",\n    \"goal_sha256\": \"2b31ef6fb02f5aeabdb80c0cfaab4b248810c6e81775de673d36dd56bd96adef\"\n   },\n   \"goal_terminal\": \"open\",\n   \"historical\": null,\n   \"holds\": [],\n   \"latest_review\": {\n    \"author\": \"Codex Prime (SUPPLIED FIXTURE)\",\n    \"current\": true,\n    \"effective\": \"continue\",\n    \"outcome\": \"continue\",\n    \"record_sha256\": \"c896dfdc7e3c59567d981df107b885dac6025414577fdf3e6f80747cbbf05910\",\n    \"review_id\": \"05.01-r1\"\n   },\n   \"next_action\": {\n    \"action_id\": \"next-pass\",\n    \"author\": \"Codex Prime (SUPPLIED FIXTURE)\",\n    \"authorized_in_grant\": true,\n    \"record_sha256\": \"c896dfdc7e3c59567d981df107b885dac6025414577fdf3e6f80747cbbf05910\",\n    \"source\": \"00.kernel/00.00.10.work/0590.sample/evidence/prime-cycle-reviews/05.01/05.01-r1/record.json\",\n    \"text\": \"Pack the next bounded pass toward the page goal.\"\n   },\n   \"next_action_guard\": [],\n   \"page\": \"00.kernel/00.00.10.work/0590.sample/05.01.md\",\n   \"pass\": \"05.01\",\n   \"pass_state\": \"reviewed\",\n   \"pass_terminal\": \"finished\",\n   \"reader\": {\n    \"ambiguities\": [\n     \"legacy-ambiguous-heading\",\n     \"legacy-revision-withheld\"\n    ],\n    \"attention\": [],\n    \"exit\": 1,\n    \"failed\": null,\n    \"stdout_sha256\": \"fb345a4f685005a8e9ac9f6f254e2b6f77eba0c8c9365def391aac6a32025303\"\n   },\n   \"reviews\": {\n    \"committed\": [\n     \"05.01-r1\"\n    ],\n    \"heads\": [\n     \"05.01-r1\"\n    ],\n    \"invalid\": [],\n    \"partial\": []\n   },\n   \"source\": {\n    \"commit\": null,\n    \"kind\": \"live-file\",\n    \"page_sha256\": \"44b3fd60c3d68bea60dad2356ab16c97c01807721c77bad0c8278704a42567d6\"\n   },\n   \"template\": {\n    \"attribution\": {\n     \"actor_label\": null,\n     \"evidence\": null,\n     \"role\": \"prime\"\n    },\n    \"binding\": {\n     \"direction\": {\n      \"agreement_sha256\": \"ccda006d38bff2473baca85f10e911d57d2119fdc78742dbeb70bacc48744370\",\n      \"book\": \"00.kernel/00.00.10.work\",\n      \"fields\": {\n       \"director_required\": \"ec2d23b176e1faf0edd8aab3c7aef7ebb374ad45b9a63ac6868ef5835cf99c67\",\n       \"finish_criteria\": \"91fdfae213db8cf94a829f35dd784699036450abebba947a1ca68120d1a6d451\",\n       \"goal\": \"d8ad5981dea9ed7c5dee427e98c3e2c4025813f56afb7bc2d8babca4d68b7688\",\n       \"prime_discretion\": \"704477072fb4897037b0c03e3a577a3c92ea61584b50d820eafc8f154500caf2\",\n       \"recorded_decisions\": \"c34ffaf44ef1502aa94307e16b579842e670386b5709a9314fb1a7370b460dfa\",\n       \"scope\": \"bd1436823a04563be96ae26ec64f9861a4b3de2d44b9011a58ba37e37ff421c6\"\n      },\n      \"review_location\": \"00.kernel/00.00.10.work/0590.sample/evidence/prime-cycle-reviews/05.01\",\n      \"schema\": \"prime-cycle-direction/1\"\n     },\n     \"expected_prior\": {\n      \"record_sha256\": \"c896dfdc7e3c59567d981df107b885dac6025414577fdf3e6f80747cbbf05910\",\n      \"review_id\": \"05.01-r1\"\n     },\n     \"fingerprint\": \"2908e3480e5cd27dca8589a92b4453da5614aba49474a3c2afe82f1009662c3f\",\n     \"goal\": {\n      \"goal_id\": \"g1\",\n      \"goal_sha256\": \"2b31ef6fb02f5aeabdb80c0cfaab4b248810c6e81775de673d36dd56bd96adef\"\n     },\n     \"member\": \"0101.s\",\n     \"member_role\": \"primary-current-candidate\",\n     \"origin\": {\n      \"batch\": \"05.01\",\n      \"book\": \"00.00.10.work\",\n      \"page\": \"0590.sample\"\n     },\n     \"page\": \"00.kernel/00.00.10.work/0590.sample/05.01.md\",\n     \"pass\": \"05.01\",\n     \"receipt_sha256\": \"0177f77e08979a31804751cbd727251b63aa38b2b3c66e8d52e5e07053052995\",\n     \"retrospective\": false,\n     \"source\": {\n      \"commit\": null,\n      \"kind\": \"live-file\",\n      \"page_bytes\": 398,\n      \"page_sha256\": \"44b3fd60c3d68bea60dad2356ab16c97c01807721c77bad0c8278704a42567d6\"\n     },\n     \"submission_id\": \"fx-s\",\n     \"work_id\": \"S\"\n    },\n    \"judgment\": {\n     \"answers\": [],\n     \"design_fork\": null,\n     \"disposition\": null,\n     \"finding\": null,\n     \"goal\": {\n      \"evidence\": [],\n      \"goal_id\": \"g1\",\n      \"goal_sha256\": \"2b31ef6fb02f5aeabdb80c0cfaab4b248810c6e81775de673d36dd56bd96adef\",\n      \"terminal\": null\n     },\n     \"holds\": [],\n     \"next_action\": null,\n     \"outcome\": null,\n     \"pass_terminal\": null,\n     \"reasons\": [],\n     \"sections\": {\n      \"affected\": null,\n      \"assumptions\": null,\n      \"consequences\": null,\n      \"exploration\": null,\n      \"findings_account\": null,\n      \"finish_assessments\": null,\n      \"for_model\": null,\n      \"issue\": null,\n      \"learning\": null,\n      \"limits\": null,\n      \"next_bounded_action\": null,\n      \"open_questions\": null,\n      \"options\": null,\n      \"outcome_evidence\": null,\n      \"preservation\": null,\n      \"prime_finding\": null,\n      \"proposed_plan\": null,\n      \"question\": null,\n      \"recommendation\": null,\n      \"remaining_choices\": null,\n      \"return_result\": null,\n      \"tests_note\": null,\n      \"tests_passed\": null,\n      \"within_direction\": null\n     },\n     \"semantic_conflict\": null,\n     \"source_refs\": [],\n     \"unresolved\": []\n    },\n    \"recovers\": null,\n    \"review_id\": \"05.01-r2\",\n    \"schema\": \"prime-cycle-decision/2\",\n    \"supersedes\": {\n     \"record_sha256\": \"c896dfdc7e3c59567d981df107b885dac6025414577fdf3e6f80747cbbf05910\",\n     \"review_id\": \"05.01-r1\"\n    }\n   },\n   \"unresolved\": [],\n   \"work_id\": \"S\"\n  }\n ]\n}\n",
+    "stderr": ""
+   },
+   {
+    "step": "5 refused: completion without evidence",
+    "argv": [
+     "python",
+     "-B",
+     "labs/prime-cycle-pass01/prime_cycle.py",
+     "record",
+     "--registration",
+     "<desk>\\reg.json",
+     "--decision",
+     "<desk>\\bad.json",
+     "--journal-root",
+     "<desk>\\out\\journal",
+     "--caller",
+     "Codex Prime (SYNTHETIC SAMPLE)"
+    ],
+    "exit": 2,
+    "stdout": "refused: a completed goal needs at least one evidence reference\njournal: <desk>\\out\\journal op 20261030T182539.056645Z-bc89c503799c\n",
+    "stderr": ""
+   },
+   {
+    "step": "6 record goal completion (successor)",
+    "argv": [
+     "python",
+     "-B",
+     "labs/prime-cycle-pass01/prime_cycle.py",
+     "record",
+     "--registration",
+     "<desk>\\reg.json",
+     "--decision",
+     "<desk>\\complete.json",
+     "--journal-root",
+     "<desk>\\out\\journal",
+     "--caller",
+     "Codex Prime (SYNTHETIC SAMPLE)"
+    ],
+    "exit": 0,
+    "stdout": "recorded <desk>\\repo\\00.kernel\\00.00.10.work\\0590.sample\\evidence\\prime-cycle-reviews\\05.01\\05.01-r2\nprime_review effective complete-as-supplied\njournal: <desk>\\out\\journal op 20261030T182539.292501Z-84477f4dea1f\n",
+    "stderr": ""
+   },
+   {
+    "step": "7 read: completed and current",
+    "argv": [
+     "python",
+     "-B",
+     "labs/prime-cycle-pass01/prime_cycle.py",
+     "read",
+     "--registration",
+     "<desk>\\reg.json",
+     "--journal-root",
+     "<desk>\\out\\journal",
+     "--caller",
+     "Codex Prime (SYNTHETIC SAMPLE)"
+    ],
+    "exit": 0,
+    "stdout": "Prime cycle view  book 00.kernel/00.00.10.work  source live-file (live files)\nDerived from work-local review records. Noncanonical. Nothing is elected or dispatched.\nsummary (current only): works 1, awaiting review 0, reviewed current 1, stale or unusable 0, finished passes 1, completed goals 1, open holds 0\n\nS  00.kernel/00.00.10.work/0590.sample/05.01.md\n  pass state: reviewed   review disposition: accepted   pass terminal: finished\n  goal g1: completed\n  custody: 0101.s role primary-current-candidate receipt 0177f77e08979a31 (custody is not acceptance)\n  latest review: 05.01-r2 by Codex Prime (SUPPLIED FIXTURE) outcome complete (prime_review effective complete-as-supplied)\n\nauthority none; this tool records supplied judgment and derives a view; it authenticates no actor and grants no work\njournal: <desk>\\out\\journal op 20261030T182542.376600Z-b31c4f18caaf\n",
+    "stderr": ""
+   },
+   {
+    "step": "8 read after the page changed: historical",
+    "argv": [
+     "python",
+     "-B",
+     "labs/prime-cycle-pass01/prime_cycle.py",
+     "read",
+     "--registration",
+     "<desk>\\reg.json",
+     "--journal-root",
+     "<desk>\\out\\journal",
+     "--caller",
+     "Codex Prime (SYNTHETIC SAMPLE)"
+    ],
+    "exit": 1,
+    "stdout": "Prime cycle view  book 00.kernel/00.00.10.work  source live-file (live files)\nDerived from work-local review records. Noncanonical. Nothing is elected or dispatched.\nsummary (current only): works 1, awaiting review 0, reviewed current 0, stale or unusable 1, finished passes 0, completed goals 0, open holds 0\n\nS  00.kernel/00.00.10.work/0590.sample/05.01.md\n  pass state: review-stale   review disposition: unknown (historical accepted in 05.01-r2, review-stale)   pass terminal: unknown (historical finished in 05.01-r2, review-stale)\n  goal g1: unknown (historical completed in 05.01-r2, review-stale)\n  custody: 0101.s role primary-current-candidate receipt 0177f77e08979a31 (custody is not acceptance)\n  latest review: 05.01-r2 by Codex Prime (SUPPLIED FIXTURE) outcome complete (prime_review effective complete-as-supplied)  [not current]\n  ! review-stale: 05.01-r2 binds a different page; its declarations are historical; re-review required\n\nauthority none; this tool records supplied judgment and derives a view; it authenticates no actor and grants no work\njournal: <desk>\\out\\journal op 20261030T182544.145589Z-5685de2b856a\n",
+    "stderr": ""
+   },
+   {
+    "step": "9 day view, new process (not logged)",
+    "argv": [
+     "python",
+     "-B",
+     "labs/prime-cycle-pass01/prime_cycle.py",
+     "day",
+     "--journal-root",
+     "<desk>\\out\\journal",
+     "--date",
+     "2026-10-30",
+     "--registration",
+     "<desk>\\reg.json"
+    ],
+    "exit": 0,
+    "stdout": "Prime cycle day 2026-10-30  journal <desk>\\out\\journal  (read-only; this view is not logged)\nattempts: read ok 2, ok-attention 2; record recorded 2, refused 1, replay 1\n\n  20261030T182530.351413Z-3d8dc35fa981  read    ok-attention       exit 1  2026-10-30T13:25:30.351374-05:00  0.689s  caller Codex Prime (SYNTHETIC SAMPLE)\n  20261030T182532.280023Z-62c1e14e58a4  record  recorded           exit 0  2026-10-30T13:25:32.279975-05:00  1.762s  caller Codex Prime (SYNTHETIC SAMPLE)\n      review 05.01-r1 record c896dfdc7e3c5956\n  20261030T182534.260562Z-b772e69bf156  record  replay             exit 0  2026-10-30T13:25:34.260530-05:00  1.872s  caller Codex Prime (SYNTHETIC SAMPLE)\n      review 05.01-r1 record c896dfdc7e3c5956\n  20261030T182537.300001Z-1dd7c773cf16  read    ok                 exit 0  2026-10-30T13:25:37.299971-05:00  0.529s  caller Codex Prime (SYNTHETIC SAMPLE)\n  20261030T182539.056645Z-bc89c503799c  record  refused            exit 2  2026-10-30T13:25:39.056605-05:00  0.009s  caller Codex Prime (SYNTHETIC SAMPLE)\n      refused: a completed goal needs at least one evidence reference\n  20261030T182539.292501Z-84477f4dea1f  record  recorded           exit 0  2026-10-30T13:25:39.292469-05:00  1.910s  caller Codex Prime (SYNTHETIC SAMPLE)\n      review 05.01-r2 record 5a6850cacf6b697d\n  20261030T182542.376600Z-b31c4f18caaf  read    ok                 exit 0  2026-10-30T13:25:42.376564-05:00  0.545s  caller Codex Prime (SYNTHETIC SAMPLE)\n  20261030T182544.145589Z-5685de2b856a  read    ok-attention       exit 1  2026-10-30T13:25:44.145555-05:00  0.546s  caller Codex Prime (SYNTHETIC SAMPLE)\n\nunique reviews (re-verified now): 2 from 3 record invocations\n  S 05.01-r1 by Codex Prime (SUPPLIED FIXTURE): accepted, pass finished, goal g1 open; invocations 2 (replays 1); current head no\n  S 05.01-r2 by Codex Prime (SUPPLIED FIXTURE): accepted, pass finished, goal g1 completed; invocations 1 (replays 0); current head no\ndeclared in unique verified records (each work pass and goal once; not current status): finished passes 1, completed goals 1, holds none\ncurrent (fresh read): finished passes none; completed goals none; open holds none; not current S\nper-operation durations only; incomplete operations have unknown duration; no totals or productivity are derived\n",
+    "stderr": ""
+   },
+   {
+    "step": "10 day view --json, new process (not logged)",
+    "argv": [
+     "python",
+     "-B",
+     "labs/prime-cycle-pass01/prime_cycle.py",
+     "day",
+     "--journal-root",
+     "<desk>\\out\\journal",
+     "--date",
+     "2026-10-30",
+     "--registration",
+     "<desk>\\reg.json",
+     "--json"
+    ],
+    "exit": 0,
+    "stdout": "{\n \"counts\": {\n  \"read\": {\n   \"ok\": 2,\n   \"ok-attention\": 2\n  },\n  \"record\": {\n   \"recorded\": 2,\n   \"refused\": 1,\n   \"replay\": 1\n  }\n },\n \"current\": {\n  \"checked\": true,\n  \"completed_goals\": [],\n  \"finished_passes\": [],\n  \"not_current\": [\n   \"S\"\n  ],\n  \"open_holds\": [],\n  \"registration_sha256\": \"3180a961fd1e39a6ff95723250a96ac4590752fe019a3644a4791d224daca594\",\n  \"summary\": {\n   \"awaiting_review\": 0,\n   \"basis\": \"current values only; historical declarations of stale or unusable reviews are not counted\",\n   \"completed_goals\": 0,\n   \"finished_passes\": 0,\n   \"open_holds\": 0,\n   \"reviewed_current\": 0,\n   \"stale_or_unusable\": 1,\n   \"works\": 1\n  }\n },\n \"date\": \"2026-10-30\",\n \"declared\": {\n  \"basis\": \"declared in unique committed records journalled this day and re-verified now; each work's pass and each work goal counts once however many reviews or replays declare it; declared is not current\",\n  \"completed_goals\": 1,\n  \"finished_passes\": 1,\n  \"holds\": []\n },\n \"incomplete\": [],\n \"journal_root\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\pcy-sample-5ycv2hzz\\\\out\\\\journal\",\n \"note\": \"read-only; this view is not itself logged; reasons and decisions stay on the work-local review records\",\n \"operations\": [\n  {\n   \"caller_label\": \"Codex Prime (SYNTHETIC SAMPLE)\",\n   \"duration_seconds\": 0.688632,\n   \"exit\": 1,\n   \"note\": null,\n   \"op_id\": \"20261030T182530.351413Z-3d8dc35fa981\",\n   \"operation\": \"read\",\n   \"started_at_local\": \"2026-10-30T13:25:30.351374-05:00\",\n   \"status\": \"ok-attention\"\n  },\n  {\n   \"caller_label\": \"Codex Prime (SYNTHETIC SAMPLE)\",\n   \"duration_seconds\": 1.762369,\n   \"exit\": 0,\n   \"note\": null,\n   \"op_id\": \"20261030T182532.280023Z-62c1e14e58a4\",\n   \"operation\": \"record\",\n   \"review\": {\n    \"dir\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\pcy-sample-5ycv2hzz\\\\repo\\\\00.kernel\\\\00.00.10.work\\\\0590.sample\\\\evidence\\\\prime-cycle-reviews\\\\05.01\\\\05.01-r1\",\n    \"record_sha256\": \"c896dfdc7e3c59567d981df107b885dac6025414577fdf3e6f80747cbbf05910\",\n    \"review_id\": \"05.01-r1\"\n   },\n   \"started_at_local\": \"2026-10-30T13:25:32.279975-05:00\",\n   \"status\": \"recorded\"\n  },\n  {\n   \"caller_label\": \"Codex Prime (SYNTHETIC SAMPLE)\",\n   \"duration_seconds\": 1.872202,\n   \"exit\": 0,\n   \"note\": null,\n   \"op_id\": \"20261030T182534.260562Z-b772e69bf156\",\n   \"operation\": \"record\",\n   \"review\": {\n    \"dir\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\pcy-sample-5ycv2hzz\\\\repo\\\\00.kernel\\\\00.00.10.work\\\\0590.sample\\\\evidence\\\\prime-cycle-reviews\\\\05.01\\\\05.01-r1\",\n    \"record_sha256\": \"c896dfdc7e3c59567d981df107b885dac6025414577fdf3e6f80747cbbf05910\",\n    \"review_id\": \"05.01-r1\"\n   },\n   \"started_at_local\": \"2026-10-30T13:25:34.260530-05:00\",\n   \"status\": \"replay\"\n  },\n  {\n   \"caller_label\": \"Codex Prime (SYNTHETIC SAMPLE)\",\n   \"duration_seconds\": 0.52875,\n   \"exit\": 0,\n   \"note\": null,\n   \"op_id\": \"20261030T182537.300001Z-1dd7c773cf16\",\n   \"operation\": \"read\",\n   \"started_at_local\": \"2026-10-30T13:25:37.299971-05:00\",\n   \"status\": \"ok\"\n  },\n  {\n   \"caller_label\": \"Codex Prime (SYNTHETIC SAMPLE)\",\n   \"detail\": [\n    \"refused: a completed goal needs at least one evidence reference\"\n   ],\n   \"duration_seconds\": 0.009315,\n   \"exit\": 2,\n   \"note\": null,\n   \"op_id\": \"20261030T182539.056645Z-bc89c503799c\",\n   \"operation\": \"record\",\n   \"started_at_local\": \"2026-10-30T13:25:39.056605-05:00\",\n   \"status\": \"refused\"\n  },\n  {\n   \"caller_label\": \"Codex Prime (SYNTHETIC SAMPLE)\",\n   \"duration_seconds\": 1.910407,\n   \"exit\": 0,\n   \"note\": null,\n   \"op_id\": \"20261030T182539.292501Z-84477f4dea1f\",\n   \"operation\": \"record\",\n   \"review\": {\n    \"dir\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\pcy-sample-5ycv2hzz\\\\repo\\\\00.kernel\\\\00.00.10.work\\\\0590.sample\\\\evidence\\\\prime-cycle-reviews\\\\05.01\\\\05.01-r2\",\n    \"record_sha256\": \"5a6850cacf6b697d88e3383631bcbdfc88320da3a53fd38f6889b994c6b36099\",\n    \"review_id\": \"05.01-r2\"\n   },\n   \"started_at_local\": \"2026-10-30T13:25:39.292469-05:00\",\n   \"status\": \"recorded\"\n  },\n  {\n   \"caller_label\": \"Codex Prime (SYNTHETIC SAMPLE)\",\n   \"duration_seconds\": 0.544644,\n   \"exit\": 0,\n   \"note\": null,\n   \"op_id\": \"20261030T182542.376600Z-b31c4f18caaf\",\n   \"operation\": \"read\",\n   \"started_at_local\": \"2026-10-30T13:25:42.376564-05:00\",\n   \"status\": \"ok\"\n  },\n  {\n   \"caller_label\": \"Codex Prime (SYNTHETIC SAMPLE)\",\n   \"duration_seconds\": 0.546046,\n   \"exit\": 1,\n   \"note\": null,\n   \"op_id\": \"20261030T182544.145589Z-5685de2b856a\",\n   \"operation\": \"read\",\n   \"started_at_local\": \"2026-10-30T13:25:44.145555-05:00\",\n   \"status\": \"ok-attention\"\n  }\n ],\n \"record_invocations\": 3,\n \"schema\": \"prime-cycle-day/1\",\n \"time\": \"per-operation durations only; incomplete operations have unknown duration; no totals or productivity are derived\",\n \"unique_reviews\": [\n  {\n   \"author\": \"Codex Prime (SUPPLIED FIXTURE)\",\n   \"current_head\": false,\n   \"dir\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\pcy-sample-5ycv2hzz\\\\repo\\\\00.kernel\\\\00.00.10.work\\\\0590.sample\\\\evidence\\\\prime-cycle-reviews\\\\05.01\\\\05.01-r1\",\n   \"disposition\": \"accepted\",\n   \"goal_id\": \"g1\",\n   \"goal_sha256\": \"2b31ef6fb02f5aeabdb80c0cfaab4b248810c6e81775de673d36dd56bd96adef\",\n   \"goal_terminal\": \"open\",\n   \"holds\": [],\n   \"invocations\": [\n    \"20261030T182532.280023Z-62c1e14e58a4\",\n    \"20261030T182534.260562Z-b772e69bf156\"\n   ],\n   \"page\": \"00.kernel/00.00.10.work/0590.sample/05.01.md\",\n   \"pass_terminal\": \"finished\",\n   \"record_sha256\": \"c896dfdc7e3c59567d981df107b885dac6025414577fdf3e6f80747cbbf05910\",\n   \"replays\": 1,\n   \"review_id\": \"05.01-r1\",\n   \"schema\": \"prime-cycle-review/2\",\n   \"verified\": true,\n   \"work_id\": \"S\"\n  },\n  {\n   \"author\": \"Codex Prime (SUPPLIED FIXTURE)\",\n   \"current_head\": false,\n   \"dir\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\pcy-sample-5ycv2hzz\\\\repo\\\\00.kernel\\\\00.00.10.work\\\\0590.sample\\\\evidence\\\\prime-cycle-reviews\\\\05.01\\\\05.01-r2\",\n   \"disposition\": \"accepted\",\n   \"goal_id\": \"g1\",\n   \"goal_sha256\": \"2b31ef6fb02f5aeabdb80c0cfaab4b248810c6e81775de673d36dd56bd96adef\",\n   \"goal_terminal\": \"completed\",\n   \"holds\": [],\n   \"invocations\": [\n    \"20261030T182539.292501Z-84477f4dea1f\"\n   ],\n   \"page\": \"00.kernel/00.00.10.work/0590.sample/05.01.md\",\n   \"pass_terminal\": \"finished\",\n   \"record_sha256\": \"5a6850cacf6b697d88e3383631bcbdfc88320da3a53fd38f6889b994c6b36099\",\n   \"replays\": 0,\n   \"review_id\": \"05.01-r2\",\n   \"schema\": \"prime-cycle-review/2\",\n   \"verified\": true,\n   \"work_id\": \"S\"\n  }\n ],\n \"unreadable\": []\n}\n",
+    "stderr": ""
+   }
+  ],
+  "journal": [
+   {
+    "op_id": "20261030T182530.351413Z-3d8dc35fa981",
+    "files": {
+     "end.json": "a2045fdce55eff6cd230fe68bbd7782903f84e3995a7d54f8adf935299f7f765",
+     "registration.json": "3180a961fd1e39a6ff95723250a96ac4590752fe019a3644a4791d224daca594",
+     "start.json": "8b5d0d118d0ba6baab05e5c896ae4ed2054ece57da2285c035f8cbc38fb987d9",
+     "stdout.txt": "ccd166c0f2eadbef1cd1620c310f851f148b4d2f013af66838a91883769b0f22"
+    },
+    "start": {
+     "machine": {
+      "argv": [
+       "read",
+       "--registration",
+       "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\reg.json",
+       "--templates",
+       "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\out\\t1",
+       "--journal-root",
+       "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\out\\journal",
+       "--caller",
+       "Codex Prime (SYNTHETIC SAMPLE)"
+      ],
+      "clock_basis": "system clock at operation start; local offset from the OS timezone",
+      "cwd": "D:\\Git\\lib-build",
+      "inputs": {
+       "registration": {
+        "bytes": 1448,
+        "path": "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\reg.json",
+        "sha256": "3180a961fd1e39a6ff95723250a96ac4590752fe019a3644a4791d224daca594",
+        "snapshot": "registration.json"
+       }
+      },
+      "pid": 16912,
+      "pins": {
+       "batch_observe": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4",
+       "prime_review": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+       "return_capture": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+       "return_inspect": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+       "review_packet": "f658cbe48a3a76b908e5af0bcf0b7a68abc90571d983ca785e36667268f6ee72"
+      },
+      "python": "3.14.0",
+      "started_at_local": "2026-10-30T13:25:30.351374-05:00",
+      "started_at_utc": "2026-10-30T18:25:30.351374+00:00",
+      "tool_path": "D:\\Git\\lib-build\\labs\\prime-cycle-pass01\\prime_cycle.py",
+      "tool_sha256": "dd5319a46a88e05020ee7b0715b8edca26031066c3f2ee867f590a6056581338"
+     },
+     "op_id": "20261030T182530.351413Z-3d8dc35fa981",
+     "operation": "read",
+     "schema": "prime-cycle-journal-start/1",
+     "supplied": {
+      "basis": "as supplied on the command line; not authenticated",
+      "caller_label": "Codex Prime (SYNTHETIC SAMPLE)",
+      "note": null
+     }
+    },
+    "end": {
+     "machine": {
+      "duration_seconds": 0.688632,
+      "ended_at_local": "2026-10-30T13:25:31.039076-05:00",
+      "ended_at_utc": "2026-10-30T18:25:31.039076+00:00",
+      "exit": 1,
+      "result": {
+       "summary": {
+        "awaiting_review": 1,
+        "basis": "current values only; historical declarations of stale or unusable reviews are not counted",
+        "completed_goals": 0,
+        "finished_passes": 0,
+        "open_holds": 0,
+        "reviewed_current": 0,
+        "stale_or_unusable": 0,
+        "works": 1
+       },
+       "templates": [
+        {
+         "path": "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\out\\t1\\template-S.json",
+         "sha256": "6bdeb1a98694aa04635b64de2695bcf6c9766b5bcc4abd104af646241c65f940"
+        }
+       ],
+       "view_sha256": "1ec97371b9279bf62a2adc03709555dd74493cfea7aedae5dd9e0c11cb6dfcc4",
+       "works": [
+        {
+         "page_sha256": "44b3fd60c3d68bea60dad2356ab16c97c01807721c77bad0c8278704a42567d6",
+         "pass_state": "awaiting-review",
+         "work_id": "S"
+        }
+       ]
+      },
+      "status": "ok-attention",
+      "stdout": {
+       "bytes": 859,
+       "sha256": "ccd166c0f2eadbef1cd1620c310f851f148b4d2f013af66838a91883769b0f22",
+       "snapshot": "stdout.txt",
+       "truncated": false
+      }
+     },
+     "op_id": "20261030T182530.351413Z-3d8dc35fa981",
+     "schema": "prime-cycle-journal-end/1"
+    }
+   },
+   {
+    "op_id": "20261030T182532.280023Z-62c1e14e58a4",
+    "files": {
+     "decision.json": "5aaf6b091754a3c6b8f00e083571a1ccfe6824284bba2692b8e503df9051a459",
+     "end.json": "5ad29f1293892bf88a5e00548b3e70f3314f63d64ea520e948f83d183b48ccf7",
+     "registration.json": "3180a961fd1e39a6ff95723250a96ac4590752fe019a3644a4791d224daca594",
+     "start.json": "7fd40d686acbc5fd6ac5e4ec3dd117aad8503c3aaa8966d5345f0eb1b678de06",
+     "stdout.txt": "eb04eac62424ce4fa8715040d34f6174f82db8cc40e459c3ce4144f91e35d259"
+    },
+    "start": {
+     "machine": {
+      "argv": [
+       "record",
+       "--registration",
+       "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\reg.json",
+       "--decision",
+       "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\accept.json",
+       "--journal-root",
+       "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\out\\journal",
+       "--caller",
+       "Codex Prime (SYNTHETIC SAMPLE)"
+      ],
+      "clock_basis": "system clock at operation start; local offset from the OS timezone",
+      "cwd": "D:\\Git\\lib-build",
+      "inputs": {
+       "decision": {
+        "bytes": 3330,
+        "path": "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\accept.json",
+        "sha256": "5aaf6b091754a3c6b8f00e083571a1ccfe6824284bba2692b8e503df9051a459",
+        "snapshot": "decision.json"
+       },
+       "registration": {
+        "bytes": 1448,
+        "path": "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\reg.json",
+        "sha256": "3180a961fd1e39a6ff95723250a96ac4590752fe019a3644a4791d224daca594",
+        "snapshot": "registration.json"
+       }
+      },
+      "pid": 22336,
+      "pins": {
+       "batch_observe": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4",
+       "prime_review": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+       "return_capture": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+       "return_inspect": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+       "review_packet": "f658cbe48a3a76b908e5af0bcf0b7a68abc90571d983ca785e36667268f6ee72"
+      },
+      "python": "3.14.0",
+      "started_at_local": "2026-10-30T13:25:32.279975-05:00",
+      "started_at_utc": "2026-10-30T18:25:32.279975+00:00",
+      "tool_path": "D:\\Git\\lib-build\\labs\\prime-cycle-pass01\\prime_cycle.py",
+      "tool_sha256": "dd5319a46a88e05020ee7b0715b8edca26031066c3f2ee867f590a6056581338"
+     },
+     "op_id": "20261030T182532.280023Z-62c1e14e58a4",
+     "operation": "record",
+     "schema": "prime-cycle-journal-start/1",
+     "supplied": {
+      "basis": "as supplied on the command line; not authenticated",
+      "caller_label": "Codex Prime (SYNTHETIC SAMPLE)",
+      "note": null
+     }
+    },
+    "end": {
+     "machine": {
+      "duration_seconds": 1.762369,
+      "ended_at_local": "2026-10-30T13:25:34.041400-05:00",
+      "ended_at_utc": "2026-10-30T18:25:34.041400+00:00",
+      "exit": 0,
+      "result": {
+       "review": {
+        "dir": "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\repo\\00.kernel\\00.00.10.work\\0590.sample\\evidence\\prime-cycle-reviews\\05.01\\05.01-r1",
+        "files": {
+         "COMMITTED.json": "335e9de593e2fa8c6db0d2c6ac8d5902df6c26ae5870c27ef4580b9b6de4458c",
+         "REVIEW.md": "f16ae72c7c9b2e4c4ca897026adfc02fe788efbeb558fd89db6ad46be5c1c0d4",
+         "record.json": "c896dfdc7e3c59567d981df107b885dac6025414577fdf3e6f80747cbbf05910"
+        },
+        "marker_sha256": "335e9de593e2fa8c6db0d2c6ac8d5902df6c26ae5870c27ef4580b9b6de4458c",
+        "record_sha256": "c896dfdc7e3c59567d981df107b885dac6025414577fdf3e6f80747cbbf05910",
+        "review_id": "05.01-r1",
+        "schema": "prime-cycle-review/2",
+        "work_id": "S"
+       }
+      },
+      "status": "recorded",
+      "stdout": {
+       "bytes": 293,
+       "sha256": "eb04eac62424ce4fa8715040d34f6174f82db8cc40e459c3ce4144f91e35d259",
+       "snapshot": "stdout.txt",
+       "truncated": false
+      }
+     },
+     "op_id": "20261030T182532.280023Z-62c1e14e58a4",
+     "schema": "prime-cycle-journal-end/1"
+    }
+   },
+   {
+    "op_id": "20261030T182534.260562Z-b772e69bf156",
+    "files": {
+     "decision.json": "5aaf6b091754a3c6b8f00e083571a1ccfe6824284bba2692b8e503df9051a459",
+     "end.json": "a4a6d49eabb0086f9fb6f4a75fc1273e0b540252d5214df839933f13226da718",
+     "registration.json": "3180a961fd1e39a6ff95723250a96ac4590752fe019a3644a4791d224daca594",
+     "start.json": "2d67fd77f1f3495e1829b7b02bd48a20a1c16cd395bad8c935347a7efd2f3fc7",
+     "stdout.txt": "34919f5b460026231f6b33794f41a5e7ac3f9da8a13aed688087cbde9ab19170"
+    },
+    "start": {
+     "machine": {
+      "argv": [
+       "record",
+       "--registration",
+       "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\reg.json",
+       "--decision",
+       "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\accept.json",
+       "--journal-root",
+       "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\out\\journal",
+       "--caller",
+       "Codex Prime (SYNTHETIC SAMPLE)"
+      ],
+      "clock_basis": "system clock at operation start; local offset from the OS timezone",
+      "cwd": "D:\\Git\\lib-build",
+      "inputs": {
+       "decision": {
+        "bytes": 3330,
+        "path": "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\accept.json",
+        "sha256": "5aaf6b091754a3c6b8f00e083571a1ccfe6824284bba2692b8e503df9051a459",
+        "snapshot": "decision.json"
+       },
+       "registration": {
+        "bytes": 1448,
+        "path": "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\reg.json",
+        "sha256": "3180a961fd1e39a6ff95723250a96ac4590752fe019a3644a4791d224daca594",
+        "snapshot": "registration.json"
+       }
+      },
+      "pid": 2136,
+      "pins": {
+       "batch_observe": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4",
+       "prime_review": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+       "return_capture": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+       "return_inspect": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+       "review_packet": "f658cbe48a3a76b908e5af0bcf0b7a68abc90571d983ca785e36667268f6ee72"
+      },
+      "python": "3.14.0",
+      "started_at_local": "2026-10-30T13:25:34.260530-05:00",
+      "started_at_utc": "2026-10-30T18:25:34.260530+00:00",
+      "tool_path": "D:\\Git\\lib-build\\labs\\prime-cycle-pass01\\prime_cycle.py",
+      "tool_sha256": "dd5319a46a88e05020ee7b0715b8edca26031066c3f2ee867f590a6056581338"
+     },
+     "op_id": "20261030T182534.260562Z-b772e69bf156",
+     "operation": "record",
+     "schema": "prime-cycle-journal-start/1",
+     "supplied": {
+      "basis": "as supplied on the command line; not authenticated",
+      "caller_label": "Codex Prime (SYNTHETIC SAMPLE)",
+      "note": null
+     }
+    },
+    "end": {
+     "machine": {
+      "duration_seconds": 1.872202,
+      "ended_at_local": "2026-10-30T13:25:36.129617-05:00",
+      "ended_at_utc": "2026-10-30T18:25:36.129617+00:00",
+      "exit": 0,
+      "result": {
+       "review": {
+        "dir": "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\repo\\00.kernel\\00.00.10.work\\0590.sample\\evidence\\prime-cycle-reviews\\05.01\\05.01-r1",
+        "files": {
+         "COMMITTED.json": "335e9de593e2fa8c6db0d2c6ac8d5902df6c26ae5870c27ef4580b9b6de4458c",
+         "REVIEW.md": "f16ae72c7c9b2e4c4ca897026adfc02fe788efbeb558fd89db6ad46be5c1c0d4",
+         "record.json": "c896dfdc7e3c59567d981df107b885dac6025414577fdf3e6f80747cbbf05910"
+        },
+        "marker_sha256": "335e9de593e2fa8c6db0d2c6ac8d5902df6c26ae5870c27ef4580b9b6de4458c",
+        "record_sha256": "c896dfdc7e3c59567d981df107b885dac6025414577fdf3e6f80747cbbf05910",
+        "review_id": "05.01-r1",
+        "schema": "prime-cycle-review/2",
+        "work_id": "S"
+       }
+      },
+      "status": "replay",
+      "stdout": {
+       "bytes": 269,
+       "sha256": "34919f5b460026231f6b33794f41a5e7ac3f9da8a13aed688087cbde9ab19170",
+       "snapshot": "stdout.txt",
+       "truncated": false
+      }
+     },
+     "op_id": "20261030T182534.260562Z-b772e69bf156",
+     "schema": "prime-cycle-journal-end/1"
+    }
+   },
+   {
+    "op_id": "20261030T182537.300001Z-1dd7c773cf16",
+    "files": {
+     "end.json": "9ad18a8c09e426aaee8b7f617a0c82c2e0d573e6bc68b0e66ccd431f6604d31f",
+     "registration.json": "3180a961fd1e39a6ff95723250a96ac4590752fe019a3644a4791d224daca594",
+     "start.json": "217d36a2d9e00f3c1d72688f347e287a3173c8ea00aef5e78a52d69ccf1d7d39",
+     "stdout.txt": "bba9c186cc63c108c3f842c34d17f2a12a0bd9e7f7e528b278fc26d4d688b603"
+    },
+    "start": {
+     "machine": {
+      "argv": [
+       "read",
+       "--registration",
+       "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\reg.json",
+       "--json",
+       "--journal-root",
+       "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\out\\journal",
+       "--caller",
+       "Codex Prime (SYNTHETIC SAMPLE)"
+      ],
+      "clock_basis": "system clock at operation start; local offset from the OS timezone",
+      "cwd": "D:\\Git\\lib-build",
+      "inputs": {
+       "registration": {
+        "bytes": 1448,
+        "path": "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\reg.json",
+        "sha256": "3180a961fd1e39a6ff95723250a96ac4590752fe019a3644a4791d224daca594",
+        "snapshot": "registration.json"
+       }
+      },
+      "pid": 28808,
+      "pins": {
+       "batch_observe": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4",
+       "prime_review": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+       "return_capture": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+       "return_inspect": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+       "review_packet": "f658cbe48a3a76b908e5af0bcf0b7a68abc90571d983ca785e36667268f6ee72"
+      },
+      "python": "3.14.0",
+      "started_at_local": "2026-10-30T13:25:37.299971-05:00",
+      "started_at_utc": "2026-10-30T18:25:37.299971+00:00",
+      "tool_path": "D:\\Git\\lib-build\\labs\\prime-cycle-pass01\\prime_cycle.py",
+      "tool_sha256": "dd5319a46a88e05020ee7b0715b8edca26031066c3f2ee867f590a6056581338"
+     },
+     "op_id": "20261030T182537.300001Z-1dd7c773cf16",
+     "operation": "read",
+     "schema": "prime-cycle-journal-start/1",
+     "supplied": {
+      "basis": "as supplied on the command line; not authenticated",
+      "caller_label": "Codex Prime (SYNTHETIC SAMPLE)",
+      "note": null
+     }
+    },
+    "end": {
+     "machine": {
+      "duration_seconds": 0.52875,
+      "ended_at_local": "2026-10-30T13:25:37.827836-05:00",
+      "ended_at_utc": "2026-10-30T18:25:37.827836+00:00",
+      "exit": 0,
+      "result": {
+       "summary": {
+        "awaiting_review": 0,
+        "basis": "current values only; historical declarations of stale or unusable reviews are not counted",
+        "completed_goals": 0,
+        "finished_passes": 1,
+        "open_holds": 0,
+        "reviewed_current": 1,
+        "stale_or_unusable": 0,
+        "works": 1
+       },
+       "templates": [],
+       "view_sha256": "ffbad6ff0d7855fff4be0369728edbd165322173f22f080ef9a505bfe47dceec",
+       "works": [
+        {
+         "page_sha256": "44b3fd60c3d68bea60dad2356ab16c97c01807721c77bad0c8278704a42567d6",
+         "pass_state": "reviewed",
+         "work_id": "S"
+        }
+       ]
+      },
+      "status": "ok",
+      "stdout": {
+       "bytes": 6493,
+       "sha256": "bba9c186cc63c108c3f842c34d17f2a12a0bd9e7f7e528b278fc26d4d688b603",
+       "snapshot": "stdout.txt",
+       "truncated": false
+      }
+     },
+     "op_id": "20261030T182537.300001Z-1dd7c773cf16",
+     "schema": "prime-cycle-journal-end/1"
+    }
+   },
+   {
+    "op_id": "20261030T182539.056645Z-bc89c503799c",
+    "files": {
+     "decision.json": "4a058ea6f2dd902f65c2c0afc2bfd7871c315335fbfd369367784b30f297f2a9",
+     "end.json": "4c972f1ac33a1d9b987372c8d0b5e224556373040533f01c668346f5d5c4709d",
+     "registration.json": "3180a961fd1e39a6ff95723250a96ac4590752fe019a3644a4791d224daca594",
+     "start.json": "ef61083518b4aabbca205c764f272c4e1685879ac9a9b1cc8ed5ee17b39b67f5",
+     "stdout.txt": "86f1da6565bcfd62d26c314c884dd2087dedd94ac6e1cb0cc1bcec3f0b145fdf"
+    },
+    "start": {
+     "machine": {
+      "argv": [
+       "record",
+       "--registration",
+       "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\reg.json",
+       "--decision",
+       "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\bad.json",
+       "--journal-root",
+       "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\out\\journal",
+       "--caller",
+       "Codex Prime (SYNTHETIC SAMPLE)"
+      ],
+      "clock_basis": "system clock at operation start; local offset from the OS timezone",
+      "cwd": "D:\\Git\\lib-build",
+      "inputs": {
+       "decision": {
+        "bytes": 3705,
+        "path": "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\bad.json",
+        "sha256": "4a058ea6f2dd902f65c2c0afc2bfd7871c315335fbfd369367784b30f297f2a9",
+        "snapshot": "decision.json"
+       },
+       "registration": {
+        "bytes": 1448,
+        "path": "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\reg.json",
+        "sha256": "3180a961fd1e39a6ff95723250a96ac4590752fe019a3644a4791d224daca594",
+        "snapshot": "registration.json"
+       }
+      },
+      "pid": 7736,
+      "pins": {
+       "batch_observe": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4",
+       "prime_review": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+       "return_capture": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+       "return_inspect": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+       "review_packet": "f658cbe48a3a76b908e5af0bcf0b7a68abc90571d983ca785e36667268f6ee72"
+      },
+      "python": "3.14.0",
+      "started_at_local": "2026-10-30T13:25:39.056605-05:00",
+      "started_at_utc": "2026-10-30T18:25:39.056605+00:00",
+      "tool_path": "D:\\Git\\lib-build\\labs\\prime-cycle-pass01\\prime_cycle.py",
+      "tool_sha256": "dd5319a46a88e05020ee7b0715b8edca26031066c3f2ee867f590a6056581338"
+     },
+     "op_id": "20261030T182539.056645Z-bc89c503799c",
+     "operation": "record",
+     "schema": "prime-cycle-journal-start/1",
+     "supplied": {
+      "basis": "as supplied on the command line; not authenticated",
+      "caller_label": "Codex Prime (SYNTHETIC SAMPLE)",
+      "note": null
+     }
+    },
+    "end": {
+     "machine": {
+      "duration_seconds": 0.009315,
+      "ended_at_local": "2026-10-30T13:25:39.065029-05:00",
+      "ended_at_utc": "2026-10-30T18:25:39.065029+00:00",
+      "exit": 2,
+      "result": {},
+      "status": "refused",
+      "stdout": {
+       "bytes": 178,
+       "sha256": "86f1da6565bcfd62d26c314c884dd2087dedd94ac6e1cb0cc1bcec3f0b145fdf",
+       "snapshot": "stdout.txt",
+       "truncated": false
+      }
+     },
+     "op_id": "20261030T182539.056645Z-bc89c503799c",
+     "schema": "prime-cycle-journal-end/1"
+    }
+   },
+   {
+    "op_id": "20261030T182539.292501Z-84477f4dea1f",
+    "files": {
+     "decision.json": "7119b6b91ed5802c4a9d89bd5751f83688d3ab2ed106f0497e5c168cc16a5177",
+     "end.json": "ef6cc419261a023ccf1309f9bf2e69e814b6d6fc88971db7d0a324a158fb4033",
+     "registration.json": "3180a961fd1e39a6ff95723250a96ac4590752fe019a3644a4791d224daca594",
+     "start.json": "cc7d2737cdc54937396e51dd088942ea78e3ed802036f09c15e0610c91b5a3d8",
+     "stdout.txt": "bae95683f0a6698d5565186c6e49b189d1ff0c8efa8588841be4fed787c94462"
+    },
+    "start": {
+     "machine": {
+      "argv": [
+       "record",
+       "--registration",
+       "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\reg.json",
+       "--decision",
+       "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\complete.json",
+       "--journal-root",
+       "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\out\\journal",
+       "--caller",
+       "Codex Prime (SYNTHETIC SAMPLE)"
+      ],
+      "clock_basis": "system clock at operation start; local offset from the OS timezone",
+      "cwd": "D:\\Git\\lib-build",
+      "inputs": {
+       "decision": {
+        "bytes": 3787,
+        "path": "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\complete.json",
+        "sha256": "7119b6b91ed5802c4a9d89bd5751f83688d3ab2ed106f0497e5c168cc16a5177",
+        "snapshot": "decision.json"
+       },
+       "registration": {
+        "bytes": 1448,
+        "path": "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\reg.json",
+        "sha256": "3180a961fd1e39a6ff95723250a96ac4590752fe019a3644a4791d224daca594",
+        "snapshot": "registration.json"
+       }
+      },
+      "pid": 28992,
+      "pins": {
+       "batch_observe": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4",
+       "prime_review": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+       "return_capture": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+       "return_inspect": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+       "review_packet": "f658cbe48a3a76b908e5af0bcf0b7a68abc90571d983ca785e36667268f6ee72"
+      },
+      "python": "3.14.0",
+      "started_at_local": "2026-10-30T13:25:39.292469-05:00",
+      "started_at_utc": "2026-10-30T18:25:39.292469+00:00",
+      "tool_path": "D:\\Git\\lib-build\\labs\\prime-cycle-pass01\\prime_cycle.py",
+      "tool_sha256": "dd5319a46a88e05020ee7b0715b8edca26031066c3f2ee867f590a6056581338"
+     },
+     "op_id": "20261030T182539.292501Z-84477f4dea1f",
+     "operation": "record",
+     "schema": "prime-cycle-journal-start/1",
+     "supplied": {
+      "basis": "as supplied on the command line; not authenticated",
+      "caller_label": "Codex Prime (SYNTHETIC SAMPLE)",
+      "note": null
+     }
+    },
+    "end": {
+     "machine": {
+      "duration_seconds": 1.910407,
+      "ended_at_local": "2026-10-30T13:25:41.201819-05:00",
+      "ended_at_utc": "2026-10-30T18:25:41.201819+00:00",
+      "exit": 0,
+      "result": {
+       "review": {
+        "dir": "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\repo\\00.kernel\\00.00.10.work\\0590.sample\\evidence\\prime-cycle-reviews\\05.01\\05.01-r2",
+        "files": {
+         "COMMITTED.json": "c85a52c0cb7d979d3893c43a16d0d54bbbe9edca4d5d98f8fe805d7bc1093974",
+         "REVIEW.md": "1e799ec5713fae1d8a570fdb841d79a1f3f5d0733bcfe9c0dddbe5709f61106b",
+         "record.json": "5a6850cacf6b697d88e3383631bcbdfc88320da3a53fd38f6889b994c6b36099"
+        },
+        "marker_sha256": "c85a52c0cb7d979d3893c43a16d0d54bbbe9edca4d5d98f8fe805d7bc1093974",
+        "record_sha256": "5a6850cacf6b697d88e3383631bcbdfc88320da3a53fd38f6889b994c6b36099",
+        "review_id": "05.01-r2",
+        "schema": "prime-cycle-review/2",
+        "work_id": "S"
+       }
+      },
+      "status": "recorded",
+      "stdout": {
+       "bytes": 305,
+       "sha256": "bae95683f0a6698d5565186c6e49b189d1ff0c8efa8588841be4fed787c94462",
+       "snapshot": "stdout.txt",
+       "truncated": false
+      }
+     },
+     "op_id": "20261030T182539.292501Z-84477f4dea1f",
+     "schema": "prime-cycle-journal-end/1"
+    }
+   },
+   {
+    "op_id": "20261030T182542.376600Z-b31c4f18caaf",
+    "files": {
+     "end.json": "ec79159b82128a805aa299a497a1a3e7bc02f15aad18c8016f8a6e11913a2530",
+     "registration.json": "3180a961fd1e39a6ff95723250a96ac4590752fe019a3644a4791d224daca594",
+     "start.json": "e24e1eea24749165f408c8e5a3152029ad797981c1b31c8877a96404da744f84",
+     "stdout.txt": "ad39824d02f30799348edab260ef68d7e100229f170794c6077bd54c7b0c9118"
+    },
+    "start": {
+     "machine": {
+      "argv": [
+       "read",
+       "--registration",
+       "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\reg.json",
+       "--journal-root",
+       "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\out\\journal",
+       "--caller",
+       "Codex Prime (SYNTHETIC SAMPLE)"
+      ],
+      "clock_basis": "system clock at operation start; local offset from the OS timezone",
+      "cwd": "D:\\Git\\lib-build",
+      "inputs": {
+       "registration": {
+        "bytes": 1448,
+        "path": "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\reg.json",
+        "sha256": "3180a961fd1e39a6ff95723250a96ac4590752fe019a3644a4791d224daca594",
+        "snapshot": "registration.json"
+       }
+      },
+      "pid": 29492,
+      "pins": {
+       "batch_observe": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4",
+       "prime_review": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+       "return_capture": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+       "return_inspect": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+       "review_packet": "f658cbe48a3a76b908e5af0bcf0b7a68abc90571d983ca785e36667268f6ee72"
+      },
+      "python": "3.14.0",
+      "started_at_local": "2026-10-30T13:25:42.376564-05:00",
+      "started_at_utc": "2026-10-30T18:25:42.376564+00:00",
+      "tool_path": "D:\\Git\\lib-build\\labs\\prime-cycle-pass01\\prime_cycle.py",
+      "tool_sha256": "dd5319a46a88e05020ee7b0715b8edca26031066c3f2ee867f590a6056581338"
+     },
+     "op_id": "20261030T182542.376600Z-b31c4f18caaf",
+     "operation": "read",
+     "schema": "prime-cycle-journal-start/1",
+     "supplied": {
+      "basis": "as supplied on the command line; not authenticated",
+      "caller_label": "Codex Prime (SYNTHETIC SAMPLE)",
+      "note": null
+     }
+    },
+    "end": {
+     "machine": {
+      "duration_seconds": 0.544644,
+      "ended_at_local": "2026-10-30T13:25:42.920301-05:00",
+      "ended_at_utc": "2026-10-30T18:25:42.920301+00:00",
+      "exit": 0,
+      "result": {
+       "summary": {
+        "awaiting_review": 0,
+        "basis": "current values only; historical declarations of stale or unusable reviews are not counted",
+        "completed_goals": 1,
+        "finished_passes": 1,
+        "open_holds": 0,
+        "reviewed_current": 1,
+        "stale_or_unusable": 0,
+        "works": 1
+       },
+       "templates": [],
+       "view_sha256": "85462d9f3f74c2f56079c73801f19b2b2a9d4b13d9bff449de8fb87d59fc1140",
+       "works": [
+        {
+         "page_sha256": "44b3fd60c3d68bea60dad2356ab16c97c01807721c77bad0c8278704a42567d6",
+         "pass_state": "reviewed",
+         "work_id": "S"
+        }
+       ]
+      },
+      "status": "ok",
+      "stdout": {
+       "bytes": 917,
+       "sha256": "ad39824d02f30799348edab260ef68d7e100229f170794c6077bd54c7b0c9118",
+       "snapshot": "stdout.txt",
+       "truncated": false
+      }
+     },
+     "op_id": "20261030T182542.376600Z-b31c4f18caaf",
+     "schema": "prime-cycle-journal-end/1"
+    }
+   },
+   {
+    "op_id": "20261030T182544.145589Z-5685de2b856a",
+    "files": {
+     "end.json": "bb4f790f42c312b1c172b6b8651983fc17eb44d348a810f1afd1074240a9f24f",
+     "registration.json": "3180a961fd1e39a6ff95723250a96ac4590752fe019a3644a4791d224daca594",
+     "start.json": "8ce5cee92449613e24aac69ee34157cf48cdab192c1cc30216ca64b1b8c0e7f5",
+     "stdout.txt": "8b5d5175e8f45033aa1f41ca8c040d1df206a8e27ff56aa533e9345287d2e2fc"
+    },
+    "start": {
+     "machine": {
+      "argv": [
+       "read",
+       "--registration",
+       "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\reg.json",
+       "--journal-root",
+       "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\out\\journal",
+       "--caller",
+       "Codex Prime (SYNTHETIC SAMPLE)"
+      ],
+      "clock_basis": "system clock at operation start; local offset from the OS timezone",
+      "cwd": "D:\\Git\\lib-build",
+      "inputs": {
+       "registration": {
+        "bytes": 1448,
+        "path": "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-sample-5ycv2hzz\\reg.json",
+        "sha256": "3180a961fd1e39a6ff95723250a96ac4590752fe019a3644a4791d224daca594",
+        "snapshot": "registration.json"
+       }
+      },
+      "pid": 6632,
+      "pins": {
+       "batch_observe": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4",
+       "prime_review": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+       "return_capture": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+       "return_inspect": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+       "review_packet": "f658cbe48a3a76b908e5af0bcf0b7a68abc90571d983ca785e36667268f6ee72"
+      },
+      "python": "3.14.0",
+      "started_at_local": "2026-10-30T13:25:44.145555-05:00",
+      "started_at_utc": "2026-10-30T18:25:44.145555+00:00",
+      "tool_path": "D:\\Git\\lib-build\\labs\\prime-cycle-pass01\\prime_cycle.py",
+      "tool_sha256": "dd5319a46a88e05020ee7b0715b8edca26031066c3f2ee867f590a6056581338"
+     },
+     "op_id": "20261030T182544.145589Z-5685de2b856a",
+     "operation": "read",
+     "schema": "prime-cycle-journal-start/1",
+     "supplied": {
+      "basis": "as supplied on the command line; not authenticated",
+      "caller_label": "Codex Prime (SYNTHETIC SAMPLE)",
+      "note": null
+     }
+    },
+    "end": {
+     "machine": {
+      "duration_seconds": 0.546046,
+      "ended_at_local": "2026-10-30T13:25:44.690588-05:00",
+      "ended_at_utc": "2026-10-30T18:25:44.690588+00:00",
+      "exit": 1,
+      "result": {
+       "summary": {
+        "awaiting_review": 0,
+        "basis": "current values only; historical declarations of stale or unusable reviews are not counted",
+        "completed_goals": 0,
+        "finished_passes": 0,
+        "open_holds": 0,
+        "reviewed_current": 0,
+        "stale_or_unusable": 1,
+        "works": 1
+       },
+       "templates": [],
+       "view_sha256": "04ad9544c94f6b53b6bb917d1fe1617568110a933dcf0955a516be711ec6b0db",
+       "works": [
+        {
+         "page_sha256": "d02edf1b138f1b193c373eeef6c1a895a06ab392ab56e230a679ab338e6e8229",
+         "pass_state": "review-stale",
+         "work_id": "S"
+        }
+       ]
+      },
+      "status": "ok-attention",
+      "stdout": {
+       "bytes": 1180,
+       "sha256": "8b5d5175e8f45033aa1f41ca8c040d1df206a8e27ff56aa533e9345287d2e2fc",
+       "snapshot": "stdout.txt",
+       "truncated": false
+      }
+     },
+     "op_id": "20261030T182544.145589Z-5685de2b856a",
+     "schema": "prime-cycle-journal-end/1"
+    }
+   }
+  ],
+  "rendered_completion_review": {
+   "review_id": "05.01-r2",
+   "files": {
+    "record.json": "5a6850cacf6b697d88e3383631bcbdfc88320da3a53fd38f6889b994c6b36099",
+    "REVIEW.md": "1e799ec5713fae1d8a570fdb841d79a1f3f5d0733bcfe9c0dddbe5709f61106b",
+    "COMMITTED.json": "c85a52c0cb7d979d3893c43a16d0d54bbbe9edca4d5d98f8fe805d7bc1093974"
+   },
+   "REVIEW.md": "# Prime cycle review 05.01-r2 — S\n\nReadable projection of `record.json` (sha256 5a6850cacf6b697d88e3383631bcbdfc88320da3a53fd38f6889b994c6b36099). The record is authoritative; this file is not edited separately.\n\n- page: `00.kernel/00.00.10.work/0590.sample/05.01.md` at live-file (live) sha256 44b3fd60c3d68bea60dad2356ab16c97c01807721c77bad0c8278704a42567d6\n- return: 0101.s receipt 0177f77e08979a31804751cbd727251b63aa38b2b3c66e8d52e5e07053052995\n- review disposition: **accepted**; pass terminal: **finished**; goal `g1` terminal: **completed**\n- prime_review effective: complete-as-supplied; closes_work false; authority none\n- supersedes: {'record_sha256': 'c896dfdc7e3c59567d981df107b885dac6025414577fdf3e6f80747cbbf05910', 'review_id': '05.01-r1'}; recovers: None\n\n---\n\n# Prime review draft\nschema: prime-review-report/1\nauthority: none\ncloses_work: false\nreleases_action: false\nauthenticates_actor: false\npermission: recorded-only\nauthorizes_task: false\ntasks_added: none\n\nSupplied outcome: complete\nEffective: complete-as-supplied\nSupplied semantic_conflict: False\n\n## Attribution\nactor_label: Codex Prime (SUPPLIED FIXTURE)\nrole: prime\nevidence: SUPPLIED FIXTURE decision; the label is not authentication.\nThis module does not prove that identity.\n\n## Prime finding\nSUPPLIED FIXTURE finding.\n\n## Agreed outcome evidence\nSUPPLIED FIXTURE evidence: the page goal is met.\n\n## Limits\nFixture only.\n\n## Tests\nFixture tests are not a goal judgment.\n\n## Learning\nSUPPLIED FIXTURE learning.\n\n## Preservation\nCaptured member and this review record.\n\n## Remaining choices\nNone in this fixture.\n\n## Findings account\n- 00.kernel/00.00.10.work/0590.sample/05.01.md#F-01 accepted\n\n## Finish criteria\n- done met\n\n## Sources\n- page `00.kernel/00.00.10.work/0590.sample/05.01.md` content 44b3fd60c3d68bea60dad2356ab16c97c01807721c77bad0c8278704a42567d6 transport 44b3fd60c3d68bea60dad2356ab16c97c01807721c77bad0c8278704a42567d6 change unspecified\n- capture `0101.s/receipt.json` content 0177f77e08979a31804751cbd727251b63aa38b2b3c66e8d52e5e07053052995 transport 0177f77e08979a31804751cbd727251b63aa38b2b3c66e8d52e5e07053052995 change unspecified\n"
+  }
+ },
+ "probes": {
+  "before": {
+   "tool": "D:\\Git\\lib-build\\labs\\prime-cycle-pass01\\prime_cycle.py",
+   "tool_sha256": "2124bcde4ea08c8148987416c7b84113860fde7b95382f94bb4377e6bc044a06",
+   "probes": [
+    {
+     "probe": "PC-01 page changes after a completed review",
+     "complete_record_exit": 0,
+     "read_exit": 1,
+     "pass_state": "review-stale",
+     "pass_terminal": "finished",
+     "goal_terminal": "completed",
+     "disposition": "accepted",
+     "next_action": null,
+     "attention": [
+      "review-stale: the latest review binds a different page or receipt; re-review required"
+     ],
+     "text": "Prime cycle view  book 00.kernel/00.00.10.work  source live-file (live files)\nDerived from work-local review records. Noncanonical. Nothing is elected or dispatched.\n\nA  00.kernel/00.00.10.work/0599.cycle-a/05.01.md\n  pass state: review-stale   review disposition: accepted   pass terminal: finished\n  goal g1: completed\n  custody: 0101.ma role primary-current-candidate receipt 3a3faca6b6d50383 (custody is not acceptance)\n  latest review: 05.01-r2 by Codex Prime (SUPPLIED FIXTURE) outcome complete (prime_review effective complete-as-supplied)\n  ! review-stale: the latest review binds a different page or receipt; re-review required\n\nauthority none; this tool records supplied judgment and derives a view; it authenticates no actor and grants no work\n"
+    },
+    {
+     "probe": "PC-02 agreement.scope changes between read and record",
+     "record_exit": 0,
+     "stdout": "recorded <desk>\\repo\\00.kernel\\00.00.10.work\\0599.cycle-a\\evidence\\prime-cycle-reviews\\05.01\\05.01-r1\nprime_review effective continue\n",
+     "stderr": ""
+    }
+   ]
+  },
+  "after": {
+   "tool": "D:\\Git\\lib-build\\labs\\prime-cycle-pass01\\prime_cycle.py",
+   "tool_sha256": "29bc803ceba4a414020e89271ea7561cf39f58ee49f1ecfb4e88ef7345423d72",
+   "probes": [
+    {
+     "probe": "PC-01 page changes after a completed review",
+     "complete_record_exit": 0,
+     "read_exit": 1,
+     "pass_state": "review-stale",
+     "pass_terminal": "unknown",
+     "goal_terminal": "unknown",
+     "disposition": "unknown",
+     "next_action": null,
+     "attention": [
+      "review-stale: 05.01-r2 binds a different page; its declarations are historical; re-review required"
+     ],
+     "text": "Prime cycle view  book 00.kernel/00.00.10.work  source live-file (live files)\nDerived from work-local review records. Noncanonical. Nothing is elected or dispatched.\nsummary (current only): works 1, awaiting review 0, reviewed current 0, stale or unusable 1, finished passes 0, completed goals 0, open holds 0\n\nA  00.kernel/00.00.10.work/0599.cycle-a/05.01.md\n  pass state: review-stale   review disposition: unknown (historical accepted in 05.01-r2, review-stale)   pass terminal: unknown (historical finished in 05.01-r2, review-stale)\n  goal g1: unknown (historical completed in 05.01-r2, review-stale)\n  custody: 0101.ma role primary-current-candidate receipt d80caf98268f527e (custody is not acceptance)\n  latest review: 05.01-r2 by Codex Prime (SUPPLIED FIXTURE) outcome complete (prime_review effective complete-as-supplied)  [not current]\n  ! review-stale: 05.01-r2 binds a different page; its declarations are historical; re-review required\n\nauthority none; this tool records supplied judgment and derives a view; it authenticates no actor and grants no work\njournal: disabled (no --journal-root; this operation is not logged)\n"
+    },
+    {
+     "probe": "PC-02 agreement.scope changes between read and record",
+     "record_exit": 2,
+     "stdout": "refused: direction changed since read: agreement.scope; read again for a new template\njournal: disabled (no --journal-root; this operation is not logged)\n",
+     "stderr": ""
+    }
+   ]
+  }
+ },
+ "demo_transcript": {
+  "schema": "prime-cycle-demo-transcript/1",
+  "label": "SYNTHETIC SUPPLIED decisions; disposable book; no model",
+  "steps": [
+   {
+    "step": "1 first read; templates written",
+    "argv": [
+     "python",
+     "-B",
+     "prime_cycle.py",
+     "read",
+     "--registration",
+     "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\reg.json",
+     "--templates",
+     "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\out\\templates",
+     "--journal-root",
+     "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\out\\journal",
+     "--caller",
+     "Codex Prime (SYNTHETIC DEMO)"
+    ],
+    "exit": 1,
+    "stdout": "Prime cycle view  book 00.kernel/00.00.10.work  source live-file (live files)\nDerived from work-local review records. Noncanonical. Nothing is elected or dispatched.\nsummary (current only): works 4, awaiting review 4, reviewed current 0, stale or unusable 0, finished passes 0, completed goals 0, open holds 0\n\nA  00.kernel/00.00.10.work/0597.demo-a/05.01.md\n  pass state: awaiting-review   review disposition: unknown   pass terminal: unknown\n  goal g1: unknown\n  custody: 0101.demoa role primary-current-candidate receipt 0552ab216129281b (custody is not acceptance)\n  ! awaiting-review: a captured return has no recorded review\n\nB  00.kernel/00.00.10.work/0596.demo-b/05.01.md\n  pass state: awaiting-review   review disposition: unknown   pass terminal: unknown\n  goal g1: unknown\n  custody: 0102.demob role primary-current-candidate receipt 72da7f877fa5c3d2 (custody is not acceptance)\n  ! awaiting-review: a captured return has no recorded review\n\nC  00.kernel/00.00.10.work/0595.demo-c/05.01.md\n  pass state: awaiting-review   review disposition: unknown   pass terminal: unknown\n  goal g1: unknown\n  custody: 0103.democ role primary-current-candidate receipt fc1e661b72b72184 (custody is not acceptance)\n  ! awaiting-review: a captured return has no recorded review\n\nD  00.kernel/00.00.10.work/0594.demo-d/05.01.md\n  pass state: awaiting-review   review disposition: unknown   pass terminal: unknown\n  goal g1: unknown\n  custody: 0104.demod role primary-current-candidate receipt 93562c25e18f8a40 (custody is not acceptance)\n  ! awaiting-review: a captured return has no recorded review\n\nauthority none; this tool records supplied judgment and derives a view; it authenticates no actor and grants no work\njournal: C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\out\\journal op 20261030T182445.459856Z-c056981686bf\n",
+    "stderr": ""
+   },
+   {
+    "step": "2 record B (held)",
+    "argv": [
+     "python",
+     "-B",
+     "prime_cycle.py",
+     "record",
+     "--registration",
+     "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\reg.json",
+     "--decision",
+     "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\dec-B.json",
+     "--journal-root",
+     "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\out\\journal",
+     "--caller",
+     "Codex Prime (SYNTHETIC DEMO)"
+    ],
+    "exit": 0,
+    "stdout": "recorded C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\repo\\00.kernel\\00.00.10.work\\0596.demo-b\\evidence\\prime-cycle-reviews\\05.01\\05.01-r1\nprime_review effective continue\njournal: C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\out\\journal op 20261030T182452.270926Z-905f4b7c098f\n",
+    "stderr": ""
+   },
+   {
+    "step": "2 record C (accept-finished-open)",
+    "argv": [
+     "python",
+     "-B",
+     "prime_cycle.py",
+     "record",
+     "--registration",
+     "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\reg.json",
+     "--decision",
+     "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\dec-C.json",
+     "--journal-root",
+     "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\out\\journal",
+     "--caller",
+     "Codex Prime (SYNTHETIC DEMO)"
+    ],
+    "exit": 0,
+    "stdout": "recorded C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\repo\\00.kernel\\00.00.10.work\\0595.demo-c\\evidence\\prime-cycle-reviews\\05.01\\05.01-r1\nprime_review effective continue\njournal: C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\out\\journal op 20261030T182454.477304Z-216d2061ce82\n",
+    "stderr": ""
+   },
+   {
+    "step": "2 record D (accept-finished-open)",
+    "argv": [
+     "python",
+     "-B",
+     "prime_cycle.py",
+     "record",
+     "--registration",
+     "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\reg.json",
+     "--decision",
+     "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\dec-D.json",
+     "--journal-root",
+     "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\out\\journal",
+     "--caller",
+     "Codex Prime (SYNTHETIC DEMO)"
+    ],
+    "exit": 0,
+    "stdout": "recorded C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\repo\\00.kernel\\00.00.10.work\\0594.demo-d\\evidence\\prime-cycle-reviews\\05.01\\05.01-r1\nprime_review effective continue\njournal: C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\out\\journal op 20261030T182457.687154Z-c8db1323a589\n",
+    "stderr": ""
+   },
+   {
+    "step": "3 read after records",
+    "argv": [
+     "python",
+     "-B",
+     "prime_cycle.py",
+     "read",
+     "--registration",
+     "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\reg.json",
+     "--json",
+     "--journal-root",
+     "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\out\\journal",
+     "--caller",
+     "Codex Prime (SYNTHETIC DEMO)"
+    ],
+    "exit": 1,
+    "stdout": "{\n \"attention_count\": 1,\n \"authority\": \"none; this tool records supplied judgment and derives a view; it authenticates no actor and grants no work\",\n \"book\": \"00.kernel/00.00.10.work\",\n \"elected\": null,\n \"journal\": {\n  \"dir\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\pcy-demo-8dkv7ne7\\\\out\\\\journal\\\\2026-10-30\\\\20261030T182459.842963Z-366fb02ab81e\",\n  \"enabled\": true,\n  \"op_id\": \"20261030T182459.842963Z-366fb02ab81e\",\n  \"root\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\pcy-demo-8dkv7ne7\\\\out\\\\journal\"\n },\n \"note\": \"derived from work-local review records and fresh reader observations; noncanonical; rebuildable\",\n \"registration_sha256\": \"4dd4580051cfb0972c65b4ab9fb2a15a9cfd256baf2d7e483d1958c4afcb98ef\",\n \"schema\": \"prime-cycle-view/2\",\n \"source\": {\n  \"commit\": null,\n  \"kind\": \"live-file\"\n },\n \"summary\": {\n  \"awaiting_review\": 1,\n  \"basis\": \"current values only; historical declarations of stale or unusable reviews are not counted\",\n  \"completed_goals\": 0,\n  \"finished_passes\": 2,\n  \"open_holds\": 0,\n  \"reviewed_current\": 3,\n  \"stale_or_unusable\": 0,\n  \"works\": 4\n },\n \"works\": [\n  {\n   \"attention\": [\n    \"awaiting-review: a captured return has no recorded review\"\n   ],\n   \"custody\": {\n    \"basis\": \"live inspection at read time; custody is not acceptance\",\n    \"member\": \"0101.demoa\",\n    \"receipt_sha256\": \"0552ab216129281b58c3d7d01e07d49dea8c0759ea653ecdf8156b5b1ffab1bc\",\n    \"retrospective\": false,\n    \"role\": \"primary-current-candidate\"\n   },\n   \"disposition\": \"unknown\",\n   \"goal\": {\n    \"goal_id\": \"g1\",\n    \"goal_sha256\": \"2b31ef6fb02f5aeabdb80c0cfaab4b248810c6e81775de673d36dd56bd96adef\"\n   },\n   \"goal_terminal\": \"unknown\",\n   \"historical\": null,\n   \"holds\": [],\n   \"latest_review\": null,\n   \"next_action\": null,\n   \"next_action_guard\": [],\n   \"page\": \"00.kernel/00.00.10.work/0597.demo-a/05.01.md\",\n   \"pass\": \"05.01\",\n   \"pass_state\": \"awaiting-review\",\n   \"pass_terminal\": \"unknown\",\n   \"reader\": {\n    \"ambiguities\": [\n     \"legacy-ambiguous-heading\",\n     \"legacy-revision-withheld\"\n    ],\n    \"attention\": [],\n    \"exit\": 1,\n    \"failed\": null,\n    \"stdout_sha256\": \"94e0854e4d1d51fe8e1ea2c87e8722398061f1862474ac043f91a018cc41a7df\"\n   },\n   \"reviews\": {\n    \"committed\": [],\n    \"heads\": [],\n    \"invalid\": [],\n    \"partial\": []\n   },\n   \"source\": {\n    \"commit\": null,\n    \"kind\": \"live-file\",\n    \"page_sha256\": \"0aaf77f396a8cd3352d9e8055de400d291adc362862e3779c522db62b8a17dd5\"\n   },\n   \"template\": {\n    \"attribution\": {\n     \"actor_label\": null,\n     \"evidence\": null,\n     \"role\": \"prime\"\n    },\n    \"binding\": {\n     \"direction\": {\n      \"agreement_sha256\": \"ccda006d38bff2473baca85f10e911d57d2119fdc78742dbeb70bacc48744370\",\n      \"book\": \"00.kernel/00.00.10.work\",\n      \"fields\": {\n       \"director_required\": \"ec2d23b176e1faf0edd8aab3c7aef7ebb374ad45b9a63ac6868ef5835cf99c67\",\n       \"finish_criteria\": \"91fdfae213db8cf94a829f35dd784699036450abebba947a1ca68120d1a6d451\",\n       \"goal\": \"d8ad5981dea9ed7c5dee427e98c3e2c4025813f56afb7bc2d8babca4d68b7688\",\n       \"prime_discretion\": \"704477072fb4897037b0c03e3a577a3c92ea61584b50d820eafc8f154500caf2\",\n       \"recorded_decisions\": \"c34ffaf44ef1502aa94307e16b579842e670386b5709a9314fb1a7370b460dfa\",\n       \"scope\": \"bd1436823a04563be96ae26ec64f9861a4b3de2d44b9011a58ba37e37ff421c6\"\n      },\n      \"review_location\": \"00.kernel/00.00.10.work/0597.demo-a/evidence/prime-cycle-reviews/05.01\",\n      \"schema\": \"prime-cycle-direction/1\"\n     },\n     \"expected_prior\": null,\n     \"fingerprint\": \"672f11e30052c0aba53632f6b5dc75442feae2988ad211b325b9bd2e6ef33878\",\n     \"goal\": {\n      \"goal_id\": \"g1\",\n      \"goal_sha256\": \"2b31ef6fb02f5aeabdb80c0cfaab4b248810c6e81775de673d36dd56bd96adef\"\n     },\n     \"member\": \"0101.demoa\",\n     \"member_role\": \"primary-current-candidate\",\n     \"origin\": {\n      \"batch\": \"05.01\",\n      \"book\": \"00.00.10.work\",\n      \"page\": \"0597.demo-a\"\n     },\n     \"page\": \"00.kernel/00.00.10.work/0597.demo-a/05.01.md\",\n     \"pass\": \"05.01\",\n     \"receipt_sha256\": \"0552ab216129281b58c3d7d01e07d49dea8c0759ea653ecdf8156b5b1ffab1bc\",\n     \"retrospective\": false,\n     \"source\": {\n      \"commit\": null,\n      \"kind\": \"live-file\",\n      \"page_bytes\": 402,\n      \"page_sha256\": \"0aaf77f396a8cd3352d9e8055de400d291adc362862e3779c522db62b8a17dd5\"\n     },\n     \"submission_id\": \"fx-demoa\",\n     \"work_id\": \"A\"\n    },\n    \"judgment\": {\n     \"answers\": [],\n     \"design_fork\": null,\n     \"disposition\": null,\n     \"finding\": null,\n     \"goal\": {\n      \"evidence\": [],\n      \"goal_id\": \"g1\",\n      \"goal_sha256\": \"2b31ef6fb02f5aeabdb80c0cfaab4b248810c6e81775de673d36dd56bd96adef\",\n      \"terminal\": null\n     },\n     \"holds\": [],\n     \"next_action\": null,\n     \"outcome\": null,\n     \"pass_terminal\": null,\n     \"reasons\": [],\n     \"sections\": {\n      \"affected\": null,\n      \"assumptions\": null,\n      \"consequences\": null,\n      \"exploration\": null,\n      \"findings_account\": null,\n      \"finish_assessments\": null,\n      \"for_model\": null,\n      \"issue\": null,\n      \"learning\": null,\n      \"limits\": null,\n      \"next_bounded_action\": null,\n      \"open_questions\": null,\n      \"options\": null,\n      \"outcome_evidence\": null,\n      \"preservation\": null,\n      \"prime_finding\": null,\n      \"proposed_plan\": null,\n      \"question\": null,\n      \"recommendation\": null,\n      \"remaining_choices\": null,\n      \"return_result\": null,\n      \"tests_note\": null,\n      \"tests_passed\": null,\n      \"within_direction\": null\n     },\n     \"semantic_conflict\": null,\n     \"source_refs\": [],\n     \"unresolved\": []\n    },\n    \"recovers\": null,\n    \"review_id\": \"05.01-r1\",\n    \"schema\": \"prime-cycle-decision/2\",\n    \"supersedes\": null\n   },\n   \"unresolved\": [],\n   \"work_id\": \"A\"\n  },\n  {\n   \"attention\": [],\n   \"custody\": {\n    \"basis\": \"live inspection at read time; custody is not acceptance\",\n    \"member\": \"0102.demob\",\n    \"receipt_sha256\": \"72da7f877fa5c3d2527a91a698da271c203dab7282543016219bfb8bd9941947\",\n    \"retrospective\": false,\n    \"role\": \"primary-current-candidate\"\n   },\n   \"disposition\": \"held\",\n   \"goal\": {\n    \"goal_id\": \"g1\",\n    \"goal_sha256\": \"2b31ef6fb02f5aeabdb80c0cfaab4b248810c6e81775de673d36dd56bd96adef\"\n   },\n   \"goal_terminal\": \"open\",\n   \"historical\": null,\n   \"holds\": [],\n   \"latest_review\": {\n    \"author\": \"Codex Prime (SUPPLIED FIXTURE)\",\n    \"current\": true,\n    \"effective\": \"continue\",\n    \"outcome\": \"continue\",\n    \"record_sha256\": \"677792572c929d215595f8abc2242fbb0449e3323c1a584d2a120a256396aa27\",\n    \"review_id\": \"05.01-r1\"\n   },\n   \"next_action\": {\n    \"action_id\": \"repair-pass\",\n    \"author\": \"Codex Prime (SUPPLIED FIXTURE)\",\n    \"authorized_in_grant\": true,\n    \"record_sha256\": \"677792572c929d215595f8abc2242fbb0449e3323c1a584d2a120a256396aa27\",\n    \"source\": \"00.kernel/00.00.10.work/0596.demo-b/evidence/prime-cycle-reviews/05.01/05.01-r1/record.json\",\n    \"text\": \"Correct the held finding.\"\n   },\n   \"next_action_guard\": [],\n   \"page\": \"00.kernel/00.00.10.work/0596.demo-b/05.01.md\",\n   \"pass\": \"05.01\",\n   \"pass_state\": \"reviewed\",\n   \"pass_terminal\": \"open\",\n   \"reader\": {\n    \"ambiguities\": [\n     \"legacy-ambiguous-heading\",\n     \"legacy-revision-withheld\"\n    ],\n    \"attention\": [],\n    \"exit\": 1,\n    \"failed\": null,\n    \"stdout_sha256\": \"bdb0c17dfcd9aa33083b187a8bc8b0c4863aa391e4857462d9b6db284e3c0df4\"\n   },\n   \"reviews\": {\n    \"committed\": [\n     \"05.01-r1\"\n    ],\n    \"heads\": [\n     \"05.01-r1\"\n    ],\n    \"invalid\": [],\n    \"partial\": []\n   },\n   \"source\": {\n    \"commit\": null,\n    \"kind\": \"live-file\",\n    \"page_sha256\": \"c4d0c0134b0461d6449d2f641259af9933c4cb3b09bf2ad49a80133c4a95bde8\"\n   },\n   \"template\": {\n    \"attribution\": {\n     \"actor_label\": null,\n     \"evidence\": null,\n     \"role\": \"prime\"\n    },\n    \"binding\": {\n     \"direction\": {\n      \"agreement_sha256\": \"ccda006d38bff2473baca85f10e911d57d2119fdc78742dbeb70bacc48744370\",\n      \"book\": \"00.kernel/00.00.10.work\",\n      \"fields\": {\n       \"director_required\": \"ec2d23b176e1faf0edd8aab3c7aef7ebb374ad45b9a63ac6868ef5835cf99c67\",\n       \"finish_criteria\": \"91fdfae213db8cf94a829f35dd784699036450abebba947a1ca68120d1a6d451\",\n       \"goal\": \"d8ad5981dea9ed7c5dee427e98c3e2c4025813f56afb7bc2d8babca4d68b7688\",\n       \"prime_discretion\": \"704477072fb4897037b0c03e3a577a3c92ea61584b50d820eafc8f154500caf2\",\n       \"recorded_decisions\": \"c34ffaf44ef1502aa94307e16b579842e670386b5709a9314fb1a7370b460dfa\",\n       \"scope\": \"bd1436823a04563be96ae26ec64f9861a4b3de2d44b9011a58ba37e37ff421c6\"\n      },\n      \"review_location\": \"00.kernel/00.00.10.work/0596.demo-b/evidence/prime-cycle-reviews/05.01\",\n      \"schema\": \"prime-cycle-direction/1\"\n     },\n     \"expected_prior\": {\n      \"record_sha256\": \"677792572c929d215595f8abc2242fbb0449e3323c1a584d2a120a256396aa27\",\n      \"review_id\": \"05.01-r1\"\n     },\n     \"fingerprint\": \"1a279be22232c8f8df15299c7a45893ae3ab1d9b47f4ddafc3a061beb49afe1f\",\n     \"goal\": {\n      \"goal_id\": \"g1\",\n      \"goal_sha256\": \"2b31ef6fb02f5aeabdb80c0cfaab4b248810c6e81775de673d36dd56bd96adef\"\n     },\n     \"member\": \"0102.demob\",\n     \"member_role\": \"primary-current-candidate\",\n     \"origin\": {\n      \"batch\": \"05.01\",\n      \"book\": \"00.00.10.work\",\n      \"page\": \"0596.demo-b\"\n     },\n     \"page\": \"00.kernel/00.00.10.work/0596.demo-b/05.01.md\",\n     \"pass\": \"05.01\",\n     \"receipt_sha256\": \"72da7f877fa5c3d2527a91a698da271c203dab7282543016219bfb8bd9941947\",\n     \"retrospective\": false,\n     \"source\": {\n      \"commit\": null,\n      \"kind\": \"live-file\",\n      \"page_bytes\": 402,\n      \"page_sha256\": \"c4d0c0134b0461d6449d2f641259af9933c4cb3b09bf2ad49a80133c4a95bde8\"\n     },\n     \"submission_id\": \"fx-demob\",\n     \"work_id\": \"B\"\n    },\n    \"judgment\": {\n     \"answers\": [],\n     \"design_fork\": null,\n     \"disposition\": null,\n     \"finding\": null,\n     \"goal\": {\n      \"evidence\": [],\n      \"goal_id\": \"g1\",\n      \"goal_sha256\": \"2b31ef6fb02f5aeabdb80c0cfaab4b248810c6e81775de673d36dd56bd96adef\",\n      \"terminal\": null\n     },\n     \"holds\": [],\n     \"next_action\": null,\n     \"outcome\": null,\n     \"pass_terminal\": null,\n     \"reasons\": [],\n     \"sections\": {\n      \"affected\": null,\n      \"assumptions\": null,\n      \"consequences\": null,\n      \"exploration\": null,\n      \"findings_account\": null,\n      \"finish_assessments\": null,\n      \"for_model\": null,\n      \"issue\": null,\n      \"learning\": null,\n      \"limits\": null,\n      \"next_bounded_action\": null,\n      \"open_questions\": null,\n      \"options\": null,\n      \"outcome_evidence\": null,\n      \"preservation\": null,\n      \"prime_finding\": null,\n      \"proposed_plan\": null,\n      \"question\": null,\n      \"recommendation\": null,\n      \"remaining_choices\": null,\n      \"return_result\": null,\n      \"tests_note\": null,\n      \"tests_passed\": null,\n      \"within_direction\": null\n     },\n     \"semantic_conflict\": null,\n     \"source_refs\": [],\n     \"unresolved\": []\n    },\n    \"recovers\": null,\n    \"review_id\": \"05.01-r2\",\n    \"schema\": \"prime-cycle-decision/2\",\n    \"supersedes\": {\n     \"record_sha256\": \"677792572c929d215595f8abc2242fbb0449e3323c1a584d2a120a256396aa27\",\n     \"review_id\": \"05.01-r1\"\n    }\n   },\n   \"unresolved\": [],\n   \"work_id\": \"B\"\n  },\n  {\n   \"attention\": [],\n   \"custody\": {\n    \"basis\": \"live inspection at read time; custody is not acceptance\",\n    \"member\": \"0103.democ\",\n    \"receipt_sha256\": \"fc1e661b72b72184596f3e8871882c84d34d33c4b4fbfda5ab535add45494863\",\n    \"retrospective\": false,\n    \"role\": \"primary-current-candidate\"\n   },\n   \"disposition\": \"accepted\",\n   \"goal\": {\n    \"goal_id\": \"g1\",\n    \"goal_sha256\": \"2b31ef6fb02f5aeabdb80c0cfaab4b248810c6e81775de673d36dd56bd96adef\"\n   },\n   \"goal_terminal\": \"open\",\n   \"historical\": null,\n   \"holds\": [],\n   \"latest_review\": {\n    \"author\": \"Codex Prime (SUPPLIED FIXTURE)\",\n    \"current\": true,\n    \"effective\": \"continue\",\n    \"outcome\": \"continue\",\n    \"record_sha256\": \"522d675f349bf1be5f2280dcdfa3f3665131f37cb157a5aab5ebd6873c81d922\",\n    \"review_id\": \"05.01-r1\"\n   },\n   \"next_action\": {\n    \"action_id\": \"next-pass\",\n    \"author\": \"Codex Prime (SUPPLIED FIXTURE)\",\n    \"authorized_in_grant\": true,\n    \"record_sha256\": \"522d675f349bf1be5f2280dcdfa3f3665131f37cb157a5aab5ebd6873c81d922\",\n    \"source\": \"00.kernel/00.00.10.work/0595.demo-c/evidence/prime-cycle-reviews/05.01/05.01-r1/record.json\",\n    \"text\": \"Pack the next bounded pass toward the page goal.\"\n   },\n   \"next_action_guard\": [],\n   \"page\": \"00.kernel/00.00.10.work/0595.demo-c/05.01.md\",\n   \"pass\": \"05.01\",\n   \"pass_state\": \"reviewed\",\n   \"pass_terminal\": \"finished\",\n   \"reader\": {\n    \"ambiguities\": [\n     \"legacy-ambiguous-heading\",\n     \"legacy-revision-withheld\"\n    ],\n    \"attention\": [],\n    \"exit\": 1,\n    \"failed\": null,\n    \"stdout_sha256\": \"a2436ca9b5c26bbaa0ea3e5eefb87f3ea4e5b59870f32d3d4e3d8a98c0be85a2\"\n   },\n   \"reviews\": {\n    \"committed\": [\n     \"05.01-r1\"\n    ],\n    \"heads\": [\n     \"05.01-r1\"\n    ],\n    \"invalid\": [],\n    \"partial\": []\n   },\n   \"source\": {\n    \"commit\": null,\n    \"kind\": \"live-file\",\n    \"page_sha256\": \"afcd29edaf1474751c83cde5c65b775fe6bf63e66f1b942b91877a62913460ee\"\n   },\n   \"template\": {\n    \"attribution\": {\n     \"actor_label\": null,\n     \"evidence\": null,\n     \"role\": \"prime\"\n    },\n    \"binding\": {\n     \"direction\": {\n      \"agreement_sha256\": \"ccda006d38bff2473baca85f10e911d57d2119fdc78742dbeb70bacc48744370\",\n      \"book\": \"00.kernel/00.00.10.work\",\n      \"fields\": {\n       \"director_required\": \"ec2d23b176e1faf0edd8aab3c7aef7ebb374ad45b9a63ac6868ef5835cf99c67\",\n       \"finish_criteria\": \"91fdfae213db8cf94a829f35dd784699036450abebba947a1ca68120d1a6d451\",\n       \"goal\": \"d8ad5981dea9ed7c5dee427e98c3e2c4025813f56afb7bc2d8babca4d68b7688\",\n       \"prime_discretion\": \"704477072fb4897037b0c03e3a577a3c92ea61584b50d820eafc8f154500caf2\",\n       \"recorded_decisions\": \"c34ffaf44ef1502aa94307e16b579842e670386b5709a9314fb1a7370b460dfa\",\n       \"scope\": \"bd1436823a04563be96ae26ec64f9861a4b3de2d44b9011a58ba37e37ff421c6\"\n      },\n      \"review_location\": \"00.kernel/00.00.10.work/0595.demo-c/evidence/prime-cycle-reviews/05.01\",\n      \"schema\": \"prime-cycle-direction/1\"\n     },\n     \"expected_prior\": {\n      \"record_sha256\": \"522d675f349bf1be5f2280dcdfa3f3665131f37cb157a5aab5ebd6873c81d922\",\n      \"review_id\": \"05.01-r1\"\n     },\n     \"fingerprint\": \"d3b65e9e595828ccdd78f6d0d762b601f64b307ebcd917289ecdb3cceb0893c3\",\n     \"goal\": {\n      \"goal_id\": \"g1\",\n      \"goal_sha256\": \"2b31ef6fb02f5aeabdb80c0cfaab4b248810c6e81775de673d36dd56bd96adef\"\n     },\n     \"member\": \"0103.democ\",\n     \"member_role\": \"primary-current-candidate\",\n     \"origin\": {\n      \"batch\": \"05.01\",\n      \"book\": \"00.00.10.work\",\n      \"page\": \"0595.demo-c\"\n     },\n     \"page\": \"00.kernel/00.00.10.work/0595.demo-c/05.01.md\",\n     \"pass\": \"05.01\",\n     \"receipt_sha256\": \"fc1e661b72b72184596f3e8871882c84d34d33c4b4fbfda5ab535add45494863\",\n     \"retrospective\": false,\n     \"source\": {\n      \"commit\": null,\n      \"kind\": \"live-file\",\n      \"page_bytes\": 402,\n      \"page_sha256\": \"afcd29edaf1474751c83cde5c65b775fe6bf63e66f1b942b91877a62913460ee\"\n     },\n     \"submission_id\": \"fx-democ\",\n     \"work_id\": \"C\"\n    },\n    \"judgment\": {\n     \"answers\": [],\n     \"design_fork\": null,\n     \"disposition\": null,\n     \"finding\": null,\n     \"goal\": {\n      \"evidence\": [],\n      \"goal_id\": \"g1\",\n      \"goal_sha256\": \"2b31ef6fb02f5aeabdb80c0cfaab4b248810c6e81775de673d36dd56bd96adef\",\n      \"terminal\": null\n     },\n     \"holds\": [],\n     \"next_action\": null,\n     \"outcome\": null,\n     \"pass_terminal\": null,\n     \"reasons\": [],\n     \"sections\": {\n      \"affected\": null,\n      \"assumptions\": null,\n      \"consequences\": null,\n      \"exploration\": null,\n      \"findings_account\": null,\n      \"finish_assessments\": null,\n      \"for_model\": null,\n      \"issue\": null,\n      \"learning\": null,\n      \"limits\": null,\n      \"next_bounded_action\": null,\n      \"open_questions\": null,\n      \"options\": null,\n      \"outcome_evidence\": null,\n      \"preservation\": null,\n      \"prime_finding\": null,\n      \"proposed_plan\": null,\n      \"question\": null,\n      \"recommendation\": null,\n      \"remaining_choices\": null,\n      \"return_result\": null,\n      \"tests_note\": null,\n      \"tests_passed\": null,\n      \"within_direction\": null\n     },\n     \"semantic_conflict\": null,\n     \"source_refs\": [],\n     \"unresolved\": []\n    },\n    \"recovers\": null,\n    \"review_id\": \"05.01-r2\",\n    \"schema\": \"prime-cycle-decision/2\",\n    \"supersedes\": {\n     \"record_sha256\": \"522d675f349bf1be5f2280dcdfa3f3665131f37cb157a5aab5ebd6873c81d922\",\n     \"review_id\": \"05.01-r1\"\n    }\n   },\n   \"unresolved\": [],\n   \"work_id\": \"C\"\n  },\n  {\n   \"attention\": [],\n   \"custody\": {\n    \"basis\": \"live inspection at read time; custody is not acceptance\",\n    \"member\": \"0104.demod\",\n    \"receipt_sha256\": \"93562c25e18f8a4079b60377ebeaede6077c2ebe6fc795c6b3cf6dbed66e54d7\",\n    \"retrospective\": false,\n    \"role\": \"primary-current-candidate\"\n   },\n   \"disposition\": \"accepted\",\n   \"goal\": {\n    \"goal_id\": \"g1\",\n    \"goal_sha256\": \"2b31ef6fb02f5aeabdb80c0cfaab4b248810c6e81775de673d36dd56bd96adef\"\n   },\n   \"goal_terminal\": \"open\",\n   \"historical\": null,\n   \"holds\": [],\n   \"latest_review\": {\n    \"author\": \"Codex Prime (SUPPLIED FIXTURE)\",\n    \"current\": true,\n    \"effective\": \"continue\",\n    \"outcome\": \"continue\",\n    \"record_sha256\": \"89a5abcab4f3fb33533594cc90b3002427c7ddc332c2feff84e54d763a2f086d\",\n    \"review_id\": \"05.01-r1\"\n   },\n   \"next_action\": {\n    \"action_id\": \"next-pass\",\n    \"author\": \"Codex Prime (SUPPLIED FIXTURE)\",\n    \"authorized_in_grant\": true,\n    \"record_sha256\": \"89a5abcab4f3fb33533594cc90b3002427c7ddc332c2feff84e54d763a2f086d\",\n    \"source\": \"00.kernel/00.00.10.work/0594.demo-d/evidence/prime-cycle-reviews/05.01/05.01-r1/record.json\",\n    \"text\": \"Pack the next bounded pass toward the page goal.\"\n   },\n   \"next_action_guard\": [],\n   \"page\": \"00.kernel/00.00.10.work/0594.demo-d/05.01.md\",\n   \"pass\": \"05.01\",\n   \"pass_state\": \"reviewed\",\n   \"pass_terminal\": \"finished\",\n   \"reader\": {\n    \"ambiguities\": [\n     \"legacy-ambiguous-heading\",\n     \"legacy-revision-withheld\"\n    ],\n    \"attention\": [],\n    \"exit\": 1,\n    \"failed\": null,\n    \"stdout_sha256\": \"03e39391de92b34061e0a5c41235bbfb4a366b67679275d414637813f5f70b78\"\n   },\n   \"reviews\": {\n    \"committed\": [\n     \"05.01-r1\"\n    ],\n    \"heads\": [\n     \"05.01-r1\"\n    ],\n    \"invalid\": [],\n    \"partial\": []\n   },\n   \"source\": {\n    \"commit\": null,\n    \"kind\": \"live-file\",\n    \"page_sha256\": \"1cb6bd703f36c9e2f59de4fc1957fa7116e7263feb92f08dbdf6f0739e3e7134\"\n   },\n   \"template\": {\n    \"attribution\": {\n     \"actor_label\": null,\n     \"evidence\": null,\n     \"role\": \"prime\"\n    },\n    \"binding\": {\n     \"direction\": {\n      \"agreement_sha256\": \"ccda006d38bff2473baca85f10e911d57d2119fdc78742dbeb70bacc48744370\",\n      \"book\": \"00.kernel/00.00.10.work\",\n      \"fields\": {\n       \"director_required\": \"ec2d23b176e1faf0edd8aab3c7aef7ebb374ad45b9a63ac6868ef5835cf99c67\",\n       \"finish_criteria\": \"91fdfae213db8cf94a829f35dd784699036450abebba947a1ca68120d1a6d451\",\n       \"goal\": \"d8ad5981dea9ed7c5dee427e98c3e2c4025813f56afb7bc2d8babca4d68b7688\",\n       \"prime_discretion\": \"704477072fb4897037b0c03e3a577a3c92ea61584b50d820eafc8f154500caf2\",\n       \"recorded_decisions\": \"c34ffaf44ef1502aa94307e16b579842e670386b5709a9314fb1a7370b460dfa\",\n       \"scope\": \"bd1436823a04563be96ae26ec64f9861a4b3de2d44b9011a58ba37e37ff421c6\"\n      },\n      \"review_location\": \"00.kernel/00.00.10.work/0594.demo-d/evidence/prime-cycle-reviews/05.01\",\n      \"schema\": \"prime-cycle-direction/1\"\n     },\n     \"expected_prior\": {\n      \"record_sha256\": \"89a5abcab4f3fb33533594cc90b3002427c7ddc332c2feff84e54d763a2f086d\",\n      \"review_id\": \"05.01-r1\"\n     },\n     \"fingerprint\": \"4d428cbf44c7bdc14f0e2a9332649ca210b48bf41a054c6db230ae57bb2c19b2\",\n     \"goal\": {\n      \"goal_id\": \"g1\",\n      \"goal_sha256\": \"2b31ef6fb02f5aeabdb80c0cfaab4b248810c6e81775de673d36dd56bd96adef\"\n     },\n     \"member\": \"0104.demod\",\n     \"member_role\": \"primary-current-candidate\",\n     \"origin\": {\n      \"batch\": \"05.01\",\n      \"book\": \"00.00.10.work\",\n      \"page\": \"0594.demo-d\"\n     },\n     \"page\": \"00.kernel/00.00.10.work/0594.demo-d/05.01.md\",\n     \"pass\": \"05.01\",\n     \"receipt_sha256\": \"93562c25e18f8a4079b60377ebeaede6077c2ebe6fc795c6b3cf6dbed66e54d7\",\n     \"retrospective\": false,\n     \"source\": {\n      \"commit\": null,\n      \"kind\": \"live-file\",\n      \"page_bytes\": 402,\n      \"page_sha256\": \"1cb6bd703f36c9e2f59de4fc1957fa7116e7263feb92f08dbdf6f0739e3e7134\"\n     },\n     \"submission_id\": \"fx-demod\",\n     \"work_id\": \"D\"\n    },\n    \"judgment\": {\n     \"answers\": [],\n     \"design_fork\": null,\n     \"disposition\": null,\n     \"finding\": null,\n     \"goal\": {\n      \"evidence\": [],\n      \"goal_id\": \"g1\",\n      \"goal_sha256\": \"2b31ef6fb02f5aeabdb80c0cfaab4b248810c6e81775de673d36dd56bd96adef\",\n      \"terminal\": null\n     },\n     \"holds\": [],\n     \"next_action\": null,\n     \"outcome\": null,\n     \"pass_terminal\": null,\n     \"reasons\": [],\n     \"sections\": {\n      \"affected\": null,\n      \"assumptions\": null,\n      \"consequences\": null,\n      \"exploration\": null,\n      \"findings_account\": null,\n      \"finish_assessments\": null,\n      \"for_model\": null,\n      \"issue\": null,\n      \"learning\": null,\n      \"limits\": null,\n      \"next_bounded_action\": null,\n      \"open_questions\": null,\n      \"options\": null,\n      \"outcome_evidence\": null,\n      \"preservation\": null,\n      \"prime_finding\": null,\n      \"proposed_plan\": null,\n      \"question\": null,\n      \"recommendation\": null,\n      \"remaining_choices\": null,\n      \"return_result\": null,\n      \"tests_note\": null,\n      \"tests_passed\": null,\n      \"within_direction\": null\n     },\n     \"semantic_conflict\": null,\n     \"source_refs\": [],\n     \"unresolved\": []\n    },\n    \"recovers\": null,\n    \"review_id\": \"05.01-r2\",\n    \"schema\": \"prime-cycle-decision/2\",\n    \"supersedes\": {\n     \"record_sha256\": \"89a5abcab4f3fb33533594cc90b3002427c7ddc332c2feff84e54d763a2f086d\",\n     \"review_id\": \"05.01-r1\"\n    }\n   },\n   \"unresolved\": [],\n   \"work_id\": \"D\"\n  }\n ]\n}\n",
+    "stderr": ""
+   },
+   {
+    "step": "4 record D goal completion (successor)",
+    "argv": [
+     "python",
+     "-B",
+     "prime_cycle.py",
+     "record",
+     "--registration",
+     "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\reg.json",
+     "--decision",
+     "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\dec-D2.json",
+     "--journal-root",
+     "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\out\\journal",
+     "--caller",
+     "Codex Prime (SYNTHETIC DEMO)"
+    ],
+    "exit": 0,
+    "stdout": "recorded C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\repo\\00.kernel\\00.00.10.work\\0594.demo-d\\evidence\\prime-cycle-reviews\\05.01\\05.01-r2\nprime_review effective complete-as-supplied\njournal: C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\out\\journal op 20261030T182506.652218Z-1e1e78330db5\n",
+    "stderr": ""
+   },
+   {
+    "step": "5 new-process read",
+    "argv": [
+     "python",
+     "-B",
+     "prime_cycle.py",
+     "read",
+     "--registration",
+     "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\reg.json",
+     "--journal-root",
+     "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\out\\journal",
+     "--caller",
+     "Codex Prime (SYNTHETIC DEMO)"
+    ],
+    "exit": 1,
+    "stdout": "Prime cycle view  book 00.kernel/00.00.10.work  source live-file (live files)\nDerived from work-local review records. Noncanonical. Nothing is elected or dispatched.\nsummary (current only): works 4, awaiting review 1, reviewed current 3, stale or unusable 0, finished passes 2, completed goals 1, open holds 0\n\nA  00.kernel/00.00.10.work/0597.demo-a/05.01.md\n  pass state: awaiting-review   review disposition: unknown   pass terminal: unknown\n  goal g1: unknown\n  custody: 0101.demoa role primary-current-candidate receipt 0552ab216129281b (custody is not acceptance)\n  ! awaiting-review: a captured return has no recorded review\n\nB  00.kernel/00.00.10.work/0596.demo-b/05.01.md\n  pass state: reviewed   review disposition: held   pass terminal: open\n  goal g1: open\n  custody: 0102.demob role primary-current-candidate receipt 72da7f877fa5c3d2 (custody is not acceptance)\n  latest review: 05.01-r1 by Codex Prime (SUPPLIED FIXTURE) outcome continue (prime_review effective continue)\n  recorded next action (Codex Prime (SUPPLIED FIXTURE), 00.kernel/00.00.10.work/0596.demo-b/evidence/prime-cycle-reviews/05.01/05.01-r1/record.json): repair-pass: Correct the held finding.\n\nC  00.kernel/00.00.10.work/0595.demo-c/05.01.md\n  pass state: reviewed   review disposition: accepted   pass terminal: finished\n  goal g1: open\n  custody: 0103.democ role primary-current-candidate receipt fc1e661b72b72184 (custody is not acceptance)\n  latest review: 05.01-r1 by Codex Prime (SUPPLIED FIXTURE) outcome continue (prime_review effective continue)\n  recorded next action (Codex Prime (SUPPLIED FIXTURE), 00.kernel/00.00.10.work/0595.demo-c/evidence/prime-cycle-reviews/05.01/05.01-r1/record.json): next-pass: Pack the next bounded pass toward the page goal.\n\nD  00.kernel/00.00.10.work/0594.demo-d/05.01.md\n  pass state: reviewed   review disposition: accepted   pass terminal: finished\n  goal g1: completed\n  custody: 0104.demod role primary-current-candidate receipt 93562c25e18f8a40 (custody is not acceptance)\n  latest review: 05.01-r2 by Codex Prime (SUPPLIED FIXTURE) outcome complete (prime_review effective complete-as-supplied)\n\nauthority none; this tool records supplied judgment and derives a view; it authenticates no actor and grants no work\njournal: C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\out\\journal op 20261030T182508.816401Z-0756e51a58c3\n",
+    "stderr": ""
+   },
+   {
+    "step": "6 read after D's page changed",
+    "argv": [
+     "python",
+     "-B",
+     "prime_cycle.py",
+     "read",
+     "--registration",
+     "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\reg.json",
+     "--journal-root",
+     "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\out\\journal",
+     "--caller",
+     "Codex Prime (SYNTHETIC DEMO)"
+    ],
+    "exit": 1,
+    "stdout": "Prime cycle view  book 00.kernel/00.00.10.work  source live-file (live files)\nDerived from work-local review records. Noncanonical. Nothing is elected or dispatched.\nsummary (current only): works 4, awaiting review 1, reviewed current 2, stale or unusable 1, finished passes 1, completed goals 0, open holds 0\n\nA  00.kernel/00.00.10.work/0597.demo-a/05.01.md\n  pass state: awaiting-review   review disposition: unknown   pass terminal: unknown\n  goal g1: unknown\n  custody: 0101.demoa role primary-current-candidate receipt 0552ab216129281b (custody is not acceptance)\n  ! awaiting-review: a captured return has no recorded review\n\nB  00.kernel/00.00.10.work/0596.demo-b/05.01.md\n  pass state: reviewed   review disposition: held   pass terminal: open\n  goal g1: open\n  custody: 0102.demob role primary-current-candidate receipt 72da7f877fa5c3d2 (custody is not acceptance)\n  latest review: 05.01-r1 by Codex Prime (SUPPLIED FIXTURE) outcome continue (prime_review effective continue)\n  recorded next action (Codex Prime (SUPPLIED FIXTURE), 00.kernel/00.00.10.work/0596.demo-b/evidence/prime-cycle-reviews/05.01/05.01-r1/record.json): repair-pass: Correct the held finding.\n\nC  00.kernel/00.00.10.work/0595.demo-c/05.01.md\n  pass state: reviewed   review disposition: accepted   pass terminal: finished\n  goal g1: open\n  custody: 0103.democ role primary-current-candidate receipt fc1e661b72b72184 (custody is not acceptance)\n  latest review: 05.01-r1 by Codex Prime (SUPPLIED FIXTURE) outcome continue (prime_review effective continue)\n  recorded next action (Codex Prime (SUPPLIED FIXTURE), 00.kernel/00.00.10.work/0595.demo-c/evidence/prime-cycle-reviews/05.01/05.01-r1/record.json): next-pass: Pack the next bounded pass toward the page goal.\n\nD  00.kernel/00.00.10.work/0594.demo-d/05.01.md\n  pass state: review-stale   review disposition: unknown (historical accepted in 05.01-r2, review-stale)   pass terminal: unknown (historical finished in 05.01-r2, review-stale)\n  goal g1: unknown (historical completed in 05.01-r2, review-stale)\n  custody: 0104.demod role primary-current-candidate receipt 93562c25e18f8a40 (custody is not acceptance)\n  latest review: 05.01-r2 by Codex Prime (SUPPLIED FIXTURE) outcome complete (prime_review effective complete-as-supplied)  [not current]\n  ! review-stale: 05.01-r2 binds a different page; its declarations are historical; re-review required\n\nauthority none; this tool records supplied judgment and derives a view; it authenticates no actor and grants no work\njournal: C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\out\\journal op 20261030T182515.607302Z-74fb410d2018\n",
+    "stderr": ""
+   },
+   {
+    "step": "7 day view (new process, not logged)",
+    "argv": [
+     "python",
+     "-B",
+     "prime_cycle.py",
+     "day",
+     "--journal-root",
+     "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\out\\journal",
+     "--date",
+     "2026-10-30",
+     "--registration",
+     "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\reg.json"
+    ],
+    "exit": 0,
+    "stdout": "Prime cycle day 2026-10-30  journal C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-demo-8dkv7ne7\\out\\journal  (read-only; this view is not logged)\nattempts: read ok-attention 4; record recorded 4\n\n  20261030T182445.459856Z-c056981686bf  read    ok-attention       exit 1  2026-10-30T13:24:45.459825-05:00  5.599s  caller Codex Prime (SYNTHETIC DEMO)\n  20261030T182452.270926Z-905f4b7c098f  record  recorded           exit 0  2026-10-30T13:24:52.270890-05:00  1.916s  caller Codex Prime (SYNTHETIC DEMO)\n      review 05.01-r1 record 677792572c929d21\n  20261030T182454.477304Z-216d2061ce82  record  recorded           exit 0  2026-10-30T13:24:54.477259-05:00  2.036s  caller Codex Prime (SYNTHETIC DEMO)\n      review 05.01-r1 record 522d675f349bf1be\n  20261030T182457.687154Z-c8db1323a589  record  recorded           exit 0  2026-10-30T13:24:57.687121-05:00  1.886s  caller Codex Prime (SYNTHETIC DEMO)\n      review 05.01-r1 record 89a5abcab4f3fb33\n  20261030T182459.842963Z-366fb02ab81e  read    ok-attention       exit 1  2026-10-30T13:24:59.842935-05:00  5.575s  caller Codex Prime (SYNTHETIC DEMO)\n  20261030T182506.652218Z-1e1e78330db5  record  recorded           exit 0  2026-10-30T13:25:06.652184-05:00  1.887s  caller Codex Prime (SYNTHETIC DEMO)\n      review 05.01-r2 record f40ce5cb0b8a76d2\n  20261030T182508.816401Z-0756e51a58c3  read    ok-attention       exit 1  2026-10-30T13:25:08.816371-05:00  5.594s  caller Codex Prime (SYNTHETIC DEMO)\n  20261030T182515.607302Z-74fb410d2018  read    ok-attention       exit 1  2026-10-30T13:25:15.607274-05:00  5.222s  caller Codex Prime (SYNTHETIC DEMO)\n\nunique reviews (re-verified now): 4 from 4 record invocations\n  B 05.01-r1 by Codex Prime (SUPPLIED FIXTURE): held, pass open, goal g1 open; invocations 1 (replays 0); current head yes\n  C 05.01-r1 by Codex Prime (SUPPLIED FIXTURE): accepted, pass finished, goal g1 open; invocations 1 (replays 0); current head yes\n  D 05.01-r1 by Codex Prime (SUPPLIED FIXTURE): accepted, pass finished, goal g1 open; invocations 1 (replays 0); current head no\n  D 05.01-r2 by Codex Prime (SUPPLIED FIXTURE): accepted, pass finished, goal g1 completed; invocations 1 (replays 0); current head no\ndeclared in unique verified records (each work pass and goal once; not current status): finished passes 2, completed goals 1, holds none\ncurrent (fresh read): finished passes C; completed goals none; open holds none; not current D\nper-operation durations only; incomplete operations have unknown duration; no totals or productivity are derived\n",
+    "stderr": ""
+   }
+  ]
+ },
+ "real_preview": {
+  "schema": "prime-cycle-real-preview/2",
+  "commit": "d19241074e8db09723ddf44e0900c839a62bc526",
+  "external_root": "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-preview-wtn9q2gg",
+  "registration": {
+   "schema": "prime-cycle-registration/1",
+   "repository": "D:\\Git\\lib-build",
+   "book": "00.kernel/00.00.10.work",
+   "book_label": "00.00.10.work",
+   "source": {
+    "kind": "git-blob",
+    "commit": "d19241074e8db09723ddf44e0900c839a62bc526"
+   },
+   "members_book": "D:\\Git\\lib-build\\00.kernel\\00.00.10.work",
+   "output_root": "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-preview-wtn9q2gg\\out",
+   "bounds": {
+    "max_works": 16,
+    "max_page_bytes": 262144,
+    "max_output_bytes": 2097152
+   },
+   "works": [
+    {
+     "work_id": "deskstate-0520",
+     "page": "00.kernel/00.00.10.work/0508.return-capture/05.20.md",
+     "pass": "05.20",
+     "member": "0169.desk-state-preservation-0520",
+     "goal": {
+      "goal_id": "deskstate-0520-page",
+      "statement": "PREVIEW, Prime must confirm or replace: the page title reads 'Repair desk-state citation preservation and readable provenance'."
+     },
+     "agreement": {
+      "goal": null,
+      "scope": null,
+      "prime_discretion": null,
+      "director_required": null,
+      "finish_criteria": null,
+      "recorded_decisions": null
+     },
+     "review_location": "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-cycle-reviews/05.20"
+    }
+   ]
+  },
+  "registration_sha256": "b6c1b921d3750299db8f40a85311f4e5228b97b953ddcaff9ed8eb7124ef04a4",
+  "runs": [
+   {
+    "name": "read-json",
+    "argv": [
+     "python",
+     "-B",
+     "labs/prime-cycle-pass01/prime_cycle.py",
+     "read",
+     "--registration",
+     "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-preview-wtn9q2gg\\registration.json",
+     "--json",
+     "--journal-root",
+     "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-preview-wtn9q2gg\\journal",
+     "--caller",
+     "Claude Builder (read-only preview)"
+    ],
+    "exit": 1,
+    "stdout": "{\n \"attention_count\": 2,\n \"authority\": \"none; this tool records supplied judgment and derives a view; it authenticates no actor and grants no work\",\n \"book\": \"00.kernel/00.00.10.work\",\n \"elected\": null,\n \"journal\": {\n  \"dir\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\pcy-preview-wtn9q2gg\\\\journal\\\\2026-10-30\\\\20261030T182016.990448Z-16d6a16d164d\",\n  \"enabled\": true,\n  \"op_id\": \"20261030T182016.990448Z-16d6a16d164d\",\n  \"root\": \"C:\\\\Users\\\\misg\\\\AppData\\\\Local\\\\Temp\\\\pcy-preview-wtn9q2gg\\\\journal\"\n },\n \"note\": \"derived from work-local review records and fresh reader observations; noncanonical; rebuildable\",\n \"registration_sha256\": \"b6c1b921d3750299db8f40a85311f4e5228b97b953ddcaff9ed8eb7124ef04a4\",\n \"schema\": \"prime-cycle-view/2\",\n \"source\": {\n  \"commit\": \"d19241074e8db09723ddf44e0900c839a62bc526\",\n  \"kind\": \"git-blob\"\n },\n \"summary\": {\n  \"awaiting_review\": 1,\n  \"basis\": \"current values only; historical declarations of stale or unusable reviews are not counted\",\n  \"completed_goals\": 0,\n  \"finished_passes\": 0,\n  \"open_holds\": 0,\n  \"reviewed_current\": 0,\n  \"stale_or_unusable\": 0,\n  \"works\": 1\n },\n \"works\": [\n  {\n   \"attention\": [\n    \"legacy-review-unmapped: the page has review prose and no recorded cycle review; adopt only by an attributed review\",\n    \"awaiting-review: a captured return has no recorded review\"\n   ],\n   \"custody\": {\n    \"basis\": \"live inspection at read time; custody is not acceptance\",\n    \"member\": \"0169.desk-state-preservation-0520\",\n    \"receipt_sha256\": \"94a5fe21286c95187c456c28ebd45a95f7ed2faaa06da6779d9ce220197424bc\",\n    \"retrospective\": false,\n    \"role\": \"primary-current-candidate\"\n   },\n   \"disposition\": \"unknown\",\n   \"goal\": {\n    \"goal_id\": \"deskstate-0520-page\",\n    \"goal_sha256\": \"7c2abf62d2935ffa9a2077a3c963dd671868a70c38d0f891c99dffb45a7c4aee\"\n   },\n   \"goal_terminal\": \"unknown\",\n   \"historical\": null,\n   \"holds\": [],\n   \"latest_review\": null,\n   \"legacy_review_text\": \"Accepted as a bounded derived-view lab helper on 2026-10-30.\\nNine independent tests passed, no skips. See evidence/prime-review05.20/REVIEW.md.\\nNo canonical 00.live adoption or current desk recovery is claimed.\",\n   \"next_action\": null,\n   \"next_action_guard\": [],\n   \"page\": \"00.kernel/00.00.10.work/0508.return-capture/05.20.md\",\n   \"pass\": \"05.20\",\n   \"pass_state\": \"awaiting-review\",\n   \"pass_terminal\": \"unknown\",\n   \"reader\": {\n    \"ambiguities\": [\n     \"legacy-ambiguous-heading\",\n     \"legacy-revision-withheld\",\n     \"quoted-accepted-unbound\",\n     \"duplicate-release\"\n    ],\n    \"attention\": [],\n    \"exit\": 1,\n    \"failed\": null,\n    \"stdout_sha256\": \"527966ad7de82533ccfcd5c82755bd30fef347e04f25ce86dacf63f4a647e6d3\"\n   },\n   \"reviews\": {\n    \"committed\": [],\n    \"heads\": [],\n    \"invalid\": [],\n    \"partial\": []\n   },\n   \"source\": {\n    \"commit\": \"d19241074e8db09723ddf44e0900c839a62bc526\",\n    \"kind\": \"git-blob\",\n    \"page_sha256\": \"306dcd15d9987fa9bb0ff511b61e663efd8e2b1f7e0490eaeabf2fedc6032b85\"\n   },\n   \"template\": {\n    \"attribution\": {\n     \"actor_label\": null,\n     \"evidence\": null,\n     \"role\": \"prime\"\n    },\n    \"binding\": {\n     \"direction\": {\n      \"agreement_sha256\": \"0308849decc2d3306d27934ac69a26636859c8d890d828448ed521dab4b395ba\",\n      \"book\": \"00.kernel/00.00.10.work\",\n      \"fields\": {\n       \"director_required\": \"38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed\",\n       \"finish_criteria\": \"38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed\",\n       \"goal\": \"38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed\",\n       \"prime_discretion\": \"38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed\",\n       \"recorded_decisions\": \"38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed\",\n       \"scope\": \"38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed\"\n      },\n      \"review_location\": \"00.kernel/00.00.10.work/0508.return-capture/evidence/prime-cycle-reviews/05.20\",\n      \"schema\": \"prime-cycle-direction/1\"\n     },\n     \"expected_prior\": null,\n     \"fingerprint\": \"4380746822032e17a8c31ac3fb2cfd6c50069ecb2c6f2b77303d60fb56ad71fd\",\n     \"goal\": {\n      \"goal_id\": \"deskstate-0520-page\",\n      \"goal_sha256\": \"7c2abf62d2935ffa9a2077a3c963dd671868a70c38d0f891c99dffb45a7c4aee\"\n     },\n     \"member\": \"0169.desk-state-preservation-0520\",\n     \"member_role\": \"primary-current-candidate\",\n     \"origin\": {\n      \"batch\": \"05.20\",\n      \"book\": \"00.00.10.work\",\n      \"page\": \"0508.return-capture\"\n     },\n     \"page\": \"00.kernel/00.00.10.work/0508.return-capture/05.20.md\",\n     \"pass\": \"05.20\",\n     \"receipt_sha256\": \"94a5fe21286c95187c456c28ebd45a95f7ed2faaa06da6779d9ce220197424bc\",\n     \"retrospective\": false,\n     \"source\": {\n      \"commit\": \"d19241074e8db09723ddf44e0900c839a62bc526\",\n      \"kind\": \"git-blob\",\n      \"page_bytes\": 7096,\n      \"page_sha256\": \"306dcd15d9987fa9bb0ff511b61e663efd8e2b1f7e0490eaeabf2fedc6032b85\"\n     },\n     \"submission_id\": \"grok-2-0508-0520\",\n     \"work_id\": \"deskstate-0520\"\n    },\n    \"judgment\": {\n     \"answers\": [],\n     \"design_fork\": null,\n     \"disposition\": null,\n     \"finding\": null,\n     \"goal\": {\n      \"evidence\": [],\n      \"goal_id\": \"deskstate-0520-page\",\n      \"goal_sha256\": \"7c2abf62d2935ffa9a2077a3c963dd671868a70c38d0f891c99dffb45a7c4aee\",\n      \"terminal\": null\n     },\n     \"holds\": [],\n     \"next_action\": null,\n     \"outcome\": null,\n     \"pass_terminal\": null,\n     \"reasons\": [],\n     \"sections\": {\n      \"affected\": null,\n      \"assumptions\": null,\n      \"consequences\": null,\n      \"exploration\": null,\n      \"findings_account\": null,\n      \"finish_assessments\": null,\n      \"for_model\": null,\n      \"issue\": null,\n      \"learning\": null,\n      \"limits\": null,\n      \"next_bounded_action\": null,\n      \"open_questions\": null,\n      \"options\": null,\n      \"outcome_evidence\": null,\n      \"preservation\": null,\n      \"prime_finding\": null,\n      \"proposed_plan\": null,\n      \"question\": null,\n      \"recommendation\": null,\n      \"remaining_choices\": null,\n      \"return_result\": null,\n      \"tests_note\": null,\n      \"tests_passed\": null,\n      \"within_direction\": null\n     },\n     \"semantic_conflict\": null,\n     \"source_refs\": [],\n     \"unresolved\": []\n    },\n    \"recovers\": null,\n    \"review_id\": \"05.20-r1\",\n    \"schema\": \"prime-cycle-decision/2\",\n    \"supersedes\": null\n   },\n   \"unresolved\": [],\n   \"work_id\": \"deskstate-0520\"\n  }\n ]\n}\n",
+    "stderr": ""
+   },
+   {
+    "name": "read-text",
+    "argv": [
+     "python",
+     "-B",
+     "labs/prime-cycle-pass01/prime_cycle.py",
+     "read",
+     "--registration",
+     "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-preview-wtn9q2gg\\registration.json",
+     "--journal-root",
+     "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-preview-wtn9q2gg\\journal",
+     "--caller",
+     "Claude Builder (read-only preview)"
+    ],
+    "exit": 1,
+    "stdout": "Prime cycle view  book 00.kernel/00.00.10.work  source git-blob d19241074e8db09723ddf44e0900c839a62bc526\nDerived from work-local review records. Noncanonical. Nothing is elected or dispatched.\nsummary (current only): works 1, awaiting review 1, reviewed current 0, stale or unusable 0, finished passes 0, completed goals 0, open holds 0\n\ndeskstate-0520  00.kernel/00.00.10.work/0508.return-capture/05.20.md\n  pass state: awaiting-review   review disposition: unknown   pass terminal: unknown\n  goal deskstate-0520-page: unknown\n  custody: 0169.desk-state-preservation-0520 role primary-current-candidate receipt 94a5fe21286c9518 (custody is not acceptance)\n  ! legacy-review-unmapped: the page has review prose and no recorded cycle review; adopt only by an attributed review\n  ! awaiting-review: a captured return has no recorded review\n\nauthority none; this tool records supplied judgment and derives a view; it authenticates no actor and grants no work\njournal: C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-preview-wtn9q2gg\\journal op 20261030T182017.510043Z-d9c5f512144e\n",
+    "stderr": ""
+   },
+   {
+    "name": "read-templates",
+    "argv": [
+     "python",
+     "-B",
+     "labs/prime-cycle-pass01/prime_cycle.py",
+     "read",
+     "--registration",
+     "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-preview-wtn9q2gg\\registration.json",
+     "--templates",
+     "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-preview-wtn9q2gg\\out\\templates",
+     "--journal-root",
+     "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-preview-wtn9q2gg\\journal",
+     "--caller",
+     "Claude Builder (read-only preview)"
+    ],
+    "exit": 1,
+    "stdout": "Prime cycle view  book 00.kernel/00.00.10.work  source git-blob d19241074e8db09723ddf44e0900c839a62bc526\nDerived from work-local review records. Noncanonical. Nothing is elected or dispatched.\nsummary (current only): works 1, awaiting review 1, reviewed current 0, stale or unusable 0, finished passes 0, completed goals 0, open holds 0\n\ndeskstate-0520  00.kernel/00.00.10.work/0508.return-capture/05.20.md\n  pass state: awaiting-review   review disposition: unknown   pass terminal: unknown\n  goal deskstate-0520-page: unknown\n  custody: 0169.desk-state-preservation-0520 role primary-current-candidate receipt 94a5fe21286c9518 (custody is not acceptance)\n  ! legacy-review-unmapped: the page has review prose and no recorded cycle review; adopt only by an attributed review\n  ! awaiting-review: a captured return has no recorded review\n\nauthority none; this tool records supplied judgment and derives a view; it authenticates no actor and grants no work\njournal: C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-preview-wtn9q2gg\\journal op 20261030T182018.033907Z-14f9ec5ed6ba\n",
+    "stderr": ""
+   }
+  ],
+  "view": {
+   "attention_count": 2,
+   "authority": "none; this tool records supplied judgment and derives a view; it authenticates no actor and grants no work",
+   "book": "00.kernel/00.00.10.work",
+   "elected": null,
+   "journal": {
+    "dir": "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-preview-wtn9q2gg\\journal\\2026-10-30\\20261030T182016.990448Z-16d6a16d164d",
+    "enabled": true,
+    "op_id": "20261030T182016.990448Z-16d6a16d164d",
+    "root": "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-preview-wtn9q2gg\\journal"
+   },
+   "note": "derived from work-local review records and fresh reader observations; noncanonical; rebuildable",
+   "registration_sha256": "b6c1b921d3750299db8f40a85311f4e5228b97b953ddcaff9ed8eb7124ef04a4",
+   "schema": "prime-cycle-view/2",
+   "source": {
+    "commit": "d19241074e8db09723ddf44e0900c839a62bc526",
+    "kind": "git-blob"
+   },
+   "summary": {
+    "awaiting_review": 1,
+    "basis": "current values only; historical declarations of stale or unusable reviews are not counted",
+    "completed_goals": 0,
+    "finished_passes": 0,
+    "open_holds": 0,
+    "reviewed_current": 0,
+    "stale_or_unusable": 0,
+    "works": 1
+   },
+   "works": [
+    {
+     "attention": [
+      "legacy-review-unmapped: the page has review prose and no recorded cycle review; adopt only by an attributed review",
+      "awaiting-review: a captured return has no recorded review"
+     ],
+     "custody": {
+      "basis": "live inspection at read time; custody is not acceptance",
+      "member": "0169.desk-state-preservation-0520",
+      "receipt_sha256": "94a5fe21286c95187c456c28ebd45a95f7ed2faaa06da6779d9ce220197424bc",
+      "retrospective": false,
+      "role": "primary-current-candidate"
+     },
+     "disposition": "unknown",
+     "goal": {
+      "goal_id": "deskstate-0520-page",
+      "goal_sha256": "7c2abf62d2935ffa9a2077a3c963dd671868a70c38d0f891c99dffb45a7c4aee"
+     },
+     "goal_terminal": "unknown",
+     "historical": null,
+     "holds": [],
+     "latest_review": null,
+     "legacy_review_text": "Accepted as a bounded derived-view lab helper on 2026-10-30.\nNine independent tests passed, no skips. See evidence/prime-review05.20/REVIEW.md.\nNo canonical 00.live adoption or current desk recovery is claimed.",
+     "next_action": null,
+     "next_action_guard": [],
+     "page": "00.kernel/00.00.10.work/0508.return-capture/05.20.md",
+     "pass": "05.20",
+     "pass_state": "awaiting-review",
+     "pass_terminal": "unknown",
+     "reader": {
+      "ambiguities": [
+       "legacy-ambiguous-heading",
+       "legacy-revision-withheld",
+       "quoted-accepted-unbound",
+       "duplicate-release"
+      ],
+      "attention": [],
+      "exit": 1,
+      "failed": null,
+      "stdout_sha256": "527966ad7de82533ccfcd5c82755bd30fef347e04f25ce86dacf63f4a647e6d3"
+     },
+     "reviews": {
+      "committed": [],
+      "heads": [],
+      "invalid": [],
+      "partial": []
+     },
+     "source": {
+      "commit": "d19241074e8db09723ddf44e0900c839a62bc526",
+      "kind": "git-blob",
+      "page_sha256": "306dcd15d9987fa9bb0ff511b61e663efd8e2b1f7e0490eaeabf2fedc6032b85"
+     },
+     "template": {
+      "attribution": {
+       "actor_label": null,
+       "evidence": null,
+       "role": "prime"
+      },
+      "binding": {
+       "direction": {
+        "agreement_sha256": "0308849decc2d3306d27934ac69a26636859c8d890d828448ed521dab4b395ba",
+        "book": "00.kernel/00.00.10.work",
+        "fields": {
+         "director_required": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+         "finish_criteria": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+         "goal": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+         "prime_discretion": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+         "recorded_decisions": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+         "scope": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed"
+        },
+        "review_location": "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-cycle-reviews/05.20",
+        "schema": "prime-cycle-direction/1"
+       },
+       "expected_prior": null,
+       "fingerprint": "4380746822032e17a8c31ac3fb2cfd6c50069ecb2c6f2b77303d60fb56ad71fd",
+       "goal": {
+        "goal_id": "deskstate-0520-page",
+        "goal_sha256": "7c2abf62d2935ffa9a2077a3c963dd671868a70c38d0f891c99dffb45a7c4aee"
+       },
+       "member": "0169.desk-state-preservation-0520",
+       "member_role": "primary-current-candidate",
+       "origin": {
+        "batch": "05.20",
+        "book": "00.00.10.work",
+        "page": "0508.return-capture"
+       },
+       "page": "00.kernel/00.00.10.work/0508.return-capture/05.20.md",
+       "pass": "05.20",
+       "receipt_sha256": "94a5fe21286c95187c456c28ebd45a95f7ed2faaa06da6779d9ce220197424bc",
+       "retrospective": false,
+       "source": {
+        "commit": "d19241074e8db09723ddf44e0900c839a62bc526",
+        "kind": "git-blob",
+        "page_bytes": 7096,
+        "page_sha256": "306dcd15d9987fa9bb0ff511b61e663efd8e2b1f7e0490eaeabf2fedc6032b85"
+       },
+       "submission_id": "grok-2-0508-0520",
+       "work_id": "deskstate-0520"
+      },
+      "judgment": {
+       "answers": [],
+       "design_fork": null,
+       "disposition": null,
+       "finding": null,
+       "goal": {
+        "evidence": [],
+        "goal_id": "deskstate-0520-page",
+        "goal_sha256": "7c2abf62d2935ffa9a2077a3c963dd671868a70c38d0f891c99dffb45a7c4aee",
+        "terminal": null
+       },
+       "holds": [],
+       "next_action": null,
+       "outcome": null,
+       "pass_terminal": null,
+       "reasons": [],
+       "sections": {
+        "affected": null,
+        "assumptions": null,
+        "consequences": null,
+        "exploration": null,
+        "findings_account": null,
+        "finish_assessments": null,
+        "for_model": null,
+        "issue": null,
+        "learning": null,
+        "limits": null,
+        "next_bounded_action": null,
+        "open_questions": null,
+        "options": null,
+        "outcome_evidence": null,
+        "preservation": null,
+        "prime_finding": null,
+        "proposed_plan": null,
+        "question": null,
+        "recommendation": null,
+        "remaining_choices": null,
+        "return_result": null,
+        "tests_note": null,
+        "tests_passed": null,
+        "within_direction": null
+       },
+       "semantic_conflict": null,
+       "source_refs": [],
+       "unresolved": []
+      },
+      "recovers": null,
+      "review_id": "05.20-r1",
+      "schema": "prime-cycle-decision/2",
+      "supersedes": null
+     },
+     "unresolved": [],
+     "work_id": "deskstate-0520"
+    }
+   ]
+  },
+  "template": {
+   "attribution": {
+    "actor_label": null,
+    "evidence": null,
+    "role": "prime"
+   },
+   "binding": {
+    "direction": {
+     "agreement_sha256": "0308849decc2d3306d27934ac69a26636859c8d890d828448ed521dab4b395ba",
+     "book": "00.kernel/00.00.10.work",
+     "fields": {
+      "director_required": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+      "finish_criteria": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+      "goal": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+      "prime_discretion": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+      "recorded_decisions": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+      "scope": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed"
+     },
+     "review_location": "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-cycle-reviews/05.20",
+     "schema": "prime-cycle-direction/1"
+    },
+    "expected_prior": null,
+    "fingerprint": "4380746822032e17a8c31ac3fb2cfd6c50069ecb2c6f2b77303d60fb56ad71fd",
+    "goal": {
+     "goal_id": "deskstate-0520-page",
+     "goal_sha256": "7c2abf62d2935ffa9a2077a3c963dd671868a70c38d0f891c99dffb45a7c4aee"
+    },
+    "member": "0169.desk-state-preservation-0520",
+    "member_role": "primary-current-candidate",
+    "origin": {
+     "batch": "05.20",
+     "book": "00.00.10.work",
+     "page": "0508.return-capture"
+    },
+    "page": "00.kernel/00.00.10.work/0508.return-capture/05.20.md",
+    "pass": "05.20",
+    "receipt_sha256": "94a5fe21286c95187c456c28ebd45a95f7ed2faaa06da6779d9ce220197424bc",
+    "retrospective": false,
+    "source": {
+     "commit": "d19241074e8db09723ddf44e0900c839a62bc526",
+     "kind": "git-blob",
+     "page_bytes": 7096,
+     "page_sha256": "306dcd15d9987fa9bb0ff511b61e663efd8e2b1f7e0490eaeabf2fedc6032b85"
+    },
+    "submission_id": "grok-2-0508-0520",
+    "work_id": "deskstate-0520"
+   },
+   "judgment": {
+    "answers": [],
+    "design_fork": null,
+    "disposition": null,
+    "finding": null,
+    "goal": {
+     "evidence": [],
+     "goal_id": "deskstate-0520-page",
+     "goal_sha256": "7c2abf62d2935ffa9a2077a3c963dd671868a70c38d0f891c99dffb45a7c4aee",
+     "terminal": null
+    },
+    "holds": [],
+    "next_action": null,
+    "outcome": null,
+    "pass_terminal": null,
+    "reasons": [],
+    "sections": {
+     "affected": null,
+     "assumptions": null,
+     "consequences": null,
+     "exploration": null,
+     "findings_account": null,
+     "finish_assessments": null,
+     "for_model": null,
+     "issue": null,
+     "learning": null,
+     "limits": null,
+     "next_bounded_action": null,
+     "open_questions": null,
+     "options": null,
+     "outcome_evidence": null,
+     "preservation": null,
+     "prime_finding": null,
+     "proposed_plan": null,
+     "question": null,
+     "recommendation": null,
+     "remaining_choices": null,
+     "return_result": null,
+     "tests_note": null,
+     "tests_passed": null,
+     "within_direction": null
+    },
+    "semantic_conflict": null,
+    "source_refs": [],
+    "unresolved": []
+   },
+   "recovers": null,
+   "review_id": "05.20-r1",
+   "schema": "prime-cycle-decision/2",
+   "supersedes": null
+  },
+  "manual_fields": {
+   "top_level_null_fields": [
+    "design_fork",
+    "disposition",
+    "finding",
+    "next_action",
+    "outcome",
+    "pass_terminal",
+    "semantic_conflict"
+   ],
+   "top_level_null_count": 7,
+   "goal_terminal_and_evidence": [
+    "goal.terminal",
+    "goal.evidence"
+   ],
+   "sections_available": 24,
+   "minimal_supplied_by_outcome": {
+    "continue (accepted, pass finished, goal open)": [
+     "outcome",
+     "disposition",
+     "pass_terminal",
+     "goal.terminal",
+     "finding",
+     "reasons",
+     "source_refs",
+     "next_action",
+     "semantic_conflict",
+     "attribution.actor_label",
+     "sections.return_result",
+     "sections.prime_finding",
+     "sections.within_direction",
+     "sections.next_bounded_action"
+    ],
+    "complete (goal completed)": [
+     "outcome",
+     "disposition",
+     "pass_terminal",
+     "goal.terminal",
+     "goal.evidence",
+     "finding",
+     "reasons",
+     "source_refs",
+     "semantic_conflict",
+     "attribution.actor_label",
+     "sections.outcome_evidence",
+     "sections.limits",
+     "sections.tests_note",
+     "sections.learning",
+     "sections.preservation",
+     "sections.remaining_choices",
+     "sections.findings_account",
+     "sections.finish_assessments"
+    ],
+    "director-input (hold)": [
+     "outcome",
+     "disposition",
+     "pass_terminal",
+     "goal.terminal",
+     "finding",
+     "reasons",
+     "semantic_conflict",
+     "holds",
+     "attribution.actor_label",
+     "sections.issue",
+     "sections.consequences",
+     "sections.options",
+     "sections.recommendation",
+     "sections.question",
+     "sections.affected"
+    ]
+   },
+   "mechanical_prefilled": [
+    "direction",
+    "expected_prior",
+    "fingerprint",
+    "goal",
+    "member",
+    "member_role",
+    "origin",
+    "page",
+    "pass",
+    "receipt_sha256",
+    "retrospective",
+    "source",
+    "submission_id",
+    "work_id",
+    "review_id",
+    "supersedes",
+    "recovers",
+    "goal.goal_id",
+    "goal.goal_sha256"
+   ],
+   "registration_inputs_prime_must_supply": [
+    "goal statement (preview used the page title, marked PREVIEW)",
+    "agreement: goal, scope, prime_discretion, director_required, finish_criteria, recorded_decisions (all null = unknown in this preview)"
+   ],
+   "minimal_counts": {
+    "continue (accepted, pass finished, goal open)": 14,
+    "complete (goal completed)": 18,
+    "director-input (hold)": 15
+   }
+  },
+  "manual_review_evidence": {
+   "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.20/REVIEW.md",
+   "commit": "d19241074e8db09723ddf44e0900c839a62bc526",
+   "sha256": "c70fd60a60b7cae75e37b77a08b879117c48aa8b9ce170b9c6c57616a6d2025a",
+   "bytes": 1994,
+   "mapped": false,
+   "reason": "manual prose review; not a prime-cycle-review record; adoption needs an explicit attributed review"
+  },
+  "journal": {
+   "root": "C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-preview-wtn9q2gg\\journal",
+   "events": [
+    "2026-10-30\\20261030T182016.990448Z-16d6a16d164d\\end.json",
+    "2026-10-30\\20261030T182016.990448Z-16d6a16d164d\\registration.json",
+    "2026-10-30\\20261030T182016.990448Z-16d6a16d164d\\start.json",
+    "2026-10-30\\20261030T182016.990448Z-16d6a16d164d\\stdout.txt",
+    "2026-10-30\\20261030T182017.510043Z-d9c5f512144e\\end.json",
+    "2026-10-30\\20261030T182017.510043Z-d9c5f512144e\\registration.json",
+    "2026-10-30\\20261030T182017.510043Z-d9c5f512144e\\start.json",
+    "2026-10-30\\20261030T182017.510043Z-d9c5f512144e\\stdout.txt",
+    "2026-10-30\\20261030T182018.033907Z-14f9ec5ed6ba\\end.json",
+    "2026-10-30\\20261030T182018.033907Z-14f9ec5ed6ba\\registration.json",
+    "2026-10-30\\20261030T182018.033907Z-14f9ec5ed6ba\\start.json",
+    "2026-10-30\\20261030T182018.033907Z-14f9ec5ed6ba\\stdout.txt"
+   ]
+  },
+  "repository_written": false,
+  "day": {
+   "exit": 0,
+   "stdout": "Prime cycle day 2026-10-30  journal C:\\Users\\misg\\AppData\\Local\\Temp\\pcy-preview-wtn9q2gg\\journal  (read-only; this view is not logged)\nattempts: read ok-attention 3\n\n  20261030T182016.990448Z-16d6a16d164d  read    ok-attention       exit 1  2026-10-30T13:20:16.990417-05:00  0.382s  caller Claude Builder (read-only preview)\n  20261030T182017.510043Z-d9c5f512144e  read    ok-attention       exit 1  2026-10-30T13:20:17.510014-05:00  0.384s  caller Claude Builder (read-only preview)\n  20261030T182018.033907Z-14f9ec5ed6ba  read    ok-attention       exit 1  2026-10-30T13:20:18.033874-05:00  0.391s  caller Claude Builder (read-only preview)\n\nunique reviews (re-verified now): 0 from 0 record invocations\ndeclared in unique verified records (each work pass and goal once; not current status): finished passes 0, completed goals 0, holds none\ncurrent (fresh read): finished passes none; completed goals none; open holds none; not current none\nper-operation durations only; incomplete operations have unknown duration; no totals or productivity are derived\n",
+   "stderr": ""
+  }
+ }
+}

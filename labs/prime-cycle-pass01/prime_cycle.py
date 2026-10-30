@@ -1,14 +1,18 @@
-"""Prime read-record-read cycle over one registered work book (0515.prime-cycle/05.01). Standard library only.
+"""Prime read-record-read cycle over one registered work book (0515.prime-cycle/05.01, corrected in 05.02). Standard library only.
 
-  python -B prime_cycle.py read     --registration ABS [--json] [--templates DIR]
-  python -B prime_cycle.py record   --registration ABS --decision ABS
-  python -B prime_cycle.py inspect  --registration ABS --work ID
-  python -B prime_cycle.py packet   --registration ABS --work ID --out DIR
+  python -B prime_cycle.py read     --registration ABS [--json] [--templates DIR]   [JOURNAL]
+  python -B prime_cycle.py record   --registration ABS --decision ABS               [JOURNAL]
+  python -B prime_cycle.py inspect  --registration ABS --work ID                    [JOURNAL]
+  python -B prime_cycle.py packet   --registration ABS --work ID --out DIR          [JOURNAL]
+  python -B prime_cycle.py day      --journal-root ABS [--date YYYY-MM-DD] [--registration ABS] [--json]
+  JOURNAL = --journal-root ABS [--caller TEXT] [--note TEXT]
 
-Contract: 00.kernel/00.00.10.work/0515.prime-cycle/evidence/build05.01/CONTRACT.md. Compute gathers evidence through the
-pinned reader (which runs the pinned inspector), validates Prime's supplied judgment through the pinned prime_review, writes
-one work-local review record with a completion marker, and derives the next view from those records. Prime supplies the
-judgment. Nothing here authenticates an actor, grants authority, elects work or dispatches anything.
+Contracts: 0515.prime-cycle/evidence/build05.01/CONTRACT.md and its delta build05.02/CONTRACT.md. Compute gathers evidence
+through the pinned reader (which runs the pinned inspector), validates Prime's supplied judgment through the pinned
+prime_review, writes one work-local review record with a completion marker, and derives the next view from those records.
+A review's declarations are current only while its binding (page, custody, direction) still holds; otherwise they are shown
+as historical. An explicit journal root logs each operation as start/end events. Prime supplies the judgment. Nothing here
+authenticates an actor, grants authority, elects work or dispatches anything.
 """
 
 from __future__ import annotations
@@ -18,10 +22,13 @@ import hashlib
 import json
 import os
 import re
+import secrets
 import stat
 import subprocess
 import sys
 import tempfile
+import time
+from datetime import datetime, timezone
 from pathlib import Path
 
 LABS = Path(__file__).resolve().parent.parent
@@ -48,6 +55,12 @@ SECTION_KEYS = ["return_result", "prime_finding", "within_direction", "next_boun
                 "consequences", "options", "recommendation", "question", "affected", "proposed_plan", "exploration",
                 "assumptions", "open_questions", "outcome_evidence", "limits", "tests_note", "tests_passed", "learning",
                 "preservation", "remaining_choices", "findings_account", "finish_assessments"]
+DIRECTION_FIELDS = ("goal", "scope", "prime_discretion", "director_required", "finish_criteria", "recorded_decisions")
+RECORD_SCHEMAS = ("prime-cycle-review/1", "prime-cycle-review/2")  # /1 is legacy: read, kept, never current (05.02 C04)
+CURRENT_KEYS = ("member", "member_role", "receipt_sha256", "submission_id", "origin", "retrospective", "direction")
+MAX_STDOUT_SNAPSHOT = 2097152
+MAX_DAY_OPS = 5000
+DATE = re.compile(r"^\d{4}-\d\d-\d\d$")
 
 
 class Refusal(Exception):
@@ -55,6 +68,12 @@ class Refusal(Exception):
 
 
 class PartialWrite(Exception):
+    def __init__(self, message, target=None):
+        super().__init__(message)
+        self.target = target
+
+
+class JournalError(Exception):
     pass
 
 
@@ -246,9 +265,28 @@ def current_binding(reg, w, obs, prior) -> dict:
          "submission_id": pick["submission_id"] if primary_ok else None,
          "origin": pick["origin"] if primary_ok else None, "retrospective": pick["retrospective"] if pick else None,
          "goal": {"goal_id": w["goal"]["goal_id"], "goal_sha256": goal_sha(w)},
+         "direction": direction_of(reg, w),
          "expected_prior": prior}
     b["fingerprint"] = sha(canonical(b))
     return b
+
+
+def direction_of(reg, w) -> dict:
+    """The review direction a decision is judged under (05.02 CONTRACT §2). Clock- and layout-only fields are excluded."""
+    a = w["agreement"]
+    return {"schema": "prime-cycle-direction/1", "agreement_sha256": sha(canonical(a)),
+            "fields": {k: sha(canonical(a.get(k))) for k in DIRECTION_FIELDS},
+            "review_location": w["review_location"], "book": reg["book"]}
+
+
+def direction_diff(now: dict, then) -> list:
+    if not isinstance(then, dict):
+        return ["direction (absent from the template)"]
+    names = [f"agreement.{k}" for k in DIRECTION_FIELDS if now["fields"][k] != (then.get("fields") or {}).get(k)]
+    if not names and now["agreement_sha256"] != then.get("agreement_sha256"):
+        names.append("agreement (other keys)")
+    names += [k for k in ("review_location", "book", "schema") if now[k] != then.get(k)]
+    return names
 
 
 # ---------- review records ----------
@@ -272,19 +310,25 @@ def scan_reviews(reg, w) -> dict:
             out["partial"].append({"review_id": d.name, "phase": "partial-no-marker",
                                    "present": sorted(p.name for p in d.iterdir())})
             continue
-        try:
+        try:  # a marker that does not parse is torn (interrupted); a parsed marker that does not bind means altered after commit
             marker = strict_json(read_bounded(files["COMMITTED.json"], MAX_DOC, "marker"), "marker")
+            need(isinstance(marker, dict), "marker: not an object")
+        except (Refusal, OSError) as exc:
+            out["partial"].append({"review_id": d.name, "phase": "partial-marker-mismatch", "marker": "torn", "reason": str(exc)})
+            continue
+        try:
             rb = read_bounded(files["record.json"], MAX_DOC, "record")
             mb = read_bounded(files["REVIEW.md"], MAX_DOC, "REVIEW.md")
         except (Refusal, OSError) as exc:
-            out["partial"].append({"review_id": d.name, "phase": "partial-marker-mismatch", "reason": str(exc)})
+            out["partial"].append({"review_id": d.name, "phase": "partial-marker-mismatch", "marker": "hash-mismatch", "reason": str(exc)})
             continue
-        if not isinstance(marker, dict) or marker.get("record_sha256") != sha(rb) or marker.get("review_md_sha256") != sha(mb):
-            out["partial"].append({"review_id": d.name, "phase": "partial-marker-mismatch", "reason": "marker hashes do not match the files"})
+        if marker.get("record_sha256") != sha(rb) or marker.get("review_md_sha256") != sha(mb):
+            out["partial"].append({"review_id": d.name, "phase": "partial-marker-mismatch", "marker": "hash-mismatch",
+                                   "reason": "marker hashes do not match the files"})
             continue
         try:
             rec = strict_json(rb, "record")
-            need(isinstance(rec, dict) and rec.get("schema") == "prime-cycle-review/1", "unknown record schema")
+            need(isinstance(rec, dict) and rec.get("schema") in RECORD_SCHEMAS, "unknown record schema")
         except Refusal as exc:
             out["invalid"].append({"review_id": d.name, "phase": "invalid", "reason": str(exc)})
             continue
@@ -336,21 +380,16 @@ def derive(reg, w, obs, scan) -> dict:
     for p in scan["invalid"]:
         attention.append(f"invalid review directory {p['review_id']}: {p['reason']}")
     head = scan["committed"][heads[0]] if len(heads) == 1 else None
-    if binding["receipt_sha256"] is None:
-        pass_state = "no-return"
-    elif head is None:
-        pass_state = "awaiting-review"
-    else:
-        hb = head["record"]["decision"]["binding"]
-        same = (hb["source"]["page_sha256"], hb["receipt_sha256"]) == (binding["source"]["page_sha256"], binding["receipt_sha256"])
-        pass_state = "reviewed" if same else "review-stale"
-        if not same:
-            attention.append("review-stale: the latest review binds a different page or receipt; re-review required")
+    if head is None:
+        pass_state = "no-return" if binding["receipt_sha256"] is None else "awaiting-review"
     if head is None and (obs.get("review_text") or "").strip() not in ("", "PENDING."):  # exact-literal PENDING is not a review
         attention.append("legacy-review-unmapped: the page has review prose and no recorded cycle review; adopt only by an attributed review")
         item["legacy_review_text"] = obs["review_text"]
+    item["historical"] = None
     if head:
-        j = head["record"]["decision"]["judgment"]
+        rid = heads[0]
+        dec = head["record"]["decision"]
+        j, hb = dec["judgment"], dec["binding"]
         g = j["goal"]
         same_goal = (g["goal_id"], g["goal_sha256"]) == (w["goal"]["goal_id"], goal_sha(w))
         if g["terminal"] == "completed" and same_goal:
@@ -359,17 +398,40 @@ def derive(reg, w, obs, scan) -> dict:
             goal_terminal = f"open (prior completion bound to goal {g['goal_id']} {g['goal_sha256'][:12]})"
         else:
             goal_terminal = "open"
+        recovered = {r["record"]["decision"].get("recovers") for r in scan["committed"].values()}
+        altered = [p["review_id"] for p in scan["partial"] if p.get("marker") == "hash-mismatch" and p["review_id"] not in recovered]
+        changed = (["page"] if hb["source"]["page_sha256"] != binding["source"]["page_sha256"] else []) + \
+                  [k for k in CURRENT_KEYS if hb.get(k) != binding[k]]
+        if head["record"]["schema"] != "prime-cycle-review/2":
+            pass_state, reason = "review-unusable", "legacy-binding"
+            attention.append(f"review-unusable: {rid} is a {head['record']['schema']} record without a direction binding; "
+                             "its declarations are historical only; record a successor review")
+        elif altered:
+            pass_state, reason = "review-unusable", "altered-review"
+            attention.append(f"review-unusable: {', '.join(altered)} altered after commit (hash-mismatch) and not recovered; "
+                             f"{rid} declarations are historical; record a successor with recovers")
+        elif changed:
+            pass_state, reason = "review-stale", "review-stale"
+            attention.append(f"review-stale: {rid} binds a different {', '.join(changed)}; its declarations are historical; re-review required")
+        else:
+            pass_state, reason = "reviewed", None
         rep = head["record"]["report"]
-        item.update(latest_review={"review_id": heads[0], "record_sha256": head["record_sha256"],
-                                   "author": head["record"]["decision"]["attribution"]["actor_label"],
-                                   "outcome": j["outcome"], "effective": rep["effective"]},
-                    disposition=j["disposition"], pass_terminal=j["pass_terminal"], goal_terminal=goal_terminal,
-                    holds=rep["holds"], next_action=(dict(j["next_action"], author=head["record"]["decision"]["attribution"]["actor_label"],
-                                                          source=f"{w['review_location']}/{heads[0]}/record.json",
-                                                          record_sha256=head["record_sha256"]) if j["next_action"] else None),
-                    unresolved=j["unresolved"])
+        author = dec["attribution"]["actor_label"]
+        na = (dict(j["next_action"], author=author, source=f"{w['review_location']}/{rid}/record.json",
+                   record_sha256=head["record_sha256"]) if j["next_action"] else None)
+        item.update(latest_review={"review_id": rid, "record_sha256": head["record_sha256"], "author": author,
+                                   "outcome": j["outcome"], "effective": rep["effective"], "current": reason is None},
+                    holds=rep["holds"], unresolved=j["unresolved"])
+        if reason is None:
+            item.update(disposition=j["disposition"], pass_terminal=j["pass_terminal"], goal_terminal=goal_terminal, next_action=na)
+        else:  # PC-01: keep the old declarations, never as current status
+            item.update(disposition="unknown", pass_terminal="unknown", goal_terminal="unknown", next_action=None,
+                        historical={"review_id": rid, "record_sha256": head["record_sha256"], "reason": reason,
+                                    "disposition": j["disposition"], "pass_terminal": j["pass_terminal"],
+                                    "goal_terminal": goal_terminal, "goal_id": g["goal_id"], "next_action": na})
         if any(h["status"] != "reply-bound" for h in rep["holds"]):
-            attention.append("hold open: " + ", ".join(f"{h['hold_id']} ({h['status']}) blocks {h['dependent_scope']}" for h in rep["holds"]))
+            attention.append("hold open: " + ", ".join(f"{h['hold_id']} ({h['status']}) blocks {h['dependent_scope']}" for h in rep["holds"])
+                             + ("" if reason is None else " (from a non-current review; still blocking)"))
     else:
         item.update(latest_review=None, disposition="unknown", pass_terminal="unknown", goal_terminal="unknown", holds=[],
                     next_action=None, unresolved=[])
@@ -381,7 +443,7 @@ def derive(reg, w, obs, scan) -> dict:
     tmpl_judgment.update(goal={"terminal": None, "goal_id": w["goal"]["goal_id"], "goal_sha256": goal_sha(w), "evidence": []},
                          reasons=[], source_refs=[], unresolved=[], holds=[], answers=[], sections={k: None for k in SECTION_KEYS})
     n = len(scan["committed"]) + len(scan["partial"]) + len(scan["invalid"]) + 1
-    item["template"] = {"schema": "prime-cycle-decision/1", "review_id": f"{w['pass']}-r{n}",
+    item["template"] = {"schema": "prime-cycle-decision/2", "review_id": f"{w['pass']}-r{n}",
                         "supersedes": prior_value, "recovers": None, "binding": binding,
                         "attribution": {"actor_label": None, "role": "prime", "evidence": None}, "judgment": tmpl_judgment}
     return item
@@ -420,7 +482,14 @@ def guard_actions(reg, items, scans) -> None:
                 it["attention"].append(f"next action {na['action_id']} is {res} by holds in {other['work_id']}")
 
 
-def read(reg_path: Path, templates: Path | None = None) -> dict:
+def inside(child: Path, parent: Path) -> bool:
+    try:
+        return os.path.commonpath([os.path.normcase(str(child)), os.path.normcase(str(parent))]) == os.path.normcase(str(parent))
+    except ValueError:  # different drives
+        return False
+
+
+def read(reg_path: Path, templates: Path | None = None, forbid: Path | None = None) -> dict:
     reg = load_registration(reg_path)
     items, scans = [], []
     for w in reg["works"]:
@@ -429,8 +498,15 @@ def read(reg_path: Path, templates: Path | None = None) -> dict:
         items.append(derive(reg, w, obs, scan))
         scans.append(scan)
     guard_actions(reg, items, scans)
-    view = {"schema": "prime-cycle-view/1", "registration_sha256": sha(reg_path.read_bytes()), "book": reg["book"],
-            "source": reg["source"], "works": items, "elected": None,
+    summary = {"works": len(items), "awaiting_review": sum(i["pass_state"] == "awaiting-review" for i in items),
+               "reviewed_current": sum(i["pass_state"] == "reviewed" for i in items),
+               "stale_or_unusable": sum(i["pass_state"] in ("review-stale", "review-unusable") for i in items),
+               "finished_passes": sum(i["pass_terminal"] == "finished" for i in items),
+               "completed_goals": sum(i["goal_terminal"] == "completed" for i in items),
+               "open_holds": sum(h["status"] != "reply-bound" for i in items for h in i["holds"]),
+               "basis": "current values only; historical declarations of stale or unusable reviews are not counted"}
+    view = {"schema": "prime-cycle-view/2", "registration_sha256": sha(reg_path.read_bytes()), "book": reg["book"],
+            "source": reg["source"], "summary": summary, "works": items, "elected": None,
             "attention_count": sum(len(i["attention"]) for i in items), "authority": AUTHORITY,
             "note": "derived from work-local review records and fresh reader observations; noncanonical; rebuildable"}
     out = canonical(view)
@@ -438,6 +514,7 @@ def read(reg_path: Path, templates: Path | None = None) -> dict:
     if templates is not None:
         root = abs_path(str(templates), "--templates")
         need(str(root).lower().startswith(str(Path(reg["output_root"])).lower()), "--templates must be under output_root")
+        need(forbid is None or not inside(root, forbid), "--templates must not lie inside the journal root")
         root.mkdir(parents=False, exist_ok=True)
         for it in items:
             with open(root / f"template-{it['work_id']}.json", "xb") as h:
@@ -447,23 +524,36 @@ def read(reg_path: Path, templates: Path | None = None) -> dict:
 
 def view_text(v: dict) -> str:
     out = [f"Prime cycle view  book {v['book']}  source {v['source']['kind']} {v['source']['commit'] or '(live files)'}",
-           "Derived from work-local review records. Noncanonical. Nothing is elected or dispatched.", ""]
+           "Derived from work-local review records. Noncanonical. Nothing is elected or dispatched."]
+    s = v["summary"]
+    out += [f"summary (current only): works {s['works']}, awaiting review {s['awaiting_review']}, reviewed current {s['reviewed_current']}, "
+            f"stale or unusable {s['stale_or_unusable']}, finished passes {s['finished_passes']}, completed goals {s['completed_goals']}, "
+            f"open holds {s['open_holds']}", ""]
     for it in v["works"]:
+        hist = it.get("historical")
+
+        def shown(key):
+            return it[key] if not hist else f"unknown (historical {hist[key]} in {hist['review_id']}, {hist['reason']})"
         out.append(f"{it['work_id']}  {it['page']}")
-        out.append(f"  pass state: {it['pass_state']}   review disposition: {it['disposition']}   pass terminal: {it['pass_terminal']}")
-        out.append(f"  goal {it['goal']['goal_id']}: {it['goal_terminal']}")
+        out.append(f"  pass state: {it['pass_state']}   review disposition: {shown('disposition')}   pass terminal: {shown('pass_terminal')}")
+        out.append(f"  goal {it['goal']['goal_id']}: {shown('goal_terminal')}")
         c = it["custody"]
         out.append(f"  custody: {c['member']} role {c['role']} receipt {(c['receipt_sha256'] or 'none')[:16]} (custody is not acceptance)")
         if it["latest_review"]:
             lr = it["latest_review"]
-            out.append(f"  latest review: {lr['review_id']} by {lr['author']} outcome {lr['outcome']} (prime_review effective {lr['effective']})")
+            out.append(f"  latest review: {lr['review_id']} by {lr['author']} outcome {lr['outcome']} (prime_review effective {lr['effective']})"
+                       + ("" if lr["current"] else "  [not current]"))
         for h in it["holds"]:
-            out.append(f"  hold {h['hold_id']} {h['status']}: blocks {', '.join(h['dependent_scope']) or 'nothing'}")
+            out.append(f"  hold {h['hold_id']} {h['status']}: blocks {', '.join(h['dependent_scope']) or 'nothing'}"
+                       + ("" if not hist else " (from a non-current review; still blocking)"))
         if it["next_action"]:
             na = it["next_action"]
             out.append(f"  recorded next action ({na['author']}, {na['source']}): {na['action_id']}: {na['text']}")
             for g in it.get("next_action_guard", []):
                 out.append(f"    holds in {g['against_work']}: {g['result']}")
+        if hist and hist["next_action"]:
+            na = hist["next_action"]
+            out.append(f"  historical next action (not current; {na['author']}, {na['source']}): {na['action_id']}: {na['text']}")
         for u in it["unresolved"]:
             out.append(f"  unresolved: {u}")
         for a in it["attention"]:
@@ -540,7 +630,8 @@ def record(reg_path: Path, decision_path: Path) -> tuple[int, str]:
     reg = load_registration(reg_path)
     d = strict_json(read_bounded(decision_path, MAX_DOC, "decision"), "decision")
     exact(d, DECISION_KEYS, "decision")
-    need(d["schema"] == "prime-cycle-decision/1", "decision: unsupported schema")
+    need(d["schema"] == "prime-cycle-decision/2",
+         f"decision schema {d['schema']!r} is not prime-cycle-decision/2; the template is from an older read; read again")
     need(m(LABEL, d["review_id"]), "review_id must be a label")
     exact(d["attribution"], {"actor_label", "role", "evidence"}, "attribution")
     need(isinstance(d["attribution"]["actor_label"], str) and d["attribution"]["actor_label"].strip(), "attribution.actor_label is required")
@@ -564,6 +655,8 @@ def record(reg_path: Path, decision_path: Path) -> tuple[int, str]:
     if not replay:  # the prior-state check comes first so a stale template gets the specific reason
         need(b.get("expected_prior") == prior, f"expected_prior {b.get('expected_prior')} does not equal the latest committed review {prior}")
     expected_now = current_binding(reg, w, obs, b.get("expected_prior"))
+    ddiff = direction_diff(expected_now["direction"], b.get("direction"))  # PC-02: the direction the decision was judged under
+    need(not ddiff, "direction changed since read: " + ", ".join(ddiff) + "; read again for a new template")
     diffs = [k for k in ("source", "member", "member_role", "receipt_sha256", "submission_id", "origin", "retrospective", "goal", "page", "pass")
              if expected_now.get(k) != b.get(k)]
     need(not diffs, "source changed since read: " + ", ".join(diffs))
@@ -588,7 +681,7 @@ def record(reg_path: Path, decision_path: Path) -> tuple[int, str]:
     if d["judgment"]["goal"]["terminal"] == "completed":
         need(rep["effective"] == "complete-as-supplied", f"a completed goal needs prime_review effective complete-as-supplied (got {rep['effective']})")
     summary = {k: rep[k] for k in ("effective", "holds", "attention", "agreement_gaps", "permission", "markdown_sha256", "closes_work", "authority")}
-    rec = {"schema": "prime-cycle-review/1", "work_id": w["work_id"], "review_id": d["review_id"], "decision": d,
+    rec = {"schema": "prime-cycle-review/2", "work_id": w["work_id"], "review_id": d["review_id"], "decision": d,
            "observed_binding": expected_now, "prime_review_input": pr, "prime_review_input_sha256": sha(canonical(pr)),
            "report": summary, "report_exit": p.returncode,
            "tools": {k: v[1] for k, v in PINS.items()}, "tool": sha(Path(__file__).read_bytes()),
@@ -617,7 +710,7 @@ def record(reg_path: Path, decision_path: Path) -> tuple[int, str]:
         write_file(target / "REVIEW.md", md)
         write_file(target / "COMMITTED.json", canonical({"record_sha256": sha(rec_bytes), "review_md_sha256": sha(md)}))
     except OSError as exc:
-        raise PartialWrite(f"write failed in {target}: {type(exc).__name__}: {exc}; files so far are kept; use inspect") from None
+        raise PartialWrite(f"write failed in {target}: {type(exc).__name__}: {exc}; files so far are kept; use inspect", target) from None
     return (0 if p.returncode == 0 else 1), f"recorded {target}\nprime_review effective {rep['effective']}\n"
 
 
@@ -641,13 +734,14 @@ def inspect(reg_path: Path, work_id: str) -> tuple[int, dict]:
     return (0 if all(r["phase"] == "committed" for r in rows) else 1), out
 
 
-def packet(reg_path: Path, work_id: str, out_dir: str) -> tuple[int, str]:
+def packet(reg_path: Path, work_id: str, out_dir: str, forbid: Path | None = None) -> tuple[int, str]:
     reg = load_registration(reg_path)
     w = next((x for x in reg["works"] if x["work_id"] == work_id), None)
     need(w is not None, f"work {work_id} is not registered")
     need(w["member"] and reg["members_book"], "packet needs a registered member and members_book")
     out = abs_path(out_dir, "--out")
     need(str(out).lower().startswith(str(Path(reg["output_root"])).lower()), "--out must be under output_root")
+    need(forbid is None or not inside(out, forbid), "--out must not lie inside the journal root")
     rc = LABS / PINS["return_capture"][0]
     req = {"schema": "review-packet-request/1", "book": reg["members_book"], "member": w["member"],
            "origin": {"book": reg["book_label"], "page": w["page"].split("/")[-2], "pass": w["pass"]}, "repo": reg["repository"],
@@ -662,6 +756,281 @@ def packet(reg_path: Path, work_id: str, out_dir: str) -> tuple[int, str]:
         f.write_bytes(canonical(req))
         p = run("review_packet", ["assemble", "--request", str(f)])
     return (0 if p.returncode == 0 else 2), p.stdout.decode("utf-8", "replace") + p.stderr.decode("utf-8", "replace")
+
+
+# ---------- journal (05.02 CONTRACT §5) ----------
+
+def now_stamp() -> tuple[str, str]:
+    t = datetime.now(timezone.utc)
+    return t.astimezone().isoformat(), t.isoformat()
+
+
+def jwrite(path: Path, data: bytes) -> None:
+    """Exclusive create of one journal file; a hook point for journal-failure tests."""
+    with open(path, "xb") as h:
+        h.write(data)
+        h.flush()
+        os.fsync(h.fileno())
+
+
+def review_ref(target: Path) -> dict:
+    """What is on disk now for one review directory: a committed record's identity, or the files present."""
+    files = {p.name: sha(p.read_bytes()) for p in sorted(target.iterdir()) if p.is_file()} if target.is_dir() else {}
+    ref = {"dir": str(target), "review_id": target.name, "files": files}
+    rb = target / "record.json"
+    if "COMMITTED.json" in files and rb.is_file():
+        try:
+            rec = json.loads(rb.read_bytes().decode("utf-8"))
+            ref.update(work_id=rec.get("work_id"), schema=rec.get("schema"))
+        except ValueError:
+            pass
+        ref.update(record_sha256=files.get("record.json"), marker_sha256=files["COMMITTED.json"])
+    return ref
+
+
+class Journal:
+    """One operation's start/end events under an explicit root. Nothing is rewritten; a missing end means incomplete."""
+
+    def __init__(self, root_text: str, operation: str, argv: list, inputs: dict, supplied: dict):
+        try:
+            self.root = abs_path(root_text, "--journal-root")
+        except Refusal as exc:
+            raise JournalError(str(exc)) from None
+        snaps, info = {}, {}
+        for name, text in inputs.items():
+            if text is None:
+                continue
+            try:
+                p = abs_path(text, f"--{name}")
+                b = read_bounded(p, MAX_DOC, name)
+                snaps[name], info[name] = b, {"path": str(p), "sha256": sha(b), "bytes": len(b), "snapshot": f"{name}.json"}
+            except (Refusal, OSError) as exc:
+                info[name] = {"path": text, "error": str(exc)}
+        try:  # containment: never inside the repository or members book a registration names
+            reg = json.loads(snaps["registration"].decode("utf-8")) if "registration" in snaps else {}
+            for key in ("repository", "members_book"):
+                v = reg.get(key) if isinstance(reg, dict) else None
+                if isinstance(v, str) and os.path.isabs(v):
+                    need_j(not inside(self.root, Path(os.path.abspath(v))), f"the journal root must not lie inside the {key}")
+        except (ValueError, AttributeError):
+            pass
+        if not self.root.exists():  # created only after the containment check
+            need_j(self.root.parent.is_dir(), f"the journal root's parent {self.root.parent} must exist")
+            os.mkdir(self.root)
+        need_j(self.root.is_dir() and not is_link(self.root), "the journal root must be a plain directory")
+        local, utc = now_stamp()
+        self.t0 = time.monotonic()
+        self.op_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S.%fZ") + "-" + secrets.token_hex(6)
+        day = self.root / local[:10]
+        if not day.exists():
+            os.mkdir(day)
+        need_j(day.is_dir() and not is_link(day), f"journal day {day} must be a plain directory")
+        self.dir = day / self.op_id
+        os.mkdir(self.dir)  # exclusive: a collision refuses
+        start = {"schema": "prime-cycle-journal-start/1", "op_id": self.op_id, "operation": operation,
+                 "machine": {"started_at_local": local, "started_at_utc": utc,
+                             "clock_basis": "system clock at operation start; local offset from the OS timezone",
+                             "pid": os.getpid(), "python": sys.version.split()[0], "tool_path": str(Path(__file__).resolve()),
+                             "tool_sha256": sha(Path(__file__).read_bytes()), "pins": {k: v[1] for k, v in PINS.items()},
+                             "argv": argv, "cwd": os.getcwd(), "inputs": info},
+                 "supplied": {"caller_label": supplied.get("caller"), "note": supplied.get("note"),
+                              "basis": "as supplied on the command line; not authenticated"}}
+        for name, b in snaps.items():
+            jwrite(self.dir / f"{name}.json", b)
+        jwrite(self.dir / "start.json", canonical(start))
+        self.info = {"enabled": True, "root": str(self.root), "op_id": self.op_id, "dir": str(self.dir)}
+
+    def end(self, code: int, status: str, stdout: bytes, result: dict) -> None:
+        local, utc = now_stamp()
+        snap = stdout[:MAX_STDOUT_SNAPSHOT]
+        jwrite(self.dir / "stdout.txt", snap)
+        jwrite(self.dir / "end.json", canonical({
+            "schema": "prime-cycle-journal-end/1", "op_id": self.op_id,
+            "machine": {"ended_at_local": local, "ended_at_utc": utc, "duration_seconds": round(time.monotonic() - self.t0, 6),
+                        "exit": code, "status": status,
+                        "stdout": {"sha256": sha(stdout), "bytes": len(stdout), "snapshot": "stdout.txt", "truncated": len(snap) < len(stdout)},
+                        "result": result}}))
+
+
+def need_j(cond, message):
+    if not cond:
+        raise JournalError(message)
+
+
+JOURNAL_OFF = {"enabled": False, "note": "no --journal-root; this operation is not logged"}
+
+
+def operate(a, forbid) -> tuple[int, object, str, dict]:
+    """Run one command; return (exit, payload dict-or-text, journal status, journal result). Never raises Refusal."""
+    try:
+        reg = abs_path(a.registration, "--registration")
+        if a.command == "read":
+            v = read(reg, Path(a.templates) if a.templates else None, forbid)
+            code = 1 if v["attention_count"] else 0
+            tpl = [{"path": str(p), "sha256": sha(p.read_bytes())} for p in
+                   ([Path(os.path.abspath(a.templates)) / f"template-{it['work_id']}.json" for it in v["works"]] if a.templates else [])]
+            result = {"view_sha256": sha(canonical(v)), "summary": v["summary"], "templates": tpl,
+                      "works": [{"work_id": it["work_id"], "page_sha256": it["source"]["page_sha256"], "pass_state": it["pass_state"]} for it in v["works"]]}
+            return code, (v if a.json else view_text(v)), ("ok-attention" if code else "ok"), result
+        if a.command == "record":
+            code, text = record(reg, abs_path(a.decision, "--decision"))
+            word, _, rest = text.partition(" ")
+            ref = review_ref(Path(rest.splitlines()[0])) if word in ("recorded", "already-recorded") else {}
+            status = "replay" if word == "already-recorded" else ("recorded" if code == 0 else "recorded-attention")
+            return code, text, status, {"review": ref}
+        if a.command == "inspect":
+            code, out = inspect(reg, a.work)
+            return code, out, ("ok-attention" if code else "ok"), {"phases": {r["review_id"]: r["phase"] for r in out["reviews"]}}
+        code, text = packet(reg, a.work, a.out, forbid)
+        st = Path(os.path.abspath(a.out)) / "assembly-status.json"
+        return code, text, ("ok" if code == 0 else "refused"), {"out": str(Path(os.path.abspath(a.out))),
+                                                                  "assembly_status_sha256": sha(st.read_bytes()) if st.is_file() else None}
+    except PartialWrite as exc:
+        return 3, f"partial: {exc}\n", "partial", {"review": review_ref(exc.target) if exc.target else {}}
+    except Refusal as exc:
+        return 2, f"refused: {exc}\n", "refused", {}
+    except (OSError, subprocess.SubprocessError) as exc:
+        return 2, f"refused: {type(exc).__name__}: {exc}\n", "refused", {}
+
+
+# ---------- day view (05.02 CONTRACT §6) ----------
+
+def load_event(p: Path):
+    if not p.is_file() or is_link(p):
+        return None
+    try:
+        return strict_json(read_bounded(p, MAX_DOC, p.name), p.name)
+    except Refusal:
+        return "unreadable"
+
+
+def verify_review(dir_text: str, record_sha: str) -> dict:
+    d = Path(dir_text)
+    try:
+        rb, mb = (d / "record.json").read_bytes(), (d / "REVIEW.md").read_bytes()
+        marker = json.loads((d / "COMMITTED.json").read_bytes().decode("utf-8"))
+    except (OSError, ValueError) as exc:
+        return {"verified": False, "reason": f"{type(exc).__name__}: {exc}"}
+    ok = sha(rb) == record_sha and marker.get("record_sha256") == record_sha and marker.get("review_md_sha256") == sha(mb)
+    if not ok:
+        return {"verified": False, "reason": "record or marker no longer matches the journalled record hash"}
+    rec = json.loads(rb.decode("utf-8"))
+    j = rec["decision"]["judgment"]
+    return {"verified": True, "schema": rec["schema"], "work_id": rec["work_id"], "author": rec["decision"]["attribution"]["actor_label"],
+            "disposition": j["disposition"], "pass_terminal": j["pass_terminal"], "goal_terminal": j["goal"]["terminal"],
+            "goal_id": j["goal"]["goal_id"], "goal_sha256": j["goal"]["goal_sha256"], "page": rec["decision"]["binding"]["page"],
+            "holds": [h["hold_id"] + " " + h["status"] for h in rec["report"]["holds"]]}
+
+
+def day(root_text: str, date: str | None, reg_text: str | None) -> tuple[int, dict]:
+    root = abs_path(root_text, "--journal-root")
+    need(root.is_dir() and not is_link(root), "--journal-root must be an existing plain directory")
+    date = date or datetime.now().astimezone().isoformat()[:10]
+    need(m(DATE, date), "--date must be YYYY-MM-DD")
+    ddir = root / date
+    need(ddir.is_dir() and not is_link(ddir), f"no journal day {date} under {root}")
+    dirs = sorted(p for p in ddir.iterdir())
+    need(len(dirs) <= MAX_DAY_OPS, f"the day holds more than {MAX_DAY_OPS} entries")
+    ops, reviews, counts = [], {}, {}
+    for p in dirs:
+        if not p.is_dir() or is_link(p):
+            ops.append({"op_id": p.name, "status": "unreadable", "reason": "not a plain operation directory"})
+            continue
+        st, en = load_event(p / "start.json"), load_event(p / "end.json")
+        if not isinstance(st, dict) or st.get("schema") != "prime-cycle-journal-start/1":
+            ops.append({"op_id": p.name, "status": "unreadable", "reason": "start.json missing or invalid"})
+            continue
+        row = {"op_id": p.name, "operation": st["operation"], "started_at_local": st["machine"]["started_at_local"],
+               "caller_label": st["supplied"]["caller_label"], "note": st["supplied"]["note"]}
+        if en is None:
+            row.update(status="incomplete", exit=None, duration_seconds=None, detail="no end event: end state unknown")
+        elif not isinstance(en, dict) or en.get("schema") != "prime-cycle-journal-end/1":
+            row.update(status="unreadable", exit=None, duration_seconds=None, detail="end.json invalid")
+        else:
+            mm = en["machine"]
+            row.update(status=mm["status"], exit=mm["exit"], duration_seconds=mm["duration_seconds"])
+            if mm["status"] in ("refused", "error") and (p / "stdout.txt").is_file():
+                row["detail"] = (p / "stdout.txt").read_bytes()[:2000].decode("utf-8", "replace").splitlines()[0:1]
+            rv = mm["result"].get("review") or {}
+            if rv:
+                row["review"] = {k: rv.get(k) for k in ("review_id", "dir", "record_sha256")}
+                if rv.get("record_sha256") and mm["status"] in ("recorded", "recorded-attention", "replay"):
+                    key = (rv["dir"], rv["record_sha256"])
+                    reviews.setdefault(key, {"review_id": rv["review_id"], "dir": rv["dir"], "record_sha256": rv["record_sha256"],
+                                             "invocations": [], "replays": 0})
+                    reviews[key]["invocations"].append(p.name)
+                    reviews[key]["replays"] += mm["status"] == "replay"
+        ops.append(row)
+        c = counts.setdefault(row["operation"], {})
+        c[row["status"]] = c.get(row["status"], 0) + 1
+    uniq = []
+    for r in reviews.values():
+        r.update(verify_review(r["dir"], r["record_sha256"]))
+        uniq.append(r)
+    good = [r for r in uniq if r["verified"]]
+    declared = {"finished_passes": len({(r["work_id"], r["page"]) for r in good if r["pass_terminal"] == "finished"}),
+                "completed_goals": len({(r["work_id"], r["goal_id"], r["goal_sha256"]) for r in good if r["goal_terminal"] == "completed"}),
+                "holds": sorted({f"{r['work_id']}:{h}" for r in good for h in r["holds"]}),
+                "basis": ("declared in unique committed records journalled this day and re-verified now; each work's pass and each "
+                          "work goal counts once however many reviews or replays declare it; declared is not current")}
+    current = {"checked": False, "note": "not checked (no --registration)"}
+    if reg_text:
+        v = read(abs_path(reg_text, "--registration"))
+        heads = {(it["latest_review"]["review_id"], it["latest_review"]["record_sha256"]): it for it in v["works"] if it["latest_review"]}
+        for r in uniq:
+            it = heads.get((r["review_id"], r["record_sha256"]))
+            r["current_head"] = bool(it and it["latest_review"]["current"])
+        current = {"checked": True, "registration_sha256": v["registration_sha256"], "summary": v["summary"],
+                   "finished_passes": [it["work_id"] for it in v["works"] if it["pass_terminal"] == "finished"],
+                   "completed_goals": [it["work_id"] for it in v["works"] if it["goal_terminal"] == "completed"],
+                   "open_holds": [f"{it['work_id']}:{h['hold_id']}" for it in v["works"] for h in it["holds"] if h["status"] != "reply-bound"],
+                   "not_current": [it["work_id"] for it in v["works"] if it.get("historical")]}
+    out = {"schema": "prime-cycle-day/1", "date": date, "journal_root": str(root), "operations": ops, "counts": counts,
+           "unique_reviews": uniq, "record_invocations": sum(len(r["invocations"]) for r in uniq), "declared": declared,
+           "current": current, "incomplete": [o["op_id"] for o in ops if o["status"] == "incomplete"],
+           "unreadable": [o["op_id"] for o in ops if o["status"] == "unreadable"],
+           "time": "per-operation durations only; incomplete operations have unknown duration; no totals or productivity are derived",
+           "note": "read-only; this view is not itself logged; reasons and decisions stay on the work-local review records"}
+    bad = out["incomplete"] or out["unreadable"] or any(not r["verified"] for r in uniq)
+    return (1 if bad else 0), out
+
+
+def day_text(o: dict) -> str:
+    out = [f"Prime cycle day {o['date']}  journal {o['journal_root']}  (read-only; this view is not logged)",
+           "attempts: " + "; ".join(f"{op} " + ", ".join(f"{k} {v}" for k, v in sorted(c.items())) for op, c in sorted(o["counts"].items())), ""]
+    for r in o["operations"]:
+        dur = "unknown" if r.get("duration_seconds") is None else f"{r['duration_seconds']:.3f}s"
+        line = f"  {r['op_id']}  {r.get('operation', '?'):7} {r['status']:18} exit {r.get('exit')}  {r.get('started_at_local', '?')}  {dur}"
+        line += f"  caller {r.get('caller_label') or '-'}"
+        out.append(line)
+        if r.get("detail"):
+            out.append(f"      {r['detail'] if isinstance(r['detail'], str) else ' '.join(r['detail'])}")
+        if r.get("review"):
+            out.append(f"      review {r['review']['review_id']} record {(r['review']['record_sha256'] or 'none')[:16]}")
+    out.append("")
+    out.append(f"unique reviews (re-verified now): {len(o['unique_reviews'])} from {o['record_invocations']} record invocations")
+    for r in o["unique_reviews"]:
+        if r["verified"]:
+            out.append(f"  {r['work_id']} {r['review_id']} by {r['author']}: {r['disposition']}, pass {r['pass_terminal']}, goal {r['goal_id']} "
+                       f"{r['goal_terminal']}; invocations {len(r['invocations'])} (replays {r['replays']})"
+                       + ("" if "current_head" not in r else f"; current head {'yes' if r['current_head'] else 'no'}"))
+        else:
+            out.append(f"  {r['review_id']}: NOT VERIFIED now ({r['reason']})")
+    dcl = o["declared"]
+    out.append(f"declared in unique verified records (each work pass and goal once; not current status): finished passes "
+               f"{dcl['finished_passes']}, completed goals {dcl['completed_goals']}, holds {', '.join(dcl['holds']) or 'none'}")
+    cur = o["current"]
+    if cur["checked"]:
+        out.append(f"current (fresh read): finished passes {', '.join(cur['finished_passes']) or 'none'}; completed goals "
+                   f"{', '.join(cur['completed_goals']) or 'none'}; open holds {', '.join(cur['open_holds']) or 'none'}; "
+                   f"not current {', '.join(cur['not_current']) or 'none'}")
+    else:
+        out.append("current: not checked (no --registration)")
+    for k in ("incomplete", "unreadable"):
+        if o[k]:
+            out.append(f"! {k}: {', '.join(o[k])}")
+    out.append(o["time"])
+    return "\n".join(out) + "\n"
 
 
 def main(argv=None) -> int:
@@ -684,33 +1053,57 @@ def main(argv=None) -> int:
     pk.add_argument("--registration", required=True)
     pk.add_argument("--work", required=True)
     pk.add_argument("--out", required=True)
-    a = ap.parse_args(argv)
-    try:
-        reg = abs_path(a.registration, "--registration")
-        if a.command == "read":
-            v = read(reg, Path(a.templates) if a.templates else None)
-            sys.stdout.write(canonical(v).decode("utf-8") if a.json else view_text(v))
-            return 1 if v["attention_count"] else 0
-        if a.command == "record":
-            code, text = record(reg, abs_path(a.decision, "--decision"))
-            sys.stdout.write(text)
-            return code
-        if a.command == "inspect":
-            code, out = inspect(reg, a.work)
-            sys.stdout.write(canonical(out).decode("utf-8"))
-            return code
-        code, text = packet(reg, a.work, a.out)
-        sys.stdout.write(text)
+    for p in (r, rc, i, pk):
+        p.add_argument("--journal-root")
+        p.add_argument("--caller")
+        p.add_argument("--note")
+    dy = sub.add_parser("day")
+    dy.add_argument("--journal-root", required=True)
+    dy.add_argument("--date")
+    dy.add_argument("--registration")
+    dy.add_argument("--json", action="store_true")
+    argv_list = list(sys.argv[1:] if argv is None else argv)
+    a = ap.parse_args(argv_list)
+    if a.command == "day":
+        try:
+            code, o = day(a.journal_root, a.date, a.registration)
+        except (Refusal, OSError, subprocess.SubprocessError) as exc:
+            sys.stdout.write(f"refused: {exc}\n")
+            return 2
+        sys.stdout.write(canonical(o).decode("utf-8") if a.json else day_text(o))
         return code
-    except PartialWrite as exc:
-        sys.stdout.write(f"partial: {exc}\n")
-        return 3
-    except Refusal as exc:
-        sys.stdout.write(f"refused: {exc}\n")
-        return 2
-    except (OSError, subprocess.SubprocessError) as exc:
-        sys.stdout.write(f"refused: {type(exc).__name__}: {exc}\n")
-        return 2
+    j = None
+    if a.journal_root:
+        try:
+            j = Journal(a.journal_root, a.command, argv_list, {"registration": a.registration, "decision": getattr(a, "decision", None)},
+                        {"caller": a.caller, "note": a.note})
+        except (JournalError, Refusal, OSError) as exc:
+            sys.stdout.write(f"refused: journal start failed: {type(exc).__name__}: {exc}; nothing was run\n")
+            return 4
+    try:
+        code, payload, status, result = operate(a, j.root if j else None)
+    except Exception as exc:  # unexpected: say so, log it as error, never as success
+        code, payload, status, result = 6, f"error: {type(exc).__name__}: {exc}\n", "error", {}
+    jinfo = j.info if j else JOURNAL_OFF
+    if isinstance(payload, dict):
+        out = canonical(dict(payload, journal=jinfo)).decode("utf-8")
+    else:
+        out = payload + (f"journal: {jinfo['root']} op {jinfo['op_id']}\n" if j else
+                         "journal: disabled (no --journal-root; this operation is not logged)\n")
+    sys.stdout.write(out)
+    sys.stdout.flush()
+    if j:
+        try:
+            j.end(code, status, out.encode("utf-8"), result)
+        except Exception as exc:  # the operation's result stands and is stated; the journal stays incomplete
+            what = ""
+            rv = result.get("review") or {}
+            if rv.get("dir"):
+                what = (f"; the review IS {'committed' if rv.get('record_sha256') else 'present as a partial'} at {rv['dir']}")
+            sys.stderr.write(f"journal: end event FAILED for op {j.op_id} ({type(exc).__name__}: {exc}); operation exit was {code} "
+                             f"({status}){what}; this journal entry stays incomplete; nothing was retried\n")
+            return 5
+    return code
 
 
 if __name__ == "__main__":

@@ -1,0 +1,111 @@
+{
+  "attribution": {
+    "actor_label": "Codex Prime",
+    "role": "prime",
+    "evidence": "Current Prime explicitly adopts its preserved 2026-10-30 prose review; this label is not authentication."
+  },
+  "binding": {
+    "direction": {
+      "agreement_sha256": "c06e15bcb2a3e4b8a79095c9c91b7fbf558927ec0a3a819c58d735c589718097",
+      "book": "00.kernel/00.00.10.work",
+      "fields": {
+        "director_required": "016dac7c5cf343aa0ee70e66377dc3a7ed340897de48e37a4b9eef69c6a924c9",
+        "finish_criteria": "5d793877982a216618f5e73dfebb6490e18df01202db6789ad574549bd7b4169",
+        "goal": "344587ed228b6213426b442200090a463175c187420f565ccb62076e2931b128",
+        "prime_discretion": "a3a9f78355069816c916573fc1d01fc0ab5f9e4b6d3891b0170e1eeec8621ba6",
+        "recorded_decisions": "18fc7364a79f58ea9398039c995a2d0d984008e9b76bab5bfdd71d83d0ed4e78",
+        "scope": "8d2516628d3b7a27111a054e9ec1a383afe6afaee29f2bdaf811baa553ceb9eb"
+      },
+      "review_location": "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-cycle-reviews/05.20",
+      "schema": "prime-cycle-direction/1"
+    },
+    "expected_prior": null,
+    "fingerprint": "cac3d8124733d4a0ff8d423a63a6c20b1b5cf4dfaaf75fda0b950279efdfd030",
+    "goal": {
+      "goal_id": "deskstate-current-use",
+      "goal_sha256": "4332d2abc1d6cb15b3410cb31a4c3bd95a82df11c3c680d9ec02fef2935551ec"
+    },
+    "member": "0169.desk-state-preservation-0520",
+    "member_role": "primary-current-candidate",
+    "origin": {
+      "batch": "05.20",
+      "book": "00.00.10.work",
+      "page": "0508.return-capture"
+    },
+    "page": "00.kernel/00.00.10.work/0508.return-capture/05.20.md",
+    "pass": "05.20",
+    "receipt_sha256": "94a5fe21286c95187c456c28ebd45a95f7ed2faaa06da6779d9ce220197424bc",
+    "retrospective": false,
+    "source": {
+      "commit": "d19241074e8db09723ddf44e0900c839a62bc526",
+      "kind": "git-blob",
+      "page_bytes": 7096,
+      "page_sha256": "306dcd15d9987fa9bb0ff511b61e663efd8e2b1f7e0490eaeabf2fedc6032b85"
+    },
+    "submission_id": "grok-2-0508-0520",
+    "work_id": "deskstate-0520"
+  },
+  "judgment": {
+    "answers": [],
+    "design_fork": null,
+    "disposition": "accepted",
+    "finding": "The desk-state preservation repair is accepted as a bounded historical derived-view helper; broader current-desk integration remains open.",
+    "goal": {
+      "evidence": [],
+      "goal_id": "deskstate-current-use",
+      "goal_sha256": "4332d2abc1d6cb15b3410cb31a4c3bd95a82df11c3c680d9ec02fef2935551ec",
+      "terminal": "open"
+    },
+    "holds": [],
+    "next_action": {
+      "action_id": "review-current-desk-integration",
+      "text": "Discuss the next bounded connection to a current desk record before any canonical adoption or new feature build.",
+      "authorized_in_grant": false
+    },
+    "outcome": "continue",
+    "pass_terminal": "finished",
+    "reasons": [
+      "The preserved Prime review independently verified all nine tests and 26 artifact bindings.",
+      "Citation reasons and expected hashes remain per occurrence, and handoff author, kind and source remain visible.",
+      "This records an existing technical judgment; it does not authorize new work or adopt canonical desk state."
+    ],
+    "sections": {
+      "affected": null,
+      "assumptions": null,
+      "consequences": null,
+      "exploration": null,
+      "findings_account": null,
+      "finish_assessments": null,
+      "for_model": null,
+      "issue": null,
+      "learning": null,
+      "limits": null,
+      "next_bounded_action": "Read back this actual recorded review and inspect the operation journal. Broader work requires its own scope.",
+      "open_questions": null,
+      "options": null,
+      "outcome_evidence": null,
+      "preservation": null,
+      "prime_finding": "The desk-state preservation repair is accepted as a bounded historical derived-view helper; broader current-desk integration remains open.",
+      "proposed_plan": null,
+      "question": null,
+      "recommendation": null,
+      "remaining_choices": null,
+      "return_result": "Capture 0169 contains the preservation repair; prior independent review accepted its bounded scope.",
+      "tests_note": null,
+      "tests_passed": null,
+      "within_direction": "Typed adoption of the existing Prime review only; no canonical migration, dispatcher or held fixture execution."
+    },
+    "semantic_conflict": false,
+    "source_refs": [
+      "00.kernel/00.00.10.work/0508.return-capture/evidence/prime-review05.20/REVIEW.md",
+      "0169.desk-state-preservation-0520/receipt.json"
+    ],
+    "unresolved": [
+      "An explicitly maintained current desk record and integration remain unbuilt."
+    ]
+  },
+  "recovers": null,
+  "review_id": "05.20-r1",
+  "schema": "prime-cycle-decision/2",
+  "supersedes": null
+}

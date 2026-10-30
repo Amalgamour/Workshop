@@ -2,7 +2,8 @@
 
   python -B -X dev selftest.py
 
-1. A simulated correct recovery of W5 passes every evaluator check.
+1. A simulated correct, journalled recovery of W5 passes every evaluator check; the same desk judged without its journal
+   fails only the journal check.
 2. A simulated run that edits the W5 partial and the W2 page fails the matching checks.
 """
 import json
@@ -15,7 +16,6 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / "tests"))
 sys.path.insert(0, str(HERE.parent))
 import fixture as F  # noqa: E402
-import prime_cycle as pc  # noqa: E402
 import build_colab_desk as B  # noqa: E402
 import evaluate as E  # noqa: E402
 
@@ -28,7 +28,8 @@ def recover(base, actor="Cold Prime (SIMULATED by selftest)"):
     d["recovers"] = base["view"]["W5"]["partial"][0]
     p = Path(base["desk"]) / "sim-decision.json"  # outside the repository, beside the registration
     p.write_text(json.dumps(d), encoding="utf-8")
-    return pc.record(reg, p)
+    code, out, _ = E._cli("record", "--registration", reg, "--decision", p, "--journal-root", base["journal_root"], "--caller", actor)
+    return code, out
 
 
 def run():
@@ -51,11 +52,15 @@ def run():
             code, out = recover(base)
             checks = E.evaluate(base)
             results[case] = {"record_exit": code, "failed": [c["check"] for c in checks if not c["ok"]], "count": len(checks)}
+            if case == "correct":  # the same desk judged without its journal fails only the journal check
+                bare = dict(base, journal_root=str(Path(base["desk"]) / "no-journal"))
+                results["unjournalled"] = {"failed": [c["check"] for c in E.evaluate(bare) if not c["ok"]]}
         finally:
             shutil.rmtree(base["desk"], onexc=F.writable_retry)
             shutil.rmtree(ev.parent, onexc=F.writable_retry)
     print(json.dumps(results, indent=1))
     ok = results["correct"]["failed"] == [] and \
+        results["unjournalled"]["failed"] == ["W5 recording is in the journal with its record hash"] and \
         {"no existing file changed or removed (partials and other works intact)", "W2 view unchanged"} <= set(results["edits-partial-and-other-page"]["failed"]) \
         if results["edits-partial-and-other-page"]["record_exit"] is not None else False
     return ok

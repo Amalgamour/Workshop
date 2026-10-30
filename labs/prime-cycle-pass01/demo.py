@@ -1,4 +1,4 @@
-"""End-to-end demo of the Prime read-record-read cycle on a disposable book (0515.prime-cycle/05.01).
+"""End-to-end demo of the Prime read-record-read cycle on a disposable book (0515.prime-cycle/05.01; journal added in 05.02).
 
   python -B demo.py [--transcript OUT.json]
 
@@ -6,8 +6,9 @@ SYNTHETIC SUPPLIED decisions only; no model, no real desk state. Four works in o
 - A: a new return, left awaiting review;
 - B: reviewed held for correction (pass open, goal open);
 - C: accepted, pass finished, page goal still open;
-- D: accepted, then a separate explicit goal completion recorded as a successor.
-Each step runs the real CLI in a new process; the transcript keeps argv, exit and stdout.
+- D: accepted, then a separate explicit goal completion recorded as a successor;
+then D's page changes, so its completion is shown as historical, and the day view is read in a new process.
+Each step runs the real CLI in a new process with an explicit --journal-root; the transcript keeps argv, exit and stdout.
 """
 import json
 import sys
@@ -23,7 +24,11 @@ def main():
     d = F.Desk(prefix="pcy-demo-")
     steps = []
 
-    def cli(label, *args):
+    journal = d.out / "journal"
+
+    def cli(label, *args, log=True):
+        if log:
+            args = (*args, "--journal-root", journal, "--caller", "Codex Prime (SYNTHETIC DEMO)")
         code, out, err = d.cli(*args)
         steps.append({"step": label, "argv": ["python", "-B", "prime_cycle.py", *[str(a) for a in args]], "exit": code, "stdout": out, "stderr": err})
         print(f"$ prime_cycle.py {args[0]} ...  [{label}]  exit {code}")
@@ -46,6 +51,12 @@ def main():
         cli("4 record D goal completion (successor)", "record", "--registration", reg, "--decision", d.write_decision(F.fill(tD, "complete"), "dec-D2.json"))
         code, out = cli("5 new-process read", "read", "--registration", reg)
         print("\n" + out)
+        d.page("0594.demo-d", "05.01", F.page_text(works[3]["member"], d.receipt(works[3]["member"]), extra="\nEdited after completion."))
+        code, out = cli("6 read after D's page changed", "read", "--registration", reg)
+        print(out)
+        date = next(journal.iterdir()).name
+        code, out = cli("7 day view (new process, not logged)", "day", "--journal-root", journal, "--date", date, "--registration", reg, log=False)
+        print(out)
         if out_path:
             out_path.write_text(json.dumps({"schema": "prime-cycle-demo-transcript/1", "label": "SYNTHETIC SUPPLIED decisions; disposable book; no model",
                                             "steps": steps}, indent=1, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")

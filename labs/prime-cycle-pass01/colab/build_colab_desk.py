@@ -9,7 +9,8 @@ The desk is a new temporary Git repository with five registered works, built thr
 - W4: a Director-input hold;
 - W5: an interrupted review write (a partial), left for the candidate to recover.
 Every decision is SYNTHETIC SUPPLIED. The desk path and registration are printed for the candidate. The baseline for
-evaluate.py goes to --eval-dir, which must be outside the desk and is not given to the candidate. No model is run here.
+evaluate.py goes to --eval-dir, which must be outside the desk and is not given to the candidate. The candidate's journal
+root is <desk>/journal, outside the desk repository (05.02). No model is run here.
 """
 import json
 import sys
@@ -67,7 +68,7 @@ def build(eval_dir: Path) -> dict:
             "view": {w["work_id"]: {k: w[k] for k in ("pass_state", "disposition", "pass_terminal", "goal_terminal")}
                      | {"latest": (w.get("latest_review") or {}).get("review_id"), "partial": [p["review_id"] for p in w["reviews"]["partial"]]}
                      for w in view["works"]},
-            "recover_work": "W5", "label": "SYNTHETIC SUPPLIED fixture; not a model benchmark"}
+            "recover_work": "W5", "journal_root": str(d.tmp / "journal"), "label": "SYNTHETIC SUPPLIED fixture; not a model benchmark"}
     (eval_dir / "baseline.json").write_text(json.dumps(base, indent=1) + "\n", encoding="utf-8", newline="\n")
     return base
 
@@ -75,4 +76,5 @@ def build(eval_dir: Path) -> dict:
 if __name__ == "__main__":
     out = Path(sys.argv[sys.argv.index("--eval-dir") + 1]).resolve()
     b = build(out)
-    print(f"desk: {b['desk']}\nregistration: {b['registration']}\nbaseline (evaluator only): {out / 'baseline.json'}")
+    print(f"desk: {b['desk']}\nregistration: {b['registration']}\njournal root (give to the candidate): {b['journal_root']}\n"
+          f"baseline (evaluator only): {out / 'baseline.json'}")
