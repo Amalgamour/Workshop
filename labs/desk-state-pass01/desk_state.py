@@ -1,5 +1,8 @@
 """Bounded desk-state record and derived Prime view (0508.return-capture/05.19).
 
+05.20 preserves each citation's own note and expected hash, and prints that
+provenance on the readable view and the derived candidate.
+
   python -B desk_state.py view --input ABS [--json] [--out DIR] [--candidate ABS]
   python -B desk_state.py revise --record ABS --expected SHA256 --submission ABS --out ABS
 
@@ -24,6 +27,11 @@ SCHEMA = "desk-state/1"
 VIEW_SCHEMA = "desk-view/1"
 AUTHORITY = "none; this view selects, releases, accepts, completes and dispatches nothing"
 HANDOFF_KIND = "recorded-prime-intent"
+COVERAGE = (
+    "Declared coverage: this view examines the record's pages, citations, members, and supplied coordination. "
+    "A decision absent from the record is unexamined. "
+    "An empty conflicts list is not a global clearance."
+)
 
 HARD_MAX_SOURCES = 32
 HARD_MAX_SOURCE_BYTES = 262144
@@ -501,6 +509,122 @@ def refuse_existing_outputs(directory: str, candidate: str | None) -> None:
         raise Refusal(f"output already exists: {candidate}")
 
 
+def review_binding(coord, observed_sha) -> dict:
+    if not isinstance(coord, dict):
+        return {"binding": "absent", "disposition": None, "terminal": None, "terminal_declared": False}
+    if not isinstance(observed_sha, str) or coord.get("source_sha256") != observed_sha:
+        return {"binding": "not-applied", "disposition": None, "terminal": None, "terminal_declared": False}
+    review = coord.get("review")
+    if not isinstance(review, dict):
+        return {"binding": "source-bound", "disposition": None, "terminal": None, "terminal_declared": False}
+    return {
+        "binding": "source-bound",
+        "disposition": review.get("disposition"),
+        "terminal": review.get("terminal"),
+        "terminal_declared": True,
+    }
+
+
+def source_phrase(source) -> str:
+    if not isinstance(source, dict) or not source.get("kind"):
+        return "source: unobserved commit none path none"
+    kind = source.get("kind")
+    commit = source.get("commit") if kind == "git-blob" and source.get("commit") else "none"
+    path = source.get("path") or "none"
+    return f"source: {kind} commit {commit} path {path}"
+
+
+def review_phrase(binding) -> str:
+    if not isinstance(binding, dict) or binding.get("binding") in (None, "absent"):
+        return "review: none supplied"
+    if binding.get("binding") == "not-applied":
+        return "review: supplied coordination not applied to this source"
+    if not binding.get("terminal_declared"):
+        return "review: none; terminal absent; source-bound"
+    terminal = binding.get("terminal")
+    shown = "null" if terminal is None else str(terminal)
+    disposition = binding.get("disposition") or "none"
+    return f"review: {disposition}; terminal {shown}; source-bound"
+
+
+def worker_phrase(lane) -> str:
+    if lane.get("worker") is None:
+        return "worker unrecorded"
+    return f"worker label {lane['worker']}"
+
+
+def return_name(item) -> str:
+    if isinstance(item, dict) and item.get("id"):
+        name = str(item["id"])
+    else:
+        name = ""
+    ref = item.get("source_ref") if isinstance(item, dict) and isinstance(item.get("source_ref"), dict) else {}
+    path = ref.get("path") if isinstance(ref.get("path"), str) else ""
+    if name and path and path != name:
+        return f"{name} path {path}"
+    if name:
+        return name
+    if path:
+        return path
+    return "unidentified"
+
+
+def handoff_lines(view) -> list[str]:
+    hand = view["handoff"]
+    lines = [
+        f"kind: {hand.get('kind')}",
+        f"author: {hand.get('author')}",
+    ]
+    evidence = hand.get("evidence") or []
+    if not evidence:
+        lines.append("source basis: none")
+    for item in evidence:
+        lines.append(
+            "source basis: "
+            f"{item.get('path') or 'none'} "
+            f"commit {item.get('commit') or 'none'} "
+            f"expected {item.get('expected_sha256') or 'none'} "
+            f"status {item.get('status') or 'missing'} "
+            f"note: {item.get('note') or ''}"
+        )
+    lines.append(hand.get("statement") or "")
+    return lines
+
+
+def time_lines(view) -> list[str]:
+    lines = ["Projection time", view.get("projection_at") or "none", "", "Custody captured_at"]
+    captured = view.get("custody_captured_at") or []
+    if not captured:
+        lines.append("none")
+    else:
+        for item in captured:
+            lines.append(f"- {item.get('member')} captured_at {item.get('captured_at')}")
+    lines += ["", "Live-file observations"]
+    observed = view.get("live_file_observed_at") or []
+    if not observed:
+        lines.append("none. No live-file observation time is invented for a historical blob.")
+    else:
+        for item in observed:
+            stamp = item.get("live_observed_at")
+            if isinstance(stamp, str) and stamp:
+                lines.append(f"- {item.get('path')} live_observed_at {stamp}")
+            else:
+                lines.append(f"- {item.get('path')} live_observed_at absent")
+    return lines
+
+
+def coverage_lines(view) -> list[str]:
+    conflicts = (view.get("returns") or {}).get("conflicts") or []
+    lines = [COVERAGE]
+    if conflicts:
+        lines.append("Conflicts named in this record:")
+        for item in conflicts:
+            lines.append(f"- {return_name(item)}")
+    else:
+        lines.append("Conflicts named in this record: none. This is not a global clearance.")
+    return lines
+
+
 def candidate_text(view: dict) -> str:
     lines = [
         "# DERIVED VIEW",
@@ -512,7 +636,7 @@ def candidate_text(view: dict) -> str:
         f"Record bytes: {view['record']['bytes']}",
         f"Desk: {view['desk']}",
         f"Book: {view['book']}",
-        f"Elected current task: none",
+        "Elected current task: none",
         "",
         "## Desk goal",
         "",
@@ -526,22 +650,25 @@ def candidate_text(view: dict) -> str:
         "",
     ]
     for source in view["sources"]:
-        commit = source.get("commit") or "live-file"
-        lines.append(f"- {source['path']} {commit} {source.get('sha256') or 'unknown'}")
-    lines += ["", "## Live observation times", ""]
-    times = view["live_times"]
-    lines.append("none" if not times else "\n".join(f"- {item}" for item in times))
+        lines.append(f"- {source_phrase(source)} sha256 {source.get('sha256') or 'unknown'}")
+    lines += ["", "## Times", ""]
+    lines.extend(time_lines(view))
     lines += ["", "## Lanes", ""]
     for lane in view["lanes"]:
-        worker = "unrecorded" if lane["worker"] is None else lane["worker"]
         follow = f" Follow-up: {lane['followup']}." if lane.get("followup") else ""
-        lines.append(f"- {lane['id']}: {lane['lifecycle']}; worker {worker}; {lane['task']}{follow}")
-    lines += ["", "## Recorded next step", "", view["handoff"]["statement"], "", "## Unresolved decisions", ""]
+        lines.append(f"- {lane['id']}: {lane['lifecycle']}; {worker_phrase(lane)}; {lane['task']}{follow}")
+        lines.append(f"  {source_phrase(lane.get('source'))}")
+        lines.append(f"  {review_phrase(lane.get('review_binding'))}")
+    lines += ["", "## Recorded next step", ""]
+    lines.extend(handoff_lines(view))
+    lines += ["", "## Unresolved decisions", ""]
     unresolved = [item for item in view["blockers"] if item["status"] == "unresolved"]
     lines.append("none" if not unresolved else "\n".join(f"- {item['id']}: {item['statement']}" for item in unresolved))
     lines += ["", "## Known gaps", ""]
     gaps = view["unknowns"] + [f"{item['label']}: {item['reason']}" for item in view["uninspected"]]
     lines.append("none" if not gaps else "\n".join(f"- {item}" for item in gaps))
+    lines += ["", "## Coverage", ""]
+    lines.extend(coverage_lines(view))
     lines += ["", f"Authority: {AUTHORITY}", ""]
     return "\n".join(lines)
 
@@ -561,9 +688,10 @@ def render_text(view: dict) -> str:
         "Lanes",
     ]
     for lane in view["lanes"]:
-        worker = "unrecorded" if lane["worker"] is None else f"label {lane['worker']}"
-        lines.append(f"- {lane['id']}  {lane['lifecycle']}  worker {worker}")
+        lines.append(f"- {lane['id']}  {lane['lifecycle']}  {worker_phrase(lane)}")
         lines.append(f"  task: {lane['task']}")
+        lines.append(f"  {source_phrase(lane.get('source'))}")
+        lines.append(f"  {review_phrase(lane.get('review_binding'))}")
         if lane.get("batch_id"):
             lines.append(f"  batch: {lane['batch_id']}")
         if lane.get("unprojected_reason"):
@@ -578,17 +706,24 @@ def render_text(view: dict) -> str:
         lines.append("- none")
     for key, items in returns.items():
         for item in items:
-            lines.append(f"- {key}: {item.get('id') or '(no page)'} {item.get('lifecycle') or ''}")
+            lines.append(f"- {key}: {return_name(item)} {item.get('lifecycle') or ''}")
             if item.get("followup"):
                 lines.append(f"  followup: {item['followup']}")
             if item.get("reason"):
                 lines.append(f"  {item['reason']}")
+    if not returns.get("conflicts"):
+        lines.append("- conflicts: none in this record. An empty conflicts list is not a global clearance.")
     lines += ["", "Unresolved decisions"]
     unresolved = [item for item in view["blockers"] if item["status"] == "unresolved"]
     lines.append("- none" if not unresolved else "\n".join(f"- {item['id']}: {item['statement']}" for item in unresolved))
-    lines += ["", "Recorded next step", view["handoff"]["statement"], ""]
-    lines.append("Unknowns")
+    lines += ["", "Recorded next step"]
+    lines.extend(handoff_lines(view))
+    lines += ["", "Times"]
+    lines.extend(time_lines(view))
+    lines += ["", "Unknowns"]
     lines.append("- none" if not view["unknowns"] else "\n".join(f"- {item}" for item in view["unknowns"]))
+    lines += ["", "Coverage"]
+    lines.extend(coverage_lines(view))
     lines += ["", f"Attention count: {len(view['attention'])}", f"Authority: {AUTHORITY}", ""]
     return "\n".join(lines)
 
@@ -662,11 +797,15 @@ def assemble(doc, record_path: str, record_sha: str, record_bytes: int, observat
         for item in lists["unprojected"]:
             if isinstance(item, dict):
                 unprojected[item.get("id")] = item
+    coord_by_batch = {item["batch_id"]: item for item in doc["coordination"]}
     lanes = []
     for lane in doc["lanes"]:
         observed = by_page.get(lane["page_id"])
         batch_id = batch_of(observed["observation"]) if observed and observed.get("observation") else None
-        lanes.append(lane_row(lane, observed, projected.get(batch_id), unprojected.get(batch_id)))
+        row = lane_row(lane, observed, projected.get(batch_id), unprojected.get(batch_id))
+        observed_sha = row["source"].get("sha256") if isinstance(row.get("source"), dict) else None
+        row["review_binding"] = review_binding(coord_by_batch.get(batch_id) if batch_id else None, observed_sha)
+        lanes.append(row)
     unknowns = []
     attention = []
     quiet = {"released", "completed"}
@@ -691,7 +830,9 @@ def assemble(doc, record_path: str, record_sha: str, record_bytes: int, observat
                 unknowns.append(f"{row['page_id']}: {row.get('reason') or 'observation-failed'}")
     for item in citations:
         if item["status"] != "match":
-            unknowns.append(f"citation {item['path']}: {item['reason']}")
+            unknowns.append(
+                f"citation {item['path']} commit {item['commit']} expected {item.get('expected_sha256')}: {item['reason']}"
+            )
     for item in not_applied:
         unknowns.append(item)
     named = []
@@ -721,7 +862,8 @@ def assemble(doc, record_path: str, record_sha: str, record_bytes: int, observat
     for blocker in doc["blockers"]:
         if blocker["status"] == "unresolved":
             attention.append(f"unresolved {blocker['id']}: {blocker['statement']}")
-    live_times = []
+    custody_captured_at = []
+    live_file_observed_at = []
     sources = []
     for row in observations:
         observation = row.get("observation") or {}
@@ -738,12 +880,32 @@ def assemble(doc, record_path: str, record_sha: str, record_bytes: int, observat
             "bytes": source.get("bytes"),
         })
         if source.get("kind") == "live-file":
-            live_times.append(f"{source.get('path')} {source.get('live_observed_at')}")
+            stamp = source.get("live_observed_at")
+            live_file_observed_at.append({
+                "path": source.get("path"),
+                "live_observed_at": stamp if isinstance(stamp, str) and stamp else None,
+            })
     for row in inspections:
         report = row.get("report") or {}
         capture = report.get("capture") if isinstance(report, dict) else None
         if isinstance(capture, dict) and capture.get("captured_at"):
-            live_times.append(f"{row['member']} captured_at {capture.get('captured_at')}")
+            custody_captured_at.append({"member": row["member"], "captured_at": capture.get("captured_at")})
+    projection_at = None
+    if isinstance(projection, dict) and isinstance(projection.get("projected_at"), str):
+        projection_at = projection.get("projected_at")
+    used_citations: set[int] = set()
+    goal_evidence = citations_for(doc["goal"]["evidence"], citations, used_citations)
+    milestone_evidence = citations_for(doc["milestone"]["evidence"], citations, used_citations)
+    handoff_evidence = citations_for(doc["handoff"]["evidence"], citations, used_citations)
+    legacy = take_citation(doc["legacy"], citations, used_citations)
+    blocker_rows = []
+    for item in doc["blockers"]:
+        blocker_rows.append({
+            "id": item["id"],
+            "statement": item["statement"],
+            "status": item["status"],
+            "evidence": citations_for(item["evidence"], citations, used_citations),
+        })
     view = {
         "schema": VIEW_SCHEMA,
         "authority": AUTHORITY,
@@ -751,27 +913,25 @@ def assemble(doc, record_path: str, record_sha: str, record_bytes: int, observat
         "record": {"path": record_path, "sha256": record_sha, "bytes": record_bytes},
         "desk": doc["desk"],
         "book": doc["book"],
-        "goal": {"statement": doc["goal"]["statement"], "evidence": citations_for(doc["goal"]["evidence"], citations)},
-        "milestone": {"statement": doc["milestone"]["statement"], "evidence": citations_for(doc["milestone"]["evidence"], citations)},
+        "goal": {"statement": doc["goal"]["statement"], "evidence": goal_evidence},
+        "milestone": {"statement": doc["milestone"]["statement"], "evidence": milestone_evidence},
         "lanes": lanes,
         "returns": lists,
-        "blockers": [
-            {"id": item["id"], "statement": item["statement"], "status": item["status"],
-             "evidence": citations_for(item["evidence"], citations)}
-            for item in doc["blockers"]
-        ],
+        "blockers": blocker_rows,
         "handoff": {
             "kind": HANDOFF_KIND,
             "statement": doc["handoff"]["statement"],
             "author": doc["handoff"]["author"],
-            "evidence": citations_for(doc["handoff"]["evidence"], citations),
+            "evidence": handoff_evidence,
         },
-        "legacy": next((item for item in citations if item["path"] == doc["legacy"]["path"] and item["commit"] == doc["legacy"]["commit"]), None),
+        "legacy": legacy,
         "uninspected": list(doc["uninspected"]),
         "unknowns": list(dict.fromkeys(unknowns)),
         "attention": list(dict.fromkeys(attention)),
         "sources": sources,
-        "live_times": live_times,
+        "projection_at": projection_at,
+        "custody_captured_at": custody_captured_at,
+        "live_file_observed_at": live_file_observed_at,
         "raw": {
             "observations": observations,
             "inspections": inspections,
@@ -783,12 +943,36 @@ def assemble(doc, record_path: str, record_sha: str, record_bytes: int, observat
     return view
 
 
-def citations_for(wanted, citations) -> list:
-    found = []
-    for item in wanted:
-        match = next((row for row in citations if row["path"] == item["path"] and row["commit"] == item["commit"]), None)
-        found.append(match or {"path": item["path"], "commit": item["commit"], "status": "missing"})
-    return found
+def citation_matches(row, item) -> bool:
+    return (
+        row.get("path") == item.get("path")
+        and row.get("commit") == item.get("commit")
+        and row.get("expected_sha256") == item.get("sha256")
+        and row.get("note") == item.get("note")
+    )
+
+
+def take_citation(item, citations, used: set) -> dict:
+    for index, row in enumerate(citations):
+        if index in used:
+            continue
+        if citation_matches(row, item):
+            used.add(index)
+            return row
+    return {
+        "path": item.get("path"),
+        "commit": item.get("commit"),
+        "expected_sha256": item.get("sha256"),
+        "note": item.get("note"),
+        "status": "missing",
+        "reason": "no independently bound observation",
+    }
+
+
+def citations_for(wanted, citations, used=None) -> list:
+    if used is None:
+        used = set()
+    return [take_citation(item, citations, used) for item in wanted]
 
 
 def encode_view(view: dict) -> bytes:

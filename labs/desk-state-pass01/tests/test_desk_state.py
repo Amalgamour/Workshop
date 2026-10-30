@@ -384,6 +384,39 @@ class DeskStateTest(unittest.TestCase):
         self.assertEqual(lives["done"], "completed")
         self.assertEqual(lives["commit"], "open-commit-custody-unverified")
         self.assertIsNone(body["elected"])
+        by_id = {lane["id"]: lane for lane in body["lanes"]}
+        self.assertEqual(by_id["open"]["review_binding"]["disposition"], "accepted")
+        self.assertIsNone(by_id["open"]["review_binding"]["terminal"])
+        self.assertTrue(by_id["open"]["review_binding"]["terminal_declared"])
+        self.assertEqual(by_id["done"]["review_binding"]["terminal"], "completed")
+        self.assertEqual(by_id["commit"]["review_binding"]["terminal"], "completed")
+        self.assertEqual(by_id["commit"]["source"]["kind"], "git-blob")
+        self.assertEqual(by_id["open"]["source"]["kind"], "live-file")
+        self.assertNotIn("live_times", body)
+        live_paths = [item["path"] for item in body["live_file_observed_at"]]
+        self.assertIn(open_rel, live_paths)
+        self.assertNotIn(commit_rel, live_paths)
+        text = desk_state.render_text(body)
+        candidate = desk_state.candidate_text(body)
+        for surface in (text, candidate):
+            self.assertIn("open-accepted-not-terminal", surface)
+            self.assertIn("open-commit-custody-unverified", surface)
+            self.assertIn("review: accepted; terminal null; source-bound", surface)
+            self.assertIn("review: accepted; terminal completed; source-bound", surface)
+            self.assertIn("worker unrecorded", surface)
+            self.assertNotIn("available", surface)
+            self.assertIn("recorded-prime-intent", surface)
+            self.assertIn("author: Codex-Prime", surface)
+            self.assertIn("Elected current task: none", surface)
+            self.assertIn("Projection time", surface)
+            self.assertIn("Custody captured_at", surface)
+            self.assertIn("Live-file observations", surface)
+            self.assertNotIn("Live observation times", surface)
+            self.assertIn("source: live-file commit none", surface)
+            self.assertIn("source: git-blob commit " + commit, surface)
+            self.assertIn("not a global clearance", surface)
+            self.assertIn("unexamined", surface)
+        self.assertTrue(candidate.startswith("# DERIVED VIEW"))
 
     def test_missing_partial_retrospective_ambiguous_and_stale(self):
         book = os.path.abspath(os.path.join(self.tmp, "book"))
@@ -467,6 +500,11 @@ class DeskStateTest(unittest.TestCase):
         self.assertTrue(any("ambiguous" in item.lower() or "return pointer" in item.lower() for item in body["attention"] + [lives["ambiguous"]["lifecycle"]]))
         self.assertEqual(lives["stale"]["lifecycle"], "unprojected")
         self.assertIn("different source sha256", lives["stale"]["unprojected_reason"])
+        self.assertEqual(lives["stale"]["review_binding"]["binding"], "not-applied")
+        self.assertIsNone(lives["stale"]["review_binding"]["disposition"])
+        stale_text = desk_state.render_text(body)
+        self.assertIn("review: supplied coordination not applied to this source", stale_text)
+        self.assertIn(stale_rel, stale_text)
 
     def test_revise_refuses_stale_hash_and_derived_view(self):
         self.page("00.kernel/00.00.10.work/0508.desk-alpha/05.01.md", "Alpha")
@@ -610,6 +648,142 @@ class DeskStateTest(unittest.TestCase):
         proc = run(["view", "--input", save(self.out, "link.json", doc)])
         self.assertEqual(proc.returncode, 2, proc.stderr.decode())
         self.assertIn(b"link", proc.stderr.lower())
+
+    def test_citations_for_binds_each_note_and_expectation(self):
+        commit = "a" * 40
+        path = "notes/shared.md"
+        good = "1" * 64
+        bad = "2" * 64
+
+        def row(note, expected, status, reason):
+            return {
+                "path": path,
+                "commit": commit,
+                "expected_sha256": expected,
+                "note": note,
+                "status": status,
+                "sha256": good,
+                "reason": reason,
+            }
+
+        citations = [
+            row("goal reason", good, "match", None),
+            row("handoff reason", good, "match", None),
+            row("conflict reason", bad, "mismatch", "blob hash differs from the record"),
+            row("same reason", good, "match", None),
+            row("same reason", good, "mismatch", "second read failed"),
+        ]
+        used = set()
+
+        def want(note, expected):
+            return [{"path": path, "commit": commit, "sha256": expected, "note": note}]
+
+        goal = desk_state.citations_for(want("goal reason", good), citations, used)[0]
+        hand = desk_state.citations_for(want("handoff reason", good), citations, used)[0]
+        conflict = desk_state.citations_for(want("conflict reason", bad), citations, used)[0]
+        first_same = desk_state.citations_for(want("same reason", good), citations, used)[0]
+        second_same = desk_state.citations_for(want("same reason", good), citations, used)[0]
+        self.assertEqual(goal["note"], "goal reason")
+        self.assertEqual(goal["status"], "match")
+        self.assertEqual(hand["note"], "handoff reason")
+        self.assertEqual(hand["status"], "match")
+        self.assertIsNot(goal, hand)
+        self.assertEqual(conflict["note"], "conflict reason")
+        self.assertEqual(conflict["status"], "mismatch")
+        self.assertEqual(conflict["expected_sha256"], bad)
+        self.assertEqual(first_same["status"], "match")
+        self.assertEqual(second_same["status"], "mismatch")
+        self.assertEqual(second_same["reason"], "second read failed")
+
+    def test_view_preserves_citation_notes_and_names_unidentified_paths(self):
+        shared = "notes/shared.md"
+        write(os.path.join(self.repo, *shared.split("/")), "shared blob\n")
+        rel = "00.kernel/00.00.10.work/0508.desk-alpha/05.01.md"
+        self.page(rel, "Alpha")
+        plain = "notes/plain.md"
+        write(os.path.join(self.repo, *plain.split("/")), "not a batch page\n")
+        commit = commit_all(self.repo)
+        digest = sha(Path(self.repo, *rel.split("/")).read_bytes())
+        shared_sha = sha(Path(self.repo, *shared.split("/")).read_bytes())
+        wrong = "ab" * 32
+
+        def cite(note, digest_value):
+            return {
+                "repository": self.repo,
+                "path": shared,
+                "commit": commit,
+                "sha256": digest_value,
+                "note": note,
+            }
+
+        pages = [
+            {"id": "p-alpha", "repository": self.repo, "path": rel, "commit": commit, "observation": "git-blob"},
+            {"id": "p-plain", "repository": self.repo, "path": plain, "commit": commit, "observation": "git-blob"},
+        ]
+        lanes = [
+            {"id": "alpha", "page_id": "p-alpha", "worker": None, "task": "Named lane stays unrecorded."},
+            {"id": "plain", "page_id": "p-plain", "worker": None, "task": "Unidentified page stays named."},
+        ]
+        doc = record(
+            self.repo, self.out, pages, lanes, self.legacy(commit),
+            coordination=[coord("0508.desk-alpha/05.01", digest)],
+            goal={"statement": "Keep the citation notes distinct.", "evidence": [cite("goal reason", shared_sha)]},
+            handoff={
+                "statement": "The recorded next step stays historical.",
+                "author": "Codex-Prime",
+                "evidence": [cite("handoff reason", shared_sha)],
+            },
+            blockers=[{
+                "id": "hash-gap",
+                "statement": "The second expectation does not match.",
+                "status": "unresolved",
+                "evidence": [cite("conflict reason", wrong)],
+            }],
+        )
+        proc = run(["view", "--input", save(self.out, "notes.json", doc), "--json"])
+        self.assertEqual(proc.returncode, 1, proc.stderr.decode())
+        body = view_json(proc)
+        self.assertEqual(body["goal"]["evidence"][0]["note"], "goal reason")
+        self.assertEqual(body["goal"]["evidence"][0]["status"], "match")
+        self.assertEqual(body["handoff"]["evidence"][0]["note"], "handoff reason")
+        self.assertEqual(body["handoff"]["evidence"][0]["status"], "match")
+        self.assertEqual(body["handoff"]["evidence"][0]["commit"], commit)
+        self.assertEqual(body["blockers"][0]["evidence"][0]["note"], "conflict reason")
+        self.assertEqual(body["blockers"][0]["evidence"][0]["status"], "mismatch")
+        self.assertEqual(body["blockers"][0]["evidence"][0]["expected_sha256"], wrong)
+        self.assertTrue(any(wrong in item and "blob hash differs" in item for item in body["unknowns"]))
+        self.assertNotIn("live_times", body)
+        self.assertEqual(body["live_file_observed_at"], [])
+        self.assertIsNone(body["elected"])
+        plain_lane = next(lane for lane in body["lanes"] if lane["id"] == "plain")
+        self.assertEqual(plain_lane["lifecycle"], "unprojected")
+        self.assertEqual(plain_lane["worker_meaning"], "unrecorded")
+        self.assertIn(plain, plain_lane["source"]["path"])
+        alpha_lane = next(lane for lane in body["lanes"] if lane["id"] == "alpha")
+        self.assertEqual(alpha_lane["review_binding"]["binding"], "source-bound")
+        self.assertFalse(alpha_lane["review_binding"]["terminal_declared"])
+        text = desk_state.render_text(body)
+        candidate = desk_state.candidate_text(body)
+        for surface in (text, candidate):
+            self.assertIn("recorded-prime-intent", surface)
+            self.assertIn("author: Codex-Prime", surface)
+            self.assertIn("note: handoff reason", surface)
+            self.assertNotIn("note: goal reason", surface)
+            self.assertIn(commit, surface)
+            self.assertIn(plain, surface)
+            self.assertIn("worker unrecorded", surface)
+            self.assertNotIn("available", surface)
+            self.assertIn("Elected current task: none", surface)
+            self.assertIn("Projection time", surface)
+            self.assertIn("Custody captured_at", surface)
+            self.assertIn("Live-file observations", surface)
+            self.assertIn("No live-file observation time is invented for a historical blob.", surface)
+            self.assertIn("not a global clearance", surface)
+            self.assertIn("A decision absent from the record is unexamined.", surface)
+            self.assertNotIn("(no page)", surface)
+            self.assertNotIn("Live observation times", surface)
+        self.assertTrue(candidate.startswith("# DERIVED VIEW"))
+        self.assertIn(plain, text)
 
 
 if __name__ == "__main__":

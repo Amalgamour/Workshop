@@ -1,0 +1,68 @@
+{
+  "schema": "desk-state-artifact-manifest/1",
+  "pass": "0508.return-capture/05.20",
+  "return_file": {
+    "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/deskstate05.20/submission.md",
+    "sha256": "0a82958c1952e4963477a145c5a75bb42dbc650eb5f7402eafead1d0de6795ec",
+    "bytes": 3390
+  },
+  "capture_artifacts": [
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/06.21.md",
+      "sha256": "c1ec5afa51c5b4725af099f419dda687d715a5a649ae96afddc79571e6422664",
+      "bytes": 4014
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/deskstate05.20/CONTRACT.md",
+      "sha256": "cb0bc04f0a702842696827b827ed1775812d3877eb758f82a3eb3407e519a347",
+      "bytes": 12139
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/deskstate05.20/verification.json",
+      "sha256": "eda1517b4401ffd9ff42c4879ef1311cf7740ae420a5499505cef9f7ea438bbb",
+      "bytes": 6343
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/deskstate05.20/artifact-manifest.json",
+      "sha256": null,
+      "bytes": null,
+      "note": "This file. Its digest is the capture payload digest."
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/deskstate05.20/REAL-USE.md",
+      "sha256": "6211268592f337a1bbe054ab234e28d43ae20f5ce9d5b1d301f0fbba8a45ec86",
+      "bytes": 7841
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/deskstate05.20/view.json",
+      "sha256": "e1a18c162c04015d208abbd7cacf4af971939a2b23e207b0e1e1f2f5f87d39cb",
+      "bytes": 108342
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/deskstate05.20/VIEW.md",
+      "sha256": "3b33219111a1da09c832b61a19716ea87f2818949d3407b50565313a306419e5",
+      "bytes": 5550
+    }
+  ],
+  "local_not_in_capture_command": [
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/deskstate05.20/candidate.md",
+      "sha256": "4ec2f14a2027be18862c2235fe3ecc80a019b186afbd45507e08eeeecb22461f",
+      "bytes": 5063
+    }
+  ],
+  "pre_repair_pins": {
+    "labs/desk-state-pass01/desk_state.py": {
+      "sha256": "5c96909c02c30ae825f84b26c8e9727f875148332753e2534eadd4cc59014648",
+      "bytes": 48297
+    },
+    "labs/desk-state-pass01/tests/test_desk_state.py": {
+      "sha256": "68a8ca5781f63ad7b5fdf4bc80dff9b9811632e9233bafbe9d6d8cd3bd0e2731",
+      "bytes": 33409
+    },
+    "labs/desk-state-pass01/README.md": {
+      "sha256": "b69fc0386788113fd7a2c4c7ea59d804ba558df9b3d1b5cb2eb9691b75426baf",
+      "bytes": 1206
+    }
+  }
+}

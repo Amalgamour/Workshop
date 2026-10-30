@@ -1,0 +1,31 @@
+# Notes — desk-state citation preservation (05.20)
+
+Date: 2026-10-29. Recorder: Grok Builder 2. These notes are written before the new contract, the module repair, and the new specimen. `06.01` through `06.20` stay as they are. No runtime file is edited by this note. This note does not adopt the module, boot a Prime, or rewrite `00.live`.
+
+## Release and claim
+
+Release: the Director, this session, 2026-10-29: "The Director authorizes this bounded correction." The workspace is `D:\Git\lib-build`, branch `workshop`.
+
+Claim: Grok Builder 2, this session, 2026-10-29. Scope is `0508.return-capture/05.20` only. Workshop HEAD when these notes were opened is `377da29cc689f32175541cc0ac82964eea26b06a`. This builder did not commit that change.
+
+Pack `evidence/pack05.20/source-manifest.json` is schema `prime-pack-sources/1` with 10 sources. Live bytes equal the snapshot bytes, the declared SHA-256, and the declared length for all 10. Bad count is 0. That check was made before these notes.
+
+Reserved member `0169.desk-state-preservation-0520` holds `01.md` and `reservation.json`. `01.md` is 339 bytes, SHA-256 `8f1fdaec3dc799c8c2181ca4a3682f46f0b84b84515caa43c6870d3cb9776c10`. `reservation.json` is 1067 bytes, SHA-256 `02905faacd50210fb3aa21fa28bf9b3c97049b1d87f3aa8a240a9715ae598f53`, reserved at `2026-10-29T22:25:18.305013Z`, submission `grok-2-0508-0520`. `01.md` is an index. A later receipt is custody, not approval, acceptance, seating, or publication.
+
+## What was read
+
+Prime's review `0702.desk-state-review/06.01.review.md` answers the Colab and leaves implementation on this page. The sealed Colab return is `05.01.return.md`, SHA-256 `ad778c04b4e4ba1e3ed96790e49d122ede0132fbc6f1ff8f477f131c707991ed`, 22997 bytes. Prime's `citation-probe.json` confirms the defect: expected note `handoff reason`, attached note `goal reason`, method an extracted `citations_for` with no desk-state backend run.
+
+The historical contract, `desk.json`, and `rehearsal.json` under `evidence/deskstate05.19` match the pack. Their bytes stay. `00.kernel/00.live.md` is 1160 bytes, SHA-256 `a69245972915b6e140b7528239216ff1a1bc97941cfb1a4de4868d88a541a30d`. `0401.goal/06.01.md` is 545 bytes, SHA-256 `3578934451fc98e1dcfcc0030adebad27478787c4c2b6177f82268ae6826c38c`. Both stay byte-identical. `DECISIONS.md` records AR-01. This repair does not add that hold to the historical specimen and does not clear it.
+
+## Repair this note authorizes the code to make
+
+`citations_for` will bind each citation by path, commit, expected hash, and authored note, and will consume that read so a later citation cannot borrow it. The same path and commit are not enough. A failed expectation stays on its own object and in the unknowns with its expected hash.
+
+The default text and the derived candidate will print the handoff kind `recorded-prime-intent`, the author, and each evidence commit with the statement. Each lane will show source kind, commit, and path, plus the source-bound review disposition and explicit terminal state. Accepted with terminal null stays the open lifecycle the brief already computes. A null worker stays `unrecorded`. `elected` stays null. Unidentified and unprojected rows will name their source path. Projection time, custody `captured_at`, and live-file `live_observed_at` will have separate labels. A historical blob gets no invented live timestamp. The text will say that decisions absent from the record are unexamined and that an empty conflicts list is not a global clearance.
+
+The record schema, pins, bounds, stale-hash refusal, and no-write protections stay. The new view is written under `evidence/deskstate05.20` from the original `desk.json`. The old rehearsal is not overwritten.
+
+## Out of scope
+
+No adoption, migration, `00.live` rewrite, fresh-Prime launch, model call, inventory or bridge fixture, broad app suite, or race probe. No Git write. No change to the helper, the inspector, or another lane. The seven historical tests are not treated as already re-proven by this note.

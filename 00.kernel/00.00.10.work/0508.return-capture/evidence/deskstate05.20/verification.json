@@ -1,0 +1,174 @@
+{
+  "schema": "desk-state-verification/1",
+  "head": "377da29cc689f32175541cc0ac82964eea26b06a",
+  "branch": "workshop",
+  "specimen_commit": "5d7f15b6b205d3aed6afbcb0b1263a4bc3e44841",
+  "pack": {
+    "schema": "prime-pack-sources/1",
+    "sources": 10,
+    "matched_before_repair": 10,
+    "bad_before_repair": 0,
+    "still_matching_after_repair": 7,
+    "expected_drift": [
+      "labs/desk-state-pass01/desk_state.py",
+      "labs/desk-state-pass01/tests/test_desk_state.py",
+      "labs/desk-state-pass01/README.md"
+    ]
+  },
+  "tests": {
+    "command": "python -B -m unittest labs.desk-state-pass01.tests.test_desk_state",
+    "cwd": "D:/Git/lib-build",
+    "passed": 9,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 15.022,
+    "exit": 0
+  },
+  "specimen_exit": 1,
+  "projection_at": "2026-10-29T22:38:50.320662Z",
+  "historical_rehearsal_projected_at": "2026-10-29T16:25:06.082906Z",
+  "commands_inside_view": 9,
+  "command_shape": {
+    "observe": 5,
+    "inspect": 3,
+    "brief": 1,
+    "inspect_members": [
+      "0150.cold-prime-plan-revision-0518",
+      "0149.capture-handoff-entry-0520",
+      "0136.state-projection-0512"
+    ]
+  },
+  "files": [
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/06.21.md",
+      "sha256": "c1ec5afa51c5b4725af099f419dda687d715a5a649ae96afddc79571e6422664",
+      "bytes": 4014
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/deskstate05.20/CONTRACT.md",
+      "sha256": "cb0bc04f0a702842696827b827ed1775812d3877eb758f82a3eb3407e519a347",
+      "bytes": 12139
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/deskstate05.20/REAL-USE.md",
+      "sha256": "6211268592f337a1bbe054ab234e28d43ae20f5ce9d5b1d301f0fbba8a45ec86",
+      "bytes": 7841
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/deskstate05.20/submission.md",
+      "sha256": "0a82958c1952e4963477a145c5a75bb42dbc650eb5f7402eafead1d0de6795ec",
+      "bytes": 3390
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/deskstate05.20/view.json",
+      "sha256": "e1a18c162c04015d208abbd7cacf4af971939a2b23e207b0e1e1f2f5f87d39cb",
+      "bytes": 108342
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/deskstate05.20/VIEW.md",
+      "sha256": "3b33219111a1da09c832b61a19716ea87f2818949d3407b50565313a306419e5",
+      "bytes": 5550
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/deskstate05.20/candidate.md",
+      "sha256": "4ec2f14a2027be18862c2235fe3ecc80a019b186afbd45507e08eeeecb22461f",
+      "bytes": 5063
+    },
+    {
+      "path": "labs/desk-state-pass01/desk_state.py",
+      "sha256": "4d924bf6549fe37b229962d4f3a81924109a879a8206ea95066f4bfde11701b4",
+      "bytes": 55144
+    },
+    {
+      "path": "labs/desk-state-pass01/tests/test_desk_state.py",
+      "sha256": "8409e9198aa87334e43b6fc42ff286da9893d93a7e420ec616564f96a5994db0",
+      "bytes": 42909
+    },
+    {
+      "path": "labs/desk-state-pass01/README.md",
+      "sha256": "93bcdc21f51232f5316d95436bcf1d8d6171ffa9e82508a7946f938c26f1cdf3",
+      "bytes": 1604
+    },
+    {
+      "path": "labs/return-capture-pass01/return_capture.py",
+      "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+      "bytes": 45767
+    },
+    {
+      "path": "labs/return-capture-pass01/return_inspect.py",
+      "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+      "bytes": 11402
+    },
+    {
+      "path": "labs/batch-observation-pass01/batch_observe.py",
+      "sha256": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4",
+      "bytes": 40516
+    },
+    {
+      "path": "labs/prime-brief-pass01/prime_brief.py",
+      "sha256": "302ed832d2fa955a591420f13d3b22ce91e4a7669c69a778d443fc82627580d7",
+      "bytes": 22747
+    },
+    {
+      "path": "labs/state-projection-pass01/state_projection.py",
+      "sha256": "b349da5cef5178296a069c354002a600ba4e168c2710aa5d87789724d4951ecb",
+      "bytes": 20338
+    },
+    {
+      "path": "00.kernel/00.live.md",
+      "sha256": "a69245972915b6e140b7528239216ff1a1bc97941cfb1a4de4868d88a541a30d",
+      "bytes": 1160
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0401.goal/06.01.md",
+      "sha256": "3578934451fc98e1dcfcc0030adebad27478787c4c2b6177f82268ae6826c38c",
+      "bytes": 545
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/deskstate05.19/CONTRACT.md",
+      "sha256": "fa9aec930ddafdc4f7920e5d257bb634edc7a9f239ef41dd477a839a72959f0a",
+      "bytes": 9214
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/deskstate05.19/desk.json",
+      "sha256": "18d44923dfc0995c2d9078ba6d2b36807a0c98fb19ff3840ee1386ddee4b8933",
+      "bytes": 10117
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/deskstate05.19/rehearsal.json",
+      "sha256": "add4732d618e206f5cda2d54ac669b0cd3b95fd58bbe7b94f2063918dade838f",
+      "bytes": 113221
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/deskstate05.19/00.live.candidate.md",
+      "sha256": "595fb5d45835a4073166bb52bb44f11e7f5185c33f9dbf5f34136d2c22b9a5ca",
+      "bytes": 3505
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/deskstate05.19/MIGRATION.md",
+      "sha256": "120dd41dd060d3de66fb20c5a44bcaefce1301b12309198e9c049df91255dd7e",
+      "bytes": 1737
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0508.return-capture/evidence/deskstate05.19/submission.md",
+      "sha256": "184b30c42a555eac29ee6f78c6b61c9ba94683d1e16cab999459a45d4102c5d9",
+      "bytes": 1566
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0412.prime-review/evidence/drift-audit-2026-10-29/DECISIONS.md",
+      "sha256": "91c6c7a8c1759d3f35c1455df8df3f137b1b6154e382d1742b6f7e3f52eee739",
+      "bytes": 671
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0169.desk-state-preservation-0520/reservation.json",
+      "sha256": "02905faacd50210fb3aa21fa28bf9b3c97049b1d87f3aa8a240a9715ae598f53",
+      "bytes": 1067
+    },
+    {
+      "path": "00.kernel/00.00.10.work/0169.desk-state-preservation-0520/01.md",
+      "sha256": "8f1fdaec3dc799c8c2181ca4a3682f46f0b84b84515caa43c6870d3cb9776c10",
+      "bytes": 339
+    }
+  ],
+  "receipt": null
+}
