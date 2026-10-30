@@ -1,0 +1,24 @@
+{
+  "schema": "prime-cycle-review-probes/1",
+  "label": "Synthetic disposable probes, not model output",
+  "artifact_rows_verified": 16,
+  "probes": [
+    {
+      "probe": "source changes after a completed review",
+      "pass_state": "review-stale",
+      "goal_terminal": "completed",
+      "pass_terminal": "finished",
+      "attention": [
+        "review-stale: the latest review binds a different page or receipt; re-review required"
+      ],
+      "retained_fixture": "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-probe-7_tglktp"
+    },
+    {
+      "probe": "agreement scope changes after read before record",
+      "record_exit": 0,
+      "stdout": "recorded C:\\Users\\misg\\AppData\\Local\\Temp\\prime-grant-probe-8ooja7mf\\repo\\00.kernel\\00.00.10.work\\0599.cycle-a\\evidence\\prime-cycle-reviews\\05.01\\05.01-r1\nprime_review effective continue\n",
+      "stderr": "",
+      "retained_fixture": "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-grant-probe-8ooja7mf"
+    }
+  ]
+}

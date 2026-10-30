@@ -1,0 +1,253 @@
+{
+ "schema": "prime-cycle-verification/1",
+ "batch": "0515.prime-cycle/05.01",
+ "branch": "workshop",
+ "head": "47314d7b4ac2263d1b7235a9d1101ac8be1bd51f",
+ "pins": {
+  "batch_observe": {
+   "path": "batch-observation-pass01/batch_observe.py",
+   "pinned": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4",
+   "actual": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4",
+   "match": true,
+   "clean_vs_HEAD": true
+  },
+  "return_inspect": {
+   "path": "return-capture-pass01/return_inspect.py",
+   "pinned": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+   "actual": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+   "match": true,
+   "clean_vs_HEAD": true
+  },
+  "return_capture": {
+   "path": "return-capture-pass01/return_capture.py",
+   "pinned": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+   "actual": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+   "match": true,
+   "clean_vs_HEAD": true
+  },
+  "prime_review": {
+   "path": "prime-review-pass01/prime_review.py",
+   "pinned": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+   "actual": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+   "match": true,
+   "clean_vs_HEAD": true
+  },
+  "review_packet": {
+   "path": "review-packet-pass01/review_packet.py",
+   "pinned": "f658cbe48a3a76b908e5af0bcf0b7a68abc90571d983ca785e36667268f6ee72",
+   "actual": "f658cbe48a3a76b908e5af0bcf0b7a68abc90571d983ca785e36667268f6ee72",
+   "match": true,
+   "clean_vs_HEAD": true
+  }
+ },
+ "runs": [
+  {
+   "id": "run1",
+   "argv": "python -B -X dev labs/prime-cycle-pass01/tests/test_prime_cycle.py -v",
+   "exit": 1,
+   "result": "FAILED (failures=2) of 14",
+   "first_failures": [
+    "test_05: expected 'expected_prior' refusal, got 'binding fingerprint does not match' (check order); fixed by moving the expected_prior check before the fingerprint check",
+    "test_07: torn COMMITTED.json phase is partial-marker-mismatch, test expected partial-no-marker; test expectation corrected (the tool was right)"
+   ],
+   "log": "run1-dev.txt",
+   "log_sha256": "00063aadff0ff406752eb505c780c34dc8ef835931748b36a93a3216ab1cf86d",
+   "tail": [
+    "Ran 14 tests in 192.796s",
+    "",
+    "FAILED (failures=2)"
+   ]
+  },
+  {
+   "id": "run2",
+   "argv": "python -B -X dev labs/prime-cycle-pass01/tests/test_prime_cycle.py -v TestChanges TestInterruption",
+   "exit": 0,
+   "result": "OK, 3 tests",
+   "log": "run2-dev-two.txt",
+   "log_sha256": "4a88bf90ce7a2530cad96c4771339057e5f90ea08940b1c5e188207987467efc",
+   "tail": [
+    "Ran 3 tests in 66.439s",
+    "",
+    "OK"
+   ]
+  },
+  {
+   "id": "run3",
+   "argv": "python -B -X dev labs/prime-cycle-pass01/tests/test_prime_cycle.py -v",
+   "exit": 0,
+   "result": "OK, 14 tests",
+   "log": "run3-dev.txt",
+   "log_sha256": "2eff9e8f30d9e2814b061186b879753cd5ccdb6e0f6a8101959c123011316f77",
+   "tail": [
+    "Ran 14 tests in 207.193s",
+    "",
+    "OK"
+   ]
+  },
+  {
+   "id": "run4",
+   "argv": "python -B labs/prime-cycle-pass01/tests/test_prime_cycle.py -v",
+   "exit": 0,
+   "result": "OK, 14 tests (default mode)",
+   "log": "run4-default.txt",
+   "log_sha256": "3aadd3e5f2ffd6870b904665a8806d105863a3b7c388f9730140a796b08def3b",
+   "tail": [
+    "Ran 14 tests in 193.451s",
+    "",
+    "OK"
+   ]
+  },
+  {
+   "id": "run5",
+   "argv": "python -B -X dev <disposable copy of labs>/prime-cycle-pass01/tests/test_prime_cycle.py",
+   "exit": 0,
+   "result": "OK, 14 tests (disposable copy)",
+   "log": "run5-copy-dev.txt",
+   "log_sha256": "31960f0a6e253e88027d304a64bd0f65cda7d786520c04bfa6adbdd48e2fb49e",
+   "tail": [
+    "Ran 14 tests in 219.522s",
+    "",
+    "OK"
+   ]
+  },
+  {
+   "id": "run6",
+   "argv": "python -B -X dev labs/prime-cycle-pass01/tests/test_prime_cycle.py -v",
+   "exit": 0,
+   "result": "OK, 14 tests, on the final bytes",
+   "final_hashes": [
+    "2124bcde4ea08c8148987416c7b84113860fde7b95382f94bb4377e6bc044a06 *labs/prime-cycle-pass01/prime_cycle.py",
+    "6b51dfbdd7744889906fae5d2367f44ac5e7e478c3ba54b12dde1661aa46468d *labs/prime-cycle-pass01/tests/fixture.py",
+    "d1e6f45ca690b28ed6178daa0f64650b3f38e70784d12135c6d9797df9838d13 *labs/prime-cycle-pass01/tests/test_prime_cycle.py",
+    ""
+   ],
+   "log": "run6-final-dev.txt",
+   "log_sha256": "1a3497ff52695216e020439a75404ac769145db78b773b96424feaa8be718175",
+   "tail": [
+    "",
+    "OK",
+    "exit 0"
+   ]
+  },
+  {
+   "id": "demo",
+   "argv": "python -B labs/prime-cycle-pass01/demo.py --transcript <scratch>/demo-transcript.json",
+   "exit": 0,
+   "step_exits": [
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    1
+   ],
+   "log": "demo-dev.txt",
+   "log_sha256": "99e10491932cb43ed81ccbdb670921b75a44ffaa27149c33ffbdc66a6de70caa",
+   "tail": [
+    "  latest review: 05.01-r2 by Codex Prime (SUPPLIED FIXTURE) outcome complete (prime_review effective complete-as-supplied)",
+    "",
+    "authority none; this tool records supplied judgment and derives a view; it authenticates no actor and grants no work"
+   ]
+  },
+  {
+   "id": "preview",
+   "argv": "python -B <scratch>/preview.py (read-only, published commit 4d8bc1c, external temp root)",
+   "exit": 0,
+   "reads_exits": [
+    1,
+    1,
+    1
+   ],
+   "repository_written": false
+  },
+  {
+   "id": "mutations",
+   "argv": "python -B <scratch>/mutate.py (disposable copies; five mutations)",
+   "exit": 0,
+   "log": "mutations.txt",
+   "log_sha256": "cb9b58c9957c406b577012d7eeeedc59cbf984667a36c950fe8d7c8d1fd5a9a3",
+   "tail": [
+    "completion-rule-dropped [TestStates]: exit 1; failing ['test_03b_completion_rules_refuse_contradictions']",
+    "binding-refreshed-silently [TestChanges]: exit 1; failing ['test_05_source_receipt_origin_and_prior_changes_refuse']",
+    "holds-not-checked [TestHolds]: exit 1; failing ['test_04_director_hold_blocks_only_affected_and_keeps_exact_reply']"
+   ],
+   "results": [
+    "goal-identity-ignored [TestStates]: exit 1; failing ['test_03_explicit_goal_completion_survives_a_new_process_and_not_a_new_goal']",
+    "partial-counts-as-committed [TestInterruption]: exit 1; failing ['test_07_partial_writes_never_read_as_finished_and_recover_explicitly']",
+    "completion-rule-dropped [TestStates]: exit 1; failing ['test_03b_completion_rules_refuse_contradictions']",
+    "binding-refreshed-silently [TestChanges]: exit 1; failing ['test_05_source_receipt_origin_and_prior_changes_refuse']",
+    "holds-not-checked [TestHolds]: exit 1; failing ['test_04_director_hold_blocks_only_affected_and_keeps_exact_reply']"
+   ],
+   "all_killed": true
+  },
+  {
+   "id": "colab-selftest",
+   "argv": "python -B -X dev labs/prime-cycle-pass01/colab/selftest.py",
+   "exit": 0,
+   "log": "colab-selftest1.txt",
+   "log_sha256": "0e668289a2b110418de41b533feeed74a0b742710d19c1d1935bbc350e9d5ee8",
+   "tail": [
+    " }",
+    "}",
+    "exit 0"
+   ]
+  },
+  {
+   "id": "sample",
+   "argv": "python -B <scratch>/sample.py <scratch> evidence/build05.01/sample-cycle.json",
+   "exit": 0
+  }
+ ],
+ "skips": [],
+ "protected_status": {
+  "00.kernel/00.live.md": {
+   "exists": true,
+   "status": ""
+  },
+  "00.kernel/00.00.10.work/0401.goal": {
+   "exists": true,
+   "status": ""
+  },
+  "00.kernel/00.00.10.work/0508.return-capture": {
+   "exists": true,
+   "status": ""
+  },
+  "00.kernel/00.00.10.work/0169.desk-state-preservation-0520": {
+   "exists": true,
+   "status": ""
+  },
+  "labs/batch-observation-pass01": {
+   "exists": true,
+   "status": ""
+  },
+  "labs/return-capture-pass01": {
+   "exists": true,
+   "status": ""
+  },
+  "labs/prime-review-pass01": {
+   "exists": true,
+   "status": ""
+  },
+  "labs/review-packet-pass01": {
+   "exists": true,
+   "status": ""
+  },
+  "labs/prime-support-pass01": {
+   "exists": true,
+   "status": ""
+  },
+  "labs/desk-state-pass01": {
+   "exists": true,
+   "status": "?? labs/desk-state-pass01/__pycache__/\n?? labs/desk-state-pass01/tests/__pycache__/"
+  }
+ },
+ "protected_note": "labs/desk-state-pass01 shows __pycache__ dated 2026-10-29, before this batch; not written by this build and left alone",
+ "staged": [],
+ "manual_duties": [
+  "Prime: review the build; supply goal, agreement and judgment for any real use (PRIME-USE)",
+  "Prime or Director: decide the live review location before the first real record",
+  "Director: any later Colab launch, N7NN allocation and its return reservation"
+ ],
+ "label": "Synthetic checks: not a model benchmark, not a live dispatcher, not a fresh-Prime boot"
+}
