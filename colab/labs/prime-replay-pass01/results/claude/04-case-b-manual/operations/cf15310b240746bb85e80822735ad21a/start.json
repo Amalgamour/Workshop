@@ -1,0 +1,11 @@
+{
+  "started_utc": "2026-10-30T19:09:16.557027+00:00",
+  "argv": [
+    "python",
+    "-B",
+    "-c",
+    "\nimport json,hashlib,collections\nfrom pathlib import Path\nm=Path('00.kernel/00.00.10.work/0167.review-packet-0501'); man=json.loads((m/'manifest.json').read_bytes())\nprint('reservation ok', hashlib.sha256((m/'reservation.json').read_bytes()).hexdigest()==man['reservation_sha256'], 'omitted', man['omitted'], 'retro', man['retrospective'])\nprint([( (m/'payload'/s['payload']).read_bytes()==Path(s['logical']).read_bytes() and hashlib.sha256(Path(s['logical']).read_bytes()).hexdigest()==s['sha256'], s['logical'].split('/')[-1]) for s in man['sources']])\nrt=(m/'return.md').read_bytes(); print('return sha ok', hashlib.sha256(rt).hexdigest()==man['return']['sha256'], 'submission==return', Path('00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/submission.md').read_bytes()==rt)\nE=Path('00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01')\nfor s in ('specimen-0163','specimen-0164'):\n  pk=json.loads((E/s/'packet.json').read_text(encoding='utf-8'))\n  for a in pk['artifact_checks']:\n    print(s, a.get('source'), a.get('observed_schema'), a.get('result'), dict(collections.Counter(r.get('classification') for r in a.get('rows',[]))))\n  print(s, 'custody', pk['custody'].get('status') if isinstance(pk['custody'],dict) else pk['custody'], 'acceptance', pk['acceptance'], 'unverified', [u.get('id') if isinstance(u,dict) else u for u in pk['unverified']])\n  mm=json.loads((E/s/'manifest.json').read_text(encoding='utf-8'))\n  print(s,'manifest binds', sum(hashlib.sha256((E/s/f['path']).read_bytes()).hexdigest()==f['sha256'] for f in mm['files'] if (E/s/f['path']).is_file()), 'of', len(mm['files']), '(files kept in specimen:', sorted(p.name for p in (E/s).iterdir()),')')\n"
+  ],
+  "cwd": "D:\\Git\\lib-build\\colab\\labs\\prime-replay-pass01\\runs\\claude\\04-case-b-manual\\repository",
+  "coverage": "This wrapped subprocess and captured stdout/stderr only; tool-reader calls and model thinking are not observed."
+}

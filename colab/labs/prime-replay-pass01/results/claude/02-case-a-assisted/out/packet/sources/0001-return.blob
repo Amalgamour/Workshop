@@ -1,0 +1,61 @@
+# Return — claude-0513-0501 (0513.bench-build 05.01.002, bounded Prime benchmark harness)
+
+Submitter: claude-opus-5-5 (Anthropic), executor. Reviewer: Codex Prime. Date: 2026-10-29. Claim at 32da8205d405d6008b8542cea3c8546f0d95d7df; HEAD at return 80f7025425d7bb3fdcf3b0ee56057cd6d8b6b9fe (see Limits).
+
+## Did
+- **Pack and claim.** pack05.01.002: 10 of 10 snapshots match their pins, and live equals all 10. I recorded the Director's release and my claim. Notes (06.01.md) came FIRST, then CONTRACT.md, then code.
+- **Harness.** `labs/prime-bench-pass01/prime_bench.py`, standard library. Commands: `validate`, `manifest`, `prepare`, `collect`, `event`, `assess`, `review`, `compare` and `export`.
+  - No model call, session launch, credentials, network, Git or live-page write.
+- **Bench.** `bench.json` seals 59 case files, `conditions.json` and 5 support pins; the bench version is f00c6f29….
+  - There are 8 SYNTHETIC cases: four families (correction, false-completion, design-fork, complete), each in matched variants a and b.
+  - Each case records its rule provenance (the 0414 method; the 0512 review contract) and its realistic ambiguity.
+  - The decisive evidence is always in plain candidate files, so the baseline is not a straw man.
+- **Separation.**
+  - Candidate payload: `candidate/`. Fixed evaluator key and rubric: `evaluator/`. Coordinator-only metadata: `coordinator/`.
+  - `prepare` writes a fresh run folder and a separate fresh candidate folder, outside the repository.
+  - The candidate gets no case id, family, key or canary, and `prepare` refuses if any appears.
+  - Task and sources are byte-identical across conditions; PROMPT.md differs only in its Tools paragraph.
+  - Assisted adds a copied, re-pinned prime_review.py (805995a1…) with its README and CONTRACT. It ran from inside a kit: exit 0, `continue`.
+- **Integrity.** Key, rubric and task are pinned at prepare, so a changed rubric or key refuses (`rubric-changed`, `key-changed`).
+  - Wrong identity, a mismatched condition, a response naming another run, duplicate runs, mixed bench versions and mixed investigations all refuse.
+  - A second collect or review is a read-only refusal: `already-collected` or `already-reviewed` when identical, `conflict` when different.
+  - Writes are exclusive. A failed write is `partial`: retained, listed, never deleted or resumed.
+- **Collection and counting.**
+  - Raw bytes are kept exactly. Missing usage, times and tool events are `unavailable`, never 0.
+  - Corrections and interventions are separate append-only events.
+  - Unclean, failed and abandoned runs stay in the report, with reasons.
+  - Deterministic checks are labelled string checks. Semantic scores come only from a supplied reviewer record.
+  - No ratio, saving, ranking or pass score is computed.
+- **Colab adapter.** `export` writes the comparison, which binds every run record by sha256, plus the run records, the exact investigation file, a `05.NN.return.TEMPLATE.md` and `CAPTURE.txt` with the N1NN capture and verify commands. It does not run capture.
+- **Tests.** `python -B -X dev labs/prime-bench-pass01/tests/test_prime_bench.py -v`: 32 tests, 0 failures, 0 skips.
+  - Coverage: all four families in both conditions with SYNTHETIC answers, wrong answers, exact quotes, missing usage, contaminated or shared sessions, undeclared isolation, a changed rubric or key, wrong identity, duplicates and conflicts, failed and abandoned runs, evaluator leakage (planted in sources, and in a response), unsafe paths (repository, relative, UNC, `..`, junction ancestor, hard link, inside the run folder, oversize), partial writes, strict JSON and export.
+  - Dependency pins are asserted before and after.
+  - Three mutation probes were each caught.
+- **End-to-end CLI use** on SYNTHETIC fixtures outside the repository: 16 runs, 56 calls, every exit as expected. That output is `sample-report.md`; wrong answers are balanced across the conditions.
+- **Docs.** RUN-GUIDE.md covers what the Director decides, the exact coordinator steps, and where the return lands. Notes dispositions are recorded.
+
+## Blocked
+Nothing.
+
+## Need
+- Prime's review of the harness and RUN-GUIDE.
+- **Smallest next action:** reconcile this build with `0414.bench/01.002.md` and the 0701.bench-method review. Both landed in 80f7025 after my claim; I did not read them, as Grok's method work was not an input to this batch. Then the Director picks models, effort, run count and a session surface that can start fresh, confined sessions.
+- A reserved member for the coordinator's eventual return, with expected outputs `comparison.md`, `comparison.json` and `investigation.json`.
+
+## Limits
+- Isolation and confinement are coordinator declarations. The harness cannot observe a session, so a confined surface is a Director choice, not something this code proves.
+- Eight synthetic cases demonstrate the instrument only. They show no model performance, no productivity multiple and nothing about a fresh Prime.
+- **Not run:** any model or session; AR-01 inventory and bridge fixtures; the broad app suite; any capture of a coordinator return.
+- **HEAD moved during the build** (80f7025). It changed none of this batch's pinned inputs, dependencies or outputs.
+- No sandbox is claimed against a same-user race between a check and a write.
+
+## Declared outputs (sha256, bytes)
+- 00.kernel/00.00.10.work/0513.bench-build/06.01.md: 537480d4c5d8035014d5c68df46b604bdf83348a9a1579af37295307240bbbb3, 10070
+- 00.kernel/00.00.10.work/0513.bench-build/evidence/build05.01/CONTRACT.md: 68add992c3b3769e6f89286f358138970302d0361884421cf5378d3afc434b3e, 10806
+- 00.kernel/00.00.10.work/0513.bench-build/evidence/build05.01/verification.json: d9c2fd4e9a700d13aede26976d4f8ae4a11a9fed50e21564f3a40608ada895d6, 130259
+- 00.kernel/00.00.10.work/0513.bench-build/evidence/build05.01/RUN-GUIDE.md: 26235db45d4cf00fdfcef6be8e80523ab532e601676c6078a2ce09cf2d4c4627, 4732
+- 00.kernel/00.00.10.work/0513.bench-build/evidence/build05.01/artifact-manifest.json: da06ab6cfdee15497c1d19394fb9e22433e5c1db6623a3fd8462d20749274634, 14030
+- 00.kernel/00.00.10.work/0513.bench-build/evidence/build05.01/sample-report.md: dcd33eb45b8c2397b9dd2577e636992b2c980a30c669281ed5acca72eb2f0d78, 6028
+- labs/prime-bench-pass01/prime_bench.py (not captured; bound in artifact-manifest.json): 258727eef76693583ab0b88813c1b5afbded0009561f43c9bb61797b9d4dd650, 68800
+- labs/prime-bench-pass01/tests/test_prime_bench.py (not captured): 5c125c3b4cc8ff5a72838fd83f0f7d88e55903f34b558f5deece187d4ca09ec9, 42700
+- labs/prime-bench-pass01/bench.json (not captured): f00c6f29f35edd27465b2bbf5e4023323d8f028c4c6d8291ef1fe85db39fe9d1

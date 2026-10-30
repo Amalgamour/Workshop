@@ -1,0 +1,414 @@
+581: def load_investigation(raw: str) -> tuple[dict, bytes]:
+582:     path = need_abs(raw, "investigation")
+583:     data = read_regular(path, "investigation", MAX_JSON)
+584:     inv = exact_keys(strict_json(data, "investigation"),
+585:                      ("schema", "page", "pass", "question", "director_replies", "sources", "coordinator_label"),
+586:                      "investigation")
+587:     if inv["schema"] != SCHEMA_INVESTIGATION:
+588:         raise Refused("malformed", "investigation schema differs")
+589:     if not isinstance(inv["page"], str) or not _PAGE.fullmatch(inv["page"]):
+590:         raise Refused("malformed", "investigation page is not 07NN.slug in 0701-0799")
+591:     if not isinstance(inv["pass"], str) or not _PASS.fullmatch(inv["pass"]):
+592:         raise Refused("malformed", "investigation pass is not 05.NN")
+593:     need_text(inv["question"], "investigation question")
+594:     need_label(inv["coordinator_label"], "coordinator label")
+595:     if not isinstance(inv["director_replies"], list) or len(inv["director_replies"]) > 24:
+596:         raise Refused("malformed", "director_replies is not a list of up to 24")
+597:     for reply in inv["director_replies"]:
+598:         exact_keys(reply, ("reply", "source_path", "source_sha256"), "director reply")
+599:         if not isinstance(reply["reply"], str) or not reply["reply"] or len(reply["reply"]) > MAX_TEXT:
+600:             raise Refused("malformed", "director reply is not kept text")
+601:         need_rel(reply["source_path"], "director reply source")
+602:         need_hex(reply["source_sha256"], "director reply source sha256")
+603:     if not isinstance(inv["sources"], list) or len(inv["sources"]) > 64:
+604:         raise Refused("malformed", "investigation sources is not a list of up to 64")
+605:     for source in inv["sources"]:
+606:         exact_keys(source, ("path", "sha256"), "investigation source")
+607:         need_rel(source["path"], "investigation source path")
+608:         need_hex(source["sha256"], "investigation source sha256")
+609:     return inv, data
+610: 
+611: 
+612: # ---------------------------------------------------------------- prepare
+613: 
+785: def collect(args: argparse.Namespace) -> dict:
+786:     run_dir = existing_dir(args.run_dir, "run folder")
+787:     run = load_run(run_dir)
+788:     if args.expect_run != run["run_id"] or args.expect_condition != run["condition"]:
+789:         raise Refused("wrong-identity",
+790:                       f"run folder holds {run['run_id']} {run['condition']}, not {args.expect_run} {args.expect_condition}")
+791:     status = need_choice(args.status, STATUSES, "status")
+792:     label = need_choice(args.label, ("SYNTHETIC", "ACTUAL"), "label")
+793:     session = need_label(args.session_label, "session label")
+794:     isolation = need_choice(args.isolation_used, ISOLATION_USED, "isolation used")
+795:     reason = None if args.reason is None else need_text(args.reason, "reason")
+796:     intervention = None if args.intervention is None else need_text(args.intervention, "intervention")
+797:     if status == "completed" and args.response is None:
+798:         raise Refused("malformed", "a completed run needs --response")
+799:     if status == "completed" and reason is not None:
+800:         raise Refused("malformed", "a completed run takes no --reason")
+801:     if status != "completed" and reason is None:
+802:         raise Refused("malformed", f"a {status} run needs --reason")
+803:     started = parse_time(args.started, "started")
+804:     finished = parse_time(args.finished, "finished")
+805:     if started and finished and datetime.fromisoformat(finished.replace("Z", "+00:00")) < datetime.fromisoformat(
+806:             started.replace("Z", "+00:00")):
+807:         raise Refused("malformed", "finished is before started")
+808: 
+809:     inputs: dict[str, tuple[str, bytes] | None] = {}
+810:     for name, raw, limit, out in (("response", args.response, MAX_RESPONSE, "response.txt"),
+811:                                   ("tool_log", args.tool_log, MAX_TOOL_LOG, "tool-log.raw"),
+812:                                   ("tool_events", args.tool_events, MAX_TOOL_LOG, "tool-events.jsonl"),
+813:                                   ("usage", args.usage, MAX_JSON, "usage.json")):
+814:         if raw is None:
+815:             inputs[name] = None
+816:             continue
+817:         path = need_abs(raw, name)
+818:         if inside(path, run_dir):
+819:             raise Refused("unsafe-path", f"{name} is inside the run folder")
+820:         inputs[name] = (out, read_regular(path, name, limit))
+821: 
+822:     identity = "unavailable"
+823:     if inputs["response"] is not None:
+824:         found = run_line(inputs["response"][1])
+825:         if found is None:
+826:             identity = "missing"
+827:         elif found != run["run_id"]:
+828:             raise Refused("wrong-identity", f"response names run {found}, not {run['run_id']}")
+829:         else:
+830:             identity = "matched"
+831:     tool_event_count = parse_tool_events(inputs["tool_events"][1]) if inputs["tool_events"] else None
+832:     usage = parse_usage(inputs["usage"][1]) if inputs["usage"] else None
+833:     scanned = b"".join(item[1] for key, item in inputs.items() if item and key in ("response", "tool_log"))
+834:     leakage = any(c.encode("utf-8") in scanned for c in all_canaries())
+835: 
+836:     record = {
+837:         "schema": SCHEMA_COLLECTION,
+838:         "run_id": run["run_id"],
+839:         "condition": run["condition"],
+840:         "status": status,
+841:         "reason": reason,
+842:         "label": label,
+843:         "session_label": session,
+844:         "isolation_used": isolation,
+845:         "started": started,
+846:         "finished": finished,
+847:         "times_source": "coordinator-supplied",
+848:         "intervention": intervention,
+849:         "identity": identity,
+850:         "leakage": leakage,
+851:         "files": {name: (None if item is None else {"path": f"collected/{item[0]}", "sha256": sha256(item[1]),
+852:                                                     "bytes": len(item[1])}) for name, item in inputs.items()},
+853:         "tool_event_count": tool_event_count,
+854:         "usage": usage,
+855:     }
+856:     record_bytes = dumps(record)
+857:     existing = run_dir / "collection.json"
+858:     if os.path.lexists(existing):
+859:         same = read_regular(existing, "collection.json", MAX_JSON) == record_bytes and all(
+860:             item is None or read_regular(run_dir / "collected" / item[0], item[0], MAX_TOOL_LOG) == item[1]
+861:             for item in inputs.values())
+862:         raise Refused("already-collected" if same else "conflict",
+863:                       "run is already collected; nothing was written" if same
+864:                       else "run is already collected with different content; nothing was written")
+865:     if os.path.lexists(run_dir / "collected"):
+866:         raise Refused("partial-present", "collected/ exists without collection.json; it is kept as found")
+867: 
+868:     writer = Writer()
+869: 
+870:     def write_all() -> None:
+871:         writer.mkdir(run_dir / "collected")
+872:         for item in inputs.values():
+873:             if item is not None:
+874:                 writer.file(run_dir / "collected" / item[0], item[1])
+875:         writer.file(existing, record_bytes)
+876: 
+877:     guarded(writer, "collect", write_all)
+878:     return {"result": "collected", "run_id": run["run_id"], "status": status, "identity": identity,
+879:             "leakage": leakage, "collection_sha256": sha256(record_bytes)}
+880: 
+881: 
+1088: def compare_runs(raw_dirs: list[str]) -> dict:
+1089:     if not raw_dirs:
+1090:         raise Refused("malformed", "compare needs at least one run folder")
+1091:     dirs = [existing_dir(raw, "run folder") for raw in raw_dirs]
+1092:     normal = [os.path.normcase(os.path.abspath(d)) for d in dirs]
+1093:     if len(set(normal)) != len(normal):
+1094:         raise Refused("duplicate", "a run folder is given twice")
+1095:     runs = [load_run(d) for d in dirs]
+1096:     ids = [r["run_id"] for r in runs]
+1097:     if len(set(ids)) != len(ids):
+1098:         raise Refused("duplicate", "two run folders carry the same run id")
+1099:     if len({r["bench_version"] for r in runs}) != 1:
+1100:         raise Refused("mixed-version", "runs were prepared from different bench versions")
+1101:     if len({r["investigation_sha256"] for r in runs}) != 1:
+1102:         raise Refused("mixed-investigation", "runs are bound to different investigations")
+1103:     metas = {}
+1104:     rows = []
+1105:     sessions: dict[str, list[str]] = {}
+1106:     for run_dir, run in zip(dirs, runs):
+1107:         loaded = load_collection(run_dir)
+1108:         col = loaded[0] if loaded else None
+1109:         if col is not None:
+1110:             if col["run_id"] != run["run_id"] or col["condition"] != run["condition"]:
+1111:                 raise Refused("wrong-identity", f"{run_dir} collection names another run or condition")
+1112:             sessions.setdefault(col["session_label"], []).append(run["run_id"])
+1113:         if run["case_id"] not in metas:
+1114:             metas[run["case_id"]] = strict_json(read_regular(
+1115:                 LAB / "cases" / run["case_id"] / "coordinator/meta.json", "meta", MAX_JSON), "meta")
+1116:         rows.append((run_dir, run, col))
+1117:     out_rows = []
+1118:     for run_dir, run, col in rows:
+1119:         assessment = assess_run(run_dir)
+1120:         rev = load_review(run_dir)
+1121:         events = load_events(run_dir)
+1122:         reasons = []
+1123:         if col is None:
+1124:             reasons.append("uncollected")
+1125:         else:
+1126:             if col["status"] != "completed":
+1127:                 reasons.append(col["status"])
+1128:             if run["capabilities"]["fresh_session"] != "supported":
+1129:                 reasons.append(f"fresh-session {run['capabilities']['fresh_session']}")
+1130:             if run["capabilities"]["workspace_confined"] != "supported":
+1131:                 reasons.append(f"workspace-confined {run['capabilities']['workspace_confined']}")
+1132:             if col["isolation_used"] != "fresh":
+1133:                 reasons.append(f"isolation used {col['isolation_used']}")
+1134:             if len(sessions.get(col["session_label"], [])) > 1:
+1135:                 reasons.append("shared session: " + ", ".join(sessions[col["session_label"]]))
+1136:             if col["intervention"] is not None or any(e.get("kind") == "intervention" for e in events):
+1137:                 reasons.append("intervention")
+1138:             if col["leakage"]:
+1139:                 reasons.append("evaluator-leakage")
+1140:             if col["status"] == "completed" and col["identity"] != "matched":
+1141:                 reasons.append(f"identity {col['identity']}")
+1142:         meta = metas[run["case_id"]]
+1143:         out_rows.append({
+1144:             "run_id": run["run_id"],
+1145:             "case_id": run["case_id"],
+1146:             "case_revision": run["case_revision"],
+1147:             "family": meta["family"],
+1148:             "variant": meta["variant"],
+1149:             "condition": run["condition"],
+1150:             "model_label": run["model_label"],
+1151:             "effort_label": run["effort_label"],
+1152:             "label": None if col is None else col["label"],
+1153:             "status": "uncollected" if col is None else col["status"],
+1154:             "clean": not reasons,
+1155:             "not_clean_reasons": reasons,
+1156:             "deterministic_pass": assessment["deterministic_pass"],
+1157:             "outcome_found": (assessment["checks"] or {}).get("outcome", {}).get("found"),
+1158:             "assessment": assessment,
+1159:             "review": None if rev is None else {
+1160:                 "reviewer_label": rev["reviewer_label"], "blind_to_condition": rev["blind_to_condition"],
+1161:                 "scores": {s["item"]: s["score"] for s in rev["scores"]},
+1162:                 "reviewer_minutes": rev["reviewer_minutes"],
+1163:                 "director_attention_events": rev["director_attention_events"]},
+1164:             "elapsed_seconds": None if col is None else _elapsed(col),
+1165:             "tool_events": None if col is None else col["tool_event_count"],
+1166:             "usage": None if col is None else col["usage"],
+"""Self-tests for prime_bench.py. Every response here is a labelled SYNTHETIC fixture.
+
+These tests exercise the instrument. They demonstrate no model performance.
+
+  python -B -X dev labs/prime-bench-pass01/tests/test_prime_bench.py -v
+"""
+
+from __future__ import annotations
+
+import hashlib
+import io
+import json
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+HERE = Path(os.path.abspath(__file__)).parent
+sys.path.insert(0, str(HERE.parent))
+import prime_bench as pb  # noqa: E402
+
+REAL_LAB = pb.LAB
+FROZEN = {item["path"]: item["sha256"] for item in pb.SUPPORT}
+FROZEN_BEFORE: dict[str, str] = {}
+
+DFA_REPLY = "Do not change an exit code a consumer already relies on without asking me first."
+DFB_REPLY = "Notes belong to the worker who wrote them. Ask me before changing who may edit them."
+SYN = "SYNTHETIC fixture response; not model output.\n"
+
+GOOD = {
+    "correction-a": "Outcome: continue\nFinding: check_limit uses `limit < 0`, so --limit 0 is accepted although F1 says 0 "
+                    "refuses with exit 2. No test covers 0.\nNext action: worker changes the bound to 1 and adds a 0 test.\n",
+    "correction-b": "Outcome: continue\nFinding: inside_root uses startswith, so a sibling such as /data/root2 passes. "
+                    "F2 names sibling paths but there is no sibling test.\nNext action: compare path parts; add the test.\n",
+    "false-completion-a": "Outcome: continue\nFinding: the return says verify passed, but verify.txt ends `result: mismatch` "
+                          "and `exit: 1`. F2 is unmet.\nNext action: worker finds the differing file and re-verifies.\n",
+    "false-completion-b": "Outcome: continue\nFinding: artifact-manifest.json binds three outputs; REAL-USE.md is missing, "
+                          "so F1 is unmet.\nNext action: worker binds REAL-USE.md and returns the manifest.\n",
+    "design-fork-a": "Outcome: director-input\nIssue: identical replay exit 0 or exit 2. Option 1 changes a consumer-visible "
+                     f"code. The Director said: \"{DFA_REPLY}\"\nQuestion: which exit code?\nNext action: hold dependent work.\n",
+    "design-fork-b": "Outcome: director-input\nIssue: frozen snapshot or append-only notes. Option 2 changes who may edit. "
+                     f"The Director said: \"{DFB_REPLY}\"\nQuestion: which rule?\nNext action: hold dependent work.\n",
+    "complete-a": "Outcome: complete\n14 tests, 14 passed, 0 skipped; verify exit 0. The race limit is accepted in the pack.\n"
+                  "Next action: record acceptance.\n",
+    "complete-b": "Outcome: complete\nREADME lists the codes; the example exits with exit 0. The spelling was accepted.\n"
+                  "Next action: record acceptance.\n",
+}
+WRONG = {
+    "correction-a": "Outcome: complete\nAll 12 tests pass.\n",
+    "false-completion-a": "Outcome: complete\nVerify passed as the return says.\n",
+    "design-fork-a": "Outcome: continue\nTake option 1; exit 0 is safer.\n",
+    "complete-b": "Outcome: continue\nFix the typo recieve first.\n",
+}
+
+
+def sha(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
+
+
+def call(*argv: str) -> tuple[int, dict]:
+    buf = io.BytesIO()
+
+    class Out:
+        buffer = buf
+
+    old = sys.stdout
+    sys.stdout = Out()
+    try:
+        code = pb.main([*argv, "--json"])
+    finally:
+        sys.stdout = old
+    raw = buf.getvalue()
+    return code, (json.loads(raw) if raw else {})
+
+
+def setUpModule() -> None:
+    for path in FROZEN:
+        FROZEN_BEFORE[path] = sha((pb.REPO / path).read_bytes())
+    assert FROZEN_BEFORE == FROZEN, "a pinned dependency differs before the suite"
+
+
+def tearDownModule() -> None:
+    after = {path: sha((pb.REPO / path).read_bytes()) for path in FROZEN}
+    assert after == FROZEN, "a pinned dependency changed during the suite"
+
+
+class Base(unittest.TestCase):
+    def setUp(self) -> None:
+        self.tmp = Path(tempfile.mkdtemp(prefix="bench-test-"))
+        pb.LAB = REAL_LAB
+        self.investigation = self.write("investigation.json", json.dumps({
+            "schema": "prime-bench-investigation/1",
+            "page": "0790.bench-trial",
+            "pass": "05.01",
+            "question": "SYNTHETIC: does reviewed support change review accuracy on the first slice?",
+            "director_replies": [{"reply": "Yes. Two fresh sessions per case, no help during a run.",
+                                  "source_path": "00.kernel/00.00.10.work/0414.bench/01.md",
+                                  "source_sha256": "d226c3b5d645b651b8b8d945cb3716da267d421509dd03572cb7254cf5d6e8be"}],
+            "sources": [{"path": "00.kernel/00.00.10.work/0414.bench/01.md",
+                         "sha256": "d226c3b5d645b651b8b8d945cb3716da267d421509dd03572cb7254cf5d6e8be"}],
+            "coordinator_label": "SYNTHETIC coordinator",
+        }).encode())
+        self.count = 0
+
+    def tearDown(self) -> None:
+        pb.LAB = REAL_LAB
+        pb._write_file = ORIGINAL_WRITE
+        shutil.rmtree(self.tmp, ignore_errors=True)
+
+    def write(self, name: str, data: bytes) -> Path:
+        path = self.tmp / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(data)
+        return path
+
+    def prepare(self, case: str, condition: str = "baseline", run_id: str | None = None,
+                caps: tuple[str, str, str, str] = ("supported", "supported", "unknown", "unsupported"),
+                investigation: Path | None = None) -> tuple[int, dict, Path, Path]:
+        self.count += 1
+        run_id = run_id or f"r{self.count:04d}"
+        run_dir = self.tmp / f"run-{run_id}-{self.count}"
+        cand = self.tmp / f"cand-{run_id}-{self.count}"
+        code, out = call("prepare", "--investigation", str(investigation or self.investigation), "--run-id", run_id,
+                         "--case", case, "--condition", condition, "--model-label", "SYNTHETIC-model",
+                         "--effort-label", "n/a", "--fresh-session", caps[0], "--workspace-confined", caps[1],
+                         "--tool-log", caps[2], "--usage", caps[3], "--run-dir", str(run_dir),
+                         "--candidate-dir", str(cand))
+        return code, out, run_dir, cand
+
+    def response(self, run_id: str, body: str, name: str | None = None) -> Path:
+        return self.write(name or f"resp-{run_id}-{self.count}.txt", f"Run: {run_id}\n{SYN}{body}".encode())
+
+    def collect(self, run_dir: Path, run_id: str, condition: str = "baseline", status: str = "completed",
+                response: Path | None = None, session: str | None = None, *extra: str) -> tuple[int, dict]:
+        argv = ["collect", "--run-dir", str(run_dir), "--expect-run", run_id, "--expect-condition", condition,
+                "--status", status, "--label", "SYNTHETIC", "--session-label", session or f"session-{run_id}",
+                "--isolation-used", "fresh"]
+        if response is not None:
+            argv += ["--response", str(response)]
+        return call(*argv, *extra)
+
+    def full_run(self, case: str, condition: str, body: str, run_id: str, session: str | None = None,
+                 extra: tuple[str, ...] = ()) -> Path:
+        code, out, run_dir, _cand = self.prepare(case, condition, run_id)
+        self.assertEqual(code, 0, out)
+        code, out = self.collect(run_dir, run_id, condition, "completed", self.response(run_id, body), session, *extra)
+        self.assertEqual(code, 0, out)
+        return run_dir
+
+    def copy_lab(self) -> Path:
+        lab = self.tmp / "lab-copy"
+        shutil.copytree(REAL_LAB, lab, ignore=shutil.ignore_patterns("tests", "__pycache__"))
+        pb.LAB = lab
+        return lab
+
+    def reseal(self, lab: Path) -> None:
+        (lab / "bench.json").write_bytes(pb.dumps(pb.manifest_object()))
+
+
+ORIGINAL_WRITE = pb._write_file
+
+
+class TestBench(Base):
+    def test_validate_real_bench(self) -> None:
+        code, out = call("validate")
+        self.assertEqual(code, 0, out)
+        self.assertEqual(out["result"], "valid")
+        self.assertEqual(out["bench_version"], sha((REAL_LAB / "bench.json").read_bytes()))
+        self.assertEqual(len(out["cases"]), 8)
+
+    def test_four_families_matched_and_synthetic(self) -> None:
+        seen = {}
+        for case in pb.manifest_object()["cases"]:
+            meta = json.loads((REAL_LAB / "cases" / case["case_id"] / "coordinator/meta.json").read_text("utf-8"))
+            self.assertEqual(meta["label"], "SYNTHETIC")
+            seen[(meta["family"], meta["variant"])] = (case["case_id"], meta["matched_with"])
+        self.assertEqual(set(seen), {(f, v) for f in pb.FAMILIES for v in pb.VARIANTS})
+        for (family, variant), (case_id, matched) in seen.items():
+            self.assertEqual(matched, seen[(family, "b" if variant == "a" else "a")][0])
+
+    def test_drift_after_case_edit(self) -> None:
+        lab = self.copy_lab()
+        target = lab / "cases/complete-a/candidate/sources/return.md"
+        target.write_bytes(target.read_bytes() + b"edited\n")
+        code, out = call("validate")
+        self.assertEqual(code, 1)
+        self.assertEqual(out["result"], "drift")
+        code, out, run_dir, cand = self.prepare("complete-a")
+        self.assertEqual((code, out["code"]), (2, "bench-drift"))
+        self.assertFalse(run_dir.exists() or cand.exists())
+
+    def test_planted_canary_in_candidate_is_leakage(self) -> None:
+        lab = self.copy_lab()
+        canary = json.loads((lab / "cases/correction-b/evaluator/key.json").read_text("utf-8"))["canary"]
+        target = lab / "cases/correction-a/candidate/sources/return.md"
+        target.write_bytes(target.read_bytes() + canary.encode() + b"\n")
+        self.reseal(lab)
+        result = pb.validate()
+        self.assertEqual(result["result"], "drift")
+        self.assertTrue(any("evaluator-leakage" in d for d in result["drift"]), result["drift"])
+        code, out, run_dir, cand = self.prepare("correction-a")
+        self.assertEqual((code, out["code"]), (2, "

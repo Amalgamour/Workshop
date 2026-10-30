@@ -1,0 +1,11 @@
+{
+  "started_utc": "2026-10-30T19:35:18.898497+00:00",
+  "argv": [
+    "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+    "-B",
+    "-c",
+    "import hashlib, pathlib; root = pathlib.Path(r'D:\\Git\\lib-build\\colab\\labs\\prime-replay-pass01\\runs\\grok\\04-case-b-assisted\\repository');\nfiles = [root/'labs/review-packet-pass01/review_packet.py', root/'labs/review-packet-pass01/tests/test_review_packet.py', root/'00.kernel/00.00.10.work/0167.review-packet-0501/return.md'];\nexpect = {'review_packet.py':'f658cbe48a3a76b908e5af0bcf0b7a68abc90571d983ca785e36667268f6ee72','test_review_packet.py':'b438f99bb5576b44c884974fd2e539113a9add16a806abaa726f5a287e691164','return.md':'b7c4fe25278f7fe09cc7fc18699bf06ab3034bb38abc6787360365e39d488fef'}\nfor p in files:\n d = p.read_bytes(); h = hashlib.sha256(d).hexdigest(); print(('MATCH' if h==expect[p.name] else 'DIFF'), p.name, h, len(d))"
+  ],
+  "cwd": "D:\\Git\\lib-build\\colab\\labs\\prime-replay-pass01\\runs\\grok\\04-case-b-assisted\\repository",
+  "coverage": "This wrapped subprocess and captured stdout/stderr only; tool-reader calls and model thinking are not observed."
+}

@@ -1,0 +1,199 @@
+# CONTRACT — review-packet-pass01
+
+Builder spec for one mechanical packet. This file does not accept the lab.
+
+## Tool
+
+labs/review-packet-pass01/review_packet.py uses the Python standard library.
+Command:
+
+```text
+python -B labs/review-packet-pass01/review_packet.py assemble --request REQUEST.json
+```
+
+Exit 0 means the output directory holds a finished packet.
+Exit 2 means the request was refused before that directory existed, or the assembly stopped partial after creating it.
+A finished packet may still record custody as complete, reserved, missing, incomplete, or refused.
+
+The interpreter named in the request runs the pinned inspector and helper.
+The assembler does not import those modules. It hashes them and then uses a subprocess argument array, python -B, shell false.
+Helper sha256 8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac, 45767 bytes.
+Inspector sha256 947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b, 11402 bytes.
+A pin mismatch refuses the request and does not start the process.
+The assembler never calls capture, reserve, or any other helper command.
+
+## Request
+
+Schema review-packet-request/1. JSON object, no duplicate keys, no nonfinite numbers.
+Exact keys: schema, book, member, origin, repo, python, inspector, helper, output, bounds, sources.
+
+book, repo, python, inspector, helper, and output are absolute paths.
+A path part `..` is refused. An ancestor that is a link or junction is refused.
+output must not already exist, must not lie inside the named member, and must not lie inside a `.git` directory.
+The parent of output must exist and be a regular directory.
+
+member matches `^(\d{4})\.([A-Za-z0-9][A-Za-z0-9._-]{0,63})$`.
+origin has exact keys book, page, pass. pass matches `^05\.\d{2}$`.
+
+bounds has exact keys max_sources, max_source_bytes, max_total_bytes, max_output_bytes.
+They are integers, not booleans.
+max_sources is 0 through 64.
+max_source_bytes is 1 through 2000000.
+max_total_bytes is 1 through 8000000 and is at least max_source_bytes.
+max_output_bytes is 1 through 12000000.
+sources is an array no longer than max_sources.
+
+Each source has a unique id matching `^[a-z][a-z0-9-]{0,31}$` and a role:
+builder-claim, custody, director-quotation, or supporting.
+kind is git-blob, live, or member-file.
+
+A git-blob source has commit (40 lowercase hex) and path (repo-relative, no backslash, no colon, no `..`).
+expect_sha256 is optional. artifact_manifest is optional.
+The bytes come from `git cat-file blob`. A missing commit or blob stays absent.
+The live work tree is not opened for that source.
+
+A live source has path and embed (boolean). expect_sha256 and artifact_manifest are optional.
+embed true copies the file into the packet. embed false records sha256 and length only.
+A link is refused before the output directory is created.
+
+A member-file source has name. Allowed names are return.md, receipt.json, manifest.json, reservation.json, and payload/NNNN.blob with four digits.
+The file is read only under the named member. An absent file stays absent.
+A work-page file is not substituted. expect_sha256 and artifact_manifest are optional.
+
+Unknown keys are refused. Malformed JSON and duplicate keys are refused.
+No declared source is executed.
+
+## Custody
+
+The inspector command is:
+
+```text
+python -B INSPECTOR inspect --book BOOK --member MEMBER --json
+```
+
+The helper command is:
+
+```text
+python -B HELPER verify --book BOOK --member MEMBER
+```
+
+Stdout is stored exact. The verify text is evidence. It is not parsed into an acceptance decision.
+When the inspector JSON has a reservation origin, book, page, and batch are compared with the requested book, page, and pass.
+A mismatch is an origin conflict. The assembler does not rewrite the request or the member.
+Timeout is 60 seconds. There is no retry.
+
+The packet always records acceptance, approved, published, seated, and authority_inferred as false, semantic_review as false, and next_task as null.
+The fixed statement is: "A verified receipt is custody, not acceptance. Return claims remain claims even when a hash matches. These checks are not an OS sandbox or a same-user race guarantee."
+
+## Artifact checks
+
+artifact_manifest has exact keys compare_commit and compare_live.
+compare_commit is a 40-hex commit or null. compare_live is boolean.
+The source bytes are parsed as JSON. The check runs only when schema is exactly artifact-manifest/1 and artifacts is an array.
+Any other schema, including prime-entry-pin-artifact-manifest/1, is unsupported-schema. Rows are not interpreted.
+Top-level keys other than schema and artifacts are named and not interpreted.
+
+Each row needs path, sha256, and bytes. Optional commit overrides compare_commit for that row.
+Other row keys are named and not interpreted. A row that lacks the required fields is row-rejected.
+Historical bytes are the git blob at the row commit. Live bytes are a separate hash of the work-tree file.
+Classifications:
+
+- historical-match: the git blob matches the declared sha256 and length, and live was not requested or live matches too
+- changed-live-working-copy: the git blob matches and the live file exists with different bytes
+- live-absent: the git blob matches and the live path is absent
+- historical-mismatch: the git blob is present and does not match the declaration
+- historical-absent: the git blob is absent; a live file is not used in its place
+- live-match: no commit was requested and the live file matches the declaration
+- live-mismatch: no commit was requested and the live file differs
+- row-rejected: the row or its path is unsafe or incomplete
+
+The output does not use the word corruption. Row file contents are not written into the packet.
+A live or historical file larger than max_source_bytes is oversize and is not copied.
+
+## Output
+
+Inside the new directory:
+
+- custody.json, the inspector stdout, and custody-stderr.txt
+- helper-verify.txt and helper-verify-stderr.txt
+- sources/NNNN-ID.blob for each embedded source, in request order
+- packet.json, schema review-packet/1
+- PACKET.md
+- manifest.json, schema review-packet-manifest/1, binding those files by sha256
+- assembly-status.json, schema review-packet-assembly/1, written last
+
+PACKET.md has these headings, in order: Custody observation; Builder-reported claims; Artifact checks; Absent, conflicting, and unverified; Director quotations; Limits.
+It identifies snapshots and checks. It does not replace them with a semantic summary.
+Builder-reported claims, custody observations, artifact checks, and absent or conflicting material stay in those sections.
+A director-quotation source is named there, and the section says the bytes do not confer authority.
+
+Gathered source bytes count against max_source_bytes and max_total_bytes.
+Written file bytes count against max_output_bytes. Nothing is shortened to fit.
+If a bound is crossed after the directory exists, existing files stay, a partial status is written when it fits, and the process exits 2.
+A second run sees an occupied destination and does not modify it.
+These checks are not an OS sandbox or a same-user race guarantee.
+
+## Specimens
+
+The 0164 request names member 0164.prime-entry-pin-repair-0503, page 0512.prime-review, pass 05.03.
+It allowlists the sealed return, receipt, manifest, and reservation, the pinned prime-entry-pin artifact manifest as a live file, and the director-agreement file as a director quotation.
+The artifact check on that manifest must come back unsupported-schema.
+
+The 0163 request names member 0163.prime-bench-harness-0501, page 0513.bench-build, pass 05.01.
+It allowlists the sealed return, receipt, manifest, and reservation.
+It requests the artifact manifest as a git blob at 749cfd9c670fe77fbedd232c2630f98b0529025d and checks artifact-manifest/1 rows there, with live hashes and without embedding those row files.
+It also requests the same path at 80f7025425d7bb3fdcf3b0ee56057cd6d8b6b9fe, which is absent, and does not replace it with the live file.
+The 0164 packet.json and PACKET.md are the copies nominated for capture.
+Both specimen directories remain under evidence/build05.01/.
+
+## Non-goals
+
+No model, API, credentials, install, worker, routing, or acceptance decision.
+No Git stage, commit, or push of this workspace.
+No edit of the pinned helper, the pinned inspector, or another lane.
+# REAL-USE — 0164 and 0163 packets
+
+This note compares operations that were run by hand with the assembler command. It does not estimate tokens, accuracy, completion, or benchmark readiness.
+
+## Commands
+
+Interpreter: `C:\Users\misg\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe`
+
+```text
+python -B labs/review-packet-pass01/review_packet.py assemble --request 00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/request-0164.json
+python -B labs/review-packet-pass01/review_packet.py assemble --request 00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/request-0163.json
+python -B -m unittest discover -s labs/review-packet-pass01/tests -v
+```
+
+Both assemble commands exited 0. The test command exited 0: ran 10, skipped 1, failed 0. The skip is file-symlink creation, WinError 1314. The junction refusal ran and passed.
+
+## Hand observations before the command
+
+Pack source-manifest.json, 3190 bytes, sha256 8b03d471e212e5832c65dec95a7e07975160ed126df20ae01d92e33bbdb96b11. All 13 sources matched their snapshots. bad 0.
+
+`git log -1` for `00.kernel/00.00.10.work/0513.bench-build/evidence/build05.01/artifact-manifest.json` printed 749cfd9c670fe77fbedd232c2630f98b0529025d.
+`git cat-file blob` at that commit and at HEAD a8825689ab3220396841b144f3a7ebe95c9c9a66 both returned 14030 bytes, sha256 da06ab6cfdee15497c1d19394fb9e22433e5c1db6623a3fd8462d20749274634.
+The same path is absent at 80f7025425d7bb3fdcf3b0ee56057cd6d8b6b9fe and at 32da8205d405d6008b8542cea3c8546f0d95d7df.
+A row check at that earlier time found 69 historical blobs matching the manifest. 27 live paths differed in bytes. File text was not opened. During that check the live length of `labs/prime-bench-pass01/prime_bench.py` moved from 106837 to 106845.
+
+## What the assembler recorded
+
+0164.prime-entry-pin-repair-0503: assembly complete, custody complete, acceptance false, origin conflicts none.
+Sealed return sha256 c0d1d2c65b02f0ce4486b408a9d691b94b2afe6d28df9fd55dc610c2a83fb7da, 1605 bytes.
+Helper verify text included `result complete`, `not approved`, `not accepted`, and `not published`.
+The pin artifact manifest was reported as schema `prime-entry-pin-artifact-manifest/1`, rows interpreted false.
+Nominated packet.json sha256 bfcd0ee84d2505b06ebea0593bc66dc4504393ea966e357d58fae580ce98d6e4, 8393 bytes.
+Nominated PACKET.md sha256 83b4d69f95910aaca4af4e4400e0d72551265f3700599f1564305363f86e0f20, 1999 bytes.
+
+0163.prime-bench-harness-0501: assembly complete, custody complete, acceptance false, origin conflicts none.
+Sealed return sha256 742beefbf856429ce3dfcf59e675a06f618c1b75b74f8f09b87c67dc6575198e, 6655 bytes.
+The git blob at 749cfd9c matched the hand hash above.
+The git blob at 80f7025 is absent in the packet, with `live file was not read`.
+Of 69 artifact-manifest/1 rows, 41 are historical-match and 28 are changed-live-working-copy.
+`labs/prime-bench-pass01/prime_bench.py` historical sha256 258727eef76693583ab0b88813c1b5afbded0009561f43c9bb61797b9d4dd650, 68800 bytes; live sha256 a6dc98b8b6dbcaa8e080903a3ec537381e511b2b94206b259bb5c723c0696fe3, 106951 bytes.
+`labs/prime-bench-pass01/README.md` also differed at packet time (historical 4664 bytes, live 6022 bytes). The earlier hand pass had not listed that README difference, and the live `prime_bench.py` length had changed again. Those are working-copy differences between observations.
+Specimen packet.json sha256 c6eeaa6bfa5a1c03577152f6d4b4df5a33601fb7f67ef58bbbace23fbb5599ad, 57915 bytes.
+Specimen PACKET.md sha256 2443bc01d88d00590adccc47fd6749be75b484e083d6aa7ff3b81edf2dea0c18, 25501 bytes.
+The row paths and hashes are in `specimen-0163/PACKET.md`. Live row bytes were hashed and were not copied into the packet.
+
+The hand git hash and the assembler git hash for the 0513 manifest are the same. The hand result that 80f7025 lacks the path and the assembler result that the blob is absent are the same fact. The assembler added the custody record, the sealed-file copies, and the per-row live hashes. It did not decide why a live file differs.

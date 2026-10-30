@@ -1,0 +1,68 @@
+{
+  "schema": "prime-replay-measurements/1",
+  "model_label": "claude",
+  "runs": [
+    {
+      "run": "01-case-a-manual",
+      "wrapped_commands_started": 14,
+      "wrapped_commands_ended": 14,
+      "command_seconds_sum": 0.8432728000334464,
+      "stdout_bytes": 78209,
+      "stderr_bytes": 1282,
+      "exit_counts": {
+        "0": 12,
+        "1": 1,
+        "5": 1
+      },
+      "tokens": null,
+      "cost": null,
+      "note": "Command duration sum excludes reasoning, direct file readers and setup; not model latency or productivity. See supplied per-run friction notes."
+    },
+    {
+      "run": "02-case-a-assisted",
+      "wrapped_commands_started": 10,
+      "wrapped_commands_ended": 10,
+      "command_seconds_sum": 2.38446270005079,
+      "stdout_bytes": 13574,
+      "stderr_bytes": 25,
+      "exit_counts": {
+        "0": 5,
+        "1": 3,
+        "2": 2
+      },
+      "tokens": null,
+      "cost": null,
+      "note": "Command duration sum excludes reasoning, direct file readers and setup; not model latency or productivity. See supplied per-run friction notes."
+    },
+    {
+      "run": "03-case-b-assisted",
+      "wrapped_commands_started": 13,
+      "wrapped_commands_ended": 13,
+      "command_seconds_sum": 6.9612813999992795,
+      "stdout_bytes": 29781,
+      "stderr_bytes": 1759,
+      "exit_counts": {
+        "0": 10,
+        "1": 2,
+        "2": 1
+      },
+      "tokens": null,
+      "cost": null,
+      "note": "Command duration sum excludes reasoning, direct file readers and setup; not model latency or productivity. See supplied per-run friction notes."
+    },
+    {
+      "run": "04-case-b-manual",
+      "wrapped_commands_started": 6,
+      "wrapped_commands_ended": 6,
+      "command_seconds_sum": 3.846322200028226,
+      "stdout_bytes": 4191,
+      "stderr_bytes": 394,
+      "exit_counts": {
+        "0": 6
+      },
+      "tokens": null,
+      "cost": null,
+      "note": "Command duration sum excludes reasoning, direct file readers and setup; not model latency or productivity. See supplied per-run friction notes."
+    }
+  ]
+}

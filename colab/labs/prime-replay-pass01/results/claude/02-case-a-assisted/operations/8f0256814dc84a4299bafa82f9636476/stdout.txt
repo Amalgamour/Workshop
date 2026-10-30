@@ -1,0 +1,15 @@
+Prime cycle day 2026-10-30  journal D:\Git\lib-build\colab\labs\prime-replay-pass01\runs\claude\02-case-a-assisted\out\journal  (read-only; this view is not logged)
+attempts: inspect ok 1; packet ok 1; read ok-attention 3; record refused 1
+
+  20261030T190330.280125Z-26eebe513276  read    ok-attention       exit 1  2026-10-30T14:03:30.280090-05:00  0.133s  caller Claude Colab (claude-opus-5-5)
+  20261030T190337.406940Z-aea098ec07ea  read    ok-attention       exit 1  2026-10-30T14:03:37.406911-05:00  0.126s  caller Claude Colab (claude-opus-5-5)
+  20261030T190407.758838Z-d1c5ee805e5d  packet  ok                 exit 0  2026-10-30T14:04:07.758806-05:00  0.419s  caller Claude Colab (claude-opus-5-5)
+  20261030T190438.069485Z-8bd975cd9d49  record  refused            exit 2  2026-10-30T14:04:38.069447-05:00  0.143s  caller Claude Colab (claude-opus-5-5)
+      refused: observation failed: reader exit 2
+  20261030T190448.746183Z-474cdf2b3fa5  inspect ok                 exit 0  2026-10-30T14:04:48.746154-05:00  0.005s  caller Claude Colab (claude-opus-5-5)
+  20261030T190449.023017Z-1d7f544dd024  read    ok-attention       exit 1  2026-10-30T14:04:49.022987-05:00  0.127s  caller Claude Colab (claude-opus-5-5)
+
+unique reviews (re-verified now): 0 from 0 record invocations
+declared in unique verified records (each work pass and goal once; not current status): finished passes 0, completed goals 0, holds none
+current (fresh read): finished passes none; completed goals none; open holds none; not current none
+per-operation durations only; incomplete operations have unknown duration; no totals or productivity are derived

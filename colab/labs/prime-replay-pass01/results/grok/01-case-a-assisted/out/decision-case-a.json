@@ -1,0 +1,118 @@
+{
+ "schema": "prime-cycle-decision/2",
+ "review_id": "05.01-r1",
+ "supersedes": null,
+ "recovers": null,
+ "binding": {
+  "direction": {
+   "agreement_sha256": "9206ba861d60ceef1c5422b19f213227da7a1775c6f8486887b9bd2b9e6b06a0",
+   "book": "00.kernel/00.00.10.work",
+   "fields": {
+    "director_required": "be8fc31ec22efcc14acdbaa76c542911b11506b21b6a5fd8aa4731f91ea847c8",
+    "finish_criteria": "6f5a7ceb1a0180691cfcc5ffa54203de3eb85d35237d690ad436e96b6faf290b",
+    "goal": "22f32f59f796529af0d462045a9b5acf899718601471d9b24007f8c6aa2d34c0",
+    "prime_discretion": "fd3e5c26adc482f3add2ccad027e5e0c5ebec4490925b6f2c89b077f5d7584a8",
+    "recorded_decisions": "c69f31aba79b51a7e8685b5c7f10acb2bfe1943c6e810e7f14b93e25c94da5c3",
+    "scope": "ab6f82cce76db2f640a5ddf032457fcf10c9413da58202b3e88a88058bbd400c"
+   },
+   "review_location": "00.kernel/00.00.10.work/0513.bench-build/evidence/prime-cycle-reviews/05.01",
+   "schema": "prime-cycle-direction/1"
+  },
+  "expected_prior": null,
+  "fingerprint": "96a5066b3d3f50dae3a0f67b79a4ba000da828c2d3cc1316e8893c3cbe45c792",
+  "goal": {
+   "goal_id": "case-a-goal",
+   "goal_sha256": "dbdb24a17873575eebc8abb46b3e99c4e7ac9d7ac07c57d284de065475a26ac1"
+  },
+  "member": "0163.prime-bench-harness-0501",
+  "member_role": null,
+  "origin": null,
+  "page": "00.kernel/00.00.10.work/0513.bench-build/05.01.md",
+  "pass": "05.01",
+  "receipt_sha256": null,
+  "retrospective": null,
+  "source": {
+   "commit": null,
+   "kind": "live-file",
+   "page_bytes": null,
+   "page_sha256": null
+  },
+  "submission_id": null,
+  "work_id": "case-a"
+ },
+ "attribution": {
+  "actor_label": "Grok Colab",
+  "evidence": null,
+  "role": "prime"
+ },
+ "judgment": {
+  "outcome": "continue",
+  "disposition": "accepted",
+  "pass_terminal": "finished",
+  "goal": {
+   "terminal": "open",
+   "goal_id": "case-a-goal",
+   "goal_sha256": "dbdb24a17873575eebc8abb46b3e99c4e7ac9d7ac07c57d284de065475a26ac1",
+   "evidence": []
+  },
+  "finding": "The 05.01 build return is a bounded instrument for the method it was granted. Custody of member 0163 verifies, the declared output hashes match this tree, and the bench version is f00c6f29. The page goal stays open: 0414.bench/01.002 controls are not enforced by the code, and this frozen tree cannot re-run validate or the 32 tests because the pinned support files are absent.",
+  "reasons": [
+   "Packet helper verify exited 0 for receipt 7efb07af0f08d3cbaf1b490e97889bb3caa601b932762fcf32820854e45f7e4f and said not approved, not accepted, not published.",
+   "Live hashes of the six captured outputs, prime_bench.py, test_prime_bench.py, return.md and bench.json match the return and the manifest.",
+   "prime_bench.py assess_run scores outcome labels, must_mention, must_quote, must_not and canary as string checks. It does not score a proposed action as present, contradicted or absent.",
+   "compare_runs refuses mixed bench versions and investigations and keeps unclean runs. It does not compare the bytes delivered to the two conditions, and it does not refuse a pair whose package changed after the first answer.",
+   "validate in this frozen repository exited 1. Five support paths are missing. test_prime_bench.py ran 0 tests and errored in setUpModule on the missing prime_review.py.",
+   "The builder's notes say 0414.bench/01.002.md and the 0701 review were not inputs. Those pages now require the missing controls and say not to claim the controls already exist in this code."
+  ],
+  "source_refs": [
+   "00.kernel/00.00.10.work/0513.bench-build/05.01.md",
+   "00.kernel/00.00.10.work/0513.bench-build/06.01.md",
+   "00.kernel/00.00.10.work/0163.prime-bench-harness-0501/return.md",
+   "00.kernel/00.00.10.work/0513.bench-build/evidence/build05.01/CONTRACT.md",
+   "labs/prime-bench-pass01/prime_bench.py",
+   "00.kernel/00.00.10.work/0414.bench/01.002.md",
+   "00.kernel/00.00.10.work/0701.bench-method/06.01.review.md"
+  ],
+  "next_action": {
+   "action_id": "bench-controls-01",
+   "text": "LAB ONLY, NOT RELEASED. One correction inside labs/prime-bench-pass01: add regression cases for delivered-byte parity, action commitments scored separately from quotes, and a seal that keeps the original run when inputs change after the first answer. Do not execute that correction from this replay.",
+   "authorized_in_grant": false
+  },
+  "unresolved": [
+   "The historical 32-test run was not reproduced in this frozen repository.",
+   "0414.bench/01.md is not a live file here. Its pack snapshot matches pin d226c3b5 and 3311 bytes. I did not re-read those snapshot bytes as the method page.",
+   "Provider tokens and cost for this review are unknown.",
+   "Cycle read could not see the custody that packet verified, because batch_observe is missing clerk_adapter.py."
+  ],
+  "semantic_conflict": false,
+  "design_fork": null,
+  "holds": [],
+  "answers": [],
+  "sections": {
+   "return_result": "Member 0163 is present. Helper verify exited 0 and printed result complete, not approved, not accepted, not published. The return's six output hashes, the two Python files and bench.json match the files in this tree. The return reports 32 tests and an end-to-end sample. This frozen tree cannot repeat those runs.",
+   "prime_finding": "Accept the 05.01 build pass as the instrument its own contract describes. Do not treat it as already implementing 0414.bench/01.002. The goal of a trustworthy comparison instrument stays open until those controls are in the code and a later review sees them.",
+   "within_direction": "The original builder was not required to obey 01.002. The notes say that page landed after the claim and was not read. The later method review asks for one implementation correction. That correction is inside the declared bench, not a new design and not a model trial.",
+   "next_bounded_action": "Write one lab-only correction pack for delivered-byte parity, action-commitment scoring separate from quotes, and retention of a run whose inputs change after the first answer. Do not run models, spend, edit the live book, or lift AR-01.",
+   "for_model": null,
+   "issue": null,
+   "consequences": null,
+   "options": null,
+   "recommendation": null,
+   "question": null,
+   "affected": null,
+   "proposed_plan": null,
+   "exploration": null,
+   "assumptions": null,
+   "open_questions": null,
+   "outcome_evidence": null,
+   "limits": null,
+   "tests_note": null,
+   "tests_passed": null,
+   "learning": null,
+   "preservation": null,
+   "remaining_choices": null,
+   "findings_account": null,
+   "finish_assessments": null
+  }
+ }
+}

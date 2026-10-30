@@ -1,0 +1,12 @@
+{
+  "started_utc": "2026-10-30T19:06:08.359903+00:00",
+  "argv": [
+    "python",
+    "-B",
+    "-c",
+    "\nimport json,sys\nfrom pathlib import Path\nP=Path(sys.argv[1])\nprint((P/'assembly-status.json').read_text(encoding='utf-8'))\nc=json.loads((P/'custody.json').read_text(encoding='utf-8')); cap=c.get('capture') or {}\nprint('status',c['status'],'problems',c['problems']); print({k:cap.get(k) for k in ('receipt_sha256','manifest_sha256','submission_id','origin','retrospective','return','source_commit')})\nfor p in cap.get('payloads',[]): print(' payload',p['logical'],p['sha256'][:16],p['bytes'])\nprint('helper-verify tail:', (P/'helper-verify.txt').read_text(encoding='utf-8').splitlines()[-4:])\npk=json.loads((P/'packet.json').read_text(encoding='utf-8'))\nfor k in ('statement','unverified','artifact_checks','next_task','semantic_review','acceptance'): print(k,'=',json.dumps(pk.get(k))[:300])\nprint('PACKET.md:'); print((P/'PACKET.md').read_text(encoding='utf-8')[:2500])\n",
+    "D:\\Git\\lib-build\\colab\\labs\\prime-replay-pass01\\runs\\claude\\03-case-b-assisted\\out\\packet"
+  ],
+  "cwd": "D:\\Git\\lib-build\\colab\\labs\\prime-replay-pass01\\runs\\claude\\03-case-b-assisted\\repository",
+  "coverage": "This wrapped subprocess and captured stdout/stderr only; tool-reader calls and model thinking are not observed."
+}

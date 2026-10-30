@@ -1,0 +1,36 @@
+{
+ "schema": "prime-replay-run-summary/claude-1",
+ "run": "03-case-b-assisted",
+ "status": "partial",
+ "status_reason": "Every assisted step was performed; the prime_cycle record was refused because the frozen reader cannot run (missing clerk_adapter.py). No typed review exists; the judgment is in deliverables and out/decision-case-b.json.",
+ "started_utc": "2026-10-30T19:06:00Z",
+ "ended_utc": "2026-10-30T19:09:00Z",
+ "time_basis": "first and last action observed by me; includes reasoning",
+ "familiarity": "Not the builder (Grok Builder 1). A user of review_packet as a pinned dependency in 0515, and the author of its prime_cycle caller.",
+ "carryover": "From runs 01-02: the reader failure, the default packet coverage, the 0163 return contents",
+ "checks": [
+  "subject tests re-run: 10 ran, 1 skipped (WinError 1314), OK",
+  "custody via packet: complete",
+  "pins equal the contract; assistance copy equals the subject",
+  "direct assemble with artifact-manifest/1: 19/19 historical-match, no conflicts",
+  "link-refusal code present; junction test passed",
+  "record refused (observation failed)",
+  "day: 4 journalled operations, 0 reviews"
+ ],
+ "decisions": {
+  "disposition": "accepted",
+  "pass_terminal": "finished",
+  "goal_terminal": "completed",
+  "next": "NO PACK REQUIRED",
+  "director_needed_now": false
+ },
+ "manual_copy_count": 3,
+ "corrections": 0,
+ "wrapped_commands": 13,
+ "journalled_operations": 4,
+ "source_exposure": "none beyond the earlier runs",
+ "interventions": 0,
+ "tokens": null,
+ "cost": null,
+ "limits": "The assisted route was degraded by the bundle omission. The subject tool helped review itself. The specimens were not reproducible."
+}

@@ -1,0 +1,15 @@
+268:        timeout=TIMEOUT_SECONDS,
+505:        timeout=TIMEOUT_SECONDS,
+738:            rows.append({"path": None, "classification": "row-rejected", "problems": ["row is not an object"]})
+751:                    "classification": "row-rejected",
+774:                "classification": classify(historical["historical"], live["live"]),
+814:def origin_conflicts(requested: dict, reservation: dict | None, status: str | None) -> tuple[list[str], list[str]]:
+911:                "- {path}: classification {classification}; historical {historical} sha256 {hsha} bytes {hbytes}; live {live} sha256 {lsha} bytes {lbytes}".format(
+913:                    classification=row.get("classification"),
+930:    notes.extend(f"origin conflict: {item}" for item in packet["origin_conflicts"])
+934:            classification = row.get("classification")
+935:            if classification not in {None, "historical-match", "live-match"}:
+936:                notes.append(f"artifact {row.get('path')}: {classification}")
+987:    conflicts, origin_unverified = origin_conflicts(request["origin"], reservation, status)
+1024:        "origin_conflicts": conflicts,
+1104:def assemble_request(path_text: str) -> int:

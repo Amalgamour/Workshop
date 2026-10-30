@@ -1,0 +1,104 @@
+
+FILE ../out/packet/assembly-status.json sha256 ce690f1a4db67c1531981d5eb620a58c489edd8c2da28bb2fdcd6d54556dbe71 LINES 1 6
+1: {
+2:   "assembly": "complete",
+3:   "manifest_sha256": "c4021ce43d515bad8b3a92e3d9e562736bf097f23d41019dbd305b22b01dfa14",
+4:   "reason": null,
+5:   "schema": "review-packet-assembly/1"
+6: }
+
+FILE ../out/templates/template-case-a.json sha256 2682adf19fec779007c0bb6a7abe177159343c56d331731f5e4c621ce35c2b91 LINES 1 100
+1: {
+2:  "attribution": {
+3:   "actor_label": null,
+4:   "evidence": null,
+5:   "role": "prime"
+6:  },
+7:  "binding": {
+8:   "direction": {
+9:    "agreement_sha256": "9206ba861d60ceef1c5422b19f213227da7a1775c6f8486887b9bd2b9e6b06a0",
+10:    "book": "00.kernel/00.00.10.work",
+11:    "fields": {
+12:     "director_required": "be8fc31ec22efcc14acdbaa76c542911b11506b21b6a5fd8aa4731f91ea847c8",
+13:     "finish_criteria": "6f5a7ceb1a0180691cfcc5ffa54203de3eb85d35237d690ad436e96b6faf290b",
+14:     "goal": "22f32f59f796529af0d462045a9b5acf899718601471d9b24007f8c6aa2d34c0",
+15:     "prime_discretion": "fd3e5c26adc482f3add2ccad027e5e0c5ebec4490925b6f2c89b077f5d7584a8",
+16:     "recorded_decisions": "c69f31aba79b51a7e8685b5c7f10acb2bfe1943c6e810e7f14b93e25c94da5c3",
+17:     "scope": "ab6f82cce76db2f640a5ddf032457fcf10c9413da58202b3e88a88058bbd400c"
+18:    },
+19:    "review_location": "00.kernel/00.00.10.work/0513.bench-build/evidence/prime-cycle-reviews/05.01",
+20:    "schema": "prime-cycle-direction/1"
+21:   },
+22:   "expected_prior": null,
+23:   "fingerprint": "96a5066b3d3f50dae3a0f67b79a4ba000da828c2d3cc1316e8893c3cbe45c792",
+24:   "goal": {
+25:    "goal_id": "case-a-goal",
+26:    "goal_sha256": "dbdb24a17873575eebc8abb46b3e99c4e7ac9d7ac07c57d284de065475a26ac1"
+27:   },
+28:   "member": "0163.prime-bench-harness-0501",
+29:   "member_role": null,
+30:   "origin": null,
+31:   "page": "00.kernel/00.00.10.work/0513.bench-build/05.01.md",
+32:   "pass": "05.01",
+33:   "receipt_sha256": null,
+34:   "retrospective": null,
+35:   "source": {
+36:    "commit": null,
+37:    "kind": "live-file",
+38:    "page_bytes": null,
+39:    "page_sha256": null
+40:   },
+41:   "submission_id": null,
+42:   "work_id": "case-a"
+43:  },
+44:  "judgment": {
+45:   "answers": [],
+46:   "design_fork": null,
+47:   "disposition": null,
+48:   "finding": null,
+49:   "goal": {
+50:    "evidence": [],
+51:    "goal_id": "case-a-goal",
+52:    "goal_sha256": "dbdb24a17873575eebc8abb46b3e99c4e7ac9d7ac07c57d284de065475a26ac1",
+53:    "terminal": null
+54:   },
+55:   "holds": [],
+56:   "next_action": null,
+57:   "outcome": null,
+58:   "pass_terminal": null,
+59:   "reasons": [],
+60:   "sections": {
+61:    "affected": null,
+62:    "assumptions": null,
+63:    "consequences": null,
+64:    "exploration": null,
+65:    "findings_account": null,
+66:    "finish_assessments": null,
+67:    "for_model": null,
+68:    "issue": null,
+69:    "learning": null,
+70:    "limits": null,
+71:    "next_bounded_action": null,
+72:    "open_questions": null,
+73:    "options": null,
+74:    "outcome_evidence": null,
+75:    "preservation": null,
+76:    "prime_finding": null,
+77:    "proposed_plan": null,
+78:    "question": null,
+79:    "recommendation": null,
+80:    "remaining_choices": null,
+81:    "return_result": null,
+82:    "tests_note": null,
+83:    "tests_passed": null,
+84:    "within_direction": null
+85:   },
+86:   "semantic_conflict": null,
+87:   "source_refs": [],
+88:   "unresolved": []
+89:  },
+90:  "recovers": null,
+91:  "review_id": "05.01-r1",
+92:  "schema": "prime-cycle-decision/2",
+93:  "supersedes": null
+94: }

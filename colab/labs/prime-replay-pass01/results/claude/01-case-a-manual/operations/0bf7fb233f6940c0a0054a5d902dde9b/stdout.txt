@@ -1,0 +1,19 @@
+93:PROMPT = """# Prime review run {run_id}
+99:## Tools
+119:2. Paste PROMPT.md from the candidate folder as the first message. Record the start time.
+614:def prepare(args: argparse.Namespace) -> dict:
+653:    files["PROMPT.md"] = PROMPT.format(run_id=run_id, tools=cond["tools"]).encode("utf-8")
+669:        "candidate_files": [{"path": p, "sha256": sha256(d), "bytes": len(d)} for p, d in sorted(files.items())],
+707:            "run_dir": str(run_dir), "candidate_dir": str(cand_dir), "candidate_files": len(files),
+727:    exact_keys(run["pins"], ("task_sha256", "key_sha256", "rubric_sha256", "candidate_files"), "run pins")
+785:def collect(args: argparse.Namespace) -> dict:
+1015:                      "blind_to_condition", "scores", "reviewer_minutes", "director_attention_events", "notes"),
+1026:    need_count(rec["reviewer_minutes"], "reviewer_minutes")
+1027:    need_count(rec["director_attention_events"], "director_attention_events")
+1065:def _elapsed(col: dict) -> float | None:
+1088:def compare_runs(raw_dirs: list[str]) -> dict:
+1162:                "reviewer_minutes": rev["reviewer_minutes"],
+1163:                "director_attention_events": rev["director_attention_events"]},
+1164:            "elapsed_seconds": None if col is None else _elapsed(col),
+1234:              "deterministic | review | elapsed s | tool events | usage |",
+1245:            f"| {'pass' if r['deterministic_pass'] else 'fail'} | {review} | {_cell(r['elapsed_seconds'])} "

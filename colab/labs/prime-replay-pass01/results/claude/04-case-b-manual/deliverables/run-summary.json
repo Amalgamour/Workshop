@@ -1,0 +1,32 @@
+{
+ "schema": "prime-replay-run-summary/claude-1",
+ "run": "04-case-b-manual",
+ "status": "complete",
+ "started_utc": "2026-10-30T19:09:00Z",
+ "ended_utc": "2026-10-30T19:10:40Z",
+ "time_basis": "first and last action observed by me; includes reasoning",
+ "familiarity": "Not the builder (Grok Builder 1); a user of review_packet as a dependency",
+ "carryover": "Run 03 fully in context; the page, return, CONTRACT and REAL-USE were not re-read",
+ "checks": [
+  "receipt equals the pointer; manifest, reservation and 7 payloads equal the repository; submission == return (own hash)",
+  "19/19 artifact rows (own hash)",
+  "specimen packet counts: 0163 41/28, 0164 unsupported-schema",
+  "specimen folders hold 4 of 11/12 manifest-named files",
+  "subject tests re-run: 10, OK, 1 skip"
+ ],
+ "decisions": {
+  "disposition": "accepted, with a preservation finding",
+  "pass_terminal": "finished",
+  "goal_terminal": "completed for the tool; specimen retention incomplete",
+  "next": "NO BUILD PACK REQUIRED; one Prime custody/evidence check",
+  "director_needed_now": false
+ },
+ "manual_copy_count": 2,
+ "corrections": 0,
+ "wrapped_commands": 6,
+ "source_exposure": "none beyond the earlier runs",
+ "interventions": 0,
+ "tokens": null,
+ "cost": null,
+ "limits": "Whether the missing specimen files ever existed is unknowable from the frozen input; carryover from run 03"
+}

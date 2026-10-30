@@ -1,0 +1,9 @@
+24:FILE_ATTRIBUTE_REPARSE_POINT = 0x400
+111:def is_reparse(path: Path) -> bool:
+116:    return stat.S_ISLNK(info.st_mode)
+122:    if is_reparse(path):
+135:    if is_reparse(path):
+197:def ancestor_link(path: Path) -> str | None:
+208:            if is_reparse(current):
+469:            if is_reparse(member_path):
+666:    if link or (os.path.lexists(path) and is_reparse(path)):

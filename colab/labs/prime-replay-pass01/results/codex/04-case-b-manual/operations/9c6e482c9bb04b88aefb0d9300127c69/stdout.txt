@@ -1,0 +1,214 @@
+
+FILE 00.kernel/00.00.10.work/0167.review-packet-0501/return.md sha256 b7c4fe25278f7fe09cc7fc18699bf06ab3034bb38abc6787360365e39d488fef LINES 1 19
+1: Did.
+2: Claimed 0514.review-packet/05.01 as Grok Builder 1. The run sentence is "The Director authorizes this bounded build."
+3: Pack evidence/pack05.01/source-manifest.json matched 13 of 13 before the note. bad 0.
+4: Wrote 06.01.md first, then evidence/build05.01/CONTRACT.md, then labs/review-packet-pass01.
+5: The assembler builds one mechanical packet for one named return. It calls the pinned inspector and helper by subprocess. It does not capture, repair, or overwrite a member, and it does not accept a return.
+6: Tests, with the Codex interpreter: `python -B -m unittest discover -s labs/review-packet-pass01/tests -v`. Ran 10, skipped 1, failed 0, exit 0. The skip is file-symlink creation, WinError 1314. The junction refusal passed.
+7: Assembled request-0164.json and request-0163.json. Both exits 0. Both packets are assembly complete, custody complete, and acceptance false.
+8: 0164's pin manifest is schema prime-entry-pin-artifact-manifest/1. Rows were not interpreted.
+9: 0163's artifact-manifest/1 blob at 749cfd9c670fe77fbedd232c2630f98b0529025d matches sha256 da06ab6cfdee15497c1d19394fb9e22433e5c1db6623a3fd8462d20749274634, 14030 bytes. Of 69 rows, 41 are historical-match and 28 are changed-live-working-copy. The same path is absent at 80f7025425d7bb3fdcf3b0ee56057cd6d8b6b9fe, and the live file was not read in its place.
+10: Nominated packet.json sha256 bfcd0ee84d2505b06ebea0593bc66dc4504393ea966e357d58fae580ce98d6e4, 8393 bytes.
+11: Nominated PACKET.md sha256 83b4d69f95910aaca4af4e4400e0d72551265f3700599f1564305363f86e0f20, 1999 bytes.
+12: artifact-manifest.json sha256 3cdbc0a3b9497756d357fa824bdf67cbc11bcfd33c59c1c8f5117e1cee1daf7f, 4283 bytes.
+13: The 0163 specimen remains under evidence/build05.01/specimen-0163/. Its packet.json sha256 is c6eeaa6bfa5a1c03577152f6d4b4df5a33601fb7f67ef58bbbace23fbb5599ad, 57915 bytes.
+14: 
+15: Blocked.
+16: None in this packet. AR-01 remains, so inventory fixtures, bridge fixtures, the app suite, and race probes were not run.
+17: 
+18: Need.
+19: Prime reviews this return and both packets. This assembler did not accept either specimen. A verified receipt is custody, not acceptance. The 28 live differences are a changed working copy; this return does not decide their cause. Receipt identity is produced by capture and recorded on the Return pointer. This return text does not contain the receipt hash.
+
+FILE 00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/CONTRACT.md sha256 2d805f84ae9743b38ae07b0b376c1fa008623bbfeac9d594148ad3e6c1d9976a LINES 66 110
+66: ## Custody
+67: 
+68: The inspector command is:
+69: 
+70: ```text
+71: python -B INSPECTOR inspect --book BOOK --member MEMBER --json
+72: ```
+73: 
+74: The helper command is:
+75: 
+76: ```text
+77: python -B HELPER verify --book BOOK --member MEMBER
+78: ```
+79: 
+80: Stdout is stored exact. The verify text is evidence. It is not parsed into an acceptance decision.
+81: When the inspector JSON has a reservation origin, book, page, and batch are compared with the requested book, page, and pass.
+82: A mismatch is an origin conflict. The assembler does not rewrite the request or the member.
+83: Timeout is 60 seconds. There is no retry.
+84: 
+85: The packet always records acceptance, approved, published, seated, and authority_inferred as false, semantic_review as false, and next_task as null.
+86: The fixed statement is: "A verified receipt is custody, not acceptance. Return claims remain claims even when a hash matches. These checks are not an OS sandbox or a same-user race guarantee."
+87: 
+88: ## Artifact checks
+89: 
+90: artifact_manifest has exact keys compare_commit and compare_live.
+91: compare_commit is a 40-hex commit or null. compare_live is boolean.
+92: The source bytes are parsed as JSON. The check runs only when schema is exactly artifact-manifest/1 and artifacts is an array.
+93: Any other schema, including prime-entry-pin-artifact-manifest/1, is unsupported-schema. Rows are not interpreted.
+94: Top-level keys other than schema and artifacts are named and not interpreted.
+95: 
+96: Each row needs path, sha256, and bytes. Optional commit overrides compare_commit for that row.
+97: Other row keys are named and not interpreted. A row that lacks the required fields is row-rejected.
+98: Historical bytes are the git blob at the row commit. Live bytes are a separate hash of the work-tree file.
+99: Classifications:
+100: 
+101: - historical-match: the git blob matches the declared sha256 and length, and live was not requested or live matches too
+102: - changed-live-working-copy: the git blob matches and the live file exists with different bytes
+103: - live-absent: the git blob matches and the live path is absent
+104: - historical-mismatch: the git blob is present and does not match the declaration
+105: - historical-absent: the git blob is absent; a live file is not used in its place
+106: - live-match: no commit was requested and the live file matches the declaration
+107: - live-mismatch: no commit was requested and the live file differs
+108: - row-rejected: the row or its path is unsafe or incomplete
+109: 
+110: The output does not use the word corruption. Row file contents are not written into the packet.
+
+FILE labs/review-packet-pass01/review_packet.py sha256 f658cbe48a3a76b908e5af0bcf0b7a68abc90571d983ca785e36667268f6ee72 LINES 578 626
+578: def gather_source(source: dict, request: dict, total: int) -> tuple[dict, int]:
+579:     bounds = request["bounds"]
+580:     repo = Path(request["repo"])
+581:     if source["kind"] == "git-blob":
+582:         data, problem = read_blob(repo, source["commit"], source["path"])
+583:         if problem or data is None:
+584:             record = blank_source(
+585:                 source,
+586:                 "absent",
+587:                 [f"git blob is {problem or 'absent'}", "live file was not read"],
+588:             )
+589:             return record, total
+590:         total = take_bytes(data, bounds, total)
+591:         return present_source(source, data, True, None), total
+592:     if source["kind"] == "live":
+593:         path = repo / source["path"]
+594:         if not os.path.lexists(path):
+595:             return blank_source(source, "absent", ["live file is absent"]), total
+596:         problem = file_problem(path)
+597:         if problem:
+598:             return blank_source(source, "rejected", [f"live file is {problem}"]), total
+599:         size = os.lstat(path).st_size
+600:         if size > bounds["max_source_bytes"] or total + size > bounds["max_total_bytes"]:
+601:             raise Partial(f"source bound: {source['id']}")
+602:         data = path.read_bytes()
+603:         if len(data) != size:
+604:             raise Partial(f"source changed while reading: {source['id']}")
+605:         total += len(data)
+606:         embedded = source["embed"]
+607:         record = present_source(source, data, embedded, None)
+608:         if not embedded:
+609:             record["_bytes"] = data
+610:             record["embedded"] = False
+611:         return record, total
+612:     member_path = Path(request["book"]) / request["member"] / source["name"]
+613:     if not os.path.lexists(member_path):
+614:         return blank_source(source, "absent", ["sealed member file is absent"]), total
+615:     problem = file_problem(member_path)
+616:     if problem:
+617:         return blank_source(source, "rejected", [f"sealed member file is {problem}"]), total
+618:     size = os.lstat(member_path).st_size
+619:     if size > bounds["max_source_bytes"] or total + size > bounds["max_total_bytes"]:
+620:         raise Partial(f"source bound: {source['id']}")
+621:     data = member_path.read_bytes()
+622:     if len(data) != size:
+623:         raise Partial(f"source changed while reading: {source['id']}")
+624:     total += len(data)
+625:     return present_source(source, data, True, None), total
+626: 
+
+FILE labs/review-packet-pass01/review_packet.py sha256 f658cbe48a3a76b908e5af0bcf0b7a68abc90571d983ca785e36667268f6ee72 LINES 702 735
+702: def check_artifact(source_record: dict, check: dict, repo: Path, limit: int) -> dict:
+703:     if source_record["status"] != "present" or source_record["_bytes"] is None:
+704:         return {
+705:             "source": source_record["id"],
+706:             "result": "not-run",
+707:             "observed_schema": None,
+708:             "rows_interpreted": False,
+709:             "not_interpreted_keys": [],
+710:             "rows": [],
+711:         }
+712:     try:
+713:         text = source_record["_bytes"].decode("utf-8")
+714:         value = loads_strict(text)
+715:     except (UnicodeDecodeError, Refused):
+716:         return {
+717:             "source": source_record["id"],
+718:             "result": "malformed",
+719:             "observed_schema": None,
+720:             "rows_interpreted": False,
+721:             "not_interpreted_keys": [],
+722:             "rows": [],
+723:         }
+724:     if not isinstance(value, dict) or value.get("schema") != "artifact-manifest/1" or not isinstance(value.get("artifacts"), list):
+725:         observed = value.get("schema") if isinstance(value, dict) else None
+726:         result = "malformed" if isinstance(value, dict) and value.get("schema") == "artifact-manifest/1" else "unsupported-schema"
+727:         return {
+728:             "source": source_record["id"],
+729:             "result": result,
+730:             "observed_schema": observed if isinstance(observed, str) else None,
+731:             "rows_interpreted": False,
+732:             "not_interpreted_keys": sorted(key for key in value if key not in {"schema", "artifacts"}) if isinstance(value, dict) else [],
+733:             "rows": [],
+734:         }
+735:     rows = []
+
+FILE labs/review-packet-pass01/review_packet.py sha256 f658cbe48a3a76b908e5af0bcf0b7a68abc90571d983ca785e36667268f6ee72 LINES 970 1026
+970: def build(request: dict, out: Path) -> int:
+971:     output = Output(out, request["bounds"]["max_output_bytes"])
+972:     inspect = run_tool(
+973:         request["python"],
+974:         [request["inspector"], "inspect", "--book", request["book"], "--member", request["member"], "--json"],
+975:     )
+976:     verify = run_tool(
+977:         request["python"],
+978:         [request["helper"], "verify", "--book", request["book"], "--member", request["member"]],
+979:     )
+980:     output.emit("custody.json", inspect.stdout)
+981:     output.emit("custody-stderr.txt", inspect.stderr)
+982:     output.emit("helper-verify.txt", verify.stdout)
+983:     output.emit("helper-verify-stderr.txt", verify.stderr)
+984:     observation, unverified = parse_custody(inspect.stdout)
+985:     status = observation["status"] if observation else None
+986:     reservation = observation["reservation"] if observation else None
+987:     conflicts, origin_unverified = origin_conflicts(request["origin"], reservation, status)
+988:     unverified.extend(origin_unverified)
+989:     records = []
+990:     total = 0
+991:     repo = Path(request["repo"])
+992:     for index, source in enumerate(request["sources"], start=1):
+993:         record, total = gather_source(source, request, total)
+994:         if record["embedded"] and record["_bytes"] is not None:
+995:             snapshot = f"sources/{index:04d}-{source['id']}.blob"
+996:             output.emit(snapshot, record["_bytes"])
+997:             record["snapshot"] = snapshot
+998:         if source["artifact_manifest"] is not None:
+999:             record["artifact_check"] = check_artifact(
+1000:                 record,
+1001:                 source["artifact_manifest"],
+1002:                 repo,
+1003:                 request["bounds"]["max_source_bytes"],
+1004:             )
+1005:         records.append(record)
+1006:     checks = [record["artifact_check"] for record in records if record["artifact_check"] is not None]
+1007:     verify_text = decode_text(verify.stdout) if verify.stdout else ""
+1008:     packet = {
+1009:         "schema": "review-packet/1",
+1010:         "assembly": "complete",
+1011:         "acceptance": False,
+1012:         "approved": False,
+1013:         "published": False,
+1014:         "seated": False,
+1015:         "authority_inferred": False,
+1016:         "semantic_review": False,
+1017:         "next_task": None,
+1018:         "custody_is_acceptance": False,
+1019:         "checks_are_not_sandbox": True,
+1020:         "statement": STATEMENT,
+1021:         "member": request["member"],
+1022:         "book": request["book"],
+1023:         "origin_requested": request["origin"],
+1024:         "origin_conflicts": conflicts,
+1025:         "unverified": unverified,
+1026:         "tools": {

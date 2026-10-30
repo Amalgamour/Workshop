@@ -1,0 +1,113 @@
+{
+ "attribution": {
+  "actor_label": "Claude Colab (claude-opus-5-5), replay run 02",
+  "role": "prime",
+  "evidence": "Lab replay judgment by the model that was also the original Builder of this return; label is not authentication."
+ },
+ "binding": {
+  "direction": {
+   "agreement_sha256": "9206ba861d60ceef1c5422b19f213227da7a1775c6f8486887b9bd2b9e6b06a0",
+   "book": "00.kernel/00.00.10.work",
+   "fields": {
+    "director_required": "be8fc31ec22efcc14acdbaa76c542911b11506b21b6a5fd8aa4731f91ea847c8",
+    "finish_criteria": "6f5a7ceb1a0180691cfcc5ffa54203de3eb85d35237d690ad436e96b6faf290b",
+    "goal": "22f32f59f796529af0d462045a9b5acf899718601471d9b24007f8c6aa2d34c0",
+    "prime_discretion": "fd3e5c26adc482f3add2ccad027e5e0c5ebec4490925b6f2c89b077f5d7584a8",
+    "recorded_decisions": "c69f31aba79b51a7e8685b5c7f10acb2bfe1943c6e810e7f14b93e25c94da5c3",
+    "scope": "ab6f82cce76db2f640a5ddf032457fcf10c9413da58202b3e88a88058bbd400c"
+   },
+   "review_location": "00.kernel/00.00.10.work/0513.bench-build/evidence/prime-cycle-reviews/05.01",
+   "schema": "prime-cycle-direction/1"
+  },
+  "expected_prior": null,
+  "fingerprint": "96a5066b3d3f50dae3a0f67b79a4ba000da828c2d3cc1316e8893c3cbe45c792",
+  "goal": {
+   "goal_id": "case-a-goal",
+   "goal_sha256": "dbdb24a17873575eebc8abb46b3e99c4e7ac9d7ac07c57d284de065475a26ac1"
+  },
+  "member": "0163.prime-bench-harness-0501",
+  "member_role": null,
+  "origin": null,
+  "page": "00.kernel/00.00.10.work/0513.bench-build/05.01.md",
+  "pass": "05.01",
+  "receipt_sha256": null,
+  "retrospective": null,
+  "source": {
+   "commit": null,
+   "kind": "live-file",
+   "page_bytes": null,
+   "page_sha256": null
+  },
+  "submission_id": null,
+  "work_id": "case-a"
+ },
+ "judgment": {
+  "answers": [],
+  "design_fork": null,
+  "disposition": "accepted",
+  "finding": "Bounded first instrument returned as specified for 05.01.002; custody intact. Against the accepted method revision (0414.bench 01.002, 0701 review F01-F04) controls are missing: no pair parity check, wording-based deterministic keys instead of commitment scoring, no candidate-package re-hash after prepare, no preparation/repair cost record.",
+  "goal": {
+   "evidence": [],
+   "goal_id": "case-a-goal",
+   "goal_sha256": "dbdb24a17873575eebc8abb46b3e99c4e7ac9d7ac07c57d284de065475a26ac1",
+   "terminal": "open"
+  },
+  "holds": [],
+  "next_action": {
+   "action_id": "bench-controls-correction",
+   "text": "Pack one implementation correction adding F01-F04 controls with regression cases under a new bench version (lab-only proposal).",
+   "authorized_in_grant": false
+  },
+  "outcome": "continue",
+  "pass_terminal": "finished",
+  "reasons": [
+   "receipt/manifest/payloads and 9 declared outputs re-hashed equal (run 01, manual)",
+   "prime_bench.py collect/compare never re-read candidate_files pins (code lines 785-860, 1088-1160)",
+   "design-fork-a key uses must_quote of the Director sentence: a wording test the method rejects",
+   "historical tests not reproducible in the frozen input: support dependency absent (unknown, not false)"
+  ],
+  "sections": {
+   "affected": null,
+   "assumptions": null,
+   "consequences": null,
+   "exploration": null,
+   "findings_account": null,
+   "finish_assessments": null,
+   "for_model": null,
+   "issue": null,
+   "learning": null,
+   "limits": null,
+   "next_bounded_action": "One correction pack for F01-F04 with regression cases (not released).",
+   "open_questions": null,
+   "options": null,
+   "outcome_evidence": null,
+   "preservation": null,
+   "prime_finding": "Pass meets its own grant; goal not met until accepted method controls exist.",
+   "proposed_plan": null,
+   "question": null,
+   "recommendation": null,
+   "remaining_choices": null,
+   "return_result": "Harness, bench, tests and docs returned; custody verified.",
+   "tests_note": null,
+   "tests_passed": null,
+   "within_direction": "Correction lies within the declared design and the accepted method revision."
+  },
+  "semantic_conflict": false,
+  "source_refs": [
+   "00.kernel/00.00.10.work/0513.bench-build/05.01.md",
+   "00.kernel/00.00.10.work/0163.prime-bench-harness-0501/return.md",
+   "00.kernel/00.00.10.work/0414.bench/01.002.md",
+   "00.kernel/00.00.10.work/0701.bench-method/06.01.review.md",
+   "labs/prime-bench-pass01/prime_bench.py",
+   "labs/prime-bench-pass01/cases/design-fork-a/evaluator/key.json"
+  ],
+  "unresolved": [
+   "historical 32-test result not reproduced here",
+   "isolation remains a coordinator declaration"
+  ]
+ },
+ "recovers": null,
+ "review_id": "05.01-r1",
+ "schema": "prime-cycle-decision/2",
+ "supersedes": null
+}

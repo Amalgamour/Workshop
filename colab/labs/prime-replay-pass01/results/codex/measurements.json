@@ -1,0 +1,67 @@
+{
+  "schema": "prime-replay-measurements/1",
+  "model_label": "codex",
+  "runs": [
+    {
+      "run": "01-case-a-manual",
+      "wrapped_commands_started": 6,
+      "wrapped_commands_ended": 6,
+      "command_seconds_sum": 0.48499999998603016,
+      "stdout_bytes": 76836,
+      "stderr_bytes": 0,
+      "exit_counts": {
+        "0": 5,
+        "1": 1
+      },
+      "tokens": null,
+      "cost": null,
+      "note": "Command duration sum excludes reasoning, direct file readers and setup; not model latency or productivity. See supplied per-run friction notes."
+    },
+    {
+      "run": "02-case-a-assisted",
+      "wrapped_commands_started": 10,
+      "wrapped_commands_ended": 10,
+      "command_seconds_sum": 1.8760000001057051,
+      "stdout_bytes": 23442,
+      "stderr_bytes": 25,
+      "exit_counts": {
+        "0": 5,
+        "1": 3,
+        "2": 2
+      },
+      "tokens": null,
+      "cost": null,
+      "note": "Command duration sum excludes reasoning, direct file readers and setup; not model latency or productivity. See supplied per-run friction notes."
+    },
+    {
+      "run": "03-case-b-assisted",
+      "wrapped_commands_started": 9,
+      "wrapped_commands_ended": 9,
+      "command_seconds_sum": 4.779999999969732,
+      "stdout_bytes": 21530,
+      "stderr_bytes": 1659,
+      "exit_counts": {
+        "0": 6,
+        "1": 2,
+        "2": 1
+      },
+      "tokens": null,
+      "cost": null,
+      "note": "Command duration sum excludes reasoning, direct file readers and setup; not model latency or productivity. See supplied per-run friction notes."
+    },
+    {
+      "run": "04-case-b-manual",
+      "wrapped_commands_started": 3,
+      "wrapped_commands_ended": 3,
+      "command_seconds_sum": 3.2029999999213032,
+      "stdout_bytes": 13454,
+      "stderr_bytes": 1659,
+      "exit_counts": {
+        "0": 3
+      },
+      "tokens": null,
+      "cost": null,
+      "note": "Command duration sum excludes reasoning, direct file readers and setup; not model latency or productivity. See supplied per-run friction notes."
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "started_utc": "2026-10-30T19:01:31.519345+00:00",
+  "argv": [
+    "python",
+    "-B",
+    "-c",
+    "\nimport json,hashlib\nfrom pathlib import Path\nm=Path('00.kernel/00.00.10.work/0163.prime-bench-harness-0501'); man=json.loads((m/'manifest.json').read_bytes())\nprint('return', {k:man['return'][k] for k in man['return'] if k!='text'} if isinstance(man['return'],dict) else man['return'])\nprint('omitted', man['omitted'], 'required', man['required'], 'retro', man['retrospective'], 'commit', man['source_commit'])\nrb=(m/'reservation.json').read_bytes(); print('reservation sha match', hashlib.sha256(rb).hexdigest()==man['reservation_sha256'])\nfor s in man['sources']:\n    b=(m/'payload'/Path(s.get('blob') or s.get('payload') or '').name).read_bytes() if (s.get('blob') or s.get('payload')) else None\n    print({k:s[k] for k in s if k not in ('sha256',)}, 'blob ok' if b is not None and hashlib.sha256(b).hexdigest()==s['sha256'] else 'blob ?', 'repo ok' if Path(s.get('path','')).is_file() and hashlib.sha256(Path(s['path']).read_bytes()).hexdigest()==s['sha256'] else 'repo ?')\nrt=(m/'return.md').read_bytes(); print('return.md sha', hashlib.sha256(rt).hexdigest())\nsub=Path('00.kernel/00.00.10.work/0513.bench-build/evidence/build05.01/submission.md'); print('submission == return.md', sub.read_bytes()==rt)\n"
+  ],
+  "cwd": "D:\\Git\\lib-build\\colab\\labs\\prime-replay-pass01\\runs\\claude\\01-case-a-manual\\repository",
+  "coverage": "This wrapped subprocess and captured stdout/stderr only; tool-reader calls and model thinking are not observed."
+}

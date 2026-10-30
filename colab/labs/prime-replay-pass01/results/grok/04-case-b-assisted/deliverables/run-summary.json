@@ -1,0 +1,43 @@
+{
+  "schema": "prime-replay-run-summary/1",
+  "status": "partial",
+  "partial_reason": "Judgment files are kept. prime_cycle read exited 1 once and was not repeated as its own command. record exited 2 once with observation failed: reader exit 2 and was not retried. day called read() internally because --registration was set. The sealed assistance tree was not repaired.",
+  "case": "case-b",
+  "condition": "assisted",
+  "order": 4,
+  "started_utc": "2026-10-30T19:33:54.705300+00:00",
+  "ended_utc": "2026-10-30T19:36:03.838397+00:00",
+  "ended_note": "ended_utc is the stamp after inspect and day. The deliverable files were written after that stamp.",
+  "model": "Grok 4.7",
+  "session": "same session as the three earlier routes",
+  "familiarity": "Same session disclosure. The manual route had already judged this case. Module hashes were checked again on this tree.",
+  "carryover": "Manual disposition stands: accepted, pass finished, goal complete, no pack. This route did not edit that write. The packet added a custody verify the cycle read could not see.",
+  "checks": [
+    "cycle read exit 1 reader exit 2",
+    "packet exit 0 custody complete artifact checks none",
+    "hash exit 0 three files match the manual route",
+    "record exit 2 observation failed",
+    "inspect exit 0 reviews empty",
+    "day exit 0 lists one read, one packet, one refused record"
+  ],
+  "decisions": {
+    "disposition": "accepted",
+    "pass_terminal": "finished",
+    "goal_terminal": "complete",
+    "outcome": "complete",
+    "semantic_conflict": false,
+    "next_pack": "no pack required",
+    "tool_record": "refused, no review files written"
+  },
+  "manual_binding_copies": 1,
+  "manual_copy_note": "The template binding was copied once into out/decision-case-b.json. Keystroke counts were not kept. receipt_sha256 stayed null.",
+  "source_exposure": "This route's frozen repository, the assistance cycle and its packet, and a hash of three subject files. The unittest was not repeated.",
+  "interventions": "No second journalled read. No adapter added. Day and inspect overlapped.",
+  "tokens": null,
+  "tokens_unit": null,
+  "cost": null,
+  "cost_unit": null,
+  "wrapped_commands": 7,
+  "command_seconds_sum": null,
+  "limits": "Seven wrapped commands: read, packet, hash, record, inspect, day, clock. Seconds not hand-added. The day process contains an unlogged reader call."
+}

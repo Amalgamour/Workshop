@@ -1,0 +1,36 @@
+{
+ "schema": "prime-replay-run-summary/claude-1",
+ "run": "02-case-a-assisted",
+ "status": "partial",
+ "status_reason": "Every assisted step was performed, but the record was refused because the frozen bundle's reader cannot run (missing labs/prime-support-pass01/clerk_adapter.py). No typed review exists; the judgment is in deliverables and out/decision-case-a.json.",
+ "started_utc": "2026-10-30T19:03:30Z",
+ "ended_utc": "2026-10-30T19:05:40Z",
+ "time_basis": "first and last action observed by me; includes reasoning",
+ "familiarity": "Original Builder of case A, and builder of the prime_cycle adapter",
+ "carryover": "Run 01 findings fully in context; substantive case A evidence was not re-read",
+ "checks": [
+  "custody via review_packet: inspector complete and helper verify intact (equals the run 01 hashes)",
+  "packet coverage: return and receipt only",
+  "reader direct run: exit 2, missing clerk_adapter.py",
+  "record: refused, observation failed",
+  "inspect: no review directories",
+  "day: 6 journalled operations, 0 reviews"
+ ],
+ "decisions": {
+  "disposition": "accepted as a bounded first instrument; correction required",
+  "pass_terminal": "finished",
+  "goal_terminal": "open",
+  "next": "the same correction pack as run 01",
+  "director_needed_now": false
+ },
+ "manual_copy_count": 0,
+ "manual_copy_note": "no hash copies; 4 paths and the work id typed per command",
+ "corrections": 1,
+ "wrapped_commands": 10,
+ "journalled_operations": 6,
+ "source_exposure": "none beyond run 01",
+ "interventions": 0,
+ "tokens": null,
+ "cost": null,
+ "limits": "The assisted route was degraded by a bundle omission; this is not a fair test of the assistance's review value. Self-review and self-built tool bias."
+}

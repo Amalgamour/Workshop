@@ -1,0 +1,44 @@
+MATCH return.md b7c4fe25278f7fe09cc7fc18699bf06ab3034bb38abc6787360365e39d488fef 2313
+MATCH 06.01.md 9faced923ed6f4e300985106127fd8b6866789d2b95e45c8deb00b734ff06771 5663
+MATCH CONTRACT.md 2d805f84ae9743b38ae07b0b376c1fa008623bbfeac9d594148ad3e6c1d9976a 8314
+MATCH verification.json d3f5b1fb6cdf3a4f2ee36e917a034f682c8e27cb70f848837eb98c79993e6e39 1861
+MATCH REAL-USE.md 8e474e82e71948b4dd9a7c53160a7751eb2d6a8ab980d011421ee8d30709af75 4065
+MATCH packet.json bfcd0ee84d2505b06ebea0593bc66dc4504393ea966e357d58fae580ce98d6e4 8393
+MATCH PACKET.md 83b4d69f95910aaca4af4e4400e0d72551265f3700599f1564305363f86e0f20 1999
+MATCH artifact-manifest.json 3cdbc0a3b9497756d357fa824bdf67cbc11bcfd33c59c1c8f5117e1cee1daf7f 4283
+MATCH specimen-0163/packet.json c6eeaa6bfa5a1c03577152f6d4b4df5a33601fb7f67ef58bbbace23fbb5599ad 57915
+MATCH specimen-0163/PACKET.md 2443bc01d88d00590adccc47fd6749be75b484e083d6aa7ff3b81edf2dea0c18 25501
+MATCH review_packet.py f658cbe48a3a76b908e5af0bcf0b7a68abc90571d983ca785e36667268f6ee72 42694
+MATCH test_review_packet.py b438f99bb5576b44c884974fd2e539113a9add16a806abaa726f5a287e691164 20897
+MATCH source-manifest.json 8b03d471e212e5832c65dec95a7e07975160ed126df20ae01d92e33bbdb96b11 3190
+MATCH receipt.json file bf8cef9fe88b09316c69d4f1c37d824bc5b7378403d49ac3dccf486905fe0fff 299 page-pointer bf8cef9fe88b09316c69d4f1c37d824bc5b7378403d49ac3dccf486905fe0fff
+PAYLOADS 7 bad 0
+SNAPSHOT snapshots/0001.blob ABSENT 00.kernel/00.00.10.work/0412.prime-review/01.md
+SNAPSHOT snapshots/0002.blob ABSENT 00.kernel/00.00.10.work/0412.prime-review/evidence/director-agreement.md
+SNAPSHOT snapshots/0003.blob ABSENT 00.kernel/00.00.10.work/0413.assistants/01.md
+SNAPSHOT snapshots/0004.blob ABSENT 00.kernel/00.00.10.work/0412.prime-review/evidence/drift-audit-2026-10-29/DECISIONS.md
+SNAPSHOT snapshots/0005.blob LIVE-MATCH labs/return-capture-pass01/return_capture.py
+SNAPSHOT snapshots/0006.blob LIVE-MATCH labs/return-capture-pass01/return_inspect.py
+SNAPSHOT snapshots/0007.blob ABSENT 00.kernel/00.00.10.work/0164.prime-entry-pin-repair-0503/reservation.json
+SNAPSHOT snapshots/0008.blob ABSENT 00.kernel/00.00.10.work/0164.prime-entry-pin-repair-0503/return.md
+SNAPSHOT snapshots/0009.blob ABSENT 00.kernel/00.00.10.work/0164.prime-entry-pin-repair-0503/manifest.json
+SNAPSHOT snapshots/0010.blob ABSENT 00.kernel/00.00.10.work/0164.prime-entry-pin-repair-0503/receipt.json
+SNAPSHOT snapshots/0011.blob ABSENT 00.kernel/00.00.10.work/0512.prime-review/evidence/pin05.03/artifact-manifest.json
+SNAPSHOT snapshots/0012.blob ABSENT 00.kernel/00.00.10.work/0163.prime-bench-harness-0501/return.md
+SNAPSHOT snapshots/0013.blob ABSENT 00.kernel/00.00.10.work/0513.bench-build/evidence/build05.01/artifact-manifest.json
+SNAPSHOTS 13 bad 0
+ARTIFACT_ROWS 19 bad 0
+NOMINATED acceptance False semantic_review False next_task None custody complete
+CHECK artifact-manifest checked rows 69 schema artifact-manifest/1
+CLASS_COUNTS {'changed-live-working-copy': 28, 'historical-match': 41}
+ABSENT_BLOB absent ['git blob is absent', 'live file was not read'] live_opened False
+SPECIMEN acceptance False custody complete conflicts []
+MATCH frozen-helper 8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac 45767
+MATCH live-helper 8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac 45767
+MATCH frozen-inspector 947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b 11402
+MATCH live-inspector 947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b 11402
+CORRUPTION_WORD False
+MEMBER_IN_FIXTURE 0163.prime-bench-harness-0501 False
+MEMBER_IN_FIXTURE 0164.prime-entry-pin-repair-0503 False
+GIT 749cfd9c670fe77fbedd232c2630f98b0529025d exit 128 fatal: git cat-file: could not get object info
+GIT 80f7025425d7bb3fdcf3b0ee56057cd6d8b6b9fe exit 128 fatal: git cat-file: could not get object info

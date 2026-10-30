@@ -1,0 +1,21 @@
+setUpModule (__main__) ... ERROR
+
+======================================================================
+ERROR: setUpModule (__main__)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Git\lib-build\colab\labs\prime-replay-pass01\runs\grok\01-case-a-assisted\repository\labs\prime-bench-pass01\tests\test_prime_bench.py", line 81, in setUpModule
+    FROZEN_BEFORE[path] = sha((pb.REPO / path).read_bytes())
+                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\misg\AppData\Local\Programs\Python\Python314\Lib\pathlib\__init__.py", line 782, in read_bytes
+    with self.open(mode='rb', buffering=0) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\misg\AppData\Local\Programs\Python\Python314\Lib\pathlib\__init__.py", line 776, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\Git\\lib-build\\colab\\labs\\prime-replay-pass01\\runs\\grok\\01-case-a-assisted\\repository\\labs\\prime-review-pass01\\prime_review.py'
+
+----------------------------------------------------------------------
+Ran 0 tests in 0.001s
+
+FAILED (errors=1)

@@ -1,0 +1,46 @@
+{
+ "machine": {
+  "argv": [
+   "read",
+   "--registration",
+   "D:\\Git\\lib-build\\colab\\labs\\prime-replay-pass01\\runs\\grok\\04-case-b-assisted\\registration.json",
+   "--templates",
+   "D:\\Git\\lib-build\\colab\\labs\\prime-replay-pass01\\runs\\grok\\04-case-b-assisted\\out\\templates",
+   "--journal-root",
+   "D:\\Git\\lib-build\\colab\\labs\\prime-replay-pass01\\runs\\grok\\04-case-b-assisted\\out\\journal",
+   "--caller",
+   "Grok Colab"
+  ],
+  "clock_basis": "system clock at operation start; local offset from the OS timezone",
+  "cwd": "D:\\Git\\lib-build\\colab\\labs\\prime-replay-pass01\\runs\\grok\\04-case-b-assisted\\repository",
+  "inputs": {
+   "registration": {
+    "bytes": 2357,
+    "path": "D:\\Git\\lib-build\\colab\\labs\\prime-replay-pass01\\runs\\grok\\04-case-b-assisted\\registration.json",
+    "sha256": "49c9783b71c4aaeabb09f885f9a873ba952cc79121c2aa1cd46dfd7fd43de87b",
+    "snapshot": "registration.json"
+   }
+  },
+  "pid": 19704,
+  "pins": {
+   "batch_observe": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4",
+   "prime_review": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+   "return_capture": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+   "return_inspect": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+   "review_packet": "f658cbe48a3a76b908e5af0bcf0b7a68abc90571d983ca785e36667268f6ee72"
+  },
+  "python": "3.14.0",
+  "started_at_local": "2026-10-30T14:33:54.811321-05:00",
+  "started_at_utc": "2026-10-30T19:33:54.811321+00:00",
+  "tool_path": "D:\\Git\\lib-build\\colab\\labs\\prime-replay-pass01\\assistance\\labs\\prime-cycle-pass01\\prime_cycle.py",
+  "tool_sha256": "dd5319a46a88e05020ee7b0715b8edca26031066c3f2ee867f590a6056581338"
+ },
+ "op_id": "20261030T193354.811354Z-f112aa604a27",
+ "operation": "read",
+ "schema": "prime-cycle-journal-start/1",
+ "supplied": {
+  "basis": "as supplied on the command line; not authenticated",
+  "caller_label": "Grok Colab",
+  "note": null
+ }
+}

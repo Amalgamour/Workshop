@@ -1,0 +1,50 @@
+{
+ "machine": {
+  "argv": [
+   "record",
+   "--registration",
+   "D:/Git/lib-build/colab/labs/prime-replay-pass01/runs/codex/02-case-a-assisted/registration.json",
+   "--decision",
+   "D:/Git/lib-build/colab/labs/prime-replay-pass01/runs/codex/02-case-a-assisted/out/decision.json",
+   "--journal-root",
+   "D:/Git/lib-build/colab/labs/prime-replay-pass01/runs/codex/02-case-a-assisted/out/journal"
+  ],
+  "clock_basis": "system clock at operation start; local offset from the OS timezone",
+  "cwd": "D:\\Git\\lib-build\\colab\\labs\\prime-replay-pass01\\runs\\codex\\02-case-a-assisted\\repository",
+  "inputs": {
+   "decision": {
+    "bytes": 4450,
+    "path": "D:\\Git\\lib-build\\colab\\labs\\prime-replay-pass01\\runs\\codex\\02-case-a-assisted\\out\\decision.json",
+    "sha256": "b21ac047e239ed33f4080e7000c1471a46b789fbad0def13911f8d29bd85c8ba",
+    "snapshot": "decision.json"
+   },
+   "registration": {
+    "bytes": 2360,
+    "path": "D:\\Git\\lib-build\\colab\\labs\\prime-replay-pass01\\runs\\codex\\02-case-a-assisted\\registration.json",
+    "sha256": "c7a654b70c8c1ffa96be34216e497b313cf2dd83498acce7cb2103400b9daafb",
+    "snapshot": "registration.json"
+   }
+  },
+  "pid": 4556,
+  "pins": {
+   "batch_observe": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4",
+   "prime_review": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+   "return_capture": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+   "return_inspect": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+   "review_packet": "f658cbe48a3a76b908e5af0bcf0b7a68abc90571d983ca785e36667268f6ee72"
+  },
+  "python": "3.12.14",
+  "started_at_local": "2026-10-30T14:03:34.281576-05:00",
+  "started_at_utc": "2026-10-30T19:03:34.281576+00:00",
+  "tool_path": "D:\\Git\\lib-build\\colab\\labs\\prime-replay-pass01\\assistance\\labs\\prime-cycle-pass01\\prime_cycle.py",
+  "tool_sha256": "dd5319a46a88e05020ee7b0715b8edca26031066c3f2ee867f590a6056581338"
+ },
+ "op_id": "20261030T190334.281576Z-70f12f53c3a0",
+ "operation": "record",
+ "schema": "prime-cycle-journal-start/1",
+ "supplied": {
+  "basis": "as supplied on the command line; not authenticated",
+  "caller_label": null,
+  "note": null
+ }
+}

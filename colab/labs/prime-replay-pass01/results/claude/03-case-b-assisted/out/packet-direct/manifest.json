@@ -1,0 +1,97 @@
+{
+  "files": [
+    {
+      "bytes": 3319,
+      "path": "custody.json",
+      "sha256": "47009633501afc734d32bd5f4bbfb264ccb6f9cdf0d92167b9aaaffafe310e7b"
+    },
+    {
+      "bytes": 0,
+      "path": "custody-stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 875,
+      "path": "helper-verify.txt",
+      "sha256": "d7dfb0fd39138f67eb10453bbf24a4784c6e81902a127e2388f892e55bf98dc5"
+    },
+    {
+      "bytes": 0,
+      "path": "helper-verify-stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 2313,
+      "path": "sources/0001-return.blob",
+      "sha256": "b7c4fe25278f7fe09cc7fc18699bf06ab3034bb38abc6787360365e39d488fef"
+    },
+    {
+      "bytes": 299,
+      "path": "sources/0002-receipt.blob",
+      "sha256": "bf8cef9fe88b09316c69d4f1c37d824bc5b7378403d49ac3dccf486905fe0fff"
+    },
+    {
+      "bytes": 2349,
+      "path": "sources/0003-manifest.blob",
+      "sha256": "a48339feaa93339e51f407f438b7714d2095d7cf1c38c6703f9965d9425f1ecb"
+    },
+    {
+      "bytes": 7263,
+      "path": "sources/0004-page.blob",
+      "sha256": "49050671645a6a29e7a047b23d10b97739522903f89d904a4c47e086e24872ae"
+    },
+    {
+      "bytes": 4283,
+      "path": "sources/0005-artifacts.blob",
+      "sha256": "3cdbc0a3b9497756d357fa824bdf67cbc11bcfd33c59c1c8f5117e1cee1daf7f"
+    },
+    {
+      "bytes": 22425,
+      "path": "packet.json",
+      "sha256": "baa722e651f7134f80044ae307e4696976fcb95933077c94ccca4be03c581b75"
+    },
+    {
+      "bytes": 7854,
+      "path": "PACKET.md",
+      "sha256": "20c3eeec8fe688eb1f6398aec8984a70c61f0e7d531841e6f7ae5f7f29cc00df"
+    }
+  ],
+  "schema": "review-packet-manifest/1",
+  "sources": [
+    {
+      "bytes": 2313,
+      "embedded": true,
+      "id": "return",
+      "sha256": "b7c4fe25278f7fe09cc7fc18699bf06ab3034bb38abc6787360365e39d488fef",
+      "snapshot": "sources/0001-return.blob"
+    },
+    {
+      "bytes": 299,
+      "embedded": true,
+      "id": "receipt",
+      "sha256": "bf8cef9fe88b09316c69d4f1c37d824bc5b7378403d49ac3dccf486905fe0fff",
+      "snapshot": "sources/0002-receipt.blob"
+    },
+    {
+      "bytes": 2349,
+      "embedded": true,
+      "id": "manifest",
+      "sha256": "a48339feaa93339e51f407f438b7714d2095d7cf1c38c6703f9965d9425f1ecb",
+      "snapshot": "sources/0003-manifest.blob"
+    },
+    {
+      "bytes": 7263,
+      "embedded": true,
+      "id": "page",
+      "sha256": "49050671645a6a29e7a047b23d10b97739522903f89d904a4c47e086e24872ae",
+      "snapshot": "sources/0004-page.blob"
+    },
+    {
+      "bytes": 4283,
+      "embedded": true,
+      "id": "artifacts",
+      "sha256": "3cdbc0a3b9497756d357fa824bdf67cbc11bcfd33c59c1c8f5117e1cee1daf7f",
+      "snapshot": "sources/0005-artifacts.blob"
+    }
+  ]
+}

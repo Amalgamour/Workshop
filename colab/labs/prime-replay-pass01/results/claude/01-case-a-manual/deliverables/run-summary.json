@@ -1,0 +1,34 @@
+{
+ "schema": "prime-replay-run-summary/claude-1",
+ "run": "01-case-a-manual",
+ "status": "complete",
+ "started_utc": "2026-10-30T18:59:35Z",
+ "ended_utc": "2026-10-30T19:03:30Z",
+ "time_basis": "first and last wrapped or file-write action observed by me; includes reasoning; not provider latency",
+ "familiarity": "Original Builder of case A (claude-opus-5-5 named as submitter), without recall beyond the return; also the builder of the frozen assistance adapter in this same session",
+ "carryover": "None from other runs (this is the first). Earlier session context: 0515 prime-cycle work; no memory of 0513.",
+ "checks": [
+  "receipt equals the page pointer (verified)",
+  "manifest, reservation and 6 payloads equal the repository files (verified)",
+  "9 declared output hashes (verified)",
+  "artifact-manifest 69/69 (verified)",
+  "bench validate: case files clean, 5 support files missing (exit 1)",
+  "historical test suite: cannot run, missing dependency (exit 5)",
+  "static code reading: collect, compare, keys, conditions"
+ ],
+ "decisions": {
+  "disposition": "accepted as a bounded first instrument; correction required before live trials",
+  "pass_terminal": "finished",
+  "goal_terminal": "open",
+  "next": "one implementation correction pack (F01-F04), lab only",
+  "director_needed_now": false
+ },
+ "manual_copy_count": 2,
+ "corrections": 1,
+ "wrapped_commands": 14,
+ "source_exposure": "No coordinator, history, provenance or other models' outputs. The case B identity was seen before its runs (access.jsonl).",
+ "interventions": 0,
+ "tokens": null,
+ "cost": null,
+ "limits": "Times are wall clock as I observed them; file-tool reads are self-reported; the tests could not be reproduced; self-review bias as the original Builder."
+}

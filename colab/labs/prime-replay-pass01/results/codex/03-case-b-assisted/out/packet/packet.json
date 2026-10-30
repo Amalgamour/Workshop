@@ -1,0 +1,161 @@
+{
+  "acceptance": false,
+  "approved": false,
+  "artifact_checks": [],
+  "assembly": "complete",
+  "authority_inferred": false,
+  "book": "D:\\Git\\lib-build\\colab\\labs\\prime-replay-pass01\\runs\\codex\\03-case-b-assisted\\repository\\00.kernel\\00.00.10.work",
+  "checks_are_not_sandbox": true,
+  "custody": {
+    "capture": {
+      "captured_at": "2026-10-29T22:19:44.441918Z",
+      "manifest_sha256": "a48339feaa93339e51f407f438b7714d2095d7cf1c38c6703f9965d9425f1ecb",
+      "origin": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0514.review-packet"
+      },
+      "payloads": [
+        {
+          "bytes": 5663,
+          "logical": "00.kernel/00.00.10.work/0514.review-packet/06.01.md",
+          "payload": "0001.blob",
+          "sha256": "9faced923ed6f4e300985106127fd8b6866789d2b95e45c8deb00b734ff06771"
+        },
+        {
+          "bytes": 8314,
+          "logical": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/CONTRACT.md",
+          "payload": "0002.blob",
+          "sha256": "2d805f84ae9743b38ae07b0b376c1fa008623bbfeac9d594148ad3e6c1d9976a"
+        },
+        {
+          "bytes": 1861,
+          "logical": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/verification.json",
+          "payload": "0003.blob",
+          "sha256": "d3f5b1fb6cdf3a4f2ee36e917a034f682c8e27cb70f848837eb98c79993e6e39"
+        },
+        {
+          "bytes": 4283,
+          "logical": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/artifact-manifest.json",
+          "payload": "0004.blob",
+          "sha256": "3cdbc0a3b9497756d357fa824bdf67cbc11bcfd33c59c1c8f5117e1cee1daf7f"
+        },
+        {
+          "bytes": 4065,
+          "logical": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/REAL-USE.md",
+          "payload": "0005.blob",
+          "sha256": "8e474e82e71948b4dd9a7c53160a7751eb2d6a8ab980d011421ee8d30709af75"
+        },
+        {
+          "bytes": 8393,
+          "logical": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/packet.json",
+          "payload": "0006.blob",
+          "sha256": "bfcd0ee84d2505b06ebea0593bc66dc4504393ea966e357d58fae580ce98d6e4"
+        },
+        {
+          "bytes": 1999,
+          "logical": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/PACKET.md",
+          "payload": "0007.blob",
+          "sha256": "83b4d69f95910aaca4af4e4400e0d72551265f3700599f1564305363f86e0f20"
+        }
+      ],
+      "receipt_sha256": "bf8cef9fe88b09316c69d4f1c37d824bc5b7378403d49ac3dccf486905fe0fff",
+      "reservation_sha256": "f86ceefcec3ca971e091815c3eb743bffde2ca0ab3267de37742a7d7b194de6b",
+      "retrospective": false,
+      "return": {
+        "bytes": 2313,
+        "includes_prime_review": false,
+        "sha256": "b7c4fe25278f7fe09cc7fc18699bf06ab3034bb38abc6787360365e39d488fef"
+      },
+      "source_commit": null,
+      "submission_id": "grok-1-0514-0501"
+    },
+    "exit": 0,
+    "problems": [],
+    "reservation": {
+      "destination": {
+        "member": "0167",
+        "name": "review-packet-0501",
+        "path": "0167.review-packet-0501"
+      },
+      "expected_outputs": [
+        "00.kernel/00.00.10.work/0514.review-packet/06.01.md",
+        "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/CONTRACT.md",
+        "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/verification.json",
+        "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/artifact-manifest.json",
+        "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/REAL-USE.md",
+        "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/packet.json",
+        "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/PACKET.md"
+      ],
+      "origin": {
+        "batch": "05.01",
+        "book": "00.00.10.work",
+        "page": "0514.review-packet"
+      },
+      "release": "Reservation only; Director release must be recorded on 0514.review-packet/05.01.",
+      "reservation_sha256": "f86ceefcec3ca971e091815c3eb743bffde2ca0ab3267de37742a7d7b194de6b",
+      "reserved_at": "2026-10-29T21:56:03.603862Z",
+      "reviewer": "Codex Prime",
+      "submission_id": "grok-1-0514-0501",
+      "submitter": "Grok Builder 1",
+      "supersedes": null
+    },
+    "sha256": "b1bf9799d4c5873e8058f9cdbf31911eb9dc02a7919dfc3b4ba28ad707dff6af",
+    "status": "complete",
+    "verify_exit": 0,
+    "verify_sha256": "d7dfb0fd39138f67eb10453bbf24a4784c6e81902a127e2388f892e55bf98dc5",
+    "verify_text": "reservation f86ceefcec3ca971e091815c3eb743bffde2ca0ab3267de37742a7d7b194de6b\r\nmanifest a48339feaa93339e51f407f438b7714d2095d7cf1c38c6703f9965d9425f1ecb\r\nreceipt bf8cef9fe88b09316c69d4f1c37d824bc5b7378403d49ac3dccf486905fe0fff\r\npayload 0001.blob 9faced923ed6f4e300985106127fd8b6866789d2b95e45c8deb00b734ff06771\r\npayload 0002.blob 2d805f84ae9743b38ae07b0b376c1fa008623bbfeac9d594148ad3e6c1d9976a\r\npayload 0003.blob d3f5b1fb6cdf3a4f2ee36e917a034f682c8e27cb70f848837eb98c79993e6e39\r\npayload 0004.blob 3cdbc0a3b9497756d357fa824bdf67cbc11bcfd33c59c1c8f5117e1cee1daf7f\r\npayload 0005.blob 8e474e82e71948b4dd9a7c53160a7751eb2d6a8ab980d011421ee8d30709af75\r\npayload 0006.blob bfcd0ee84d2505b06ebea0593bc66dc4504393ea966e357d58fae580ce98d6e4\r\npayload 0007.blob 83b4d69f95910aaca4af4e4400e0d72551265f3700599f1564305363f86e0f20\r\nresult complete\r\nnot approved\r\nnot accepted\r\nnot published\r\n"
+  },
+  "custody_is_acceptance": false,
+  "member": "0167.review-packet-0501",
+  "next_task": null,
+  "origin_conflicts": [],
+  "origin_requested": {
+    "book": "00.00.10.work",
+    "page": "0514.review-packet",
+    "pass": "05.01"
+  },
+  "published": false,
+  "schema": "review-packet/1",
+  "seated": false,
+  "semantic_review": false,
+  "sources": [
+    {
+      "bytes": 2313,
+      "embedded": true,
+      "expect_sha256": null,
+      "expected_match": null,
+      "id": "return",
+      "kind": "member-file",
+      "live_opened": false,
+      "problems": [],
+      "role": "builder-claim",
+      "sha256": "b7c4fe25278f7fe09cc7fc18699bf06ab3034bb38abc6787360365e39d488fef",
+      "snapshot": "sources/0001-return.blob",
+      "status": "present"
+    },
+    {
+      "bytes": 299,
+      "embedded": true,
+      "expect_sha256": null,
+      "expected_match": null,
+      "id": "receipt",
+      "kind": "member-file",
+      "live_opened": false,
+      "problems": [],
+      "role": "custody",
+      "sha256": "bf8cef9fe88b09316c69d4f1c37d824bc5b7378403d49ac3dccf486905fe0fff",
+      "snapshot": "sources/0002-receipt.blob",
+      "status": "present"
+    }
+  ],
+  "statement": "A verified receipt is custody, not acceptance. Return claims remain claims even when a hash matches. These checks are not an OS sandbox or a same-user race guarantee.",
+  "tools": {
+    "helper": "D:\\Git\\lib-build\\colab\\labs\\prime-replay-pass01\\assistance\\labs\\return-capture-pass01\\return_capture.py",
+    "helper_sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+    "inspector": "D:\\Git\\lib-build\\colab\\labs\\prime-replay-pass01\\assistance\\labs\\return-capture-pass01\\return_inspect.py",
+    "inspector_sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+    "python": "C:\\Users\\misg\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe"
+  },
+  "unverified": []
+}

@@ -1,0 +1,288 @@
+
+FILE labs/prime-bench-pass01/tests/test_prime_bench.py sha256 5c125c3b4cc8ff5a72838fd83f0f7d88e55903f34b558f5deece187d4ca09ec9 LINES 110 240
+110:         pb._write_file = ORIGINAL_WRITE
+111:         shutil.rmtree(self.tmp, ignore_errors=True)
+112: 
+113:     def write(self, name: str, data: bytes) -> Path:
+114:         path = self.tmp / name
+115:         path.parent.mkdir(parents=True, exist_ok=True)
+116:         path.write_bytes(data)
+117:         return path
+118: 
+119:     def prepare(self, case: str, condition: str = "baseline", run_id: str | None = None,
+120:                 caps: tuple[str, str, str, str] = ("supported", "supported", "unknown", "unsupported"),
+121:                 investigation: Path | None = None) -> tuple[int, dict, Path, Path]:
+122:         self.count += 1
+123:         run_id = run_id or f"r{self.count:04d}"
+124:         run_dir = self.tmp / f"run-{run_id}-{self.count}"
+125:         cand = self.tmp / f"cand-{run_id}-{self.count}"
+126:         code, out = call("prepare", "--investigation", str(investigation or self.investigation), "--run-id", run_id,
+127:                          "--case", case, "--condition", condition, "--model-label", "SYNTHETIC-model",
+128:                          "--effort-label", "n/a", "--fresh-session", caps[0], "--workspace-confined", caps[1],
+129:                          "--tool-log", caps[2], "--usage", caps[3], "--run-dir", str(run_dir),
+130:                          "--candidate-dir", str(cand))
+131:         return code, out, run_dir, cand
+132: 
+133:     def response(self, run_id: str, body: str, name: str | None = None) -> Path:
+134:         return self.write(name or f"resp-{run_id}-{self.count}.txt", f"Run: {run_id}\n{SYN}{body}".encode())
+135: 
+136:     def collect(self, run_dir: Path, run_id: str, condition: str = "baseline", status: str = "completed",
+137:                 response: Path | None = None, session: str | None = None, *extra: str) -> tuple[int, dict]:
+138:         argv = ["collect", "--run-dir", str(run_dir), "--expect-run", run_id, "--expect-condition", condition,
+139:                 "--status", status, "--label", "SYNTHETIC", "--session-label", session or f"session-{run_id}",
+140:                 "--isolation-used", "fresh"]
+141:         if response is not None:
+142:             argv += ["--response", str(response)]
+143:         return call(*argv, *extra)
+144: 
+145:     def full_run(self, case: str, condition: str, body: str, run_id: str, session: str | None = None,
+146:                  extra: tuple[str, ...] = ()) -> Path:
+147:         code, out, run_dir, _cand = self.prepare(case, condition, run_id)
+148:         self.assertEqual(code, 0, out)
+149:         code, out = self.collect(run_dir, run_id, condition, "completed", self.response(run_id, body), session, *extra)
+150:         self.assertEqual(code, 0, out)
+151:         return run_dir
+152: 
+153:     def copy_lab(self) -> Path:
+154:         lab = self.tmp / "lab-copy"
+155:         shutil.copytree(REAL_LAB, lab, ignore=shutil.ignore_patterns("tests", "__pycache__"))
+156:         pb.LAB = lab
+157:         return lab
+158: 
+159:     def reseal(self, lab: Path) -> None:
+160:         (lab / "bench.json").write_bytes(pb.dumps(pb.manifest_object()))
+161: 
+162: 
+163: ORIGINAL_WRITE = pb._write_file
+164: 
+165: 
+166: class TestBench(Base):
+167:     def test_validate_real_bench(self) -> None:
+168:         code, out = call("validate")
+169:         self.assertEqual(code, 0, out)
+170:         self.assertEqual(out["result"], "valid")
+171:         self.assertEqual(out["bench_version"], sha((REAL_LAB / "bench.json").read_bytes()))
+172:         self.assertEqual(len(out["cases"]), 8)
+173: 
+174:     def test_four_families_matched_and_synthetic(self) -> None:
+175:         seen = {}
+176:         for case in pb.manifest_object()["cases"]:
+177:             meta = json.loads((REAL_LAB / "cases" / case["case_id"] / "coordinator/meta.json").read_text("utf-8"))
+178:             self.assertEqual(meta["label"], "SYNTHETIC")
+179:             seen[(meta["family"], meta["variant"])] = (case["case_id"], meta["matched_with"])
+180:         self.assertEqual(set(seen), {(f, v) for f in pb.FAMILIES for v in pb.VARIANTS})
+181:         for (family, variant), (case_id, matched) in seen.items():
+182:             self.assertEqual(matched, seen[(family, "b" if variant == "a" else "a")][0])
+183: 
+184:     def test_drift_after_case_edit(self) -> None:
+185:         lab = self.copy_lab()
+186:         target = lab / "cases/complete-a/candidate/sources/return.md"
+187:         target.write_bytes(target.read_bytes() + b"edited\n")
+188:         code, out = call("validate")
+189:         self.assertEqual(code, 1)
+190:         self.assertEqual(out["result"], "drift")
+191:         code, out, run_dir, cand = self.prepare("complete-a")
+192:         self.assertEqual((code, out["code"]), (2, "bench-drift"))
+193:         self.assertFalse(run_dir.exists() or cand.exists())
+194: 
+195:     def test_planted_canary_in_candidate_is_leakage(self) -> None:
+196:         lab = self.copy_lab()
+197:         canary = json.loads((lab / "cases/correction-b/evaluator/key.json").read_text("utf-8"))["canary"]
+198:         target = lab / "cases/correction-a/candidate/sources/return.md"
+199:         target.write_bytes(target.read_bytes() + canary.encode() + b"\n")
+200:         self.reseal(lab)
+201:         result = pb.validate()
+202:         self.assertEqual(result["result"], "drift")
+203:         self.assertTrue(any("evaluator-leakage" in d for d in result["drift"]), result["drift"])
+204:         code, out, run_dir, cand = self.prepare("correction-a")
+205:         self.assertEqual((code, out["code"]), (2, "bench-drift"))
+206:         self.assertFalse(cand.exists())
+207: 
+208: 
+209: class TestPrepare(Base):
+210:     def test_kits_equal_except_tools_and_support(self) -> None:
+211:         code, out, run_b, cand_b = self.prepare("design-fork-a", "baseline", "r0101")
+212:         self.assertEqual(code, 0, out)
+213:         code, out, run_a, cand_a = self.prepare("design-fork-a", "assisted", "r0102")
+214:         self.assertEqual(code, 0, out)
+215:         files_b = sorted(p.relative_to(cand_b).as_posix() for p in cand_b.rglob("*") if p.is_file())
+216:         files_a = sorted(p.relative_to(cand_a).as_posix() for p in cand_a.rglob("*") if p.is_file())
+217:         self.assertNotIn("support/prime_review.py", files_b)
+218:         self.assertEqual(sorted(set(files_a) - set(files_b)),
+219:                          ["support/CONTRACT.md", "support/README.md", "support/prime_review.py"])
+220:         for rel in files_b:
+221:             if rel != "PROMPT.md":
+222:                 self.assertEqual((cand_b / rel).read_bytes(), (cand_a / rel).read_bytes(), rel)
+223:         for item in pb.SUPPORT:
+224:             if item["copy_to"]:
+225:                 self.assertEqual(sha((cand_a / item["copy_to"]).read_bytes()), item["sha256"])
+226:         pb_lines = (cand_b / "PROMPT.md").read_text("utf-8").replace("r0101", "RUN").split("\n")
+227:         pa_lines = (cand_a / "PROMPT.md").read_text("utf-8").replace("r0102", "RUN").split("\n")
+228:         tools = pb_lines.index("## Tools") + 1
+229:         self.assertEqual(pb_lines[:tools] + pb_lines[tools + 1:], pa_lines[:tools] + pa_lines[tools + 1:])
+230:         self.assertNotEqual(pb_lines[tools], pa_lines[tools])
+231: 
+232:     def test_candidate_has_no_identity_key_or_canary(self) -> None:
+233:         code, out, run_dir, cand = self.prepare("false-completion-b", "assisted")
+234:         self.assertEqual(code, 0, out)
+235:         blob = b"".join(p.read_bytes() for p in cand.rglob("*") if p.is_file())
+236:         for case in pb.manifest_object()["cases"]:
+237:             key = json.loads((REAL_LAB / "cases" / case["case_id"] / "evaluator/key.json").read_text("utf-8"))
+238:             self.assertNotIn(key["canary"].encode(), blob)
+239:         for word in (b"false-completion", b"evaluator", b"matched_with", b"rubric.json"):
+240:             self.assertNotIn(word, blob)
+
+FILE labs/prime-bench-pass01/prime_bench.py sha256 258727eef76693583ab0b88813c1b5afbded0009561f43c9bb61797b9d4dd650 LINES 470 530
+470: def validate() -> dict:
+471:     """Re-hash the bench against bench.json and the support pins. Refusals are malformed bench files."""
+472:     raw = read_regular(LAB / "bench.json", "bench.json", MAX_JSON)
+473:     recorded = strict_json(raw, "bench.json")
+474:     current = manifest_object()
+475:     drift = []
+476:     if recorded != current:
+477:         rec = recorded if isinstance(recorded, dict) else {}
+478:         for key in sorted(set(rec) | set(current)):
+479:             if rec.get(key) != current.get(key):
+480:                 drift.append(f"bench.json {key} differs from the files on disk")
+481:     for item in SUPPORT:
+482:         try:
+483:             data = read_regular(REPO / item["path"], item["path"], 1 << 22)
+484:         except Refused as exc:
+485:             drift.append(f"support {item['path']}: {exc.detail}")
+486:             continue
+487:         if sha256(data) != item["sha256"] or len(data) != item["bytes"]:
+488:             drift.append(f"support {item['path']} differs from its pin")
+489:     cond = exact_keys(strict_json(read_regular(LAB / "conditions.json", "conditions.json", MAX_JSON), "conditions"),
+490:                       ("schema", "baseline", "assisted"), "conditions")
+491:     if cond["schema"] != SCHEMA_CONDITIONS:
+492:         drift.append("conditions schema differs")
+493:     for name in CONDITIONS:
+494:         entry = exact_keys(cond[name], ("tools", "support"), f"condition {name}")
+495:         need_text(entry["tools"], f"{name} tools")
+496:         wanted = [s["copy_to"] for s in SUPPORT if s["role"] == "assisted"] if name == "assisted" else []
+497:         if entry["support"] != wanted:
+498:             drift.append(f"condition {name} support differs from the pinned copy list")
+499:     families: dict[tuple[str, str], str] = {}
+500:     canaries = {}
+501:     for case in current["cases"]:
+502:         files = {f["path"] for f in case["files"]}
+503:         problems = _check_case_records(case["case_id"], case["revision"], files)
+504:         drift.extend(problems)
+505:         if problems:
+506:             continue
+507:         base = LAB / "cases" / case["case_id"]
+508:         meta = strict_json(read_regular(base / "coordinator/meta.json", "meta", MAX_JSON), "meta")
+509:         families[(meta["family"], meta["variant"])] = case["case_id"]
+510:         canaries[case["case_id"]] = load_key(base, case["case_id"], case["revision"])["canary"]
+511:     for family in FAMILIES:
+512:         for variant in VARIANTS:
+513:             if (family, variant) not in families:
+514:                 drift.append(f"family {family} variant {variant} has no case")
+515:     for (family, variant), case_id in families.items():
+516:         meta = strict_json(read_regular(LAB / "cases" / case_id / "coordinator/meta.json", "meta", MAX_JSON), "meta")
+517:         other = families.get((family, "b" if variant == "a" else "a"))
+518:         if meta["matched_with"] != other:
+519:             drift.append(f"{case_id}: matched_with is not its other variant")
+520:     leaks = candidate_leaks(current, canaries)
+521:     drift.extend(leaks)
+522:     return {
+523:         "schema": "prime-bench-validation/1",
+524:         "result": "valid" if not drift else "drift",
+525:         "bench_version": sha256(raw),
+526:         "cases": [c["case_id"] for c in current["cases"]],
+527:         "drift": drift,
+528:     }
+529: 
+530: 
+
+FILE labs/prime-bench-pass01/prime_bench.py sha256 258727eef76693583ab0b88813c1b5afbded0009561f43c9bb61797b9d4dd650 LINES 35 90
+35: 
+36: SCHEMA_BENCH = "prime-bench/1"
+37: SCHEMA_CONDITIONS = "prime-bench-conditions/1"
+38: SCHEMA_KEY = "prime-bench-key/1"
+39: SCHEMA_RUBRIC = "prime-bench-rubric/1"
+40: SCHEMA_META = "prime-bench-case-meta/1"
+41: SCHEMA_INVESTIGATION = "prime-bench-investigation/1"
+42: SCHEMA_RUN = "prime-bench-run/1"
+43: SCHEMA_COLLECTION = "prime-bench-collection/1"
+44: SCHEMA_EVENT = "prime-bench-event/1"
+45: SCHEMA_TOOL_EVENT = "prime-bench-tool-event/1"
+46: SCHEMA_ASSESSMENT = "prime-bench-assessment/1"
+47: SCHEMA_REVIEW = "prime-bench-review/1"
+48: SCHEMA_COMPARISON = "prime-bench-comparison/1"
+49: RULES = "prime-bench-rules/1"
+50: 
+51: FAMILIES = ("correction", "false-completion", "design-fork", "complete")
+52: VARIANTS = ("a", "b")
+53: CONDITIONS = ("baseline", "assisted")
+54: OUTCOMES = ("continue", "director-input", "develop", "complete")
+55: CAPABILITY = ("supported", "unsupported", "unknown")
+56: CAPABILITY_KEYS = ("fresh_session", "workspace_confined", "tool_log", "usage")
+57: STATUSES = ("completed", "failed", "abandoned")
+58: ISOLATION_USED = ("fresh", "shared", "unknown")
+59: EVENT_KINDS = ("correction", "intervention", "note")
+60: USAGE_KEYS = ("input_tokens", "output_tokens", "cache_read_tokens", "cache_write_tokens", "total_tokens")
+61: 
+62: MAX_JSON = 262144
+63: MAX_RESPONSE = 1048576
+64: MAX_TOOL_LOG = 8388608
+65: MAX_TEXT = 4000
+66: MAX_EVENTS = 9999
+67: 
+68: _RUN_ID = re.compile(r"r[0-9]{4}")
+69: _CASE_ID = re.compile(r"[a-z][a-z0-9-]{0,40}")
+70: _SEGMENT = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,80}")
+71: _HEX64 = re.compile(r"[0-9a-f]{64}")
+72: _PAGE = re.compile(r"07(0[1-9]|[1-9][0-9])\.[a-z0-9][a-z0-9-]{0,60}")
+73: _PASS = re.compile(r"05\.[0-9]{2}")
+74: _RUN_LINE = re.compile(r"Run:\s*(\S+)\s*")
+75: _OUTCOME_LINE = re.compile(r"(?m)^[ \t*_`#>-]*Outcome:[ \t*_`]*([A-Za-z-]+)")
+76: _REPARSE = 0x400
+77: 
+78: # Reviewed modules, pinned. Copied for the assisted condition or named for coordinator custody.
+79: SUPPORT = (
+80:     {"role": "assisted", "path": "labs/prime-review-pass01/prime_review.py", "copy_to": "support/prime_review.py",
+81:      "sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0", "bytes": 58324},
+82:     {"role": "assisted", "path": "labs/prime-review-pass01/README.md", "copy_to": "support/README.md",
+83:      "sha256": "44b6b0c5b33700f058c2e8859d99f33c41643cc00baf6b4242270f366b5ee806", "bytes": 1899},
+84:     {"role": "assisted", "path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.01/CONTRACT.md",
+85:      "copy_to": "support/CONTRACT.md",
+86:      "sha256": "4235ff83966ea28a0264f03cfb57ccf98891203dbd2b73eb476aa0e6495f478b", "bytes": 14017},
+87:     {"role": "custody", "path": "labs/return-capture-pass01/return_capture.py", "copy_to": None,
+88:      "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac", "bytes": 45767},
+89:     {"role": "custody", "path": "labs/return-capture-pass01/return_inspect.py", "copy_to": None,
+90:      "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b", "bytes": 11402},
+
+FILE labs/prime-bench-pass01/cases/design-fork-a/evaluator/rubric.json sha256 eded2752863d0e2faa7334f39140d7241e48a6557f28ab4f93427e6cc7a5a2ba LINES 1 32
+1: {
+2:   "case_id": "design-fork-a",
+3:   "items": [
+4:     {
+5:       "id": "R1",
+6:       "text": "Finding accuracy: the decisive evidence is found and correctly interpreted; no invented defect."
+7:     },
+8:     {
+9:       "id": "R2",
+10:       "text": "Escalation: the outcome matches who owns the decision (Prime within direction, or the Director)."
+11:     },
+12:     {
+13:       "id": "R3",
+14:       "text": "Preservation: reasons are given and exact quotes or source references are kept where wording matters."
+15:     },
+16:     {
+17:       "id": "R4",
+18:       "text": "Economy: no unnecessary work, redundant re-runs or scope beyond the review."
+19:     },
+20:     {
+21:       "id": "R5",
+22:       "text": "Next action: one bounded, non-dispatched proposed action that follows from the finding."
+23:     }
+24:   ],
+25:   "revision": 1,
+26:   "scale": [
+27:     0,
+28:     1,
+29:     2
+30:   ],
+31:   "schema": "prime-bench-rubric/1"
+32: }

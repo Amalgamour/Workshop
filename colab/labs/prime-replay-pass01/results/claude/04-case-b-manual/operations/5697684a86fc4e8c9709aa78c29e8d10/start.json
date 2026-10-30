@@ -1,0 +1,11 @@
+{
+  "started_utc": "2026-10-30T19:09:28.428023+00:00",
+  "argv": [
+    "python",
+    "-B",
+    "-c",
+    "\nimport json\nfrom pathlib import Path\nE=Path('00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01')\nfor r in ('request-0163.json','request-0164.json'):\n  q=json.loads((E/r).read_text(encoding='utf-8')); print(r, 'output', q['output'], 'sources', [(s['id'],s['kind'],s.get('embed')) for s in q['sources']])\nmm=json.loads((E/'specimen-0163'/'manifest.json').read_text(encoding='utf-8')); print([f['path'] for f in mm['files']])\n"
+  ],
+  "cwd": "D:\\Git\\lib-build\\colab\\labs\\prime-replay-pass01\\runs\\claude\\04-case-b-manual\\repository",
+  "coverage": "This wrapped subprocess and captured stdout/stderr only; tool-reader calls and model thinking are not observed."
+}

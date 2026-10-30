@@ -1,0 +1,302 @@
+
+FILE 00.kernel/00.00.10.work/0163.prime-bench-harness-0501/return.md sha256 742beefbf856429ce3dfcf59e675a06f618c1b75b74f8f09b87c67dc6575198e LINES 1 61
+1: # Return — claude-0513-0501 (0513.bench-build 05.01.002, bounded Prime benchmark harness)
+2: 
+3: Submitter: claude-opus-5-5 (Anthropic), executor. Reviewer: Codex Prime. Date: 2026-10-29. Claim at 32da8205d405d6008b8542cea3c8546f0d95d7df; HEAD at return 80f7025425d7bb3fdcf3b0ee56057cd6d8b6b9fe (see Limits).
+4: 
+5: ## Did
+6: - **Pack and claim.** pack05.01.002: 10 of 10 snapshots match their pins, and live equals all 10. I recorded the Director's release and my claim. Notes (06.01.md) came FIRST, then CONTRACT.md, then code.
+7: - **Harness.** `labs/prime-bench-pass01/prime_bench.py`, standard library. Commands: `validate`, `manifest`, `prepare`, `collect`, `event`, `assess`, `review`, `compare` and `export`.
+8:   - No model call, session launch, credentials, network, Git or live-page write.
+9: - **Bench.** `bench.json` seals 59 case files, `conditions.json` and 5 support pins; the bench version is f00c6f29….
+10:   - There are 8 SYNTHETIC cases: four families (correction, false-completion, design-fork, complete), each in matched variants a and b.
+11:   - Each case records its rule provenance (the 0414 method; the 0512 review contract) and its realistic ambiguity.
+12:   - The decisive evidence is always in plain candidate files, so the baseline is not a straw man.
+13: - **Separation.**
+14:   - Candidate payload: `candidate/`. Fixed evaluator key and rubric: `evaluator/`. Coordinator-only metadata: `coordinator/`.
+15:   - `prepare` writes a fresh run folder and a separate fresh candidate folder, outside the repository.
+16:   - The candidate gets no case id, family, key or canary, and `prepare` refuses if any appears.
+17:   - Task and sources are byte-identical across conditions; PROMPT.md differs only in its Tools paragraph.
+18:   - Assisted adds a copied, re-pinned prime_review.py (805995a1…) with its README and CONTRACT. It ran from inside a kit: exit 0, `continue`.
+19: - **Integrity.** Key, rubric and task are pinned at prepare, so a changed rubric or key refuses (`rubric-changed`, `key-changed`).
+20:   - Wrong identity, a mismatched condition, a response naming another run, duplicate runs, mixed bench versions and mixed investigations all refuse.
+21:   - A second collect or review is a read-only refusal: `already-collected` or `already-reviewed` when identical, `conflict` when different.
+22:   - Writes are exclusive. A failed write is `partial`: retained, listed, never deleted or resumed.
+23: - **Collection and counting.**
+24:   - Raw bytes are kept exactly. Missing usage, times and tool events are `unavailable`, never 0.
+25:   - Corrections and interventions are separate append-only events.
+26:   - Unclean, failed and abandoned runs stay in the report, with reasons.
+27:   - Deterministic checks are labelled string checks. Semantic scores come only from a supplied reviewer record.
+28:   - No ratio, saving, ranking or pass score is computed.
+29: - **Colab adapter.** `export` writes the comparison, which binds every run record by sha256, plus the run records, the exact investigation file, a `05.NN.return.TEMPLATE.md` and `CAPTURE.txt` with the N1NN capture and verify commands. It does not run capture.
+30: - **Tests.** `python -B -X dev labs/prime-bench-pass01/tests/test_prime_bench.py -v`: 32 tests, 0 failures, 0 skips.
+31:   - Coverage: all four families in both conditions with SYNTHETIC answers, wrong answers, exact quotes, missing usage, contaminated or shared sessions, undeclared isolation, a changed rubric or key, wrong identity, duplicates and conflicts, failed and abandoned runs, evaluator leakage (planted in sources, and in a response), unsafe paths (repository, relative, UNC, `..`, junction ancestor, hard link, inside the run folder, oversize), partial writes, strict JSON and export.
+32:   - Dependency pins are asserted before and after.
+33:   - Three mutation probes were each caught.
+34: - **End-to-end CLI use** on SYNTHETIC fixtures outside the repository: 16 runs, 56 calls, every exit as expected. That output is `sample-report.md`; wrong answers are balanced across the conditions.
+35: - **Docs.** RUN-GUIDE.md covers what the Director decides, the exact coordinator steps, and where the return lands. Notes dispositions are recorded.
+36: 
+37: ## Blocked
+38: Nothing.
+39: 
+40: ## Need
+41: - Prime's review of the harness and RUN-GUIDE.
+42: - **Smallest next action:** reconcile this build with `0414.bench/01.002.md` and the 0701.bench-method review. Both landed in 80f7025 after my claim; I did not read them, as Grok's method work was not an input to this batch. Then the Director picks models, effort, run count and a session surface that can start fresh, confined sessions.
+43: - A reserved member for the coordinator's eventual return, with expected outputs `comparison.md`, `comparison.json` and `investigation.json`.
+44: 
+45: ## Limits
+46: - Isolation and confinement are coordinator declarations. The harness cannot observe a session, so a confined surface is a Director choice, not something this code proves.
+47: - Eight synthetic cases demonstrate the instrument only. They show no model performance, no productivity multiple and nothing about a fresh Prime.
+48: - **Not run:** any model or session; AR-01 inventory and bridge fixtures; the broad app suite; any capture of a coordinator return.
+49: - **HEAD moved during the build** (80f7025). It changed none of this batch's pinned inputs, dependencies or outputs.
+50: - No sandbox is claimed against a same-user race between a check and a write.
+51: 
+52: ## Declared outputs (sha256, bytes)
+53: - 00.kernel/00.00.10.work/0513.bench-build/06.01.md: 537480d4c5d8035014d5c68df46b604bdf83348a9a1579af37295307240bbbb3, 10070
+54: - 00.kernel/00.00.10.work/0513.bench-build/evidence/build05.01/CONTRACT.md: 68add992c3b3769e6f89286f358138970302d0361884421cf5378d3afc434b3e, 10806
+55: - 00.kernel/00.00.10.work/0513.bench-build/evidence/build05.01/verification.json: d9c2fd4e9a700d13aede26976d4f8ae4a11a9fed50e21564f3a40608ada895d6, 130259
+56: - 00.kernel/00.00.10.work/0513.bench-build/evidence/build05.01/RUN-GUIDE.md: 26235db45d4cf00fdfcef6be8e80523ab532e601676c6078a2ce09cf2d4c4627, 4732
+57: - 00.kernel/00.00.10.work/0513.bench-build/evidence/build05.01/artifact-manifest.json: da06ab6cfdee15497c1d19394fb9e22433e5c1db6623a3fd8462d20749274634, 14030
+58: - 00.kernel/00.00.10.work/0513.bench-build/evidence/build05.01/sample-report.md: dcd33eb45b8c2397b9dd2577e636992b2c980a30c669281ed5acca72eb2f0d78, 6028
+59: - labs/prime-bench-pass01/prime_bench.py (not captured; bound in artifact-manifest.json): 258727eef76693583ab0b88813c1b5afbded0009561f43c9bb61797b9d4dd650, 68800
+60: - labs/prime-bench-pass01/tests/test_prime_bench.py (not captured): 5c125c3b4cc8ff5a72838fd83f0f7d88e55903f34b558f5deece187d4ca09ec9, 42700
+61: - labs/prime-bench-pass01/bench.json (not captured): f00c6f29f35edd27465b2bbf5e4023323d8f028c4c6d8291ef1fe85db39fe9d1
+
+FILE 00.kernel/00.00.10.work/0513.bench-build/05.01.md sha256 1f2a9a1da788775ef759651a260c085c1f1bad7283c7e45c850af082c2f1275f LINES 1 55
+1: # LAB PROJECTION — historical assignment and custody, later review withheld
+2: 
+3: # 05 — Build the first bounded Prime benchmark harness
+4: version: 002
+5: Authorization: draft — 2026-10-29
+6: who: Codex Prime
+7: state: draft
+8: Face: 05
+9: PPPP: 0513
+10: book: 00.00.10.work
+11: 
+12: ## Assignment
+13: Executor: Claude. Reviewer: Codex Prime.
+14: Release and claim: recorded in the Return pointer. This draft grants no release.
+15: Workspace D:/Git/lib-build, branch workshop. Verify evidence/pack05.01.002/source-manifest.json.
+16: 
+17: ## #01 — Notes and first scope
+18: Read 0414.bench and the accepted review/Colab contracts. Write 06.01 first, then
+19: build05.01/CONTRACT.md before code. The Director will use a separate Codex bench
+20: coordinator. Build the instrument; do not run paid models or create sessions.
+21: Grok-1 may independently critique the method. Its work is not an input until reviewed.
+22: AR-01 remains held: no old inventory/bridge fixture execution or broad app suite.
+23: 
+24: ## #02 — Portable fixed cases and two conditions
+25: Build standard-library labs/prime-bench-pass01 with case schema, four small case
+26: families and matched variants: ordinary correction, false completion, design fork,
+27: and already-complete work. Preserve rule/source provenance and realistic ambiguity;
+28: no straw baseline. Baseline has ordinary file/search tools; assisted adds explicit
+29: reviewed Prime support commands. Source evidence is equal except permitted tool
+30: access. Separate candidate payloads from fixed evaluator keys and coordinator-only
+31: metadata. A session cannot see both answers or solve both conditions sequentially.
+32: Version and hash every case/rubric; no post-answer grading changes. Reject mixed
+33: case/version/condition identities and duplicate/conflicting submissions.
+34: 
+35: ## #03 — Preparation, collection and assessment
+36: Prepare fresh external run directories with explicit run/case/variant/condition,
+37: model/effort labels and supported capabilities. No credentials, model calls or
+38: session-launch automation. Provide manual fresh-session prompts and coordinator
+39: instructions; unsupported isolation must be reported, not simulated as clean.
+40: Collect exact raw output and tool logs, timestamps and optional provider usage.
+41: Missing data stays unavailable, not zero. Assess deterministic evidence with code;
+42: semantic rubric assessment is an explicitly supplied reviewer record, not parser
+43: proof. Keep failures, corrections and any intervention separate from original runs.
+44: No coordinator help during a tested run. Produce readable comparison plus underlying
+45: records, no fabricated scores/time/token savings. Define precisely what is counted.
+46: 
+47: ## #04 — Colab exchange and tests
+48: Coordinator handoff follows reviewed N7NN pack/return/notes/review conventions and
+49: N1NN immutable custody. Provide adapters/examples, not a second custody engine or
+50: live-book write. Individual run artifacts are tied to the coordinator investigation
+51: and fixed case revision. Preserve exact Director replies and source references.
+52: Self-test all four families with labelled SYNTHETIC responses, missing usage,
+53: contaminated/shared-context run, changed rubric, wrong identity, duplicate/conflict,
+54: failed/abandoned run, evaluator leakage and unsafe paths/partial writes. No actual
+55: model performance is demonstrated by fixture tests. Pin unchanged dependency modules;
+
+FILE 00.kernel/00.00.10.work/0414.bench/01.002.md sha256 33933c0e86854a6d6c3de2ff7392fb8691d5afe321f153a448cb6c037b8e3c78 LINES 1 78
+1: # 01 — Prime work benchmark
+2: version: 002
+3: Authorization: draft — 2026-10-29
+4: who: Codex Prime
+5: state: selected method for harness review; no model invocation
+6: Face: 01
+7: PPPP: 0414
+8: book: 00.00.10.work
+9: 
+10: ## Goal and scope
+11: 
+12: Compare a bounded Prime return-review cycle with ordinary read/search tools against
+13: the same work with declared reviewed support interfaces. Measure correctness,
+14: manual work, correction effort and Director attention. Assistance need not win.
+15: This version incorporates 0701.bench-method/05.01.return.md and Prime's dispositions
+16: on 06.01.review.md. Version 001 and its original Colab package remain preserved.
+17: The N4 page holds the reusable method, N5 its implementation, N7 actual experiments
+18: and contextual Colabs, and N1 exact sealed returns. No address band changes here.
+19: 
+20: ## Cases and source parity
+21: 
+22: Use ordinary correction, misleading completion, Director-required fork and genuinely
+23: complete cases. For each matched variant, both conditions receive identical decisive
+24: task/source bytes and ordinary file/search tools. Only the assisted condition gets
+25: the predeclared reviewed support interfaces. Seal manifests of the bytes actually
+26: delivered; list all permitted interface and nondecisive wrapper differences before
+27: launch. A missing contradictory source invalidates the pair for benefit comparison.
+28: A different variant is not byte-identical evidence or guaranteed equal difficulty.
+29: Use repeated balanced runs and unseen cases before a general productivity claim.
+30: Check that baseline tools can access every decisive source used by the assistant;
+31: do not make the baseline artificially helpless.
+32: 
+33: ## Preparation, collection and isolation
+34: 
+35: Seal cases, recipient packages, allowed differences, assessment criteria and cost
+36: units before any evaluated answer exists. Preserve package hashes, source revision,
+37: seal publication/order evidence and run order. Separate fresh candidate sessions
+38: receive neither each other's answers nor hidden assessment material. A coordinator
+39: may prepare first and collect later, but cannot repair inputs or the key after
+40: seeing an answer. A distinct collector is optional additional isolation.
+41: Hash equality detects byte changes; it does not alone establish chronology or that
+42: an undeclared file was inaccessible. Log the actual execution surface and limits.
+43: Changed inputs require a newly identified run; retain the failed/abandoned original.
+44: The coordinator must not coach, repair or solve the tested conditions in one context.
+45: 
+46: ## Assessment
+47: 
+48: Freeze outcome commitments before answers. Assess proposed action as present,
+49: contradicted or absent; a required quotation is not a substitute for correct action.
+50: Check preserved reasons and exact Director attribution separately. Detect missed
+51: forks, invented authority, omissions and unrequested edits. On a genuinely complete
+52: case, no additional change can be the correct outcome. A deterministic parser may
+53: check structure and evidence bindings; semantic assessment remains explicitly
+54: supplied judgment. Synthetic self-tests are not model performance measurements.
+55: 
+56: ## Measurement and interpretation
+57: 
+58: Retain condition/model/version/effort, sources and tool versions, prior involvement,
+59: run order, cache state when exposed, raw returns, tool operations and failed calls.
+60: Declare the operation unit and session start/stop events before comparison. Retain
+61: preparation time and owner, tool/request repairs, correction loops and Director and
+62: reviewer effort outside the session timer. Separate reusable setup from per-run
+63: work and state any amortization instead of hiding its cost. Keep failed/abandoned
+64: launches in the comparison. Unknown usage, units, time or cache state remain unknown.
+65: Subscription usage percentages are not token costs. Do not collapse incomplete
+66: cost records into a productivity multiple or infer a model ranking from one pair.
+67: 
+68: ## Build, custody and remaining choices
+69: 
+70: 0513.bench-build implements the portable instrument without model calls. Review
+71: its first independent return before deciding which controls require a correction.
+72: Do not claim the written controls already exist in its code. Use N7 pack, exact
+73: return, notes and review with N1 custody; do not create a second editable return.
+74: The AR-01 hold continues to exclude old inventory/bridge fixture execution. Use new
+75: synthetic records and reviewed read-only support. No fixture release, application
+76: seating, lock or model launch is authorized here.
+77: Actual model/effort choices, run count, spending and fresh-session execution surface
+78: remain Director choices before live trials. Section identifier design is separate.
+
+FILE 00.kernel/00.00.10.work/0513.bench-build/evidence/build05.01/CONTRACT.md sha256 68add992c3b3769e6f89286f358138970302d0361884421cf5378d3afc434b3e LINES 1 100
+1: # CONTRACT — prime-bench-pass01
+2: 
+3: Subject: the bounded Prime benchmark harness for 0513.bench-build/05.01.002. Design: 0414.bench/01.md.
+4: Module: labs/prime-bench-pass01/prime_bench.py. Standard library only. Builder contract for a lab; it seats no law.
+5: 
+6: ## What it is, and is not
+7: It prepares fixed cases into fresh run folders, records what a coordinator collected, checks deterministic evidence, binds a supplied reviewer record, and tabulates runs.
+8: It does not call a model, launch or drive a session, hold credentials, use the network or Git, write a live page, run an app fixture, or decide semantic quality.
+9: It does not reserve, capture or inspect a return. The N1NN tools do that; `export` prints the capture command and does not run it.
+10: Fixture tests use labelled SYNTHETIC responses and demonstrate the instrument only, never model performance.
+11: 
+12: ## Bench version
+13: `bench.json` (`prime-bench/1`) lists, each with sha256 and bytes:
+14: - every case file under `cases/<case_id>/candidate/`, `evaluator/` and `coordinator/`;
+15: - `conditions.json`;
+16: - the support files the assisted condition copies, by repository path.
+17: 
+18: The bench version is the sha256 of the exact bench.json bytes. `validate` re-hashes every listed file, checks that no unlisted file is present in a case folder, and checks the support pins against the live repository. Any drift is exit 1. A case's revision changes only with a new bench.json.
+19: 
+20: ## Case files
+21: - `candidate/TASK.md` and `candidate/sources/*`: the only case material a tested session sees. No case id, family, variant, key or canary.
+22: - `evaluator/key.json` (`prime-bench-key/1`): `case_id`, `revision`, `canary`, `outcomes` (acceptable outcome labels), `must_mention` (groups of alternatives; each group needs one case-insensitive hit), `must_quote` (exact strings), `must_not` (regular expressions).
+23: - `evaluator/rubric.json` (`prime-bench-rubric/1`): `case_id`, `revision`, `scale` (allowed integer scores), `items` (`id`, `text`).
+24: - `coordinator/meta.json` (`prime-bench-case-meta/1`): `case_id`, `revision`, `family`, `variant`, `matched_with`, `label` SYNTHETIC, `decisive_evidence`, `ambiguity`, `provenance` (repository path, sha256 and the rule each case relies on).
+25: 
+26: Families: `correction`, `false-completion`, `design-fork`, `complete`. Each has variants `a` and `b`, matched to each other.
+27: 
+28: ## Conditions
+29: `conditions.json` (`prime-bench-conditions/1`). `baseline`: ordinary read, search and command tools inside the candidate folder. `assisted`: the same, plus the copied reviewed prime_review.py (805995a1…) with its README and CONTRACT under `support/`. Task text and sources are byte-identical across conditions. The generated PROMPT.md differs only in its Tools paragraph.
+30: 
+31: ## Commands
+32: Every path argument is absolute, local, not UNC, and has no link, junction or reparse point in itself or any ancestor. JSON input is strict (no duplicate keys, no non-finite numbers, exact keys, size limits).
+33: 
+34: ```text
+35: python -B prime_bench.py validate [--json]
+36: python -B prime_bench.py prepare --investigation ABS --run-id ID --case ID --condition baseline|assisted --model-label TEXT --effort-label TEXT
+37:                                  --fresh-session S --workspace-confined S --tool-log S --usage S --run-dir ABS --candidate-dir ABS [--json]
+38: python -B prime_bench.py collect --run-dir ABS --expect-run ID --expect-condition C --status completed|failed|abandoned [--reason TEXT]
+39:                                  --label SYNTHETIC|ACTUAL --session-label TEXT --isolation-used fresh|shared|unknown
+40:                                  [--response ABS] [--tool-log ABS] [--tool-events ABS] [--usage ABS] [--started ISO] [--finished ISO] [--intervention TEXT] [--json]
+41: python -B prime_bench.py event   --run-dir ABS --kind correction|intervention|note --text TEXT [--attachment ABS] [--json]
+42: python -B prime_bench.py assess  --run-dir ABS [--json]
+43: python -B prime_bench.py review  --run-dir ABS --record ABS [--json]
+44: python -B prime_bench.py compare --run-dir ABS [--run-dir ABS ...] [--json]
+45: python -B prime_bench.py export  --run-dir ABS [...] --investigation ABS --dest ABS
+46: ```
+47: S is `supported`, `unsupported` or `unknown`.
+48: 
+49: Exits: 0 done or a shaped result; 1 bench drift, a deterministic mismatch reported by validate, or a partial write; 2 refused input. No traceback on bad input.
+50: 
+51: ## Investigation record
+52: `prime-bench-investigation/1`: `page` (07NN.slug in 0701–0799), `pass` (05.NN), `question`, `director_replies` (each `reply` kept byte-exact, `source_path`, `source_sha256`), `sources` (path and sha256), `coordinator_label`. `prepare` binds its sha256 into run.json. `compare` and `export` refuse runs bound to different investigations, and `export` refuses an investigation file whose sha256 differs from the runs'.
+53: 
+54: ## prepare
+55: - Run id `^r[0-9]{4}$`. Labels are 1–80 printable characters.
+56: - Run and candidate folders must both be absent, under an existing real parent, outside the repository, and neither inside the other.
+57: - `validate` runs first; drift refuses.
+58: - The candidate folder gets `PROMPT.md`, `TASK.md`, `sources/` and, for assisted only, `support/`. Copied support files are re-hashed against their pins.
+59: - Leakage gate: no canary of any case and no evaluator or coordinator file's bytes may appear in any candidate file. A hit refuses and is reported.
+60: - The run folder gets `COORDINATOR.md` and, written last, `run.json` (`prime-bench-run/1`): run id, bench version, investigation sha256, case id and revision, condition, labels, declared capabilities, candidate folder, key, rubric, task and candidate file pins, and a `prepared_at` UTC clock reading.
+61: - Files are created exclusively. A failure leaves what was written, reports `partial` (exit 1) and lists it. A run folder without run.json is never collected. A retry into an existing folder refuses. Nothing is deleted or resumed.
+62: 
+63: ## collect
+64: - The run folder must hold a valid run.json whose run id and condition equal `--expect-run` and `--expect-condition`; otherwise `wrong-identity`, exit 2.
+65: - A `completed` run needs `--response`. `failed` and `abandoned` need `--reason` and may carry a partial response.
+66: - Response: exact bytes copied, at most 1 MiB. If its first non-blank line is `Run: <id>` for another run, `wrong-identity` refuses. A missing run line is recorded as `identity: missing`.
+67: - Optional raw tool log (exact bytes, 8 MiB), normalized tool events (`prime-bench-tool-event/1` JSONL: `tool`, `at` or null), usage JSON (non-negative integer fields only, `source` text). Missing means `unavailable`.
+68: - `--started` and `--finished` are ISO-8601 with offset, recorded as coordinator-supplied.
+69: - Any canary in the response or raw tool log sets `leakage: true`.
+70: - Written as `collected/` plus `collection.json` (`prime-bench-collection/1`), last. A second collect refuses read-only: `already-collected` when every supplied byte and field is identical, otherwise `conflict`.
+71: 
+72: ## event
+73: Appends `events/NNNN.json` (`prime-bench-event/1`) with kind, text, an optional exact attachment, and the sha256 of collection.json it follows. The original collection is never changed. An `intervention` event makes the run unclean.
+74: 
+75: ## assess (read-only)
+76: Refuses (`key-changed`, exit 2) if the live key, rubric or task differs from the pins in run.json. Otherwise prints `prime-bench-assessment/1`:
+77: - `run_line`: matched or missing;
+78: - `outcome`: the first `Outcome: <label>` line, and whether it is in the key's `outcomes`;
+79: - `must_mention`, `must_quote`, `must_not`: per entry pass or fail;
+80: - `canary_absent`;
+81: - `deterministic_pass`: all of the above pass.
+82: 
+83: These are string checks. They are not a judgment that the review is right.
+84: 
+85: ## review
+86: Supplied `prime-bench-review/1`: `run_id`, `case_id`, `case_revision`, `rubric_sha256`, `reviewer_label`, `blind_to_condition` (true, false or null), `scores` (exactly one per rubric item, each in the scale), `reviewer_minutes`, `director_attention_events` (null or non-negative), `notes`. Identity, case revision and rubric sha256 must equal run.json, else `wrong-identity` or `rubric-changed`, exit 2. Stored as exact bytes in `review.json`; a second record is `already-reviewed` when identical, otherwise `conflict`.
+87: 
+88: ## compare and what is counted
+89: Refuses mixed bench versions, mixed investigations, a run folder given twice, two folders with one run id, and any key change.
+90: For each run: status, label, condition, labels, clean or the reasons it is not, deterministic results, reviewer scores when supplied, elapsed seconds when both times were supplied, tool-event count when events were supplied, usage fields as supplied, correction and intervention event counts.
+91: 
+92: A run is **clean** only when: status completed; fresh-session and workspace-confined declared `supported`; isolation used `fresh`; its session label is used by no other run in the comparison; no intervention in collection or events; no leakage; identity matched. Unclean, failed, abandoned and uncollected runs are listed with reasons and counted; they are never dropped.
+93: 
+94: Counted, exactly:
+95: - runs per condition by status and by clean;
+96: - clean runs whose deterministic checks all pass;
+97: - per rubric item, the number of clean reviewed runs and the sum of their supplied scores;
+98: - elapsed, tool events and usage per run, or `unavailable`.
+99: 
+100: Not computed: ratios between conditions, time or token savings, rankings, a pass score. A SYNTHETIC label is printed on the report whenever any run is SYNTHETIC.

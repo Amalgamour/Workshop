@@ -1,0 +1,107 @@
+{
+  "schema": "prime-cycle-decision/2",
+  "review_id": "05.01-r1",
+  "supersedes": null,
+  "recovers": null,
+  "binding": {
+    "direction": {
+      "agreement_sha256": "a7cd33f61919a6546bd1b912469100c7a57c991f83666602b00688f322ae2d3e",
+      "book": "00.kernel/00.00.10.work",
+      "fields": {
+        "director_required": "be8fc31ec22efcc14acdbaa76c542911b11506b21b6a5fd8aa4731f91ea847c8",
+        "finish_criteria": "6f5a7ceb1a0180691cfcc5ffa54203de3eb85d35237d690ad436e96b6faf290b",
+        "goal": "8b43ef4508631fb8e0760c537d7871007c72a6cad946cba80db93af4f080f862",
+        "prime_discretion": "fd3e5c26adc482f3add2ccad027e5e0c5ebec4490925b6f2c89b077f5d7584a8",
+        "recorded_decisions": "c69f31aba79b51a7e8685b5c7f10acb2bfe1943c6e810e7f14b93e25c94da5c3",
+        "scope": "ab6f82cce76db2f640a5ddf032457fcf10c9413da58202b3e88a88058bbd400c"
+      },
+      "review_location": "00.kernel/00.00.10.work/0514.review-packet/evidence/prime-cycle-reviews/05.01",
+      "schema": "prime-cycle-direction/1"
+    },
+    "expected_prior": null,
+    "fingerprint": "a61722ef831872713ad2b5cb3c1ada0ff7eda611763eafff3f025ca74d67b9e4",
+    "goal": {
+      "goal_id": "case-b-goal",
+      "goal_sha256": "9255b2b054f09e0f24c51ec74ee9ba965595da9b2b2184c1f4d97c346539031f"
+    },
+    "member": "0167.review-packet-0501",
+    "member_role": null,
+    "origin": null,
+    "page": "00.kernel/00.00.10.work/0514.review-packet/05.01.md",
+    "pass": "05.01",
+    "receipt_sha256": null,
+    "retrospective": null,
+    "source": {
+      "commit": null,
+      "kind": "live-file",
+      "page_bytes": null,
+      "page_sha256": null
+    },
+    "submission_id": null,
+    "work_id": "case-b"
+  },
+  "attribution": {
+    "actor_label": "Grok Colab",
+    "role": "prime",
+    "evidence": null
+  },
+  "judgment": {
+    "outcome": "complete",
+    "disposition": "accepted",
+    "pass_terminal": "finished",
+    "goal": {
+      "terminal": "completed",
+      "goal_id": "case-b-goal",
+      "goal_sha256": "9255b2b054f09e0f24c51ec74ee9ba965595da9b2b2184c1f4d97c346539031f",
+      "evidence": [
+        "0167 return.md b7c4fe25278f7fe09cc7fc18699bf06ab3034bb38abc6787360365e39d488fef",
+        "packet custody complete receipt bf8cef9fe88b09316c69d4f1c37d824bc5b7378403d49ac3dccf486905fe0fff acceptance not granted"
+      ]
+    },
+    "finding": "The mechanical packet is present and leaves acceptance with Prime. No further build is justified on this grant.",
+    "reasons": [
+      "The assistance packet records custody complete, helper verify not accepted, and acceptance is not conferred.",
+      "The cycle read could not see that receipt because the reader exited 2. The binding is copied with receipt_sha256 null.",
+      "The default packet inventories the return and the receipt only."
+    ],
+    "source_refs": [
+      "0167.review-packet-0501/return.md",
+      "out/packet/PACKET.md"
+    ],
+    "next_action": null,
+    "unresolved": [
+      "Cycle record cannot store this acceptance while the reader exits 2.",
+      "Specimen re-assembly against the live book was not run."
+    ],
+    "semantic_conflict": false,
+    "design_fork": null,
+    "holds": [],
+    "answers": [],
+    "sections": {
+      "return_result": "Member 0167 is in the tree. The packet command verified custody complete and stored the return hash b7c4fe25… The cycle view said no-return.",
+      "prime_finding": "Accepted. Pass finished. Goal complete. The assembler does not accept a return.",
+      "within_direction": "The grant is a bounded mechanical packet. Judgment stays with Prime. This decision follows that grant.",
+      "next_bounded_action": "No further build.",
+      "for_model": null,
+      "issue": null,
+      "consequences": null,
+      "options": null,
+      "recommendation": null,
+      "question": null,
+      "affected": null,
+      "proposed_plan": null,
+      "exploration": null,
+      "assumptions": null,
+      "open_questions": null,
+      "outcome_evidence": "Helper verify text says result complete, not approved, not accepted, not published. The reservation says reservation only.",
+      "limits": "Artifact checks in this packet are none. Tokens and cost are unknown. The reader failure was not run a second time.",
+      "tests_note": "The unittest was run on the manual route against these module bytes, not again here.",
+      "tests_passed": null,
+      "learning": "Packet verify and the cycle reader disagree because the reader never starts. Custody from the packet is the observation that succeeded.",
+      "preservation": "Keep the reader exit 2 and the null receipt on this binding.",
+      "remaining_choices": "Director release on the page is still unrecorded. This decision does not write it.",
+      "findings_account": "No correction. The open comparison work belongs to the bench grant already reviewed in this session.",
+      "finish_assessments": "The faithful-review criterion is met by the lab deliverable. This tool record is a separate attempt."
+    }
+  }
+}

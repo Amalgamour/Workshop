@@ -1,0 +1,149 @@
+785: def collect(args: argparse.Namespace) -> dict:
+786:     run_dir = existing_dir(args.run_dir, "run folder")
+787:     run = load_run(run_dir)
+788:     if args.expect_run != run["run_id"] or args.expect_condition != run["condition"]:
+789:         raise Refused("wrong-identity",
+790:                       f"run folder holds {run['run_id']} {run['condition']}, not {args.expect_run} {args.expect_condition}")
+791:     status = need_choice(args.status, STATUSES, "status")
+792:     label = need_choice(args.label, ("SYNTHETIC", "ACTUAL"), "label")
+793:     session = need_label(args.session_label, "session label")
+794:     isolation = need_choice(args.isolation_used, ISOLATION_USED, "isolation used")
+795:     reason = None if args.reason is None else need_text(args.reason, "reason")
+796:     intervention = None if args.intervention is None else need_text(args.intervention, "intervention")
+797:     if status == "completed" and args.response is None:
+798:         raise Refused("malformed", "a completed run needs --response")
+799:     if status == "completed" and reason is not None:
+800:         raise Refused("malformed", "a completed run takes no --reason")
+801:     if status != "completed" and reason is None:
+802:         raise Refused("malformed", f"a {status} run needs --reason")
+803:     started = parse_time(args.started, "started")
+804:     finished = parse_time(args.finished, "finished")
+805:     if started and finished and datetime.fromisoformat(finished.replace("Z", "+00:00")) < datetime.fromisoformat(
+806:             started.replace("Z", "+00:00")):
+807:         raise Refused("malformed", "finished is before started")
+808: 
+809:     inputs: dict[str, tuple[str, bytes] | None] = {}
+810:     for name, raw, limit, out in (("response", args.response, MAX_RESPONSE, "response.txt"),
+811:                                   ("tool_log", args.tool_log, MAX_TOOL_LOG, "tool-log.raw"),
+812:                                   ("tool_events", args.tool_events, MAX_TOOL_LOG, "tool-events.jsonl"),
+813:                                   ("usage", args.usage, MAX_JSON, "usage.json")):
+814:         if raw is None:
+815:             inputs[name] = None
+816:             continue
+817:         path = need_abs(raw, name)
+818:         if inside(path, run_dir):
+819:             raise Refused("unsafe-path", f"{name} is inside the run folder")
+820:         inputs[name] = (out, read_regular(path, name, limit))
+821: 
+822:     identity = "unavailable"
+823:     if inputs["response"] is not None:
+824:         found = run_line(inputs["response"][1])
+825:         if found is None:
+826:             identity = "missing"
+827:         elif found != run["run_id"]:
+828:             raise Refused("wrong-identity", f"response names run {found}, not {run['run_id']}")
+829:         else:
+830:             identity = "matched"
+831:     tool_event_count = parse_tool_events(inputs["tool_events"][1]) if inputs["tool_events"] else None
+832:     usage = parse_usage(inputs["usage"][1]) if inputs["usage"] else None
+833:     scanned = b"".join(item[1] for key, item in inputs.items() if item and key in ("response", "tool_log"))
+834:     leakage = any(c.encode("utf-8") in scanned for c in all_canaries())
+835: 
+836:     record = {
+837:         "schema": SCHEMA_COLLECTION,
+838:         "run_id": run["run_id"],
+839:         "condition": run["condition"],
+840:         "status": status,
+841:         "reason": reason,
+842:         "label": label,
+843:         "session_label": session,
+844:         "isolation_used": isolation,
+845:         "started": started,
+846:         "finished": finished,
+847:         "times_source": "coordinator-supplied",
+848:         "intervention": intervention,
+849:         "identity": identity,
+850:         "leakage": leakage,
+851:         "files": {name: (None if item is None else {"path": f"collected/{item[0]}", "sha256": sha256(item[1]),
+852:                                                     "bytes": len(item[1])}) for name, item in inputs.items()},
+853:         "tool_event_count": tool_event_count,
+854:         "usage": usage,
+855:     }
+856:     record_bytes = dumps(record)
+857:     existing = run_dir / "collection.json"
+858:     if os.path.lexists(existing):
+859:         same = read_regular(existing, "collection.json", MAX_JSON) == record_bytes and all(
+860:             item is None or read_regular(run_dir / "collected" / item[0], item[0], MAX_TOOL_LOG) == item[1]
+1088: def compare_runs(raw_dirs: list[str]) -> dict:
+1089:     if not raw_dirs:
+1090:         raise Refused("malformed", "compare needs at least one run folder")
+1091:     dirs = [existing_dir(raw, "run folder") for raw in raw_dirs]
+1092:     normal = [os.path.normcase(os.path.abspath(d)) for d in dirs]
+1093:     if len(set(normal)) != len(normal):
+1094:         raise Refused("duplicate", "a run folder is given twice")
+1095:     runs = [load_run(d) for d in dirs]
+1096:     ids = [r["run_id"] for r in runs]
+1097:     if len(set(ids)) != len(ids):
+1098:         raise Refused("duplicate", "two run folders carry the same run id")
+1099:     if len({r["bench_version"] for r in runs}) != 1:
+1100:         raise Refused("mixed-version", "runs were prepared from different bench versions")
+1101:     if len({r["investigation_sha256"] for r in runs}) != 1:
+1102:         raise Refused("mixed-investigation", "runs are bound to different investigations")
+1103:     metas = {}
+1104:     rows = []
+1105:     sessions: dict[str, list[str]] = {}
+1106:     for run_dir, run in zip(dirs, runs):
+1107:         loaded = load_collection(run_dir)
+1108:         col = loaded[0] if loaded else None
+1109:         if col is not None:
+1110:             if col["run_id"] != run["run_id"] or col["condition"] != run["condition"]:
+1111:                 raise Refused("wrong-identity", f"{run_dir} collection names another run or condition")
+1112:             sessions.setdefault(col["session_label"], []).append(run["run_id"])
+1113:         if run["case_id"] not in metas:
+1114:             metas[run["case_id"]] = strict_json(read_regular(
+1115:                 LAB / "cases" / run["case_id"] / "coordinator/meta.json", "meta", MAX_JSON), "meta")
+1116:         rows.append((run_dir, run, col))
+1117:     out_rows = []
+1118:     for run_dir, run, col in rows:
+1119:         assessment = assess_run(run_dir)
+1120:         rev = load_review(run_dir)
+1121:         events = load_events(run_dir)
+1122:         reasons = []
+1123:         if col is None:
+1124:             reasons.append("uncollected")
+1125:         else:
+1126:             if col["status"] != "completed":
+1127:                 reasons.append(col["status"])
+1128:             if run["capabilities"]["fresh_session"] != "supported":
+1129:                 reasons.append(f"fresh-session {run['capabilities']['fresh_session']}")
+1130:             if run["capabilities"]["workspace_confined"] != "supported":
+1131:                 reasons.append(f"workspace-confined {run['capabilities']['workspace_confined']}")
+1132:             if col["isolation_used"] != "fresh":
+1133:                 reasons.append(f"isolation used {col['isolation_used']}")
+1134:             if len(sessions.get(col["session_label"], [])) > 1:
+1135:                 reasons.append("shared session: " + ", ".join(sessions[col["session_label"]]))
+1136:             if col["intervention"] is not None or any(e.get("kind") == "intervention" for e in events):
+1137:                 reasons.append("intervention")
+1138:             if col["leakage"]:
+1139:                 reasons.append("evaluator-leakage")
+1140:             if col["status"] == "completed" and col["identity"] != "matched":
+1141:                 reasons.append(f"identity {col['identity']}")
+1142:         meta = metas[run["case_id"]]
+1143:         out_rows.append({
+1144:             "run_id": run["run_id"],
+1145:             "case_id": run["case_id"],
+1146:             "case_revision": run["case_revision"],
+1147:             "family": meta["family"],
+1148:             "variant": meta["variant"],
+1149:             "condition": run["condition"],
+1150:             "model_label": run["model_label"],
+1151:             "effort_label": run["effort_label"],
+1152:             "label": None if col is None else col["label"],
+1153:             "status": "uncollected" if col is None else col["status"],
+1154:             "clean": not reasons,
+1155:             "not_clean_reasons": reasons,
+1156:             "deterministic_pass": assessment["deterministic_pass"],
+1157:             "outcome_found": (assessment["checks"] or {}).get("outcome", {}).get("found"),
+1158:             "assessment": assessment,
+1159:             "review": None if rev is None else {
+1160:                 "reviewer_label": rev["reviewer_label"], "blind_to_condition": rev["blind_to_condition"],

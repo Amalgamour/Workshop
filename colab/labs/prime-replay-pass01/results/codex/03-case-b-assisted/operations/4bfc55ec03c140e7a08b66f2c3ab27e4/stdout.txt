@@ -1,0 +1,164 @@
+
+FILE 00.kernel/00.00.10.work/0167.review-packet-0501/return.md sha256 b7c4fe25278f7fe09cc7fc18699bf06ab3034bb38abc6787360365e39d488fef LINES 1 19
+1: Did.
+2: Claimed 0514.review-packet/05.01 as Grok Builder 1. The run sentence is "The Director authorizes this bounded build."
+3: Pack evidence/pack05.01/source-manifest.json matched 13 of 13 before the note. bad 0.
+4: Wrote 06.01.md first, then evidence/build05.01/CONTRACT.md, then labs/review-packet-pass01.
+5: The assembler builds one mechanical packet for one named return. It calls the pinned inspector and helper by subprocess. It does not capture, repair, or overwrite a member, and it does not accept a return.
+6: Tests, with the Codex interpreter: `python -B -m unittest discover -s labs/review-packet-pass01/tests -v`. Ran 10, skipped 1, failed 0, exit 0. The skip is file-symlink creation, WinError 1314. The junction refusal passed.
+7: Assembled request-0164.json and request-0163.json. Both exits 0. Both packets are assembly complete, custody complete, and acceptance false.
+8: 0164's pin manifest is schema prime-entry-pin-artifact-manifest/1. Rows were not interpreted.
+9: 0163's artifact-manifest/1 blob at 749cfd9c670fe77fbedd232c2630f98b0529025d matches sha256 da06ab6cfdee15497c1d19394fb9e22433e5c1db6623a3fd8462d20749274634, 14030 bytes. Of 69 rows, 41 are historical-match and 28 are changed-live-working-copy. The same path is absent at 80f7025425d7bb3fdcf3b0ee56057cd6d8b6b9fe, and the live file was not read in its place.
+10: Nominated packet.json sha256 bfcd0ee84d2505b06ebea0593bc66dc4504393ea966e357d58fae580ce98d6e4, 8393 bytes.
+11: Nominated PACKET.md sha256 83b4d69f95910aaca4af4e4400e0d72551265f3700599f1564305363f86e0f20, 1999 bytes.
+12: artifact-manifest.json sha256 3cdbc0a3b9497756d357fa824bdf67cbc11bcfd33c59c1c8f5117e1cee1daf7f, 4283 bytes.
+13: The 0163 specimen remains under evidence/build05.01/specimen-0163/. Its packet.json sha256 is c6eeaa6bfa5a1c03577152f6d4b4df5a33601fb7f67ef58bbbace23fbb5599ad, 57915 bytes.
+14: 
+15: Blocked.
+16: None in this packet. AR-01 remains, so inventory fixtures, bridge fixtures, the app suite, and race probes were not run.
+17: 
+18: Need.
+19: Prime reviews this return and both packets. This assembler did not accept either specimen. A verified receipt is custody, not acceptance. The 28 live differences are a changed working copy; this return does not decide their cause. Receipt identity is produced by capture and recorded on the Return pointer. This return text does not contain the receipt hash.
+
+FILE 00.kernel/00.00.10.work/0514.review-packet/05.01.md sha256 49050671645a6a29e7a047b23d10b97739522903f89d904a4c47e086e24872ae LINES 17 70
+17: ## #01 — Notes, purpose and boundaries
+18: 
+19: Write 06.01.md first, then evidence/build05.01/CONTRACT.md. Build a standard-library
+20: lab in labs/review-packet-pass01. It prepares the mechanical evidence for Prime's
+21: review of one explicitly named return. No model, API, credentials, install, worker
+22: launch or routing. It must not infer acceptance, semantic completeness, Director
+23: approval or the next task. Return claims remain claims even when a hash matches.
+24: Read 0412's reporting agreement and 0413's division of compute and intelligence.
+25: This is a mechanical helper, not the model-assistant runtime proposed on 0413.
+26: 
+27: ## #02 — Explicit request and source basis
+28: 
+29: Design a small strict request with one named local book/member, its originating
+30: work page and pass, an explicit allowlist of supporting sources, bounds, and a
+31: fresh output destination. Do not scan the entire desk or select work automatically.
+32: Use the accepted pinned return inspector/helper for custody. Treat absent, reserved,
+33: incomplete or refused custody honestly; never capture, repair or overwrite it.
+34: Check that requested page/pass agrees with the reservation origin; report conflicts.
+35: 
+36: For supporting files, declare either exact Git-blob revision/path/hash or explicitly
+37: requested live-file observation. Preserve that distinction. Do not silently replace
+38: a missing committed source with a live file. Capture payloads remain exact sealed
+39: sources. Use known explicit artifact-manifest/1 rows when requested to check declared
+40: artifact bytes; unsupported schemas must be reported, not guessed. Distinguish a
+41: historical artifact matching its declared commit from a changed live working copy.
+42: Do not execute return text, source files, captured payloads or test commands.
+43: 
+44: ## #03 — Output for Prime
+45: 
+46: Emit machine-readable packet.json and a readable PACKET.md, plus a manifest binding
+47: all gathered source bytes, raw return, custody result, receipt and mechanically
+48: checked outcomes. Keep snapshots or an exact portable evidence copy with source
+49: identities so Prime can open the decisive evidence. Do not replace evidence with
+50: an extract or synthesized semantic summary. Clearly separate Builder-reported
+51: claims, custody observations, artifact checks and absent/conflicting/unverified
+52: material. Preserve exact Director quotations when included as source; do not infer
+53: authority from their presence. A verified receipt is custody, not acceptance.
+54: 
+55: Output is a new external directory, not a live work page or seated report. Bound
+56: source count, per-source bytes, total bytes and output bytes explicitly. No silent
+57: truncation. Reject malformed JSON, duplicate keys, traversal, linked source/ancestor,
+58: unsafe output containment and occupied destinations. Retain partial output and a
+59: clear partial status; never overwrite or silently resume. State that these checks
+60: are not an OS sandbox or a same-user race guarantee. No automatic retry loop.
+61: 
+62: ## #04 — Tests and actual-use specimens
+63: 
+64: Test complete, reserved, missing and incomplete custody; wrong member/page/pass;
+65: changed artifact; historical Git source versus changed live file; unknown manifest
+66: schema; source bounds; unsafe/linked paths; collision and partial writes; exact
+67: return preservation; no acceptance/authority inference. New synthetic fixtures only.
+68: Do not run old inventory/bridge fixtures, broad app suites or race probes.
+69: 
+70: Prepare one real packet for accepted return 0164.prime-entry-pin-repair-0503 and one
+
+FILE 00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/CONTRACT.md sha256 2d805f84ae9743b38ae07b0b376c1fa008623bbfeac9d594148ad3e6c1d9976a LINES 1 85
+1: # CONTRACT — review-packet-pass01
+2: 
+3: Builder spec for one mechanical packet. This file does not accept the lab.
+4: 
+5: ## Tool
+6: 
+7: labs/review-packet-pass01/review_packet.py uses the Python standard library.
+8: Command:
+9: 
+10: ```text
+11: python -B labs/review-packet-pass01/review_packet.py assemble --request REQUEST.json
+12: ```
+13: 
+14: Exit 0 means the output directory holds a finished packet.
+15: Exit 2 means the request was refused before that directory existed, or the assembly stopped partial after creating it.
+16: A finished packet may still record custody as complete, reserved, missing, incomplete, or refused.
+17: 
+18: The interpreter named in the request runs the pinned inspector and helper.
+19: The assembler does not import those modules. It hashes them and then uses a subprocess argument array, python -B, shell false.
+20: Helper sha256 8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac, 45767 bytes.
+21: Inspector sha256 947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b, 11402 bytes.
+22: A pin mismatch refuses the request and does not start the process.
+23: The assembler never calls capture, reserve, or any other helper command.
+24: 
+25: ## Request
+26: 
+27: Schema review-packet-request/1. JSON object, no duplicate keys, no nonfinite numbers.
+28: Exact keys: schema, book, member, origin, repo, python, inspector, helper, output, bounds, sources.
+29: 
+30: book, repo, python, inspector, helper, and output are absolute paths.
+31: A path part `..` is refused. An ancestor that is a link or junction is refused.
+32: output must not already exist, must not lie inside the named member, and must not lie inside a `.git` directory.
+33: The parent of output must exist and be a regular directory.
+34: 
+35: member matches `^(\d{4})\.([A-Za-z0-9][A-Za-z0-9._-]{0,63})$`.
+36: origin has exact keys book, page, pass. pass matches `^05\.\d{2}$`.
+37: 
+38: bounds has exact keys max_sources, max_source_bytes, max_total_bytes, max_output_bytes.
+39: They are integers, not booleans.
+40: max_sources is 0 through 64.
+41: max_source_bytes is 1 through 2000000.
+42: max_total_bytes is 1 through 8000000 and is at least max_source_bytes.
+43: max_output_bytes is 1 through 12000000.
+44: sources is an array no longer than max_sources.
+45: 
+46: Each source has a unique id matching `^[a-z][a-z0-9-]{0,31}$` and a role:
+47: builder-claim, custody, director-quotation, or supporting.
+48: kind is git-blob, live, or member-file.
+49: 
+50: A git-blob source has commit (40 lowercase hex) and path (repo-relative, no backslash, no colon, no `..`).
+51: expect_sha256 is optional. artifact_manifest is optional.
+52: The bytes come from `git cat-file blob`. A missing commit or blob stays absent.
+53: The live work tree is not opened for that source.
+54: 
+55: A live source has path and embed (boolean). expect_sha256 and artifact_manifest are optional.
+56: embed true copies the file into the packet. embed false records sha256 and length only.
+57: A link is refused before the output directory is created.
+58: 
+59: A member-file source has name. Allowed names are return.md, receipt.json, manifest.json, reservation.json, and payload/NNNN.blob with four digits.
+60: The file is read only under the named member. An absent file stays absent.
+61: A work-page file is not substituted. expect_sha256 and artifact_manifest are optional.
+62: 
+63: Unknown keys are refused. Malformed JSON and duplicate keys are refused.
+64: No declared source is executed.
+65: 
+66: ## Custody
+67: 
+68: The inspector command is:
+69: 
+70: ```text
+71: python -B INSPECTOR inspect --book BOOK --member MEMBER --json
+72: ```
+73: 
+74: The helper command is:
+75: 
+76: ```text
+77: python -B HELPER verify --book BOOK --member MEMBER
+78: ```
+79: 
+80: Stdout is stored exact. The verify text is evidence. It is not parsed into an acceptance decision.
+81: When the inspector JSON has a reservation origin, book, page, and batch are compared with the requested book, page, and pass.
+82: A mismatch is an origin conflict. The assembler does not rewrite the request or the member.
+83: Timeout is 60 seconds. There is no retry.
+84: 
+85: The packet always records acceptance, approved, published, seated, and authority_inferred as false, semantic_review as false, and next_task as null.

@@ -1,0 +1,230 @@
+
+FILE 00.kernel/00.00.10.work/0163.prime-bench-harness-0501/return.md sha256 742beefbf856429ce3dfcf59e675a06f618c1b75b74f8f09b87c67dc6575198e LINES 37 50
+37: ## Blocked
+38: Nothing.
+39: 
+40: ## Need
+41: - Prime's review of the harness and RUN-GUIDE.
+42: - **Smallest next action:** reconcile this build with `0414.bench/01.002.md` and the 0701.bench-method review. Both landed in 80f7025 after my claim; I did not read them, as Grok's method work was not an input to this batch. Then the Director picks models, effort, run count and a session surface that can start fresh, confined sessions.
+43: - A reserved member for the coordinator's eventual return, with expected outputs `comparison.md`, `comparison.json` and `investigation.json`.
+44: 
+45: ## Limits
+46: - Isolation and confinement are coordinator declarations. The harness cannot observe a session, so a confined surface is a Director choice, not something this code proves.
+47: - Eight synthetic cases demonstrate the instrument only. They show no model performance, no productivity multiple and nothing about a fresh Prime.
+48: - **Not run:** any model or session; AR-01 inventory and bridge fixtures; the broad app suite; any capture of a coordinator return.
+49: - **HEAD moved during the build** (80f7025). It changed none of this batch's pinned inputs, dependencies or outputs.
+50: - No sandbox is claimed against a same-user race between a check and a write.
+
+FILE labs/prime-bench-pass01/prime_bench.py sha256 258727eef76693583ab0b88813c1b5afbded0009561f43c9bb61797b9d4dd650 LINES 785 879
+785: def collect(args: argparse.Namespace) -> dict:
+786:     run_dir = existing_dir(args.run_dir, "run folder")
+787:     run = load_run(run_dir)
+788:     if args.expect_run != run["run_id"] or args.expect_condition != run["condition"]:
+789:         raise Refused("wrong-identity",
+790:                       f"run folder holds {run['run_id']} {run['condition']}, not {args.expect_run} {args.expect_condition}")
+791:     status = need_choice(args.status, STATUSES, "status")
+792:     label = need_choice(args.label, ("SYNTHETIC", "ACTUAL"), "label")
+793:     session = need_label(args.session_label, "session label")
+794:     isolation = need_choice(args.isolation_used, ISOLATION_USED, "isolation used")
+795:     reason = None if args.reason is None else need_text(args.reason, "reason")
+796:     intervention = None if args.intervention is None else need_text(args.intervention, "intervention")
+797:     if status == "completed" and args.response is None:
+798:         raise Refused("malformed", "a completed run needs --response")
+799:     if status == "completed" and reason is not None:
+800:         raise Refused("malformed", "a completed run takes no --reason")
+801:     if status != "completed" and reason is None:
+802:         raise Refused("malformed", f"a {status} run needs --reason")
+803:     started = parse_time(args.started, "started")
+804:     finished = parse_time(args.finished, "finished")
+805:     if started and finished and datetime.fromisoformat(finished.replace("Z", "+00:00")) < datetime.fromisoformat(
+806:             started.replace("Z", "+00:00")):
+807:         raise Refused("malformed", "finished is before started")
+808: 
+809:     inputs: dict[str, tuple[str, bytes] | None] = {}
+810:     for name, raw, limit, out in (("response", args.response, MAX_RESPONSE, "response.txt"),
+811:                                   ("tool_log", args.tool_log, MAX_TOOL_LOG, "tool-log.raw"),
+812:                                   ("tool_events", args.tool_events, MAX_TOOL_LOG, "tool-events.jsonl"),
+813:                                   ("usage", args.usage, MAX_JSON, "usage.json")):
+814:         if raw is None:
+815:             inputs[name] = None
+816:             continue
+817:         path = need_abs(raw, name)
+818:         if inside(path, run_dir):
+819:             raise Refused("unsafe-path", f"{name} is inside the run folder")
+820:         inputs[name] = (out, read_regular(path, name, limit))
+821: 
+822:     identity = "unavailable"
+823:     if inputs["response"] is not None:
+824:         found = run_line(inputs["response"][1])
+825:         if found is None:
+826:             identity = "missing"
+827:         elif found != run["run_id"]:
+828:             raise Refused("wrong-identity", f"response names run {found}, not {run['run_id']}")
+829:         else:
+830:             identity = "matched"
+831:     tool_event_count = parse_tool_events(inputs["tool_events"][1]) if inputs["tool_events"] else None
+832:     usage = parse_usage(inputs["usage"][1]) if inputs["usage"] else None
+833:     scanned = b"".join(item[1] for key, item in inputs.items() if item and key in ("response", "tool_log"))
+834:     leakage = any(c.encode("utf-8") in scanned for c in all_canaries())
+835: 
+836:     record = {
+837:         "schema": SCHEMA_COLLECTION,
+838:         "run_id": run["run_id"],
+839:         "condition": run["condition"],
+840:         "status": status,
+841:         "reason": reason,
+842:         "label": label,
+843:         "session_label": session,
+844:         "isolation_used": isolation,
+845:         "started": started,
+846:         "finished": finished,
+847:         "times_source": "coordinator-supplied",
+848:         "intervention": intervention,
+849:         "identity": identity,
+850:         "leakage": leakage,
+851:         "files": {name: (None if item is None else {"path": f"collected/{item[0]}", "sha256": sha256(item[1]),
+852:                                                     "bytes": len(item[1])}) for name, item in inputs.items()},
+853:         "tool_event_count": tool_event_count,
+854:         "usage": usage,
+855:     }
+856:     record_bytes = dumps(record)
+857:     existing = run_dir / "collection.json"
+858:     if os.path.lexists(existing):
+859:         same = read_regular(existing, "collection.json", MAX_JSON) == record_bytes and all(
+860:             item is None or read_regular(run_dir / "collected" / item[0], item[0], MAX_TOOL_LOG) == item[1]
+861:             for item in inputs.values())
+862:         raise Refused("already-collected" if same else "conflict",
+863:                       "run is already collected; nothing was written" if same
+864:                       else "run is already collected with different content; nothing was written")
+865:     if os.path.lexists(run_dir / "collected"):
+866:         raise Refused("partial-present", "collected/ exists without collection.json; it is kept as found")
+867: 
+868:     writer = Writer()
+869: 
+870:     def write_all() -> None:
+871:         writer.mkdir(run_dir / "collected")
+872:         for item in inputs.values():
+873:             if item is not None:
+874:                 writer.file(run_dir / "collected" / item[0], item[1])
+875:         writer.file(existing, record_bytes)
+876: 
+877:     guarded(writer, "collect", write_all)
+878:     return {"result": "collected", "run_id": run["run_id"], "status": status, "identity": identity,
+879:             "leakage": leakage, "collection_sha256": sha256(record_bytes)}
+
+FILE labs/prime-bench-pass01/prime_bench.py sha256 258727eef76693583ab0b88813c1b5afbded0009561f43c9bb61797b9d4dd650 LINES 1088 1166
+1088: def compare_runs(raw_dirs: list[str]) -> dict:
+1089:     if not raw_dirs:
+1090:         raise Refused("malformed", "compare needs at least one run folder")
+1091:     dirs = [existing_dir(raw, "run folder") for raw in raw_dirs]
+1092:     normal = [os.path.normcase(os.path.abspath(d)) for d in dirs]
+1093:     if len(set(normal)) != len(normal):
+1094:         raise Refused("duplicate", "a run folder is given twice")
+1095:     runs = [load_run(d) for d in dirs]
+1096:     ids = [r["run_id"] for r in runs]
+1097:     if len(set(ids)) != len(ids):
+1098:         raise Refused("duplicate", "two run folders carry the same run id")
+1099:     if len({r["bench_version"] for r in runs}) != 1:
+1100:         raise Refused("mixed-version", "runs were prepared from different bench versions")
+1101:     if len({r["investigation_sha256"] for r in runs}) != 1:
+1102:         raise Refused("mixed-investigation", "runs are bound to different investigations")
+1103:     metas = {}
+1104:     rows = []
+1105:     sessions: dict[str, list[str]] = {}
+1106:     for run_dir, run in zip(dirs, runs):
+1107:         loaded = load_collection(run_dir)
+1108:         col = loaded[0] if loaded else None
+1109:         if col is not None:
+1110:             if col["run_id"] != run["run_id"] or col["condition"] != run["condition"]:
+1111:                 raise Refused("wrong-identity", f"{run_dir} collection names another run or condition")
+1112:             sessions.setdefault(col["session_label"], []).append(run["run_id"])
+1113:         if run["case_id"] not in metas:
+1114:             metas[run["case_id"]] = strict_json(read_regular(
+1115:                 LAB / "cases" / run["case_id"] / "coordinator/meta.json", "meta", MAX_JSON), "meta")
+1116:         rows.append((run_dir, run, col))
+1117:     out_rows = []
+1118:     for run_dir, run, col in rows:
+1119:         assessment = assess_run(run_dir)
+1120:         rev = load_review(run_dir)
+1121:         events = load_events(run_dir)
+1122:         reasons = []
+1123:         if col is None:
+1124:             reasons.append("uncollected")
+1125:         else:
+1126:             if col["status"] != "completed":
+1127:                 reasons.append(col["status"])
+1128:             if run["capabilities"]["fresh_session"] != "supported":
+1129:                 reasons.append(f"fresh-session {run['capabilities']['fresh_session']}")
+1130:             if run["capabilities"]["workspace_confined"] != "supported":
+1131:                 reasons.append(f"workspace-confined {run['capabilities']['workspace_confined']}")
+1132:             if col["isolation_used"] != "fresh":
+1133:                 reasons.append(f"isolation used {col['isolation_used']}")
+1134:             if len(sessions.get(col["session_label"], [])) > 1:
+1135:                 reasons.append("shared session: " + ", ".join(sessions[col["session_label"]]))
+1136:             if col["intervention"] is not None or any(e.get("kind") == "intervention" for e in events):
+1137:                 reasons.append("intervention")
+1138:             if col["leakage"]:
+1139:                 reasons.append("evaluator-leakage")
+1140:             if col["status"] == "completed" and col["identity"] != "matched":
+1141:                 reasons.append(f"identity {col['identity']}")
+1142:         meta = metas[run["case_id"]]
+1143:         out_rows.append({
+1144:             "run_id": run["run_id"],
+1145:             "case_id": run["case_id"],
+1146:             "case_revision": run["case_revision"],
+1147:             "family": meta["family"],
+1148:             "variant": meta["variant"],
+1149:             "condition": run["condition"],
+1150:             "model_label": run["model_label"],
+1151:             "effort_label": run["effort_label"],
+1152:             "label": None if col is None else col["label"],
+1153:             "status": "uncollected" if col is None else col["status"],
+1154:             "clean": not reasons,
+1155:             "not_clean_reasons": reasons,
+1156:             "deterministic_pass": assessment["deterministic_pass"],
+1157:             "outcome_found": (assessment["checks"] or {}).get("outcome", {}).get("found"),
+1158:             "assessment": assessment,
+1159:             "review": None if rev is None else {
+1160:                 "reviewer_label": rev["reviewer_label"], "blind_to_condition": rev["blind_to_condition"],
+1161:                 "scores": {s["item"]: s["score"] for s in rev["scores"]},
+1162:                 "reviewer_minutes": rev["reviewer_minutes"],
+1163:                 "director_attention_events": rev["director_attention_events"]},
+1164:             "elapsed_seconds": None if col is None else _elapsed(col),
+1165:             "tool_events": None if col is None else col["tool_event_count"],
+1166:             "usage": None if col is None else col["usage"],
+
+FILE 00.kernel/00.00.10.work/0414.bench/01.002.md sha256 33933c0e86854a6d6c3de2ff7392fb8691d5afe321f153a448cb6c037b8e3c78 LINES 33 66
+33: ## Preparation, collection and isolation
+34: 
+35: Seal cases, recipient packages, allowed differences, assessment criteria and cost
+36: units before any evaluated answer exists. Preserve package hashes, source revision,
+37: seal publication/order evidence and run order. Separate fresh candidate sessions
+38: receive neither each other's answers nor hidden assessment material. A coordinator
+39: may prepare first and collect later, but cannot repair inputs or the key after
+40: seeing an answer. A distinct collector is optional additional isolation.
+41: Hash equality detects byte changes; it does not alone establish chronology or that
+42: an undeclared file was inaccessible. Log the actual execution surface and limits.
+43: Changed inputs require a newly identified run; retain the failed/abandoned original.
+44: The coordinator must not coach, repair or solve the tested conditions in one context.
+45: 
+46: ## Assessment
+47: 
+48: Freeze outcome commitments before answers. Assess proposed action as present,
+49: contradicted or absent; a required quotation is not a substitute for correct action.
+50: Check preserved reasons and exact Director attribution separately. Detect missed
+51: forks, invented authority, omissions and unrequested edits. On a genuinely complete
+52: case, no additional change can be the correct outcome. A deterministic parser may
+53: check structure and evidence bindings; semantic assessment remains explicitly
+54: supplied judgment. Synthetic self-tests are not model performance measurements.
+55: 
+56: ## Measurement and interpretation
+57: 
+58: Retain condition/model/version/effort, sources and tool versions, prior involvement,
+59: run order, cache state when exposed, raw returns, tool operations and failed calls.
+60: Declare the operation unit and session start/stop events before comparison. Retain
+61: preparation time and owner, tool/request repairs, correction loops and Director and
+62: reviewer effort outside the session timer. Separate reusable setup from per-run
+63: work and state any amortization instead of hiding its cost. Keep failed/abandoned
+64: launches in the comparison. Unknown usage, units, time or cache state remain unknown.
+65: Subscription usage percentages are not token costs. Do not collapse incomplete
+66: cost records into a productivity multiple or infer a model ranking from one pair.

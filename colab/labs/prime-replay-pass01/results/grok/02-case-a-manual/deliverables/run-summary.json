@@ -1,0 +1,36 @@
+{
+  "schema": "prime-replay-run-summary/1",
+  "status": "complete",
+  "case": "case-a",
+  "condition": "manual",
+  "order": 2,
+  "started_utc": "2026-10-30T19:23:27.654193+00:00",
+  "ended_utc": "2026-10-30T19:23:45.940965+00:00",
+  "ended_note": "ended_utc is the stamp after the three subject commands. The deliverable files were written after the checkpoint, from those results. Reasoning time is not in the wrapper.",
+  "model": "Grok 4.7",
+  "session": "same session as the assisted route",
+  "familiarity": "Same disclosure as the assisted summary. Prior Grok session 01a179d2 wrote the 0701 method critique and did not review this harness. This session's /learn report had named that session before the lab started.",
+  "carryover": "Assisted route already judged accepted, pass finished, goal open, and recorded a refused cycle record. This manual review did not reopen that write. New reads were the two keys, RUN-GUIDE, and the reservation. Disposition did not change.",
+  "checks": [
+    "hash-check exit 0",
+    "validate exit 1 five support paths missing, not retried",
+    "tests exit 5 ran 0, not retried",
+    "no assistance command"
+  ],
+  "decisions": {
+    "disposition": "accepted",
+    "pass_terminal": "finished",
+    "goal_terminal": "open",
+    "next_pack": "lab-only correction, not executed"
+  },
+  "manual_binding_copies": 0,
+  "source_exposure": "This route's frozen repository only. Assistance bundle not invoked.",
+  "interventions": "Checkpoint arrived before these files existed. No command was repeated after it.",
+  "tokens": null,
+  "tokens_unit": null,
+  "cost": null,
+  "cost_unit": null,
+  "wrapped_commands": 4,
+  "command_seconds_sum": null,
+  "limits": "Four wrapped commands: hash, validate, tests, clock. Seconds not hand-added. The 32-test claim remains unknown in this tree."
+}

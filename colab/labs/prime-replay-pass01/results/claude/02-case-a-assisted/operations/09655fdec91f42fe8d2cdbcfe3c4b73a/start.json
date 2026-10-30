@@ -1,0 +1,12 @@
+{
+  "started_utc": "2026-10-30T19:04:16.163861+00:00",
+  "argv": [
+    "python",
+    "-B",
+    "-c",
+    "\nimport json,sys\nfrom pathlib import Path\nP=Path(sys.argv[1])\nprint((P/'assembly-status.json').read_text(encoding='utf-8'))\nc=json.loads((P/'custody.json').read_text(encoding='utf-8')); print('custody keys', sorted(c)); print({k:c[k] for k in c if k in ('status','result','member','receipt_sha256','origin','capture')})\nprint('helper-verify:', (P/'helper-verify.txt').read_text(encoding='utf-8')[:600])\nprint('stderr sizes', (P/'custody-stderr.txt').stat().st_size, (P/'helper-verify-stderr.txt').stat().st_size)\npk=json.loads((P/'packet.json').read_text(encoding='utf-8')); print('packet keys', sorted(pk))\nfor s in pk.get('sources',[]): print(' source', {k:s.get(k) for k in ('id','role','kind','name','path','sha256','bytes','status')})\nprint(sorted(str(p.relative_to(P)) for p in (P/'sources').rglob('*') if p.is_file()))\n",
+    "D:\\Git\\lib-build\\colab\\labs\\prime-replay-pass01\\runs\\claude\\02-case-a-assisted\\out\\packet"
+  ],
+  "cwd": "D:\\Git\\lib-build\\colab\\labs\\prime-replay-pass01\\runs\\claude\\02-case-a-assisted\\repository",
+  "coverage": "This wrapped subprocess and captured stdout/stderr only; tool-reader calls and model thinking are not observed."
+}

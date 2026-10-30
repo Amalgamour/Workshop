@@ -1,0 +1,125 @@
+{
+ "attribution": {
+  "actor_label": "Claude Colab (claude-opus-5-5), replay run 03",
+  "role": "prime",
+  "evidence": "Lab replay judgment; the reviewer used review_packet as a pinned dependency elsewhere; label is not authentication."
+ },
+ "binding": {
+  "direction": {
+   "agreement_sha256": "a7cd33f61919a6546bd1b912469100c7a57c991f83666602b00688f322ae2d3e",
+   "book": "00.kernel/00.00.10.work",
+   "fields": {
+    "director_required": "be8fc31ec22efcc14acdbaa76c542911b11506b21b6a5fd8aa4731f91ea847c8",
+    "finish_criteria": "6f5a7ceb1a0180691cfcc5ffa54203de3eb85d35237d690ad436e96b6faf290b",
+    "goal": "8b43ef4508631fb8e0760c537d7871007c72a6cad946cba80db93af4f080f862",
+    "prime_discretion": "fd3e5c26adc482f3add2ccad027e5e0c5ebec4490925b6f2c89b077f5d7584a8",
+    "recorded_decisions": "c69f31aba79b51a7e8685b5c7f10acb2bfe1943c6e810e7f14b93e25c94da5c3",
+    "scope": "ab6f82cce76db2f640a5ddf032457fcf10c9413da58202b3e88a88058bbd400c"
+   },
+   "review_location": "00.kernel/00.00.10.work/0514.review-packet/evidence/prime-cycle-reviews/05.01",
+   "schema": "prime-cycle-direction/1"
+  },
+  "expected_prior": null,
+  "fingerprint": "a61722ef831872713ad2b5cb3c1ada0ff7eda611763eafff3f025ca74d67b9e4",
+  "goal": {
+   "goal_id": "case-b-goal",
+   "goal_sha256": "9255b2b054f09e0f24c51ec74ee9ba965595da9b2b2184c1f4d97c346539031f"
+  },
+  "member": "0167.review-packet-0501",
+  "member_role": null,
+  "origin": null,
+  "page": "00.kernel/00.00.10.work/0514.review-packet/05.01.md",
+  "pass": "05.01",
+  "receipt_sha256": null,
+  "retrospective": null,
+  "source": {
+   "commit": null,
+   "kind": "live-file",
+   "page_bytes": null,
+   "page_sha256": null
+  },
+  "submission_id": null,
+  "work_id": "case-b"
+ },
+ "judgment": {
+  "answers": [],
+  "design_fork": null,
+  "disposition": "accepted",
+  "finding": "The mechanical review-packet helper does what 0514 05.01 asks: strict explicit request, pinned custody subprocess, git-blob versus live distinction, artifact-manifest/1 row classes without 'corruption', unsupported schemas reported, fixed non-acceptance statement, bounded exclusive output with partial status. Claims reproduced: 10 tests, 1 skip (file symlink, WinError 1314), 0 failures; custody complete; 19/19 own artifact rows historical-match.",
+  "goal": {
+   "evidence": [
+    "00.kernel/00.00.10.work/0514.review-packet/05.01.md",
+    "00.kernel/00.00.10.work/0167.review-packet-0501/receipt.json",
+    "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/REAL-USE.md"
+   ],
+   "goal_id": "case-b-goal",
+   "goal_sha256": "9255b2b054f09e0f24c51ec74ee9ba965595da9b2b2184c1f4d97c346539031f",
+   "terminal": "completed"
+  },
+  "holds": [],
+  "next_action": null,
+  "outcome": "complete",
+  "pass_terminal": "finished",
+  "reasons": [
+   "subject tests re-run in the disposable copy: Ran 10, OK (skipped=1)",
+   "packet custody via the pinned inspector/helper: complete, receipt bf8cef9f..., 7 payloads",
+   "direct assemble with the 0514 artifact-manifest at the disposable commit: 19 historical-match, no conflicts",
+   "frozen assistance review_packet equals the subject bytes (f658cbe4...)"
+  ],
+  "sections": {
+   "affected": null,
+   "assumptions": null,
+   "consequences": null,
+   "exploration": null,
+   "findings_account": [
+    {
+     "finding_id": "00.kernel/00.00.10.work/0514.review-packet/05.01.md#F-01",
+     "status": "accepted"
+    }
+   ],
+   "finish_assessments": [
+    {
+     "criterion_id": "faithful-review",
+     "assessment": "met"
+    }
+   ],
+   "for_model": null,
+   "issue": null,
+   "learning": "A mechanical packet shows custody and artifact rows well; review substance still needs the page, contract and code.",
+   "limits": "Lab replay; file-symlink test skipped; no OS sandbox or race guarantee (as the tool states).",
+   "next_bounded_action": null,
+   "open_questions": null,
+   "options": null,
+   "outcome_evidence": "Tool, tests, contract and two real specimens exist; claims reproduced in a disposable copy.",
+   "preservation": "Member 0167, specimens and requests unchanged; no repair or overwrite.",
+   "prime_finding": null,
+   "proposed_plan": null,
+   "question": null,
+   "recommendation": null,
+   "remaining_choices": [
+    "Whether callers (for example prime_cycle packet) should request artifact checks by default is a caller design question."
+   ],
+   "return_result": null,
+   "tests_note": "Subject tests re-run here; tests are evidence of mechanics, not of review quality.",
+   "tests_passed": null,
+   "within_direction": null
+  },
+  "semantic_conflict": false,
+  "source_refs": [
+   "00.kernel/00.00.10.work/0514.review-packet/05.01.md",
+   "00.kernel/00.00.10.work/0167.review-packet-0501/return.md",
+   "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/CONTRACT.md",
+   "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/REAL-USE.md",
+   "labs/review-packet-pass01/review_packet.py",
+   "labs/review-packet-pass01/tests/test_review_packet.py"
+  ],
+  "unresolved": [
+   "file-symlink refusal is implemented but untested on this host (privilege)",
+   "pack #04 both forbids opening Claude's uncommitted benchmark work and asks to explain differing live bytes; the builder hashed live rows without copying them, disclosed"
+  ]
+ },
+ "recovers": null,
+ "review_id": "05.01-r1",
+ "schema": "prime-cycle-decision/2",
+ "supersedes": null
+}

@@ -1,0 +1,203 @@
+{
+  "rows": [
+    {
+      "model": "codex",
+      "run": "01-case-a-manual",
+      "wrapped_commands_started": 6,
+      "wrapped_commands_ended": 6,
+      "command_seconds_sum": 0.48499999998603016,
+      "stdout_bytes": 76836,
+      "stderr_bytes": 0,
+      "exit_counts": {
+        "0": 5,
+        "1": 1
+      },
+      "tokens": null,
+      "cost": null,
+      "note": "Command duration sum excludes reasoning, direct file readers and setup; not model latency or productivity. See supplied per-run friction notes."
+    },
+    {
+      "model": "codex",
+      "run": "02-case-a-assisted",
+      "wrapped_commands_started": 10,
+      "wrapped_commands_ended": 10,
+      "command_seconds_sum": 1.8760000001057051,
+      "stdout_bytes": 23442,
+      "stderr_bytes": 25,
+      "exit_counts": {
+        "0": 5,
+        "1": 3,
+        "2": 2
+      },
+      "tokens": null,
+      "cost": null,
+      "note": "Command duration sum excludes reasoning, direct file readers and setup; not model latency or productivity. See supplied per-run friction notes."
+    },
+    {
+      "model": "codex",
+      "run": "03-case-b-assisted",
+      "wrapped_commands_started": 9,
+      "wrapped_commands_ended": 9,
+      "command_seconds_sum": 4.779999999969732,
+      "stdout_bytes": 21530,
+      "stderr_bytes": 1659,
+      "exit_counts": {
+        "0": 6,
+        "1": 2,
+        "2": 1
+      },
+      "tokens": null,
+      "cost": null,
+      "note": "Command duration sum excludes reasoning, direct file readers and setup; not model latency or productivity. See supplied per-run friction notes."
+    },
+    {
+      "model": "codex",
+      "run": "04-case-b-manual",
+      "wrapped_commands_started": 3,
+      "wrapped_commands_ended": 3,
+      "command_seconds_sum": 3.2029999999213032,
+      "stdout_bytes": 13454,
+      "stderr_bytes": 1659,
+      "exit_counts": {
+        "0": 3
+      },
+      "tokens": null,
+      "cost": null,
+      "note": "Command duration sum excludes reasoning, direct file readers and setup; not model latency or productivity. See supplied per-run friction notes."
+    },
+    {
+      "model": "claude",
+      "run": "01-case-a-manual",
+      "wrapped_commands_started": 14,
+      "wrapped_commands_ended": 14,
+      "command_seconds_sum": 0.8432728000334464,
+      "stdout_bytes": 78209,
+      "stderr_bytes": 1282,
+      "exit_counts": {
+        "0": 12,
+        "1": 1,
+        "5": 1
+      },
+      "tokens": null,
+      "cost": null,
+      "note": "Command duration sum excludes reasoning, direct file readers and setup; not model latency or productivity. See supplied per-run friction notes."
+    },
+    {
+      "model": "claude",
+      "run": "02-case-a-assisted",
+      "wrapped_commands_started": 10,
+      "wrapped_commands_ended": 10,
+      "command_seconds_sum": 2.38446270005079,
+      "stdout_bytes": 13574,
+      "stderr_bytes": 25,
+      "exit_counts": {
+        "0": 5,
+        "1": 3,
+        "2": 2
+      },
+      "tokens": null,
+      "cost": null,
+      "note": "Command duration sum excludes reasoning, direct file readers and setup; not model latency or productivity. See supplied per-run friction notes."
+    },
+    {
+      "model": "claude",
+      "run": "03-case-b-assisted",
+      "wrapped_commands_started": 13,
+      "wrapped_commands_ended": 13,
+      "command_seconds_sum": 6.9612813999992795,
+      "stdout_bytes": 29781,
+      "stderr_bytes": 1759,
+      "exit_counts": {
+        "0": 10,
+        "1": 2,
+        "2": 1
+      },
+      "tokens": null,
+      "cost": null,
+      "note": "Command duration sum excludes reasoning, direct file readers and setup; not model latency or productivity. See supplied per-run friction notes."
+    },
+    {
+      "model": "claude",
+      "run": "04-case-b-manual",
+      "wrapped_commands_started": 6,
+      "wrapped_commands_ended": 6,
+      "command_seconds_sum": 3.846322200028226,
+      "stdout_bytes": 4191,
+      "stderr_bytes": 394,
+      "exit_counts": {
+        "0": 6
+      },
+      "tokens": null,
+      "cost": null,
+      "note": "Command duration sum excludes reasoning, direct file readers and setup; not model latency or productivity. See supplied per-run friction notes."
+    },
+    {
+      "model": "grok",
+      "run": "01-case-a-assisted",
+      "wrapped_commands_started": 12,
+      "wrapped_commands_ended": 12,
+      "command_seconds_sum": 2.2500811998615973,
+      "stdout_bytes": 8960,
+      "stderr_bytes": 1340,
+      "exit_counts": {
+        "0": 6,
+        "1": 3,
+        "2": 2,
+        "5": 1
+      },
+      "tokens": null,
+      "cost": null,
+      "note": "Command duration sum excludes reasoning, direct file readers and setup; not model latency or productivity. See supplied per-run friction notes."
+    },
+    {
+      "model": "grok",
+      "run": "02-case-a-manual",
+      "wrapped_commands_started": 4,
+      "wrapped_commands_ended": 4,
+      "command_seconds_sum": 0.41069420002168044,
+      "stdout_bytes": 2331,
+      "stderr_bytes": 1311,
+      "exit_counts": {
+        "0": 2,
+        "1": 1,
+        "5": 1
+      },
+      "tokens": null,
+      "cost": null,
+      "note": "Command duration sum excludes reasoning, direct file readers and setup; not model latency or productivity. See supplied per-run friction notes."
+    },
+    {
+      "model": "grok",
+      "run": "03-case-b-manual",
+      "wrapped_commands_started": 3,
+      "wrapped_commands_ended": 3,
+      "command_seconds_sum": 3.179074199986644,
+      "stdout_bytes": 3911,
+      "stderr_bytes": 1759,
+      "exit_counts": {
+        "0": 3
+      },
+      "tokens": null,
+      "cost": null,
+      "note": "Command duration sum excludes reasoning, direct file readers and setup; not model latency or productivity. See supplied per-run friction notes."
+    },
+    {
+      "model": "grok",
+      "run": "04-case-b-assisted",
+      "wrapped_commands_started": 7,
+      "wrapped_commands_ended": 7,
+      "command_seconds_sum": 1.3261327000218444,
+      "stdout_bytes": 3338,
+      "stderr_bytes": 0,
+      "exit_counts": {
+        "0": 5,
+        "1": 1,
+        "2": 1
+      },
+      "tokens": null,
+      "cost": null,
+      "note": "Command duration sum excludes reasoning, direct file readers and setup; not model latency or productivity. See supplied per-run friction notes."
+    }
+  ],
+  "limits": "Different familiarity, order, source selections and timing boundaries; six broken assisted cycles; no efficiency ratio or model ranking."
+}

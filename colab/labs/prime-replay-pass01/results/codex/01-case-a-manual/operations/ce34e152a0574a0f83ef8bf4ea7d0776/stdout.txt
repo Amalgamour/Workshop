@@ -1,0 +1,147 @@
+9:  python -B prime_bench.py manifest
+10:  python -B prime_bench.py prepare --investigation ABS --run-id ID --case ID --condition C ... --run-dir ABS --candidate-dir ABS
+39:SCHEMA_RUBRIC = "prime-bench-rubric/1"
+114:Candidate folder: {candidate}
+117:1. Start one new session with no earlier context. Confine it to the candidate folder only; it must not
+119:2. Paste PROMPT.md from the candidate folder as the first message. Record the start time.
+121:4. Save the final message exactly, byte for byte, to a file outside the candidate folder. Export the
+132:class Refused(Exception):
+139:class Partial(Exception):
+146:def sha256(data: bytes) -> str:
+150:def dumps(obj: object) -> bytes:
+154:def strict_json(data: bytes, what: str, limit: int = MAX_JSON) -> object:
+179:def exact_keys(obj: object, keys: tuple[str, ...] | set[str], what: str) -> dict:
+189:def need_text(value: object, what: str, limit: int = MAX_TEXT) -> str:
+197:def need_label(value: object, what: str) -> str:
+203:def need_choice(value: object, choices: tuple[str, ...], what: str) -> str:
+209:def need_hex(value: object, what: str) -> str:
+215:def need_count(value: object, what: str, nullable: bool = True) -> int | None:
+223:def need_rel(value: object, what: str) -> str:
+234:def is_linked(path: Path) -> bool:
+244:def need_abs(raw: str, what: str) -> Path:
+260:def read_regular(path: Path, what: str, limit: int) -> bytes:
+278:def inside(child: Path, parent: Path) -> bool:
+287:def fresh_dest(raw: str, what: str) -> Path:
+299:def existing_dir(raw: str, what: str) -> Path:
+306:def _write_file(path: Path, data: bytes) -> None:
+317:class Writer:
+333:def guarded(writer: Writer, what: str, action) -> None:
+345:def _case_dirs() -> list[str]:
+352:def _case_files(case_id: str) -> list[str]:
+364:def manifest_object() -> dict:
+389:def _check_case_records(case_id: str, revision: object, files: set[str]) -> list[str]:
+391:    for rel in ("candidate/TASK.md", "evaluator/key.json", "evaluator/rubric.json", "coordinator/meta.json"):
+394:    if not any(rel.startswith("candidate/sources/") for rel in files):
+395:        problems.append(f"{case_id}: no candidate sources")
+397:        if rel.split("/")[0] not in ("candidate", "evaluator", "coordinator"):
+403:    load_rubric(base, case_id, revision)
+426:def load_key(base: Path, case_id: str, revision: object) -> dict:
+450:def load_rubric(base: Path, case_id: str, revision: object) -> dict:
+451:    rubric = exact_keys(strict_json(read_regular(base / "evaluator/rubric.json", "rubric", MAX_JSON), "rubric"),
+452:                        ("schema", "case_id", "revision", "scale", "items"), f"{case_id} rubric")
+453:    if rubric["schema"] != SCHEMA_RUBRIC or rubric["case_id"] != case_id or rubric["revision"] != revision:
+454:        raise Refused("malformed", f"{case_id} rubric identity differs")
+455:    if not isinstance(rubric["scale"], list) or not rubric["scale"] or any(type(v) is not int for v in rubric["scale"]):
+456:        raise Refused("malformed", f"{case_id} rubric scale is unusable")
+458:    if not isinstance(rubric["items"], list) or not rubric["items"]:
+459:        raise Refused("malformed", f"{case_id} rubric items are empty")
+460:    for item in rubric["items"]:
+461:        exact_keys(item, ("id", "text"), f"{case_id} rubric item")
+462:        need_label(item["id"], "rubric item id")
+463:        need_text(item["text"], "rubric item text")
+466:        raise Refused("malformed", f"{case_id} rubric item ids repeat")
+467:    return rubric
+470:def validate() -> dict:
+474:    current = manifest_object()
+520:    leaks = candidate_leaks(current, canaries)
+531:def candidate_leaks(manifest: dict, canaries: dict[str, str]) -> list[str]:
+532:    """Any canary or evaluator/coordinator bytes inside any case's candidate files."""
+534:    candidates: list[tuple[str, bytes]] = []
+535:    for case in manifest["cases"]:
+539:            if f["path"].startswith("candidate/"):
+540:                candidates.append((f"{case['case_id']}/{f['path']}", data))
+543:    return leak_hits(candidates, secret)
+546:def leak_hits(candidates: list[tuple[str, bytes]], secret: list[tuple[str, bytes]]) -> list[str]:
+548:    for name, data in candidates:
+555:def bench_state() -> tuple[dict, str, dict[str, str]]:
+559:    manifest = manifest_object()
+561:                for c in manifest["cases"]}
+562:    return manifest, result["bench_version"], canaries
+565:def all_canaries() -> list[str]:
+566:    """Canaries of the bench as it is now, read without requiring a clean bench."""
+581:def load_investigation(raw: str) -> tuple[dict, bytes]:
+614:def prepare(args: argparse.Namespace) -> dict:
+629:    cand_dir = fresh_dest(args.candidate_dir, "candidate folder")
+631:        raise Refused("unsafe-path", "run and candidate folders must not contain each other")
+634:    manifest, version, canaries = bench_state()
+635:    case = next((c for c in manifest["cases"] if c["case_id"] == args.case), None)
+643:        if f["path"].startswith("candidate/"):
+644:            files[f["path"][len("candidate/"):]] = read_regular(base / f["path"], f["path"], MAX_JSON)
+656:    for other in manifest["cases"]:
+658:            if not f["path"].startswith("candidate/"):
+668:        "rubric_sha256": sha256(read_regular(base / "evaluator/rubric.json", "rubric", MAX_JSON)),
+669:        "candidate_files": [{"path": p, "sha256": sha256(d), "bytes": len(d)} for p, d in sorted(files.items())],
+683:        "candidate_dir": str(cand_dir),
+689:        effort=effort, candidate=cand_dir, module=Path(os.path.abspath(__file__)), run_dir=run_dir, **caps)
+700:                raise OSError(f"candidate file differs after write: {rel}")
+707:            "run_dir": str(run_dir), "candidate_dir": str(cand_dir), "candidate_files": len(files),
+713:def load_run(run_dir: Path) -> dict:
+719:                      "case_revision", "condition", "model_label", "effort_label", "capabilities", "candidate_dir",
+727:    exact_keys(run["pins"], ("task_sha256", "key_sha256", "rubric_sha256", "candidate_files"), "run pins")
+731:def parse_time(raw: str | None, what: str) -> str | None:
+743:def run_line(response: bytes) -> str | None:
+752:def parse_tool_events(data: bytes) -> int:
+771:def parse_usage(data: bytes) -> dict:
+785:def collect(args: argparse.Namespace) -> dict:
+882:def load_collection(run_dir: Path) -> tuple[dict, bytes] | None:
+902:def load_events(run_dir: Path) -> list[dict]:
+914:def event(args: argparse.Namespace) -> dict:
+958:def pinned_case(run: dict) -> tuple[dict, dict]:
+964:                           ("evaluator/rubric.json", pins["rubric_sha256"], "rubric"),
+965:                           ("candidate/TASK.md", pins["task_sha256"], "task")):
+967:            raise Refused("key-changed" if what != "rubric" else "rubric-changed",
+969:    return load_key(base, run["case_id"], run["case_revision"]), load_rubric(base, run["case_id"], run["case_revision"])
+972:def assess_run(run_dir: Path) -> dict:
+974:    key, _rubric = pinned_case(run)
+1005:def review(args: argparse.Namespace) -> dict:
+1008:    _key, rubric = pinned_case(run)
+1014:                     ("schema", "run_id", "case_id", "case_revision", "rubric_sha256", "reviewer_label",
+1021:    if need_hex(rec["rubric_sha256"], "review rubric sha256") != run["pins"]["rubric_sha256"]:
+1022:        raise Refused("rubric-changed", "review was made against a different rubric")
+1032:    wanted = [item["id"] for item in rubric["items"]]
+1038:        if type(score["score"]) is not int or score["score"] not in rubric["scale"]:
+1044:        raise Refused("malformed", "scores do not cover every rubric item exactly once")
+1056:def load_review(run_dir: Path) -> dict | None:
+1065:def _elapsed(col: dict) -> float | None:
+1073:def record_hashes(run_dir: Path) -> dict:
+1088:def compare_runs(raw_dirs: list[str]) -> dict:
+1154:            "clean": not reasons,
+1155:            "not_clean_reasons": reasons,
+1175:        clean = [r for r in mine if r["clean"]]
+1177:        for r in clean:
+1180:                    slot = items.setdefault(item, {"reviewed_clean_runs": 0, "score_sum": 0})
+1181:                    slot["reviewed_clean_runs"] += 1
+1186:            "clean": len(clean),
+1187:            "clean_deterministic_pass": sum(1 for r in clean if r["deterministic_pass"]),
+1188:            "rubric_items": dict(sorted(items.items())),
+1207:def _cell(value: object) -> str:
+1215:def render(result: dict) -> str:
+1224:              "- A run is clean only when it completed, fresh-session and workspace-confined were declared supported, "
+1229:              "- Reviewer scores are supplied records, summed per rubric item over clean reviewed runs, with the count.",
+1233:              "| run | case | family/variant | condition | model / effort | label | status | clean | outcome | "
+1244:            f"| {'yes' if r['clean'] else 'no'} | {_cell(r['outcome_found'])} "
+1250:        lines.append(f"- **{cond}**: {c['runs']} runs ({status}); clean {c['clean']}; "
+1251:                     f"clean with deterministic pass {c['clean_deterministic_pass']}.")
+1252:        for item, slot in c["rubric_items"].items():
+1253:            lines.append(f"  - {item}: {slot['reviewed_clean_runs']} clean reviewed runs, score sum {slot['score_sum']}.")
+1254:    lines += ["", "## Not clean, failed or uncollected (kept, not dropped)", ""]
+1255:    unclean = [r for r in result["rows"] if not r["clean"]]
+1256:    lines += [f"- {r['run_id']} ({r['condition']}): {'; '.join(r['not_clean_reasons'])}" for r in unclean] or ["- none"]
+1268:def export(args: argparse.Namespace) -> dict:
+1333:def build_parser() -> argparse.ArgumentParser:
+1338:    sub.add_parser("manifest")
+1341:                 "--fresh-session", "--workspace-confined", "--tool-log", "--usage", "--run-dir", "--candidate-dir"):
+1375:def emit(obj: dict, as_json: bool, text: str | None = None) -> None:
+1381:def main(argv: list[str] | None = None) -> int:
+1394:        if args.command == "manifest":
+1395:            sys.stdout.buffer.write(dumps(manifest_object()))

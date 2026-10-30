@@ -1,0 +1,110 @@
+4:custody, not acceptance. This module does not capture, repair, allocate,
+16:import subprocess
+26:    "A verified receipt is custody, not acceptance. "
+76:def refuse(message: str) -> None:
+80:def sha256_bytes(data: bytes) -> str:
+84:def dump(value) -> bytes:
+89:def loads_strict(text: str):
+111:def is_reparse(path: Path) -> bool:
+119:def file_problem(path: Path) -> str | None:
+132:def directory_problem(path: Path) -> str | None:
+143:def exclusive_write(path: Path, data: bytes) -> None:
+159:def require_exact(value, keys: set[str], label: str) -> dict:
+170:def require_int(value, label: str, low: int, high: int) -> int:
+178:def require_text(value, label: str, limit: int = 200) -> str:
+188:def absolute_path(value, label: str) -> Path:
+197:def ancestor_link(path: Path) -> str | None:
+215:def relative_problem(value: str) -> str | None:
+230:def require_relative(value, label: str) -> str:
+237:def within(child: Path, parent: Path) -> bool:
+246:def child_env() -> dict[str, str]:
+254:def run_git(repo: Path, args: list[str]) -> subprocess.CompletedProcess[bytes]:
+262:    return subprocess.run(
+272:def commit_exists(repo: Path, commit: str) -> bool:
+279:def read_blob(repo: Path, commit: str, relpath: str) -> tuple[bytes | None, str | None]:
+293:def pin_tool(path: Path, digest: str, size: int, label: str) -> None:
+302:def optional_sha(value, label: str) -> str | None:
+310:def parse_artifact_request(value) -> dict | None:
+313:    body = require_exact(value, {"compare_commit", "compare_live"}, "artifact_manifest")
+317:    if type(body["compare_live"]) is not bool:
+318:        refuse("compare_live must be boolean")
+319:    return {"compare_commit": commit, "compare_live": body["compare_live"]}
+322:def parse_source(value, seen: set[str]) -> dict:
+329:    elif kind == "live":
+336:        refuse("source kind is not git-blob, live, or member-file")
+355:        "live_opened": False,
+363:    elif kind == "live":
+366:        item["path"] = require_relative(value["path"], "live path")
+376:def load_request(path_text: str) -> dict:
+457:        if source["kind"] == "live":
+458:            live_path = repo / source["path"]
+459:            if not within(live_path, repo):
+460:                refuse("live path escapes the repo")
+461:            link = ancestor_link(live_path)
+463:                refuse(f"live source ancestor is link: {link}")
+464:            if os.path.lexists(live_path):
+465:                problem = file_problem(live_path)
+467:                    refuse(f"live source is {problem}: {source['id']}")
+498:def run_tool(python: str, args: list[str]) -> subprocess.CompletedProcess[bytes]:
+499:    return subprocess.run(
+526:def take_bytes(data: bytes, bounds: dict, total: int) -> int:
+532:def blank_source(source: dict, status: str, problems: list[str]) -> dict:
+545:        "live_opened": False,
+551:def present_source(source: dict, data: bytes, embedded: bool, snapshot: str | None) -> dict:
+572:        "live_opened": source["kind"] == "live",
+578:def gather_source(source: dict, request: dict, total: int) -> tuple[dict, int]:
+587:                [f"git blob is {problem or 'absent'}", "live file was not read"],
+592:    if source["kind"] == "live":
+595:            return blank_source(source, "absent", ["live file is absent"]), total
+598:            return blank_source(source, "rejected", [f"live file is {problem}"]), total
+628:def row_commit(row: dict, default: str | None) -> str | None:
+637:def classify(historical: str, live: str) -> str:
+638:    if historical == "match" and live == "differs":
+639:        return "changed-live-working-copy"
+640:    if historical == "match" and live == "absent":
+641:        return "live-absent"
+642:    if historical == "match" and live in {"match", "not-requested"}:
+648:    if historical == "not-declared" and live == "match":
+649:        return "live-match"
+650:    if historical == "not-declared" and live == "differs":
+651:        return "live-mismatch"
+652:    if historical == "not-declared" and live == "absent":
+653:        return "live-absent"
+657:def observe_live_row(repo: Path, relpath: str, declared_sha: str, declared_bytes: int, limit: int) -> dict:
+660:        return {"live": "unreadable", "live_sha256": None, "live_bytes": None}
+665:        return {"live": "unreadable", "live_sha256": None, "live_bytes": None}
+667:        return {"live": "link", "live_sha256": None, "live_bytes": None}
+669:        return {"live": "absent", "live_sha256": None, "live_bytes": None}
+672:        return {"live": "not-regular", "live_sha256": None, "live_bytes": None}
+675:        return {"live": "oversize", "live_sha256": None, "live_bytes": size}
+679:    return {"live": state, "live_sha256": digest, "live_bytes": len(data)}
+682:def observe_historical_row(repo: Path, commit: str | None, relpath: str, declared_sha: str, declared_bytes: int, limit: int) -> dict:
+702:def check_artifact(source_record: dict, check: dict, repo: Path, limit: int) -> dict:
+724:    if not isinstance(value, dict) or value.get("schema") != "artifact-manifest/1" or not isinstance(value.get("artifacts"), list):
+726:        result = "malformed" if isinstance(value, dict) and value.get("schema") == "artifact-manifest/1" else "unsupported-schema"
+758:        if check["compare_live"]:
+759:            live = observe_live_row(repo, path, digest, size, limit)
+761:            live = {"live": "not-requested", "live_sha256": None, "live_bytes": None}
+771:                "live": live["live"],
+772:                "live_sha256": live["live_sha256"],
+773:                "live_bytes": live["live_bytes"],
+774:                "classification": classify(historical["historical"], live["live"]),
+781:        "observed_schema": "artifact-manifest/1",
+788:def parse_custody(stdout: bytes) -> tuple[dict | None, list[str]]:
+814:def origin_conflicts(requested: dict, reservation: dict | None, status: str | None) -> tuple[list[str], list[str]]:
+840:def public_source(record: dict) -> dict:
+853:        "live_opened": record["live_opened"],
+857:def render_packet_md(packet: dict) -> bytes:
+911:                "- {path}: classification {classification}; historical {historical} sha256 {hsha} bytes {hbytes}; live {live} sha256 {lsha} bytes {lbytes}".format(
+917:                    live=row.get("live"),
+918:                    lsha=row.get("live_sha256"),
+919:                    lbytes=row.get("live_bytes"),
+935:            if classification not in {None, "historical-match", "live-match"}:
+966:def decode_text(data: bytes) -> str:
+970:def build(request: dict, out: Path) -> int:
+1011:        "acceptance": False,
+1018:        "custody_is_acceptance": False,
+1079:def write_partial(out: Path, reason: str, limit: int) -> None:
+1104:def assemble_request(path_text: str) -> int:
+1116:    except (OSError, subprocess.TimeoutExpired) as exc:
+1121:def main(argv: list[str] | None = None) -> int:
