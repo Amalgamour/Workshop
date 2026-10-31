@@ -1,0 +1,267 @@
+{
+ "schema": "module-dependencies-verification/1",
+ "batch": "0517.dependencies/05.01",
+ "branch": "workshop",
+ "head": "8cfa0605c74ee4f7fb1d1f06daabf04a1308a244",
+ "source_base": "f0ccb9071b25194a9cb92ddb3f41f313fa859f01",
+ "pack": {
+  "sources": 20,
+  "committed_objects_equal_pins": 20,
+  "note": "the four 0516 references were checked as pack snapshots and committed objects at the cut only; live 0516 files were not read, hashed or listed"
+ },
+ "runs": [
+  {
+   "log": "run1-dev.txt",
+   "log_sha256": "447ccbd28a1339ae2cf506d4369442fb57498d3879664dbcfe591f0ec6ed4069",
+   "tail": [
+    "",
+    "OK",
+    "exit 0"
+   ],
+   "id": "run1",
+   "argv": "python -B -X dev labs/module-dependencies-pass01/tests/test_depdecl.py -v",
+   "exit": 0,
+   "result": "OK, 15 tests on the first run"
+  },
+  {
+   "log": "mutations-1-before-exit-fix.txt",
+   "log_sha256": "03ef4337ef0c61a329d6abddc0413b9a58a55c22e9243a0a5715a96e5259455d",
+   "tail": [
+    "reverse-pin-always-matches ['TestVersionsAndChange.test_05_changed_bytes_identity_and_pin_differs', 'TestVersionsAndChange.test_07_multiple_consumers_and_transitive_impact_with_provenance']: exit 1; failing ['test_05_changed_bytes_identity_and_pin_differs']",
+    "set-pin-not-checked ['TestInputsAndOutput.test_12_unsafe_paths_and_set_pins']: exit 1; failing ['test_12_unsafe_paths_and_set_pins']",
+    "delta-not-compared ['TestInputsAndOutput.test_14_delta_checks_the_declared_change_record']: exit 1; failing ['test_14_delta_checks_the_declared_change_record']"
+   ],
+   "id": "mut1",
+   "argv": "python -B <scratch>/mutate.py",
+   "exit": 0,
+   "result": "9 of 9 caught (before the impacted exit fix)"
+  },
+  {
+   "log": "demo1-stdout.txt",
+   "log_sha256": "a2262d68d57a3fbcf46b887dc5e100fd9d3ad8254c3d64f28049157c6234a8da",
+   "tail": [
+    "SYNTHETIC missing record ghost: exit 1 (expected 1)",
+    "all exits as expected: False",
+    "exit 1"
+   ],
+   "id": "demo1",
+   "argv": "python -B -X dev labs/module-dependencies-pass01/demo.py --snapshots <pack05.01/snapshots> --out <scratch>/demo1",
+   "exit": 1,
+   "result": "first demo: the impacted step exited 1 where I expected 0. Two causes: depdecl main always exited 1 for impacted (a defect against CONTRACT §7, fixed, with a regression assertion in test_07), and my expectation was wrong (the SYNTHETIC changed bytes are undeclared, a real finding, so exit 1 is correct)"
+  },
+  {
+   "log": "run2-dev.txt",
+   "log_sha256": "a62681c1ff60eecfcf36a2d68767b7075cc57efc970ebb36e27d5a86c88489bd",
+   "tail": [
+    "",
+    "OK",
+    "exit 0"
+   ],
+   "id": "run2",
+   "argv": "python -B -X dev labs/module-dependencies-pass01/tests/test_depdecl.py",
+   "exit": 0,
+   "result": "OK, 15 tests after the exit fix"
+  },
+  {
+   "log": "demo2-stdout.txt",
+   "log_sha256": "e7a557c0c8f87c3a9c1b2cc791d38bff2668756e336c187be7593ece2f547baa",
+   "tail": [
+    "SYNTHETIC missing record ghost: exit 1 (expected 1)",
+    "all exits as expected: True",
+    "exit 0"
+   ],
+   "id": "demo2",
+   "argv": "python -B -X dev labs/module-dependencies-pass01/demo.py --snapshots <pack05.01/snapshots> --out <scratch>/demo2",
+   "exit": 0,
+   "result": "all exits as expected"
+  },
+  {
+   "log": "demo3-stdout.txt",
+   "log_sha256": "156f22759e185291ebd89d5e2a5bff8543903515fc8b4c50467e967898ceda64",
+   "tail": [
+    "completion seam: change record omits the changed pin: exit 1 (expected 1)",
+    "all exits as expected: True",
+    "exit 0"
+   ],
+   "id": "demo3",
+   "argv": "python -B -X dev labs/module-dependencies-pass01/demo.py --snapshots <pack05.01/snapshots> --out <scratch>/demo3",
+   "exit": 0,
+   "result": "with the completion-seam steps; all exits as expected; sample-dependencies.json is its step 2"
+  },
+  {
+   "log": "final-dev.txt",
+   "log_sha256": "63b095eeee85b92628cac840a66e3f484ee356b92f7f0540b9876947b23f4767",
+   "tail": [
+    "",
+    "OK",
+    "exit 0"
+   ],
+   "id": "final-dev",
+   "argv": "python -B -X dev labs/module-dependencies-pass01/tests/test_depdecl.py -v",
+   "exit": 0,
+   "result": "final bytes"
+  },
+  {
+   "log": "final-default.txt",
+   "log_sha256": "12e7e67b14ecdd68149ed21f0142de8f44b9abff9273bdca08adec6d5d255c4c",
+   "tail": [
+    "",
+    "OK",
+    "exit 0"
+   ],
+   "id": "final-default",
+   "argv": "python -B labs/module-dependencies-pass01/tests/test_depdecl.py",
+   "exit": 0,
+   "result": "final bytes, default mode"
+  },
+  {
+   "log": "mutations-2-stdout.txt",
+   "log_sha256": "ea8d4f24ee026f8ae28e109dc15923a402a2857a14513b31bf63abb3db33ad84",
+   "tail": [
+    "set-pin-not-checked 1 ['test_12_unsafe_paths_and_set_pins']",
+    "delta-not-compared 1 ['test_14_delta_checks_the_declared_change_record']",
+    "exit 0"
+   ],
+   "id": "mut2",
+   "argv": "python -B <scratch>/mutate.py (final bytes)",
+   "exit": 0,
+   "lines": [
+    "empty-list-accepted ['TestRootsAndRecords.test_01_absent_root_differs_from_explicit_zero_requirements']: exit 1; failing ['test_01_absent_root_differs_from_explicit_zero_requirements']",
+    "undeclared-as-empty ['TestRootsAndRecords.test_01_absent_root_differs_from_explicit_zero_requirements']: exit 1; failing ['test_01_absent_root_differs_from_explicit_zero_requirements']",
+    "highest-version-picked ['TestVersionsAndChange.test_06_ambiguous_versions_need_an_explicit_selection_never_the_highest']: exit 1; failing ['test_06_ambiguous_versions_need_an_explicit_selection_never_the_highest']",
+    "cycle-not-detected ['TestGraph.test_08_diamond_is_shared_and_cycle_is_bounded']: exit 1; failing ['test_08_diamond_is_shared_and_cycle_is_bounded']",
+    "inapplicable-followed ['TestGraph.test_09_conditions_and_environment_states_stay_distinct']: exit 1; failing ['test_09_conditions_and_environment_states_stay_distinct']",
+    "pin-ignored ['TestVersionsAndChange.test_05_changed_bytes_identity_and_pin_differs']: exit 1; failing ['test_05_changed_bytes_identity_and_pin_differs']",
+    "reverse-pin-always-matches ['TestVersionsAndChange.test_05_changed_bytes_identity_and_pin_differs', 'TestVersionsAndChange.test_07_multiple_consumers_and_transitive_impact_with_provenance']: exit 1; failing ['test_05_changed_bytes_identity_and_pin_differs']",
+    "set-pin-not-checked ['TestInputsAndOutput.test_12_unsafe_paths_and_set_pins']: exit 1; failing ['test_12_unsafe_paths_and_set_pins']",
+    "delta-not-compared ['TestInputsAndOutput.test_14_delta_checks_the_declared_change_record']: exit 1; failing ['test_14_delta_checks_the_declared_change_record']"
+   ]
+  },
+  {
+   "log": "demo-final-stdout.txt",
+   "log_sha256": "156f22759e185291ebd89d5e2a5bff8543903515fc8b4c50467e967898ceda64",
+   "tail": [
+    "completion seam: change record omits the changed pin: exit 1 (expected 1)",
+    "all exits as expected: True",
+    "exit 0"
+   ],
+   "id": "demo-final",
+   "argv": "python -B -X dev labs/module-dependencies-pass01/demo.py --snapshots <pack05.01/snapshots> --out <scratch>/demo-final",
+   "exit": 0,
+   "steps": [
+    {
+     "step": "validate the prototype chain set",
+     "exit": 0,
+     "expected_exit": 0,
+     "stdout_sha256": "3a7cda61d014bd1df764214c857e4d9b212ef02fd5b4a7d84ce5796c84e4dff9"
+    },
+    {
+     "step": "prime_cycle transitive requirements (caller: members-book applicable)",
+     "exit": 1,
+     "expected_exit": 1,
+     "stdout_sha256": "07e98ae73ccb5435da02f983d41431b73a436acb55f68d88daaea6e944589608"
+    },
+    {
+     "step": "prime_support with every condition stated inapplicable",
+     "exit": 1,
+     "expected_exit": 1,
+     "stdout_sha256": "f07d431ee7e31e587582ff1be61a39720c0cab8b1309fcb5fb186284db168fb4"
+    },
+    {
+     "step": "explain prime_cycle -> clerk_adapter (shared dependency)",
+     "exit": 1,
+     "expected_exit": 1,
+     "stdout_sha256": "8e5f50a03b70e93c44ceffd54369c56b498f460703bf467de93ccb6fc27fa368"
+    },
+    {
+     "step": "record-missing root: prime_review has no declaration",
+     "exit": 1,
+     "expected_exit": 1,
+     "stdout_sha256": "18a98741ab524167c94ea9b4430ffdf8360efdf38be863683ac8a343e957f7f4"
+    },
+    {
+     "step": "identity: four snapshot copies identical, SYNTHETIC copy changed",
+     "exit": 1,
+     "expected_exit": 1,
+     "stdout_sha256": "4a7f219ffe05819533c205644e4a08a83fa60bd16b9498774ed57a4473742160"
+    },
+    {
+     "step": "reverse impact of the SYNTHETIC changed clerk_adapter",
+     "exit": 1,
+     "expected_exit": 1,
+     "stdout_sha256": "dc1030e151c3739121fbac2badb50ac33d304b9a35c0773235c3d4800841ccea"
+    },
+    {
+     "step": "derived index into a new folder",
+     "exit": 0,
+     "expected_exit": 0,
+     "stdout_sha256": "610b3fc73e94ea5cb02b156db843e1dcad79425241d88fdf94d929b882c7d4cc"
+    },
+    {
+     "step": "SYNTHETIC complete declared chain top -> mid -> leaf",
+     "exit": 0,
+     "expected_exit": 0,
+     "stdout_sha256": "5821353e270d5fcdd8c0167237ff5e16de0db17b7085f5c6268bcf5787e051f4"
+    },
+    {
+     "step": "SYNTHETIC explicit dependency-free module",
+     "exit": 0,
+     "expected_exit": 0,
+     "stdout_sha256": "df242e9722cd3fd7df0e9077909c9b4ca30482e4c3d0b3001a141e02aab47f33"
+    },
+    {
+     "step": "SYNTHETIC missing record ghost",
+     "exit": 1,
+     "expected_exit": 1,
+     "stdout_sha256": "a70586c4de8ef30936a9eba6e923f0df67680cb998dd60af9af3c3002bf77468"
+    },
+    {
+     "step": "completion seam: consistent change record (SYNTHETIC v2)",
+     "exit": 0,
+     "expected_exit": 0,
+     "stdout_sha256": "e8555259dfc5ee42c0c2849ddea4df96566c93f0296ac8f46b28900c6d104329"
+    },
+    {
+     "step": "completion seam: change record omits the changed pin",
+     "exit": 1,
+     "expected_exit": 1,
+     "stdout_sha256": "8b1bec1776a753bd00083d08c6dc38e29a7b54e4e9bb2d188a1f39ddc293c10a"
+    }
+   ]
+  }
+ ],
+ "demo_all_exits_as_expected": true,
+ "skips": [],
+ "not_exercised": [
+  "a symlink (as opposed to a junction) set path: needs privilege on this host; is_link covers both by the same check"
+ ],
+ "final_hashes": [
+  "5c35692cb22e3c574e9bfddd5196a7896a2439cd87a4114b67c01baa9ab7a53f *labs/module-dependencies-pass01/depdecl.py",
+  "b6923a8f68d7c6f397b1466e014291cc25b56135446b3b3aababf94fe57304a5 *labs/module-dependencies-pass01/demo.py",
+  "8a0864abdfe4bd7de1538e3c7912a928913fad8f4ddc166e37d86274a5a92597 *labs/module-dependencies-pass01/tests/test_depdecl.py",
+  "81189dd8fb9d075dff6b6859f634e1cbce10b92a984eb02956228e76908b6f37 *labs/module-dependencies-pass01/examples/prime-cycle-chain/set.json",
+  "8aba57daaecf1754046b5c6b997181ee57dfb93ba12f9c352f2230fa54a3e8b8 *labs/module-dependencies-pass01/examples/prime-cycle-chain/declarations/batch-observe.v1.json",
+  "51386b0bf55be382d65449867c07a69949348b02c9dfdca22cb7f6c330a34ea7 *labs/module-dependencies-pass01/examples/prime-cycle-chain/declarations/clerk-adapter.v1.json",
+  "ac6fa54d0a6204cd5a852569b057476e7f3143ef7c63ec10dfcf0c8e28b92421 *labs/module-dependencies-pass01/examples/prime-cycle-chain/declarations/prime-cycle.v1.json",
+  "83bc9489f6f33a7e89ba986bcbbd359140979d17cdb3aede87354b494179cda0 *labs/module-dependencies-pass01/examples/prime-cycle-chain/declarations/prime-support.v1.json"
+ ],
+ "protected_status": {
+  "00.kernel/00.00.10.work/0316.dependencies": "",
+  "00.kernel/00.live.md": "",
+  "00.kernel/00.00.10.work/0515.prime-cycle": "",
+  "00.kernel/00.00.10.work/0175.prime-reader-diagnostics-0503": "",
+  "00.kernel/00.00.10.work/0415.prime-cycle": "",
+  "labs/prime-cycle-pass01": "",
+  "labs/batch-observation-pass01": "",
+  "labs/prime-support-pass01": "",
+  "labs/prime-review-pass01": "",
+  "labs/review-packet-pass01": "",
+  "labs/return-capture-pass01": "",
+  "colab/labs/prime-replay-pass01": "",
+  "00.kernel/00.00.10.work/0517.dependencies/01.md": "",
+  "00.kernel/00.00.10.work/0517.dependencies/06.01.notes.md": "",
+  "00.kernel/00.00.10.work/0517.dependencies/evidence/pack05.01": ""
+ },
+ "staged": [],
+ "label": "Synthetic and prototype checks only; no model run, no completeness or acceptance claim"
+}

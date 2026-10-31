@@ -4,7 +4,8 @@ NOT READY FOR EXECUTION. Director authorized preparation, not current launch.
 Complete: assessment, upstream source texts/attribution, Director decision,
 build scope, tests/return expectations, reserved custody and prompt template.
 Pending before handing to Claude:
-1. Review 0517's actual returned dependency prototype and decide its narrow seam.
+1. 0517/05.01 reviewed: useful prototype, D-01 through D-03 require correction.
+   Review its 05.02 repair before finalizing the narrow integration seam.
 2. Inspect/pin exact accepted producer/workflow identities and compatible extension.
 3. Finalize allowed code paths and capture outputs; version the draft if changed.
 4. Write final source-manifest.json and source snapshots; check actual closure.

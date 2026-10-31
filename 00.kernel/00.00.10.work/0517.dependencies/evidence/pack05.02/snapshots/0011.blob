@@ -1,0 +1,212 @@
+[
+  {
+    "name": "reverse_depth_bound",
+    "expectation": "If further consumers are omitted, report depth-limit or explicit truncation, not a no-findings complete exit.",
+    "exit": 0,
+    "result": {
+      "command": "impacted",
+      "consumers": [
+        {
+          "condition": {
+            "applies": "always",
+            "id": null,
+            "statement": null,
+            "status": "applicable"
+          },
+          "consumer": "lib-build:lab/b.py",
+          "consumer_declaration": {
+            "declaration_id": "b",
+            "file": "d/01.json",
+            "implementation_sha256": "7dc96f776c8423e57a2785489a3f9c43fb6e756876d6ad9a9cac4aa4e72ec193",
+            "record_sha256": "cc9880559a5570066e644eccaafcabfcdc200e895472e19b66f8f841b5e9f257",
+            "status": "prototype",
+            "version": 1
+          },
+          "depth": 1,
+          "kind": "runtime-code",
+          "mechanism": "import",
+          "path": [
+            "lib-build:lab/c.py",
+            "lib-build:lab/b.py"
+          ],
+          "pin": null,
+          "provenance": {
+            "links": [
+              {
+                "address": {
+                  "book": "00.00.10.work",
+                  "face_or_pass": "05.01",
+                  "file": "05.01.md",
+                  "page": "0599.synthetic",
+                  "repository": "lib-build"
+                },
+                "commit": "ffffffffffffffffffffffffffffffffffffffff",
+                "note": "",
+                "role": "assignment",
+                "sha256": "3660315a9af3df255d8f19ab077e4797822b41488a0e2a04bc6af71213c23274",
+                "status": "pinned"
+              }
+            ],
+            "unknown": []
+          },
+          "requirement_id": "c",
+          "requires": "lib-build:lab/c.py"
+        }
+      ],
+      "finding_counts": {},
+      "note": "Derived from declared edges in this set only. These are candidates for Prime review; nothing is upgraded, invalidated, retested or edited.",
+      "query": {
+        "implementation": null,
+        "max_depth": 1,
+        "module": "lib-build:lab/c.py"
+      },
+      "schema": "module-dependency-result/1",
+      "set": {
+        "coverage": "SYNTHETIC fixtures",
+        "path": "C:\\Users\\misg\\AppData\\Local\\Temp\\dd-st-gztbp3vj\\reverse-bound\\set.json",
+        "records": 3,
+        "set_id": "synthetic",
+        "sha256": "da13329044d75700a3718bdf72d88b8f26f845d62d8c457c17f8323c234a4fe2"
+      },
+      "set_findings": [],
+      "status": "candidates-for-review",
+      "target_declarations": [
+        {
+          "declaration_id": "c",
+          "file": "d/02.json",
+          "implementation_sha256": "d0f631ca1ddba8db3bcfcb9e057cdc98d0379f1bee00e75a545147a27dadd982",
+          "record_sha256": "bc1af1fad2e282434981b02540a62c0912618f5abe0386476218abe7aaebe68d",
+          "status": "prototype",
+          "version": 1
+        }
+      ]
+    }
+  },
+  {
+    "name": "pin_length_disagrees",
+    "expectation": "Declared identity length differs from target declaration; must be surfaced, not resolved without qualification.",
+    "exit": 0,
+    "result": {
+      "command": "requires",
+      "coverage": [
+        {
+          "complete_claim": false,
+          "declaration": "p v1",
+          "entry_points": [
+            "main"
+          ],
+          "method": "SYNTHETIC fixture",
+          "module": "lib-build:lab/p.py"
+        },
+        {
+          "complete_claim": false,
+          "declaration": "c v1",
+          "entry_points": [
+            "main"
+          ],
+          "method": "SYNTHETIC fixture",
+          "module": "lib-build:lab/c.py"
+        }
+      ],
+      "finding_counts": {},
+      "note": "Prototype declarations: answers cover only the declared edges and listed records; not proof of runtime closure.",
+      "query": {
+        "caller_conditions": {},
+        "max_depth": 16,
+        "module": "lib-build:lab/p.py",
+        "transitive": true
+      },
+      "record_findings": [],
+      "requirements": [
+        {
+          "condition": {
+            "applies": "always",
+            "effective": "applicable",
+            "id": null,
+            "stated_by": "record",
+            "statement": null,
+            "status": "applicable"
+          },
+          "depth": 1,
+          "findings": [],
+          "from": "lib-build:lab/p.py",
+          "from_declaration": "p v1",
+          "kind": "runtime-code",
+          "mechanism": "import",
+          "path": [
+            "lib-build:lab/p.py"
+          ],
+          "pin": {
+            "bytes": 999,
+            "sha256": "d0f631ca1ddba8db3bcfcb9e057cdc98d0379f1bee00e75a545147a27dadd982"
+          },
+          "reason": "SYNTHETIC reason",
+          "requirement_id": "c",
+          "resolution": "resolved",
+          "resolved_to": {
+            "declaration_id": "c",
+            "file": "d/01.json",
+            "implementation_sha256": "d0f631ca1ddba8db3bcfcb9e057cdc98d0379f1bee00e75a545147a27dadd982",
+            "record_sha256": "bc1af1fad2e282434981b02540a62c0912618f5abe0386476218abe7aaebe68d",
+            "status": "prototype",
+            "version": 1
+          },
+          "source_ref": null,
+          "target": {
+            "module": {
+              "path": "lab/c.py",
+              "repository": "lib-build"
+            }
+          }
+        }
+      ],
+      "root": {
+        "declaration": {
+          "declaration_id": "p",
+          "file": "d/00.json",
+          "implementation_sha256": "f64551fcd6f07823cb87971cfb91446425da18286b3ab1ef935e0cbd7a69f68a",
+          "record_sha256": "97ca0bdf10f3cafca89ad92415b1f15d4f6253d773361fa909616ccf81151848",
+          "status": "prototype",
+          "version": 1
+        },
+        "provenance": {
+          "links": [
+            {
+              "address": {
+                "book": "00.00.10.work",
+                "face_or_pass": "05.01",
+                "file": "05.01.md",
+                "page": "0599.synthetic",
+                "repository": "lib-build"
+              },
+              "commit": "ffffffffffffffffffffffffffffffffffffffff",
+              "note": "",
+              "role": "assignment",
+              "sha256": "3660315a9af3df255d8f19ab077e4797822b41488a0e2a04bc6af71213c23274",
+              "status": "pinned"
+            }
+          ],
+          "unknown": []
+        },
+        "state": "declared"
+      },
+      "schema": "module-dependency-result/1",
+      "selection": "single",
+      "set": {
+        "coverage": "SYNTHETIC fixtures",
+        "path": "C:\\Users\\misg\\AppData\\Local\\Temp\\dd-st-gztbp3vj\\pin-bytes\\set.json",
+        "records": 2,
+        "set_id": "synthetic",
+        "sha256": "e8bcdaabdb07d462cfae09922e07af256506b5f9030eb80049bdf2f585f3539e"
+      },
+      "set_findings": [],
+      "status": "complete-for-declared-coverage"
+    }
+  },
+  {
+    "name": "new_module_completion_seam",
+    "expectation": "New declaration should have an explicit old=null creation route.",
+    "help": "usage: depdecl.py delta [-h] --old OLD --new NEW --change CHANGE\n\noptions:\n  -h, --help       show this help message and exit\n  --old OLD\n  --new NEW\n  --change CHANGE\n",
+    "observed": "--old is required; cmd_delta unconditionally opens and validates an old declaration; CONTRACT section 8 accepts old=null but the tool has no creation route."
+  }
+]

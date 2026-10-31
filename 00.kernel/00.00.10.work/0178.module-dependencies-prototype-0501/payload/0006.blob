@@ -1,0 +1,1107 @@
+{
+ "schema": "module-dependencies-sample/1",
+ "label": "PROTOTYPE: one actual observed query result from depdecl.py over the four prototype declarations at f0ccb90; known coverage only; not a complete dependency discovery",
+ "argv": [
+  "python",
+  "-B",
+  "labs/module-dependencies-pass01/depdecl.py",
+  "requires",
+  "--set",
+  "D:\\Git\\lib-build\\labs\\module-dependencies-pass01\\examples\\prime-cycle-chain\\set.json",
+  "--module",
+  "lib-build:labs/prime-cycle-pass01/prime_cycle.py",
+  "--transitive",
+  "--condition",
+  "members-book=applicable"
+ ],
+ "exit": 1,
+ "stdout_sha256": "07e98ae73ccb5435da02f983d41431b73a436acb55f68d88daaea6e944589608",
+ "known_coverage": "prime_cycle, batch_observe, prime_support, clerk_adapter declared; prime_review, review_packet, return_inspect, return_capture and the Clerk tool have no records",
+ "result": {
+  "command": "requires",
+  "coverage": [
+   {
+    "complete_claim": false,
+    "declaration": "prime-cycle v1",
+    "entry_points": [
+     "read",
+     "record",
+     "inspect",
+     "packet",
+     "day"
+    ],
+    "method": "read from the committed source at f0ccb90 by claude-opus-5-5 (0517 05.01); never imported or executed; edges are the ones found, not a complete discovery; lines cited per requirement",
+    "module": "lib-build:labs/prime-cycle-pass01/prime_cycle.py"
+   },
+   {
+    "complete_claim": false,
+    "declaration": "batch-observe v1",
+    "entry_points": [
+     "observe"
+    ],
+    "method": "read from the committed source at f0ccb90 by claude-opus-5-5 (0517 05.01); never imported or executed; edges are the ones found, not a complete discovery",
+    "module": "lib-build:labs/batch-observation-pass01/batch_observe.py"
+   },
+   {
+    "complete_claim": false,
+    "declaration": "prime-support v1",
+    "entry_points": [
+     "parse_source"
+    ],
+    "method": "read from the committed source at f0ccb90 by claude-opus-5-5 (0517 05.01); never imported or executed; edges are the ones found, not a complete discovery",
+    "module": "lib-build:labs/prime-support-pass01/prime_support.py"
+   },
+   {
+    "complete_claim": false,
+    "declaration": "clerk-adapter v1",
+    "entry_points": [
+     "inspect",
+     "subject_for"
+    ],
+    "method": "read from the committed source at f0ccb90 by claude-opus-5-5 (0517 05.01); never imported or executed; edges are the ones found, not a complete discovery",
+    "module": "lib-build:labs/prime-support-pass01/clerk_adapter.py"
+   }
+  ],
+  "finding_counts": {
+   "address-unresolved": 2,
+   "condition-unknown": 3,
+   "environment-unverified": 6,
+   "external-unverified": 1,
+   "provenance-unknown": 1,
+   "provenance-unpinned": 4,
+   "record-missing": 6,
+   "shared": 1
+  },
+  "note": "Prototype declarations: answers cover only the declared edges and listed records; not proof of runtime closure.",
+  "query": {
+   "caller_conditions": {
+    "members-book": "applicable"
+   },
+   "max_depth": 16,
+   "module": "lib-build:labs/prime-cycle-pass01/prime_cycle.py",
+   "transitive": true
+  },
+  "record_findings": [
+   {
+    "declaration": "batch-observe v1",
+    "finding": "provenance-unknown",
+    "module": "lib-build:labs/batch-observation-pass01/batch_observe.py",
+    "unknown": [
+     "no construction workflow page for labs/batch-observation-pass01 is in the supplied frozen references; commit history was not used as provenance"
+    ]
+   },
+   {
+    "address": {
+     "book": "00.00.10.work",
+     "face_or_pass": "05.02",
+     "file": "05.02.md",
+     "page": "0507.prime-support",
+     "repository": "lib-build"
+    },
+    "declaration": "prime-support v1",
+    "finding": "provenance-unpinned",
+    "module": "lib-build:labs/prime-support-pass01/prime_support.py",
+    "role": "source-stated"
+   },
+   {
+    "address": {
+     "book": "00.00.10.work",
+     "face_or_pass": "05.02",
+     "file": "evidence/build05.02/DESIGN.002.md",
+     "page": "0507.prime-support",
+     "repository": "lib-build"
+    },
+    "declaration": "prime-support v1",
+    "finding": "provenance-unpinned",
+    "module": "lib-build:labs/prime-support-pass01/prime_support.py",
+    "role": "source-stated"
+   },
+   {
+    "address": {
+     "book": "00.00.10.work",
+     "face_or_pass": "05.04",
+     "file": "05.04.md",
+     "page": "0507.prime-support",
+     "repository": "lib-build"
+    },
+    "declaration": "clerk-adapter v1",
+    "finding": "provenance-unpinned",
+    "module": "lib-build:labs/prime-support-pass01/clerk_adapter.py",
+    "role": "source-stated"
+   },
+   {
+    "address": {
+     "book": "00.00.10.work",
+     "face_or_pass": "05.04",
+     "file": "evidence/build05.04/DESIGN.004.md",
+     "page": "0507.prime-support",
+     "repository": "lib-build"
+    },
+    "declaration": "clerk-adapter v1",
+    "finding": "provenance-unpinned",
+    "module": "lib-build:labs/prime-support-pass01/clerk_adapter.py",
+    "role": "source-stated"
+   }
+  ],
+  "requirements": [
+   {
+    "condition": {
+     "applies": "conditional",
+     "effective": "applicable",
+     "id": "cmd-observe",
+     "stated_by": "record",
+     "statement": "read, record or day --registration observes a registered page",
+     "status": "applicable"
+    },
+    "depth": 1,
+    "findings": [],
+    "from": "lib-build:labs/prime-cycle-pass01/prime_cycle.py",
+    "from_declaration": "prime-cycle v1",
+    "kind": "runtime-code",
+    "mechanism": "subprocess",
+    "path": [
+     "lib-build:labs/prime-cycle-pass01/prime_cycle.py"
+    ],
+    "pin": {
+     "bytes": 40516,
+     "sha256": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4"
+    },
+    "reason": "the pinned page and custody reader; launched as python -B after a hash check",
+    "requirement_id": "batch-observe",
+    "resolution": "resolved",
+    "resolved_to": {
+     "declaration_id": "batch-observe",
+     "file": "declarations/batch-observe.v1.json",
+     "implementation_sha256": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4",
+     "record_sha256": "8aba57daaecf1754046b5c6b997181ee57dfb93ba12f9c352f2230fa54a3e8b8",
+     "status": "prototype",
+     "version": 1
+    },
+    "source_ref": {
+     "lines": "36-42, 162-166, 247-256",
+     "path": "labs/prime-cycle-pass01/prime_cycle.py"
+    },
+    "target": {
+     "module": {
+      "path": "labs/batch-observation-pass01/batch_observe.py",
+      "repository": "lib-build"
+     }
+    }
+   },
+   {
+    "condition": {
+     "applies": "conditional",
+     "effective": "applicable",
+     "id": "cmd-record-or-holds",
+     "stated_by": "record",
+     "statement": "record runs report; read runs check-next only when a recorded review has holds",
+     "status": "applicable"
+    },
+    "depth": 1,
+    "findings": [
+     {
+      "finding": "record-missing",
+      "module": "lib-build:labs/prime-review-pass01/prime_review.py"
+     }
+    ],
+    "from": "lib-build:labs/prime-cycle-pass01/prime_cycle.py",
+    "from_declaration": "prime-cycle v1",
+    "kind": "runtime-code",
+    "mechanism": "subprocess",
+    "path": [
+     "lib-build:labs/prime-cycle-pass01/prime_cycle.py"
+    ],
+    "pin": {
+     "bytes": 58324,
+     "sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0"
+    },
+    "reason": "checks the supplied judgment (report) and holds against next actions (check-next)",
+    "requirement_id": "prime-review",
+    "resolution": "record-missing",
+    "resolved_to": null,
+    "source_ref": {
+     "lines": "36-42, 162-166",
+     "path": "labs/prime-cycle-pass01/prime_cycle.py"
+    },
+    "target": {
+     "module": {
+      "path": "labs/prime-review-pass01/prime_review.py",
+      "repository": "lib-build"
+     }
+    }
+   },
+   {
+    "condition": {
+     "applies": "conditional",
+     "effective": "applicable",
+     "id": "cmd-packet",
+     "stated_by": "record",
+     "statement": "the packet command",
+     "status": "applicable"
+    },
+    "depth": 1,
+    "findings": [
+     {
+      "finding": "record-missing",
+      "module": "lib-build:labs/review-packet-pass01/review_packet.py"
+     }
+    ],
+    "from": "lib-build:labs/prime-cycle-pass01/prime_cycle.py",
+    "from_declaration": "prime-cycle v1",
+    "kind": "runtime-code",
+    "mechanism": "subprocess",
+    "path": [
+     "lib-build:labs/prime-cycle-pass01/prime_cycle.py"
+    ],
+    "pin": {
+     "bytes": 42694,
+     "sha256": "f658cbe48a3a76b908e5af0bcf0b7a68abc90571d983ca785e36667268f6ee72"
+    },
+    "reason": "assembles the accepted review packet",
+    "requirement_id": "review-packet",
+    "resolution": "record-missing",
+    "resolved_to": null,
+    "source_ref": {
+     "lines": "36-42, 844-860",
+     "path": "labs/prime-cycle-pass01/prime_cycle.py"
+    },
+    "target": {
+     "module": {
+      "path": "labs/review-packet-pass01/review_packet.py",
+      "repository": "lib-build"
+     }
+    }
+   },
+   {
+    "condition": {
+     "applies": "conditional",
+     "effective": "applicable",
+     "id": "cmd-packet",
+     "stated_by": "record",
+     "statement": "the packet command",
+     "status": "applicable"
+    },
+    "depth": 1,
+    "findings": [
+     {
+      "finding": "record-missing",
+      "module": "lib-build:labs/return-capture-pass01/return_inspect.py"
+     }
+    ],
+    "from": "lib-build:labs/prime-cycle-pass01/prime_cycle.py",
+    "from_declaration": "prime-cycle v1",
+    "kind": "runtime-code",
+    "mechanism": "path-reference",
+    "path": [
+     "lib-build:labs/prime-cycle-pass01/prime_cycle.py"
+    ],
+    "pin": {
+     "bytes": 11402,
+     "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+    },
+    "reason": "named as the inspector in the review_packet request; review_packet runs it",
+    "requirement_id": "return-inspect",
+    "resolution": "record-missing",
+    "resolved_to": null,
+    "source_ref": {
+     "lines": "848-851",
+     "path": "labs/prime-cycle-pass01/prime_cycle.py"
+    },
+    "target": {
+     "module": {
+      "path": "labs/return-capture-pass01/return_inspect.py",
+      "repository": "lib-build"
+     }
+    }
+   },
+   {
+    "condition": {
+     "applies": "conditional",
+     "effective": "applicable",
+     "id": "cmd-packet",
+     "stated_by": "record",
+     "statement": "the packet command",
+     "status": "applicable"
+    },
+    "depth": 1,
+    "findings": [
+     {
+      "finding": "record-missing",
+      "module": "lib-build:labs/return-capture-pass01/return_capture.py"
+     }
+    ],
+    "from": "lib-build:labs/prime-cycle-pass01/prime_cycle.py",
+    "from_declaration": "prime-cycle v1",
+    "kind": "runtime-code",
+    "mechanism": "path-reference",
+    "path": [
+     "lib-build:labs/prime-cycle-pass01/prime_cycle.py"
+    ],
+    "pin": {
+     "bytes": 45767,
+     "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac"
+    },
+    "reason": "named as the helper in the review_packet request; review_packet runs its verify",
+    "requirement_id": "return-capture",
+    "resolution": "record-missing",
+    "resolved_to": null,
+    "source_ref": {
+     "lines": "848-851",
+     "path": "labs/prime-cycle-pass01/prime_cycle.py"
+    },
+    "target": {
+     "module": {
+      "path": "labs/return-capture-pass01/return_capture.py",
+      "repository": "lib-build"
+     }
+    }
+   },
+   {
+    "condition": {
+     "applies": "always",
+     "effective": "applicable",
+     "id": null,
+     "stated_by": "record",
+     "statement": null,
+     "status": "applicable"
+    },
+    "depth": 1,
+    "findings": [
+     {
+      "finding": "environment-unverified",
+      "name": "python"
+     }
+    ],
+    "from": "lib-build:labs/prime-cycle-pass01/prime_cycle.py",
+    "from_declaration": "prime-cycle v1",
+    "kind": "environment",
+    "mechanism": "subprocess",
+    "path": [
+     "lib-build:labs/prime-cycle-pass01/prime_cycle.py"
+    ],
+    "pin": null,
+    "reason": "runs itself and launches pinned tools with sys.executable",
+    "requirement_id": "python",
+    "resolution": "not-a-module",
+    "resolved_to": null,
+    "source_ref": {
+     "lines": "166",
+     "path": "labs/prime-cycle-pass01/prime_cycle.py"
+    },
+    "target": {
+     "environment": {
+      "detail": "the interpreter that runs the module (sys.executable), standard library only; version not declared",
+      "name": "python"
+     }
+    }
+   },
+   {
+    "condition": {
+     "applies": "always",
+     "effective": "applicable",
+     "id": null,
+     "stated_by": "record",
+     "statement": null,
+     "status": "applicable"
+    },
+    "depth": 1,
+    "findings": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.03",
+       "file": "evidence/build05.03/CONTRACT.md",
+       "page": "0515.prime-cycle",
+       "repository": "lib-build"
+      },
+      "finding": "address-unresolved",
+      "note": "listed, not opened or verified"
+     }
+    ],
+    "from": "lib-build:labs/prime-cycle-pass01/prime_cycle.py",
+    "from_declaration": "prime-cycle v1",
+    "kind": "evidence",
+    "mechanism": "document",
+    "path": [
+     "lib-build:labs/prime-cycle-pass01/prime_cycle.py"
+    ],
+    "pin": null,
+    "reason": "the current contract delta that defines the states this build exposes",
+    "requirement_id": "contract-05-03",
+    "resolution": "not-a-module",
+    "resolved_to": null,
+    "source_ref": null,
+    "target": {
+     "address": {
+      "book": "00.00.10.work",
+      "face_or_pass": "05.03",
+      "file": "evidence/build05.03/CONTRACT.md",
+      "page": "0515.prime-cycle",
+      "repository": "lib-build"
+     }
+    }
+   },
+   {
+    "condition": {
+     "applies": "always",
+     "effective": "applicable",
+     "id": null,
+     "stated_by": "record",
+     "statement": null,
+     "status": "applicable"
+    },
+    "depth": 1,
+    "findings": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.03",
+       "file": "05.03.md",
+       "page": "0515.prime-cycle",
+       "repository": "lib-build"
+      },
+      "finding": "address-unresolved",
+      "note": "listed, not opened or verified"
+     }
+    ],
+    "from": "lib-build:labs/prime-cycle-pass01/prime_cycle.py",
+    "from_declaration": "prime-cycle v1",
+    "kind": "task-context",
+    "mechanism": "document",
+    "path": [
+     "lib-build:labs/prime-cycle-pass01/prime_cycle.py"
+    ],
+    "pin": null,
+    "reason": "the bounded assignment for the current bytes",
+    "requirement_id": "assignment-05-03",
+    "resolution": "not-a-module",
+    "resolved_to": null,
+    "source_ref": null,
+    "target": {
+     "address": {
+      "book": "00.00.10.work",
+      "face_or_pass": "05.03",
+      "file": "05.03.md",
+      "page": "0515.prime-cycle",
+      "repository": "lib-build"
+     }
+    }
+   },
+   {
+    "condition": {
+     "applies": "always",
+     "effective": "applicable",
+     "id": null,
+     "stated_by": "record",
+     "statement": null,
+     "status": "applicable"
+    },
+    "depth": 2,
+    "findings": [],
+    "from": "lib-build:labs/batch-observation-pass01/batch_observe.py",
+    "from_declaration": "batch-observe v1",
+    "kind": "runtime-code",
+    "mechanism": "dynamic-import",
+    "path": [
+     "lib-build:labs/prime-cycle-pass01/prime_cycle.py",
+     "lib-build:labs/batch-observation-pass01/batch_observe.py"
+    ],
+    "pin": {
+     "bytes": 59791,
+     "sha256": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70"
+    },
+    "reason": "the pinned page parser, loaded with importlib after a hash check",
+    "requirement_id": "parser",
+    "resolution": "resolved",
+    "resolved_to": {
+     "declaration_id": "prime-support",
+     "file": "declarations/prime-support.v1.json",
+     "implementation_sha256": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70",
+     "record_sha256": "83bc9489f6f33a7e89ba986bcbbd359140979d17cdb3aede87354b494179cda0",
+     "status": "prototype",
+     "version": 1
+    },
+    "source_ref": {
+     "lines": "25, 29, 65, 103-113, 1013",
+     "path": "labs/batch-observation-pass01/batch_observe.py"
+    },
+    "target": {
+     "module": {
+      "path": "labs/prime-support-pass01/prime_support.py",
+      "repository": "lib-build"
+     }
+    }
+   },
+   {
+    "condition": {
+     "applies": "always",
+     "effective": "applicable",
+     "id": null,
+     "stated_by": "record",
+     "statement": null,
+     "status": "applicable"
+    },
+    "depth": 2,
+    "findings": [],
+    "from": "lib-build:labs/batch-observation-pass01/batch_observe.py",
+    "from_declaration": "batch-observe v1",
+    "kind": "runtime-code",
+    "mechanism": "hash-check",
+    "path": [
+     "lib-build:labs/prime-cycle-pass01/prime_cycle.py",
+     "lib-build:labs/batch-observation-pass01/batch_observe.py"
+    ],
+    "pin": {
+     "bytes": 11774,
+     "sha256": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4"
+    },
+    "reason": "hash-checked before the parser loads, because the parser imports it",
+    "requirement_id": "clerk-adapter",
+    "resolution": "resolved",
+    "resolved_to": {
+     "declaration_id": "clerk-adapter",
+     "file": "declarations/clerk-adapter.v1.json",
+     "implementation_sha256": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4",
+     "record_sha256": "51386b0bf55be382d65449867c07a69949348b02c9dfdca22cb7f6c330a34ea7",
+     "status": "prototype",
+     "version": 1
+    },
+    "source_ref": {
+     "lines": "26, 30, 66, 106",
+     "path": "labs/batch-observation-pass01/batch_observe.py"
+    },
+    "target": {
+     "module": {
+      "path": "labs/prime-support-pass01/clerk_adapter.py",
+      "repository": "lib-build"
+     }
+    }
+   },
+   {
+    "condition": {
+     "applies": "conditional",
+     "effective": "applicable",
+     "id": "members-book",
+     "stated_by": "caller",
+     "statement": "the caller passes --members-book",
+     "status": "unknown"
+    },
+    "depth": 2,
+    "findings": [
+     {
+      "finding": "record-missing",
+      "module": "lib-build:labs/return-capture-pass01/return_inspect.py"
+     }
+    ],
+    "from": "lib-build:labs/batch-observation-pass01/batch_observe.py",
+    "from_declaration": "batch-observe v1",
+    "kind": "runtime-code",
+    "mechanism": "subprocess",
+    "path": [
+     "lib-build:labs/prime-cycle-pass01/prime_cycle.py",
+     "lib-build:labs/batch-observation-pass01/batch_observe.py"
+    ],
+    "pin": {
+     "bytes": 11402,
+     "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b"
+    },
+    "reason": "custody inspection of each named member",
+    "requirement_id": "inspector",
+    "resolution": "record-missing",
+    "resolved_to": null,
+    "source_ref": {
+     "lines": "27, 67, 120-123, 507-509, 774, 1009-1012",
+     "path": "labs/batch-observation-pass01/batch_observe.py"
+    },
+    "target": {
+     "module": {
+      "path": "labs/return-capture-pass01/return_inspect.py",
+      "repository": "lib-build"
+     }
+    }
+   },
+   {
+    "condition": {
+     "applies": "conditional",
+     "effective": "applicable",
+     "id": "members-book",
+     "stated_by": "caller",
+     "statement": "the caller passes --members-book",
+     "status": "unknown"
+    },
+    "depth": 2,
+    "findings": [
+     {
+      "finding": "record-missing",
+      "module": "lib-build:labs/return-capture-pass01/return_capture.py"
+     }
+    ],
+    "from": "lib-build:labs/batch-observation-pass01/batch_observe.py",
+    "from_declaration": "batch-observe v1",
+    "kind": "runtime-code",
+    "mechanism": "hash-check",
+    "path": [
+     "lib-build:labs/prime-cycle-pass01/prime_cycle.py",
+     "lib-build:labs/batch-observation-pass01/batch_observe.py"
+    ],
+    "pin": {
+     "bytes": 45767,
+     "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac"
+    },
+    "reason": "hash-checked with the inspector as part of the custody pins",
+    "requirement_id": "helper",
+    "resolution": "record-missing",
+    "resolved_to": null,
+    "source_ref": {
+     "lines": "28, 68, 116-123, 1012",
+     "path": "labs/batch-observation-pass01/batch_observe.py"
+    },
+    "target": {
+     "module": {
+      "path": "labs/return-capture-pass01/return_capture.py",
+      "repository": "lib-build"
+     }
+    }
+   },
+   {
+    "condition": {
+     "applies": "conditional",
+     "effective": "unknown",
+     "id": "commit-source",
+     "stated_by": "record",
+     "statement": "the observation is --commit (a git-blob source)",
+     "status": "unknown"
+    },
+    "depth": 2,
+    "findings": [
+     {
+      "condition": "commit-source",
+      "finding": "condition-unknown",
+      "statement": "the observation is --commit (a git-blob source)"
+     },
+     {
+      "finding": "environment-unverified",
+      "name": "git"
+     }
+    ],
+    "from": "lib-build:labs/batch-observation-pass01/batch_observe.py",
+    "from_declaration": "batch-observe v1",
+    "kind": "environment",
+    "mechanism": "subprocess",
+    "path": [
+     "lib-build:labs/prime-cycle-pass01/prime_cycle.py",
+     "lib-build:labs/batch-observation-pass01/batch_observe.py"
+    ],
+    "pin": null,
+    "reason": "reads committed page blobs",
+    "requirement_id": "git",
+    "resolution": "not-a-module",
+    "resolved_to": null,
+    "source_ref": {
+     "lines": "152-186",
+     "path": "labs/batch-observation-pass01/batch_observe.py"
+    },
+    "target": {
+     "environment": {
+      "detail": "a git executable on PATH, read-only commands",
+      "name": "git"
+     }
+    }
+   },
+   {
+    "condition": {
+     "applies": "always",
+     "effective": "applicable",
+     "id": null,
+     "stated_by": "record",
+     "statement": null,
+     "status": "applicable"
+    },
+    "depth": 2,
+    "findings": [
+     {
+      "finding": "environment-unverified",
+      "name": "python"
+     }
+    ],
+    "from": "lib-build:labs/batch-observation-pass01/batch_observe.py",
+    "from_declaration": "batch-observe v1",
+    "kind": "environment",
+    "mechanism": "subprocess",
+    "path": [
+     "lib-build:labs/prime-cycle-pass01/prime_cycle.py",
+     "lib-build:labs/batch-observation-pass01/batch_observe.py"
+    ],
+    "pin": null,
+    "reason": "runs itself and the inspector with sys.executable",
+    "requirement_id": "python",
+    "resolution": "not-a-module",
+    "resolved_to": null,
+    "source_ref": {
+     "lines": "509",
+     "path": "labs/batch-observation-pass01/batch_observe.py"
+    },
+    "target": {
+     "environment": {
+      "detail": "the interpreter that runs the module (sys.executable), standard library only; version not declared",
+      "name": "python"
+     }
+    }
+   },
+   {
+    "condition": {
+     "applies": "always",
+     "effective": "applicable",
+     "id": null,
+     "stated_by": "record",
+     "statement": null,
+     "status": "applicable"
+    },
+    "depth": 3,
+    "findings": [
+     {
+      "finding": "shared",
+      "first_reached_by": [
+       "lib-build:labs/prime-cycle-pass01/prime_cycle.py",
+       "lib-build:labs/batch-observation-pass01/batch_observe.py",
+       "lib-build:labs/prime-support-pass01/clerk_adapter.py"
+      ]
+     }
+    ],
+    "from": "lib-build:labs/prime-support-pass01/prime_support.py",
+    "from_declaration": "prime-support v1",
+    "kind": "runtime-code",
+    "mechanism": "import",
+    "path": [
+     "lib-build:labs/prime-cycle-pass01/prime_cycle.py",
+     "lib-build:labs/batch-observation-pass01/batch_observe.py",
+     "lib-build:labs/prime-support-pass01/prime_support.py"
+    ],
+    "pin": {
+     "bytes": 11774,
+     "sha256": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4"
+    },
+    "reason": "imported from its own folder by path; this module does not hash-check it (batch_observe does)",
+    "requirement_id": "clerk-adapter",
+    "resolution": "resolved",
+    "resolved_to": {
+     "declaration_id": "clerk-adapter",
+     "file": "declarations/clerk-adapter.v1.json",
+     "implementation_sha256": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4",
+     "record_sha256": "51386b0bf55be382d65449867c07a69949348b02c9dfdca22cb7f6c330a34ea7",
+     "status": "prototype",
+     "version": 1
+    },
+    "source_ref": {
+     "lines": "23-24, 172-174, 678-680",
+     "path": "labs/prime-support-pass01/prime_support.py"
+    },
+    "target": {
+     "module": {
+      "path": "labs/prime-support-pass01/clerk_adapter.py",
+      "repository": "lib-build"
+     }
+    }
+   },
+   {
+    "condition": {
+     "applies": "conditional",
+     "effective": "unknown",
+     "id": "git-read",
+     "stated_by": "record",
+     "statement": "a registry status or intake command reads a local git repository; not shown on the batch_observe parse route",
+     "status": "unknown"
+    },
+    "depth": 3,
+    "findings": [
+     {
+      "condition": "git-read",
+      "finding": "condition-unknown",
+      "statement": "a registry status or intake command reads a local git repository; not shown on the batch_observe parse route"
+     },
+     {
+      "finding": "environment-unverified",
+      "name": "git"
+     }
+    ],
+    "from": "lib-build:labs/prime-support-pass01/prime_support.py",
+    "from_declaration": "prime-support v1",
+    "kind": "environment",
+    "mechanism": "subprocess",
+    "path": [
+     "lib-build:labs/prime-cycle-pass01/prime_cycle.py",
+     "lib-build:labs/batch-observation-pass01/batch_observe.py",
+     "lib-build:labs/prime-support-pass01/prime_support.py"
+    ],
+    "pin": null,
+    "reason": "read-only git in registry status commands",
+    "requirement_id": "git",
+    "resolution": "not-a-module",
+    "resolved_to": null,
+    "source_ref": {
+     "lines": "226",
+     "path": "labs/prime-support-pass01/prime_support.py"
+    },
+    "target": {
+     "environment": {
+      "detail": "a git executable on PATH, read-only commands",
+      "name": "git"
+     }
+    }
+   },
+   {
+    "condition": {
+     "applies": "always",
+     "effective": "applicable",
+     "id": null,
+     "stated_by": "record",
+     "statement": null,
+     "status": "applicable"
+    },
+    "depth": 3,
+    "findings": [
+     {
+      "finding": "environment-unverified",
+      "name": "python"
+     }
+    ],
+    "from": "lib-build:labs/prime-support-pass01/prime_support.py",
+    "from_declaration": "prime-support v1",
+    "kind": "environment",
+    "mechanism": "import",
+    "path": [
+     "lib-build:labs/prime-cycle-pass01/prime_cycle.py",
+     "lib-build:labs/batch-observation-pass01/batch_observe.py",
+     "lib-build:labs/prime-support-pass01/prime_support.py"
+    ],
+    "pin": null,
+    "reason": "runs as part of its caller's interpreter",
+    "requirement_id": "python",
+    "resolution": "not-a-module",
+    "resolved_to": null,
+    "source_ref": null,
+    "target": {
+     "environment": {
+      "detail": "the interpreter that runs the module (sys.executable), standard library only; version not declared",
+      "name": "python"
+     }
+    }
+   },
+   {
+    "condition": {
+     "applies": "conditional",
+     "effective": "unknown",
+     "id": "clerk-job",
+     "stated_by": "record",
+     "statement": "a registered Clerk job is inspected",
+     "status": "unknown"
+    },
+    "depth": 3,
+    "findings": [
+     {
+      "condition": "clerk-job",
+      "finding": "condition-unknown",
+      "statement": "a registered Clerk job is inspected"
+     },
+     {
+      "finding": "external-unverified",
+      "name": "Clerk tool at a caller-supplied path (accepted inspection/2 code)",
+      "sha256": "f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c"
+     }
+    ],
+    "from": "lib-build:labs/prime-support-pass01/clerk_adapter.py",
+    "from_declaration": "clerk-adapter v1",
+    "kind": "runtime-code",
+    "mechanism": "subprocess",
+    "path": [
+     "lib-build:labs/prime-cycle-pass01/prime_cycle.py",
+     "lib-build:labs/batch-observation-pass01/batch_observe.py",
+     "lib-build:labs/prime-support-pass01/clerk_adapter.py"
+    ],
+    "pin": null,
+    "reason": "launched for show --json after re-hashing to ACCEPTED_CLERK_SHA256",
+    "requirement_id": "clerk-tool",
+    "resolution": "not-a-module",
+    "resolved_to": null,
+    "source_ref": {
+     "lines": "22, 51-66, 69-80",
+     "path": "labs/prime-support-pass01/clerk_adapter.py"
+    },
+    "target": {
+     "external": {
+      "name": "Clerk tool at a caller-supplied path (accepted inspection/2 code)",
+      "sha256": "f697a7e443117c3d1face62d3021f7634154d76214b77fadec1a5cc3c99d394c"
+     }
+    }
+   },
+   {
+    "condition": {
+     "applies": "always",
+     "effective": "applicable",
+     "id": null,
+     "stated_by": "record",
+     "statement": null,
+     "status": "applicable"
+    },
+    "depth": 3,
+    "findings": [
+     {
+      "finding": "environment-unverified",
+      "name": "python"
+     }
+    ],
+    "from": "lib-build:labs/prime-support-pass01/clerk_adapter.py",
+    "from_declaration": "clerk-adapter v1",
+    "kind": "environment",
+    "mechanism": "subprocess",
+    "path": [
+     "lib-build:labs/prime-cycle-pass01/prime_cycle.py",
+     "lib-build:labs/batch-observation-pass01/batch_observe.py",
+     "lib-build:labs/prime-support-pass01/clerk_adapter.py"
+    ],
+    "pin": null,
+    "reason": "launches the Clerk tool with sys.executable -I -B",
+    "requirement_id": "python",
+    "resolution": "not-a-module",
+    "resolved_to": null,
+    "source_ref": {
+     "lines": "70",
+     "path": "labs/prime-support-pass01/clerk_adapter.py"
+    },
+    "target": {
+     "environment": {
+      "detail": "the interpreter that runs the module (sys.executable), standard library only; version not declared",
+      "name": "python"
+     }
+    }
+   }
+  ],
+  "root": {
+   "declaration": {
+    "declaration_id": "prime-cycle",
+    "file": "declarations/prime-cycle.v1.json",
+    "implementation_sha256": "19ede9c2125307595d0be867bae1a3cb71bf3db0515ad83e7c04d3333e17861d",
+    "record_sha256": "ac6fa54d0a6204cd5a852569b057476e7f3143ef7c63ec10dfcf0c8e28b92421",
+    "status": "prototype",
+    "version": 1
+   },
+   "provenance": {
+    "links": [
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "01",
+       "file": "01.md",
+       "page": "0415.prime-cycle",
+       "repository": "lib-build"
+      },
+      "commit": "f0ccb9071b25194a9cb92ddb3f41f313fa859f01",
+      "note": "design of the cycle",
+      "role": "design",
+      "sha256": "23b1afede8b6dc3e7f5092a738456b7d35c8e603b1ed2ead903fa29c77220c33",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.01",
+       "file": "05.01.md",
+       "page": "0515.prime-cycle",
+       "repository": "lib-build"
+      },
+      "commit": "f0ccb9071b25194a9cb92ddb3f41f313fa859f01",
+      "note": "first build assignment",
+      "role": "assignment",
+      "sha256": "0d498f03ba082c3c64468e3950d7c80495b75ecbaaba64195f2a42787c2292a2",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.01",
+       "file": "evidence/prime-review05.01/REVIEW.md",
+       "page": "0515.prime-cycle",
+       "repository": "lib-build"
+      },
+      "commit": "f0ccb9071b25194a9cb92ddb3f41f313fa859f01",
+      "note": "first build retained; correction required",
+      "role": "review",
+      "sha256": "5f500ed14c7a17205f9822f3b401533cb163a1dcea6256356df45ba02834577a",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.02",
+       "file": "evidence/prime-review05.02/REVIEW.md",
+       "page": "0515.prime-cycle",
+       "repository": "lib-build"
+      },
+      "commit": "f0ccb9071b25194a9cb92ddb3f41f313fa859f01",
+      "note": "accepted for bounded current-Prime use",
+      "role": "review",
+      "sha256": "57525d6fcbee2beef6a03041a2c266e06b53cfd698869aa720769ca86de78886",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.03",
+       "file": "05.03.md",
+       "page": "0515.prime-cycle",
+       "repository": "lib-build"
+      },
+      "commit": "f0ccb9071b25194a9cb92ddb3f41f313fa859f01",
+      "note": "assignment for the current bytes 19ede9c2",
+      "role": "assignment",
+      "sha256": "5c1e9fe5f03bd730f45863a21823edfa3204b45cebdc6a3aab1c9f779b3aa727",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "05.03",
+       "file": "evidence/prime-review05.03/REVIEW.md",
+       "page": "0515.prime-cycle",
+       "repository": "lib-build"
+      },
+      "commit": "f0ccb9071b25194a9cb92ddb3f41f313fa859f01",
+      "note": "accepted for bounded experimental Prime use; not seated",
+      "role": "review",
+      "sha256": "585682ccaac77aa5079c6b47820647d469d2cd900842b9dd01d0a981f8ddb559",
+      "status": "pinned"
+     },
+     {
+      "address": {
+       "book": "00.00.10.work",
+       "face_or_pass": "01",
+       "file": "receipt.json",
+       "page": "0175.prime-reader-diagnostics-0503",
+       "repository": "lib-build"
+      },
+      "commit": "f0ccb9071b25194a9cb92ddb3f41f313fa859f01",
+      "note": "captured return of the current bytes",
+      "role": "return",
+      "sha256": "187ca5172bb678a834782e1f9c98c5eea77a52217cbdb6aa2aef057ed494a30b",
+      "status": "pinned"
+     }
+    ],
+    "unknown": [
+     "the 05.01 and 05.02 return members (0170, 0171) and the 05.02 assignment are not in the supplied references, so they are not linked"
+    ]
+   },
+   "state": "declared"
+  },
+  "schema": "module-dependency-result/1",
+  "selection": "single",
+  "set": {
+   "coverage": "PROTOTYPE: four declarations for the prime-cycle entry, its batch reader and the parser/adapter chain, at f0ccb90. No records for prime_review, review_packet, return_inspect, return_capture or the Clerk tool: those stay record-missing.",
+   "path": "D:\\Git\\lib-build\\labs\\module-dependencies-pass01\\examples\\prime-cycle-chain\\set.json",
+   "records": 4,
+   "set_id": "prime-cycle-chain-proto-1",
+   "sha256": "81189dd8fb9d075dff6b6859f634e1cbce10b92a984eb02956228e76908b6f37"
+  },
+  "set_findings": [],
+  "status": "incomplete"
+ }
+}

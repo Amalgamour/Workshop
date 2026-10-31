@@ -1,0 +1,121 @@
+# Notes — module dependency declarations prototype (0517.dependencies 05.01)
+Date: 2026-10-31
+Recorder: claude-opus-5-5 (Anthropic), the executor this page names as "Claude", in the Claude Code desktop app
+State: written FIRST, before the contract and any code. Nothing else on this page is changed.
+
+## Disclosure
+- This is a long continuing session, not a fresh context. It built `labs/prime-cycle-pass01` (0515 05.01–05.03), one of the example modules.
+- My scratch tooling holds batch keys for many 0507.prime-support passes, so I probably executed the passes that built `prime_support.py` and `clerk_adapter.py`. That part of the session is compacted, and my recall is partial.
+- I treat their docstring links as source-stated claims, not verified provenance.
+
+## Inputs
+I01. **pack05.01:** 20 of 20 snapshots match their pins and their committed objects at f0ccb90. 16 of 16 non-0516 live files equal. The four 0516 references were checked as snapshots and committed objects only; the live 0516 files were not read, hashed or listed.
+I02. **0316.dependencies 01.001** (the N3NN home, conceptual record):
+- purpose, interface and limits; exact implementation identity;
+- runtime, evidence and task requirements with conditions;
+- full book/page provenance;
+- reverse lookup derived, not hand-kept;
+- unknowns explicit;
+- compute checks the declarations, intelligence judges meaning.
+
+The machine schema, storage, command names and identifier scheme were deferred to this slice.
+I03. **0316 06.01:** the Director's words, kept: "anytime a model completes its work on a new module or it linked or needs other modules we want to track that." Integrated: track at completion, link the workflow pages in the right book.
+I04. **0516 review R-01** (snapshot): an empty dependency list read as "resolved" made an undeclared entry look dependency-free. I take the lesson that an accounted root must be explicit. The checker itself is not used, imported or integrated.
+I05. **The example chain, read from snapshots 0008, 0010, 0011, 0012** (committed objects at f0ccb90):
+
+prime_cycle.py (19ede9c2…, 77846 bytes):
+- pins five tools by sha (`PINS`, lines 36–42) and runs them as `python -B` subprocesses;
+- `batch_observe` on read and record;
+- `prime_review` on record, and on read when holds exist;
+- `review_packet` on packet;
+- `return_inspect` and `return_capture` paths passed into the packet request.
+
+batch_observe.py (8bea1817…):
+- hash-pins `clerk_adapter` (lines 26, 106);
+- dynamically loads `prime_support` through importlib (lines 103–113);
+- pins and runs `return_inspect`, and pins `return_capture`, only with `--members-book` (lines 1009–1012, 774);
+- runs `git` only for commit sources (line 152).
+
+prime_support.py (700d60d2…):
+- imports `clerk_adapter` from its own folder (line 24), with no hash check of its own;
+- runs `git` read-only (line 226).
+
+clerk_adapter.py (2f30ba75…):
+- launches a caller-supplied Clerk tool pinned at `ACCEPTED_CLERK_SHA256` f697a7e4…, only for a registered Clerk job.
+
+There is a real shared (diamond) dependency: batch_observe pins clerk_adapter, and also loads prime_support, which imports it.
+I06. **Provenance available in the supplied references:**
+- prime_cycle: design 0415/01, assignments 0515/05.01 and 05.03, reviews 05.01, 05.02 and 05.03 (05.03 "accepted for bounded experimental Prime use"), return 0175 receipt.
+- prime_support and clerk_adapter: only source-stated docstring links (0507.prime-support/05.02 and 05.04).
+- batch_observe: none in the supplied references, so unknown.
+- No record exists for prime_review, review_packet, return_inspect, return_capture or the Clerk tool.
+
+## Choices
+C01. **Module identity:** `{repository, path}`, the repository label plus a repo-relative entry path, scoped as the prototype scheme `repo-path/1`. It maps directly onto an existing lab file. No seat, number, seqaddr axis or law is allocated. The N3NN home page is an optional `home` link.
+C02. **One declaration record per module version,** `module-declaration/1`. Each requirement states direction once ("this module requires target"), with:
+- a kind: runtime-code, runtime-resource, environment, evidence or task-context;
+- a mechanism;
+- an exact pin when required;
+- a condition and its stated status;
+- a reason and a source reference.
+
+Reverse edges are derived only. An explicit `no_requirements: true` is required for an empty list; an empty list without it is refused as ambiguous.
+C03. **Distinct states:**
+- undeclared target (no record in the set);
+- condition unknown, inapplicable or applicable, as stated by the record or the caller;
+- environment `unverified` or `declared-unavailable`;
+- withheld (named, with a reason);
+- provenance `unknown`.
+
+None of these is an empty success.
+C04. **Input is a caller-supplied set,** `module-declaration-set/1`. It lists declaration files, each pinned by sha. It may list fixture files for identity checks, and may carry an explicit `select` of declaration versions. Nothing is scanned or followed beyond what the set names.
+C05. **Version selection is never "highest".** A requirement pin resolves to the declaration whose implementation sha equals it. With no pin, an explicit `select` entry is needed; otherwise the result is `ambiguous-version`.
+C06. **Commands** (depdecl.py):
+- `validate`;
+- `requires` (direct, or `--transitive`; with explain paths);
+- `explain --to`;
+- `impacted` (reverse, optionally `--implementation SHA`);
+- `identity` (hash the set's listed fixture files against their declarations);
+- `index --out` (a derived, rebuildable index in a new folder);
+- `delta` (the completion seam: compare two declaration versions with a submitted change record).
+
+Every command reads only. `index` writes only a new folder.
+C07. **Examples:**
+- Real prototype declarations for the four modules above, labelled as prototypes with their covered entry points.
+- Missing records stay missing.
+- Labelled SYNTHETIC fixtures for a dependency-free leaf, a cycle, a conflict and changed bytes.
+- The demo copies the pinned snapshots into a disposable set folder for identity checks, and never imports or executes them.
+C08. **Scope:**
+- A new lab, `labs/module-dependencies-pass01`, plus these notes and build05.01 evidence.
+- No 0516 contact, no gate, no Git writes, no network, and no model runs.
+
+## Disposition — 2026-10-31, claude-opus-5-5
+**Preparation notes (06.01.notes.md), disposed:**
+- module-local records, a derived index, explicit unknowns, exact identities, reverse lookup, changed and missing examples, and the completion seam are all built;
+- app integration, an accepted global schema, seating and automated changes stay deferred, as the notes say.
+
+**0316 01.001 deferred items:**
+- **decided here, for this prototype only:** the schema (CONTRACT §2–§3, §8), the command names, and the identifier scheme `repo-path/1`;
+- **still deferred:** storage, target-environment verification and seating.
+
+C01–C08 were built as written. Changes during the build:
+- **Edges in declared order:** `walk` lists edges in declared order, with children walked first-declared first.
+- **An exit defect against CONTRACT §7, found by the demo.** `impacted` always exited 1. It now exits 0 when there are no findings; a regression assertion was added to test_07. My own demo expectation in that run was also wrong: undeclared SYNTHETIC bytes are a real finding. Kept as demo1.
+
+**Results:**
+- 15 tests OK, in dev and default mode, on the final bytes;
+- 9 of 9 mutations caught, both before and after the fix;
+- the demo's 13 steps all exited as expected, including the worked completion seam.
+
+**The real chain answers `incomplete`, and that is correct:**
+- four tools have no records;
+- batch_observe's provenance is unknown;
+- the 0507 links are docstring citations only.
+
+**Overflow:**
+- `prime_support` imports `clerk_adapter` without its own hash check (batch_observe checks it). The declaration records this as `pin_required: false`.
+- Whether an import-by-path should require a pin is a design question for Prime.
+
+**Not done:**
+- no 0516 contact or gate;
+- no records invented for the missing tools.
