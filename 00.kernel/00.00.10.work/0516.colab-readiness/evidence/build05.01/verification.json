@@ -1,0 +1,90 @@
+{
+  "schema": "colab-readiness-verification/1",
+  "batch": "0516.colab-readiness/05.01",
+  "executor": "Grok Builder 1",
+  "session": "01a17ded-90ba-79e3-8b8c-7e1f0005193e",
+  "preparation_commit": "ea7ee1fff053ca4a5be70a5328c903aa895f537c",
+  "observed_head": "627c424da9216504dac93eeb86869f1291a4cdf0",
+  "frozen_source_cut": "b876c7a9e8a27df58c0a5a0815a53f653d929332",
+  "live_prime_cycle_read": false,
+  "snapshots": {
+    "sources": 15,
+    "bad": 0,
+    "compared_to": "git cat-file blob at b876c7a9e8a27df58c0a5a0815a53f653d929332"
+  },
+  "tests": {
+    "command": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe -B -m unittest -v labs.colab-readiness-pass01.tests.test_colab_readiness",
+    "cwd": "D:\\Git\\lib-build",
+    "interpreter": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+    "python": "3.14.0",
+    "sample_env": "COLAB_READINESS_SAMPLE",
+    "sample_path": "00.kernel/00.00.10.work/0516.colab-readiness/evidence/build05.01/sample-readiness.json",
+    "ran": 28,
+    "skipped": 1,
+    "failed": 0,
+    "seconds": 1.884,
+    "unittest_result": "OK (skipped=1)",
+    "skip": {
+      "test": "test_linked_path_is_refused",
+      "reason": "symlink creation failed: WinError 1314"
+    },
+    "shell_wrapper_exit": 1,
+    "shell_wrapper_note": "PowerShell treated unittest stderr as a NativeCommandError. The unittest log says OK (skipped=1). The cited result is that summary."
+  },
+  "fixture": {
+    "source": "00.kernel/00.00.10.work/0516.colab-readiness/evidence/build05.01/route-log.json",
+    "member": "0101.synthetic-readiness",
+    "receipt_sha256": "799678d6d4b701c72cc46a1f07e0f183267382b346ae0ed7697f9886b3dacaf5",
+    "page_sha256": "e6d264a717c89c7bbe6c6cdd6a313418c19c441906e4a9369b2cd226853874ee",
+    "pass_state_before": "awaiting-review",
+    "pass_state_after": "reviewed",
+    "custody_role": "primary-current-candidate",
+    "journal_operations": ["read", "record", "read"],
+    "first_exit": 1,
+    "record_exit": 0,
+    "child_exit": 0,
+    "wrapper_exit": 0,
+    "end_exits": [1, 0, 0],
+    "checker_exit": 0,
+    "ready_for_declared_method": true,
+    "transport_valid": true,
+    "runtime_dependencies_resolved": true,
+    "evidence_references_resolved": true,
+    "minimum_evidence_satisfied": true,
+    "smoke_result": "passed",
+    "semantic_sufficiency": "not-established",
+    "independent_proof": "not-established",
+    "shared_component": true,
+    "command_executed": false,
+    "exit_layers_differ": false,
+    "judgment_label": "synthetic",
+    "judgment_text": "marked SYNTHETIC in the recorded finding, reasons, sections, and attribution",
+    "tools": "copied snapshots 0009-0015 plus the committed parser blob, in a disposable tree"
+  },
+  "inventory": {
+    "path": "labs/colab-readiness-pass01/inventories/replay-revision-sources.json",
+    "schema": "colab-readiness-inventory/1",
+    "subject_runtime": 5,
+    "reviewer_assistance": 4,
+    "shared": 1,
+    "nested_omitted": 19,
+    "revision_created": false
+  },
+  "custody_tools_at_verification": {
+    "return_capture_sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+    "return_capture_bytes": 45767,
+    "return_inspect_sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+    "return_inspect_bytes": 11402,
+    "matched_pins": true
+  },
+  "limits": [
+    "The file-symlink refusal was not executed on this host.",
+    "semantic sufficiency is not established",
+    "independent proof is not established",
+    "surface authorization is not established",
+    "tokens, cost, and clocks are unknown",
+    "The sample proves the checker against the frozen interface. It is not a live prime-cycle correction.",
+    "The first replay was not amended. No pass02 bundle was created. No model was rerun.",
+    "The packet command was not exercised on the demonstrated route."
+  ]
+}

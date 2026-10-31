@@ -1,0 +1,425 @@
+{
+  "dependencies": [
+    {
+      "amended_into_first_replay": false,
+      "bytes": 58324,
+      "copy_to": "support/prime_review.py",
+      "first_replay_fact": "absent from the case-a fixture; validate named this path",
+      "id": "bench-prime-review",
+      "path": "labs/prime-review-pass01/prime_review.py",
+      "required_for": "both future conditions of the benchmark subject",
+      "role": "subject-runtime",
+      "sha256": "805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0",
+      "snapshot": "snapshots/0014.blob",
+      "source_commit": "b876c7a9e8a27df58c0a5a0815a53f653d929332",
+      "source_kind": "git-blob",
+      "support_class": "assisted"
+    },
+    {
+      "amended_into_first_replay": false,
+      "bytes": 1899,
+      "copy_to": "support/README.md",
+      "first_replay_fact": "absent from the case-a fixture; validate named this path",
+      "id": "bench-prime-review-readme",
+      "path": "labs/prime-review-pass01/README.md",
+      "required_for": "both future conditions of the benchmark subject",
+      "role": "subject-runtime",
+      "sha256": "44b6b0c5b33700f058c2e8859d99f33c41643cc00baf6b4242270f366b5ee806",
+      "snapshot": null,
+      "source_commit": "b876c7a9e8a27df58c0a5a0815a53f653d929332",
+      "source_kind": "git-blob",
+      "support_class": "assisted"
+    },
+    {
+      "amended_into_first_replay": false,
+      "bytes": 14017,
+      "copy_to": "support/CONTRACT.md",
+      "first_replay_fact": "absent from the case-a fixture; validate named this path",
+      "id": "bench-prime-review-contract",
+      "path": "00.kernel/00.00.10.work/0512.prime-review/evidence/build05.01/CONTRACT.md",
+      "required_for": "both future conditions of the benchmark subject",
+      "role": "subject-runtime",
+      "sha256": "4235ff83966ea28a0264f03cfb57ccf98891203dbd2b73eb476aa0e6495f478b",
+      "snapshot": null,
+      "source_commit": "b876c7a9e8a27df58c0a5a0815a53f653d929332",
+      "source_kind": "git-blob",
+      "support_class": "assisted"
+    },
+    {
+      "amended_into_first_replay": false,
+      "bytes": 45767,
+      "copy_to": null,
+      "first_replay_fact": "absent from the case-a fixture; validate named this path",
+      "id": "bench-return-capture",
+      "path": "labs/return-capture-pass01/return_capture.py",
+      "required_for": "both future conditions of the benchmark subject",
+      "role": "subject-runtime",
+      "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+      "snapshot": "snapshots/0012.blob",
+      "source_commit": "b876c7a9e8a27df58c0a5a0815a53f653d929332",
+      "source_kind": "git-blob",
+      "support_class": "custody"
+    },
+    {
+      "amended_into_first_replay": false,
+      "bytes": 11402,
+      "copy_to": null,
+      "first_replay_fact": "absent from the case-a fixture; validate named this path",
+      "id": "bench-return-inspect",
+      "path": "labs/return-capture-pass01/return_inspect.py",
+      "required_for": "both future conditions of the benchmark subject",
+      "role": "subject-runtime",
+      "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+      "snapshot": "snapshots/0013.blob",
+      "source_commit": "b876c7a9e8a27df58c0a5a0815a53f653d929332",
+      "source_kind": "git-blob",
+      "support_class": "custody"
+    },
+    {
+      "amended_into_first_replay": false,
+      "bytes": 40516,
+      "condition": "assisted reader route",
+      "declares": [
+        "reader-clerk-adapter",
+        "reader-parser",
+        "bench-return-inspect",
+        "bench-return-capture"
+      ],
+      "first_replay_fact": "pinned reader; the sealed assistance bundle did not supply clerk_adapter.py",
+      "id": "reader-batch-observe",
+      "path": "labs/batch-observation-pass01/batch_observe.py",
+      "required_for": "assisted route only; baseline does not use this to perform the review",
+      "role": "reviewer-assistance",
+      "sha256": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4",
+      "snapshot": "snapshots/0010.blob",
+      "source_commit": "b876c7a9e8a27df58c0a5a0815a53f653d929332",
+      "source_kind": "git-blob"
+    },
+    {
+      "amended_into_first_replay": false,
+      "bytes": 11774,
+      "condition": "assisted reader route",
+      "declares": [],
+      "first_replay_fact": "missing from the sealed assistance bundle; batch_observe refused with missing clerk_adapter.py",
+      "id": "reader-clerk-adapter",
+      "path": "labs/prime-support-pass01/clerk_adapter.py",
+      "required_for": "assisted route only; baseline does not use this to perform the review",
+      "role": "reviewer-assistance",
+      "sha256": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4",
+      "snapshot": "snapshots/0011.blob",
+      "source_commit": "b876c7a9e8a27df58c0a5a0815a53f653d929332",
+      "source_kind": "git-blob"
+    },
+    {
+      "amended_into_first_replay": false,
+      "bytes": 59791,
+      "condition": "assisted reader route",
+      "declares": [
+        "reader-clerk-adapter"
+      ],
+      "first_replay_fact": "declared parser pin of batch_observe; not one of the 15 pack snapshots; not amended into the first replay",
+      "id": "reader-parser",
+      "path": "labs/prime-support-pass01/prime_support.py",
+      "required_for": "assisted route only; baseline does not use this to perform the review",
+      "role": "reviewer-assistance",
+      "sha256": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70",
+      "snapshot": null,
+      "source_commit": "b876c7a9e8a27df58c0a5a0815a53f653d929332",
+      "source_kind": "git-blob"
+    },
+    {
+      "amended_into_first_replay": false,
+      "bytes": 66827,
+      "condition": "assisted route",
+      "declares": [
+        "reader-batch-observe",
+        "bench-return-inspect",
+        "bench-return-capture",
+        "bench-prime-review",
+        "shared-review-packet"
+      ],
+      "first_replay_fact": "frozen assistance entry at the source cut; live prime-cycle was not read",
+      "id": "reader-prime-cycle",
+      "path": "labs/prime-cycle-pass01/prime_cycle.py",
+      "required_for": "assisted route only; baseline does not use this to perform the review",
+      "role": "reviewer-assistance",
+      "sha256": "dd5319a46a88e05020ee7b0715b8edca26031066c3f2ee867f590a6056581338",
+      "snapshot": "snapshots/0009.blob",
+      "source_commit": "b876c7a9e8a27df58c0a5a0815a53f653d929332",
+      "source_kind": "git-blob"
+    },
+    {
+      "amended_into_first_replay": false,
+      "bytes": 42694,
+      "condition": "packet command",
+      "exercised_on_demonstrated_checker_route": false,
+      "first_replay_fact": "case-b subject and an assistance pin share these bytes",
+      "id": "shared-review-packet",
+      "independent_proof": "not-established",
+      "path": "labs/review-packet-pass01/review_packet.py",
+      "required_for": "case-b subject, and the assistance packet command when that command is used",
+      "role": "shared-subject-and-assistance",
+      "sha256": "f658cbe48a3a76b908e5af0bcf0b7a68abc90571d983ca785e36667268f6ee72",
+      "snapshot": "snapshots/0015.blob",
+      "source_commit": "b876c7a9e8a27df58c0a5a0815a53f653d929332",
+      "source_kind": "git-blob"
+    }
+  ],
+  "first_replay_amended": false,
+  "frozen_source_cut": "b876c7a9e8a27df58c0a5a0815a53f653d929332",
+  "future_condition_rule": "A future condition that repeats a subject receives the same subject-runtime dependencies and the same decisive evidence. Reviewer assistance stays optional and separate. It does not fill a missing subject dependency, and the baseline does not use it to perform the review.",
+  "independent_proof": "not-established",
+  "kind": "future-replay-revision-sources",
+  "limits": [
+    "This inventory does not create the future revision, a pass02 bundle, or a model rerun.",
+    "The five subject-runtime support paths were absent from the first case-a fixture. They are recorded, not vendored back into that fixture.",
+    "clerk_adapter.py was missing from the sealed assistance bundle. That refusal stays the first failure.",
+    "prime_support.py is a committed blob and is not one of the 15 pack snapshots.",
+    "prime_bench.py, the prime-review README, and the prime-review contract are committed blobs and are not pack snapshots.",
+    "The demonstrated checker route did not exercise the packet command.",
+    "Nested specimen bytes are listed with provenance and are not copied into a new delivery by this slice.",
+    "Live prime-cycle files were not read.",
+    "independent proof is not established"
+  ],
+  "live_prime_cycle_read": false,
+  "member_0167_regenerated": false,
+  "model_rerun": false,
+  "nested_specimens": {
+    "conclusion": "All manifest-named files match in historical Git and local sources at the recorded check. Replay selection omitted 19 files. No original retention loss was established. These rows are copied here. The files are not restored into the first replay.",
+    "historical_source_commit": "377da29cc689f32175541cc0ac82964eea26b06a",
+    "named_files": 23,
+    "omitted_from_replay_selection": 19,
+    "snapshot": "00.kernel/00.00.10.work/0516.colab-readiness/evidence/pack05.01/snapshots/0004.blob",
+    "snapshot_bytes": 9457,
+    "snapshot_sha256": "40035f3c835cf81b5ead6a9747c709f8179345fbc396f5fdba62b244a41c079e",
+    "specimens": [
+      {
+        "delivered_named_files": 2,
+        "manifest_sha256": "2b1cfe5b506cfd781b4fa0550b99e6b8852a153c8e9e1a9bb0c50cb99cbb5ebb",
+        "named_files": 11,
+        "omitted_files": 9,
+        "rows": [
+          {
+            "delivered_in_replay": false,
+            "expected_bytes": 2963,
+            "expected_sha256": "a93cf66955aaa8d73424bb6f2158cd3875f2012dea6d202a4d16dc0f8b45edf9",
+            "historical_match": true,
+            "local_match": true,
+            "path": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/specimen-0163/custody.json"
+          },
+          {
+            "delivered_in_replay": false,
+            "expected_bytes": 0,
+            "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "historical_match": true,
+            "local_match": true,
+            "path": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/specimen-0163/custody-stderr.txt"
+          },
+          {
+            "delivered_in_replay": false,
+            "expected_bytes": 791,
+            "expected_sha256": "c1675606f9daafdc9496dc17cee2b624da10643a13b65a8cb5d1fe195b5c550f",
+            "historical_match": true,
+            "local_match": true,
+            "path": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/specimen-0163/helper-verify.txt"
+          },
+          {
+            "delivered_in_replay": false,
+            "expected_bytes": 0,
+            "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "historical_match": true,
+            "local_match": true,
+            "path": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/specimen-0163/helper-verify-stderr.txt"
+          },
+          {
+            "delivered_in_replay": false,
+            "expected_bytes": 6655,
+            "expected_sha256": "742beefbf856429ce3dfcf59e675a06f618c1b75b74f8f09b87c67dc6575198e",
+            "historical_match": true,
+            "local_match": true,
+            "path": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/specimen-0163/sources/0001-return-text.blob"
+          },
+          {
+            "delivered_in_replay": false,
+            "expected_bytes": 299,
+            "expected_sha256": "7efb07af0f08d3cbaf1b490e97889bb3caa601b932762fcf32820854e45f7e4f",
+            "historical_match": true,
+            "local_match": true,
+            "path": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/specimen-0163/sources/0002-receipt.blob"
+          },
+          {
+            "delivered_in_replay": false,
+            "expected_bytes": 2069,
+            "expected_sha256": "39d9404e159b8d04a865387724b1e4f8cae62c5261f81b5347987f7b89d37a6a",
+            "historical_match": true,
+            "local_match": true,
+            "path": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/specimen-0163/sources/0003-capture-manifest.blob"
+          },
+          {
+            "delivered_in_replay": false,
+            "expected_bytes": 937,
+            "expected_sha256": "04e5152c777ff175da3a35f621f04d6b6d270f79c98e6cd426662327e0ccb47a",
+            "historical_match": true,
+            "local_match": true,
+            "path": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/specimen-0163/sources/0004-reservation.blob"
+          },
+          {
+            "delivered_in_replay": false,
+            "expected_bytes": 14030,
+            "expected_sha256": "da06ab6cfdee15497c1d19394fb9e22433e5c1db6623a3fd8462d20749274634",
+            "historical_match": true,
+            "local_match": true,
+            "path": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/specimen-0163/sources/0005-artifact-manifest.blob"
+          },
+          {
+            "delivered_in_replay": true,
+            "expected_bytes": 57915,
+            "expected_sha256": "c6eeaa6bfa5a1c03577152f6d4b4df5a33601fb7f67ef58bbbace23fbb5599ad",
+            "historical_match": true,
+            "local_match": true,
+            "path": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/specimen-0163/packet.json"
+          },
+          {
+            "delivered_in_replay": true,
+            "expected_bytes": 25501,
+            "expected_sha256": "2443bc01d88d00590adccc47fd6749be75b484e083d6aa7ff3b81edf2dea0c18",
+            "historical_match": true,
+            "local_match": true,
+            "path": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/specimen-0163/PACKET.md"
+          }
+        ],
+        "specimen": "specimen-0163"
+      },
+      {
+        "delivered_named_files": 2,
+        "manifest_sha256": "ea24751ce0480499485db99f1c931b05c3b33366067a15eefc4c9cd188055329",
+        "named_files": 12,
+        "omitted_files": 10,
+        "rows": [
+          {
+            "delivered_in_replay": false,
+            "expected_bytes": 2415,
+            "expected_sha256": "0d6cdeca15ebd1f442aca7edcd91c9439ded4f1b230a523f5d8e28575ff3d42b",
+            "historical_match": true,
+            "local_match": true,
+            "path": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/specimen-0164/custody.json"
+          },
+          {
+            "delivered_in_replay": false,
+            "expected_bytes": 0,
+            "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "historical_match": true,
+            "local_match": true,
+            "path": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/specimen-0164/custody-stderr.txt"
+          },
+          {
+            "delivered_in_replay": false,
+            "expected_bytes": 623,
+            "expected_sha256": "3512b105a0a3fd4358f64365d0d20905bf1ce29d27ec823061187d0fea4109ed",
+            "historical_match": true,
+            "local_match": true,
+            "path": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/specimen-0164/helper-verify.txt"
+          },
+          {
+            "delivered_in_replay": false,
+            "expected_bytes": 0,
+            "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "historical_match": true,
+            "local_match": true,
+            "path": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/specimen-0164/helper-verify-stderr.txt"
+          },
+          {
+            "delivered_in_replay": false,
+            "expected_bytes": 1605,
+            "expected_sha256": "c0d1d2c65b02f0ce4486b408a9d691b94b2afe6d28df9fd55dc610c2a83fb7da",
+            "historical_match": true,
+            "local_match": true,
+            "path": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/specimen-0164/sources/0001-return-text.blob"
+          },
+          {
+            "delivered_in_replay": false,
+            "expected_bytes": 299,
+            "expected_sha256": "f1209253990119c91525a8d170aeb77723502553c2ceb8f3db0e59f1e034a1cd",
+            "historical_match": true,
+            "local_match": true,
+            "path": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/specimen-0164/sources/0002-receipt.blob"
+          },
+          {
+            "delivered_in_replay": false,
+            "expected_bytes": 1501,
+            "expected_sha256": "64075529703ef1e5a96238f0993f69a1956496cf2d80be3928f02648f0645471",
+            "historical_match": true,
+            "local_match": true,
+            "path": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/specimen-0164/sources/0003-capture-manifest.blob"
+          },
+          {
+            "delivered_in_replay": false,
+            "expected_bytes": 795,
+            "expected_sha256": "09ae86a4a4bbf7025cb49a5a588abe0af525f70a47eb25b39b035f0521180e25",
+            "historical_match": true,
+            "local_match": true,
+            "path": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/specimen-0164/sources/0004-reservation.blob"
+          },
+          {
+            "delivered_in_replay": false,
+            "expected_bytes": 2571,
+            "expected_sha256": "f40a86ba6c707b55e4186b131b956e3ac4181e43048739711be8d5bb1a2c8d2a",
+            "historical_match": true,
+            "local_match": true,
+            "path": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/specimen-0164/sources/0005-pin-manifest.blob"
+          },
+          {
+            "delivered_in_replay": false,
+            "expected_bytes": 1823,
+            "expected_sha256": "3b2a6ce8bc7dc0e88c2460f961a4a88dd335141e4e212ded45d70bc4202eb136",
+            "historical_match": true,
+            "local_match": true,
+            "path": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/specimen-0164/sources/0006-director-agreement.blob"
+          },
+          {
+            "delivered_in_replay": true,
+            "expected_bytes": 8393,
+            "expected_sha256": "bfcd0ee84d2505b06ebea0593bc66dc4504393ea966e357d58fae580ce98d6e4",
+            "historical_match": true,
+            "local_match": true,
+            "path": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/specimen-0164/packet.json"
+          },
+          {
+            "delivered_in_replay": true,
+            "expected_bytes": 1999,
+            "expected_sha256": "83b4d69f95910aaca4af4e4400e0d72551265f3700599f1564305363f86e0f20",
+            "historical_match": true,
+            "local_match": true,
+            "path": "00.kernel/00.00.10.work/0514.review-packet/evidence/build05.01/specimen-0164/PACKET.md"
+          }
+        ],
+        "specimen": "specimen-0164"
+      }
+    ]
+  },
+  "observed_head": "627c424da9216504dac93eeb86869f1291a4cdf0",
+  "pass02_bundle_created": false,
+  "preparation_commit": "ea7ee1fff053ca4a5be70a5328c903aa895f537c",
+  "preparation_is_ancestor_of_head": true,
+  "prime_bench": {
+    "bytes": 106951,
+    "path": "labs/prime-bench-pass01/prime_bench.py",
+    "sha256": "a6dc98b8b6dbcaa8e080903a3ec537381e511b2b94206b259bb5c723c0696fe3",
+    "snapshot": null,
+    "source_commit": "b876c7a9e8a27df58c0a5a0815a53f653d929332",
+    "source_kind": "git-blob",
+    "support_count": 5
+  },
+  "purpose": "Source list for a future replay revision. This file is not a delivery. This slice does not create that revision.",
+  "schema": "colab-readiness-inventory/1",
+  "shared_component": {
+    "id": "shared-review-packet",
+    "independent_checks_needed": [
+      "bytes match the frozen pin without trusting the packet assembly line",
+      "a check that is not the component's own output"
+    ],
+    "independent_checks_performed": [],
+    "independent_proof": "not-established",
+    "relationship": "Case B's subject and the assistance packet pin are the same bytes. The packet's own output does not prove the packet."
+  }
+}

@@ -1,0 +1,271 @@
+{
+  "assembly": "complete",
+  "evidence_references_resolved": true,
+  "exit_layers_differ": false,
+  "facets": {
+    "evidence": {
+      "problems": [],
+      "references": [
+        {
+          "id": "artifacts",
+          "problems": [],
+          "resolved": true
+        },
+        {
+          "id": "sources",
+          "problems": [],
+          "resolved": true
+        }
+      ]
+    },
+    "minimum": {
+      "categories": [
+        {
+          "applicability": "required",
+          "category": "task-criteria",
+          "problems": [],
+          "satisfied": true
+        },
+        {
+          "applicability": "required",
+          "category": "director-constraints",
+          "problems": [],
+          "satisfied": true
+        },
+        {
+          "applicability": "required",
+          "category": "return-work-custody",
+          "problems": [],
+          "satisfied": true
+        },
+        {
+          "applicability": "required",
+          "category": "contract-code",
+          "problems": [],
+          "satisfied": true
+        },
+        {
+          "applicability": "required",
+          "category": "tests-evidence",
+          "problems": [],
+          "satisfied": true
+        },
+        {
+          "applicability": "required",
+          "category": "source-index",
+          "problems": [],
+          "satisfied": true
+        },
+        {
+          "applicability": "required",
+          "category": "capabilities",
+          "problems": [],
+          "satisfied": true
+        },
+        {
+          "applicability": "required",
+          "category": "fallback",
+          "problems": [],
+          "satisfied": true
+        },
+        {
+          "applicability": "required",
+          "category": "return-route",
+          "problems": [],
+          "satisfied": true
+        }
+      ],
+      "problems": []
+    },
+    "ready": {
+      "problems": []
+    },
+    "runtime": {
+      "closure": [
+        "adapter",
+        "cycle",
+        "helper",
+        "inspector",
+        "parser",
+        "reader",
+        "review"
+      ],
+      "problems": [],
+      "rows": [
+        {
+          "id": "cycle",
+          "in_closure": true,
+          "problem": null,
+          "state": "supplied"
+        },
+        {
+          "id": "reader",
+          "in_closure": true,
+          "problem": null,
+          "state": "supplied"
+        },
+        {
+          "id": "review",
+          "in_closure": true,
+          "problem": null,
+          "state": "supplied"
+        },
+        {
+          "id": "adapter",
+          "in_closure": true,
+          "problem": null,
+          "state": "supplied"
+        },
+        {
+          "id": "parser",
+          "in_closure": true,
+          "problem": null,
+          "state": "supplied"
+        },
+        {
+          "id": "inspector",
+          "in_closure": true,
+          "problem": null,
+          "state": "supplied"
+        },
+        {
+          "id": "helper",
+          "in_closure": true,
+          "problem": null,
+          "state": "supplied"
+        },
+        {
+          "id": "packet",
+          "in_closure": false,
+          "problem": null,
+          "state": "supplied"
+        }
+      ]
+    },
+    "smoke": {
+      "command_executed": false,
+      "problems": []
+    },
+    "transport": {
+      "problems": [],
+      "rows": [
+        {
+          "match": true,
+          "path": "evidence/artifacts.json",
+          "problem": null
+        },
+        {
+          "match": true,
+          "path": "evidence/capabilities.txt",
+          "problem": null
+        },
+        {
+          "match": true,
+          "path": "evidence/contract.md",
+          "problem": null
+        },
+        {
+          "match": true,
+          "path": "evidence/director.txt",
+          "problem": null
+        },
+        {
+          "match": true,
+          "path": "evidence/fallback.txt",
+          "problem": null
+        },
+        {
+          "match": true,
+          "path": "evidence/page.md",
+          "problem": null
+        },
+        {
+          "match": true,
+          "path": "evidence/receipt.json",
+          "problem": null
+        },
+        {
+          "match": true,
+          "path": "evidence/return-route.txt",
+          "problem": null
+        },
+        {
+          "match": true,
+          "path": "evidence/route-log.json",
+          "problem": null
+        },
+        {
+          "match": true,
+          "path": "evidence/task.md",
+          "problem": null
+        },
+        {
+          "match": true,
+          "path": "labs/batch-observation-pass01/batch_observe.py",
+          "problem": null
+        },
+        {
+          "match": true,
+          "path": "labs/prime-cycle-pass01/prime_cycle.py",
+          "problem": null
+        },
+        {
+          "match": true,
+          "path": "labs/prime-review-pass01/prime_review.py",
+          "problem": null
+        },
+        {
+          "match": true,
+          "path": "labs/prime-support-pass01/clerk_adapter.py",
+          "problem": null
+        },
+        {
+          "match": true,
+          "path": "labs/prime-support-pass01/prime_support.py",
+          "problem": null
+        },
+        {
+          "match": true,
+          "path": "labs/return-capture-pass01/return_capture.py",
+          "problem": null
+        },
+        {
+          "match": true,
+          "path": "labs/return-capture-pass01/return_inspect.py",
+          "problem": null
+        },
+        {
+          "match": true,
+          "path": "labs/review-packet-pass01/review_packet.py",
+          "problem": null
+        },
+        {
+          "match": true,
+          "path": "sources.json",
+          "problem": null
+        }
+      ]
+    }
+  },
+  "independent_proof": "not-established",
+  "limits": [
+    "semantic sufficiency is not established",
+    "independent proof is not established",
+    "surface authorization is not established",
+    "command text was not executed",
+    "tokens, cost, and clocks are unknown",
+    "listed independent checks do not establish independent proof",
+    "a shared subject and assistance component is present; its own output is not proof"
+  ],
+  "minimum_evidence_satisfied": true,
+  "mode": "return-review",
+  "problems": [],
+  "ready_for_declared_method": true,
+  "runtime_dependencies_resolved": true,
+  "schema": "colab-readiness/1",
+  "semantic_sufficiency": "not-established",
+  "shared_component": true,
+  "smoke_result": "passed",
+  "surface_authorization": "not-established",
+  "transport_valid": true
+}

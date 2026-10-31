@@ -1,0 +1,73 @@
+# 06.01 — Colab readiness checker, first bounded slice
+
+Date: 2026-10-30. Executor: Grok Builder 1. Reviewer: Codex Prime.
+Session: 01a17ded-90ba-79e3-8b8c-7e1f0005193e. Workspace: D:\Git\lib-build. Branch: workshop.
+
+## Claim
+
+Director invocation, recorded exactly: The Director authorizes this bounded build.
+
+Builder claim: Grok Builder 1 claims 0516.colab-readiness/05.01, the readiness checker and the source-linked inventory only.
+
+This invocation releases this slice. It does not approve kernel work, accept a return, or publish one. A later verified receipt is custody.
+
+Named preparation commit: ea7ee1fff053ca4a5be70a5328c903aa895f537c.
+Observed HEAD when these notes were written: 627c424da9216504dac93eeb86869f1291a4cdf0.
+That HEAD contains the named preparation commit. Its subject is the Prime reader diagnostics repair. This slice does not read, copy, run, modify, or stage the live prime-cycle files in that newer tree.
+
+Frozen source cut: b876c7a9e8a27df58c0a5a0815a53f653d929332.
+Comparison used `git cat-file` blobs and evidence/pack05.01 snapshots. Live prime-cycle and live prime-support files were not opened.
+
+Familiarity: session 01a179d2 wrote the 0701 method critique and is named in the case-b notes as Grok Builder 1. This session is not that builder and did not open that transcript. Memory notes are not evidence.
+
+## Snapshot verification
+
+evidence/pack05.01/source-manifest.json lists 15 git-blob sources at b876c7a9. Each snapshot file matches that blob in sha256 and length. Result: 15 matched, 0 bad.
+
+Parser pin, from `git cat-file` of labs/prime-support-pass01/prime_support.py at b876c7a9: sha256 700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70, 59791 bytes. It matches the pin in snapshot 0010. The positive fixture may copy that blob into a disposable directory. It is not one of the 15 pack snapshots.
+
+prime_bench.py at the same commit: sha256 a6dc98b8b6dbcaa8e080903a3ec537381e511b2b94206b259bb5c723c0696fe3, 106951 bytes. Its SUPPORT tuple is the five historical benchmark pins below.
+
+Live labs/return-capture-pass01/return_capture.py and return_inspect.py still match the custody pins (8f3da5c6… / 45767 and 947915fe… / 11402). Those two files are the capture tools for this claim. They are not prime-cycle.
+
+## Five benchmark SUPPORT pins
+
+Measured from the committed prime_bench.py blob, not from the worktree.
+
+| role | path | sha256 | bytes |
+|---|---|---|---|
+| assisted | labs/prime-review-pass01/prime_review.py | 805995a1ea8ec3c0b62efad7b5d9ebc8991ba9fd3da75e200b8f626908f4edd0 | 58324 |
+| assisted | labs/prime-review-pass01/README.md | 44b6b0c5b33700f058c2e8859d99f33c41643cc00baf6b4242270f366b5ee806 | 1899 |
+| assisted | 00.kernel/00.00.10.work/0512.prime-review/evidence/build05.01/CONTRACT.md | 4235ff83966ea28a0264f03cfb57ccf98891203dbd2b73eb476aa0e6495f478b | 14017 |
+| custody | labs/return-capture-pass01/return_capture.py | 8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac | 45767 |
+| custody | labs/return-capture-pass01/return_inspect.py | 947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b | 11402 |
+
+The first replay's case-a fixture did not contain these paths. That fact stays a fixture fact. This slice records the pins. It does not vendor them into the sealed replay tree.
+
+## Nested specimen files
+
+Snapshot 0004, source commit 377da29cc689f32175541cc0ac82964eea26b06a. Specimen 0163 named 11 files, delivered 2, omitted 9. Specimen 0164 named 12, delivered 2, omitted 10. Both delivered only packet.json and PACKET.md. Every listed row was historical_match and local_match at that check. Conclusion recorded there: replay selection omitted 19 files; no original retention loss was established. The inventory copies those rows and hashes. It does not restore the files into the first replay and does not regenerate 0167.
+
+## Dispositions kept
+
+G-01 through G-07 and C-01 through C-08 stay as reviewed facts. Assisted routes that lacked the adapter or the five support paths stay partial. The reader refusal was protective. The long run was a method intervention, not endless retry. Nested omission was missed by Grok and Codex and later verified. Child exit stays distinct from wrapper exit. Historical next-pack text is not a current work order. 0166 is not rebuilt here. Adapter diagnostic repair is Claude's separate slice. This checker does not modify pinned assistance.
+
+Case B shares labs/review-packet-pass01/review_packet.py with assistance: sha256 f658cbe48a3a76b908e5af0bcf0b7a68abc90571d983ca785e36667268f6ee72, 42694 bytes. The packet's own assembly line is not proof that the packet is correct. independent_proof stays not-established. An empty independent-check list is a limit.
+
+AR-01 stays held. This slice runs no race probe.
+
+## What this slice builds
+
+A standard-library checker at labs/colab-readiness-pass01. It reports six facets separately: transport_valid, runtime_dependencies_resolved, evidence_references_resolved, minimum_evidence_satisfied, smoke_result, and ready_for_declared_method. Missing, unknown, and not-run stay explicit. Exit 0 means a complete report was written. It does not mean ready. semantic_sufficiency stays not-established. The checker never executes source or return command text.
+
+A separate fixture may run only snapshot bytes, plus the committed parser blob, in a disposable directory. That route is read, synthetic judgment, record, and reviewed re-read. It proves the checker against the accepted interface. It is not a correction of prime-cycle.
+
+The inventory is for a future replay revision. This slice does not create that revision, a pass02 bundle, or a model rerun. It does not amend the first replay seal, source selection, results, or any historical subject. It does not change accepted tool digests, colab-support, the handoff checker, workflow consumers, kernel law, or 0036–0039.
+
+## Failure policy, declared before use
+
+Preserve the first failure. Default one underlying read-only diagnostic and one bounded named dependency check. No silent repair and no alternate tool. A manual fallback is labelled and cannot count as successful assisted execution. Further consequential ambiguity goes to Prime or the Director. Final counts name their cutoff. In-flight work stays in-flight. Unknown tokens, costs, and clocks stay unknown. Preparation effort is separate from the measured route.
+
+## Deferred
+
+Final jointly verified delivery, law amendments, generic prepare integration, a second custody or routing system, and any repair of the sealed replay.
