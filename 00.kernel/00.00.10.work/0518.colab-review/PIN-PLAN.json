@@ -1,19 +1,15 @@
 {
   "schema": "prime-preparation-plan/1",
-  "state": "pending-final-source-pins",
-  "reference_cut": "8cfa0605c74ee4f7fb1d1f06daabf04a1308a244",
-  "design": "00.00.10.work/0411.colab/evidence/egm-assessment-2026-10-31/",
-  "candidate_components": [
-    "labs/colab-support-pass02",
-    "labs/colab-workflow-pass02",
-    "labs/colab-readiness-pass01"
+  "state": "finalized",
+  "accepted_source_cut": "92b3fd5b5b9eef5ffd00f327c94ea76471bd1aee",
+  "manifest": "evidence/pack05.01/source-manifest.json",
+  "source_count": 65,
+  "implementation_allowlist": [
+    "labs/colab-review-pass01",
+    "0518/06.01.md",
+    "0518/evidence/build05.01",
+    "0518/05.01 claim and return pointer",
+    "0179 reserved capture"
   ],
-  "pending_review": "00.00.10.work/0517.dependencies/05.01.md",
-  "constraints": [
-    "Use reviewed exact identities, not live unfinished bytes",
-    "No external EGM runtime dependency",
-    "Reuse current producer/workflow rather than copy whole implementations",
-    "Schema/digest changes require explicit compatible version design",
-    "Final allowed code paths must be written into the pack before launch"
-  ]
+  "old_modules": "read/launch only through pinned documented interfaces; byte-identical"
 }

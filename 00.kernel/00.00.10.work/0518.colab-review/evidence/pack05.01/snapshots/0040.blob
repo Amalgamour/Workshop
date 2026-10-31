@@ -1,0 +1,215 @@
+{
+ "schema": "module-declaration/1",
+ "declaration_id": "batch-observe",
+ "version": 1,
+ "status": "prototype",
+ "module": {
+  "repository": "lib-build",
+  "path": "labs/batch-observation-pass01/batch_observe.py",
+  "name": "batch_observe",
+  "purpose": "Observes one work page and its named returns (source, custody roles) as a JSON report.",
+  "interface": [
+   "observe --json --repo --commit|--live|--supplied --path [--members-book] [--declaration]"
+  ],
+  "limits": [
+   "read-only; executes no source text"
+  ],
+  "home": {
+   "repository": "lib-build",
+   "book": "00.00.10.work",
+   "page": "0316.dependencies",
+   "face_or_pass": "01",
+   "file": "01.001.md"
+  }
+ },
+ "implementation": {
+  "sha256": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4",
+  "bytes": 40516,
+  "basis": {
+   "kind": "git-blob",
+   "repository": "lib-build",
+   "commit": "f0ccb9071b25194a9cb92ddb3f41f313fa859f01",
+   "path": "labs/batch-observation-pass01/batch_observe.py"
+  }
+ },
+ "coverage": {
+  "entry_points": [
+   "observe"
+  ],
+  "method": "read from the committed source at f0ccb90 by claude-opus-5-5 (0517 05.01); never imported or executed; edges are the ones found, not a complete discovery",
+  "complete_claim": false
+ },
+ "no_requirements": false,
+ "requirements": [
+  {
+   "id": "parser",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/prime-support-pass01/prime_support.py"
+    }
+   },
+   "pin": {
+    "sha256": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70",
+    "bytes": 59791
+   },
+   "pin_required": true,
+   "mechanism": "dynamic-import",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "the pinned page parser, loaded with importlib after a hash check",
+   "source_ref": {
+    "path": "labs/batch-observation-pass01/batch_observe.py",
+    "lines": "25, 29, 65, 103-113, 1013"
+   }
+  },
+  {
+   "id": "clerk-adapter",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/prime-support-pass01/clerk_adapter.py"
+    }
+   },
+   "pin": {
+    "sha256": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4",
+    "bytes": 11774
+   },
+   "pin_required": true,
+   "mechanism": "hash-check",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "not-applicable",
+   "reason": "hash-checked before the parser loads, because the parser imports it",
+   "source_ref": {
+    "path": "labs/batch-observation-pass01/batch_observe.py",
+    "lines": "26, 30, 66, 106"
+   }
+  },
+  {
+   "id": "inspector",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/return-capture-pass01/return_inspect.py"
+    }
+   },
+   "pin": {
+    "sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+    "bytes": 11402
+   },
+   "pin_required": true,
+   "mechanism": "subprocess",
+   "condition": {
+    "applies": "conditional",
+    "id": "members-book",
+    "statement": "the caller passes --members-book",
+    "status": "unknown"
+   },
+   "availability": "not-applicable",
+   "reason": "custody inspection of each named member",
+   "source_ref": {
+    "path": "labs/batch-observation-pass01/batch_observe.py",
+    "lines": "27, 67, 120-123, 507-509, 774, 1009-1012"
+   }
+  },
+  {
+   "id": "helper",
+   "kind": "runtime-code",
+   "target": {
+    "module": {
+     "repository": "lib-build",
+     "path": "labs/return-capture-pass01/return_capture.py"
+    }
+   },
+   "pin": {
+    "sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+    "bytes": 45767
+   },
+   "pin_required": true,
+   "mechanism": "hash-check",
+   "condition": {
+    "applies": "conditional",
+    "id": "members-book",
+    "statement": "the caller passes --members-book",
+    "status": "unknown"
+   },
+   "availability": "not-applicable",
+   "reason": "hash-checked with the inspector as part of the custody pins",
+   "source_ref": {
+    "path": "labs/batch-observation-pass01/batch_observe.py",
+    "lines": "28, 68, 116-123, 1012"
+   }
+  },
+  {
+   "id": "git",
+   "kind": "environment",
+   "target": {
+    "environment": {
+     "name": "git",
+     "detail": "a git executable on PATH, read-only commands"
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "subprocess",
+   "condition": {
+    "applies": "conditional",
+    "id": "commit-source",
+    "statement": "the observation is --commit (a git-blob source)",
+    "status": "unknown"
+   },
+   "availability": "unverified",
+   "reason": "reads committed page blobs",
+   "source_ref": {
+    "path": "labs/batch-observation-pass01/batch_observe.py",
+    "lines": "152-186"
+   }
+  },
+  {
+   "id": "python",
+   "kind": "environment",
+   "target": {
+    "environment": {
+     "name": "python",
+     "detail": "the interpreter that runs the module (sys.executable), standard library only; version not declared"
+    }
+   },
+   "pin": null,
+   "pin_required": false,
+   "mechanism": "subprocess",
+   "condition": {
+    "applies": "always",
+    "id": null,
+    "statement": null,
+    "status": "applicable"
+   },
+   "availability": "unverified",
+   "reason": "runs itself and the inspector with sys.executable",
+   "source_ref": {
+    "path": "labs/batch-observation-pass01/batch_observe.py",
+    "lines": "509"
+   }
+  }
+ ],
+ "withheld": [],
+ "provenance": {
+  "links": [],
+  "unknown": [
+   "no construction workflow page for labs/batch-observation-pass01 is in the supplied frozen references; commit history was not used as provenance"
+  ]
+ },
+ "supersedes": null
+}

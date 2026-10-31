@@ -1,16 +1,13 @@
 # Preparation status — 2026-10-31
-NOT READY FOR EXECUTION. Director authorized preparation, not current launch.
-
-Complete: assessment, upstream source texts/attribution, Director decision,
-build scope, tests/return expectations, reserved custody and prompt template.
-Pending before handing to Claude:
-1. 0517/05.01 reviewed: useful prototype, D-01 through D-03 require correction.
-   Review its 05.02 repair before finalizing the narrow integration seam.
-2. Inspect/pin exact accepted producer/workflow identities and compatible extension.
-3. Finalize allowed code paths and capture outputs; version the draft if changed.
-4. Write final source-manifest.json and source snapshots; check actual closure.
-5. Reread final pack and publish preparation commit; replace the launch template
-   placeholders with that commit and named pack. Confirm Claude's lane is free.
-These are Prime preparation steps, not a request to repeat packing approval.
-No source-manifest.json exists yet; PIN-PLAN.json is a plan, not a verified bundle.
-No new Colab/model run is released. Current workers continue unchanged.
+READY FOR NAMED DIRECTOR INVOCATION. Not executed or accepted as implementation.
+0517/05.02 reviewed and accepted as a bounded prototype. Accepted source cut:
+92b3fd5b5b9eef5ffd00f327c94ea76471bd1aee
+Final pack: 05.01.md. Allowed implementation: new labs/colab-review-pass01 plus
+named notes/build evidence/claim/capture only; existing module bytes preserved.
+Source manifest: evidence/pack05.01/source-manifest.json (65 exact sources).
+Existing v2 producer/workflow and transitive support code supplied as exact
+snapshots; known declared-method limits retained. No imported EGM skill is active.
+Return member 0179.colab-review-integration-0501 remains reserved.
+Initial draft preserved in evidence/draft-history. No model trial is launched.
+The Director's named launch is the execution release; no repeat packing approval
+is requested. Prime will provide the final published commit in the handoff prompt.
