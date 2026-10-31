@@ -1,0 +1,1599 @@
+[
+  {
+    "name": "baseline",
+    "expected_ready": true,
+    "actual_ready": true,
+    "request": {
+      "schema": "colab-readiness-request/1",
+      "purpose": {
+        "statement": "Check a declared read-only delivery.",
+        "mode": "read-only",
+        "question": "Do the declared bytes support the method?",
+        "role": "checker",
+        "method": "hash declared files and record the smoke object",
+        "finish_boundary": "report only"
+      },
+      "surface": {
+        "kind": "local-fixture",
+        "os": "windows",
+        "interpreter": "python",
+        "network": "denied",
+        "install": "denied",
+        "secrets": "none",
+        "read_roots": [],
+        "write_roots": []
+      },
+      "delivery_root": "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-readiness-repair-byoh01gf\\0\\delivery",
+      "output": "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-readiness-repair-byoh01gf\\0\\out",
+      "transport": [
+        {
+          "path": "task.txt",
+          "sha256": "e0ac2653c137adc4b5597c4108585f15b834ff39284657bf42a35e51f1fa2958",
+          "bytes": 26
+        },
+        {
+          "path": "manifest.json",
+          "sha256": "2c22dddaecd619a21e2d7eb702a9cc470e709d99511493578731a37b8915e10c",
+          "bytes": 200
+        }
+      ],
+      "entry_points": [
+        {
+          "id": "entry",
+          "path": "task.txt"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "entry",
+          "path": "task.txt",
+          "sha256": "e0ac2653c137adc4b5597c4108585f15b834ff39284657bf42a35e51f1fa2958",
+          "bytes": 26,
+          "role": "subject-runtime",
+          "required": true,
+          "needed_by": [],
+          "invokes": [],
+          "supply": "supplied",
+          "condition": null,
+          "withhold_reason": null
+        }
+      ],
+      "evidence": [
+        {
+          "category": "task-criteria",
+          "applicability": "required",
+          "reason": "the declared task file",
+          "refs": [
+            "files"
+          ]
+        },
+        {
+          "category": "director-constraints",
+          "applicability": "not-applicable",
+          "reason": "director-constraints is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "return-work-custody",
+          "applicability": "not-applicable",
+          "reason": "return-work-custody is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "contract-code",
+          "applicability": "not-applicable",
+          "reason": "contract-code is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "tests-evidence",
+          "applicability": "not-applicable",
+          "reason": "tests-evidence is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "source-index",
+          "applicability": "not-applicable",
+          "reason": "source-index is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "capabilities",
+          "applicability": "not-applicable",
+          "reason": "capabilities is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "fallback",
+          "applicability": "not-applicable",
+          "reason": "fallback is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "return-route",
+          "applicability": "not-applicable",
+          "reason": "return-route is not applicable to this fixture",
+          "refs": []
+        }
+      ],
+      "references": [
+        {
+          "id": "files",
+          "format": "artifact-manifest/1",
+          "path": "manifest.json",
+          "follow_nested": true
+        }
+      ],
+      "withholds": [],
+      "smoke": {
+        "status": "not-applicable",
+        "reason": "this method does not execute a return",
+        "command": null,
+        "child_exit": null,
+        "wrapper_exit": null,
+        "expected_state": null,
+        "observed_state": null,
+        "cutoff": "",
+        "in_flight": [],
+        "manual_fallback": false,
+        "label": "none",
+        "page_sha256": null,
+        "receipt_sha256": null,
+        "pass_state_before": null,
+        "pass_state_after": null,
+        "custody": null,
+        "judgment_label": null,
+        "journal_operations": []
+      },
+      "failure_policy": {
+        "declared": true,
+        "retain_first_failure": true,
+        "diagnostic": "one read-only diagnostic of the first failing file",
+        "dependency_check": "one named hash check of the declared dependency",
+        "manual_fallback": "manual fallback is labelled and is not assisted success"
+      },
+      "independent_checks": [],
+      "bounds": {
+        "max_files": 40,
+        "max_file_bytes": 2000000,
+        "max_total_bytes": 8000000
+      }
+    },
+    "report": {
+      "schema": "colab-readiness/1",
+      "assembly": "complete",
+      "mode": "read-only",
+      "transport_valid": true,
+      "runtime_dependencies_resolved": true,
+      "evidence_references_resolved": true,
+      "minimum_evidence_satisfied": true,
+      "smoke_result": "not-applicable",
+      "ready_for_declared_method": true,
+      "semantic_sufficiency": "not-established",
+      "independent_proof": "not-established",
+      "exit_layers_differ": false,
+      "surface_authorization": "not-established",
+      "shared_component": false,
+      "facets": {
+        "transport": {
+          "rows": [
+            {
+              "path": "task.txt",
+              "match": true,
+              "problem": null
+            },
+            {
+              "path": "manifest.json",
+              "match": true,
+              "problem": null
+            }
+          ],
+          "problems": []
+        },
+        "runtime": {
+          "closure": [
+            "entry"
+          ],
+          "entries": [
+            {
+              "id": "entry",
+              "path": "task.txt",
+              "accounted": true
+            }
+          ],
+          "rows": [
+            {
+              "id": "entry",
+              "state": "supplied",
+              "problem": null,
+              "in_closure": true
+            }
+          ],
+          "problems": []
+        },
+        "evidence": {
+          "references": [
+            {
+              "id": "files",
+              "resolved": true,
+              "members": [
+                "task.txt"
+              ],
+              "problems": []
+            }
+          ],
+          "problems": []
+        },
+        "minimum": {
+          "categories": [
+            {
+              "category": "task-criteria",
+              "applicability": "required",
+              "satisfied": true,
+              "members": [
+                "task.txt"
+              ],
+              "problems": []
+            },
+            {
+              "category": "director-constraints",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "return-work-custody",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "contract-code",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "tests-evidence",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "source-index",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "capabilities",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "fallback",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "return-route",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            }
+          ],
+          "problems": []
+        },
+        "smoke": {
+          "command_executed": false,
+          "problems": [],
+          "final_stage": null,
+          "success_exit": null,
+          "child_exit": null,
+          "wrapper_exit": null
+        },
+        "ready": {
+          "problems": []
+        }
+      },
+      "limits": [
+        "semantic sufficiency is not established",
+        "independent proof is not established",
+        "surface authorization is not established",
+        "command text was not executed",
+        "the checker validated a supplied smoke record and did not execute or authenticate it",
+        "tokens, cost, and clocks are unknown",
+        "independent checks are empty"
+      ],
+      "problems": []
+    }
+  },
+  {
+    "name": "entry_without_dependency_declaration",
+    "expected_ready": false,
+    "actual_ready": false,
+    "request": {
+      "schema": "colab-readiness-request/1",
+      "purpose": {
+        "statement": "Check a declared read-only delivery.",
+        "mode": "read-only",
+        "question": "Do the declared bytes support the method?",
+        "role": "checker",
+        "method": "hash declared files and record the smoke object",
+        "finish_boundary": "report only"
+      },
+      "surface": {
+        "kind": "local-fixture",
+        "os": "windows",
+        "interpreter": "python",
+        "network": "denied",
+        "install": "denied",
+        "secrets": "none",
+        "read_roots": [],
+        "write_roots": []
+      },
+      "delivery_root": "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-readiness-repair-byoh01gf\\1\\delivery",
+      "output": "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-readiness-repair-byoh01gf\\1\\out",
+      "transport": [
+        {
+          "path": "task.txt",
+          "sha256": "e0ac2653c137adc4b5597c4108585f15b834ff39284657bf42a35e51f1fa2958",
+          "bytes": 26
+        },
+        {
+          "path": "manifest.json",
+          "sha256": "2c22dddaecd619a21e2d7eb702a9cc470e709d99511493578731a37b8915e10c",
+          "bytes": 200
+        }
+      ],
+      "entry_points": [
+        {
+          "id": "entry",
+          "path": "task.txt"
+        }
+      ],
+      "dependencies": [],
+      "evidence": [
+        {
+          "category": "task-criteria",
+          "applicability": "required",
+          "reason": "the declared task file",
+          "refs": [
+            "files"
+          ]
+        },
+        {
+          "category": "director-constraints",
+          "applicability": "not-applicable",
+          "reason": "director-constraints is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "return-work-custody",
+          "applicability": "not-applicable",
+          "reason": "return-work-custody is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "contract-code",
+          "applicability": "not-applicable",
+          "reason": "contract-code is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "tests-evidence",
+          "applicability": "not-applicable",
+          "reason": "tests-evidence is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "source-index",
+          "applicability": "not-applicable",
+          "reason": "source-index is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "capabilities",
+          "applicability": "not-applicable",
+          "reason": "capabilities is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "fallback",
+          "applicability": "not-applicable",
+          "reason": "fallback is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "return-route",
+          "applicability": "not-applicable",
+          "reason": "return-route is not applicable to this fixture",
+          "refs": []
+        }
+      ],
+      "references": [
+        {
+          "id": "files",
+          "format": "artifact-manifest/1",
+          "path": "manifest.json",
+          "follow_nested": true
+        }
+      ],
+      "withholds": [],
+      "smoke": {
+        "status": "not-applicable",
+        "reason": "this method does not execute a return",
+        "command": null,
+        "child_exit": null,
+        "wrapper_exit": null,
+        "expected_state": null,
+        "observed_state": null,
+        "cutoff": "",
+        "in_flight": [],
+        "manual_fallback": false,
+        "label": "none",
+        "page_sha256": null,
+        "receipt_sha256": null,
+        "pass_state_before": null,
+        "pass_state_after": null,
+        "custody": null,
+        "judgment_label": null,
+        "journal_operations": []
+      },
+      "failure_policy": {
+        "declared": true,
+        "retain_first_failure": true,
+        "diagnostic": "one read-only diagnostic of the first failing file",
+        "dependency_check": "one named hash check of the declared dependency",
+        "manual_fallback": "manual fallback is labelled and is not assisted success"
+      },
+      "independent_checks": [],
+      "bounds": {
+        "max_files": 40,
+        "max_file_bytes": 2000000,
+        "max_total_bytes": 8000000
+      }
+    },
+    "report": {
+      "schema": "colab-readiness/1",
+      "assembly": "complete",
+      "mode": "read-only",
+      "transport_valid": true,
+      "runtime_dependencies_resolved": false,
+      "evidence_references_resolved": true,
+      "minimum_evidence_satisfied": true,
+      "smoke_result": "not-applicable",
+      "ready_for_declared_method": false,
+      "semantic_sufficiency": "not-established",
+      "independent_proof": "not-established",
+      "exit_layers_differ": false,
+      "surface_authorization": "not-established",
+      "shared_component": false,
+      "facets": {
+        "transport": {
+          "rows": [
+            {
+              "path": "task.txt",
+              "match": true,
+              "problem": null
+            },
+            {
+              "path": "manifest.json",
+              "match": true,
+              "problem": null
+            }
+          ],
+          "problems": []
+        },
+        "runtime": {
+          "closure": [],
+          "entries": [
+            {
+              "id": "entry",
+              "path": "task.txt",
+              "accounted": false
+            }
+          ],
+          "rows": [],
+          "problems": [
+            "entry point has no dependency record: entry"
+          ]
+        },
+        "evidence": {
+          "references": [
+            {
+              "id": "files",
+              "resolved": true,
+              "members": [
+                "task.txt"
+              ],
+              "problems": []
+            }
+          ],
+          "problems": []
+        },
+        "minimum": {
+          "categories": [
+            {
+              "category": "task-criteria",
+              "applicability": "required",
+              "satisfied": true,
+              "members": [
+                "task.txt"
+              ],
+              "problems": []
+            },
+            {
+              "category": "director-constraints",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "return-work-custody",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "contract-code",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "tests-evidence",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "source-index",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "capabilities",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "fallback",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "return-route",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            }
+          ],
+          "problems": []
+        },
+        "smoke": {
+          "command_executed": false,
+          "problems": [],
+          "final_stage": null,
+          "success_exit": null,
+          "child_exit": null,
+          "wrapper_exit": null
+        },
+        "ready": {
+          "problems": [
+            "runtime dependencies are not resolved"
+          ]
+        }
+      },
+      "limits": [
+        "semantic sufficiency is not established",
+        "independent proof is not established",
+        "surface authorization is not established",
+        "command text was not executed",
+        "the checker validated a supplied smoke record and did not execute or authenticate it",
+        "tokens, cost, and clocks are unknown",
+        "independent checks are empty"
+      ],
+      "problems": [
+        "entry point has no dependency record: entry",
+        "runtime dependencies are not resolved"
+      ]
+    }
+  },
+  {
+    "name": "equal_nonzero_smoke_exits",
+    "expected_ready": false,
+    "actual_ready": false,
+    "request": {
+      "schema": "colab-readiness-request/1",
+      "purpose": {
+        "statement": "Check a declared read-only delivery.",
+        "mode": "return-review",
+        "question": "Do the declared bytes support the method?",
+        "role": "checker",
+        "method": "hash declared files and record the smoke object",
+        "finish_boundary": "report only"
+      },
+      "surface": {
+        "kind": "local-fixture",
+        "os": "windows",
+        "interpreter": "python",
+        "network": "denied",
+        "install": "denied",
+        "secrets": "none",
+        "read_roots": [],
+        "write_roots": []
+      },
+      "delivery_root": "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-readiness-repair-byoh01gf\\2\\delivery",
+      "output": "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-readiness-repair-byoh01gf\\2\\out",
+      "transport": [
+        {
+          "path": "task.txt",
+          "sha256": "e0ac2653c137adc4b5597c4108585f15b834ff39284657bf42a35e51f1fa2958",
+          "bytes": 26
+        },
+        {
+          "path": "manifest.json",
+          "sha256": "2c22dddaecd619a21e2d7eb702a9cc470e709d99511493578731a37b8915e10c",
+          "bytes": 200
+        }
+      ],
+      "entry_points": [
+        {
+          "id": "entry",
+          "path": "task.txt"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "entry",
+          "path": "task.txt",
+          "sha256": "e0ac2653c137adc4b5597c4108585f15b834ff39284657bf42a35e51f1fa2958",
+          "bytes": 26,
+          "role": "subject-runtime",
+          "required": true,
+          "needed_by": [],
+          "invokes": [],
+          "supply": "supplied",
+          "condition": null,
+          "withhold_reason": null
+        }
+      ],
+      "evidence": [
+        {
+          "category": "task-criteria",
+          "applicability": "required",
+          "reason": "the declared task file",
+          "refs": [
+            "files"
+          ]
+        },
+        {
+          "category": "director-constraints",
+          "applicability": "not-applicable",
+          "reason": "director-constraints is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "return-work-custody",
+          "applicability": "not-applicable",
+          "reason": "return-work-custody is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "contract-code",
+          "applicability": "not-applicable",
+          "reason": "contract-code is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "tests-evidence",
+          "applicability": "not-applicable",
+          "reason": "tests-evidence is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "source-index",
+          "applicability": "not-applicable",
+          "reason": "source-index is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "capabilities",
+          "applicability": "not-applicable",
+          "reason": "capabilities is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "fallback",
+          "applicability": "not-applicable",
+          "reason": "fallback is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "return-route",
+          "applicability": "not-applicable",
+          "reason": "return-route is not applicable to this fixture",
+          "refs": []
+        }
+      ],
+      "references": [
+        {
+          "id": "files",
+          "format": "artifact-manifest/1",
+          "path": "manifest.json",
+          "follow_nested": true
+        }
+      ],
+      "withholds": [],
+      "smoke": {
+        "status": "passed",
+        "reason": "SYNTHETIC recorded route",
+        "command": "read --registration registration.json",
+        "child_exit": 2,
+        "wrapper_exit": 2,
+        "expected_state": "reviewed",
+        "observed_state": "reviewed",
+        "cutoff": "after re-read",
+        "in_flight": [],
+        "manual_fallback": false,
+        "label": "synthetic",
+        "page_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "receipt_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "pass_state_before": "awaiting-review",
+        "pass_state_after": "reviewed",
+        "custody": "complete",
+        "judgment_label": "synthetic",
+        "journal_operations": [
+          "read",
+          "record",
+          "read"
+        ]
+      },
+      "failure_policy": {
+        "declared": true,
+        "retain_first_failure": true,
+        "diagnostic": "one read-only diagnostic of the first failing file",
+        "dependency_check": "one named hash check of the declared dependency",
+        "manual_fallback": "manual fallback is labelled and is not assisted success"
+      },
+      "independent_checks": [],
+      "bounds": {
+        "max_files": 40,
+        "max_file_bytes": 2000000,
+        "max_total_bytes": 8000000
+      }
+    },
+    "report": {
+      "schema": "colab-readiness/1",
+      "assembly": "complete",
+      "mode": "return-review",
+      "transport_valid": true,
+      "runtime_dependencies_resolved": true,
+      "evidence_references_resolved": true,
+      "minimum_evidence_satisfied": true,
+      "smoke_result": "failed",
+      "ready_for_declared_method": false,
+      "semantic_sufficiency": "not-established",
+      "independent_proof": "not-established",
+      "exit_layers_differ": false,
+      "surface_authorization": "not-established",
+      "shared_component": false,
+      "facets": {
+        "transport": {
+          "rows": [
+            {
+              "path": "task.txt",
+              "match": true,
+              "problem": null
+            },
+            {
+              "path": "manifest.json",
+              "match": true,
+              "problem": null
+            }
+          ],
+          "problems": []
+        },
+        "runtime": {
+          "closure": [
+            "entry"
+          ],
+          "entries": [
+            {
+              "id": "entry",
+              "path": "task.txt",
+              "accounted": true
+            }
+          ],
+          "rows": [
+            {
+              "id": "entry",
+              "state": "supplied",
+              "problem": null,
+              "in_closure": true
+            }
+          ],
+          "problems": []
+        },
+        "evidence": {
+          "references": [
+            {
+              "id": "files",
+              "resolved": true,
+              "members": [
+                "task.txt"
+              ],
+              "problems": []
+            }
+          ],
+          "problems": []
+        },
+        "minimum": {
+          "categories": [
+            {
+              "category": "task-criteria",
+              "applicability": "required",
+              "satisfied": true,
+              "members": [
+                "task.txt"
+              ],
+              "problems": []
+            },
+            {
+              "category": "director-constraints",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "return-work-custody",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "contract-code",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "tests-evidence",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "source-index",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "capabilities",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "fallback",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "return-route",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            }
+          ],
+          "problems": []
+        },
+        "smoke": {
+          "command_executed": false,
+          "problems": [
+            "reviewed-reread exits are not the successful exit 0; child 2; wrapper 2"
+          ],
+          "final_stage": "reviewed-reread",
+          "success_exit": 0,
+          "child_exit": 2,
+          "wrapper_exit": 2
+        },
+        "ready": {
+          "problems": [
+            "smoke did not pass"
+          ]
+        }
+      },
+      "limits": [
+        "semantic sufficiency is not established",
+        "independent proof is not established",
+        "surface authorization is not established",
+        "command text was not executed",
+        "the checker validated a supplied smoke record and did not execute or authenticate it",
+        "tokens, cost, and clocks are unknown",
+        "independent checks are empty"
+      ],
+      "problems": [
+        "reviewed-reread exits are not the successful exit 0; child 2; wrapper 2",
+        "smoke did not pass"
+      ]
+    }
+  },
+  {
+    "name": "unbound_empty_evidence_manifest",
+    "expected_ready": false,
+    "actual_ready": false,
+    "request": {
+      "schema": "colab-readiness-request/1",
+      "purpose": {
+        "statement": "Check a declared read-only delivery.",
+        "mode": "read-only",
+        "question": "Do the declared bytes support the method?",
+        "role": "checker",
+        "method": "hash declared files and record the smoke object",
+        "finish_boundary": "report only"
+      },
+      "surface": {
+        "kind": "local-fixture",
+        "os": "windows",
+        "interpreter": "python",
+        "network": "denied",
+        "install": "denied",
+        "secrets": "none",
+        "read_roots": [],
+        "write_roots": []
+      },
+      "delivery_root": "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-readiness-repair-byoh01gf\\3\\delivery",
+      "output": "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-readiness-repair-byoh01gf\\3\\out",
+      "transport": [
+        {
+          "path": "task.txt",
+          "sha256": "e0ac2653c137adc4b5597c4108585f15b834ff39284657bf42a35e51f1fa2958",
+          "bytes": 26
+        }
+      ],
+      "entry_points": [
+        {
+          "id": "entry",
+          "path": "task.txt"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "entry",
+          "path": "task.txt",
+          "sha256": "e0ac2653c137adc4b5597c4108585f15b834ff39284657bf42a35e51f1fa2958",
+          "bytes": 26,
+          "role": "subject-runtime",
+          "required": true,
+          "needed_by": [],
+          "invokes": [],
+          "supply": "supplied",
+          "condition": null,
+          "withhold_reason": null
+        }
+      ],
+      "evidence": [
+        {
+          "category": "task-criteria",
+          "applicability": "required",
+          "reason": "the declared task file",
+          "refs": [
+            "files"
+          ]
+        },
+        {
+          "category": "director-constraints",
+          "applicability": "not-applicable",
+          "reason": "director-constraints is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "return-work-custody",
+          "applicability": "not-applicable",
+          "reason": "return-work-custody is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "contract-code",
+          "applicability": "not-applicable",
+          "reason": "contract-code is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "tests-evidence",
+          "applicability": "not-applicable",
+          "reason": "tests-evidence is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "source-index",
+          "applicability": "not-applicable",
+          "reason": "source-index is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "capabilities",
+          "applicability": "not-applicable",
+          "reason": "capabilities is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "fallback",
+          "applicability": "not-applicable",
+          "reason": "fallback is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "return-route",
+          "applicability": "not-applicable",
+          "reason": "return-route is not applicable to this fixture",
+          "refs": []
+        }
+      ],
+      "references": [
+        {
+          "id": "files",
+          "format": "artifact-manifest/1",
+          "path": "manifest.json",
+          "follow_nested": true
+        }
+      ],
+      "withholds": [],
+      "smoke": {
+        "status": "not-applicable",
+        "reason": "this method does not execute a return",
+        "command": null,
+        "child_exit": null,
+        "wrapper_exit": null,
+        "expected_state": null,
+        "observed_state": null,
+        "cutoff": "",
+        "in_flight": [],
+        "manual_fallback": false,
+        "label": "none",
+        "page_sha256": null,
+        "receipt_sha256": null,
+        "pass_state_before": null,
+        "pass_state_after": null,
+        "custody": null,
+        "judgment_label": null,
+        "journal_operations": []
+      },
+      "failure_policy": {
+        "declared": true,
+        "retain_first_failure": true,
+        "diagnostic": "one read-only diagnostic of the first failing file",
+        "dependency_check": "one named hash check of the declared dependency",
+        "manual_fallback": "manual fallback is labelled and is not assisted success"
+      },
+      "independent_checks": [],
+      "bounds": {
+        "max_files": 40,
+        "max_file_bytes": 2000000,
+        "max_total_bytes": 8000000
+      }
+    },
+    "report": {
+      "schema": "colab-readiness/1",
+      "assembly": "complete",
+      "mode": "read-only",
+      "transport_valid": true,
+      "runtime_dependencies_resolved": true,
+      "evidence_references_resolved": false,
+      "minimum_evidence_satisfied": false,
+      "smoke_result": "not-applicable",
+      "ready_for_declared_method": false,
+      "semantic_sufficiency": "not-established",
+      "independent_proof": "not-established",
+      "exit_layers_differ": false,
+      "surface_authorization": "not-established",
+      "shared_component": false,
+      "facets": {
+        "transport": {
+          "rows": [
+            {
+              "path": "task.txt",
+              "match": true,
+              "problem": null
+            }
+          ],
+          "problems": []
+        },
+        "runtime": {
+          "closure": [
+            "entry"
+          ],
+          "entries": [
+            {
+              "id": "entry",
+              "path": "task.txt",
+              "accounted": true
+            }
+          ],
+          "rows": [
+            {
+              "id": "entry",
+              "state": "supplied",
+              "problem": null,
+              "in_closure": true
+            }
+          ],
+          "problems": []
+        },
+        "evidence": {
+          "references": [
+            {
+              "id": "files",
+              "resolved": false,
+              "members": [],
+              "problems": [
+                "reference root is not transported"
+              ]
+            }
+          ],
+          "problems": [
+            "files: reference root is not transported"
+          ]
+        },
+        "minimum": {
+          "categories": [
+            {
+              "category": "task-criteria",
+              "applicability": "required",
+              "satisfied": false,
+              "members": [],
+              "problems": [
+                "ref files did not resolve"
+              ]
+            },
+            {
+              "category": "director-constraints",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "return-work-custody",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "contract-code",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "tests-evidence",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "source-index",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "capabilities",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "fallback",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "return-route",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            }
+          ],
+          "problems": [
+            "task-criteria: ref files did not resolve"
+          ]
+        },
+        "smoke": {
+          "command_executed": false,
+          "problems": [],
+          "final_stage": null,
+          "success_exit": null,
+          "child_exit": null,
+          "wrapper_exit": null
+        },
+        "ready": {
+          "problems": [
+            "evidence references are not resolved",
+            "minimum evidence is not satisfied"
+          ]
+        }
+      },
+      "limits": [
+        "semantic sufficiency is not established",
+        "independent proof is not established",
+        "surface authorization is not established",
+        "command text was not executed",
+        "the checker validated a supplied smoke record and did not execute or authenticate it",
+        "tokens, cost, and clocks are unknown",
+        "independent checks are empty"
+      ],
+      "problems": [
+        "files: reference root is not transported",
+        "task-criteria: ref files did not resolve",
+        "evidence references are not resolved",
+        "minimum evidence is not satisfied"
+      ]
+    }
+  },
+  {
+    "name": "pinned_empty_required_evidence_manifest",
+    "expected_ready": false,
+    "actual_ready": false,
+    "request": {
+      "schema": "colab-readiness-request/1",
+      "purpose": {
+        "statement": "Check a declared read-only delivery.",
+        "mode": "read-only",
+        "question": "Do the declared bytes support the method?",
+        "role": "checker",
+        "method": "hash declared files and record the smoke object",
+        "finish_boundary": "report only"
+      },
+      "surface": {
+        "kind": "local-fixture",
+        "os": "windows",
+        "interpreter": "python",
+        "network": "denied",
+        "install": "denied",
+        "secrets": "none",
+        "read_roots": [],
+        "write_roots": []
+      },
+      "delivery_root": "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-readiness-repair-byoh01gf\\4\\delivery",
+      "output": "C:\\Users\\misg\\AppData\\Local\\Temp\\prime-readiness-repair-byoh01gf\\4\\out",
+      "transport": [
+        {
+          "path": "task.txt",
+          "sha256": "e0ac2653c137adc4b5597c4108585f15b834ff39284657bf42a35e51f1fa2958",
+          "bytes": 26
+        },
+        {
+          "path": "manifest.json",
+          "sha256": "0ba913824ee66af7032caa82f21f23a30485bef738229fae9d39acff5465092f",
+          "bytes": 57
+        }
+      ],
+      "entry_points": [
+        {
+          "id": "entry",
+          "path": "task.txt"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "entry",
+          "path": "task.txt",
+          "sha256": "e0ac2653c137adc4b5597c4108585f15b834ff39284657bf42a35e51f1fa2958",
+          "bytes": 26,
+          "role": "subject-runtime",
+          "required": true,
+          "needed_by": [],
+          "invokes": [],
+          "supply": "supplied",
+          "condition": null,
+          "withhold_reason": null
+        }
+      ],
+      "evidence": [
+        {
+          "category": "task-criteria",
+          "applicability": "required",
+          "reason": "the declared task file",
+          "refs": [
+            "files"
+          ]
+        },
+        {
+          "category": "director-constraints",
+          "applicability": "not-applicable",
+          "reason": "director-constraints is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "return-work-custody",
+          "applicability": "not-applicable",
+          "reason": "return-work-custody is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "contract-code",
+          "applicability": "not-applicable",
+          "reason": "contract-code is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "tests-evidence",
+          "applicability": "not-applicable",
+          "reason": "tests-evidence is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "source-index",
+          "applicability": "not-applicable",
+          "reason": "source-index is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "capabilities",
+          "applicability": "not-applicable",
+          "reason": "capabilities is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "fallback",
+          "applicability": "not-applicable",
+          "reason": "fallback is not applicable to this fixture",
+          "refs": []
+        },
+        {
+          "category": "return-route",
+          "applicability": "not-applicable",
+          "reason": "return-route is not applicable to this fixture",
+          "refs": []
+        }
+      ],
+      "references": [
+        {
+          "id": "files",
+          "format": "artifact-manifest/1",
+          "path": "manifest.json",
+          "follow_nested": true
+        }
+      ],
+      "withholds": [],
+      "smoke": {
+        "status": "not-applicable",
+        "reason": "this method does not execute a return",
+        "command": null,
+        "child_exit": null,
+        "wrapper_exit": null,
+        "expected_state": null,
+        "observed_state": null,
+        "cutoff": "",
+        "in_flight": [],
+        "manual_fallback": false,
+        "label": "none",
+        "page_sha256": null,
+        "receipt_sha256": null,
+        "pass_state_before": null,
+        "pass_state_after": null,
+        "custody": null,
+        "judgment_label": null,
+        "journal_operations": []
+      },
+      "failure_policy": {
+        "declared": true,
+        "retain_first_failure": true,
+        "diagnostic": "one read-only diagnostic of the first failing file",
+        "dependency_check": "one named hash check of the declared dependency",
+        "manual_fallback": "manual fallback is labelled and is not assisted success"
+      },
+      "independent_checks": [],
+      "bounds": {
+        "max_files": 40,
+        "max_file_bytes": 2000000,
+        "max_total_bytes": 8000000
+      }
+    },
+    "report": {
+      "schema": "colab-readiness/1",
+      "assembly": "complete",
+      "mode": "read-only",
+      "transport_valid": true,
+      "runtime_dependencies_resolved": true,
+      "evidence_references_resolved": true,
+      "minimum_evidence_satisfied": false,
+      "smoke_result": "not-applicable",
+      "ready_for_declared_method": false,
+      "semantic_sufficiency": "not-established",
+      "independent_proof": "not-established",
+      "exit_layers_differ": false,
+      "surface_authorization": "not-established",
+      "shared_component": false,
+      "facets": {
+        "transport": {
+          "rows": [
+            {
+              "path": "task.txt",
+              "match": true,
+              "problem": null
+            },
+            {
+              "path": "manifest.json",
+              "match": true,
+              "problem": null
+            }
+          ],
+          "problems": []
+        },
+        "runtime": {
+          "closure": [
+            "entry"
+          ],
+          "entries": [
+            {
+              "id": "entry",
+              "path": "task.txt",
+              "accounted": true
+            }
+          ],
+          "rows": [
+            {
+              "id": "entry",
+              "state": "supplied",
+              "problem": null,
+              "in_closure": true
+            }
+          ],
+          "problems": []
+        },
+        "evidence": {
+          "references": [
+            {
+              "id": "files",
+              "resolved": true,
+              "members": [],
+              "problems": []
+            }
+          ],
+          "problems": []
+        },
+        "minimum": {
+          "categories": [
+            {
+              "category": "task-criteria",
+              "applicability": "required",
+              "satisfied": false,
+              "members": [],
+              "problems": [
+                "resolved no evidence material"
+              ]
+            },
+            {
+              "category": "director-constraints",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "return-work-custody",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "contract-code",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "tests-evidence",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "source-index",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "capabilities",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "fallback",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            },
+            {
+              "category": "return-route",
+              "applicability": "not-applicable",
+              "satisfied": true,
+              "members": [],
+              "problems": []
+            }
+          ],
+          "problems": [
+            "task-criteria: resolved no evidence material"
+          ]
+        },
+        "smoke": {
+          "command_executed": false,
+          "problems": [],
+          "final_stage": null,
+          "success_exit": null,
+          "child_exit": null,
+          "wrapper_exit": null
+        },
+        "ready": {
+          "problems": [
+            "minimum evidence is not satisfied"
+          ]
+        }
+      },
+      "limits": [
+        "semantic sufficiency is not established",
+        "independent proof is not established",
+        "surface authorization is not established",
+        "command text was not executed",
+        "the checker validated a supplied smoke record and did not execute or authenticate it",
+        "tokens, cost, and clocks are unknown",
+        "independent checks are empty"
+      ],
+      "problems": [
+        "task-criteria: resolved no evidence material",
+        "minimum evidence is not satisfied"
+      ]
+    }
+  }
+]

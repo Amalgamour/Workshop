@@ -80,6 +80,23 @@ def policy() -> dict:
     }
 
 
+def supplied_row(request: dict, dep_id: str, path: str) -> dict:
+    row = next(item for item in request["transport"] if item["path"] == path)
+    return {
+        "id": dep_id,
+        "path": path,
+        "sha256": row["sha256"],
+        "bytes": row["bytes"],
+        "role": "subject-runtime",
+        "required": True,
+        "needed_by": [],
+        "invokes": [],
+        "supply": "supplied",
+        "condition": None,
+        "withhold_reason": None,
+    }
+
+
 def categories(default_refs: list[str] | None = None) -> list[dict]:
     rows = []
     for name in checker.CATEGORIES:
@@ -395,6 +412,7 @@ class CheckerTests(unittest.TestCase):
         code, report = self.check(request)
         self.assertEqual(code, 0, report)
         self.assertFalse(report["evidence_references_resolved"])
+        self.assertFalse(report["minimum_evidence_satisfied"])
         self.assertFalse(report["ready_for_declared_method"])
         joined = "\n".join(report["problems"])
         self.assertIn("nested/item.bin", joined)
@@ -649,6 +667,160 @@ class CheckerTests(unittest.TestCase):
         self.assertTrue(report["ready_for_declared_method"])
         self.assertEqual(report["independent_proof"], "not-established")
         self.assertTrue(any("shared subject" in item for item in report["limits"]))
+
+    def test_entry_points_must_be_accounted(self) -> None:
+        request = request_for(self.delivery, self.output, {"task.txt": b"task\n"})
+        code, report = self.check(request)
+        self.assertEqual(code, 0, report)
+        self.assertEqual(request["dependencies"][0]["invokes"], [])
+        self.assertTrue(report["facets"]["runtime"]["entries"][0]["accounted"])
+        self.assertTrue(report["runtime_dependencies_resolved"])
+        self.assertTrue(report["ready_for_declared_method"])
+
+        files = {"a.py": b"a\n", "b.py": b"b\n"}
+        both = request_for(self.delivery, self.root / "out-both", files)
+        both["entry_points"] = [{"id": "a", "path": "a.py"}, {"id": "b", "path": "b.py"}]
+        both["dependencies"] = [supplied_row(both, "a", "a.py"), supplied_row(both, "b", "b.py")]
+        code, report = self.check(both)
+        self.assertEqual(code, 0, report)
+        self.assertTrue(report["ready_for_declared_method"])
+        self.assertEqual([row["accounted"] for row in report["facets"]["runtime"]["entries"]], [True, True])
+
+        missing = request_for(self.delivery, self.root / "out-missing-root", files)
+        missing["entry_points"] = [{"id": "a", "path": "a.py"}, {"id": "b", "path": "b.py"}]
+        missing["dependencies"] = [supplied_row(missing, "a", "a.py")]
+        code, report = self.check(missing)
+        self.assertEqual(code, 0, report)
+        self.assertFalse(report["runtime_dependencies_resolved"])
+        self.assertTrue(report["transport_valid"])
+        self.assertTrue(report["evidence_references_resolved"])
+        self.assertFalse(report["ready_for_declared_method"])
+        self.assertIn("entry point has no dependency record: b", report["problems"])
+
+        empty = request_for(self.delivery, self.root / "out-empty-deps", {"task.txt": b"task\n"})
+        empty["dependencies"] = []
+        code, report = self.check(empty)
+        self.assertEqual(code, 0, report)
+        self.assertFalse(report["runtime_dependencies_resolved"])
+        self.assertTrue(report["transport_valid"])
+        self.assertFalse(report["ready_for_declared_method"])
+        self.assertIn("entry point has no dependency record: entry", report["problems"])
+
+    def test_matching_failed_exits_are_not_a_passed_reread(self) -> None:
+        request = request_for(self.delivery, self.output, {"task.txt": b"task\n"})
+        request["purpose"]["mode"] = "return-review"
+        request["smoke"] = passed_smoke(child_exit=2, wrapper_exit=2)
+        code, report = self.check(request)
+        self.assertEqual(code, 0, report)
+        self.assertFalse(report["exit_layers_differ"])
+        self.assertEqual(report["smoke_result"], "failed")
+        self.assertFalse(report["ready_for_declared_method"])
+        self.assertTrue(report["transport_valid"])
+        self.assertTrue(report["runtime_dependencies_resolved"])
+        self.assertTrue(report["evidence_references_resolved"])
+        self.assertTrue(report["minimum_evidence_satisfied"])
+        smoke = report["facets"]["smoke"]
+        self.assertEqual(smoke["final_stage"], "reviewed-reread")
+        self.assertEqual(smoke["success_exit"], 0)
+        self.assertEqual(smoke["child_exit"], 2)
+        self.assertEqual(smoke["wrapper_exit"], 2)
+        self.assertFalse(smoke["command_executed"])
+        self.assertIn("reviewed-reread exits are not the successful exit 0", "\n".join(report["problems"]))
+
+    def test_empty_command_cannot_pass(self) -> None:
+        request = request_for(self.delivery, self.output, {"task.txt": b"task\n"})
+        request["purpose"]["mode"] = "return-review"
+        request["smoke"] = passed_smoke(command="  ")
+        code, report = self.check(request)
+        self.assertEqual(code, 0, report)
+        self.assertEqual(report["smoke_result"], "failed")
+        self.assertFalse(report["ready_for_declared_method"])
+        self.assertIn("smoke command text is empty", report["problems"])
+
+    def test_evidence_root_must_be_the_transported_file(self) -> None:
+        request = request_for(self.delivery, self.output, {"task.txt": b"task\n"})
+        request["transport"] = [row for row in request["transport"] if row["path"] != "manifest.json"]
+        code, report = self.check(request)
+        self.assertEqual(code, 0, report)
+        self.assertTrue(report["transport_valid"])
+        self.assertTrue(report["runtime_dependencies_resolved"])
+        self.assertFalse(report["evidence_references_resolved"])
+        self.assertFalse(report["minimum_evidence_satisfied"])
+        self.assertFalse(report["ready_for_declared_method"])
+        self.assertIn("reference root is not transported", "\n".join(report["problems"]))
+
+        changed = request_for(self.delivery, self.root / "out-changed-root", {"task.txt": b"task\n"})
+        for row in changed["transport"]:
+            if row["path"] == "manifest.json":
+                row["sha256"] = "d" * 64
+        code, report = self.check(changed)
+        self.assertEqual(code, 0, report)
+        self.assertFalse(report["transport_valid"])
+        self.assertFalse(report["evidence_references_resolved"])
+        self.assertFalse(report["ready_for_declared_method"])
+        self.assertIn("reference root does not match the transported declaration", "\n".join(report["problems"]))
+
+    def test_empty_required_manifest_supplies_no_material(self) -> None:
+        request = request_for(self.delivery, self.output, {"task.txt": b"task\n"})
+        empty = checker.canonical({"schema": "artifact-manifest/1", "artifacts": []})
+        (self.delivery / "manifest.json").write_bytes(empty)
+        for row in request["transport"]:
+            if row["path"] == "manifest.json":
+                row["sha256"] = sha256(empty)
+                row["bytes"] = len(empty)
+        code, report = self.check(request)
+        self.assertEqual(code, 0, report)
+        self.assertTrue(report["transport_valid"])
+        self.assertTrue(report["evidence_references_resolved"])
+        self.assertFalse(report["minimum_evidence_satisfied"])
+        self.assertFalse(report["ready_for_declared_method"])
+        self.assertIn("resolved no evidence material", "\n".join(report["problems"]))
+        task = report["facets"]["minimum"]["categories"][0]
+        self.assertEqual(task["members"], [])
+
+    def test_nonempty_nested_evidence_resolves_members(self) -> None:
+        item = b"item"
+        nested = {
+            "schema": "artifact-manifest/1",
+            "artifacts": [{"path": "nested/item.bin", "sha256": sha256(item), "bytes": len(item)}],
+        }
+        nested_bytes = checker.canonical(nested)
+        pack = {
+            "schema": "prime-pack-sources/1",
+            "sources": [
+                {
+                    "path": "not-opened.txt",
+                    "snapshot": "snapshots/top.json",
+                    "sha256": sha256(nested_bytes),
+                    "bytes": len(nested_bytes),
+                }
+            ],
+        }
+        pack_bytes = checker.canonical(pack)
+        request = request_for(self.delivery, self.output, {"task.txt": b"task\n"})
+        delivery_with(
+            self.delivery,
+            {
+                "snapshots/top.json": nested_bytes,
+                "nested/item.bin": item,
+                "pack.json": pack_bytes,
+            },
+        )
+        request["transport"].append({"path": "pack.json", "sha256": sha256(pack_bytes), "bytes": len(pack_bytes)})
+        request["transport"].append(
+            {"path": "snapshots/top.json", "sha256": sha256(nested_bytes), "bytes": len(nested_bytes)}
+        )
+        request["transport"].append({"path": "nested/item.bin", "sha256": sha256(item), "bytes": len(item)})
+        request["references"] = [
+            {"id": "pack", "format": "prime-pack-sources/1", "path": "pack.json", "follow_nested": True}
+        ]
+        request["evidence"] = categories(["pack"])
+        code, report = self.check(request)
+        self.assertEqual(code, 0, report)
+        self.assertTrue(report["evidence_references_resolved"])
+        self.assertTrue(report["minimum_evidence_satisfied"])
+        self.assertTrue(report["ready_for_declared_method"])
+        self.assertEqual(report["facets"]["evidence"]["references"][0]["members"], ["nested/item.bin"])
 
     def test_checker_source_does_not_launch_commands(self) -> None:
         text = (LAB / "colab_readiness.py").read_text(encoding="utf-8")
@@ -1158,6 +1330,15 @@ class SyntheticRouteTests(unittest.TestCase):
         self.assertTrue(report["shared_component"])
         self.assertFalse(report["facets"]["smoke"]["command_executed"])
         self.assertFalse(report["exit_layers_differ"])
+        self.assertIn(route["first_exit"], (0, 1))
+        self.assertEqual(route["child_exit"], 0)
+        self.assertEqual(route["wrapper_exit"], 0)
+        self.assertEqual(report["facets"]["smoke"]["final_stage"], "reviewed-reread")
+        self.assertEqual(report["facets"]["smoke"]["success_exit"], 0)
+        self.assertEqual(report["facets"]["smoke"]["child_exit"], 0)
+        self.assertEqual(report["facets"]["smoke"]["wrapper_exit"], 0)
+        self.assertTrue(report["minimum_evidence_satisfied"])
+        self.assertTrue(any(row["accounted"] for row in report["facets"]["runtime"]["entries"]))
         export = os.environ.get("COLAB_READINESS_SAMPLE")
         if export:
             target = Path(export)

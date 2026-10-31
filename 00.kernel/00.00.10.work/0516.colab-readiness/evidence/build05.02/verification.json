@@ -1,0 +1,71 @@
+{
+  "schema": "colab-readiness-verification/1",
+  "batch": "0516.colab-readiness/05.02",
+  "executor": "Grok Builder 1",
+  "session": "01a17ded-90ba-79e3-8b8c-7e1f0005193e",
+  "preparation_commit": "f0ccb9071b25194a9cb92ddb3f41f313fa859f01",
+  "observed_head": "f0ccb9071b25194a9cb92ddb3f41f313fa859f01",
+  "pack": {
+    "manifest": "00.kernel/00.00.10.work/0516.colab-readiness/evidence/pack05.02/source-manifest.json",
+    "sources": 14,
+    "bad": 0,
+    "compared_to": "snapshot bytes, manifest sha256 and length, and git blob at the preparation commit"
+  },
+  "tests": {
+    "command": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe -B -m unittest labs.colab-readiness-pass01.tests.test_colab_readiness",
+    "cwd": "D:\\Git\\lib-build",
+    "interpreter": "C:\\Users\\misg\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+    "python": "3.14.0",
+    "sample_env": "COLAB_READINESS_SAMPLE",
+    "sample_path": "00.kernel/00.00.10.work/0516.colab-readiness/evidence/build05.02/sample-readiness.json",
+    "ran": 34,
+    "skipped": 1,
+    "failed": 0,
+    "seconds": 7.681,
+    "exit": 0,
+    "unittest_result": "OK (skipped=1)",
+    "skip": {
+      "test": "test_linked_path_is_refused",
+      "reason": "symlink creation failed: WinError 1314"
+    }
+  },
+  "fixture": {
+    "source": "00.kernel/00.00.10.work/0516.colab-readiness/evidence/build05.02/route-log.json",
+    "member": "0101.synthetic-readiness",
+    "receipt_sha256": "bfb08e6f72dfb4a17a64d2d59b5082244830e62cfe993261a974ffa870ff63a5",
+    "page_sha256": "ddcf71cc45e324f9ef59c0854b0de440aec0c011f0f1afa52bc5b80e14348f5e",
+    "pass_state_before": "awaiting-review",
+    "pass_state_after": "reviewed",
+    "custody_role": "primary-current-candidate",
+    "journal_operations": ["read", "record", "read"],
+    "first_exit": 1,
+    "record_exit": 0,
+    "child_exit": 0,
+    "wrapper_exit": 0,
+    "end_exits": [1, 0, 0],
+    "ready_for_declared_method": true,
+    "minimum_evidence_satisfied": true,
+    "smoke_result": "passed",
+    "semantic_sufficiency": "not-established",
+    "tools": "copied pack05.01 snapshots 0009-0015 plus the committed parser blob"
+  },
+  "custody_tools_at_verification": {
+    "return_capture_sha256": "8f3da5c651f6924fca6dedb0b95da7d181eb58884dc030dd9cbc3d8b6a5b15ac",
+    "return_capture_bytes": 45767,
+    "return_inspect_sha256": "947915febaa5918f56b6be03c81840c030d081fcab9a3bead2cd660973a9999b",
+    "return_inspect_bytes": 11402,
+    "matched_pins": true
+  },
+  "repairs": ["R-01", "R-02", "R-03"],
+  "preserved": ["05.01 evidence", "0176.colab-readiness-checker-0501", "sealed replay"],
+  "limits": [
+    "The file-symlink refusal was not executed on this host.",
+    "The checker validated a supplied smoke record and did not execute or authenticate it.",
+    "semantic sufficiency is not established",
+    "independent proof is not established",
+    "surface authorization is not established",
+    "tokens, cost, and clocks are unknown",
+    "0316.dependencies was not implemented",
+    "The first replay was not amended."
+  ]
+}

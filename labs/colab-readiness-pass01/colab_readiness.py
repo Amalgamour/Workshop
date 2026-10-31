@@ -579,10 +579,17 @@ def blank_report(mode: str) -> dict:
         "shared_component": False,
         "facets": {
             "transport": {"rows": [], "problems": []},
-            "runtime": {"closure": [], "rows": [], "problems": []},
+            "runtime": {"closure": [], "entries": [], "rows": [], "problems": []},
             "evidence": {"references": [], "problems": []},
             "minimum": {"categories": [], "problems": []},
-            "smoke": {"command_executed": False, "problems": []},
+            "smoke": {
+                "command_executed": False,
+                "problems": [],
+                "final_stage": None,
+                "success_exit": None,
+                "child_exit": None,
+                "wrapper_exit": None,
+            },
             "ready": {"problems": []},
         },
         "limits": [],
@@ -624,7 +631,15 @@ def row_identity(row: dict) -> tuple[bool, str, str, int]:
     return ok, path if isinstance(path, str) else "", digest if isinstance(digest, str) else "", size if type(size) is int else -1
 
 
-def check_rows(budget: Budget, base: Path, rows: list, follow: bool, depth: int, problems: list) -> bool:
+def check_rows(
+    budget: Budget,
+    base: Path,
+    rows: list,
+    follow: bool,
+    depth: int,
+    problems: list,
+    members: list,
+) -> bool:
     if not isinstance(rows, list):
         problems.append("rows are not a list")
         return False
@@ -661,28 +676,50 @@ def check_rows(budget: Budget, base: Path, rows: list, follow: bool, depth: int,
             problems.append(f"{reason}: {rel}")
             ok = False
             continue
+        descended = False
         if follow:
             opened = budget.cache[os.path.normcase(os.path.abspath(target))]
             nested = manifests_of(opened)
-            if nested is None or nested.get("schema") not in KNOWN_FORMATS:
-                continue
-            schema = nested.get("schema")
-            if depth >= 4:
-                problems.append("nested reference depth exceeded")
-                ok = False
-                continue
-            if not descend(budget, target.parent if schema == "prime-pack-sources/1" else base, nested, True, depth + 1, problems, schema, target):
-                ok = False
+            if nested is not None and nested.get("schema") in KNOWN_FORMATS:
+                descended = True
+                schema = nested.get("schema")
+                if depth >= 4:
+                    problems.append("nested reference depth exceeded")
+                    ok = False
+                elif not descend(
+                    budget,
+                    target.parent if schema == "prime-pack-sources/1" else base,
+                    nested,
+                    True,
+                    depth + 1,
+                    problems,
+                    schema,
+                    target,
+                    members,
+                ):
+                    ok = False
+        if not descended:
+            members.append(rel)
     return ok
 
 
-def descend(budget, delivery, value, follow, depth, problems, schema, manifest_path: Path) -> bool:
+def descend(
+    budget,
+    delivery,
+    value,
+    follow,
+    depth,
+    problems,
+    schema,
+    manifest_path: Path,
+    members: list,
+) -> bool:
     if schema == "artifact-manifest/1":
-        return check_rows(budget, delivery, value.get("artifacts"), follow, depth, problems)
+        return check_rows(budget, delivery, value.get("artifacts"), follow, depth, problems, members)
     if schema == "colab-readiness-references/1":
-        return check_rows(budget, delivery, value.get("items"), follow, depth, problems)
+        return check_rows(budget, delivery, value.get("items"), follow, depth, problems, members)
     if schema == "review-packet-manifest/1":
-        return check_rows(budget, manifest_path.parent, value.get("files"), follow, depth, problems)
+        return check_rows(budget, manifest_path.parent, value.get("files"), follow, depth, problems, members)
     if schema == "prime-pack-sources/1":
         sources = value.get("sources")
         if not isinstance(sources, list):
@@ -731,19 +768,30 @@ def descend(budget, delivery, value, follow, depth, problems, schema, manifest_p
                 problems.append(f"{reason}: {snapshot}")
                 ok = False
                 continue
+            descended = False
             if follow:
                 opened = budget.cache[os.path.normcase(os.path.abspath(target))]
                 nested = manifests_of(opened)
-                if nested is None or nested.get("schema") not in KNOWN_FORMATS:
-                    continue
-                child_schema = nested.get("schema")
-                if depth >= 4:
-                    problems.append("nested reference depth exceeded")
-                    ok = False
-                    continue
-                child_base = delivery
-                if not descend(budget, child_base, nested, True, depth + 1, problems, child_schema, target):
-                    ok = False
+                if nested is not None and nested.get("schema") in KNOWN_FORMATS:
+                    descended = True
+                    child_schema = nested.get("schema")
+                    if depth >= 4:
+                        problems.append("nested reference depth exceeded")
+                        ok = False
+                    elif not descend(
+                        budget,
+                        delivery,
+                        nested,
+                        True,
+                        depth + 1,
+                        problems,
+                        child_schema,
+                        target,
+                        members,
+                    ):
+                        ok = False
+            if not descended:
+                members.append(snapshot)
         return ok
     problems.append(f"unsupported schema {schema}")
     return False
@@ -846,8 +894,16 @@ def evaluate_into(request: dict, report: dict, budget: Budget, root: Path) -> No
     runtime_problems = report["facets"]["runtime"]["problems"]
     for cycle in cycles:
         runtime_problems.append(f"dependency cycle: {cycle}")
+    accounted_paths = {dep["path"] for dep in dependencies}
+    entry_rows = []
+    for entry in request["entry_points"]:
+        accounted = entry["path"] in accounted_paths
+        entry_rows.append({"id": entry["id"], "path": entry["path"], "accounted": accounted})
+        if not accounted:
+            runtime_problems.append(f"entry point has no dependency record: {entry['id']}")
+    report["facets"]["runtime"]["entries"] = entry_rows
     withheld = {row["path"] for row in request["withholds"]}
-    hard = bool(cycles)
+    hard = bool(cycles) or any(not row["accounted"] for row in entry_rows)
     unknown = False
     rows = []
     for dep in dependencies:
@@ -925,6 +981,7 @@ def evaluate_into(request: dict, report: dict, budget: Budget, root: Path) -> No
     unsupported = False
     evidence_ok = True
     ref_ok = {}
+    ref_members = {}
     for ref in request["references"]:
         item_problems = []
         if ref["format"] not in KNOWN_FORMATS:
@@ -932,8 +989,9 @@ def evaluate_into(request: dict, report: dict, budget: Budget, root: Path) -> No
             unsupported = True
             evidence_ok = False
             ref_ok[ref["id"]] = False
+            ref_members[ref["id"]] = []
             report["facets"]["evidence"]["references"].append(
-                {"id": ref["id"], "resolved": False, "problems": item_problems}
+                {"id": ref["id"], "resolved": False, "members": [], "problems": item_problems}
             )
             continue
         try:
@@ -942,45 +1000,66 @@ def evaluate_into(request: dict, report: dict, budget: Budget, root: Path) -> No
             item_problems.append(str(exc))
             evidence_ok = False
             ref_ok[ref["id"]] = False
+            ref_members[ref["id"]] = []
             report["facets"]["evidence"]["references"].append(
-                {"id": ref["id"], "resolved": False, "problems": item_problems}
+                {"id": ref["id"], "resolved": False, "members": [], "problems": item_problems}
             )
             continue
         if os.path.lexists(path) and is_link(path):
             item_problems.append(f"link: {ref['path']}")
             evidence_ok = False
             ref_ok[ref["id"]] = False
+            ref_members[ref["id"]] = []
             report["facets"]["evidence"]["references"].append(
-                {"id": ref["id"], "resolved": False, "problems": item_problems}
+                {"id": ref["id"], "resolved": False, "members": [], "problems": item_problems}
             )
             continue
         data = budget.read(path)
+        members = []
         if data is None:
             item_problems.append("missing")
             evidence_ok = False
             ref_ok[ref["id"]] = False
         else:
-            value = manifests_of(data)
-            if not isinstance(value, dict) or value.get("schema") != ref["format"]:
-                item_problems.append("manifest schema does not match the declared format")
+            carried = by_path.get(ref["path"])
+            actual = sha256(data)
+            if carried is None:
+                item_problems.append("reference root is not transported")
+                evidence_ok = False
+                ref_ok[ref["id"]] = False
+            elif carried["sha256"] != actual or carried["bytes"] != len(data):
+                item_problems.append("reference root does not match the transported declaration")
                 evidence_ok = False
                 ref_ok[ref["id"]] = False
             else:
-                resolved = descend(
-                    budget,
-                    root,
-                    value,
-                    ref["follow_nested"],
-                    1,
-                    item_problems,
-                    ref["format"],
-                    path,
-                )
-                ref_ok[ref["id"]] = resolved and not item_problems
-                evidence_ok = evidence_ok and ref_ok[ref["id"]]
+                value = manifests_of(data)
+                if not isinstance(value, dict) or value.get("schema") != ref["format"]:
+                    item_problems.append("manifest schema does not match the declared format")
+                    evidence_ok = False
+                    ref_ok[ref["id"]] = False
+                else:
+                    resolved = descend(
+                        budget,
+                        root,
+                        value,
+                        ref["follow_nested"],
+                        1,
+                        item_problems,
+                        ref["format"],
+                        path,
+                        members,
+                    )
+                    ref_ok[ref["id"]] = resolved and not item_problems
+                    evidence_ok = evidence_ok and ref_ok[ref["id"]]
+        ref_members[ref["id"]] = members
         evidence_problems.extend(f"{ref['id']}: {item}" for item in item_problems)
         report["facets"]["evidence"]["references"].append(
-            {"id": ref["id"], "resolved": ref_ok[ref["id"]], "problems": item_problems}
+            {
+                "id": ref["id"],
+                "resolved": ref_ok[ref["id"]],
+                "members": members,
+                "problems": item_problems,
+            }
         )
     if unsupported:
         report["evidence_references_resolved"] = "unsupported"
@@ -992,10 +1071,15 @@ def evaluate_into(request: dict, report: dict, budget: Budget, root: Path) -> No
     minimum_ok = True
     for row in request["evidence"]:
         problems = []
+        members = []
         if row["applicability"] == "required":
             for ref_id in row["refs"]:
                 if not ref_ok.get(ref_id, False):
                     problems.append(f"ref {ref_id} did not resolve")
+                else:
+                    members.extend(ref_members.get(ref_id, []))
+            if not problems and not members:
+                problems.append("resolved no evidence material")
         if problems:
             minimum_ok = False
         report["facets"]["minimum"]["categories"].append(
@@ -1003,6 +1087,7 @@ def evaluate_into(request: dict, report: dict, budget: Budget, root: Path) -> No
                 "category": row["category"],
                 "applicability": row["applicability"],
                 "satisfied": not problems,
+                "members": sorted(set(members)),
                 "problems": problems,
             }
         )
@@ -1030,6 +1115,11 @@ def evaluate_into(request: dict, report: dict, budget: Budget, root: Path) -> No
     report["smoke_result"] = result
     report["facets"]["smoke"]["problems"] = smoke_problems
     report["facets"]["smoke"]["command_executed"] = False
+    if request["purpose"]["mode"] == "return-review":
+        report["facets"]["smoke"]["final_stage"] = "reviewed-reread"
+        report["facets"]["smoke"]["success_exit"] = 0
+    report["facets"]["smoke"]["child_exit"] = smoke["child_exit"]
+    report["facets"]["smoke"]["wrapper_exit"] = smoke["wrapper_exit"]
 
     ready_problems = []
     policy = request["failure_policy"]
@@ -1132,6 +1222,18 @@ def return_review_smoke(smoke: dict, layers) -> tuple[str, list[str]]:
         problems.append("journal operations do not contain read, record, read")
     if smoke["command"] is None:
         problems.append("smoke command text is missing")
+    elif smoke["command"].strip() == "":
+        problems.append("smoke command text is empty")
+    if (
+        layers is not True
+        and type(smoke["child_exit"]) is int
+        and type(smoke["wrapper_exit"]) is int
+        and (smoke["child_exit"] != 0 or smoke["wrapper_exit"] != 0)
+    ):
+        problems.append(
+            "reviewed-reread exits are not the successful exit 0"
+            f"; child {smoke['child_exit']}; wrapper {smoke['wrapper_exit']}"
+        )
     if layers is True:
         return "partial", problems + ["child exit differs from wrapper exit"]
     if problems:
@@ -1145,6 +1247,7 @@ def finish_limits(request: dict, report: dict) -> None:
         "independent proof is not established",
         "surface authorization is not established",
         "command text was not executed",
+        "the checker validated a supplied smoke record and did not execute or authenticate it",
         "tokens, cost, and clocks are unknown",
     ]
     if not request["independent_checks"]:
@@ -1182,20 +1285,29 @@ def render(report: dict) -> str:
         lines.append(f"- problem: {item}")
     lines += ["", "## Runtime dependencies", "", f"runtime_dependencies_resolved: {yn(report['runtime_dependencies_resolved'])}"]
     lines.append("closure: " + (", ".join(report["facets"]["runtime"]["closure"]) or "(empty)"))
+    for row in report["facets"]["runtime"]["entries"]:
+        lines.append(f"- entry {row['id']}: accounted {yn(row['accounted'])}")
     for row in report["facets"]["runtime"]["rows"]:
         lines.append(f"- {row['id']}: {row['state']}; problem {row['problem']}")
     for item in report["facets"]["runtime"]["problems"]:
         lines.append(f"- problem: {item}")
     lines += ["", "## Evidence references", "", f"evidence_references_resolved: {yn(report['evidence_references_resolved'])}"]
     for row in report["facets"]["evidence"]["references"]:
-        lines.append(f"- {row['id']}: resolved {yn(row['resolved'])}")
+        lines.append(
+            f"- {row['id']}: resolved {yn(row['resolved'])}; members {len(row.get('members', []))}"
+        )
         for item in row["problems"]:
             lines.append(f"  - {item}")
     lines += ["", "## Minimum evidence", "", f"minimum_evidence_satisfied: {yn(report['minimum_evidence_satisfied'])}"]
     lines.append("semantic_sufficiency: not-established")
     for row in report["facets"]["minimum"]["categories"]:
-        lines.append(f"- {row['category']}: {row['applicability']}; satisfied {yn(row['satisfied'])}")
+        lines.append(
+            f"- {row['category']}: {row['applicability']}; satisfied {yn(row['satisfied'])}; members {len(row.get('members', []))}"
+        )
     lines += ["", "## Smoke", "", f"smoke_result: {report['smoke_result']}"]
+    lines.append(f"final_stage: {report['facets']['smoke'].get('final_stage')}")
+    lines.append(f"child_exit: {report['facets']['smoke'].get('child_exit')}")
+    lines.append(f"wrapper_exit: {report['facets']['smoke'].get('wrapper_exit')}")
     lines.append(f"exit_layers_differ: {yn(report['exit_layers_differ'])}")
     lines.append("command_executed: false")
     for item in report["facets"]["smoke"]["problems"]:
