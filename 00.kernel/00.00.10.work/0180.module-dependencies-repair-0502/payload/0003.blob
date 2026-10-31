@@ -1,0 +1,590 @@
+{
+ "schema": "module-dependencies-verification/2",
+ "batch": "0517.dependencies/05.02",
+ "branch": "workshop",
+ "head": "e0b10a455858c06ea00e2fede8c4bd1a7209a072",
+ "pack": {
+  "sources": 14,
+  "committed_objects_at_e0b10a4_equal_pins": 14
+ },
+ "runs": [
+  {
+   "id": "repro-before",
+   "argv": "python -B <scratch>/repro.py <05.01 lab copy> <out>",
+   "exit": 0,
+   "tool_sha256": "5c35692cb22e3c574e9bfddd5196a7896a2439cd87a4114b67c01baa9ab7a53f",
+   "cases": {
+    "D-01 reverse depth 1 with A omitted": {
+     "exit": 0,
+     "consumers": [
+      "lib-build:lab/b.py"
+     ],
+     "finding_counts": {}
+    },
+    "D-02 right digest, wrong length": {
+     "exit": 0,
+     "resolution": "resolved",
+     "status": "complete-for-declared-coverage",
+     "pin": {
+      "sha256": "628b49d96dcde97a430dd4f597705899e09a968f793491e4b704cae33a40dc02",
+      "bytes": 999
+     },
+     "declared_bytes": 1
+    },
+    "D-03 new module, no predecessor": {
+     "without --old": {
+      "exit": 2,
+      "stderr_tail": "usage: depdecl.py delta [-h] --old OLD --new NEW --change CHANGE\ndepdecl.py delta: error: the following arguments are required: --old\n"
+     },
+     "with the new file passed as --old (a fabricated predecessor)": {
+      "exit": 1,
+      "status": "inconsistent",
+      "findings": [
+       "supersedes",
+       "old",
+       "relationships.introduced"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "log": "run1-existing-dev.txt",
+   "log_sha256": "3f198323dc87508a45776d75f92fb38136745ea6ddd9c1fec9ff054e1e05fbd3",
+   "tail": [
+    "",
+    "FAILED (failures=2)",
+    "exit 1"
+   ],
+   "id": "run1",
+   "argv": "python -B -X dev labs/module-dependencies-pass01/tests/test_depdecl.py",
+   "exit": 1,
+   "result": "FAILED (failures=2) of 15",
+   "first_failures": [
+    "test_15 expected prime_support pin-differs; the 05.02 example records its unenforced import as unpinned (intended; expectation updated)",
+    "test_05 fixture declared length 1 for a 13-byte file; the new pair check calls it declaration-length-wrong (fixture corrected)"
+   ]
+  },
+  {
+   "log": "run2-test_depdecl-dev.txt",
+   "log_sha256": "a40705fdbd1934a0a35dfedea4f13bc46a811e0846854beb6852f055b74a32fc",
+   "tail": [
+    "",
+    "OK",
+    "exit 0"
+   ],
+   "id": "run2a",
+   "argv": "python -B -X dev labs/module-dependencies-pass01/tests/test_depdecl.py -v",
+   "exit": 0,
+   "result": "OK, 15"
+  },
+  {
+   "log": "run2-test_repair-dev.txt",
+   "log_sha256": "2cdd5423be6d6f4a21918917339d2866a0a0c7c1990decfb0d7c6cccdb4f0a8e",
+   "tail": [
+    "",
+    "FAILED (failures=1, errors=1)",
+    "exit 1"
+   ],
+   "id": "run2b",
+   "argv": "python -B -X dev labs/module-dependencies-pass01/tests/test_repair.py -v",
+   "exit": 1,
+   "result": "FAILED (failures=1, errors=1) of 7",
+   "first_failures": [
+    "test_17: sorting rows with None revisit values (test bug)",
+    "test_22 --old '': refused (exit 2) but by the change.old rule before the empty path was diagnosed; delta now validates --old first"
+   ]
+  },
+  {
+   "log": "run3-test_repair-dev.txt",
+   "log_sha256": "885cdd8795c94e6ea2437a68689b16550d3653ac0cbdcd45becbf87580684a8b",
+   "tail": [
+    "",
+    "OK",
+    "exit 0"
+   ],
+   "id": "run3",
+   "argv": "python -B -X dev labs/module-dependencies-pass01/tests/test_repair.py -v",
+   "exit": 0,
+   "result": "OK, 7"
+  },
+  {
+   "log": "mutations.txt",
+   "log_sha256": "ed78e5dbad60220a10ec6413277fe6fc484e617c4e744c0b0efb78a7f5d7a8f7",
+   "tail": [
+    "create-introduced-unchecked ['TestCreation.test_22_creation_refuses_or_flags_bad_records']: exit 1; failing ['test_22_creation_refuses_or_flags_bad_records']",
+    "create-accepts-supersedes ['TestCreation.test_22_creation_refuses_or_flags_bad_records']: exit 1; failing ['test_22_creation_refuses_or_flags_bad_records']",
+    "create-allows-old ['TestCreation.test_22_creation_refuses_or_flags_bad_records']: exit 1; failing ['test_22_creation_refuses_or_flags_bad_records']"
+   ],
+   "id": "mutations",
+   "argv": "python -B <scratch>/mutate.py (disposable copies)",
+   "exit": 0,
+   "lines": [
+    "reverse-truncation-silent ['TestReverseBound.test_16_one_too_shallow_is_truncated_and_exactly_enough_is_complete']: exit 1; failing ['test_16_one_too_shallow_is_truncated_and_exactly_enough_is_complete']",
+    "reverse-cycle-not-marked ['TestReverseBound.test_17_shared_and_cycle_in_reverse']: exit 1; failing ['test_17_shared_and_cycle_in_reverse']",
+    "forward-limit-always ['TestReverseBound.test_18_forward_bound_ends_naturally_at_a_dependency_free_leaf']: exit 1; failing ['test_18_forward_bound_ends_naturally_at_a_dependency_free_leaf']",
+    "pair-length-ignored ['TestIdentityPairs.test_19_pairs_resolve_mismatch_differ_and_versions']: exit 1; failing ['test_19_pairs_resolve_mismatch_differ_and_versions']",
+    "identity-length-ignored ['TestIdentityPairs.test_20_impacted_and_identity_report_pair_contradictions']: exit 1; failing ['test_20_impacted_and_identity_report_pair_contradictions']",
+    "create-introduced-unchecked ['TestCreation.test_22_creation_refuses_or_flags_bad_records']: exit 1; failing ['test_22_creation_refuses_or_flags_bad_records']",
+    "create-accepts-supersedes ['TestCreation.test_22_creation_refuses_or_flags_bad_records']: exit 1; failing ['test_22_creation_refuses_or_flags_bad_records']",
+    "create-allows-old ['TestCreation.test_22_creation_refuses_or_flags_bad_records']: exit 1; failing ['test_22_creation_refuses_or_flags_bad_records']"
+   ],
+   "result": "8 of 8 caught"
+  },
+  {
+   "log": "demo1-stdout.txt",
+   "log_sha256": "25928f6acb58b2bb256d8211517ea930d01b62683ea74a804162f89b7b0cdb84",
+   "tail": [
+    "completion seam: change record omits the changed pin: exit 1 (expected 1)",
+    "all exits as expected: True",
+    "exit 0"
+   ],
+   "id": "demo1",
+   "argv": "python -B -X dev labs/module-dependencies-pass01/demo.py --snapshots <pack05.01/snapshots> --out <scratch>/demo1",
+   "exit": 0
+  },
+  {
+   "log": "final-test_depdecl-dev.txt",
+   "log_sha256": "4e84b5c947d93dc2471d2e7228dcd665a77fe5b6fa19060913f81dabfbe32fda",
+   "tail": [
+    "",
+    "OK",
+    "exit 0"
+   ],
+   "id": "final-test_depdecl-dev",
+   "argv": "python -B -X dev labs/module-dependencies-pass01/tests/test_depdecl.py",
+   "exit": 0,
+   "result": "final bytes"
+  },
+  {
+   "log": "final-test_depdecl-default.txt",
+   "log_sha256": "9cfe89920c693864912d0940ffcee2f0517103e144aac771f17ca7638c9c3a18",
+   "tail": [
+    "",
+    "OK",
+    "exit 0"
+   ],
+   "id": "final-test_depdecl-default",
+   "argv": "python -B labs/module-dependencies-pass01/tests/test_depdecl.py",
+   "exit": 0,
+   "result": "final bytes"
+  },
+  {
+   "log": "final-test_repair-dev.txt",
+   "log_sha256": "0303aa4ad7e702dd455e63526975cab629ae17b48300fe2977d8a63a683e10a1",
+   "tail": [
+    "",
+    "OK",
+    "exit 0"
+   ],
+   "id": "final-test_repair-dev",
+   "argv": "python -B -X dev labs/module-dependencies-pass01/tests/test_repair.py",
+   "exit": 0,
+   "result": "final bytes"
+  },
+  {
+   "log": "final-test_repair-default.txt",
+   "log_sha256": "129a4625a0575e62921e93d1bac69b2a4f54058ec5deacc3807c44965b3f661e",
+   "tail": [
+    "",
+    "OK",
+    "exit 0"
+   ],
+   "id": "final-test_repair-default",
+   "argv": "python -B labs/module-dependencies-pass01/tests/test_repair.py",
+   "exit": 0,
+   "result": "final bytes"
+  },
+  {
+   "log": "demo-final-stdout.txt",
+   "log_sha256": "25928f6acb58b2bb256d8211517ea930d01b62683ea74a804162f89b7b0cdb84",
+   "tail": [
+    "completion seam: change record omits the changed pin: exit 1 (expected 1)",
+    "all exits as expected: True",
+    "exit 0"
+   ],
+   "id": "demo-final",
+   "argv": "python -B -X dev labs/module-dependencies-pass01/demo.py --snapshots <pack05.01/snapshots> --out <scratch>/demo-final",
+   "exit": 0,
+   "steps": [
+    {
+     "step": "validate the prototype chain set",
+     "argv": [
+      "python",
+      "-B",
+      "labs/module-dependencies-pass01/depdecl.py",
+      "validate",
+      "--set",
+      "D:\\Git\\lib-build\\labs\\module-dependencies-pass01\\examples\\prime-cycle-chain\\set.json"
+     ],
+     "exit": 0,
+     "expected_exit": 0,
+     "stdout_sha256": "0d8a6212be2217df5bd51e77f89cff0c5140bfbef49a9648021656ac25defa32"
+    },
+    {
+     "step": "prime_cycle transitive requirements (caller: members-book applicable)",
+     "argv": [
+      "python",
+      "-B",
+      "labs/module-dependencies-pass01/depdecl.py",
+      "requires",
+      "--set",
+      "D:\\Git\\lib-build\\labs\\module-dependencies-pass01\\examples\\prime-cycle-chain\\set.json",
+      "--module",
+      "lib-build:labs/prime-cycle-pass01/prime_cycle.py",
+      "--transitive",
+      "--condition",
+      "members-book=applicable"
+     ],
+     "exit": 1,
+     "expected_exit": 1,
+     "stdout_sha256": "3ec2cd34659a0993d4e7d84b8ab51ec5b9e50cc93e7defe90fe03fb5b404c4d3"
+    },
+    {
+     "step": "prime_support with every condition stated inapplicable",
+     "argv": [
+      "python",
+      "-B",
+      "labs/module-dependencies-pass01/depdecl.py",
+      "requires",
+      "--set",
+      "D:\\Git\\lib-build\\labs\\module-dependencies-pass01\\examples\\prime-cycle-chain\\set.json",
+      "--module",
+      "lib-build:labs/prime-support-pass01/prime_support.py",
+      "--transitive",
+      "--condition",
+      "git-read=inapplicable",
+      "--condition",
+      "clerk-job=inapplicable"
+     ],
+     "exit": 1,
+     "expected_exit": 1,
+     "stdout_sha256": "b7d11ce46b9393a65b166f42157b5c6fb07d20d5b0ce0825afce4415f926151a"
+    },
+    {
+     "step": "explain prime_cycle -> clerk_adapter (shared dependency)",
+     "argv": [
+      "python",
+      "-B",
+      "labs/module-dependencies-pass01/depdecl.py",
+      "explain",
+      "--set",
+      "D:\\Git\\lib-build\\labs\\module-dependencies-pass01\\examples\\prime-cycle-chain\\set.json",
+      "--module",
+      "lib-build:labs/prime-cycle-pass01/prime_cycle.py",
+      "--to",
+      "lib-build:labs/prime-support-pass01/clerk_adapter.py"
+     ],
+     "exit": 1,
+     "expected_exit": 1,
+     "stdout_sha256": "8da2ac2912ef1bdf544a037b7b71410e2cb58f7e712609ca2c1db962655ab2a7"
+    },
+    {
+     "step": "record-missing root: prime_review has no declaration",
+     "argv": [
+      "python",
+      "-B",
+      "labs/module-dependencies-pass01/depdecl.py",
+      "requires",
+      "--set",
+      "D:\\Git\\lib-build\\labs\\module-dependencies-pass01\\examples\\prime-cycle-chain\\set.json",
+      "--module",
+      "lib-build:labs/prime-review-pass01/prime_review.py"
+     ],
+     "exit": 1,
+     "expected_exit": 1,
+     "stdout_sha256": "0f79e1b8e786c9efdb2dc6f2172b3f06b6c22702201e2a359ef3d46b9955fe58"
+    },
+    {
+     "step": "identity: four snapshot copies identical, SYNTHETIC copy changed",
+     "argv": [
+      "python",
+      "-B",
+      "labs/module-dependencies-pass01/depdecl.py",
+      "identity",
+      "--set",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\d1702\\demo-final\\disposable-set\\set.json"
+     ],
+     "exit": 1,
+     "expected_exit": 1,
+     "stdout_sha256": "e8fcb53cdcd8a217478f20ff718eb0859ff6dad67a47b60de98403419de8d46a"
+    },
+    {
+     "step": "reverse impact of the SYNTHETIC changed clerk_adapter",
+     "argv": [
+      "python",
+      "-B",
+      "labs/module-dependencies-pass01/depdecl.py",
+      "impacted",
+      "--set",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\d1702\\demo-final\\disposable-set\\set.json",
+      "--module",
+      "lib-build:labs/prime-support-pass01/clerk_adapter.py",
+      "--implementation",
+      "a8385a1d82c82e468712ca58aae0d28f7aadc5196fa9f61914d15668707b82d2"
+     ],
+     "exit": 1,
+     "expected_exit": 1,
+     "stdout_sha256": "9400624f352e2a483ba455bdefa4f2d4432f9f5ddf61448c5fc9cf335f73f0ad"
+    },
+    {
+     "step": "derived index into a new folder",
+     "argv": [
+      "python",
+      "-B",
+      "labs/module-dependencies-pass01/depdecl.py",
+      "index",
+      "--set",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\d1702\\demo-final\\disposable-set\\set.json",
+      "--out",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\d1702\\demo-final\\index"
+     ],
+     "exit": 0,
+     "expected_exit": 0,
+     "stdout_sha256": "f60ebfc4fb24747a77b96b2f953efb3b1953d3f9f8f5e668638dbdfdf645e5ce"
+    },
+    {
+     "step": "SYNTHETIC complete declared chain top -> mid -> leaf",
+     "argv": [
+      "python",
+      "-B",
+      "labs/module-dependencies-pass01/depdecl.py",
+      "requires",
+      "--set",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\d1702\\demo-final\\synthetic-set\\set.json",
+      "--module",
+      "lib-build:syn/top.py",
+      "--transitive"
+     ],
+     "exit": 0,
+     "expected_exit": 0,
+     "stdout_sha256": "817ddd5d5a147bac105748a5fc1e05b687d6951bc7882a17d35a95ec49da796f"
+    },
+    {
+     "step": "SYNTHETIC explicit dependency-free module",
+     "argv": [
+      "python",
+      "-B",
+      "labs/module-dependencies-pass01/depdecl.py",
+      "requires",
+      "--set",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\d1702\\demo-final\\synthetic-set\\set.json",
+      "--module",
+      "lib-build:syn/leaf.py"
+     ],
+     "exit": 0,
+     "expected_exit": 0,
+     "stdout_sha256": "53bd865a95596fe9a88519a0aef808b3076cdd0dec71b6fb7c870cc840a50c4e"
+    },
+    {
+     "step": "SYNTHETIC missing record ghost",
+     "argv": [
+      "python",
+      "-B",
+      "labs/module-dependencies-pass01/depdecl.py",
+      "requires",
+      "--set",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\d1702\\demo-final\\synthetic-set\\set.json",
+      "--module",
+      "lib-build:syn/orphan.py",
+      "--transitive"
+     ],
+     "exit": 1,
+     "expected_exit": 1,
+     "stdout_sha256": "7dff4b678c5dd9489f9da0ed2f3ecc422e11ef0f187254dcb9315dc332c2827e"
+    },
+    {
+     "step": "05.02 reverse bound one level too shallow: leaf <- mid <- top at depth 1 (truncated)",
+     "argv": [
+      "python",
+      "-B",
+      "labs/module-dependencies-pass01/depdecl.py",
+      "impacted",
+      "--set",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\d1702\\demo-final\\synthetic-set\\set.json",
+      "--module",
+      "lib-build:syn/leaf.py",
+      "--depth",
+      "1"
+     ],
+     "exit": 1,
+     "expected_exit": 1,
+     "stdout_sha256": "2db1d154b647eb33d539632dd4b42360063040cc2d2c6b5065f3249f87485ee8"
+    },
+    {
+     "step": "05.02 reverse bound exactly enough: depth 2 ends naturally",
+     "argv": [
+      "python",
+      "-B",
+      "labs/module-dependencies-pass01/depdecl.py",
+      "impacted",
+      "--set",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\d1702\\demo-final\\synthetic-set\\set.json",
+      "--module",
+      "lib-build:syn/leaf.py",
+      "--depth",
+      "2"
+     ],
+     "exit": 0,
+     "expected_exit": 0,
+     "stdout_sha256": "134d3f2a74d4786d18a31947fbcaf4bf6bf913d5f9cf1592a5af89151dbfcf84"
+    },
+    {
+     "step": "05.02 identity pair: right digest, length 999 against declared 4",
+     "argv": [
+      "python",
+      "-B",
+      "labs/module-dependencies-pass01/depdecl.py",
+      "requires",
+      "--set",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\d1702\\demo-final\\pair-set\\set.json",
+      "--module",
+      "lib-build:syn/pairpin.py"
+     ],
+     "exit": 1,
+     "expected_exit": 1,
+     "stdout_sha256": "6960988e51278c964adf16a5110ccbf966e45e5f02b2a56fcbf73c0c85afc67f"
+    },
+    {
+     "step": "05.02 new-module creation: no predecessor, every initial requirement introduced",
+     "argv": [
+      "python",
+      "-B",
+      "labs/module-dependencies-pass01/depdecl.py",
+      "delta",
+      "--create",
+      "--new",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\d1702\\demo-final\\create\\new.json",
+      "--change",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\d1702\\demo-final\\create\\change.json"
+     ],
+     "exit": 0,
+     "expected_exit": 0,
+     "stdout_sha256": "d8274baa66d858ddc99d74be8c38693dcd0b8ab59dba0ef316d5eb687852c00a"
+    },
+    {
+     "step": "05.02 creation refuses a supplied --old",
+     "argv": [
+      "python",
+      "-B",
+      "labs/module-dependencies-pass01/depdecl.py",
+      "delta",
+      "--create",
+      "--old",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\d1702\\demo-final\\create\\new.json",
+      "--new",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\d1702\\demo-final\\create\\new.json",
+      "--change",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\d1702\\demo-final\\create\\change.json"
+     ],
+     "exit": 2,
+     "expected_exit": 2,
+     "stdout_sha256": "b2531ca7c032ba4e184d1bd7295827f06e46c7fcdaafa97a4ea958ac3c92c89e"
+    },
+    {
+     "step": "completion seam: consistent change record (SYNTHETIC v2)",
+     "argv": [
+      "python",
+      "-B",
+      "labs/module-dependencies-pass01/depdecl.py",
+      "delta",
+      "--old",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\d1702\\demo-final\\completion-seam\\old.json",
+      "--new",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\d1702\\demo-final\\completion-seam\\new.json",
+      "--change",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\d1702\\demo-final\\completion-seam\\change.json"
+     ],
+     "exit": 0,
+     "expected_exit": 0,
+     "stdout_sha256": "d4e43f8a30841b84c0d2effda3104e1479792b4bad77b5f62b21bfaf69826d5f"
+    },
+    {
+     "step": "completion seam: change record omits the changed pin",
+     "argv": [
+      "python",
+      "-B",
+      "labs/module-dependencies-pass01/depdecl.py",
+      "delta",
+      "--old",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\d1702\\demo-final\\completion-seam\\old.json",
+      "--new",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\d1702\\demo-final\\completion-seam\\new.json",
+      "--change",
+      "C:\\Users\\misg\\AppData\\Local\\Temp\\claude\\D--Git-Librarian\\4140ea48-5474-4146-a868-fc4d4b12c29c\\scratchpad\\d1702\\demo-final\\completion-seam\\change-omits.json"
+     ],
+     "exit": 1,
+     "expected_exit": 1,
+     "stdout_sha256": "f66c4f6075c7ab6af6d7af12bce1cf0a65f04224e1606676a1499c967ecc9f31"
+    }
+   ]
+  },
+  {
+   "id": "repro-after",
+   "argv": "python -B <scratch>/repro.py labs/module-dependencies-pass01 <out>",
+   "exit": 0,
+   "tool_sha256": "be32e7be8b481d7439f9f884f3cc709841964c807c8274f68bed7a3ce12567f0",
+   "cases": {
+    "D-01 reverse depth 1 with A omitted": {
+     "exit": 1,
+     "consumers": [
+      "lib-build:lab/b.py"
+     ],
+     "finding_counts": {
+      "depth-limit": 1
+     }
+    },
+    "D-02 right digest, wrong length": {
+     "exit": 1,
+     "resolution": "identity-pair-mismatch",
+     "status": "incomplete",
+     "pin": {
+      "sha256": "628b49d96dcde97a430dd4f597705899e09a968f793491e4b704cae33a40dc02",
+      "bytes": 999
+     },
+     "declared_bytes": 1
+    },
+    "D-03 new module, no predecessor": {
+     "without --old": {
+      "exit": 2,
+      "stderr_tail": ""
+     },
+     "with the new file passed as --old (a fabricated predecessor)": {
+      "exit": 2,
+      "status": "refused: a revision needs change.old; for a new module use --create\n",
+      "findings": null
+     }
+    }
+   }
+  }
+ ],
+ "demo_all_exits_as_expected": true,
+ "skips": [],
+ "not_exercised": [
+  "symlink (as opposed to junction) set paths: privilege on this host"
+ ],
+ "final_hashes": [
+  "be32e7be8b481d7439f9f884f3cc709841964c807c8274f68bed7a3ce12567f0 *labs/module-dependencies-pass01/depdecl.py",
+  "48d1efd540c494f4152a9a1bf796f8fb3bace5451bd515f4fc4e21f9a18b549e *labs/module-dependencies-pass01/demo.py",
+  "3ee67ccddc9e3a82e83939ae5c92fa56fbecdc00df05f02cda78de83177f088b *labs/module-dependencies-pass01/README.md",
+  "da5357a3fc817fdefcab5e671dd82f29f71982ef604f1f4d8c1958ef51e71703 *labs/module-dependencies-pass01/tests/test_depdecl.py",
+  "c9ee00edea3bb3c11a2365e6e6883d7f26fb15631dc8b6aa58a0e57ca618465c *labs/module-dependencies-pass01/tests/test_repair.py",
+  "3608e926a027551b7971395b5e59ce5de6fc1ae96c0ab9d9323681f636b1954c *labs/module-dependencies-pass01/examples/prime-cycle-chain/set.json",
+  "8aba57daaecf1754046b5c6b997181ee57dfb93ba12f9c352f2230fa54a3e8b8 *labs/module-dependencies-pass01/examples/prime-cycle-chain/declarations/batch-observe.v1.json",
+  "51386b0bf55be382d65449867c07a69949348b02c9dfdca22cb7f6c330a34ea7 *labs/module-dependencies-pass01/examples/prime-cycle-chain/declarations/clerk-adapter.v1.json",
+  "ac6fa54d0a6204cd5a852569b057476e7f3143ef7c63ec10dfcf0c8e28b92421 *labs/module-dependencies-pass01/examples/prime-cycle-chain/declarations/prime-cycle.v1.json",
+  "83bc9489f6f33a7e89ba986bcbbd359140979d17cdb3aede87354b494179cda0 *labs/module-dependencies-pass01/examples/prime-cycle-chain/declarations/prime-support.v1.json",
+  "089a9cd7188d6c364a174ffdd7a8387ece36f5709964e01e9e3f52ba6b67edc9 *labs/module-dependencies-pass01/examples/prime-cycle-chain/declarations/prime-support.v2.json"
+ ],
+ "protected_status": {
+  "00.kernel/00.00.10.work/0517.dependencies/evidence/build05.01": "",
+  "00.kernel/00.00.10.work/0517.dependencies/evidence/prime-review05.01": "",
+  "00.kernel/00.00.10.work/0517.dependencies/06.01.md": "",
+  "00.kernel/00.00.10.work/0178.module-dependencies-prototype-0501": "",
+  "00.kernel/00.00.10.work/0316.dependencies": "",
+  "00.kernel/00.live.md": "",
+  "labs/module-dependencies-pass01/examples/prime-cycle-chain/declarations/prime-support.v1.json": ""
+ },
+ "staged": [],
+ "label": "Synthetic and prototype checks only; no model run, no completeness or acceptance claim"
+}

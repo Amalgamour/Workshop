@@ -1,0 +1,78 @@
+# Notes — dependency prototype repair (0517.dependencies 05.02)
+Date: 2026-10-31
+Recorder: claude-opus-5-5 (Anthropic), the executor this page names as "Claude"; the same continuing session that built 05.01
+State: written FIRST, before the delta contract and any code. 06.01, build05.01 and capture 0178 are not changed.
+
+## Inputs
+I01. **pack05.02:** 14 of 14 snapshots match their pins, equal their committed objects at e0b10a4, and equal live. The 05.01 lab is kept untouched outside the repository, for before/after evidence.
+I02. **Prime review 05.01:**
+- D-01: the reverse bound is silent.
+- D-02: pin length is ignored.
+- D-03: there is no creation route.
+- The README does not match the contract on "complete".
+- An unenforced import should be recorded as unpinned, not as a subject-enforced pin.
+- Keep module-local records and a derived index.
+- No new registry, no extra declarations to clear findings, no 0518 work.
+I03. **0316 01.002** (snapshot 0014): read for context only. Nothing in it changes this repair's scope.
+I04. **Reproduced on the 05.01 code** (repro-before, kept):
+- **D-01:** C ← B ← A, with `impacted C --depth 1`. Exit 0, consumers [B], no findings; A is silently omitted.
+- **D-02:** the target digest with length 999, against a declared 1, is `resolved`, `complete`, exit 0.
+- **D-03:** `delta` without `--old` is an argparse error (exit 2). Passing the new file as `--old` (a fabricated predecessor) gives supersedes, old and introduced mismatches.
+I05. **Other places a length or a depth matters:**
+- `identity` hashes the real fixture file, but never compares the declaration's `implementation.bytes` with the measured length.
+- `impacted --implementation` names a digest only.
+- `delta` compares `implementation` {sha256, bytes} exactly (already a pair).
+- The forward walk (`requires`) reports `depth-limit` even when the next module has nothing to expand, the same kind of fault in the other direction.
+- The example prime_support → clerk_adapter carries a pin that prime_support itself never enforces.
+
+## Choices
+C01. **D-01, the reverse bound.**
+- The reverse walk expands to `--depth`. At the last level, a consumer that itself has declared consumers not yet reached is recorded under `unexpanded`, and gives one `depth-limit` finding listing them.
+- A walk that ends naturally within the depth has no such finding.
+- A consumer reached twice is marked `shared`, and a consumer already on the path is marked `cycle`; neither is expanded again.
+- Status is `truncated` when any `depth-limit` exists. Exit 0 only with no findings.
+
+The forward walk gets the same correction: `depth-limit` only when the next module has requirements still unwalked.
+C02. **D-02, identity pairs.** A pin is the pair {sha256, bytes}. Target resolution matches the digest, then compares the length.
+- An equal digest with a different length gives resolution `identity-pair-mismatch`, a finding. It is not resolved and not traversed.
+- `impacted` compares each consumer pin with the target's declarations as a pair, and reports `pair-mismatch` the same way.
+- `identity` (which really measures fixture bytes) adds `declaration-length-wrong` when the measured length differs from a declaration with that digest.
+- The docs say which checks compare declarations with each other and which measured a file.
+- `impacted --implementation` stays digest-only; its result says so.
+C03. **D-03, creation.** `delta --create --new N --change C`: no `--old` is allowed, and `change.old` must be null. The new declaration must have `supersedes: null` and `version: 1`.
+- `introduced` must list every new requirement id, each with a reason; `changed` and `removed` must be empty.
+- An explicit `no_requirements` module with `introduced: []` is valid.
+- Hashes, implementation and `authorized_by` (a full address plus `#NN`) are checked as in revisions.
+- Without `--create`, `--old` is required as before, and `change.old` null there is refused.
+
+`module-change/1` is unchanged, because it already allowed `old: null`. Only the CLI gains `--create`.
+C04. **Pins mean subject-enforced bytes.** A requirement `pin` is the identity the requiring module itself checks before use.
+- An import or reference the module does not hash-check has `pin: null`, and its reason names the observed bytes as observation only.
+- Bytes chosen for a reproducible delivery belong to a later delivery selection, not to this record.
+- The example `prime-support` declaration gets a v2 with that correction. v1 stays on disk, not in the set.
+C05. **Docs.** `complete-for-declared-coverage` means the declared graph was answered with no blocking findings. It is not target-environment readiness, and `environment-unverified` findings stay visible in it.
+C06. **Scope.** Lab code, tests, docs and examples, plus this page and build05.02 evidence only. No 0516, no 0518, no new declarations for record-missing tools.
+
+## Disposition — 2026-10-31, claude-opus-5-5
+C01–C06 were built as written. Two implementation decisions are recorded in delta CONTRACT §7, rather than silently:
+- in `impacted`, a cycle revisit and a pair-mismatch row are findings;
+- revision `delta` validates the `--old` path before `change.old`.
+
+**Two existing 05.01 test expectations were changed deliberately** (marked in the test file):
+- test_15 now expects prime_support `unpinned`, following the example correction C04;
+- test_05's fixture declared length 1 for a 13-byte file, which the new pair check correctly calls `declaration-length-wrong`. The fixture length was corrected.
+
+**First-run failures, kept:**
+- run1 existing: 2 failures, both the expectation changes above;
+- run2 repair: an unorderable sort key in test_17 (a test bug), and `--old ""` refused by the change.old rule before the empty path was diagnosed (the order was fixed).
+
+**Results:**
+- 15 + 7 tests OK on the final bytes, in dev and default mode;
+- 8 of 8 repair mutations caught;
+- the demo's 18 steps all exited as expected;
+- the reproduction now gives truncated (exit 1) for D-01, identity-pair-mismatch for D-02, and refusals plus a working `--create` for D-03.
+
+**Not done:**
+- no 0516 or 0518 work;
+- no declarations for the record-missing tools;
+- no migration, acceptance selection or delivery adapter.

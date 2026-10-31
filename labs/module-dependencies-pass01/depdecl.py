@@ -6,7 +6,8 @@
   python -B depdecl.py impacted --set ABS --module REPO:PATH [--implementation SHA] [--depth N]
   python -B depdecl.py identity --set ABS
   python -B depdecl.py index    --set ABS --out ABS
-  python -B depdecl.py delta    --old ABS --new ABS --change ABS
+  python -B depdecl.py delta    --old ABS --new ABS --change ABS        (revision)
+  python -B depdecl.py delta    --create --new ABS --change ABS         (new module; no predecessor)
 
 Contract: 00.kernel/00.00.10.work/0517.dependencies/evidence/build05.01/CONTRACT.md. Reads a caller-supplied, hash-pinned set
 of module-local declarations and answers dependency questions from them. It never imports, executes or follows anything a
@@ -380,13 +381,19 @@ def resolve_target(S, req):
     rs = S["by_module"].get(mk, [])
     if not rs:
         return "record-missing", None, {"module": mk}
-    if req["pin"] is not None:
+    if req["pin"] is not None:  # a pin is the pair {sha256, bytes}; declarations are compared with each other, no file is measured
         hits = [r for r in rs if r["decl"]["implementation"]["sha256"] == req["pin"]["sha256"]]
-        if len(hits) == 1 and not hits[0]["conflict"]:
-            return "resolved", hits[0], None
         if not hits:
             return "pin-differs", None, {"pinned": req["pin"]["sha256"], "declared": sorted({r["decl"]["implementation"]["sha256"] for r in rs})}
-        return "identity-conflict", None, {"records": [r["file"] for r in hits]}
+        pairs = [r for r in hits if r["decl"]["implementation"]["bytes"] == req["pin"]["bytes"]]
+        if not pairs:
+            return "identity-pair-mismatch", None, {"pinned": req["pin"],
+                                                    "declared": [{"declaration": f"{r['decl']['declaration_id']} v{r['decl']['version']}",
+                                                                  "bytes": r["decl"]["implementation"]["bytes"]} for r in hits],
+                                                    "note": "declared identities disagree; no module file was measured"}
+        if len(pairs) == 1 and not pairs[0]["conflict"]:
+            return "resolved", pairs[0], None
+        return "identity-conflict", None, {"records": [r["file"] for r in pairs]}
     r, how = resolve_root(S, mk)
     if r is None:
         return how if how != "undeclared" else "record-missing", None, {"declared_versions": [summary(x) for x in rs]}
@@ -468,8 +475,12 @@ def walk(S, root, transitive, max_depth, overrides):
             if nxt["sha256"] in seen_nodes:
                 e["findings"].append({"finding": "shared", "first_reached_by": seen_nodes[nxt["sha256"]]})
                 continue
-            if depth + 1 >= max_depth:
-                e["findings"].append({"finding": "depth-limit", "max_depth": max_depth})
+            if depth + 1 >= max_depth:  # only a module with requirements left unwalked is a truncation (05.02 §4)
+                if nxt["decl"]["requirements"]:
+                    e["findings"].append({"finding": "depth-limit", "max_depth": max_depth, "unwalked": nk})
+                else:
+                    seen_nodes[nxt["sha256"]] = path + [nk]
+                    visited_records[nxt["sha256"]] = nxt
                 continue
             seen_nodes[nxt["sha256"]] = path + [nk]
             visited_records[nxt["sha256"]] = nxt
@@ -553,38 +564,50 @@ def cmd_impacted(S, module, implementation, depth):
             t = req["target"].get("module")
             if t:
                 reverse.setdefault(key(t), []).append((r, req))
-    out, frontier, seen = [], [(mk, [mk], 0)], {mk}
-    while frontier:
+    out, frontier, seen, unexpanded = [], [(mk, [mk], 0)], {mk}, []
+    while frontier:  # breadth-first to md levels; a consumer at the last level with consumers of its own is unexpanded, not absent
         tk, path, d = frontier.pop(0)
         for r, req in reverse.get(tk, []):
             ck = key(r["decl"]["module"])
-            pin = req["pin"]["sha256"] if req["pin"] else None
+            pin = req["pin"]
+            targets = [x for x in S["by_module"].get(tk, [])]
+            same = [x for x in targets if pin and x["decl"]["implementation"]["sha256"] == pin["sha256"]]
             row = {"consumer": ck, "consumer_declaration": summary(r), "requirement_id": req["id"], "requires": tk, "mechanism": req["mechanism"],
                    "kind": req["kind"], "pin": pin, "condition": req["condition"], "depth": d + 1, "path": path + [ck],
+                   "pin_vs_declarations": ("unpinned" if pin is None else "undeclared-bytes" if not same else
+                                           "matches-declared" if any(x["decl"]["implementation"]["bytes"] == pin["bytes"] for x in same) else "pair-mismatch"),
+                   "revisit": "cycle" if ck in path else ("shared" if ck in seen else None),
                    "provenance": r["decl"]["provenance"]}
             if d == 0 and implementation:
-                row["against_implementation"] = "unpinned" if pin is None else ("pin-matches" if pin == implementation else "pin-differs")
+                row["against_implementation"] = "unpinned" if pin is None else ("pin-matches" if pin["sha256"] == implementation else "pin-differs")
             elif d > 0:
                 row["against_implementation"] = "transitive: via " + tk
             out.append(row)
-            if ck in seen:
+            if row["revisit"]:
                 continue
             seen.add(ck)
             if d + 1 < md:
                 frontier.append((ck, path + [ck], d + 1))
+            elif reverse.get(ck):
+                unexpanded.append({"module": ck, "direct_declared_consumers": len(reverse[ck]), "path": path + [ck]})
     declared = [summary(x) for x in S["by_module"].get(mk, [])]
-    names = [f["finding"] for f in S["findings"]]
+    names = [f["finding"] for f in S["findings"]] + [f"{r['revisit']}" for r in out if r["revisit"] == "cycle"] + \
+            ["pair-mismatch" for r in out if r["pin_vs_declarations"] == "pair-mismatch"]
     if not declared:
         names.append("record-missing")
     if implementation and not any(x["implementation_sha256"] == implementation for x in declared):
         names.append("implementation-undeclared")
+    findings = [{"finding": "depth-limit", "max_depth": md, "unexpanded": unexpanded}] if unexpanded else []
+    names += [f["finding"] for f in findings]
     return {"schema": "module-dependency-result/1", "command": "impacted",
             "query": {"module": mk, "implementation": implementation, "max_depth": md},
+            "implementation_compared": "sha256 only",
             "set": {"path": S["path"], "sha256": S["sha256"], "set_id": S["set"]["set_id"], "coverage": S["set"]["coverage"], "records": len(S["records"])},
-            "target_declarations": declared, "consumers": out, "set_findings": S["findings"],
+            "target_declarations": declared, "consumers": out, "unexpanded": unexpanded, "findings": findings, "set_findings": S["findings"],
             "finding_counts": {n: names.count(n) for n in sorted(set(names))},
-            "status": "candidates-for-review",
-            "note": "Derived from declared edges in this set only. These are candidates for Prime review; nothing is upgraded, invalidated, retested or edited."}
+            "status": "truncated" if unexpanded else "candidates-for-review",
+            "note": ("Derived from declared edges in this set only. These are candidates for Prime review; nothing is upgraded, invalidated, retested "
+                     "or edited." + (" The walk stopped at max_depth with consumers left unexpanded: rerun with a larger --depth." if unexpanded else ""))}
 
 
 def cmd_identity(S):
@@ -592,9 +615,14 @@ def cmd_identity(S):
     for f in S["fixtures"]:
         mk = key(f["module"])
         decls = S["by_module"].get(mk, [])
-        same = [summary(r) for r in decls if r["decl"]["implementation"]["sha256"] == f["sha256"]]
-        rows.append({"module": mk, "file": f["file"], "sha256": f["sha256"], "bytes": f["bytes"],
-                     "result": "identical" if same else ("changed" if decls else "record-missing"), "matches": same,
+        digest = [r for r in decls if r["decl"]["implementation"]["sha256"] == f["sha256"]]
+        same = [summary(r) for r in digest if r["decl"]["implementation"]["bytes"] == f["bytes"]]
+        result = ("identical" if same else "declaration-length-wrong" if digest else "changed" if decls else "record-missing")
+        rows.append({"module": mk, "file": f["file"], "sha256": f["sha256"], "bytes": f["bytes"], "measured": True,
+                     "result": result, "matches": same,
+                     "length_contradicted_by": [{"declaration": f"{r['decl']['declaration_id']} v{r['decl']['version']}",
+                                                 "declared_bytes": r["decl"]["implementation"]["bytes"]} for r in digest if not
+                                                r["decl"]["implementation"]["bytes"] == f["bytes"]],
                      "declared_implementations": sorted({r["decl"]["implementation"]["sha256"] for r in decls})})
     names = [r["result"] for r in rows if r["result"] != "identical"] + [f["finding"] for f in S["findings"]]
     return {"schema": "module-dependency-result/1", "command": "identity", "set": {"path": S["path"], "sha256": S["sha256"]},
@@ -642,20 +670,27 @@ def write_file(p: Path, data: bytes) -> None:
         h.write(data)
 
 
-def cmd_delta(old_text, new_text, change_text):
+def cmd_delta(old_text, new_text, change_text, create=False):
     def load(t, where, check):
         p = abs_path(t, where)
         raw = read_file(p, CAPS["max_file_bytes"], where)
         d = strict_json(raw, where)
         check(d, where)
         return d, sha(raw)
-    old, old_sha = load(old_text, "--old", check_declaration)
+    if create:  # creation route (05.02 §5): no predecessor exists and none may be supplied
+        need(old_text is None, "--old cannot be used with --create: a new module has no predecessor")
+    else:
+        need(old_text is not None, "a revision needs --old; for a new module use --create")
     new, new_sha = load(new_text, "--new", check_declaration)
     ch, ch_sha = load(change_text, "--change", check_change)
     f = []
 
     def mismatch(what, detail):
         f.append({"finding": "change-mismatch", "what": what, "detail": detail})
+    if create:
+        return create_delta(new, new_sha, ch, ch_sha, new_text, change_text, f, mismatch)
+    old, old_sha = load(old_text, "--old", check_declaration)  # the predecessor path is validated before the record's claim about it
+    need(ch["old"] is not None, "a revision needs change.old; for a new module use --create")
     if key(old["module"]) != key(new["module"]) or key(ch["module"]) != key(new["module"]):
         mismatch("module", [key(old["module"]), key(new["module"]), key(ch["module"])])
     if new["supersedes"] != {"declaration_id": old["declaration_id"], "version": old["version"]}:
@@ -678,11 +713,40 @@ def cmd_delta(old_text, new_text, change_text):
     for x in ch["relationships"]["changed"]:
         if x["requirement_id"] in fields and sorted(x["fields"]) != fields[x["requirement_id"]]:
             mismatch(f"changed {x['requirement_id']} fields", {"computed": fields[x["requirement_id"]], "submitted": sorted(x["fields"])})
-    return {"schema": "module-dependency-result/1", "command": "delta",
+    return {"schema": "module-dependency-result/1", "command": "delta", "mode": "revise",
             "inputs": {"old": {"path": old_text, "sha256": old_sha}, "new": {"path": new_text, "sha256": new_sha}, "change": {"path": change_text, "sha256": ch_sha}},
             "computed": computed, "changed_fields": fields, "authorized_by": ch["authorized_by"], "evidence": ch["evidence"],
             "findings": f, "status": "consistent" if not f else "inconsistent",
             "prime_reviews": "whether the relationships are true and sufficient, the reasons and conditions, and readiness for reuse; compute checked identities and the declared delta only"}
+
+
+def create_delta(new, new_sha, ch, ch_sha, new_text, change_text, f, mismatch):
+    """A new module: every initial requirement is introduced with a reason; nothing is changed or removed."""
+    if ch["old"] is not None:
+        mismatch("old", {"submitted": ch["old"], "expected": None})
+    if new["supersedes"] is not None:
+        mismatch("supersedes", {"submitted": new["supersedes"], "expected": None})
+    if new["version"] != 1:
+        mismatch("version", {"submitted": new["version"], "expected": 1})
+    if key(ch["module"]) != key(new["module"]):
+        mismatch("module", [key(ch["module"]), key(new["module"])])
+    if (ch["new"]["declaration_id"], ch["new"]["version"], ch["new"]["sha256"]) != (new["declaration_id"], new["version"], new_sha):
+        mismatch("new", ch["new"])
+    if ch["implementation"] != {"sha256": new["implementation"]["sha256"], "bytes": new["implementation"]["bytes"]}:
+        mismatch("implementation", ch["implementation"])
+    ids = sorted(r["id"] for r in new["requirements"])
+    submitted = sorted(x["requirement_id"] for x in ch["relationships"]["introduced"])
+    if ids != submitted:
+        mismatch("relationships.introduced", {"computed": ids, "submitted": submitted})
+    for k in ("changed", "removed"):
+        if ch["relationships"][k]:
+            mismatch(f"relationships.{k}", {"submitted": ch["relationships"][k], "expected": []})
+    return {"schema": "module-dependency-result/1", "command": "delta", "mode": "create",
+            "inputs": {"old": None, "new": {"path": new_text, "sha256": new_sha}, "change": {"path": change_text, "sha256": ch_sha}},
+            "computed": {"introduced": ids, "removed": [], "changed": []}, "changed_fields": {},
+            "dependency_free": new["no_requirements"], "authorized_by": ch["authorized_by"], "evidence": ch["evidence"],
+            "findings": f, "status": "consistent" if not f else "inconsistent",
+            "prime_reviews": "whether the initial relationships are true and sufficient, the reasons and conditions, and readiness for reuse; compute checked identities and the declared creation only"}
 
 
 def check_change(c, where):
@@ -740,12 +804,14 @@ def main(argv=None) -> int:
         if name == "index":
             p.add_argument("--out", required=True)
     d = sub.add_parser("delta")
-    for k in ("--old", "--new", "--change"):
-        d.add_argument(k, required=True)
+    d.add_argument("--old")
+    d.add_argument("--new", required=True)
+    d.add_argument("--change", required=True)
+    d.add_argument("--create", action="store_true")
     a = ap.parse_args(argv)
     try:
         if a.command == "delta":
-            r = cmd_delta(a.old, a.new, a.change)
+            r = cmd_delta(a.old, a.new, a.change, a.create)
             return emit(r, None, 0 if r["status"] == "consistent" else 1)
         S = load_set(a.set)
         if a.command == "validate":

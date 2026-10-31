@@ -1,0 +1,198 @@
+{
+ "schema": "module-dependencies-sample/2",
+ "label": "PROTOTYPE: one actual observed query result from the repaired depdecl.py over the prototype prime-cycle-chain set (four declarations, prime-support v2); known coverage only",
+ "argv": [
+  "python",
+  "-B",
+  "labs/module-dependencies-pass01/depdecl.py",
+  "impacted",
+  "--set",
+  "D:/Git/lib-build/labs/module-dependencies-pass01/examples/prime-cycle-chain/set.json",
+  "--module",
+  "lib-build:labs/prime-support-pass01/clerk_adapter.py",
+  "--depth",
+  "1"
+ ],
+ "exit": 1,
+ "stdout_sha256": "aa892e357bf0f9d8199eec7da185906e4220dbfc3e7d27443cbf0b0c1187dfdc",
+ "shows": "D-01 on real declarations: at depth 1 the walk reaches batch_observe (pin matches declared, as a pair) and prime_support (unpinned, v2); both have declared consumers of their own (prime_cycle; batch_observe), so both are listed under unexpanded, status truncated, exit 1",
+ "result": {
+  "command": "impacted",
+  "consumers": [
+   {
+    "condition": {
+     "applies": "always",
+     "id": null,
+     "statement": null,
+     "status": "applicable"
+    },
+    "consumer": "lib-build:labs/batch-observation-pass01/batch_observe.py",
+    "consumer_declaration": {
+     "declaration_id": "batch-observe",
+     "file": "declarations/batch-observe.v1.json",
+     "implementation_sha256": "8bea18171b723650e8c0b07f5de334d2c5fd004c5d65c4fa8c4b85cf0bc830d4",
+     "record_sha256": "8aba57daaecf1754046b5c6b997181ee57dfb93ba12f9c352f2230fa54a3e8b8",
+     "status": "prototype",
+     "version": 1
+    },
+    "depth": 1,
+    "kind": "runtime-code",
+    "mechanism": "hash-check",
+    "path": [
+     "lib-build:labs/prime-support-pass01/clerk_adapter.py",
+     "lib-build:labs/batch-observation-pass01/batch_observe.py"
+    ],
+    "pin": {
+     "bytes": 11774,
+     "sha256": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4"
+    },
+    "pin_vs_declarations": "matches-declared",
+    "provenance": {
+     "links": [],
+     "unknown": [
+      "no construction workflow page for labs/batch-observation-pass01 is in the supplied frozen references; commit history was not used as provenance"
+     ]
+    },
+    "requirement_id": "clerk-adapter",
+    "requires": "lib-build:labs/prime-support-pass01/clerk_adapter.py",
+    "revisit": null
+   },
+   {
+    "condition": {
+     "applies": "always",
+     "id": null,
+     "statement": null,
+     "status": "applicable"
+    },
+    "consumer": "lib-build:labs/prime-support-pass01/prime_support.py",
+    "consumer_declaration": {
+     "declaration_id": "prime-support",
+     "file": "declarations/prime-support.v2.json",
+     "implementation_sha256": "700d60d2e49c186d49e56a9a38058e21a722b4a5dd79d461453a305e8d904f70",
+     "record_sha256": "089a9cd7188d6c364a174ffdd7a8387ece36f5709964e01e9e3f52ba6b67edc9",
+     "status": "prototype",
+     "version": 2
+    },
+    "depth": 1,
+    "kind": "runtime-code",
+    "mechanism": "import",
+    "path": [
+     "lib-build:labs/prime-support-pass01/clerk_adapter.py",
+     "lib-build:labs/prime-support-pass01/prime_support.py"
+    ],
+    "pin": null,
+    "pin_vs_declarations": "unpinned",
+    "provenance": {
+     "links": [
+      {
+       "address": {
+        "book": "00.00.10.work",
+        "face_or_pass": "05.02",
+        "file": "05.02.md",
+        "page": "0507.prime-support",
+        "repository": "lib-build"
+       },
+       "commit": null,
+       "note": "named by the module docstring; not verified here",
+       "role": "source-stated",
+       "sha256": null,
+       "status": "unpinned"
+      },
+      {
+       "address": {
+        "book": "00.00.10.work",
+        "face_or_pass": "05.02",
+        "file": "evidence/build05.02/DESIGN.002.md",
+        "page": "0507.prime-support",
+        "repository": "lib-build"
+       },
+       "commit": null,
+       "note": "contract named by the docstring; not verified here",
+       "role": "source-stated",
+       "sha256": null,
+       "status": "unpinned"
+      }
+     ],
+     "unknown": [
+      "the 0507 return and review for these bytes are not in the supplied references"
+     ]
+    },
+    "requirement_id": "clerk-adapter",
+    "requires": "lib-build:labs/prime-support-pass01/clerk_adapter.py",
+    "revisit": null
+   }
+  ],
+  "finding_counts": {
+   "depth-limit": 1
+  },
+  "findings": [
+   {
+    "finding": "depth-limit",
+    "max_depth": 1,
+    "unexpanded": [
+     {
+      "direct_declared_consumers": 1,
+      "module": "lib-build:labs/batch-observation-pass01/batch_observe.py",
+      "path": [
+       "lib-build:labs/prime-support-pass01/clerk_adapter.py",
+       "lib-build:labs/batch-observation-pass01/batch_observe.py"
+      ]
+     },
+     {
+      "direct_declared_consumers": 1,
+      "module": "lib-build:labs/prime-support-pass01/prime_support.py",
+      "path": [
+       "lib-build:labs/prime-support-pass01/clerk_adapter.py",
+       "lib-build:labs/prime-support-pass01/prime_support.py"
+      ]
+     }
+    ]
+   }
+  ],
+  "implementation_compared": "sha256 only",
+  "note": "Derived from declared edges in this set only. These are candidates for Prime review; nothing is upgraded, invalidated, retested or edited. The walk stopped at max_depth with consumers left unexpanded: rerun with a larger --depth.",
+  "query": {
+   "implementation": null,
+   "max_depth": 1,
+   "module": "lib-build:labs/prime-support-pass01/clerk_adapter.py"
+  },
+  "schema": "module-dependency-result/1",
+  "set": {
+   "coverage": "PROTOTYPE: four declarations for the prime-cycle entry, its batch reader and the parser/adapter chain, at f0ccb90. No records for prime_review, review_packet, return_inspect, return_capture or the Clerk tool: those stay record-missing. 05.02: prime-support v2 (unenforced import recorded unpinned) replaces v1 in the set; v1 is kept on disk as history.",
+   "path": "D:\\Git\\lib-build\\labs\\module-dependencies-pass01\\examples\\prime-cycle-chain\\set.json",
+   "records": 4,
+   "set_id": "prime-cycle-chain-proto-2",
+   "sha256": "3608e926a027551b7971395b5e59ce5de6fc1ae96c0ab9d9323681f636b1954c"
+  },
+  "set_findings": [],
+  "status": "truncated",
+  "target_declarations": [
+   {
+    "declaration_id": "clerk-adapter",
+    "file": "declarations/clerk-adapter.v1.json",
+    "implementation_sha256": "2f30ba751f78ec9f7d2995739bebde0e3b6509eeab35ae29a9078385ff33f8d4",
+    "record_sha256": "51386b0bf55be382d65449867c07a69949348b02c9dfdca22cb7f6c330a34ea7",
+    "status": "prototype",
+    "version": 1
+   }
+  ],
+  "unexpanded": [
+   {
+    "direct_declared_consumers": 1,
+    "module": "lib-build:labs/batch-observation-pass01/batch_observe.py",
+    "path": [
+     "lib-build:labs/prime-support-pass01/clerk_adapter.py",
+     "lib-build:labs/batch-observation-pass01/batch_observe.py"
+    ]
+   },
+   {
+    "direct_declared_consumers": 1,
+    "module": "lib-build:labs/prime-support-pass01/prime_support.py",
+    "path": [
+     "lib-build:labs/prime-support-pass01/clerk_adapter.py",
+     "lib-build:labs/prime-support-pass01/prime_support.py"
+    ]
+   }
+  ]
+ }
+}

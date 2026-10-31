@@ -101,6 +101,40 @@ def main():
     run("SYNTHETIC complete declared chain top -> mid -> leaf", "requires", "--set", syn / "set.json", "--module", "lib-build:syn/top.py", "--transitive", expect=0)
     run("SYNTHETIC explicit dependency-free module", "requires", "--set", syn / "set.json", "--module", "lib-build:syn/leaf.py", expect=0)
     run("SYNTHETIC missing record ghost", "requires", "--set", syn / "set.json", "--module", "lib-build:syn/orphan.py", "--transitive", expect=1)
+    run("05.02 reverse bound one level too shallow: leaf <- mid <- top at depth 1 (truncated)", "impacted", "--set", syn / "set.json",
+        "--module", "lib-build:syn/leaf.py", "--depth", "1", expect=1)
+    run("05.02 reverse bound exactly enough: depth 2 ends naturally", "impacted", "--set", syn / "set.json", "--module", "lib-build:syn/leaf.py",
+        "--depth", "2", expect=0)
+    pair = out / "pair-set"
+    (pair / "d").mkdir(parents=True)
+    leaf_b = (syn / "d" / "leaf.json").read_bytes()
+    (pair / "d" / "leaf.json").write_bytes(leaf_b)
+    bad = base("pairpin", "syn/pairpin.py", [dict(r("leaf", "syn/leaf.py"), pin={"sha256": sha(b"leaf"), "bytes": 999})])
+    bad_b = (json.dumps(bad, indent=1) + "\n").encode()
+    (pair / "d" / "pairpin.json").write_bytes(bad_b)
+    (pair / "set.json").write_text(json.dumps({"schema": "module-declaration-set/1", "set_id": "synthetic-pair", "coverage": "SYNTHETIC pair-mismatch set",
+                                               "declarations": [{"file": "d/leaf.json", "sha256": sha(leaf_b)}, {"file": "d/pairpin.json", "sha256": sha(bad_b)}],
+                                               "fixtures": [], "select": [],
+                                               "bounds": {"max_records": 10, "max_file_bytes": 65536, "max_depth": 8, "max_output_bytes": 262144}}, indent=1))
+    run("05.02 identity pair: right digest, length 999 against declared 4", "requires", "--set", pair / "set.json", "--module", "lib-build:syn/pairpin.py",
+        expect=1)
+    create = out / "create"
+    create.mkdir()
+    fresh = base("fresh", "syn/fresh.py", [r("leaf", "syn/leaf.py")])
+    fresh_b = (json.dumps(fresh, indent=1) + "\n").encode()
+    (create / "new.json").write_bytes(fresh_b)
+    (create / "change.json").write_text(json.dumps({
+        "schema": "module-change/1", "module": {"repository": "lib-build", "path": "syn/fresh.py"},
+        "authorized_by": {"address": {"repository": "lib-build", "book": "00.00.10.work", "page": "0599.synthetic", "face_or_pass": "05.02",
+                                      "file": "05.02.md"}, "item": "#03"},
+        "old": None, "new": {"declaration_id": "fresh", "version": 1, "sha256": sha(fresh_b)},
+        "implementation": {"sha256": fresh["implementation"]["sha256"], "bytes": fresh["implementation"]["bytes"]},
+        "evidence": [{"role": "test", "address": None, "sha256": None, "note": "SYNTHETIC"}],
+        "relationships": {"introduced": [{"requirement_id": "leaf", "reason": "SYNTHETIC initial requirement"}], "changed": [], "removed": []}}, indent=1))
+    run("05.02 new-module creation: no predecessor, every initial requirement introduced", "delta", "--create", "--new", create / "new.json",
+        "--change", create / "change.json", expect=0)
+    run("05.02 creation refuses a supplied --old", "delta", "--create", "--old", create / "new.json", "--new", create / "new.json",
+        "--change", create / "change.json", expect=2)
     seam = out / "completion-seam"  # worked example of CONTRACT §8; every new identity below is SYNTHETIC
     seam.mkdir()
     old_b = (CHAIN / "declarations" / "batch-observe.v1.json").read_bytes()

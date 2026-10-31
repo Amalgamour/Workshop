@@ -147,6 +147,7 @@ class TestVersionsAndChange(Desk):
         a1 = decl("a", "lab/a.py", zero=True, impl=H("bytes-1"))
         b = decl("b", "lab/b.py", [req("a", "lab/a.py", pin=H("bytes-1"))])
         a2 = decl("a", "lab/a.py", zero=True, version=2, impl=hashlib.sha256(b"changed bytes").hexdigest(), supersedes={"declaration_id": "a", "version": 1})
+        a2["implementation"]["bytes"] = len(b"changed bytes")  # 05.02: identity compares the measured pair; 05.01 fixture declared 1
         s = self.write_set([a2, b], fixtures=[("lib-build:lab/a.py".split(":")[1], b"changed bytes"), ("lab/a.py", b"unknown bytes")])
         code, r = self.cli("requires", "--set", s, "--module", "lib-build:lab/b.py")
         e = r["requirements"][0]
@@ -359,7 +360,7 @@ class TestRealChain(Desk):
                              "--implementation", hashlib.sha256(b"SYNTHETIC changed clerk_adapter").hexdigest())
         got = sorted((c["consumer"].split("/")[-1], c["against_implementation"].split(":")[0]) for c in imp["consumers"])
         self.assertEqual(got, [("batch_observe.py", "pin-differs"), ("batch_observe.py", "transitive"), ("prime_cycle.py", "transitive"),
-                               ("prime_support.py", "pin-differs")])
+                               ("prime_support.py", "unpinned")])  # 05.02: prime-support v2 records its unenforced import as unpinned
         self.assertEqual({p: p.read_bytes() for p in CHAIN.parent.rglob("*") if p.is_file()}, before)
         self.assertNotIn("import subprocess", TOOL.read_text(encoding="utf-8"))  # the tool cannot launch what it reads
 
