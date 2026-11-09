@@ -361,41 +361,57 @@ The model proposes keywords for a card and hands them to the compute, which stor
 
 ## C8. Dictionary and brands
 
-Source: `brands.md`. Status: C8.1-C8.5 settled; C8.6-C8.8 proposed.
+Source: `brands.md`. Status: C8.1-C8.5 settled; C8.6-C8.9 proposed.
 
 ### C8.1 Brands
-A word can carry several meanings. Each meaning is a **brand**: `word.NNN`. A brand records:
-- its surface forms (case-sensitive): `ham`; `Ham, Hammie, hammie`; `HAM`
-- what it states: "user's favourite food, usually a sandwich"
-- the card that explains it: `10.10.11.1014.01.ham`
-
-A user's explained meaning of a word is recorded as a brand, so models never fall back on an average meaning.
+A word can carry several meanings. Each meaning is a **brand**, `word.NNN`, backed by a **brand card**. A user's explained meaning of a word is recorded as a brand, so models never fall back on an average meaning.
 
 ### C8.2 Addressing: a word after a face is a card
-A word after a container is a title (A2.1); a word after a face is a card key. `10.10.11.1014.01.ham` is card `ham` on face 01 of page 1014. Tail words stay reserved, so they never collide with card keys. A 3-digit group can only be a brand number: `...ham.002`.
+A word after a container is a title (A2.1); a word after a face is a card key. `10.10.11.1014.01.ham` is card `ham` on face 01 of page 1014. Tail words stay reserved, so they never collide with card keys. A 3-digit group can only be a brand number: `ham.002`.
 
-### C8.3 The dictionary is page 0012, face 03, counted
-- `0012.03.00` is the menu: which section holds which words.
-- `0012.03.NN` are the sections, split by alphabet range.
-- Card titles from face 01 are entered as dictionary words with a brand pointing back to their card (C3.1).
+### C8.3 The dictionary is only an index
+The dictionary (page 0012, face 03, counted) maps a word to its brand cards and nothing more:
 
-### C8.4 Local first
-Each book keeps its own dictionary. The kernel supplies a small base dictionary that books inherit. When a book's terms need another book's meanings, its dictionary page links to that book (for example another book on the shelf) through face 08.
+```
+ham.001 -> 10.10.11.1014.01.ham
+ham.002 -> 10.10.11.1026.01.ham
+ham.003 -> 10.10.11.1145.01.ham
+```
 
-### C8.5 Brand numbers
-`000` and `999` are sentinels, reserved and unused. Brands run 001-998; a word normally has a handful.
+`0012.03.00` is the menu of sections. Brand numbers are never reused or renumbered.
 
-### C8.6 References skip the section counter (proposed)
-Sections get re-split as the dictionary grows, so a word's section number can change. A reference to a word or brand therefore omits the counter: `10.10.11.0012.03.ham.002`. The compute resolves it through the menu `03.00`. Links never break when sections are re-split.
+### C8.4 Brand cards carry the meaning and the meters
+A brand card is titled with the word and lives on the face 01 of the page that explains it. It holds:
+- the surface forms it covers (case-sensitive): `Ham, Hammie, hammie`
+- what it means: "user's friend from work"
+- **meters:** the top 5 words found with it, and how often each appears when this meaning is used. For `ham.001`: sandwich 100%, lunch 95%, hungry 75%, eat 50%, meal 43%.
 
-### C8.7 Usage is derived, not written (proposed)
-Each time a model resolves a word to a brand, the compute records that event. Counts and last use are derived from those events, never edited into the dictionary. The dictionary holds only authored content: forms, statement, card, context words, default. It does not churn with every conversation, and it stays readable by a person.
+To resolve a word, the compute finds it in the dictionary, reads each brand card, and compares the sentence against the meters.
+
+### C8.5 Local first; brand number sentinels
+Each book keeps its own dictionary. The kernel supplies a small base dictionary that books inherit. Linking dictionaries to other books (source books) is a later design issue. Brand numbers `000` and `999` are reserved and unused; brands run 001-998.
+
+### C8.6 One fixed alphabet layout (proposed)
+Sections are never re-split. The layout is the same from the kernel out:
+
+| Section | Holds |
+|---|---|
+| `03.00` | menu |
+| `03.01-03.09` | reserved (for example words starting with digits or symbols) |
+| `03.10-03.35` | A-Z, one letter each |
+
+Because the dictionary is only an index, even a busy letter stays small, so one section per letter does not overflow.
+
+### C8.7 Meters are derived (proposed)
+Each time a model resolves a word, the compute records the event and the sentence's words. The meters on a brand card are calculated from those events and kept up to date by the compute. They are shown on the card, readable by a person, but never written by hand and exempt from drafting (D0). The rest of the card is authored and drafted normally.
 
 ### C8.8 Resolving a word (proposed)
-Each brand lists **context words** (for `ham.001`: sandwich, lunch). Each word names a **default** brand. To resolve a word:
-1. Context words in the sentence match one brand: use it.
-2. No match: use the brand last used in this session.
-3. None used yet: use the word's default.
+1. The sentence's words match one brand's meters clearly: use it.
+2. No clear match: use the brand last used in this session.
+3. None used yet: use the word's default, marked in the dictionary entry.
 4. No default: ask the user.
 
-Any assumption is stated back ("ham, taken as ham.001, the sandwich") so the user can correct it. A correction is recorded and can add context words.
+Any assumption is stated back ("ham, taken as ham.001, the sandwich") so the user can correct it. A correction is recorded as an event and updates the meters.
+
+### C8.9 Card types (proposed)
+A brand card follows its own template, as a page follows its page type (C1.4). Card types are defined in the kernel the same way page types are, and carry their own rules, for example whether a 04 card is required (C3.1).
