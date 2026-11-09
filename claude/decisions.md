@@ -240,14 +240,14 @@ Each pointer's **direct** links (A5.2, A5.3) are the source of truth. An ancesto
 
 ## A6. Capacity, namespace and kernel
 
-Status: settled, except band expansion in A6.1, which conflicts with A2.6.
+Status: settled.
 
 ### A6.1 Overflow
 **Counters.** When `FF.98` exists, `FF.99` points to the same face on the **next free page in the same band**. Counting restarts at `01` there, and that page's `FF.00` board links back (A5.3). Old counters never move.
 
 **Bands.** When a band has no free page, it continues: `PP99` points to the next free hundred, which becomes the continuation band. Example: band `1000` is full and the first free hundred is `2100`, so `1099` points to `2100`.
 
-Open: expanding a band in place (`1000-1099` growing to `1000-1199` when `1100` is free) conflicts with A2.6. A2.6 fixes every band at 100 pages, makes every `xx00` a band head, and links sets across bands by matching `N` and `NN`. With expansion, `1100` would no longer be a head, and finding bands would mean reading each head's width.
+Bands never grow in place; they always continue through `PP99`. This keeps A2.6 intact: fixed 100-page bands, every `xx00` a head, and sets linked by number. Items in a continuation band (for example `2123`) do not line up by number with their set in other bands, so they link to their set explicitly in face 08.
 
 ### A6.2 One namespace per repository
 Each repository is its own address space. Desk `10` in one repository is unrelated to desk `10` in another.
