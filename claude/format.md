@@ -116,7 +116,7 @@ Anything the compute cannot resolve goes to the user and is never guessed: unkno
 
 ---
 
-## 5. Language — proposed
+## 5. Language — decided
 
 | Part | Language | Why |
 |---|---|---|
@@ -130,7 +130,7 @@ Why Rust for the core:
 - **The rules become types.** Tail states and addresses are types, so illegal transitions and malformed addresses cannot be constructed.
 - **It suits a file format.** Exact layouts are precise and fast to read and write.
 
-Alternative: TypeScript for everything. Faster to start, and one language with the app, but weaker typing at runtime and a likely rewrite of the core later. Choose it only for a throwaway MVP.
+Set aside: TypeScript for everything. Faster to start, and one language with the app, but weaker typing at runtime and a likely rewrite of the core later.
 
 ---
 
