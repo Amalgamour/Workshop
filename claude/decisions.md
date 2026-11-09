@@ -132,3 +132,42 @@ Books follow the kernel template live; they do not copy it at creation. Anything
 2. Pages 0001-0999 may have a title; their number is already their name. Page 0000 has none (it holds the book's title in its stamp).
 3. A title in a written address is optional. If written, it is checked against the stamp. A mismatch (`4442.timer` when the stamp says `clock`) is elevated to the user.
 4. Tail words can never be titles (A2.5).
+
+---
+
+## A3. Where container titles live
+
+Status: settled.
+
+### A3.1 Every container is identified by a page 0000
+Each desk, shelf and book has an identity page. Its stamp holds the container's title.
+
+| Container | Identity page |
+|---|---|
+| Book `10.11.21` | `10.11.21.0000` |
+| Shelf `10.11` | `10.11.00.0000` |
+| Desk `10` | `10.00.00.0000` |
+
+### A3.2 Titles in addresses are checked labels
+A title written in a container address (`10.11.21.tools`) is checked against the identity page's stamp. A mismatch is elevated to the user (A2.8).
+
+---
+
+## A4. Meaning of 00 and 99
+
+Status: A4.1 settled; face and counter axes open.
+
+### A4.1 00 means "the owner of the level above, itself"
+One rule for every container axis:
+
+| Address | Meaning |
+|---|---|
+| `DD.00.00` | the desk's own book (identity, law, overrides) |
+| `DD.00.BB` | a desk book: owned by the desk, no shelf |
+| `DD.SS.00` | the shelf's own book |
+| `DD.SS.BB.0000` | the book's own page |
+
+Consequences:
+- The A1.8 lookup uses real books: book `10.11.21`, then shelf `10.11.00`, then desk `10.00.00`, then kernel. An inherited page such as `0020` lives at `10.11.00.0020` or `10.00.00.0020`.
+- A container's state uses page tails (A2.5): `10.00.00.0000.retired` retires the desk.
+- Shelf 00 and book 00 are never ordinary shelves or books.
