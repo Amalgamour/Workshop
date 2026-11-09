@@ -268,7 +268,7 @@ Every repository contains its own kernel (desk 00). Kernel branches (desks 01-09
 
 ## C1. Which faces a page needs
 
-Status: C1.1-C1.3 settled; C1.4 (page types) open.
+Status: settled, except the pointer/index split in C1.4.
 
 ### C1.1 Face 00 plus one content face
 A page is valid when it has face 00 and at least one of faces 01-06 or 08. Face 07 is not active and does not count. A page with only an identity has no reason to exist.
@@ -279,8 +279,26 @@ A draft face (`04.draft`, `05.01.draft`) counts toward C1.1 and may exist on any
 ### C1.3 Retiring the last face retires the page
 If the last content face is retired, the page is retired with it. The compute then updates every derived path that referred to it: boards, contents lists, ancestor lists and incoming links (A5.4).
 
-### C1.4 Page types (open)
-Page number alone is not enough to say what a page is for. A system page must not behave like a general page or a coding page. A page type is a property of the page that rules attach to. Design to follow.
+### C1.4 Page types
+Page number alone is not enough to say what a page is for. A page type is a property that rules attach to.
+
+- **`type` is a field in the page stamp** (face 00).
+- **Starting types:** `system`, `general`, `code`, `workflow`, `band`, `pointer`.
+- **Defined in the kernel.** Each type is a card on a kernel structural page (0050-0099), marked `owner: kernel-only`, so no book can redefine it. Live inheritance applies.
+- **Rules a type can carry:** required or forbidden faces, page ranges it may live in, who may write it, whether drafting (D0) is required.
+- **Default:** the page stamp's type, else the default set by the page's band head, else `general`.
+- **Changing a type** goes through drafting and review like any other change.
+
+Open: `pointer` covers contents, dictionary and concordance pages. Do continuation pages (`99`, `9999`, `PP99`) share that type, or get their own?
+
+## C2. Cards
+
+Status: settled.
+
+- A card is a `##` heading in a face's Markdown.
+- Its key is the heading in title form: `Retry Policy` -> `retry-policy`.
+- Keys are unique within a face. Cards with the same key on different faces are the same card.
+- A face's contents list is derived from its cards, never written by hand.
 
 ---
 
