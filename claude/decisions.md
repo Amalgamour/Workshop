@@ -263,3 +263,49 @@ Example branch: SoF (Science of Fiction), a space for building a book using RPG 
 
 ### A6.4 The kernel lives in each repository
 Every repository contains its own kernel (desk 00). Kernel branches (desks 01-09) are downloaded into the repository as needed.
+
+---
+
+## C1. Which faces a page needs
+
+Status: C1.1-C1.3 settled; C1.4 (page types) open.
+
+### C1.1 Face 00 plus one content face
+A page is valid when it has face 00 and at least one of faces 01-06 or 08. Face 07 is not active and does not count. A page with only an identity has no reason to exist.
+
+### C1.2 Draft faces count and are allowed anywhere
+A draft face (`04.draft`, `05.01.draft`) counts toward C1.1 and may exist on any page, live or draft. A brand-new page may start with only drafts.
+
+### C1.3 Retiring the last face retires the page
+If the last content face is retired, the page is retired with it. The compute then updates every derived path that referred to it: boards, contents lists, ancestor lists and incoming links (A5.4).
+
+### C1.4 Page types (open)
+Page number alone is not enough to say what a page is for. A system page must not behave like a general page or a coding page. A page type is a property of the page that rules attach to. Design to follow.
+
+---
+
+## D0. Drafting: never rewrite from memory
+
+Status: principle settled (from `drafting.md`); mechanism proposed. Belongs to section D.
+
+A model must not rewrite a face from memory. Every change goes through a draft that starts as a copy and is changed one note at a time:
+
+1. Copy the existing face to `FF.draft`.
+2. Add notes from memory to the draft. Notes, not edits.
+3. Check for additional sources and add notes from them.
+4. Merge the notes one at a time, striking each as it is merged. Record overflow and unprompted ideas as new notes.
+5. Read the whole face again and write notes again. A full view is needed to write well.
+6. Merge and strike those notes.
+7. Read again. If there are no more notes, hand back for review.
+
+Proposed: the compute enforces this through its operations, so a face cannot be replaced from memory:
+
+| Op | Effect |
+|---|---|
+| `copy` | the compute copies the current seated face to `FF.draft`. The writer supplies no body. |
+| `note` | add one note to a draft |
+| `merge` | apply one change to the draft body, citing the note it comes from; that note is struck |
+| `promote` | after review, the draft replaces the seated face |
+
+- A full-body `put` is allowed only to create a new face, never to replace an existing one.
+- Every change to a draft traces back to a note, and review can check that every note is struck.
