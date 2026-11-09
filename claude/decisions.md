@@ -356,3 +356,46 @@ A card title (its `##` heading) is also stored in the dictionary (C8).
 
 ### C3.3 Keywords are brands
 The model proposes keywords for a card and hands them to the compute, which stores each one in the dictionary with what it states. If a matching meaning already exists, it is reused. See C8.
+
+---
+
+## C8. Dictionary and brands
+
+Source: `brands.md`. Status: C8.1-C8.5 settled; C8.6-C8.8 proposed.
+
+### C8.1 Brands
+A word can carry several meanings. Each meaning is a **brand**: `word.NNN`. A brand records:
+- its surface forms (case-sensitive): `ham`; `Ham, Hammie, hammie`; `HAM`
+- what it states: "user's favourite food, usually a sandwich"
+- the card that explains it: `10.10.11.1014.01.ham`
+
+A user's explained meaning of a word is recorded as a brand, so models never fall back on an average meaning.
+
+### C8.2 Addressing: a word after a face is a card
+A word after a container is a title (A2.1); a word after a face is a card key. `10.10.11.1014.01.ham` is card `ham` on face 01 of page 1014. Tail words stay reserved, so they never collide with card keys. A 3-digit group can only be a brand number: `...ham.002`.
+
+### C8.3 The dictionary is page 0012, face 03, counted
+- `0012.03.00` is the menu: which section holds which words.
+- `0012.03.NN` are the sections, split by alphabet range.
+- Card titles from face 01 are entered as dictionary words with a brand pointing back to their card (C3.1).
+
+### C8.4 Local first
+Each book keeps its own dictionary. The kernel supplies a small base dictionary that books inherit. When a book's terms need another book's meanings, its dictionary page links to that book (for example another book on the shelf) through face 08.
+
+### C8.5 Brand numbers
+`000` and `999` are sentinels, reserved and unused. Brands run 001-998; a word normally has a handful.
+
+### C8.6 References skip the section counter (proposed)
+Sections get re-split as the dictionary grows, so a word's section number can change. A reference to a word or brand therefore omits the counter: `10.10.11.0012.03.ham.002`. The compute resolves it through the menu `03.00`. Links never break when sections are re-split.
+
+### C8.7 Usage is derived, not written (proposed)
+Each time a model resolves a word to a brand, the compute records that event. Counts and last use are derived from those events, never edited into the dictionary. The dictionary holds only authored content: forms, statement, card, context words, default. It does not churn with every conversation, and it stays readable by a person.
+
+### C8.8 Resolving a word (proposed)
+Each brand lists **context words** (for `ham.001`: sandwich, lunch). Each word names a **default** brand. To resolve a word:
+1. Context words in the sentence match one brand: use it.
+2. No match: use the brand last used in this session.
+3. None used yet: use the word's default.
+4. No default: ask the user.
+
+Any assumption is stated back ("ham, taken as ham.001, the sandwich") so the user can correct it. A correction is recorded and can add context words.
