@@ -66,7 +66,7 @@ Users may write short form. Models always write the full address. When a user wr
 Status: settled.
 
 ### A2.1 Position decides
-A word after DD, SS, BB or PPPP is a title. A word after FF or NN is a tail. Faces never have titles.
+A word after DD, SS, BB or PPPP is a title. A word after FF or NN is a tail if it is a tail word, otherwise a card key (amended by C8.2). Faces never have titles.
 
 ### A2.2 Faces carry no title
 A face is written `PPPP.FF` or `PPPP.FF.NN`. `2423.05.01` is page 2423, face 05 (tasks), counter 01: one task. "Go to 2423.05.01 and run it" is unambiguous.
@@ -195,7 +195,7 @@ A counted face's `00` lists every counter and its current tail, like a kanban bo
 
 - A face is counted **if and only if `FF.00` exists**. The board's presence is the check.
 - A counter `FF.NN` without `FF.00` is invalid.
-- A counted face is never seated. Plain `FF` on a counted face means `FF.00`.
+- A counted face is never seated. Plain `FF` on a counted face means `FF.00`. The seated address `DD.SS.BB.PPPP.FF` applies only to faces without counters.
 - Faces 05 (tasks) and 06 (notes) are always counted. Other faces may be counted on certain page types, for example 03 or 04 on a contents or dictionary page.
 
 ### A4.5 `FF.99` is the counter continuation
