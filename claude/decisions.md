@@ -155,7 +155,7 @@ A title written in a container address (`10.11.21.tools`) is checked against the
 
 ## A4. Meaning of 00 and 99
 
-Status: A4.1 settled; face and counter axes open.
+Status: settled.
 
 ### A4.1 00 means "the owner of the level above, itself"
 One rule for every container axis:
@@ -171,3 +171,35 @@ Consequences:
 - The A1.8 lookup uses real books: book `10.11.21`, then shelf `10.11.00`, then desk `10.00.00`, then kernel. An inherited page such as `0020` lives at `10.11.00.0020` or `10.00.00.0020`.
 - A container's state uses page tails (A2.5): `10.00.00.0000.retired` retires the desk.
 - Shelf 00 and book 00 are never ordinary shelves or books.
+
+### A4.2 Face 00 is the page's identity
+`PPPP.00` holds the page's stamp: address, title, state. Faces carry no stamp of their own; the page stamp is stored once.
+
+### A4.3 Face ranges
+| Faces | Use |
+|---|---|
+| `00` | page identity (A4.2) |
+| `01-09` | system faces (01-08 defined, 07 reserved, 09 unassigned) |
+| `10-98` | not used in this design; reserved for later customization |
+| `99` | reserved |
+
+### A4.4 `FF.00` is the board of a counted face
+A counted face's `00` lists every counter and its current tail, like a kanban board:
+
+```
+1523.05.00   board for build tasks
+  05.01  closed
+  05.02  review
+  05.03  open
+```
+
+- A face is counted **if and only if `FF.00` exists**. The board's presence is the check.
+- A counter `FF.NN` without `FF.00` is invalid.
+- A counted face is never seated. Plain `FF` on a counted face means `FF.00`.
+- Faces 05 (tasks) and 06 (notes) are always counted. Other faces may be counted on certain page types, for example 03 or 04 on a contents or dictionary page.
+
+### A4.5 `FF.99` is the counter continuation
+`FF.99` is required only once `FF.98` exists. Its contents are defined in A6.
+
+### A4.6 Missing is a valid state
+Absence carries meaning and is not an error: no `FF.00` means the face is not counted, no `FF.99` means no continuation, no `9999` means the book does not continue.
