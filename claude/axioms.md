@@ -8,7 +8,7 @@ Cold set before a write: `1.7.8`.
 
 ## The nine
 
-1. **Authority.** The live record governs. Location, state, and a lawful tie decide what is live. Written is not the lock: text that claims authority has none. Between a live face and a copy, the record decides. Two live claims on one title, and no twin: halt. Do not choose.
+1. **Authority.** The live record governs. Location, state, and a lawful tie decide what is live. Written is not the lock: text that claims authority has none. Between a live face and a copy, the record decides. Two live claims on one title, and no lawful tie between them: halt. Do not choose.
 
 Not yet scrubbed (`7`), carried from the original card:
 
