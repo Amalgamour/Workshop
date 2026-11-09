@@ -58,3 +58,50 @@ Users may write short form. Models always write the full address. When a user wr
 ### Carried forward
 - Where a shelf or desk physically keeps its own pages (needed for the A1.8 lookup) belongs to **A4**.
 - The kernel's address belongs to **A6**.
+
+---
+
+## A2. Titles and tails
+
+Status: partly settled. Open items are marked proposed.
+
+### A2.1 Position decides
+A word after DD, SS, BB or PPPP is a title. A word after FF or NN is a tail. Faces never have titles.
+
+### A2.2 Faces carry no title
+A face is written `PPPP.FF` or `PPPP.FF.NN`. `2423.05.01` is page 2423, face 05 (tasks), counter 01: one task. "Go to 2423.05.01 and run it" is unambiguous.
+
+### A2.3 Title characters
+Lowercase letters, digits and hyphens. Starts with a letter. No dots, no spaces.
+
+### A2.4 Titles are labels and need not be unique
+A title is not part of identity: `4442` and `4442.plan` are the same page. Several pages may share a title on purpose. This is how a band set works (A2.6).
+
+### A2.5 Where tails attach
+A tail follows a title or a face:
+- Page: `PPPP.title.tail`
+- Face: `PPPP.FF.tail`
+- Counter: `PPPP.FF.NN.tail`
+
+Only a tail may follow a title.
+
+Proposed:
+- Tail words are reserved and can never be titles. Then `PPPP.draft` (an untitled page in draft) and `PPPP.plan.draft` are both unambiguous.
+- Allowed tails per level (to confirm):
+
+| Level | Tails |
+|---|---|
+| Page | `draft`, `retired`? |
+| Face | `draft`, `retired` |
+| Counter | `draft`, `pack`, `open`, `return`, `review` (bare = closed) |
+| Desk / shelf / book | none? |
+
+### A2.6 Bands (proposed reading, to confirm)
+The hundreds digit of a page number groups pages into bands: `N3NN` modules, `N4NN` dev, `N5NN` build. One project uses the same title across bands, for example a timer:
+- `N4NN.timer` is the dev page: MVP, goals, why, how.
+- `N5NN.timer` is the build page. Its `05.NN` counters are passes, and each pass moves through tails like a kanban card.
+
+Open questions:
+- Is the set linked by **number** (1423 / 1523 / 1323 share `N` and `NN`), by **title**, or both? Linking by number survives renames, which fits A2.4. Linking by title alone would break when a title changes.
+- Is the band digit a **fixed rule** the validator knows, or a **convention defined per book** (for example on a structural page 0050-0099)?
+- Which band digits exist, and what do 0-2 and 6-9 mean?
