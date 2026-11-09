@@ -63,7 +63,7 @@ Users may write short form. Models always write the full address. When a user wr
 
 ## A2. Titles and tails
 
-Status: settled, except A2.9 (live inheritance), which is proposed.
+Status: settled.
 
 ### A2.1 Position decides
 A word after DD, SS, BB or PPPP is a title. A word after FF or NN is a tail. Faces never have titles.
@@ -124,7 +124,8 @@ The kernel is the template for `0000-0999` in every book, including what each ba
 
 `1000` is the head of the first user band, which is why the first open page is `1001`.
 
-Open (A2.9): does a book follow kernel template changes live, or get a copy at creation? Proposed: live inheritance, through the A1.8 lookup, because local overrides in `0001-0099` assume it.
+### A2.9 Live inheritance
+Books follow the kernel template live; they do not copy it at creation. Anything a book does not override is found through the A1.8 lookup (book -> shelf -> desk -> kernel), so a kernel change reaches every book that has not overridden it.
 
 ### A2.8 Which pages need a title
 1. Pages 1000 and up must have a title, stored in the stamp.
