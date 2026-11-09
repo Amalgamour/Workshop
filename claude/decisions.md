@@ -373,18 +373,22 @@ Status: order and levels settled; precedence between levels proposed. Source: ax
 ### C5.1 The order
 A person holds authority and grants it on. Compute enforces it. A model works within it. The live record keeps it. Authority is granted, never claimed.
 
-### C5.2 Levels follow the faces
-| Level | Who | Reaches |
+### C5.2 User levels
+| Level | User type | Reaches |
 |---|---|---|
-| `00` | developer | every face, including identity |
-| `01` | lower developer | from the law face on |
-| `02`, `03` | holders of desk or shelf authority; a model or a user | additional states (to define) |
-| `04` | magic user | face 04 only; compute and the model do the rest |
+| `00` | internal authorised admin | the kernel. The kernel is small and nearly untouchable, which is why it is `00`. |
+| `01` | power user | can modify up to desk level |
+| `02` | weaker form, to define | less than `01` |
+| `03` | weaker than `02`, more than `04` | to define |
+| `04` | basic user | sees face 04 only; compute and the model do the rest |
+| `05-09` | specialist | to define |
+
+Like user accounts in an operating system: a few basic types, linked to `00-09`.
 
 ### C5.2a Authority is scoped to the environment
 A level is held within an environment, and the same holder can hold different levels in different places: a magic user may hold `01` in an isolated book and only `04` everywhere else. Authority runs desk > shelf > book. A grant reaches down from where it is attached, never up or sideways: `01` in a book cannot override its shelf, its desk, or another book.
 
-Open: what exactly `02` and `03` grant.
+Open: what exactly `02`, `03` and `05-09` grant.
 
 ### C5.3 Halts rise up the order
 Two live claims with no lawful connection halt and go to whoever holds more authority. A magic user can resolve one, with compute and the model laying out the choice.
