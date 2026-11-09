@@ -63,7 +63,7 @@ Users may write short form. Models always write the full address. When a user wr
 
 ## A2. Titles and tails
 
-Status: partly settled. Open items are marked proposed.
+Status: settled, except A2.9 (live inheritance), which is proposed.
 
 ### A2.1 Position decides
 A word after DD, SS, BB or PPPP is a title. A word after FF or NN is a tail. Faces never have titles.
@@ -87,27 +87,47 @@ Only a tail may follow a title.
 
 Tail words are reserved and can never be titles. `PPPP.draft` and `PPPP.plan.draft` both mean page PPPP in draft.
 
-Proposed, allowed tails per level (to confirm):
+Allowed tails per level:
 
 | Level | Tails |
 |---|---|
-| Page | `draft`, `retired`? |
+| Page | `draft`, `retired` |
 | Face | `draft`, `retired` |
 | Counter | `draft`, `pack`, `open`, `return`, `review` (bare = closed) |
-| Desk / shelf / book | none? |
+| Desk / shelf / book | none |
 
-### A2.6 Bands (proposed reading, to confirm)
-The hundreds digit of a page number groups pages into bands: `N3NN` modules, `N4NN` dev, `N5NN` build. One project uses the same title across bands, for example a timer:
-- `N4NN.timer` is the dev page: MVP, goals, why, how.
-- `N5NN.timer` is the build page. Its `05.NN` counters are passes, and each pass moves through tails like a kanban card.
+Workflow state lives only on counters. A container takes its state from its sentinel page: `10.11.21.0000.retired` retires the book, `10.11.21.0000.draft` is a book still being set up.
 
-Open questions:
-- Is the set linked by **number** (1423 / 1523 / 1323 share `N` and `NN`), by **title**, or both? Linking by number survives renames, which fits A2.4. Linking by title alone would break when a title changes.
-- Is the band digit a **fixed rule** the validator knows, or a **convention defined per book** (for example on a structural page 0050-0099)?
-- Which band digits exist, and what do 0-2 and 6-9 mean?
+### A2.6 Bands
+A page number reads as `NDNN`. `D` (the second digit) is the band.
 
-### A2.7 Which pages need a title
-1. Pages 1001 and up must have a title, stored in the stamp.
+```
+0 4 23
+N D NN     D = 4 = dev band, NN = 23 = item in the band
+```
+
+- **Fixed width.** Every band is exactly 100 pages, `PP00` to `PP99`.
+- **Head by number.** Every page at or above 0100 ending in `00` is a band head. It holds the band's definition and contents. No marker or tail is needed: listing pages that end in `00` finds every band.
+- **`PP99` is continuation.** A band that outgrows 100 pages points to its continuation from `PP99`, as page 9999 does for a book. This mirrors the axis sentinels: `00` start, `99` end.
+- **Sets across bands are linked by number.** Pages with the same `N` and `NN` in different bands are one set: `0423.timer` (dev) and `0523.timer` (build). Titles should match; a mismatch is elevated to the user (A2.8).
+
+### A2.7 Book page layout
+The kernel is the template for `0000-0999` in every book, including what each band digit means there.
+
+| Range | What it is |
+|---|---|
+| `0000` | book identity (sentinel) |
+| `0001-0099` | reserved; a page here is a local override of the inherited environment |
+| `0100-0999` | standard bands modelled by the kernel (`0100` ... `0900`) |
+| `1000-9998` | user space; users design their own bands (`1000` ... `9800`) |
+| `9999` | continuation (sentinel) |
+
+`1000` is the head of the first user band, which is why the first open page is `1001`.
+
+Open (A2.9): does a book follow kernel template changes live, or get a copy at creation? Proposed: live inheritance, through the A1.8 lookup, because local overrides in `0001-0099` assume it.
+
+### A2.8 Which pages need a title
+1. Pages 1000 and up must have a title, stored in the stamp.
 2. Pages 0001-0999 may have a title; their number is already their name. Page 0000 has none (it holds the book's title in its stamp).
 3. A title in a written address is optional. If written, it is checked against the stamp. A mismatch (`4442.timer` when the stamp says `clock`) is elevated to the user.
 4. Tail words can never be titles (A2.5).
