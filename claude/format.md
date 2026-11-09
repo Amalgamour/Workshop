@@ -12,7 +12,7 @@ Each choice is marked **decided** (agreed) or **proposed** (recommended, awaitin
 A page is not a flat document. It is one object with several faces, and each face is a view of that object for a different reader: agents, compute, users. seqAddr is the coordinate system for every part of it: page, face, counter, tail.
 
 ### 1.2 The compute holds the books — decided
-One process, **the compute**, owns the books.
+One process, **the compute**, owns the books. There is **one compute per repository**, and it owns every book in it, including the kernel. This matches one namespace per repository (A6.2), and the A1.8 lookup never leaves the process.
 - **Reads are open.** Anyone may read any face.
 - **Writes are proposals.** Writers submit a write to the compute's queue. The compute validates it against seqAddr's rules and approves or rejects it.
 - **Only the compute writes to disk.** Agents, users and the app never touch book files.
@@ -136,7 +136,6 @@ Set aside: TypeScript for everything. Faster to start, and one language with the
 
 ## 6. Open
 
-- **How many computes:** one per repository (simplest, matches A6.2), or one per desk so desks can run on different machines.
 - **How clients talk to the compute:** HTTP, MCP, or both.
 - **Fork reconciliation:** how the compute merges two copies of a book that were edited apart.
 - **Snapshot and archive policy:** when to snapshot, and when to move old entries out.
