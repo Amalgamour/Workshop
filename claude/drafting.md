@@ -11,10 +11,11 @@ A model must never rewrite a face from memory. A rewrite from memory silently dr
 1. Copy the existing face to `FF.draft`.
 2. Add notes from memory to the draft. Notes, not edits.
 3. Check for additional sources. Add notes from them.
-4. Merge the notes one at a time, striking each as it is merged. Record overflow and unprompted ideas as new notes.
-5. Read the whole face again and write notes again. A full view is needed to write well.
-6. Merge and strike those notes.
-7. Read again. If there are no more notes, hand back for review.
+4. Merge the notes one at a time, striking each as it is merged.
+5. Record overflow and unprompted ideas as new notes. Once all notes are merged, go on.
+6. Read the whole face again and write notes again. A full view is needed to write well.
+7. Merge and strike those notes.
+8. Read again. If there are no more notes, hand back for review.
 
 A brand-new face has nothing to copy. It starts as an empty draft and still goes through notes and merges.
 
@@ -25,8 +26,8 @@ The compute only accepts changes to an existing face through these operations, s
 | Op | Step | Effect |
 |---|---|---|
 | `copy` | 1 | the compute copies the seated face to `FF.draft`; the writer sends no body |
-| `note` | 2, 3, 5 | add one note to the draft |
-| `merge` | 4, 6 | apply one change to the draft, citing its note; the note is struck |
+| `note` | 2, 3, 5, 6 | add one note to the draft |
+| `merge` | 4, 7 | apply one change to the draft, citing its note; the note is struck |
 | `promote` | after review | the draft replaces the seated face |
 
 - `put` (a full body) is allowed only to create a new face, never to replace one.

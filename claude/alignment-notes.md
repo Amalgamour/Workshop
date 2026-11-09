@@ -47,7 +47,7 @@ Root `brands.md`, `drafting.md`, `Design.md` and `seqAddr.md` are the user's sou
 
 ## Root files check (`D:\Git\Workshop`)
 
-These are the user's files. They are checked here and not edited.
+These are the user's files. They are checked here and not edited. Aligned copies were made beside them: `seqAddr.002.md` (`.001` was already taken by the older draft), `brands.001.md`, `drafting.001.md`, `Design.001.md`, `agents.002.md`.
 
 | File | State | Out of line with |
 |---|---|---|

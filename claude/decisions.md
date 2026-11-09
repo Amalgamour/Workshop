@@ -311,10 +311,11 @@ A model must not rewrite a face from memory. Every change goes through a draft t
 1. Copy the existing face to `FF.draft`.
 2. Add notes from memory to the draft. Notes, not edits.
 3. Check for additional sources and add notes from them.
-4. Merge the notes one at a time, striking each as it is merged. Record overflow and unprompted ideas as new notes.
-5. Read the whole face again and write notes again. A full view is needed to write well.
-6. Merge and strike those notes.
-7. Read again. If there are no more notes, hand back for review.
+4. Merge the notes one at a time, striking each as it is merged.
+5. Record overflow and unprompted ideas as new notes. Once all notes are merged, go on.
+6. Read the whole face again and write notes again. A full view is needed to write well.
+7. Merge and strike those notes.
+8. Read again. If there are no more notes, hand back for review.
 
 Proposed: the compute enforces this through its operations, so a face cannot be replaced from memory:
 
