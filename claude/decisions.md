@@ -85,9 +85,9 @@ A tail follows a title or a face:
 
 Only a tail may follow a title.
 
-Proposed:
-- Tail words are reserved and can never be titles. Then `PPPP.draft` (an untitled page in draft) and `PPPP.plan.draft` are both unambiguous.
-- Allowed tails per level (to confirm):
+Tail words are reserved and can never be titles. `PPPP.draft` and `PPPP.plan.draft` both mean page PPPP in draft.
+
+Proposed, allowed tails per level (to confirm):
 
 | Level | Tails |
 |---|---|
@@ -105,3 +105,9 @@ Open questions:
 - Is the set linked by **number** (1423 / 1523 / 1323 share `N` and `NN`), by **title**, or both? Linking by number survives renames, which fits A2.4. Linking by title alone would break when a title changes.
 - Is the band digit a **fixed rule** the validator knows, or a **convention defined per book** (for example on a structural page 0050-0099)?
 - Which band digits exist, and what do 0-2 and 6-9 mean?
+
+### A2.7 Which pages need a title
+1. Pages 1001 and up must have a title, stored in the stamp.
+2. Pages 0001-0999 may have a title; their number is already their name. Page 0000 has none (it holds the book's title in its stamp).
+3. A title in a written address is optional. If written, it is checked against the stamp. A mismatch (`4442.timer` when the stamp says `clock`) is elevated to the user.
+4. Tail words can never be titles (A2.5).
