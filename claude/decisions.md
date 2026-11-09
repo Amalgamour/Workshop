@@ -327,3 +327,32 @@ Proposed: the compute enforces this through its operations, so a face cannot be 
 
 - A full-body `put` is allowed only to create a new face, never to replace an existing one.
 - Every change to a draft traces back to a note, and review can check that every note is struck.
+
+---
+
+## C3. Face 04 is a full explanation, not a mirror
+
+Status: C3.1-C3.2 settled; C3.3 depends on brands (C8).
+
+### C3.1 Shape of a 04 card
+Every card on face 01 or 02 has a matching 04 card with the same key:
+
+```
+## Job
+source: [01 / Job], [02 / Job]
+why: Routing should reduce reading without replacing the source.
+<full explanation, written for a person>
+```
+
+A card title (its `##` heading) is also stored in the dictionary (C8).
+
+### C3.2 Hard rules and findings
+| Check | Kind |
+|---|---|
+| Every 01/02 card key has a 04 card | hard: the compute rejects the write |
+| That 04 card has a `why:` line and a body | hard |
+| The 04 body is not identical to the 01 body | finding: flagged for review |
+| The 01 card's keywords appear in the 04 card | finding |
+
+### C3.3 Keywords are brands
+The model proposes keywords for a card and hands them to the compute, which stores each one in the dictionary with what it states. If a matching meaning already exists, it is reused. See C8.
