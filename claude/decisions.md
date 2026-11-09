@@ -378,9 +378,13 @@ A person holds authority and grants it on. Compute enforces it. A model works wi
 |---|---|---|
 | `00` | developer | every face, including identity |
 | `01` | lower developer | from the law face on |
+| `02`, `03` | holders of desk or shelf authority; a model or a user | additional states (to define) |
 | `04` | magic user | face 04 only; compute and the model do the rest |
 
-Open: what `02` and `03` mean, and whether a level is granted per desk, book or page.
+### C5.2a Authority is scoped to the environment
+A level is held within an environment, and the same holder can hold different levels in different places: a magic user may hold `01` in an isolated book and only `04` everywhere else. Authority runs desk > shelf > book. A grant reaches down from where it is attached, never up or sideways: `01` in a book cannot override its shelf, its desk, or another book.
+
+Open: what exactly `02` and `03` grant.
 
 ### C5.3 Halts rise up the order
 Two live claims with no lawful connection halt and go to whoever holds more authority. A magic user can resolve one, with compute and the model laying out the choice.
