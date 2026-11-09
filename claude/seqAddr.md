@@ -1,6 +1,6 @@
 # Sequence Address (seqAddr)
 
-Reworked from `../seqAddr.md` with the decisions in `decisions.md` (A1-A6). Section numbers in brackets point to the decision behind each rule.
+Reworked from `../seqAddr.md` with the decisions in `decisions.md` (A1-A6, C1-C8). The book file is in `format.md`, brands in `brands.md`, drafting in `drafting.md`, and the system overview in `design.md`. Section numbers in brackets point to the decision behind each rule.
 
 ## What it is
 
@@ -108,6 +108,7 @@ The first match wins. Books follow the kernel live: anything not overridden loca
 ## 3. Titles [A2]
 
 - A word after `DD`, `SS`, `BB` or `PPPP` is a title. Faces never have titles: a face is `PPPP.FF` or `PPPP.FF.NN`. [A2.1, A2.2]
+- A word after a face is a **card key**, not a title: `10.10.11.1014.01.ham` is card `ham` on face 01. A 3-digit group after a card is a brand number: `ham.002`. [C8.2]
 - Characters: lowercase letters, digits, hyphens. Starts with a letter. No dots or spaces. [A2.3]
 - Tail words are reserved and are never titles. [A2.5]
 - A title is a label, not identity. `4442` and `4442.timer` are the same page, and several pages may share a title. [A2.4]
@@ -158,14 +159,40 @@ Workflow state lives only on counters.
 | `10-98` | reserved | for later customization |
 | `99` | reserved | |
 
-### 5.2 Face content
-- **Contents:** a viewable list of the face's cards.
-- **Cards:** like kanban cards. A title that can be referenced to find and retrieve one piece of information, with details as the body.
-- **Cross-face links:** cards link across faces by title. A face 01 card that needs a schema, format or template has it on face 02.
-- **Face 04 mirrors 01 and 02:** every card on face 01 and 02 has a section on face 04 with its why and a full readable explanation. Face 04 also records the user's own ideas, which need no counterpart on 01 or 02. Most user-created pages have only face 04.
-- **Face 06 notes** record which model wrote them, what they reference, when, and why.
+### 5.2 Which faces a page needs [C1]
+- A page needs face 00 and at least one of faces 01-06 or 08. Face 07 does not count.
+- Draft faces count and are allowed on any page. A new page may start with only drafts.
+- Retiring the last content face retires the page, and the compute updates every derived path to it.
 
-### 5.3 Counted faces [A4.4, A4.5]
+### 5.3 Cards [C2, C8.9]
+- A card is a `##` heading. Its key is the heading in title form (`Retry Policy` -> `retry-policy`), unique within a face. The same key on two faces is the same card.
+- Field lines (`name: value`) follow the heading, then a blank line, then the body.
+- A face's contents list is derived from its cards.
+- Every card has a **card type**, given by a `type:` field or by the face's default (`rule` on 01, `schema` on 02, `menu` on 03, `why` on 04, `task` on 05, `note` on 06, `link` on 08). Card types are defined in the kernel.
+
+### 5.4 Face 04 is a full explanation [C3]
+Every 01 or 02 card has a 04 card with the same key, written for a person:
+
+```
+## Job
+source: [01 / Job], [02 / Job]
+why: Routing should reduce reading without replacing the source.
+<full explanation>
+```
+
+- Hard (the compute rejects the write): the 04 card exists, and has a `why:` line and a body.
+- Findings (flagged for review): the 04 body copies the 01 body; the 01 card's keywords (its brands) are missing from the 04 card.
+- User pages are mostly 04. A 04 section may have a 01 card, a brief of how a model should understand it, and a 02 card only when it describes a task process. [C6]
+
+### 5.5 Face 03 [C6]
+Face 03 is used mainly in the kernel and desk books. In a normal book it is allowed on the reserved pages (0001-0099), such as the dictionary.
+
+### 5.6 Page types [C1.4]
+- `type` is a field in the page stamp (face 00): `system`, `general`, `code`, `workflow`, `band`, `pointer`.
+- Defined in the kernel, `owner: kernel-only`, inherited live. A type carries rules: required or forbidden faces, allowed page ranges, who may write, whether drafting applies.
+- Default: the stamp's type, else the band head's default, else `general`. Changing a type goes through drafting and review.
+
+### 5.7 Counted faces [A4.4, A4.5]
 - A face is counted if and only if `FF.00` exists. `FF.00` is the board: every counter and its current tail.
 - A counter without a board is invalid.
 - A counted face is never seated. Plain `FF` on a counted face means `FF.00`.
@@ -198,6 +225,8 @@ The kernel is the template for `0000-0999` in every book.
 | `9999` | book continuation |
 
 A page in `0001-0099` that exists in a book is a local override of the inherited environment.
+
+The dictionary is page `0012`, face 03, counted: an index from each word to its brand cards, in a fixed layout of sections (`brands.md`). [C8]
 
 ### 6.1 Bands [A2.6]
 A page number reads as `NDNN`. `D`, the second digit, is the band.
@@ -238,7 +267,7 @@ page-addr  = [ ancestors "." ] page [ "." page-end ]
 ancestors  = book / shelf "." book / desk "." shelf "." book
 page-end   = face-part / title [ "." page-tail ] / page-tail
 active-rel = "." face-part
-face-part  = face [ "." counter ] [ "." tail ]
+face-part  = face [ "." counter ] [ "." tail ] [ "." card [ "." brand ] ]
 
 desk       = 2DIGIT
 shelf      = 2DIGIT
@@ -246,6 +275,8 @@ book       = 2DIGIT
 face       = 2DIGIT
 counter    = 2DIGIT                       ; 00 board, 01-98, 99 continuation
 page       = 4DIGIT
+brand      = 3DIGIT                       ; 001-998
+card       = LOWER *( LOWER / DIGIT / "-" )   ; not a tail word
 title      = LOWER *( LOWER / DIGIT / "-" )   ; not a tail word
 page-tail  = "draft" / "retired"
 tail       = "draft" / "retired" / "pack" / "open" / "return" / "review"
@@ -262,8 +293,11 @@ Rules the grammar does not express:
 
 ## 9. Not yet designed
 
-From `seqaddr-review.md`, sections B-D:
+See `alignment-notes.md` for the full list. In short:
 
-- **On-disk format:** one file per page or per face, file naming and folders, body syntax, stamp fields, card syntax and title matching.
-- **Faces:** which faces each page type requires, how face 04 is kept in sync with 01 and 02, whether face 08 is written or derived, and authority precedence between levels.
-- **Task lifecycle:** failure paths (rejected review, dead worker), how an agent claims a `pack`, and how a seated face is replaced by its draft.
+- C1.4: whether continuation pages share the `pointer` type.
+- C4: how the compute holds and traces face 08 links.
+- C5: authority precedence between levels.
+- C7: notes metadata.
+- C8.7, C8.10: failures against assumed brands only; where a new brand card goes.
+- D: drafting mechanism (proposed in `drafting.md`), task failure paths, claims.

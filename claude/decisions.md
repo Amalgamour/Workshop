@@ -332,7 +332,7 @@ Proposed: the compute enforces this through its operations, so a face cannot be 
 
 ## C3. Face 04 is a full explanation, not a mirror
 
-Status: C3.1-C3.2 settled; C3.3 depends on brands (C8).
+Status: settled.
 
 ### C3.1 Shape of a 04 card
 Every card on face 01 or 02 has a matching 04 card with the same key:
@@ -359,9 +359,32 @@ The model proposes keywords for a card and hands them to the compute, which stor
 
 ---
 
+## C4. Face 08 links
+
+Status: direction set; design open.
+
+Face 08 is the links face: every connection to other pages that matters to this page. Most pages have none; some have many. The compute holds all connections in memory, so it can see and trace them. How the compute stores and traces them is still to be designed.
+
+## C5. Authority precedence
+
+Status: open. Explanation requested before deciding.
+
+## C6. Face 03 in normal books
+
+Status: settled.
+
+- Face 03 is allowed in normal books on their reserved pages (0001-0099). The kernel and desk books may use it anywhere.
+- User pages are mostly face 04. A 04 section may have a 01 card: a brief of how a model should understand it. It has a 02 card only when the section describes a task process.
+
+## C7. Notes metadata
+
+Status: open, to discuss.
+
+---
+
 ## C8. Dictionary and brands
 
-Source: `brands.md`. Status: C8.1-C8.5 settled; C8.6-C8.9 proposed.
+Source: `brands.md`. Status: settled, except C8.7 (assumed-only failures) and C8.10.
 
 ### C8.1 Brands
 A word can carry several meanings. Each meaning is a **brand**, `word.NNN`, backed by a **brand card**. A user's explained meaning of a word is recorded as a brand, so models never fall back on an average meaning.
@@ -391,27 +414,84 @@ To resolve a word, the compute finds it in the dictionary, reads each brand card
 ### C8.5 Local first; brand number sentinels
 Each book keeps its own dictionary. The kernel supplies a small base dictionary that books inherit. Linking dictionaries to other books (source books) is a later design issue. Brand numbers `000` and `999` are reserved and unused; brands run 001-998.
 
-### C8.6 One fixed alphabet layout (proposed)
-Sections are never re-split. The layout is the same from the kernel out:
+### C8.6 Fixed dictionary layout
+One layout, the same from the kernel out. Sections are never re-split. Each letter gets 1-5 sections by its share of English words (PlainSpell, Wiktionary, 2026): S at 10.7% gets 5, so each section holds about 2.1%.
 
-| Section | Holds |
+| Range | Use |
 |---|---|
 | `03.00` | menu |
-| `03.01-03.09` | reserved (for example words starting with digits or symbols) |
-| `03.10-03.35` | A-Z, one letter each |
+| `03.01-03.09` | reserved: words starting with digits or symbols |
+| `03.10-03.61` | letters, below |
+| `03.62-03.98` | reserved |
+| `03.99` | continuation |
 
-Because the dictionary is only an index, even a busy letter stays small, so one section per letter does not overflow.
+| Letter | Sections |
+|---|---|
+| A | `10` a-ak, `11` al-ap, `12` aq-az |
+| B | `13` ba-bh, `14` bi-bq, `15` br-bz |
+| C | `16` ca-cg, `17` ch-cn, `18` co-con, `19` coo-cz |
+| D | `20` da-de, `21` df-di, `22` dj-dz |
+| E | `23` ea-em, `24` en-ez |
+| F | `25` fa-fk, `26` fl-fz |
+| G | `27` ga-gk, `28` gl-gz |
+| H | `29` ha-hh, `30` hi-hz |
+| I | `31` ia-im, `32` in-iz |
+| J, K | `33`, `34` |
+| L | `35` la-lh, `36` li-lz |
+| M | `37` ma, `38` mb-mi, `39` mj-mz |
+| N, O | `40`, `41` |
+| P | `42` pa-pd, `43` pe-pk, `44` pl-pq, `45` pr-pz |
+| Q | `46` |
+| R | `47` ra-re, `48` rf-rz |
+| S | `49` sa-sc, `50` sd-sh, `51` si-so, `52` sp-st, `53` su-sz |
+| T | `54` ta-th, `55` ti-tz |
+| U, V, W, X, Y, Z | `56`, `57`, `58`, `59`, `60`, `61` |
 
-### C8.7 Meters are derived (proposed)
-Each time a model resolves a word, the compute records the event and the sentence's words. The meters on a brand card are calculated from those events and kept up to date by the compute. They are shown on the card, readable by a person, but never written by hand and exempt from drafting (D0). The rest of the card is authored and drafted normally.
+- A word is placed by its lowercase form; case still separates brands inside the entry.
+- Missing sections are valid (A4.6): a small book creates only what it needs.
+- Within-letter boundaries are estimates and are checked against a real word list before the layout is frozen.
+- This layout reserves `03.01-03.09` by its own definition. A1.4 (the reserved range does not apply to climbing counters) still stands.
 
-### C8.8 Resolving a word (proposed)
-1. The sentence's words match one brand's meters clearly: use it.
+### C8.7 Meters are written only by the compute
+The compute records each resolution of a word: the brand chosen, the sentence's words, and the outcome. Meters are calculated from these records. They are shown on the card, readable by a person, never written by hand, and exempt from drafting (D0).
+
+| Outcome | Signal |
+|---|---|
+| success | the output runs and the user carries on |
+| failure | negative words; the user stops the process; **restatement**: the user repeats and over-explains because the first attempt failed |
+
+On a failure, the compute updates the brand cards linked to that resolution.
+
+Open: does a failure count only against a brand that was assumed (recent or default) rather than matched by meters? Proposed: yes, and a repeated failure triggers the probe in C8.8.
+
+### C8.8 Resolving a word
+1. The sentence matches one brand's meters clearly: use it.
 2. No clear match: use the brand last used in this session.
-3. None used yet: use the word's default, marked in the dictionary entry.
-4. No default: ask the user.
+3. None used yet: use the default marked in the dictionary entry.
+4. No default, or no brand at all: use the LLM's ordinary meaning.
 
-Any assumption is stated back ("ham, taken as ham.001, the sandwich") so the user can correct it. A correction is recorded as an event and updates the meters.
+Any assumption is stated back ("ham, taken as ham.001, the sandwich").
 
-### C8.9 Card types (proposed)
-A brand card follows its own template, as a page follows its page type (C1.4). Card types are defined in the kernel the same way page types are, and carry their own rules, for example whether a 04 card is required (C3.1).
+When the user shows a meaning the dictionary does not have, the compute pushes the model to ask for it. The model hands the answer to the compute, which creates the brand card and the dictionary entry. The new card goes through drafting (D0); the user confirming the meaning is its review.
+
+### C8.9 Card types
+A card type is to a card what a page type is to a page (C1.4).
+
+- `type:` is a field line directly under the card heading. Field lines (`name: value`) come first, then a blank line, then the body.
+- Each face has a default type, so most cards need no `type:` line.
+- Types are defined in the kernel on a structural page, `owner: kernel-only`, inherited live. A definition states: faces allowed, required and optional fields, fields only the compute writes, whether a 04 card is required, hard checks and findings, whether drafting applies.
+
+| Type | Default on | Fields | Needs a 04 card |
+|---|---|---|---|
+| `rule` | 01 | `owner` | yes |
+| `schema` | 02 | `source`, `form` | yes |
+| `menu` | 03 | entries derived by the compute | no |
+| `why` | 04 | `source`, `why` | - |
+| `task` | 05 | section D | no |
+| `note` | 06 | C7 | no |
+| `link` | 08 | `target`, `kind` | no |
+| `brand` | 01 | `brand`, `forms`, `means`, `meters` (compute) | no |
+| `index` | 0012.03 | `default`, brand list | no |
+
+### C8.10 Where a new brand card goes (open)
+A brand card lives on face 01 of a page that explains the meaning. When the page does not exist yet: the model asks the user which page, or each book has a default terms page.

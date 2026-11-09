@@ -78,14 +78,26 @@ Each entry is one JSON object on one line (JSON Lines). It is readable in any ed
 
 - **Line 1 is the header:** the format name and version, and the book's address.
 - **Every later line is one approved write:** sequence number, time, author, operation, full address, and content.
-- **Face content stays Markdown,** in `body`. Cards are `##` headings.
+- **Face content stays Markdown,** in `body`. Cards are `##` headings with field lines (`name: value`) under them, then the body (C2, C8.9).
 
 ### 3.3 Operations
 | Op | Effect |
 |---|---|
-| `put` | set the content of a face or counter, optionally with its tail |
+| `put` | create a new face or counter, optionally with its tail. Proposed: never used to replace an existing face (D0). |
 | `tail` | move a tail from one state to another; rejected if the `from` state is not current |
 | `snapshot` | the full current state, written so replay can start here instead of at line 2 |
+
+Proposed additions:
+
+| Op | Effect |
+|---|---|
+| `copy` | the compute copies a seated face to `FF.draft`; the writer sends no body (D0) |
+| `note` | add one note to a draft |
+| `merge` | apply one change to a draft, citing the note it comes from; the note is struck |
+| `promote` | after review, the draft replaces the seated face |
+| `use` | the compute records a word resolution: word, brand chosen, sentence words, outcome. Meters are derived from these (C8.7). Written only by the compute, in the book whose dictionary resolved the word. |
+
+Proposed: a **proposal** may hold several operations, applied all or nothing and logged as consecutive entries sharing a proposal id. Needed so a page is created with its first content face (C1.1), a 01 card arrives with its 04 card (C3.2), and a 99 link arrives with its back-link (A5.3).
 
 Boards (`FF.00`), contents lists and ancestor path lists are derived from the log and never written as entries (A4.4, A5.4).
 
@@ -104,6 +116,10 @@ submitted -> validated -> approved (appended to the book)
 
 Validation checks:
 - the address is well formed (seqAddr grammar)
+- the page keeps face 00 and a content face (C1.1)
+- every 01/02 card has a 04 card with `why:` and a body (C3.2); findings are recorded, not rejected
+- the card fits its card type (C8.9) and the page its page type (C1.4)
+- an existing face is changed only through drafting (D0, proposed)
 - the target exists, or the write creates it legally (identity page first, board before counters)
 - the tail move is allowed (for example `pack -> open`, never `pack -> return`)
 - required back-links exist (A5.3)
@@ -139,4 +155,6 @@ Set aside: TypeScript for everything. Faster to start, and one language with the
 - **How clients talk to the compute:** HTTP, MCP, or both.
 - **Fork reconciliation:** how the compute merges two copies of a book that were edited apart.
 - **Snapshot and archive policy:** when to snapshot, and when to move old entries out.
-- **Face rules** (review section C) and **task failure paths** (section D) still apply on top of this format.
+- **Proposal batches and drafting ops** (section 3.3) are proposed.
+- **Face 08 links in compute memory** (C4), **authority precedence** (C5), **notes metadata** (C7).
+- **Task failure paths** (section D).

@@ -1,5 +1,7 @@
 # seqAddr Design Review
 
+Historical: the original question list. Answers are in `decisions.md`; open items are in `alignment-notes.md`.
+
 Reviewed: `seqAddr.md` (2026-11-09). `seqAddr.001.md` is treated as the earlier draft.
 
 ## Verdict
