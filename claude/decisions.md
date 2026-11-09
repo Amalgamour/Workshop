@@ -6,7 +6,7 @@ Working record of decisions on the open items in `seqaddr-review.md`. A full rew
 
 ## A1. Short form
 
-Status: settled, except A1.6 (active page), which is proposed.
+Status: settled.
 
 ### A1.1 Every address is full; short form only leaves parts unstated
 A page or face always has a full address `DD.SS.BB.PPPP[.FF[.NN]]`. Short form is a way of *writing* it that leaves out ancestors. Those are inferred from the active book's book, shelf and desk.
@@ -38,10 +38,10 @@ An address with no 4-digit group is always read from the desk: `21` is desk 21, 
 ### A1.5 Exact widths
 Every group must have its exact width. `4442.1` is invalid, not padded to `4442.01`.
 
-### A1.6 Active page (proposed)
+### A1.6 Active page
 The session has one active book, and usually an active page, but sometimes several pages are in play. A bare `04` cannot mean "face 04 of the active page", because A1.3 already reads it as desk 04.
 
-Proposal: a **leading dot** means "relative to the active page".
+A **leading dot** means "relative to the active page".
 - `.04` is face 04 of the active page.
 - `.05.03` is task 03 on the active page.
 - No other address starts with a dot, so this never collides with A1.3.
