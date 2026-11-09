@@ -366,9 +366,27 @@ Status: direction set; design open.
 
 Face 08 is the links face: every connection to other pages that matters to this page. Most pages have none; some have many. The compute holds all connections in memory, so it can see and trace them. How the compute stores and traces them is still to be designed.
 
-## C5. Authority precedence
+## C5. Authority
 
-Status: open. Explanation requested before deciding.
+Status: order and levels settled; precedence between levels proposed. Source: axiom 1 (`axioms/`).
+
+### C5.1 The order
+A person holds authority and grants it on. Compute enforces it. A model works within it. The live record keeps it. Authority is granted, never claimed.
+
+### C5.2 Levels follow the faces
+| Level | Who | Reaches |
+|---|---|---|
+| `00` | developer | every face, including identity |
+| `01` | lower developer | from the law face on |
+| `04` | magic user | face 04 only; compute and the model do the rest |
+
+Open: what `02` and `03` mean, and whether a level is granted per desk, book or page.
+
+### C5.3 Halts rise up the order
+Two live claims with no lawful connection halt and go to whoever holds more authority. A magic user can resolve one, with compute and the model laying out the choice.
+
+### C5.4 Precedence between levels (proposed)
+From axiom 2: a lower level may differ from a higher one only through a named and approved override. The lookup (book, shelf, desk, kernel) finds things; axiom 2 decides whether a found difference is lawful.
 
 ## C6. Face 03 in normal books
 
