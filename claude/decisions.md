@@ -1,6 +1,6 @@
 # seqAddr Decisions
 
-Working record of decisions on the open items in `seqaddr-review.md`. A full rework of `seqAddr.md` follows once A1-A6 are settled.
+Working record of decisions on the open items in `seqaddr-review.md`, each with its reason. The rules are applied in `seqAddr.md`, `format.md`, `brands.md` and `drafting.md`.
 
 ---
 
