@@ -55,7 +55,7 @@ Options considered and set aside:
 
 ---
 
-## 3. Encoding — proposed
+## 3. Encoding — decided
 
 ### 3.1 A book is an append-only log of approved writes
 The compute's queue and the file are the same thing. Each approved write is appended to the end of the book as one entry. Nothing is ever edited in place. The current state of a book is the result of replaying its entries in order.
