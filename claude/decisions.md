@@ -354,6 +354,7 @@ A card title (its `##` heading) is also stored in the dictionary (C8).
 | That 04 card has a `why:` line and a body | hard |
 | The 04 body is not identical to the 01 body | finding: flagged for review |
 | The 01 card's keywords appear in the 04 card | finding |
+| A 01 card and its 04 card disagree | elevated to the user for correction; neither governs (axiom 1) |
 
 ### C3.3 Keywords are brands
 The model proposes keywords for a card and hands them to the compute, which stores each one in the dictionary with what it states. If a matching meaning already exists, it is reused. See C8.
