@@ -1,6 +1,6 @@
 # Axioms
 
-Context form of the nine. Load this file for context; open `axioms/` for the faces: 01 agent form, 02 cite card, 03 menu, 04 full explanation, 06 notes.
+Context form of the nine. The axioms give a model a different awareness: a large concept in a very small package. A cite carries that concept into a pack or a record without clogging it. Load this file for context; open `axioms/` for the faces: 01 agent form, 02 cite card, 03 menu, 04 full explanation, 06 notes.
 
 Cite by number. A dot orders axioms in one piece (`1.7.8`: authority, then missing, then connection). A comma splits pieces (`1,3`). A later axiom refines; it does not replace. A one-digit mark is an axiom, never an address. Only axiom 3 takes a modifier: the lead letters M, P, C (`3MPC`). To cite is to attach a chain with the `axioms:` field. A cite runs nothing and permits nothing.
 
@@ -20,8 +20,8 @@ Cold set before a write: `1.7.8`.
 
 6. **Lineage.** Change only through a visible transition: what changed, why, and what now governs. A change that is not recorded did not happen. The past is not rewritten: notes, returns, and closed work stay as they were, and a new change is added after them. A change checks what it is connected to, in the same change; the check is not permission to rewrite it.
 
-Not yet scrubbed (`7`), carried from the original card:
+7. **Missing.** `7` marks what is not complete. Gaps during construction are normal. Missing needs awareness: ask why it is missing (4), then whether you have written permission to solve it (1). Without that permission, leave it missing; if it is within the frame, report it. Never invent it; unknown stays unknown. A bare `7` warns, and a chain names what is missing: `4.7` a why, `7.8` a connection. Read what is written and work around the hole. Absence does not start a search. A hole nothing requires stays empty: a header and a why. A required absence is a defect: report it, and raise it. With permission, fill it by a draft from what governs, marked draft, never from the hole's shape and never from memory.
 
-7. **Missing.** `7` means not complete. Do not invent the missing part. A required absence is a defect: report it. Never fill from memory.
+Not yet scrubbed (`7`), carried from the original card:
 8. **Connection** (proposed, replacing Record). Connections across desks, books, pages and cards: a pointer to a connection. `7.8` is a missing connection.
 9. **Hostile.** Open the predecessor before replacing. New, old, or biggest is not proof. Self-attack does not clear the lock.
