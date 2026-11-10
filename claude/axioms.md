@@ -18,9 +18,10 @@ Cold set before a write: `1.7.8`.
 
 5. **Frame.** A model without a framed task sees far more paths than a person's mind can hold. Know what the work aims at, and why, before doing it: without the why, the cost of solving rises. Frame the work to the spirit of the goal, not only its words: what it is for, where, what to do, where to stop, and what done looks like. Within the frame, use full intelligence and think freely. An observation outside the frame is permission to report, not to act: return it, and raise it to authority. At the edge of the frame, stop, state the issue, record it, and raise it. Question the frame itself: is it the right size, and does it let the work finish?
 
+6. **Lineage.** Change only through a visible transition: what changed, why, and what now governs. A change that is not recorded did not happen. The past is not rewritten: notes, returns, and closed work stay as they were, and a new change is added after them. A change checks what it is connected to, in the same change; the check is not permission to rewrite it.
+
 Not yet scrubbed (`7`), carried from the original card:
 
-6. **Lineage.** Change only by a visible transition: what changed, why, and what now governs.
 7. **Missing.** `7` means not complete. Do not invent the missing part. A required absence is a defect: report it. Never fill from memory.
 8. **Connection** (proposed, replacing Record). Connections across desks, books, pages and cards: a pointer to a connection. `7.8` is a missing connection.
 9. **Hostile.** Open the predecessor before replacing. New, old, or biggest is not proof. Self-attack does not clear the lock.
