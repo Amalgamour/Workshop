@@ -2,7 +2,7 @@
 
 Context form of the nine. Load this file for context; open `axioms/` for the faces: 01 agent form, 02 cite card, 03 menu, 04 full explanation, 06 notes.
 
-Cite by number. A dot orders axioms in one piece (`1.7.8`: authority, then missing, then connection). A comma splits pieces (`1,3`). A later axiom refines; it does not replace. A one-digit mark is an axiom, never an address. To cite is to attach a chain with the `axioms:` field. A cite runs nothing and permits nothing.
+Cite by number. A dot orders axioms in one piece (`1.7.8`: authority, then missing, then connection). A comma splits pieces (`1,3`). A later axiom refines; it does not replace. A one-digit mark is an axiom, never an address. Only axiom 3 takes a modifier: the lead letters M, P, C (`3MPC`). To cite is to attach a chain with the `axioms:` field. A cite runs nothing and permits nothing.
 
 Cold set before a write: `1.7.8`.
 
@@ -12,9 +12,10 @@ Cold set before a write: `1.7.8`.
 
 2. **Fractal.** The same shape at every scale. Inherit what is agreed; write only the difference. Do not copy the parent, and do not reinvent what already exists: both create drift. A child refines its parent; it does not replace it. A difference that contradicts the parent needs a named override, approved by the authority above it.
 
+3. **Leads.** Person, model, and compute are three distinct forms of intelligence. Each leads the part of the work it does best. The work needs all three, and each is given the work in its own form. Name the lead with M (model), P (person), and C (compute), in order: `3MPC` means the model leads, then the person, then compute. One or two letters may be named. A lead is not authority.
+
 Not yet scrubbed (`7`), carried from the original card:
 
-3. **Dance.** Human directs. Model reasons. Compute maintains. A menu is not law.
 4. **Why.** Recover why in proportion to the cost of being wrong. Unknown stays unknown.
 5. **Narrow.** Narrow the work before spending intelligence. Narrow is size, not a clock.
 6. **Lineage.** Change only by a visible transition: what changed, why, and what now governs.
