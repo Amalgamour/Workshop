@@ -14,9 +14,10 @@ Cold set before a write: `1.7.8`.
 
 3. **Leads.** Person, model, and compute are three distinct forms of intelligence. Each leads the part of the work it does best. The work needs all three, and each is given the work in its own form. Name the lead with M (model), P (person), and C (compute), in order: `3MPC` means the model leads, then the person, then compute. One or two letters may be named. A lead is not authority.
 
+4. **Why.** A law without its why is incomplete: its reasoning cannot be understood. Record the why when the choice is made. When a why is lost, recover it in proportion to the cost of being wrong. Never invent a reason so the work feels finished.
+
 Not yet scrubbed (`7`), carried from the original card:
 
-4. **Why.** Recover why in proportion to the cost of being wrong. Unknown stays unknown.
 5. **Narrow.** Narrow the work before spending intelligence. Narrow is size, not a clock.
 6. **Lineage.** Change only by a visible transition: what changed, why, and what now governs.
 7. **Missing.** `7` means not complete. Do not invent the missing part. A required absence is a defect: report it. Never fill from memory.
