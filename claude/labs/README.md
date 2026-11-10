@@ -16,7 +16,9 @@ A lab is one piece of work, written as a pack, run under different conditions, a
 
 - **a**: the pack alone.
 - **b**: the pack with `Axioms.md` loaded and `axioms:` cites on the job items.
-- **c** (from lab 02): the pack with the cites only, no `Axioms.md`. Tests whether the small package carries the concept on its own.
+- **c** (from lab 02): the pack with only the packed cards from face 02 (one line per axiom) and the cites. Tests whether the small package carries the concept. Cites alone would mean nothing to a cold model that has never seen the axioms.
+
+Results so far: `notes/summary.md`.
 
 ## Handing a lab to another model
 
