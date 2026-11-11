@@ -82,3 +82,7 @@ Read: a hostile trial run by a fresh session (a new subagent that did not build 
 ## R21 — 2026-11-11 3:25 PM EST — no override pages during this build
 Director's answer (widget t68s326, "Who approves an override page?"): "No overrides for now. we build them in. But because we are working children desks can have override we are working on the app it's self right now."
 Read: while we build the Workshop app itself, nothing is changed by an override page. Changes are built straight into the pages, the kernel or the app. Override pages (R7, 0001-0009) stay in the design for child desks later. The approver question is deferred until then. The sample override page 10.11.21.0001 is parked (not used), and R7 code stays but is not exercised.
+
+## R22 — 2026-11-11 3:50 PM EST — every design choice recorded; seated 05 per page is its MVP work pack
+Director's words (t77u): "I want you to make every design choice recorded. As the seated 05 for each page should explain what you learned and become the seated pack of work to achieve the MVP for each page that links back to the overall design. Keep moving forward save questions."
+Read: (1) every design choice made in the build is written down with its source. (2) Each page gets a face 05 that says what was learned building that page and holds the work pack to reach that page's MVP, linking back to the overall design (docs/design). That 05 is seated (under R2 after a fresh-session trial, R20). (3) Builders keep moving and save questions instead of stopping.
