@@ -1,6 +1,6 @@
 # Questions for the Director
 
-Q1-Q6 are answered by R5-R10 and Q12 in part by R9 (kept below as history). Q7-Q11, Q13, Q14 still need a ruling. The kernel does not answer any of them: each stays `7` until you rule (axiom 1, axiom 7; R2 "does not let anyone answer an open Director question"). Options are only the ones the spec already allows. Paths are under `docs/spec/`.
+Q1-Q6 are answered by R5-R10 and Q12 in part by R9 (kept below as history). Q7 is answered by R11 (not applied yet). Q8-Q11, Q13, Q14 still need a ruling. The kernel does not answer any of them: each stays `7` until you rule (axiom 1, axiom 7; R2 "does not let anyone answer an open Director question"). Options are only the ones the spec already allows. Paths are under `docs/spec/`.
 
 **Q1. [ANSWERED by R6, DIRECTOR-RULINGS.md]** "Axioms exist outside of the book as a 00.axioms on the desk." Applied: axioms moved to `00.00.axioms` (exact address still `7`).
 Original question: **What page number does the axioms page get?**
@@ -41,7 +41,8 @@ Original question: **What content face does a door page 0000 need?**
 - Option B: they need one, because "A page with only an identity has no reason to exist" (`decisions.md:274`). The spec doesn't say which face.
 - **ANSWERED 2026-11-11 3:03 PM EST: R10: page 0000 has only face 00; face 00 is the page registry.**
 
-**Q7. Bob test, session 2: how should "what is my name" reach the `bob` card?**
+**Q7. [ANSWERED by R11, DIRECTOR-RULINGS.md, not yet applied]** A common questions list: key words (what + my + name) linked like a brand to what answers it; the compute hands the model 1-3 pieces, or probes the person. The kernel has no page or card type for this list yet (`7`), so the Bob sample still shows no route.
+Original question: **Bob test, session 2: how should "what is my name" reach the `bob` card?**
 - Option A: no route. Resolving works on a word the user types (C8.8, `decisions.md:496-503`), and the question never types `bob`. This stays `7`.
 - Option B: a concordance, word to page (`decisions.md:606`). This is a proposal awaiting you.
 - Option C: the read path (`claude/readpath.md`, named in `Design.md:14`, proposed). It is not in docs/spec.
