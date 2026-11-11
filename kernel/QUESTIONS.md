@@ -422,17 +422,39 @@ Evidence: `docs/trial/kernel-trial-9.md` finding 1 (D1, D2).
 - Option B: read history seat lines only from the registry card's field block (and `seat-00:` only from the stamp), and refuse a `seat-NN:` line for a face that is not listed as seated.
 - Option C: both. `7` until a lane takes it.
 
+Decided by KERNEL pass 11 (bbdc1a9), builder lane: option C (both), stated as the Prima brief put it.
+- An un-seat record must name the exact full blob of the seat being retired: the last real seat of that face.
+- Past seats are read only from structured fields, as the live build reads them: `seat-NN:` field lines in the field block of a `## Registry` card, and `seat-00:` in the stamp. A `seat-NN:` line in prose, below the field block, or a stamp `seat-NN:` other than seat-00 is never a seat. A face 00 version that holds `unseat-NN:` for a face is the retiring version, so its kept old seat line is not read; the last seat comes from the versions before it.
+- The newest seat in face 00 history and the newest `approved-by` line in `books/` history are both read, always. When they differ, the record must name each. A last-seat blob that git does not hold as a blob is reported as made up (fail closed).
+- Live face 00: a repeated `seat-NN:` field, a `seat-NN:` for a face not listed as seated (with no `unseat-NN:` beside it), a stamp `seat-NN:` other than seat-00, or a registry `seat-00:` is an error.
+- Tests: K9 D2 (prose decoy, one commit) refused, with a control that names the real blob and builds; K9 D1 (stamp decoy committed first) refused; a registry seat line rewritten to a made-up blob in a commit that never built, then un-seated, refused (books/ history holds the real seat); the two live rules. All fail on the pass 10 builder.
+
 **Q64. [TRIAL-K9] (builder lane, not a Director question) Should the `books/` reads accept a book file of any mode, or refuse one that is not 100644?**
 Evidence: `docs/trial/kernel-trial-9.md` finding 2 (A1 755).
 - The HEAD and history reads of `books/` match only `100644` (`build.mjs:462`, `:464`). A seat recorded only in a book committed as `100755` (face 00 staged for the write build, then unstaged) is pulled later with no record: exit 0, `seats 26`, also in a fresh clone. The seat state itself only ever built locally.
 - Option A: read book blobs whatever their mode. Option B: refuse a book that is not `100644` at HEAD, in the index or in history (as a seated face must be, G4). `7` until a lane takes it.
+
+Decided by KERNEL pass 11 (bbdc1a9), builder lane: A for history, B for the current book.
+- Past seats are read from every `books/` blob in history whatever its mode (100644, 100755, a link's text); only a gitlink (160000, not a blob) is skipped. Blobs are read with `git cat-file --batch`, so attributes do not apply.
+- A current book that is not 100644 at HEAD or in the index is an error, and so is a book file that is executable on disk.
+- Tests: K9 A1 (755) found in history; a current book committed as 100755 refused; a book with an exec bit on disk refused. All fail on the pass 10 builder.
 
 **Q65. [TRIAL-K9] (builder lane, not a Director question) Should the history walks read git's output with `-z`?**
 Evidence: `docs/trial/kernel-trial-9.md` finding 3 (L-quote, L-backslash, L-nonascii, L-dirlink_kq).
 - Without `-z`, `git log --raw` C-quotes a path with `"`, a backslash, a control byte or a non-ASCII byte, and `historySeats` compares that quoted text with unquoted targets, so a seat line written and removed through a link to such a path is never read. Every such state has a live link, so none could build (the live refusal stays the guard), but Q61 said "cover the shapes".
 - Option A: use `-z` in `historySeats` and the `books/` walk (and split on NUL). Option B: unquote the paths. Option C: list it under "still not followed". `7` until a lane takes it.
 
+Decided by KERNEL pass 11 (bbdc1a9), builder lane: option A.
+- Every walk that lists paths uses `-z` and splits on NUL: the face 00 history walk, the `books/` history and HEAD reads, the trial-origin walk, the trial-tree read, and the HEAD and index symlink scan.
+- Q61's "still not followed" list, updated: a link inside a submodule; a seat line in a file git never held (the `books/` history is the backup, only if a book recording it was committed); link text with Windows `\` separators (read as one file name, as Linux does); a path name that is not valid UTF-8 (git's bytes are read as UTF-8, so the target named back to git may not match). A chain longer than 16 hops stops the build, and the message now says so.
+- Tests: K9 L-quote with L-backslash (target `docs/q"x\b/f00.md`) and L-nonascii (target `docs/<e-acute>/f00.md`). Both fail on the pass 10 builder.
+
 **Q66. [TRIAL-K9] (builder lane, not a Director question) Should an `unseat-NN:` record count as a seat record for the face 00 git check?**
 Evidence: `docs/trial/kernel-trial-9.md` finding 4 (Q9).
 - `carries` (`build.mjs:556`) counts seated faces, `seat-*` fields and a stamp `seat-00:`. A face 00 whose page has no seats left but whose un-seat records exist only on disk is not checked against git: local `--check` exit 0, `seats 24`; a fresh clone refuses it (3 errors). Local only.
 - Option A: count `unseat-*` fields and a stamp `unseat-00:` in `carries`. Option B: under `--check`, check every face 00 against HEAD. `7` until a lane takes it.
+
+Decided by KERNEL pass 11 (bbdc1a9), builder lane: option A (yes).
+- An `unseat-NN:` field, or a stamp `unseat-00:`, is a seat record. A face 00 that holds only un-seat records must be the bytes git holds, by the same rule as a face 00 with seats: HEAD under `--check`, the index (else HEAD) when writing.
+- Test: K9 Q9 (page 0012's two seats pulled, the records only in an uncommitted face 00) refused under `--check`. It fails on the pass 10 builder.
+- Not closed (as admitted, TRIAL-K8 finding 3, TRIAL-K9 finding 5): a forged trial in a docs-only commit, and a local gitfile swap to a made-up history.
