@@ -3,7 +3,7 @@
 // can reach trial commits, rulings and books at HEAD, TRIAL-K4 Q52), copies the working kernel/, docs/spec/, docs/trial/ and
 // books/ into it, adds one hostile change, runs the builder there, and checks the result. The repo is never written.
 // Usage: node kernel/build.test.mjs
-import { mkdtempSync, mkdirSync, cpSync, writeFileSync, readFileSync, rmSync, appendFileSync, renameSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, cpSync, writeFileSync, readFileSync, rmSync, appendFileSync, renameSync, symlinkSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { join, dirname } from 'node:path';
 import { tmpdir } from 'node:os';
@@ -379,6 +379,94 @@ run('Q56 c: a merge citing an edited copy of a real trial from the side branch i
   const side = commitTree(d, treeOf(d, `${added}^`, put), [`${added}^`], 'docs only: trial copy');
   sh(d, ['update-ref', 'HEAD', commitTree(d, treeOf(d, 'HEAD', put), ['HEAD', side], 'merge the side, taking its trial copy')]);
 }, { match: /trial docs\/trial\/kernel-trial-3\.md is added more than once on HEAD's full history with different blobs/ });
+
+// ---- KERNEL pass 9: TRIAL-K7 findings 1 and 2 (Q58, Q59) ----
+// Commits built on HEAD in the scratch clone: `ops` is a list of [mode, blob, path] to put, or [null, null, path] to drop.
+const putTree = (d, base, ops) => treeOf(d, base, (env) => {
+  for (const [mode, b, p] of ops) sh(d, mode ? ['update-index', '--add', '--cacheinfo', `${mode},${b},${p}`] : ['update-index', '--force-remove', p], { env });
+});
+const hashText = (d, t) => sh(d, ['hash-object', '-w', '--stdin'], { input: t });
+const R1001 = 'kernel/samples/10.11.21/10.11.21.1001.00.draft.md';
+const FAKE_SEAT = `seat-05.03: approved-by: build-stage (R2); trial: docs/trial/kernel-trial-7.md blob ${'1'.repeat(40)}; blob: ${'2'.repeat(40)}\n`;
+const UNSEAT_FAKE = /10\.11\.21\.1001\.05\.03 was seated \(build-stage \(R2\)\) in the last build but is not now; write unseat-05\.03: <reason>; was blob 2{40}/;
+// Q58 A / K7 T18: face 00 of page 1001 is a symlink to a file outside kernel/. The builder refuses it and does not follow it.
+run('Q58: a symlinked face 00 is refused (K7 T18)', (d) => {
+  mkdirSync(join(d, 'docs', 'x'), { recursive: true });
+  renameSync(join(d, R1001), join(d, 'docs', 'x', 'f00.md'));
+  symlinkSync('../../../docs/x/f00.md', join(d, R1001));
+}, { match: /kernel\/samples\/10\.11\.21\/10\.11\.21\.1001\.00\.draft\.md: is a symlink; the builder reads only regular files/ });
+// Q58 history / K7 T18: commit 1 makes face 00 a link to docs/x/f00.md, commit 2 adds a seat line through the link, commit 3
+// puts the regular file back without it. The live tree has no link, so only the history walk can see the seat: it follows the
+// link it finds in kernel/ history to docs/x/f00.md and asks for the un-seat record.
+run('Q58: a seat written through a face 00 link and removed later is still found in history (K7 T18)', (d) => {
+  const orig = sh(d, ['cat-file', 'blob', `HEAD:${R1001}`]) + '\n';
+  const link = hashText(d, '../../../docs/x/f00.md');
+  const c1 = commitTree(d, putTree(d, 'HEAD', [['120000', link, R1001], ['100644', hashText(d, orig), 'docs/x/f00.md']]), ['HEAD'], 'face 00 moved behind a link');
+  const c2 = commitTree(d, putTree(d, c1, [['100644', hashText(d, orig.replace('\n## Registry\n', `\n## Registry\n${FAKE_SEAT}`)), 'docs/x/f00.md']]), [c1], 'seat through the link');
+  sh(d, ['update-ref', 'HEAD', commitTree(d, sh(d, ['rev-parse', 'HEAD^{tree}']), [c2], 'link gone, seat gone, no record')]);
+}, { match: UNSEAT_FAKE });
+// Q58 A / K7 T18b: the book folder 10.11.21 is a symlink into kernel/parked/, a folder the history walk skips.
+run('Q58: a symlinked book folder is refused (K7 T18b)', (d) => {
+  mkdirSync(join(d, 'kernel', 'parked'), { recursive: true });
+  renameSync(S(d, '10.11.21'), join(d, 'kernel', 'parked', '10.11.21-real'));
+  symlinkSync('../parked/10.11.21-real', S(d, '10.11.21'));
+}, { match: /kernel\/samples\/10\.11\.21: is a symlink/ });
+// Q58 history / K7 T18b: the same through history: the folder moves to kernel/parked/ behind a link, a seat line is added
+// there, then the folder comes back without it. The walk follows the folder link and reads under /parked/ for it.
+run('Q58: a seat written through a book folder link into kernel/parked is still found in history (K7 T18b)', (d) => {
+  const rows = sh(d, ['ls-tree', '-r', 'HEAD', 'kernel/samples/10.11.21/']).split('\n').map((l) => /^(\d+) blob ([0-9a-f]{40})\t(.*)$/.exec(l));
+  const moved = (p) => p.replace('kernel/samples/10.11.21/', 'kernel/parked/10.11.21-real/');
+  const ops = rows.flatMap(([, m, b, p]) => [[null, null, p], [m, b, moved(p)]]);
+  const c1 = commitTree(d, putTree(d, 'HEAD', [...ops, ['120000', hashText(d, '../parked/10.11.21-real'), 'kernel/samples/10.11.21']]), ['HEAD'], 'book behind a link');
+  const orig = sh(d, ['cat-file', 'blob', `HEAD:${R1001}`]) + '\n';
+  const c2 = commitTree(d, putTree(d, c1, [['100644', hashText(d, orig.replace('\n## Registry\n', `\n## Registry\n${FAKE_SEAT}`)), moved(R1001)]]), [c1], 'seat in the parked copy');
+  sh(d, ['update-ref', 'HEAD', commitTree(d, sh(d, ['rev-parse', 'HEAD^{tree}']), [c2], 'folder back, seat gone, no record')]);
+}, { match: UNSEAT_FAKE });
+// Q58 A / K7 T18c: a seated face is a symlink to an untracked file with the same bytes.
+const F1001_0502 = 'kernel/samples/10.11.21/10.11.21.1001.05.02.md';
+run('Q58: a seated face that is a symlink to an untracked copy is refused (K7 T18c)', (d) => {
+  mkdirSync(join(d, 'docs', 'x'), { recursive: true });
+  renameSync(join(d, F1001_0502), join(d, 'docs', 'x', 'copy.md'));
+  symlinkSync('../../../docs/x/copy.md', join(d, F1001_0502));
+}, { match: /kernel\/samples\/10\.11\.21\/10\.11\.21\.1001\.05\.02\.md: is a symlink/ });
+// Q58 B / K7 T18c in git: the link is committed, and the working copy is a regular file with the seated bytes. git holds the
+// link text, not the face, so the seat is refused.
+run('Q58: a seated face committed as a symlink is refused though the working file has the seated bytes (K7 T18c)', (d) => {
+  sh(d, ['update-ref', 'HEAD', commitTree(d, putTree(d, 'HEAD', [['120000', hashText(d, '../../../docs/x/copy.md'), F1001_0502]]), ['HEAD'], 'seated face committed as a link')]);
+}, { match: /seated face kernel\/samples\/10\.11\.21\/10\.11\.21\.1001\.05\.02\.md is mode 120000 in git \(HEAD\), not a regular file/ });
+// Q58 B: a seated face that is not in git at all (removed from HEAD, file left on disk) is refused.
+run('Q58: a seated face that git does not hold (untracked) is refused', (d) => {
+  sh(d, ['update-ref', 'HEAD', commitTree(d, putTree(d, 'HEAD', [[null, null, F1001_0502]]), ['HEAD'], 'seated face dropped from git')]);
+}, { match: /seated face kernel\/samples\/10\.11\.21\/10\.11\.21\.1001\.05\.02\.md is not in git \(untracked; not at HEAD or in the index\)/ });
+// Q59 / K7 T11: an orphan root commit adds an edited copy of a real trial at the same path and is merged in. `%P` is empty for a
+// root commit; before pass 9 the header was not parsed and the builder crashed (TypeError). Now it is the plain refusal.
+run('Q59: an orphan root commit adding an edited trial copy is refused, not a crash (K7 T11)', (d) => {
+  const path = 'docs/trial/kernel-trial-3.md';
+  const nb = forge0051(d, `${path} blob FORGED`);
+  const t = sh(d, ['cat-file', 'blob', `HEAD:${path}`]) + `\n\n**PASS list:**\n- \`00.00.00.0051.05.02\` (blob \`${nb}\`)\n`;
+  writeFileSync(join(d, path), t);
+  edit(k(d, '00.00.00.0051.00.draft.md'), 'FORGED', blob(t));
+  const tb = hashText(d, t);
+  const root = commitTree(d, putTree(d, sh(d, ['mktree'], { input: '' }), [['100644', tb, path]]), [], 'orphan: trial copy');
+  sh(d, ['update-ref', 'HEAD', commitTree(d, putTree(d, 'HEAD', [['100644', tb, path]]), ['HEAD', root], 'merge the orphan, taking its trial copy')]);
+}, { match: /trial docs\/trial\/kernel-trial-3\.md is added more than once on HEAD's full history with different blobs/ });
+// Q59 (decided): a root commit that adds only a trial file is an origin like any other first add. A new trial in an orphan root
+// commit, merged in, passes the draft 0013.05.02; the seat is committed and builds.
+run('Q59: a trial added by an orphan root commit (trial only) is a valid origin', (d) => {
+  const draft = S(d, '10.11.21', '10.11.21.0013.05.02.draft.md');
+  const fb = blob(readFileSync(draft, 'utf8'));
+  const t = `# orphan trial\n\n**PASS list, eligible for an R2 seat**\n- \`10.11.21.0013.05.02\` (blob \`${fb}\`)\n`;
+  const path = 'docs/trial/orphan.md';
+  writeFileSync(join(d, path), t);
+  const tb = hashText(d, t);
+  const root = commitTree(d, putTree(d, sh(d, ['mktree'], { input: '' }), [['100644', tb, path]]), [], 'orphan: trial only');
+  sh(d, ['update-ref', 'HEAD', commitTree(d, putTree(d, 'HEAD', [['100644', tb, path]]), ['HEAD', root], 'merge the orphan trial')]);
+  renameSync(draft, S(d, '10.11.21', '10.11.21.0013.05.02.md'));
+  const r = S(d, '10.11.21', '10.11.21.0013.00.draft.md');
+  edit(r, '05.02 draft', '05.02 seated');
+  edit(r, /^why-05\.02: .*\n/m.exec(readFileSync(r, 'utf8'))[0], `seat-05.02: approved-by: build-stage (R2); trial: ${path} blob ${tb}; blob: ${fb}\n`);
+  commitWork(d, 'seat 0013.05.02 from the orphan trial');
+}, { ok: true });
 
 if (failed) { console.log(`${failed} failed`); process.exit(1); }
 console.log('all passed');

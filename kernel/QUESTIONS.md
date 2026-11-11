@@ -357,10 +357,22 @@ Evidence: `docs/trial/kernel-trial-7.md` finding 1 (T18, T18b, T18c).
 - Option B: also require, for every seated face, `git ls-tree HEAD <path>` mode `100644` with blob equal to the seat blob.
 - Option C: both. `7` until a lane takes it.
 
+Decided by KERNEL pass 9 (step 1), builder lane: option C (A and B), plus a history fallback.
+- (A) The builder follows no symlink. Book folders, `kernel/samples`, every entry in a book folder, `books/` and each book file, cited trial files and cited `docs/spec` files are checked from the repo root down with `lstat`; a link at any step, or a path outside the repo, is an error. A symlink committed or staged under `kernel/`, `books/`, `docs/trial/` or `docs/spec/` is an error too.
+- (B) Every seated face must be a regular file in git (mode 100644) whose blob is the seat blob: at HEAD under `--check`, and in the index (else HEAD) when writing, so a seat can be built before its commit. A symlink, an untracked path or a different blob is an error. This is checked after the trial or ruling, so those errors still come first.
+- History fallback: a symlink ever committed under `kernel/` is followed in history (its link text names a path, and that path's history is walked too, `/parked/` included under a linked folder), so a seat added and removed through a link (T18, T18b) is still found.
+- 7 tests: T18 live and in history, T18b live and in history, T18c live and committed as a link, and an untracked seated face. Each fails on the pass 8 builder and passes now. Left for the next trial to check.
+
 **Q59. [TRIAL-K7] (builder lane, not a Director question) How should `trialOrigin` read a root commit?**
 Evidence: `docs/trial/kernel-trial-7.md` finding 2 (T11).
 - `--format=C %H %P` (`build.mjs:200`) gives `C <sha> ` with a trailing space for a root commit, which the regex at `:205` does not match. An add in a root commit is filed under the wrong commit or `null`; T11 (an orphan branch merged in) crashes at `:211` with a TypeError. It fails closed.
 - Proposed: allow trailing space or `trim()` the line, give a clear error, and add a test like T11. `7` until a lane takes it.
+
+Decided by KERNEL pass 9 (step 1), builder lane: taken.
+- The header regex allows the trailing space, so a root commit is parsed like any other. An add listed under a header the builder cannot read blocks the seat with a message, not a crash. `HIST` adds `--root`, so `log.showRoot=false` cannot hide a root commit's adds.
+- A root commit that adds only the trial file (and `kernel/QUESTIONS.md`) is an origin like any other first add; the touch rule now uses `git diff-tree --root`, which lists a root commit's files against the empty tree.
+- With `-m`, a merge of an unrelated history lists every file as added against the orphan side. A merge add whose blob a parent already holds at that path is the parent's add (and `--full-history` walks it), so it is not counted twice. A merge that brings a blob no parent has is still counted. Without this, merging any orphan history blocked every seat whose trial had a later appendix.
+- 2 tests: T11 (an orphan's edited trial copy, merged in) is now the "added more than once" refusal, not a TypeError; a trial added by an orphan root commit and merged in seats a face. Both fail on the pass 8 builder and pass now.
 
 **Q60. [TRIAL-K7] (builder lane, not a Director question) Should `incoming` stay in the publish copy between rounds?**
 Evidence: `docs/trial/kernel-trial-7.md` part C3, finding 4.
@@ -368,3 +380,5 @@ Evidence: `docs/trial/kernel-trial-7.md` part C3, finding 4.
 - Option A: delete `incoming` after each cherry-pick (it is re-fetched each round).
 - Option B: keep it, and set `remote.origin.mirror=false` plus a pre-push hook that refuses any ref but `build`.
 - Option C: keep it as is and correct the Q57 note. Report only: nothing was changed. `7` until a lane takes it.
+
+Noted by KERNEL pass 9: Prima handles this in the publish copy (this lane did not touch it). Option A: the `incoming` branch is deleted after each publish, and later fetches use `FETCH_HEAD` (`git fetch ../repo build`, then cherry-pick from `FETCH_HEAD`), so no leftover ref holds the local `target/` history. This lane's own proof used a scratch clone of the publish copy with `FETCH_HEAD`, never an `incoming` branch. Left for the next trial to confirm.

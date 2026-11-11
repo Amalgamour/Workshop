@@ -8,11 +8,13 @@
 // past seats read from HEAD, no git is an error; TRIAL-K5 findings 1-3, 5, Q53, Q54: a trial is cited by path and blob, not
 // commit, so seats verify in the filter-branched published copy; git runs with no replace objects and no GIT_* env; past
 // seats come from the history of seat lines; TRIAL-K6 findings 1, 2, Q56: history is read with -a --no-textconv --full-history
-// --no-abbrev, and seat lines from the face 00 blobs themselves, so attributes and merges hide nothing). Tests: node kernel/build.test.mjs
+// --no-abbrev, and seat lines from the face 00 blobs themselves, so attributes and merges hide nothing; TRIAL-K7 findings 1, 2,
+// Q58, Q59: no symlink anywhere the builder reads, a seated face must be a regular file in git with the seat blob, history
+// follows any symlink ever committed under kernel/, and a root commit is parsed). Tests: node kernel/build.test.mjs
 // Usage: node kernel/build.mjs          write books/
 //        node kernel/build.mjs --check  rebuild in memory and fail if books/ differs
-import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync, statSync } from 'node:fs';
-import { join, dirname } from 'node:path';
+import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync, lstatSync } from 'node:fs';
+import { join, dirname, relative, isAbsolute, sep, posix } from 'node:path';
 import { createHash } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
@@ -53,6 +55,33 @@ const R1 = [['identity page', 'door page'], ['only an identity has', 'only a reg
 const errors = [], findings = [], lookups = [];
 const err = (f, m) => errors.push(`${f}: ${m}`);
 const find = (f, m) => findings.push(`${f}: ${m}`);
+const CHECK = process.argv.includes('--check');
+
+// TRIAL-K7 finding 1, Q58 (decided by KERNEL pass 9, builder lane: option C, both A and B). A symlink lets a face 00 or a
+// whole book live outside kernel/ (or under kernel/parked/), where the history walk did not look, so a seat added and removed
+// through it left no trace (T18, T18b), and a seated face could be a link to bytes git never held (T18c). The builder follows
+// no symlink: every path it reads (book folders, faces, books/, cited trial and spec files) is checked from ROOT down with
+// lstat, and a link at any step is an error. A path outside ROOT is an error too.
+const there = (p) => { try { lstatSync(p); return true; } catch { return false; } };
+function linkIn(abs) {
+  const rel = relative(ROOT, abs);
+  if (rel === '') return null;
+  if (rel.startsWith('..') || isAbsolute(rel)) return abs;
+  let p = ROOT;
+  for (const part of rel.split(sep)) {
+    p = join(p, part);
+    let st; try { st = lstatSync(p); } catch { return null; } // missing: the caller reports it
+    if (st.isSymbolicLink()) return p;
+  }
+  return null;
+}
+function noLink(abs) {
+  const l = linkIn(abs);
+  if (!l) return true;
+  const r = relative(ROOT, l);
+  err(r.startsWith('..') || isAbsolute(r) ? l : r, `${r.startsWith('..') || isAbsolute(r) ? 'is outside the repo' : 'is a symlink'}; the builder reads only regular files and folders in the repo and follows no link, because a link moves seat lines where the history check cannot see them (R2; TRIAL-K7 finding 1, Q58)`);
+  return false;
+}
 
 // R4 (DIRECTOR-RULINGS.md:16): printable ASCII 0x20-0x7E plus newline only.
 function checkAscii(where, text) {
@@ -88,9 +117,13 @@ export function parseCards(md) {
 }
 
 function sources() {
-  const dirs = [join(HERE, '00.00.00'), join(HERE, AXIOMS)].filter(existsSync);
+  const dirs = [join(HERE, '00.00.00'), join(HERE, AXIOMS)].filter((d) => there(d) && noLink(d));
   const s = join(HERE, 'samples');
-  if (existsSync(s)) for (const d of readdirSync(s).sort()) if (statSync(join(s, d)).isDirectory()) dirs.push(join(s, d));
+  if (there(s) && noLink(s)) for (const d of readdirSync(s).sort()) {
+    const st = lstatSync(join(s, d));
+    if (st.isSymbolicLink()) noLink(join(s, d)); // Q58: a linked book folder (T18b) is an error, never followed
+    else if (st.isDirectory()) dirs.push(join(s, d));
+  }
   return dirs;
 }
 
@@ -98,7 +131,11 @@ function loadBook(dir) {
   const book = dir.split('/').pop();
   const isAx = book === AXIOMS;
   const faces = [];
-  for (const file of readdirSync(dir).filter((f) => f.endsWith('.md')).sort()) {
+  for (const file of readdirSync(dir).sort()) {
+    const st = lstatSync(join(dir, file));
+    if (st.isSymbolicLink()) { noLink(join(dir, file)); continue; } // Q58: a linked face (T18, T18c) is an error, never read
+    if (!file.endsWith('.md')) continue;
+    if (!st.isFile()) { err(file, 'is not a regular file (TRIAL-K7 finding 1, Q58)'); continue; }
     let dd, ss, bb, pppp, ff, nn, tail;
     if (isAx) {
       const m = AX_NAME.exec(file);
@@ -121,7 +158,8 @@ function loadBook(dir) {
     const addr = tail ? `${spot}.${tail}` : spot;
     const body = readFileSync(join(dir, file), 'utf8');
     checkAscii(file, body);
-    faces.push({ file, page, pppp, ff, nn, tail, spot, addr, body, cards: parseCards(body) });
+    const rel = relative(ROOT, join(dir, file)).split(sep).join('/');
+    faces.push({ file, rel, page, pppp, ff, nn, tail, spot, addr, body, cards: parseCards(body) });
   }
   return { book, isAx, faces };
 }
@@ -181,7 +219,8 @@ function gitTrust() {
 // content uses these flags. -a --no-textconv: a `-diff`/`binary` line in .gitattributes or .git/info/attributes, or a textconv
 // driver, cannot hide text (K21, K22). --full-history: at a merge git walks every parent, so a side branch cannot drop the
 // commit that added a seat or a trial (K25, K26). -m: a merge's own changes are listed too. --no-abbrev: full ids only.
-const HIST = ['-a', '--no-textconv', '--no-ext-diff', '--full-history', '-m', '--no-abbrev', '--no-renames', '--no-color'];
+// --root (TRIAL-K7 finding 2, Q59): a root commit's adds are listed even if log.showRoot is set false.
+const HIST = ['-a', '--no-textconv', '--no-ext-diff', '--full-history', '-m', '--root', '--no-abbrev', '--no-renames', '--no-color'];
 function gitShow(commit, path) {
   if (!hasGit()) return undefined; // no repo here: nothing can be verified, and the caller makes that an error
   const r = git('cat-file', 'blob', `${commit}:${path}`); // Q56: cat-file reads the object; no attribute or textconv applies
@@ -199,22 +238,33 @@ function gitShow(commit, path) {
 function trialOrigin(path, tblob) {
   const r = git('log', ...HIST, '--format=C %H %P', '--raw', '--diff-filter=A', 'HEAD', '--', path);
   if (r.status !== 0) return { err: `git log could not read the history of ${path}` };
-  let commit = null, merge = false;
+  let commit = null, merge = false, parents = [];
   const adds = [];
+  // TRIAL-K7 finding 2, Q59 (KERNEL pass 9): a root commit has no parents, so `%P` is empty and the line is `C <sha> ` with a
+  // trailing space. It is parsed like any other commit; an add seen before any readable header blocks the seat with a message.
   for (const l of r.stdout.split('\n')) {
-    const c = /^C ([0-9a-f]{40})((?: [0-9a-f]{40})*)$/.exec(l); if (c) { commit = c[1]; merge = c[2].trim().split(' ').length > 1; continue; }
+    const c = /^C ([0-9a-f]{40})((?: [0-9a-f]{40})*) *$/.exec(l); if (c) { commit = c[1]; parents = c[2].trim().split(/ +/).filter(Boolean); merge = parents.length > 1; continue; }
+    if (/^C /.test(l)) { commit = null; continue; }
     const m = /^:\d+ \d+ [0-9a-f]{40} ([0-9a-f]{40}) A\t(.*)$/.exec(l);
-    if (m && m[2] === path) adds.push({ commit, blob: m[1], merge });
+    // Q59 (KERNEL pass 9): with -m a merge is diffed against each parent, so merging an unrelated (orphan) history lists every
+    // file as added against the orphan side. A merge only carries a blob that one of its parents already holds at this path;
+    // that add is the parent's, and --full-history walks it, so it is not counted again. A merge that brings a blob no parent
+    // has (an evil merge) is still an add.
+    if (m && m[2] === path && !(merge && parents.some((p) => git('rev-parse', '--verify', '-q', `${p}:${path}`).stdout.trim() === m[1])))
+      adds.push({ commit, blob: m[1], merge });
   }
   if (!adds.length) return { err: `no commit reachable from HEAD adds ${path}; the seat is blocked (R2; TRIAL-K5 finding 1)` };
+  if (adds.some((a) => !a.commit)) return { err: `git log listed an add of ${path} under a commit header the builder could not read, so its origin cannot be verified; the seat is blocked (TRIAL-K7 finding 2, Q59)` };
   const blobs = [...new Set(adds.map((a) => a.blob))];
   if (blobs.length > 1) return { err: `trial ${path} is added more than once on HEAD's full history with different blobs (${blobs.join(', ')}; commits ${[...new Set(adds.map((a) => a.commit.slice(0, 12)))].join(', ')}); a merge can bring in an edited copy, so the seat is blocked (TRIAL-K6 finding 2, Q56)` };
   const added = adds[adds.length - 1]; // log is newest first; the last one seen is the oldest add
   if (added.blob !== tblob) return { err: `trial ${path} was added at blob ${added.blob} (commit ${added.commit.slice(0, 12)}), not ${tblob}; a seat cites the trial as its lane wrote it, and later edits cannot add a PASS (TRIAL-K5 finding 4, Q54 c)` };
   let why = '';
   for (const a of adds.filter((x) => !x.merge)) {
-    const t = git('show', '--format=', '--name-only', '--no-renames', a.commit);
-    const stray = t.status === 0 ? t.stdout.split('\n').filter((x) => x && !x.startsWith('docs/trial/') && x !== 'kernel/QUESTIONS.md') : ['(unreadable)'];
+    // Q59: diff-tree --root lists a root commit's files against the empty tree, so a root commit that adds only the trial
+    // (and kernel/QUESTIONS.md) is an origin like any other first add; one that adds anything else is refused below.
+    const t = git('diff-tree', '--root', '-r', '-z', '--no-commit-id', '--name-only', '--no-renames', a.commit);
+    const stray = t.status === 0 ? t.stdout.split('\0').filter((x) => x && !x.startsWith('docs/trial/') && x !== 'kernel/QUESTIONS.md') : ['(unreadable)'];
     if (!stray.length) return { commit: a.commit };
     why = `the commit that added trial ${path} (${a.commit.slice(0, 12)}) also changes ${stray.slice(0, 3).join(', ')}; a trial commit touches only docs/trial/ and kernel/QUESTIONS.md (TRIAL-K5 finding 4, Q54 c)`;
   }
@@ -238,6 +288,19 @@ export function passList(text) {
   }
   return out;
 }
+// TRIAL-K7 finding 1 (T18c), Q58 B: the seated bytes must be the bytes git holds. The face must be a regular file (mode
+// 100644) in git whose blob is the seat blob: at HEAD under --check, and in the index (else HEAD) when writing, so a seat can be
+// built before its commit. A symlink (120000), an untracked path or a different blob is an error.
+function gitEntry(rel, want) {
+  const parse = (r, re) => (r.status === 0 ? r.stdout.split('\n').map((l) => re.exec(l)).find(Boolean) : null);
+  const head = parse(git('--literal-pathspecs', 'ls-tree', '--full-tree', 'HEAD', '--', rel), /^(\d+) \w+ ([0-9a-f]{40})\t/);
+  const idx = CHECK ? null : parse(git('--literal-pathspecs', 'ls-files', '-s', '--', rel), /^(\d+) ([0-9a-f]{40}) \d\t/);
+  const e = idx || head;
+  if (!e) return `seated face ${rel} is not in git (untracked; not at HEAD${CHECK ? '' : ' or in the index'}), so its seated bytes are not in the committed tree; commit it (R2; TRIAL-K7 finding 1, Q58)`;
+  if (e[1] !== '100644') return `seated face ${rel} is mode ${e[1]} in git${idx ? ' (index)' : ' (HEAD)'}, not a regular file (100644); a symlink's blob is its link text, not the face (R2; TRIAL-K7 finding 1, Q58)`;
+  if (e[2] !== want) return `seated face ${rel} is blob ${e[2]} in git${idx ? ' (index)' : ' (HEAD)'}, not the seat blob ${want}; the seated bytes must be the committed bytes (R2; TRIAL-K7 finding 1, Q58)`;
+  return null;
+}
 function verifySeat(f, seat) {
   const blob = blobOf(f.body);
   if (seat.blob.length !== 40) return `seat blob ${seat.blob} is a short prefix; a seat pins the full 40-hex git blob (${blob} for this file now) and a prefix can be forged (TRIAL-K4 finding 1, Q52 a)`;
@@ -251,7 +314,7 @@ function verifySeat(f, seat) {
     const sec = text.split(/^## /m).find((x) => new RegExp(`^${seat.ref}\\b|\\b${seat.ref} to R\\d+\\b|\\*\\*${seat.ref} `).test(x));
     if (!sec) return `seat cites ${seat.ref}, which is not in DIRECTOR-RULINGS.md as committed at HEAD; the seat is blocked (TRIAL-K3 finding 2, TRIAL-K4 finding 2)`;
     if (!sec.split('\n').some((l) => l.includes(f.spot) && /\bseat/i.test(l))) return `seat cites ${seat.ref}, but that ruling does not name ${f.spot} in a seat approval; a director seat cannot be verified, so it is blocked (TRIAL-K3 finding 2, TRIAL-K4 finding 2)`;
-    return null;
+    return gitEntry(f.rel, seat.blob); // Q58: checked last, so the trial or ruling error is the one reported
   }
   if (seat.kind !== 'trial') return `a build-stage (R2) seat must cite trial: docs/trial/<file>.md blob <40 hex> (R2)`;
   if (/^docs\/trial\/[\w.\-]+\.md@[0-9a-f]{7,40}$/.test(seat.ref)) return `seat trial ${seat.ref} cites a commit id, which changes in the filter-branched published copy; re-pin it as trial: ${seat.ref.split('@')[0]} blob <the trial file's 40-hex blob> (TRIAL-K5 finding 1, Q53)`;
@@ -259,6 +322,7 @@ function verifySeat(f, seat) {
   if (!m) return `seat trial ${seat.ref} is not docs/trial/<file>.md blob <40 hex> (R2; TRIAL-K3 finding 2; Q53)`;
   if (m[2].length !== 40) return `seat trial blob ${m[2]} is a short prefix; cite the trial file's full 40-hex blob (TRIAL-K5 finding 1, Q53)`;
   const file = join(ROOT, m[1]);
+  if (linkIn(file)) return `seat cites trial ${m[1]}, and that path is or goes through a symlink; the builder follows no link (TRIAL-K7 finding 1, Q58)`;
   if (!existsSync(file)) return `seat cites trial ${m[1]}, which does not exist; the seat is blocked (R2; TRIAL-K3 finding 2)`;
   const origin = trialOrigin(m[1], m[2]);
   if (origin.err) return `seat cites trial ${seat.ref}: ${origin.err}`;
@@ -268,7 +332,7 @@ function verifySeat(f, seat) {
   if (!passed) return `seat cites trial ${seat.ref}, but its PASS list does not name ${f.spot}; the seat is blocked (R2; TRIAL-K3 finding 2)`;
   if (passed.length === 40) { if (passed !== blob) return `trial ${seat.ref} passed ${f.spot} at blob ${passed}, not this blob ${blob}; re-trial (R2, axiom 9)`; }
   else if (!blob.startsWith(passed) || !inTrialTree(origin.commit, f.spot, blob)) return `trial ${seat.ref} lists ${f.spot} by the short prefix ${passed}, and blob ${blob} is not this face's file in the commit that added the trial; a prefix alone can be forged, re-trial (R2, axiom 9; TRIAL-K4 finding 1)`;
-  return null;
+  return gitEntry(f.rel, seat.blob); // Q58: checked last, so the trial or ruling error is the one reported
 }
 
 // TRIAL-K3 finding 11: a face seated in the last build (books/) that is no longer seated needs an un-seat record:
@@ -299,17 +363,50 @@ function catBlobs(ids) {
   }
   return out;
 }
+// TRIAL-K7 finding 1, Q58 (KERNEL pass 9): belt and braces behind the symlink refusal. A symlink ever committed under kernel/
+// (a face 00 file, a book folder, or kernel/samples itself) is followed in history: its link text names a repo path, and that
+// path's history is walked too, so seat lines written through a link (T18 docs/x/f00.md, T18b kernel/parked/...) are found.
+// A target under a linked folder is read even under /parked/. Targets are added in rounds until no new link appears, and the
+// final walk is one `git log` over every path, so the newest-first order holds across them.
 function historySeats() {
   const out = new Map();
-  const fail = () => { err('kernel', `git log could not read the history of seat lines, so un-seats cannot be checked (TRIAL-K5 finding 3, Q54 b; Q56)`); return out; };
-  const r = git('log', ...HIST, '--raw', '--format=C %H', 'HEAD', '--', 'kernel/');
-  if (r.status !== 0) return fail();
+  const fail = () => { err('kernel', `git log could not read the history of seat lines, so un-seats cannot be checked (TRIAL-K5 finding 3, Q54 b; Q56; Q58)`); return out; };
+  const targets = new Map(); // repo path a link pointed at -> page of the linked face 00, or '' for a linked folder
+  const linkText = new Map();
+  let rows;
+  for (let round = 0; ; round++) {
+    const r = git('--literal-pathspecs', 'log', ...HIST, '--raw', '--format=C %H', 'HEAD', '--', 'kernel/', ...targets.keys());
+    if (r.status !== 0) return fail();
+    rows = [];
+    for (const l of r.stdout.split('\n')) {
+      const m = /^:\d+ (\d+) [0-9a-f]{40} ([0-9a-f]{40}) [AMT]\t(.*)$/.exec(l);
+      if (m) rows.push({ mode: m[1], blob: m[2], path: m[3] });
+    }
+    const links = rows.filter((x) => x.mode === '120000');
+    const need = [...new Set(links.map((x) => x.blob))].filter((b) => !linkText.has(b));
+    if (need.length) { const t = catBlobs(need); if (!t) return fail(); for (const [b, v] of t) linkText.set(b, v); }
+    let added = false;
+    for (const { path, blob } of links) {
+      const raw = (linkText.get(blob) || '').replace(/\n$/, '');
+      if (!raw || raw.startsWith('/')) continue; // an absolute link leaves the repo; the live tree refuses any link (noLink)
+      const t = posix.normalize(posix.join(posix.dirname(path), raw)).replace(/\/+$/, '');
+      if (t.startsWith('../') || t === '..' || t === '.' || targets.has(t)) continue;
+      const n = FACE00.exec(path.split('/').pop());
+      targets.set(t, n ? n[1] : ''); added = true;
+    }
+    if (!added) break;
+    if (round >= 16) return fail();
+  }
+  const folders = [...targets].filter(([, v]) => v === '').map(([k]) => k + '/');
   const seen = []; // [page, blob] newest first
-  for (const l of r.stdout.split('\n')) {
-    const m = /^:\d+ \d+ [0-9a-f]{40} ([0-9a-f]{40}) [AMT]\t(.*)$/.exec(l);
-    if (!m || m[2].includes('/parked/')) continue; // kernel/parked is not built (R21); its pages are never seated
-    const n = FACE00.exec(m[2].split('/').pop());
-    if (n) seen.push([n[1], m[1]]);
+  for (const { mode, blob, path } of rows) {
+    if (mode === '120000') continue;
+    const viaFolder = folders.some((f) => path.startsWith(f));
+    if (targets.get(path)) seen.push([targets.get(path), blob]); // a file a face 00 link pointed at (T18)
+    if (!path.startsWith('kernel/') && !viaFolder) continue;
+    if (!viaFolder && path.includes('/parked/')) continue; // kernel/parked is not built (R21); its pages are never seated
+    const n = FACE00.exec(path.split('/').pop());
+    if (n) seen.push([n[1], blob]);
   }
   const text = catBlobs([...new Set(seen.map((x) => x[1]))]);
   if (!text) return fail();
@@ -326,6 +423,9 @@ function priorSeats() {
   const out = [];
   if (!hasGit()) { err('books', `no git repo at ${ROOT}, so past seats cannot be read from HEAD:books/ and un-seats cannot be checked (TRIAL-K4 findings 5, 6; Q52 b, d)`); return out; }
   if (gitTrust()) { err('books', gitTrust()); return out; }
+  // Q58: a symlink committed (or staged) anywhere the builder reads hides its target from git's view of these paths.
+  for (const [where, r] of [['HEAD', git('ls-tree', '-r', '--full-tree', 'HEAD', '--', 'kernel', 'books', 'docs/trial', 'docs/spec')], ['index', git('ls-files', '-s', '--', 'kernel', 'books', 'docs/trial', 'docs/spec')]])
+    for (const l of r.status === 0 ? r.stdout.split('\n') : []) if (/^120000 /.test(l)) err(l.split('\t').pop(), `is a symlink in git (${where}); the builder follows no link (R2; TRIAL-K7 finding 1, Q58)`);
   const hist = historySeats();
   const ls = git('ls-tree', '--name-only', 'HEAD', 'books/');
   for (const n of (ls.status === 0 ? ls.stdout.split('\n') : []).map((x) => x.replace(/^books\//, '')).filter((x) => x.endsWith('.book') || x === AXIOMS_FILE).sort())
@@ -454,6 +554,7 @@ function checkWhy(file, c) {
   const m = /why: docs\/spec\/([\w.\-]+):(\d+)/.exec(c.fields.source || '');
   if (!m) { err(file, `04 card ${c.key}: why: has no cited line (source: ... why: docs/spec/FILE:LINE)`); return; }
   const p = join(SPEC, m[1]);
+  if (!noLink(p)) return; // Q58
   if (!existsSync(p)) { err(file, `04 card ${c.key}: cited file ${m[1]} is missing`); return; }
   let line = readFileSync(p, 'utf8').split('\n')[Number(m[2]) - 1] || '';
   for (const [a, b] of [['\u2014', '-'], ['\u2013', '-'], ['\u00a7', 'section '], ['\u201c', '"'], ['\u201d', '"']]) line = line.split(a).join(b); // R4 merges
@@ -553,7 +654,7 @@ function render(entriesOf, address) {
   return text;
 }
 
-const check = process.argv.includes('--check');
+const check = CHECK;
 const books = sources().map(loadBook);
 books.forEach(validate);
 crossChecks(books);
@@ -562,6 +663,7 @@ lookupReport(books);
 for (const f of findings) console.log('finding  ' + f);
 for (const l of lookups) console.log('lookup   ' + l);
 const outputs = books.map((b) => [join(OUT, b.isAx ? AXIOMS_FILE : `${b.book}.book`), render(b.faces, b.book)]);
+for (const [out] of outputs) noLink(out); // Q58: never read or write books/ through a link
 for (const e of errors) console.error('ERROR    ' + e);
 if (errors.length) { console.error(`${errors.length} errors; nothing written`); process.exit(1); }
 if (!check) mkdirSync(OUT, { recursive: true });
