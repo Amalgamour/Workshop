@@ -59,6 +59,50 @@ fn format_3_2_timestamps_are_iso_utc() {
     assert_eq!(BookLog::parse(&t).unwrap_err().code(), "corrupt");
 }
 #[test]
+fn format_3_2_timestamps_are_real_times() {
+    for t in ["2026-13-45T99:99:99Z", "2026-02-30T00:00:00Z", "2025-02-29T00:00:00Z", "2026-11-11T24:00:00Z", "2026-11-11T23:60:00Z"] {
+        assert!(check_timestamp(t).is_err(), "{t}");
+    }
+    assert!(check_timestamp("2024-02-29T23:59:59Z").is_ok());
+}
+#[test]
+fn r4_a_book_holding_non_ascii_is_damaged_on_read() {
+    let t = EXAMPLE.replace("title: tools", "title: caf\u{e9}");
+    let e = BookLog::parse(&t).unwrap_err();
+    assert_eq!(e.code(), "corrupt");
+    assert!(e.detail().contains("R4"));
+    let t = EXAMPLE.replace("\"by\":\"user\"", "\"by\":\"us\ter\"");
+    assert!(BookLog::parse(&t).is_err(), "a raw tab byte is damage");
+}
+#[test]
+fn format_3_4_forged_snapshot_is_refused() {
+    let mut b = Bk::with_identity(B);
+    b.put("10.11.21.1001.00", None, "title: one").unwrap();
+    b.put("10.11.21.1001.04", None, "hello").unwrap();
+    let mut forged = b.st.clone();
+    forged.pages.remove(&1001);
+    let snap = forged.snapshot_entry(AT, "compute");
+    let mut log = BookLog::new(b.st.book);
+    log.entries = b.log.clone();
+    log.entries.push(snap);
+    let e = BookState::replay(&BookLog::parse(&log.to_text()).unwrap(), &Policy::default()).unwrap_err();
+    assert_eq!(e.rule(), "format 3.4");
+}
+#[test]
+fn format_3_4_archived_log_starts_at_its_snapshot() {
+    let mut b = Bk::with_identity(B);
+    b.put("10.11.21.1001.00", None, "title: one").unwrap();
+    let snap = b.st.snapshot_entry(AT, "compute");
+    b.apply(snap).unwrap();
+    b.put("10.11.21.1001.04", None, "x").unwrap();
+    let mut log = BookLog::new(b.st.book);
+    log.entries = b.log[2..].to_vec();
+    let st = BookState::replay(&log, &Policy::default()).unwrap();
+    assert_eq!(st, b.st);
+    log.entries = b.log[3..].to_vec();
+    assert!(BookState::replay(&log, &Policy::default()).is_err(), "no snapshot to start from");
+}
+#[test]
 fn format_utc_formats_epoch_seconds() {
     assert_eq!(format_utc(0), "1970-01-01T00:00:00Z");
     assert_eq!(format_utc(1794355200), "2026-11-11T00:00:00Z");
@@ -195,6 +239,26 @@ mod files {
         let d = std::env::temp_dir().join(format!("seqaddr-test-{}-{name}", std::process::id()));
         let _ = std::fs::remove_file(&d);
         d
+    }
+    #[test]
+    fn r4_append_refuses_non_ascii_and_read_reports_damage() {
+        let p = tmp("r4");
+        file::create(&p, BookId::parse(B).unwrap()).unwrap();
+        let mut e = Entry::new(1, AT, "user", Op::Put, "10.11.21.0000.00");
+        e.body = Some("title: caf\u{e9}".into());
+        assert_eq!(file::append(&p, &[e]).unwrap_err().rule(), "R4");
+        assert_eq!(file::read(&p).unwrap().entries.len(), 0, "nothing written");
+        std::fs::write(&p, "{\"seqbook\":1,\"address\":\"10.11.21\"}\n\u{e9}").unwrap();
+        assert_eq!(file::read(&p).unwrap_err().code(), "corrupt");
+        assert_eq!(file::repair_tail(&p).unwrap_err().code(), "corrupt", "damage is not cut away");
+    }
+    #[test]
+    fn format_3_1_cut_header_is_repaired_to_empty_and_rewritten() {
+        let p = tmp("cuthdr");
+        std::fs::write(&p, b"{\"seqbook\":1,\"addr").unwrap();
+        assert!(file::repair_tail(&p).unwrap());
+        file::write_header(&p, BookId::parse(B).unwrap()).unwrap();
+        assert_eq!(file::read(&p).unwrap().entries.len(), 0);
     }
     #[test]
     fn format_3_1_append_then_read() {

@@ -131,7 +131,68 @@ pub struct BookLog {
     pub valid_len: usize,
 }
 
-/// Check an ISO 8601 UTC timestamp `YYYY-MM-DDTHH:MM:SS[.frac]Z`.
+/// Director ruling R4: stored text is plain ASCII, printable 0x20-0x7E plus newline.
+pub fn is_plain_char(c: char) -> bool {
+    c == '\n' || (' '..='~').contains(&c)
+}
+
+/// Check one stored string under R4. `what` names the field for the error.
+pub fn check_plain(what: &str, s: &str) -> Result<()> {
+    match s.char_indices().find(|(_, c)| !is_plain_char(*c)) {
+        None => Ok(()),
+        Some((i, c)) => Err(SeqError::rejected(
+            "R4",
+            format!("{what} holds {} at character {i}; storage is plain ASCII only (printable characters and newline; no accents, emoji, tabs or CR)", describe_char(c)),
+        )),
+    }
+}
+
+fn describe_char(c: char) -> String {
+    match c {
+        '\t' => "a tab".into(),
+        '\r' => "a carriage return (CR)".into(),
+        _ if c.is_control() => format!("control character U+{:04X}", c as u32),
+        _ => format!("`{c}` (U+{:04X})", c as u32),
+    }
+}
+
+/// First byte that breaks R4 in raw file bytes: (line, byte).
+pub fn first_non_plain_byte(bytes: &[u8]) -> Option<(usize, u8)> {
+    let mut line = 1;
+    for &b in bytes {
+        if b == b'\n' {
+            line += 1;
+        } else if !(0x20..=0x7E).contains(&b) {
+            return Some((line, b));
+        }
+    }
+    None
+}
+
+impl Entry {
+    /// Optional `reason` field: why the entry opens a draft (R5 follow-up).
+    pub fn reason(&self) -> Option<&str> {
+        self.extra.get("reason").and_then(|v| v.as_str())
+    }
+    /// R4: every stored string of the entry is plain ASCII.
+    pub fn check_plain(&self) -> Result<()> {
+        check_plain("by", &self.by)?;
+        check_plain("addr", &self.addr)?;
+        for (k, v) in [("tail", &self.tail), ("from", &self.from), ("to", &self.to), ("body", &self.body), ("proposal", &self.proposal), ("outcome", &self.outcome)] {
+            if let Some(v) = v {
+                check_plain(k, v)?;
+            }
+        }
+        let line = self.to_line();
+        check_plain("entry line", &line)
+    }
+}
+
+fn is_leap(y: u32) -> bool {
+    (y % 4 == 0 && y % 100 != 0) || y % 400 == 0
+}
+
+/// Check an ISO 8601 UTC timestamp `YYYY-MM-DDTHH:MM:SS[.frac]Z`, and that it is a real time.
 pub fn check_timestamp(s: &str) -> Result<()> {
     let b = s.as_bytes();
     let ok = b.len() >= 20
@@ -143,7 +204,19 @@ pub fn check_timestamp(s: &str) -> Result<()> {
         && *b.last().unwrap() == b'Z'
         && [0, 1, 2, 3, 5, 6, 8, 9, 11, 12, 14, 15, 17, 18].iter().all(|&i| b[i].is_ascii_digit())
         && (b.len() == 20 || (b[19] == b'.' && b.len() > 21 && b[20..b.len() - 1].iter().all(|c| c.is_ascii_digit())));
-    if ok {
+    let real = ok && {
+        let n = |a: usize, b: usize| s[a..b].parse::<u32>().unwrap_or(99);
+        let (y, mo, d, h, mi, se) = (n(0, 4), n(5, 7), n(8, 10), n(11, 13), n(14, 16), n(17, 19));
+        let dim = match mo {
+            1 | 3 | 5 | 7 | 8 | 10 | 12 => 31,
+            4 | 6 | 9 | 11 => 30,
+            2 if is_leap(y) => 29,
+            2 => 28,
+            _ => 0,
+        };
+        d >= 1 && d <= dim && h < 24 && mi < 60 && se < 60
+    };
+    if real {
         Ok(())
     } else {
         Err(SeqError::invalid("format 3.2", format!("`{s}` is not an ISO 8601 UTC time (YYYY-MM-DDTHH:MM:SSZ)")))
@@ -187,6 +260,9 @@ impl BookLog {
     /// Parse book text. A last line that is cut off (no newline at the end and
     /// not valid JSON) is dropped (format 3.1). Damage anywhere earlier is an error.
     pub fn parse(text: &str) -> Result<BookLog> {
+        if let Some((line, b)) = first_non_plain_byte(text.as_bytes()) {
+            return Err(SeqError::Corrupt { line, detail: format!("damaged: byte 0x{b:02X} is not plain ASCII (Director ruling R4)") });
+        }
         let ends_clean = text.ends_with('\n');
         let lines: Vec<&str> = text.split('\n').collect();
         // split leaves a trailing "" when the text ends with '\n'
@@ -218,6 +294,8 @@ impl BookLog {
                 return Err(SeqError::Corrupt { line: i + 1, detail: format!("entry n={} out of order; expected {expect}", e.n) });
             }
             check_timestamp(&e.at).map_err(|err| SeqError::Corrupt { line: i + 1, detail: err.to_string() })?;
+            // R4 also covers JSON escapes (`\u00e9`, `\t`) that decode to a non-plain character.
+            e.check_plain().map_err(|err| SeqError::Corrupt { line: i + 1, detail: format!("damaged: {} (Director ruling R4)", err.detail()) })?;
             entries.push(e);
         }
         // A proposal is all or nothing (format 3.3): drop a trailing group that is cut short.
@@ -303,9 +381,13 @@ pub mod file {
         SeqError::Io { detail: e.to_string() }
     }
 
+    /// Read a book. A byte outside plain ASCII (R4) reports the book as damaged.
     pub fn read(path: &Path) -> Result<BookLog> {
-        let text = fs::read_to_string(path).map_err(io)?;
-        BookLog::parse(&text)
+        let bytes = fs::read(path).map_err(io)?;
+        if let Some((line, b)) = first_non_plain_byte(&bytes) {
+            return Err(SeqError::Corrupt { line, detail: format!("{}: damaged: byte 0x{b:02X} is not plain ASCII (Director ruling R4)", path.display()) });
+        }
+        BookLog::parse(std::str::from_utf8(&bytes).expect("ASCII is UTF-8"))
     }
 
     /// Create a new book file with only its header. Fails if it exists.
@@ -317,10 +399,35 @@ pub mod file {
         f.sync_all().map_err(io)
     }
 
+    /// Write the header into an empty file (after `repair_tail` emptied a cut header).
+    pub fn write_header(path: &Path, book: BookId) -> Result<()> {
+        let mut f = OpenOptions::new().write(true).open(path).map_err(io)?;
+        if f.metadata().map_err(io)?.len() != 0 {
+            return Err(SeqError::rejected("format 3.2", "the file already has content; the header is line 1"));
+        }
+        let mut line = serde_json::to_string(&Header::new(book)).unwrap();
+        line.push('\n');
+        f.write_all(line.as_bytes()).map_err(io)?;
+        f.sync_all().map_err(io)
+    }
+
     /// Cut a partly written last line off the file, so the next append starts
     /// on a clean line (format 3.1). Returns true if anything was cut.
+    ///
+    /// A file cut inside its header (a crash during `create`) holds no complete
+    /// line; it is emptied, and the caller writes the header again (`write_header`).
     pub fn repair_tail(path: &Path) -> Result<bool> {
-        let text = fs::read_to_string(path).map_err(io)?;
+        let bytes = fs::read(path).map_err(io)?;
+        if let Some((line, b)) = first_non_plain_byte(&bytes) {
+            return Err(SeqError::Corrupt { line, detail: format!("damaged: byte 0x{b:02X} is not plain ASCII (Director ruling R4); not repaired") });
+        }
+        let text = String::from_utf8(bytes).expect("ASCII");
+        if !text.is_empty() && !text.contains('\n') && serde_json::from_str::<Header>(&text).is_err() {
+            let f = OpenOptions::new().write(true).open(path).map_err(io)?;
+            f.set_len(0).map_err(io)?;
+            f.sync_all().map_err(io)?;
+            return Ok(true);
+        }
         let log = BookLog::parse(&text)?;
         if log.valid_len >= text.len() {
             return Ok(false);
@@ -334,7 +441,11 @@ pub mod file {
     /// Append entries (one proposal) as whole lines, then fsync. Repairs a
     /// partial last line first. Each entry is written as one `write` of a
     /// complete line so a crash leaves at most one partial line at the end.
+    /// Entries breaking R4 are refused before anything is written.
     pub fn append(path: &Path, entries: &[Entry]) -> Result<()> {
+        for e in entries {
+            e.check_plain()?;
+        }
         repair_tail(path)?;
         let mut buf = String::new();
         let existing = fs::read(path).map_err(io)?;

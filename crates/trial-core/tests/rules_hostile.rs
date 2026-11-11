@@ -36,7 +36,7 @@ fn desk_book_dd_00_bb_is_a_book_owned_by_the_desk() {
 }
 
 #[test]
-#[ignore = "finding 9"]
+// fixed in CORE fix pass (was #[ignore = "finding 9"])
 fn pointer_99_is_never_content() {
     // decisions.md:214 "At every level, 99 is a pointer, never content. ... Its face 08 (map) records each target".
     // A law/why face on 9999 is content.
@@ -47,36 +47,38 @@ fn pointer_99_is_never_content() {
 }
 
 #[test]
-#[ignore = "finding 9"]
+// fixed in CORE fix pass (was #[ignore = "finding 9"])
 fn desk_99_is_a_reserved_pointer_not_a_user_desk() {
     // seqAddr.md:39 `99` "reserved pointer"; decisions.md:260 user environments are 10-98.
     let mut w = world();
-    let out = try_seed(&mut w, "user", vec![put("99.10.10.0000.00", "title: d"), put("99.10.10.0000.04", W04)]);
+    // R10 (fix pass): the door page holds only face 00, so the content goes on a page of the 99 book.
+    let out = try_seed(&mut w, "user", vec![put("99.10.10.0000.00", "title: d"), put("99.10.10.1001.00", "title: p"), put("99.10.10.1001.04", W04)]);
     assert!(!out.approved(), "a book with law/why content was created on desk 99");
 }
 
 #[test]
-#[ignore = "finding 20"]
+// fixed in CORE fix pass (was #[ignore = "finding 20"])
 fn a_01_card_may_use_the_inherited_04_card() {
     // seqAddr.md:104 / decisions.md:128 books follow the kernel live; axiom 2 "Inherit what is agreed; write only the
     // difference. Do not copy the parent". C3.2 (seqAddr.md:175) asks that the 04 card exist - the core demands a
     // local copy, so overriding one kernel 01 card forces copying the kernel's 04 text into the book.
     let mut w = world();
     seed(&mut w, "compute", vec![put("00.00.00.0030.00", "title: k"), put("00.00.00.0030.01", "## Job\nKernel rule."), put("00.00.00.0030.04", W04)]);
-    let out = propose(&w, "u", vec![put("10.11.21.0030.00", "title: b"), put("10.11.21.0030.01", "## Job\nLocal rule.")]);
+    let out = propose(&w, "u", approve(vec![put("10.11.21.0030.00", "title: b"), put("10.11.21.0030.01", "## Job\nLocal rule.")]));
     assert!(out.approved(), "{:?}", out.reasons);
 }
 
 #[test]
-fn counters_01_98_then_99_after_98() {
-    // seqAddr.md:24, decisions.md:201
+fn counters_01_98_and_no_00_or_99() {
+    // seqAddr.md:24, decisions.md:201; fix pass: R9 "Faces do not have sentinels" - no FF.00, no FF.99
+    // (this test used to accept 99 after 98 as a continuation, seqAddr.md:257, which R9 overrules).
     let mut w = world();
     seed(&mut w, "compute", vec![put("10.11.21.1523.00", "title: timer"), put("10.11.21.1523.04", W04)]);
-    assert!(!propose(&w, "u", vec![put("10.11.21.1523.06.00", "x")]).approved(), "00 is the board");
-    assert!(!propose(&w, "u", vec![put("10.11.21.1523.06.99", "x")]).approved(), "99 before 98");
+    assert!(!propose(&w, "u", vec![put("10.11.21.1523.06.00", "x")]).approved(), "R9: no FF.00");
+    assert!(!propose(&w, "u", vec![put("10.11.21.1523.06.99", "x")]).approved(), "R9: no FF.99");
     seed(&mut w, "u", vec![put("10.11.21.1523.06.01", "n")]);
     seed(&mut w, "u", vec![put("10.11.21.1523.06.98", "n")]);
-    assert!(propose(&w, "u", vec![put("10.11.21.1523.06.99", "-> 10.11.21.1524")]).approved());
+    assert!(!propose(&w, "u", vec![put("10.11.21.1523.06.99", "-> 10.11.21.1524")]).approved(), "R9: no FF.99 even after 98");
 }
 
 // ---------------- tails on every face type ----------------
@@ -103,14 +105,14 @@ fn tails_on_every_face_type() {
     // counted faces 05/06 and 0012.03: no seated face, no FF.draft, no FF.retired
     for a in ["10.11.21.1523.05", "10.11.21.1523.06", "10.11.21.0012.03"] {
         assert!(!propose(&w, "u", vec![put_t(a, "draft", "x")]).approved(), "{a}.draft");
-        assert!(!propose(&w, "u", vec![put(a, "x")]).approved(), "{a} seated");
+        assert!(!propose(&w, "u", approve(vec![put(a, "x")])).approved(), "{a} seated");
     }
     // counters: retired never (seqAddr.md:287)
     assert!(!propose(&w, "u", vec![put_t("10.11.21.0012.03.10", "retired", "x")]).approved());
 }
 
 #[test]
-#[ignore = "finding 2"]
+// fixed in CORE fix pass (was #[ignore = "finding 2"])
 fn a_new_face_is_not_seated_without_draft_and_review() {
     // drafting.md:180 "A brand-new face ... starts as an empty draft and still goes through notes and merges";
     // seqAddr.md:201 FF.draft is the unseated face; axiom 9 / decisions.md:588 "Nothing is promoted until it has
@@ -118,10 +120,17 @@ fn a_new_face_is_not_seated_without_draft_and_review() {
     let w = world();
     let out = propose(&w, "model", vec![put("10.11.21.1600.00", "title: t"), put("10.11.21.1600.04", W04)]);
     assert!(!out.approved(), "new face 04 seated directly by a model with no draft or review");
+    // R2: with a recorded approval (Director, or build-stage after a hostile trial) the seat is allowed
+    let mut ops = vec![put("10.11.21.1600.00", "title: t"), put("10.11.21.1600.04", W04)];
+    for r in ops.iter_mut() {
+        r.approved_by = Some("build-stage (R2)".into());
+        r.trial = Some("docs/trial/core-trial.md".into());
+    }
+    assert!(propose(&w, "model", ops).approved());
 }
 
 #[test]
-#[ignore = "finding 3"]
+// fixed in CORE fix pass (was #[ignore = "finding 3"])
 fn promote_needs_a_review_by_someone_other_than_the_drafter() {
     // format.md:97 / drafting.md:191 "promote: after review"; decisions.md:588 (E7, settled):
     // "Nothing is promoted until it has faced a hostile pass from a view other than its maker's."
@@ -132,7 +141,7 @@ fn promote_needs_a_review_by_someone_other_than_the_drafter() {
 }
 
 #[test]
-#[ignore = "finding 10"]
+// fixed in CORE fix pass (was #[ignore = "finding 10"])
 fn a_retired_face_is_not_reseated_through_a_draft() {
     // seqAddr.md:201 `FF.retired` is "a previously seated face awaiting removal"; the core already refuses a bare put
     // on it (state.rs:421). A put of FF.draft and a promote re-seat it anyway and wipe the retired body from state.
@@ -149,7 +158,7 @@ fn a_retired_face_is_not_reseated_through_a_draft() {
 // ---------------- workflow loop (wl.003 section 6) ----------------
 
 #[test]
-#[ignore = "finding 4"]
+// fixed in CORE fix pass (was #[ignore = "finding 4"])
 fn only_compute_closes_and_not_the_builder() {
     // workflow-loop.003.md:174 step 7 Close "Who: Compute"; :175 step 6 review by a valid reviewer;
     // S10 "The builder is ineligible to review its own return" (wl.003 6.3).
@@ -159,7 +168,7 @@ fn only_compute_closes_and_not_the_builder() {
 }
 
 #[test]
-#[ignore = "finding 4"]
+// fixed in CORE fix pass (was #[ignore = "finding 4"])
 fn only_compute_lints_draft_to_pack() {
     // workflow-loop.003.md:170 step 2 Lint `draft -> pack` "Who: compute ... A pack that fails stays draft".
     let mut w = world();
@@ -170,7 +179,7 @@ fn only_compute_lints_draft_to_pack() {
 }
 
 #[test]
-#[ignore = "finding 11"]
+// fixed in CORE fix pass (was #[ignore = "finding 11"])
 fn compute_returns_only_during_authorized_recovery() {
     // workflow-loop.003.md:173 step 5 "Compute during authorized recovery"; 6.4: "Silence alone leaves the claim
     // unresolved. After the required authority records an abandonment decision, Compute fences the old claim".
@@ -216,20 +225,24 @@ fn resolution_order_book_shelf_desk_kernel() {
 }
 
 #[test]
-fn a_local_draft_does_not_shadow_and_a_kernel_draft_is_not_inherited() {
-    // seqAddr.md:133 draft "being written; not active"; seqAddr.md:104 first match wins (live)
+fn r5_drafts_are_found_and_inherited_and_a_seated_face_beats_a_draft_at_the_same_spot() {
+    // Rewritten for Director ruling R5 (answers kernel Q2): draft faces count and lookups find them; a draft
+    // that is the only copy at a spot is returned with state "draft"; drafts inherit book > shelf > desk > kernel.
     let mut w = world();
     seed(&mut w, "compute", vec![put("00.00.00.0030.00", "title: k"), put_t("00.00.00.0030.04", "draft", W04), put("00.00.00.0030.08", "## l\ntarget: 00.00.00.0000\n")]);
     let r = w.resolve(&pa("10.11.21.0030.04")).unwrap();
-    assert_eq!(r.origin, Origin::Missing);
+    assert_eq!((r.origin, r.state.as_deref()), (Origin::Kernel, Some("draft")), "the kernel draft is inherited");
+    assert!(matches!(r.found, Some(Found::Draft { .. })));
     seed(&mut w, "compute", vec![put("10.00.00.0030.00", "title: d"), put("10.00.00.0030.04", W04)]);
+    let r = w.resolve(&pa("10.11.21.0030.04")).unwrap();
+    assert_eq!((r.origin, r.state.as_deref()), (Origin::Desk, Some("seated")));
     seed(&mut w, "u", vec![put("10.11.21.0030.00", "title: b"), put_t("10.11.21.0030.04", "draft", W04)]);
     let r = w.resolve(&pa("10.11.21.0030.04")).unwrap();
-    assert_eq!(r.origin, Origin::Desk, "local draft is not live, the desk's seated face is found");
+    assert_eq!((r.origin, r.state.as_deref()), (Origin::Local, Some("draft")), "first match wins: the local draft is found");
 }
 
 #[test]
-#[ignore = "finding 6"]
+#[ignore = "finding 6 (raised 7, see Fix pass)"]
 fn a_kernel_draft_counter_is_not_inherited() {
     // API.md:122 "Drafts and retired faces are never inherited"; decisions.md:277 counts `05.01.draft` as a draft face.
     // A bare counter address walks the chain and returns the kernel's counter whatever its tail.
@@ -243,7 +256,7 @@ fn a_kernel_draft_counter_is_not_inherited() {
 }
 
 #[test]
-#[ignore = "finding 7"]
+// fixed in CORE fix pass (was #[ignore = "finding 7"])
 fn a_retired_page_is_not_live() {
     // seqAddr.md:138 retired "previously seated, retired before removal"; axiom 1: "location, state, and a lawful
     // connection decide what is live". A page retired by `PPPP.retired` still answers as live and shadows the kernel.
@@ -256,7 +269,7 @@ fn a_retired_page_is_not_live() {
 }
 
 #[test]
-#[ignore = "finding 8"]
+// fixed in CORE fix pass (was #[ignore = "finding 8"])
 fn kernel_only_cards_cannot_be_redefined_by_a_book() {
     // decisions.md:287 types are cards "marked `owner: kernel-only`, so no book can redefine it"; seqAddr.md:193.
     let mut w = world();
@@ -266,34 +279,37 @@ fn kernel_only_cards_cannot_be_redefined_by_a_book() {
 }
 
 #[test]
-#[ignore = "finding 12"]
+#[ignore = "finding 12 (raised 7, see Fix pass)"]
 fn back_link_must_be_live_not_a_draft() {
     // decisions.md:230 / axiom 8: a connection is lawful only when written; seqAddr.md:133 a draft is not active.
     let mut w = world();
-    seed(&mut w, "u", vec![put("10.11.22.0000.00", "title: next"), put_t("10.11.22.0000.08", "draft", "## back\ntarget: 10.11.21.9999\nkind: continuation")]);
-    let out = propose(&w, "u", vec![put("10.11.21.9999.00", "type: pointer"), put("10.11.21.9999.08", "## next\ntarget: 10.11.22.0000\nkind: continuation")]);
+    door(&mut w, "10.11.22");
+    seed(&mut w, "u", vec![put("10.11.22.0010.00", "title: next"), put_t("10.11.22.0010.08", "draft", "## back\ntarget: 10.11.21.9999\nkind: continuation")]);
+    let out = propose(&w, "u", vec![put("10.11.21.9999.00", "type: pointer"), put("10.11.21.9999.08", "## next\ntarget: 10.11.22.0010\nkind: continuation")]);
     assert!(!out.approved(), "a draft back-link satisfied A5.3");
 }
 
 #[test]
-#[ignore = "finding 12"]
+// fixed in CORE fix pass (was #[ignore = "finding 12"])
 fn retiring_a_back_link_does_not_leave_a_one_way_link() {
     // decisions.md:230 "A link that only goes one way is a validation error."
     let mut w = world();
-    seed(&mut w, "u", vec![put("10.11.22.0000.00", "title: next"), put("10.11.22.0000.04", W04), put("10.11.22.0000.08", "## back\ntarget: 10.11.21.9999\nkind: continuation")]);
-    seed(&mut w, "u", vec![put("10.11.21.9999.00", "type: pointer"), put("10.11.21.9999.08", "## next\ntarget: 10.11.22.0000\nkind: continuation")]);
-    let out = propose(&w, "u", vec![mv("10.11.22.0000.08", "", "retired")]);
+    door(&mut w, "10.11.22");
+    seed(&mut w, "u", vec![put("10.11.22.0010.00", "title: next"), put("10.11.22.0010.04", W04), put("10.11.22.0010.08", "## back\ntarget: 10.11.21.9999\nkind: continuation")]);
+    seed(&mut w, "u", vec![put("10.11.21.9999.00", "title: next\ntype: pointer"), put("10.11.21.9999.08", "## next\ntarget: 10.11.22.0010\nkind: continuation")]);
+    let out = propose(&w, "u", vec![mv("10.11.22.0010.08", "", "retired")]);
     assert!(!out.approved(), "back-link retired; 10.11.21.9999 now links one way");
 }
 
 #[test]
-#[ignore = "finding 13"]
+// fixed in CORE fix pass (was #[ignore = "finding 13"])
 fn pages_1000_and_up_need_a_title_including_9999() {
     // seqAddr.md:115 / decisions.md:131 "Pages 1000 and up must have a title" - no exception for 9999 is written;
     // validate.rs:233 exempts 9999 without a BUILD-LOG `7`.
     let mut w = world();
-    seed(&mut w, "u", vec![put("10.11.22.0000.00", "title: next"), put("10.11.22.0000.04", W04), put("10.11.22.0000.08", "## back\ntarget: 10.11.21.9999\nkind: continuation")]);
-    let out = propose(&w, "u", vec![put("10.11.21.9999.00", "type: pointer"), put("10.11.21.9999.08", "## next\ntarget: 10.11.22.0000\nkind: continuation")]);
+    door(&mut w, "10.11.22");
+    seed(&mut w, "u", vec![put("10.11.22.0010.00", "title: next"), put("10.11.22.0010.04", W04), put("10.11.22.0010.08", "## back\ntarget: 10.11.21.9999\nkind: continuation")]);
+    let out = propose(&w, "u", vec![put("10.11.21.9999.00", "title: next\ntype: pointer"), put("10.11.21.9999.08", "## next\ntarget: 10.11.22.0010\nkind: continuation")]);
     assert!(!out.approved(), "9999 accepted with no title and no 7 recorded");
 }
 

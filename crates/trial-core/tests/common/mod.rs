@@ -46,24 +46,38 @@ pub fn propose(w: &World, by: &str, ops: Vec<OpRequest>) -> Outcome {
     validate(w, &Proposal { by: by.into(), ops }, AT)
 }
 
+/// R2 (fix pass): seating a face needs an approval record. Seeding is setup, not the
+/// thing under test, so seeds carry the Director's approval on every put; promotes are
+/// left alone so the review rule stays visible.
+pub fn approve(ops: Vec<OpRequest>) -> Vec<OpRequest> {
+    ops.into_iter()
+        .map(|mut r| {
+            if r.op == Some(Op::Put) && r.approved_by.is_none() {
+                r.approved_by = Some("director".into());
+            }
+            r
+        })
+        .collect()
+}
+
 /// Apply a proposal and store the new state; panics with the reasons if rejected.
 pub fn seed(w: &mut World, by: &str, ops: Vec<OpRequest>) {
-    let out = propose(w, by, ops);
+    let out = propose(w, by, approve(ops));
     assert!(out.approved(), "seed rejected: {:?}", out.reasons);
     w.insert(out.state.unwrap());
 }
 /// Apply if approved; return the outcome either way.
 pub fn try_seed(w: &mut World, by: &str, ops: Vec<OpRequest>) -> Outcome {
-    let out = propose(w, by, ops);
+    let out = propose(w, by, approve(ops));
     if let Some(st) = out.state.clone() {
         w.insert(st);
     }
     out
 }
 
-/// A book with its door page (0000.00 + 0000.04, so C1.1 holds on the door).
+/// A book with its door page. R10 (fix pass): the door page 0000 holds only face 00.
 pub fn door(w: &mut World, book: &str) {
-    seed(w, "compute", vec![put(&format!("{book}.0000.00"), "---\ntitle: tools\n---"), put(&format!("{book}.0000.04"), "## About\nwhy: a door\n\nThe book.")]);
+    seed(w, "compute", vec![put(&format!("{book}.0000.00"), "---\ntitle: tools\n---")]);
 }
 
 /// Kernel 00.00.00, shelf 10.11.00, desk 10.00.00 and book 10.11.21, each with a door.
@@ -89,7 +103,8 @@ pub struct LogBuilder {
 }
 impl LogBuilder {
     pub fn new(book: &str) -> Self {
-        LogBuilder { w: World::new(Policy::default()), log: BookLog::new(bid(book)) }
+        // Log tests are about the file format, not seating (R2): seats need no approval record here.
+        LogBuilder { w: World::new(Policy { seat_needs_approval: false, ..Policy::default() }), log: BookLog::new(bid(book)) }
     }
     pub fn add(&mut self, by: &str, ops: Vec<OpRequest>) {
         let out = propose(&self.w, by, ops);

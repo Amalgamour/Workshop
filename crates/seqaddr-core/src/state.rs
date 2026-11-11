@@ -25,7 +25,8 @@ pub struct Policy {
     pub compute_name: String,
     /// Faces counted besides 05/06, as (page, face). Default: the dictionary 0012.03 (C8.3).
     pub extra_counted: Vec<(u16, u8)>,
-    /// Apply C1.1 (face 00 + a content face) to door pages 0000 too.
+    /// Apply C1.1 (face 00 + a content face) to door pages 0000 too. R10: the door page
+    /// holds only face 00, so this is off by default; turning it on makes every door page fail.
     pub c1_on_door_pages: bool,
     /// A `put` on an existing counter still in `draft` replaces its body (a pack being written).
     pub draft_counter_put_replaces: bool,
@@ -33,6 +34,15 @@ pub struct Policy {
     pub reviewer_not_builder: bool,
     /// workflow-loop.003 6.3: closing (`review -> bare`) needs an outcome.
     pub close_needs_outcome: bool,
+    /// workflow-loop.003 6 steps 2 and 7: only the compute lints (`draft -> pack`) and closes (`review -> bare`).
+    pub compute_only_steps: bool,
+    /// workflow-loop.003 6.4: the compute may return on another's claim only during authorized
+    /// recovery. How the abandonment decision is recorded is `7`, so this is off until it is designed.
+    pub compute_recovery_return: bool,
+    /// Proposal rule (R2, E7, drafting.md:20): seating a face (`promote`, or a bare `put` that
+    /// creates a seated face) needs an approval record: `approved_by: director`, or
+    /// `approved_by: build-stage (R2)` with a `trial` reference.
+    pub seat_needs_approval: bool,
 }
 
 impl Default for Policy {
@@ -42,10 +52,13 @@ impl Default for Policy {
             enforce_drafting: true,
             compute_name: "compute".into(),
             extra_counted: vec![(12, 3)],
-            c1_on_door_pages: true,
-            draft_counter_put_replaces: true,
+            c1_on_door_pages: false,
+            draft_counter_put_replaces: false,
             reviewer_not_builder: true,
             close_needs_outcome: true,
+            compute_only_steps: true,
+            compute_recovery_return: false,
+            seat_needs_approval: true,
         }
     }
 }
@@ -70,6 +83,9 @@ pub struct Note {
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct Draft {
     pub body: String,
+    /// Why the draft was opened: field `reason` of the opening entry (R5 follow-up; optional).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub reason: Option<String>,
     pub notes: Vec<Note>,
     /// Entry that created the draft (`put` or `copy`).
     pub n: u64,
@@ -129,9 +145,10 @@ impl FaceState {
     pub fn is_present(&self) -> bool {
         self.seated.is_some() || self.draft.is_some() || !self.counters.is_empty()
     }
-    /// Live content: seated or counters (drafts are not active, seqAddr 4).
+    /// Live content: seated, or a counter past `draft` (drafts are not active, seqAddr 4;
+    /// C1.2 a page with only drafts is draft, draft counters included).
     pub fn is_live(&self) -> bool {
-        self.seated.is_some() || !self.counters.is_empty()
+        self.seated.is_some() || self.counters.values().any(|c| c.tail != crate::tail::CounterTail::Draft)
     }
     /// The newest text: the draft if there is one, else the seated body.
     pub fn view(&self) -> Option<&str> {
@@ -178,7 +195,7 @@ impl PageState {
             return Ok(());
         }
         if !self.faces.get(&0).map(|f| f.is_present()).unwrap_or(false) {
-            return Err(SeqError::rejected("C1.1", format!("page {page:04} has no face 00 (its door)")));
+            return Err(SeqError::rejected("C1.1", format!("page {page:04} has no face 00 (its registry, R10)")));
         }
         if !self.faces.iter().any(|(f, s)| is_content_face(*f) && s.is_present()) {
             return Err(SeqError::rejected("C1.1", format!("page {page:04} needs at least one of faces 01-06 or 08; a page with only its door has no reason to exist")));
@@ -205,7 +222,7 @@ pub struct BookState {
     pub uses: Vec<UseRecord>,
 }
 
-/// A board line (A4.4): counter and its current tail.
+/// One line of a counted face's derived listing: counter and its current tail.
 #[derive(Debug, Clone, PartialEq, Eq, Serialize)]
 pub struct BoardLine {
     pub counter: u8,
@@ -221,24 +238,38 @@ impl BookState {
         BookState { book, pages: BTreeMap::new(), last_n: 0, uses: Vec::new() }
     }
 
-    /// Replay a whole log from its latest snapshot (format 3.1, 3.4).
+    /// Replay a whole log (format 3.1). Every snapshot met on the way is checked
+    /// against the state the log gives at that point; a snapshot that disagrees
+    /// is refused (axiom 6: the past is not rewritten). A log whose early entries
+    /// were archived (first entry n > 1) starts at its first snapshot.
     pub fn replay(log: &BookLog, policy: &Policy) -> Result<BookState> {
-        let book = log.book()?;
-        let mut st = BookState::new(book);
-        let start = log.latest_snapshot().unwrap_or(0);
-        for e in &log.entries[start..] {
-            st.apply(e, policy)?;
-        }
-        Ok(st)
+        Self::replay_entries(log, &log.entries, policy)
     }
 
-    /// Replay only up to entry `n` (rewind, format 3.1). Ignores snapshots after `n`.
+    /// Fast replay that trusts the latest snapshot and skips what comes before it (format 3.4).
+    /// Use only on books whose snapshots were checked (by `replay`) when opened.
+    pub fn replay_from_latest_snapshot(log: &BookLog, policy: &Policy) -> Result<BookState> {
+        let start = log.latest_snapshot().unwrap_or(0);
+        Self::replay_entries(log, &log.entries[start..], policy)
+    }
+
+    /// Replay only up to entry `n` (rewind, format 3.1), checking snapshots the same way.
     pub fn replay_until(log: &BookLog, n: u64, policy: &Policy) -> Result<BookState> {
+        let upto: Vec<Entry> = log.entries.iter().take_while(|e| e.n <= n).cloned().collect();
+        Self::replay_entries(log, &upto, policy)
+    }
+
+    fn replay_entries(log: &BookLog, entries: &[Entry], policy: &Policy) -> Result<BookState> {
         let book = log.book()?;
         let mut st = BookState::new(book);
-        let upto: Vec<&Entry> = log.entries.iter().take_while(|e| e.n <= n).collect();
-        let start = upto.iter().rposition(|e| e.op == Op::Snapshot).unwrap_or(0);
-        for e in &upto[start..] {
+        let start = match entries.first() {
+            Some(e) if e.n != 1 && e.op != Op::Snapshot => entries
+                .iter()
+                .position(|e| e.op == Op::Snapshot)
+                .ok_or_else(|| SeqError::Corrupt { line: 2, detail: format!("log starts at n={} with no snapshot to start from", e.n) })?,
+            _ => 0,
+        };
+        for e in &entries[start..] {
             st.apply(e, policy)?;
         }
         Ok(st)
@@ -262,7 +293,7 @@ impl BookState {
     pub fn counter(&self, p: u16, f: u8, nn: u8) -> Option<&CounterState> {
         self.face(p, f).and_then(|fs| fs.counters.get(&nn))
     }
-    /// The derived board `FF.00` (A4.4; format 3.3: never written as an entry).
+    /// A derived listing of a counted face's counters (R9: there is no `FF.00`; never written as an entry).
     pub fn board(&self, p: u16, f: u8) -> Vec<BoardLine> {
         self.face(p, f)
             .map(|fs| fs.counters.iter().filter(|(nn, _)| **nn != 99).map(|(nn, c)| BoardLine { counter: *nn, tail: c.tail }).collect())
@@ -326,6 +357,14 @@ impl BookState {
         if st.last_n != e.n {
             return Err(SeqError::rejected("format 3.4", format!("snapshot at n={} records last_n={}", e.n, st.last_n)));
         }
+        let starts_replay = self.last_n == 0 && self.pages.is_empty() && self.uses.is_empty();
+        if !starts_replay {
+            let mut here = self.clone();
+            here.last_n = e.n;
+            if here != st {
+                return Err(SeqError::rejected("format 3.4", format!("snapshot n={} disagrees with the log before it; refused (axiom 6: the past is not rewritten)", e.n)));
+            }
+        }
         *self = st;
         self.last_n = e.n - 1; // apply() sets last_n = e.n
         Ok(())
@@ -367,10 +406,10 @@ impl BookState {
         self.door_first(p.page, fp.face)?;
         let counted = policy.is_counted(p.page, fp.face);
         match fp.counter {
-            Some(0) => Err(SeqError::rejected("A4.4", "the door `FF.00` (board) is derived by the compute and never written (format 3.3)")),
+            Some(nn) if !(1..=98).contains(&nn) => Err(SeqError::rejected("R9", format!("counter {nn:02}: faces have no sentinels; counters run 01-98 (Director ruling R9)"))),
             Some(nn) => {
                 if !counted {
-                    return Err(SeqError::rejected("A4.4", format!("face {:02} on page {:04} is not counted (no `FF.00` door); a counter without its door is invalid", fp.face, p.page)));
+                    return Err(SeqError::rejected("A4.4", format!("face {:02} on page {:04} is not a counted face; counters live on counted faces only (05, 06 and Policy.extra_counted)", fp.face, p.page)));
                 }
                 if let Some(Tail::Retired) = tail {
                     return Err(SeqError::invalid("A2.5", "`retired` is used only without a counter"));
@@ -410,7 +449,7 @@ impl BookState {
             }
             None => {
                 if counted {
-                    return Err(SeqError::rejected("A4.4", format!("face {:02} is counted: plain `FF` means its door `FF.00` (board), which is derived; write a counter `FF.NN`", fp.face)));
+                    return Err(SeqError::rejected("A4.4", format!("face {:02} is counted: it holds counters only, so write a counter `FF.NN` (01-98); it has no door of its own (R9)", fp.face)));
                 }
                 let body = want_body(e, "format 3.3")?;
                 let n = e.n;
@@ -431,13 +470,16 @@ impl BookState {
                         Ok(())
                     }
                     Some(Tail::Draft) => {
+                        if face.retired.is_some() && face.seated.is_none() {
+                            return Err(SeqError::rejected("seqAddr 5.7", "this face is retired and awaiting removal; it is not drafted again"));
+                        }
                         if face.draft.is_some() {
                             return Err(SeqError::conflict("seqAddr 5.7", "this face already has its one draft `FF.draft`"));
                         }
                         if face.seated.is_some() && policy.enforce_drafting {
                             return Err(SeqError::rejected("D0", "a seated face is drafted with `copy` (the compute copies it); the writer sends no body"));
                         }
-                        face.draft = Some(Draft { body, notes: Vec::new(), n });
+                        face.draft = Some(Draft { body, reason: e.reason().map(str::to_string), notes: Vec::new(), n });
                         Ok(())
                     }
                     Some(t) => Err(SeqError::rejected("A2.5", format!("a face is not created as `{t}`"))),
@@ -477,7 +519,7 @@ impl BookState {
                 }
                 Err(SeqError::rejected("seqAddr 5.7", format!("face tail move `{from}` -> `{to}` is not allowed; drafts are seated by `promote`")))
             }
-            Some(0) | Some(99) => Err(SeqError::rejected("A4.4", "the door `FF.00` and the pointer `FF.99` carry no tail")),
+            Some(0) | Some(99) => Err(SeqError::rejected("R9", "faces have no sentinels: `FF.00` and `FF.99` do not exist (Director ruling R9)")),
             Some(nn) => {
                 let from = CounterTail::from_field(e.from.as_deref())?;
                 let to = CounterTail::from_field(e.to.as_deref())?;
@@ -495,14 +537,30 @@ impl BookState {
                     return Err(SeqError::rejected("format 3.3", format!("{} is `{}`, not `{from}`; a tail move is rejected if `from` is not current", p, c.tail)));
                 }
                 check_counter_move(from, to)?;
+                if policy.compute_only_steps && e.by != policy.compute_name {
+                    match (from, to) {
+                        (CounterTail::Draft, CounterTail::Pack) => {
+                            return Err(SeqError::rejected("workflow-loop.003 6", "`draft -> pack` is the lint step; only the compute moves it, after checking the pack (section 8)"))
+                        }
+                        (CounterTail::Review, CounterTail::Closed) => {
+                            return Err(SeqError::rejected("workflow-loop.003 6", "`review -> closed` is done by the compute once the review and outcome are recorded"))
+                        }
+                        _ => {}
+                    }
+                }
                 match (from, to) {
                     (CounterTail::Pack, CounterTail::Open) => {
                         c.claim = Some(Claim { id: format!("claim-{}", e.n), owner: e.by.clone(), start: e.at.clone(), n: e.n });
                     }
                     (CounterTail::Open, CounterTail::Return) => {
                         let owner = c.claim.as_ref().map(|c| c.owner.as_str()).unwrap_or("");
-                        if e.by != owner && e.by != policy.compute_name {
-                            return Err(SeqError::conflict("S11", format!("`{}` does not hold the claim on {} (held by `{owner}`); a stale or foreign claim cannot write", e.by, p)));
+                        if e.by != owner {
+                            if e.by != policy.compute_name {
+                                return Err(SeqError::conflict("S11", format!("`{}` does not hold the claim on {} (held by `{owner}`); a stale or foreign claim cannot write", e.by, p)));
+                            }
+                            if !policy.compute_recovery_return {
+                                return Err(SeqError::rejected("S11", format!("the compute returns on `{owner}`'s claim only in authorized recovery, after an abandonment decision is recorded (workflow-loop.003 6.4); how it is recorded is not designed yet (7)")));
+                            }
                         }
                         c.returned_by = Some(e.by.clone());
                         if let Some(b) = &e.body {
@@ -562,7 +620,7 @@ impl BookState {
         if face.draft.is_some() {
             return Err(SeqError::conflict("seqAddr 5.7", "this face already has its one draft"));
         }
-        face.draft = Some(Draft { body: seated, notes: Vec::new(), n });
+        face.draft = Some(Draft { body: seated, reason: e.reason().map(str::to_string), notes: Vec::new(), n });
         Ok(())
     }
 
@@ -597,6 +655,9 @@ impl BookState {
         }
         let (_, face) = self.draft_slot(e)?;
         let d = face.draft.as_ref().ok_or_else(|| SeqError::missing("D0", "`promote` needs a draft"))?;
+        if face.retired.is_some() && face.seated.is_none() {
+            return Err(SeqError::rejected("seqAddr 5.7", "this face is retired and awaiting removal; a draft does not re-seat it"));
+        }
         if d.open_notes() > 0 {
             return Err(SeqError::rejected("D0", format!("{} note(s) are not struck; review checks every note is struck before promote", d.open_notes())));
         }

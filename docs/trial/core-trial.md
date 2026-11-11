@@ -150,3 +150,32 @@ What held up under attack (no finding):
 cargo test -p trial-core               # green: 20 pass, 20 ignored (each names its finding)
 cargo test -p trial-core -- --ignored  # the 20 ignored tests fail, one per documented violation
 ```
+
+## Fix pass (CORE, 2026-11-11)
+
+Status: **fixed** = core changed and the trial test is un-ignored and passes; **raised** = the spec does not decide, the test stays ignored (or none exists), a `7` is in BUILD-LOG and a [CORE] question is in kernel/QUESTIONS.md. Rulings R2, R4, R5 and R6-R10 were applied in the same pass; trial tests that conflicted with a ruling were updated and say so in a comment.
+
+| # | Sev | Status | What changed | Test |
+|---|---|---|---|---|
+| 1 | BLOCKER | fixed (R4) | Storage is plain ASCII: non-ASCII refused on write (rule R4), a book holding it is damaged on read, repair does not cut it away. A multi-byte char can no longer be split by a crash. | `log_hostile::r4_non_ascii_is_refused_on_write_and_a_book_holding_it_is_damaged` (rewritten for R4; rich sample is now awkward ASCII) |
+| 2 | MAJOR | fixed (R2) | Seating a face needs `approved-by: director` or `build-stage (R2)` + trial (E7/R2). Compute's own bare puts exempt (7, Q23). | `a_new_face_is_not_seated_without_draft_and_review` (+ R2 positive case) |
+| 3 | MAJOR | fixed (R2) | `promote` always needs the approval record. | `promote_needs_a_review_by_someone_other_than_the_drafter` |
+| 4 | MAJOR | fixed | Only the compute lints `draft -> pack` and closes `review -> closed` (Policy.compute_only_steps). The section 8 lint template itself is not built (7). | `only_compute_closes_and_not_the_builder`, lint test |
+| 5 | MAJOR | fixed | Replay checks every snapshot against the replayed log (format 3.4). | `forged_snapshot_is_not_trusted_over_the_log` |
+| 6 | MAJOR | raised | R5 says drafts are inherited, A2.9 lets books read kernel faces; whether counters/boards of counted faces inherit is open. Q15. | `a_kernel_draft_counter_is_not_inherited` (ignored) |
+| 7 | MAJOR | fixed | Resolver skips a retired page and pages of a book retired at its door. Whether that re-exposes the parent: Q16. | retired-page test |
+| 8 | MAJOR | fixed (part) / raised | `owner: kernel-only` cards cannot be redefined in a book (C1.4). Who may write the kernel: Q17. | kernel-only test |
+| 9 | MINOR | fixed | 99 pointers take only faces 00 and 08; desk/shelf/book 99 books are pointers (A5.1). | both finding-9 tests |
+| 10 | MINOR | fixed | No `FF.draft` on a retired face; no promote that re-seats it. | `a_retired_face_is_not_reseated_through_a_draft` |
+| 11 | MINOR | fixed / raised | Compute return on another's claim refused unless Policy.compute_recovery_return; the abandonment record is Q18. | recovery test |
+| 12 | MINOR | fixed (part) / raised | Retiring or changing a back-link is rechecked (A5.3). Whether a draft back-link counts: R5 says drafts count, Q19. | `retiring_a_back_link_does_not_leave_a_one_way_link`; `back_link_must_be_live_not_a_draft` (ignored) |
+| 13 | MINOR | fixed / raised | 9999 needs a title (A2.8). C3.2 skip on counted 01/02 logged as 7, Q20. | `pages_1000_and_up_need_a_title_including_9999` |
+| 14 | MINOR | fixed (R9) | `sentinel()` answers only widths 2 and 4 (R9: sentinels only on desk/shelf/book/page). | `r1_sentinel_on_a_three_digit_group` (updated for R9) |
+| 15 | MINOR | fixed | `repair_tail` empties a cut header; `file::write_header` rewrites it. | `crash_during_create_leaves_a_readable_empty_book` |
+| 16 | MINOR | fixed | Timestamps checked for real month/day/leap/hour/minute/second. | `timestamps_must_be_real_times` |
+| 17 | MINOR | fixed | Core tests renamed and strengthened (A1.8, prov7, R9, D0, S11 names; R2/R4/R5 tests added). | core suite |
+| 18 | MINOR | fixed / raised | `put` never replaces a draft counter (default). Counter created as `pack` (wl.003:171 vs format.md:75) is Q21. | `d0_put_never_replaces_a_draft_counter` (core) |
+| 19 | MINOR | raised | Counted faces by page type need kernel type rules; Q22. | none |
+| 20 | MAJOR | fixed | C3.2 uses the inherited 04 face when the page has none. | `a_01_card_may_use_the_inherited_04_card` |
+
+Tally: 16 fixed outright or in part with tests passing (1-5, 7-18, 20 minus the raised parts), 4 left open as 7 (6, 12-draft, 19, and the 18 pack question); 2 trial tests remain ignored (6, 12-draft). Trial tests updated for rulings: R4 (finding 1, rich sample), R5 (`r5_drafts_are_found_and_inherited...`), R9 (`counters_01_98_and_no_00_or_99`, grammar table rows `1523.05.00`/`1523.05.99`, counter roles), R10 (door pages hold only face 00; back-link tests moved to page 0010; desk-99 test writes content on 1001), R2 (`seed` carries Director approval on puts).

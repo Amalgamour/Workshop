@@ -80,9 +80,12 @@ fn s11_only_claim_owner_returns() {
     assert_eq!(e.code(), "conflict");
 }
 #[test]
-fn wl003_6_compute_may_return_during_recovery() {
+fn s11_compute_returns_on_a_foreign_claim_only_in_authorized_recovery() {
     let mut b = with_pack();
     b.tail("agent-7", PK, Some("pack"), Some("open")).unwrap();
+    assert_eq!(b.tail("compute", PK, Some("open"), Some("return")).unwrap_err().rule(), "S11");
+    // provisional 7: the recovery switch stands in for the unrecorded abandonment decision
+    b.pol.compute_recovery_return = true;
     assert!(b.tail("compute", PK, Some("open"), Some("return")).is_ok());
 }
 #[test]
@@ -137,6 +140,7 @@ fn s11_abandoned_needs_system_return() {
     to_review(&mut b);
     assert_eq!(b.close("compute", PK, Some("abandoned")).unwrap_err().rule(), "S11");
     let mut b = with_pack();
+    b.pol.compute_recovery_return = true;
     b.tail("agent-7", PK, Some("pack"), Some("open")).unwrap();
     b.tail("compute", PK, Some("open"), Some("return")).unwrap();
     b.tail("reviewer", PK, Some("return"), Some("review")).unwrap();
@@ -170,16 +174,45 @@ fn format_3_3_put_never_replaces_counter() {
     assert!(b.put(PK, Some("pack"), "again").is_err());
 }
 #[test]
-fn wl003_6_draft_pack_may_be_rewritten_while_draft() {
+fn d0_put_never_replaces_a_draft_counter() {
     let mut b = with_pack();
     b.put("10.11.21.1523.05.04", Some("draft"), "v1").unwrap();
+    assert!(b.put("10.11.21.1523.05.04", Some("draft"), "v2").is_err());
+    // provisional switch kept for callers that relied on it
+    b.pol.draft_counter_put_replaces = true;
     b.put("10.11.21.1523.05.04", Some("draft"), "v2").unwrap();
     assert_eq!(b.st.counter(1523, 5, 4).unwrap().bodies, vec!["v2".to_string()]);
 }
 #[test]
-fn a4_4_board_is_derived_never_written() {
+fn wl003_6_only_compute_lints_draft_to_pack() {
     let mut b = with_pack();
-    assert_eq!(b.put("10.11.21.1523.05.00", None, "x").unwrap_err().rule(), "A4.4");
+    b.put("10.11.21.1523.05.04", Some("draft"), "w").unwrap();
+    assert_eq!(b.tail("lead", "10.11.21.1523.05.04", Some("draft"), Some("pack")).unwrap_err().rule(), "workflow-loop.003 6");
+    assert!(b.tail("compute", "10.11.21.1523.05.04", Some("draft"), Some("pack")).is_ok());
+}
+#[test]
+fn wl003_6_only_compute_closes() {
+    let mut b = with_pack();
+    to_review(&mut b);
+    assert_eq!(b.close("builder", PK, Some("passed")).unwrap_err().rule(), "workflow-loop.003 6");
+    assert!(b.close("compute", PK, Some("passed")).is_ok());
+}
+#[test]
+fn s5_7_a_retired_face_is_not_drafted_or_promoted_back() {
+    let mut b = Bk::with_identity(B);
+    b.put("10.11.21.1001.04", None, "v1").unwrap();
+    b.op("m", Op::Copy, "10.11.21.1001.04", None, None).unwrap();
+    b.tail("u", "10.11.21.1001.04", None, Some("retired")).unwrap();
+    assert!(b.op("compute", Op::Promote, "10.11.21.1001.04.draft", None, None).is_err(), "old draft does not re-seat");
+    let mut c = Bk::with_identity(B);
+    c.put("10.11.21.1001.04", None, "v1").unwrap();
+    c.tail("u", "10.11.21.1001.04", None, Some("retired")).unwrap();
+    assert!(c.put("10.11.21.1001.04", Some("draft"), "v2").is_err());
+}
+#[test]
+fn r9_counted_face_has_no_door_and_holds_only_counters() {
+    let mut b = with_pack();
+    assert_eq!(b.put("10.11.21.1523.05.00", None, "x").unwrap_err().rule(), "R9");
     assert_eq!(b.put("10.11.21.1523.05", None, "x").unwrap_err().rule(), "A4.4");
 }
 #[test]
@@ -191,7 +224,7 @@ fn a4_4_board_lists_counters_and_tails() {
     assert_eq!(lines, [(1, "closed"), (2, "draft"), (3, "pack")]);
 }
 #[test]
-fn a4_4_counter_without_board_invalid() {
+fn a4_4_counters_only_on_counted_faces() {
     let mut b = with_pack();
     assert_eq!(b.put("10.11.21.1523.04.01", None, "x").unwrap_err().rule(), "A4.4");
 }
@@ -202,15 +235,14 @@ fn c8_3_dictionary_0012_03_is_counted() {
     assert!(b.put("10.11.21.0012.03.10", None, "ham.001 -> 10.10.11.1014.01.ham").is_ok());
 }
 #[test]
-fn a4_5_ff99_only_after_ff98() {
+fn r9_counters_run_01_to_98_and_ff99_does_not_exist() {
     let mut b = with_pack();
-    assert_eq!(b.put("10.11.21.1523.05.99", None, "-> 1524").unwrap_err().rule(), "A4.5");
     b.put("10.11.21.1523.05.98", None, "x").unwrap();
-    assert!(b.put("10.11.21.1523.05.99", None, "-> 1524").is_ok());
-    assert!(b.st.board(1523, 5).iter().all(|l| l.counter != 99));
+    assert_eq!(b.put("10.11.21.1523.05.99", None, "-> 1524").unwrap_err().rule(), "R9");
+    assert!(b.st.board(1523, 5).iter().all(|l| (1..=98).contains(&l.counter)));
 }
 #[test]
-fn a4_4_board_and_pointer_take_no_tail_move() {
+fn prov7_door_and_pointer_take_no_tail_move() {
     let mut b = with_pack();
     assert!(b.tail("x", "10.11.21.1523.05.00", None, Some("open")).is_err());
 }
@@ -372,9 +404,8 @@ fn a2_5_page_retired_by_tail_move() {
     assert!(b.tail("u", "10.11.21.1001", None, Some("retired")).is_err());
 }
 #[test]
-fn a4_1_container_retired_through_identity_page() {
+fn a4_1_container_retired_through_door_page() {
     let mut b = Bk::with_identity(B);
-    b.put("10.11.21.0000.04", None, "about").unwrap();
     b.tail("u", "10.11.21.0000", None, Some("retired")).unwrap();
     assert_eq!(b.st.page(0).unwrap().tail(), seqaddr_core::tail::PageTail::Retired);
 }
@@ -397,4 +428,14 @@ fn format_3_3_put_needs_a_face() {
     let mut b = Bk::with_identity(B);
     assert!(b.put("10.11.21.1001", None, "x").is_err());
     assert!(b.put("10.11.21.1001.04.ham", None, "x").is_err(), "not a single card");
+}
+
+#[test]
+fn c1_2_a_page_with_only_draft_counters_is_draft() {
+    let mut b = Bk::with_identity(B);
+    b.put("10.11.21.0051.00", Some("draft"), "x").unwrap();
+    b.put("10.11.21.0051.06.01", Some("draft"), "a note").unwrap();
+    assert_eq!(b.st.page(51).unwrap().tail(), seqaddr_core::tail::PageTail::Draft);
+    b.tail("compute", "10.11.21.0051.06.01", Some("draft"), Some("pack")).unwrap();
+    assert_eq!(b.st.page(51).unwrap().tail(), seqaddr_core::tail::PageTail::Live);
 }

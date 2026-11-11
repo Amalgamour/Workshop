@@ -281,20 +281,18 @@ fn e3_one_digit_mark_is_axiom_never_address() {
     assert_eq!(bad("7.8").rule(), "E3");
 }
 #[test]
-fn a4_4_board_takes_no_tail() {
-    assert!(Address::parse("1523.05.00").is_ok());
-    assert!(Address::parse("1523.05.00.open").is_err());
+fn r9_faces_have_no_sentinels_ff00_and_ff99_do_not_exist() {
+    for a in ["1523.05.00", "1523.05.00.open", "1523.05.99", "1523.05.99.pack", "10.11.21.1523.06.00", "10.11.21.0012.03.99"] {
+        assert_eq!(bad(a).rule(), "R9", "{a}");
+    }
+    assert!(Address::parse("1523.05.01").is_ok() && Address::parse("1523.05.98").is_ok());
 }
 #[test]
-fn a5_1_counter_continuation_takes_no_tail() {
-    assert!(Address::parse("1523.05.99").is_ok());
-    assert!(Address::parse("1523.05.99.pack").is_err());
-}
-#[test]
-fn s8_counter_roles() {
-    assert_eq!(counter_role(0), CounterRole::Door);
+fn r9_counter_roles_01_to_98_only() {
+    assert_eq!(counter_role(0), CounterRole::NotACounter);
+    assert_eq!(counter_role(1), CounterRole::Item);
     assert_eq!(counter_role(98), CounterRole::Item);
-    assert_eq!(counter_role(99), CounterRole::Continuation);
+    assert_eq!(counter_role(99), CounterRole::NotACounter);
 }
 #[test]
 fn s8_round_trip_display() {
@@ -398,7 +396,7 @@ fn a2_6_sets_share_n_and_nn() {
 }
 #[test]
 fn a4_3_face_jobs() {
-    assert_eq!(face_job(0), FaceJob::Door);
+    assert_eq!(face_job(0), FaceJob::Registry);
     assert_eq!(face_job(1), FaceJob::Law);
     assert_eq!(face_job(2), FaceJob::Schema);
     assert_eq!(face_job(3), FaceJob::Operate);
@@ -469,6 +467,13 @@ fn r1_full_zero_sequence_is_the_door_on_every_axis() {
 fn r1_door_names_in_roles() {
     assert_eq!(axis_role(0), AxisRole::Door);
     assert_eq!(page_kind(0), PageKind::Door);
-    assert_eq!(face_job(0).name(), "door");
-    assert_eq!(counter_role(0), CounterRole::Door);
+    assert_eq!(face_job(0).name(), "registry", "R10: face 00 is the registry, not a door");
+}
+
+#[test]
+fn r9_sentinels_only_on_desk_shelf_book_and_page_widths() {
+    assert_eq!(sentinel(999, 3), None, "brands have no sentinel (000/999 are only reserved, C8.5)");
+    assert_eq!(sentinel(0, 3), None);
+    assert_eq!(sentinel(0, 5), None);
+    assert_eq!(sentinel(100, 2), None);
 }

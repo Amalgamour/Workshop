@@ -288,9 +288,21 @@ pub enum Sentinel {
     Pointer,
 }
 
-/// Which sentinel a value is on an axis of `width` digits (2 or 4), if any.
+/// Which sentinel a value is on an axis of `width` digits, if any.
+///
+/// R9: sentinels exist only on the desk, shelf and book axes (width 2) and the page
+/// axis (width 4). Faces, counters and 3-digit brands have none (brands 000/999 are
+/// merely reserved, C8.5), so call this only for those four axes; any other width
+/// returns `None`.
 pub fn sentinel(value: u16, width: u8) -> Option<Sentinel> {
-    let nines = if width == 4 { 9999 } else { 99 };
+    let nines = match width {
+        2 => 99,
+        4 => 9999,
+        _ => return None,
+    };
+    if value > nines {
+        return None;
+    }
     if value == 0 {
         Some(Sentinel::Door)
     } else if value == nines {
@@ -807,7 +819,12 @@ fn parse_face_part(segs: &[Seg<'_>], mut i: usize, input: &str) -> Result<(Optio
         if d.len() != 2 {
             return Err(SeqError::invalid("A1.5", format!("`{d}` in `{input}`: a counter is exactly 2 digits")));
         }
-        fp.counter = Some(two(d));
+        let nn = two(d);
+        // R9: faces have no sentinels; counters run 01-98 (no `FF.00` door/board, no `FF.99` pointer).
+        if nn == 0 || nn == 99 {
+            return Err(SeqError::invalid("R9", format!("`{d}` in `{input}`: faces have no sentinels; counters run 01-98 (Director ruling R9)")));
+        }
+        fp.counter = Some(nn);
         i += 1;
     }
     if let Some(Seg::Word(w)) = segs.get(i) {
@@ -849,12 +866,6 @@ fn check_face_rules(fp: &FacePart, input: &str) -> Result<()> {
         (Some(_), Some(Tail::Retired)) => {
             return Err(SeqError::invalid("A2.5", format!("`{input}`: `retired` is used only without a counter")));
         }
-        (Some(0), Some(t)) => {
-            return Err(SeqError::invalid("A4.4", format!("`{input}`: `FF.00` is the door (board) of a counted face, derived by the compute; it takes no tail `{t}` (provisional, see BUILD-LOG)")));
-        }
-        (Some(99), Some(t)) => {
-            return Err(SeqError::invalid("A5.1", format!("`{input}`: `FF.99` is a pointer, never content; it takes no tail `{t}` (provisional, see BUILD-LOG)")));
-        }
         _ => {}
     }
     if let Some(b) = fp.brand {
@@ -865,20 +876,19 @@ fn check_face_rules(fp: &FacePart, input: &str) -> Result<()> {
     Ok(())
 }
 
-/// Counter role (seqAddr 8 grammar comment, A4.4, A4.5).
+/// Counter role (R9: faces have no sentinels, so a counter is 01-98 and nothing else).
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
 #[serde(rename_all = "snake_case")]
 pub enum CounterRole {
-    /// `FF.00`: the door of a counted face (R1; older wording: the board, A4.4).
-    Door,
+    /// 01-98: a counter (one entry of a counted face).
     Item,
-    Continuation,
+    /// 00, 99 or above: not a counter (R9; older wording called 00 the board and 99 a continuation).
+    NotACounter,
 }
 
 pub fn counter_role(nn: u8) -> CounterRole {
     match nn {
-        0 => CounterRole::Door,
-        99 => CounterRole::Continuation,
-        _ => CounterRole::Item,
+        1..=98 => CounterRole::Item,
+        _ => CounterRole::NotACounter,
     }
 }

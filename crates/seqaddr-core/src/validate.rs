@@ -2,7 +2,7 @@
 //! or nothing (format 3.3, proposed). Hard failures reject it with reasons;
 //! findings are recorded for review and do not reject.
 
-use crate::addr::{Address, BookId, PageAddr, Tail};
+use crate::addr::{Address, BookId, PageAddr};
 use crate::axioms::AxiomChain;
 use crate::cards::{parse_face, parse_stamp};
 use crate::error::SeqError;
@@ -30,6 +30,49 @@ pub struct OpRequest {
     pub cites: Option<u64>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub outcome: Option<String>,
+    /// Approval record for seating a face (R2): `director`, or `build-stage (R2)` with `trial`.
+    #[serde(default, alias = "approved-by", skip_serializing_if = "Option::is_none")]
+    pub approved_by: Option<String>,
+    /// The hostile-trial reference that backs a `build-stage (R2)` approval.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub trial: Option<String>,
+    /// Why a draft is opened (R5 follow-up): read on the entry that opens a draft (`copy`,
+    /// or `put FF.draft` of a new face); stored as entry field `reason`.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub reason: Option<String>,
+}
+
+/// Approval values accepted for seating a face.
+pub const APPROVED_BY_DIRECTOR: &str = "director";
+pub const APPROVED_BY_BUILD_STAGE: &str = "build-stage (R2)";
+
+/// Does this request seat a face? `promote`, or a bare `put` creating a seated face (not a counter).
+pub fn seats_a_face(r: &OpRequest) -> bool {
+    match r.op {
+        Some(Op::Promote) => true,
+        Some(Op::Put) => {
+            let tail_field = r.tail.as_deref().filter(|t| !t.is_empty());
+            match Address::parse_full_page(&r.addr) {
+                Ok(p) => p.face.as_ref().map(|f| f.counter.is_none() && f.tail.is_none() && tail_field.is_none()).unwrap_or(false),
+                Err(_) => false,
+            }
+        }
+        _ => false,
+    }
+}
+
+/// R2 / E7 / drafting.md:20: the approval a seating op must carry.
+pub fn check_seat_approval(r: &OpRequest) -> Result<(), SeqError> {
+    match (r.approved_by.as_deref().map(str::trim), r.trial.as_deref().map(str::trim).filter(|t| !t.is_empty())) {
+        (Some(APPROVED_BY_DIRECTOR), _) => Ok(()),
+        (Some(APPROVED_BY_BUILD_STAGE), Some(_)) => Ok(()),
+        (Some(APPROVED_BY_BUILD_STAGE), None) => Err(SeqError::rejected("R2", "`build-stage (R2)` approval needs the hostile trial reference (`trial`)")),
+        (Some(other), _) => Err(SeqError::rejected("R2", format!("approval `{other}` is not known; use `director` or `build-stage (R2)` with a `trial` reference"))),
+        (None, _) => Err(SeqError::rejected(
+            "E7",
+            "seating a face needs a review first: a new face starts as `FF.draft` (drafting.md:20) and is promoted only after a hostile pass from another view (decisions.md:588); record `approved_by` (R2)",
+        )),
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -132,6 +175,22 @@ pub fn validate(world: &World, proposal: &Proposal, at: &str) -> Outcome {
         if r.op.is_none() {
             reasons.push(Reason::from_error(&SeqError::invalid("format 3.3", "op is missing"), Some(i)));
         }
+        // R4: plain ASCII only.
+        let fields = [("by", Some(&proposal.by)), ("addr", Some(&r.addr)), ("tail", r.tail.as_ref()), ("from", r.from.as_ref()), ("to", r.to.as_ref()), ("body", r.body.as_ref()), ("outcome", r.outcome.as_ref()), ("approved_by", r.approved_by.as_ref()), ("trial", r.trial.as_ref()), ("reason", r.reason.as_ref())];
+        for (k, v) in fields {
+            if let Some(v) = v {
+                if let Err(e) = crate::log::check_plain(k, v) {
+                    reasons.push(Reason::from_error(&e, Some(i)));
+                }
+            }
+        }
+        // Seating needs an approval record (R2, E7). Provisional 7: a bare `put` by the
+        // compute itself (derived and system records) is exempt; `promote` never is.
+        if policy.seat_needs_approval && seats_a_face(r) && (r.op == Some(Op::Promote) || proposal.by != policy.compute_name) {
+            if let Err(e) = check_seat_approval(r) {
+                reasons.push(Reason::from_error(&e, Some(i)));
+            }
+        }
         if r.op == Some(Op::Snapshot) {
             reasons.push(Reason::from_error(&SeqError::rejected("format 3.4", "snapshots are written by the compute, not proposed"), Some(i)));
         }
@@ -154,6 +213,15 @@ pub fn validate(world: &World, proposal: &Proposal, at: &str) -> Outcome {
         e.body = r.body.clone();
         e.cites = r.cites.clone();
         e.outcome = r.outcome.clone();
+        if let Some(a) = &r.approved_by {
+            e.extra.insert("approved-by".into(), serde_json::Value::String(a.clone()));
+        }
+        if let Some(t) = &r.trial {
+            e.extra.insert("trial".into(), serde_json::Value::String(t.clone()));
+        }
+        if let Some(t) = &r.reason {
+            e.extra.insert("reason".into(), serde_json::Value::String(t.clone()));
+        }
         if multi {
             e.proposal = Some(pid.clone());
             e.of = Some(proposal.ops.len() as u32);
@@ -230,12 +298,39 @@ fn check_page(world: &World, st: &BookState, pg: u16, reasons: &mut Vec<Reason>,
                 hard(reasons, e);
             }
         }
-        if pg >= 1000 && pg != 9999 && stamp.title().is_none() && page.tail() != crate::tail::PageTail::Retired {
+        if pg >= 1000 && stamp.title().is_none() && page.tail() != crate::tail::PageTail::Retired {
             hard(reasons, SeqError::rejected("A2.8", format!("page {pg:04}: pages 1000 and up must have a title in the stamp")));
         }
         if let Some(ax) = stamp.get("axioms") {
             if let Err(e) = AxiomChain::parse(ax) {
                 hard(reasons, e);
+            }
+        }
+    }
+    // R10: the door page 0000 holds only face 00 (the registry); face 00 is not a sentinel (R9).
+    if pg == 0 {
+        for (f, fs) in &page.faces {
+            if *f != 0 && (fs.is_present()) {
+                hard(reasons, SeqError::rejected("R10", format!("{}.0000.{f:02}: the door page 0000 holds only face 00 (Director ruling R10)", st.book)));
+            }
+        }
+    }
+    // R7: a local override is its own page in the reserved range 0001-0009 that names its target.
+    // A face written over an inherited one with no such page is reported (finding, not rejection:
+    // how an override page names its target is 7 - read here as a `target:` line).
+    if !st.book.is_kernel() && !(1..=9).contains(&pg) {
+        for (f, fs) in &page.faces {
+            if *f == 0 || !fs.is_present() || world.policy.is_counted(pg, *f) {
+                continue;
+            }
+            let inherited = st.book.lookup_chain().into_iter().skip(1).find(|b| {
+                world.get(*b).and_then(|s| s.page(pg)).and_then(|p| p.face(*f)).map(|x| x.seated.is_some() || x.draft.is_some()).unwrap_or(false)
+            });
+            if let Some(from) = inherited {
+                let target = format!("{}.{pg:04}.{f:02}", st.book);
+                if override_pages(st, &target).is_empty() {
+                    findings.push(Reason::finding("R7", format!("{target} replaces the face inherited from {from}.{pg:04}.{f:02} in place; an override is written as its own page in 0001-0009 that names its target and says what it changes, why, why it is needed and what it should achieve (Director ruling R7)")));
+                }
             }
         }
     }
@@ -276,9 +371,37 @@ fn check_page(world: &World, st: &BookState, pg: u16, reasons: &mut Vec<Reason>,
             }
         }
     }
+    // decisions.md:287 (C1.4, C8.9): a kernel card marked `owner: kernel-only` is never redefined by a book.
+    if !st.book.is_kernel() {
+        if let Some(kpage) = world.get(BookId::KERNEL).and_then(|k| k.page(pg)) {
+            for (f, doc) in &docs {
+                let kdoc = kpage.face(*f).and_then(|x| x.view()).and_then(|b| parse_face(b).ok());
+                let Some(kdoc) = kdoc else { continue };
+                for c in &doc.cards {
+                    if kdoc.card(&c.key).and_then(|k| k.field("owner")) == Some("kernel-only") {
+                        hard(reasons, SeqError::rejected("C1.4", format!("{}.{pg:04}.{f:02}: card `{}` is `owner: kernel-only` in the kernel; no book can redefine it", st.book, c.key)));
+                    }
+                }
+            }
+        }
+    }
     // C3.2: every 01/02 card that needs it has a 04 card with `why:` and a body
+    // The 04 card may be inherited (A2.9, axiom 2): if this page has no 04 face of its own,
+    // the 04 face found up the chain (book -> shelf -> desk -> kernel) is used.
     let empty = crate::cards::FaceDoc { preamble: String::new(), cards: vec![] };
-    let f04 = docs.get(&4).unwrap_or(&empty);
+    let inherited04 = if docs.contains_key(&4) {
+        None
+    } else {
+        let mut w2 = World { books: world.books.clone(), policy: world.policy.clone() };
+        w2.insert(st.clone());
+        w2.resolve(&PageAddr::full(st.book, pg).with_face(crate::addr::FacePart::face(4)))
+            .ok()
+            .and_then(|r| match r.found {
+                Some(crate::resolve::Found::Face { body }) | Some(crate::resolve::Found::Draft { body }) => parse_face(&body).ok(),
+                _ => None,
+            })
+    };
+    let f04 = docs.get(&4).or(inherited04.as_ref()).unwrap_or(&empty);
     for f in [1u8, 2u8] {
         if page.face(f).map(|x| !x.counters.is_empty()).unwrap_or(false) {
             continue;
@@ -306,33 +429,111 @@ fn check_page(world: &World, st: &BookState, pg: u16, reasons: &mut Vec<Reason>,
             }
         }
     }
-    // A5.3: a pointer page's face 08 links need back-links on the target
-    let is_pointer = pg == 9999 || (pg >= 100 && pg % 100 == 99) || st.book.desk == 99 || st.book.shelf == 99 || st.book.book == 99;
-    if is_pointer {
-        if let Some(doc) = docs.get(&8) {
-            let me = PageAddr::full(st.book, pg);
-            for c in &doc.cards {
-                let Some(target) = c.field("target") else { continue };
-                let tp = match Address::parse_full_page(target) {
-                    Ok(p) => p.page_only(),
-                    Err(e) => {
-                        hard(reasons, e);
-                        continue;
-                    }
-                };
-                let tb = tp.book_id().unwrap();
-                let tstate = if tb == st.book { Some(st) } else { world.get(tb) };
-                // The target door links back (A5.3): page 0000 for a book target,
-                // or the target page itself for a page target (provisional).
-                let back = tstate.and_then(|s| s.face(tp.page, 8)).and_then(|f| f.view()).and_then(|b| parse_face(b).ok());
-                let ok = back
-                    .map(|d| d.cards.iter().any(|bc| bc.field("target").and_then(|t| Address::parse_full_page(t).ok()).map(|p| p.page_only() == me).unwrap_or(false)))
-                    .unwrap_or(false);
-                if !ok {
-                    hard(reasons, SeqError::missing("A5.3", format!("{me}.08 links to {tp} but {tp}.08 has no back-link; a one-way link is invalid (7.8)")));
-                }
+    // A5.1: 99 is a pointer, never content: only the registry (00) and the map (08).
+    if is_pointer_page(st.book, pg) {
+        for (f, fs) in &page.faces {
+            if *f != 0 && *f != 8 && fs.is_present() {
+                hard(reasons, SeqError::rejected("A5.1", format!("{}.{pg:04}.{f:02}: a 99 pointer is never content; it holds only its registry 00 and its map 08", st.book)));
+            }
+        }
+        check_pointer_links(world, st, pg, reasons);
+    }
+    // A5.3 also when a target changes: a pointer anywhere that names this page must still have its back-link.
+    let me = PageAddr::full(st.book, pg);
+    let mut pointers: Vec<(BookId, u16)> = Vec::new();
+    let books = world.books.keys().copied().chain(std::iter::once(st.book)).collect::<BTreeSet<_>>();
+    for b in books {
+        let bs = if b == st.book { st } else { world.get(b).unwrap() };
+        for (ppg, ppage) in &bs.pages {
+            if !(is_pointer_page(b, *ppg)) || (b == st.book && *ppg == pg) {
+                continue;
+            }
+            if link_targets(ppage, *ppg).iter().any(|t| *t == me) {
+                pointers.push((b, *ppg));
             }
         }
     }
-    let _ = Tail::Draft;
+    for (b, ppg) in pointers {
+        if b == st.book {
+            check_pointer_links(world, st, ppg, reasons);
+        } else if let Some(bs) = world.get(b) {
+            check_pointer_links_in(world, st, bs, ppg, reasons);
+        }
+    }
+}
+
+/// A page that is a 99 pointer (A5.1): page 9999, a band continuation PP99, or any page of a
+/// book with 99 on its desk, shelf or book axis (desk 99 is a reserved pointer, seqAddr 1.3).
+pub fn is_pointer_page(book: BookId, pg: u16) -> bool {
+    pg == 9999 || (pg >= 100 && pg % 100 == 99) || book.desk == 99 || book.shelf == 99 || book.book == 99
+}
+
+/// `target:` page addresses of a page's links (newest view): the link cards on face 08, or,
+/// on a door page 0000 (which holds only face 00, R10), `target:` lines in its registry face 00
+/// (provisional 7: where a door keeps its back-link is not specified).
+fn link_targets(page: &crate::state::PageState, pg: u16) -> Vec<PageAddr> {
+    if pg == 0 {
+        return page.face(0).and_then(|f| f.view()).map(target_lines).unwrap_or_default();
+    }
+    page.face(8)
+        .and_then(|f| f.view())
+        .and_then(|b| parse_face(b).ok())
+        .map(|d| d.cards.iter().filter_map(|c| c.field("target")).filter_map(|t| Address::parse_full_page(t).ok()).map(|p| p.page_only()).collect())
+        .unwrap_or_default()
+}
+
+/// Every `target: <full page address>` line in a text.
+fn target_lines(text: &str) -> Vec<PageAddr> {
+    text.lines()
+        .filter_map(|l| l.trim().strip_prefix("target:"))
+        .filter_map(|t| Address::parse_full_page(t.trim()).ok())
+        .map(|p| p.page_only())
+        .collect()
+}
+
+/// R7: the override pages (reserved 0001-0009) of a book whose text names `target`
+/// (a full page or face address) on a `target:` line. Provisional 7: the field name.
+pub fn override_pages(st: &BookState, target: &str) -> Vec<u16> {
+    let page_of = target.split('.').take(4).collect::<Vec<_>>().join(".");
+    (1..=9u16)
+        .filter(|p| {
+            st.page(*p)
+                .map(|page| {
+                    page.faces.values().filter_map(|f| f.view()).any(|t| {
+                        t.lines().filter_map(|l| l.trim().strip_prefix("target:")).map(|v| v.trim()).any(|v| v == target || v == page_of)
+                    })
+                })
+                .unwrap_or(false)
+        })
+        .collect()
+}
+
+fn check_pointer_links(world: &World, st: &BookState, pg: u16, reasons: &mut Vec<Reason>) {
+    check_pointer_links_in(world, st, st, pg, reasons)
+}
+
+/// A5.3: each target of pointer page `pg` in book `ps` names `pg` back on its face 08.
+/// `st` is the proposal's book after the ops (it replaces the world's copy).
+fn check_pointer_links_in(world: &World, st: &BookState, ps: &BookState, pg: u16, reasons: &mut Vec<Reason>) {
+    let Some(page) = ps.page(pg) else { return };
+    let me = PageAddr::full(ps.book, pg);
+    if let Some(doc) = page.face(8).and_then(|f| f.view()).and_then(|b| parse_face(b).ok()) {
+        for c in &doc.cards {
+            let Some(target) = c.field("target") else { continue };
+            let tp = match Address::parse_full_page(target) {
+                Ok(p) => p.page_only(),
+                Err(e) => {
+                    hard(reasons, e);
+                    continue;
+                }
+            };
+            let tb = tp.book_id().unwrap();
+            let tstate = if tb == st.book { Some(st) } else { world.get(tb) };
+            let ok = tstate.and_then(|s| s.page(tp.page)).map(|tpage| link_targets(tpage, tp.page).iter().any(|t| *t == me)).unwrap_or(false);
+            if !ok {
+                let back = if tp.page == 0 { "00 (door page, R10)" } else { "08" };
+                hard(reasons, SeqError::missing("A5.3", format!("{me}.08 links to {tp} but {tp}.{back} has no back-link; a one-way link is invalid (7.8)")));
+            }
+        }
+    }
 }

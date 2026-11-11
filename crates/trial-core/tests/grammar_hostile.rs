@@ -67,10 +67,10 @@ const CASES: &[(&str, bool, &str)] = &[
     ("4442.05.03.retired", false, "seqAddr.md:287 retired only without a counter"),
     ("4442.05.03.04", false, "seqAddr.md:24 one counter, not an axis"),
     ("4442.01.draft.retired", false, "seqAddr.md:271 one tail"),
-    ("1523.05.00", true, "seqAddr.md:204 board"),
+    ("1523.05.00", false, "R9 (fix pass) faces have no sentinels; was seqAddr.md:204 board"),
     ("1523.05.01", true, "seqAddr.md:24 counters 01-98"),
     ("1523.05.98", true, "seqAddr.md:24"),
-    ("1523.05.99", true, "seqAddr.md:257 FF.99 continuation"),
+    ("1523.05.99", false, "R9 (fix pass) counters 01-98; was seqAddr.md:257 FF.99 continuation"),
     // cards and brands (seqAddr.md:111, 279-281; decisions.md:443)
     ("10.10.11.1014.01.ham", true, "seqAddr.md:111 card key"),
     ("4442.01.ham.002", true, "seqAddr.md:111 brand"),
@@ -144,9 +144,10 @@ fn r1_doors_and_pointers_on_every_axis() {
     assert_eq!(sentinel(9999, 4), Some(Sentinel::Pointer));
     assert_eq!(page_kind(0), PageKind::Door);
     assert_eq!(page_kind(9999), PageKind::BookContinuation);
-    assert_eq!(counter_role(0), CounterRole::Door);
-    assert_eq!(counter_role(99), CounterRole::Continuation);
-    assert_eq!(face_job(0).name(), "door");
+    // R9 (fix pass): faces have no sentinels - 00/99 are not counters; R10: face 00 is the registry.
+    assert_eq!(counter_role(0), CounterRole::NotACounter);
+    assert_eq!(counter_role(99), CounterRole::NotACounter);
+    assert_eq!(face_job(0).name(), "registry");
     for v in [0u8, 99] {
         assert!(is_axis_sentinel(v));
     }
@@ -154,12 +155,15 @@ fn r1_doors_and_pointers_on_every_axis() {
 }
 
 #[test]
-#[ignore = "finding 14"]
+// fixed in CORE fix pass (was #[ignore = "finding 14"])
 fn r1_sentinel_on_a_three_digit_group() {
     // R1 speaks of "a full zero sequence" / full-nine on any group. Brands are 3 digits (seqAddr.md:279);
-    // decisions.md:443 reserves 000 and 999. `sentinel(v, 3)` treats 99 as the pointer and 999 as nothing.
-    assert_eq!(sentinel(999, 3), Some(Sentinel::Pointer));
+    // decisions.md:443 reserves 000 and 999. `sentinel(v, 3)` treated 99 as the pointer and 999 as nothing.
+    // Fix pass under R9 (sentinels only on desk/shelf/book/page): a 3-digit group has no sentinel at all,
+    // the "reject widths other than 2/4" option this finding offered.
+    assert_eq!(sentinel(999, 3), None);
     assert_eq!(sentinel(99, 3), None);
+    assert_eq!(sentinel(0, 3), None);
 }
 
 #[test]

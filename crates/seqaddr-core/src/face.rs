@@ -6,8 +6,9 @@ use serde::Serialize;
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
 #[serde(rename_all = "snake_case")]
 pub enum FaceJob {
-    /// 00: the door, holding the page stamp (R1; older wording: identity face).
-    Door,
+    /// 00: the registry, holding the page stamp and listing the page's faces (R10;
+    /// not a sentinel, R9). On the door page 0000 it is the only face.
+    Registry,
     /// 01: agents, the meaning of the page in cards.
     Law,
     /// 02: templates, formats, exact processes.
@@ -34,7 +35,7 @@ pub enum FaceJob {
 
 pub fn face_job(ff: u8) -> FaceJob {
     match ff {
-        0 => FaceJob::Door,
+        0 => FaceJob::Registry,
         1 => FaceJob::Law,
         2 => FaceJob::Schema,
         3 => FaceJob::Operate,
@@ -52,7 +53,7 @@ pub fn face_job(ff: u8) -> FaceJob {
 impl FaceJob {
     pub fn name(self) -> &'static str {
         match self {
-            FaceJob::Door => "door",
+            FaceJob::Registry => "registry",
             FaceJob::Law => "law",
             FaceJob::Schema => "schema",
             FaceJob::Operate => "operate",

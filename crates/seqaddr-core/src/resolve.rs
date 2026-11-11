@@ -58,12 +58,25 @@ pub enum Found {
     Face { body: String },
     /// A counter with its tail and bodies.
     Counter { tail: CounterTail, bodies: Vec<String> },
-    /// The derived board of a counted face (`FF` or `FF.00`).
+    /// A derived listing of a counted face's counters, read by plain `FF` (R9: there is no `FF.00`; 7).
     Board { lines: Vec<BoardLine> },
-    /// A draft, only when asked for `FF.draft`.
+    /// A draft: asked for as `FF.draft`, or the only copy at a spot (Director ruling R5).
     Draft { body: String },
     /// A retired face, only when asked for `FF.retired`.
     Retired { body: String },
+}
+
+impl Found {
+    /// The state of what was found: `seated`, `draft`, `retired`, `counter`, `door` (board).
+    pub fn state(&self) -> &'static str {
+        match self {
+            Found::Face { .. } => "seated",
+            Found::Draft { .. } => "draft",
+            Found::Retired { .. } => "retired",
+            Found::Counter { .. } => "counter",
+            Found::Board { .. } => "board",
+        }
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize)]
@@ -74,7 +87,49 @@ pub struct Resolution {
     pub source: Option<String>,
     pub origin: Origin,
     pub found: Option<Found>,
+    /// `found.state()`: `seated`, `draft` (R5: a draft found is still a draft), `retired`, `counter`, `board`.
+    pub state: Option<String>,
+    /// R5 follow-up: when a draft is found, why it is a draft (its drafting record and notes).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub why_draft: Option<DraftWhy>,
     pub trace: Vec<Step>,
+}
+
+/// Why a found face is a draft (R5 follow-up, R8: a draft exists only while a face is being drafted).
+/// The shape is provisional (7, see BUILD-LOG).
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
+pub struct DraftWhy {
+    /// Entry that opened the draft (`copy` of the seated face, or `put FF.draft` of a new face).
+    pub opened_by_entry: u64,
+    /// The `reason` recorded on the opening entry, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub reason: Option<String>,
+    /// True when a seated face exists at the spot (the draft is a working copy of it, drafting.md step 1).
+    pub has_seated: bool,
+    /// Notes not yet merged: `(entry, by, text)`.
+    pub open_notes: Vec<DraftNote>,
+    /// Notes already merged (struck).
+    pub merged_notes: usize,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
+pub struct DraftNote {
+    pub n: u64,
+    pub by: String,
+    pub text: String,
+}
+
+fn draft_why(st: &BookState, p: &PageAddr) -> Option<DraftWhy> {
+    let fp = p.face.as_ref()?;
+    let face = st.page(p.page)?.face(fp.face)?;
+    let d = face.draft.as_ref()?;
+    Some(DraftWhy {
+        opened_by_entry: d.n,
+        reason: d.reason.clone(),
+        has_seated: face.seated.is_some(),
+        open_notes: d.notes.iter().filter(|n| !n.struck).map(|n| DraftNote { n: n.n, by: n.by.clone(), text: n.text.clone() }).collect(),
+        merged_notes: d.notes.iter().filter(|n| n.struck).count(),
+    })
 }
 
 impl Resolution {
@@ -113,11 +168,19 @@ impl World {
     /// Look in one book for the slot named by `p` (ancestors ignored).
     fn find_in(&self, st: &BookState, p: &PageAddr) -> (Option<Found>, Option<&'static str>) {
         let Some(page) = st.page(p.page) else { return (None, Some("no page")) };
+        // A retired page, or any page of a book retired through its door, is not live
+        // (axiom 1; seqAddr 4). Asking for `.retired` still reads it.
+        let asks_retired = p.face.as_ref().and_then(|f| f.tail) == Some(crate::addr::Tail::Retired);
+        let book_retired = p.page != 0 && st.page(0).map(|d| d.tail() == crate::tail::PageTail::Retired).unwrap_or(false);
+        if !asks_retired && (page.tail() == crate::tail::PageTail::Retired || book_retired) {
+            return (None, Some("retired page"));
+        }
         let Some(fp) = &p.face else { return (None, Some("no face")) };
         let counted = self.policy.is_counted(p.page, fp.face);
         let Some(face) = page.face(fp.face) else { return (None, Some("no face")) };
         match (fp.counter, fp.tail) {
-            (Some(0), _) | (None, None) if counted => {
+            // R9: a counted face has no door/board slot; plain `FF` reads a derived listing (7).
+            (None, None) if counted => {
                 if face.counters.is_empty() {
                     (None, Some("no counters"))
                 } else {
@@ -143,17 +206,20 @@ impl World {
                 Some(b) => (Some(Found::Retired { body: b.clone() }), None),
                 None => (None, Some("not retired")),
             },
-            (None, _) => match &face.seated {
-                Some(b) => (Some(Found::Face { body: b.clone() }), None),
-                None if face.draft.is_some() => (None, Some("draft only")),
-                None if face.retired.is_some() => (None, Some("retired")),
-                None => (None, Some("no face")),
+            // R5: a seated face beats a draft at the same spot; a draft alone is found, as a draft.
+            (None, _) => match (&face.seated, &face.draft) {
+                (Some(b), _) => (Some(Found::Face { body: b.clone() }), None),
+                (None, Some(d)) => (Some(Found::Draft { body: d.body.clone() }), None),
+                (None, None) if face.retired.is_some() => (None, Some("retired")),
+                _ => (None, Some("no face")),
             },
         }
     }
 
     /// Resolve a full face address through book -> shelf -> desk -> kernel.
-    /// Drafts and retired faces are not live and are never inherited.
+    /// R5: at each spot a seated face wins; if the only copy there is a draft, the
+    /// draft is found (state `draft`) and inherited like a seated face. Retired
+    /// faces and retired pages are skipped and the walk goes on (A2.9; 7, see BUILD-LOG).
     pub fn resolve(&self, p: &PageAddr) -> Result<Resolution> {
         let asked = p.book_id().ok_or_else(|| SeqError::invalid("A1.7", format!("{} is short form; expand it first", p.to_form(crate::addr::Form::Short))))?;
         if p.face.is_none() {
@@ -178,12 +244,14 @@ impl World {
                     let hit = found.is_some();
                     trace.push(Step { step: i + 1, checked: checked_s.clone(), found: hit, note: why.map(|s| s.to_string()) });
                     if let Some(f) = found {
-                        return Ok(Resolution { address: p.to_string(), source: Some(checked_s), origin: origin_for(asked, *b), found: Some(f), trace });
+                        let state = Some(f.state().to_string());
+                        let why_draft = if matches!(f, Found::Draft { .. }) { draft_why(st, p) } else { None };
+                        return Ok(Resolution { address: p.to_string(), source: Some(checked_s), origin: origin_for(asked, *b), found: Some(f), state, why_draft, trace });
                     }
                 }
             }
         }
-        Ok(Resolution { address: p.to_string(), source: None, origin: Origin::Missing, found: None, trace })
+        Ok(Resolution { address: p.to_string(), source: None, origin: Origin::Missing, found: None, state: None, why_draft: None, trace })
     }
 
     /// Parse, expand against the session, and resolve (A1.2, A1.6, A1.8).
@@ -227,7 +295,7 @@ impl World {
         let stamp_addr = p.page_only().with_face(crate::addr::FacePart::face(0));
         let r = self.resolve(&stamp_addr)?;
         let body = match r.found {
-            Some(Found::Face { body }) => body,
+            Some(Found::Face { body }) | Some(Found::Draft { body }) => body,
             _ => return Err(SeqError::missing("A2.8", format!("{} has no stamp to check the title `{want}` against", p.page_only()))),
         };
         let stamp = crate::cards::parse_stamp(&body);

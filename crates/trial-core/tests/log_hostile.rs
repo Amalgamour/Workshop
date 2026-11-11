@@ -9,8 +9,10 @@ use seqaddr_core::{BookLog, BookState, Policy};
 /// claimed and returned, a drafting cycle, and non-ASCII text in bodies.
 fn sample(non_ascii: bool) -> LogBuilder {
     let mut b = LogBuilder::new("10.11.21");
-    let why = if non_ascii { "Pourquoi: café ☕ — 名前" } else { "Why: plain text" };
-    b.add("compute", vec![put("10.11.21.0000.00", "---\ntitle: tools\n---"), put("10.11.21.0000.04", &format!("## About\nwhy: {why}\n\nThe book."))]);
+    // R4 (Director): storage is plain ASCII, so the "rich" sample uses every awkward
+    // ASCII character (quotes, backslash, braces) instead of accents and emoji.
+    let why = if non_ascii { "Pourquoi: cafe \"x\" \\ {y} ~ -- name" } else { "Why: plain text" };
+    b.add("compute", vec![put("10.11.21.0000.00", "---\ntitle: tools\n---")]);
     b.add("user", vec![put("10.11.21.1523.00", "title: timer"), put("10.11.21.1523.04", &format!("## Timer\nwhy: {why}\n\nCounts."))]);
     b.add("lead", vec![put_t("10.11.21.1523.05.01", "pack", &format!("## w01\ntype: work\n\n{why}"))]);
     b.add("agent-7", vec![mv("10.11.21.1523.05.01", "pack", "open")]);
@@ -91,7 +93,8 @@ fn truncation_at_every_byte_ascii() {
 }
 
 #[test]
-fn truncation_at_every_char_boundary_non_ascii() {
+fn truncation_at_every_char_boundary_awkward_ascii() {
+    // R4: the "rich" sample is now awkward ASCII (quotes, backslash, braces).
     check_every_cut(&sample(true).text());
 }
 
@@ -101,21 +104,31 @@ fn tmp(name: &str) -> std::path::PathBuf {
     d
 }
 
-/// The real crash case: the file is cut at a byte, which may fall inside a
-/// multi-byte UTF-8 character of a body (serde_json writes non-ASCII raw).
+/// Finding 1, settled by Director ruling R4 (storage is plain ASCII: 0x20-0x7E
+/// plus newline). A multi-byte character can no longer be written, so a cut can
+/// never split one; a book that holds such a byte anyway is damaged on read and
+/// is not "repaired" by cutting it away.
 #[test]
-#[ignore = "finding 1"]
-fn crash_cut_inside_utf8_char_is_dropped_by_file_read_and_append() {
+// fixed in CORE fix pass (was #[ignore = "finding 1"]), rewritten for R4
+fn r4_non_ascii_is_refused_on_write_and_a_book_holding_it_is_damaged() {
     let text = sample(true).text();
-    let bytes = text.as_bytes();
-    let last_nl = text[..text.len() - 1].rfind('\n').unwrap() + 1;
-    // cut somewhere inside the last line where the cut splits a multi-byte char
-    let cut = (last_nl..bytes.len()).find(|&i| !text.is_char_boundary(i)).expect("last line has non-ASCII");
+    assert!(text.is_ascii());
     let path = tmp("utf8cut.book");
-    std::fs::write(&path, &bytes[..cut]).unwrap();
-    let l = log::file::read(&path).expect("format 3.1: a partly written last line is dropped");
-    assert!(l.dropped_partial);
-    log::file::append(&path, &[]).expect("append repairs the partial tail");
+    std::fs::write(&path, text.as_bytes()).unwrap();
+    let l = log::file::read(&path).unwrap();
+    // write: refused with a clear R4 error, file untouched
+    let mut e = entry(l.next_n(), "compute", Op::Put, "10.11.21.1600.00");
+    e.body = Some("title: caf\u{e9} \u{2615}".into());
+    let err = log::file::append(&path, &[e]).unwrap_err();
+    assert_eq!(err.rule(), "R4", "{err}");
+    assert_eq!(std::fs::read_to_string(&path).unwrap(), text);
+    // read: the old crash case (a cut inside a UTF-8 char) is damage, not a partial line
+    let mut bytes = text.into_bytes();
+    bytes.extend_from_slice("{\"n\":99,\"body\":\"caf\u{e9}".as_bytes());
+    bytes.pop();
+    std::fs::write(&path, &bytes).unwrap();
+    assert_eq!(log::file::read(&path).unwrap_err().code(), "corrupt");
+    assert!(log::file::append(&path, &[]).is_err(), "damage is not silently cut away");
 }
 
 #[test]
@@ -135,7 +148,7 @@ fn crash_cut_ascii_is_repaired_by_append() {
 }
 
 #[test]
-#[ignore = "finding 15"]
+// fixed in CORE fix pass (was #[ignore = "finding 15"])
 fn crash_during_create_leaves_a_readable_empty_book() {
     // format.md:67 "A partly written last line is detected and dropped" - also when the only line is the header.
     let path = tmp("cuthdr.book");
@@ -175,7 +188,7 @@ fn snapshot_equivalence_at_every_point() {
 }
 
 #[test]
-#[ignore = "finding 5"]
+// fixed in CORE fix pass (was #[ignore = "finding 5"])
 fn forged_snapshot_is_not_trusted_over_the_log() {
     // format.md:88 a snapshot is "the full current state". A snapshot that disagrees
     // with the entries before it must not silently replace them (axiom 6: the past is not rewritten).
@@ -191,7 +204,7 @@ fn forged_snapshot_is_not_trusted_over_the_log() {
 }
 
 #[test]
-#[ignore = "finding 16"]
+// fixed in CORE fix pass (was #[ignore = "finding 16"])
 fn timestamps_must_be_real_times() {
     // format.md:80 "time"; contract: ISO 8601 UTC. Month 13, day 45, hour 99 are not times.
     assert!(log::check_timestamp("2026-13-45T99:99:99Z").is_err());

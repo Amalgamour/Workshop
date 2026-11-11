@@ -25,7 +25,12 @@ fn world() -> World {
 fn p(s: &str) -> seqaddr_core::PageAddr {
     Address::parse_full_page(s).unwrap()
 }
+/// Requests in these tests carry the Director's approval, so seating rules (R2) stay out of the way;
+/// `bare_req` carries none.
 fn req(op: Op, addr: &str, body: Option<&str>) -> OpRequest {
+    OpRequest { approved_by: Some("director".into()), ..bare_req(op, addr, body) }
+}
+fn bare_req(op: Op, addr: &str, body: Option<&str>) -> OpRequest {
     OpRequest { op: Some(op), addr: addr.into(), body: body.map(|s| s.into()), ..Default::default() }
 }
 fn prop(by: &str, ops: Vec<OpRequest>) -> Proposal {
@@ -57,7 +62,7 @@ fn a1_8_trace_lists_each_step() {
     assert_eq!(steps, [("10.11.21.0020.01", false), ("10.11.00.0020.01", false), ("10.00.00.0020.01", false), ("00.00.00.0020.01", true)]);
 }
 #[test]
-fn a4_6_missing_stays_missing_axiom_7() {
+fn a1_8_not_found_is_elevated_never_guessed_axiom_7() {
     let r = world().resolve(&p("10.11.21.0030.01")).unwrap();
     assert_eq!((r.origin, r.found.is_none()), (Origin::Missing, true));
     assert_eq!(r.trace.len(), 4);
@@ -73,31 +78,73 @@ fn a1_8_missing_book_in_chain_is_a_step_not_an_error() {
     assert_eq!(r.origin, Origin::Kernel);
 }
 #[test]
-fn s4_drafts_are_not_live_and_not_inherited() {
+fn r5_a_draft_alone_is_found_and_inherited_as_a_draft() {
     let mut w = world();
     let mut k = Bk::with_identity("00.00.00");
     k.put("00.00.00.0050.00", None, "x").unwrap();
     k.put("00.00.00.0050.01.draft", None, "draft law").unwrap();
     w.insert(k.st);
     let r = w.resolve(&p("10.11.21.0050.01")).unwrap();
-    assert_eq!(r.origin, Origin::Missing);
-    assert_eq!(r.trace[3].note.as_deref(), Some("draft only"));
+    assert_eq!((r.origin, r.state.as_deref()), (Origin::Kernel, Some("draft")));
+    assert_eq!(r.found, Some(Found::Draft { body: "draft law".into() }));
     let r = w.resolve(&p("00.00.00.0050.01.draft")).unwrap();
     assert_eq!(r.found, Some(Found::Draft { body: "draft law".into() }));
 }
 #[test]
-fn a4_4_plain_ff_on_counted_face_resolves_to_door_board() {
+fn r5_seated_beats_draft_at_the_same_spot() {
+    let mut w = world();
+    let mut b = Bk::with_identity("10.11.22");
+    b.put("10.11.22.1001.00", None, "title: t").unwrap();
+    b.put("10.11.22.1001.04", None, "seated").unwrap();
+    b.op("m", Op::Copy, "10.11.22.1001.04", None, None).unwrap();
+    w.insert(b.st);
+    let r = w.resolve(&p("10.11.22.1001.04")).unwrap();
+    assert_eq!((r.found, r.state.as_deref()), (Some(Found::Face { body: "seated".into() }), Some("seated")));
+}
+#[test]
+fn r5_a_local_draft_is_found_before_an_inherited_seated_face() {
+    let mut w = world();
+    let mut b = Bk::with_identity("10.11.22");
+    b.put("10.11.22.0021.00", None, "x").unwrap();
+    b.put("10.11.22.0021.04.draft", None, "local draft").unwrap();
+    w.insert(b.st);
+    let r = w.resolve(&p("10.11.22.0021.04")).unwrap();
+    assert_eq!((r.origin, r.state.as_deref()), (Origin::Local, Some("draft")));
+}
+#[test]
+fn axiom_1_a_retired_page_is_skipped_and_the_walk_goes_on() {
+    let mut w = world();
+    let mut b = Bk::with_identity("10.11.22");
+    b.put("10.11.22.0021.00", None, "x").unwrap();
+    b.put("10.11.22.0021.04", None, "local").unwrap();
+    b.tail("u", "10.11.22.0021", None, Some("retired")).unwrap();
+    w.insert(b.st);
+    let r = w.resolve(&p("10.11.22.0021.04")).unwrap();
+    assert_eq!(r.origin, Origin::Desk);
+    assert_eq!(r.trace[0].note.as_deref(), Some("retired page"));
+}
+#[test]
+fn a4_1_a_book_retired_at_its_door_is_not_live() {
+    let mut w = world();
+    let mut b = Bk::with_identity("10.11.22");
+    b.put("10.11.22.0021.00", None, "x").unwrap();
+    b.put("10.11.22.0021.04", None, "local").unwrap();
+    b.tail("u", "10.11.22.0000", None, Some("retired")).unwrap();
+    w.insert(b.st);
+    assert_eq!(w.resolve(&p("10.11.22.0021.04")).unwrap().origin, Origin::Desk);
+}
+#[test]
+fn r9_plain_ff_on_counted_face_reads_the_derived_listing() {
     let mut w = world();
     let mut b = Bk::with_identity("10.11.22");
     b.put("10.11.22.1523.00", None, "title: t").unwrap();
     b.put("10.11.22.1523.05.01", Some("pack"), "w").unwrap();
     w.insert(b.st);
-    for a in ["10.11.22.1523.05", "10.11.22.1523.05.00"] {
-        match w.resolve(&p(a)).unwrap().found {
-            Some(Found::Board { lines }) => assert_eq!(lines.len(), 1),
-            other => panic!("{a}: {other:?}"),
-        }
+    match w.resolve(&p("10.11.22.1523.05")).unwrap().found {
+        Some(Found::Board { lines }) => assert_eq!(lines.len(), 1),
+        other => panic!("{other:?}"),
     }
+    assert_eq!(seqaddr_core::Address::parse("10.11.22.1523.05.00").unwrap_err().rule(), "R9");
     assert!(matches!(w.resolve(&p("10.11.22.1523.05.01")).unwrap().found, Some(Found::Counter { .. })));
 }
 #[test]
@@ -282,8 +329,8 @@ fn format_3_3_one_book_per_proposal() {
 #[test]
 fn format_4_1_new_book_starts_with_door() {
     let w = world();
-    let out = validate(&w, &prop("user", vec![req(Op::Put, "10.11.30.0000.00", Some("title: new")), req(Op::Put, "10.11.30.0000.04", Some("about"))]), AT);
-    assert!(out.approved(), "{:?}", out.reasons);
+    let out = validate(&w, &prop("user", vec![req(Op::Put, "10.11.30.0000.00", Some("title: new"))]), AT);
+    assert!(out.approved(), "R10: a door page needs only face 00: {:?}", out.reasons);
     let out = validate(&w, &prop("user", vec![req(Op::Put, "10.11.31.1001.00", Some("title: x"))]), AT);
     assert_eq!(out.reasons[0].axiom.as_deref(), Some("7"));
 }
@@ -311,13 +358,14 @@ fn format_2_second_claim_in_queue_is_conflict_409() {
 fn a5_3_pointer_needs_back_link() {
     let w = world();
     let link = "## next\ntype: link\ntarget: 10.11.22.0000\nkind: continuation";
-    let out = validate(&w, &prop("user", vec![req(Op::Put, "10.11.21.9999.00", Some("type: pointer")), req(Op::Put, "10.11.21.9999.08", Some(link))]), AT);
+    let out = validate(&w, &prop("user", vec![req(Op::Put, "10.11.21.9999.00", Some("title: next\ntype: pointer")), req(Op::Put, "10.11.21.9999.08", Some(link))]), AT);
     assert_eq!(out.reasons[0].rule, "A5.3");
     let mut w = world();
-    let mut t = Bk::with_identity("10.11.22");
-    t.put("10.11.22.0000.08", None, "## back\ntarget: 10.11.21.9999\nkind: continuation").unwrap();
+    // R10: the door page holds only face 00, so a door's back-link is a `target:` line in its registry (7).
+    let mut t = Bk::new("10.11.22");
+    t.put("10.11.22.0000.00", None, "---\ntitle: tools\ntarget: 10.11.21.9999\n---").unwrap();
     w.insert(t.st);
-    let out = validate(&w, &prop("user", vec![req(Op::Put, "10.11.21.9999.00", Some("type: pointer")), req(Op::Put, "10.11.21.9999.08", Some(link))]), AT);
+    let out = validate(&w, &prop("user", vec![req(Op::Put, "10.11.21.9999.00", Some("title: next\ntype: pointer")), req(Op::Put, "10.11.21.9999.08", Some(link))]), AT);
     assert!(out.approved(), "{:?}", out.reasons);
 }
 #[test]
@@ -417,4 +465,198 @@ fn e3_order_is_meaning_7_8_vs_8_7() {
     assert_eq!(AxiomChain::parse("7.8").unwrap().describe(), "Missing > Connection");
     assert_eq!(AxiomChain::parse("8.7").unwrap().describe(), "Connection > Missing");
     assert_eq!(AxiomChain::parse(seqaddr_core::axioms::COLD_SET).unwrap().describe(), "Authority > Missing > Connection");
+}
+
+// ---------- seating (R2, E7, drafting.md:20) ----------
+#[test]
+fn drafting_20_a_new_face_is_not_seated_by_a_bare_put_without_approval() {
+    let w = world();
+    let out = validate(&w, &prop("model", vec![bare_req(Op::Put, "10.11.21.1002.00", Some("title: c")), bare_req(Op::Put, "10.11.21.1002.04", Some("why"))]), AT);
+    assert_eq!(out.reasons[0].rule, "E7");
+    let mut d = bare_req(Op::Put, "10.11.21.1002.04", Some("why"));
+    d.tail = Some("draft".into());
+    let mut s00 = bare_req(Op::Put, "10.11.21.1002.00", Some("title: c"));
+    s00.tail = Some("draft".into());
+    assert!(validate(&w, &prop("model", vec![s00, d]), AT).approved(), "drafts need no approval");
+}
+#[test]
+fn e7_promote_needs_review_record() {
+    let mut w = world();
+    let mut b = Bk::with_identity("10.11.22");
+    b.put("10.11.22.1001.00", None, "title: t").unwrap();
+    b.put("10.11.22.1001.04.draft", None, "d").unwrap();
+    w.insert(b.st);
+    let pr = |a: Option<&str>, t: Option<&str>| {
+        let mut r = bare_req(Op::Promote, "10.11.22.1001.04.draft", None);
+        r.approved_by = a.map(|s| s.into());
+        r.trial = t.map(|s| s.into());
+        validate(&w, &prop("model", vec![r]), AT)
+    };
+    assert_eq!(pr(None, None).reasons[0].rule, "E7");
+    assert_eq!(pr(Some("build-stage (R2)"), None).reasons[0].rule, "R2");
+    assert_eq!(pr(Some("me"), None).reasons[0].rule, "R2");
+    let ok = pr(Some("build-stage (R2)"), Some("docs/trial/core-trial.md#3"));
+    assert!(ok.approved(), "{:?}", ok.reasons);
+    assert_eq!(ok.entries[0].extra.get("approved-by").and_then(|v| v.as_str()), Some("build-stage (R2)"));
+    assert!(pr(Some("director"), None).approved());
+}
+#[test]
+fn r2_approval_field_accepts_dash_spelling() {
+    let r: OpRequest = serde_json::from_str(r#"{"op":"promote","addr":"10.11.21.1001.04.draft","approved-by":"director"}"#).unwrap();
+    assert_eq!(r.approved_by.as_deref(), Some("director"));
+}
+#[test]
+fn r4_non_ascii_is_rejected_on_write() {
+    let w = world();
+    for body in ["caf\u{e9}", "a\tb", "a\r\nb", "em \u{2014} dash"] {
+        let out = validate(&w, &prop("user", vec![req(Op::Put, "10.11.21.1002.00", Some("title: c")), req(Op::Put, "10.11.21.1002.04", Some(body))]), AT);
+        assert_eq!(out.reasons[0].rule, "R4", "{body:?}");
+    }
+    let out = validate(&w, &prop("us\u{e9}r", vec![req(Op::Put, "10.11.21.1002.04", Some("x"))]), AT);
+    assert_eq!(out.reasons[0].rule, "R4");
+}
+#[test]
+fn a5_1_pointer_99_is_never_content() {
+    let w = world();
+    let out = validate(&w, &prop("user", vec![req(Op::Put, "10.11.21.9999.00", Some("title: next")), req(Op::Put, "10.11.21.9999.04", Some("x"))]), AT);
+    assert_eq!(out.reasons[0].rule, "A5.1");
+    let out = validate(&w, &prop("user", vec![req(Op::Put, "99.10.10.0000.00", Some("title: d")), req(Op::Put, "99.10.10.1001.00", Some("title: p")), req(Op::Put, "99.10.10.1001.04", Some("x"))]), AT);
+    assert_eq!(out.reasons[0].rule, "A5.1");
+}
+#[test]
+fn a2_8_page_9999_needs_a_title_too() {
+    let w = world();
+    let out = validate(&w, &prop("user", vec![req(Op::Put, "10.11.21.9999.00", Some("type: pointer")), req(Op::Put, "10.11.21.9999.08", Some("## n\ntarget: 10.11.21.0000\n"))]), AT);
+    assert!(out.reasons.iter().any(|r| r.rule == "A2.8"));
+}
+#[test]
+fn c1_4_kernel_only_card_not_redefined_by_a_book() {
+    let mut w = world();
+    let mut k = Bk::with_identity("00.00.00");
+    k.put("00.00.00.0054.00", None, "title: types").unwrap();
+    k.put("00.00.00.0054.01", None, "## General\nowner: kernel-only\n\nThe general type.").unwrap();
+    w.insert(k.st);
+    let out = validate(&w, &prop("model", vec![req(Op::Put, "10.11.21.0054.00", Some("title: types")), req(Op::Put, "10.11.21.0054.01", Some("## General\nowner: book\n\nmine")), req(Op::Put, "10.11.21.0054.04", Some("## General\nwhy: w\n\nlong"))]), AT);
+    assert_eq!(out.reasons[0].rule, "C1.4");
+}
+#[test]
+fn c3_2_the_04_card_may_be_inherited() {
+    let mut w = world();
+    let mut k = Bk::with_identity("00.00.00");
+    k.put("00.00.00.0030.00", None, "title: k").unwrap();
+    k.put("00.00.00.0030.01", None, "## Job\nKernel rule.").unwrap();
+    k.put("00.00.00.0030.04", None, "## Job\nwhy: w\n\nlong").unwrap();
+    w.insert(k.st);
+    let out = validate(&w, &prop("u", vec![req(Op::Put, "10.11.21.0030.00", Some("title: b")), req(Op::Put, "10.11.21.0030.01", Some("## Job\nLocal rule."))]), AT);
+    assert!(out.approved(), "{:?}", out.reasons);
+}
+#[test]
+fn a5_3_retiring_a_back_link_is_refused() {
+    let mut w = world();
+    let mut t = Bk::with_identity("10.11.22");
+    t.put("10.11.22.0010.00", None, "x").unwrap();
+    t.put("10.11.22.0010.08", None, "## back\ntarget: 10.11.21.9999\nkind: continuation").unwrap();
+    w.insert(t.st);
+    let mut b = Bk::with_identity("10.11.21");
+    for (a, body) in [("0020.00", "t"), ("0020.04", "local why"), ("1001.00", "title: timer"), ("1001.04", "w"), ("9999.00", "title: next"), ("9999.08", "## next\ntarget: 10.11.22.0010\nkind: continuation")] {
+        b.put(&format!("10.11.21.{a}"), None, body).unwrap();
+    }
+    w.insert(b.st);
+    let mut r = req(Op::Tail, "10.11.22.0010.08", None);
+    r.to = Some("retired".into());
+    let out = validate(&w, &prop("u", vec![r]), AT);
+    assert_eq!(out.reasons[0].rule, "A5.3");
+}
+
+// ---------- Director rulings R7-R10 ----------
+#[test]
+fn r10_door_page_holds_only_face_00() {
+    let w = world();
+    for f in ["01", "04", "08"] {
+        let out = validate(&w, &prop("user", vec![req(Op::Put, "10.11.30.0000.00", Some("title: new")), req(Op::Put, &format!("10.11.30.0000.{f}"), Some("## A\nwhy: w\n\nabout"))]), AT);
+        assert_eq!(out.reasons[0].rule, "R10", "{f}");
+    }
+}
+#[test]
+fn r10_face_00_is_the_registry_and_c1_1_still_needs_it() {
+    assert_eq!(seqaddr_core::face::face_job(0).name(), "registry");
+    let w = world();
+    let out = validate(&w, &prop("user", vec![req(Op::Put, "10.11.21.1002.04", Some("## A\nwhy: w\n\nx"))]), AT);
+    assert!(out.reasons.iter().any(|r| r.rule == "C1.1" || r.rule == "format 4.1"), "{:?}", out.reasons);
+}
+#[test]
+fn r7_in_place_override_of_an_inherited_face_is_reported() {
+    let w = world();
+    // kernel 0020.01 exists; the book writes its own 0020.01 with no override page
+    let out = validate(&w, &prop("user", vec![req(Op::Put, "10.11.21.0021.00", Some("x")), req(Op::Put, "10.11.21.0021.04", Some("## A\nwhy: w\n\nbook why"))]), AT);
+    assert!(out.approved(), "{:?}", out.reasons);
+    assert!(out.findings.iter().any(|f| f.rule == "R7"), "{:?}", out.findings);
+    // with an override page in 0001-0009 that names the target, no finding
+    let out = validate(&w, &prop("user", vec![
+        req(Op::Put, "10.11.21.0001.00", Some("title: override-desk-why")),
+        req(Op::Put, "10.11.21.0001.04", Some("## Override\nwhy: the desk text is wrong for tools\ntarget: 10.11.21.0021.04\n\nChanges the why; needed for tools; should give the local reason.")),
+        req(Op::Put, "10.11.21.0021.00", Some("x")),
+        req(Op::Put, "10.11.21.0021.04", Some("## A\nwhy: w\n\nbook why")),
+    ]), AT);
+    assert!(out.approved(), "{:?}", out.reasons);
+    assert!(!out.findings.iter().any(|f| f.rule == "R7"), "{:?}", out.findings);
+}
+#[test]
+fn r5_followup_a_found_draft_says_why_it_is_a_draft() {
+    let mut w = world();
+    let mut b = Bk::with_identity("10.11.22");
+    b.put("10.11.22.1001.00", None, "title: t").unwrap();
+    b.put("10.11.22.1001.04.draft", None, "new text").unwrap();
+    b.op("m", Op::Note, "10.11.22.1001.04.draft", Some("add the reason"), None).unwrap();
+    w.insert(b.st);
+    let r = w.resolve(&p("10.11.22.1001.04")).unwrap();
+    assert_eq!(r.state.as_deref(), Some("draft"));
+    let why = r.why_draft.expect("why_draft");
+    assert!(!why.has_seated);
+    assert_eq!(why.open_notes.len(), 1);
+    assert_eq!(why.open_notes[0].text, "add the reason");
+    assert!(w.resolve(&p("10.11.21.1001.04")).unwrap().why_draft.is_none(), "seated face: no why_draft");
+}
+#[test]
+fn r8_a_draft_exists_only_while_drafting() {
+    let mut b = Bk::with_identity("10.11.22");
+    b.put("10.11.22.1001.00", None, "title: t").unwrap();
+    b.put("10.11.22.1001.04", None, "v1").unwrap();
+    b.op("m", Op::Copy, "10.11.22.1001.04", None, None).unwrap();
+    assert!(b.st.page(1001).unwrap().face(4).unwrap().draft.is_some());
+    b.op("compute", Op::Promote, "10.11.22.1001.04.draft", None, None).unwrap();
+    assert!(b.st.page(1001).unwrap().face(4).unwrap().draft.is_none(), "promote ends the draft");
+}
+
+#[test]
+fn r5_followup_reason_on_the_entry_that_opens_a_draft() {
+    let mut w = world();
+    let mut b = Bk::with_identity("10.11.22");
+    b.put("10.11.22.1001.00", None, "title: t").unwrap();
+    w.insert(b.st);
+    let mut r = req(Op::Put, "10.11.22.1001.04.draft", Some("## A\nwhy: w\n\nnew"));
+    r.reason = Some("tools need a local why".into());
+    let out = validate(&w, &prop("model", vec![r]), AT);
+    assert!(out.approved(), "{:?}", out.reasons);
+    assert_eq!(out.entries[0].reason(), Some("tools need a local why"));
+    let line = out.entries[0].to_line();
+    assert!(line.contains("\"reason\":\"tools need a local why\""), "{line}");
+    w.insert(out.state.unwrap());
+    let why = w.resolve(&p("10.11.22.1001.04")).unwrap().why_draft.unwrap();
+    assert_eq!(why.reason.as_deref(), Some("tools need a local why"));
+    let mut r = req(Op::Put, "10.11.22.1001.01.draft", Some("x"));
+    r.reason = Some("caf\u{e9}".into());
+    assert_eq!(validate(&w, &prop("model", vec![r]), AT).reasons[0].rule, "R4");
+}
+#[test]
+fn r5_followup_reason_survives_replay_and_copy() {
+    let mut b = Bk::with_identity("10.11.22");
+    b.put("10.11.22.1001.00", None, "title: t").unwrap();
+    b.put("10.11.22.1001.04", None, "v1").unwrap();
+    let mut e = b.e("m", Op::Copy, "10.11.22.1001.04");
+    e.extra.insert("reason".into(), serde_json::Value::String("fix the why".into()));
+    b.apply(e).unwrap();
+    let log = seqaddr_core::BookLog::parse(&b.text()).unwrap();
+    let st = seqaddr_core::BookState::replay(&log, &seqaddr_core::Policy::default()).unwrap();
+    assert_eq!(st.page(1001).unwrap().face(4).unwrap().draft.as_ref().unwrap().reason.as_deref(), Some("fix the why"));
 }
