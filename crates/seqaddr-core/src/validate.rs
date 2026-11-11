@@ -301,6 +301,21 @@ fn check_page(world: &World, st: &BookState, pg: u16, reasons: &mut Vec<Reason>,
         if pg >= 1000 && stamp.title().is_none() && page.tail() != crate::tail::PageTail::Retired {
             hard(reasons, SeqError::rejected("A2.8", format!("page {pg:04}: pages 1000 and up must have a title in the stamp")));
         }
+        // R12: the stamp, page state included, lives in face 00. A written `state:` that is not a
+        // page state, or disagrees with the state the faces give, is reported (finding, 7).
+        if let Some(sv) = stamp.get("state") {
+            let derived = match page.tail() {
+                crate::tail::PageTail::Live => "live",
+                crate::tail::PageTail::Draft => "draft",
+                crate::tail::PageTail::Retired => "retired",
+            };
+            let sv = sv.trim();
+            if !["live", "draft", "retired"].contains(&sv) {
+                findings.push(Reason::finding("R12", format!("page {pg:04}: stamp `state: {sv}` is not a page state (live, draft, retired)")));
+            } else if sv != derived {
+                findings.push(Reason::finding("R12", format!("page {pg:04}: stamp says `state: {sv}` but its faces make it {derived}")));
+            }
+        }
         if let Some(ax) = stamp.get("axioms") {
             if let Err(e) = AxiomChain::parse(ax) {
                 hard(reasons, e);

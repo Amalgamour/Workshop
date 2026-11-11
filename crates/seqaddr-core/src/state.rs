@@ -308,6 +308,14 @@ impl BookState {
         self.has_door()
     }
     /// Does the door exist (face 00 on 0000)? Containers need it to be legal (seqAddr 8).
+    /// R18: the pages of this book in the same cross-band set as `p` (same N and CC,
+    /// other bands, same title), `p` included when it has a title. Sorted.
+    pub fn set_of(&self, p: u16) -> Vec<u16> {
+        let Some(t) = self.page(p).and_then(|pg| pg.title()) else { return vec![] };
+        let mut out: Vec<u16> = self.pages.iter().filter(|(q, pg)| **q == p || crate::addr::same_set(p, Some(&t), **q, pg.title().as_deref())).map(|(q, _)| *q).collect();
+        out.sort();
+        out
+    }
     pub fn has_door(&self) -> bool {
         self.face(0, 0).map(|f| f.is_present()).unwrap_or(false)
     }

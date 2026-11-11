@@ -660,3 +660,46 @@ fn r5_followup_reason_survives_replay_and_copy() {
     let st = seqaddr_core::BookState::replay(&log, &seqaddr_core::Policy::default()).unwrap();
     assert_eq!(st.page(1001).unwrap().face(4).unwrap().draft.as_ref().unwrap().reason.as_deref(), Some("fix the why"));
 }
+
+// ---------- Director rulings R12-R18 ----------
+#[test]
+fn r12_stamp_state_in_face_00_is_checked_against_the_faces() {
+    let w = world();
+    let out = validate(&w, &prop("user", vec![req(Op::Put, "10.11.21.1002.00", Some("title: c\nstate: retired")), req(Op::Put, "10.11.21.1002.04", Some("## A\nwhy: w\n\nx"))]), AT);
+    assert!(out.approved(), "{:?}", out.reasons);
+    assert!(out.findings.iter().any(|f| f.rule == "R12"), "{:?}", out.findings);
+    let out = validate(&w, &prop("user", vec![req(Op::Put, "10.11.21.1003.00", Some("title: d\nstate: live")), req(Op::Put, "10.11.21.1003.04", Some("## A\nwhy: w\n\nx"))]), AT);
+    assert!(!out.findings.iter().any(|f| f.rule == "R12"), "{:?}", out.findings);
+}
+#[test]
+fn r14_a_face_may_be_seated_under_a_draft_door() {
+    let mut w = world();
+    let mut b = Bk::new("10.11.22");
+    b.put("10.11.22.0000.00", Some("draft"), "---\ntitle: tools\n---").unwrap();
+    w.insert(b.st);
+    let out = validate(&w, &prop("user", vec![req(Op::Put, "10.11.22.1001.00", Some("title: t")), req(Op::Put, "10.11.22.1001.04", Some("## A\nwhy: w\n\nx"))]), AT);
+    assert!(out.approved(), "{:?}", out.reasons);
+    let out = validate(&w, &prop("user", vec![req(Op::Put, "10.11.22.1001.00.draft", Some("title: t")), req(Op::Put, "10.11.22.1001.04", Some("## A\nwhy: w\n\nx"))]), AT);
+    assert!(out.approved(), "page door (face 00) still a draft: {:?}", out.reasons);
+}
+#[test]
+fn r15_brand_card_on_01_needs_no_04_card() {
+    let w = world();
+    let out = validate(&w, &prop("user", vec![req(Op::Put, "10.11.21.1002.00", Some("title: c")), req(Op::Put, "10.11.21.1002.01", Some("## ham\ntype: brand\n\nham.001 -> 10.10.11.1014.01.ham"))]), AT);
+    assert!(!out.reasons.iter().any(|r| r.rule == "C3.2"), "{:?}", out.reasons);
+}
+#[test]
+fn r18_cross_band_sets_match_by_cc_and_title() {
+    use seqaddr_core::addr::same_set;
+    assert!(same_set(1403, Some("ide-design"), 1503, Some("ide-design")));
+    assert!(!same_set(1403, Some("ide-design"), 1503, Some("ide-build")), "title differs");
+    assert!(!same_set(1403, Some("ide-design"), 1504, Some("ide-design")), "CC differs");
+    assert!(!same_set(1403, Some("ide-design"), 2503, Some("ide-design")), "thousand differs");
+    assert!(!same_set(1403, Some("ide-design"), 1403, Some("ide-design")), "same band is not a cross-band set");
+    assert!(!same_set(1403, None, 1503, Some("ide-design")));
+    let mut b = Bk::with_identity("10.11.22");
+    for (pg, t) in [(1403, "ide-design"), (1503, "ide-design"), (1603, "other"), (1703, "ide-design")] {
+        b.put(&format!("10.11.22.{pg}.00"), None, &format!("title: {t}")).unwrap();
+    }
+    assert_eq!(b.st.set_of(1403), vec![1403, 1503, 1703]);
+}

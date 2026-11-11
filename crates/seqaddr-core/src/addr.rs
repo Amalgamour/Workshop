@@ -269,12 +269,24 @@ pub fn band_head(p: u16) -> Option<u16> {
     }
 }
 
-/// The set key `(N, NN)` shared by pages of one set across bands (A2.6).
+/// The set key `(N, CC)` shared by pages of one set across bands (A2.6). R18: the number
+/// alone is not enough; use [`same_set`], which also matches the title.
 pub fn set_key(p: u16) -> Option<(u8, u8)> {
     if p < 100 {
         None
     } else {
         Some(((p / 1000) as u8, (p % 100) as u8))
+    }
+}
+
+/// R18: two pages in different bands (hundreds) are one set when their last two digits
+/// (CC, the counter space in the band) and their titles match: N403.IDE-design = N503.IDE-design.
+/// Same thousand N, different band, same CC, equal titles. Titles compare exactly (7: the
+/// ruling's example `IDE-design` has capitals, which A2.3 title form does not allow).
+pub fn same_set(a: u16, a_title: Option<&str>, b: u16, b_title: Option<&str>) -> bool {
+    match (set_key(a), set_key(b), a_title, b_title) {
+        (Some(ka), Some(kb), Some(ta), Some(tb)) => ka == kb && (a / 100) % 10 != (b / 100) % 10 && ta == tb,
+        _ => false,
     }
 }
 

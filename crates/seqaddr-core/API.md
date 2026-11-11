@@ -82,3 +82,10 @@ Counter rules applied in `apply`: first `pack -> open` claims (second gets `Conf
 | **R5 follow-up / R8** `Resolution.why_draft: Option<DraftWhy { opened_by_entry, has_seated, open_notes: Vec<DraftNote{n, by, text}>, merged_notes }>` when a draft is found. Drafts are addressed `...PPPP.FF.draft` and end on promote (R8; unchanged). | Read `why_draft` to show why a face is a draft. |
 | **R6** axioms at `00.00.axioms` on the kernel desk: not modelled (address form 7, kernel Q28). | None. |
 | **R5 follow-up `reason`** `OpRequest.reason: Option<String>` (optional, R4-checked) is stored as entry field `reason` (`Entry::reason()`); the entry that opens a draft (`copy`, or `put FF.draft` of a new face) puts it in `Draft.reason` (serde default, so old snapshots load) and `DraftWhy.reason`. | Optional: send `reason` when opening a draft. |
+
+### Rulings R12-R18
+
+- **R12** `validate` reports finding `R12` when a face-00 stamp `state:` is not live/draft/retired or disagrees with the derived page state.
+- **R14** seating under a draft door is allowed (no change). **R15** brand cards need no 04 (no change).
+- **R18** `addr::same_set(a, title_a, b, title_b) -> bool` and `BookState::set_of(p) -> Vec<u16>`: cross-band sets match by CC and title. `set_key` is unchanged (number only).
+- **R16** held 7 (conflicts with R9); not modelled.
