@@ -382,3 +382,21 @@ Evidence: `docs/trial/kernel-trial-7.md` part C3, finding 4.
 - Option C: keep it as is and correct the Q57 note. Report only: nothing was changed. `7` until a lane takes it.
 
 Noted by KERNEL pass 9: Prima handles this in the publish copy (this lane did not touch it). Option A: the `incoming` branch is deleted after each publish, and later fetches use `FETCH_HEAD` (`git fetch ../repo build`, then cherry-pick from `FETCH_HEAD`), so no leftover ref holds the local `target/` history. This lane's own proof used a scratch clone of the publish copy with `FETCH_HEAD`, never an `incoming` branch. Left for the next trial to confirm.
+
+Checked by TRIAL-K8 (`docs/trial/kernel-trial-8.md` part C3): option A landed. The publish copy has no `incoming` ref, a bare push goes only to `prima/build`, and no ref reaches a `target/` commit. Report only: `.git/FETCH_HEAD` and the reflogs still reach 2 `target/` commits; they are not refs, so `--all` and `--mirror` do not push them.
+
+**Q61. [TRIAL-K8] (builder lane, not a Director question) Should the history fallback behind the symlink refusal cover every link shape, or be called best-effort?**
+Evidence: `docs/trial/kernel-trial-8.md` finding 1 (H1, H2, H5).
+- `historySeats` misses three shapes: a link at `kernel` itself (the walk is `-- kernel/`), an absolute link that points inside the repo (skipped at `build.mjs:391`), and a two-hop chain (the second hop's target is filed as a folder, `:394-395`). A seat line added and removed through any of them leaves no trace the guard reads.
+- None of these states can build: the live refusal stops every commit where the link exists, so no seat was ever valid there. The pass 9 note says "a symlink ever committed under `kernel/` is followed in history", which holds only for one-hop relative links under `kernel/`.
+- Option A: also walk `-- kernel` (no slash), resolve absolute targets that land inside the repo, and carry the page through chains, with tests like H1, H2, H5.
+- Option B: keep the code, and say in the code comment, Q58 note and BUILD-LOG that the fallback is best-effort and the live refusal is the guard.
+- `7` until a lane takes it.
+
+**Q62. [TRIAL-K8] (builder lane, not a Director question) Should `--check` require face 00 (and every file it reads under `kernel/`) to be the committed bytes, or read past seats from the history of `books/`?**
+Evidence: `docs/trial/kernel-trial-8.md` finding 2 (H3).
+- `gitEntry` checks only the seated face. Face 00, which holds the seat line, is read from disk. With face 00 untracked and excluded, a seat was built and `books/` committed; local `--check` passed with `seats 27`. Later face 00 was put back without the seat and the books line dropped: exit 0, `seats 26`, also in a fresh clone. The seat is recorded only in `books/` history, and `priorSeats` reads `HEAD:books/` only.
+- Local only: a fresh clone at the seat commit refuses it ("no face 00"). Same class as the gitfile swap.
+- Option A: under `--check`, every file read under `kernel/` must be tracked and equal its HEAD blob (or at least each face 00).
+- Option B: also read past seats from every `books/` blob on HEAD's history, as face 00 history is read now.
+- Option C: both. `7` until a lane takes it.
