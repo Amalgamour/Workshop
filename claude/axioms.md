@@ -4,6 +4,8 @@ Context form of the nine. The axioms give a model a different awareness: a large
 
 Cite by number. A dot orders axioms in one piece (`1.7.8`: authority, then missing, then connection). A comma splits pieces (`1,3`). A later axiom refines; it does not replace. A one-digit mark is an axiom, never an address. Only axiom 3 takes a modifier: the lead letters M, P, C (`3MPC`). To cite is to attach a chain with the `axioms:` field. A cite runs nothing and permits nothing.
 
+`7` follows the same order rule as every axiom: `7.8` is a connection that is missing; `8.7` is a connection that is incomplete.
+
 Cold set before a write: `1.7.8`.
 
 ## The nine

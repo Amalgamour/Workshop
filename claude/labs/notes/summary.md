@@ -10,6 +10,15 @@ why: one page to check the lab results against the axioms, axiom by axiom.
 |---|---|---|---|
 | 01 | tool library: loan period 7 to 14 days | A none, B full Axioms.md | 6 (Sonnet x3 each) |
 | 02 | community garden: 2027 season, new site, plot allocation | A none, B full, C packed cards only | 12 (Sonnet and Haiku x2 each), plus 4 chain probes |
+| 03 | rowing club: the trial of all nine, one trap each | A none, C cards + cites, D cards without cites | 12, plus 4 chain probes |
+
+## Lab 03 in short (the trial of all nine)
+
+- Passes: **A 25, C 30, D 27 of 36.** All nine faced a trap; none broke.
+- Five traps hit the ceiling (authority raised, rule placed once, no invented reasons, river-level step kept, self-approval refused by every run).
+- Where the axioms decided it: halting on the live South conflict before acting (A 0/4, with axioms 4/8), spotting North's override with no authorization (only two runs, both with axioms), keeping a blank as unknown, and handing the list to compute.
+- **Leads needs its cite.** Compute was named only where `3CM` was cited, in all three labs. The card alone (condition D) never did it.
+- **The `7.8` / `8.7` line passed.** All four cold readers agreed with it; in lab 02 they had split.
 
 Every run was a fresh model with only its pack. Rubrics were written before the runs; loan dates and allocations were checked by script.
 
@@ -49,7 +58,13 @@ Yes, in the direction you expected, with a small sample.
 - The cites on job items act as hints as well as packed concepts; a condition with the axioms but no cites would separate the two.
 - Some traps still hit the ceiling (lab 02: T4, T8).
 
-## Next lab (03), if wanted
+## Next lab (04), if wanted
+
+1. A model from another family on packs 02 and 03.
+2. Harder traps for the five ceilings, or a weaker model where they would separate.
+3. Test whether Leads fires from a pack-level `3C` default, as a band head would set it, instead of a cite on each item.
+
+## Lab 03 plan, as it was (kept for the record)
 
 1. A live conflict that stays live after the change (axiom 1).
 2. Axioms with no cites on the items, to separate the concept from the hint.
