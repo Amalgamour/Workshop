@@ -153,3 +153,36 @@ seqAddr.md:219-223 lists five rows (`0000`, `0001-0009`, `0010-0019`, `0020-0049
 - Option A: `0000`+`0001-0009` together, then `0010-0019`, `0020-0049`, `0050-0099`.
 - Option B: `0000-0009`, `0010-0019`, `0020-0049`, `0050-0099` (same as A, named as ranges).
 - Option C: another split. `7`.
+
+**Q31. [TRIAL-K2] Where does a page keep its state: in the stamp `state:` (R12), or in the page tail?**
+R12 (`DIRECTOR-RULINGS.md:53-54`): "A page's state is kept in the stamp in face 00." But `0053.01:25` (from `seqAddr.md` section 4) still puts container and page state in page tails: `10.11.21.0000.retired`, `PPPP.draft`. The kernel writes both: `0000.00.draft` with `state: draft` inside.
+- Option A: the stamp only. Page tails (`PPPP.draft`, `PPPP.retired`) are dropped from the grammar.
+- Option B: both. The page tail and the stamp `state:` must agree, and a mismatch is elevated.
+- Option C: the page tail decides, and the stamp mirrors it. `7`.
+
+**Q32. [TRIAL-K2] R14 says "a face may be seated while its page's door is still a draft". Which "door" is meant?**
+Under R9 and R10, face 00 is the page's registry, not a door. The door is only the all-zero page `0000`. `0052.01:41` says "door face".
+- Option A: the page's own face 00 (its registry and stamp) may stay a draft.
+- Option B: the book's door page `0000` may stay a draft.
+- Option C: both. `7`.
+
+**Q33. [TRIAL-K2] Which page types exist for R19's per-type registry fields?**
+R19: "Each page type can have a different set of registry fields." Kernel `0054.01:6` lists `system`, `general`, `code`, `workflow`, `band` and `pointer`. None of these names an R7 override page (0001-0009), an R11 common-questions page, a door page `0000`, or the R6 axioms. The SEQPAGE draft `docs/spec/face00.md` (DRAFT) proposes field sets.
+- Option A: add types for these (for example `override`, `questions`, `door`), each with its own registry fields.
+- Option B: keep the six types and carry the role in a registry field. `7`.
+
+**Q34. [TRIAL-K2] Where is an R2 seat recorded on a face?**
+R2: record `approved-by: build-stage (R2)` with the trial reference. Under R12 only face 00 has a stamp, and other faces carry no front matter (CONFLICTS D8).
+- Option A: a field on the book entry or proposal that seats the face (as the core gate does now).
+- Option B: a line in the page's face 00 registry, beside that face.
+- Option C: both. `7`.
+
+**Q35. [TRIAL-K2] Can an R2 seat apply to a counted face (`06.01` notes, dictionary `03.14`)?**
+`0052.01:87` (seqAddr.md:199-201): "A counted face is never seated." Counter tails are `draft`, `pack`, `open`, `return` and `review`; bare means closed.
+- Option A: no. Counters move only by tails, so a note closes bare, and a dictionary section is bare once reviewed.
+- Option B: dictionary sections are seated like faces, and only 05/06 counters use workflow tails. Linked: Q22. `7`.
+
+**Q36. [TRIAL-K2] Does an R7 override page change what the lookup returns?**
+The sample `10.11.21.0001.04` says `achieve: a reader of 10.11.21 who looks up never-from-memory sees the line below as its explanation`. The builder's lookup still returns the kernel's `00.00.00.0056.04.draft` and only reports that the override exists. R7: "An override does not silently replace a face in place."
+- Option A: the lookup returns the kernel face with the override card applied on top (per card), and shows both.
+- Option B: the lookup returns the kernel face, and the override is reported beside it. Linked: Q3 (per face or per card), Q24 (override form). `7`.
