@@ -1,0 +1,82 @@
+seqpage 1
+= 00 door 10.11.21.1001.00
+title := bob
+state := draft
+door := draft
+type := general
+axioms := -
+lineage := 10.11.21.1001 < 10.11.21 < 10.11.00 < 10.00.00 < 00.00.00
+source := book 10.11.21 @7
+
+--- @7 put 10.11.21.1001.00
+at: 2026-11-11T19:30:00Z
+by: prima-kernel-seed
+tail: draft
+proposal: prima-kernel-seed:10.11.21.1001
+| ---
+| address: 10.11.21.1001
+| title: bob
+| state: draft
+| type: general
+| ---
+
+= 01 law 10.11.21.1001.01
+state := draft
+source := book 10.11.21 @8
+
+--- @8 put 10.11.21.1001.01
+at: 2026-11-11T19:30:00Z
+by: prima-kernel-seed
+tail: draft
+proposal: prima-kernel-seed:10.11.21.1001
+cards := bob, cats
+| ## bob
+| type: brand
+| brand: bob.001
+| forms: Bob
+| means: the user's name
+|
+| ## cats
+| type: brand
+| brand: cats.001
+| forms: cats
+| means: animals the user likes
+
+= 04 user 10.11.21.1001.04
+state := draft
+source := book 10.11.21 @9
+
+--- @9 put 10.11.21.1001.04
+at: 2026-11-11T19:30:00Z
+by: prima-kernel-seed
+tail: draft
+proposal: prima-kernel-seed:10.11.21.1001
+cards := bob, cats
+| ## bob
+| source: [01 / bob] Bob test session 1, the user's words: "My name is Bob and I like cats"; why: docs/spec/brands.md:7
+| why: When a user explains their meaning of a word, it is recorded, so models look it up instead of guessing.
+|
+| Session 1, the user said: "My name is Bob and I like cats". Bob is the user's name. `7`: no route is written from the question "what is my name" to this card. Resolving works on a word the user types (decisions.md C8.8), and the question does not type `bob` (kernel/QUESTIONS.md).
+|
+| ## cats
+| source: [01 / cats] Bob test session 1, the user's words: "My name is Bob and I like cats"; why: docs/spec/brands.md:7
+| why: When a user explains their meaning of a word, it is recorded, so models look it up instead of guessing.
+|
+| Session 1, the user said: "My name is Bob and I like cats". Bob likes cats.
+
+= 06 notes 10.11.21.1001.06
+
+== 06.01 10.11.21.1001.06.01
+
+--- new put 10.11.21.1001.06.01
+| ## Session 2
+| model: grok-bot
+| why: the Bob test, session 2
+|
+| The user asked "what is my name". The dictionary page 10.11.21.0012 lists `bob` -> 10.11.21.1001.01.bob, so the answer is the card: Bob.
+
+~ history
+@7 put 10.11.21.1001.00
+@8 put 10.11.21.1001.01
+@9 put 10.11.21.1001.04
+~ end
