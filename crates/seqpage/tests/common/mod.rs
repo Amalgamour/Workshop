@@ -13,8 +13,12 @@ pub fn books_in(dir: &str) -> Vec<(String, String, BookLog)> {
     paths.sort();
     for p in paths {
         let text = std::fs::read_to_string(&p).unwrap();
-        let log = BookLog::parse(&text).unwrap_or_else(|e| panic!("{}: {e}", p.display()));
-        out.push((p.display().to_string(), text, log));
+        match BookLog::parse(&text) {
+            Ok(log) => out.push((p.display().to_string(), text, log)),
+            // Another lane's book that the core itself refuses (e.g. R4 damage) is not ours to judge here.
+            Err(e) if e.rule() == "R4" || e.detail().contains("R4") => eprintln!("skipped {} (core refuses it under R4: {e})", p.display()),
+            Err(e) => panic!("{}: {e}", p.display()),
+        }
     }
     out
 }

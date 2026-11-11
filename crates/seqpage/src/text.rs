@@ -102,3 +102,51 @@ pub fn json_r4(v: &serde_json::Value) -> Option<char> {
         _ => None,
     }
 }
+
+/// A plain string that would read back as a JSON number, bool, null, array or object.
+fn looks_like_json(s: &str) -> bool {
+    matches!(serde_json::from_str::<serde_json::Value>(s), Ok(v) if !v.is_string())
+}
+
+/// Field value (seqpage.md 6.3): a string is written raw when plain and not
+/// JSON-looking, else as a JSON string; any other JSON value is written compact.
+pub fn encode_field(v: &serde_json::Value) -> String {
+    match v {
+        serde_json::Value::String(s) if is_plain(s) && !looks_like_json(s) => s.clone(),
+        other => serde_json::to_string(other).expect("json serializes"),
+    }
+}
+
+/// Inverse of [`encode_field`]; only the canonical form is accepted.
+pub fn decode_field(raw: &str) -> Result<serde_json::Value, String> {
+    if raw.starts_with('"') {
+        let s: String = serde_json::from_str(raw).map_err(|e| format!("bad quoted value: {e}"))?;
+        if let Some((_, _, c)) = first_non_r4(&s) {
+            return Err(format!("quoted value holds {} (R4: plain ASCII only)", describe_char(c)));
+        }
+        if is_plain(&s) && !looks_like_json(&s) {
+            return Err("a plain value must be written without quotes".into());
+        }
+        return Ok(serde_json::Value::String(s));
+    }
+    if let Ok(v) = serde_json::from_str::<serde_json::Value>(raw) {
+        if serde_json::to_string(&v).unwrap() != raw {
+            return Err("JSON values are written compactly (no spaces, no extra digits)".into());
+        }
+        if let Some(c) = json_r4(&v) {
+            return Err(format!("value holds {} through a JSON escape (R4: plain ASCII only)", describe_char(c)));
+        }
+        return Ok(v);
+    }
+    if is_plain(raw) {
+        Ok(serde_json::Value::String(raw.to_string()))
+    } else {
+        Err("value is empty or has leading/trailing space; quote it as JSON".into())
+    }
+}
+
+/// A field key: lowercase letter, then lowercase letters, digits, `-` or `_`.
+pub fn is_field_key(k: &str) -> bool {
+    let mut it = k.chars();
+    matches!(it.next(), Some(c) if c.is_ascii_lowercase()) && it.all(|c| c.is_ascii_lowercase() || c.is_ascii_digit() || c == '-' || c == '_')
+}

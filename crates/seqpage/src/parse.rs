@@ -7,22 +7,20 @@ use crate::derive::{cards_value, derive};
 use crate::error::{PageError, Report};
 use crate::model::{slot_of, Block, BlockKind, Derived, HistLine, PageId, Section, SectionKey, SeqPage};
 use crate::text::{body_line, decode_value};
-use crate::write::file_name;
+use crate::write::{file_name, HEADER_KEYS};
 use crate::MAGIC;
 use seqaddr_core::addr::Address;
 use seqaddr_core::log::{BookLog, Entry, Op};
 use seqaddr_core::validate::OpRequest;
 use std::collections::{BTreeMap, BTreeSet};
 
-const ENTRY_KEYS: [&str; 14] = ["n", "at", "by", "op", "addr", "tail", "from", "to", "body", "proposal", "cites", "outcome", "of", "state"];
 
 struct OpenBlock {
     line: usize,
     n: Option<u64>,
     op: Op,
     addr: String,
-    fields: BTreeMap<String, (usize, String)>,
-    extra: serde_json::Map<String, serde_json::Value>,
+    fields: serde_json::Map<String, serde_json::Value>,
     derived: Vec<Derived>,
     body: Option<Vec<String>>,
 }
@@ -33,7 +31,7 @@ fn parse_op(word: &str, line: usize) -> Result<Op, PageError> {
 }
 
 fn split_key(line: &str) -> Option<(&str, &str)> {
-    let end = line.find(|c: char| !(c.is_ascii_lowercase() || c.is_ascii_digit() || c == '-')).unwrap_or(line.len());
+    let end = line.find(|c: char| !(c.is_ascii_lowercase() || c.is_ascii_digit() || c == '-' || c == '_')).unwrap_or(line.len());
     if end == 0 || !line.as_bytes()[0].is_ascii_lowercase() {
         return None;
     }
@@ -44,55 +42,39 @@ fn val(raw: &str, line: usize, rule: &'static str) -> Result<String, PageError> 
     decode_value(raw).map_err(|e| PageError::invalid(line, rule, e))
 }
 
+/// Keys only the compute stamps when it books a write (seqpage.md 10).
+const COMPUTE_KEYS: [&str; 6] = ["at", "by", "n", "proposal", "of", "state"];
+
 impl OpenBlock {
     fn finish(self) -> Result<Block, PageError> {
         let line = self.line;
-        let body = self.body.map(|v| v.join("\n"));
-        let mut f = self.fields;
-        let take = |f: &mut BTreeMap<String, (usize, String)>, k: &str| f.remove(k);
-        let num = |v: Option<(usize, String)>| -> Result<Option<u64>, PageError> {
-            match v {
-                None => Ok(None),
-                Some((l, s)) => s.parse::<u64>().map(Some).map_err(|_| PageError::invalid(l, "seqpage 6.3", format!("`{s}` is not a whole number"))),
-            }
-        };
+        let mut map = self.fields;
+        map.insert("op".into(), serde_json::Value::String(self.op.as_str().into()));
+        map.insert("addr".into(), serde_json::Value::String(self.addr));
+        if let Some(b) = self.body {
+            map.insert("body".into(), serde_json::Value::String(b.join("\n")));
+        }
         match self.n {
             Some(n) => {
-                let at = take(&mut f, "at").ok_or_else(|| PageError::missing(line, "seqpage 6.2", format!("@{n} has no `at:` line; a booked entry keeps its time")))?.1;
-                let by = take(&mut f, "by").ok_or_else(|| PageError::missing(line, "seqpage 6.2", format!("@{n} has no `by:` line; a booked entry keeps its author")))?.1;
-                let mut e = Entry::new(n, at, by, self.op, self.addr);
-                e.tail = take(&mut f, "tail").map(|x| x.1);
-                e.from = take(&mut f, "from").map(|x| x.1);
-                e.to = take(&mut f, "to").map(|x| x.1);
-                e.proposal = take(&mut f, "proposal").map(|x| x.1);
-                e.cites = num(take(&mut f, "cites"))?;
-                e.outcome = take(&mut f, "outcome").map(|x| x.1);
-                e.of = match num(take(&mut f, "of"))? {
-                    Some(v) => Some(u32::try_from(v).map_err(|_| PageError::invalid(line, "seqpage 6.3", "`of` is too large"))?),
-                    None => None,
-                };
-                if let Some((l, s)) = take(&mut f, "state") {
-                    let v: serde_json::Value = serde_json::from_str(&s).map_err(|err| PageError::invalid(l, "seqpage 6.3", format!("`state:` is JSON: {err}")))?;
-                    if let Some(ch) = crate::text::json_r4(&v) {
-                        return Err(PageError::invalid(l, "R4", format!("`state:` holds {} through a JSON escape; stored text is plain ASCII only", crate::text::describe_char(ch))));
+                for k in ["at", "by"] {
+                    if !map.contains_key(k) {
+                        return Err(PageError::missing(line, "seqpage 6.2", format!("@{n} has no `{k}:` line; a booked entry keeps its time and author")));
                     }
-                    e.state = Some(v);
                 }
-                e.body = body;
-                e.extra = self.extra;
+                map.insert("n".into(), serde_json::Value::from(n));
+                let want = serde_json::Value::Object(map);
+                let e: Entry = serde_json::from_value(want.clone()).map_err(|err| PageError::invalid(line, "seqpage 6.2", format!("@{n} is not a book entry: {err}")))?;
+                if serde_json::to_value(&e).unwrap() != want {
+                    return Err(PageError::invalid(line, "seqpage 6.2", format!("@{n}: a field does not survive into the book entry (null value or wrong type)")));
+                }
                 Ok(Block { line, kind: BlockKind::Booked(e), derived: self.derived })
             }
             None => {
-                let o = OpRequest {
-                    op: Some(self.op),
-                    addr: self.addr,
-                    tail: take(&mut f, "tail").map(|x| x.1),
-                    from: take(&mut f, "from").map(|x| x.1),
-                    to: take(&mut f, "to").map(|x| x.1),
-                    body,
-                    cites: num(take(&mut f, "cites"))?,
-                    outcome: take(&mut f, "outcome").map(|x| x.1),
-                };
+                let want = serde_json::Value::Object(map);
+                let o: OpRequest = serde_json::from_value(want.clone()).map_err(|err| PageError::invalid(line, "seqpage 6.2", format!("not a proposed write: {err}")))?;
+                if serde_json::to_value(&o).unwrap() != want {
+                    return Err(PageError::invalid(line, "seqpage 6.2", "a field of this proposed block is not a proposal field (unknown, null or wrong type)"));
+                }
                 Ok(Block { line, kind: BlockKind::New(o), derived: self.derived })
             }
         }
@@ -248,7 +230,7 @@ pub fn parse(text: &str) -> Result<SeqPage, PageError> {
             };
             let op = parse_op(op, ln)?;
             let addr = val(addr, ln, "seqpage 6.1")?;
-            block = Some(OpenBlock { line: ln, n, op, addr, fields: BTreeMap::new(), extra: Default::default(), derived: vec![], body: None });
+            block = Some(OpenBlock { line: ln, n, op, addr, fields: Default::default(), derived: vec![], body: None });
             continue;
         }
         if let Some((key, rest)) = split_key(l) {
@@ -272,15 +254,13 @@ pub fn parse(text: &str) -> Result<SeqPage, PageError> {
                     return Err(PageError::invalid(ln, "seqpage 6.2", "fields come before the body"));
                 }
                 let booked = b.n.is_some();
-                let allowed_new = ["tail", "from", "to", "cites", "outcome"];
-                let allowed_booked = ["at", "by", "tail", "from", "to", "proposal", "cites", "outcome", "of", "state", "x"];
-                if !booked && !allowed_new.contains(&key) && allowed_booked.contains(&key) {
+                if !booked && COMPUTE_KEYS.contains(&key) {
                     return Err(PageError::authority(ln, "seqpage 10", format!("`{key}:` is stamped by the compute when it books a write; a proposed block cannot carry it")));
                 }
-                if !(if booked { allowed_booked.contains(&key) } else { allowed_new.contains(&key) }) {
-                    return Err(PageError::invalid(ln, "seqpage 6.2", format!("unknown field `{key}:`")));
+                if HEADER_KEYS.contains(&key) {
+                    return Err(PageError::invalid(ln, "seqpage 6.2", format!("`{key}` is given by the block header or body, not a field")));
                 }
-                if key == "x" {
+                let (k, value) = if key == "x" {
                     let obj: serde_json::Map<String, serde_json::Value> =
                         serde_json::from_str(v).map_err(|e| PageError::invalid(ln, "seqpage 6.3", format!("`x:` is a JSON object with one key: {e}")))?;
                     if obj.len() != 1 {
@@ -290,17 +270,16 @@ pub fn parse(text: &str) -> Result<SeqPage, PageError> {
                     if let Some(ch) = crate::text::json_r4(&serde_json::json!({ k.clone(): xv.clone() })) {
                         return Err(PageError::invalid(ln, "R4", format!("`x:` holds {} through a JSON escape; stored text is plain ASCII only", crate::text::describe_char(ch))));
                     }
-                    if ENTRY_KEYS.contains(&k.as_str()) {
-                        return Err(PageError::invalid(ln, "seqpage 6.3", format!("`x:` cannot carry the known field `{k}`")));
+                    if crate::text::is_field_key(&k) {
+                        return Err(PageError::invalid(ln, "seqpage 6.3", format!("`x:` is only for keys that cannot be written as a field; write `{k}: ...`")));
                     }
-                    if b.extra.insert(k.clone(), xv).is_some() {
-                        return Err(PageError::conflict(ln, "seqpage 6.3", format!("extra field `{k}` written twice")));
-                    }
-                    continue;
-                }
-                let value = if key == "state" { v.to_string() } else { val(v, ln, "seqpage 6.3")? };
-                if b.fields.insert(key.to_string(), (ln, value)).is_some() {
-                    return Err(PageError::conflict(ln, "seqpage 6.2", format!("field `{key}:` written twice in one block")));
+                    (k, xv)
+                } else {
+                    let value = crate::text::decode_field(v).map_err(|e| PageError::invalid(ln, "seqpage 6.3", e))?;
+                    (key.to_string(), value)
+                };
+                if b.fields.insert(k.clone(), value).is_some() {
+                    return Err(PageError::conflict(ln, "seqpage 6.2", format!("field `{k}` written twice in one block")));
                 }
                 continue;
             }

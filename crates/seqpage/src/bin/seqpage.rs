@@ -25,6 +25,19 @@ fn opt(args: &[String], name: &str) -> Option<String> {
     args.iter().position(|a| a == name).and_then(|i| args.get(i + 1).cloned())
 }
 
+/// Read a .seq file as bytes so a non-UTF-8 byte is reported under R4, not as an I/O error.
+fn read_seq(path: &str) -> String {
+    let bytes = std::fs::read(path).unwrap_or_else(|e| die(format!("{path}: {e}")));
+    String::from_utf8(bytes).unwrap_or_else(|e| {
+        let rep = seqpage::Report::new(
+            vec![seqpage::PageError::invalid(0, "R4", format!("byte {} is not valid text; a .seq file is plain ASCII 0x20-0x7E plus newline", e.utf8_error().valid_up_to()))],
+            vec![],
+        );
+        println!("{}", serde_json::to_string_pretty(&rep).unwrap());
+        exit(1)
+    })
+}
+
 fn read_book(path: &str) -> BookLog {
     seqaddr_core::log::file::read(std::path::Path::new(path)).unwrap_or_else(|e| die(format!("{path}: {e}")))
 }
@@ -95,7 +108,7 @@ fn main() {
         }
         "import" => {
             let file = args.get(1).unwrap_or_else(|| die(USAGE));
-            let text = std::fs::read_to_string(file).unwrap_or_else(|e| die(format!("{file}: {e}")));
+            let text = read_seq(file);
             let book = opt(&args, "--book").map(|b| read_book(&b));
             let by = opt(&args, "--by").unwrap_or_else(|| "user".to_string());
             match import(&text, book.as_ref(), &by) {
@@ -117,7 +130,7 @@ fn main() {
         }
         "check" => {
             let file = args.get(1).unwrap_or_else(|| die(USAGE));
-            let text = std::fs::read_to_string(file).unwrap_or_else(|e| die(format!("{file}: {e}")));
+            let text = read_seq(file);
             let book = opt(&args, "--book").map(|b| read_book(&b));
             let rep = check_text(&text, Some(file), book.as_ref());
             println!("{}", serde_json::to_string_pretty(&rep).unwrap());

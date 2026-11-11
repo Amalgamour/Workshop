@@ -15,43 +15,40 @@ fn op_word(op: Op) -> &'static str {
     op.as_str()
 }
 
-fn push_field(out: &mut Vec<String>, k: &str, v: &str) {
-    out.push(format!("{k}: {}", encode_value(v)));
+/// Fields shown first, in this order; any other field follows in name order.
+pub const FIELD_ORDER: [&str; 10] = ["at", "by", "tail", "from", "to", "proposal", "cites", "outcome", "of", "state"];
+/// Keys carried by the block header or body, never as fields.
+pub const HEADER_KEYS: [&str; 4] = ["n", "op", "addr", "body"];
+
+/// Field lines for any serialized record (entry or proposed op). Generic, so a
+/// field the core adds later still round-trips without a change here.
+pub fn field_lines(map: &serde_json::Map<String, serde_json::Value>) -> Vec<String> {
+    let mut keys: Vec<&String> = map.keys().filter(|k| !HEADER_KEYS.contains(&k.as_str())).collect();
+    keys.sort_by_key(|k| (FIELD_ORDER.iter().position(|o| o == k).unwrap_or(FIELD_ORDER.len()), (*k).clone()));
+    keys.into_iter()
+        .map(|k| {
+            let v = &map[k];
+            if crate::text::is_field_key(k) {
+                format!("{k}: {}", crate::text::encode_field(v))
+            } else {
+                let mut m = serde_json::Map::new();
+                m.insert(k.clone(), v.clone());
+                format!("x: {}", serde_json::Value::Object(m))
+            }
+        })
+        .collect()
+}
+
+fn as_map<T: serde::Serialize>(t: &T) -> serde_json::Map<String, serde_json::Value> {
+    match serde_json::to_value(t).expect("serializes") {
+        serde_json::Value::Object(m) => m,
+        _ => unreachable!(),
+    }
 }
 
 fn booked_block(key: SectionKey, e: &Entry) -> Vec<String> {
     let mut out = vec![format!("--- @{} {} {}", e.n, op_word(e.op), encode_value(&e.addr))];
-    push_field(&mut out, "at", &e.at);
-    push_field(&mut out, "by", &e.by);
-    if let Some(v) = &e.tail {
-        push_field(&mut out, "tail", v);
-    }
-    if let Some(v) = &e.from {
-        push_field(&mut out, "from", v);
-    }
-    if let Some(v) = &e.to {
-        push_field(&mut out, "to", v);
-    }
-    if let Some(v) = &e.proposal {
-        push_field(&mut out, "proposal", v);
-    }
-    if let Some(v) = e.cites {
-        out.push(format!("cites: {v}"));
-    }
-    if let Some(v) = &e.outcome {
-        push_field(&mut out, "outcome", v);
-    }
-    if let Some(v) = e.of {
-        out.push(format!("of: {v}"));
-    }
-    if let Some(v) = &e.state {
-        out.push(format!("state: {}", serde_json::to_string(v).unwrap()));
-    }
-    for (k, v) in &e.extra {
-        let mut m = serde_json::Map::new();
-        m.insert(k.clone(), v.clone());
-        out.push(format!("x: {}", serde_json::Value::Object(m)));
-    }
+    out.extend(field_lines(&as_map(e)));
     if let Some(c) = cards_value(key, e.body.as_deref()) {
         out.push(format!("cards := {c}"));
     }
@@ -64,21 +61,7 @@ fn booked_block(key: SectionKey, e: &Entry) -> Vec<String> {
 fn new_block(key: SectionKey, o: &OpRequest) -> Vec<String> {
     let op = o.op.map(op_word).unwrap_or("put");
     let mut out = vec![format!("--- new {op} {}", encode_value(&o.addr))];
-    if let Some(v) = &o.tail {
-        push_field(&mut out, "tail", v);
-    }
-    if let Some(v) = &o.from {
-        push_field(&mut out, "from", v);
-    }
-    if let Some(v) = &o.to {
-        push_field(&mut out, "to", v);
-    }
-    if let Some(v) = o.cites {
-        out.push(format!("cites: {v}"));
-    }
-    if let Some(v) = &o.outcome {
-        push_field(&mut out, "outcome", v);
-    }
+    out.extend(field_lines(&as_map(o)));
     if let Some(c) = cards_value(key, o.body.as_deref()) {
         out.push(format!("cards := {c}"));
     }
