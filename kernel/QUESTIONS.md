@@ -262,3 +262,23 @@ Copied from crates/ask QuestionCard; the app also reads READER_BOOK.0013 (`docs/
 decisions.md C8.5: "The kernel supplies a small base dictionary that books inherit." No words are listed, so no kernel dictionary page exists (`0055.06.01`; MAP hole 5). The `00.00.00.0055` pack step for it is blocked here.
 - Option A: an empty base for now (books build their own).
 - Option B: you give a starting word list. `7`.
+
+**Q51. [TRIAL-K4] A face 00 keeps its own seat record (`seat-00:`) and every other seat record on its page (`seat-NN:`). Writing any of them changes face 00's blob. So face 00 can never match the blob a trial passed, and a seated face 00 would break at the next seat on its page. Where should seat records live?**
+Evidence: `docs/trial/kernel-trial-4.md` finding 3 (hostile test HL: "blob 57d0389c is not 70cc70a8"). `kernel/build.mjs:128-129`, `:227-230`. The parked door packs plan "trial and seat 00.00.00.0000.00 ... its seat-00 stamp line" (`kernel/parked/doors/*.0000.05.02.draft.md`). R14 (`DIRECTOR-RULINGS.md:59-60`) and R22 (`:86-88`) assume face 00 can be seated some day. Linked: Q34 (where a seat is recorded), Q47 (does a registry edit need a new trial of face 00).
+- Option A: seat records leave face 00 and go to a seat ledger: a book entry field written by the compute at promote, or one file such as `kernel/SEATS.md`.
+- Option B: face 00's blob for trial and seat is computed without its `seat-` and `unseat-` lines, so those lines are bookkeeping (like Q47 option A).
+- Option C: face 00 is never seated during the build stage; only content faces and face 05 counters are. `7`.
+
+**Q52. [TRIAL-K4] (builder lane, not a Director question) How strong must the seat guard be?**
+Evidence: `docs/trial/kernel-trial-4.md` findings 1, 2, 4, 5, 6.
+- An 8-hex blob prefix was forged in about 20 seconds, and a changed seated law built clean (HM).
+- A ruling appended to the working-tree `DIRECTOR-RULINGS.md` made `approved-by: director` build clean (HG).
+- A forged trial committed anywhere is accepted (HA).
+- With no git, a forged trial only raises a finding (HC).
+- Deleting or editing `books/` hides a past seat (HI, HJ).
+Proposed, for the KERNEL lane to choose and the next trial to check:
+- (a) full 40-hex blobs in `seat-NN:` and in trial PASS lists, compared for equality, and the two existing seats re-pinned in full;
+- (b) rulings and past seats read from git at HEAD, not from the working tree;
+- (c) the cited trial commit must be an ancestor of HEAD;
+- (d) no git means the seat is an error, not a finding.
+`7` until a lane takes it.
