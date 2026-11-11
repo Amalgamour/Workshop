@@ -29,12 +29,13 @@ function scratch() {
   return d;
 }
 const stamp = (addr, title, faces, whys) => `---\naddress: ${addr}\ntitle: ${title}\ntype: general\nstate: draft\nwhy-draft: test fixture\n---\n\n## Registry\nfaces: ${faces}\n${whys}\n`;
-// opts.scratch makes the scratch copy (default: scratch()); opts.env adds to the builder's environment (TRIAL-K5 H15).
+// opts.scratch makes the scratch copy (default: scratch()); opts.env adds to the builder's environment (TRIAL-K5 H15);
+// opts.args are extra builder arguments, such as --check (KERNEL pass 10).
 function run(name, setup, expect, opts = {}) {
   const d = (opts.scratch || scratch)();
   try {
     setup(d);
-    const r = spawnSync(process.execPath, [join(d, 'kernel', 'build.mjs')], { encoding: 'utf8', env: { ...process.env, ...(opts.env ? opts.env(d) : {}) } });
+    const r = spawnSync(process.execPath, [join(d, 'kernel', 'build.mjs'), ...(opts.args || [])], { encoding: 'utf8', env: { ...process.env, ...(opts.env ? opts.env(d) : {}) } });
     const out = r.stdout + r.stderr;
     const ok = expect.ok ? r.status === 0 : r.status !== 0 && expect.match.test(out);
     console.log(`${ok ? 'ok  ' : 'FAIL'}  ${name}`);
@@ -165,6 +166,7 @@ run('R2: retiring a seated face with no unseat record is refused (H7)', (d) => {
 run('R2: retiring a seated face with an unseat record builds', (d) => {
   const r = unseat(d);
   edit(r, '\n## Registry\n', '\n## Registry\nunseat-01: test fixture retirement; was blob 5415cef2dd0a37f3c2ba4c9b6d2652262f0ef82d (TRIAL-K2)\n');
+  sh(d, ['add', '--', 'kernel/samples/10.11.21/10.11.21.1001.00.draft.md']); // Q62 (1): a face 00 with seat records is staged before a write
 }, { ok: true });
 // TRIAL-K5 finding 5 (H13, Q54 d): an un-seat record names the full old blob and gives a reason.
 run('Q54 d: an unseat record with a short blob is refused (K5 H13)', (d) => {
@@ -468,6 +470,59 @@ run('Q59: a trial added by an orphan root commit (trial only) is a valid origin'
   edit(r, '\n## Registry\n', `\n## Registry\nseat-05.03: approved-by: build-stage (R2); trial: ${path} blob ${tb}; blob: ${fb}\n`);
   commitWork(d, 'seat 0013.05.03 from the orphan trial');
 }, { ok: true });
+
+// ---- KERNEL pass 10: TRIAL-K8 findings 1 and 2 (Q61, Q62) ----
+// Q61 / K8 H1: the whole `kernel` is committed as a link to k2/ (C1), a seat line is written in k2/'s copy of face 00 (C2), and
+// the real kernel/ comes back without it and with no record (C3). Before pass 10 the walk read `kernel/` only and missed the link.
+run('Q61: a seat written while the whole kernel was a link, then removed, is found in history (K8 H1)', (d) => {
+  const rows = sh(d, ['ls-tree', '-r', 'HEAD', 'kernel/']).split('\n').map((l) => /^(\d+) blob ([0-9a-f]{40})\t(.*)$/.exec(l));
+  const moved = (p) => p.replace(/^kernel\//, 'k2/');
+  const ops = [...rows.map(([, , , p]) => [null, null, p]), ...rows.map(([, m, b, p]) => [m, b, moved(p)]), ['120000', hashText(d, 'k2'), 'kernel']];
+  const c1 = commitTree(d, putTree(d, 'HEAD', ops), ['HEAD'], 'kernel behind a link');
+  const orig = sh(d, ['cat-file', 'blob', `HEAD:${R1001}`]) + '\n';
+  const c2 = commitTree(d, putTree(d, c1, [['100644', hashText(d, orig.replace('\n## Registry\n', `\n## Registry\n${FAKE_SEAT}`)), moved(R1001)]]), [c1], 'seat through the kernel link');
+  sh(d, ['update-ref', 'HEAD', commitTree(d, sh(d, ['rev-parse', 'HEAD^{tree}']), [c2], 'kernel back, seat gone, no record')]);
+}, { match: UNSEAT_FAKE });
+// Q61 / K8 H2: face 00 is committed as an absolute link. The link names a folder that is not this clone's path (a link made in
+// another checkout), so it is followed by its path tails: docs/x/f00.md is walked. Before pass 10 absolute links were skipped.
+run('Q61: a seat written through an absolute face 00 link, then removed, is found in history (K8 H2)', (d) => {
+  const orig = sh(d, ['cat-file', 'blob', `HEAD:${R1001}`]) + '\n';
+  const c1 = commitTree(d, putTree(d, 'HEAD', [['120000', hashText(d, '/elsewhere/checkout/docs/x/f00.md'), R1001], ['100644', hashText(d, orig), 'docs/x/f00.md']]), ['HEAD'], 'face 00 behind an absolute link');
+  const c2 = commitTree(d, putTree(d, c1, [['100644', hashText(d, orig.replace('\n## Registry\n', `\n## Registry\n${FAKE_SEAT}`)), 'docs/x/f00.md']]), [c1], 'seat through the absolute link');
+  sh(d, ['update-ref', 'HEAD', commitTree(d, sh(d, ['rev-parse', 'HEAD^{tree}']), [c2], 'link gone, seat gone, no record')]);
+}, { match: UNSEAT_FAKE });
+// Q61 / K8 H5: a two-hop chain, face 00 -> docs/a (a link) -> docs/b/f00.md. Before pass 10 the second target was filed as a
+// folder, not as page 1001's face 00, so the seat line in it was never read.
+run('Q61: a seat written through a link to a link, then removed, is found in history (K8 H5)', (d) => {
+  const orig = sh(d, ['cat-file', 'blob', `HEAD:${R1001}`]) + '\n';
+  const c1 = commitTree(d, putTree(d, 'HEAD', [['120000', hashText(d, '../../../docs/a'), R1001], ['120000', hashText(d, 'b/f00.md'), 'docs/a'], ['100644', hashText(d, orig), 'docs/b/f00.md']]), ['HEAD'], 'face 00 behind two links');
+  const c2 = commitTree(d, putTree(d, c1, [['100644', hashText(d, orig.replace('\n## Registry\n', `\n## Registry\n${FAKE_SEAT}`)), 'docs/b/f00.md']]), [c1], 'seat through the chain');
+  sh(d, ['update-ref', 'HEAD', commitTree(d, sh(d, ['rev-parse', 'HEAD^{tree}']), [c2], 'links gone, seat gone, no record')]);
+}, { match: UNSEAT_FAKE });
+// Q62 (1) / K8 H3 C2: face 00 is taken out of git (and could be listed in .git/info/exclude) while its file stays on disk with
+// seat records. Before pass 10 the builder read it from disk and built; now a face 00 with seat records must be in git.
+run('Q62: a face 00 with seat records that git does not hold is refused (K8 H3 C2)', (d) => {
+  sh(d, ['update-ref', 'HEAD', commitTree(d, putTree(d, 'HEAD', [[null, null, R1001]]), ['HEAD'], 'face 00 dropped from git')]);
+  appendFileSync(join(d, '.git', 'info', 'exclude'), `/${R1001}\n`);
+}, { match: /10\.11\.21\.1001\.00\.draft\.md: face 00 kernel\/samples\/10\.11\.21\/10\.11\.21\.1001\.00\.draft\.md is not in git \(untracked; not at HEAD or in the index\)/ });
+// Q62 (1) under --check: face 00 is edited and staged, and books/ rebuilt from it (write mode allows the staged copy), but it is
+// not committed. --check needs the committed bytes, so it refuses; before pass 10 it passed.
+run('Q62: --check refuses a face 00 with seat records that is staged but not committed', (d) => {
+  edit(join(d, R1001), '\n## Registry\n', '\n## Registry\nnote: staged only\n');
+  sh(d, ['add', '--', R1001]);
+  const w = spawnSync(process.execPath, [join(d, 'kernel', 'build.mjs')], { encoding: 'utf8' });
+  if (w.status !== 0) throw new Error(`fixture: write mode failed: ${w.stdout}${w.stderr}`);
+}, { match: /face 00 kernel\/samples\/10\.11\.21\/10\.11\.21\.1001\.00\.draft\.md is blob f72037c1a6522b87376b0b218bcdd0f5223292de in git \(HEAD\), not the bytes on disk/ }, { args: ['--check'] });
+// Q62 (2) / K8 H3 C3: at C2 face 00 of page 0013 is out of git and a book line records a seat of 0013.05.03; at C3 face 00 is back
+// without the seat and the book line is gone. No face 00 blob ever held the seat line, but books/ history did, so the un-seat
+// needs a record. Before pass 10 only HEAD:books/ was read.
+run('Q62: an un-seat hidden by keeping face 00 out of git is found in the history of books/ (K8 H3 C3)', (d) => {
+  const R0013 = 'kernel/samples/10.11.21/10.11.21.0013.00.draft.md', B = 'books/10.11.21.book';
+  const book = sh(d, ['cat-file', 'blob', `HEAD:${B}`]) + '\n';
+  const line = JSON.stringify({ n: 99, at: '2026-11-11T19:30:00Z', by: 'prima-kernel-seed', op: 'put', addr: '10.11.21.0013.05.03', 'approved-by': 'build-stage (R2)', trial: `docs/trial/kernel-trial-99.md blob ${'3'.repeat(40)}; face blob ${'4'.repeat(40)}`, body: 'x' });
+  const c2 = commitTree(d, putTree(d, 'HEAD', [[null, null, R0013], ['100644', hashText(d, book + line + '\n'), B]]), ['HEAD'], 'seat built from an untracked face 00');
+  sh(d, ['update-ref', 'HEAD', commitTree(d, sh(d, ['rev-parse', 'HEAD^{tree}']), [c2], 'face 00 back without the seat, book line gone')]);
+}, { match: /10\.11\.21\.0013\.05\.03 was seated \(build-stage \(R2\)\) in the last build but is not now; write unseat-05\.03: <reason>; was blob 4{40}/ });
 
 if (failed) { console.log(`${failed} failed`); process.exit(1); }
 console.log('all passed');

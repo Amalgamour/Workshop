@@ -10,7 +10,9 @@
 // seats come from the history of seat lines; TRIAL-K6 findings 1, 2, Q56: history is read with -a --no-textconv --full-history
 // --no-abbrev, and seat lines from the face 00 blobs themselves, so attributes and merges hide nothing; TRIAL-K7 findings 1, 2,
 // Q58, Q59: no symlink anywhere the builder reads, a seated face must be a regular file in git with the seat blob, history
-// follows any symlink ever committed under kernel/, and a root commit is parsed). Tests: node kernel/build.test.mjs
+// follows any symlink ever committed under kernel/, and a root commit is parsed; TRIAL-K8 findings 1, 2, Q61, Q62: the history
+// walk follows a link at `kernel` itself, absolute links and link chains, a face 00 with seat records must be the bytes git
+// holds, and past seats are also read from every committed version of books/). Tests: node kernel/build.test.mjs
 // Usage: node kernel/build.mjs          write books/
 //        node kernel/build.mjs --check  rebuild in memory and fail if books/ differs
 import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync, lstatSync } from 'node:fs';
@@ -291,14 +293,16 @@ export function passList(text) {
 // TRIAL-K7 finding 1 (T18c), Q58 B: the seated bytes must be the bytes git holds. The face must be a regular file (mode
 // 100644) in git whose blob is the seat blob: at HEAD under --check, and in the index (else HEAD) when writing, so a seat can be
 // built before its commit. A symlink (120000), an untracked path or a different blob is an error.
-function gitEntry(rel, want) {
+// TRIAL-K8 finding 2, Q62 (1) (decided by KERNEL pass 10): the same rule holds for a face 00 that carries a seat record; its
+// `want` is the blob of the bytes on disk, so face 00 must be committed (or, when writing, staged) exactly as read.
+function gitEntry(rel, want, what = 'seated face', wantIs = 'the seat blob', why = 'the seated bytes must be the committed bytes') {
   const parse = (r, re) => (r.status === 0 ? r.stdout.split('\n').map((l) => re.exec(l)).find(Boolean) : null);
   const head = parse(git('--literal-pathspecs', 'ls-tree', '--full-tree', 'HEAD', '--', rel), /^(\d+) \w+ ([0-9a-f]{40})\t/);
   const idx = CHECK ? null : parse(git('--literal-pathspecs', 'ls-files', '-s', '--', rel), /^(\d+) ([0-9a-f]{40}) \d\t/);
   const e = idx || head;
-  if (!e) return `seated face ${rel} is not in git (untracked; not at HEAD${CHECK ? '' : ' or in the index'}), so its seated bytes are not in the committed tree; commit it (R2; TRIAL-K7 finding 1, Q58)`;
-  if (e[1] !== '100644') return `seated face ${rel} is mode ${e[1]} in git${idx ? ' (index)' : ' (HEAD)'}, not a regular file (100644); a symlink's blob is its link text, not the face (R2; TRIAL-K7 finding 1, Q58)`;
-  if (e[2] !== want) return `seated face ${rel} is blob ${e[2]} in git${idx ? ' (index)' : ' (HEAD)'}, not the seat blob ${want}; the seated bytes must be the committed bytes (R2; TRIAL-K7 finding 1, Q58)`;
+  if (!e) return `${what} ${rel} is not in git (untracked; not at HEAD${CHECK ? '' : ' or in the index'}), so its ${what === 'seated face' ? 'seated bytes are' : 'seat records are'} not in the committed tree; commit it (R2; TRIAL-K7 finding 1, Q58; TRIAL-K8 finding 2, Q62)`;
+  if (e[1] !== '100644') return `${what} ${rel} is mode ${e[1]} in git${idx ? ' (index)' : ' (HEAD)'}, not a regular file (100644); a symlink's blob is its link text, not the face (R2; TRIAL-K7 finding 1, Q58)`;
+  if (e[2] !== want) return `${what} ${rel} is blob ${e[2]} in git${idx ? ' (index)' : ' (HEAD)'}, not ${wantIs} ${want}; ${why} (R2; TRIAL-K7 finding 1, Q58; TRIAL-K8 finding 2, Q62)`;
   return null;
 }
 function verifySeat(f, seat) {
@@ -368,14 +372,32 @@ function catBlobs(ids) {
 // path's history is walked too, so seat lines written through a link (T18 docs/x/f00.md, T18b kernel/parked/...) are found.
 // A target under a linked folder is read even under /parked/. Targets are added in rounds until no new link appears, and the
 // final walk is one `git log` over every path, so the newest-first order holds across them.
+// TRIAL-K8 finding 1, Q61 (decided by KERNEL pass 10: cover the shapes, not best-effort). Three blind spots are closed:
+//   H1, a link at `kernel` itself: the walk's pathspec is `kernel` (no slash), which names the path `kernel` and all below it;
+//   H2, an absolute link (or a relative one that climbs out of the repo): the link text cannot be resolved against a clone
+//       that sits elsewhere, so every tail of its path (`/tmp/x/docs/f.md` -> `tmp/x/docs/f.md`, `x/docs/f.md`, `docs/f.md`,
+//       `f.md`) is walked as a repo path; a tail that never existed in the repo matches nothing;
+//   H5, a link to a link: a link found at a target carries that target's page (a face 00 link's page) to its own target, for
+//       any number of hops up to the round limit.
+// A link to the repo root (or `/`) makes the root a linked folder: the walk then reads every face 00 name in the whole history.
+// Not followed (still): a link inside a submodule (mode 160000; its files are another repo), and a seat line in a file git never
+// held; the books/ history below (Q62) is the backup for the latter.
+function linkTargets(path, raw) {
+  const tails = (rest) => { const parts = rest.split('/').filter((x) => x && x !== '.'); return parts.length ? parts.map((_, i) => parts.slice(i).join('/')) : ['.']; };
+  if (raw.startsWith('/')) return tails(posix.normalize(raw));
+  const t = posix.normalize(posix.join(posix.dirname(path), raw)).replace(/\/+$/, '');
+  if (t === '..' || t.startsWith('../')) return tails(t.replace(/^(\.\.\/)+/, '').replace(/^\.\.$/, ''));
+  return [t === '' ? '.' : t];
+}
 function historySeats() {
   const out = new Map();
-  const fail = () => { err('kernel', `git log could not read the history of seat lines, so un-seats cannot be checked (TRIAL-K5 finding 3, Q54 b; Q56; Q58)`); return out; };
-  const targets = new Map(); // repo path a link pointed at -> page of the linked face 00, or '' for a linked folder
+  const fail = () => { err('kernel', `git log could not read the history of seat lines, so un-seats cannot be checked (TRIAL-K5 finding 3, Q54 b; Q56; Q58; Q61)`); return out; };
+  const targets = new Map(); // repo path a link pointed at -> page of the linked face 00, or '' for a linked folder ('.' is the root)
   const linkText = new Map();
   let rows;
   for (let round = 0; ; round++) {
-    const r = git('--literal-pathspecs', 'log', ...HIST, '--raw', '--format=C %H', 'HEAD', '--', 'kernel/', ...targets.keys());
+    const specs = targets.has('.') ? [] : ['--', 'kernel', ...targets.keys()]; // Q61: `kernel`, not `kernel/` (H1); root: no pathspec
+    const r = git('--literal-pathspecs', 'log', ...HIST, '--raw', '--format=C %H', 'HEAD', ...specs);
     if (r.status !== 0) return fail();
     rows = [];
     for (const l of r.stdout.split('\n')) {
@@ -388,16 +410,18 @@ function historySeats() {
     let added = false;
     for (const { path, blob } of links) {
       const raw = (linkText.get(blob) || '').replace(/\n$/, '');
-      if (!raw || raw.startsWith('/')) continue; // an absolute link leaves the repo; the live tree refuses any link (noLink)
-      const t = posix.normalize(posix.join(posix.dirname(path), raw)).replace(/\/+$/, '');
-      if (t.startsWith('../') || t === '..' || t === '.' || targets.has(t)) continue;
+      if (!raw) continue;
       const n = FACE00.exec(path.split('/').pop());
-      targets.set(t, n ? n[1] : ''); added = true;
+      const page = targets.get(path) || (n ? n[1] : ''); // Q61 (H5): a link at a face 00 target carries that page on
+      for (const t of linkTargets(path, raw)) {
+        if (!targets.has(t)) { targets.set(t, page); added = true; }
+        else if (page && !targets.get(t)) { targets.set(t, page); added = true; }
+      }
     }
     if (!added) break;
     if (round >= 16) return fail();
   }
-  const folders = [...targets].filter(([, v]) => v === '').map(([k]) => k + '/');
+  const folders = [...targets].filter(([, v]) => v === '').map(([k]) => (k === '.' ? '' : k + '/'));
   const seen = []; // [page, blob] newest first
   for (const { mode, blob, path } of rows) {
     if (mode === '120000') continue;
@@ -427,13 +451,27 @@ function priorSeats() {
   for (const [where, r] of [['HEAD', git('ls-tree', '-r', '--full-tree', 'HEAD', '--', 'kernel', 'books', 'docs/trial', 'docs/spec')], ['index', git('ls-files', '-s', '--', 'kernel', 'books', 'docs/trial', 'docs/spec')]])
     for (const l of r.status === 0 ? r.stdout.split('\n') : []) if (/^120000 /.test(l)) err(l.split('\t').pop(), `is a symlink in git (${where}); the builder follows no link (R2; TRIAL-K7 finding 1, Q58)`);
   const hist = historySeats();
-  const ls = git('ls-tree', '--name-only', 'HEAD', 'books/');
-  for (const n of (ls.status === 0 ? ls.stdout.split('\n') : []).map((x) => x.replace(/^books\//, '')).filter((x) => x.endsWith('.book') || x === AXIOMS_FILE).sort())
-    for (const l of (gitShow('HEAD', `books/${n}`) || '').split('\n')) {
+  // TRIAL-K8 finding 2 (H3), Q62 (2) (decided by KERNEL pass 10): past seats are also read from every version of every book file
+  // ever committed under books/ on HEAD's history (HEAD's own first, then newest first), not only HEAD:books/. A seat built from
+  // a face 00 that git never held still left its `approved-by` line in a committed book, so its un-seat needs a record too.
+  // The walk uses HIST (attributes, textconv and merges hide nothing) and `git cat-file --batch` (no attributes apply).
+  const isBook = (p) => /^books\/[^/]+$/.test(p) && (p.endsWith('.book') || p === `books/${AXIOMS_FILE}`);
+  const ids = [];
+  const ls = git('ls-tree', '--full-tree', 'HEAD', 'books/');
+  for (const l of ls.status === 0 ? ls.stdout.split('\n') : []) { const m = /^100644 blob ([0-9a-f]{40})\t(.*)$/.exec(l); if (m && isBook(m[2])) ids.push(m[1]); }
+  const bh = git('--literal-pathspecs', 'log', ...HIST, '--raw', '--format=C %H', 'HEAD', '--', 'books');
+  if (bh.status !== 0) { err('books', 'git log could not read the history of books/, so un-seats cannot be checked (TRIAL-K8 finding 2, Q62)'); return [...hist.values()]; }
+  for (const l of bh.stdout.split('\n')) { const m = /^:\d+ 100644 [0-9a-f]{40} ([0-9a-f]{40}) [AMT]\t(.*)$/.exec(l); if (m && isBook(m[2])) ids.push(m[1]); }
+  const order = [...new Set(ids)];
+  const texts = catBlobs(order);
+  if (!texts) { err('books', 'git cat-file could not read the books/ history, so un-seats cannot be checked (TRIAL-K8 finding 2, Q62)'); return [...hist.values()]; }
+  const got = new Set();
+  for (const id of order)
+    for (const l of texts.get(id).split('\n')) {
       if (!l.trim()) continue;
       let e; try { e = JSON.parse(l); } catch { continue; }
       const ref = e.trial || e.ruling || '';
-      if (e.addr && e['approved-by'] && !hist.has(e.addr)) out.push({ addr: e.addr, by: e['approved-by'], blob: (/face blob ([0-9a-f]+)/.exec(ref) || /blob ([0-9a-f]+)/.exec(ref) || [])[1] || '' });
+      if (e.addr && e['approved-by'] && !hist.has(e.addr) && !got.has(e.addr)) { got.add(e.addr); out.push({ addr: e.addr, by: e['approved-by'], blob: (/face blob ([0-9a-f]+)/.exec(ref) || /blob ([0-9a-f]+)/.exec(ref) || [])[1] || '' }); }
     }
   return [...hist.values(), ...out];
 }
@@ -510,6 +548,13 @@ function validate({ book, isAx, faces }) {
       if (!seat) err(f.file, raw && raw !== 'seated; ' ? `seat record "${raw.replace(/^seated; /, '')}" is not in the R2 form; approved-by must be build-stage (R2) with trial:, or director with ruling: (R2; TRIAL-K3 finding 2)` : `seated face has no ${where} (R2: approved-by, trial, blob); write it as FF.draft`);
       else { const bad = verifySeat(f, seat); if (bad) err(f.file, bad); }
     }
+    // TRIAL-K8 finding 2 (H3), Q62 (1) (decided by KERNEL pass 10): face 00 holds the seat lines, so a face 00 that carries any
+    // seat record (a seated face on its page, a `seat-NN:` line, or a stamp `seat-00:`) must be the bytes git holds: HEAD under
+    // --check, the index (else HEAD) when writing. An untracked or excluded face 00, or one edited and not committed (staged,
+    // when writing), is an error, so a seat cannot be built from a face 00 that git never sees.
+    const regCard = stamp.cards.find((c) => c.key === 'registry');
+    const carries = fs.some((f) => !f.tail) || (regCard && Object.keys(regCard.fields).some((k) => /^seat-/.test(k))) || stampOf(stamp.body)['seat-00'] !== undefined;
+    if (carries && hasGit() && !gitTrust()) { const bad = gitEntry(stamp.rel, blobOf(stamp.body), 'face 00', 'the bytes on disk', `face 00 carries seat records, so it must be ${CHECK ? 'committed' : 'committed or staged'} exactly as read`); if (bad) err(stamp.file, bad); }
     const k04 = new Map();
     for (const f of fs.filter((f) => f.ff === '04')) for (const c of f.cards) k04.set(c.key, c);
     for (const f of fs) {
