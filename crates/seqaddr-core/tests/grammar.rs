@@ -292,7 +292,7 @@ fn a5_1_counter_continuation_takes_no_tail() {
 }
 #[test]
 fn s8_counter_roles() {
-    assert_eq!(counter_role(0), CounterRole::Board);
+    assert_eq!(counter_role(0), CounterRole::Door);
     assert_eq!(counter_role(98), CounterRole::Item);
     assert_eq!(counter_role(99), CounterRole::Continuation);
 }
@@ -304,7 +304,7 @@ fn s8_round_trip_display() {
 }
 #[test]
 fn s1_2_axis_roles_00_01_09_99() {
-    assert_eq!(axis_role(0), AxisRole::Owner);
+    assert_eq!(axis_role(0), AxisRole::Door);
     assert_eq!(axis_role(5), AxisRole::Reserved);
     assert_eq!(axis_role(42), AxisRole::Normal);
     assert_eq!(axis_role(99), AxisRole::Pointer);
@@ -365,7 +365,7 @@ fn a6_3_kernel_lookup_ends_at_itself() {
 }
 #[test]
 fn s6_page_layout_ranges() {
-    assert_eq!(page_kind(0), PageKind::Identity);
+    assert_eq!(page_kind(0), PageKind::Door);
     assert_eq!(page_kind(5), PageKind::SpecialReserved);
     assert_eq!(page_kind(12), PageKind::Required);
     assert_eq!(page_kind(30), PageKind::Localized);
@@ -398,7 +398,7 @@ fn a2_6_sets_share_n_and_nn() {
 }
 #[test]
 fn a4_3_face_jobs() {
-    assert_eq!(face_job(0), FaceJob::Identity);
+    assert_eq!(face_job(0), FaceJob::Door);
     assert_eq!(face_job(1), FaceJob::Law);
     assert_eq!(face_job(2), FaceJob::Schema);
     assert_eq!(face_job(3), FaceJob::Operate);
@@ -452,4 +452,23 @@ fn format_1_3_book_file_name() {
     assert_eq!(BookId::new(10, 11, 21).file_name(), "10.11.21.book");
     assert_eq!(BookId::parse("00.00.00").unwrap(), BookId::KERNEL);
     assert!(BookId::parse("10.11").is_err());
+}
+
+#[test]
+fn r1_full_zero_sequence_is_the_door_on_every_axis() {
+    assert_eq!(sentinel(0, 2), Some(Sentinel::Door));
+    assert_eq!(sentinel(0, 4), Some(Sentinel::Door));
+    assert_eq!(sentinel(99, 2), Some(Sentinel::Pointer));
+    assert_eq!(sentinel(9999, 4), Some(Sentinel::Pointer));
+    assert_eq!(sentinel(99, 4), None);
+    assert_eq!(sentinel(42, 2), None);
+    assert!(is_door(0) && !is_door(1));
+    assert_eq!(BookId::new(10, 11, 21).door_page().to_string(), "10.11.21.0000");
+}
+#[test]
+fn r1_door_names_in_roles() {
+    assert_eq!(axis_role(0), AxisRole::Door);
+    assert_eq!(page_kind(0), PageKind::Door);
+    assert_eq!(face_job(0).name(), "door");
+    assert_eq!(counter_role(0), CounterRole::Door);
 }

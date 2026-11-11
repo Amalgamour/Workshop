@@ -212,7 +212,7 @@ fn check_page(world: &World, st: &BookState, pg: u16, reasons: &mut Vec<Reason>,
     let policy = &world.policy;
     let Some(page) = st.page(pg) else { return };
     // C1.1
-    if pg != 0 || policy.c1_on_identity_pages {
+    if pg != 0 || policy.c1_on_door_pages {
         if let Err(e) = page.check_c1(pg) {
             hard(reasons, e);
         }
@@ -322,7 +322,7 @@ fn check_page(world: &World, st: &BookState, pg: u16, reasons: &mut Vec<Reason>,
                 };
                 let tb = tp.book_id().unwrap();
                 let tstate = if tb == st.book { Some(st) } else { world.get(tb) };
-                // The target's identity page links back (A5.3): page 0000 for a book target,
+                // The target door links back (A5.3): page 0000 for a book target,
                 // or the target page itself for a page target (provisional).
                 let back = tstate.and_then(|s| s.face(tp.page, 8)).and_then(|f| f.view()).and_then(|b| parse_face(b).ok());
                 let ok = back

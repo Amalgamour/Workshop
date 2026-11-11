@@ -25,8 +25,8 @@ pub struct Policy {
     pub compute_name: String,
     /// Faces counted besides 05/06, as (page, face). Default: the dictionary 0012.03 (C8.3).
     pub extra_counted: Vec<(u16, u8)>,
-    /// Apply C1.1 (face 00 + a content face) to identity pages 0000 too.
-    pub c1_on_identity_pages: bool,
+    /// Apply C1.1 (face 00 + a content face) to door pages 0000 too.
+    pub c1_on_door_pages: bool,
     /// A `put` on an existing counter still in `draft` replaces its body (a pack being written).
     pub draft_counter_put_replaces: bool,
     /// workflow-loop.003 6: reviewer must differ from the builder (claim owner).
@@ -42,7 +42,7 @@ impl Default for Policy {
             enforce_drafting: true,
             compute_name: "compute".into(),
             extra_counted: vec![(12, 3)],
-            c1_on_identity_pages: true,
+            c1_on_door_pages: true,
             draft_counter_put_replaces: true,
             reviewer_not_builder: true,
             close_needs_outcome: true,
@@ -178,10 +178,10 @@ impl PageState {
             return Ok(());
         }
         if !self.faces.get(&0).map(|f| f.is_present()).unwrap_or(false) {
-            return Err(SeqError::rejected("C1.1", format!("page {page:04} has no face 00 (identity)")));
+            return Err(SeqError::rejected("C1.1", format!("page {page:04} has no face 00 (its door)")));
         }
         if !self.faces.iter().any(|(f, s)| is_content_face(*f) && s.is_present()) {
-            return Err(SeqError::rejected("C1.1", format!("page {page:04} needs at least one of faces 01-06 or 08; a page with only an identity has no reason to exist")));
+            return Err(SeqError::rejected("C1.1", format!("page {page:04} needs at least one of faces 01-06 or 08; a page with only its door has no reason to exist")));
         }
         Ok(())
     }
@@ -268,12 +268,16 @@ impl BookState {
             .map(|fs| fs.counters.iter().filter(|(nn, _)| **nn != 99).map(|(nn, c)| BoardLine { counter: *nn, tail: c.tail }).collect())
             .unwrap_or_default()
     }
-    /// The book's title, from its identity page stamp (A3.1).
+    /// The book's title, from its door page stamp (0000.00) (A3.1).
     pub fn title(&self) -> Option<String> {
         self.page(0).and_then(|p| p.title())
     }
-    /// Does the identity page exist (face 00 on 0000)? Containers need it to be legal (seqAddr 8).
+    /// Older name for [`BookState::has_door`].
     pub fn has_identity(&self) -> bool {
+        self.has_door()
+    }
+    /// Does the door exist (face 00 on 0000)? Containers need it to be legal (seqAddr 8).
+    pub fn has_door(&self) -> bool {
         self.face(0, 0).map(|f| f.is_present()).unwrap_or(false)
     }
 
@@ -327,14 +331,14 @@ impl BookState {
         Ok(())
     }
 
-    fn identity_first(&self, page: u16, face: u8) -> Result<()> {
+    fn door_first(&self, page: u16, face: u8) -> Result<()> {
         if page == 0 && face == 0 {
             return Ok(());
         }
-        if !self.has_identity() {
+        if !self.has_door() {
             return Err(SeqError::missing(
                 "format 4.1",
-                format!("book {} has no identity page {}.0000.00 yet; the identity page is written first", self.book, self.book),
+                format!("book {} has no door {}.0000.00 yet; the door is written first", self.book, self.book),
             ));
         }
         // A page's own face 00 may arrive later in the same proposal; C1.1 checks the result.
@@ -360,13 +364,13 @@ impl BookState {
             return Err(SeqError::rejected("format 3.3", "`put` writes a whole face or counter, not a single card"));
         }
         let tail = Self::entry_tail(e, &p)?;
-        self.identity_first(p.page, fp.face)?;
+        self.door_first(p.page, fp.face)?;
         let counted = policy.is_counted(p.page, fp.face);
         match fp.counter {
-            Some(0) => Err(SeqError::rejected("A4.4", "the board `FF.00` is derived by the compute and never written (format 3.3)")),
+            Some(0) => Err(SeqError::rejected("A4.4", "the door `FF.00` (board) is derived by the compute and never written (format 3.3)")),
             Some(nn) => {
                 if !counted {
-                    return Err(SeqError::rejected("A4.4", format!("face {:02} on page {:04} is not counted (no `FF.00` board); a counter without a board is invalid", fp.face, p.page)));
+                    return Err(SeqError::rejected("A4.4", format!("face {:02} on page {:04} is not counted (no `FF.00` door); a counter without its door is invalid", fp.face, p.page)));
                 }
                 if let Some(Tail::Retired) = tail {
                     return Err(SeqError::invalid("A2.5", "`retired` is used only without a counter"));
@@ -406,7 +410,7 @@ impl BookState {
             }
             None => {
                 if counted {
-                    return Err(SeqError::rejected("A4.4", format!("face {:02} is counted: plain `FF` means the board `FF.00`, which is derived; write a counter `FF.NN`", fp.face)));
+                    return Err(SeqError::rejected("A4.4", format!("face {:02} is counted: plain `FF` means its door `FF.00` (board), which is derived; write a counter `FF.NN`", fp.face)));
                 }
                 let body = want_body(e, "format 3.3")?;
                 let n = e.n;
@@ -473,7 +477,7 @@ impl BookState {
                 }
                 Err(SeqError::rejected("seqAddr 5.7", format!("face tail move `{from}` -> `{to}` is not allowed; drafts are seated by `promote`")))
             }
-            Some(0) | Some(99) => Err(SeqError::rejected("A4.4", "the board and the continuation pointer carry no tail")),
+            Some(0) | Some(99) => Err(SeqError::rejected("A4.4", "the door `FF.00` and the pointer `FF.99` carry no tail")),
             Some(nn) => {
                 let from = CounterTail::from_field(e.from.as_deref())?;
                 let to = CounterTail::from_field(e.to.as_deref())?;

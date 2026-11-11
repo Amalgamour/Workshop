@@ -53,7 +53,7 @@ fn describe(a: &Address) -> Value {
             "kind": "container", "full": a.to_string(), "level": c.level(),
             "desk_kind": desk_kind(c.desk),
             "shelf_role": c.shelf.map(axis_role), "book_role": c.book.map(axis_role),
-            "own_book": c.own_book().to_string(), "identity_page": c.identity_page().to_string(),
+            "own_book": c.own_book().to_string(), "door_page": c.door_page().to_string(),
         }),
         Address::Page(p) => json!({
             "kind": "page", "written": a.to_string(), "form": p.form(), "page_kind": page_kind(p.page), "band": band_of(p.page),

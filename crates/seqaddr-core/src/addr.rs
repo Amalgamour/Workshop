@@ -148,9 +148,13 @@ impl BookId {
         out
     }
 
-    /// The identity page address of this container, `DD.SS.BB.0000` (A3.1).
-    pub fn identity_page(&self) -> PageAddr {
+    /// The door page of this container, `DD.SS.BB.0000` (R1; A3.1 "identity page").
+    pub fn door_page(&self) -> PageAddr {
         PageAddr::full(*self, 0)
+    }
+    /// Older name for [`BookId::door_page`].
+    pub fn identity_page(&self) -> PageAddr {
+        self.door_page()
     }
 
     /// File name in `books/` (lane contract): `DD.SS.BB.book`.
@@ -188,8 +192,8 @@ pub fn desk_kind(d: u8) -> DeskKind {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
 #[serde(rename_all = "snake_case")]
 pub enum AxisRole {
-    /// `00`: the owner of the level above, itself (A4.1).
-    Owner,
+    /// `00`: the door (Director ruling R1). Older wording: "the owner of the level above, itself" (A4.1).
+    Door,
     /// `01-09`: reserved.
     Reserved,
     Normal,
@@ -199,7 +203,7 @@ pub enum AxisRole {
 
 pub fn axis_role(v: u8) -> AxisRole {
     match v {
-        0 => AxisRole::Owner,
+        0 => AxisRole::Door,
         1..=9 => AxisRole::Reserved,
         99 => AxisRole::Pointer,
         _ => AxisRole::Normal,
@@ -210,8 +214,8 @@ pub fn axis_role(v: u8) -> AxisRole {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
 #[serde(rename_all = "snake_case")]
 pub enum PageKind {
-    /// `0000`: book identity (sentinel).
-    Identity,
+    /// `0000`: the book's door (R1; older wording: book identity, sentinel).
+    Door,
     /// `0001-0009`: special reserved.
     SpecialReserved,
     /// `0010-0019`: contents, dictionary, concordance.
@@ -234,7 +238,7 @@ pub enum PageKind {
 
 pub fn page_kind(p: u16) -> PageKind {
     match p {
-        0 => PageKind::Identity,
+        0 => PageKind::Door,
         1..=9 => PageKind::SpecialReserved,
         10..=19 => PageKind::Required,
         20..=49 => PageKind::Localized,
@@ -272,6 +276,33 @@ pub fn set_key(p: u16) -> Option<(u8, u8)> {
     } else {
         Some(((p / 1000) as u8, (p % 100) as u8))
     }
+}
+
+/// A sentinel: an all-0 or all-9 value on any axis (seqAddr 1.2, Director ruling R1).
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "snake_case")]
+pub enum Sentinel {
+    /// The full-zero sequence (`00`, `0000`): the door (R1).
+    Door,
+    /// The full-nine sequence (`99`, `9999`): pointer to the next location (A5.1).
+    Pointer,
+}
+
+/// Which sentinel a value is on an axis of `width` digits (2 or 4), if any.
+pub fn sentinel(value: u16, width: u8) -> Option<Sentinel> {
+    let nines = if width == 4 { 9999 } else { 99 };
+    if value == 0 {
+        Some(Sentinel::Door)
+    } else if value == nines {
+        Some(Sentinel::Pointer)
+    } else {
+        None
+    }
+}
+
+/// True for the door on any axis: `00` or `0000` (R1).
+pub fn is_door(value: u16) -> bool {
+    value == 0
 }
 
 /// True if the page number is a sentinel on the page axis (all 0s or all 9s).
@@ -336,9 +367,13 @@ impl ContainerAddr {
     pub fn own_book(&self) -> BookId {
         BookId::new(self.desk, self.shelf.unwrap_or(0), self.book.unwrap_or(0))
     }
-    /// The identity page (A3.1): book `10.11.21` -> `10.11.21.0000`, shelf `10.11` -> `10.11.00.0000`.
-    pub fn identity_page(&self) -> PageAddr {
+    /// The door page (R1; A3.1 "identity page"): book `10.11.21` -> `10.11.21.0000`, shelf `10.11` -> `10.11.00.0000`.
+    pub fn door_page(&self) -> PageAddr {
         PageAddr::full(self.own_book(), 0)
+    }
+    /// Older name for [`ContainerAddr::door_page`].
+    pub fn identity_page(&self) -> PageAddr {
+        self.door_page()
     }
     pub fn level(&self) -> ContainerLevel {
         match (self.shelf, self.book) {
@@ -658,7 +693,7 @@ fn parse_container(segs: &[Seg<'_>], input: &str) -> Result<ContainerAddr> {
             _ => unreachable!(),
         };
         if is_tail_word(w) {
-            return Err(SeqError::invalid("A2.5", format!("`{input}`: desks, shelves and books take no tail; state comes from the identity page (`...0000.{w}`)")));
+            return Err(SeqError::invalid("A2.5", format!("`{input}`: desks, shelves and books take no tail; state comes from the door page (`...0000.{w}`)")));
         }
         check_title(w)?;
         title = Some(w.to_string());
@@ -815,7 +850,7 @@ fn check_face_rules(fp: &FacePart, input: &str) -> Result<()> {
             return Err(SeqError::invalid("A2.5", format!("`{input}`: `retired` is used only without a counter")));
         }
         (Some(0), Some(t)) => {
-            return Err(SeqError::invalid("A4.4", format!("`{input}`: `FF.00` is the board, derived by the compute; it takes no tail `{t}` (provisional, see BUILD-LOG)")));
+            return Err(SeqError::invalid("A4.4", format!("`{input}`: `FF.00` is the door (board) of a counted face, derived by the compute; it takes no tail `{t}` (provisional, see BUILD-LOG)")));
         }
         (Some(99), Some(t)) => {
             return Err(SeqError::invalid("A5.1", format!("`{input}`: `FF.99` is a pointer, never content; it takes no tail `{t}` (provisional, see BUILD-LOG)")));
@@ -834,14 +869,15 @@ fn check_face_rules(fp: &FacePart, input: &str) -> Result<()> {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
 #[serde(rename_all = "snake_case")]
 pub enum CounterRole {
-    Board,
+    /// `FF.00`: the door of a counted face (R1; older wording: the board, A4.4).
+    Door,
     Item,
     Continuation,
 }
 
 pub fn counter_role(nn: u8) -> CounterRole {
     match nn {
-        0 => CounterRole::Board,
+        0 => CounterRole::Door,
         99 => CounterRole::Continuation,
         _ => CounterRole::Item,
     }
