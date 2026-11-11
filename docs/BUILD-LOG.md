@@ -12,3 +12,4 @@ Every build choice, its why, and the spec line it follows. A choice the spec doe
 [APP] 7 provisional: /brands returns brand = card address (contract) plus brand_id (ham.001), is_default, forms, exact_form, dictionary. The word box states back: the one brand whose forms hold the exact typed form, else the dictionary default. Why: brands.md steps 1-2 need meters and session history the reader does not have.
 [APP] Times are shown in Toronto time with the raw UTC beside them. Why: the Director's zone; "trust but verify" keeps the raw value visible.
 [APP] Missing faces show as a dashed hole with a 7, "a hole nothing requires stays empty: a header and a why" (Axioms 7), and a link to the resolve trace. Missing board with counters is shown as a defect (seqAddr 5.7).
+[APP] Card matching asks /face/{page}.04 when a page has a 01/02 card but no own 04 card, so an inherited why is shown instead of a false hole.

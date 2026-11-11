@@ -78,7 +78,7 @@ function FacePanel({ addr, face, entries }: { addr: string; face: string; entrie
     return (
       <div className="panel">
         <h3>{face} {name.name} <span className="note">— {name.plain}</span></h3>
-        <Hole what={`face ${face} (${name.name})`} why={`Face ${face} is not written in this book, its shelf, its desk, or the kernel. That is allowed for this face.`} traceHref={`/resolve?addr=${addr}.${face}`} />
+        <Hole what={`face ${face} (${name.name})`} why={`Face ${face} is not written in this book, its shelf, its desk, or the kernel. A page needs face 00 and at least one content face (seqAddr 5.2), so this can be fine.`} traceHref={`/resolve?addr=${addr}.${face}`} />
       </div>
     );
   const seated = entries.find(([k]) => k === face);
