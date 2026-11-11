@@ -161,3 +161,4 @@ Every build choice, its why, and the spec line it follows. A choice the spec doe
 - [APP] 7: the common questions page is READER_BOOK.0013 (env, default 10.11.21). 7: phrasing link question list = question cards on that page's face 01.
 - [APP] Finding for SEQPAGE/KERNEL: check.seq on the exported 10.11.21.1001 flags `stamp state draft disagrees with the page's entries (live)` and `seat-01: is not a registry field for type general`.
 - [APP] Screenshots ran on a temp copy (/tmp/app3) with demo tokens and a demo trial file there only; nothing demo is in the repo. Mock has no /ask.
+- [PRIMA] docs/spec/SEQ-GUIDE.md: plain-words reader guide to the .seq file for the Director (walks examples/face00/10.11.40.1001.cats.seq line by line; check/export/import run with real output; rules table with sources; open S/F questions; F12 noted closed by OpRequest `reason`). Spec seqpage.md unchanged.
