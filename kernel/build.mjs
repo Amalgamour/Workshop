@@ -529,5 +529,8 @@ for (const [out, text] of outputs) {
   else writeFileSync(out, text);
   console.log(`${check ? 'checked' : 'wrote'}  ${out.slice(ROOT.length + 1)}  ${text.split('\n').length - 2} entries`);
 }
+// Seat count (KERNEL pass 7): every seated face (no tail) has a verified record by now, or the build stopped above.
+const seated = books.flatMap((b) => b.faces).filter((f) => !f.tail);
+console.log(`seats ${seated.length}`);
 console.log(`${findings.length} findings, 0 errors`);
 if (diff) process.exit(1);
