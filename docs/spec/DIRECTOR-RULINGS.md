@@ -78,3 +78,7 @@ Read: face 00 is the registry location. It holds (a) the stamp portion (address,
 ## R20 — 2026-11-11 3:14 PM EST — what counts as a "different view" for an R2 trial (answers design O1)
 Director's answer (widget on t68s322): "Yes, a fresh session of the same model counts as a different view."
 Read: a hostile trial run by a fresh session (a new subagent that did not build the face) satisfies R2's "different view", even on the same model. The builder's own session never trials its own work.
+
+## R21 — 2026-11-11 3:25 PM EST — no override pages during this build
+Director's answer (widget t68s326, "Who approves an override page?"): "No overrides for now. we build them in. But because we are working children desks can have override we are working on the app it's self right now."
+Read: while we build the Workshop app itself, nothing is changed by an override page. Changes are built straight into the pages, the kernel or the app. Override pages (R7, 0001-0009) stay in the design for child desks later. The approver question is deferred until then. The sample override page 10.11.21.0001 is parked (not used), and R7 code stays but is not exercised.
