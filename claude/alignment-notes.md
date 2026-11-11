@@ -59,3 +59,21 @@ These are the user's files. They are checked here and not edited. Aligned copies
 | `drafting.md` | source for D0 | Aligned in substance. Step 3 is numbered twice. Missing: the compute's enforcement (proposed) and the exceptions (meters, derived content, brand cards). |
 | `Design.md` | empty | `claude/design.md` is the proposed content. |
 | `Axioms.md` | empty | Candidate axioms are in `decisions.md`, for example A4.6 "missing is a valid state". |
+
+## Root update, 2026-11-11 (notes before the edits)
+
+Asked by the user: bring the root files up to the axiom work. Root only, not subfolders.
+
+| File | Change | Why |
+|---|---|---|
+| `decisions.md` | add section E: the nine, the `axioms:` field, chain grammar, default lead, lineage on 00/08, trial, open items, proposals awaiting the Director | none of the axiom decisions were recorded there |
+| `seqAddr.md` | `axioms:` field in 5.3 and the stamp; chains are not addresses (section 8); lineage on faces 00/08 (5.1); section 9 list | seqAddr never mentioned chains or the field |
+| `Design.md` | Axioms.md as the shape; new documents in the table; read path proposed in "How work flows"; not-yet-decided list | it predates the axioms |
+| `agents.003.md` | sources list, settled and open lists, conduct: AGENTS.md no longer says "design only"; until the user confirms, no code | stale since AGENTS.md was edited directly |
+| `Kernel-Architecture-Design.md` | "Clerk" read as the compute; link to Axioms.md | Workshop dropped the clerk (axiom 3 notes) |
+
+Not changed: `format.md`, `brands.md`, `drafting.md` (they change only when the Director decides Fable's proposals), `Axioms.md` (current), `AGENTS.md` (the user's).
+
+Left for later, in subfolders (the user said root only): `axioms/04.md` says "the kernel's gravity page (`0012.gravity`)"; it should say the old kernel draft's, so it is not read as Workshop page 0012. `claude/readpath.md` says the default lead comes from the band head; axiom 3 now says band or pack.
+
+Note: the user renamed `Kernel-Architecture-Design.md` to `kernel-design.md` during the update; references in the root files point to the new name.
