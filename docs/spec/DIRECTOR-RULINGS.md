@@ -70,3 +70,7 @@ Read: below 0100 the book is split into four sections, not one reserved range (Q
 
 **R18 (Q14)** "The matching would be in the hundreds range as in workflow. So N4CC, CC is a counter space, so if you have a workflow from N3-N7 then N403.IDE-design would match N503.IDE-design. They are matched by the CC and the title."
 Read: pages in different bands belong together when their last two digits (CC, the counter space inside the band) AND their title match. Example: N403.IDE-design and N503.IDE-design are one set across bands N3-N7.
+
+## R19 — 2026-11-11 3:12 PM EST — what face 00 holds (answers seqpage S8/S9)
+Director's words (t67u): "It's a registry location, it can hold a stamp, a registry, it's type. Each page type can have a different set of registry fields to use. But we have the stamp portion, a types field, that sort of thing. Fill out what is missing but that is what I am thinking."
+Read: face 00 is the registry location. It holds (a) the stamp portion (address, title, state, axioms, lineage), (b) the page's type, and (c) a registry whose fields depend on the page type: each type defines its own set of registry fields. Builders are to draft the missing detail (the common fields and the per-type field sets) as a draft for the Director to see, never as settled law.
