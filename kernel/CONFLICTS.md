@@ -1,0 +1,114 @@
+# Conflicts in the spec
+
+Places where spec files disagree, quoted with file and line (paths under `docs/spec/`). **None are resolved here.** Each needs the Director (axiom 1: "Two live claims with no lawful connection: halt, and raise it to whoever holds more. Do not choose.").
+
+Section A: spec file against spec file. Section B: workflow-loop `.002` against `.003` (the kernel page 0057 uses `.003`).
+
+## A. Between spec files
+
+### K01. What `00` / `0000` is called: owner, identity, sentinel, board
+- `seqAddr.md:29` — "`00` / `0000` | the owner of the level above, itself [A4.1]"
+- `seqAddr.md:64` — "A page is identified by its face 00, which holds the page stamp (address, title, state)."
+- `decisions.md:119` — "`0000` | book identity (sentinel) |"
+- `decisions.md:33` — "To refer to a sibling book in short form, use its sentinel page: `21.0000` is book 21 on the active shelf."
+- `seqAddr.md:89` — "A sibling book in short form is written through its identity page: `21.0000`."
+- `decisions.md:99` — "A container takes its state from its sentinel page" vs `seqAddr.md:129` — "state comes from the identity page"
+- `seqAddr.md:53` — "`FF.00` | a counted face's board" (here `00` is a board, not an owner or identity)
+- `review.md:132` — the Director's v2 page: "Faces listed 01–08 only; stamp is "header" on a face, not a separate face 00" (v2 page itself is not in docs/spec)
+
+### K02. Boards must exist, but are never written
+- `decisions.md:196` — "A face is counted **if and only if `FF.00` exists**. The board's presence is the check."
+- `seqAddr.md:198` — "A counter without a board is invalid."
+- `format.md:102` — "Boards (`FF.00`), contents lists and ancestor path lists are derived from the log and never written as entries (A4.4, A5.4)."
+- Effect here: kernel 06 counters and the sample dictionary counters have no written board (build finding on each).
+
+### K03. `03.00` on the dictionary: menu or board
+- `decisions.md:432` — "`0012.03.00` is the menu of sections." and `decisions.md:450` — "| `03.00` | menu |"
+- `decisions.md:187` — "A counted face's `00` lists every counter and its current tail, like a kanban board"
+
+### K04. Brand cards on face 01: 04 card required or not
+- `decisions.md:353` — "| Every 01/02 card key has a 04 card | hard: the compute rejects the write |"
+- `decisions.md:521` — "| `brand` | 01 | `brand`, `forms`, `means`, `meters` (compute) | no |" (column: "Needs a 04 card")
+- Effect here: the sample brand cards carry 04 cards so both readings pass.
+
+### K05. Reserved `01-09` on every axis vs counters and dictionary sections
+- `seqAddr.md:30` — "| `01-09` / `0001-0099` | reserved |" (table title `seqAddr.md:26`: "Reserved values on every axis")
+- `seqAddr.md:37` — "| `01-09` | kernel branches, downloaded into the repository as needed |"
+- `decisions.md:36` — "Counters are not an axis, so the reserved 01-09 range does not apply to them."
+- `decisions.md:451` — "| `03.01-03.09` | reserved: words starting with digits or symbols |"
+- `decisions.md:481` — "This layout reserves `03.01-03.09` by its own definition. A1.4 (the reserved range does not apply to climbing counters) still stands."
+
+### K06. Book layout below 0100: one range or four
+- `decisions.md:120` — "| `0001-0099` | reserved; a page here is a local override of the inherited environment |"
+- `seqAddr.md:220-223` — "`0001-0009` | special reserved pages", "`0010-0019` | contents, dictionary, concordance and other required pages", "`0020-0049` | localized behaviour", "`0050-0099` | structural pages, mostly in the kernel or templates"
+- `review.md:116` already flags it: "pick one layout when condensing."
+
+### K07. Band sets by number vs axiom 8
+- `decisions.md:112` — "**Sets across bands are linked by number.**"
+- `decisions.md:250` — "This keeps A2.6 intact: fixed 100-page bands, every `xx00` a head, and sets linked by number."
+- `seqAddr.md:243` — "Pages with the same `N` and `NN` in different bands form a set"
+- `Axioms.md:27` — "Agreement is not connection: two pieces that match are not connected by matching"
+- `decisions.md:644` (F.2, proposed) — "Membership requires explicit reciprocal Face 08 links."
+- `workflow-loop.003.md:60` — "Under proposed F.2, membership requires reciprocal Face 08 links (axiom 8). This amends A2.6's current membership by number."
+
+### K08. Which band digit is "build"
+- `decisions.md:112` and `seqAddr.md:243` — "`0423.timer` (dev) and `0523.timer` (build)"
+- `workflow-loop.003.md:44` — "| `0300–0399` (N3) | build |" and `:46` — "| `0500–0599` (N5) | jobs |"
+- `decisions.md:645` (F.2, proposed) — "`0300` build, `0400` dev, `0500` jobs, and `0700` colab"
+
+### K09. The axioms' faces
+- `Axioms.md:3` — "open `axioms/` for the faces: 01 agent form, 02 cite card, 03 menu, 04 full explanation, 06 notes."
+- `decisions.md:531` — "`axioms/` (faces 00-04, notes 06.01)"
+- `seqAddr.md:150-152` — "`01` | law", "`02` | schema", "`03` | operate" (general face jobs; "agent form" and "cite card" are not these names)
+- `kernel-design.md:15` — "The Axioms (`Axioms.md`, decisions E1-E7)" while `decisions.md` E8 and E9 also belong to section E.
+
+### K10. Identity pages must exist, but a page with only an identity has no reason to exist
+- `decisions.md:143` — "Each desk, shelf and book has an identity page. Its stamp holds the container's title."
+- `seqAddr.md:290` — "Containers need their identity page to be legal."
+- `decisions.md:274` — "A page is valid when it has face 00 and at least one of faces 01-06 or 08. ... A page with only an identity has no reason to exist."
+- No file names the content face of a page 0000. Effect here: sample identity pages are face 00 only (build finding); kernel 0000 got a 04 card copied from `kernel-design.md`.
+
+### K11. The written address shape
+- `decisions.md:18` — "`[DD.][SS.][BB.] PPPP [.FF][.NN] [.tail]`"
+- `seqAddr.md:74` — "`[DD.][SS.][BB.] PPPP [.FF][.NN] [.title][.tail]`"
+- `seqAddr.md:271` — "`face-part  = face [ "." counter ] [ "." tail ] [ "." card [ "." brand ] ]`" (card keys appear only in the grammar)
+
+### K12. Where a return lives: settled or proposed
+- `workflow-loop.md:170` (.002) — "This settles where a return lives."
+- `decisions.md:611` (E9, "Proposals awaiting the Director") — "Where a return lives: on its counter"
+- `workflow-loop.003.md:181` — "`7`: seat the E9 placement"
+
+### K13. Pack-lint predecessor sits in a band the workflow does not use
+- `workflow-loop.003.md:232` — "Consult the predecessor `0117.pack-lint`."
+- `workflow-loop.003.md:43` — "| `0100–0299` | unassigned by this workflow |" (`.002`, `workflow-loop.md:43`: "| N1NN | not in use | |")
+
+### K14. Written permission: decided in `.002`, open in decisions
+- `workflow-loop.md:88` (.002) — "This revision-bound approval is written permission to act within the agreed frame"
+- `decisions.md:594` (E8, open) — "\"Written permission\" (axiom 7): a recorded grant, or a direct instruction?"
+- `workflow-loop.003.md:91` — "`7`: the general E8 definition of written permission remains open."
+
+### K15. `.003` cites decision codes that are not recorded
+- `workflow-loop.003.md:53,79,150,199,206,224,260` cite F02–F10 ("**F08.**", "**F06–F07.**", "**F10.**" ...).
+- `decisions.md` section F has only F.1 (`:619`) and F.2 (`:640`). F02–F10 have no record (`7.8`). `workflow-loop.003-notes.md`, linked at `workflow-loop.003.md:16`, is not in docs/spec.
+
+## B. workflow-loop `.002` (`workflow-loop.md`) vs `.003` (`workflow-loop.003.md`)
+
+`.003` line 4: "copy of: [root `.002` draft](workflow-loop.md)". Both are `state: draft`. Kernel page 0057 copies `.003`; `.002` stays as lineage.
+
+| # | Topic | `.002` | `.003` |
+|---|---|---|---|
+| W01 | Authority line | `:6` "Director approved S01-S12 and four design choices" | `:6` "Director authorized drafting `.003`. ... Review and trial of `.003` remain due (`9`)." |
+| W02 | Band map | `:38` "`N4` means `N400-N499` in any thousands band." `:42` "N0NN \| reserved / existing kernel allocation" (clashes with `decisions.md:125` "`1000` is the head of the first user band") | `:38` "The workflow map defaults within the standard range `0100–0999`" ... "A user band in `1000–9998` adopts a workflow role by name"; `:42` "`0000–0099` \| existing kernel allocation" |
+| W03 | Set membership | `:64` "Matching subject digits establish a possible *set*, not continuation." | `:60` "membership requires reciprocal Face 08 links" (proposed F.2) |
+| W04 | Compute role | `:30` "enforces grants, creates handoffs" | `:30` "enforces grants on its own writes, verifies external changes"; new F08 block `:79-81` |
+| W05 | Written permission | `:88` "This revision-bound approval is written permission to act" | `:91` "`7`: the general E8 definition of written permission remains open." |
+| W06 | Lead default | `:104` "if they differ from the band default (`3MC`)" | `:107` "`7`: no `3MC` workflow default is seated." |
+| W07 | Risk | `:111` "risk/impact rating used to select evidence" | `:114` "lead's proposed risk. Compute records its floor"; new §5.3 `:150-154`; new field "repository baseline" `:116` |
+| W08 | Work-card example reason | `:132` "From a recorded, resolvable predecessor card ..." | `:135` "A person needs one place to inspect what the builder completed ..." |
+| W09 | Review step | `:164` "\| 6 Review \| `return -> review` \| independent reviewer \|" | `:175` "\| 6 Review \| `return -> review` \| Compute on a valid reviewer claim \|"; review classes R1–R3 proposed `:200` |
+| W10 | Return placement | `:170` "This settles where a return lives." | `:181` "uses the E9 proposal ... `7`: seat the E9 placement" |
+| W11 | Abandoned claim | `:193` "closes it `abandoned` only after the recovery rule is met" | `:206` "Compute fences the old claim and records a system return on the same counter ... proceeds through `review` before closing" |
+| W12 | Promotion manifest | none | new §7.1 `:222-226` (F10) |
+| W13 | Lint templates | `:211` "The template lives in the kernel as card types (decision C8.9)" | `:232` "This draft proposes kernel-owned card types under C8.9 ... `7`: seat the workflow card types" |
+| W14 | Gravity | `:244-245` pass 4 why questions, pass 6 halt | `:262-269` adds pass 5 check, halt-reply allowance; `:260` counting event "each successful `draft -> pack` release consumes one pass" (proposed) |
+| W15 | Open list | `:262-269` eight `7` items | `:286-295` ten `7` items plus "`9` **Trial**" |
