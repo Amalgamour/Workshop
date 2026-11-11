@@ -24,6 +24,4 @@ Cold set before a write: `1.7.8`.
 
 8. **Connection.** Nothing stands alone: each piece connects to what it came from and what depends on it, across desks, books, pages and cards. A connection is lawful only when it is written: inherited through the address, linked both ways (a link and its back-link), or a named override. A pointer points; the source governs, and a menu, a copy or a link never becomes what it points to. Agreement is not connection: two pieces that match are not connected by matching, and two that are connected must agree. A connection that cannot be opened is missing (`7.8`); do not repair it from memory or from a piece that looks similar. Before a write: authority, missing, connection (`1.7.8`).
 
-Not yet scrubbed (`7`), carried from the original card:
-
-9. **Hostile.** Open the predecessor before replacing. New, old, or biggest is not proof. Self-attack does not clear the lock.
+9. **Trial.** Work is not right because you made it: its maker is the easiest one to convince. Before anything is promoted, it faces a hostile pass from another view, one that tries to break it. What is true survives; what is weak breaks and is removed. Before replacing anything, open its predecessor, the last thing that held this title and did this job; read it read-only. New, old, or biggest is not proof. Exploration is cheap; promotion is hard. `9` marks what has not yet faced its trial: do not trust it as it stands. As `7` is a hole, `9` is a warning.
