@@ -1,0 +1,13 @@
+[package]
+name = "trial-core"
+version = "0.0.0"
+edition = "2021"
+publish = false
+description = "TRIAL-C: axiom-9 hostile pass on seqaddr-core (dev only, tests only)"
+
+[lib]
+path = "src/lib.rs"
+
+[dev-dependencies]
+seqaddr-core = { path = "../seqaddr-core" }
+serde_json = "1"
