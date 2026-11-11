@@ -48,3 +48,25 @@ Read:
 - It hands the model **1 to 3 pieces**. The model uses its own judgment to solve from them, or asks the compute for another option.
 - If nothing fits well enough, the compute asks the person what they mean, probing for more detail until it can be resolved.
 - New phrasings of a known question get linked to that question, the way new forms are added to a brand.
+
+## R12 to R18 — 2026-11-11 3:11 PM EST — answers to kernel Q8-Q14 (t66u, numbered 1-7 = Q8-Q14)
+**R12 (Q8, also seqpage S9)** "The stamp should go in the .00 as the reg location."
+Read: the stamp (address, title, type, state) lives in face 00, the page's registry location. A page's state is kept in the stamp in face 00.
+
+**R13 (Q9)** "I like bands, it's a band because it binding together a set of pages into a work space."
+Read: a band head (N?00) keeps the word "band". A band binds a set of pages into a work space. "Door" is only the all-zero sentinel (R1, narrowed by R9).
+
+**R14 (Q10)** "Yes."
+Read: a face may be seated while its page's door is still a draft.
+
+**R15 (Q11)** "No."
+Read: a brand card on face 01 does not need a 04 card (decisions.md:521 card-type table wins over :353 for brands).
+
+**R16 (Q12)** "door"
+Read: the dictionary's 03.00 is a door. TENSION with R9 ("Faces do not have sentinels"): held as 7 and asked back to the Director. Builders do not resolve it.
+
+**R17 (Q13)** "Its broken into 4 sections. Each one has it's own important. 0000-0019 are static 0020-0099 aren't just locations."
+Read: below 0100 the book has four ranges (seqAddr.md:220-223): 0000-0019 core and static; 0020-0049 behavior; 0050-0099 structure; plus the fourth range as listed there. 0020-0099 are working pages, not just locations.
+
+**R18 (Q14)** "The matching would be in the hundreds range as in workflow. So N4CC, CC is a counter space, so if you have a workflow from N3-N7 then N403.IDE-design would match N503.IDE-design. They are matched by the CC and the title."
+Read: pages in different bands belong together when their last two digits (CC, the counter space inside the band) AND their title match. Example: N403.IDE-design and N503.IDE-design are one set across bands N3-N7.

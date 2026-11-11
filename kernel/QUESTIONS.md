@@ -52,33 +52,38 @@ Original question: **Bob test, session 2: how should "what is my name" reach the
 The stamp holds "address, title, state" (`decisions.md:176`), and a face may carry `draft` or `retired` (`seqAddr.md:127`). The kernel writes both: a `.draft` door file with `state: draft` inside.
 - Option A: `state:` holds the page tail (`draft`, `retired`, or none). The door face's file tail shows only whether the stamp itself is approved.
 - Option B: the file tail alone carries it, and `state:` is dropped.
+- **ANSWERED 2026-11-11 3:11 PM EST: R12: the stamp (incl. state) lives in face 00, the registry.**
 
 **Q9. In `.002`, "door" means a band head (`N?00`). R1 says the door is the all-zero sequence. Which word do band heads use?**
 - Option A: "band head" (`decisions.md:110`, `workflow-loop.003.md:51`).
 - Option B: R1 also covers band heads.
+- **ANSWERED 2026-11-11 3:11 PM EST: R13: band heads keep the word band.**
 
 **Q10. Can a seated face sit on a page whose door face is still a draft?**
 "A draft face ... may exist on any page, live or draft" (`decisions.md:277`). The spec says nothing about a seated face on a draft page. Under R2 this decides whether any content face can be seated before its door.
 - Option A: yes.
 - Option B: no. The door is seated first.
+- **ANSWERED 2026-11-11 3:11 PM EST: R14: yes.**
 
 **Q11. Does a brand card on face 01 need a 04 card?**
 - Option A: yes. "Every 01/02 card key has a 04 card" (`decisions.md:353`).
 - Option B: no. In the card-type table, the `brand` row says "Needs a 04 card": no (`decisions.md:521`).
+- **ANSWERED 2026-11-11 3:11 PM EST: R15: no 04 card needed for a brand card.**
 
-**Q12. [ANSWERED by R9 (in part), DIRECTOR-RULINGS.md]** 03.00 is not a door. `7`: if the dictionary menu needs a written home, it would be a card on face 03; not done (its entries are derived, decisions.md:516).
 Original question: **Is the dictionary's `03.00` a menu or a door?**
 - Option A: a menu (`decisions.md:432`, `:450`).
 - Option B: the door of a counted face, listing counters (`decisions.md:187`, R1).
-- **ANSWERED 2026-11-11 3:03 PM EST: follows from R9: 03.00 is not a door (faces have no sentinels).**
+- **ANSWERED 2026-11-11 3:11 PM EST: R16: Director said door; conflicts with R9 (faces have no sentinels), held 7 and asked back.**
 
 **Q13. How is the book split below page 0100?**
 - Option A: one reserved range, `0001-0099` (`decisions.md:120`).
 - Option B: four ranges (`seqAddr.md:220-223`).
+- **ANSWERED 2026-11-11 3:11 PM EST: R17: four ranges; 0000-0019 static, 0020-0099 working pages.**
 
 **Q14. Are pages in different bands one set because their numbers match, or only when they link both ways?**
 - Option A: by number (`decisions.md:112`, `:250`).
 - Option B: by reciprocal face 08 links (axiom 8; `decisions.md:644`, F.2 proposed).
+- **ANSWERED 2026-11-11 3:11 PM EST: R18: matched by CC (last two digits) plus title, e.g. N403.IDE-design = N503.IDE-design.**
 
 **Q15. [CORE] Do counters and task boards of a counted face inherit down the chain (trial finding 6)?**
 - Option A: yes, like any face; R5 says drafts are inherited too, and A2.9 lets a book read the kernel's 05/06 (current core).
