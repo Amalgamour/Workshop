@@ -30,6 +30,18 @@ Commit messages were searched (`git log --all -i --grep`) for the 13 C card keys
 | 00.00.00.0056 (drafting) | 2 | 1 | 0 | 1 |
 | 00.00.00.0057 (workflow) | 7 | 5 | 2 | 0 |
 
+## Status: grade A filled (WHY-GAPS lane, 2026-11-11 CST)
+
+15 of the 22 A gaps are filled; 7 are skipped. `--check` now reports 44 findings (was 59), 0 errors, 26 seats unchanged. Each fill adds `; why: docs/spec/FILE:LINE` to the card's `source:` line and replaces `why: 4.7` with the words in the table below; no other card text changed. Every phrase was rechecked against its line at 6d3a0e6 before the edit. These 04 faces are drafts and need a fresh-session trial (R2, R20) before any seat.
+
+Filled (15): #8 `faces-carry-no-title`, #10 `which-pages-need-a-title` (pages 0001-0999 part only), #15 `many-targets`, #16 `back-links`, #18 `kernel-and-branches` (desk 00 part only) on 0051.04; #39 `card-types` on 0054.04; #41 `card-key-address`, #43 `brand-cards`, #46 `resolving-a-word` on 0055.04; #51 `new-face` on 0056.04; #53 `roles` (reviewer part), #54 `packs`, #55 `risk-and-governing-targets` (recording part), #57 `return-placement`, #59 `why-questions` on 0057.04.
+
+Skipped (7):
+- On a seated face: `00.00.00.0052.04` was seated after this list was made (blob e9ca59a1d708acfd57b9e5f7e6b758e41e4fde6f), so #21 `registry-face`, #26 `full-explanation`, #27 `hard-rules-and-findings`, #31 `links-face`, #33 `card-shape` stay `4.7`. Filling them means a new draft of 0052.04 (copy the seated face, add the five whys) and a fresh trial, or an un-seat; that is a choice for Prima or the Director, not this lane.
+- Body fix first: #19 `book-layout` (calls 0001-0099 "reserved"; R17 splits that range) and #6 `finding` (cites 0020-0049 as "reserved"; R17 says working pages). Both stay `4.7` until the body is fixed.
+
+Partial fills keep their note: the parts the table says are "not written" are still unexplained, and are not marked anywhere else yet.
+
 ## Two cards need a body fix before a why
 
 - `counted-faces` (0052): its 01 source decisions.md:198 says "A counted face is never seated", but R22 (DIRECTOR-RULINGS.md:88) seats each page's face 05. Open as QUESTIONS Q41.

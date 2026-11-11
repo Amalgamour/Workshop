@@ -248,3 +248,10 @@ Every build choice, its why, and the spec line it follows. A choice the spec doe
 - No seats this pass (nothing was seat-eligible); 26 seats verify. No face edits.
 - Tests: `node kernel/build.test.mjs` 55/55; `CARGO_TARGET_DIR=target/k10 cargo test --workspace --no-fail-fast` 411 passed, 0 failed, 2 ignored (38 result lines), exit 0.
 - Next trial targets: the step 1 guard (the `kernel` pathspec, absolute and climbing links by path tails, link chains, root links, the face 00 git-entry rule, the `books/` history walk) and the 26 seats.
+
+## [WHY-GAPS] grade A why lines filled, 15 of 22 - 2026-11-11 (CST)
+- Filled 15 grade A gaps from `docs/design/WHY-GAPS.md` in the 04 drafts of 0051, 0054, 0055, 0056 and 0057: `source:` gains `why: docs/spec/FILE:LINE` and `why: 4.7` becomes the verified words. No other card text changed. List and sources: WHY-GAPS.md "Status".
+- Skipped 7: five on `00.00.00.0052.04`, which is seated (blob e9ca59a1); `book-layout` and `finding`, whose bodies still say "reserved" against R17.
+- `node kernel/build.mjs` rewrote `books/00.00.00.book` (5 entries). `--check`: `seats 26`, `44 findings, 0 errors` (was 59), exit 0. All 26 seated faces checked equal to their HEAD blobs before commit.
+- Tests: `node kernel/build.test.mjs` 55/55. Cargo not run (no code changed).
+- Next trial targets: the five changed 04 drafts (0051, 0054, 0055, 0056, 0057): is each filled why the reason for its card (R2, R20)?
