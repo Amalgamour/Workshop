@@ -197,3 +197,21 @@ decisions.md:112 said "Titles should match; a mismatch is elevated to the user (
 The stamp `state:` is the page's state (R12). Face 00 can be a draft while a face is seated (R14). The kernel reads face 00's own state from its file tail and gives its reason in `why-draft:`.
 - Option A: `state:` is the page state; face 00's own state comes from its entry tail (as face00.md's `registry :=` line shows).
 - Option B: face 00 is listed in `faces:` like any other face. `7`.
+
+**Q39. [TRIAL-K3] How does face 00's `faces:` line list a counted face: by counter, or as one counted face?**
+The kernel writes each counter with its tail, so each draft counter can carry its R5 reason: `faces: 01 draft, 02 draft, 04 draft, 06.01 draft` (`0051.00:10`), `03.14 draft, 03.16 draft` (`10.11.21.0012.00:10`). `docs/spec/face00.md` section 3.1 (DRAFT) and its examples write the counted face once: `05 counted`. `crates/seqpage` derives that form, so it flags every kernel face 00 with an axiom 8 finding (TRIAL-K3 finding 13).
+- Option A: list counted faces once (`06 counted`). Each counter's draft reason stays on its own entry (`reason`), not in `faces:`.
+- Option B: list every counter with its tail (`06.01 draft`), with `why-06.01:`. face00.md and seqpage would change.
+- Option C: both. `06 counted` in `faces:`, and the counters in a separate field. Linked: face00.md F2 (written vs derived). `7`.
+
+**Q40. [TRIAL-K3] What is the page state of a page whose face 00 is a draft but which has no other draft, or has a seated face?**
+The kernel writes stamp `state: draft` on the four door pages (only face 00, a draft) and on `0056` and `10.11.21.1001` (face 01 seated, face 00 draft). `crates/seqpage` derives `live` for all six and reports "stamp state `draft` disagrees with the page's entries (`live`)" (TRIAL-K3 finding 14). R12: "A page's state is kept in the stamp in face 00." R14: a face may be seated while face 00 is a draft.
+- Option A: the stamp `state:` is the page's state. A draft face 00 means the page is a draft, and seqpage's derivation changes.
+- Option B: the page state is derived from its faces. A draft face 00 alone doesn't make the page a draft, and the kernel stamps say `live`.
+- Linked: Q31 (stamp vs page tail), Q38 (face 00's own state). `7`.
+
+**Q41. [TRIAL-K3] R22 asks for a seated face 05 on each page; the kernel law says a counted face is never seated. Which holds?**
+R22 (`DIRECTOR-RULINGS.md:86-88`): "the seated 05 for each page should explain what you learned and become the seated pack of work". `0052.01:87` (`decisions.md:198-199`, `seqAddr.md:199-201`): "A counted face is never seated." `0052.01:88`: "Faces 05 (tasks) and 06 (notes) are always counted." Counter tails `draft -> pack -> open -> return -> review -> closed` (`0057.01:86`) move a pack by tails, not by seating.
+- Option A: R22's "seated" means a reviewed, closed (bare) counter `05.NN` that holds the MVP pack. Face 05 stays counted.
+- Option B: face 05 is uncounted on these pages (one seated face per page, R2 trial). R22 then overrides `decisions.md:198-199` for this use.
+- Option C: the learning goes on a seated card (01/04), and the work pack goes on counters `05.NN`. Linked: Q35. `7`.
