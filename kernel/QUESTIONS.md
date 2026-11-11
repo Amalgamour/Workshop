@@ -215,3 +215,49 @@ R22 (`DIRECTOR-RULINGS.md:86-88`): "the seated 05 for each page should explain w
 - Option A: R22's "seated" means a reviewed, closed (bare) counter `05.NN` that holds the MVP pack. Face 05 stays counted.
 - Option B: face 05 is uncounted on these pages (one seated face per page, R2 trial). R22 then overrides `decisions.md:198-199` for this use.
 - Option C: the learning goes on a seated card (01/04), and the work pack goes on counters `05.NN`. Linked: Q35. `7`.
+
+**Q42. [PACKS] R22 asks for a face 05 on "each page", but R10 says a door page 0000 holds only face 00. Where do a door page's lessons and pack go?**
+R22 (`DIRECTOR-RULINGS.md:86-88`): "the seated 05 for each page". R10 (`:40-41`): "Page 0000.00 is the only location that exists"; the builder refuses any other face on 0000 (`kernel/build.mjs` validate). Held: the four door packs are written but parked, not built (`kernel/parked/doors/`, `kernel/parked/README.md`).
+- Option A: door pages get no 05; their packs live on the container's first working page (for example 0010).
+- Option B: R22 lets a door page 0000 hold face 05 as well as face 00 (an exception to R10).
+- Option C: the door pack lives in the parent container's pack (the desk's for a shelf door, and so on). `7`.
+
+**Q43. [PACKS] Where does a page's MVP pack live: on its own face 05 (R22), or on an N5 page as the workflow loop says?**
+`workflow-loop.003.md:99`: "A pack is a face 05 counter on the N5 page: `0501.05.NN`." `:92` (S12): "N4 Face 05 holds design questions; N5 Face 05 holds execution packs." R22: each page's 05 is "the seated pack of work to achieve the MVP for each page". Kernel pages 0051-0057 are not in a workflow band. Held: the packs are on each page's own 05 (05.02), as R22 says.
+- Option A: R22 governs for kernel and sample pages; the N5 rule is for workflow sets (N3-N7) only.
+- Option B: each page's 05.02 points to an N5 pack page by a face 08 link, once workflow bands exist. `7`.
+
+**Q44. [PACKS] Face 05 is "tasks" and face 06 is "notes" (`seqAddr.md:154-155`). Is "what we learned" a 05 task, or a 06 note that 05 points to?**
+R22 puts "explain what you learned" on the seated 05. Held: written as `05.01` with one `type: note` card (a kernel card type; note is the 06 default, so it is named on the card). Linked: Q41 option C, O44 (task and ticket split of 05).
+- Option A: keep it on `05.01` as R22 says.
+- Option B: write it on `06.NN` and keep 05 for the work pack only. `7`.
+
+**Q45. [PACKS] What authorizes these packs?**
+Pack lint (`workflow-loop.003.md:238-239`) hard-fails a pack whose `authorized` does not resolve to an approved N4 revision, and no N4 approval exists for any kernel or sample page. Held: every `05.02` writes `authorized: 7` and `frame: 7`, and stays `draft`, so lint is never asked to pass it.
+- Option A: R22 itself is the authorization for these build-stage packs (record "authorized: R22").
+- Option B: each pack waits for its own approval record before it can move `draft -> pack`. `7`.
+
+**Q46. [PACKS] The packs name related pages (axiom 8, "links back to the overall design"). Face 08 holds links, but how it holds them is open (O36), and this lane may only write face 05. Is a `links:` field on the pack header enough for now?**
+Held: each `05.02` has `design:` (docs/design section and DECISIONS ids) and `links:` (related pages by seqaddr) fields. No face 08 was written.
+- Option A: yes, until O36 is ruled.
+- Option B: write face 08 links now, and the 05 fields only name them. `7`.
+
+**Q47. [PACKS] Adding a 05 counter changes face 00 (its `faces:` line and `why-05.NN:` lines), because the builder checks the registry against the files (R10). Does that registry edit need a new trial of face 00?**
+Every face 00 is a draft and HELD-7 (TRIAL-K3), so no seat broke. But TRIAL-K3 recorded face 00 blobs at d37e532 that no longer match. Linked: Q27 (written vs derived), Q39 (counter form), face00.md F2.
+- Option A: no; registry lines that the files force are bookkeeping, not content.
+- Option B: yes; any byte change to face 00 needs a new trial (axiom 9), as for any face. `7`.
+
+**Q48. [PACKS] R18's example "N403.IDE-design" has capital letters, but titles are lowercase letters, digits and hyphens (A2.3, D19). Is the example's case meaningful?**
+The core compares titles exactly (`docs/BUILD-LOG.md` [CORE] R18 line, `7`).
+- Option A: titles stay lowercase; the example means `ide-design`.
+- Option B: title case is allowed and compared as written. `7`.
+
+**Q49. [PACKS] The common-questions page number `0013` and the question card fields (`type: question`, `forms`, `answer`) are the build's, not yours (MAP hole 15, CONFLICTS D14). Are they right?**
+Copied from crates/ask QuestionCard; the app also reads READER_BOOK.0013 (`docs/BUILD-LOG.md` [APP] round 3).
+- Option A: keep 0013 and these fields; add `question` to the kernel card types (0054.02) and the core.
+- Option B: give a different page number or field set. `7`.
+
+**Q50. [PACKS] Which words are in the kernel base dictionary?**
+decisions.md C8.5: "The kernel supplies a small base dictionary that books inherit." No words are listed, so no kernel dictionary page exists (`0055.06.01`; MAP hole 5). The `00.00.00.0055` pack step for it is blocked here.
+- Option A: an empty base for now (books build their own).
+- Option B: you give a starting word list. `7`.

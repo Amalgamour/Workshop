@@ -162,3 +162,9 @@ Every build choice, its why, and the spec line it follows. A choice the spec doe
 - [APP] Finding for SEQPAGE/KERNEL: check.seq on the exported 10.11.21.1001 flags `stamp state draft disagrees with the page's entries (live)` and `seat-01: is not a registry field for type general`.
 - [APP] Screenshots ran on a temp copy (/tmp/app3) with demo tokens and a demo trial file there only; nothing demo is in the repo. Mock has no /ask.
 - [PRIMA] docs/spec/SEQ-GUIDE.md: plain-words reader guide to the .seq file for the Director (walks examples/face00/10.11.40.1001.cats.seq line by line; check/export/import run with real output; rules table with sources; open S/F questions; F12 noted closed by OpRequest `reason`). Spec seqpage.md unchanged.
+
+## [PACKS] R22 face 05 per page: what we learned + MVP pack - 2026-11-11 (EST)
+- R22: each kernel and sample page got `05.01` (one `type: note` card "What We Learned", every line cited to a trial finding, ruling, commit or file:line) and `05.02` (a `## Pack Header` card with the workflow-loop.003.md 5.1 fields plus `design:`, `links:`, `open:`, then `## w01`... `type: work` cards with `reason`, `depends`, `blocked-by`, `done`, `path`, `ask`). Pages: 00.00.00.0051-0057, 00.00.axioms, 10.11.21.0012, .0013, .1001 (22 counters).
+- All are `05.NN.draft` with a `why-05.NN:` registry line, so each book entry carries a `reason` (R5). Face 00 registries gained only those lines (R10 check; Q47). No other face touched; nothing seated (Q41).
+- Door pages 0000 (4) cannot hold face 05 (R10); their packs are parked in kernel/parked/doors/ (Q42).
+- 7: card heading names, the extra header fields and the work-card fields `depends`, `blocked-by`, `done` are this lane's; `authorized` and `frame` are `7` (Q45). Questions Q42-Q50 [PACKS].
