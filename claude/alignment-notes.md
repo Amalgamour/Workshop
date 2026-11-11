@@ -84,3 +84,4 @@ Note: the user renamed `Kernel-Architecture-Design.md` to `kernel-design.md` dur
 
 Main fills: roles (with a reviewer), the N4 approval as axiom 7's written permission, pack header fields, the work card term `W01`, the return on the same counter (no copy), the review step and failed review as a new `continues-from` counter, pack lint checks, the why questions at pass 4 and a halt at pass 6.
 Open: where code lives, N4 05 mirroring, `scale`, `W01`, stale `open` time, when labs are required, correcting A2.6.
+- Decided (Director, 2026-11-11): code lives in the repo, linked. N3 face 02 describes the files; face 08 links each by repo path. Recorded in `workflow-loop.001.md` section 3.1.
