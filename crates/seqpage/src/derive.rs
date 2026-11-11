@@ -151,6 +151,11 @@ pub fn draft_reason(own: &[&Entry]) -> Option<String> {
     }
 }
 
+/// The newest face 00 body (draft if any, else seated), by the page's own replay.
+pub fn registry_view(page: PageId, entries: &[Entry]) -> Option<String> {
+    local_replay(page, entries).ok().flatten().and_then(|p| p.face(0).and_then(|f| f.view()).map(String::from))
+}
+
 /// The lineage line: the page, then the A1.8 lookup chain it inherits through.
 pub fn lineage_value(page: PageId) -> String {
     let mut parts = vec![page.to_string()];
@@ -196,6 +201,10 @@ pub fn derive(page: PageId, entries: &[Entry]) -> Derivation {
         "registry",
         if ok { slot_word(state.as_ref().and_then(|p| p.face(0)).map(|f| f.slot_state()).unwrap_or(FaceSlotState::Absent)).to_string() } else { UNKNOWN.into() },
     ));
+    if ok && matches!(state.as_ref().and_then(|p| p.face(0)).map(|f| f.slot_state()), Some(FaceSlotState::DraftOnly | FaceSlotState::SeatedWithDraft)) {
+        let own: Vec<&Entry> = by_key.get(&SectionKey::DOOR).cloned().unwrap_or_default();
+        door.push(("why-draft", draft_reason(&own).unwrap_or_else(|| UNKNOWN.into())));
+    }
     door.push(("faces", faces_value(&by_key, state.as_ref(), ok)));
     door.push(("type", field("type")));
     door.push(("axioms", field("axioms")));

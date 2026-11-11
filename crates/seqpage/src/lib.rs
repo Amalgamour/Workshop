@@ -11,6 +11,7 @@
 
 pub mod derive;
 pub mod error;
+pub mod face00;
 pub mod import;
 pub mod model;
 pub mod parse;

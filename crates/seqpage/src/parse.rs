@@ -308,6 +308,12 @@ pub fn check(sp: &SeqPage) -> Report {
             findings.push(PageError::missing(0, "R5", format!("{} is a draft with no recorded reason (a `reason` field on the entry that opened it, or a note); a draft shows why it is a draft", page.section_addr(*k))));
         }
     }
+    // face 00: stamp, type, registry (face00.md; findings only)
+    if let Some(body) = crate::derive::registry_view(page, &booked) {
+        let reg = d.sections.get(&SectionKey::DOOR);
+        let get = |k: &str| reg.and_then(|v| v.iter().find(|(a, _)| *a == k)).map(|(_, v)| v.clone()).unwrap_or_default();
+        findings.extend(crate::face00::check_face00(page, &body, &get("state"), &get("faces"), &get("lineage")));
+    }
     let mut seen: BTreeMap<u64, usize> = BTreeMap::new();
     for s in &sp.sections {
         // header address and name (8)

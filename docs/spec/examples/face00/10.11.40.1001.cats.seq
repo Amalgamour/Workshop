@@ -1,0 +1,48 @@
+seqpage 1
+= 00 registry 10.11.40.1001.00
+title := cats
+state := draft
+registry := draft
+why-draft := a new page starts as a draft (drafting.md)
+faces := 01 draft
+type := general
+axioms := -
+lineage := 10.11.40.1001 < 10.11.40 < 10.11.00 < 10.00.00 < 00.00.00
+source := book 10.11.40 @9
+
+--- @9 put 10.11.40.1001.00.draft
+at: 2026-11-11T21:09:00Z
+by: user
+reason: a new page starts as a draft (drafting.md)
+| ---
+| address: 10.11.40.1001
+| title: cats
+| type: general
+| state: draft
+| why-draft: a new page starts as a draft; the user has not confirmed the meaning yet
+| ---
+|
+| ## Registry
+| faces: 01 draft
+| why-01: the user has not confirmed this meaning yet
+
+= 01 law 10.11.40.1001.01
+state := draft
+why-draft := the user has not confirmed this meaning yet
+source := book 10.11.40 @10
+
+--- @10 put 10.11.40.1001.01.draft
+at: 2026-11-11T21:10:00Z
+by: user
+reason: the user has not confirmed this meaning yet
+cards := cats
+| ## cats
+| type: brand
+| brand: cats.001
+| forms: cats
+| means: animals the user likes
+
+~ history
+@9 put 10.11.40.1001.00.draft
+@10 put 10.11.40.1001.01.draft
+~ end

@@ -31,11 +31,15 @@ Answer (R8): a draft is `...PPPP.FF.draft` and exists only while drafting. The f
 R5: a lookup shows why a face is a draft. Spec gives no field.
 Provisional: the `reason` field on the entry that opened the draft (`put` to `FF.draft` or `copy`), else the first line of the first `note` on it, else `7` and a finding. Note for CORE: `OpRequest` has no `reason` field yet, so a proposal cannot carry one; the compute would need to accept it (or name another place).
 
-## S8. What face 00's body holds (R10)
+## S8. What face 00's body holds (R10) - ANSWERED by R19, detail in face00.md
+R19: face 00 holds the stamp, the type and a registry whose fields depend on the type. Builders' draft of the fields: docs/spec/face00.md (DRAFT). The file now compares a written `faces:` to the derived list and reports a finding (written vs derived is face00.md F2).
+Old text:
 R10: face 00 is the registry that lists the page's faces. Spec does not say whether the list is written in face 00's body or derived.
 Provisional: the file derives `faces :=` from the page's entries and shows face 00's body as written. It does not compare the two.
 
-## S9. Where title, state and type live (R10)
+## S9. Where title, state and type live (R10) - SETTLED by R12/R19
+R12: "The stamp should go in the .00 as the reg location." Title, state and type live in face 00's stamp. Page 0000 title: face00.md F1.
+Old text:
 Face 00 was the stamp (address, title, state, type, axioms). R10 makes it the registry and says it is not a sentinel; it does not say where the title goes.
 Provisional: `title`, `type`, `axioms` are still read from fields in face 00's body when present.
 

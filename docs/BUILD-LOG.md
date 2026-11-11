@@ -130,3 +130,5 @@ Every build choice, its why, and the spec line it follows. A choice the spec doe
 - R15: builder skips C3.2 for brand cards; sample 1001.04 removed; kernel 4.7 count unchanged (59, none were brand cards).
 - R16 vs R9: 03.00 held 7; pass-2 strike of the 03.00 menu rows undone (Q29). R17 split held 7 (Q30).
 - `reason` field name matches seqaddr-core Entry::reason. Books rebuilt (ASCII, --check clean); `cargo run -p compute` loaded 4 books, then stopped.
+- [SEQPAGE] 2026-11-11 face 00 (R12, R19): docs/spec/face00.md DRAFT (stamp fields, C1.4 type list with gaps as 7, registry fields per type with sources, PROPOSED where spec is silent, open F1-F12). crates/seqpage/src/face00.rs mirrors it; all face 00 checks are findings (unknown type = finding). Examples: docs/spec/examples/face00/ from sources/10.11.40.book. Goldens 0051/bob regenerated (new registry `why-draft :=` line). Tests 59 (was 50).
+- [SEQPAGE] 7: page 0000 title = container title, never in address (F1); faces written vs derived (F2); which face 00 findings become hard (F3). See face00.md section 6.

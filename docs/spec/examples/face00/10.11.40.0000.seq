@@ -1,0 +1,28 @@
+seqpage 1
+= 00 registry 10.11.40.0000.00
+title := workshop
+state := live
+registry := seated
+faces := -
+type := -
+axioms := -
+lineage := 10.11.40.0000 < 10.11.40 < 10.11.00 < 10.00.00 < 00.00.00
+kind := book door (R10: face 00 only)
+source := book 10.11.40 @1
+
+--- @1 put 10.11.40.0000.00
+at: 2026-11-11T21:01:00Z
+by: user
+| ---
+| address: 10.11.40.0000
+| title: workshop
+| state: live
+| ---
+|
+| ## Registry
+| faces: -
+| level: book
+
+~ history
+@1 put 10.11.40.0000.00
+~ end

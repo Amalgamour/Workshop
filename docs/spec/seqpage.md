@@ -63,6 +63,8 @@ Any other line is refused (`seqpage 3`).
 
 ## 4. The registry comes first (R10)
 
+What face 00 holds (stamp, type, registry fields per type) is drafted in `face00.md` (DRAFT, R12, R19). The checker reports face 00 problems as findings, never errors (face00.md section 5). A draft face 00 also shows `why-draft :=` in the registry section.
+
 ```
 seqpage 1
 = 00 registry 10.11.21.1001.00

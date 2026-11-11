@@ -1,0 +1,63 @@
+seqpage 1
+= 00 registry 10.11.40.0403.00
+title := ide-design
+state := live
+registry := seated
+faces := 04 seated, 05 counted
+type := workflow
+axioms := 1.4.5
+lineage := 10.11.40.0403 < 10.11.40 < 10.11.00 < 10.00.00 < 00.00.00
+source := book 10.11.40 @6
+
+--- @6 put 10.11.40.0403.00
+at: 2026-11-11T21:06:00Z
+by: compute
+| ---
+| address: 10.11.40.0403
+| title: ide-design
+| type: workflow
+| state: live
+| axioms: 1.4.5
+| lineage: 10.11.40.0403 < 10.11.40 < 10.11.00 < 10.00.00 < 00.00.00
+| ---
+|
+| ## Registry
+| faces: 04 seated, 05 counted
+| role: dev
+| set: 03.ide-design
+| approval: 7
+
+= 04 user 10.11.40.0403.04
+state := seated
+source := book 10.11.40 @7
+
+--- @7 put 10.11.40.0403.04
+at: 2026-11-11T21:07:00Z
+by: user
+cards := ide-design
+| ## IDE Design
+| source: the Director's request for a working desk
+| why: A desk needs a place to read and write faces before the app exists.
+|
+| The MVP is a reader that opens a .seq page and shows its faces.
+
+= 05 tasks 10.11.40.0403.05
+counters := 01 closed
+
+== 05.01 10.11.40.0403.05.01
+state := closed
+source := book 10.11.40 @8
+
+--- @8 put 10.11.40.0403.05.01
+at: 2026-11-11T21:08:00Z
+by: user
+cards := which-editor-first
+| ## Which editor first
+|
+| Should the first IDE be the browser app or a plain-text editor?
+
+~ history
+@6 put 10.11.40.0403.00
+@7 put 10.11.40.0403.04
+@8 put 10.11.40.0403.05.01
+~ end
