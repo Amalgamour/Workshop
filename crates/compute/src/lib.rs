@@ -114,6 +114,14 @@ fn json_body(body: &[u8]) -> Result<Value, Response> {
     serde_json::from_slice(body).map_err(|e| reply((400, json!({"status": "rejected", "error": "invalid", "detail": format!("body is not JSON: {e}"), "reasons": [], "entries": []}))))
 }
 
+/// GET /whoami: the name for the request's token (books/.identities), checked the same way
+/// as a write (401 no or unknown token, 403 the internal `compute` name). Never echoes the token.
+async fn whoami(State(a): State<App>, h: HeaderMap) -> Response {
+    match a.who(&h) {
+        Ok(n) => reply((200, json!({"name": n, "director": n == identity::DIRECTOR}))),
+        Err(r) => r,
+    }
+}
 async fn health(State(a): State<App>) -> Response {
     let p = a.pending.load(Ordering::SeqCst);
     reply(a.read(|s| s.health(p)))
@@ -233,6 +241,7 @@ async fn not_found(uri: axum::http::Uri) -> Response {
 pub fn router(app: App) -> Router {
     Router::new()
         .route("/health", get(health))
+        .route("/whoami", get(whoami))
         .route("/books", get(books))
         .route("/book/:addr", get(book))
         .route("/page/:addr", get(page))

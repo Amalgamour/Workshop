@@ -320,3 +320,31 @@ async fn unknown_route_is_json_404() {
     assert_eq!((c, v["error"].as_str()), (404, Some("route")));
     s.stop().await;
 }
+
+#[tokio::test]
+async fn whoami_names_the_token_and_never_echoes_it() {
+    let s = Srv::start(&kernel_dir("who")).await;
+    let ask = |h: Vec<(&'static str, String)>| {
+        let base = s.base.clone();
+        async move {
+            let hs: Vec<(&str, &str)> = h.iter().map(|(k, v)| (*k, v.as_str())).collect();
+            let (c, b) = Http.req_h(&base, "GET", "/whoami", None, &hs).await;
+            (c, String::from_utf8_lossy(&b).to_string())
+        }
+    };
+    let (c, b) = ask(vec![("authorization", format!("Bearer {}", token("alice")))]).await;
+    let v: Value = serde_json::from_str(&b).unwrap();
+    assert_eq!((c, v["name"].as_str(), v["director"].as_bool()), (200, Some("alice"), Some(false)), "{b}");
+    assert!(!b.contains(&token("alice")), "the token is never echoed: {b}");
+    let (c, b) = ask(vec![("x-seq-token", token("director"))]).await;
+    let v: Value = serde_json::from_str(&b).unwrap();
+    assert_eq!((c, v["name"].as_str(), v["director"].as_bool()), (200, Some("director"), Some(true)), "{b}");
+    let (c, b) = ask(vec![]).await;
+    assert_eq!(c, 401, "no token: {b}");
+    let (c, b) = ask(vec![("authorization", "Bearer not-a-real-token".into())]).await;
+    assert_eq!(c, 401, "unknown token: {b}");
+    assert!(!b.contains("not-a-real-token"), "{b}");
+    let (c, b) = ask(vec![("authorization", format!("Bearer {}", token("compute")))]).await;
+    assert_eq!(c, 403, "compute is internal: {b}");
+    s.stop().await;
+}

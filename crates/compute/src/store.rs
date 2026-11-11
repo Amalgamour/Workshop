@@ -413,6 +413,10 @@ impl Store {
                     if let Some(d) = pg.face(it.face).and_then(|f| f.draft.as_ref()) {
                         let open: Vec<Value> = d.notes.iter().filter(|n| !n.struck).map(|n| json!({"n": n.n, "by": n.by, "text": n.text})).collect();
                         fv["why_draft"] = json!({"opened_by_entry": d.n, "has_seated": pg.face(it.face).map(|f| f.seated.is_some()).unwrap_or(false), "open_notes": open, "merged_notes": d.notes.iter().filter(|n| n.struck).count()});
+                        // R5 follow-up: the `reason` the opening entry carries, same as /face (DraftWhy.reason)
+                        if let Some(r) = &d.reason {
+                            fv["why_draft"]["reason"] = json!(r);
+                        }
                     }
                 } else if it.counter.is_none() && it.tail.is_none() {
                     fv["state"] = json!("seated");

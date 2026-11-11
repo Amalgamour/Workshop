@@ -49,3 +49,21 @@ async fn r5_local_draft_beats_kernel_seated() {
     assert_eq!(p["faces"]["01.draft"]["resolved_from"], "local");
     s.stop().await;
 }
+
+#[tokio::test]
+async fn r5_page_why_draft_carries_the_opening_reason_like_face() {
+    let s = Srv::start(&kernel_dir("r5d")).await;
+    seed(&s).await;
+    let mut op = put_t("10.11.21.0020.01", "draft", "## Route\nLocal draft route.");
+    op["reason"] = serde_json::json!("try a local route");
+    let (c, v) = s.post("user", serde_json::json!([op])).await;
+    assert_eq!(c, 200, "{v}");
+    let (_, f) = s.get("/face/10.11.21.0020.01").await;
+    assert_eq!(f["why_draft"]["reason"], "try a local route", "{f}");
+    let (_, p) = s.get("/page/10.11.21.0020").await;
+    assert_eq!(p["faces"]["01.draft"]["why_draft"]["reason"], "try a local route", "{p}");
+    // a draft opened with no reason has no `reason` key (not null, not empty)
+    let (_, k) = s.get("/page/00.00.00.0030").await;
+    assert!(k["faces"]["01.draft"]["why_draft"].get("reason").is_none(), "{k}");
+    s.stop().await;
+}
