@@ -32,6 +32,7 @@ Every builder and every trial in this build is the same model, each in its own s
 - Folds: v2 clash 2 [prima-review:132], BUILD-LOG:22. R1 already makes 00 the door [R1], so this asks only where the stamp lives.
 
 ### O3. When a book looks up a face and the only copy is a draft, is it found?
+- **ANSWERED 2026-11-11 2:55 PM EST: yes, drafts are found (ruling R5).**
 - A: No. A draft is "being written; not active" [seqAddr.md:133]. Today every inherited lookup comes back missing [BUILD-LOG:57].
 - B: Yes. "Draft faces count" [seqAddr.md:164], and "Books follow the kernel live" [seqAddr.md:104].
 - Also: should a draft or open counter (a task) be inherited from the kernel at all? The core does it now, against its own promise [core-trial:48-51].
