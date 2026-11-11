@@ -18,3 +18,24 @@ Meaning: stored files (books, .seq pages, addresses, titles, card text) use plai
 ## R5 — 2026-11-11 2:55 PM EST — drafts are found (answers kernel Q2)
 Director's answer to Q2: "Yes. Draft faces count and lookups find them."
 Meaning: when the only copy of a face is a draft, resolution finds it (seqAddr.md:164 "Draft faces count"; books follow the kernel live, decisions.md:128). The result must still show the face's state as draft so a reader can tell it is unseated. Where a seated face and a draft both exist at the same spot, the seated face wins.
+
+## R6 to R10 — 2026-11-11 3:03 PM EST — answers to kernel Q1-Q6
+Director's words (t64u), quoted then read:
+
+**R6 (Q1)** "Axioms exist outside of the book as a 00.axioms on the desk."
+Read: the axioms are not a page inside a book (so not page 0050). They sit at desk level in the desk's 00 spot, titled axioms. Working address: `00.00.axioms` on the kernel desk (7 until the Director confirms the exact address).
+
+**R5 follow-up (Q2)** "Yes it can be looked up but also why is it a draft?"
+Read: a draft is found (R5), and the lookup should show why it is a draft (its reason/notes), not just that it is one.
+
+**R7 (Q3)** "When a local override happens it exists in the reserved face pages of 0001-0009. Then it states what its changing, why it's there, why it's needed, what it should achieve. It might not change any faces but some structure or behavior. Those are 0020-0049 for behavior and 0050-0099 for structural."
+Read: an override is written as its own page in the book's reserved range 0001-0009. It states: what it changes, why it is there, why it is needed, what it should achieve. Its target may be a face, a behavior (0020-0049) or a structure (0050-0099). An override does not silently replace a face in place.
+
+**R8 (Q4)** "Only if its a draft. See the drafting.md to understand why we have the draft so we don't replace an existing work from memory."
+Read: `FF.draft` exists only while a face is being drafted. It is the copy drafting.md step 1 makes so seated work is never replaced from memory. A draft is addressed as `...PPPP.FF.draft`.
+
+**R9 (Q5)** "Faces do not have sentinels. Only pages, books, shelves and desks."
+Read: no `FF.00` and no `FF.99`. Counted faces have no door; counters run 01-98 only. Sentinels (00/99 and 0000/9999) apply only to the desk, shelf, book and page axes. Narrows R1 to those axes.
+
+**R10 (Q6)** "Page 0000.00 is the only location that exists. 00 is a registry location on a page, because it's multi faceted."
+Read: on a book's door page 0000, face 00 is the only face. On any page, face 00 is the registry: the place that lists the page's faces (it is not a sentinel, per R9). So a door page needs no content face.
