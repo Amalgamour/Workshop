@@ -1,0 +1,18 @@
+[package]
+name = "trial-compute"
+version = "0.0.0"
+edition = "2021"
+publish = false
+description = "TRIAL-X: axiom-9 hostile pass on the compute server over HTTP (dev only, tests only)"
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "trial-srv"
+path = "src/bin/trial-srv.rs"
+
+[dependencies]
+compute = { path = "../compute" }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "io-util", "time"] }
+serde_json = "1"
