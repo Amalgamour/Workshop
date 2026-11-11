@@ -13,10 +13,24 @@ What is in `kernel/`, where it sits, and why. Paths in sources are under `docs/s
 | R9 no face sentinels | Every `FF.00` and `FF.99` rule was struck from copied text: Counted Faces now copies only `decisions.md:198-199` / `seqAddr.md:199-201`; Counter Continuation is gone; counter overflow, the `FF.99` pointer row, the grammar counter comment, dictionary `03.00`/`03.99` and the `.003` `05.00` paragraph were all struck. Counters run 01-98, and the builder rejects 00 and 99. `7`: what happens after counter 98, and where the dictionary menu goes. |
 | R10 face 00 is the registry | Every page's face 00 holds the stamp plus a `## Registry` card listing each face (and counter) with its tail and why it is a draft. The builder checks the registry against the files. Page 0000 has only face 00: kernel `0000.04` was removed (its kernel-design text is no longer written anywhere). Face-00 wording in copied text now says "registry" (for example "A page with only a registry has no reason to exist"). `7`: the registry layout, and whether it is written or derived (CONFLICTS D5). |
 
+## Rulings applied (third kernel pass)
+Each change appends the Director's quoted words to the affected card (merge line `append [FF / Card]` in the page's 06.01 note); no copied text was rewritten.
+| Ruling | What changed |
+|---|---|
+| R11 common questions | Sample page `10.11.21.0013` "common-questions" (number `7`, picked in static 0010-0019 to match crates/ask): face 01 card `what-is-my-name` (`type: question`, `forms: what is my name`, `answer: 10.11.21.1001.01.bob`), face 04 with `why:` from `DIRECTOR-RULINGS.md:44`. Builder accepts card type `question` (`7`: not in C8.9 or seqaddr-core). |
+| R12 stamp in face 00 | Already so (R10 pass). Quote appended to 0052.01 Registry Face and 0052.02 Stamp. Registry reasons no longer cite Q8. |
+| R13 band | Quote appended to 0051.01 Bands and 0057.01 Band Design. Kernel text copies `.003` "band head"; no `door` was used for a band. |
+| R14 seated under draft door | Quote appended to 0052.01 Draft Faces. Nothing newly seated: every face changed after TRIAL-K, so R2 still needs a new trial. |
+| R15 brand cards, no 04 | Builder skips C3.2 for `type: brand`. Sample `10.11.21.1001.04` (bob/cats whys) removed. No kernel `4.7` hole was a brand card, so the count stays 59. Quote appended to 0052.01 Hard Rules and 0055.01 Brand Cards. |
+| R16 `03.00` door | Held `7` (vs R9; QUESTIONS Q29). The pass-2 R9 strike of `0012.03.00` / `| 03.00 | menu |` was undone; quote appended to 0055.01 Dictionary Is An Index. The `03.99` strike (R9) stays. |
+| R17 four sections | Quote appended to 0051.01 Book Layout; exact split `7` (Q30). |
+| R18 CC plus title | Quote appended to 0051.01 Bands and 0057.01 Bound Bands. |
+| `reason` field | CORE reads entry field `reason` (seqaddr-core log.rs `Entry::reason`); the books already use that name. |
+
 ## Status: all draft; none seated under R2
 Every face is `FF.draft`. Each registry line gives the reason. In short:
-- Everything was changed in this pass (R4, R6, R9, R10) after TRIAL-K, so it needs a new hostile pass (axiom 9; R2 needs a trial).
-- Door and registry stamps: `state` and `type` values are open (Q8).
+- Everything was changed in passes 2-3 (R4-R18) after TRIAL-K, so it needs a new hostile pass (axiom 9; R2 needs a trial).
+- Stamp `type` values have no given meaning (hole 4).
 - 04 faces hold missing whys (`4.7`) or `7` hole bodies.
 - 0053 and 0057 copy `workflow-loop.003.md`, whose own state line is draft.
 - The axioms' exact address is `7`.
@@ -43,6 +57,7 @@ Not written, on purpose:
 - Face 08 (C4).
 - `9999`/`PP99` (missing is valid).
 - 03 menu entries (derived).
+- `0013` common questions is sample-only (R11); no kernel common-questions page.
 
 ## Face choices
 - **01 cards** copy decision text, or `seqAddr.md` / `workflow-loop.003.md`. Each matching 04 card's `source:` names the 01 lines first, so lineage travels in the book.
@@ -61,15 +76,15 @@ Test fixtures, all draft, each registry line saying so.
   - The builder prints the lookup of the target: `10.11.21.0056.04 -> 00.00.00.0056.04.draft (found draft; ...)` plus the override note.
   - How a reader merges the override into what it sees is for the resolver (core lane); not decided by the spec (`7`).
 - **Bob test:** brand cards `bob` and `cats` on `10.11.21.1001.01`, and dictionary counters `03.14` / `03.16` (no `03.00`, R9).
-  - Session 2 still has no route (Q7, `7`).
+  - Session 2 (R11): "what is my name" -> question card `10.11.21.0013.01.what-is-my-name` -> `answer: 10.11.21.1001.01.bob`. Matching is crates/ask's job. Brand cards carry no 04 (R15).
 
 ## Holes left as `7`
 1. Exact axioms address and storage (R6).
 2. Page order in 0050-0099.
-3. Stamp state (Q8).
+3. Exact four-way split below 0100 (R17, Q30).
 4. Page `type` values.
 5. Base dictionary.
-6. 03 menus and the dictionary menu's home (R9).
+6. 03 menus; dictionary `03.00` door vs R9 (R16, Q29).
 7. `4.7` whys and hole bodies.
 8. Note fields (C7), face 08 (C4), lineage on 00/08 (E6).
 9. "Fact" card type.
@@ -78,13 +93,13 @@ Test fixtures, all draft, each registry line saying so.
 12. Counter overflow after 98 (R9).
 13. Seed timestamp, fixed.
 14. Band head 1000 before 1001.
-15. Bob session 2 (Q7).
+15. Common-questions page number `0013` and the `question` card type and fields (R11).
 16. `7.8`: the `axioms/` folder, `workflow-loop.003-notes.md`, decisions F02-F10.
-17. Open questions Q7-Q11, Q13, Q14 (QUESTIONS.md).
+17. Open questions Q15-Q30 (QUESTIONS.md).
 
 ## Build
 `node kernel/build.mjs` writes `books/00.00.00.book`, `books/00.00.axioms.jsonl`, `books/10.00.00.book`, `books/10.11.00.book` and `books/10.11.21.book`. `--check` fails if any differ. The build is deterministic.
-- **Hard checks:** R4 ASCII; name grammar; tails; R9 counters 01-98; R10 registry matches the files, and page 0000 has only face 00; R5 draft lines give a reason; C1.1 content face (not on 0000); C3.2; card types; card keys; `why:` on its cited line; R2 `approved-by` on any seated face; R7 override fields.
+- **Hard checks:** R4 ASCII; name grammar; tails; R9 counters 01-98; R10 registry matches the files, and page 0000 has only face 00; R5 draft lines give a reason; C1.1 content face (not on 0000); C3.2; card types; card keys; `why:` on its cited line; R2 `approved-by` on any seated face; R7 override fields; R15 no C3.2 for brand cards.
 - **Findings:** missing whys. **Lookup lines:** override targets.
 
 ## Card sources

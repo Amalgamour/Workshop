@@ -25,7 +25,8 @@ const COUNTER_TAILS = ['draft', 'pack', 'open', 'return', 'review'];
 const TAIL_WORDS = ['draft', 'retired', 'pack', 'open', 'return', 'review']; // seqAddr.md:283
 const CONTENT_FACES = ['01', '02', '03', '04', '05', '06', '08']; // C1.1
 // decisions.md C8.9 card types and face defaults (seqAddr.md section 5.3). `work` from workflow-loop.003 section 5.2 (draft).
-const CARD_TYPES = ['rule', 'schema', 'menu', 'why', 'task', 'note', 'link', 'brand', 'index', 'work'];
+const CARD_TYPES = ['rule', 'schema', 'menu', 'why', 'task', 'note', 'link', 'brand', 'index', 'work', 'question'];
+// R11: `question` matches crates/ask QuestionCard (COMPUTE). 7: not yet in decisions.md C8.9 or seqaddr-core CARD_TYPES.
 const FACE_DEFAULT = { '01': 'rule', '02': 'schema', '03': 'menu', '04': 'why', '05': 'task', '06': 'note', '08': 'link' };
 const CARD_KEY = /^[a-z][a-z0-9-]*$/; // seqAddr.md:280 `card = LOWER *( LOWER / DIGIT / "-" ) ; not a tail word`
 // R7: an override page in 0001-0009 states what it changes, why it is there, why it is needed, what it should achieve.
@@ -98,7 +99,7 @@ function loadBook(dir) {
     }
     if (nn) {
       // R9 (DIRECTOR-RULINGS.md:37): faces have no sentinels; counters run 01-98.
-      if (nn === '00' || nn === '99') err(file, `counter ${nn} is a face sentinel; faces have none, counters run 01-98 (R9)`);
+      if (nn === '00' || nn === '99') err(file, `counter ${nn} is a face sentinel; faces have none, counters run 01-98 (R9)${ff === '03' && nn === '00' ? '; 7: R16 calls the dictionary 03.00 a door, held for the Director' : ''}`);
       if (tail && !COUNTER_TAILS.includes(tail)) err(file, `tail ${tail} not allowed on a counter`);
     } else if (tail && !FACE_TAILS.includes(tail)) err(file, `tail ${tail} not allowed on a face`);
     const page = isAx ? AXIOMS : `${book}.${pppp}`;
@@ -155,7 +156,7 @@ function validate({ book, isAx, faces }) {
         if (!f.tail && !f.nn && !/R2/.test(c.fields['approved-by'] || '')) err(f.file, `seated card ${c.key} has no approved-by (DIRECTOR-RULINGS.md R2); write the face as FF.draft`);
         const type = c.fields.type || FACE_DEFAULT[f.ff];
         if (type && !CARD_TYPES.includes(type)) err(f.file, `card ${c.key}: type ${type} is not a kernel card type (C8.9)`);
-        if (f.ff === '01' || f.ff === '02') {
+        if ((f.ff === '01' || f.ff === '02') && type !== 'brand') { // R15: a brand card needs no 04 card
           const w = k04.get(c.key);
           if (!w) err(f.file, `card ${c.key} has no 04 card (C3.2)`);
           else if (!w.fields.why || !w.body) err(f.file, `04 card ${c.key} lacks why: or body (C3.2)`);

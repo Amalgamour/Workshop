@@ -123,3 +123,10 @@ Every build choice, its why, and the spec line it follows. A choice the spec doe
 [CORE] R15 confirmed: brand cards on 01 need no 04 card (card table needs_04 = false for brand). Test added; no code change.
 [CORE] R18 applied: addr::same_set(a, title_a, b, title_b) - same thousand N, different band, same CC, same title; BookState::set_of(p). set_key stays number-only. 7: titles compare exactly; the ruling's example `IDE-design` has capitals, which A2.3 title form rejects.
 [CORE] R13 (band word), R17 (four sections below 0100, split 7) need no core change; PageKind ranges unchanged. R16 (dictionary 03.00 as a door) conflicts with R9 and is held 7: not acted on. R11 (common questions) is compute work, not core.
+
+## [KERNEL] third pass, rulings R11-R18 - 2026-11-11 (EST)
+- R11: sample page 10.11.21.0013 common-questions (number 7), card what-is-my-name (type: question, forms, answer -> 10.11.21.1001.01.bob) in crates/ask QuestionCard shape; builder accepts type question (7: not in C8.9 / seqaddr-core CARD_TYPES).
+- R12/R13/R14/R17/R18: Director's quoted words appended to the affected kernel cards (06.01 merge lines); nothing rewritten. Nothing newly seated (R2 needs a new trial).
+- R15: builder skips C3.2 for brand cards; sample 1001.04 removed; kernel 4.7 count unchanged (59, none were brand cards).
+- R16 vs R9: 03.00 held 7; pass-2 strike of the 03.00 menu rows undone (Q29). R17 split held 7 (Q30).
+- `reason` field name matches seqaddr-core Entry::reason. Books rebuilt (ASCII, --check clean); `cargo run -p compute` loaded 4 books, then stopped.

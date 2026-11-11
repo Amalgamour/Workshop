@@ -25,15 +25,15 @@ Section A: spec file against spec file. Section B: workflow-loop `.002` against 
 - `format.md:123` (same file) - "the target exists, or the write creates it legally (identity page first, board before counters)"
 - Effect here: kernel 06 counters and the sample dictionary counters have no written board (build finding on each).
 
-### K03. `03.00` on the dictionary: menu or board - SETTLED
-**Settled:** R9: `03.00` is not a door. `7`: the menu has no written home; its entries are derived (decisions.md:516).
+### K03. `03.00` on the dictionary: menu or board - HELD 7 (R16 vs R9)
+**Held:** R16 (`DIRECTOR-RULINGS.md:65`) says "door"; R9 (`:37`) says faces have no sentinels. The pass-2 R9 strike of the `03.00` rows was undone in pass 3; the copied text stands (QUESTIONS Q29).
 - `decisions.md:432` - "`0012.03.00` is the menu of sections." and `decisions.md:450` - "| `03.00` | menu |"
 - `decisions.md:187` - "A counted face's `00` lists every counter and its current tail, like a kanban board"
 
-### K04. Brand cards on face 01: 04 card required or not
+### K04. Brand cards on face 01: 04 card required or not - SETTLED by R15
+**Settled:** R15 (`DIRECTOR-RULINGS.md:62`) "No.": `:521` wins for brands. The builder skips C3.2 for `type: brand`; the sample's bob/cats 04 face was removed. No kernel 04 hole was a brand card, so the `4.7` count is unchanged (59).
 - `decisions.md:353` - "| Every 01/02 card key has a 04 card | hard: the compute rejects the write |"
 - `decisions.md:521` - "| `brand` | 01 | `brand`, `forms`, `means`, `meters` (compute) | no |" (column: "Needs a 04 card")
-- Effect here: the sample brand cards carry 04 cards so both readings pass.
 
 ### K05. Reserved `01-09` on every axis vs counters and dictionary sections
 - `seqAddr.md:30` - "| `01-09` / `0001-0099` | reserved |" (table title `seqAddr.md:26`: "Reserved values on every axis")
@@ -42,12 +42,14 @@ Section A: spec file against spec file. Section B: workflow-loop `.002` against 
 - `decisions.md:451` - "| `03.01-03.09` | reserved: words starting with digits or symbols |"
 - `decisions.md:481` - "This layout reserves `03.01-03.09` by its own definition. A1.4 (the reserved range does not apply to climbing counters) still stands."
 
-### K06. Book layout below 0100: one range or four
+### K06. Book layout below 0100: one range or four - SETTLED by R17 (split held 7)
+**Settled:** R17 (`DIRECTOR-RULINGS.md:68`): four sections; 0000-0019 static, 0020-0099 working. The exact split is `7` (QUESTIONS Q30); quote appended to 0051.01 Book Layout.
 - `decisions.md:120` - "| `0001-0099` | reserved; a page here is a local override of the inherited environment |"
 - `seqAddr.md:220-223` - "`0001-0009` | special reserved pages", "`0010-0019` | contents, dictionary, concordance and other required pages", "`0020-0049` | localized behaviour", "`0050-0099` | structural pages, mostly in the kernel or templates"
 - `review.md:116` already flags it: "pick one layout when condensing."
 
-### K07. Band sets by number vs axiom 8
+### K07. Band sets by number vs axiom 8 - SETTLED by R18 (see D10)
+**Settled:** R18 (`DIRECTOR-RULINGS.md:71`): matched by CC plus title. Quote appended to 0051.01 Bands and 0057.01 Bound Bands.
 - `decisions.md:112` - "**Sets across bands are linked by number.**"
 - `decisions.md:250` - "This keeps A2.6 intact: fixed 100-page bands, every `xx00` a head, and sets linked by number."
 - `seqAddr.md:243` - "Pages with the same `N` and `NN` in different bands form a set"
@@ -97,10 +99,11 @@ Section A: spec file against spec file. Section B: workflow-loop `.002` against 
 - `workflow-loop.003.md:53,79,150,199,206,224,260` cite F02-F10 ("**F08.**", "**F06-F07.**", "**F10.**" ...).
 - `decisions.md` section F has only F.1 (`:619`) and F.2 (`:640`). F02-F10 have no record (`7.8`). `workflow-loop.003-notes.md`, linked at `workflow-loop.003.md:16`, is not in docs/spec.
 
-### K16. "door" in `.002` means a band head, not the zero sequence
+### K16. "door" in `.002` means a band head, not the zero sequence - SETTLED by R13
+**Settled:** R13 (`DIRECTOR-RULINGS.md:56`): band heads are "band". Kernel faces copy `.003`, which already says "band head"; quote appended to 0051.01 Bands and 0057.01 Band Design.
 - `workflow-loop.md:52` (.002) - "`N?00` is the door of each hundred-page band (for example `0400` or `1500`)"
 - `workflow-loop.md:42` (.002) - "not a universal doors band"
-- `DIRECTOR-RULINGS.md:5` (R1) - "on any axis, the full-zero sentinel (`00` for a 2-digit axis, `0000` for the page axis) is the **door**." `0400` is not all zeros. `.003:51` says "band head" instead. Raised, not resolved (QUESTIONS.md Q9).
+- `DIRECTOR-RULINGS.md:5` (R1) - "on any axis, the full-zero sentinel (`00` for a 2-digit axis, `0000` for the page axis) is the **door**." `0400` is not all zeros. `.003:51` says "band head" instead. Raised in pass 2 (QUESTIONS.md Q9); answered by R13.
 
 ### K17. Does page 0000 have a title?
 - `seqAddr.md:115` - "Page 0000 has none."
@@ -149,3 +152,10 @@ Rulings govern over older spec wording (`DIRECTOR-RULINGS.md:1`). These are not 
 | D5 | R10 `:40` "00 is a registry location on a page" (lists the page's faces) | `decisions.md:301` "A face's contents list is derived from its cards, never written by hand."; `format.md:102` "contents lists ... are derived from the log and never written as entries". The kernel writes the registry, and the builder checks it against the files. Whether the registry is written or derived is `7`. |
 | D6 | R10 page 0000 has only face 00 | v2:104 "DD.SS.BB.0000 No title allowed." The kernel door stamps still carry `title:` (K17, open). |
 | D7 | R4 `:16` plain ASCII only | The spec files themselves hold em dashes, section signs and arrows. Copied text was changed to ASCII (each page's 06.01 note gives the count). |
+| D8 | R12 `:53` "The stamp should go in the .00 as the reg location." | v2:58 "Must have a stamp the as the header explaining the context and what face." (under "Face format", read as a stamp on every face). The kernel puts the stamp only in face 00 (R12); other faces carry no front matter. |
+| D9 | R15 `:62` "No." (brand cards need no 04 card) | v2:75 "The cards of face 01 and 02 must have a representation on face 04."; `decisions.md:353` "Every 01/02 card key has a 04 card". |
+| D10 | R18 `:71` "They are matched by the CC and the title." | `Axioms.md:27` "Agreement is not connection: two pieces that match are not connected by matching"; `decisions.md:644` (F.2, proposed) "Membership requires explicit reciprocal Face 08 links." Matching by CC plus title is a match, not a written link. |
+| D11 | R18 example `N403.IDE-design` | `seqAddr.md:112` "Characters: lowercase letters, digits, hyphens." (A2.3). `IDE` is upper case; the kernel copies the quote as said. |
+| D12 | R16 `:65` "door" (dictionary `03.00`) | R9 `:37` "Faces do not have sentinels." Held `7` (Q29). |
+| D13 | R17 `:68` "Its broken into 4 sections." | `seqAddr.md:219-223` lists five rows (`0000`, `0001-0009`, `0010-0019`, `0020-0049`, `0050-0099`); `decisions.md:120` one row `0001-0099`. Split `7` (Q30). |
+| D14 | R11 `:44` common questions "works like brands do" | `decisions.md` C8.9 card-type table has no `question` type. The sample uses `type: question` from crates/ask (COMPUTE); `7`. |

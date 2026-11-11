@@ -1,6 +1,6 @@
 # Questions for the Director
 
-Q1-Q6 are answered by R5-R10 and Q12 in part by R9 (kept below as history). Q7 is answered by R11 (not applied yet). Q8-Q11, Q13, Q14 still need a ruling. The kernel does not answer any of them: each stays `7` until you rule (axiom 1, axiom 7; R2 "does not let anyone answer an open Director question"). Options are only the ones the spec already allows. Paths are under `docs/spec/`.
+Q1-Q11, Q13 and Q14 are answered by R5-R18 and applied in kernel passes 2-3 (kept below as history). Q12 is answered by R16 ("door"), which is in tension with R9; it is held `7` and asked back (Q29). Still open: the exact four-way split below 0100 (R17, `7`), and Q15-Q29. The kernel does not answer any of them: each stays `7` until you rule (axiom 1, axiom 7; R2 "does not let anyone answer an open Director question"). Options are only the ones the spec already allows. Paths are under `docs/spec/`.
 
 **Q1. [ANSWERED by R6, DIRECTOR-RULINGS.md]** "Axioms exist outside of the book as a 00.axioms on the desk." Applied: axioms moved to `00.00.axioms` (exact address still `7`).
 Original question: **What page number does the axioms page get?**
@@ -41,7 +41,7 @@ Original question: **What content face does a door page 0000 need?**
 - Option B: they need one, because "A page with only an identity has no reason to exist" (`decisions.md:274`). The spec doesn't say which face.
 - **ANSWERED 2026-11-11 3:03 PM EST: R10: page 0000 has only face 00; face 00 is the page registry.**
 
-**Q7. [ANSWERED by R11, DIRECTOR-RULINGS.md, not yet applied]** A common questions list: key words (what + my + name) linked like a brand to what answers it; the compute hands the model 1-3 pieces, or probes the person. The kernel has no page or card type for this list yet (`7`), so the Bob sample still shows no route.
+**Q7. [ANSWERED by R11, DIRECTOR-RULINGS.md; applied in pass 3]** A common questions list: key words (what + my + name) linked like a brand to what answers it; the compute hands the model 1-3 pieces, or probes the person. Applied: sample page `10.11.21.0013` (number `7`) holds a `question` card `what-is-my-name` with `answer: 10.11.21.1001.01.bob`, in the crates/ask `QuestionCard` shape. The `question` card type is not in decisions.md C8.9 (`7`).
 Original question: **Bob test, session 2: how should "what is my name" reach the `bob` card?**
 - Option A: no route. Resolving works on a word the user types (C8.8, `decisions.md:496-503`), and the question never types `bob`. This stays `7`.
 - Option B: a concordance, word to page (`decisions.md:606`). This is a proposal awaiting you.
@@ -140,3 +140,16 @@ Original question: **Is the dictionary's `03.00` a menu or a door?**
 **Q28. [CORE] R6 puts the axioms at `00.00.axioms` on the kernel desk. Is that a new address form (two axes plus a title), or a page of book 00.00.00?**
 - Option A: a container title form `DD.SS.title` (the grammar would need it; the core today parses titles only after full addresses).
 - Option B: an alias for a fixed page in the kernel book.
+
+**Q29. R16 and R9: is the dictionary's `03.00` a door?**
+- R16 (`DIRECTOR-RULINGS.md:65`): "door".
+- R9 (`DIRECTOR-RULINGS.md:37`): "Faces do not have sentinels. Only pages, books, shelves and desks."
+- Option A: R16 wins for the dictionary only: `03.00` is a door (an exception to R9).
+- Option B: R9 wins: no `03.00`; the dictionary menu becomes a card on face 03.
+- Held: the kernel copies `decisions.md:432` and `:450` (`03.00` menu) unchanged and the builder still rejects a written counter `00`. `7`.
+
+**Q30. R17: what are the four sections below 0100?**
+seqAddr.md:219-223 lists five rows (`0000`, `0001-0009`, `0010-0019`, `0020-0049`, `0050-0099`). R17: "0000-0019 are static 0020-0099 aren't just locations."
+- Option A: `0000`+`0001-0009` together, then `0010-0019`, `0020-0049`, `0050-0099`.
+- Option B: `0000-0009`, `0010-0019`, `0020-0049`, `0050-0099` (same as A, named as ranges).
+- Option C: another split. `7`.
