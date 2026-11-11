@@ -10,6 +10,7 @@ The spec lists this as open (`decisions.md:598`). The kernel uses 0050 for now.
 **Q2. When a book looks up a face and the only copy is a draft, is it found?**
 - Option A: no. A draft is "being written; not active" (`seqAddr.md:133`). This is how the builder reads it now, so today almost every lookup comes back missing.
 - Option B: yes. "Draft faces count" (`seqAddr.md:164`), and books follow the kernel live (`decisions.md:128`).
+- **ANSWERED 2026-11-11 2:55 PM EST: Option B (ruling R5).**
 
 **Q3. When a book overrides a face, does it replace the whole face or only the cards it writes?**
 - Option A: the whole face. "The first match wins" (`seqAddr.md:104`). Then the sample's local 04 face hides the kernel's other 04 cards, and C3.2 breaks on that page.
