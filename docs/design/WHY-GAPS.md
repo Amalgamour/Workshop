@@ -38,14 +38,38 @@ Filled (15): #8 `faces-carry-no-title`, #10 `which-pages-need-a-title` (pages 00
 
 Skipped (7):
 - On a seated face: `00.00.00.0052.04` was seated after this list was made (blob e9ca59a1d708acfd57b9e5f7e6b758e41e4fde6f), so #21 `registry-face`, #26 `full-explanation`, #27 `hard-rules-and-findings`, #31 `links-face`, #33 `card-shape` stay `4.7`. Filling them means a new draft of 0052.04 (copy the seated face, add the five whys) and a fresh trial, or an un-seat; that is a choice for Prima or the Director, not this lane.
-- Body fix first: #19 `book-layout` (calls 0001-0099 "reserved"; R17 splits that range) and #6 `finding` (cites 0020-0049 as "reserved"; R17 says working pages). Both stay `4.7` until the body is fixed.
+- ~~Body fix first~~ (out of date, corrected by WHY-FIX below): #19 `book-layout` and #6 `finding`. Both stay `4.7`.
 
-Partial fills keep their note: the parts the table says are "not written" are still unexplained, and are not marked anywhere else yet.
+Partial fills keep their note: the parts the table says are "not written" are still unexplained. (Since WHY-FIX they are also marked on the faces; see below.)
 
-## Two cards need a body fix before a why
+## Status: partial fills scoped (WHY-FIX lane, 2026-11-11 CST)
+
+TRIAL-WHYS (`docs/trial/kernel-trial-whys.md`) failed 0051.04 and 0057.04: once a card had any `why:`, the builder stopped reporting the parts its cited line does not explain (findings 1 and 2, major; findings 3 and 4, minor). This lane fixed that conservatively. It does not decide Director question W1 (how part-reasons should work long-term).
+
+How each of the four partial fills is now written, on the draft 04 faces only:
+- The card that matches the 01 key goes back to `why: 4.7`, and loses its `; why:` cite, so `--check` reports it again. A `7` line on that card names the part with no written reason.
+- The checked part-reason moves, word for word with the same cited line, to a second 04 card named "<card>: <part> Part". `checkWhy` still tests its words against the cited line. A "Scope:" line says what it covers and what it does not.
+
+| # | Card (finding on) | Reported again for | Part-reason card, unchanged words and line |
+|---|---|---|---|
+| 10 | `which-pages-need-a-title` (0051.01) | why pages 1000 and up must have a title | `which-pages-need-a-title-pages-0001-0999-part`, decisions.md:132 |
+| 18 | `kernel-and-branches` (0051.01) | why desks `01-09`, `10-98` and `99` are set as they are | `kernel-and-branches-desk-00-part`, decisions.md:380 |
+| 53 | `roles` (0057.01) | the Person, Lead, Builder and Compute roles | `roles-reviewer-part`, Axioms.md:29 |
+| 55 | `risk-and-governing-targets` (0057.01) | why the risk floor exists; why governing changes need N7 | `risk-and-governing-targets-recording-part`, workflow-loop.003.md:150 |
+
+`--check` (builder at 299b308, in a scratch clone): 48 findings (was 44; the 4 above are back), 0 errors, 26 seats. The other 11 grade A fills are unchanged. Books rebuilt with the committed builder.
+
+Left as is, noted:
+- `roles`: the spec section's own chain is `axioms: 1.3` (workflow-loop.003.md:22), and the reviewer reason comes from axiom 9. No ruling decides this, so nothing was changed; it is noted on the card. workflow-loop.003.md:32 "A lead is not authority (axiom 3)." may explain the Lead; not filled, needs a trial.
+- #18 borrows from the user-levels table (C5.2): question W2.
+- Both faces still need a fresh-session trial (R2, R20) of this fix before anything else.
+
+## Cards held before a why
 
 - `counted-faces` (0052): its 01 source decisions.md:198 says "A counted face is never seated", but R22 (DIRECTOR-RULINGS.md:88) seats each page's face 05. Open as QUESTIONS Q41.
-- `book-layout` (0051): the card calls 0001-0099 "reserved"; R17 (DIRECTOR-RULINGS.md:67-69) says 0020-0099 are working pages. (`finding` has the same old wording in its decisions.md:55 source line.)
+- `book-layout` (0051): no longer a body fix. The cards no longer call 0001-0099 "reserved"; they split the range per R7 and R17 (0051.04 says only 0001-0009 are reserved, for override pages). The real hold is QUESTIONS Q30 (the four sections below 0100). Its row 19 line also covers only 1000/1001, so a fill would be partial.
+- `finding` (0051): no longer a body fix. 0051.01:53 was fixed in kernel pass 6 (0051.06.01:59) and nothing in its wording blocks a why. Not filled by WHY-FIX: row 6 proposes two lines for two parts (lookup order; elevate, never guess), and one `why:` can cite one line, so a fill would be partial. That waits on W1, or on a fill plus a part card as above, then a trial.
+- The old "reserved" wording is still in the cited spec lines decisions.md:55 and decisions.md:120. Those are Director source files, not edited (TRIAL-WHYS finding 7).
 
 ## The list
 
