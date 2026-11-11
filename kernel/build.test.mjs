@@ -230,7 +230,7 @@ const commitWork = (d, msg = 'work') => {
   const env = { ...process.env, ...ID };
   sh(d, ['read-tree', 'HEAD'], { env });
   sh(d, ['add', '-A', '--', 'kernel', 'docs/spec', 'docs/trial', 'books'], { env });
-  sh(d, ['commit', '-q', '--no-verify', '-m', msg], { env });
+  sh(d, ['commit', '-q', '--no-verify', '--allow-empty', '-m', msg], { env }); // empty in a clean clone, where the work is HEAD
 };
 // The seated 0051.05.02 is edited and its seat re-pinned to the new blob, citing a trial file that names the new blob.
 const k = (d, n) => join(d, 'kernel', '00.00.00', n);
