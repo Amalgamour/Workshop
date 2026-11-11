@@ -56,7 +56,7 @@ function faceKeyOf(e) {
   const nums = rest.filter((p) => /^\d\d$/.test(p));
   let key = [page, ...nums].join(".");
   const tail = e.tail ?? (e.op === "tail" ? undefined : undefined);
-  if (nums.length === 1 && (tail === "draft")) key += ".draft";
+  if (nums.length === 1 && (tail === "draft" || rest.includes("draft"))) key += ".draft";
   return key;
 }
 function apply(book, e) {
@@ -81,7 +81,10 @@ function apply(book, e) {
       if (d) { book.faces.set(key.replace(/\.draft$/, ""), { ...d, tail: undefined, n: e.n }); book.faces.delete(key.replace(/\.draft$/, "") + ".draft"); }
       break;
     }
-    default: // note, merge, use, snapshot: kept in history, not replayed by the mock
+    case "merge":
+      if (f) { f.body = e.body ?? f.body; f.n = e.n; f.by = e.by; f.at = e.at; }
+      break;
+    default: // note, use, snapshot: kept in history, not replayed by the mock
       break;
   }
 }
@@ -199,9 +202,9 @@ function brands(q) {
   if (!word) return [];
   const out = [];
   for (const b of state.books.values()) {
-    const dict = b.faces.get("0012.03");
-    if (!dict) continue;
-    for (const c of parseCards(dict.body)) {
+    // face 03 of the dictionary is counted (0012.03.NN sections); an old seated 0012.03 is read too
+    const dictBodies = [...b.faces.entries()].filter(([k]) => k === "0012.03" || /^0012\.03\.\d\d$/.test(k)).map(([, f]) => f.body);
+    for (const c of dictBodies.flatMap((body) => parseCards(body))) {
       if (c.key !== word.toLowerCase()) continue;
       for (const [k, v] of Object.entries(c.fields)) {
         if (!/^[a-z0-9-]+\.\d{3}$/.test(k)) continue;
@@ -211,7 +214,7 @@ function brands(q) {
         const r = resolveFace(tp.slice(0, 5).join("."));
         const card = r.hit ? parseCards(r.hit.f.body).find((x) => x.key === cardKey) : null;
         const forms = (card?.fields.forms ?? "").split(",").map((s) => s.trim()).filter(Boolean);
-        out.push({ word: c.title, brand: target, brand_id: k, dictionary: `${b.address}.0012.03`, is_default: c.fields.default === k, title: card?.title ?? null, why: card?.fields.means ?? null, forms, exact_form: forms.length ? forms.includes(word) : null, page: tp.slice(0, 4).join("."), missing: !card });
+        out.push({ word: c.title, brand: target, brand_id: k, dictionary: `${b.address}.0012.03`,  is_default: c.fields.default === k, title: card?.title ?? null, why: card?.fields.means ?? null, forms, exact_form: forms.length ? forms.includes(word) : null, page: tp.slice(0, 4).join("."), missing: !card });
       }
     }
   }

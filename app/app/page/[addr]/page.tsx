@@ -1,18 +1,21 @@
 import Link from "next/link";
-import { Fragment } from "react";
-import { get, type FaceView, type Links, type PageDetail } from "@/lib/compute";
+import { get, withDraftReasons, type FaceView, type Links, type PageDetail } from "@/lib/compute";
+import { Registry } from "@/components/Registry";
+import { DraftState } from "@/components/DraftState";
+import { SeqTools } from "@/components/SeqTools";
+import { QueueResult } from "@/components/QueueResult";
 import { Addr, Header, Hole, NotOk, Raw, SourceBadge, TailBadge } from "@/components/ui";
 import { CardView } from "@/components/CardView";
-import { FACE_NAMES, TAB_FACES, frontMatter, parseCards, torontoTime } from "@/lib/seq";
+import { FACE_NAMES, TAB_FACES, parseCards, torontoTime } from "@/lib/seq";
 
 export const dynamic = "force-dynamic";
 
-export default async function PageView({ params, searchParams }: { params: Promise<{ addr: string }>; searchParams: Promise<{ face?: string }> }) {
+export default async function PageView({ params, searchParams }: { params: Promise<{ addr: string }>; searchParams: Promise<{ face?: string; done?: string }> }) {
   const { addr } = await params;
   const sp = await searchParams;
   const r = await get<PageDetail>(`/page/${addr}`);
   if (r.kind !== "ok") return <><Header title={<>Page <code>{addr}</code></>} /><NotOk r={r} what={`page ${addr}`} /></>;
-  const p = r.data;
+  const p = await withDraftReasons(r.data);
   const groups = new Map<string, [string, FaceView][]>();
   for (const [k, v] of Object.entries(p.faces)) {
     const f = k.slice(0, 2);
@@ -22,7 +25,6 @@ export default async function PageView({ params, searchParams }: { params: Promi
   const first = TAB_FACES.find((f) => groups.has(f)) ?? "04";
   const face = sp.face && /^\d\d$/.test(sp.face) ? sp.face : first;
   const stamp = p.faces["00"] ?? p.faces["00.draft"]; // compute: an unseated stamp is keyed 00.draft
-  const sf = frontMatter(stamp?.body);
   const links = await get<Links>(`/links/${addr}`);
 
   return (
@@ -30,17 +32,13 @@ export default async function PageView({ params, searchParams }: { params: Promi
       <Header title={<>{p.title ?? "7 no title"}</>} lede={<>A page. Its address: <Addr a={p.address} /></>} />
 
       <div className="panel">
-        <h3>Registry <span className="note">(face 00: who this page is and which faces it has, R10)</span></h3>
+        <h3>Face 00 · Registry <span className="note">(who this page is: stamp, type, registry — R10, R19)</span></h3>
         {stamp ? (
-          <>
-            <div className="badges"><SourceBadge from={stamp.resolved_from} source={stamp.source} />{stamp.tail ? <TailBadge tail={stamp.tail} /> : null}</div>
-            <dl className="fields">{Object.entries(sf).map(([k, v]) => <Fragment key={k}><dt>{k}</dt><dd>{v}</dd></Fragment>)}</dl>
-          </>
+          <Registry face={stamp} pageAddr={addr} />
         ) : <Hole what="the page stamp (face 00)" why="A page needs face 00. This is a defect, raised to you." />}
         <div className="row note">
           <Link href={`/history/${addr}`}>History of this page</Link>·
           <Link href={`/links/${addr}`}>Links and map</Link>·
-          <Link href={`/export?addr=${addr}`}>Export page as .seq</Link>·
           <Link href={`/resolve?addr=${addr}.${face}`}>How face {face} was found</Link>
           {links.kind === "ok" ? <span>· {links.data.forward.length} links out, {links.data.back.length} links in{links.data.missing.length ? <>, <b style={{ color: "var(--hole)" }}>{links.data.missing.length} missing</b></> : null}</span> : null}
         </div>
@@ -54,7 +52,10 @@ export default async function PageView({ params, searchParams }: { params: Promi
         ))}
       </nav>
 
-      <FacePanel addr={addr} face={face} entries={groups.get(face) ?? []} />
+      <FacePanel addr={addr} face={face} entries={groups.get(face) ?? []} board={p.boards?.[face]} />
+
+      <QueueResult id={sp.done} />
+      <SeqTools addr={addr} />
 
       {p.inherited.length ? (
         <div className="panel">
@@ -73,7 +74,7 @@ function sourceSummary(e: [string, FaceView][]) {
   return [...s].join(" + ");
 }
 
-function FacePanel({ addr, face, entries }: { addr: string; face: string; entries: [string, FaceView][] }) {
+function FacePanel({ addr, face, entries, board: derived }: { addr: string; face: string; entries: [string, FaceView][]; board?: { counter: string; tail: string | null }[] }) {
   const name = FACE_NAMES[face] ?? { name: `face ${face}`, plain: "" };
   if (entries.length === 0)
     return (
@@ -85,7 +86,7 @@ function FacePanel({ addr, face, entries }: { addr: string; face: string; entrie
     );
   const seated = entries.find(([k]) => k === face);
   const draft = entries.find(([k]) => k === `${face}.draft`);
-  const board = entries.find(([k]) => k === `${face}.00`);
+  const board = derived ?? entries.find(([k]) => k === `${face}.00`);
   const counters = entries.filter(([k]) => /^\d\d\.\d\d$/.test(k) && !k.endsWith(".00")).sort();
   const other = entries.filter(([k]) => k !== face && k !== `${face}.draft` && !/^\d\d\.\d\d$/.test(k));
   return (
@@ -114,6 +115,7 @@ function FaceBlock({ addr, k, v, label }: { addr: string; k: string; v: FaceView
   return (
     <section style={{ marginTop: 10 }}>
       <div className="row"><strong>{label}</strong> <code className="note">{addr}.{k}</code></div>
+      <DraftState state={v.state} tail={v.tail} why={v.why_draft} />
       <div className="badges">
         <SourceBadge from={v.resolved_from} source={v.source} />
         <TailBadge tail={v.tail ?? (/\.\d\d$/.test(k) ? "closed" : "seated")} />

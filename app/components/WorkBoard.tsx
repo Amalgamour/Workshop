@@ -1,8 +1,8 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { clearDone, showDone, propose, type Op } from "@/lib/propose";
-import { useWho } from "@/components/WhoAmI";
+import { clearDone, showDone, propose, post, type Op } from "@/lib/propose";
+import { useAuth } from "@/components/WhoAmI";
 import { Outcome } from "@/components/Outcome";
 import { LOOP, NEXT, OUTCOMES, type ProposeResult } from "@/lib/rules";
 import { TAIL_PLAIN, parseCards } from "@/lib/seq";
@@ -11,7 +11,8 @@ import { FACE_TEMPLATE } from "@/lib/drafting";
 export type Job = { nn: string; addr: string; tail: string; body: string; claimBy?: string; reviewer?: string; outcome?: string; history: { n: number; at: string; by: string; op: string; from?: string; to?: string; outcome?: string }[] };
 
 export function WorkBoard({ page, jobs, initial, board }: { page: string; jobs: Job[]; initial: string | null; board: string | null }) {
-  const [who] = useWho();
+  const auth = useAuth();
+  const who = auth.name ?? "you";
   const router = useRouter();
   const [sel, setSel] = useState<string | null>(initial ?? jobs[0]?.nn ?? null);
   const [text, setText] = useState("");
@@ -34,7 +35,9 @@ export function WorkBoard({ page, jobs, initial, board }: { page: string; jobs: 
 
   async function send(ops: Op[], select?: string) {
     setBusy(true); setRes(null);
-    const r = await propose(who, ops);
+    // Closing a review goes through POST /close: the compute writes the close for the counter's reviewer (COMPUTE addendum).
+    const isClose = ops.length === 1 && ops[0].op === "tail" && ops[0].from === "review";
+    const r = isClose ? await post("close", JSON.stringify({ addr: ops[0].addr, outcome: ops[0].outcome })) : await propose(ops);
     setBusy(false);
     if (r.status === "approved") { setRes(null); setText(""); if (select) setSel(select); showDone(router, r.queue_id); } else { setRes(r); clearDone(router); }
   }
@@ -68,7 +71,7 @@ export function WorkBoard({ page, jobs, initial, board }: { page: string; jobs: 
             {job.claimBy ? <>Claimed by <b>{job.claimBy}</b>. </> : null}
             {job.reviewer ? <>Reviewed by <b>{job.reviewer}</b>. </> : null}
             {job.outcome ? <>Outcome: <b>{job.outcome}</b>. </> : null}
-            You are writing as <b>{who}</b>.
+            You are signed in as <b>{who}</b>.
           </p>
           <pre className="body mono card">{job.body}</pre>
           {step ? (
@@ -77,7 +80,7 @@ export function WorkBoard({ page, jobs, initial, board }: { page: string; jobs: 
               <p className="note" style={{ marginTop: 0 }}>Rule: {step.rule} Usually done by: <b>{step.who}</b>.</p>
               {step.needs === "body" ? <div className="field"><label htmlFor="ret">The return <small>(per work card: ## w01, then result: done | blocked | need, and the evidence)</small></label><textarea id="ret" className="big mono" rows={6} value={text} onChange={(e) => setText(e.target.value)} placeholder={"## w01\nresult: done\nevidence: ..."} /></div> : null}
               {step.needs === "outcome" ? <div className="field"><label htmlFor="oc">Outcome</label><select id="oc" className="big" value={outcome} onChange={(e) => setOutcome(e.target.value)}>{OUTCOMES.map((o) => <option key={o}>{o}</option>)}</select></div> : null}
-              <details className="preview"><summary>Check before sending: the exact proposal</summary><pre>{JSON.stringify({ by: who, ops: moveOps }, null, 2)}</pre></details>
+              <details className="preview"><summary>Check before sending: the exact request</summary><pre>{job.tail === "review" ? `POST /close\n${JSON.stringify({ addr: job.addr, outcome }, null, 2)}` : `POST /propose\n${JSON.stringify({ ops: moveOps }, null, 2)}`}</pre></details>
               <button className="go" style={{ marginTop: 10 }} disabled={busy} onClick={() => send(moveOps)}>{busy ? "Sending…" : step.label}</button>
             </div>
           ) : <p><b>This job is closed.</b> Rework gets a new job with a link back to this one.</p>}
@@ -91,7 +94,7 @@ export function WorkBoard({ page, jobs, initial, board }: { page: string; jobs: 
       <div className="panel">
         <h3>Start a new job <span className="note">(it becomes 05.{nextNN}, as a draft)</span></h3>
         <textarea className="big mono" rows={5} value={newBody} onChange={(e) => setNewBody(e.target.value)} aria-label="new job" />
-        <details className="preview"><summary>Check before sending: the exact proposal</summary><pre>{JSON.stringify({ by: who, ops: newOps }, null, 2)}</pre></details>
+        <details className="preview"><summary>Check before sending: the exact proposal</summary><pre>{JSON.stringify({ ops: newOps }, null, 2)}</pre></details>
         <button className="go" style={{ marginTop: 10 }} disabled={busy} onClick={() => send(newOps, nextNN)}>Write the job as a draft</button>
       </div>
     </>

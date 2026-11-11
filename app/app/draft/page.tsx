@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { get, type LogEntry, type PageDetail } from "@/lib/compute";
+import { get, withDraftReasons, type LogEntry, type PageDetail } from "@/lib/compute";
+import { DraftState } from "@/components/DraftState";
 import { QueueResult } from "@/components/QueueResult";
 import { Addr, Header, Raw } from "@/components/ui";
 import { DraftForm } from "@/components/DraftForm";
@@ -25,7 +26,7 @@ export default async function Draft({ searchParams }: { searchParams: Promise<{ 
     );
   const page = sp.page, face = /^\d\d$/.test(sp.face ?? "") ? sp.face! : "04";
   const [pr, hr] = await Promise.all([get<PageDetail>(`/page/${page}`), get<LogEntry[]>(`/history/${page}.${face}`)]);
-  const pageData = pr.kind === "ok" ? pr.data : null;
+  const pageData = pr.kind === "ok" ? await withDraftReasons(pr.data) : null;
   const live = pageData?.faces[face];
   const draft = pageData?.faces[`${face}.draft`];
   const notes = hr.kind === "ok" ? draftNotes(hr.data, `${page}.${face}`) : [];
@@ -37,6 +38,7 @@ export default async function Draft({ searchParams }: { searchParams: Promise<{ 
       <div className="panel">
         <h3>Face {face} {FACE_NAMES[face]?.name ?? ""} <span className="note">— {FACE_NAMES[face]?.plain}</span></h3>
         <div className="row"><Addr a={`${page}.${face}`} />{pageData ? <Link href={`/page/${page}?face=${face}`}>open the page</Link> : null}</div>
+        {draft ? <DraftState state={draft.state ?? "draft"} tail={draft.tail} why={draft.why_draft} /> : null}
       </div>
       <DraftForm override={sp.override ?? null} page={page} face={face} mode={mode} pageTitle={pageData?.title ?? null}
         live={live ? { body: live.body, source: live.source, from: live.resolved_from ?? "local" } : null}

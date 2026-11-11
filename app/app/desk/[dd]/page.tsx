@@ -1,8 +1,10 @@
 import Link from "next/link";
-import { get, type BookDetail, type BookSummary, type PageDetail } from "@/lib/compute";
-import { Addr, Header, Hole, NotOk, Raw, SourceBadge, TailBadge } from "@/components/ui";
+import { get, withDraftReasons, type BookDetail, type BookSummary, type PageDetail } from "@/lib/compute";
+import { Registry } from "@/components/Registry";
+import { DraftState } from "@/components/DraftState";
+import { Addr, Header, Hole, NotOk, Raw, TailBadge } from "@/components/ui";
 import { CardView } from "@/components/CardView";
-import { FACE_NAMES, frontMatter, parseCards } from "@/lib/seq";
+import { FACE_NAMES, parseCards } from "@/lib/seq";
 import { LOOP } from "@/lib/rules";
 
 export const dynamic = "force-dynamic";
@@ -25,7 +27,7 @@ export default async function Desk({ params }: { params: Promise<{ dd: string }>
   const jp = await Promise.all(jobPages.map((p) => get<PageDetail>(`/page/${p}`)));
   const jobs = jp.flatMap((x, i) => x.kind !== "ok" ? [] : Object.entries(x.data.faces).filter(([k]) => /^05\.\d\d$/.test(k) && k !== "05.00").map(([k, v]) => ({ page: jobPages[i], title: x.data.title, nn: k, tail: v.tail ?? "closed", card: parseCards(v.body).cards[0]?.title ?? "" })));
 
-  const doorData = door.kind === "ok" ? door.data : null;
+  const doorData = door.kind === "ok" ? await withDraftReasons(door.data) : null;
   const stamp = doorData ? doorData.faces["00"] ?? doorData.faces["00.draft"] : undefined;
   return (
     <>
@@ -36,9 +38,9 @@ export default async function Desk({ params }: { params: Promise<{ dd: string }>
         <Addr a={`${dd}.00.00.0000`} link />
         {doorData ? (
           <>
-            {stamp ? <div className="badges"><SourceBadge from={stamp.resolved_from} source={stamp.source} /><TailBadge tail={stamp.tail ?? "seated"} />{Object.entries(frontMatter(stamp.body)).map(([k, v]) => <span key={k} className="chip">{k}: {v}</span>)}</div> : null}
+            {stamp ? <Registry face={stamp} pageAddr={`${dd}.00.00.0000`} /> : null}
             {Object.entries(doorData.faces).filter(([k]) => !k.startsWith("00")).map(([k, v]) => (
-              <div key={k}><strong>Face {k} {FACE_NAMES[k.slice(0, 2)]?.name}</strong> <TailBadge tail={v.tail ?? "seated"} />{parseCards(v.body).cards.map((c) => <CardView key={c.key} card={c} pageAddr={`${dd}.00.00.0000`} />)}</div>
+              <div key={k}><strong>Face {k} {FACE_NAMES[k.slice(0, 2)]?.name}</strong> <TailBadge tail={v.tail ?? "seated"} /><DraftState state={v.state} tail={v.tail} why={v.why_draft} />{parseCards(v.body).cards.map((c) => <CardView key={c.key} card={c} pageAddr={`${dd}.00.00.0000`} />)}</div>
             ))}
           </>
         ) : <Hole what={`the desk's door ${dd}.00.00.0000`} why="A container needs its door to be legal (seqAddr 8). Raised to you." />}

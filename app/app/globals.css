@@ -109,3 +109,23 @@ button.quiet { font: inherit; padding: 10px 16px; border-radius: 12px; border: 2
 .preview pre { background: #23272e; color: #e9e6df; padding: 14px; border-radius: 10px; font-size: 0.78rem; overflow: auto; }
 .navhead { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--soft); margin: 16px 12px 4px; }
 
+.who-title { font-weight: 700; font-size: 0.9rem; }
+.who-state { font-size: 0.85rem; padding: 6px 10px; border-radius: 10px; margin-top: 4px; }
+.who-state.ok { background: var(--good-bg); color: var(--good); }
+.who-state.bad { background: var(--hole-bg); color: var(--hole); }
+.who-state.down, .who-state.unknown { background: #f1ede5; color: var(--soft); }
+button.small { padding: 6px 12px; font-size: 0.85rem; }
+.draftbox { background: var(--warn-bg); border: 1px solid #f0dcb4; border-radius: 12px; padding: 10px 14px; margin: 8px 0 12px; }
+.reg3 { display: grid; grid-template-columns: 1.4fr 0.8fr 1.2fr; gap: 14px; margin-top: 8px; }
+.reg3 section { background: #fbf9f5; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+.reg3 h4 { margin: 0 0 8px; }
+.bigtype { font-size: 1.4rem; font-weight: 700; margin: 4px 0; }
+a.linkbtn { text-decoration: none; padding: 12px 20px; border-radius: 12px; background: var(--accent); color: #fff; display: inline-block; }
+.filebtn { display: inline-block; padding: 10px 16px; border-radius: 12px; border: 2px solid var(--line); background: #fff; cursor: pointer; }
+.word { display: inline-flex; flex-direction: column; align-items: center; padding: 6px 14px; border-radius: 12px; font-size: 1.25rem; border: 2px solid var(--line); background: #fff; }
+.word small { font-size: 0.68rem; color: var(--soft); }
+.word.w-key { border-color: var(--accent); background: var(--accent-bg); font-weight: 700; }
+.word.w-q { border-color: #d7cff0; background: var(--kern-bg); }
+.word.w-link { color: var(--soft); }
+.word.mini { font-size: 0.9rem; padding: 0 8px; margin: 0 3px; display: inline-block; }
+.probe-q { font-size: 1.4rem; font-weight: 700; background: var(--warn-bg); border-radius: 12px; padding: 14px 18px; }

@@ -149,3 +149,15 @@ Every build choice, its why, and the spec line it follows. A choice the spec doe
 - Seated 00.00.00.0056.01 (112c169c) and 10.11.21.1001.01 (5415cef2) under R2 + R20 (commit 42ffbc9); seat record `seat-01:` in face 00 (7, Q34); builder checks the git blob.
 - Findings 1-8, 10-19 fixed; 9 partly (face00.md layout as a DRAFT; per-type fields held, Q33/Q38); 17 moot (R21 parked the override sample); 20 routed to COMPUTE.
 - New checks + tests: `node kernel/build.test.mjs`. New questions Q37 (R18 elevation), Q38 (face 00 in faces:).
+
+## [APP] round 3 - Ask, sign in, .seq import/export, drafts shown everywhere - 2026-11-11 (EST)
+- [APP] Ask screen /ask: POST /ask -> heard words (important/linking/question), 1-3 pieces with matched words, score, why formula, via question, Draft badge; probe question + near list; R4 422 shown. Link a phrasing: POST /ask/link (token). Screens live-3x-01,02,05,06.
+- [APP] Sign in: sidebar token box (localStorage, sent as Bearer by app/api/post pass-through; body `by` no longer sent). Token check = empty POST /propose (400 known / 401 unknown, not queued). 7: no whoami route, so the name is read from /queue after the first write; ask COMPUTE for GET /whoami. 401/403/415 have plain titles. live-3x-03,04,09.
+- [APP] .seq: real Export (GET /page.seq) and Import on the page view (check via POST /check.seq, import via POST /propose text/x-seqpage, result via the queue). 7 placeholder removed from /export. live-3x-12..16.
+- [APP] R5: DraftState box (why it is a draft, open/merged notes, opened by entry) on page view, draft, seat and desk door. Finding for COMPUTE: /page why_draft has no `reason`; the app reads it from /history (entry opened_by_entry). Draft form sends `reason`.
+- [APP] Face 00 shown as Registry (stamp, type, registry card) on page view and desk door. 7: layout follows docs/spec/face00.md, which is a DRAFT.
+- [APP] Work board reads /page `boards` (no 05.00, R9).
+- [APP] Fixed mock/fixtures: dictionary entries are counters 0012.03.NN, no FF.00 writes, 1523.01 second draft is note+merge. All 5 fixtures replay with `seqaddr replay`.
+- [APP] 7: the common questions page is READER_BOOK.0013 (env, default 10.11.21). 7: phrasing link question list = question cards on that page's face 01.
+- [APP] Finding for SEQPAGE/KERNEL: check.seq on the exported 10.11.21.1001 flags `stamp state draft disagrees with the page's entries (live)` and `seat-01: is not a registry field for type general`.
+- [APP] Screenshots ran on a temp copy (/tmp/app3) with demo tokens and a demo trial file there only; nothing demo is in the repo. Mock has no /ask.

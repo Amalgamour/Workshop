@@ -6,6 +6,7 @@ import { WhoAmI } from "@/components/WhoAmI";
 export const metadata: Metadata = { title: "Workshop reader", description: "Read every face of every page. Trust, but verify." };
 
 const NAV = [
+  ["/ask", "Ask", "a question in your words"],
   ["/", "Library", "desks, shelves, books"],
   ["/words", "Word lookup", "your special words"],
   ["/cards", "Card matching", "one card on every face"],

@@ -2,12 +2,12 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { clearDone, showDone, propose } from "@/lib/propose";
-import { useWho } from "@/components/WhoAmI";
+import { useAuth } from "@/components/WhoAmI";
 import { Outcome } from "@/components/Outcome";
 import type { ProposeResult } from "@/lib/rules";
 
 export function SeatForm({ faceAddr, openNotes }: { faceAddr: string; openNotes: number }) {
-  const [who] = useWho();
+  const auth = useAuth();
   const router = useRouter();
   const [how, setHow] = useState<"r2" | "director">("r2");
   const [trial, setTrial] = useState("");
@@ -21,7 +21,7 @@ export function SeatForm({ faceAddr, openNotes }: { faceAddr: string; openNotes:
 
   async function send() {
     setBusy(true);
-    const r = await propose(who, [op]);
+    const r = await propose([op]);
     setBusy(false);
     if (r.status === "approved") { setRes(null); showDone(router, r.queue_id); } else { setRes(r); clearDone(router); }
   }
@@ -31,7 +31,7 @@ export function SeatForm({ faceAddr, openNotes }: { faceAddr: string; openNotes:
       <h3>Before seating, check</h3>
       <ol>
         <li>{openNotes === 0 ? "✓ Every note on the draft is merged." : <b style={{ color: "var(--hole)" }}>{openNotes} note(s) are not merged yet. The compute will refuse (drafting D0).</b>}</li>
-        <li>The draft faced a hostile trial from a different view than its maker (axiom 9). <span className="note">The compute cannot check who ran the trial; you can.</span></li>
+        <li>The draft faced a hostile trial from a different view than its maker (axiom 9). <span className="note">The compute checks the trial file&apos;s author line against the maker; a fresh session counts as a different view (R20).</span></li>
       </ol>
       <h3>Who approves it</h3>
       <div className="choice">
@@ -40,13 +40,13 @@ export function SeatForm({ faceAddr, openNotes }: { faceAddr: string; openNotes:
       </div>
       {how === "r2" ? (
         <>
-          <div className="field"><label htmlFor="tr">Trial reference <small>(where the hostile pass is written, for example docs/trial/kernel-trial.md#1002)</small></label>
-            <input id="tr" className="big mono" value={trial} onChange={(e) => setTrial(e.target.value)} placeholder="docs/trial/....md#..." /></div>
+          <div className="field"><label htmlFor="tr">Trial reference <small>(a file docs/trial/NAME.md, optionally #anchor. The compute checks the file exists and that its author is not the face's maker)</small></label>
+            <input id="tr" className="big mono" value={trial} onChange={(e) => setTrial(e.target.value)} placeholder="docs/trial/NAME.md#anchor" /></div>
           <label className="row"><input type="checkbox" checked={checked} onChange={(e) => setChecked(e.target.checked)} style={{ width: 22, height: 22 }} /> The trial was run by a different view than the one that wrote the draft.</label>
           <p className="note">Recorded as <code>approved-by: build-stage (R2)</code> with the trial, so every such seat can be found and re-reviewed later.</p>
         </>
-      ) : <p className="note">The compute accepts <code>director</code> only when the writer name is <code>director</code> or <code>user</code>. You are writing as <b>{who}</b>.</p>}
-      <details className="preview" open><summary>Check before sending: the exact proposal, as <b>{who}</b></summary><pre>{JSON.stringify({ by: who, ops: [op] }, null, 2)}</pre></details>
+      ) : <p className="note">The compute accepts <code>director</code> only from the Director&apos;s own token. You are signed in as <b>{auth.name ?? "(name shows after your first write)"}</b>.</p>}
+      <details className="preview" open><summary>Check before sending: the exact proposal <span className="note">(your name comes from your token)</span></summary><pre>{JSON.stringify({ ops: [op] }, null, 2)}</pre></details>
       <div className="row" style={{ marginTop: 12 }}>
         <button className="go" disabled={!ready || busy} onClick={send}>{busy ? "Sending…" : "Seat it (make it live)"}</button>
         {!ready ? <span className="note">Add the trial reference and tick the box first.</span> : null}

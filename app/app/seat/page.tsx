@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { get, type LogEntry, type PageDetail } from "@/lib/compute";
+import { get, withDraftReasons, type LogEntry, type PageDetail } from "@/lib/compute";
+import { DraftState } from "@/components/DraftState";
 import { QueueResult } from "@/components/QueueResult";
 import { Addr, Header, Hole, Raw } from "@/components/ui";
 import { SeatForm } from "@/components/SeatForm";
@@ -16,7 +17,7 @@ export default async function Seat({ searchParams }: { searchParams: Promise<{ a
     return <>{head}<form className="panel" action="/seat"><div className="field"><label>Face address <small>(desk.shelf.book.page.face, like 10.11.21.1100.04)</small></label><input className="big mono" name="addr" defaultValue={addr ?? ""} /></div><button className="go">Open</button></form></>;
   const [page, face] = [m[1], m[2]];
   const [pr, hr] = await Promise.all([get<PageDetail>(`/page/${page}`), get<LogEntry[]>(`/history/${page}.${face}`)]);
-  const pd = pr.kind === "ok" ? pr.data : null;
+  const pd = pr.kind === "ok" ? await withDraftReasons(pr.data) : null;
   const draft = pd?.faces[`${face}.draft`];
   const live = pd?.faces[face];
   const hist = hr.kind === "ok" ? hr.data : [];
@@ -34,7 +35,7 @@ export default async function Seat({ searchParams }: { searchParams: Promise<{ a
         <>
           <div className="cols">
             <div className="panel"><h3>Live now</h3>{live && live.resolved_from === "local" ? <pre className="body mono">{live.body}</pre> : <p className="note">Nothing live in this book yet{live ? ` (inherited from ${live.source})` : ""}.</p>}</div>
-            <div className="panel"><h3>The draft that would become live</h3><pre className="body mono">{draft.body}</pre><p className="note">by {draft.by}{draft.at ? `, ${torontoTime(draft.at)}` : ""}</p></div>
+            <div className="panel"><h3>The draft that would become live</h3><DraftState state={draft.state ?? "draft"} tail={draft.tail} why={draft.why_draft} /><pre className="body mono">{draft.body}</pre><p className="note">by {draft.by}{draft.at ? `, ${torontoTime(draft.at)}` : ""}</p></div>
           </div>
           <SeatForm faceAddr={`${page}.${face}`} openNotes={notes.filter((n) => !n.struck).length} />
         </>

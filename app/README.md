@@ -55,6 +55,14 @@ cd app && npm run build && COMPUTE_URL=http://127.0.0.1:7710 npx next start -p 3
 APP_URL=http://127.0.0.1:3010 node scripts/screenshots-live-2x.mjs   # drives every flow, saves live-2x-*.png
 ```
 
+## Round 3: Ask, sign in, .seq import (real compute)
+- **Ask** (`/ask`): type a question; POST /ask (no token). Shows 1 · What I heard (important / linking / question words), 2 · the 1-3 pieces with why each matched, its score, a Draft badge, and the question it came through, or the probe question when nothing fits. 3 · Teach a new way of asking: POST /ask/link `{question, phrasing}` (token needed); the questions come from page `READER_BOOK.0013` (default 10.11.21).
+- **Signed in** box in the sidebar: paste your token (your line in `books/.identities`). The app checks it with an empty POST /propose (400 = known, 401 = unknown; nothing is queued). Your name shows after your first write (no "who am I" route yet). 401 shows "Not signed in", 403 "Not allowed for your name" (axiom 1), 415 wrong content type.
+- **Page view**: face 00 is shown as the Registry (1 · Stamp, 2 · Type, 3 · Registry; docs/spec/face00.md is a DRAFT). Every draft face shows why it is a draft (R5): the reason recorded when it was opened, else its first open note. Bottom of the page: Export page as .seq, and Import: load this page's .seq or a file, 1 · Check it (POST /check.seq, writes nothing), 2 · Import through the queue (POST /propose, text/x-seqpage).
+- Draft a face asks "Why is this a draft?" and sends it as `reason`.
+- Screenshots: `APP_URL=http://127.0.0.1:3020 COMPUTE=http://127.0.0.1:7720 TOKEN=tok-app-demo node scripts/screenshots-live-3x.mjs` against a compute on a COPY of the books with demo tokens in that copy's `.identities` -> `screenshots/live-3x-*.png`.
+- All writes go through `app/api/post/[...path]` (propose, ask, ask/link, close, check.seq), which forwards the token and content type. The mock has no /ask and no writes.
+
 ## Files
 
 - `lib/compute.ts` the only place that calls the compute

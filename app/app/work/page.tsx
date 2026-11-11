@@ -31,7 +31,7 @@ export default async function Work({ searchParams }: { searchParams: Promise<{ p
       {head}
       <QueueResult id={sp.done} />
       <div className="panel row"><strong>{pd?.title ?? "7 page not found"}</strong> <Addr a={`${page}.05`} /> {pd ? <Link href={`/page/${page}?face=05`}>open the page</Link> : null}</div>
-      {pd ? <WorkBoard page={page} jobs={jobs} initial={sp.job ?? null} board={pd.faces["05.00"]?.body ?? null} /> : <p>Make the page first on <Link href={`/draft?page=${page}&face=04`}>Draft a face</Link>.</p>}
+      {pd ? <WorkBoard page={page} jobs={jobs} initial={sp.job ?? null} board={pd.boards?.["05"] ? pd.boards["05"].map((b) => `${b.counter}: ${b.tail ?? "closed"}`).join("\n") : pd.faces["05.00"]?.body ?? null} /> : <p>Make the page first on <Link href={`/draft?page=${page}&face=04`}>Draft a face</Link>.</p>}
       <Raw data={{ page: pd, history: hist }} url={pr.url} />
     </>
   );

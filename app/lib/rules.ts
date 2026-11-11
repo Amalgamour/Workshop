@@ -38,6 +38,9 @@ export const RULE_PLAIN: Record<string, string> = {
   "seqAddr 5.7": "Counted and seated faces rule",
   "seqAddr 8": "Address grammar",
   CONTRACT: "The request was not in the shape the compute expects",
+  R4: "Plain characters only: letters, digits and simple punctuation (no accents, emoji or tabs)",
+  R9: "Faces have no door: counters run 01-98",
+  "C8.9": "Card type rule",
 };
 
 export const AXIOM_PLAIN: Record<string, string> = {
@@ -64,6 +67,10 @@ export type ProposeResult = {
   axiom?: string | null;
   detail?: string;
   http?: number;
+  seq_findings?: Reason[];
+  linked?: { draft?: string; note?: string; phrasing?: string; question?: string };
+  errors?: (Reason & { line?: number })[];
+  ok?: boolean;
 };
 
 // workflow-loop.003 section 6: the loop on a face 05 counter.
@@ -81,6 +88,6 @@ export const NEXT: Record<string, { to: string; label: string; needs?: "body" | 
   pack: { to: "open", label: "Claim it (open)", who: "builder", rule: "pack → open. The first claim wins; a second claim gets 'conflict' (axiom 1)." },
   open: { to: "return", label: "Hand in the return", needs: "body", who: "builder", rule: "open → return. Only the claim holder can do this (S11). Write what was done per work card: result: done | blocked | need." },
   return: { to: "review", label: "Start review", who: "reviewer", rule: "return → review. The reviewer must not be the builder (S10)." },
-  review: { to: "", label: "Close with an outcome", needs: "outcome", who: "reviewer or compute", rule: "review → closed (bare counter). An outcome must be recorded (S03). 'abandoned' needs the compute's recovery return (S11)." },
+  review: { to: "", label: "Close with an outcome", needs: "outcome", who: "the reviewer asks; the compute writes", rule: "review → closed. Only the reviewer can ask, and the compute writes the close (POST /close). An outcome must be recorded (S03). 'abandoned' is not offered: it needs the compute's recovery return (S11)." },
 };
-export const OUTCOMES = ["passed", "failed", "blocked", "needs-authority", "abandoned"];
+export const OUTCOMES = ["passed", "failed", "blocked", "needs-authority"];

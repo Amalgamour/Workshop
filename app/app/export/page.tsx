@@ -25,11 +25,9 @@ export default async function Export({ searchParams }: { searchParams: Promise<{
       {status === 200 && !j ? (
         <div className="panel">
           <div className="row"><h3 style={{ margin: 0 }}>{name}</h3><a className="go" style={{ textDecoration: "none", padding: "10px 18px", borderRadius: 12, background: "var(--accent)", color: "#fff" }} href={`/api/seq?addr=${addr}`} download={name}>Download {name}</a></div>
-          <p className="note">This is exactly what the compute exported. Plain characters only (R4).</p>
+          <p className="note">This is exactly what the compute exported. Plain characters only (R4). To bring a changed file back, use Import on <Link href={`/page/${addr}#seq`}>the page</Link>.</p>
           <pre className="body mono card" style={{ fontSize: "0.85rem" }}>{text}</pre>
         </div>
-      ) : j?.error === "route" ? (
-        <Hole what="the .seq export in this compute" why="This compute does not serve GET /page.seq yet. The route is proposed in CONTRACT.md (SEQPAGE addendum) and waits for the compute lane. Nothing is faked here." />
       ) : j?.error === "missing" ? (
         <Hole what={`page ${addr}`} why={j.detail ?? "The page has no entries."} traceHref={`/resolve?addr=${addr}.00`} />
       ) : (

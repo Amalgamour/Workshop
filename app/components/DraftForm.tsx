@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { clearDone, showDone, propose, type Op } from "@/lib/propose";
-import { useWho } from "@/components/WhoAmI";
+import { useAuth } from "@/components/WhoAmI";
 import { Outcome } from "@/components/Outcome";
 import type { ProposeResult } from "@/lib/rules";
 import { FACE_TEMPLATE, type DraftNote } from "@/lib/drafting";
@@ -24,7 +24,7 @@ const STEP_TEXT: Record<Props["mode"], { title: string; plain: string }> = {
 };
 
 export function DraftForm(p: Props) {
-  const [who] = useWho();
+  const auth = useAuth();
   const router = useRouter();
   const [title, setTitle] = useState(p.pageTitle ?? "");
   const [body, setBody] = useState(p.override ? `## Override\nchanges: ${p.override}\nwhy: \nneeded-because: \nshould-achieve: \n\nWhat this override does, in plain words.` : FACE_TEMPLATE[p.face] ?? "## Card Title\n\n");
@@ -35,6 +35,7 @@ export function DraftForm(p: Props) {
   const [action, setAction] = useState<"note" | "merge">(open.length ? "merge" : "note");
   const [res, setRes] = useState<ProposeResult | null>(null);
   const [busy, setBusy] = useState(false);
+  const [reason, setReason] = useState("");
   const fa = `${p.page}.${p.face}`;
   useEffect(() => { setMerged(p.draft?.body ?? ""); }, [p.draft?.body]);
   const openKey = open.map((n) => n.n).join(",");
@@ -44,18 +45,18 @@ export function DraftForm(p: Props) {
     switch (p.mode) {
       case "new-page": return [
         { op: "put", addr: `${p.page}.00`, tail: "draft", body: `---\ntitle: ${title}\n---` },
-        { op: "put", addr: fa, tail: "draft", body },
+        { op: "put", addr: fa, tail: "draft", body, ...(reason.trim() ? { reason: reason.trim() } : {}) },
       ];
-      case "new-face": return [{ op: "put", addr: fa, tail: "draft", body }];
+      case "new-face": return [{ op: "put", addr: fa, tail: "draft", body, ...(reason.trim() ? { reason: reason.trim() } : {}) }];
       case "inherited": return [];
-      case "seated": return [{ op: "copy", addr: fa }];
+      case "seated": return [{ op: "copy", addr: fa, ...(reason.trim() ? { reason: reason.trim() } : {}) }];
       case "draft": return action === "note" ? [{ op: "note", addr: `${fa}.draft`, body: note }] : [{ op: "merge", addr: `${fa}.draft`, cites: cite ?? undefined, body: merged }];
     }
-  }, [p.mode, p.page, fa, title, body, note, cite, merged, action]);
+  }, [p.mode, p.page, fa, title, body, note, cite, merged, action, reason]);
 
   async function send() {
     setBusy(true); setRes(null);
-    const r = await propose(who, ops);
+    const r = await propose(ops);
     setBusy(false);
     if (r.status === "approved") { setRes(null); showDone(router, r.queue_id); } else { setRes(r); clearDone(router); }
   }
@@ -97,6 +98,11 @@ export function DraftForm(p: Props) {
             <p className="note">The compute makes the copy itself; you send no text (drafting D0).</p></>
         ) : null}
 
+        {p.mode === "new-page" || p.mode === "new-face" || p.mode === "seated" ? (
+          <div className="field"><label htmlFor="why">Why is this a draft? <span className="note">(kept with the draft and shown wherever it appears, R5)</span></label>
+            <input id="why" className="big" value={reason} onChange={(e) => setReason(e.target.value)} placeholder="waiting for a trial" /></div>
+        ) : null}
+
         {p.mode === "draft" ? (
           <>
             <div className="cols">
@@ -127,12 +133,12 @@ export function DraftForm(p: Props) {
         ) : null}
 
         <details className="preview" open>
-          <summary>Check before sending: the exact proposal, as <b>{who}</b></summary>
-          <pre>{JSON.stringify({ by: who, ops }, null, 2)}</pre>
+          <summary>Check before sending: the exact proposal <span className="note">(your name comes from your token{auth.name ? `: ${auth.name}` : ""})</span></summary>
+          <pre>{JSON.stringify({ ops }, null, 2)}</pre>
         </details>
         {(() => { const bad = nonAscii(JSON.stringify(ops.map((o) => o.body ?? ""))); return bad.length ? <p className="no-box" style={{ padding: "8px 14px" }}><b>Plain characters only (Director ruling R4).</b> The compute will refuse: {bad.map((c) => <code key={c}>{JSON.stringify(c)} </code>)}</p> : null; })()}
         <div className="row" style={{ marginTop: 12 }}>
-          <button className="go" onClick={send} disabled={busy || !who || ops.length === 0}>{busy ? "Sending…" : p.mode === "seated" ? "Copy into a draft" : p.mode === "draft" ? (action === "note" ? "Add the note" : "Merge it") : "Send the draft"}</button>
+          <button className="go" onClick={send} disabled={busy || ops.length === 0}>{busy ? "Sending…" : p.mode === "seated" ? "Copy into a draft" : p.mode === "draft" ? (action === "note" ? "Add the note" : "Merge it") : "Send the draft"}</button>
           <span className="note">The compute checks it. If any step breaks a rule, nothing is written.</span>
         </div>
       </div>
