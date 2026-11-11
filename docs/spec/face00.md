@@ -259,6 +259,8 @@ Whether these four sit in face 00 or in a face 01 card is `7` (F8).
 
 All five are in `docs/spec/examples/face00/`. Their book is `docs/spec/examples/sources/10.11.40.book`. Each passes `seqpage check` with no findings.
 
+A real-book example, exported by the CLI from `books/10.11.21.book` (page 10.11.21.1001 bob, with face 01 and 05.01/05.02 seated), is in `docs/spec/examples/real/`. It passes `seqpage check` with no errors but 3 findings (QUESTIONS Q31, Q34, Q38); see that folder's README. (FOLLOWUPS, 2026-11-11)
+
 Below is only the face 00 section of each .seq file.
 
 `:=` lines are worked out by the compute. `|` lines are the stored face 00 text.

@@ -1,0 +1,154 @@
+seqpage 1
+= 00 registry 10.11.21.1001.00
+title := bob
+state := live
+registry := draft
+why-draft := sample fixture for the build, not kernel content; nobody has reviewed it.
+faces := 01 seated, 05 counted
+type := general
+axioms := -
+lineage := 10.11.21.1001 < 10.11.21 < 10.11.00 < 10.00.00 < 00.00.00
+source := book 10.11.21 @12
+
+--- @12 put 10.11.21.1001.00.draft
+at: 2026-11-11T19:30:00Z
+by: prima-kernel-seed
+tail: draft
+proposal: prima-kernel-seed:10.11.21.1001
+reason: sample fixture for the build, not kernel content; nobody has reviewed it.
+| ---
+| address: 10.11.21.1001
+| title: bob
+| type: general
+| state: draft
+| why-draft: sample fixture for the build, not kernel content; nobody has reviewed it.
+| ---
+|
+| ## Registry
+| faces: 01 seated, 05.01 seated, 05.02 seated
+| seat-01: approved-by: build-stage (R2); trial: docs/trial/kernel-trial-2.md@ed82086; blob: 5415cef2dd0a37f3c2ba4c9b6d2652262f0ef82d
+| seat-05.01: approved-by: build-stage (R2); trial: docs/trial/kernel-trial-4.md@4b369fa; blob: 566071064f63a5c85fcb3bd87d9e375717bdbf51
+| seat-05.02: approved-by: build-stage (R2); trial: docs/trial/kernel-trial-4.md@4b369fa; blob: 2aa3490239620604ce1bb13c34841a60ac8f7056
+|
+| R10 (DIRECTOR-RULINGS.md:40), R12 (:53) and R19 (:75): face 00 holds the stamp, the page type and the registry. Layout follows docs/spec/face00.md (DRAFT, not ruled): `why-draft` and `why-NN` are PROPOSED names there; `seat-NN` is the build's own (`7`, QUESTIONS Q34); per-type registry fields are not written (`7`, Q33); `faces:` is written here and checked by the builder against the files (written vs derived is `7`, face00.md F2, CONFLICTS D5).
+|
+| R15 (DIRECTOR-RULINGS.md:62): a brand card on face 01 needs no 04 card, so the `04` face that held the bob and cats whys was removed in kernel pass 3.
+|
+| R2 seat (DIRECTOR-RULINGS.md:7-9, R20 :78-80): face 01 passed TRIAL-K2 and is seated at the cited blob; this face 00 stays a draft (R14). Where a seat record lives is `7` (QUESTIONS Q34): it is kept here, in `seat-01:`, so the seated face itself is unchanged.
+
+= 01 law 10.11.21.1001.01
+state := seated
+source := book 10.11.21 @13
+
+--- @13 put 10.11.21.1001.01
+at: 2026-11-11T19:30:00Z
+by: prima-kernel-seed
+proposal: prima-kernel-seed:10.11.21.1001
+approved-by: build-stage (R2)
+trial: docs/trial/kernel-trial-2.md@ed82086 blob 5415cef2dd0a37f3c2ba4c9b6d2652262f0ef82d
+cards := bob, cats
+| ## bob
+| type: brand
+| brand: bob.001
+| forms: Bob
+| means: the user's name
+|
+| ## cats
+| type: brand
+| brand: cats.001
+| forms: cats
+| means: animals the user likes
+
+= 05 tasks 10.11.21.1001.05
+counters := 01 closed, 02 closed
+
+== 05.01 10.11.21.1001.05.01
+state := closed
+source := book 10.11.21 @14
+
+--- @14 put 10.11.21.1001.05.01
+at: 2026-11-11T19:30:00Z
+by: prima-kernel-seed
+proposal: prima-kernel-seed:10.11.21.1001
+approved-by: build-stage (R2)
+trial: docs/trial/kernel-trial-4.md@4b369fa blob 566071064f63a5c85fcb3bd87d9e375717bdbf51
+cards := what-we-learned
+| ## What We Learned
+| type: note
+| by: prima-packs
+| made: 2026-11-11
+| sources: commit 42ffbc9; docs/trial/kernel-trial-2.md verdict 1001.01 PASS and finding 20; DIRECTOR-RULINGS.md R15; docs/BUILD-LOG.md [APP] round 3
+| design: DECISIONS-INDEX D65-D67 (brands), D02 (R2 seats); docs/design/DESIGN.md section 8 Finding (:192)
+|
+| What building and trialing 10.11.21.1001 (bob) taught us. R22 (DIRECTOR-RULINGS.md:86-88): "the seated 05 for each page should explain what you learned". Every line names its source; nothing here is new law.
+|
+| - Face 01 (brand cards bob and cats) passed TRIAL-K2 and was seated at blob 5415cef2 under R2 and R20 (commit 42ffbc9), while face 00 stays a draft (R14).
+| - R15 removed the bob and cats 04 face; a compute test still expected it and failed (docs/trial/kernel-trial-2.md finding 20; crates/compute/tests/http.rs:261), routed to COMPUTE.
+| - The seqpage check disagrees with the kernel face 00: check.seq on the exported page flags "stamp state draft disagrees with the page's entries (live)" and "seat-01: is not a registry field for type general" (docs/BUILD-LOG.md [APP] round 3). That is QUESTIONS Q31, Q34 and Q38 showing up in a real page.
+| - TRIAL-K3 (docs/trial/kernel-trial-3.md, finding 14) reports the same stamp-state clash from the trial side and raised it as Q40.
+
+== 05.02 10.11.21.1001.05.02
+state := closed
+source := book 10.11.21 @15
+
+--- @15 put 10.11.21.1001.05.02
+at: 2026-11-11T19:30:00Z
+by: prima-kernel-seed
+proposal: prima-kernel-seed:10.11.21.1001
+approved-by: build-stage (R2)
+trial: docs/trial/kernel-trial-4.md@4b369fa blob 2aa3490239620604ce1bb13c34841a60ac8f7056
+cards := pack-header, w01, w02, w03
+| ## Pack Header
+| by: prima-packs
+| authorized: 7 (no approved N4 revision exists for this page; the pack is asked for by R22 (DIRECTOR-RULINGS.md:86-88); QUESTIONS Q45)
+| lead: 7 (no band default is seated, workflow-loop.003.md:107)
+| axioms: 5.3.9
+| outcome: 10.11.21.1001 keeps face 01 seated and unchanged, its face 00 passes both the builder and the seqpage check, and both Bob test sessions pass on the real books
+| overview: the Bob test fixture: the user's name and what they like, as brand cards
+| stop if: a step needs the answer to an open question (listed in blocked-by); save the question in kernel/QUESTIONS.md and move on (R22 "save questions"); never seat your own work (R2, R20)
+| grant: kernel/samples/10.11.21/10.11.21.1001.00.draft.md (only after Q31, Q34, Q38 are ruled); face 01 is seated and not touched
+| frame: 7 (no approved MVP frame ID, workflow-loop.003.md:113)
+| risk: 7 (sample fixture)
+| predecessor: 42ffbc9 (seat of 1001.01)
+| design: DECISIONS-INDEX D65-D67 (brands), D02 (R2 seats); docs/design/DESIGN.md section 8 Finding (:192)
+| links: 10.11.21.0012 (dictionary index to bob, cats), 10.11.21.0013 (what is my name -> bob), 00.00.00.0055 (brands law)
+| open: Q31, Q34, Q38
+|
+| The MVP pack for 10.11.21.1001 (bob): the agents.md-style build list (workflow-loop.003.md:99) to bring this page to its MVP. Steps are work cards w01 onward (workflow-loop.003.md:122). Each says what it depends on, what blocks it (question ids in kernel/QUESTIONS.md, Qnn, or docs/design/OPEN.md, Onn), and the test that shows it is done.
+|
+| ## w01
+| type: work
+| title: keep 1001.01 exactly as trialed
+| reason: R2 seat at blob 5415cef2; any change needs a new trial (axiom 9)
+| depends: none
+| blocked-by: none
+| done: node kernel/build.mjs --check exits 0 and git hash-object kernel/samples/10.11.21/10.11.21.1001.01.md starts with 5415cef2
+| path: kernel/samples/10.11.21/10.11.21.1001.01.md
+| ask: >build Check 1001.01 is unchanged; do not edit it.
+|
+| ## w02
+| type: work
+| title: make the builder and the seqpage check agree on this face 00
+| reason: check.seq findings on this page (docs/BUILD-LOG.md [APP] round 3)
+| depends: none
+| blocked-by: Q31, Q34, Q38
+| done: POST /check.seq on the exported 10.11.21.1001 returns no stamp-state or seat-01 finding
+| path: kernel/samples/10.11.21/10.11.21.1001.00.draft.md, crates/seqpage/src/face00.rs
+| ask: >build make the builder and the seqpage check agree on this face 00
+|
+| ## w03
+| type: work
+| title: run both Bob test sessions on the real books
+| reason: session 1 types bob; session 2 asks what is my name (kernel/MAP.md Bob test)
+| depends: 10.11.21.0012 and 10.11.21.0013 packs
+| blocked-by: none
+| done: compute tests on a copy of books/ pass for /brands bob and /ask "what is my name"
+| path: crates/compute/tests/
+| ask: >build run both Bob test sessions on the real books
+
+~ history
+@12 put 10.11.21.1001.00.draft
+@13 put 10.11.21.1001.01
+@14 put 10.11.21.1001.05.01
+@15 put 10.11.21.1001.05.02
+~ end
