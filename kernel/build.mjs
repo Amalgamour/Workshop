@@ -5,7 +5,9 @@
 // (R19 face 00 layout follows docs/spec/face00.md, a DRAFT; R22 lets a face 05 counter 05.NN be seated, Q41 open;
 // no other counter is seated until a ruling allows it, Q35, TRIAL-K4 finding 7).
 // Seat records are checked, not trusted (TRIAL-K3 findings 1, 2, 11; TRIAL-K4 findings 1, 2, 4-6: full blobs, rulings and
-// past seats read from HEAD, trial commits on the branch, no git is an error). Tests: node kernel/build.test.mjs
+// past seats read from HEAD, no git is an error; TRIAL-K5 findings 1-3, 5, Q53, Q54: a trial is cited by path and blob, not
+// commit, so seats verify in the filter-branched published copy; git runs with no replace objects and no GIT_* env; past
+// seats come from the history of seat lines). Tests: node kernel/build.test.mjs
 // Usage: node kernel/build.mjs          write books/
 //        node kernel/build.mjs --check  rebuild in memory and fail if books/ differs
 import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync, statSync } from 'node:fs';
@@ -131,10 +133,13 @@ function blobOf(text) {
 }
 // R2 (DIRECTOR-RULINGS.md:7-9) seat record, kept on the registry line of face 00 (7: where it lives, QUESTIONS Q34).
 // Face 00 itself keeps its record in the stamp as `seat-00:` (TRIAL-K3 finding 1). Two forms:
-//   "seated; approved-by: build-stage (R2); trial: docs/trial/<file>.md@<commit>; blob: <40 hex>"
+//   "seated; approved-by: build-stage (R2); trial: docs/trial/<file>.md blob <40 hex>; blob: <40 hex>"
 //   "seated; approved-by: director; ruling: R<n>; blob: <40 hex>"   (the ruling must name the face, TRIAL-K3 finding 2)
 // The blob is the full 40-hex git blob, compared for equality; a short prefix is an error (TRIAL-K4 finding 1, Q52 a).
-const SEAT_LINE = /^seated; approved-by: (build-stage \(R2\)|director); (trial|ruling): (\S+); blob: ([0-9a-f]{7,40})$/;
+// TRIAL-K5 finding 1, Q53 (option A taken by KERNEL pass 7): the trial is named by its path and the full blob of the trial
+// file, not by a commit id. Blob ids survive the filter-branch that makes the published copy; commit ids do not. The old
+// `<file>.md@<commit>` form is refused with a message saying how to re-pin it.
+const SEAT_LINE = /^seated; approved-by: (build-stage \(R2\)|director); (trial|ruling): ([^;]+?); blob: ([0-9a-f]{7,40})$/;
 const spotKey = (f) => `${f.ff}${f.nn ? '.' + f.nn : ''}`;
 function seatOf(reg, f) {
   const line = reg && reg.get(spotKey(f));
@@ -146,18 +151,57 @@ function seatOf(reg, f) {
 // in DIRECTOR-RULINGS.md that names this face. Anything that cannot be verified blocks the seat (an error).
 // TRIAL-K4 findings 2, 4, 5, 6 (Q52 b-d): rulings and past seats are read from git at HEAD, never the working tree;
 // a cited trial commit must be an ancestor of HEAD; with no git a seat cannot be verified, so it is an error.
+// TRIAL-K5 finding 2, Q54 a (taken by KERNEL pass 7): git runs with --no-replace-objects and an environment with every GIT_*
+// variable removed (GIT_DIR, GIT_WORK_TREE, GIT_INDEX_FILE, GIT_OBJECT_DIRECTORY, GIT_ALTERNATE_OBJECT_DIRECTORIES,
+// GIT_NAMESPACE, GIT_CONFIG_*, ...), so the caller cannot point the guard at another repo (H15). A repo with any ref under
+// refs/replace/, a grafts file, or a shallow history is refused: it can make git serve content that is not in the history (HR),
+// or hide the history the guard reads (gitTrust).
 let gitOk = null;
-const git = (...a) => spawnSync('git', ['-C', ROOT, ...a], { encoding: 'utf8', maxBuffer: 1 << 28 });
+const GIT_ENV = Object.fromEntries(Object.entries(process.env).filter(([k]) => !/^GIT_/i.test(k)));
+GIT_ENV.GIT_NO_REPLACE_OBJECTS = '1';
+const git = (...a) => spawnSync('git', ['--no-replace-objects', '-C', ROOT, ...a], { encoding: 'utf8', maxBuffer: 1 << 28, env: GIT_ENV });
 function hasGit() {
   if (gitOk === null) gitOk = git('rev-parse', '--show-toplevel').stdout?.trim() === ROOT && git('rev-parse', '--verify', '-q', 'HEAD').status === 0;
   return gitOk;
+}
+let trustMsg;
+function gitTrust() {
+  if (trustMsg !== undefined) return trustMsg;
+  trustMsg = null;
+  const rr = git('for-each-ref', '--format=%(refname)', 'refs/replace/');
+  if (rr.status !== 0 || rr.stdout.trim()) trustMsg = `the repo has replace refs (${rr.stdout.trim().split('\n').join(', ') || 'unreadable'}); git replace can serve a forged trial, so no seat is verified until they are removed (TRIAL-K5 finding 2, Q54 a)`;
+  const gp = git('rev-parse', '--git-path', 'info/grafts').stdout?.trim();
+  const gpath = gp && (gp.startsWith('/') ? gp : join(ROOT, gp));
+  if (!trustMsg && gpath && existsSync(gpath)) trustMsg = `the repo has a grafts file (${gp}); grafts rewrite history, so no seat is verified (TRIAL-K5 finding 2, Q54 a)`;
+  if (!trustMsg && git('rev-parse', '--is-shallow-repository').stdout?.trim() === 'true') trustMsg = 'the repo is a shallow clone; seats and past seats are read from the full history, so fetch it (git fetch --unshallow) before the check (Q54)';
+  return trustMsg;
 }
 function gitShow(commit, path) {
   if (!hasGit()) return undefined; // no repo here: nothing can be verified, and the caller makes that an error
   const r = git('show', `${commit}:${path}`);
   return r.status === 0 ? r.stdout : null;
 }
-const isAncestor = (commit) => git('merge-base', '--is-ancestor', commit, 'HEAD').status === 0;
+// TRIAL-K5 finding 1 and 4, Q53 A, Q54 c (partly): the cited trial blob must be the version of the file that the trial lane
+// added (the oldest commit reachable from HEAD that adds the path), so a PASS line added in a later edit of a real trial (H5)
+// cannot be cited. Later edits (a fix-pass appendix) are allowed but not citable. The adding commit must touch only
+// docs/trial/ and kernel/QUESTIONS.md, as every real trial commit does; a builder commit cannot also add a trial.
+// Returns { commit } or { err }.
+function trialOrigin(path, tblob) {
+  const r = git('log', '--format=C %H', '--raw', '--no-abbrev', '--no-renames', '--diff-filter=A', 'HEAD', '--', path);
+  if (r.status !== 0) return { err: `git log could not read the history of ${path}` };
+  let commit = null, added = null;
+  for (const l of r.stdout.split('\n')) {
+    const c = /^C ([0-9a-f]{40})$/.exec(l); if (c) { commit = c[1]; continue; }
+    const m = /^:\d+ \d+ [0-9a-f]{40} ([0-9a-f]{40}) A\t(.*)$/.exec(l);
+    if (m && m[2] === path) added = { commit, blob: m[1] }; // log is newest first; the last one seen is the oldest add
+  }
+  if (!added) return { err: `no commit reachable from HEAD adds ${path}; the seat is blocked (R2; TRIAL-K5 finding 1)` };
+  if (added.blob !== tblob) return { err: `trial ${path} was added at blob ${added.blob} (commit ${added.commit.slice(0, 12)}), not ${tblob}; a seat cites the trial as its lane wrote it, and later edits cannot add a PASS (TRIAL-K5 finding 4, Q54 c)` };
+  const t = git('show', '--format=', '--name-only', '--no-renames', added.commit);
+  const stray = t.status === 0 ? t.stdout.split('\n').filter((x) => x && !x.startsWith('docs/trial/') && x !== 'kernel/QUESTIONS.md') : ['(unreadable)'];
+  if (stray.length) return { err: `the commit that added trial ${path} (${added.commit.slice(0, 12)}) also changes ${stray.slice(0, 3).join(', ')}; a trial commit touches only docs/trial/ and kernel/QUESTIONS.md (TRIAL-K5 finding 4, Q54 c)` };
+  return { commit: added.commit };
+}
 // A trial PASS list written before TRIAL-K4 names a short blob prefix (kernel-trial-2.md:25-26). A prefix alone can be
 // forged (TRIAL-K4 HM), so the full seat blob must also be the blob of this face's file in the trial commit's tree.
 function inTrialTree(commit, spot, blob) {
@@ -181,6 +225,7 @@ function verifySeat(f, seat) {
   if (seat.blob.length !== 40) return `seat blob ${seat.blob} is a short prefix; a seat pins the full 40-hex git blob (${blob} for this file now) and a prefix can be forged (TRIAL-K4 finding 1, Q52 a)`;
   if (blob !== seat.blob) return `seated face changed since its trial: blob ${blob} is not ${seat.blob} (R2, axiom 9); write it as FF.draft and re-trial`;
   if (!hasGit()) return `no git repo at ${ROOT}, so this seat cannot be verified; the seat is blocked (TRIAL-K4 finding 5, Q52 d)`;
+  if (gitTrust()) return gitTrust();
   if (seat.by === 'director') {
     if (seat.kind !== 'ruling' || !/^R\d+$/.test(seat.ref)) return `seat says approved-by: director but gives no ruling id (ruling: R<n>); only the Director approves, and this cannot be verified, so the seat is blocked (R2; TRIAL-K3 finding 2)`;
     // TRIAL-K4 finding 2: the committed rulings file at HEAD, not the working tree, and a line that names the face and a seat.
@@ -190,18 +235,21 @@ function verifySeat(f, seat) {
     if (!sec.split('\n').some((l) => l.includes(f.spot) && /\bseat/i.test(l))) return `seat cites ${seat.ref}, but that ruling does not name ${f.spot} in a seat approval; a director seat cannot be verified, so it is blocked (TRIAL-K3 finding 2, TRIAL-K4 finding 2)`;
     return null;
   }
-  if (seat.kind !== 'trial') return `a build-stage (R2) seat must cite trial: docs/trial/<file>.md@<commit> (R2)`;
-  const m = /^(docs\/trial\/[\w.\-]+\.md)@([0-9a-f]{7,40})$/.exec(seat.ref);
-  if (!m) return `seat trial ${seat.ref} is not docs/trial/<file>.md@<commit> (R2; TRIAL-K3 finding 2)`;
+  if (seat.kind !== 'trial') return `a build-stage (R2) seat must cite trial: docs/trial/<file>.md blob <40 hex> (R2)`;
+  if (/^docs\/trial\/[\w.\-]+\.md@[0-9a-f]{7,40}$/.test(seat.ref)) return `seat trial ${seat.ref} cites a commit id, which changes in the filter-branched published copy; re-pin it as trial: ${seat.ref.split('@')[0]} blob <the trial file's 40-hex blob> (TRIAL-K5 finding 1, Q53)`;
+  const m = /^(docs\/trial\/[\w.\-]+\.md) blob ([0-9a-f]{7,40})$/.exec(seat.ref);
+  if (!m) return `seat trial ${seat.ref} is not docs/trial/<file>.md blob <40 hex> (R2; TRIAL-K3 finding 2; Q53)`;
+  if (m[2].length !== 40) return `seat trial blob ${m[2]} is a short prefix; cite the trial file's full 40-hex blob (TRIAL-K5 finding 1, Q53)`;
   const file = join(ROOT, m[1]);
   if (!existsSync(file)) return `seat cites trial ${m[1]}, which does not exist; the seat is blocked (R2; TRIAL-K3 finding 2)`;
-  const text = gitShow(m[2], m[1]);
-  if (text === null) return `seat cites trial ${m[1]} at commit ${m[2]}, which git cannot find; the seat is blocked (R2; TRIAL-K3 finding 2)`;
-  if (!isAncestor(m[2])) return `seat cites trial ${m[1]} at commit ${m[2]}, which is not an ancestor of HEAD; a trial must be on this branch's history (TRIAL-K4 finding 4, Q52 c)`;
-  const passed = passList(text).get(f.spot);
+  const origin = trialOrigin(m[1], m[2]);
+  if (origin.err) return `seat cites trial ${seat.ref}: ${origin.err}`;
+  const text = git('cat-file', 'blob', m[2]);
+  if (text.status !== 0 || blobOf(text.stdout) !== m[2]) return `seat cites trial ${m[1]} at blob ${m[2]}, which git cannot read back as that blob; the seat is blocked (R2; TRIAL-K5 finding 2)`;
+  const passed = passList(text.stdout).get(f.spot);
   if (!passed) return `seat cites trial ${seat.ref}, but its PASS list does not name ${f.spot}; the seat is blocked (R2; TRIAL-K3 finding 2)`;
   if (passed.length === 40) { if (passed !== blob) return `trial ${seat.ref} passed ${f.spot} at blob ${passed}, not this blob ${blob}; re-trial (R2, axiom 9)`; }
-  else if (!blob.startsWith(passed) || !inTrialTree(m[2], f.spot, blob)) return `trial ${seat.ref} lists ${f.spot} by the short prefix ${passed}, and blob ${blob} is not this face's file in commit ${m[2]}; a prefix alone can be forged, re-trial (R2, axiom 9; TRIAL-K4 finding 1)`;
+  else if (!blob.startsWith(passed) || !inTrialTree(origin.commit, f.spot, blob)) return `trial ${seat.ref} lists ${f.spot} by the short prefix ${passed}, and blob ${blob} is not this face's file in the commit that added the trial; a prefix alone can be forged, re-trial (R2, axiom 9; TRIAL-K4 finding 1)`;
   return null;
 }
 
@@ -209,17 +257,43 @@ function verifySeat(f, seat) {
 // `unseat-NN:` on the registry (face 00 itself: `unseat-00:` in the stamp), giving the reason and the old blob.
 // 7: the last build in books/ is the record of past seats (where an un-seat record lives is the build's own choice, Q34).
 // TRIAL-K4 finding 6: read as committed at HEAD (git show HEAD:books/...), so deleting or editing books/ hides nothing.
+// TRIAL-K5 finding 3, Q54 b (taken by KERNEL pass 7): HEAD:books/ is one snapshot, and a committed books edit hid an un-seat
+// (H11). Past seats are also read from history: every `seat-NN:` (or stamp `seat-00:`) line ever added to a face 00 file under
+// kernel/ on HEAD's history. A face seated there and not seated now needs an un-seat record naming its newest seated blob.
+function historySeats() {
+  const out = new Map();
+  const r = git('log', '-p', '--no-ext-diff', '--no-color', '--no-renames', '--format=C %H', '-G', 'seat-', 'HEAD', '--', 'kernel/');
+  if (r.status !== 0) { err('kernel', `git log could not read the history of seat lines, so un-seats cannot be checked (TRIAL-K5 finding 3, Q54 b)`); return out; }
+  let page = null;
+  for (const l of r.stdout.split('\n')) {
+    if (l.startsWith('+++ ')) {
+      const name = l.slice(4).split('/').pop();
+      const m = /^(\d{2}\.\d{2}\.\d{2}\.\d{4}|00\.00\.axioms)\.00(?:\.[a-z]+)?\.md$/.exec(name);
+      page = m && !l.includes('/parked/') ? m[1] : null; // kernel/parked is not built (R21); its pages are never seated
+      continue;
+    }
+    if (!page) continue;
+    const m = /^\+seat-(\d{2}(?:\.\d{2})?):\s*approved-by: (build-stage \(R2\)|director);.*; blob: ([0-9a-f]{7,40})\s*$/.exec(l);
+    if (!m) continue;
+    const addr = `${page}.${m[1]}`;
+    if (!out.has(addr)) out.set(addr, { addr, by: m[2], blob: m[3] }); // log is newest first: keep the newest seat
+  }
+  return out;
+}
 function priorSeats() {
   const out = [];
   if (!hasGit()) { err('books', `no git repo at ${ROOT}, so past seats cannot be read from HEAD:books/ and un-seats cannot be checked (TRIAL-K4 findings 5, 6; Q52 b, d)`); return out; }
+  if (gitTrust()) { err('books', gitTrust()); return out; }
+  const hist = historySeats();
   const ls = git('ls-tree', '--name-only', 'HEAD', 'books/');
   for (const n of (ls.status === 0 ? ls.stdout.split('\n') : []).map((x) => x.replace(/^books\//, '')).filter((x) => x.endsWith('.book') || x === AXIOMS_FILE).sort())
     for (const l of (gitShow('HEAD', `books/${n}`) || '').split('\n')) {
       if (!l.trim()) continue;
       let e; try { e = JSON.parse(l); } catch { continue; }
-      if (e.addr && e['approved-by']) out.push({ addr: e.addr, by: e['approved-by'], blob: (/blob ([0-9a-f]+)/.exec(e.trial || e.ruling || '') || [])[1] || '' });
+      const ref = e.trial || e.ruling || '';
+      if (e.addr && e['approved-by'] && !hist.has(e.addr)) out.push({ addr: e.addr, by: e['approved-by'], blob: (/face blob ([0-9a-f]+)/.exec(ref) || /blob ([0-9a-f]+)/.exec(ref) || [])[1] || '' });
     }
-  return out;
+  return [...hist.values(), ...out];
 }
 function unseatChecks(books, prior) {
   const all = books.flatMap((b) => b.faces);
@@ -232,7 +306,9 @@ function unseatChecks(books, prior) {
     const reg = f00 && f00.cards.find((c) => c.key === 'registry');
     const rec = f00 && (key === '00' ? stampOf(f00.body)['unseat-00'] : reg && reg.fields[`unseat-${key}`]);
     if (!rec || !rec.trim()) err(f00 ? f00.file : p.addr, `${p.addr} was seated (${p.by}) in the last build but is not now; write unseat-${key}: <reason>; was blob ${p.blob} (R2: every seat can be found and re-reviewed; TRIAL-K3 finding 11)`);
-    else if (p.blob && !rec.includes(p.blob.slice(0, 8))) err(f00.file, `unseat-${key}: must name the old blob ${p.blob.slice(0, 8)} (TRIAL-K3 finding 11)`);
+    // TRIAL-K5 finding 5, Q54 d (taken by KERNEL pass 7): the record names the full old blob and gives a reason besides it.
+    else if (p.blob && !rec.includes(p.blob)) err(f00.file, `unseat-${key}: must name the full old blob ${p.blob} (TRIAL-K3 finding 11; TRIAL-K5 finding 5)`);
+    else if (!/[a-z]{3,}/i.test(rec.split(p.blob).join(' ').replace(/\b(was|blob)\b/gi, ' '))) err(f00.file, `unseat-${key}: gives no reason; write unseat-${key}: <reason>; was blob ${p.blob} (R2 re-review needs the reason; TRIAL-K5 finding 5)`);
   }
 }
 
@@ -423,7 +499,8 @@ function render(entriesOf, address) {
     }
     if (!f.tail) {
       const seat = seatOf(regs.get(f.page), f);
-      if (seat) { e['approved-by'] = seat.by; e[seat.kind] = `${seat.ref} blob ${seat.blob}`; }
+      // Book field: trial "docs/trial/<file>.md blob <trial blob>; face blob <blob>", ruling "R<n> blob <blob>" (Q53).
+      if (seat) { e['approved-by'] = seat.by; e[seat.kind] = seat.kind === 'trial' ? `${seat.ref}; face blob ${seat.blob}` : `${seat.ref} blob ${seat.blob}`; }
     }
     e.body = f.body.replace(/\n+$/, '');
     e.proposal = `${BY}:${f.page}`; // format.md section 3.3 proposal batches (proposed): a page arrives with its faces.

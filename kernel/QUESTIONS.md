@@ -289,6 +289,7 @@ Evidence: `docs/trial/kernel-trial-5.md` finding 1. Seats cite `docs/trial/<file
 - Option A: cite the trial file by its blob (`docs/trial/kernel-trial-4.md#<40-hex blob>`), and check that an ancestor of HEAD has that path at that blob. Re-pin the 17 seats (face 00 is a draft, so no seat breaks).
 - Option B: keep `@commit`, and fall back to a content match (an ancestor whose copy of the trial file has the same PASS line) when the commit is missing.
 - Option C: the publish flow rewrites seat lines with a commit map. That changes face 00 blobs per copy, so it is not recommended. `7` until a lane takes it.
+Taken by KERNEL pass 7 (step 1): option A. A seat reads `trial: docs/trial/<file>.md blob <40-hex trial blob>; blob: <40-hex face blob>`. The guard finds the oldest commit on HEAD's history that adds that path and requires its blob to be the cited one (so a later edit of a trial cannot be cited), reads the trial with `git cat-file blob` and checks the read-back hash, and checks the PASS list names the face at its full blob (a pre-K4 short prefix also needs the face's full blob in the adding commit's tree). The old `@<commit>` form is refused with a re-pin message. All 17 seats re-pinned (kernel-trial-4 at `a5d253d5e12722956afea38e79cb7fc1cf492c7b`, kernel-trial-2 as added at `da5d51424fee3bea1d8443c619fcba3c534a1ace`; kernel-trial-2 was later edited in `fae009a`, so the added blob is the citable one). Test: a filter-branch rewrite of a scratch clone. Left for the next trial to check.
 
 **Q54. [TRIAL-K5] (builder lane, not a Director question) What should the seat guard trust from git?**
 Evidence: `docs/trial/kernel-trial-5.md` findings 2-5.
@@ -302,6 +303,12 @@ Proposed, for the KERNEL lane to choose and the next trial to check:
 - (b) past seats from history: every `seat-` line ever added on an ancestor that is gone now needs an `unseat-` record;
 - (c) trial files are write-once: the cited commit is the one that added the file, and no later commit modifies it;
 - (d) an un-seat record names the full old blob and gives a reason. `7` until a lane takes it.
+Taken by KERNEL pass 7 (step 1):
+- (a) built: git runs with `--no-replace-objects`, `GIT_NO_REPLACE_OBJECTS=1` and every `GIT_*` variable removed; any ref under `refs/replace/`, a grafts file, or a shallow clone is an error (no seat verifies).
+- (b) built: past seats are every `seat-NN:` line ever added to a face 00 under `kernel/` on HEAD's history (`git log -p -G seat-`), plus `HEAD:books/`; a face seated there and not seated now needs an un-seat record naming its newest seated blob.
+- (c) partly: a seat must cite the trial blob as first added (H5 refused), and the adding commit must touch only `docs/trial/` and `kernel/QUESTIONS.md` (every real trial commit does: ed82086, 4b369fa, 6a1fee5). Not built: proof of who wrote a trial, or of a committed forged ruling (H4, H7 residue); git cannot prove authorship, so that stays findable-in-git only (R2 `:9`).
+- (d) built: the un-seat record must hold the full old blob and some reason text besides it.
+Tests in `kernel/build.test.mjs` (HR, H15, H11, H5, H13, a mixed trial commit, a shallow clone). Left for the next trial to check.
 
 **Q55. [TRIAL-K5] Must a pack's `grant:` cover every path its own work cards name, including the trial and seat steps?**
 Evidence: `docs/trial/kernel-trial-5.md` finding 9.

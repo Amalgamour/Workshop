@@ -29,11 +29,12 @@ function scratch() {
   return d;
 }
 const stamp = (addr, title, faces, whys) => `---\naddress: ${addr}\ntitle: ${title}\ntype: general\nstate: draft\nwhy-draft: test fixture\n---\n\n## Registry\nfaces: ${faces}\n${whys}\n`;
-function run(name, setup, expect) {
-  const d = scratch();
+// opts.scratch makes the scratch copy (default: scratch()); opts.env adds to the builder's environment (TRIAL-K5 H15).
+function run(name, setup, expect, opts = {}) {
+  const d = (opts.scratch || scratch)();
   try {
     setup(d);
-    const r = spawnSync(process.execPath, [join(d, 'kernel', 'build.mjs')], { encoding: 'utf8' });
+    const r = spawnSync(process.execPath, [join(d, 'kernel', 'build.mjs')], { encoding: 'utf8', env: { ...process.env, ...(opts.env ? opts.env(d) : {}) } });
     const out = r.stdout + r.stderr;
     const ok = expect.ok ? r.status === 0 : r.status !== 0 && expect.match.test(out);
     console.log(`${ok ? 'ok  ' : 'FAIL'}  ${name}`);
@@ -90,6 +91,8 @@ run('R2: a seated face changed after its trial is refused', (d) => {
   appendFileSync(S(d, '10.11.21', '10.11.21.1001.01.md'), '\nedited\n');
 }, { match: /seated face changed since its trial/ });
 
+// Trial file blobs as their lanes added them (Q53: a seat cites the trial by path and blob, not by commit).
+const T2 = 'da5d51424fee3bea1d8443c619fcba3c534a1ace', T4 = 'a5d253d5e12722956afea38e79cb7fc1cf492c7b';
 const blob = (t) => { const b = Buffer.from(t, 'utf8'); return createHash('sha1').update(Buffer.concat([Buffer.from(`blob ${b.length}\0`), b])).digest('hex'); };
 const edit = (f, a, b) => { const t = readFileSync(f, 'utf8'); if (!t.includes(a)) throw new Error(`fixture: ${a} not in ${f}`); writeFileSync(f, t.replace(a, b)); };
 
@@ -113,7 +116,7 @@ run('R22: seating a 06 note counter is refused (K4 HK)', (d) => {
   renameSync(k('00.00.00.0051.06.01.draft.md'), k('00.00.00.0051.06.01.md'));
   const b = blob(readFileSync(k('00.00.00.0051.06.01.md'), 'utf8'));
   edit(k('00.00.00.0051.00.draft.md'), '06.01 draft', '06.01 seated');
-  edit(k('00.00.00.0051.00.draft.md'), '\n## Registry\n', `\n## Registry\nseat-06.01: approved-by: build-stage (R2); trial: docs/trial/kernel-trial-4.md@4b369fa; blob: ${b}\n`);
+  edit(k('00.00.00.0051.00.draft.md'), '\n## Registry\n', `\n## Registry\nseat-06.01: approved-by: build-stage (R2); trial: docs/trial/kernel-trial-4.md blob ${T4}; blob: ${b}\n`);
 }, { match: /00\.00\.00\.0051\.06\.01\.md: a 06 counter may not be seated: R22 allows only face 05 counters/ });
 
 // TRIAL-K3 finding 2 (H2): seat records are verified, not trusted.
@@ -125,19 +128,23 @@ const seat0013 = (d, rec) => {
   edit(r, '\n## Registry\n', `\n## Registry\nseat-01: ${rec(blob(readFileSync(f, 'utf8')))}\n`);
 };
 run('R2: a seat citing a trial file that does not exist is refused (H2)', (d) => {
-  seat0013(d, (b) => `approved-by: build-stage (R2); trial: docs/trial/does-not-exist.md@0000000; blob: ${b}`);
+  seat0013(d, (b) => `approved-by: build-stage (R2); trial: docs/trial/does-not-exist.md blob ${'0'.repeat(40)}; blob: ${b}`);
 }, { match: /cites trial docs\/trial\/does-not-exist\.md, which does not exist/ });
 run('R2: a seat citing a real trial that did not pass the face is refused', (d) => {
-  seat0013(d, (b) => `approved-by: build-stage (R2); trial: docs/trial/kernel-trial-3.md@d37e532; blob: ${b}`);
+  seat0013(d, (b) => `approved-by: build-stage (R2); trial: docs/trial/kernel-trial-4.md blob ${T4}; blob: ${b}`);
 }, { match: /its PASS list does not name 10\.11\.21\.0013\.01/ });
+// TRIAL-K5 finding 1 (Q53): the old commit form is refused with a re-pin message.
+run('Q53: a seat citing a trial by commit id is refused (K5 finding 1)', (d) => {
+  edit(S(d, '10.11.21', '10.11.21.1001.00.draft.md'), `kernel-trial-2.md blob ${T2};`, 'kernel-trial-2.md@ed82086;');
+}, { match: /cites a commit id, which changes in the filter-branched published copy; re-pin it as trial: docs\/trial\/kernel-trial-2\.md blob/ });
 run('R2: approved-by director with no ruling id is refused (H2)', (d) => {
-  seat0013(d, (b) => `approved-by: director; trial: docs/trial/does-not-exist.md@0000000; blob: ${b}`);
+  seat0013(d, (b) => `approved-by: director; trial: docs/trial/does-not-exist.md blob ${'0'.repeat(40)}; blob: ${b}`);
 }, { match: /approved-by: director but gives no ruling id/ });
 run('R2: approved-by director citing a ruling that does not name the face is refused', (d) => {
   seat0013(d, (b) => `approved-by: director; ruling: R22; blob: ${b}`);
 }, { match: /seat cites R22, but that ruling does not name 10\.11\.21\.0013\.01/ });
 run('R2: an approved-by value other than build-stage (R2) or director is refused', (d) => {
-  seat0013(d, (b) => `approved-by: prima; trial: docs/trial/kernel-trial-2.md@ed82086; blob: ${b}`);
+  seat0013(d, (b) => `approved-by: prima; trial: docs/trial/kernel-trial-2.md blob ${T2}; blob: ${b}`);
 }, { match: /is not in the R2 form/ });
 
 // TRIAL-K3 finding 3 (H3): C3.2 on the axioms again (as at ed82086).
@@ -157,8 +164,15 @@ run('R2: retiring a seated face with no unseat record is refused (H7)', (d) => {
 // ... and with one naming the old blob it builds.
 run('R2: retiring a seated face with an unseat record builds', (d) => {
   const r = unseat(d);
-  edit(r, '\n## Registry\n', '\n## Registry\nunseat-01: test fixture retirement; was blob 5415cef2 (TRIAL-K2)\n');
+  edit(r, '\n## Registry\n', '\n## Registry\nunseat-01: test fixture retirement; was blob 5415cef2dd0a37f3c2ba4c9b6d2652262f0ef82d (TRIAL-K2)\n');
 }, { ok: true });
+// TRIAL-K5 finding 5 (H13, Q54 d): an un-seat record names the full old blob and gives a reason.
+run('Q54 d: an unseat record with a short blob is refused (K5 H13)', (d) => {
+  edit(unseat(d), '\n## Registry\n', '\n## Registry\nunseat-01: test fixture retirement; was blob 5415cef2\n');
+}, { match: /unseat-01: must name the full old blob 5415cef2dd0a37f3c2ba4c9b6d2652262f0ef82d/ });
+run('Q54 d: an unseat record with no reason is refused (K5 H13)', (d) => {
+  edit(unseat(d), '\n## Registry\n', '\n## Registry\nunseat-01: was blob 5415cef2dd0a37f3c2ba4c9b6d2652262f0ef82d\n');
+}, { match: /unseat-01: gives no reason/ });
 
 // TRIAL-K4 finding 1 (Q52 a): a seat pins the full blob. A short prefix in a seat line is refused ...
 run('R2: a seat line with a short blob prefix is refused (K4 finding 1)', (d) => {
@@ -183,8 +197,8 @@ run('R2: a prefix-collision forge of a seated face is refused (K4 HM)', (d) => {
   writeFileSync(join(d, 'docs', 'trial', 'forged.md'), trial);
   const c = commitOnHead(d, 'docs/trial/forged.md', trial);
   sh(d, ['update-ref', 'HEAD', c]);
-  edit(join(d, 'kernel', '00.00.00', '00.00.00.0056.00.draft.md'), 'kernel-trial-2.md@ed82086; blob: 112c169ccd06d54c6d9ab607fee6c2d16004cc62', `forged.md@${c}; blob: ${nb}`);
-}, { match: /lists 00\.00\.00\.0056\.01 by the short prefix [0-9a-f]{8}, and blob [0-9a-f]{40} is not this face's file in commit/ });
+  edit(join(d, 'kernel', '00.00.00', '00.00.00.0056.00.draft.md'), `kernel-trial-2.md blob ${T2}; blob: 112c169ccd06d54c6d9ab607fee6c2d16004cc62`, `forged.md blob ${blob(trial)}; blob: ${nb}`);
+}, { match: /lists 00\.00\.00\.0056\.01 by the short prefix [0-9a-f]{8}, and blob [0-9a-f]{40} is not this face's file in the commit that added the trial/ });
 // TRIAL-K4 finding 2 (HG, Q52 b): a ruling appended to the working-tree rulings file and never committed does not seat.
 run('R2: a director seat citing an uncommitted ruling is refused (K4 HG)', (d) => {
   appendFileSync(join(d, 'docs', 'spec', 'DIRECTOR-RULINGS.md'), '\n## R23 - fake\nDirector approves the seat of 10.11.21.0013.01.\n');
@@ -196,8 +210,9 @@ run('R2: a seat citing a trial commit not on the branch is refused (K4 finding 4
   const b = blob(readFileSync(S(d, '10.11.21', '10.11.21.0013.01.draft.md'), 'utf8'));
   writeFileSync(join(d, 'docs', 'trial', 'forged.md'), t(b));
   const c = commitOnHead(d, 'docs/trial/forged.md', t(b)); // a child of HEAD; HEAD is not moved
-  seat0013(d, (bb) => `approved-by: build-stage (R2); trial: docs/trial/forged.md@${c}; blob: ${bb}`);
-}, { match: /which is not an ancestor of HEAD/ });
+  void c;
+  seat0013(d, (bb) => `approved-by: build-stage (R2); trial: docs/trial/forged.md blob ${blob(t(b))}; blob: ${bb}`);
+}, { match: /no commit reachable from HEAD adds docs\/trial\/forged\.md/ });
 // TRIAL-K4 finding 5 (HC, Q52 d): with no git, a seat cannot be verified, so it is an error, not a finding.
 run('R2: with no git a seat is an error (K4 finding 5)', (d) => {
   rmSync(join(d, '.git'), { recursive: true, force: true });
@@ -207,6 +222,100 @@ run('R2: retiring a seated face after deleting books/ is still refused (K4 HI)',
   rmSync(join(d, 'books'), { recursive: true, force: true });
   unseat(d);
 }, { match: /10\.11\.21\.1001\.01 was seated \(build-stage \(R2\)\) in the last build but is not now/ });
+
+// ---- KERNEL pass 7: TRIAL-K5 findings 1-5 (Q53, Q54) ----
+const ID = { GIT_AUTHOR_NAME: 't', GIT_AUTHOR_EMAIL: 't@t', GIT_COMMITTER_NAME: 't', GIT_COMMITTER_EMAIL: 't@t' };
+// Commit the copied working files on top of HEAD in a scratch clone (it has no checkout, so the index is built from HEAD).
+const commitWork = (d, msg = 'work') => {
+  const env = { ...process.env, ...ID };
+  sh(d, ['read-tree', 'HEAD'], { env });
+  sh(d, ['add', '-A', '--', 'kernel', 'docs/spec', 'docs/trial', 'books'], { env });
+  sh(d, ['commit', '-q', '--no-verify', '-m', msg], { env });
+};
+// The seated 0051.05.02 is edited and its seat re-pinned to the new blob, citing a trial file that names the new blob.
+const k = (d, n) => join(d, 'kernel', '00.00.00', n);
+const forge0051 = (d, trialPath) => {
+  const f = k(d, '00.00.00.0051.05.02.md');
+  appendFileSync(f, '\nforged line\n');
+  const nb = blob(readFileSync(f, 'utf8'));
+  const old = '7dbf70bd22af1bf0354edd82aff3ddb405ef892d';
+  edit(k(d, '00.00.00.0051.00.draft.md'), `trial: docs/trial/kernel-trial-4.md blob ${T4}; blob: ${old}`, `trial: ${trialPath}; blob: ${nb}`);
+  return nb;
+};
+// A scratch clone with a checkout (filter-branch refuses a tree with unstaged changes), then the working files copied in.
+const fullScratch = () => {
+  const d = mkdtempSync(join(tmpdir(), 'kbuild-full-'));
+  sh(ROOT, ['clone', '-q', '--shared', ROOT, d]);
+  for (const p of ['kernel', 'docs/spec', 'docs/trial', 'books']) { rmSync(join(d, p), { recursive: true, force: true }); cpSync(join(ROOT, p), join(d, p), { recursive: true }); }
+  return d;
+};
+// Q53 / K5 finding 1: a history rewrite (filter-branch dropping target/, as the publish copy is made) changes every commit id,
+// and the seats still verify, because they cite trial and face blobs.
+run('Q53: seats still verify after a filter-branch rewrite changes every commit id (K5 finding 1)', (d) => {
+  commitWork(d, 'pass 7 work');
+  const before = sh(d, ['rev-parse', 'HEAD']);
+  const env = { ...process.env, ...ID, FILTER_BRANCH_SQUELCH_WARNING: '1' };
+  sh(d, ['filter-branch', '-f', '--index-filter', 'git rm -r -q --cached --ignore-unmatch target', '--msg-filter', 'cat; echo rewritten', 'HEAD'], { env });
+  sh(d, ['update-ref', '-d', 'refs/original/refs/heads/build']);
+  for (const r of sh(d, ['for-each-ref', '--format=%(refname)', 'refs/remotes/']).split('\n').filter(Boolean)) sh(d, ['update-ref', '-d', r]);
+  if (sh(d, ['rev-parse', 'HEAD']) === before) throw new Error('fixture: HEAD did not change');
+  if (spawnSync('git', ['-C', d, 'merge-base', '--is-ancestor', '4b369fae89b965734011278166a906e3307c770a', 'HEAD']).status === 0) throw new Error('fixture: old trial commit still an ancestor');
+}, { ok: true }, { scratch: fullScratch });
+// Q54 a / K5 HR: git replace serves a forged trial blob; the guard runs git with --no-replace-objects and refuses replace refs.
+run('Q54 a: a git replace forge of a trial blob is refused (K5 HR)', (d) => {
+  const real = sh(d, ['cat-file', 'blob', T4]);
+  const f = k(d, '00.00.00.0051.05.02.md');
+  appendFileSync(f, '\nforged line\n');
+  const nb = blob(readFileSync(f, 'utf8'));
+  const forged = real.replace('**PASS list, eligible for an R2 seat**', `**PASS list, eligible for an R2 seat**\n- \`00.00.00.0051.05.02\` (blob \`${nb}\`)`);
+  const fb = sh(d, ['hash-object', '-w', '--stdin'], { input: forged + '\n' });
+  sh(d, ['replace', T4, fb]);
+  edit(k(d, '00.00.00.0051.00.draft.md'), 'blob: 7dbf70bd22af1bf0354edd82aff3ddb405ef892d', `blob: ${nb}`);
+}, { match: /the repo has replace refs \(refs\/replace\/a5d253d5/ });
+// Q54 a / K5 H15: GIT_DIR pointed at another clone that adds a forged trial is ignored (GIT_* is stripped).
+let evil;
+run('Q54 a: GIT_DIR pointing at a clone with a forged trial is ignored (K5 H15)', (d) => {
+  evil = scratch();
+  const nb = forge0051(d, 'docs/trial/evil.md blob EVILBLOB');
+  const t = `# evil\n\n**PASS list:**\n- \`00.00.00.0051.05.02\` (blob \`${nb}\`)\n`;
+  writeFileSync(join(d, 'docs', 'trial', 'evil.md'), t);
+  edit(k(d, '00.00.00.0051.00.draft.md'), 'EVILBLOB', blob(t));
+  sh(evil, ['update-ref', 'HEAD', commitOnHead(evil, 'docs/trial/evil.md', t)]);
+}, { match: /no commit reachable from HEAD adds docs\/trial\/evil\.md/ }, { env: () => ({ GIT_DIR: join(evil, '.git'), GIT_WORK_TREE: evil }) });
+if (evil) rmSync(evil, { recursive: true, force: true });
+// Q54 b / K5 H11: dropping a seat and its books line in a commit does not hide the un-seat; seat lines are read from history.
+run('Q54 b: an un-seat hidden by a committed books edit is refused (K5 H11)', (d) => {
+  unseat(d);
+  const b = join(d, 'books', '10.11.21.book');
+  writeFileSync(b, readFileSync(b, 'utf8').split('\n').filter((l) => !l.includes('"addr":"10.11.21.1001.01"')).join('\n'));
+  edit(S(d, '10.11.21', '10.11.21.1001.00.draft.md'), /^seat-01: .*\n/m.exec(readFileSync(S(d, '10.11.21', '10.11.21.1001.00.draft.md'), 'utf8'))[0], '');
+  commitWork(d, 'hide the un-seat');
+}, { match: /10\.11\.21\.1001\.01 was seated \(build-stage \(R2\)\) in the last build but is not now; write unseat-01: <reason>; was blob 5415cef2dd0a37f3c2ba4c9b6d2652262f0ef82d/ });
+// Q54 c / K5 H5: a PASS line added to a real trial in a later commit cannot be cited; the seat must cite the added blob.
+run('Q54 c: a PASS line added to a real trial in a later commit is refused (K5 H5)', (d) => {
+  const real = sh(d, ['cat-file', 'blob', T4]) + '\n';
+  const f = k(d, '00.00.00.0051.05.02.md');
+  appendFileSync(f, '\nforged line\n');
+  const nb = blob(readFileSync(f, 'utf8'));
+  const t = real.replace('**PASS list, eligible for an R2 seat**', `**PASS list, eligible for an R2 seat**\n- \`00.00.00.0051.05.02\` (blob \`${nb}\`)`);
+  writeFileSync(join(d, 'docs', 'trial', 'kernel-trial-4.md'), t);
+  sh(d, ['update-ref', 'HEAD', commitOnHead(d, 'docs/trial/kernel-trial-4.md', t)]);
+  edit(k(d, '00.00.00.0051.00.draft.md'), `kernel-trial-4.md blob ${T4}; blob: 7dbf70bd22af1bf0354edd82aff3ddb405ef892d`, `kernel-trial-4.md blob ${blob(t)}; blob: ${nb}`);
+}, { match: /trial docs\/trial\/kernel-trial-4\.md was added at blob a5d253d5e12722956afea38e79cb7fc1cf492c7b .*not [0-9a-f]{40}; a seat cites the trial as its lane wrote it/ });
+// Q54 c: a trial added in the same commit as a kernel change (a builder writing its own trial) is refused.
+run('Q54 c: a trial added in a commit that also changes kernel/ is refused', (d) => {
+  const f = k(d, '00.00.00.0051.05.02.md');
+  appendFileSync(f, '\nforged line\n');
+  const nb = blob(readFileSync(f, 'utf8'));
+  const t = `# mixed\n\n**PASS list:**\n- \`00.00.00.0051.05.02\` (blob \`${nb}\`)\n`;
+  writeFileSync(join(d, 'docs', 'trial', 'mixed.md'), t);
+  edit(k(d, '00.00.00.0051.00.draft.md'), `kernel-trial-4.md blob ${T4}; blob: 7dbf70bd22af1bf0354edd82aff3ddb405ef892d`, `mixed.md blob ${blob(t)}; blob: ${nb}`);
+  commitWork(d, 'builder adds its own trial');
+}, { match: /the commit that added trial docs\/trial\/mixed\.md \([0-9a-f]{12}\) also changes .*kernel\// });
+// Q54: a shallow clone is refused (the guard reads the full history).
+run('Q54: a shallow clone is refused', (d) => {
+  writeFileSync(join(d, '.git', 'shallow'), sh(d, ['rev-parse', 'HEAD']) + '\n');
+}, { match: /the repo is a shallow clone/ });
 
 if (failed) { console.log(`${failed} failed`); process.exit(1); }
 console.log('all passed');
