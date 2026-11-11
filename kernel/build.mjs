@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // Builds kernel/ Markdown faces into JSON Lines book files (docs/spec/format.md section 3, docs/CONTRACT.md).
 // Deterministic: files sorted by address, fixed timestamp, fixed author. No dependencies. Self-checking:
-// hard checks stop the build; findings print. Rulings applied: docs/spec/DIRECTOR-RULINGS.md R1-R10.
+// hard checks stop the build; findings print. Rulings applied: docs/spec/DIRECTOR-RULINGS.md R1-R21
+// (R19 face 00 layout follows docs/spec/face00.md, a DRAFT). Tests: node kernel/build.test.mjs
 // Usage: node kernel/build.mjs          write books/
 //        node kernel/build.mjs --check  rebuild in memory and fail if books/ differs
 import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync, statSync } from 'node:fs';
@@ -36,7 +37,7 @@ const OVERRIDE_FIELDS = ['changing', 'there', 'needed', 'achieve'];
 const NAME = /^(\d{2})\.(\d{2})\.(\d{2})\.(\d{4})\.(\d{2})(?:\.(\d{2}))?(?:\.([a-z]+))?\.md$/;
 const AX_NAME = /^00\.00\.axioms\.(\d{2})(?:\.(\d{2}))?(?:\.([a-z]+))?\.md$/;
 // R1 and R10 merges, so a `why:` still matches its cited line after the door wording change.
-const R1 = [['identity page', 'door page'], ['only an identity has', 'only a registry has'], ['only an identity has', 'only a door has'], ['board', 'door'], ['identity', 'door']];
+const R1 = [['identity page', 'door page'], ['only an identity has', 'only a registry has'], ['only an identity has', 'only a door has'], ['board', 'door'], ['identity', 'door'], ['A page with only a registry has no reason to exist.', 'A page with only a registry has no reason to exist, except a door page 0000, which holds only face 00 (R10).']]; // last: R10 pass-4 merge (TRIAL-K2 finding 1)
 
 const errors = [], findings = [], lookups = [];
 const err = (f, m) => errors.push(`${f}: ${m}`);
@@ -129,11 +130,25 @@ function seatOf(reg, f) {
   return m ? { by: m[1], trial: m[2], blob: m[3] } : null;
 }
 
+// Layout (R19, docs/spec/face00.md DRAFT): front-matter stamp (address, title, type, state, why-draft), then a
+// `## Registry` card: `faces: 01 seated, 04 draft, 06.01 draft`, then `why-NN:` for each draft and `seat-NN:` for each seat.
+// Returns a map from the face as found on disk (`04.draft`, `01`, and `00.<tail>` for face 00 itself) to
+// "draft because <why>" or "seated; <seat record>", or `null` when there is no registry.
+export function stampOf(body) {
+  const m = /^---\n([\s\S]*?)\n---\n/.exec(body);
+  return m ? Object.fromEntries(m[1].split('\n').map((l) => /^([\w-]+):\s*(.*)$/.exec(l)).filter(Boolean).map((x) => [x[1], x[2]])) : {};
+}
 function registry(f) {
   const reg = f.cards.find((c) => c.key === 'registry');
-  if (!reg) return null;
+  if (!reg || reg.fields.faces === undefined) return null;
   const out = new Map();
-  for (const m of reg.body.matchAll(/^- `([0-9.a-z]+)` [a-z]+: (.*)$/gm)) out.set(m[1], m[2]);
+  const st = stampOf(f.body);
+  out.set(f.tail ? `00.${f.tail}` : '00', f.tail ? `draft because ${st['why-draft'] || ''}` : `seated; ${st['seat-00'] || ''}`);
+  for (const item of reg.fields.faces.trim() === '-' ? [] : reg.fields.faces.split(',')) {
+    const [spot, state] = item.trim().split(/\s+/);
+    if (state === 'seated') out.set(spot, `seated; ${reg.fields[`seat-${spot}`] || ''}`);
+    else out.set(`${spot}.${state}`, state === 'draft' ? `draft because ${reg.fields[`why-${spot}`] || ''}` : state);
+  }
   return out;
 }
 
@@ -144,16 +159,17 @@ function validate({ book, isAx, faces }) {
   for (const [page, fs] of byPage) {
     const stamp = fs.find((f) => f.ff === '00' && !f.nn);
     if (!stamp) { err(page, 'no face 00, the registry (R10)'); continue; }
-    const st = Object.fromEntries([...stamp.body.matchAll(/^(\w+):\s*(.*)$/gm)].map((m) => [m[1], m[2]]));
+    const st = stampOf(stamp.body);
+    if (!['live', 'draft', 'retired'].includes(st.state)) err(stamp.file, `stamp state ${st.state} is not live, draft or retired (R12; face00.md section 1)`);
     if (st.address !== page) err(stamp.file, `stamp address ${st.address} != ${page}`);
     if (!isAx && Number(page.slice(-4)) >= 1000 && !st.title) err(stamp.file, 'pages 1000 and up need a title (A2.8)');
     const reg = registry(stamp);
-    if (!reg) err(stamp.file, 'face 00 has no `## Registry` card listing the faces (R10)');
+    if (!reg) err(stamp.file, 'face 00 has no `## Registry` card with a `faces:` line (R10, R19; face00.md section 3.1)');
     else {
       const have = fs.map((f) => `${f.ff}${f.nn ? '.' + f.nn : ''}${f.tail ? '.' + f.tail : ''}`).sort();
       const listed = [...reg.keys()].sort();
       if (have.join() !== listed.join()) err(stamp.file, `registry lists [${listed}] but the page has [${have}] (R10)`);
-      for (const [k, why] of reg) if (k.endsWith('.draft') && !/draft because \S/.test(why)) err(stamp.file, `registry line ${k} does not say why it is a draft (R5)`);
+      for (const [k, why] of reg) if (k.endsWith('.draft') && !/draft because \S/.test(why)) err(stamp.file, `a draft must say why (R5): ${k === '00.draft' ? 'the stamp has no why-draft:' : `the registry has no why-${k.replace(/\.draft$/, '')}:`}`);
     }
     if (!isAx && page.endsWith('.0000')) {
       // R10: on a door page 0000, face 00 is the only face.
@@ -162,7 +178,7 @@ function validate({ book, isAx, faces }) {
     // R2: a seated face needs a seat record naming the trial and the exact blob that passed it.
     for (const f of fs.filter((x) => !x.tail && !x.nn && x.ff !== '00')) {
       const seat = seatOf(reg, f);
-      if (!seat) err(f.file, 'seated face has no seat record on its registry line (R2: approved-by, trial, blob); write it as FF.draft');
+      if (!seat) err(f.file, `seated face has no seat-${f.ff}: record in face 00 (R2: approved-by, trial, blob); write it as FF.draft`);
       else if (!blobOf(f.body).startsWith(seat.blob)) err(f.file, `seated face changed since its trial: blob ${blobOf(f.body).slice(0, 8)} is not ${seat.blob} (R2, axiom 9); write it as FF.draft and re-trial`);
     }
     const k04 = new Map();
@@ -177,8 +193,8 @@ function validate({ book, isAx, faces }) {
         const type = c.fields.type || FACE_DEFAULT[f.ff];
         if (type && !CARD_TYPES.includes(type)) err(f.file, `card ${c.key}: type ${type} is not a kernel card type (C8.9)`);
         if ((f.ff === '01' || f.ff === '02') && type !== 'brand') { // R15: a brand card needs no 04 card
-          const w = k04.get(c.key);
-          if (!w) err(f.file, `card ${c.key} has no 04 card (C3.2)`);
+          const w = k04.get(c.key); // presence is checked across the lookup in crossChecks (C3.2, TRIAL-K2 finding 8)
+          if (!w) { /* looked up */ }
           else if (!w.fields.why || !w.body) err(f.file, `04 card ${c.key} lacks why: or body (C3.2)`);
           else {
             if (w.body === c.body) find(f.file, `04 ${c.key} copies the ${f.ff} body (C3.2 finding)`);
@@ -189,6 +205,10 @@ function validate({ book, isAx, faces }) {
         if (f.ff === '04' && c.fields.why && c.fields.why.trim() !== '4.7') checkWhy(f.file, c);
       }
     }
+    // R21 (DIRECTOR-RULINGS.md:82-84): no override pages while the Workshop app is built. R7 code below stays, not exercised.
+    if (!isAx && book !== '00.00.00' && /\.000[1-9]$/.test(page)) err(page, 'no override pages while the Workshop app is built; build the change into the page (R21)');
+    // R7: override statements belong only on a 0001-0009 page (TRIAL-K2 finding 19).
+    if (!/\.000[1-9]$/.test(page)) for (const f of fs) for (const c of f.cards) if (OVERRIDE_FIELDS.some((k) => c.fields[k] !== undefined)) err(f.file, `card ${c.key} states an override outside 0001-0009 (R7)`);
     // R7: an override page lives in 0001-0009 and states its four parts.
     if (!isAx && book !== '00.00.00' && /\.000[1-9]$/.test(page)) {
       const cards = fs.filter((f) => f.ff !== '00').flatMap((f) => f.cards);
@@ -243,6 +263,38 @@ function lookupReport(books) {
   }
 }
 
+// TRIAL-K2 finding 8. Across the lookup chain (seqAddr.md:101):
+// (a) a book face at a spot an ancestor (shelf, desk, kernel) already fills replaces it in place. R7 (DIRECTOR-RULINGS.md:32):
+//     "An override does not silently replace a face in place." Under R21 the change is built into the ancestor instead.
+// (b) C3.2: every 01/02 card (not brand, R15) has a 04 card with the same key on the 04 face the lookup returns.
+function chainOf(book) {
+  const [dd, ss] = book.split('.');
+  return [book, `${dd}.${ss}.00`, `${dd}.00.00`, '00.00.00'].filter((x, i, a) => a.indexOf(x) === i);
+}
+function crossChecks(books) {
+  const byBook = new Map(books.filter((b) => !b.isAx).map((b) => [b.book, b]));
+  for (const b of byBook.values()) {
+    const up = chainOf(b.book).slice(1);
+    for (const f of b.faces.filter((x) => x.ff !== '00' && !x.nn && x.pppp !== '0000')) {
+      const anc = up.map((u) => byBook.get(u)).find((ub) => ub && ub.faces.some((x) => x.pppp === f.pppp && x.ff === f.ff && !x.nn));
+      if (anc) err(f.file, `replaces ${anc.book}.${f.pppp}.${f.ff} in place; an override does not silently replace a face (R7), and none are made while the app is built (R21)`);
+    }
+    const pages = new Set(b.faces.filter((x) => x.pppp !== '0000').map((x) => x.pppp));
+    for (const pppp of pages) {
+      const eff = (ff) => { const r = resolve(byBook, b.book, pppp, ff); if (!r) return null; return books.flatMap((x) => x.faces).find((x) => x.addr === r.addr) || null; };
+      const f04 = eff('04');
+      const keys04 = new Set(f04 ? f04.cards.map((c) => c.key) : []);
+      for (const ff of ['01', '02']) {
+        const f = eff(ff); if (!f) continue;
+        for (const c of f.cards) {
+          if ((c.fields.type || FACE_DEFAULT[ff]) === 'brand') continue; // R15
+          if (!keys04.has(c.key)) err(f.file, `card ${c.key} has no 04 card${f04 ? ' on ' + f04.addr : ''} across the lookup from ${b.book} (C3.2)`);
+        }
+      }
+    }
+  }
+}
+
 function render(entriesOf, address) {
   const lines = [JSON.stringify({ seqbook: 1, address })];
   let n = 0;
@@ -272,6 +324,7 @@ function render(entriesOf, address) {
 const check = process.argv.includes('--check');
 const books = sources().map(loadBook);
 books.forEach(validate);
+crossChecks(books);
 lookupReport(books);
 for (const f of findings) console.log('finding  ' + f);
 for (const l of lookups) console.log('lookup   ' + l);

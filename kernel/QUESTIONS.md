@@ -176,13 +176,24 @@ R2: record `approved-by: build-stage (R2)` with the trial reference. Under R12 o
 - Option A: a field on the book entry or proposal that seats the face (as the core gate does now).
 - Option B: a line in the page's face 00 registry, beside that face.
 - Option C: both. `7`.
+- Held (kernel pass 4): the kernel uses B and C together. The seat sits in the page's face 00 registry as `seat-01: approved-by: build-stage (R2); trial: docs/trial/kernel-trial-2.md@ed82086; blob: 112c169c`, so the seated file is unchanged, and the builder writes the same `approved-by` and `trial` onto the book entry. `7` until you rule.
 
 **Q35. [TRIAL-K2] Can an R2 seat apply to a counted face (`06.01` notes, dictionary `03.14`)?**
 `0052.01:87` (seqAddr.md:199-201): "A counted face is never seated." Counter tails are `draft`, `pack`, `open`, `return` and `review`; bare means closed.
 - Option A: no. Counters move only by tails, so a note closes bare, and a dictionary section is bare once reviewed.
 - Option B: dictionary sections are seated like faces, and only 05/06 counters use workflow tails. Linked: Q22. `7`.
 
-**Q36. [TRIAL-K2] Does an R7 override page change what the lookup returns?**
+**Q36. [TRIAL-K2] [MOOT under R21, DIRECTOR-RULINGS.md:82-84: no override pages while the app is built; the sample 10.11.21.0001 is parked in kernel/parked/]** Does an R7 override page change what the lookup returns?
 The sample `10.11.21.0001.04` says `achieve: a reader of 10.11.21 who looks up never-from-memory sees the line below as its explanation`. The builder's lookup still returns the kernel's `00.00.00.0056.04.draft` and only reports that the override exists. R7: "An override does not silently replace a face in place."
 - Option A: the lookup returns the kernel face with the override card applied on top (per card), and shows both.
 - Option B: the lookup returns the kernel face, and the override is reported beside it. Linked: Q3 (per face or per card), Q24 (override form). `7`.
+
+**Q37. [KERNEL pass 4] R18: when two pages in different bands have the same CC but different titles, is that elevated to the user?**
+decisions.md:112 said "Titles should match; a mismatch is elevated to the user (A2.8)." R18: "They are matched by the CC and the title." Pass 4 changed the Bands law so the title is part of the match, and dropped the elevation clause.
+- Option A: not a set, and nothing is raised.
+- Option B: not a set, but the mismatch is still elevated to the user (A2.8), as it may be a typo. `7`.
+
+**Q38. [KERNEL pass 4] face00.md lists the faces in `faces:` without face 00 itself (its example 4.1: `faces: 01 draft`). Is face 00's own state the stamp `state:`, or a separate value?**
+The stamp `state:` is the page's state (R12). Face 00 can be a draft while a face is seated (R14). The kernel reads face 00's own state from its file tail and gives its reason in `why-draft:`.
+- Option A: `state:` is the page state; face 00's own state comes from its entry tail (as face00.md's `registry :=` line shows).
+- Option B: face 00 is listed in `faces:` like any other face. `7`.

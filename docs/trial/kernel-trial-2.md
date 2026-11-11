@@ -263,3 +263,32 @@ Samples (`kernel/samples`):
 - A byte scan covered R4, plus a registry-vs-files diff per page and a book scan for draft reasons, `addr` and `tail` agreement, face sentinels and duplicate `addr` values.
 - The copy check is `docs/trial/kernel-trial-copycheck.mjs`, adapted in `/tmp`: it skips the `docs/spec/examples/` directory, covers `00.00.axioms`, and maps R4 dashes and quotes. Without that change, the committed script crashes with EISDIR on `docs/spec/examples/`.
 - `cargo test --workspace` was run on a clean `git archive` of HEAD (`CARGO_TARGET_DIR=target/k2-trial`), because the shared working tree holds other lanes' uncommitted changes that don't compile.
+
+## Fix pass (KERNEL pass 4, 2026-11-11 EST)
+
+Seats first: both PASS faces were seated at the trialed blobs (`112c169c`, `5415cef2`) before anything else was touched (commit `42ffbc9`); they were not edited after.
+
+| # | Result | How |
+|---|---|---|
+| 1 | fixed | 0052.01/04 Which Faces: "except a door page 0000, which holds only face 00 (R10)" merged into the rule and the 04 why (builder merge list updated). |
+| 2 | fixed | 0053.01 Tail Meanings: `draft` "being written; draft faces count and lookups find them (R5)". |
+| 3 | fixed | 0051.01 A2.7 row becomes `0001-0009` override (R7, none while the app is built, R21) plus the seqAddr.md 0010-0099 rows; 0051.04 "A page in `0001-0009`..." (R7, R21). Exact four-way split still `7` (Q30). |
+| 4 | fixed | 0051.01/04 Bands: matched by number and title (R18); 0057.01 Bound Bands: the F.2 line struck. Elevation of a same-CC, different-title pair raised as Q37. |
+| 5 | fixed | 0051.04 Door Rule: "00 on the desk, shelf, book or page axis means the door (R1, R9); face 00 is the registry, not a sentinel (R10)". |
+| 6 | fixed | 0057.01 The Loop: `workflow-loop.003.md:160` restored (matches the first-pass copy in `07b9bc0`) with only the `05.00` board sentences struck. |
+| 7 | fixed | 0052.01/02/04: face 00 holds stamp (address, title, type, state) and the registry that lists the faces, fields by page type (R10, R12, R19). |
+| 8 | fixed | build.mjs `crossChecks`: in-place replacement refused; C3.2 checked across the lookup. Tests in `kernel/build.test.mjs`. |
+| 9 | partly, held | Every face 00 moved to the face00.md layout as a DRAFT (no meaning changed). Per-type fields and the R19 field set wait on the Director (Q33, Q38). |
+| 10 | fixed | "a door page", "Door page" headers; 0052.04 A4.2 line (with 7). |
+| 11 | fixed | merge-log lines now carry the full appended ruling text. |
+| 12 | fixed | R14 quote's question now says "face 00"; which door R14 means stays Q32. |
+| 13 | fixed | Stamp `form:` uses the face00.md 4.5 door shape (with `form-source:`); duplicate Card Shape line struck. The format.md:74 JSON example is left as copied. |
+| 14 | fixed | 04 Lineage On The Page and Links Face are hole bodies (`7`) instead of a copied 01 row. |
+| 15 | fixed | axioms face 03 (written menu) removed. |
+| 16 | fixed | axioms note marks R20 and R6 answers. |
+| 17 | moot | override sample parked (R21). |
+| 18 | fixed | R5 message names the missing `why-NN:`; header lists R1-R21. |
+| 19 | fixed | override fields outside 0001-0009 refused (R7); any 0001-0009 page refused (R21). |
+| 20 | routed | COMPUTE lane (`crates/compute/tests/http.rs:261`); not a kernel change. |
+
+Every face changed in this pass needs a new trial before an R2 seat (axiom 9).

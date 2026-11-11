@@ -144,3 +144,8 @@ Every build choice, its why, and the spec line it follows. A choice the spec doe
 - [COMPUTE] 7: POST /close lets the counter's reviewer ask the compute to close a review (only the compute writes the close, as the core requires).
 - [COMPUTE] Note: commit 87eb383 accidentally swept KERNEL's staged books/ and kernel/ files (53 files) into a COMPUTE commit; not rewritten. Since then COMPUTE commits are path-limited.
 - [COMPUTE] trial-compute: harness sends tokens (tok-NAME; "user" = director), writes .identities, reader book 10.11.21; all 16 findings un-ignored and passing. Held tests adjusted only where the design changed: short-length raw POST carries media + token; dir listing skips dotfiles; 30 (not 40) queued refusals since bad names are now 401 at the door; /brands book=zz is 400 (finding 9). f01 rewritten to use an agent token with a Director-claimed body.
+
+## [KERNEL] pass 4, TRIAL-K2 fixes + R19/R20/R21 - 2026-11-11 (EST)
+- Seated 00.00.00.0056.01 (112c169c) and 10.11.21.1001.01 (5415cef2) under R2 + R20 (commit 42ffbc9); seat record `seat-01:` in face 00 (7, Q34); builder checks the git blob.
+- Findings 1-8, 10-19 fixed; 9 partly (face00.md layout as a DRAFT; per-type fields held, Q33/Q38); 17 moot (R21 parked the override sample); 20 routed to COMPUTE.
+- New checks + tests: `node kernel/build.test.mjs`. New questions Q37 (R18 elevation), Q38 (face 00 in faces:).
