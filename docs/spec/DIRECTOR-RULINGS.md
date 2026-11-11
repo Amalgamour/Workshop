@@ -10,3 +10,7 @@ Meaning: during this build stage, a face may be seated without the Director's re
 
 ## R3 — 2026-11-11 2:46 PM EST — the page file type (.seq)
 Director asked for a new file type that holds one multifaceted page. Ruling: the **book is the real stored copy**; the `.seq` page file is a **view** you export from a book and import back (import goes through the normal proposal queue). Round trip book -> .seq -> book must be lossless.
+
+## R4 — 2026-11-11 2:54 PM EST — plain characters only
+Director's words: "Remove accented letters from being used. We want a simple storage design for now. So limited characters is fine."
+Meaning: stored files (books, .seq pages, addresses, titles, card text) use plain ASCII only: printable characters 0x20-0x7E plus newline. Any other byte (accented letters, emoji, tabs, CR) is rejected on write with a clear error, and a book holding one is reported as damaged on read. This is a simplicity choice for now and may widen later.
