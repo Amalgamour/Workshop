@@ -39,6 +39,7 @@ The spec lists this as open (`decisions.md:598`). The kernel uses 0050 for now.
 - Option A: no route. Resolving works on a word the user types (C8.8, `decisions.md:496-503`), and the question never types `bob`. This stays `7`.
 - Option B: a concordance, word to page (`decisions.md:606`). This is a proposal awaiting you.
 - Option C: the read path (`claude/readpath.md`, named in `Design.md:14`, proposed). It is not in docs/spec.
+- **ANSWERED 2026-11-11 3:07 PM EST: R11, a common-questions list matched by key words, handing the model 1-3 pieces or probing the person.**
 
 **Q8. Where does a page keep its state: in the stamp, in the file name, or both?**
 The stamp holds "address, title, state" (`decisions.md:176`), and a face may carry `draft` or `retired` (`seqAddr.md:127`). The kernel writes both: a `.draft` door file with `state: draft` inside.

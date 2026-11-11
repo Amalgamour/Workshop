@@ -39,3 +39,12 @@ Read: no `FF.00` and no `FF.99`. Counted faces have no door; counters run 01-98 
 
 **R10 (Q6)** "Page 0000.00 is the only location that exists. 00 is a registry location on a page, because it's multi faceted."
 Read: on a book's door page 0000, face 00 is the only face. On any page, face 00 is the registry: the place that lists the page's faces (it is not a sentinel, per R9). So a door page needs no content face.
+
+## R11 — 2026-11-11 3:07 PM EST — common questions, solved by key words (answers kernel Q7)
+Director's words (t65u): "The what is my name will become part of a common questions people ask list. When we see a version of this, it becomes linked as a sentence; it works like brands do. This is how we let the compute solve. So when it sees prepositions, paired with key words like 'what' + 'name' + 'my' we can use those to solve and give the best guess. Most people only have a few important words when they write or say something. We use this as how we solve. Then compute should be complex enough to parse the words and find what it should hand to the model. It should list 1-3 pieces from that the model can use its intelligence to solve, or ask the model about another option. Otherwise it should ask the person what they are saying, probing them for more detail until the compute and model can solve and resolve their prompt."
+Read:
+- There is a **common questions list**. Each entry is a sentence pattern that works like a brand card: a set of key words (e.g. what + my + name) linked to what answers it (e.g. the user's name -> the `bob` card).
+- The compute pulls the few important words out of a prompt (key words plus the small linking words), matches them to the list and to brand cards, and ranks the best guesses.
+- It hands the model **1 to 3 pieces**. The model uses its own judgment to solve from them, or asks the compute for another option.
+- If nothing fits well enough, the compute asks the person what they mean, probing for more detail until it can be resolved.
+- New phrasings of a known question get linked to that question, the way new forms are added to a brand.
