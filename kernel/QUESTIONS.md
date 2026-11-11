@@ -319,3 +319,4 @@ Evidence: `docs/trial/kernel-trial-5.md` finding 9.
 - Option A: widen each grant to the paths its cards name (code paths too), and mark trial and seat cards as done by other lanes.
 - Option B: a pack grant covers only the builder's own cards; trial and seat cards name their lane (`by: trial lane`, `by: seat lane`) and sit outside the grant by design, and code paths get their own pack.
 - Option C: leave grants as they are until `.003` is approved (O7). `7`.
+Noted by KERNEL pass 7: this one is the Director's (it sets what a pack may write), so it is not decided here. No `grant:` line was changed; the 0054 and 0013 pack edits in pass 7 add paths to work cards only.
