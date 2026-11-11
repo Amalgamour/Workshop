@@ -14,7 +14,7 @@ Cold set before a write: `1.7.8`.
 
 2. **Fractal.** The same shape at every scale. Inherit what is agreed; write only the difference. Do not copy the parent, and do not reinvent what already exists: both create drift. A child refines its parent; it does not replace it. A difference that contradicts the parent needs a named override, approved by the authority above it.
 
-3. **Leads.** Person, model, and compute are three distinct forms of intelligence. Each leads the part of the work it does best. The work needs all three, and each is given the work in its own form. Name the lead with M (model), P (person), and C (compute), in order: `3MPC` means the model leads, then the person, then compute. One or two letters may be named. A lead is not authority.
+3. **Leads.** Person, model, and compute are three distinct forms of intelligence. Each leads the part of the work it does best. The work needs all three, and each is given the work in its own form. Name the lead with M (model), P (person), and C (compute), in order: `3MPC` means the model leads, then the person, then compute. One or two letters may be named. Every piece of work has a lead: named on it, or the default set by its band or pack. Another may do the work, but raises it before moving forward. A lead is not authority.
 
 4. **Why.** A law without its why is incomplete: its reasoning cannot be understood. Record the why when the choice is made. When a why is lost, recover it in proportion to the cost of being wrong. Never invent a reason so the work feels finished.
 
