@@ -693,8 +693,8 @@ impl Store {
             let (code, err) = match out.first_error_code() {
                 Some("conflict") => (409, "conflict"),
                 Some("missing") => (404, "missing"),
-                Some("invalid") => (400, "invalid"),
-                Some("elevate") => (409, "elevate"),
+                Some("invalid") => (422, "invalid"),
+                Some("elevate") => (300, "elevate"),
                 _ => (422, "rejected"),
             };
             body["error"] = json!(err);
