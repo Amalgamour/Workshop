@@ -74,3 +74,7 @@ Read: pages in different bands belong together when their last two digits (CC, t
 ## R19 — 2026-11-11 3:12 PM EST — what face 00 holds (answers seqpage S8/S9)
 Director's words (t67u): "It's a registry location, it can hold a stamp, a registry, it's type. Each page type can have a different set of registry fields to use. But we have the stamp portion, a types field, that sort of thing. Fill out what is missing but that is what I am thinking."
 Read: face 00 is the registry location. It holds (a) the stamp portion (address, title, state, axioms, lineage), (b) the page's type, and (c) a registry whose fields depend on the page type: each type defines its own set of registry fields. Builders are to draft the missing detail (the common fields and the per-type field sets) as a draft for the Director to see, never as settled law.
+
+## R20 — 2026-11-11 3:14 PM EST — what counts as a "different view" for an R2 trial (answers design O1)
+Director's answer (widget on t68s322): "Yes, a fresh session of the same model counts as a different view."
+Read: a hostile trial run by a fresh session (a new subagent that did not build the face) satisfies R2's "different view", even on the same model. The builder's own session never trials its own work.
