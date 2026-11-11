@@ -78,12 +78,12 @@ lineage := 10.11.21.1001 < 10.11.21 < 10.11.00 < 10.00.00 < 00.00.00
 source := book 10.11.21 @7
 ```
 
-- Line 1 is `seqpage 1` (format and version). Line 2 opens the **registry section**: face 00, which on every page is the registry, the place that lists the page's faces (R10). It is not a sentinel and not a stamp. The page's address is read from this header.
+- Line 1 is `seqpage 1` (format and version). Line 2 opens the **registry section**: face 00, which on every page is the registry, the place that lists the page's faces (R10). It is not a sentinel (R9). It also holds the page's stamp (address, title, type, state, axioms, lineage) and its type field (R12, DIRECTOR-RULINGS.md:53-54; R19, :74-76; layout in face00.md, DRAFT). The page's address is read from this header.
 - A file without a registry section first is refused (axiom 7). A second one is refused (axiom 1). The old header `= 00 door` is refused (axiom 8: wrong face name).
 - Derived lines (section 7):
   - `faces :=` is what the registry lists: each face the page has, with its state (`counted` for a face with counters).
   - `registry :=` is the state of face 00 itself.
-  - `title`, `type`, `axioms` are read from fields in face 00's body when present (`-` when not). Where these live now that face 00 is not a stamp is open (`7`, Q S9).
+  - `title`, `type`, `axioms` are read from the stamp fields in face 00's body when present (`-` when not). Where they live is settled: S9 is closed by R12 ("The stamp should go in the .00 as the reg location", DIRECTOR-RULINGS.md:53-54) and R19 (face 00 holds the stamp, the type and a per-type registry, :74-76); see seqpage-QUESTIONS.md S9 and DECISIONS-LOG D151, D152. Still open: whether page state is the stamp `state:` or the page tail (DECISIONS-LOG D44, QUESTIONS-FOR-DIRECTOR QD08, kernel/QUESTIONS.md Q31), and the page 0000 title (face00.md F1). (Fixed by FOLLOWUPS, 2026-11-11; this line used to call S9 open.)
   - `state :=` is the page state from the core (`live`, `draft`, `retired`).
   - `lineage :=` is the address written down (axiom 6): the page, then the A1.8 lookup chain (book, shelf, desk, kernel). Face 08 links are not included (`7`, S3).
   - `kind :=` appears where a ruling names the page: `book door (R10: face 00 only)` on page 0000, `override (R7)` on pages 0001-0009.
