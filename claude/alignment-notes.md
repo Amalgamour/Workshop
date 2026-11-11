@@ -77,3 +77,10 @@ Not changed: `format.md`, `brands.md`, `drafting.md` (they change only when the 
 Left for later, in subfolders (the user said root only): `axioms/04.md` says "the kernel's gravity page (`0012.gravity`)"; it should say the old kernel draft's, so it is not read as Workshop page 0012. `claude/readpath.md` says the default lead comes from the band head; axiom 3 now says band or pack.
 
 Note: the user renamed `Kernel-Architecture-Design.md` to `kernel-design.md` during the update; references in the root files point to the new name.
+
+## Workflow draft, 2026-11-11
+
+`workflow-loop.001.md` (root) is a copy of the Director's `workflow-loop.md`, which is unchanged. It adds axiom citations to every section and fills missing details, each marked "(filled)". Director answers carried in: the lead reads N4 01 and 04 every pass and elevates changes to them for approval; a model lead may design packs and run loops once the N4 page is approved; pass count is an aim with hard move-on points, and the compute forces why questions after several passes without the person.
+
+Main fills: roles (with a reviewer), the N4 approval as axiom 7's written permission, pack header fields, the work card term `W01`, the return on the same counter (no copy), the review step and failed review as a new `continues-from` counter, pack lint checks, the why questions at pass 4 and a halt at pass 6.
+Open: where code lives, N4 05 mirroring, `scale`, `W01`, stale `open` time, when labs are required, correcting A2.6.
