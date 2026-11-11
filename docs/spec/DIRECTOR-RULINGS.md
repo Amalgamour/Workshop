@@ -7,3 +7,6 @@ Meaning: on any axis, the full-zero sentinel (`00` for a 2-digit axis, `0000` fo
 ## R2 — 2026-11-11 2:44 PM EST — build-stage approval
 Director's words: "Approval without my eyes is fine for this stage of the work."
 Meaning: during this build stage, a face may be seated without the Director's review once it has passed a hostile trial (axiom 9) from a different view than its maker. Record it as `approved-by: build-stage (R2)` with the trial reference, so every such seat can be found and re-reviewed later. This does not let anyone answer an open Director question (those stay 7 in QUESTIONS.md).
+
+## R3 — 2026-11-11 2:46 PM EST — the page file type (.seq)
+Director asked for a new file type that holds one multifaceted page. Ruling: the **book is the real stored copy**; the `.seq` page file is a **view** you export from a book and import back (import goes through the normal proposal queue). Round trip book -> .seq -> book must be lossless.
