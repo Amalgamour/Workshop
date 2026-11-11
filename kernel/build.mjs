@@ -1,6 +1,7 @@
 #!/usr/bin/env node
-// Builds kernel/ Markdown faces into JSON Lines book files (docs/spec/format.md §3, docs/CONTRACT.md).
-// Deterministic: files sorted by address, fixed timestamp, fixed author. No dependencies.
+// Builds kernel/ Markdown faces into JSON Lines book files (docs/spec/format.md section 3, docs/CONTRACT.md).
+// Deterministic: files sorted by address, fixed timestamp, fixed author. No dependencies. Self-checking:
+// hard checks stop the build; findings print. Rulings applied: docs/spec/DIRECTOR-RULINGS.md R1-R10.
 // Usage: node kernel/build.mjs          write books/
 //        node kernel/build.mjs --check  rebuild in memory and fail if books/ differs
 import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync, statSync } from 'node:fs';
@@ -10,30 +11,44 @@ import { fileURLToPath } from 'node:url';
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, '..');
 const OUT = join(ROOT, 'books');
+const SPEC = join(ROOT, 'docs', 'spec');
 const BY = 'prima-kernel-seed';
 // 7: format.md gives no rule for the time of a seed write. A fixed time keeps the build deterministic.
 const AT = '2026-11-11T19:30:00Z';
+// R6: the axioms sit outside any book, at desk level. Working address `00.00.axioms` (7: exact address).
+// 7: its storage form is not given; it is written as JSON Lines like a book, under a name other lanes' `*.book` globs skip.
+const AXIOMS = '00.00.axioms';
+const AXIOMS_FILE = '00.00.axioms.jsonl';
 
-// seqAddr.md §4 / §8. Face 00 is the door face (DIRECTOR-RULINGS.md R1); like any face it may be `draft` (seqAddr.md:283).
-const FACE_TAILS = ['draft', 'retired'];
+const FACE_TAILS = ['draft', 'retired']; // seqAddr.md section 4
 const COUNTER_TAILS = ['draft', 'pack', 'open', 'return', 'review'];
+const TAIL_WORDS = ['draft', 'retired', 'pack', 'open', 'return', 'review']; // seqAddr.md:283
 const CONTENT_FACES = ['01', '02', '03', '04', '05', '06', '08']; // C1.1
-// decisions.md C8.9 card types, and face defaults (seqAddr.md §5.3). `work` from workflow-loop.003 §5.2 (draft).
+// decisions.md C8.9 card types and face defaults (seqAddr.md section 5.3). `work` from workflow-loop.003 section 5.2 (draft).
 const CARD_TYPES = ['rule', 'schema', 'menu', 'why', 'task', 'note', 'link', 'brand', 'index', 'work'];
 const FACE_DEFAULT = { '01': 'rule', '02': 'schema', '03': 'menu', '04': 'why', '05': 'task', '06': 'note', '08': 'link' };
-const TAIL_WORDS = ['draft', 'retired', 'pack', 'open', 'return', 'review']; // seqAddr.md:283
-const CARD_KEY = /^[a-z][a-z0-9-]*$/; // seqAddr.md:280 `card = LOWER *( LOWER / DIGIT / "-" )   ; not a tail word`
-// R1 (DIRECTOR-RULINGS.md:5): copied spec text says "door" where it said identity/board/owner. Used only to check
-// that a `why:` still matches its cited line after the R1 merges recorded in each page's 06.01 note.
-const R1 = [['identity page', 'door page'], ['only an identity has', 'only a door has'], ['board', 'door'], ['identity', 'door']];
-const SPEC = join(ROOT, 'docs', 'spec');
+const CARD_KEY = /^[a-z][a-z0-9-]*$/; // seqAddr.md:280 `card = LOWER *( LOWER / DIGIT / "-" ) ; not a tail word`
+// R7: an override page in 0001-0009 states what it changes, why it is there, why it is needed, what it should achieve.
+// 7: these field names are this build's; the ruling gives the four things, not their names.
+const OVERRIDE_FIELDS = ['changing', 'there', 'needed', 'achieve'];
 const NAME = /^(\d{2})\.(\d{2})\.(\d{2})\.(\d{4})\.(\d{2})(?:\.(\d{2}))?(?:\.([a-z]+))?\.md$/;
+const AX_NAME = /^00\.00\.axioms\.(\d{2})(?:\.(\d{2}))?(?:\.([a-z]+))?\.md$/;
+// R1 and R10 merges, so a `why:` still matches its cited line after the door wording change.
+const R1 = [['identity page', 'door page'], ['only an identity has', 'only a registry has'], ['only an identity has', 'only a door has'], ['board', 'door'], ['identity', 'door']];
 
-const errors = [], findings = [];
+const errors = [], findings = [], lookups = [];
 const err = (f, m) => errors.push(`${f}: ${m}`);
 const find = (f, m) => findings.push(`${f}: ${m}`);
 
-// Title form of a heading (C2: `Retry Policy` -> `retry-policy`).
+// R4 (DIRECTOR-RULINGS.md:16): printable ASCII 0x20-0x7E plus newline only.
+function checkAscii(where, text) {
+  const lines = text.split('\n');
+  for (let i = 0; i < lines.length; i++) for (let j = 0; j < lines[i].length; j++) {
+    const c = lines[i].charCodeAt(j);
+    if (c < 0x20 || c > 0x7e) { err(where, `line ${i + 1} col ${j + 1}: character U+${c.toString(16).toUpperCase().padStart(4, '0')} is not plain ASCII (R4)`); return; }
+  }
+}
+
 export const keyOf = (h) => h.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 
 // Cards: `##` headings outside code fences; field lines until the first blank line; then the body.
@@ -59,7 +74,7 @@ export function parseCards(md) {
 }
 
 function sources() {
-  const dirs = [join(HERE, '00.00.00')];
+  const dirs = [join(HERE, '00.00.00'), join(HERE, AXIOMS)].filter(existsSync);
   const s = join(HERE, 'samples');
   if (existsSync(s)) for (const d of readdirSync(s).sort()) if (statSync(join(s, d)).isDirectory()) dirs.push(join(s, d));
   return dirs;
@@ -67,51 +82,77 @@ function sources() {
 
 function loadBook(dir) {
   const book = dir.split('/').pop();
+  const isAx = book === AXIOMS;
   const faces = [];
   for (const file of readdirSync(dir).filter((f) => f.endsWith('.md')).sort()) {
-    const m = NAME.exec(file);
-    if (!m) { err(file, 'name is not a full seated address DD.SS.BB.PPPP.FF[.NN][.tail].md'); continue; }
-    const [, dd, ss, bb, pppp, ff, nn, tail] = m;
-    if (`${dd}.${ss}.${bb}` !== book) err(file, `belongs to book ${dd}.${ss}.${bb}, found in ${book}`);
-    if (nn) {
-      if (nn === '00') err(file, 'FF.00 is a door; format.md:102 says it is derived and never written (CONFLICTS.md K02, QUESTIONS.md)');
-      if (tail && !COUNTER_TAILS.includes(tail)) err(file, `tail ${tail} not allowed on a counter`);
-    } else if (tail) {
-      if (!FACE_TAILS.includes(tail)) err(file, `tail ${tail} not allowed on a face`);
+    let dd, ss, bb, pppp, ff, nn, tail;
+    if (isAx) {
+      const m = AX_NAME.exec(file);
+      if (!m) { err(file, `name is not ${AXIOMS}.FF[.NN][.tail].md`); continue; }
+      [, ff, nn, tail] = m; pppp = null;
+    } else {
+      const m = NAME.exec(file);
+      if (!m) { err(file, 'name is not a full address DD.SS.BB.PPPP.FF[.NN][.tail].md'); continue; }
+      [, dd, ss, bb, pppp, ff, nn, tail] = m;
+      if (`${dd}.${ss}.${bb}` !== book) err(file, `belongs to book ${dd}.${ss}.${bb}, found in ${book}`);
     }
-    const page = `${book}.${pppp}`;
-    const addr = `${page}.${ff}${nn ? '.' + nn : ''}`;
+    if (nn) {
+      // R9 (DIRECTOR-RULINGS.md:37): faces have no sentinels; counters run 01-98.
+      if (nn === '00' || nn === '99') err(file, `counter ${nn} is a face sentinel; faces have none, counters run 01-98 (R9)`);
+      if (tail && !COUNTER_TAILS.includes(tail)) err(file, `tail ${tail} not allowed on a counter`);
+    } else if (tail && !FACE_TAILS.includes(tail)) err(file, `tail ${tail} not allowed on a face`);
+    const page = isAx ? AXIOMS : `${book}.${pppp}`;
+    const spot = `${page}.${ff}${nn ? '.' + nn : ''}`;
+    // R8 (DIRECTOR-RULINGS.md:35): a draft is addressed `...PPPP.FF.draft`.
+    const addr = tail ? `${spot}.${tail}` : spot;
     const body = readFileSync(join(dir, file), 'utf8');
-    faces.push({ file, page, pppp, ff, nn, tail, addr, body, cards: ff === '00' ? [] : parseCards(body) });
+    checkAscii(file, body);
+    faces.push({ file, page, pppp, ff, nn, tail, spot, addr, body, cards: parseCards(body) });
   }
-  return { book, faces };
+  return { book, isAx, faces };
 }
 
-function validate({ book, faces }) {
+// R10 (DIRECTOR-RULINGS.md:40): face 00 is the registry, listing the page's faces. Lines: "- `FF[.NN][.tail]` job: ...".
+function registry(f) {
+  const reg = f.cards.find((c) => c.key === 'registry');
+  if (!reg) return null;
+  const out = new Map();
+  for (const m of reg.body.matchAll(/^- `([0-9.a-z]+)` [a-z]+: (.*)$/gm)) out.set(m[1], m[2]);
+  return out;
+}
+
+function validate({ book, isAx, faces }) {
   const byPage = new Map();
   for (const f of faces) (byPage.get(f.page) || byPage.set(f.page, []).get(f.page)).push(f);
-  if (!byPage.has(`${book}.0000`)) err(book, 'container has no door page 0000 (A3.1, R1)');
+  if (!isAx && !byPage.has(`${book}.0000`)) err(book, 'container has no door page 0000 (A3.1, R1)');
   for (const [page, fs] of byPage) {
     const stamp = fs.find((f) => f.ff === '00' && !f.nn);
-    if (!stamp) { err(page, 'no door face 00 (C1.1, R1)'); continue; }
+    if (!stamp) { err(page, 'no face 00, the registry (R10)'); continue; }
     const st = Object.fromEntries([...stamp.body.matchAll(/^(\w+):\s*(.*)$/gm)].map((m) => [m[1], m[2]]));
     if (st.address !== page) err(stamp.file, `stamp address ${st.address} != ${page}`);
-    if (Number(page.slice(-4)) >= 1000 && !st.title) err(stamp.file, 'pages 1000 and up need a title (A2.8)');
-    if (!fs.some((f) => CONTENT_FACES.includes(f.ff))) {
-      if (page.endsWith('.0000')) find(page, 'door page has no content face; C1.1 vs A3.1 (CONFLICTS.md K10, QUESTIONS.md)');
-      else err(page, 'needs a content face 01-06 or 08 (C1.1)');
+    if (!isAx && Number(page.slice(-4)) >= 1000 && !st.title) err(stamp.file, 'pages 1000 and up need a title (A2.8)');
+    const reg = registry(stamp);
+    if (!reg) err(stamp.file, 'face 00 has no `## Registry` card listing the faces (R10)');
+    else {
+      const have = fs.map((f) => `${f.ff}${f.nn ? '.' + f.nn : ''}${f.tail ? '.' + f.tail : ''}`).sort();
+      const listed = [...reg.keys()].sort();
+      if (have.join() !== listed.join()) err(stamp.file, `registry lists [${listed}] but the page has [${have}] (R10)`);
+      for (const [k, why] of reg) if (k.endsWith('.draft') && !/draft because \S/.test(why)) err(stamp.file, `registry line ${k} does not say why it is a draft (R5)`);
     }
-    // C3.2 hard: every 01/02 card key has a 04 card with why: and a body, in this book.
+    if (!isAx && page.endsWith('.0000')) {
+      // R10: on a door page 0000, face 00 is the only face.
+      for (const f of fs) if (f.ff !== '00') err(f.file, 'page 0000 has only face 00 (R10)');
+    } else if (!fs.some((f) => CONTENT_FACES.includes(f.ff))) err(page, 'needs a content face 01-06 or 08 (C1.1)');
     const k04 = new Map();
     for (const f of fs.filter((f) => f.ff === '04')) for (const c of f.cards) k04.set(c.key, c);
     for (const f of fs) {
       const seen = new Set();
       for (const c of f.cards) {
+        if (f.ff === '00') continue;
         if (seen.has(c.key)) err(f.file, `card key ${c.key} repeats in one face (C2)`);
-        if (!CARD_KEY.test(c.key) || TAIL_WORDS.includes(c.key)) err(f.file, `card key ${c.key} breaks the card grammar or is a tail word (seqAddr.md:280)`);
-        if (!f.tail && f.ff !== '00' && !f.nn && !/R2/.test(c.fields['approved-by'] || '')) err(f.file, `seated card ${c.key} has no approved-by (DIRECTOR-RULINGS.md R2); write the face as FF.draft`);
-        if (f.ff === '04' && c.fields.why && c.fields.why.trim() !== '4.7') checkWhy(f.file, c);
         seen.add(c.key);
+        if (!CARD_KEY.test(c.key) || TAIL_WORDS.includes(c.key)) err(f.file, `card key ${c.key} breaks the card grammar or is a tail word (seqAddr.md:280)`);
+        if (!f.tail && !f.nn && !/R2/.test(c.fields['approved-by'] || '')) err(f.file, `seated card ${c.key} has no approved-by (DIRECTOR-RULINGS.md R2); write the face as FF.draft`);
         const type = c.fields.type || FACE_DEFAULT[f.ff];
         if (type && !CARD_TYPES.includes(type)) err(f.file, `card ${c.key}: type ${type} is not a kernel card type (C8.9)`);
         if (f.ff === '01' || f.ff === '02') {
@@ -124,70 +165,83 @@ function validate({ book, faces }) {
           }
         }
         if (f.ff === '04' && !c.fields.why) err(f.file, `04 card ${c.key} has no why: (C3.2)`);
+        if (f.ff === '04' && c.fields.why && c.fields.why.trim() !== '4.7') checkWhy(f.file, c);
       }
     }
-    for (const f of fs.filter((f) => f.nn)) find(f.file, `counter without a written ${f.ff}.00 door; format.md:102 vs :123 (CONFLICTS.md K02, QUESTIONS.md)`);
+    // R7: an override page lives in 0001-0009 and states its four parts.
+    if (!isAx && book !== '00.00.00' && /\.000[1-9]$/.test(page)) {
+      const cards = fs.filter((f) => f.ff !== '00').flatMap((f) => f.cards);
+      if (!cards.length) err(page, 'override page has no card stating the override (R7)');
+      for (const c of cards) for (const k of OVERRIDE_FIELDS) if (!c.fields[k]) err(page, `override card ${c.key} lacks ${k}: (R7: what it changes, why it is there, why it is needed, what it should achieve)`);
+    }
   }
 }
 
-// A why must be copied from the line its source names: `why: docs/spec/FILE:LINE`. Text outside docs/spec cannot be checked here.
+// A why must be copied from the line its source names: `why: docs/spec/FILE:LINE`.
 function checkWhy(file, c) {
   const m = /why: docs\/spec\/([\w.\-]+):(\d+)/.exec(c.fields.source || '');
   if (!m) { err(file, `04 card ${c.key}: why: has no cited line (source: ... why: docs/spec/FILE:LINE)`); return; }
   const p = join(SPEC, m[1]);
   if (!existsSync(p)) { err(file, `04 card ${c.key}: cited file ${m[1]} is missing`); return; }
   let line = readFileSync(p, 'utf8').split('\n')[Number(m[2]) - 1] || '';
+  for (const [a, b] of [['\u2014', '-'], ['\u2013', '-'], ['\u00a7', 'section '], ['\u201c', '"'], ['\u201d', '"']]) line = line.split(a).join(b); // R4 merges
   const w = c.fields.why.trim();
   if (line.includes(w)) return;
   for (const [a, b] of R1) line = line.split(a).join(b);
   if (!line.includes(w)) err(file, `04 card ${c.key}: why is not on ${m[1]}:${m[2]}`);
 }
 
-// Lookup across books (seqAddr.md:101): book -> shelf -> desk -> kernel, first match per face.
-// A draft is "being written; not active" (seqAddr.md:133), so a draft face is not found (QUESTIONS.md asks whether it should be).
+// Lookup (seqAddr.md:101): book -> shelf -> desk -> kernel, first match per face spot.
+// R5: a draft is found; a seated face at the same spot wins over its draft; the result shows the draft and why.
+function resolve(byBook, book, pppp, ff) {
+  const [dd, ss] = book.split('.');
+  const chain = pppp === '0000' ? [book] : [book, `${dd}.${ss}.00`, `${dd}.00.00`, '00.00.00'].filter((x, i, a) => a.indexOf(x) === i);
+  for (const bk of chain) {
+    const b = byBook.get(bk); if (!b) continue;
+    const here = b.faces.filter((x) => x.pppp === pppp && x.ff === ff && !x.nn);
+    const seated = here.find((x) => !x.tail), draft = here.find((x) => x.tail === 'draft');
+    const f = seated || draft;
+    if (!f) continue;
+    const reg = registry(b.faces.find((x) => x.pppp === pppp && x.ff === '00' && !x.nn) || { cards: [] });
+    return { addr: f.addr, draft: !seated, why: reg && reg.get(`${ff}.draft`) };
+  }
+  return null;
+}
+
 function lookupReport(books) {
-  const by = new Map(books.map((b) => [b.book, b]));
+  const byBook = new Map(books.map((b) => [b.book, b]));
   for (const b of books) {
-    const [dd, ss] = b.book.split('.');
-    const chainAll = [b.book, `${dd}.${ss}.00`, `${dd}.00.00`, '00.00.00'].filter((x, i, a) => a.indexOf(x) === i && by.has(x));
-    const pages = new Set(b.faces.map((f) => f.pppp));
-    for (const pppp of [...pages].sort()) {
-      // Page 0000 is each container's own door page; it is not inherited (seqAddr.md:56-62).
-      const chain = pppp === '0000' ? [b.book] : chainAll;
-      const facesSeen = new Set();
-      for (const bk of chain) for (const f of by.get(bk).faces) if (f.pppp === pppp && !f.nn) facesSeen.add(f.ff);
-      for (const ff of [...facesSeen].sort()) {
-        let got = null, draftAt = null;
-        for (const bk of chain) {
-          const f = by.get(bk).faces.find((x) => x.pppp === pppp && x.ff === ff && !x.nn);
-          if (!f) continue;
-          if (f.tail === 'draft') { draftAt = draftAt || f.addr; continue; }
-          got = f.addr; break;
-        }
-        if (b.book !== '00.00.00' && !got) find(`${b.book}.${pppp}.${ff}`, `lookup: missing; only a draft exists (${draftAt}), not active (seqAddr.md:133)`);
+    if (b.book === '00.00.00' || b.isAx) continue;
+    for (const f of b.faces.filter((x) => /^000[1-9]$/.test(x.pppp) && x.ff !== '00'))
+      for (const c of f.cards) {
+        const t = /(\d{2}\.\d{2}\.\d{2})\.(\d{4})\.(\d{2})/.exec(c.fields.source || '');
+        if (!t) { find(f.file, `override card ${c.key}: no target address in source:`); continue; }
+        const r = resolve(byBook, b.book, t[2], t[3]);
+        lookups.push(`${b.book}.${t[2]}.${t[3]} -> ${r ? r.addr + (r.draft ? ` (found draft; ${r.why || 'no reason listed'})` : ' (seated)') : 'missing'}; override ${f.page} card ${c.key} states a change to it (R7)`);
       }
-      // C3.2 on the resolved page, per face, drafts included (shows what a per-face override would hide).
-      if (b.book === '00.00.00') continue;
-      const resolved = new Map();
-      for (const bk of chain) for (const f of by.get(bk).faces) if (f.pppp === pppp && !f.nn && !resolved.has(f.ff)) resolved.set(f.ff, f);
-      const k04 = new Set((resolved.get('04')?.cards || []).map((c) => c.key));
-      for (const ff of ['01', '02']) for (const c of resolved.get(ff)?.cards || []) if (!k04.has(c.key))
-        find(`${b.book}.${pppp}`, `per-face lookup hides 04 card ${c.key} for ${resolved.get(ff).addr} (C3.2; QUESTIONS.md per face or per card)`);
-    }
   }
 }
 
-function render({ book, faces }) {
-  const lines = [JSON.stringify({ seqbook: 1, address: book })];
+function render(entriesOf, address) {
+  const lines = [JSON.stringify({ seqbook: 1, address })];
   let n = 0;
-  for (const f of faces) {
+  const regs = new Map();
+  for (const f of entriesOf) if (f.ff === '00' && !f.nn) regs.set(f.page, registry(f) || new Map());
+  for (const f of entriesOf) {
     const e = { n: ++n, at: AT, by: BY, op: 'put', addr: f.addr };
-    if (f.tail) e.tail = f.tail;
+    if (f.tail) e.tail = f.tail; // same word as the address tail, for readers that read the field (seqaddr-core accepts both when they agree)
+    // R5 follow-up: a draft says why it is a draft. Copied from its registry line. 7: field name `reason` (CORE is adding one).
+    if (f.tail === 'draft') {
+      const r = (regs.get(f.page) || new Map()).get(`${f.ff}${f.nn ? '.' + f.nn : ''}.draft`);
+      if (r) e.reason = r.replace(/^draft because /, '');
+    }
     e.body = f.body.replace(/\n+$/, '');
-    e.proposal = `${BY}:${f.page}`; // format.md §3.3 proposal batches (proposed): a page arrives with its faces.
+    e.proposal = `${BY}:${f.page}`; // format.md section 3.3 proposal batches (proposed): a page arrives with its faces.
     lines.push(JSON.stringify(e));
   }
-  return lines.join('\n') + '\n';
+  const text = lines.join('\n') + '\n';
+  checkAscii(address, text);
+  return text;
 }
 
 const check = process.argv.includes('--check');
@@ -195,15 +249,16 @@ const books = sources().map(loadBook);
 books.forEach(validate);
 lookupReport(books);
 for (const f of findings) console.log('finding  ' + f);
+for (const l of lookups) console.log('lookup   ' + l);
+const outputs = books.map((b) => [join(OUT, b.isAx ? AXIOMS_FILE : `${b.book}.book`), render(b.faces, b.book)]);
 for (const e of errors) console.error('ERROR    ' + e);
 if (errors.length) { console.error(`${errors.length} errors; nothing written`); process.exit(1); }
 if (!check) mkdirSync(OUT, { recursive: true });
 let diff = 0;
-for (const b of books) {
-  const out = join(OUT, `${b.book}.book`), text = render(b);
+for (const [out, text] of outputs) {
   if (check) { if (!existsSync(out) || readFileSync(out, 'utf8') !== text) { console.error(`differs: ${out}`); diff++; } }
   else writeFileSync(out, text);
-  console.log(`${check ? 'checked' : 'wrote'}  books/${b.book}.book  ${b.faces.length} entries`);
+  console.log(`${check ? 'checked' : 'wrote'}  ${out.slice(ROOT.length + 1)}  ${text.split('\n').length - 2} entries`);
 }
 console.log(`${findings.length} findings, 0 errors`);
 if (diff) process.exit(1);

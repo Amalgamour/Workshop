@@ -1,36 +1,42 @@
 # Questions for the Director
 
-Each item needs a ruling. The kernel does not answer any of them: each stays `7` until you rule (axiom 1, axiom 7; R2 "does not let anyone answer an open Director question"). Options are only the ones the spec already allows. Paths are under `docs/spec/`.
+Q1-Q6 are answered by R5-R10 and Q12 in part by R9 (kept below as history). Q7-Q11, Q13, Q14 still need a ruling. The kernel does not answer any of them: each stays `7` until you rule (axiom 1, axiom 7; R2 "does not let anyone answer an open Director question"). Options are only the ones the spec already allows. Paths are under `docs/spec/`.
 
-**Q1. What page number does the axioms page get?**
+**Q1. [ANSWERED by R6, DIRECTOR-RULINGS.md]** "Axioms exist outside of the book as a 00.axioms on the desk." Applied: axioms moved to `00.00.axioms` (exact address still `7`).
+Original question: **What page number does the axioms page get?**
 The spec lists this as open (`decisions.md:598`). The kernel uses 0050 for now.
 - Option A: keep 0050, the first structural page (`seqAddr.md:223`).
 - Option B: another number in 0050-0099.
 - **ANSWERED 2026-11-11 3:03 PM EST: R6: axioms live outside the book as 00.axioms on the desk.**
 
-**Q2. When a book looks up a face and the only copy is a draft, is it found?**
+**Q2. [ANSWERED by R5, DIRECTOR-RULINGS.md]** "Yes. Draft faces count and lookups find them." and "Yes it can be looked up but also why is it a draft?" Applied: the lookup finds drafts; each registry line says why a face is a draft.
+Original question: **When a book looks up a face and the only copy is a draft, is it found?**
 - Option A: no. A draft is "being written; not active" (`seqAddr.md:133`). This is how the builder reads it now, so today almost every lookup comes back missing.
 - Option B: yes. "Draft faces count" (`seqAddr.md:164`), and books follow the kernel live (`decisions.md:128`).
 - **ANSWERED 2026-11-11 2:55 PM EST: Option B (ruling R5).**
 
-**Q3. When a book overrides a face, does it replace the whole face or only the cards it writes?**
+**Q3. [ANSWERED by R7, DIRECTOR-RULINGS.md]** "When a local override happens it exists in the reserved face pages of 0001-0009..." Applied: the sample override is page 10.11.21.0001. Whether an override replaces a whole face or one card is still not ruled (`7`).
+Original question: **When a book overrides a face, does it replace the whole face or only the cards it writes?**
 - Option A: the whole face. "The first match wins" (`seqAddr.md:104`). Then the sample's local 04 face hides the kernel's other 04 cards, and C3.2 breaks on that page.
 - Option B: card by card. "The same key on two faces is the same card" (`seqAddr.md:168`).
 - Linked: how is a named override written? Axiom 2 needs one. C5.4 (`decisions.md:397-398`) and the owner-class proposal (`decisions.md:610`) are still proposals.
 - **ANSWERED 2026-11-11 3:03 PM EST: R7: overrides are pages in 0001-0009 stating what/why/need/goal; may target face, behavior 0020-0049 or structure 0050-0099.**
 
-**Q4. In a book file, how is a draft face written?**
+**Q4. [ANSWERED by R8, DIRECTOR-RULINGS.md]** "Only if its a draft..." Applied: drafts are addressed `...PPPP.FF.draft` (the book entry keeps the same word in `tail` too).
+Original question: **In a book file, how is a draft face written?**
 - Option A: `"addr":"...PPPP.01","tail":"draft"`. This is what the builder does now. `format.md:75-76` shows `tail` as a field, but only on a counter.
 - Option B: `"addr":"...PPPP.01.draft"`. "`FF.draft` is its unseated draft" (`seqAddr.md:201`), and the draft exists beside the seated face (`drafting.md:11`).
 - **ANSWERED 2026-11-11 3:03 PM EST: R8: FF.draft exists only while drafting (drafting.md).**
 
-**Q5. Is the door of a counted face (`FF.00`) written in the book, or worked out from it?**
+**Q5. [ANSWERED by R9, DIRECTOR-RULINGS.md]** "Faces do not have sentinels. Only pages, books, shelves and desks." Applied: no `FF.00`, no `FF.99`; counters 01-98.
+Original question: **Is the door of a counted face (`FF.00`) written in the book, or worked out from it?**
 - Option A: worked out, never written (`format.md:102`).
 - Option B: written before its counters (`format.md:123`). "A face is counted if and only if `FF.00` exists" (`decisions.md:196`).
 - Linked: R1 renames this location "door". Does it still list every counter and its tail (`decisions.md:187`)?
 - **ANSWERED 2026-11-11 3:03 PM EST: R9: faces have no sentinels; no FF.00.**
 
-**Q6. What content face does a door page 0000 need?**
+**Q6. [ANSWERED by R10, DIRECTOR-RULINGS.md]** "Page 0000.00 is the only location that exists. 00 is a registry location on a page, because it's multi faceted." Applied: page 0000 has only face 00; face 00 is the registry on every page.
+Original question: **What content face does a door page 0000 need?**
 - Option A: door pages don't need one. Every container has one (`decisions.md:143`).
 - Option B: they need one, because "A page with only an identity has no reason to exist" (`decisions.md:274`). The spec doesn't say which face.
 - **ANSWERED 2026-11-11 3:03 PM EST: R10: page 0000 has only face 00; face 00 is the page registry.**
@@ -59,7 +65,8 @@ The stamp holds "address, title, state" (`decisions.md:176`), and a face may car
 - Option A: yes. "Every 01/02 card key has a 04 card" (`decisions.md:353`).
 - Option B: no. In the card-type table, the `brand` row says "Needs a 04 card": no (`decisions.md:521`).
 
-**Q12. Is the dictionary's `03.00` a menu or a door?**
+**Q12. [ANSWERED by R9 (in part), DIRECTOR-RULINGS.md]** 03.00 is not a door. `7`: if the dictionary menu needs a written home, it would be a card on face 03; not done (its entries are derived, decisions.md:516).
+Original question: **Is the dictionary's `03.00` a menu or a door?**
 - Option A: a menu (`decisions.md:432`, `:450`).
 - Option B: the door of a counted face, listing counters (`decisions.md:187`, R1).
 - **ANSWERED 2026-11-11 3:03 PM EST: follows from R9: 03.00 is not a door (faces have no sentinels).**
@@ -107,3 +114,23 @@ The stamp holds "address, title, state" (`decisions.md:176`), and a face may car
 **Q23. [CORE] Does the compute's own bare `put` of a face need a seat approval (R2)?**
 - Option A: no; the compute writes doors and derived pages (current core exempts `compute_name` on bare puts, never on `promote`).
 - Option B: yes; every seat, whoever writes it, carries `approved-by`.
+
+**Q24. [CORE] How does an R7 override page name its target and its four statements?**
+- Option A: one card per override on a content face of the 0001-0009 page, with fields `target:` (full face, page, or range address), `changes:`, `why:`, `needed:`, `achieves:` (current core reads only `target:` lines and reports in-place overrides as an R7 finding).
+- Option B: a fixed page type `override` whose stamp names the target; the core then rejects in-place overrides outright.
+
+**Q25. [CORE] Under R9 a counted face holds counters 01-98 only. What happens after counter 98?**
+- Option A: the face is full; new work goes on a continuation page (PP99 band continuation or a new page), named on face 08.
+- Option B: closed counters are archived/renumbered (would need a rule; nothing in the spec today).
+
+**Q26. [CORE] Under R10 the door page 0000 holds only face 00. Where does a door keep its back-link when a 9999 pointer targets a book's door (A5.3)?**
+- Option A: a `target:` line in the door's registry face 00 (current core, provisional).
+- Option B: pointers never target 0000; they target a page with a face 08 (e.g. 0010).
+
+**Q27. [CORE] Under R10, what must the registry face 00 list, and must it match the faces present?**
+- Option A: face 00 lists the page's faces and the core checks it against the faces present (needs a format).
+- Option B: face 00 is the stamp; the "list" is derived from the faces present (current core, no check).
+
+**Q28. [CORE] R6 puts the axioms at `00.00.axioms` on the kernel desk. Is that a new address form (two axes plus a title), or a page of book 00.00.00?**
+- Option A: a container title form `DD.SS.title` (the grammar would need it; the core today parses titles only after full addresses).
+- Option B: an alias for a fixed page in the kernel book.
