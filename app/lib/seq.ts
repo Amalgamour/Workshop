@@ -1,6 +1,6 @@
 // Small display helpers. They only label what the compute returned; they never decide rules.
 export const FACE_NAMES: Record<string, { name: string; plain: string }> = {
-  "00": { name: "Stamp", plain: "identity: the page's address, title and state" },
+  "00": { name: "Registry", plain: "the page's stamp (title, state) and the list of its faces (R10)" },
   "01": { name: "Law", plain: "for models: what the page means, in short cards" },
   "02": { name: "Schema", plain: "templates, formats and exact steps" },
   "03": { name: "Operate", plain: "for the compute: operations and the card menu" },
@@ -81,4 +81,9 @@ export function opPlain(e: { op: string; from?: string; to?: string; tail?: stri
     case "use": return "recorded a word lookup";
     default: return e.op;
   }
+}
+
+/** Director ruling R4: stored text is plain ASCII (0x20-0x7E and newline). Returns the characters that would be refused. */
+export function nonAscii(text: string): string[] {
+  return [...new Set([...text].filter((c) => c !== "\n" && (c < " " || c > "~")))];
 }

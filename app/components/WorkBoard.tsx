@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { propose, type Op } from "@/lib/propose";
+import { clearDone, showDone, propose, type Op } from "@/lib/propose";
 import { useWho } from "@/components/WhoAmI";
 import { Outcome } from "@/components/Outcome";
 import { LOOP, NEXT, OUTCOMES, type ProposeResult } from "@/lib/rules";
@@ -35,15 +35,15 @@ export function WorkBoard({ page, jobs, initial, board }: { page: string; jobs: 
   async function send(ops: Op[], select?: string) {
     setBusy(true); setRes(null);
     const r = await propose(who, ops);
-    setRes(r); setBusy(false);
-    if (r.status === "approved") { setText(""); if (select) setSel(select); router.refresh(); }
+    setBusy(false);
+    if (r.status === "approved") { setRes(null); setText(""); if (select) setSel(select); showDone(router, r.queue_id); } else { setRes(r); clearDone(router); }
   }
 
   const idx = job ? LOOP.findIndex((l) => l.tail === job.tail) : -1;
   return (
     <>
       <div className="panel">
-        <h3>The board <span className="note">(05.00: derived by the compute from the log, never written)</span></h3>
+        <h3>The board <span className="note">(a view the compute derives from the log; never written. R9: faces have no door, so it is not a stored face)</span></h3>
         <div className="board">
           {LOOP.map((l) => (
             <div className="col" key={l.tail}>

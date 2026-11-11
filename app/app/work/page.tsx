@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { get, type LogEntry, type PageDetail } from "@/lib/compute";
+import { QueueResult } from "@/components/QueueResult";
 import { Addr, Header, Raw } from "@/components/ui";
 import { WorkBoard, type Job } from "@/components/WorkBoard";
 
 export const dynamic = "force-dynamic";
 
-export default async function Work({ searchParams }: { searchParams: Promise<{ page?: string; job?: string }> }) {
+export default async function Work({ searchParams }: { searchParams: Promise<{ page?: string; job?: string; done?: string }> }) {
   const sp = await searchParams;
   const head = <Header title="Work loop" lede="Jobs live on face 05 of a page, as numbered counters (05.01, 05.02, ...). Each job walks one loop: draft → pack → open → return → review → closed. The compute checks every move." />;
   if (!sp.page || !/^\d\d\.\d\d\.\d\d\.\d{4}$/.test(sp.page))
@@ -28,6 +29,7 @@ export default async function Work({ searchParams }: { searchParams: Promise<{ p
   return (
     <>
       {head}
+      <QueueResult id={sp.done} />
       <div className="panel row"><strong>{pd?.title ?? "7 page not found"}</strong> <Addr a={`${page}.05`} /> {pd ? <Link href={`/page/${page}?face=05`}>open the page</Link> : null}</div>
       {pd ? <WorkBoard page={page} jobs={jobs} initial={sp.job ?? null} board={pd.faces["05.00"]?.body ?? null} /> : <p>Make the page first on <Link href={`/draft?page=${page}&face=04`}>Draft a face</Link>.</p>}
       <Raw data={{ page: pd, history: hist }} url={pr.url} />

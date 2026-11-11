@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { propose } from "@/lib/propose";
+import { clearDone, showDone, propose } from "@/lib/propose";
 import { useWho } from "@/components/WhoAmI";
 import { Outcome } from "@/components/Outcome";
 import type { ProposeResult } from "@/lib/rules";
@@ -22,8 +22,8 @@ export function SeatForm({ faceAddr, openNotes }: { faceAddr: string; openNotes:
   async function send() {
     setBusy(true);
     const r = await propose(who, [op]);
-    setRes(r); setBusy(false);
-    if (r.status === "approved") router.refresh();
+    setBusy(false);
+    if (r.status === "approved") { setRes(null); showDone(router, r.queue_id); } else { setRes(r); clearDone(router); }
   }
 
   return (

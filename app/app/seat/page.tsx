@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { get, type LogEntry, type PageDetail } from "@/lib/compute";
+import { QueueResult } from "@/components/QueueResult";
 import { Addr, Header, Hole, Raw } from "@/components/ui";
 import { SeatForm } from "@/components/SeatForm";
 import { draftNotes } from "@/lib/drafting";
@@ -7,8 +8,8 @@ import { FACE_NAMES, torontoTime } from "@/lib/seq";
 
 export const dynamic = "force-dynamic";
 
-export default async function Seat({ searchParams }: { searchParams: Promise<{ addr?: string }> }) {
-  const { addr } = await searchParams;
+export default async function Seat({ searchParams }: { searchParams: Promise<{ addr?: string; done?: string }> }) {
+  const { addr, done } = await searchParams;
   const head = <Header title="Seat a face" lede={<>Seating makes a draft the live face. During this build stage it may be done without the Director&apos;s eyes, but only after a hostile trial from another view, and it is always recorded so it can be found and re-reviewed (Director ruling R2).</>} />;
   const m = /^(\d\d\.\d\d\.\d\d\.\d{4})\.(\d\d)$/.exec(addr ?? "");
   if (!m)
@@ -24,6 +25,7 @@ export default async function Seat({ searchParams }: { searchParams: Promise<{ a
   return (
     <>
       {head}
+      <QueueResult id={done} />
       <div className="panel">
         <h3>Face {face} {FACE_NAMES[face]?.name} of <Link href={`/page/${page}?face=${face}`}>{pd?.title ?? page}</Link></h3>
         <Addr a={`${page}.${face}`} />

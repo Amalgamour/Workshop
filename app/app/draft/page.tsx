@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { get, type LogEntry, type PageDetail } from "@/lib/compute";
+import { QueueResult } from "@/components/QueueResult";
 import { Addr, Header, Raw } from "@/components/ui";
 import { DraftForm } from "@/components/DraftForm";
 import { draftNotes } from "@/lib/drafting";
@@ -7,7 +8,7 @@ import { FACE_NAMES } from "@/lib/seq";
 
 export const dynamic = "force-dynamic";
 
-export default async function Draft({ searchParams }: { searchParams: Promise<{ page?: string; face?: string }> }) {
+export default async function Draft({ searchParams }: { searchParams: Promise<{ page?: string; face?: string; done?: string; override?: string }> }) {
   const sp = await searchParams;
   const head = <Header title="Draft a face" lede="Write or change one face of a page. Nothing becomes live here: a draft is checked by the compute and written as a draft. Seating it (making it live) is a separate step." />;
   if (!sp.page || !/^\d\d\.\d\d\.\d\d\.\d{4}$/.test(sp.page))
@@ -32,11 +33,12 @@ export default async function Draft({ searchParams }: { searchParams: Promise<{ 
   return (
     <>
       {head}
+      <QueueResult id={sp.done} />
       <div className="panel">
         <h3>Face {face} {FACE_NAMES[face]?.name ?? ""} <span className="note">— {FACE_NAMES[face]?.plain}</span></h3>
         <div className="row"><Addr a={`${page}.${face}`} />{pageData ? <Link href={`/page/${page}?face=${face}`}>open the page</Link> : null}</div>
       </div>
-      <DraftForm page={page} face={face} mode={mode} pageTitle={pageData?.title ?? null}
+      <DraftForm override={sp.override ?? null} page={page} face={face} mode={mode} pageTitle={pageData?.title ?? null}
         live={live ? { body: live.body, source: live.source, from: live.resolved_from ?? "local" } : null}
         draft={draft ? { body: draft.body } : null} notes={notes} />
       <Raw data={{ page: pageData, history: hr.kind === "ok" ? hr.data : hr }} url={pr.url} />

@@ -32,6 +32,29 @@ npm run build && npm start   # terminal 2: reader on http://127.0.0.1:3000
 
 Every screen has "Check it yourself": the raw compute answer and its URL.
 
+## Desk working side (round 2: needs the real compute, which writes)
+
+| Screen | Where | Does |
+|---|---|---|
+| Desk | `/desk/DD` | one desk: its door (`DD.00.00.0000`, R1), shelves, books, and every job on it as a board |
+| Draft a face | `/draft?page=...&face=FF` | new page (door + face, both drafts), new face (draft), or change a live face: copy -> note -> merge (D0) |
+| Seat a face | `/seat?addr=...FF` | promote a draft: `build-stage (R2)` + trial reference, or `director` |
+| Work loop | `/work?page=...` | face 05 jobs: draft -> pack -> open -> return -> review -> closed, one plain rule per step |
+| Queue | `/queue` | every proposal, approved or not, with rule, axiom and detail |
+| Export | `/export?addr=...` | the page as a `.seq` file, when the compute serves `GET /page.seq` (CONTRACT addendum) |
+
+- "Writing as" in the sidebar is the `by` name sent with each proposal. There is no sign-in yet.
+- Every write shows the exact proposal first ("Check before sending") and the compute's answer after.
+- After an approved write the screen reloads with `?done=<queue id>` and reads the result back from `/queue`.
+- Try it without touching the real books: copy `books/` to a temp folder and run the compute on it:
+
+```bash
+mkdir -p /tmp/w/books && cp books/*.book /tmp/w/books/
+./target/debug/compute --books /tmp/w/books --listen 127.0.0.1:7710 &
+cd app && npm run build && COMPUTE_URL=http://127.0.0.1:7710 npx next start -p 3010
+APP_URL=http://127.0.0.1:3010 node scripts/screenshots-live-2x.mjs   # drives every flow, saves live-2x-*.png
+```
+
 ## Files
 
 - `lib/compute.ts` the only place that calls the compute

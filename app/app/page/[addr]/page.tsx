@@ -30,7 +30,7 @@ export default async function PageView({ params, searchParams }: { params: Promi
       <Header title={<>{p.title ?? "7 no title"}</>} lede={<>A page. Its address: <Addr a={p.address} /></>} />
 
       <div className="panel">
-        <h3>Stamp <span className="note">(face 00: who this page is)</span></h3>
+        <h3>Registry <span className="note">(face 00: who this page is and which faces it has, R10)</span></h3>
         {stamp ? (
           <>
             <div className="badges"><SourceBadge from={stamp.resolved_from} source={stamp.source} />{stamp.tail ? <TailBadge tail={stamp.tail} /> : null}</div>
@@ -40,6 +40,7 @@ export default async function PageView({ params, searchParams }: { params: Promi
         <div className="row note">
           <Link href={`/history/${addr}`}>History of this page</Link>·
           <Link href={`/links/${addr}`}>Links and map</Link>·
+          <Link href={`/export?addr=${addr}`}>Export page as .seq</Link>·
           <Link href={`/resolve?addr=${addr}.${face}`}>How face {face} was found</Link>
           {links.kind === "ok" ? <span>· {links.data.forward.length} links out, {links.data.back.length} links in{links.data.missing.length ? <>, <b style={{ color: "var(--hole)" }}>{links.data.missing.length} missing</b></> : null}</span> : null}
         </div>
@@ -95,8 +96,7 @@ function FacePanel({ addr, face, entries }: { addr: string; face: string; entrie
       {draft ? <FaceBlock addr={addr} k={draft[0]} v={draft[1]} label="Draft (not active yet)" /> : null}
       {board || counters.length ? (
         <>
-          <h3 style={{ marginTop: 18 }}>Board <span className="note">(face {face}.00: every counter and its state)</span></h3>
-          {!board ? <Hole what={`the board ${face}.00`} why="Counters are written but there is no board. A counter without a board is invalid (seqAddr 5.7). Raised to you." /> : null}
+          <h3 style={{ marginTop: 18 }}>Board <span className="note">(every counter and its state; a view derived by the compute, R9)</span></h3>
           <table className="log">
             <thead><tr><th>Counter</th><th>State</th><th>First card</th></tr></thead>
             <tbody>{counters.map(([k, v]) => <tr key={k}><td><a href={`#c-${k}`}><code>{k}</code></a></td><td><TailBadge tail={v.tail ?? "closed"} /></td><td>{parseCards(v.body).cards[0]?.title ?? ""}</td></tr>)}</tbody>

@@ -13,3 +13,19 @@ export async function propose(by: string, ops: Op[]): Promise<ProposeResult> {
     return { status: "rejected", error: "down", detail: `The compute is not answering: ${String(err)}`, http: 0 };
   }
 }
+
+/** After an approved write: reload the screen with ?done=<queue id>, so the result shown comes from the compute's queue. */
+export function showDone(router: { replace: (u: string) => void; refresh: () => void }, id?: string) {
+  const u = new URL(window.location.href);
+  if (id) u.searchParams.set("done", id);
+  router.replace(u.pathname + u.search);
+  router.refresh();
+}
+
+/** After a refused write: drop an older ?done= result so the screen shows only this refusal. */
+export function clearDone(router: { replace: (u: string) => void }) {
+  const u = new URL(window.location.href);
+  if (!u.searchParams.has("done")) return;
+  u.searchParams.delete("done");
+  router.replace(u.pathname + u.search);
+}
