@@ -60,3 +60,16 @@ fn examples_are_plain_ascii() {
         assert!(t.bytes().all(|b| b == b'\n' || (0x20..=0x7e).contains(&b)), "{f} breaks R4");
     }
 }
+
+#[test]
+fn hand_written_new_page_proposes_its_creation() {
+    let text = read("docs/spec/examples/proposals/10.11.21.1002.seq");
+    let log = seqaddr_core::log::BookLog::parse(&read("docs/spec/examples/sources/10.11.21.book")).unwrap();
+    let imp = import(&text, Some(&log), "me").unwrap();
+    assert!(imp.booked.is_empty());
+    assert_eq!(imp.proposal.ops.len(), 2);
+    let mut w = seqaddr_core::World::new(seqaddr_core::Policy::default());
+    w.insert(seqaddr_core::BookState::replay(&log, &w.policy).unwrap());
+    let out = seqaddr_core::validate(&w, &imp.proposal, "2026-11-11T20:00:00Z");
+    assert_eq!(out.status, seqaddr_core::Status::Approved, "{:?}", out.reasons);
+}

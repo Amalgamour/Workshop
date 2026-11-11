@@ -27,3 +27,10 @@ Errors: {"error":code,"detail"}. Missing is a 404 with {"error":"missing","axiom
 - Only touch your lane's folders plus append-only lines in docs/BUILD-LOG.md (prefix your lane tag).
 - Never push anywhere. No network installs beyond crates.io / npm registry.
 - Never invent a rule the spec doesn't give: mark it `7` in BUILD-LOG ("spec silent; chose X provisionally because Y") and keep it isolated/configurable.
+
+## Addendum (SEQPAGE lane, 2026-11-11): .seq page routes, proposed for COMPUTE
+Per R3 the book is the real copy and a `.seq` file is a view; import is a proposal. Layout: docs/spec/seqpage.md. Library: `crates/seqpage` (`seqpage::export`, `seqpage::import`, `seqpage::check_text`).
+- GET  /page.seq?addr=DD.SS.BB.PPPP    -> `text/plain; charset=us-ascii` body = `seqpage::export(&book_log, page)`; header `Content-Disposition: attachment; filename="<seqpage::file_name>"`. 404 `{"error":"missing","axiom":"7"}` when the page has no entries. 422 `{"error":"invalid","rule":"R4",...}` when a book entry is not plain ASCII.
+- POST /propose  with `Content-Type: text/x-seqpage` (body = a .seq file; `by` from the `by` query parameter or the session) -> `seqpage::import(text, Some(&book_log), by)`; on error 422 with the Report `{"ok":false,"errors":[{"line","code","axiom","rule","detail"}],"findings":[...]}`; on success its `proposal` goes through the normal queue and the response is the usual `{"status","reasons","entries"}` plus `"findings"` from the import. JSON bodies to /propose are unchanged.
+- POST /check.seq (optional) -> the Report from `seqpage::check_text(text, filename, Some(&book_log))`, writes nothing.
+Error axioms used by the Report: 7 missing, 7.8 broken pointer to the book, 1 conflict/authority, 6 lineage (past rewritten), 8 connection. Status codes: missing 404, conflict 409, others 422 (match SeqError::http_status).
