@@ -3,7 +3,7 @@
 // can reach trial commits, rulings and books at HEAD, TRIAL-K4 Q52), copies the working kernel/, docs/spec/, docs/trial/ and
 // books/ into it, adds one hostile change, runs the builder there, and checks the result. The repo is never written.
 // Usage: node kernel/build.test.mjs
-import { mkdtempSync, mkdirSync, cpSync, writeFileSync, readFileSync, rmSync, appendFileSync, renameSync, symlinkSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, cpSync, writeFileSync, readFileSync, rmSync, appendFileSync, renameSync, symlinkSync, chmodSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { join, dirname } from 'node:path';
 import { tmpdir } from 'node:os';
@@ -523,6 +523,106 @@ run('Q62: an un-seat hidden by keeping face 00 out of git is found in the histor
   const c2 = commitTree(d, putTree(d, 'HEAD', [[null, null, R0013], ['100644', hashText(d, book + line + '\n'), B]]), ['HEAD'], 'seat built from an untracked face 00');
   sh(d, ['update-ref', 'HEAD', commitTree(d, sh(d, ['rev-parse', 'HEAD^{tree}']), [c2], 'face 00 back without the seat, book line gone')]);
 }, { match: /10\.11\.21\.0013\.05\.03 was seated \(build-stage \(R2\)\) in the last build but is not now; write unseat-05\.03: <reason>; was blob 4{40}/ });
+
+// ---- KERNEL pass 11: TRIAL-K9 findings 1-4 (Q63-Q66) ----
+const R0013 = 'kernel/samples/10.11.21/10.11.21.0013.00.draft.md';
+const REAL_0502 = '24a27e08bfb78ff75b1f7a2b91e82e2956a1163f'; // the seated 0013.05.02 (trial kernel-trial-7.md)
+const FAKE_0502 = '2c338d1d' + '0'.repeat(32); // a made-up blob, as in K9 D1 and D2
+// Pull 0013.05.02 back to a draft with an un-seat record naming `named`, the way K9 D1 and D2 did.
+const pull0502 = (d, named) => {
+  renameSync(S(d, '10.11.21', '10.11.21.0013.05.02.md'), S(d, '10.11.21', '10.11.21.0013.05.02.draft.md'));
+  const r = join(d, R0013);
+  edit(r, '05.02 seated', '05.02 draft');
+  edit(r, /^seat-05\.02: .*\n/m.exec(readFileSync(r, 'utf8'))[0], `why-05.02: pulled back for review\nunseat-05.02: pulled back for review; was blob ${named}\n`);
+  return r;
+};
+const NAME_REAL = new RegExp(`unseat-05\\.02: must name the full old blob ${REAL_0502}`);
+// Q63 / K9 D2: one commit un-seats 0013.05.02 with a record naming a made-up blob, and adds a prose line `seat-05.02: ...` with
+// that blob at the end of face 00. Before pass 11 the prose line was read as the newest seat, so the made-up blob passed.
+run('Q63: an un-seat naming a made-up blob beside a prose seat-NN line is refused (K9 D2)', (d) => {
+  appendFileSync(pull0502(d, FAKE_0502), `\nseat-05.02: approved-by: build-stage (R2); trial: none; blob: ${FAKE_0502}\n`);
+  commitWork(d, 'un-seat 0013.05.02 with a decoy prose line');
+}, { match: NAME_REAL });
+// ... and the same un-seat naming the real blob builds: the prose line is not a seat, so it neither sets the blob nor blocks.
+run('Q63: the same un-seat naming the real last seat blob builds (K9 D2, control)', (d) => {
+  appendFileSync(pull0502(d, REAL_0502), `\nseat-05.02: approved-by: build-stage (R2); trial: none; blob: ${FAKE_0502}\n`);
+  commitWork(d, 'un-seat 0013.05.02 naming the real blob');
+}, { ok: true });
+// Q63 / K9 D1: a made-up `seat-05.02:` line in face 00's front matter is committed first (C1); then 0013.05.02 is pulled with a
+// record naming it (C2, the stamp line gone). A stamp seat-NN other than seat-00 is not a seat, so the real blob is asked for.
+run('Q63: a made-up stamp seat-NN line committed earlier does not set the un-seat blob (K9 D1)', (d) => {
+  const r = join(d, R0013);
+  edit(r, '\nstate: draft\n', `\nstate: draft\nseat-05.02: approved-by: build-stage (R2); trial: none; blob: ${FAKE_0502}\n`);
+  commitWork(d, 'decoy seat line in the stamp');
+  edit(r, `seat-05.02: approved-by: build-stage (R2); trial: none; blob: ${FAKE_0502}\n`, '');
+  pull0502(d, FAKE_0502);
+  commitWork(d, 'un-seat 0013.05.02 naming the decoy');
+}, { match: NAME_REAL });
+// Q63: the registry's own seat-05.02 line is rewritten to a made-up blob in a commit that never built (C1), then the face is
+// pulled naming it (C2). books/ history still holds the real seat, so the record must name it; the made-up blob is not a blob
+// git holds, so it is reported too.
+run('Q63: a registry seat line rewritten to a made-up blob before the un-seat is refused (books/ history has the real seat)', (d) => {
+  const r = join(d, R0013);
+  edit(r, `blob: ${REAL_0502}`, `blob: ${FAKE_0502}`);
+  commitWork(d, 'rewrite the seat line to a made-up blob (never built)');
+  pull0502(d, FAKE_0502);
+  commitWork(d, 'un-seat 0013.05.02 naming the made-up blob');
+}, { match: NAME_REAL });
+// Q63 (live): a face 00 states each seat once, in its structured place. A stamp seat-NN (NN != 00) is refused ...
+run('Q63: a stamp seat-NN line other than seat-00 is refused', (d) => {
+  edit(join(d, R0013), '\nstate: draft\n', `\nstate: draft\nseat-05.02: approved-by: build-stage (R2); trial: none; blob: ${FAKE_0502}\n`);
+  commitWork(d);
+}, { match: /stamp has seat-05\.02:; a seat record for face 05\.02 lives on the registry/ });
+// ... and so is a registry seat-NN for a face not listed as seated (with no un-seat record).
+run('Q63: a registry seat-NN line for a face not listed as seated is refused', (d) => {
+  edit(join(d, R0013), '\n## Registry\n', `\n## Registry\nseat-04: approved-by: build-stage (R2); trial: none; blob: ${FAKE_0502}\n`);
+  commitWork(d);
+}, { match: /registry has seat-04:, but 04 is not listed as seated in faces:/ });
+// Q64 / K9 A1 (755): a seat recorded only in a book committed as 100755 (face 00 out of git), then the book put back without it.
+// Before pass 11 the books/ history walk matched only 100644 and skipped it.
+run('Q64: an un-seat recorded only in a 100755 book in history is found (K9 A1 755)', (d) => {
+  const B = 'books/10.11.21.book';
+  const book = sh(d, ['cat-file', 'blob', `HEAD:${B}`]) + '\n';
+  const line = JSON.stringify({ n: 99, at: '2026-11-11T19:30:00Z', by: 'prima-kernel-seed', op: 'put', addr: '10.11.21.0013.05.03', 'approved-by': 'build-stage (R2)', trial: `docs/trial/kernel-trial-99.md blob ${'3'.repeat(40)}; face blob ${'4'.repeat(40)}`, body: 'x' });
+  const c2 = commitTree(d, putTree(d, 'HEAD', [[null, null, R0013], ['100755', hashText(d, book + line + '\n'), B]]), ['HEAD'], 'seat built from an untracked face 00, book +x');
+  sh(d, ['update-ref', 'HEAD', commitTree(d, sh(d, ['rev-parse', 'HEAD^{tree}']), [c2], 'face 00 back without the seat, book line gone')]);
+}, { match: /10\.11\.21\.0013\.05\.03 was seated \(build-stage \(R2\)\) in the last build but is not now; write unseat-05\.03: <reason>; was blob 4{40}/ });
+// Q64 (B): a current book committed as 100755 is refused.
+run('Q64: a current book file committed as 100755 is refused', (d) => {
+  const B = 'books/10.11.21.book';
+  sh(d, ['update-ref', 'HEAD', commitTree(d, putTree(d, 'HEAD', [['100755', sh(d, ['rev-parse', `HEAD:${B}`]), B]]), ['HEAD'], 'book +x')]);
+}, { match: /books\/10\.11\.21\.book: is mode 100755 in git \(HEAD\); a book file must be a regular 100644 file/ }, { args: ['--check'] });
+// Q64 (B) on disk: a book file with an exec bit is refused before git can stage it as 100755.
+run('Q64: a book file that is executable on disk is refused', (d) => { chmodSync(join(d, 'books', '10.11.21.book'), 0o755); },
+  { match: /books\/10\.11\.21\.book: is executable on disk \(mode 755\)/ }, { args: ['--check'] });
+// Q65 / K9 L-quote, L-backslash, L-nonascii: face 00 is committed as a link to a path git C-quotes without -z (C1), a seat line is
+// written in that copy (C2), and the tree comes back with no record (C3). Before pass 11 the quoted path never matched.
+for (const [tag, target] of [['L-quote, L-backslash', 'docs/q"x\\b/f00.md'], ['L-nonascii', 'docs/\u00e9/f00.md']])
+  run(`Q65: a seat written through a link to a path git quotes, then removed, is found in history (K9 ${tag})`, (d) => {
+    const orig = sh(d, ['cat-file', 'blob', `HEAD:${R1001}`]) + '\n';
+    const c1 = commitTree(d, putTree(d, 'HEAD', [['120000', hashText(d, `../../../${target}`), R1001], ['100644', hashText(d, orig), target]]), ['HEAD'], 'face 00 behind a link to a quoted path');
+    const c2 = commitTree(d, putTree(d, c1, [['100644', hashText(d, orig.replace('\n## Registry\n', `\n## Registry\n${FAKE_SEAT}`)), target]]), [c1], 'seat through the link');
+    sh(d, ['update-ref', 'HEAD', commitTree(d, sh(d, ['rev-parse', 'HEAD^{tree}']), [c2], 'link gone, seat gone, no record')]);
+  }, { match: UNSEAT_FAKE });
+// Q66 / K9 Q9: page 0012's two seats are pulled with un-seat records that exist only in an uncommitted face 00; the faces and the
+// books are committed. Face 00 then holds only un-seat records, which count as seat records, so it must be the committed bytes.
+run('Q66: a face 00 holding only un-seat records must be the bytes git holds (K9 Q9)', (d) => {
+  const F = 'kernel/samples/10.11.21/10.11.21.0012.00.draft.md', r = join(d, F);
+  let t = readFileSync(r, 'utf8');
+  for (const nn of ['05.01', '05.02']) {
+    renameSync(S(d, '10.11.21', `10.11.21.0012.${nn}.md`), S(d, '10.11.21', `10.11.21.0012.${nn}.draft.md`));
+    const old = new RegExp(`^seat-${nn.replace('.', '\\.')}: .*blob: ([0-9a-f]{40})\\n`, 'm').exec(t);
+    t = t.replace(`${nn} seated`, `${nn} draft`).replace(old[0], `why-${nn}: pulled back for review\nunseat-${nn}: pulled back for review; was blob ${old[1]}\n`);
+  }
+  writeFileSync(r, t);
+  sh(d, ['read-tree', 'HEAD'], { env: { ...process.env, ...ID } });
+  sh(d, ['add', '--', F]); // staged only for the write build
+  const w = spawnSync(process.execPath, [join(d, 'kernel', 'build.mjs')], { encoding: 'utf8' });
+  if (w.status !== 0) throw new Error(`fixture: write mode failed: ${w.stdout}${w.stderr}`);
+  sh(d, ['add', '-A', '--', 'kernel', 'books'], { env: { ...process.env, ...ID } });
+  sh(d, ['reset', '-q', 'HEAD', '--', F]); // face 00 left out of the commit
+  sh(d, ['commit', '-q', '--no-verify', '-m', 'faces and books, face 00 uncommitted'], { env: { ...process.env, ...ID } });
+}, { match: /face 00 kernel\/samples\/10\.11\.21\/10\.11\.21\.0012\.00\.draft\.md is blob [0-9a-f]{40} in git \(HEAD\), not the bytes on disk/ }, { args: ['--check'] });
 
 if (failed) { console.log(`${failed} failed`); process.exit(1); }
 console.log('all passed');

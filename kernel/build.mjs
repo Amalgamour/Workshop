@@ -12,10 +12,13 @@
 // Q58, Q59: no symlink anywhere the builder reads, a seated face must be a regular file in git with the seat blob, history
 // follows any symlink ever committed under kernel/, and a root commit is parsed; TRIAL-K8 findings 1, 2, Q61, Q62: the history
 // walk follows a link at `kernel` itself, absolute links and link chains, a face 00 with seat records must be the bytes git
-// holds, and past seats are also read from every committed version of books/). Tests: node kernel/build.test.mjs
+// holds, and past seats are also read from every committed version of books/; TRIAL-K9 findings 1-4, Q63-Q66: an un-seat names
+// the last real seat blob from structured registry and stamp fields in face 00 history and from books/ history, books are read
+// in any mode and a current book must be 100644, history walks read -z output, and un-seat records make face 00 git-checked).
+// Tests: node kernel/build.test.mjs
 // Usage: node kernel/build.mjs          write books/
 //        node kernel/build.mjs --check  rebuild in memory and fail if books/ differs
-import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync, lstatSync } from 'node:fs';
+import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync, lstatSync, statSync } from 'node:fs';
 import { join, dirname, relative, isAbsolute, sep, posix } from 'node:path';
 import { createHash } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
@@ -223,6 +226,24 @@ function gitTrust() {
 // commit that added a seat or a trial (K25, K26). -m: a merge's own changes are listed too. --no-abbrev: full ids only.
 // --root (TRIAL-K7 finding 2, Q59): a root commit's adds are listed even if log.showRoot is set false.
 const HIST = ['-a', '--no-textconv', '--no-ext-diff', '--full-history', '-m', '--root', '--no-abbrev', '--no-renames', '--no-color'];
+// TRIAL-K9 finding 3, Q65 (decided by KERNEL pass 11, builder lane: option A). Without -z git C-quotes a path with `"`, a
+// backslash, a control byte or (core.quotePath) a non-ASCII byte, so a quoted path never matched an unquoted target. Every
+// walk that lists paths runs `--raw -z` and is read here: a header token `C <sha>[ <parents>]` from --format, then per file a
+// meta token `:<old mode> <new mode> <old blob> <new blob> <status>` and a path token, each ended by NUL. With --no-renames each
+// change has one path. A header token may start with a newline; a path token is taken as it is.
+function rawZ(out) {
+  const rows = []; let head = null;
+  const t = out.split('\0');
+  for (let i = 0; i < t.length; i++) {
+    const x = t[i].replace(/^\n+/, '');
+    if (x.startsWith('C ')) { head = x; continue; }
+    const m = /^:(\d+) (\d+) ([0-9a-f]{40}) ([0-9a-f]{40}) ([A-Z])\d*$/.exec(x);
+    if (m && i + 1 < t.length) rows.push({ head, oldMode: m[1], mode: m[2], blob: m[4], status: m[5], path: t[++i] });
+  }
+  return rows;
+}
+// ls-tree -z / ls-files -s -z entries: `<mode> <type or blob> <...>\t<path>` ended by NUL.
+const lsZ = (r) => (r.status === 0 ? r.stdout.split('\0').filter(Boolean).map((l) => { const i = l.indexOf('\t'); return { meta: l.slice(0, i).split(' '), path: l.slice(i + 1) }; }) : []);
 function gitShow(commit, path) {
   if (!hasGit()) return undefined; // no repo here: nothing can be verified, and the caller makes that an error
   const r = git('cat-file', 'blob', `${commit}:${path}`); // Q56: cat-file reads the object; no attribute or textconv applies
@@ -238,16 +259,20 @@ function gitShow(commit, path) {
 // (or a re-add), and git cannot say which is the lane's, so the seat is blocked. This does not depend on commit dates.
 // The adding commit that passes the touch rule must be a plain commit (a trial lane never adds its file in a merge).
 function trialOrigin(path, tblob) {
-  const r = git('log', ...HIST, '--format=C %H %P', '--raw', '--diff-filter=A', 'HEAD', '--', path);
+  const r = git('log', ...HIST, '--format=C %H %P', '--raw', '-z', '--diff-filter=A', 'HEAD', '--', path); // Q65: -z
   if (r.status !== 0) return { err: `git log could not read the history of ${path}` };
   let commit = null, merge = false, parents = [];
   const adds = [];
   // TRIAL-K7 finding 2, Q59 (KERNEL pass 9): a root commit has no parents, so `%P` is empty and the line is `C <sha> ` with a
   // trailing space. It is parsed like any other commit; an add seen before any readable header blocks the seat with a message.
-  for (const l of r.stdout.split('\n')) {
-    const c = /^C ([0-9a-f]{40})((?: [0-9a-f]{40})*) *$/.exec(l); if (c) { commit = c[1]; parents = c[2].trim().split(/ +/).filter(Boolean); merge = parents.length > 1; continue; }
-    if (/^C /.test(l)) { commit = null; continue; }
-    const m = /^:\d+ \d+ [0-9a-f]{40} ([0-9a-f]{40}) A\t(.*)$/.exec(l);
+  let lastHead;
+  for (const row of rawZ(r.stdout)) {
+    if (row.head !== lastHead) {
+      lastHead = row.head;
+      const c = row.head && /^C ([0-9a-f]{40})((?: [0-9a-f]{40})*) *$/.exec(row.head);
+      if (c) { commit = c[1]; parents = c[2].trim().split(/ +/).filter(Boolean); merge = parents.length > 1; } else commit = null;
+    }
+    const m = row.status === 'A' ? [null, row.blob, row.path] : null;
     // Q59 (KERNEL pass 9): with -m a merge is diffed against each parent, so merging an unrelated (orphan) history lists every
     // file as added against the orphan side. A merge only carries a blob that one of its parents already holds at this path;
     // that add is the parent's, and --full-history walks it, so it is not counted again. A merge that brings a blob no parent
@@ -275,9 +300,9 @@ function trialOrigin(path, tblob) {
 // A trial PASS list written before TRIAL-K4 names a short blob prefix (kernel-trial-2.md:25-26). A prefix alone can be
 // forged (TRIAL-K4 HM), so the full seat blob must also be the blob of this face's file in the trial commit's tree.
 function inTrialTree(commit, spot, blob) {
-  const r = git('ls-tree', '-r', commit);
+  const r = git('ls-tree', '-r', '-z', commit); // Q65: -z
   if (r.status !== 0) return false;
-  return r.stdout.split('\n').some((l) => { const m = /^\d+ blob ([0-9a-f]{40})\t(?:.*\/)?([^/]+)$/.exec(l); return m && m[1] === blob && (m[2] === `${spot}.md` || m[2].startsWith(`${spot}.`) && /^[a-z]+\.md$/.test(m[2].slice(spot.length + 1))); });
+  return lsZ(r).some(({ meta, path }) => { const name = path.split('/').pop(); return meta[1] === 'blob' && meta[2] === blob && (name === `${spot}.md` || name.startsWith(`${spot}.`) && /^[a-z]+\.md$/.test(name.slice(spot.length + 1))); });
 }
 export function passList(text) {
   const out = new Map(); let inPass = false;
@@ -350,7 +375,44 @@ function verifySeat(f, seat) {
 // HIST: attributes cannot blind it, K21/K22, and a merge cannot drop a parent, K26) and reads each blob with `git cat-file
 // --batch`, which applies no attributes or textconv. Seat lines are parsed from the blobs themselves, not from a `-G` diff.
 const FACE00 = /^(\d{2}\.\d{2}\.\d{2}\.\d{4}|00\.00\.axioms)\.00(?:\.[a-z]+)?\.md$/;
-const SEAT_HIST = /^seat-(\d{2}(?:\.\d{2})?):\s*(?:seated;\s*)?approved-by: (build-stage \(R2\)|director);.*; blob: ([0-9a-f]{7,40})\s*$/;
+// TRIAL-K9 finding 1, Q63 (decided by KERNEL pass 11, builder lane): a past seat is read only from structured fields, the way
+// the live build reads one: a `seat-NN:` field line in the field block of a `## Registry` card (every such card, every such
+// line, duplicates kept), and `seat-00:` in the front-matter stamp. A `seat-NN:` line in prose, below the field block, or a
+// stamp `seat-NN:` other than seat-00, is never a seat (D1, D2). `seatFields` is also used on the live face 00 (validate).
+const SEAT_VAL = /^\s*(?:seated;\s*)?approved-by: (build-stage \(R2\)|director);.*; blob: ([0-9a-f]{7,40})\s*$/;
+export function seatFields(text) {
+  const out = []; // [where, key, value]: where is 'stamp', 'registry', 'unseat-stamp' or 'unseat' (an `unseat-NN:` field)
+  const fm = /^---\n([\s\S]*?)\n---\n/.exec(text);
+  if (fm) for (const l of fm[1].split('\n')) { const m = /^(un)?seat-(\d{2}(?:\.\d{2})?):\s*(.*)$/.exec(l); if (m) out.push([m[1] ? 'unseat-stamp' : 'stamp', m[2], m[3]]); }
+  let fence = false, inFields = false;
+  for (const line of text.split('\n')) { // the card rules of parseCards: `##` outside fences, fields until a blank or non-field line
+    if (/^(```|~~~)/.test(line)) fence = !fence;
+    if (!fence && /^## /.test(line)) { inFields = keyOf(line.slice(3)) === 'registry'; continue; }
+    if (!inFields) continue;
+    if (line.trim() === '') { inFields = false; continue; }
+    const m = /^([A-Za-z][\w.\- ]*?):\s?(.*)$/.exec(line);
+    if (!m) { inFields = false; continue; }
+    const k = /^(un)?seat-(\d{2}(?:\.\d{2})?)$/.exec(m[1]);
+    if (k) out.push([k[1] ? 'unseat' : 'registry', k[2], m[2]]);
+  }
+  return out;
+}
+// Past seats in one face 00 blob: key -> set of blobs (registry `seat-NN:` for NN != 00, stamp `seat-00:`). A blob that also
+// holds the un-seat record for a key is the retiring version: its old seat line (kept beside the record) is not the last seat,
+// so the seat being retired is read from the versions before it (D2).
+function blobSeats(text) {
+  const out = new Map();
+  const f = seatFields(text);
+  const retiring = new Set(f.filter(([w, k]) => w === 'unseat' && k !== '00' || w === 'unseat-stamp' && k === '00').map(([, k]) => k));
+  for (const [where, key, val] of f) {
+    if (where !== 'stamp' && where !== 'registry') continue;
+    if ((key === '00') !== (where === 'stamp')) continue; // the live parser reads seat-00 only from the stamp, others only from the registry
+    if (retiring.has(key)) continue;
+    const m = SEAT_VAL.exec(val); if (!m) continue;
+    (out.get(key) || out.set(key, { by: m[1], blobs: new Set() }).get(key)).blobs.add(m[2]);
+  }
+  return out;
+}
 function catBlobs(ids) {
   const out = new Map();
   if (!ids.length) return out;
@@ -380,8 +442,12 @@ function catBlobs(ids) {
 //   H5, a link to a link: a link found at a target carries that target's page (a face 00 link's page) to its own target, for
 //       any number of hops up to the round limit.
 // A link to the repo root (or `/`) makes the root a linked folder: the walk then reads every face 00 name in the whole history.
-// Not followed (still): a link inside a submodule (mode 160000; its files are another repo), and a seat line in a file git never
-// held; the books/ history below (Q62) is the backup for the latter.
+// TRIAL-K9 finding 3, Q65 (KERNEL pass 11): paths are read from `--raw -z` output, so a target with `"`, a backslash, a control
+// byte or a non-ASCII (UTF-8) letter is matched as written.
+// Not followed (still): a link inside a submodule (mode 160000; its files are another repo); a seat line in a file git never
+// held (the books/ history below, Q62, is the backup, and only if a book recording the seat was committed); link text with
+// Windows `\` separators (read as one file name, as Linux reads it); a path name that is not valid UTF-8 (git's bytes are
+// read as UTF-8, so the target named back to git may not match); a chain longer than 16 hops stops the build (fail closed).
 function linkTargets(path, raw) {
   const tails = (rest) => { const parts = rest.split('/').filter((x) => x && x !== '.'); return parts.length ? parts.map((_, i) => parts.slice(i).join('/')) : ['.']; };
   if (raw.startsWith('/')) return tails(posix.normalize(raw));
@@ -391,19 +457,15 @@ function linkTargets(path, raw) {
 }
 function historySeats() {
   const out = new Map();
-  const fail = () => { err('kernel', `git log could not read the history of seat lines, so un-seats cannot be checked (TRIAL-K5 finding 3, Q54 b; Q56; Q58; Q61)`); return out; };
+  const fail = (why = 'git log could not read the history of seat lines') => { err('kernel', `${why}, so un-seats cannot be checked (TRIAL-K5 finding 3, Q54 b; Q56; Q58; Q61; Q65)`); return out; };
   const targets = new Map(); // repo path a link pointed at -> page of the linked face 00, or '' for a linked folder ('.' is the root)
   const linkText = new Map();
   let rows;
   for (let round = 0; ; round++) {
     const specs = targets.has('.') ? [] : ['--', 'kernel', ...targets.keys()]; // Q61: `kernel`, not `kernel/` (H1); root: no pathspec
-    const r = git('--literal-pathspecs', 'log', ...HIST, '--raw', '--format=C %H', 'HEAD', ...specs);
+    const r = git('--literal-pathspecs', 'log', ...HIST, '--raw', '-z', '--format=C %H', 'HEAD', ...specs); // Q65: -z
     if (r.status !== 0) return fail();
-    rows = [];
-    for (const l of r.stdout.split('\n')) {
-      const m = /^:\d+ (\d+) [0-9a-f]{40} ([0-9a-f]{40}) [AMT]\t(.*)$/.exec(l);
-      if (m) rows.push({ mode: m[1], blob: m[2], path: m[3] });
-    }
+    rows = rawZ(r.stdout).filter((x) => 'AMT'.includes(x.status) && x.mode !== '160000');
     const links = rows.filter((x) => x.mode === '120000');
     const need = [...new Set(links.map((x) => x.blob))].filter((b) => !linkText.has(b));
     if (need.length) { const t = catBlobs(need); if (!t) return fail(); for (const [b, v] of t) linkText.set(b, v); }
@@ -419,7 +481,7 @@ function historySeats() {
       }
     }
     if (!added) break;
-    if (round >= 16) return fail();
+    if (round >= 16) return fail('a symlink chain in history is longer than 16 hops (the round limit)');
   }
   const folders = [...targets].filter(([, v]) => v === '').map(([k]) => (k === '.' ? '' : k + '/'));
   const seen = []; // [page, blob] newest first
@@ -434,12 +496,12 @@ function historySeats() {
   }
   const text = catBlobs([...new Set(seen.map((x) => x[1]))]);
   if (!text) return fail();
+  // Q63: log is newest first, so the first blob that holds a structured seat for an address gives its last seat (every blob that
+  // blob's fields name for it). A newer blob with only prose or a stamp `seat-NN:` line gives none, so it cannot set the blob.
   for (const [page, b] of seen)
-    for (const l of text.get(b).split('\n')) {
-      const m = SEAT_HIST.exec(l);
-      if (!m) continue;
-      const addr = `${page}.${m[1]}`;
-      if (!out.has(addr)) out.set(addr, { addr, by: m[2], blob: m[3] }); // log is newest first: keep the newest seat
+    for (const [key, v] of blobSeats(text.get(b))) {
+      const addr = `${page}.${key}`;
+      if (!out.has(addr)) out.set(addr, { addr, by: v.by, blobs: [...v.blobs].map((x) => [x, 'face 00 history']) });
     }
   return out;
 }
@@ -448,31 +510,44 @@ function priorSeats() {
   if (!hasGit()) { err('books', `no git repo at ${ROOT}, so past seats cannot be read from HEAD:books/ and un-seats cannot be checked (TRIAL-K4 findings 5, 6; Q52 b, d)`); return out; }
   if (gitTrust()) { err('books', gitTrust()); return out; }
   // Q58: a symlink committed (or staged) anywhere the builder reads hides its target from git's view of these paths.
-  for (const [where, r] of [['HEAD', git('ls-tree', '-r', '--full-tree', 'HEAD', '--', 'kernel', 'books', 'docs/trial', 'docs/spec')], ['index', git('ls-files', '-s', '--', 'kernel', 'books', 'docs/trial', 'docs/spec')]])
-    for (const l of r.status === 0 ? r.stdout.split('\n') : []) if (/^120000 /.test(l)) err(l.split('\t').pop(), `is a symlink in git (${where}); the builder follows no link (R2; TRIAL-K7 finding 1, Q58)`);
+  const isBook = (p) => /^books\/[^/]+$/.test(p) && (p.endsWith('.book') || p === `books/${AXIOMS_FILE}`);
+  for (const [where, r] of [['HEAD', git('ls-tree', '-r', '-z', '--full-tree', 'HEAD', '--', 'kernel', 'books', 'docs/trial', 'docs/spec')], ['index', git('ls-files', '-s', '-z', '--', 'kernel', 'books', 'docs/trial', 'docs/spec')]])
+    for (const { meta, path } of lsZ(r)) {
+      if (meta[0] === '120000') err(path, `is a symlink in git (${where}); the builder follows no link (R2; TRIAL-K7 finding 1, Q58)`);
+      // TRIAL-K9 finding 2, Q64 (decided by KERNEL pass 11, builder lane: A and B): a current book is a regular file, 100644.
+      else if (isBook(path) && meta[0] !== '100644') err(path, `is mode ${meta[0]} in git (${where}); a book file must be a regular 100644 file, because a book with another mode was skipped by the books/ history walk (TRIAL-K9 finding 2, Q64)`);
+    }
   const hist = historySeats();
   // TRIAL-K8 finding 2 (H3), Q62 (2) (decided by KERNEL pass 10): past seats are also read from every version of every book file
   // ever committed under books/ on HEAD's history (HEAD's own first, then newest first), not only HEAD:books/. A seat built from
   // a face 00 that git never held still left its `approved-by` line in a committed book, so its un-seat needs a record too.
   // The walk uses HIST (attributes, textconv and merges hide nothing) and `git cat-file --batch` (no attributes apply).
-  const isBook = (p) => /^books\/[^/]+$/.test(p) && (p.endsWith('.book') || p === `books/${AXIOMS_FILE}`);
+  // Q64 (A): book blobs are read whatever their mode (100644, 100755, ...), only a gitlink (160000, not a blob) is skipped;
+  // Q65: both lists are read with -z.
   const ids = [];
-  const ls = git('ls-tree', '--full-tree', 'HEAD', 'books/');
-  for (const l of ls.status === 0 ? ls.stdout.split('\n') : []) { const m = /^100644 blob ([0-9a-f]{40})\t(.*)$/.exec(l); if (m && isBook(m[2])) ids.push(m[1]); }
-  const bh = git('--literal-pathspecs', 'log', ...HIST, '--raw', '--format=C %H', 'HEAD', '--', 'books');
+  for (const { meta, path } of lsZ(git('ls-tree', '-z', '--full-tree', 'HEAD', 'books/'))) if (meta[1] === 'blob' && isBook(path)) ids.push(meta[2]);
+  const bh = git('--literal-pathspecs', 'log', ...HIST, '--raw', '-z', '--format=C %H', 'HEAD', '--', 'books');
   if (bh.status !== 0) { err('books', 'git log could not read the history of books/, so un-seats cannot be checked (TRIAL-K8 finding 2, Q62)'); return [...hist.values()]; }
-  for (const l of bh.stdout.split('\n')) { const m = /^:\d+ 100644 [0-9a-f]{40} ([0-9a-f]{40}) [AMT]\t(.*)$/.exec(l); if (m && isBook(m[2])) ids.push(m[1]); }
+  for (const x of rawZ(bh.stdout)) if ('AMT'.includes(x.status) && x.mode !== '160000' && isBook(x.path)) ids.push(x.blob);
   const order = [...new Set(ids)];
   const texts = catBlobs(order);
   if (!texts) { err('books', 'git cat-file could not read the books/ history, so un-seats cannot be checked (TRIAL-K8 finding 2, Q62)'); return [...hist.values()]; }
-  const got = new Set();
+  // Q63: the newest book line with `approved-by` for an address (HEAD's books first, then newest first) gives its last built
+  // seat. It is always read, not only when face 00 history has none, and joined to the face 00 history seat: an un-seat record
+  // must name every one of these blobs, so a made-up seat line cannot replace the real one.
+  const got = new Map();
   for (const id of order)
     for (const l of texts.get(id).split('\n')) {
       if (!l.trim()) continue;
       let e; try { e = JSON.parse(l); } catch { continue; }
       const ref = e.trial || e.ruling || '';
-      if (e.addr && e['approved-by'] && !hist.has(e.addr) && !got.has(e.addr)) { got.add(e.addr); out.push({ addr: e.addr, by: e['approved-by'], blob: (/face blob ([0-9a-f]+)/.exec(ref) || /blob ([0-9a-f]+)/.exec(ref) || [])[1] || '' }); }
+      if (typeof e.addr === 'string' && e['approved-by'] && !got.has(e.addr)) got.set(e.addr, { by: e['approved-by'], blob: (/face blob ([0-9a-f]+)/.exec(ref) || /blob ([0-9a-f]+)/.exec(ref) || [])[1] || '' });
     }
+  for (const [addr, b] of got) {
+    const h = hist.get(addr);
+    if (!h) out.push({ addr, by: b.by, blobs: b.blob ? [[b.blob, 'books/ history']] : [] });
+    else if (b.blob && !h.blobs.some(([x]) => x === b.blob)) h.blobs.push([b.blob, 'books/ history']);
+  }
   return [...hist.values(), ...out];
 }
 function unseatChecks(books, prior) {
@@ -485,10 +560,19 @@ function unseatChecks(books, prior) {
     const f00 = all.find((x) => x.page === page && x.ff === '00' && !x.nn);
     const reg = f00 && f00.cards.find((c) => c.key === 'registry');
     const rec = f00 && (key === '00' ? stampOf(f00.body)['unseat-00'] : reg && reg.fields[`unseat-${key}`]);
-    if (!rec || !rec.trim()) err(f00 ? f00.file : p.addr, `${p.addr} was seated (${p.by}) in the last build but is not now; write unseat-${key}: <reason>; was blob ${p.blob} (R2: every seat can be found and re-reviewed; TRIAL-K3 finding 11)`);
-    // TRIAL-K5 finding 5, Q54 d (taken by KERNEL pass 7): the record names the full old blob and gives a reason besides it.
-    else if (p.blob && !rec.includes(p.blob)) err(f00.file, `unseat-${key}: must name the full old blob ${p.blob} (TRIAL-K3 finding 11; TRIAL-K5 finding 5)`);
-    else if (!/[a-z]{3,}/i.test(rec.split(p.blob).join(' ').replace(/\b(was|blob)\b/gi, ' '))) err(f00.file, `unseat-${key}: gives no reason; write unseat-${key}: <reason>; was blob ${p.blob} (R2 re-review needs the reason; TRIAL-K5 finding 5)`);
+    const blobs = p.blobs.map(([b]) => b);
+    if (!rec || !rec.trim()) err(f00 ? f00.file : p.addr, `${p.addr} was seated (${p.by}) in the last build but is not now; write unseat-${key}: <reason>; was blob ${blobs.join(', blob ') || '(unknown)'} (R2: every seat can be found and re-reviewed; TRIAL-K3 finding 11)`);
+    else {
+      // TRIAL-K5 finding 5, Q54 d (taken by KERNEL pass 7): the record names the full old blob and gives a reason besides it.
+      // TRIAL-K9 finding 1, Q63 (KERNEL pass 11): the old blob is the last real seat, from the structured seat fields of face 00
+      // history and from books/ history; when they differ the record names each, so a made-up blob never satisfies it.
+      // A last-seat blob that git does not hold as a blob was never a seated face (every seat is checked against the committed
+      // face, Q58), so the seat line that gave it is made up; the un-seat cannot be checked and is refused (fail closed).
+      for (const [b, src] of p.blobs) if (hasGit() && git('cat-file', '-e', `${b}^{blob}`).status !== 0) err(f00.file, `the last seat of ${p.addr} in ${src} names blob ${b}, which git does not hold, so that seat line is made up and the un-seat cannot be checked (TRIAL-K9 finding 1, Q63)`);
+      const miss = p.blobs.filter(([b]) => !rec.includes(b));
+      for (const [b, src] of miss) err(f00.file, `unseat-${key}: must name the full old blob ${b} (the last seat of ${p.addr} in ${src}; TRIAL-K3 finding 11; TRIAL-K5 finding 5; TRIAL-K9 finding 1, Q63)`);
+      if (!miss.length && !/[a-z]{3,}/i.test(blobs.reduce((t, b) => t.split(b).join(' '), rec).replace(/\b(was|blob|and)\b/gi, ' '))) err(f00.file, `unseat-${key}: gives no reason; write unseat-${key}: <reason>; was blob ${blobs.join(', blob ')} (R2 re-review needs the reason; TRIAL-K5 finding 5)`);
+    }
   }
 }
 
@@ -553,7 +637,22 @@ function validate({ book, isAx, faces }) {
     // --check, the index (else HEAD) when writing. An untracked or excluded face 00, or one edited and not committed (staged,
     // when writing), is an error, so a seat cannot be built from a face 00 that git never sees.
     const regCard = stamp.cards.find((c) => c.key === 'registry');
-    const carries = fs.some((f) => !f.tail) || (regCard && Object.keys(regCard.fields).some((k) => /^seat-/.test(k))) || stampOf(stamp.body)['seat-00'] !== undefined;
+    // TRIAL-K9 finding 4, Q66 (decided by KERNEL pass 11, builder lane: option A): an `unseat-NN:` field, or a stamp `unseat-00:`,
+    // is a seat record too, so a face 00 that holds only un-seat records is checked against git by the same rule.
+    const carries = fs.some((f) => !f.tail) || (regCard && Object.keys(regCard.fields).some((k) => /^(un)?seat-/.test(k))) || st['seat-00'] !== undefined || st['unseat-00'] !== undefined;
+    // TRIAL-K9 finding 1, Q63: the live face 00 states each seat once, in its structured place, for a face it lists as seated:
+    // a repeated `seat-NN:` field, a `seat-NN:` for a face not listed as seated, or a stamp `seat-NN:` other than seat-00 is
+    // an error, so no extra seat line can sit in face 00 waiting to be read as a past seat.
+    const sf = seatFields(stamp.body), sk = new Set();
+    const unseats = new Set(sf.filter(([w]) => w.startsWith('unseat')).map(([, k]) => k));
+    for (const [where, key] of sf) {
+      if (where.startsWith('unseat')) continue;
+      if (where === 'stamp' && key !== '00') err(stamp.file, `stamp has seat-${key}:; a seat record for face ${key} lives on the registry, only seat-00: lives in the stamp (TRIAL-K9 finding 1, Q63)`);
+      else if (where === 'registry' && key === '00') err(stamp.file, `registry has seat-00:; face 00's own seat record lives in the stamp (TRIAL-K9 finding 1, Q63)`);
+      else if (sk.has(`${where} ${key}`)) err(stamp.file, `seat-${key}: is written more than once; a face has one seat record (TRIAL-K9 finding 1, Q63)`);
+      else if (where === 'registry' && !unseats.has(key) && !(reg && reg.has(key) && reg.get(key).startsWith('seated;'))) err(stamp.file, `registry has seat-${key}:, but ${key} is not listed as seated in faces:; write unseat-${key}: <reason>; was blob <blob> to retire a seat (TRIAL-K9 finding 1, Q63)`);
+      sk.add(`${where} ${key}`);
+    }
     if (carries && hasGit() && !gitTrust()) { const bad = gitEntry(stamp.rel, blobOf(stamp.body), 'face 00', 'the bytes on disk', `face 00 carries seat records, so it must be ${CHECK ? 'committed' : 'committed or staged'} exactly as read`); if (bad) err(stamp.file, bad); }
     const k04 = new Map();
     for (const f of fs.filter((f) => f.ff === '04')) for (const c of f.cards) k04.set(c.key, c);
@@ -708,7 +807,8 @@ lookupReport(books);
 for (const f of findings) console.log('finding  ' + f);
 for (const l of lookups) console.log('lookup   ' + l);
 const outputs = books.map((b) => [join(OUT, b.isAx ? AXIOMS_FILE : `${b.book}.book`), render(b.faces, b.book)]);
-for (const [out] of outputs) noLink(out); // Q58: never read or write books/ through a link
+// Q58: never read or write books/ through a link. Q64 (B): a book on disk with an exec bit is refused too, before git can stage it.
+for (const [out] of outputs) if (noLink(out) && there(out) && (statSync(out).mode & 0o111)) err(out.slice(ROOT.length + 1), `is executable on disk (mode ${(statSync(out).mode & 0o777).toString(8)}); a book file must be a regular 100644 file (TRIAL-K9 finding 2, Q64)`);
 for (const e of errors) console.error('ERROR    ' + e);
 if (errors.length) { console.error(`${errors.length} errors; nothing written`); process.exit(1); }
 if (!check) mkdirSync(OUT, { recursive: true });
