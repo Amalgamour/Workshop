@@ -1,7 +1,8 @@
 #!/usr/bin/env node
-// Tests for kernel/build.mjs. Each test copies kernel/ and docs/spec/ into a scratch folder, adds one hostile
+// Tests for kernel/build.mjs. Each test copies kernel/, docs/spec/, docs/trial/ and books/ into a scratch folder, adds one hostile
 // change, runs the builder there, and checks the result. The repo is never written. Usage: node kernel/build.test.mjs
-import { mkdtempSync, cpSync, writeFileSync, readFileSync, rmSync, appendFileSync } from 'node:fs';
+import { mkdtempSync, cpSync, writeFileSync, readFileSync, rmSync, appendFileSync, renameSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { join, dirname } from 'node:path';
 import { tmpdir } from 'node:os';
 import { spawnSync } from 'node:child_process';
@@ -15,6 +16,8 @@ function scratch() {
   const d = mkdtempSync(join(tmpdir(), 'kbuild-'));
   cpSync(HERE, join(d, 'kernel'), { recursive: true });
   cpSync(join(ROOT, 'docs', 'spec'), join(d, 'docs', 'spec'), { recursive: true });
+  cpSync(join(ROOT, 'docs', 'trial'), join(d, 'docs', 'trial'), { recursive: true }); // seat records cite trials (TRIAL-K3 finding 2)
+  cpSync(join(ROOT, 'books'), join(d, 'books'), { recursive: true }); // the last build is the record of past seats (TRIAL-K3 finding 11)
   return d;
 }
 const stamp = (addr, title, faces, whys) => `---\naddress: ${addr}\ntitle: ${title}\ntype: general\nstate: draft\nwhy-draft: test fixture\n---\n\n## Registry\nfaces: ${faces}\n${whys}\n`;
@@ -78,6 +81,67 @@ run('R5: a draft with no why-NN says so', (d) => {
 run('R2: a seated face changed after its trial is refused', (d) => {
   appendFileSync(S(d, '10.11.21', '10.11.21.1001.01.md'), '\nedited\n');
 }, { match: /seated face changed since its trial/ });
+
+const blob = (t) => { const b = Buffer.from(t, 'utf8'); return createHash('sha1').update(Buffer.concat([Buffer.from(`blob ${b.length}\0`), b])).digest('hex'); };
+const edit = (f, a, b) => { const t = readFileSync(f, 'utf8'); if (!t.includes(a)) throw new Error(`fixture: ${a} not in ${f}`); writeFileSync(f, t.replace(a, b)); };
+
+// TRIAL-K3 finding 1 (H1, H1b): renaming a face 00 draft to a seated file, with no seat record, fails.
+run('R2: a face 00 seated with no seat-00 record is refused (H1)', (d) => {
+  renameSync(S(d, '10.11.21', '10.11.21.1001.00.draft.md'), S(d, '10.11.21', '10.11.21.1001.00.md'));
+}, { match: /10\.11\.21\.1001\.00\.md: seated face has no seat-00: in its stamp/ });
+run('R2: a kernel face 00 seated with no record is refused (H1b)', (d) => {
+  const k = (n) => join(d, 'kernel', '00.00.00', n);
+  renameSync(k('00.00.00.0056.00.draft.md'), k('00.00.00.0056.00.md'));
+}, { match: /00\.00\.00\.0056\.00\.md: seated face has no seat-00:/ });
+// ... and a counter (R22 lets counters be seated) seated with no record fails too.
+run('R2: a counter seated with no seat record is refused', (d) => {
+  renameSync(S(d, '10.11.21', '10.11.21.0012.03.14.draft.md'), S(d, '10.11.21', '10.11.21.0012.03.14.md'));
+  edit(S(d, '10.11.21', '10.11.21.0012.00.draft.md'), '03.14 draft', '03.14 seated');
+}, { match: /10\.11\.21\.0012\.03\.14\.md: seated face has no seat-03\.14:/ });
+
+// TRIAL-K3 finding 2 (H2): seat records are verified, not trusted.
+const seat0013 = (d, rec) => {
+  const f = S(d, '10.11.21', '10.11.21.0013.01.md');
+  renameSync(S(d, '10.11.21', '10.11.21.0013.01.draft.md'), f);
+  const r = S(d, '10.11.21', '10.11.21.0013.00.draft.md');
+  edit(r, '01 draft', '01 seated');
+  edit(r, '\n## Registry\n', `\n## Registry\nseat-01: ${rec(blob(readFileSync(f, 'utf8')).slice(0, 8))}\n`);
+};
+run('R2: a seat citing a trial file that does not exist is refused (H2)', (d) => {
+  seat0013(d, (b) => `approved-by: build-stage (R2); trial: docs/trial/does-not-exist.md@0000000; blob: ${b}`);
+}, { match: /cites trial docs\/trial\/does-not-exist\.md, which does not exist/ });
+run('R2: a seat citing a real trial that did not pass the face is refused', (d) => {
+  seat0013(d, (b) => `approved-by: build-stage (R2); trial: docs/trial/kernel-trial-3.md@d37e532; blob: ${b}`);
+}, { match: /its PASS list does not name 10\.11\.21\.0013\.01/ });
+run('R2: approved-by director with no ruling id is refused (H2)', (d) => {
+  seat0013(d, (b) => `approved-by: director; trial: docs/trial/does-not-exist.md@0000000; blob: ${b}`);
+}, { match: /approved-by: director but gives no ruling id/ });
+run('R2: approved-by director citing a ruling that does not name the face is refused', (d) => {
+  seat0013(d, (b) => `approved-by: director; ruling: R22; blob: ${b}`);
+}, { match: /seat cites R22, but that ruling does not name 10\.11\.21\.0013\.01/ });
+run('R2: an approved-by value other than build-stage (R2) or director is refused', (d) => {
+  seat0013(d, (b) => `approved-by: prima; trial: docs/trial/kernel-trial-2.md@ed82086; blob: ${b}`);
+}, { match: /is not in the R2 form/ });
+
+// TRIAL-K3 finding 3 (H3): C3.2 on the axioms again (as at ed82086).
+run('C3.2: an axioms 01 card with no 04 card is refused (H3)', (d) => {
+  appendFileSync(join(d, 'kernel', '00.00.axioms', '00.00.axioms.01.draft.md'), '\n## ghost rule\n\nno why\n');
+}, { match: /00\.00\.axioms\.01\.draft\.md: card ghost-rule has no 04 card \(C3\.2\)/ });
+
+// TRIAL-K3 finding 11 (H7): un-seating a seated face needs a record ...
+const unseat = (d) => {
+  renameSync(S(d, '10.11.21', '10.11.21.1001.01.md'), S(d, '10.11.21', '10.11.21.1001.01.retired.md'));
+  const r = S(d, '10.11.21', '10.11.21.1001.00.draft.md');
+  edit(r, '01 seated', '01 retired');
+  return r;
+};
+run('R2: retiring a seated face with no unseat record is refused (H7)', (d) => { unseat(d); },
+  { match: /10\.11\.21\.1001\.01 was seated \(build-stage \(R2\)\) in the last build but is not now; write unseat-01:/ });
+// ... and with one naming the old blob it builds.
+run('R2: retiring a seated face with an unseat record builds', (d) => {
+  const r = unseat(d);
+  edit(r, '\n## Registry\n', '\n## Registry\nunseat-01: test fixture retirement; was blob 5415cef2 (TRIAL-K2)\n');
+}, { ok: true });
 
 if (failed) { console.log(`${failed} failed`); process.exit(1); }
 console.log('all passed');

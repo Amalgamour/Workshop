@@ -1,19 +1,22 @@
 #!/usr/bin/env node
 // Builds kernel/ Markdown faces into JSON Lines book files (docs/spec/format.md section 3, docs/CONTRACT.md).
 // Deterministic: files sorted by address, fixed timestamp, fixed author. No dependencies. Self-checking:
-// hard checks stop the build; findings print. Rulings applied: docs/spec/DIRECTOR-RULINGS.md R1-R21
-// (R19 face 00 layout follows docs/spec/face00.md, a DRAFT). Tests: node kernel/build.test.mjs
+// hard checks stop the build; findings print. Rulings applied: docs/spec/DIRECTOR-RULINGS.md R1-R22
+// (R19 face 00 layout follows docs/spec/face00.md, a DRAFT; R22 lets a counter such as 05.NN be seated, Q41 open).
+// Seat records are checked, not trusted (TRIAL-K3 findings 1, 2, 11). Tests: node kernel/build.test.mjs
 // Usage: node kernel/build.mjs          write books/
 //        node kernel/build.mjs --check  rebuild in memory and fail if books/ differs
 import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync, statSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { createHash } from 'node:crypto';
+import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, '..');
 const OUT = join(ROOT, 'books');
 const SPEC = join(ROOT, 'docs', 'spec');
+const RULINGS = join(SPEC, 'DIRECTOR-RULINGS.md');
 const BY = 'prima-kernel-seed';
 // 7: format.md gives no rule for the time of a seed write. A fixed time keeps the build deterministic.
 const AT = '2026-11-11T19:30:00Z';
@@ -36,8 +39,8 @@ const CARD_KEY = /^[a-z][a-z0-9-]*$/; // seqAddr.md:280 `card = LOWER *( LOWER /
 const OVERRIDE_FIELDS = ['changing', 'there', 'needed', 'achieve'];
 const NAME = /^(\d{2})\.(\d{2})\.(\d{2})\.(\d{4})\.(\d{2})(?:\.(\d{2}))?(?:\.([a-z]+))?\.md$/;
 const AX_NAME = /^00\.00\.axioms\.(\d{2})(?:\.(\d{2}))?(?:\.([a-z]+))?\.md$/;
-// R1 and R10 merges, so a `why:` still matches its cited line after the door wording change.
-const R1 = [['identity page', 'door page'], ['only an identity has', 'only a registry has'], ['only an identity has', 'only a door has'], ['board', 'door'], ['identity', 'door'], ['A page with only a registry has no reason to exist.', 'A page with only a registry has no reason to exist, except a door page 0000, which holds only face 00 (R10).']]; // last: R10 pass-4 merge (TRIAL-K2 finding 1)
+// R1 and R10 merges, so a `why:` still matches its cited line after the door wording change. Last: R18 (TRIAL-K3 finding 5).
+const R1 = [['identity page', 'door page'], ['only an identity has', 'only a registry has'], ['only an identity has', 'only a door has'], ['board', 'door'], ['identity', 'door'], ['A page with only a registry has no reason to exist.', 'A page with only a registry has no reason to exist, except a door page 0000, which holds only face 00 (R10).'], ['sets linked by number', 'sets matched by number and title (R18)']]; // R10 pass-4 merge (TRIAL-K2 finding 1); R18 pass-5 merge (TRIAL-K3 finding 5)
 
 const errors = [], findings = [], lookups = [];
 const err = (f, m) => errors.push(`${f}: ${m}`);
@@ -121,13 +124,91 @@ function blobOf(text) {
   const b = Buffer.from(text, 'utf8');
   return createHash('sha1').update(Buffer.concat([Buffer.from(`blob ${b.length}\0`), b])).digest('hex');
 }
-// R2 (DIRECTOR-RULINGS.md:7-9) seat record, kept on the registry line of face 00 (7: where it lives, QUESTIONS Q34):
-// "seated; approved-by: build-stage (R2); trial: <file>@<commit>; blob: <prefix>".
-const SEAT_LINE = /^seated; approved-by: (build-stage \(R2\)|director); trial: (\S+); blob: ([0-9a-f]{7,40})$/;
+// R2 (DIRECTOR-RULINGS.md:7-9) seat record, kept on the registry line of face 00 (7: where it lives, QUESTIONS Q34).
+// Face 00 itself keeps its record in the stamp as `seat-00:` (TRIAL-K3 finding 1). Two forms:
+//   "seated; approved-by: build-stage (R2); trial: docs/trial/<file>.md@<commit>; blob: <prefix>"
+//   "seated; approved-by: director; ruling: R<n>; blob: <prefix>"   (the ruling must name the face, TRIAL-K3 finding 2)
+const SEAT_LINE = /^seated; approved-by: (build-stage \(R2\)|director); (trial|ruling): (\S+); blob: ([0-9a-f]{7,40})$/;
+const spotKey = (f) => `${f.ff}${f.nn ? '.' + f.nn : ''}`;
 function seatOf(reg, f) {
-  const line = reg && reg.get(`${f.ff}${f.nn ? '.' + f.nn : ''}`);
+  const line = reg && reg.get(spotKey(f));
   const m = line && SEAT_LINE.exec(line.trim());
-  return m ? { by: m[1], trial: m[2], blob: m[3] } : null;
+  return m ? { by: m[1], kind: m[2], ref: m[3], blob: m[4], line } : null;
+}
+// TRIAL-K3 finding 2: a seat is checked, not trusted. A build-stage seat must cite a trial file that exists (at the
+// cited commit when git is there) and whose PASS list names this face at this blob. A director seat must cite a ruling
+// in DIRECTOR-RULINGS.md that names this face. Anything that cannot be verified blocks the seat (an error).
+let gitOk = null;
+function gitShow(commit, path) {
+  if (gitOk === null) gitOk = spawnSync('git', ['-C', ROOT, 'rev-parse', '--show-toplevel'], { encoding: 'utf8' }).stdout?.trim() === ROOT;
+  if (!gitOk) return undefined; // no repo here (for example a scratch copy): only the working file can be read
+  const r = spawnSync('git', ['-C', ROOT, 'show', `${commit}:${path}`], { encoding: 'utf8' });
+  return r.status === 0 ? r.stdout : null;
+}
+export function passList(text) {
+  const out = new Map(); let inPass = false;
+  for (const line of text.split('\n')) {
+    if (/^\*\*PASS\b/.test(line)) { inPass = true; continue; }
+    if (!inPass) continue;
+    const m = /^- `([^`]+)` \(blob `([0-9a-f]{7,40})`\)/.exec(line);
+    if (m) out.set(m[1], m[2]);
+    else if (line.trim() !== '' || out.size) inPass = false;
+  }
+  return out;
+}
+function verifySeat(f, seat) {
+  const blob = blobOf(f.body);
+  if (!blob.startsWith(seat.blob)) return `seated face changed since its trial: blob ${blob.slice(0, 8)} is not ${seat.blob} (R2, axiom 9); write it as FF.draft and re-trial`;
+  if (seat.by === 'director') {
+    if (seat.kind !== 'ruling' || !/^R\d+$/.test(seat.ref)) return `seat says approved-by: director but gives no ruling id (ruling: R<n>); only the Director approves, and this cannot be verified, so the seat is blocked (R2; TRIAL-K3 finding 2)`;
+    const text = existsSync(RULINGS) ? readFileSync(RULINGS, 'utf8') : '';
+    const sec = text.split(/^## /m).find((x) => new RegExp(`^${seat.ref}\\b|\\b${seat.ref} to R\\d+\\b|\\*\\*${seat.ref} `).test(x));
+    if (!sec) return `seat cites ${seat.ref}, which is not in DIRECTOR-RULINGS.md; the seat is blocked (TRIAL-K3 finding 2)`;
+    if (!sec.includes(f.spot)) return `seat cites ${seat.ref}, but that ruling does not name ${f.spot}; a director seat cannot be verified, so it is blocked (TRIAL-K3 finding 2)`;
+    return null;
+  }
+  if (seat.kind !== 'trial') return `a build-stage (R2) seat must cite trial: docs/trial/<file>.md@<commit> (R2)`;
+  const m = /^(docs\/trial\/[\w.\-]+\.md)@([0-9a-f]{7,40})$/.exec(seat.ref);
+  if (!m) return `seat trial ${seat.ref} is not docs/trial/<file>.md@<commit> (R2; TRIAL-K3 finding 2)`;
+  const file = join(ROOT, m[1]);
+  if (!existsSync(file)) return `seat cites trial ${m[1]}, which does not exist; the seat is blocked (R2; TRIAL-K3 finding 2)`;
+  let text = gitShow(m[2], m[1]);
+  if (text === null) return `seat cites trial ${m[1]} at commit ${m[2]}, which git cannot find; the seat is blocked (R2; TRIAL-K3 finding 2)`;
+  if (text === undefined) { find(f.file, `seat trial ${m[1]}: no git here, so commit ${m[2]} was not checked; the working file was read`); text = readFileSync(file, 'utf8'); }
+  const passed = passList(text).get(f.spot);
+  if (!passed) return `seat cites trial ${seat.ref}, but its PASS list does not name ${f.spot}; the seat is blocked (R2; TRIAL-K3 finding 2)`;
+  if (!blob.startsWith(passed)) return `trial ${seat.ref} passed ${f.spot} at blob ${passed}, not this blob ${blob.slice(0, 8)}; re-trial (R2, axiom 9)`;
+  if (!passed.startsWith(seat.blob) && !seat.blob.startsWith(passed)) return `seat blob ${seat.blob} is not the blob ${passed} the trial passed (R2)`;
+  return null;
+}
+
+// TRIAL-K3 finding 11: a face seated in the last build (books/) that is no longer seated needs an un-seat record:
+// `unseat-NN:` on the registry (face 00 itself: `unseat-00:` in the stamp), giving the reason and the old blob.
+// 7: the last build in books/ is the record of past seats (where an un-seat record lives is the build's own choice, Q34).
+function priorSeats() {
+  const out = [];
+  if (!existsSync(OUT)) return out;
+  for (const n of readdirSync(OUT).filter((x) => x.endsWith('.book') || x === AXIOMS_FILE).sort())
+    for (const l of readFileSync(join(OUT, n), 'utf8').split('\n')) {
+      if (!l.trim()) continue;
+      let e; try { e = JSON.parse(l); } catch { continue; }
+      if (e.addr && e['approved-by']) out.push({ addr: e.addr, by: e['approved-by'], blob: (/blob ([0-9a-f]+)/.exec(e.trial || e.ruling || '') || [])[1] || '' });
+    }
+  return out;
+}
+function unseatChecks(books, prior) {
+  const all = books.flatMap((b) => b.faces);
+  for (const p of prior) {
+    const now = all.find((x) => x.addr === p.addr && !x.tail);
+    if (now) continue; // still seated (its record is checked in validate)
+    const page = p.addr.startsWith(AXIOMS + '.') ? AXIOMS : p.addr.split('.').slice(0, 4).join('.');
+    const key = p.addr.slice(page.length + 1);
+    const f00 = all.find((x) => x.page === page && x.ff === '00' && !x.nn);
+    const reg = f00 && f00.cards.find((c) => c.key === 'registry');
+    const rec = f00 && (key === '00' ? stampOf(f00.body)['unseat-00'] : reg && reg.fields[`unseat-${key}`]);
+    if (!rec || !rec.trim()) err(f00 ? f00.file : p.addr, `${p.addr} was seated (${p.by}) in the last build but is not now; write unseat-${key}: <reason>; was blob ${p.blob} (R2: every seat can be found and re-reviewed; TRIAL-K3 finding 11)`);
+    else if (p.blob && !rec.includes(p.blob.slice(0, 8))) err(f00.file, `unseat-${key}: must name the old blob ${p.blob.slice(0, 8)} (TRIAL-K3 finding 11)`);
+  }
 }
 
 // Layout (R19, docs/spec/face00.md DRAFT): front-matter stamp (address, title, type, state, why-draft), then a
@@ -175,11 +256,15 @@ function validate({ book, isAx, faces }) {
       // R10: on a door page 0000, face 00 is the only face.
       for (const f of fs) if (f.ff !== '00') err(f.file, 'page 0000 has only face 00 (R10)');
     } else if (!fs.some((f) => CONTENT_FACES.includes(f.ff))) err(page, 'needs a content face 01-06 or 08 (C1.1)');
-    // R2: a seated face needs a seat record naming the trial and the exact blob that passed it.
-    for (const f of fs.filter((x) => !x.tail && !x.nn && x.ff !== '00')) {
+    // R2: every seated face (no tail), face 00 and counters included (TRIAL-K3 finding 1; R22), needs a seat record
+    // naming the trial (or Director ruling) and the exact blob, and the record is verified (TRIAL-K3 finding 2).
+    for (const f of fs.filter((x) => !x.tail)) {
+      const k = spotKey(f);
+      const where = k === '00' ? 'seat-00: in its stamp' : `seat-${k}: on the face 00 registry`;
+      const raw = reg && reg.get(k);
       const seat = seatOf(reg, f);
-      if (!seat) err(f.file, `seated face has no seat-${f.ff}: record in face 00 (R2: approved-by, trial, blob); write it as FF.draft`);
-      else if (!blobOf(f.body).startsWith(seat.blob)) err(f.file, `seated face changed since its trial: blob ${blobOf(f.body).slice(0, 8)} is not ${seat.blob} (R2, axiom 9); write it as FF.draft and re-trial`);
+      if (!seat) err(f.file, raw && raw !== 'seated; ' ? `seat record "${raw.replace(/^seated; /, '')}" is not in the R2 form; approved-by must be build-stage (R2) with trial:, or director with ruling: (R2; TRIAL-K3 finding 2)` : `seated face has no ${where} (R2: approved-by, trial, blob); write it as FF.draft`);
+      else { const bad = verifySeat(f, seat); if (bad) err(f.file, bad); }
     }
     const k04 = new Map();
     for (const f of fs.filter((f) => f.ff === '04')) for (const c of f.cards) k04.set(c.key, c);
@@ -194,7 +279,9 @@ function validate({ book, isAx, faces }) {
         if (type && !CARD_TYPES.includes(type)) err(f.file, `card ${c.key}: type ${type} is not a kernel card type (C8.9)`);
         if ((f.ff === '01' || f.ff === '02') && type !== 'brand') { // R15: a brand card needs no 04 card
           const w = k04.get(c.key); // presence is checked across the lookup in crossChecks (C3.2, TRIAL-K2 finding 8)
-          if (!w) { /* looked up */ }
+          // Books: presence is checked across the lookup. The axioms sit outside any book (R6) and have no lookup,
+          // so they are checked here, as at ed82086 (TRIAL-K3 finding 3).
+          if (!w) { if (isAx) err(f.file, `card ${c.key} has no 04 card (C3.2)`); }
           else if (!w.fields.why || !w.body) err(f.file, `04 card ${c.key} lacks why: or body (C3.2)`);
           else {
             if (w.body === c.body) find(f.file, `04 ${c.key} copies the ${f.ff} body (C3.2 finding)`);
@@ -308,9 +395,9 @@ function render(entriesOf, address) {
       const r = (regs.get(f.page) || new Map()).get(`${f.ff}${f.nn ? '.' + f.nn : ''}.draft`);
       if (r) e.reason = r.replace(/^draft because /, '');
     }
-    if (!f.tail && !f.nn && f.ff !== '00') {
+    if (!f.tail) {
       const seat = seatOf(regs.get(f.page), f);
-      if (seat) { e['approved-by'] = seat.by; e.trial = `${seat.trial} blob ${seat.blob}`; }
+      if (seat) { e['approved-by'] = seat.by; e[seat.kind] = `${seat.ref} blob ${seat.blob}`; }
     }
     e.body = f.body.replace(/\n+$/, '');
     e.proposal = `${BY}:${f.page}`; // format.md section 3.3 proposal batches (proposed): a page arrives with its faces.
@@ -325,6 +412,7 @@ const check = process.argv.includes('--check');
 const books = sources().map(loadBook);
 books.forEach(validate);
 crossChecks(books);
+unseatChecks(books, priorSeats());
 lookupReport(books);
 for (const f of findings) console.log('finding  ' + f);
 for (const l of lookups) console.log('lookup   ' + l);

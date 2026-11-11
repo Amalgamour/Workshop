@@ -215,6 +215,7 @@ R22 (`DIRECTOR-RULINGS.md:86-88`): "the seated 05 for each page should explain w
 - Option A: R22's "seated" means a reviewed, closed (bare) counter `05.NN` that holds the MVP pack. Face 05 stays counted.
 - Option B: face 05 is uncounted on these pages (one seated face per page, R2 trial). R22 then overrides `decisions.md:198-199` for this use.
 - Option C: the learning goes on a seated card (01/04), and the work pack goes on counters `05.NN`. Linked: Q35. `7`.
+- **Applied R22 (kernel pass 5), awaiting Director confirmation.** R22 is the newer Director ruling, so `0052.01` and `0052.04` Counted Faces now say a counter of a counted face may be seated under R2 after a hostile trial, as each page's face 05 is (R22), and the builder requires and verifies a seat record for a seated counter (`seat-05.NN:`). Which option R22 means (A, B or C) is not chosen here. Still open: `7`.
 
 **Q42. [PACKS] R22 asks for a face 05 on "each page", but R10 says a door page 0000 holds only face 00. Where do a door page's lessons and pack go?**
 R22 (`DIRECTOR-RULINGS.md:86-88`): "the seated 05 for each page". R10 (`:40-41`): "Page 0000.00 is the only location that exists"; the builder refuses any other face on 0000 (`kernel/build.mjs` validate). Held: the four door packs are written but parked, not built (`kernel/parked/doors/`, `kernel/parked/README.md`).

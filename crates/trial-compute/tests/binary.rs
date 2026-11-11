@@ -7,7 +7,12 @@ use trial_compute::*;
 fn compute_bin() -> std::path::PathBuf {
     let st = Command::new(env!("CARGO")).args(["build", "-q", "-p", "compute", "--bin", "compute"]).current_dir(repo()).status().expect("cargo build compute");
     assert!(st.success());
-    repo().join("target/debug/compute")
+    // TRIAL-K3 finding 15: honor CARGO_TARGET_DIR (the inner cargo build inherits it). A relative value is
+    // taken from the repo root, where the build above runs. CARGO_BIN_EXE_compute is only set for the
+    // compute package's own tests, so it can't be used from this crate.
+    let target = std::env::var_os("CARGO_TARGET_DIR").map(std::path::PathBuf::from).unwrap_or_else(|| "target".into());
+    let target = if target.is_absolute() { target } else { repo().join(target) };
+    target.join("debug").join(if cfg!(windows) { "compute.exe" } else { "compute" })
 }
 
 /// Start the binary and return its first stdout/stderr line.

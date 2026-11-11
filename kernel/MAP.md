@@ -37,7 +37,7 @@ Each change appends the Director's quoted words to the affected card (merge line
 | `reason` field | CORE reads entry field `reason` (seqaddr-core log.rs `Entry::reason`); the books already use that name. |
 
 ## Status: two faces seated under R2 (pass 4); the rest draft
-Every face is `FF.draft`. Each registry line gives the reason. In short:
+Two faces are seated under R2: `00.00.00.0056.01` (blob `112c169c`) and `10.11.21.1001.01` (blob `5415cef2`), both passed by TRIAL-K2 (`docs/trial/kernel-trial-2.md@ed82086`). Every other face is `FF.draft`. Each registry line gives the reason. The builder checks each seat record against its trial (TRIAL-K3 findings 1, 2, 11). In short:
 - Everything was changed in passes 2-3 (R4-R18) after TRIAL-K, so it needs a new hostile pass (axiom 9; R2 needs a trial).
 - Stamp `type` values have no given meaning (hole 4).
 - 04 faces hold missing whys (`4.7`) or `7` hole bodies.
@@ -79,7 +79,7 @@ Not written, on purpose:
 - **Notes:** 06.01 is this session's note, carrying the merge log (R1, R4, R9, R10).
 
 ## Samples (`kernel/samples/`)
-Test fixtures, all draft, each registry line saying so.
+Test fixtures, each registry line saying why. All are draft except `10.11.21.1001.01` (bob), seated under R2 (TRIAL-K2).
 - Desk `10` "personal", shelf `10.11` "me", book `10.11.21` "about-me". Their 0000 pages hold only face 00 (R10).
 - **Override (R7), parked under R21 in `kernel/parked/`:** `10.11.21.0001` "override-drafting" changes the 04 explanation of kernel card `never-from-memory` (`00.00.00.0056.04`) for this book. Its body is the Director's chat words (t42u), not in docs/spec.
   - The builder prints the lookup of the target: `10.11.21.0056.04 -> 00.00.00.0056.04.draft (found draft; ...)` plus the override note.
