@@ -283,3 +283,32 @@ Proposed, for the KERNEL lane to choose and the next trial to check:
 - (d) no git means the seat is an error, not a finding.
 `7` until a lane takes it.
 Taken by KERNEL pass 6 (step 1): (a)-(d) built in `kernel/build.mjs` (`verifySeat`, `priorSeats`), with tests in `kernel/build.test.mjs`; the two seats re-pinned with full blobs. An older trial whose PASS list has a short prefix (kernel-trial-2.md) still seats only if the full seat blob is this face's file in that trial's commit. Left for the next trial to check. Not taken: a ruling must name the face in a seat line (a simple check is built; the exact wording is the Director's).
+
+**Q53. [TRIAL-K5] (builder lane, not a Director question) How should a seat cite its trial so the seat still checks out in the published copy?**
+Evidence: `docs/trial/kernel-trial-5.md` finding 1. Seats cite `docs/trial/<file>.md@<local commit>` (for example `@4b369fa`, `@ed82086`). The publish copy is filter-branched to drop `target/`, so every commit id changes. A clone of `publish`, and a clone of GitHub `prima/build`, both fail `node kernel/build.mjs --check` with 17 errors ("not an ancestor of HEAD" / "git cannot find"). The trial file's blob is the same in both (`a5d253d5e12722956afea38e79cb7fc1cf492c7b`).
+- Option A: cite the trial file by its blob (`docs/trial/kernel-trial-4.md#<40-hex blob>`), and check that an ancestor of HEAD has that path at that blob. Re-pin the 17 seats (face 00 is a draft, so no seat breaks).
+- Option B: keep `@commit`, and fall back to a content match (an ancestor whose copy of the trial file has the same PASS line) when the commit is missing.
+- Option C: the publish flow rewrites seat lines with a commit map. That changes face 00 blobs per copy, so it is not recommended. `7` until a lane takes it.
+
+**Q54. [TRIAL-K5] (builder lane, not a Director question) What should the seat guard trust from git?**
+Evidence: `docs/trial/kernel-trial-5.md` findings 2-5.
+- `git replace` of a trial blob made a changed seated face build clean while citing the real `kernel-trial-4.md@4b369fa`, with no commit (HR).
+- `GIT_DIR` pointed at another repo did the same (H15).
+- A books/ edit that is committed hides an un-seat (H11).
+- A trial file edited in a later commit, a new forged trial, or a committed forged ruling is accepted (H4, H5, H7).
+- `unseat-NN: <8 hex>` with no reason is accepted (H13).
+Proposed, for the KERNEL lane to choose and the next trial to check:
+- (a) run git with `--no-replace-objects` and a cleaned environment (no `GIT_DIR`, `GIT_WORK_TREE`, `GIT_INDEX_FILE`, `GIT_OBJECT_DIRECTORY`, `GIT_ALTERNATE_OBJECT_DIRECTORIES`, `GIT_NAMESPACE`, `GIT_CONFIG_*`); refuse when `git replace -l` lists anything or `.git/info/grafts` exists;
+- (b) past seats from history: every `seat-` line ever added on an ancestor that is gone now needs an `unseat-` record;
+- (c) trial files are write-once: the cited commit is the one that added the file, and no later commit modifies it;
+- (d) an un-seat record names the full old blob and gives a reason. `7` until a lane takes it.
+
+**Q55. [TRIAL-K5] Must a pack's `grant:` cover every path its own work cards name, including the trial and seat steps?**
+Evidence: `docs/trial/kernel-trial-5.md` finding 9.
+- `0054.05.02:9` grants only `0054.*.draft.md` faces 01/02/04 and books, but its cards write `crates/seqaddr-core/src/face.rs`, `kernel/build.mjs`, `docs/spec/face00.md` and `0054.00`.
+- `0012.05.02:9` says "not face 00 or 05", but w05 writes `0012.00`.
+- The seated `0053.05.02` and `0055.05.02` have the same pattern.
+- `workflow-loop.003.md:237` (a draft, O7) makes "intended targets ... inside the grant" a hard lint.
+- Option A: widen each grant to the paths its cards name (code paths too), and mark trial and seat cards as done by other lanes.
+- Option B: a pack grant covers only the builder's own cards; trial and seat cards name their lane (`by: trial lane`, `by: seat lane`) and sit outside the grant by design, and code paths get their own pack.
+- Option C: leave grants as they are until `.003` is approved (O7). `7`.
