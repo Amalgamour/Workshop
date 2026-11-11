@@ -1,7 +1,7 @@
 // Read-only pass-through so the browser word box can ask the compute. GET only.
 import { COMPUTE_URL } from "@/lib/compute";
 
-const ALLOWED = new Set(["brands", "links", "page", "face", "cards"]);
+const ALLOWED = new Set(["brands", "links", "page", "face", "cards", "history", "queue", "book", "books"]);
 
 export async function GET(req: Request, { params }: { params: Promise<{ path: string[] }> }) {
   const { path } = await params;

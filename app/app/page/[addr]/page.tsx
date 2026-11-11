@@ -78,6 +78,7 @@ function FacePanel({ addr, face, entries }: { addr: string; face: string; entrie
     return (
       <div className="panel">
         <h3>{face} {name.name} <span className="note">— {name.plain}</span></h3>
+        <Actions addr={addr} face={face} hasDraft={entries.some(([k]) => k === `${face}.draft`)} />
         <Hole what={`face ${face} (${name.name})`} why={`Face ${face} is not written in this book, its shelf, its desk, or the kernel. A page needs face 00 and at least one content face (seqAddr 5.2), so this can be fine.`} traceHref={`/resolve?addr=${addr}.${face}`} />
       </div>
     );
@@ -89,6 +90,7 @@ function FacePanel({ addr, face, entries }: { addr: string; face: string; entrie
   return (
     <div className="panel">
       <h3>{face} {name.name} <span className="note">— {name.plain}</span></h3>
+        <Actions addr={addr} face={face} hasDraft={entries.some(([k]) => k === `${face}.draft`)} />
       {seated ? <FaceBlock addr={addr} k={seated[0]} v={seated[1]} label="Live face" /> : null}
       {draft ? <FaceBlock addr={addr} k={draft[0]} v={draft[1]} label="Draft (not active yet)" /> : null}
       {board || counters.length ? (
@@ -121,5 +123,14 @@ function FaceBlock({ addr, k, v, label }: { addr: string; k: string; v: FaceView
       {cards.map((c) => <CardView key={c.key} card={c} pageAddr={addr} />)}
       {!intro && cards.length === 0 ? <p className="note">Empty body.</p> : null}
     </section>
+  );
+}
+
+function Actions({ addr, face, hasDraft }: { addr: string; face: string; hasDraft: boolean }) {
+  return (
+    <div className="row" style={{ margin: "0 0 10px" }}>
+      {face === "05" ? <Link className="tab" href={`/work?page=${addr}`}>Work the job loop →</Link> : <Link className="tab" href={`/draft?page=${addr}&face=${face}`}>{hasDraft ? "Work on the draft →" : "Draft this face →"}</Link>}
+      {hasDraft ? <Link className="tab" href={`/seat?addr=${addr}.${face}`}>Seat the draft (R2) →</Link> : null}
+    </div>
   );
 }
