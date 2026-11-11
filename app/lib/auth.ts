@@ -1,7 +1,8 @@
 "use client";
 // Token sign-in (CONTRACT addendum, COMPUTE: identity is provisional, BUILD-LOG 7).
 // The token stays in this browser (localStorage) and is sent only to the app's own pass-through, which forwards it to the compute.
-// The compute has no "who am I" route, so the name shown is the one the compute recorded on your latest write (from /queue).
+// The name comes from the compute's GET /whoami (via /api/whoami). An older compute without that route (404)
+// falls back to the name the compute recorded on your latest write (from /queue).
 const TOKEN = "workshop.token";
 const NAME = "workshop.name";
 const EVT = "workshop-auth";
@@ -28,10 +29,27 @@ export function setToken(t: string) {
 }
 export function signOut() { localStorage.removeItem(TOKEN); localStorage.removeItem(NAME); localStorage.removeItem(TOKEN + ".check"); emit(); }
 
-/** Asks the compute whether the token is known, without writing anything: an empty proposal body is refused
- *  before it reaches the queue, with 401 for an unknown token and 400 for a known one. */
+/** Asks the compute who the token belongs to (GET /whoami), without writing anything. If the compute has no
+ *  /whoami (404), falls back to the old probe: an empty proposal body is refused before it reaches the queue,
+ *  with 401 for an unknown token and 400 for a known one. */
 export async function checkToken(): Promise<AuthState["check"]> {
   let c: AuthState["check"] = "down";
+  try {
+    const w = await fetch("/api/whoami", { headers: authHeader(), cache: "no-store" });
+    if (w.status === 200) {
+      const v = await w.json();
+      if (typeof v?.name === "string") localStorage.setItem(NAME, v.name);
+      localStorage.setItem(TOKEN + ".check", "ok");
+      emit();
+      return "ok";
+    }
+    if (w.status === 401 || w.status === 403) {
+      localStorage.removeItem(NAME);
+      localStorage.setItem(TOKEN + ".check", "bad");
+      emit();
+      return "bad";
+    }
+  } catch { /* fall back to the probe below */ }
   try {
     const r = await fetch("/api/post/propose", { method: "POST", headers: { "content-type": "application/json", ...authHeader() }, body: "" });
     c = r.status === 401 || r.status === 403 ? "bad" : r.status === 400 ? "ok" : "down";

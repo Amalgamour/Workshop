@@ -22,7 +22,7 @@ export function WhoAmI() {
           <div className={`who-state ${a.check}`}>
             {a.check === "ok" ? <>✓ Token accepted{a.name ? <> as <b>{a.name}</b></> : null}</> : a.check === "bad" ? <>✗ The compute does not know this token</> : a.check === "down" ? <>? The compute is not answering</> : <>Token saved, not checked yet</>}
           </div>
-          {a.check === "ok" && !a.name ? <small className="note">Your name shows here after your first write. (There is no &quot;who am I&quot; route yet.)</small> : null}
+          {a.check === "ok" && !a.name ? <small className="note">Your name shows here after your first write. (This compute has no &quot;who am I&quot; route.)</small> : null}
           <div className="row" style={{ gap: 6, marginTop: 6 }}>
             <button className="quiet small" onClick={async () => { setBusy(true); await checkToken(); setBusy(false); }} disabled={busy}>Check again</button>
             <button className="quiet small" onClick={signOut}>Sign out</button>
