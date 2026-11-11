@@ -66,7 +66,7 @@ Read: a brand card on face 01 does not need a 04 card (decisions.md:521 card-typ
 Read: the dictionary's 03.00 is a door. TENSION with R9 ("Faces do not have sentinels"): held as 7 and asked back to the Director. Builders do not resolve it.
 
 **R17 (Q13)** "Its broken into 4 sections. Each one has it's own important. 0000-0019 are static 0020-0099 aren't just locations."
-Read: below 0100 the book has four ranges (seqAddr.md:220-223): 0000-0019 core and static; 0020-0049 behavior; 0050-0099 structure; plus the fourth range as listed there. 0020-0099 are working pages, not just locations.
+Read: below 0100 the book is split into four sections, not one reserved range (Q13 option B). 0000-0019 are static; 0020-0099 are working pages, not just locations (0020-0049 behavior, 0050-0099 structure). The exact four-way split is 7: seqAddr.md lists 0000, 0001-0009, 0010-0019, 0020-0049, 0050-0099 (five rows); asked back to the Director.
 
 **R18 (Q14)** "The matching would be in the hundreds range as in workflow. So N4CC, CC is a counter space, so if you have a workflow from N3-N7 then N403.IDE-design would match N503.IDE-design. They are matched by the CC and the title."
 Read: pages in different bands belong together when their last two digits (CC, the counter space inside the band) AND their title match. Example: N403.IDE-design and N503.IDE-design are one set across bands N3-N7.
