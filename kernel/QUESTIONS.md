@@ -320,3 +320,22 @@ Evidence: `docs/trial/kernel-trial-5.md` finding 9.
 - Option B: a pack grant covers only the builder's own cards; trial and seat cards name their lane (`by: trial lane`, `by: seat lane`) and sit outside the grant by design, and code paths get their own pack.
 - Option C: leave grants as they are until `.003` is approved (O7). `7`.
 Noted by KERNEL pass 7: this one is the Director's (it sets what a pack may write), so it is not decided here. No `grant:` line was changed; the 0054 and 0013 pack edits in pass 7 add paths to work cards only.
+
+**Q56. [TRIAL-K6] (builder lane, not a Director question) How should the seat guard read history so attributes and merges can't hide a seat or a trial edit?**
+Evidence: `docs/trial/kernel-trial-6.md` findings 1 and 2.
+- K21: one committed `.gitattributes` line, `kernel/** -diff`, makes `git log -p -G seat-` (`build.mjs:265`) see no seat lines. A committed un-seat with no record then builds clean, also in a fresh clone. K22 does the same with `.git/info/attributes` alone.
+- K26: a merge that takes `kernel/` from a side branch cut before a seat commit drops that commit from `git log` (history simplification). The un-seat builds clean, also in a fresh clone.
+- K25: a merge that takes a side branch's copy of a real trial file makes the side commit the "oldest add" (`trialOrigin`, `:189-190`), so a PASS line added that way can be cited. That gets around Q54 (c).
+Proposed, for the KERNEL lane to choose and the next trial to check:
+- (a) read history with `-a --no-textconv` (or parse face 00 files per commit with `git cat-file blob`), so attributes cannot blind it;
+- (b) add `--full-history` to the `trialOrigin` and `historySeats` walks;
+- (c) optionally refuse merge commits that touch `kernel/` or `docs/trial/`, and attributes lines that touch `kernel/`, `books/` or `docs/trial/` (this branch is linear today);
+- (d) add tests like K21, K25 and K26. `7` until a lane takes it.
+
+**Q57. [TRIAL-K6] (builder lane, not a Director question) Should the publish copy keep refs that hold the old `target/` history?**
+Evidence: `docs/trial/kernel-trial-6.md` part C3.
+- `/workspace/workshop-build/publish` keeps `refs/heads/incoming` (`18dd576`), `refs/original/refs/heads/build` (`af8cee9`) and a stale `refs/remotes/origin/build` (`af8cee9`). Each reaches 2 commits that touch `target/`.
+- `branch.build.merge` is `refs/heads/build` on `origin` (GitHub), so a bare `git push` would create an unapproved `build` branch on GitHub. A `--all` or `--mirror` push would publish the `target/` history.
+- Option A: after each cherry-pick, delete `incoming` and the stale tracking ref, and run `git update-ref -d` on `refs/original/...` once.
+- Option B: keep them, and set `branch.build.merge` to `refs/heads/prima/build` (or `push.default=nothing`), so only the explicit `build:refs/heads/prima/build` push works.
+- Option C: leave it as is and rely on the explicit push command. `7` until a lane takes it. Report only: nothing was deleted.
