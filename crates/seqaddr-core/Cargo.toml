@@ -1,0 +1,24 @@
+[package]
+name = "seqaddr-core"
+version = "0.1.0"
+edition = "2021"
+description = "seqAddr core: address grammar, book log, tail rules, inheritance, proposal validation (Workshop)"
+publish = false
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "seqaddr"
+path = "src/bin/seqaddr.rs"
+required-features = ["fs"]
+
+[features]
+default = ["fs"]
+# File I/O (read/append book files, clock). Off for wasm32 builds.
+fs = []
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "1"

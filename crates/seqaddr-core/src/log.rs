@@ -1,0 +1,352 @@
+//! The book file: JSON Lines, an append-only log of approved writes (format 3).
+//!
+//! Line 1 is the header `{"seqbook":1,"address":"DD.SS.BB"}`. Every later line
+//! is one approved write. A partly written last line is detected and dropped.
+
+use crate::addr::BookId;
+use crate::error::{Result, SeqError};
+use serde::{Deserialize, Serialize};
+
+pub const FORMAT_VERSION: u32 = 1;
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct Header {
+    pub seqbook: u32,
+    pub address: String,
+}
+
+impl Header {
+    pub fn new(book: BookId) -> Self {
+        Header { seqbook: FORMAT_VERSION, address: book.to_string() }
+    }
+}
+
+/// Operations (format 3.3). `put`, `tail`, `snapshot` are decided; the rest
+/// are proposed and only applied when `Policy::allow_proposed_ops` is on.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[serde(rename_all = "lowercase")]
+pub enum Op {
+    Put,
+    Tail,
+    Snapshot,
+    /// proposed (D0)
+    Copy,
+    /// proposed (D0)
+    Note,
+    /// proposed (D0)
+    Merge,
+    /// proposed (D0)
+    Promote,
+    /// proposed (C8.7): compute-only word resolution record
+    Use,
+}
+
+impl Op {
+    pub fn is_proposed(self) -> bool {
+        !matches!(self, Op::Put | Op::Tail | Op::Snapshot)
+    }
+    pub fn as_str(self) -> &'static str {
+        match self {
+            Op::Put => "put",
+            Op::Tail => "tail",
+            Op::Snapshot => "snapshot",
+            Op::Copy => "copy",
+            Op::Note => "note",
+            Op::Merge => "merge",
+            Op::Promote => "promote",
+            Op::Use => "use",
+        }
+    }
+}
+
+/// One approved write: one line of the book (format 3.2, lane contract).
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct Entry {
+    pub n: u64,
+    pub at: String,
+    pub by: String,
+    pub op: Op,
+    pub addr: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub tail: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub from: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub to: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub body: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub proposal: Option<String>,
+    /// Provisional: the note entry `n` a `merge` cites (D0).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub cites: Option<u64>,
+    /// Provisional: closing outcome on `review -> closed` (S03).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub outcome: Option<String>,
+    /// Provisional: number of entries in this entry's proposal, written on every
+    /// entry of a multi-op proposal so a cut-off proposal can be dropped whole.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub of: Option<u32>,
+    /// Provisional: the full state carried by a `snapshot` entry.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub state: Option<serde_json::Value>,
+    /// Unknown fields are kept so a newer writer's lines round-trip.
+    #[serde(flatten)]
+    pub extra: serde_json::Map<String, serde_json::Value>,
+}
+
+impl Entry {
+    pub fn new(n: u64, at: impl Into<String>, by: impl Into<String>, op: Op, addr: impl Into<String>) -> Entry {
+        Entry {
+            n,
+            at: at.into(),
+            by: by.into(),
+            op,
+            addr: addr.into(),
+            tail: None,
+            from: None,
+            to: None,
+            body: None,
+            proposal: None,
+            cites: None,
+            outcome: None,
+            of: None,
+            state: None,
+            extra: Default::default(),
+        }
+    }
+    pub fn to_line(&self) -> String {
+        serde_json::to_string(self).expect("entry serializes")
+    }
+}
+
+/// A book file read into memory.
+#[derive(Debug, Clone, PartialEq)]
+pub struct BookLog {
+    pub header: Header,
+    pub entries: Vec<Entry>,
+    /// True if a partly written last line (or a cut-off proposal) was found and dropped (format 3.1).
+    pub dropped_partial: bool,
+    /// Byte length of the valid prefix of the text that was parsed.
+    pub valid_len: usize,
+}
+
+/// Check an ISO 8601 UTC timestamp `YYYY-MM-DDTHH:MM:SS[.frac]Z`.
+pub fn check_timestamp(s: &str) -> Result<()> {
+    let b = s.as_bytes();
+    let ok = b.len() >= 20
+        && b[4] == b'-'
+        && b[7] == b'-'
+        && b[10] == b'T'
+        && b[13] == b':'
+        && b[16] == b':'
+        && *b.last().unwrap() == b'Z'
+        && [0, 1, 2, 3, 5, 6, 8, 9, 11, 12, 14, 15, 17, 18].iter().all(|&i| b[i].is_ascii_digit())
+        && (b.len() == 20 || (b[19] == b'.' && b.len() > 21 && b[20..b.len() - 1].iter().all(|c| c.is_ascii_digit())));
+    if ok {
+        Ok(())
+    } else {
+        Err(SeqError::invalid("format 3.2", format!("`{s}` is not an ISO 8601 UTC time (YYYY-MM-DDTHH:MM:SSZ)")))
+    }
+}
+
+/// Format seconds since the Unix epoch as ISO 8601 UTC.
+pub fn format_utc(secs: i64) -> String {
+    let days = secs.div_euclid(86_400);
+    let rem = secs.rem_euclid(86_400);
+    // civil from days (Howard Hinnant)
+    let z = days + 719_468;
+    let era = z.div_euclid(146_097);
+    let doe = z - era * 146_097;
+    let yoe = (doe - doe / 1460 + doe / 36_524 - doe / 146_096) / 365;
+    let y = yoe + era * 400;
+    let doy = doe - (365 * yoe + yoe / 4 - yoe / 100);
+    let mp = (5 * doy + 2) / 153;
+    let d = doy - (153 * mp + 2) / 5 + 1;
+    let m = if mp < 10 { mp + 3 } else { mp - 9 };
+    let y = if m <= 2 { y + 1 } else { y };
+    format!("{:04}-{:02}-{:02}T{:02}:{:02}:{:02}Z", y, m, d, rem / 3600, (rem % 3600) / 60, rem % 60)
+}
+
+/// Now, as ISO 8601 UTC (feature `fs`; not available on wasm32-unknown).
+#[cfg(feature = "fs")]
+pub fn now_utc() -> String {
+    let secs = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).map(|d| d.as_secs() as i64).unwrap_or(0);
+    format_utc(secs)
+}
+
+impl BookLog {
+    pub fn new(book: BookId) -> Self {
+        BookLog { header: Header::new(book), entries: Vec::new(), dropped_partial: false, valid_len: 0 }
+    }
+
+    pub fn book(&self) -> Result<BookId> {
+        BookId::parse(&self.header.address)
+    }
+
+    /// Parse book text. A last line that is cut off (no newline at the end and
+    /// not valid JSON) is dropped (format 3.1). Damage anywhere earlier is an error.
+    pub fn parse(text: &str) -> Result<BookLog> {
+        let ends_clean = text.ends_with('\n');
+        let lines: Vec<&str> = text.split('\n').collect();
+        // split leaves a trailing "" when the text ends with '\n'
+        let mut lines: Vec<&str> = if ends_clean { lines[..lines.len() - 1].to_vec() } else { lines };
+        let mut dropped_partial = false;
+        if !ends_clean {
+            if let Some(last) = lines.last().copied() {
+                let parses = serde_json::from_str::<serde_json::Value>(last).is_ok();
+                if !parses || last.is_empty() {
+                    lines.pop();
+                    dropped_partial = !last.is_empty();
+                }
+            }
+        }
+        let first = lines.first().ok_or(SeqError::Corrupt { line: 1, detail: "no header line".into() })?;
+        let header: Header = serde_json::from_str(first).map_err(|e| SeqError::Corrupt { line: 1, detail: format!("bad header: {e}") })?;
+        if header.seqbook != FORMAT_VERSION {
+            return Err(SeqError::Corrupt { line: 1, detail: format!("unknown seqbook version {}", header.seqbook) });
+        }
+        BookId::parse(&header.address).map_err(|e| SeqError::Corrupt { line: 1, detail: e.to_string() })?;
+        let mut entries = Vec::with_capacity(lines.len());
+        for (i, line) in lines.iter().enumerate().skip(1) {
+            if line.trim().is_empty() {
+                return Err(SeqError::Corrupt { line: i + 1, detail: "blank line inside the log".into() });
+            }
+            let e: Entry = serde_json::from_str(line).map_err(|err| SeqError::Corrupt { line: i + 1, detail: err.to_string() })?;
+            let expect = entries.len() as u64 + 1;
+            if e.n != expect {
+                return Err(SeqError::Corrupt { line: i + 1, detail: format!("entry n={} out of order; expected {expect}", e.n) });
+            }
+            check_timestamp(&e.at).map_err(|err| SeqError::Corrupt { line: i + 1, detail: err.to_string() })?;
+            entries.push(e);
+        }
+        // A proposal is all or nothing (format 3.3): drop a trailing group that is cut short.
+        if let Some(last) = entries.last() {
+            if let (Some(pid), Some(of)) = (last.proposal.clone(), last.of) {
+                let have = entries.iter().rev().take_while(|e| e.proposal.as_deref() == Some(pid.as_str())).count();
+                if have < of as usize {
+                    entries.truncate(entries.len() - have);
+                    dropped_partial = true;
+                }
+            }
+        }
+        let kept_lines = 1 + entries.len();
+        let mut valid_len: usize = lines.iter().take(kept_lines).map(|l| l.len() + 1).sum();
+        if valid_len > text.len() {
+            valid_len = text.len(); // last kept line had no newline
+        }
+        Ok(BookLog { header, entries, dropped_partial, valid_len })
+    }
+
+    /// Serialize the whole log (header + entries), one per line, newline ended.
+    pub fn to_text(&self) -> String {
+        let mut s = serde_json::to_string(&self.header).unwrap();
+        s.push('\n');
+        for e in &self.entries {
+            s.push_str(&e.to_line());
+            s.push('\n');
+        }
+        s
+    }
+
+    pub fn next_n(&self) -> u64 {
+        self.entries.len() as u64 + 1
+    }
+
+    /// Index of the latest snapshot entry, if any (format 3.4).
+    pub fn latest_snapshot(&self) -> Option<usize> {
+        self.entries.iter().rposition(|e| e.op == Op::Snapshot)
+    }
+
+    /// Entries touching an address (format 3.1 history): the address itself and
+    /// anything below it (a page's faces, a face's counters). Tails, titles and
+    /// card keys are ignored when matching.
+    pub fn history(&self, addr: &str) -> Result<Vec<&Entry>> {
+        let want = crate::addr::Address::parse(addr)?;
+        let want_key = history_key(&want);
+        Ok(self
+            .entries
+            .iter()
+            .filter(|e| e.op != Op::Snapshot)
+            .filter(|e| match crate::addr::Address::parse(&e.addr) {
+                Ok(a) => {
+                    let k = history_key(&a);
+                    k == want_key || k.starts_with(&format!("{want_key}."))
+                }
+                Err(_) => false,
+            })
+            .collect())
+    }
+}
+
+fn history_key(a: &crate::addr::Address) -> String {
+    match a {
+        crate::addr::Address::Page(p) => p.slot().to_string(),
+        crate::addr::Address::Container(c) => {
+            let mut c = c.clone();
+            c.title = None;
+            c.to_string()
+        }
+        other => other.to_string(),
+    }
+}
+
+#[cfg(feature = "fs")]
+pub mod file {
+    //! Crash-safe file access. Only the compute should call the writers (format 1.2).
+    use super::*;
+    use std::fs::{self, OpenOptions};
+    use std::io::Write;
+    use std::path::Path;
+
+    fn io(e: std::io::Error) -> SeqError {
+        SeqError::Io { detail: e.to_string() }
+    }
+
+    pub fn read(path: &Path) -> Result<BookLog> {
+        let text = fs::read_to_string(path).map_err(io)?;
+        BookLog::parse(&text)
+    }
+
+    /// Create a new book file with only its header. Fails if it exists.
+    pub fn create(path: &Path, book: BookId) -> Result<()> {
+        let mut f = OpenOptions::new().write(true).create_new(true).open(path).map_err(io)?;
+        let mut line = serde_json::to_string(&Header::new(book)).unwrap();
+        line.push('\n');
+        f.write_all(line.as_bytes()).map_err(io)?;
+        f.sync_all().map_err(io)
+    }
+
+    /// Cut a partly written last line off the file, so the next append starts
+    /// on a clean line (format 3.1). Returns true if anything was cut.
+    pub fn repair_tail(path: &Path) -> Result<bool> {
+        let text = fs::read_to_string(path).map_err(io)?;
+        let log = BookLog::parse(&text)?;
+        if log.valid_len >= text.len() {
+            return Ok(false);
+        }
+        let f = OpenOptions::new().write(true).open(path).map_err(io)?;
+        f.set_len(log.valid_len as u64).map_err(io)?;
+        f.sync_all().map_err(io)?;
+        Ok(true)
+    }
+
+    /// Append entries (one proposal) as whole lines, then fsync. Repairs a
+    /// partial last line first. Each entry is written as one `write` of a
+    /// complete line so a crash leaves at most one partial line at the end.
+    pub fn append(path: &Path, entries: &[Entry]) -> Result<()> {
+        repair_tail(path)?;
+        let mut buf = String::new();
+        let existing = fs::read(path).map_err(io)?;
+        if !existing.is_empty() && !existing.ends_with(b"\n") {
+            buf.push('\n');
+        }
+        for e in entries {
+            buf.push_str(&e.to_line());
+            buf.push('\n');
+        }
+        let mut f = OpenOptions::new().append(true).open(path).map_err(io)?;
+        f.write_all(buf.as_bytes()).map_err(io)?;
+        f.sync_all().map_err(io)
+    }
+}
