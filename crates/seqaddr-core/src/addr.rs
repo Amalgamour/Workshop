@@ -766,6 +766,9 @@ fn parse_face_part(segs: &[Seg<'_>], mut i: usize, input: &str) -> Result<(Optio
     i += 1;
     let mut fp = FacePart::face(face);
     if let Some(Seg::Digits(d)) = segs.get(i) {
+        if d.len() == 3 {
+            return Err(SeqError::invalid("C8.2", format!("`{d}` in `{input}`: a 3-digit group is a brand and needs a card before it")));
+        }
         if d.len() != 2 {
             return Err(SeqError::invalid("A1.5", format!("`{d}` in `{input}`: a counter is exactly 2 digits")));
         }

@@ -287,7 +287,9 @@ impl BookState {
 
     /// Apply one approved entry. Used by replay and by proposal validation.
     pub fn apply(&mut self, e: &Entry, policy: &Policy) -> Result<()> {
-        if e.n != self.last_n + 1 {
+        // A snapshot may start a replay (format 3.4): then earlier entries are skipped.
+        let starts_replay = e.op == Op::Snapshot && self.last_n == 0 && self.pages.is_empty();
+        if e.n != self.last_n + 1 && !starts_replay {
             return Err(SeqError::rejected("format 3.2", format!("entry n={} out of sequence; expected {}", e.n, self.last_n + 1)));
         }
         check_timestamp(&e.at)?;
