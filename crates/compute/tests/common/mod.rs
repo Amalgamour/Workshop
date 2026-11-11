@@ -13,14 +13,18 @@ pub fn tmp(name: &str) -> PathBuf {
     d
 }
 
-/// A small kernel: door 0000 and page 0020 with a seated law face 01 and why 04.
+/// A small kernel: door 0000; page 0020 with a seated 01 (plus a working draft of it with one note) and 04;
+/// page 0030 whose only 01 is a draft (R5).
 pub const KERNEL: &str = concat!(
     r###"{"seqbook":1,"address":"00.00.00"}"###, "\n",
     r###"{"n":1,"at":"2026-11-11T19:30:00Z","by":"user","op":"put","addr":"00.00.00.0000.00","body":"---\ntitle: kernel\n---"}"###, "\n",
-    r###"{"n":2,"at":"2026-11-11T19:30:00Z","by":"user","op":"put","addr":"00.00.00.0000.04","body":"## Kernel\nwhy: the base every book inherits.\n\nThe kernel."}"###, "\n",
-    r###"{"n":3,"at":"2026-11-11T19:30:00Z","by":"user","op":"put","addr":"00.00.00.0020.00","body":"---\ntitle: routing\n---"}"###, "\n",
-    r###"{"n":4,"at":"2026-11-11T19:30:00Z","by":"user","op":"put","addr":"00.00.00.0020.01","body":"## Route\nRoute the work."}"###, "\n",
-    r###"{"n":5,"at":"2026-11-11T19:30:00Z","by":"user","op":"put","addr":"00.00.00.0020.04","body":"## Route\nwhy: kernel why.\n\nKernel reason."}"###, "\n",
+    r###"{"n":2,"at":"2026-11-11T19:30:00Z","by":"user","op":"put","addr":"00.00.00.0020.00","body":"---\ntitle: routing\n---"}"###, "\n",
+    r###"{"n":3,"at":"2026-11-11T19:30:00Z","by":"user","op":"put","addr":"00.00.00.0020.01","body":"## Route\nRoute the work."}"###, "\n",
+    r###"{"n":4,"at":"2026-11-11T19:30:00Z","by":"user","op":"put","addr":"00.00.00.0020.04","body":"## Route\nwhy: kernel why.\n\nKernel reason."}"###, "\n",
+    r###"{"n":5,"at":"2026-11-11T19:30:00Z","by":"user","op":"put","addr":"00.00.00.0030.00","body":"---\ntitle: waiting\n---"}"###, "\n",
+    r###"{"n":6,"at":"2026-11-11T19:30:00Z","by":"user","op":"put","addr":"00.00.00.0030.01","tail":"draft","body":"## Wait\nA draft rule."}"###, "\n",
+    r###"{"n":7,"at":"2026-11-11T19:30:00Z","by":"user","op":"copy","addr":"00.00.00.0020.01"}"###, "\n",
+    r###"{"n":8,"at":"2026-11-11T19:30:00Z","by":"user","op":"note","addr":"00.00.00.0020.01.draft","body":"say who routes"}"###, "\n",
 );
 
 pub fn kernel_dir(name: &str) -> PathBuf {
@@ -81,8 +85,9 @@ impl Srv {
     }
 }
 
+/// A seated put, signed by the Director (R2/E7: seating needs an approval record).
 pub fn put(addr: &str, body: &str) -> Value {
-    json!({"op": "put", "addr": addr, "body": body})
+    json!({"op": "put", "addr": addr, "body": body, "approved_by": "director"})
 }
 pub fn put_t(addr: &str, tail: &str, body: &str) -> Value {
     json!({"op": "put", "addr": addr, "tail": tail, "body": body})
@@ -95,7 +100,7 @@ pub const PK: &str = "10.11.21.1523.05.03";
 
 /// Book 10.11.21 with its door, page 0020 overriding the kernel's 04, and a pack on 1523.05.03.
 pub async fn seed(s: &Srv) {
-    let (c, v) = s.post("user", json!([put("10.11.21.0000.00", "---\ntitle: tools\n---"), put("10.11.21.0000.04", "## Tools\nwhy: a place for tools.\n\nTools.")])).await;
+    let (c, v) = s.post("user", json!([put("10.11.21.0000.00", "---\ntitle: tools\n---")])).await;
     assert_eq!(c, 200, "{v}");
     let (c, v) = s.post("user", json!([put("10.11.21.0020.00", "---\ntitle: routing\n---"), put("10.11.21.0020.04", "## Route\nwhy: local why.\n\nLocal reason.")])).await;
     assert_eq!(c, 200, "{v}");

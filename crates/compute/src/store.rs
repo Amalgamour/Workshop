@@ -333,14 +333,30 @@ impl Store {
     pub fn page_view(&self, p: &PageAddr, asked: BookId) -> Option<Value> {
         let mut faces = Map::new();
         let mut inherited = Vec::new();
+        let mut filled: BTreeSet<u8> = BTreeSet::new();
         for b in asked.lookup_chain() {
             let Some(st) = self.st(b) else { continue };
             let Some(pg) = st.page(p.page) else { continue };
             let meta = self.meta(b);
+            let here = filled.clone();
             for it in page_items(st, p.page, pg) {
-                if faces.contains_key(&it.key) || (b != asked && !it.live) {
+                // R5: the first book in the chain holding a face wins; there a seated face
+                // beats its draft, and a draft alone is found and inherited (state draft).
+                if here.contains(&it.face) || faces.contains_key(&it.key) {
                     continue;
                 }
+                if b != asked {
+                    let fs = pg.face(it.face).unwrap();
+                    let keep = match it.tail.as_deref() {
+                        Some("retired") if it.counter.is_none() => false,
+                        Some("draft") if it.counter.is_none() => fs.seated.is_none(),
+                        _ => true,
+                    };
+                    if !keep {
+                        continue;
+                    }
+                }
+                filled.insert(it.face);
                 let source = format!("{b}.{:04}.{}", p.page, it.key);
                 let mut fv = json!({"body": it.body, "source": source, "resolved_from": level(asked, b)});
                 if let Some(t) = &it.tail {
@@ -351,6 +367,15 @@ impl Store {
                     fv["n"] = json!(e.n);
                     fv["by"] = json!(e.by);
                     fv["at"] = json!(e.at);
+                }
+                if it.tail.as_deref() == Some("draft") && it.counter.is_none() {
+                    fv["state"] = json!("draft");
+                    if let Some(d) = pg.face(it.face).and_then(|f| f.draft.as_ref()) {
+                        let open: Vec<Value> = d.notes.iter().filter(|n| !n.struck).map(|n| json!({"n": n.n, "by": n.by, "text": n.text})).collect();
+                        fv["why_draft"] = json!({"opened_by_entry": d.n, "has_seated": pg.face(it.face).map(|f| f.seated.is_some()).unwrap_or(false), "open_notes": open, "merged_notes": d.notes.iter().filter(|n| n.struck).count()});
+                    }
+                } else if it.counter.is_none() && it.tail.is_none() {
+                    fv["state"] = json!("seated");
                 }
                 if it.counter == Some(0) {
                     fv["derived"] = json!("board (A4.4; format 3.3: never written)");
@@ -444,7 +469,10 @@ impl Store {
             }
         }
         let src = r.source.clone().unwrap_or_default();
-        let mut v = json!({"address": arg, "body": body, "source": src, "resolved_from": r.origin.as_str(), "trace": trace});
+        let mut v = json!({"address": arg, "body": body, "source": src, "resolved_from": r.origin.as_str(), "state": r.state, "trace": trace});
+        if let Some(w) = &r.why_draft {
+            v["why_draft"] = serde_json::to_value(w).unwrap_or(Value::Null);
+        }
         if let Some(t) = tail {
             v["tail"] = json!(t);
         }
@@ -657,28 +685,17 @@ impl Store {
             Ok(p) => p,
             Err(e) => return rejected(400, "invalid", None, json!([{"code": "invalid", "rule": "CONTRACT", "detail": e.to_string()}]), format!("not a proposal {{by, ops}}: {e}")),
         };
-        // Director ruling R2 approval gate on promote (seating a draft).
-        let raw_ops = raw.get("ops").and_then(|o| o.as_array()).cloned().unwrap_or_default();
-        let mut approvals: Vec<Option<(String, Option<String>)>> = vec![None; proposal.ops.len()];
+        // Director ruling R2: the core checks every seating op (`promote`, bare `put`) for
+        // `approved_by` + `trial` (rule E7/R2) and copies them onto the entry. The compute adds
+        // two switches on top: R2 can be turned off (`--no-r2`), and `director` may only be
+        // signed by a Director author (7: spec gives no author name).
         let mut gate_reasons = Vec::new();
         for (i, r) in proposal.ops.iter().enumerate() {
-            if r.op != Some(Op::Promote) {
-                continue;
-            }
-            let ro = raw_ops.get(i).cloned().unwrap_or(Value::Null);
-            let by = ro.get("approved_by").or_else(|| ro.get("approved-by")).and_then(|v| v.as_str()).map(|s| s.trim().to_string());
-            let trial = ro.get("trial").and_then(|v| v.as_str()).map(|s| s.trim().to_string()).filter(|s| !s.is_empty());
             let g = &self.cfg.approval;
-            let ok = match by.as_deref() {
-                None => !g.require,
-                Some("director") => g.director_names.iter().any(|n| n == &proposal.by),
-                Some("build-stage (R2)") => g.allow_build_stage_r2 && trial.is_some(),
-                Some(_) => false,
-            };
-            if !ok {
-                gate_reasons.push(json!({"code": "rejected", "rule": "R2", "op": i, "detail": "promote seats a face only with approved_by `director` (written by the Director) or `build-stage (R2)` plus a `trial` reference (Director ruling R2)"}));
-            } else if let Some(b) = by {
-                approvals[i] = Some((b, trial));
+            match r.approved_by.as_deref().map(str::trim) {
+                Some("build-stage (R2)") if !g.allow_build_stage_r2 => gate_reasons.push(json!({"code": "rejected", "rule": "R2", "op": i, "detail": "build-stage (R2) approval is switched off on this compute"})),
+                Some("director") if !g.director_names.iter().any(|n| n == &proposal.by) => gate_reasons.push(json!({"code": "rejected", "rule": "R2", "op": i, "detail": format!("`director` approval must be written by the Director ({:?}), not `{}`", g.director_names, proposal.by)})),
+                _ => {}
             }
         }
         if !gate_reasons.is_empty() {
@@ -703,15 +720,7 @@ impl Store {
             return (code, body);
         }
         let book = book.expect("approved proposals name a book");
-        let mut entries = out.entries.clone();
-        for (e, a) in entries.iter_mut().zip(approvals.iter()) {
-            if let Some((by, trial)) = a {
-                e.extra.insert("approved-by".into(), json!(by));
-                if let Some(t) = trial {
-                    e.extra.insert("trial".into(), json!(t));
-                }
-            }
-        }
+        let entries = out.entries.clone();
         let path = match self.paths.get(&book) {
             Some(p) => p.clone(),
             None => {

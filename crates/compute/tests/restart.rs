@@ -37,7 +37,7 @@ async fn partial_last_line_dropped_on_load_then_writes_continue() {
     // a crash mid-write leaves part of a line
     let f = dir.join("10.11.21.book");
     let mut t = std::fs::read_to_string(&f).unwrap();
-    t.push_str(r#"{"n":7,"at":"2026-11-11T20:00:00Z","by":"agent-7","op":"tail","addr":"10.11"#);
+    t.push_str(r#"{"n":6,"at":"2026-11-11T20:00:00Z","by":"agent-7","op":"tail","addr":"10.11"#);
     std::fs::write(&f, &t).unwrap();
     let s = Srv::start(&dir).await;
     assert_eq!(a, state(&s).await, "the partial line is ignored");
@@ -45,7 +45,7 @@ async fn partial_last_line_dropped_on_load_then_writes_continue() {
     assert!(b["warnings"][0].as_str().unwrap().contains("partly written"), "{b}");
     let (c, v) = s.post("agent-7", json!([tail(PK, "pack", "open")])).await;
     assert_eq!(c, 200, "{v}");
-    assert_eq!(v["entries"], json!([7]));
+    assert_eq!(v["entries"], json!([6]));
     let text = std::fs::read_to_string(&f).unwrap();
     assert!(text.lines().all(|l| serde_json::from_str::<Value>(l).is_ok()), "file is whole lines again");
     s.stop().await;

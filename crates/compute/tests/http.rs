@@ -20,7 +20,7 @@ async fn health_books_book() {
     assert_eq!(d["pages"][2]["faces"], json!(["00", "05"]));
     assert_eq!(d["pages"][2]["title"], "timer");
     // new book file was created by the compute in books dir
-    assert_eq!(s.lines("10.11.21"), 7);
+    assert_eq!(s.lines("10.11.21"), 6);
     s.stop().await;
 }
 
@@ -212,7 +212,7 @@ async fn history_lists_every_entry_for_an_address() {
     assert_eq!(h[1]["by"], "agent-7");
     assert_eq!(h[1]["book"], "10.11.21");
     let (_, h) = s.get("/history/10.11.21").await;
-    assert_eq!(h.as_array().unwrap().len(), 7);
+    assert_eq!(h.as_array().unwrap().len(), 6);
     let (_, h) = s.get("/history/10.11.21.9000").await;
     assert_eq!(h, json!([]));
     s.stop().await;
@@ -276,8 +276,10 @@ async fn r2_build_stage_approval_gate_on_promote() {
         op.as_object_mut().unwrap().extend(extra.as_object().unwrap().clone());
         json!([op])
     };
-    assert_eq!(s.post("agent-7", promote(json!({}))).await.0, 403);
-    assert_eq!(s.post("agent-7", promote(json!({"approved_by": "build-stage (R2)"}))).await.0, 403, "R2 needs a trial reference");
+    let (c, v) = s.post("agent-7", promote(json!({}))).await;
+    assert_eq!((c, v["reasons"][0]["rule"].as_str()), (422, Some("E7")), "{v}");
+    let (c, v) = s.post("agent-7", promote(json!({"approved_by": "build-stage (R2)"}))).await;
+    assert_eq!((c, v["reasons"][0]["rule"].as_str()), (422, Some("R2")), "R2 needs a trial reference: {v}");
     assert_eq!(s.post("agent-7", promote(json!({"approved_by": "director"}))).await.0, 403, "only the Director signs as director");
     let (c, v) = s.post("agent-7", promote(json!({"approved_by": "build-stage (R2)", "trial": "docs/trial/kernel-trial.md#1002"}))).await;
     assert_eq!(c, 200, "{v}");
