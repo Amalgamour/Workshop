@@ -393,6 +393,14 @@ Evidence: `docs/trial/kernel-trial-8.md` finding 1 (H1, H2, H5).
 - Option B: keep the code, and say in the code comment, Q58 note and BUILD-LOG that the fallback is best-effort and the live refusal is the guard.
 - `7` until a lane takes it.
 
+Decided by KERNEL pass 10 (72ae0a1), builder lane: option A (cover the shapes, not best-effort). The live symlink refusal stays the front line; this is the backup.
+- H1: the history walk's pathspec is `kernel` (no slash), so a link at `kernel` itself is seen and its target folder is walked.
+- H2: an absolute link (or a relative one that climbs out of the repo) cannot be resolved against a clone that sits elsewhere, so every tail of its path is walked as a repo path (`/x/y/docs/f.md` -> `x/y/docs/f.md`, `y/docs/f.md`, `docs/f.md`, `f.md`). A tail that never existed in the repo matches nothing.
+- H5: a link found at a face 00 target carries that page to its own target, for any number of hops up to the round limit (16).
+- A link to the repo root (or `/`) makes the whole history the walk's folder, so every face 00 name in it is read.
+- Still not followed, said plainly: a link inside a submodule (mode 160000; its files are another repo), and a seat line in a file git never held. For the second, the `books/` history (Q62) is the backup, and it only helps if a book recording the seat was committed.
+- 3 tests (H1, H2 with a link made in another checkout, H5). All 3 fail on the pass 9 builder and pass now.
+
 **Q62. [TRIAL-K8] (builder lane, not a Director question) Should `--check` require face 00 (and every file it reads under `kernel/`) to be the committed bytes, or read past seats from the history of `books/`?**
 Evidence: `docs/trial/kernel-trial-8.md` finding 2 (H3).
 - `gitEntry` checks only the seated face. Face 00, which holds the seat line, is read from disk. With face 00 untracked and excluded, a seat was built and `books/` committed; local `--check` passed with `seats 27`. Later face 00 was put back without the seat and the books line dropped: exit 0, `seats 26`, also in a fresh clone. The seat is recorded only in `books/` history, and `priorSeats` reads `HEAD:books/` only.
@@ -400,3 +408,9 @@ Evidence: `docs/trial/kernel-trial-8.md` finding 2 (H3).
 - Option A: under `--check`, every file read under `kernel/` must be tracked and equal its HEAD blob (or at least each face 00).
 - Option B: also read past seats from every `books/` blob on HEAD's history, as face 00 history is read now.
 - Option C: both. `7` until a lane takes it.
+
+Decided by KERNEL pass 10 (72ae0a1), builder lane: option C (both).
+- (1) A face 00 that carries any seat record (a seated face on its page, a `seat-NN:` line, or a stamp `seat-00:`) must be the bytes git holds, by the same rule as a seated face: a regular file (100644) whose blob equals the bytes on disk, at HEAD under `--check`, in the index (else HEAD) when writing. An untracked or excluded face 00, or one edited and not committed (staged, when writing), is an error.
+- (2) Past seats are also read from every version of every book file ever committed under `books/` on HEAD's history (HEAD's own first, then newest first), with `HIST` and `git cat-file --batch`, so attributes, textconv and merges hide nothing. An un-seat with no record is still an error.
+- 3 tests (H3 C2 face 00 untracked and excluded; a staged-only face 00 under `--check`; H3 C3 the un-seat seen only in `books/` history). All 3 fail on the pass 9 builder and pass now. One older test that writes an un-seat record now stages face 00 first, as the rule asks.
+- Not closed (as admitted, TRIAL-K8 finding 3): a forged trial in a docs-only commit, and a local gitfile swap to a made-up history.
