@@ -6,6 +6,7 @@
 //        node kernel/build.mjs --check  rebuild in memory and fail if books/ differs
 import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync, statSync } from 'node:fs';
 import { join, dirname } from 'node:path';
+import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -114,6 +115,20 @@ function loadBook(dir) {
 }
 
 // R10 (DIRECTOR-RULINGS.md:40): face 00 is the registry, listing the page's faces. Lines: "- `FF[.NN][.tail]` job: ...".
+// Git blob id of a file body, so a seat can name exactly what was trialed.
+function blobOf(text) {
+  const b = Buffer.from(text, 'utf8');
+  return createHash('sha1').update(Buffer.concat([Buffer.from(`blob ${b.length}\0`), b])).digest('hex');
+}
+// R2 (DIRECTOR-RULINGS.md:7-9) seat record, kept on the registry line of face 00 (7: where it lives, QUESTIONS Q34):
+// "seated; approved-by: build-stage (R2); trial: <file>@<commit>; blob: <prefix>".
+const SEAT_LINE = /^seated; approved-by: (build-stage \(R2\)|director); trial: (\S+); blob: ([0-9a-f]{7,40})$/;
+function seatOf(reg, f) {
+  const line = reg && reg.get(`${f.ff}${f.nn ? '.' + f.nn : ''}`);
+  const m = line && SEAT_LINE.exec(line.trim());
+  return m ? { by: m[1], trial: m[2], blob: m[3] } : null;
+}
+
 function registry(f) {
   const reg = f.cards.find((c) => c.key === 'registry');
   if (!reg) return null;
@@ -144,6 +159,12 @@ function validate({ book, isAx, faces }) {
       // R10: on a door page 0000, face 00 is the only face.
       for (const f of fs) if (f.ff !== '00') err(f.file, 'page 0000 has only face 00 (R10)');
     } else if (!fs.some((f) => CONTENT_FACES.includes(f.ff))) err(page, 'needs a content face 01-06 or 08 (C1.1)');
+    // R2: a seated face needs a seat record naming the trial and the exact blob that passed it.
+    for (const f of fs.filter((x) => !x.tail && !x.nn && x.ff !== '00')) {
+      const seat = seatOf(reg, f);
+      if (!seat) err(f.file, 'seated face has no seat record on its registry line (R2: approved-by, trial, blob); write it as FF.draft');
+      else if (!blobOf(f.body).startsWith(seat.blob)) err(f.file, `seated face changed since its trial: blob ${blobOf(f.body).slice(0, 8)} is not ${seat.blob} (R2, axiom 9); write it as FF.draft and re-trial`);
+    }
     const k04 = new Map();
     for (const f of fs.filter((f) => f.ff === '04')) for (const c of f.cards) k04.set(c.key, c);
     for (const f of fs) {
@@ -153,7 +174,6 @@ function validate({ book, isAx, faces }) {
         if (seen.has(c.key)) err(f.file, `card key ${c.key} repeats in one face (C2)`);
         seen.add(c.key);
         if (!CARD_KEY.test(c.key) || TAIL_WORDS.includes(c.key)) err(f.file, `card key ${c.key} breaks the card grammar or is a tail word (seqAddr.md:280)`);
-        if (!f.tail && !f.nn && !/R2/.test(c.fields['approved-by'] || '')) err(f.file, `seated card ${c.key} has no approved-by (DIRECTOR-RULINGS.md R2); write the face as FF.draft`);
         const type = c.fields.type || FACE_DEFAULT[f.ff];
         if (type && !CARD_TYPES.includes(type)) err(f.file, `card ${c.key}: type ${type} is not a kernel card type (C8.9)`);
         if ((f.ff === '01' || f.ff === '02') && type !== 'brand') { // R15: a brand card needs no 04 card
@@ -235,6 +255,10 @@ function render(entriesOf, address) {
     if (f.tail === 'draft') {
       const r = (regs.get(f.page) || new Map()).get(`${f.ff}${f.nn ? '.' + f.nn : ''}.draft`);
       if (r) e.reason = r.replace(/^draft because /, '');
+    }
+    if (!f.tail && !f.nn && f.ff !== '00') {
+      const seat = seatOf(regs.get(f.page), f);
+      if (seat) { e['approved-by'] = seat.by; e.trial = `${seat.trial} blob ${seat.blob}`; }
     }
     e.body = f.body.replace(/\n+$/, '');
     e.proposal = `${BY}:${f.page}`; // format.md section 3.3 proposal batches (proposed): a page arrives with its faces.
