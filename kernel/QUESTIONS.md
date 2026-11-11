@@ -414,3 +414,25 @@ Decided by KERNEL pass 10 (72ae0a1), builder lane: option C (both).
 - (2) Past seats are also read from every version of every book file ever committed under `books/` on HEAD's history (HEAD's own first, then newest first), with `HIST` and `git cat-file --batch`, so attributes, textconv and merges hide nothing. An un-seat with no record is still an error.
 - 3 tests (H3 C2 face 00 untracked and excluded; a staged-only face 00 under `--check`; H3 C3 the un-seat seen only in `books/` history). All 3 fail on the pass 9 builder and pass now. One older test that writes an un-seat record now stages face 00 first, as the rule asks.
 - Not closed (as admitted, TRIAL-K8 finding 3): a forged trial in a docs-only commit, and a local gitfile swap to a made-up history.
+
+**Q63. [TRIAL-K9] (builder lane, not a Director question) Which past blob must an un-seat record name when face 00 has more than one `seat-NN:` line for the same face?**
+Evidence: `docs/trial/kernel-trial-9.md` finding 1 (D1, D2).
+- `historySeats` reads `seat-NN:` lines from anywhere in a face 00 blob (front matter, registry, prose) and keeps the first one in the newest blob. A made-up line committed with the un-seat (D2) becomes "the newest seat", so a real seat (`0013.05.02`, blob `24a27e08...`) was pulled with `unseat-05.02: ...; was blob 2c338d1d...` (a fingerprint that never existed). `--check` exit 0, `seats 25`, also in a fresh clone. The `books/` history has the real blob, but it is read only when history has no seat for that address.
+- Option A: the record must name every seated blob seen for that address (face 00 history and `books/` history).
+- Option B: read history seat lines only from the registry card's field block (and `seat-00:` only from the stamp), and refuse a `seat-NN:` line for a face that is not listed as seated.
+- Option C: both. `7` until a lane takes it.
+
+**Q64. [TRIAL-K9] (builder lane, not a Director question) Should the `books/` reads accept a book file of any mode, or refuse one that is not 100644?**
+Evidence: `docs/trial/kernel-trial-9.md` finding 2 (A1 755).
+- The HEAD and history reads of `books/` match only `100644` (`build.mjs:462`, `:464`). A seat recorded only in a book committed as `100755` (face 00 staged for the write build, then unstaged) is pulled later with no record: exit 0, `seats 26`, also in a fresh clone. The seat state itself only ever built locally.
+- Option A: read book blobs whatever their mode. Option B: refuse a book that is not `100644` at HEAD, in the index or in history (as a seated face must be, G4). `7` until a lane takes it.
+
+**Q65. [TRIAL-K9] (builder lane, not a Director question) Should the history walks read git's output with `-z`?**
+Evidence: `docs/trial/kernel-trial-9.md` finding 3 (L-quote, L-backslash, L-nonascii, L-dirlink_kq).
+- Without `-z`, `git log --raw` C-quotes a path with `"`, a backslash, a control byte or a non-ASCII byte, and `historySeats` compares that quoted text with unquoted targets, so a seat line written and removed through a link to such a path is never read. Every such state has a live link, so none could build (the live refusal stays the guard), but Q61 said "cover the shapes".
+- Option A: use `-z` in `historySeats` and the `books/` walk (and split on NUL). Option B: unquote the paths. Option C: list it under "still not followed". `7` until a lane takes it.
+
+**Q66. [TRIAL-K9] (builder lane, not a Director question) Should an `unseat-NN:` record count as a seat record for the face 00 git check?**
+Evidence: `docs/trial/kernel-trial-9.md` finding 4 (Q9).
+- `carries` (`build.mjs:556`) counts seated faces, `seat-*` fields and a stamp `seat-00:`. A face 00 whose page has no seats left but whose un-seat records exist only on disk is not checked against git: local `--check` exit 0, `seats 24`; a fresh clone refuses it (3 errors). Local only.
+- Option A: count `unseat-*` fields and a stamp `unseat-00:` in `carries`. Option B: under `--check`, check every face 00 against HEAD. `7` until a lane takes it.
