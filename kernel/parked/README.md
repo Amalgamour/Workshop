@@ -14,4 +14,4 @@ R22 (docs/spec/DIRECTOR-RULINGS.md:86-88) asks for a face 05 on each page: what 
 - `doors/10.11.00.0000.05.01.draft.md`, `.05.02.draft.md` (shelf door)
 - `doors/10.11.21.0000.05.01.draft.md`, `.05.02.draft.md` (book door)
 
-Where a door page's lessons and pack belong is QUESTIONS Q39. Nothing here is law.
+Where a door page's lessons and pack belong is QUESTIONS Q42. Nothing here is law.

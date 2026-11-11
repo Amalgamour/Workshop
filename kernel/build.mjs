@@ -2,7 +2,8 @@
 // Builds kernel/ Markdown faces into JSON Lines book files (docs/spec/format.md section 3, docs/CONTRACT.md).
 // Deterministic: files sorted by address, fixed timestamp, fixed author. No dependencies. Self-checking:
 // hard checks stop the build; findings print. Rulings applied: docs/spec/DIRECTOR-RULINGS.md R1-R22
-// (R19 face 00 layout follows docs/spec/face00.md, a DRAFT; R22 lets a counter such as 05.NN be seated, Q41 open).
+// (R19 face 00 layout follows docs/spec/face00.md, a DRAFT; R22 lets a face 05 counter 05.NN be seated, Q41 open;
+// no other counter is seated until a ruling allows it, Q35, TRIAL-K4 finding 7).
 // Seat records are checked, not trusted (TRIAL-K3 findings 1, 2, 11; TRIAL-K4 findings 1, 2, 4-6: full blobs, rulings and
 // past seats read from HEAD, trial commits on the branch, no git is an error). Tests: node kernel/build.test.mjs
 // Usage: node kernel/build.mjs          write books/
@@ -32,6 +33,10 @@ const CONTENT_FACES = ['01', '02', '03', '04', '05', '06', '08']; // C1.1
 // decisions.md C8.9 card types and face defaults (seqAddr.md section 5.3). `work` from workflow-loop.003 section 5.2 (draft).
 const CARD_TYPES = ['rule', 'schema', 'menu', 'why', 'task', 'note', 'link', 'brand', 'index', 'work', 'question'];
 // R11: `question` matches crates/ask QuestionCard (COMPUTE). 7: not yet in decisions.md C8.9 or seqaddr-core CARD_TYPES.
+// R22 (DIRECTOR-RULINGS.md:86-88) names "the seated 05" only. Seating any other counter (06 notes, 03 dictionary sections)
+// is open (QUESTIONS Q35), and R2 lets nobody answer an open question, so the builder refuses it (TRIAL-K4 finding 7).
+// Add a face here only when a ruling allows it, and cite the ruling.
+const SEATABLE_COUNTERS = { '05': 'R22' };
 const FACE_DEFAULT = { '01': 'rule', '02': 'schema', '03': 'menu', '04': 'why', '05': 'task', '06': 'note', '08': 'link' };
 const CARD_KEY = /^[a-z][a-z0-9-]*$/; // seqAddr.md:280 `card = LOWER *( LOWER / DIGIT / "-" ) ; not a tail word`
 // R7: an override page in 0001-0009 states what it changes, why it is there, why it is needed, what it should achieve.
@@ -280,6 +285,7 @@ function validate({ book, isAx, faces }) {
     // naming the trial (or Director ruling) and the exact blob, and the record is verified (TRIAL-K3 finding 2).
     for (const f of fs.filter((x) => !x.tail)) {
       const k = spotKey(f);
+      if (f.nn && !SEATABLE_COUNTERS[f.ff]) err(f.file, `a ${f.ff} counter may not be seated: R22 allows only face 05 counters, and seating others is open (QUESTIONS Q35; R2 answers no open question; TRIAL-K4 finding 7); write it as ${f.ff}.${f.nn}.draft`);
       const where = k === '00' ? 'seat-00: in its stamp' : `seat-${k}: on the face 00 registry`;
       const raw = reg && reg.get(k);
       const seat = seatOf(reg, f);

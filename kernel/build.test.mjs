@@ -107,6 +107,15 @@ run('R2: a counter seated with no seat record is refused', (d) => {
   edit(S(d, '10.11.21', '10.11.21.0012.00.draft.md'), '03.14 draft', '03.14 seated');
 }, { match: /10\.11\.21\.0012\.03\.14\.md: seated face has no seat-03\.14:/ });
 
+// TRIAL-K4 finding 7 (HK): only face 05 counters may be seated (R22); a 06 note seated with a well-formed record is refused (Q35).
+run('R22: seating a 06 note counter is refused (K4 HK)', (d) => {
+  const k = (n) => join(d, 'kernel', '00.00.00', n);
+  renameSync(k('00.00.00.0051.06.01.draft.md'), k('00.00.00.0051.06.01.md'));
+  const b = blob(readFileSync(k('00.00.00.0051.06.01.md'), 'utf8'));
+  edit(k('00.00.00.0051.00.draft.md'), '06.01 draft', '06.01 seated');
+  edit(k('00.00.00.0051.00.draft.md'), '\n## Registry\n', `\n## Registry\nseat-06.01: approved-by: build-stage (R2); trial: docs/trial/kernel-trial-4.md@4b369fa; blob: ${b}\n`);
+}, { match: /00\.00\.00\.0051\.06\.01\.md: a 06 counter may not be seated: R22 allows only face 05 counters/ });
+
 // TRIAL-K3 finding 2 (H2): seat records are verified, not trusted.
 const seat0013 = (d, rec) => {
   const f = S(d, '10.11.21', '10.11.21.0013.01.md');

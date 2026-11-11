@@ -236,7 +236,7 @@ Test fixtures, each registry line saying why. All are draft except `10.11.21.100
 | 04 | `lineage-on-the-page` | seqAddr.md:157 |  |
 | 01 | `links-face` | decisions.md:368 |  |
 | 04 | `links-face` | seqAddr.md:157 | why missing: 4.7 |
-| 02 | `stamp` | decisions.md:176, decisions.md:285, seqAddr.md:172, format.md:74 |  |
+| 02 | `stamp` | decisions.md:176, decisions.md:285, seqAddr.md:172 | form copied from face00.md section 4.5 (DRAFT); format.md:74 dropped in pass 5 (TRIAL-K4 finding 10) |
 | 04 | `stamp` | kernel-design.md:96 | why missing: 4.7 |
 | 02 | `card-shape` | decisions.md:508-509, seqAddr.md:168-172 |  |
 | 04 | `card-shape` |  | why missing: 4.7 |
