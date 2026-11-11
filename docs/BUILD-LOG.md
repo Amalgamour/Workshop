@@ -24,3 +24,5 @@ Every build choice, its why, and the spec line it follows. A choice the spec doe
 [KERNEL] 7: seed timestamp fixed at 2026-11-11T19:30:00Z for determinism; one proposal id per page.
 [KERNEL] kernel/build.mjs writes books/00.00.00.book plus samples 10.00.00, 10.11.00, 10.11.21 (inheritance override at 0056.04; Bob test brand cards at 1001.01, dictionary 0012.03.14/16).
 [KERNEL] kernel/CONFLICTS.md: 15 spec-vs-spec conflicts (K01-K15) and 15 workflow-loop .002 vs .003 differences (W01-W15). None resolved.
+[TRIAL-K] 2026-11-11 Hostile pass on kernel/ and books/ (axiom 9), judged against the spec plus ruling R1: 2 blockers, 8 majors, 11 minors. See docs/trial/kernel-trial.md. Findings only; the kernel was not touched.
+[TRIAL-K] The build is deterministic (two clean builds identical, --check passes). The 54 book entries replay byte for byte to the kernel files. All 01/02 card sentences were found word for word in docs/spec.
