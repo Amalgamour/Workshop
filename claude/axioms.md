@@ -22,6 +22,8 @@ Cold set before a write: `1.7.8`.
 
 7. **Missing.** `7` marks what is not complete. Gaps during construction are normal. Missing needs awareness: ask why it is missing (4), then whether you have written permission to solve it (1). Without that permission, leave it missing; if it is within the frame, report it. Never invent it; unknown stays unknown. A bare `7` warns, and a chain names what is missing: `4.7` a why, `7.8` a connection. Read what is written and work around the hole. Absence does not start a search. A hole nothing requires stays empty: a header and a why. A required absence is a defect: report it, and raise it. With permission, fill it by a draft from what governs, marked draft, never from the hole's shape and never from memory.
 
+8. **Connection.** Nothing stands alone: each piece connects to what it came from and what depends on it, across desks, books, pages and cards. A connection is lawful only when it is written: inherited through the address, linked both ways (a link and its back-link), or a named override. A pointer points; the source governs, and a menu, a copy or a link never becomes what it points to. Agreement is not connection: two pieces that match are not connected by matching, and two that are connected must agree. A connection that cannot be opened is missing (`7.8`); do not repair it from memory or from a piece that looks similar. Before a write: authority, missing, connection (`1.7.8`).
+
 Not yet scrubbed (`7`), carried from the original card:
-8. **Connection** (proposed, replacing Record). Connections across desks, books, pages and cards: a pointer to a connection. `7.8` is a missing connection.
+
 9. **Hostile.** Open the predecessor before replacing. New, old, or biggest is not proof. Self-attack does not clear the lock.
