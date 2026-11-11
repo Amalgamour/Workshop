@@ -3,7 +3,7 @@
 // can reach trial commits, rulings and books at HEAD, TRIAL-K4 Q52), copies the working kernel/, docs/spec/, docs/trial/ and
 // books/ into it, adds one hostile change, runs the builder there, and checks the result. The repo is never written.
 // Usage: node kernel/build.test.mjs
-import { mkdtempSync, cpSync, writeFileSync, readFileSync, rmSync, appendFileSync, renameSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, cpSync, writeFileSync, readFileSync, rmSync, appendFileSync, renameSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { join, dirname } from 'node:path';
 import { tmpdir } from 'node:os';
@@ -316,6 +316,69 @@ run('Q54 c: a trial added in a commit that also changes kernel/ is refused', (d)
 run('Q54: a shallow clone is refused', (d) => {
   writeFileSync(join(d, '.git', 'shallow'), sh(d, ['rev-parse', 'HEAD']) + '\n');
 }, { match: /the repo is a shallow clone/ });
+
+// ---- KERNEL pass 8: TRIAL-K6 findings 1 and 2 (Q56) ----
+// A temp index on HEAD (or a given tree-ish), files added from the scratch working tree or as blobs, and a tree id out.
+const tmpIdx = (d) => ({ ...process.env, ...ID, GIT_INDEX_FILE: join(d, '.git', 'k8-index') });
+const treeOf = (d, base, fill) => { const env = tmpIdx(d); sh(d, ['read-tree', base], { env }); fill(env); return sh(d, ['write-tree'], { env }); };
+const commitTree = (d, tree, parents, msg) => sh(d, ['commit-tree', tree, ...parents.flatMap((p) => ['-p', p]), '-m', msg], { env: tmpIdx(d) });
+// The quiet un-seat of K5 H11: the seated 1001.01 is retired with no record, its seat line and its books line dropped.
+const quietUnseat = (d) => {
+  unseat(d);
+  const b = join(d, 'books', '10.11.21.book');
+  writeFileSync(b, readFileSync(b, 'utf8').split('\n').filter((l) => !l.includes('"addr":"10.11.21.1001.01"')).join('\n'));
+  const r = S(d, '10.11.21', '10.11.21.1001.00.draft.md');
+  edit(r, /^seat-01: .*\n/m.exec(readFileSync(r, 'utf8'))[0], '');
+};
+const UNSEAT_1001 = /10\.11\.21\.1001\.01 was seated \(build-stage \(R2\)\) in the last build but is not now; write unseat-01: <reason>; was blob 5415cef2dd0a37f3c2ba4c9b6d2652262f0ef82d/;
+// Q56 a / K6 K21: a committed `.gitattributes` line `kernel/** -diff` makes `git log -p -G` blind to seat lines.
+run('Q56 a: a committed .gitattributes kernel/** -diff does not hide an un-seat (K6 K21)', (d) => {
+  writeFileSync(join(d, '.gitattributes'), 'kernel/** -diff\nbooks/** -diff\n');
+  const ab = sh(d, ['hash-object', '-w', join(d, '.gitattributes')]);
+  sh(d, ['update-ref', 'HEAD', commitTree(d, treeOf(d, 'HEAD', (env) => sh(d, ['update-index', '--add', '--cacheinfo', `100644,${ab},.gitattributes`], { env })), ['HEAD'], 'harmless attributes')]);
+  quietUnseat(d);
+  commitWork(d, 'hide the un-seat behind attributes');
+}, { match: UNSEAT_1001 });
+// Q56 a / K6 K22: the same with only the local .git/info/attributes, nothing committed.
+run('Q56 a: .git/info/attributes kernel/** -diff does not hide an un-seat (K6 K22)', (d) => {
+  mkdirSync(join(d, '.git', 'info'), { recursive: true });
+  writeFileSync(join(d, '.git', 'info', 'attributes'), 'kernel/** binary\nbooks/** binary\n');
+  quietUnseat(d);
+  commitWork(d, 'hide the un-seat behind local attributes');
+}, { match: UNSEAT_1001 });
+// Q56 b / K6 K26: a merge whose kernel/ comes from a side branch cut before a seat commit; plain `git log -- kernel/` follows
+// only the side (history simplification) and never sees the commit that added the seat line.
+run('Q56 b: a merge from a side branch cut before a seat does not hide an un-seat (K6 K26)', (d) => {
+  commitWork(d, 'work');
+  const reg = 'kernel/00.00.00/00.00.00.0054.00.draft.md';
+  const seatCommit = sh(d, ['log', '--format=%H', '--reverse', '--full-history', '-a', '--no-textconv', '-G', '^seat-05\\.01:', 'HEAD', '--', reg]).split('\n')[0];
+  const f = k(d, '00.00.00.0054.05.01.md');
+  renameSync(f, k(d, '00.00.00.0054.05.01.draft.md'));
+  const r = join(d, reg);
+  edit(r, '05.01 seated', '05.01 draft');
+  edit(r, /^seat-05\.01: .*\n/m.exec(readFileSync(r, 'utf8'))[0], 'why-05.01: side branch fixture\n');
+  const b = join(d, 'books', '00.00.00.book');
+  writeFileSync(b, readFileSync(b, 'utf8').split('\n').filter((l) => !l.includes('"addr":"00.00.00.0054.05.01"')).join('\n'));
+  const t = treeOf(d, 'HEAD', (env) => sh(d, ['add', '-A', '--', 'kernel', 'books'], { env }));
+  const side = commitTree(d, t, [`${seatCommit}^`], 'side branch from before the seat');
+  sh(d, ['update-ref', 'HEAD', commitTree(d, t, ['HEAD', side], 'merge the side, taking its kernel/')]);
+}, { match: /00\.00\.00\.0054\.05\.01 was seated \(build-stage \(R2\)\) in the last build but is not now; write unseat-05\.01: <reason>; was blob aa07b61116572c9e25353a5e7f3b6ed97941d2a0/ });
+// Q56 c / K6 K25: a merge takes a side branch's edited copy of a real trial (the side cut before the trial was added), so plain
+// `git log --diff-filter=A` finds only the side's add and the write-once check (Q54 c) is bypassed. kernel-trial-3 is used, as
+// in K25, because no seat cites it. The path is added twice on HEAD's full history with two different blobs, so it is refused.
+run('Q56 c: a merge citing an edited copy of a real trial from the side branch is refused (K6 K25)', (d) => {
+  const path = 'docs/trial/kernel-trial-3.md';
+  const [added, addedBlob] = sh(d, ['log', '--format=C %H', '--raw', '--no-abbrev', '--no-renames', '--full-history', '--diff-filter=A', 'HEAD', '--', path])
+    .split('\n').filter(Boolean).reduce((a, l) => (l.startsWith('C ') ? [l.slice(2), a[1]] : [a[0], l.split(' ')[3]]), []);
+  const nb = forge0051(d, `${path} blob FORGED`);
+  const t = sh(d, ['cat-file', 'blob', addedBlob]) + `\n\n**PASS list:**\n- \`00.00.00.0051.05.02\` (blob \`${nb}\`)\n`;
+  writeFileSync(join(d, path), t);
+  edit(k(d, '00.00.00.0051.00.draft.md'), 'FORGED', blob(t));
+  const tb = sh(d, ['hash-object', '-w', join(d, path)]);
+  const put = (env) => sh(d, ['update-index', '--add', '--cacheinfo', `100644,${tb},${path}`], { env });
+  const side = commitTree(d, treeOf(d, `${added}^`, put), [`${added}^`], 'docs only: trial copy');
+  sh(d, ['update-ref', 'HEAD', commitTree(d, treeOf(d, 'HEAD', put), ['HEAD', side], 'merge the side, taking its trial copy')]);
+}, { match: /trial docs\/trial\/kernel-trial-3\.md is added more than once on HEAD's full history with different blobs/ });
 
 if (failed) { console.log(`${failed} failed`); process.exit(1); }
 console.log('all passed');

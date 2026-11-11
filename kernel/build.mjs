@@ -7,7 +7,8 @@
 // Seat records are checked, not trusted (TRIAL-K3 findings 1, 2, 11; TRIAL-K4 findings 1, 2, 4-6: full blobs, rulings and
 // past seats read from HEAD, no git is an error; TRIAL-K5 findings 1-3, 5, Q53, Q54: a trial is cited by path and blob, not
 // commit, so seats verify in the filter-branched published copy; git runs with no replace objects and no GIT_* env; past
-// seats come from the history of seat lines). Tests: node kernel/build.test.mjs
+// seats come from the history of seat lines; TRIAL-K6 findings 1, 2, Q56: history is read with -a --no-textconv --full-history
+// --no-abbrev, and seat lines from the face 00 blobs themselves, so attributes and merges hide nothing). Tests: node kernel/build.test.mjs
 // Usage: node kernel/build.mjs          write books/
 //        node kernel/build.mjs --check  rebuild in memory and fail if books/ differs
 import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync, statSync } from 'node:fs';
@@ -176,9 +177,14 @@ function gitTrust() {
   if (!trustMsg && git('rev-parse', '--is-shallow-repository').stdout?.trim() === 'true') trustMsg = 'the repo is a shallow clone; seats and past seats are read from the full history, so fetch it (git fetch --unshallow) before the check (Q54)';
   return trustMsg;
 }
+// TRIAL-K6 findings 1, 2, Q56 (decided by KERNEL pass 8, builder lane): every history walk that looks for seat lines or trial
+// content uses these flags. -a --no-textconv: a `-diff`/`binary` line in .gitattributes or .git/info/attributes, or a textconv
+// driver, cannot hide text (K21, K22). --full-history: at a merge git walks every parent, so a side branch cannot drop the
+// commit that added a seat or a trial (K25, K26). -m: a merge's own changes are listed too. --no-abbrev: full ids only.
+const HIST = ['-a', '--no-textconv', '--no-ext-diff', '--full-history', '-m', '--no-abbrev', '--no-renames', '--no-color'];
 function gitShow(commit, path) {
   if (!hasGit()) return undefined; // no repo here: nothing can be verified, and the caller makes that an error
-  const r = git('show', `${commit}:${path}`);
+  const r = git('cat-file', 'blob', `${commit}:${path}`); // Q56: cat-file reads the object; no attribute or textconv applies
   return r.status === 0 ? r.stdout : null;
 }
 // TRIAL-K5 finding 1 and 4, Q53 A, Q54 c (partly): the cited trial blob must be the version of the file that the trial lane
@@ -186,21 +192,33 @@ function gitShow(commit, path) {
 // cannot be cited. Later edits (a fix-pass appendix) are allowed but not citable. The adding commit must touch only
 // docs/trial/ and kernel/QUESTIONS.md, as every real trial commit does; a builder commit cannot also add a trial.
 // Returns { commit } or { err }.
+// TRIAL-K6 finding 2b, Q56 (K25): with --full-history every commit on HEAD's history that adds the path is seen, whichever
+// parent a merge takes. All of them must add the same blob; two different added blobs mean one is a copy brought in by a merge
+// (or a re-add), and git cannot say which is the lane's, so the seat is blocked. This does not depend on commit dates.
+// The adding commit that passes the touch rule must be a plain commit (a trial lane never adds its file in a merge).
 function trialOrigin(path, tblob) {
-  const r = git('log', '--format=C %H', '--raw', '--no-abbrev', '--no-renames', '--diff-filter=A', 'HEAD', '--', path);
+  const r = git('log', ...HIST, '--format=C %H %P', '--raw', '--diff-filter=A', 'HEAD', '--', path);
   if (r.status !== 0) return { err: `git log could not read the history of ${path}` };
-  let commit = null, added = null;
+  let commit = null, merge = false;
+  const adds = [];
   for (const l of r.stdout.split('\n')) {
-    const c = /^C ([0-9a-f]{40})$/.exec(l); if (c) { commit = c[1]; continue; }
+    const c = /^C ([0-9a-f]{40})((?: [0-9a-f]{40})*)$/.exec(l); if (c) { commit = c[1]; merge = c[2].trim().split(' ').length > 1; continue; }
     const m = /^:\d+ \d+ [0-9a-f]{40} ([0-9a-f]{40}) A\t(.*)$/.exec(l);
-    if (m && m[2] === path) added = { commit, blob: m[1] }; // log is newest first; the last one seen is the oldest add
+    if (m && m[2] === path) adds.push({ commit, blob: m[1], merge });
   }
-  if (!added) return { err: `no commit reachable from HEAD adds ${path}; the seat is blocked (R2; TRIAL-K5 finding 1)` };
+  if (!adds.length) return { err: `no commit reachable from HEAD adds ${path}; the seat is blocked (R2; TRIAL-K5 finding 1)` };
+  const blobs = [...new Set(adds.map((a) => a.blob))];
+  if (blobs.length > 1) return { err: `trial ${path} is added more than once on HEAD's full history with different blobs (${blobs.join(', ')}; commits ${[...new Set(adds.map((a) => a.commit.slice(0, 12)))].join(', ')}); a merge can bring in an edited copy, so the seat is blocked (TRIAL-K6 finding 2, Q56)` };
+  const added = adds[adds.length - 1]; // log is newest first; the last one seen is the oldest add
   if (added.blob !== tblob) return { err: `trial ${path} was added at blob ${added.blob} (commit ${added.commit.slice(0, 12)}), not ${tblob}; a seat cites the trial as its lane wrote it, and later edits cannot add a PASS (TRIAL-K5 finding 4, Q54 c)` };
-  const t = git('show', '--format=', '--name-only', '--no-renames', added.commit);
-  const stray = t.status === 0 ? t.stdout.split('\n').filter((x) => x && !x.startsWith('docs/trial/') && x !== 'kernel/QUESTIONS.md') : ['(unreadable)'];
-  if (stray.length) return { err: `the commit that added trial ${path} (${added.commit.slice(0, 12)}) also changes ${stray.slice(0, 3).join(', ')}; a trial commit touches only docs/trial/ and kernel/QUESTIONS.md (TRIAL-K5 finding 4, Q54 c)` };
-  return { commit: added.commit };
+  let why = '';
+  for (const a of adds.filter((x) => !x.merge)) {
+    const t = git('show', '--format=', '--name-only', '--no-renames', a.commit);
+    const stray = t.status === 0 ? t.stdout.split('\n').filter((x) => x && !x.startsWith('docs/trial/') && x !== 'kernel/QUESTIONS.md') : ['(unreadable)'];
+    if (!stray.length) return { commit: a.commit };
+    why = `the commit that added trial ${path} (${a.commit.slice(0, 12)}) also changes ${stray.slice(0, 3).join(', ')}; a trial commit touches only docs/trial/ and kernel/QUESTIONS.md (TRIAL-K5 finding 4, Q54 c)`;
+  }
+  return { err: why || `trial ${path} is added only by a merge commit (${added.commit.slice(0, 12)}); a trial lane adds its file in a plain commit (TRIAL-K6 finding 2, Q56)` };
 }
 // A trial PASS list written before TRIAL-K4 names a short blob prefix (kernel-trial-2.md:25-26). A prefix alone can be
 // forged (TRIAL-K4 HM), so the full seat blob must also be the blob of this face's file in the trial commit's tree.
@@ -260,24 +278,48 @@ function verifySeat(f, seat) {
 // TRIAL-K5 finding 3, Q54 b (taken by KERNEL pass 7): HEAD:books/ is one snapshot, and a committed books edit hid an un-seat
 // (H11). Past seats are also read from history: every `seat-NN:` (or stamp `seat-00:`) line ever added to a face 00 file under
 // kernel/ on HEAD's history. A face seated there and not seated now needs an un-seat record naming its newest seated blob.
+// TRIAL-K6 findings 1, 2a, Q56 (KERNEL pass 8): the walk lists every face 00 blob ever committed under kernel/ (`--raw`, with
+// HIST: attributes cannot blind it, K21/K22, and a merge cannot drop a parent, K26) and reads each blob with `git cat-file
+// --batch`, which applies no attributes or textconv. Seat lines are parsed from the blobs themselves, not from a `-G` diff.
+const FACE00 = /^(\d{2}\.\d{2}\.\d{2}\.\d{4}|00\.00\.axioms)\.00(?:\.[a-z]+)?\.md$/;
+const SEAT_HIST = /^seat-(\d{2}(?:\.\d{2})?):\s*(?:seated;\s*)?approved-by: (build-stage \(R2\)|director);.*; blob: ([0-9a-f]{7,40})\s*$/;
+function catBlobs(ids) {
+  const out = new Map();
+  if (!ids.length) return out;
+  const r = spawnSync('git', ['--no-replace-objects', '-C', ROOT, 'cat-file', '--batch'], { input: ids.join('\n') + '\n', maxBuffer: 1 << 28, env: GIT_ENV });
+  if (r.status !== 0) return null;
+  const buf = r.stdout; let i = 0;
+  while (i < buf.length) {
+    const nl = buf.indexOf(10, i); if (nl < 0) return null;
+    const [id, type, size] = buf.slice(i, nl).toString('utf8').split(' ');
+    if (type !== 'blob') return null;
+    const n = Number(size);
+    out.set(id, buf.slice(nl + 1, nl + 1 + n).toString('utf8'));
+    i = nl + 1 + n + 1;
+  }
+  return out;
+}
 function historySeats() {
   const out = new Map();
-  const r = git('log', '-p', '--no-ext-diff', '--no-color', '--no-renames', '--format=C %H', '-G', 'seat-', 'HEAD', '--', 'kernel/');
-  if (r.status !== 0) { err('kernel', `git log could not read the history of seat lines, so un-seats cannot be checked (TRIAL-K5 finding 3, Q54 b)`); return out; }
-  let page = null;
+  const fail = () => { err('kernel', `git log could not read the history of seat lines, so un-seats cannot be checked (TRIAL-K5 finding 3, Q54 b; Q56)`); return out; };
+  const r = git('log', ...HIST, '--raw', '--format=C %H', 'HEAD', '--', 'kernel/');
+  if (r.status !== 0) return fail();
+  const seen = []; // [page, blob] newest first
   for (const l of r.stdout.split('\n')) {
-    if (l.startsWith('+++ ')) {
-      const name = l.slice(4).split('/').pop();
-      const m = /^(\d{2}\.\d{2}\.\d{2}\.\d{4}|00\.00\.axioms)\.00(?:\.[a-z]+)?\.md$/.exec(name);
-      page = m && !l.includes('/parked/') ? m[1] : null; // kernel/parked is not built (R21); its pages are never seated
-      continue;
-    }
-    if (!page) continue;
-    const m = /^\+seat-(\d{2}(?:\.\d{2})?):\s*approved-by: (build-stage \(R2\)|director);.*; blob: ([0-9a-f]{7,40})\s*$/.exec(l);
-    if (!m) continue;
-    const addr = `${page}.${m[1]}`;
-    if (!out.has(addr)) out.set(addr, { addr, by: m[2], blob: m[3] }); // log is newest first: keep the newest seat
+    const m = /^:\d+ \d+ [0-9a-f]{40} ([0-9a-f]{40}) [AMT]\t(.*)$/.exec(l);
+    if (!m || m[2].includes('/parked/')) continue; // kernel/parked is not built (R21); its pages are never seated
+    const n = FACE00.exec(m[2].split('/').pop());
+    if (n) seen.push([n[1], m[1]]);
   }
+  const text = catBlobs([...new Set(seen.map((x) => x[1]))]);
+  if (!text) return fail();
+  for (const [page, b] of seen)
+    for (const l of text.get(b).split('\n')) {
+      const m = SEAT_HIST.exec(l);
+      if (!m) continue;
+      const addr = `${page}.${m[1]}`;
+      if (!out.has(addr)) out.set(addr, { addr, by: m[2], blob: m[3] }); // log is newest first: keep the newest seat
+    }
   return out;
 }
 function priorSeats() {

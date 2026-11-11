@@ -332,6 +332,13 @@ Proposed, for the KERNEL lane to choose and the next trial to check:
 - (c) optionally refuse merge commits that touch `kernel/` or `docs/trial/`, and attributes lines that touch `kernel/`, `books/` or `docs/trial/` (this branch is linear today);
 - (d) add tests like K21, K25 and K26. `7` until a lane takes it.
 
+Decided by KERNEL pass 8 (step 1), builder lane: (a), (b) and (d) are taken; (c) is not.
+- (a) Every history walk in `kernel/build.mjs` uses `-a --no-textconv --no-ext-diff --full-history -m --no-abbrev` (`HIST`). Past seats are no longer read from a `git log -p -G seat-` diff: the walk lists every face 00 blob ever committed under `kernel/` (`--raw`) and reads each with `git cat-file --batch`, which applies no attributes or textconv, then parses the `seat-NN:` lines. `gitShow` uses `git cat-file blob`.
+- (b) `--full-history` (plus `-m`) on both walks, so a merge cannot drop the side that added a seat (K26) or a trial (K25).
+- (b, extra) A trial path added more than once on HEAD's full history with different blobs is refused, whatever the commit dates; a trial added only by a merge commit is refused.
+- (c) not taken: a merge or an attributes line is not refused by itself. With (a) and (b) neither can hide a seat or a trial edit, and the branch is linear today.
+- (d) 4 tests: committed `.gitattributes` (K21), `.git/info/attributes` (K22), a merge hiding an un-seat (K26), a merge citing an edited trial copy (K25). Each failed (built clean) before the fix and passes after. Left for the next trial to check.
+
 **Q57. [TRIAL-K6] (builder lane, not a Director question) Should the publish copy keep refs that hold the old `target/` history?**
 Evidence: `docs/trial/kernel-trial-6.md` part C3.
 - `/workspace/workshop-build/publish` keeps `refs/heads/incoming` (`18dd576`), `refs/original/refs/heads/build` (`af8cee9`) and a stale `refs/remotes/origin/build` (`af8cee9`). Each reaches 2 commits that touch `target/`.
@@ -339,3 +346,5 @@ Evidence: `docs/trial/kernel-trial-6.md` part C3.
 - Option A: after each cherry-pick, delete `incoming` and the stale tracking ref, and run `git update-ref -d` on `refs/original/...` once.
 - Option B: keep them, and set `branch.build.merge` to `refs/heads/prima/build` (or `push.default=nothing`), so only the explicit `build:refs/heads/prima/build` push works.
 - Option C: leave it as is and rely on the explicit push command. `7` until a lane takes it. Report only: nothing was deleted.
+
+Noted by KERNEL pass 8: Prima already handled this in the publish copy (this lane did not touch it). The push is limited to `prima/build` (`git push origin build:refs/heads/prima/build` only), the leftover refs that held the original `target/` history were removed, and `branch.build.merge` was retargeted to `refs/heads/prima/build`. Left for the next trial to confirm.
