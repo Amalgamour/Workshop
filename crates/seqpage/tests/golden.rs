@@ -15,7 +15,7 @@ fn golden(book: &str, page: &str, file: &str) {
 
 #[test]
 fn kernel_seqaddr_page() {
-    golden("docs/spec/examples/sources/00.00.00.r4.book", "00.00.00.0051", "docs/spec/examples/00.00.00.0051.seqaddr.seq");
+    golden("docs/spec/examples/sources/00.00.00.ruled.book", "00.00.00.0051", "docs/spec/examples/00.00.00.0051.seqaddr.seq");
 }
 
 #[test]
@@ -27,7 +27,19 @@ fn bob_cats_page() {
 fn timer_workflow_page() {
     golden("docs/spec/examples/sources/10.11.30.book", "10.11.30.1501", "docs/spec/examples/10.11.30.1501.timer.seq");
     let t = read("docs/spec/examples/10.11.30.1501.timer.seq");
-    for want in ["== 05.01 10.11.30.1501.05.01", "--- @7 tail 10.11.30.1501.05.01", "to: \"\"", "outcome: passed", "--- @13 merge 10.11.30.1501.01", "cites: 12", "board := 01 closed", "axioms := 1.7.8"] {
+    for want in [
+        "= 00 registry 10.11.30.1501.00",
+        "faces := 01 seated, 04 seated+draft, 05 counted, 06 counted",
+        "== 05.01 10.11.30.1501.05.01",
+        "--- @6 tail 10.11.30.1501.05.01",
+        "to: \"\"",
+        "outcome: passed",
+        "--- @12 merge 10.11.30.1501.01",
+        "cites: 11",
+        "counters := 01 closed",
+        "axioms := 1.7.8",
+        "why-draft := the 01 wording now says the timer stops; the 04 why must say it too",
+    ] {
         assert!(t.contains(want), "missing `{want}`");
     }
 }
@@ -55,7 +67,7 @@ fn bob_session_two_proposal() {
 
 #[test]
 fn examples_are_plain_ascii() {
-    for f in ["00.00.00.0051.seqaddr.seq", "10.11.21.1001.bob.seq", "10.11.30.1501.timer.seq", "proposals/10.11.21.1001.bob.seq", "sources/00.00.00.r4.book", "sources/10.11.21.book", "sources/10.11.30.book"] {
+    for f in ["00.00.00.0051.seqaddr.seq", "10.11.21.1001.bob.seq", "10.11.30.1501.timer.seq", "proposals/10.11.21.1001.bob.seq", "sources/00.00.00.ruled.book", "sources/10.11.21.book", "sources/10.11.30.book"] {
         let t = read(&format!("docs/spec/examples/{f}"));
         assert!(t.bytes().all(|b| b == b'\n' || (0x20..=0x7e).contains(&b)), "{f} breaks R4");
     }

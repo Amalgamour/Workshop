@@ -1,14 +1,15 @@
 seqpage 1
-= 00 door 10.11.30.1501.00
+= 00 registry 10.11.30.1501.00
 title := timer
 state := live
-door := seated
+registry := seated
+faces := 01 seated, 04 seated+draft, 05 counted, 06 counted
 type := workflow
 axioms := 1.7.8
 lineage := 10.11.30.1501 < 10.11.30 < 10.11.00 < 10.00.00 < 00.00.00
-source := book 10.11.30 @3
+source := book 10.11.30 @2
 
---- @3 put 10.11.30.1501.00
+--- @2 put 10.11.30.1501.00
 at: 2026-11-11T20:03:00Z
 by: user
 proposal: p3
@@ -23,9 +24,9 @@ of: 3
 
 = 01 law 10.11.30.1501.01
 state := seated
-source := book 10.11.30 @4 @11 @12 @13 @14
+source := book 10.11.30 @3 @10 @11 @12 @13
 
---- @4 put 10.11.30.1501.01
+--- @3 put 10.11.30.1501.01
 at: 2026-11-11T20:04:00Z
 by: user
 proposal: p3
@@ -35,33 +36,34 @@ cards := timer
 |
 | A timer counts down from a set time and rings once at zero.
 
---- @11 copy 10.11.30.1501.01
+--- @10 copy 10.11.30.1501.01
 at: 2026-11-11T20:11:00Z
 by: compute
 
---- @12 note 10.11.30.1501.01
+--- @11 note 10.11.30.1501.01
 at: 2026-11-11T20:12:00Z
 by: agent-7
 | Say what happens after the ring: the timer stops.
 
---- @13 merge 10.11.30.1501.01
+--- @12 merge 10.11.30.1501.01
 at: 2026-11-11T20:13:00Z
 by: agent-7
-cites: 12
+cites: 11
 cards := timer
 | ## Timer
 |
 | A timer counts down from a set time, rings once at zero, then stops.
 
---- @14 promote 10.11.30.1501.01
+--- @13 promote 10.11.30.1501.01
 at: 2026-11-11T20:14:00Z
 by: reviewer-2
 
 = 04 user 10.11.30.1501.04
-state := seated
-source := book 10.11.30 @5
+state := seated+draft
+why-draft := the 01 wording now says the timer stops; the 04 why must say it too
+source := book 10.11.30 @4 @15 @16
 
---- @5 put 10.11.30.1501.04
+--- @4 put 10.11.30.1501.04
 at: 2026-11-11T20:05:00Z
 by: user
 proposal: p3
@@ -73,14 +75,24 @@ cards := timer
 |
 | The timer counts down from the time the user sets. When it reaches zero it rings once and stops.
 
+--- @15 copy 10.11.30.1501.04
+at: 2026-11-11T20:20:00Z
+by: compute
+reason: the 01 wording now says the timer stops; the 04 why must say it too
+
+--- @16 note 10.11.30.1501.04
+at: 2026-11-11T20:21:00Z
+by: agent-7
+| Add: after the ring the timer stops, matching 01.
+
 = 05 tasks 10.11.30.1501.05
-board := 01 closed
+counters := 01 closed
 
 == 05.01 10.11.30.1501.05.01
 state := closed
-source := book 10.11.30 @6 @7 @8 @9 @10
+source := book 10.11.30 @5 @6 @7 @8 @9
 
---- @6 put 10.11.30.1501.05.01
+--- @5 put 10.11.30.1501.05.01
 at: 2026-11-11T20:06:00Z
 by: prima
 tail: pack
@@ -91,13 +103,13 @@ cards := build-timer
 |
 | Build the countdown in the app. Stop at one ring.
 
---- @7 tail 10.11.30.1501.05.01
+--- @6 tail 10.11.30.1501.05.01
 at: 2026-11-11T20:07:00Z
 by: agent-7
 from: pack
 to: open
 
---- @8 tail 10.11.30.1501.05.01
+--- @7 tail 10.11.30.1501.05.01
 at: 2026-11-11T20:08:00Z
 by: agent-7
 from: open
@@ -107,13 +119,13 @@ cards := result
 |
 | Countdown built; rings once at zero. Tests: 3 passed.
 
---- @9 tail 10.11.30.1501.05.01
+--- @8 tail 10.11.30.1501.05.01
 at: 2026-11-11T20:09:00Z
 by: reviewer-2
 from: return
 to: review
 
---- @10 tail 10.11.30.1501.05.01
+--- @9 tail 10.11.30.1501.05.01
 at: 2026-11-11T20:10:00Z
 by: compute
 from: review
@@ -121,13 +133,13 @@ to: ""
 outcome: passed
 
 = 06 notes 10.11.30.1501.06
-board := 01 closed
+counters := 01 closed
 
 == 06.01 10.11.30.1501.06.01
 state := closed
-source := book 10.11.30 @15
+source := book 10.11.30 @14
 
---- @15 put 10.11.30.1501.06.01
+--- @14 put 10.11.30.1501.06.01
 at: 2026-11-11T20:15:00Z
 by: agent-7
 cards := session-2026-11-11
@@ -138,17 +150,19 @@ cards := session-2026-11-11
 | Built 05.01 and drafted the 01 wording change.
 
 ~ history
-@3 put 10.11.30.1501.00
-@4 put 10.11.30.1501.01
-@5 put 10.11.30.1501.04
-@6 put 10.11.30.1501.05.01
+@2 put 10.11.30.1501.00
+@3 put 10.11.30.1501.01
+@4 put 10.11.30.1501.04
+@5 put 10.11.30.1501.05.01
+@6 tail 10.11.30.1501.05.01
 @7 tail 10.11.30.1501.05.01
 @8 tail 10.11.30.1501.05.01
 @9 tail 10.11.30.1501.05.01
-@10 tail 10.11.30.1501.05.01
-@11 copy 10.11.30.1501.01
-@12 note 10.11.30.1501.01
-@13 merge 10.11.30.1501.01
-@14 promote 10.11.30.1501.01
-@15 put 10.11.30.1501.06.01
+@10 copy 10.11.30.1501.01
+@11 note 10.11.30.1501.01
+@12 merge 10.11.30.1501.01
+@13 promote 10.11.30.1501.01
+@14 put 10.11.30.1501.06.01
+@15 copy 10.11.30.1501.04
+@16 note 10.11.30.1501.04
 ~ end

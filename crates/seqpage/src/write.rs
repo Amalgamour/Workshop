@@ -145,6 +145,9 @@ pub fn export(log: &BookLog, page: PageId) -> Result<String, PageError> {
     }
     for e in &entries {
         check_entry_r4(e)?;
+        if let Some(err) = crate::rulings::check_write(page, &e.addr, e.tail.as_deref(), 0, &format!("@{}", e.n)) {
+            return Err(PageError::invalid(0, err.rule, format!("{}; this book entry breaks the ruling and cannot be exported until the book is fixed", err.detail)));
+        }
     }
     Ok(render(page, &entries, &[]))
 }

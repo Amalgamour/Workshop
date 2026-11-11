@@ -88,7 +88,7 @@ pub fn parse(text: &str) -> Result<SeqPage, PageError> {
     }
     let body = text.strip_suffix('\n').unwrap_or(text);
     if body.is_empty() {
-        return Err(PageError::missing(0, "seqpage 3", "empty file: no `seqpage 1` line and no door"));
+        return Err(PageError::missing(0, "seqpage 3", "empty file: no `seqpage 1` line and no registry"));
     }
     let lines: Vec<&str> = body.split('\n').collect();
     if lines[0] != MAGIC {
@@ -142,7 +142,7 @@ pub fn parse(text: &str) -> Result<SeqPage, PageError> {
         if l == "~ history" {
             close(&mut block, &mut sections)?;
             if page.is_none() {
-                return Err(PageError::missing(ln, "seqpage 4", "no door section `= 00 door DD.SS.BB.PPPP.00` before the history"));
+                return Err(PageError::missing(ln, "seqpage 4", "no registry section `= 00 registry DD.SS.BB.PPPP.00` before the history"));
             }
             in_history = true;
             continue;
@@ -164,18 +164,18 @@ pub fn parse(text: &str) -> Result<SeqPage, PageError> {
             match page {
                 None => {
                     if face != 0 {
-                        return Err(PageError::missing(ln, "seqpage 4", "the file opens with the door: the first section must be `= 00 door DD.SS.BB.PPPP.00` (R1)"));
+                        return Err(PageError::missing(ln, "seqpage 4", "the file opens with the registry: the first section must be `= 00 registry DD.SS.BB.PPPP.00` (R10)"));
                     }
-                    let p = Address::parse_full_page(addr).map_err(|e| PageError::invalid(ln, "seqpage 4", format!("door address: {e}")))?;
+                    let p = Address::parse_full_page(addr).map_err(|e| PageError::invalid(ln, "seqpage 4", format!("registry address: {e}")))?;
                     let fp = p.face.clone();
                     if fp.as_ref().map(|f| f.face != 0 || f.counter.is_some() || f.tail.is_some() || f.card.is_some()).unwrap_or(true) || p.title.is_some() {
-                        return Err(PageError::invalid(ln, "seqpage 4", "the door header names the page's face 00: `DD.SS.BB.PPPP.00`"));
+                        return Err(PageError::invalid(ln, "seqpage 4", "the registry header names the page's face 00: `DD.SS.BB.PPPP.00`"));
                     }
                     page = Some(PageId::new(p.book_id().unwrap(), p.page));
                 }
                 Some(_) => {
                     if face == 0 {
-                        return Err(PageError::conflict(ln, "seqpage 4", "a second door section; a page has one door"));
+                        return Err(PageError::conflict(ln, "seqpage 4", "a second registry section; a page has one face 00"));
                     }
                 }
             }
@@ -199,7 +199,7 @@ pub fn parse(text: &str) -> Result<SeqPage, PageError> {
             }
             let face: u8 = fc[..2].parse().unwrap();
             let nn: u8 = fc[3..].parse().unwrap();
-            let cur = sections.last().ok_or_else(|| PageError::missing(ln, "seqpage 4", "no door section before this counter"))?;
+            let cur = sections.last().ok_or_else(|| PageError::missing(ln, "seqpage 4", "no registry section before this counter"))?;
             if cur.key.face != face {
                 return Err(PageError::missing(ln, "seqpage 5.2", format!("counter {fc} must sit under its face header `= {:02} ...`", face)));
             }
@@ -215,7 +215,7 @@ pub fn parse(text: &str) -> Result<SeqPage, PageError> {
             close(&mut block, &mut sections)?;
             header_open = false;
             if sections.is_empty() {
-                return Err(PageError::missing(ln, "seqpage 4", "a block before the door section"));
+                return Err(PageError::missing(ln, "seqpage 4", "a block before the registry section"));
             }
             let mut it = rest.splitn(3, ' ');
             let (tag, op, addr) = (it.next().unwrap_or(""), it.next().unwrap_or(""), it.next().unwrap_or(""));
@@ -289,7 +289,7 @@ pub fn parse(text: &str) -> Result<SeqPage, PageError> {
     if !ended {
         return Err(PageError::missing(lines.len(), "seqpage 8", "the file has no `~ end` line: it is cut off or unfinished"));
     }
-    let page = page.ok_or_else(|| PageError::missing(0, "seqpage 4", "no door section"))?;
+    let page = page.ok_or_else(|| PageError::missing(0, "seqpage 4", "no registry section"))?;
     Ok(SeqPage { page, sections, history })
 }
 
@@ -303,6 +303,11 @@ pub fn check(sp: &SeqPage) -> Report {
     if let Some(r) = &d.replay_error {
         findings.push(PageError::invalid(0, "seqpage 7", format!("the page's own entries do not replay under the core's rules ({r}); derived state shows `7`")));
     }
+    for (k, lines) in &d.sections {
+        if lines.iter().any(|(dk, dv)| *dk == "why-draft" && dv == crate::derive::UNKNOWN) {
+            findings.push(PageError::missing(0, "R5", format!("{} is a draft with no recorded reason (a `reason` field on the entry that opened it, or a note); a draft shows why it is a draft", page.section_addr(*k))));
+        }
+    }
     let mut seen: BTreeMap<u64, usize> = BTreeMap::new();
     for s in &sp.sections {
         // header address and name (8)
@@ -314,6 +319,9 @@ pub fn check(sp: &SeqPage) -> Report {
             if n != s.key.name() {
                 errors.push(PageError::connection(s.line, "seqpage 5", format!("face {:02} is `{}`, not `{n}`", s.key.face, s.key.name())));
             }
+        }
+        if let Some(e) = crate::rulings::check_section(page, s.key, s.line) {
+            errors.push(e);
         }
         let expect: BTreeMap<&str, &String> = d.sections.get(&s.key).map(|v| v.iter().map(|(k, v)| (*k, v)).collect()).unwrap_or_default();
         for dl in &s.derived {
@@ -339,6 +347,15 @@ pub fn check(sp: &SeqPage) -> Report {
                     format!("`{}` belongs in section {}, not {}", b.addr(), page.section_addr(k), page.section_addr(s.key)),
                 )),
                 _ => {}
+            }
+            let (tail, what) = match &b.kind {
+                BlockKind::Booked(e) => (e.tail.as_deref(), format!("@{}", e.n)),
+                BlockKind::New(o) => (o.tail.as_deref(), "new block".to_string()),
+            };
+            if let Some(e) = crate::rulings::check_write(page, b.addr(), tail, b.line, &what) {
+                if crate::rulings::check_section(page, s.key, 0).is_none() {
+                    errors.push(e);
+                }
             }
             for dl in &b.derived {
                 if dl.key != "cards" {
@@ -391,7 +408,7 @@ pub fn check(sp: &SeqPage) -> Report {
     if !booked.iter().any(|e| slot_of(&e.addr).map(|(_, k)| k.is_door() && Address::parse_full_page(&e.addr).ok().and_then(|p| p.face).is_some()).unwrap_or(false))
         && !sp.proposed().iter().any(|o| slot_of(&o.addr).map(|(_, k)| k.is_door()).unwrap_or(false))
     {
-        findings.push(PageError::missing(0, "seqpage 4", format!("page {page} has no face 00 (door) entry; C1.1 requires one")));
+        findings.push(PageError::missing(0, "seqpage 4", format!("page {page} has no face 00 (registry) entry; C1.1 requires one")));
     }
     Report::new(errors, findings)
 }
@@ -413,7 +430,7 @@ pub fn check_file_name(name: &str, sp: &SeqPage) -> Option<PageError> {
     if !stem.starts_with(&addr_part) {
         return Some(PageError::connection(0, "seqpage 2", format!("file name `{base}` does not start with the page address {addr_part}")));
     }
-    Some(PageError::elevate(0, "A2.8", format!("file name `{base}` does not match the door's title; expected `{want}`. A title in an address is checked against the stamp and a mismatch goes to the user")))
+    Some(PageError::elevate(0, "A2.8", format!("file name `{base}` does not match the registry's title; expected `{want}`. A title in an address is checked against the stamp and a mismatch goes to the user")))
 }
 
 /// Parse and check text, optionally with its file name and the book it came from.

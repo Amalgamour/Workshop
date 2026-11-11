@@ -42,7 +42,7 @@ impl fmt::Display for PageId {
     }
 }
 
-/// Where a block sits: face 00 (the door; also page-level entries), a face's
+/// Where a block sits: face 00 (the registry, R10; also page-level entries), a face's
 /// own slot, or one counter `FF.NN`. Ordered door, 01, 05, 05.01, 05.02, 06 ...
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct SectionKey {
@@ -61,9 +61,14 @@ impl SectionKey {
     pub fn is_door(&self) -> bool {
         *self == Self::DOOR
     }
-    /// The face's name in a section header (`law`, `notes`, ...; R1 `door`).
+    /// The face's name in a section header (`law`, `notes`, ...). Face 00 is
+    /// the page's `registry` (R10), whatever older core wording calls it.
     pub fn name(&self) -> &'static str {
-        face_job(self.face).name()
+        if self.face == 0 {
+            "registry"
+        } else {
+            face_job(self.face).name()
+        }
     }
 }
 

@@ -103,13 +103,13 @@ fn empty_and_wrong_magic() {
 
 #[test]
 fn missing_door_is_axiom_7() {
-    let t = bob().replacen("= 00 door 10.11.21.1001.00", "= 01 law 10.11.21.1001.01", 1);
+    let t = bob().replacen("= 00 registry 10.11.21.1001.00", "= 01 law 10.11.21.1001.01", 1);
     assert_err(&t, "missing", Some("7"));
 }
 
 #[test]
 fn second_door_is_axiom_1() {
-    let t = bob().replacen("= 01 law", "= 00 door 10.11.21.1001.00\n\n= 01 law", 1);
+    let t = bob().replacen("= 01 law", "= 00 registry 10.11.21.1001.00\n\n= 01 law", 1);
     assert_err(&t, "conflict", Some("1"));
 }
 
@@ -142,7 +142,7 @@ fn proposed_block_cannot_claim_compute_stamps_axiom_1() {
 
 #[test]
 fn block_in_wrong_section_is_axiom_8() {
-    let t = bob().replacen("--- @9 put 10.11.21.1001.04", "--- @9 put 10.11.21.1001.01", 1);
+    let t = bob().replacen("--- @9 put 10.11.21.1001.04.draft", "--- @9 put 10.11.21.1001.01.draft", 1);
     let r = check_text(&t, None, None);
     assert!(r.errors.iter().any(|e| e.code == "connection" && e.axiom == Some("8")), "{:?}", r.errors);
 }
@@ -156,7 +156,7 @@ fn block_from_another_page_is_axiom_8() {
 
 #[test]
 fn edited_derived_line_is_axiom_8() {
-    for (a, b) in [("title := bob", "title := alice"), ("cards := bob, cats", "cards := bob"), ("state := draft\nsource := book 10.11.21 @8", "state := seated\nsource := book 10.11.21 @8")] {
+    for (a, b) in [("title := bob", "title := alice"), ("cards := bob, cats", "cards := bob"), ("state := draft\nwhy-draft := 7\nsource := book 10.11.21 @8", "state := seated\nwhy-draft := 7\nsource := book 10.11.21 @8")] {
         let t = bob().replacen(a, b, 1);
         assert_ne!(t, bob(), "{a}");
         let r = check_text(&t, None, None);
@@ -166,23 +166,23 @@ fn edited_derived_line_is_axiom_8() {
 
 #[test]
 fn reordered_history_is_axiom_6() {
-    let t = bob().replace("@7 put 10.11.21.1001.00\n@8 put 10.11.21.1001.01\n", "@8 put 10.11.21.1001.01\n@7 put 10.11.21.1001.00\n");
+    let t = bob().replace("@7 put 10.11.21.1001.00.draft\n@8 put 10.11.21.1001.01.draft\n", "@8 put 10.11.21.1001.01.draft\n@7 put 10.11.21.1001.00.draft\n");
     let r = check_text(&t, None, None);
     assert!(r.errors.iter().any(|e| e.code == "lineage" && e.axiom == Some("6")), "{:?}", r.errors);
 }
 
 #[test]
 fn history_without_block_and_block_without_history_are_axiom_7() {
-    let t = bob().replace("\n@9 put 10.11.21.1001.04\n", "\n");
+    let t = bob().replace("\n@9 put 10.11.21.1001.04.draft\n", "\n");
     assert!(check_text(&t, None, None).errors.iter().any(|e| e.code == "missing" && e.axiom == Some("7")));
-    let t = bob().replace("~ end", "@10 put 10.11.21.1001.04\n~ end");
+    let t = bob().replace("~ end", "@10 put 10.11.21.1001.04.draft\n~ end");
     assert!(check_text(&t, None, None).errors.iter().any(|e| e.code == "missing" && e.axiom == Some("7")));
 }
 
 #[test]
 fn duplicate_entry_is_axiom_1() {
     let t = timer();
-    let blk = "--- @5 put 10.11.30.1501.04";
+    let blk = "--- @4 put 10.11.30.1501.04";
     let start = t.find(blk).unwrap();
     let end = start + t[start..].find("\n\n").unwrap();
     let dup = format!("{}\n\n{}", &t[..end], &t[start..]);
@@ -192,7 +192,7 @@ fn duplicate_entry_is_axiom_1() {
 
 #[test]
 fn new_block_before_booked_is_axiom_6() {
-    let t = bob().replacen("--- @9 put", "--- new put 10.11.21.1001.04\n| x\n\n--- @9 put", 1);
+    let t = bob().replacen("--- @9 put", "--- new put 10.11.21.1001.04.draft\n| x\n\n--- @9 put", 1);
     assert!(check_text(&t, None, None).errors.iter().any(|e| e.code == "lineage"));
 }
 
@@ -245,7 +245,7 @@ fn quoted_values_round_trip() {
     let t = timer();
     assert!(t.contains("to: \"\""));
     let sp = parse(&t).unwrap();
-    let e = sp.booked().into_iter().find(|e| e.n == 10).unwrap();
+    let e = sp.booked().into_iter().find(|e| e.n == 9).unwrap();
     assert_eq!(e.to.as_deref(), Some(""));
     // a plain value must not be quoted (one canonical form)
     let bad = t.replacen("by: user", "by: \"user\"", 1);
@@ -327,7 +327,7 @@ fn fuzz_no_panic_and_edited_history_never_imports() {
     let cases = [
         (bob(), bob_book()),
         (timer(), BookLog::parse(&read("docs/spec/examples/sources/10.11.30.book")).unwrap()),
-        (read("docs/spec/examples/00.00.00.0051.seqaddr.seq"), BookLog::parse(&read("docs/spec/examples/sources/00.00.00.r4.book")).unwrap()),
+        (read("docs/spec/examples/00.00.00.0051.seqaddr.seq"), BookLog::parse(&read("docs/spec/examples/sources/00.00.00.ruled.book")).unwrap()),
     ];
     let mut rng = Rng(_seed());
     let (mut runs, mut caught, mut harmless) = (0, 0, 0);
@@ -383,11 +383,105 @@ fn unknown_and_future_fields_round_trip_losslessly() {
 
 #[test]
 fn non_canonical_or_lossy_fields_are_refused() {
-    for (a, b) in [("tail: draft", "tail: null"), ("tail: draft", "tail: 5"), ("by: prima-kernel-seed", "by: \"prima-kernel-seed\""), ("tail: draft", "tail: draft "), ("tail: draft", "x: {\"tail\":\"draft\"}")] {
+    for (a, b) in [("by: prima-kernel-seed", "by: null"), ("by: prima-kernel-seed", "by: 5"), ("by: prima-kernel-seed", "by: \"prima-kernel-seed\""), ("by: prima-kernel-seed", "by: prima-kernel-seed "), ("by: prima-kernel-seed", "x: {\"by\":\"prima-kernel-seed\"}")] {
         let t = bob().replacen(a, b, 1);
         let r = check_text(&t, None, None);
         assert!(!r.ok, "`{b}` should be refused");
     }
     let t = read("docs/spec/examples/proposals/10.11.21.1001.bob.seq").replacen("--- new put 10.11.21.1001.06.01\n", "--- new put 10.11.21.1001.06.01\nbogus: 1\n", 1);
     assert!(!check_text(&t, None, None).ok, "unknown field on a proposed block");
+}
+
+
+// ---- rulings R5, R8, R9, R10 ----
+
+fn timer_book() -> BookLog {
+    BookLog::parse(&read("docs/spec/examples/sources/10.11.30.book")).unwrap()
+}
+
+#[test]
+fn r10_face_00_is_the_registry() {
+    let t = bob();
+    assert!(t.starts_with("seqpage 1\n= 00 registry 10.11.21.1001.00\n"));
+    assert!(t.contains("faces := 01 draft, 04 draft"));
+    let old = t.replacen("= 00 registry", "= 00 door", 1);
+    let r = check_text(&old, None, None);
+    assert!(r.errors.iter().any(|e| e.axiom == Some("8") && e.detail.contains("registry")), "{:?}", r.errors);
+}
+
+#[test]
+fn r10_door_page_has_only_face_00() {
+    let mut log = timer_book();
+    let mut e = log.entries[0].clone();
+    e.n = log.entries.len() as u64 + 1;
+    e.addr = "10.11.30.0000.04".into();
+    e.body = Some("## Tools\n\nwhy".into());
+    log.entries.push(e);
+    let err = seqpage::export(&log, seqpage::PageId::parse("10.11.30.0000").unwrap()).unwrap_err();
+    assert_eq!(err.rule, "R10", "{err}");
+    let ok = seqpage::export(&timer_book(), seqpage::PageId::parse("10.11.30.0000").unwrap()).unwrap();
+    assert!(ok.contains("kind := book door (R10: face 00 only)"));
+    let bad = ok.replace("~ history", "= 04 user 10.11.30.0000.04\n\n--- new put 10.11.30.0000.04\n| x\n\n~ history");
+    let r = check_text(&bad, None, None);
+    assert!(r.errors.iter().any(|e| e.rule == "R10"), "{:?}", r.errors);
+}
+
+#[test]
+fn r9_no_face_sentinels() {
+    for nn in ["00", "99"] {
+        let t = read("docs/spec/examples/proposals/10.11.21.1001.bob.seq").replace("06.01", &format!("06.{nn}"));
+        let r = check_text(&t, None, None);
+        assert!(r.errors.iter().any(|e| e.rule == "R9"), "{nn}: {:?}", r.errors);
+    }
+    let mut log = timer_book();
+    let mut e = log.entries.last().unwrap().clone();
+    e.n += 1;
+    e.op = seqaddr_core::Op::Put;
+    e.addr = "10.11.30.1501.05.00".into();
+    e.body = Some("board".into());
+    e.extra.clear();
+    log.entries.push(e);
+    // Either the core no longer reads `05.00` as an address on this page (R9 in the
+    // grammar), or seqpage refuses it; it never reaches a .seq file.
+    match seqpage::export(&log, seqpage::PageId::parse("10.11.30.1501").unwrap()) {
+        Err(e) => assert_eq!(e.rule, "R9"),
+        Ok(t) => assert!(!t.contains("05.00"), "FF.00 exported"),
+    }
+    let page = seqpage::PageId::parse("10.11.30.1501").unwrap();
+    assert_eq!(seqpage::rulings::check_section(page, seqpage::SectionKey::counter(5, 0), 1).unwrap().rule, "R9");
+    assert_eq!(seqpage::rulings::check_section(page, seqpage::SectionKey::counter(5, 99), 1).unwrap().rule, "R9");
+}
+
+#[test]
+fn r8_draft_is_addressed_ff_draft() {
+    let t = bob().replacen("--- @8 put 10.11.21.1001.01.draft\n", "--- @8 put 10.11.21.1001.01\ntail: draft\n", 1).replacen("@8 put 10.11.21.1001.01.draft\n", "@8 put 10.11.21.1001.01\n", 1);
+    let r = check_text(&t, None, None);
+    assert!(r.errors.iter().any(|e| e.rule == "R8"), "{:?}", r.errors);
+    let p = read("docs/spec/examples/proposals/10.11.21.1002.seq").replacen("--- new put 10.11.21.1002.04.draft\n", "--- new put 10.11.21.1002.04\ntail: draft\n", 1);
+    assert!(check_text(&p, None, None).errors.iter().any(|e| e.rule == "R8"));
+    let mut log = bob_book();
+    log.entries[7].addr = "10.11.21.1001.01".into();
+    log.entries[7].tail = Some("draft".into());
+    assert_eq!(seqpage::export(&log, seqpage::PageId::parse("10.11.21.1001").unwrap()).unwrap_err().rule, "R8");
+}
+
+#[test]
+fn r5_draft_shows_why() {
+    let t = timer();
+    assert!(t.contains("why-draft := the 01 wording now says the timer stops; the 04 why must say it too"));
+    let r = check_text(&bob(), None, None);
+    assert!(r.ok);
+    assert!(r.findings.iter().any(|f| f.rule == "R5" && f.axiom == Some("7")), "{:?}", r.findings);
+    // a note gives the reason when the opening entry has none
+    let mut log = timer_book();
+    let n = log.entries.len();
+    log.entries[n - 2].extra.clear();
+    let txt = seqpage::export(&log, seqpage::PageId::parse("10.11.30.1501").unwrap()).unwrap();
+    assert!(txt.contains("why-draft := Add: after the ring the timer stops, matching 01."), "{txt}");
+}
+
+#[test]
+fn r7_override_pages_are_marked() {
+    assert_eq!(seqpage::derive::kind_value(3), Some("override (R7)"));
+    assert_eq!(seqpage::derive::kind_value(56), None);
 }

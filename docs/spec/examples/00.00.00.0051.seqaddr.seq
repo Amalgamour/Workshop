@@ -1,17 +1,17 @@
 seqpage 1
-= 00 door 00.00.00.0051.00
+= 00 registry 00.00.00.0051.00
 title := seqaddr
-state := live
-door := draft
+state := draft
+registry := draft
+faces := 01 draft, 02 draft, 04 draft, 06 counted
 type := system
 axioms := -
 lineage := 00.00.00.0051 < 00.00.00
-source := book 00.00.00 @9
+source := book 00.00.00 @8
 
---- @9 put 00.00.00.0051.00
+--- @8 put 00.00.00.0051.00.draft
 at: 2026-11-11T19:30:00Z
 by: prima-kernel-seed
-tail: draft
 proposal: prima-kernel-seed:00.00.00.0051
 | ---
 | address: 00.00.00.0051
@@ -22,12 +22,12 @@ proposal: prima-kernel-seed:00.00.00.0051
 
 = 01 law 00.00.00.0051.01
 state := draft
-source := book 00.00.00 @10
+why-draft := 7
+source := book 00.00.00 @9
 
---- @10 put 00.00.00.0051.01
+--- @9 put 00.00.00.0051.01.draft
 at: 2026-11-11T19:30:00Z
 by: prima-kernel-seed
-tail: draft
 proposal: prima-kernel-seed:00.00.00.0051
 cards := full-address, page-anchor, container-address, counters, exact-widths, active-page, short-form, finding, live-inheritance, title-position, faces-carry-no-title, title-characters, titles-are-labels, which-pages-need-a-title, door-page, checked-labels, door-rule, missing-is-valid, pointer, many-targets, back-links, derived-ancestors, overflow, namespace, kernel-and-branches, bands, book-layout
 | ## Full Address
@@ -228,12 +228,12 @@ cards := full-address, page-anchor, container-address, counters, exact-widths, a
 
 = 02 schema 00.00.00.0051.02
 state := draft
-source := book 00.00.00 @11
+why-draft := 7
+source := book 00.00.00 @10
 
---- @11 put 00.00.00.0051.02
+--- @10 put 00.00.00.0051.02.draft
 at: 2026-11-11T19:30:00Z
 by: prima-kernel-seed
-tail: draft
 proposal: prima-kernel-seed:00.00.00.0051
 cards := grammar
 | ## Grammar
@@ -263,12 +263,12 @@ cards := grammar
 
 = 04 user 00.00.00.0051.04
 state := draft
-source := book 00.00.00 @12
+why-draft := 7
+source := book 00.00.00 @11
 
---- @12 put 00.00.00.0051.04
+--- @11 put 00.00.00.0051.04.draft
 at: 2026-11-11T19:30:00Z
 by: prima-kernel-seed
-tail: draft
 proposal: prima-kernel-seed:00.00.00.0051
 cards := full-address, page-anchor, container-address, counters, exact-widths, active-page, short-form, finding, live-inheritance, title-position, faces-carry-no-title, title-characters, titles-are-labels, which-pages-need-a-title, door-page, checked-labels, door-rule, missing-is-valid, pointer, many-targets, back-links, derived-ancestors, overflow, namespace, kernel-and-branches, bands, book-layout, grammar
 | ## Full Address
@@ -529,13 +529,13 @@ cards := full-address, page-anchor, container-address, counters, exact-widths, a
 | Axiom chains are not addresses. A chain lives only in an `axioms:` field; its grammar is in `Axioms.md` and decision E3. A one-digit mark is an axiom, never an axis: every address axis is at least two digits.
 
 = 06 notes 00.00.00.0051.06
-board := 01 draft
+counters := 01 draft
 
 == 06.01 00.00.00.0051.06.01
 state := draft
-source := book 00.00.00 @13
+source := book 00.00.00 @12
 
---- @13 put 00.00.00.0051.06.01
+--- @12 put 00.00.00.0051.06.01
 at: 2026-11-11T19:30:00Z
 by: prima-kernel-seed
 tail: draft
@@ -575,9 +575,9 @@ cards := seed-session
 |   - [04 / Grammar]: "face's `00` board" -> "face's `00` door"
 
 ~ history
-@9 put 00.00.00.0051.00
-@10 put 00.00.00.0051.01
-@11 put 00.00.00.0051.02
-@12 put 00.00.00.0051.04
-@13 put 00.00.00.0051.06.01
+@8 put 00.00.00.0051.00.draft
+@9 put 00.00.00.0051.01.draft
+@10 put 00.00.00.0051.02.draft
+@11 put 00.00.00.0051.04.draft
+@12 put 00.00.00.0051.06.01
 ~ end

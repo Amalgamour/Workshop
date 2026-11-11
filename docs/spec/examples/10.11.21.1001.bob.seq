@@ -1,17 +1,17 @@
 seqpage 1
-= 00 door 10.11.21.1001.00
+= 00 registry 10.11.21.1001.00
 title := bob
 state := draft
-door := draft
+registry := draft
+faces := 01 draft, 04 draft
 type := general
 axioms := -
 lineage := 10.11.21.1001 < 10.11.21 < 10.11.00 < 10.00.00 < 00.00.00
 source := book 10.11.21 @7
 
---- @7 put 10.11.21.1001.00
+--- @7 put 10.11.21.1001.00.draft
 at: 2026-11-11T19:30:00Z
 by: prima-kernel-seed
-tail: draft
 proposal: prima-kernel-seed:10.11.21.1001
 | ---
 | address: 10.11.21.1001
@@ -22,12 +22,12 @@ proposal: prima-kernel-seed:10.11.21.1001
 
 = 01 law 10.11.21.1001.01
 state := draft
+why-draft := 7
 source := book 10.11.21 @8
 
---- @8 put 10.11.21.1001.01
+--- @8 put 10.11.21.1001.01.draft
 at: 2026-11-11T19:30:00Z
 by: prima-kernel-seed
-tail: draft
 proposal: prima-kernel-seed:10.11.21.1001
 cards := bob, cats
 | ## bob
@@ -44,12 +44,12 @@ cards := bob, cats
 
 = 04 user 10.11.21.1001.04
 state := draft
+why-draft := 7
 source := book 10.11.21 @9
 
---- @9 put 10.11.21.1001.04
+--- @9 put 10.11.21.1001.04.draft
 at: 2026-11-11T19:30:00Z
 by: prima-kernel-seed
-tail: draft
 proposal: prima-kernel-seed:10.11.21.1001
 cards := bob, cats
 | ## bob
@@ -65,7 +65,7 @@ cards := bob, cats
 | Session 1, the user said: "My name is Bob and I like cats". Bob likes cats.
 
 ~ history
-@7 put 10.11.21.1001.00
-@8 put 10.11.21.1001.01
-@9 put 10.11.21.1001.04
+@7 put 10.11.21.1001.00.draft
+@8 put 10.11.21.1001.01.draft
+@9 put 10.11.21.1001.04.draft
 ~ end

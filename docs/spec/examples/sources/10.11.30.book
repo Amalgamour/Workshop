@@ -1,16 +1,17 @@
 {"seqbook":1,"address":"10.11.30"}
 {"n":1,"at":"2026-11-11T20:01:00Z","by":"user","op":"put","addr":"10.11.30.0000.00","body":"---\naddress: 10.11.30.0000\ntitle: tools\nstate: live\ntype: system\n---","proposal":"p1","of":2}
-{"n":2,"at":"2026-11-11T20:02:00Z","by":"user","op":"put","addr":"10.11.30.0000.04","body":"## Tools\nsource: hand-written example for docs/spec/seqpage.md\nwhy: A book of small tools, used to show every block kind in a .seq page.\n\nThis book exists only as a worked example.","proposal":"p1","of":2}
-{"n":3,"at":"2026-11-11T20:03:00Z","by":"user","op":"put","addr":"10.11.30.1501.00","body":"---\naddress: 10.11.30.1501\ntitle: timer\nstate: live\ntype: workflow\naxioms: 1.7.8\n---","proposal":"p3","of":3}
-{"n":4,"at":"2026-11-11T20:04:00Z","by":"user","op":"put","addr":"10.11.30.1501.01","body":"## Timer\n\nA timer counts down from a set time and rings once at zero.","proposal":"p3","of":3}
-{"n":5,"at":"2026-11-11T20:05:00Z","by":"user","op":"put","addr":"10.11.30.1501.04","body":"## Timer\nsource: [01 / Timer]\nwhy: The user wants one plain timer before any extras.\n\nThe timer counts down from the time the user sets. When it reaches zero it rings once and stops.","proposal":"p3","of":3}
-{"n":6,"at":"2026-11-11T20:06:00Z","by":"prima","op":"put","addr":"10.11.30.1501.05.01","tail":"pack","body":"## Build timer\nlead: 3MC\naxioms: 5\n\nBuild the countdown in the app. Stop at one ring."}
-{"n":7,"at":"2026-11-11T20:07:00Z","by":"agent-7","op":"tail","addr":"10.11.30.1501.05.01","from":"pack","to":"open"}
-{"n":8,"at":"2026-11-11T20:08:00Z","by":"agent-7","op":"tail","addr":"10.11.30.1501.05.01","from":"open","to":"return","body":"## Result\n\nCountdown built; rings once at zero. Tests: 3 passed."}
-{"n":9,"at":"2026-11-11T20:09:00Z","by":"reviewer-2","op":"tail","addr":"10.11.30.1501.05.01","from":"return","to":"review"}
-{"n":10,"at":"2026-11-11T20:10:00Z","by":"compute","op":"tail","addr":"10.11.30.1501.05.01","from":"review","to":"","outcome":"passed"}
-{"n":11,"at":"2026-11-11T20:11:00Z","by":"compute","op":"copy","addr":"10.11.30.1501.01"}
-{"n":12,"at":"2026-11-11T20:12:00Z","by":"agent-7","op":"note","addr":"10.11.30.1501.01","body":"Say what happens after the ring: the timer stops."}
-{"n":13,"at":"2026-11-11T20:13:00Z","by":"agent-7","op":"merge","addr":"10.11.30.1501.01","cites":12,"body":"## Timer\n\nA timer counts down from a set time, rings once at zero, then stops."}
-{"n":14,"at":"2026-11-11T20:14:00Z","by":"reviewer-2","op":"promote","addr":"10.11.30.1501.01"}
-{"n":15,"at":"2026-11-11T20:15:00Z","by":"agent-7","op":"put","addr":"10.11.30.1501.06.01","body":"## Session 2026-11-11\nmodel: agent-7\nwhy: record of the build pass\n\nBuilt 05.01 and drafted the 01 wording change."}
+{"n":2,"at":"2026-11-11T20:03:00Z","by":"user","op":"put","addr":"10.11.30.1501.00","body":"---\naddress: 10.11.30.1501\ntitle: timer\nstate: live\ntype: workflow\naxioms: 1.7.8\n---","proposal":"p3","of":3}
+{"n":3,"at":"2026-11-11T20:04:00Z","by":"user","op":"put","addr":"10.11.30.1501.01","body":"## Timer\n\nA timer counts down from a set time and rings once at zero.","proposal":"p3","of":3}
+{"n":4,"at":"2026-11-11T20:05:00Z","by":"user","op":"put","addr":"10.11.30.1501.04","body":"## Timer\nsource: [01 / Timer]\nwhy: The user wants one plain timer before any extras.\n\nThe timer counts down from the time the user sets. When it reaches zero it rings once and stops.","proposal":"p3","of":3}
+{"n":5,"at":"2026-11-11T20:06:00Z","by":"prima","op":"put","addr":"10.11.30.1501.05.01","tail":"pack","body":"## Build timer\nlead: 3MC\naxioms: 5\n\nBuild the countdown in the app. Stop at one ring."}
+{"n":6,"at":"2026-11-11T20:07:00Z","by":"agent-7","op":"tail","addr":"10.11.30.1501.05.01","from":"pack","to":"open"}
+{"n":7,"at":"2026-11-11T20:08:00Z","by":"agent-7","op":"tail","addr":"10.11.30.1501.05.01","from":"open","to":"return","body":"## Result\n\nCountdown built; rings once at zero. Tests: 3 passed."}
+{"n":8,"at":"2026-11-11T20:09:00Z","by":"reviewer-2","op":"tail","addr":"10.11.30.1501.05.01","from":"return","to":"review"}
+{"n":9,"at":"2026-11-11T20:10:00Z","by":"compute","op":"tail","addr":"10.11.30.1501.05.01","from":"review","to":"","outcome":"passed"}
+{"n":10,"at":"2026-11-11T20:11:00Z","by":"compute","op":"copy","addr":"10.11.30.1501.01"}
+{"n":11,"at":"2026-11-11T20:12:00Z","by":"agent-7","op":"note","addr":"10.11.30.1501.01","body":"Say what happens after the ring: the timer stops."}
+{"n":12,"at":"2026-11-11T20:13:00Z","by":"agent-7","op":"merge","addr":"10.11.30.1501.01","cites":11,"body":"## Timer\n\nA timer counts down from a set time, rings once at zero, then stops."}
+{"n":13,"at":"2026-11-11T20:14:00Z","by":"reviewer-2","op":"promote","addr":"10.11.30.1501.01"}
+{"n":14,"at":"2026-11-11T20:15:00Z","by":"agent-7","op":"put","addr":"10.11.30.1501.06.01","body":"## Session 2026-11-11\nmodel: agent-7\nwhy: record of the build pass\n\nBuilt 05.01 and drafted the 01 wording change."}
+{"n":15,"at":"2026-11-11T20:20:00Z","by":"compute","op":"copy","addr":"10.11.30.1501.04","reason":"the 01 wording now says the timer stops; the 04 why must say it too"}
+{"n":16,"at":"2026-11-11T20:21:00Z","by":"agent-7","op":"note","addr":"10.11.30.1501.04","body":"Add: after the ring the timer stops, matching 01."}

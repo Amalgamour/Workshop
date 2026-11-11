@@ -14,6 +14,7 @@ pub mod error;
 pub mod import;
 pub mod model;
 pub mod parse;
+pub mod rulings;
 pub mod text;
 pub mod write;
 
