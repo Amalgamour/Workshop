@@ -1,0 +1,24 @@
+[package]
+name = "compute"
+version = "0.1.0"
+edition = "2021"
+description = "The Workshop compute: the one process that owns every book (format.md 1.2)"
+publish = false
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "compute"
+path = "src/main.rs"
+
+[dependencies]
+seqaddr-core = { path = "../seqaddr-core" }
+axum = "0.7"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "sync", "signal"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[dev-dependencies]
+reqwest = { version = "0.12", default-features = false, features = ["json"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "sync", "time"] }

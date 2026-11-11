@@ -21,7 +21,7 @@ export default async function PageView({ params, searchParams }: { params: Promi
   }
   const first = TAB_FACES.find((f) => groups.has(f)) ?? "04";
   const face = sp.face && /^\d\d$/.test(sp.face) ? sp.face : first;
-  const stamp = p.faces["00"];
+  const stamp = p.faces["00"] ?? p.faces["00.draft"]; // compute: an unseated stamp is keyed 00.draft
   const sf = frontMatter(stamp?.body);
   const links = await get<Links>(`/links/${addr}`);
 
