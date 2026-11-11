@@ -1,0 +1,26 @@
+{
+  "about": "R11 common-questions page for book 10.11.21, as a proposal (POST /propose). Drafts only: seating needs approval (R2). Not in kernel/ or books/: the KERNEL lane absorbs it later (BUILD-LOG [COMPUTE]). Holes have answer 7 and a hole line; they are never answers.",
+  "ops": [
+    {
+      "op": "put",
+      "addr": "10.11.21.0013.00",
+      "tail": "draft",
+      "reason": "proposal from crates/ask (COMPUTE lane) for R11; KERNEL to absorb into the books; nobody has reviewed it.",
+      "body": "---\ntitle: common-questions\n---\n\n## Registry\nformat: 7\n\nR11 (DIRECTOR-RULINGS.md:44): the common questions people ask. Each question card lists its forms (sentence patterns) and links to its answer, like a brand card. Page 0013 is `7` (beside the dictionary 0012; the Director has not placed it).\n\n- `01.draft` the questions\n- `04.draft` why each one is here"
+    },
+    {
+      "op": "put",
+      "addr": "10.11.21.0013.01",
+      "tail": "draft",
+      "reason": "proposal from crates/ask (COMPUTE lane) for R11; KERNEL to absorb into the books; nobody has reviewed it.",
+      "body": "## what is my name\ntype: question\nforms: whats my name, who am i, what do you call me, my name?\nanswer: 10.11.21.1001.01.bob\n\n## what do i like\ntype: question\nforms: what do i like?, what are my likes, what things do i like\nanswer: 10.11.21.1001.01.cats\n\n## what time is it\ntype: question\nforms: whats the time, what is the time now\nanswer: 7\nhole: no clock card exists in any book; a hole until one does (axiom 7).\n\n## what can you do\ntype: question\nforms: what are you able to do, how can you help\nanswer: 7\nhole: no card lists what the compute or the bot can do (7).\n\n## where did we leave off\ntype: question\nforms: what were we doing, where were we\nanswer: 7\nhole: no session or work card is linked yet (7)."
+    },
+    {
+      "op": "put",
+      "addr": "10.11.21.0013.04",
+      "tail": "draft",
+      "reason": "proposal from crates/ask (COMPUTE lane) for R11; KERNEL to absorb into the books; nobody has reviewed it.",
+      "body": "## what is my name\nwhy: The Bob test (session 2): the user asks for the name made a brand in session 1.\n\nLinks to 10.11.21.1001.01.bob.\n\n## what do i like\nwhy: The Bob test book also holds the cats brand, \"animals the user likes\".\n\nLinks to 10.11.21.1001.01.cats.\n\n## what time is it\nwhy: Asked often; nothing in the books answers it.\n\nA hole: the answer is 7.\n\n## what can you do\nwhy: Asked often; nothing in the books answers it.\n\nA hole: the answer is 7.\n\n## where did we leave off\nwhy: Asked often; the work board could answer it once linked.\n\nA hole: the answer is 7."
+    }
+  ]
+}

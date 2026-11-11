@@ -14,6 +14,8 @@ path = "src/main.rs"
 
 [dependencies]
 seqaddr-core = { path = "../seqaddr-core" }
+seqpage = { path = "../seqpage" }
+ask = { path = "../ask" }
 axum = "0.7"
 tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "sync", "signal"] }
 serde = { version = "1", features = ["derive"] }

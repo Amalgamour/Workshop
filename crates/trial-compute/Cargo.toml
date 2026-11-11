@@ -14,5 +14,6 @@ path = "src/bin/trial-srv.rs"
 
 [dependencies]
 compute = { path = "../compute" }
+seqaddr-core = { path = "../seqaddr-core" }
 tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "io-util", "time"] }
 serde_json = "1"

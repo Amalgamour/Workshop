@@ -57,6 +57,7 @@ pub struct Srv {
 
 impl Srv {
     pub async fn start(dir: &Path) -> Srv {
+        write_identities(dir);
         let store = Store::boot(Config::for_dirs(vec![dir.to_path_buf()])).expect("boot");
         let l = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
         let base = format!("http://{}", l.local_addr().unwrap());
@@ -76,12 +77,44 @@ impl Srv {
     pub async fn post(&self, by: &str, ops: Value) -> (u16, Value) {
         self.post_raw(json!({"by": by, "ops": ops})).await
     }
+    /// POST /propose with the token of the body's `by` ("user" is the Director, as in round 2).
     pub async fn post_raw(&self, body: Value) -> (u16, Value) {
-        let (c, b) = Http.req(&self.base, "POST", "/propose", Some(body.to_string().into_bytes())).await;
+        let by = body["by"].as_str().unwrap_or("user").to_string();
+        self.post_as(&by, "/propose", body).await
+    }
+    /// POST a JSON body to `path` as writer `by` (token `tok-NAME`).
+    pub async fn post_as(&self, by: &str, path: &str, body: Value) -> (u16, Value) {
+        let auth = format!("Bearer {}", token(by));
+        let (c, b) = Http.req_h(&self.base, "POST", path, Some(body.to_string().into_bytes()), &[("content-type", "application/json"), ("authorization", &auth)]).await;
+        (c, serde_json::from_slice(&b).unwrap_or(Value::Null))
+    }
+    /// POST /ask (a read: no token needed).
+    pub async fn ask(&self, prompt: &str) -> (u16, Value) {
+        let (c, b) = Http.req(&self.base, "POST", "/ask", Some(json!({"prompt": prompt, "book": "10.11.21"}).to_string().into_bytes())).await;
         (c, serde_json::from_slice(&b).unwrap_or(Value::Null))
     }
     pub fn lines(&self, book: &str) -> usize {
         std::fs::read_to_string(self.dir.join(format!("{book}.book"))).map(|t| t.lines().count()).unwrap_or(0)
+    }
+}
+
+/// The writers every test server knows (`NAME tok-NAME`).
+pub const WRITERS: &[&str] = &["director", "alice", "bob", "trial-x", "kernel", "app", "agent-7", "agent-8", "reviewer", "compute"];
+
+/// The token for a writer name; "user" (round-2 tests) writes as the Director.
+pub fn token(by: &str) -> String {
+    let n = if by == "user" { "director" } else { by };
+    format!("tok-{n}-0123456789")
+}
+
+pub fn write_identities(dir: &Path) {
+    let p = dir.join(".identities");
+    if !p.exists() {
+        let mut t = String::from("# test identities\n");
+        for w in WRITERS {
+            t.push_str(&format!("{w} {}\n", token(w)));
+        }
+        std::fs::write(p, t).unwrap();
     }
 }
 
@@ -114,11 +147,14 @@ pub struct Http;
 
 impl Http {
     pub async fn req(&self, base: &str, method: &str, path: &str, body: Option<Vec<u8>>) -> (u16, Vec<u8>) {
+        self.req_h(base, method, path, body, &[("content-type", "application/json")]).await
+    }
+    pub async fn req_h(&self, base: &str, method: &str, path: &str, body: Option<Vec<u8>>, headers: &[(&str, &str)]) -> (u16, Vec<u8>) {
         use tokio::io::{AsyncReadExt, AsyncWriteExt};
         let host = base.trim_start_matches("http://");
         let mut s = tokio::net::TcpStream::connect(host).await.unwrap();
         let body = body.unwrap_or_default();
-        let head = format!("{method} {path} HTTP/1.1\r\nhost: {host}\r\nconnection: close\r\ncontent-type: application/json\r\ncontent-length: {}\r\n\r\n", body.len());
+        let head = format!("{method} {path} HTTP/1.1\r\nhost: {host}\r\nconnection: close\r\n{}content-length: {}\r\n\r\n", headers.iter().map(|(k, v)| format!("{k}: {v}\r\n")).collect::<String>(), body.len());
         s.write_all(head.as_bytes()).await.unwrap();
         s.write_all(&body).await.unwrap();
         let mut buf = Vec::new();

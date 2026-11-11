@@ -14,20 +14,22 @@ use std::path::{Path, PathBuf};
 /// The format version this compute reads (format 3.2 header `seqbook`).
 pub const FORMAT_VERSION: u32 = 1;
 
-/// Approval check for seating a draft (`promote`). Director ruling R2.
+/// Approval check for seating a face on every path (`promote`, bare `put`, a
+/// draft moved to bare). Director ruling R2. Checked here first (403, axiom 1:
+/// authority), then the core checks the same record again (E7/R2).
 #[derive(Debug, Clone)]
 pub struct ApprovalGate {
-    /// A `promote` must carry `approved_by` (7: the spec gives no field; see BUILD-LOG).
+    /// Seating must carry `approved_by`.
     pub require: bool,
     /// R2 build stage: `approved_by: "build-stage (R2)"` with a `trial` reference is valid.
     pub allow_build_stage_r2: bool,
-    /// Authors who are the Director (7: the spec names `user` as the person).
+    /// Identity names that are the Director (7: provisional identity design).
     pub director_names: Vec<String>,
 }
 
 impl Default for ApprovalGate {
     fn default() -> Self {
-        ApprovalGate { require: true, allow_build_stage_r2: true, director_names: vec!["user".into(), "director".into()] }
+        ApprovalGate { require: true, allow_build_stage_r2: true, director_names: vec![crate::identity::DIRECTOR.into()] }
     }
 }
 
@@ -39,14 +41,24 @@ pub struct Config {
     pub write_dir: PathBuf,
     pub policy: Policy,
     pub approval: ApprovalGate,
-    /// How many proposals /queue keeps.
+    /// How many proposals /queue keeps in memory (all are kept in `.queue`).
     pub queue_keep: usize,
+    /// Who may write. `None`: read `<write_dir>/.identities` at boot (no file: every write is refused).
+    pub identities: Option<crate::identity::Identities>,
+    /// The repository root: R2 trial references (`docs/trial/...`) are checked under it.
+    pub repo_root: PathBuf,
+    /// R11 common-questions page number in a book (7: spec silent; 0013 beside the dictionary 0012).
+    pub ask_page: u16,
+    /// The reader's book when a request names none (/brands, /ask). `None`: kernel only.
+    pub default_book: Option<BookId>,
+    pub ask: ask::Config,
 }
 
 impl Config {
     pub fn for_dirs(dirs: Vec<PathBuf>) -> Config {
         let write_dir = dirs.first().cloned().unwrap_or_else(|| PathBuf::from("books"));
-        Config { dirs, write_dir, policy: Policy::default(), approval: ApprovalGate::default(), queue_keep: 200 }
+        let repo_root = std::env::var("WORKSHOP_ROOT").map(PathBuf::from).unwrap_or_else(|_| PathBuf::from(concat!(env!("CARGO_MANIFEST_DIR"), "/../..")));
+        Config { dirs, write_dir, policy: Policy::default(), approval: ApprovalGate::default(), queue_keep: 200, identities: None, repo_root, ask_page: 13, default_book: None, ask: ask::Config::default() }
     }
 }
 
@@ -74,13 +86,26 @@ pub struct Store {
     pub queue: VecDeque<Value>,
     pub queue_seq: u64,
     pub boot: Vec<Value>,
+    pub ids: crate::identity::Identities,
+    /// Known-good length of each book file: appends go straight to the end (TRIAL-X #15).
+    pub file_len: BTreeMap<BookId, u64>,
 }
 
 /// One HTTP-ready answer: status code and JSON body.
 pub type Answer = (u16, Value);
 
+/// HTTP code for a core error on a read: a malformed address is 400 everywhere
+/// (TRIAL-X #9), elevate is 409 (never a 3xx redirect, #8). 7: contract gives no codes.
+pub fn http_code(e: &SeqError) -> u16 {
+    match e.code() {
+        "invalid" => 400,
+        "elevate" => 409,
+        _ => e.http_status(),
+    }
+}
+
 pub fn err_json(e: &SeqError) -> Answer {
-    (e.http_status(), json!({"error": e.code(), "axiom": e.axiom(), "rule": e.rule(), "detail": e.detail()}))
+    (http_code(e), json!({"error": e.code(), "axiom": e.axiom(), "rule": e.rule(), "detail": e.detail()}))
 }
 
 fn bad(detail: impl Into<String>) -> Answer {
@@ -147,7 +172,8 @@ pub fn face_items(st: &BookState, page: u16, f: u8, fs: &FaceState) -> Vec<FaceI
         out.push(FaceItem { key: format!("{ff}.retired"), face: f, counter: None, body: r.clone(), tail: Some("retired".into()), live: false });
     }
     if !fs.counters.is_empty() {
-        out.push(FaceItem { key: format!("{ff}.00"), face: f, counter: Some(0), body: board_body(st, page, f), tail: None, live: true });
+        // R9: faces have no sentinels, so no `FF.00` board key; the board is in /page `boards`.
+        let _ = (st, page);
         for (nn, c) in &fs.counters {
             out.push(FaceItem { key: format!("{ff}.{nn:02}"), face: f, counter: Some(*nn), body: c.bodies.join("\n\n"), tail: c.tail.as_tail().map(|t| t.to_string()), live: true });
         }
@@ -265,7 +291,21 @@ impl Store {
             }
         }
         let keep = cfg.queue_keep;
-        Ok(Store { cfg, world, logs, paths, warnings, refused, queue: VecDeque::with_capacity(keep), queue_seq: 0, boot })
+        let ids = match &cfg.identities {
+            Some(i) => i.clone(),
+            None => {
+                let p = cfg.write_dir.join(".identities");
+                if p.exists() {
+                    crate::identity::Identities::load(&p).map_err(|e| BootError { step: "identities", detail: e, refused: refused.clone() })?
+                } else {
+                    boot.push(json!({"step": "identities", "note": format!("{} not found: reads only, every write is refused", p.display())}));
+                    crate::identity::Identities::default()
+                }
+            }
+        };
+        let file_len = logs.iter().map(|(b, lg): (&BookId, &BookLog)| (*b, lg.valid_len as u64)).collect();
+        let (queue, queue_seq) = load_queue(&cfg.write_dir.join(".queue"), keep);
+        Ok(Store { cfg, world, logs, paths, warnings, refused, queue, queue_seq, boot, ids, file_len })
     }
 
     fn st(&self, b: BookId) -> Option<&BookState> {
@@ -362,7 +402,7 @@ impl Store {
                 if let Some(t) = &it.tail {
                     fv["tail"] = json!(t);
                 }
-                let mk = (p.page, it.face, if it.counter == Some(0) { None } else { it.counter });
+                let mk = (p.page, it.face, it.counter);
                 if let Some(e) = meta.get(&mk) {
                     fv["n"] = json!(e.n);
                     fv["by"] = json!(e.by);
@@ -377,9 +417,6 @@ impl Store {
                 } else if it.counter.is_none() && it.tail.is_none() {
                     fv["state"] = json!("seated");
                 }
-                if it.counter == Some(0) {
-                    fv["derived"] = json!("board (A4.4; format 3.3: never written)");
-                }
                 if b != asked {
                     inherited.push(source.clone());
                 }
@@ -390,7 +427,17 @@ impl Store {
             return None;
         }
         let title = asked.lookup_chain().into_iter().find_map(|b| self.st(b).and_then(|s| s.page(p.page)).and_then(|pg| pg.title()));
-        Some(json!({"address": p.to_string(), "title": title, "faces": faces, "inherited": inherited}))
+        // the derived board of each counted face (A4.4), listed here, not as a face key `FF.00` (R9)
+        let mut boards = Map::new();
+        for (k, v) in &faces {
+            if let Some((ff, nn)) = k.split_once('.') {
+                if nn.len() == 2 && nn.bytes().all(|b| b.is_ascii_digit()) {
+                    let e = boards.entry(ff.to_string()).or_insert_with(|| json!([]));
+                    e.as_array_mut().unwrap().push(json!({"counter": nn, "tail": v.get("tail").cloned().unwrap_or(json!("closed"))}));
+                }
+            }
+        }
+        Some(json!({"address": p.to_string(), "title": title, "faces": faces, "inherited": inherited, "boards": boards}))
     }
 
     pub fn page(&self, arg: &str) -> Answer {
@@ -489,6 +536,21 @@ impl Store {
     }
 
     pub fn history(&self, arg: &str) -> Answer {
+        // Parse first (TRIAL-X #10): a book `DD.SS.BB`, or a full page/face address; a title is a label and is dropped.
+        let key = match BookId::parse(arg) {
+            Ok(b) => b.to_string(),
+            Err(_) => match Address::parse_full_page(arg) {
+                Ok(p) => {
+                    let mut k = p.page_only().to_string();
+                    if let Some(fp) = &p.face {
+                        k = p.page_only().with_face(FacePart { card: None, brand: None, ..fp.clone() }).to_string();
+                    }
+                    k
+                }
+                Err(e) => return err_json(&e),
+            },
+        };
+        let arg = key.as_str();
         let pre = format!("{arg}.");
         let mut out: Vec<(String, String, u64, Value)> = Vec::new();
         for (b, lg) in &self.logs {
@@ -503,7 +565,7 @@ impl Store {
     }
 
     fn face08_texts(&self, view: &Value) -> Vec<String> {
-        view["faces"].as_object().map(|m| m.iter().filter(|(k, _)| k.starts_with("08")).filter_map(|(_, v)| v["body"].as_str().map(|s| s.to_string())).collect()).unwrap_or_default()
+        view["faces"].as_object().map(|m| m.iter().filter(|(k, _)| k.starts_with("08") && !k.ends_with(".retired")).filter_map(|(_, v)| v["body"].as_str().map(|s| s.to_string())).collect()).unwrap_or_default()
     }
 
     fn view_of(&self, page: &str) -> Option<Value> {
@@ -536,7 +598,7 @@ impl Store {
                 if from == me {
                     continue;
                 }
-                if face_items(st, *pn, 8, fs).iter().any(|it| page_addrs_in(&it.body).contains(&me)) {
+                if face_items(st, *pn, 8, fs).iter().filter(|it| it.tail.as_deref() != Some("retired")).any(|it| page_addrs_in(&it.body).contains(&me)) {
                     back.insert(from);
                 }
             }
@@ -566,7 +628,8 @@ impl Store {
                 Ok(b) => b.lookup_chain(),
                 Err(e) => return err_json(&e),
             },
-            None => self.world.books.keys().copied().collect(),
+            // TRIAL-X #13: no book named -> the configured reader book's chain, else the kernel only.
+            None => self.cfg.default_book.map(|b| b.lookup_chain()).unwrap_or_else(|| vec![BookId::KERNEL]),
         };
         let mut out = Vec::new();
         for b in books {
@@ -660,21 +723,117 @@ impl Store {
 
     /// Validate one proposal against the current world and, if approved,
     /// append it to its book file and adopt the new state. All or nothing.
-    pub fn propose(&mut self, raw: Value) -> Answer {
+    /// `by` comes from the writer's token, never from the body (7 identity design).
+    pub fn propose(&mut self, mut raw: Value, by: &str) -> Answer {
+        if let Some(m) = raw.as_object_mut() {
+            m.insert("by".into(), json!(by));
+        }
         self.queue_seq += 1;
         let qid = format!("q{}", self.queue_seq);
         let at = log::now_utc();
         let (code, mut body) = self.propose_inner(&raw, &at);
         body["queue_id"] = json!(qid);
         let rec = json!({
-            "id": qid, "at": at, "by": raw.get("by"), "ops": raw.get("ops").and_then(|o| o.as_array()).map(|a| a.len()).unwrap_or(0),
+            "id": qid, "at": at, "by": by, "ops": raw.get("ops").and_then(|o| o.as_array()).map(|a| a.len()).unwrap_or(0),
             "book": body.get("book"), "status": body.get("status"), "reasons": body.get("reasons"), "entries": body.get("entries"), "http": code,
         });
+        // the queue record is kept on disk so ids never repeat after a restart (TRIAL-X #11)
+        let qp = self.cfg.write_dir.join(".queue");
+        if let Ok(mut f) = std::fs::OpenOptions::new().create(true).append(true).open(&qp) {
+            use std::io::Write;
+            let _ = f.write_all(format!("{rec}\n").as_bytes());
+        }
         if self.queue.len() >= self.cfg.queue_keep.max(1) {
             self.queue.pop_front();
         }
         self.queue.push_back(rec);
         (code, body)
+    }
+
+    /// POST /propose with a `.seq` page (CONTRACT addendum, SEQPAGE lane): import it
+    /// against the book, then send its proposal through the same queue.
+    pub fn propose_seq(&mut self, text: &str, by: &str) -> Answer {
+        let log = seqpage::parse(text).ok().and_then(|sp| self.logs.get(&sp.page.book).cloned());
+        match seqpage::import(text, log.as_ref(), by) {
+            Err(rep) => (422, serde_json::to_value(&rep).unwrap_or(Value::Null)),
+            Ok(imp) => {
+                let findings = serde_json::to_value(&imp.findings).unwrap_or(Value::Null);
+                let raw = serde_json::to_value(&imp.proposal).unwrap_or(Value::Null);
+                let (c, mut v) = self.propose(raw, by);
+                v["seq_findings"] = findings;
+                v["page"] = json!(imp.page);
+                (c, v)
+            }
+        }
+    }
+
+    /// GET /page.seq?addr= : the page as a `.seq` view (text), or an error answer.
+    pub fn page_seq(&self, addr: &str) -> Result<(String, String), Answer> {
+        let pid = seqpage::PageId::parse(addr).map_err(|e| (400, json!({"error": "invalid", "detail": e})))?;
+        let Some(log) = self.logs.get(&pid.book) else { return Err(missing(format!("no book {}", pid.book), json!({}))) };
+        let text = seqpage::export(log, pid).map_err(|e| {
+            let code = if e.code == "missing" { 404 } else { 422 };
+            (code, json!({"error": e.code, "axiom": e.axiom, "rule": e.rule, "detail": e.detail}))
+        })?;
+        let title = self.world.get(pid.book).and_then(|s| s.page(pid.page)).and_then(|p| p.title());
+        Ok((text, seqpage::file_name(pid, title.as_deref())))
+    }
+
+    /// POST /check.seq: the import report, nothing written.
+    pub fn check_seq(&self, text: &str) -> Answer {
+        let log = seqpage::parse(text).ok().and_then(|sp| self.logs.get(&sp.page.book));
+        (200, serde_json::to_value(seqpage::check_text(text, None, log)).unwrap_or(Value::Null))
+    }
+
+    /// The face maker for a seating op: the author of the draft being promoted, else the proposer.
+    fn maker_of(&self, r: &seqaddr_core::OpRequest, by: &str) -> String {
+        if r.op == Some(Op::Promote) {
+            if let Ok(p) = Address::parse_full_page(&r.addr) {
+                if let (Some(b), Some(fp)) = (p.book_id(), p.face.as_ref()) {
+                    if let Some(d) = self.world.get(b).and_then(|st| st.face(p.page, fp.face)).and_then(|f| f.draft.as_ref()) {
+                        if let Some(e) = self.logs.get(&b).and_then(|lg| lg.entries.iter().find(|e| e.n == d.n)) {
+                            return e.by.clone();
+                        }
+                    }
+                }
+            }
+        }
+        by.to_string()
+    }
+
+    /// R2 trial reference: `docs/trial/FILE[#anchor]`, the file exists under the
+    /// repo, and its author (its first `Lane NAME` or `author: NAME` line) is not the maker.
+    fn check_trial(&self, trial: &str, maker: &str, by: &str) -> Result<(), String> {
+        let path = trial.split('#').next().unwrap_or("");
+        let ok_shape = path.starts_with("docs/trial/") && path.ends_with(".md") && !path.contains("..") && path.bytes().all(|b| b.is_ascii_alphanumeric() || b"/._-".contains(&b));
+        if !ok_shape {
+            return Err(format!("trial `{trial}` must name a file docs/trial/NAME.md (optionally #anchor)"));
+        }
+        let full = self.cfg.repo_root.join(path);
+        let text = std::fs::read_to_string(&full).map_err(|_| format!("trial file {path} does not exist"))?;
+        let author = text.lines().find_map(|l| {
+            let l = l.trim();
+            l.strip_prefix("Lane ").or_else(|| l.strip_prefix("author: ")).map(|r| r.split(|c: char| c == ',' || c.is_whitespace()).next().unwrap_or("").to_ascii_lowercase())
+        });
+        let Some(author) = author.filter(|a| !a.is_empty()) else { return Err(format!("trial file {path} names no author (`Lane NAME` or `author: NAME`)")) };
+        let maker = maker.to_ascii_lowercase();
+        if author == maker || author == by.to_ascii_lowercase() && maker == by.to_ascii_lowercase() {
+            return Err(format!("trial {path} is by `{author}`, the face's maker; R2 needs a hostile trial from a different view"));
+        }
+        Ok(())
+    }
+
+    /// Does this op seat a face? The core's rule plus a draft moved to bare by `tail`.
+    fn seats(r: &seqaddr_core::OpRequest) -> bool {
+        if seqaddr_core::validate::seats_a_face(r) {
+            return true;
+        }
+        if r.op == Some(Op::Tail) && r.from.as_deref() == Some("draft") && r.to.as_deref().map(|t| t.is_empty()).unwrap_or(true) {
+            if let Ok(p) = Address::parse_full_page(&r.addr) {
+                return p.face.map(|f| f.counter.is_none()).unwrap_or(false);
+            }
+        }
+        false
     }
 
     fn propose_inner(&mut self, raw: &Value, at: &str) -> Answer {
@@ -683,23 +842,40 @@ impl Store {
         };
         let proposal: Proposal = match serde_json::from_value(raw.clone()) {
             Ok(p) => p,
-            Err(e) => return rejected(400, "invalid", None, json!([{"code": "invalid", "rule": "CONTRACT", "detail": e.to_string()}]), format!("not a proposal {{by, ops}}: {e}")),
+            Err(e) => return rejected(400, "invalid", None, json!([{"code": "invalid", "rule": "CONTRACT", "detail": e.to_string()}]), format!("not a proposal {{ops}}: {e}")),
         };
-        // Director ruling R2: the core checks every seating op (`promote`, bare `put`) for
-        // `approved_by` + `trial` (rule E7/R2) and copies them onto the entry. The compute adds
-        // two switches on top: R2 can be turned off (`--no-r2`), and `director` may only be
-        // signed by a Director author (7: spec gives no author name).
-        let mut gate_reasons = Vec::new();
+        // R2 on every seating path, checked before the core (403, axiom 1: authority).
+        let mut gate = Vec::new();
         for (i, r) in proposal.ops.iter().enumerate() {
             let g = &self.cfg.approval;
-            match r.approved_by.as_deref().map(str::trim) {
-                Some("build-stage (R2)") if !g.allow_build_stage_r2 => gate_reasons.push(json!({"code": "rejected", "rule": "R2", "op": i, "detail": "build-stage (R2) approval is switched off on this compute"})),
-                Some("director") if !g.director_names.iter().any(|n| n == &proposal.by) => gate_reasons.push(json!({"code": "rejected", "rule": "R2", "op": i, "detail": format!("`director` approval must be written by the Director ({:?}), not `{}`", g.director_names, proposal.by)})),
-                _ => {}
+            let ab = r.approved_by.as_deref();
+            let trial = r.trial.as_deref().map(str::trim).filter(|t| !t.is_empty());
+            let mut fail = |detail: String| gate.push(json!({"code": "rejected", "rule": "R2", "axiom": "1", "op": i, "detail": detail}));
+            match ab {
+                None if Self::seats(r) && g.require => fail("seating a face needs `approved_by`: `director` (the Director's own token) or `build-stage (R2)` with a `trial` (drafting.md:20, R2)".into()),
+                None => {}
+                Some("director") => {
+                    if !g.director_names.iter().any(|n| n == &proposal.by) {
+                        fail(format!("only the Director's token may record `approved_by: director`; this writer is `{}`", proposal.by));
+                    }
+                }
+                Some("build-stage (R2)") => {
+                    if !g.allow_build_stage_r2 {
+                        fail("build-stage (R2) approval is switched off on this compute".into());
+                    } else if let Some(t) = trial {
+                        let maker = self.maker_of(r, &proposal.by);
+                        if let Err(e) = self.check_trial(t, &maker, &proposal.by) {
+                            fail(e);
+                        }
+                    } else {
+                        fail("`build-stage (R2)` needs a `trial` reference to a hostile trial file".into());
+                    }
+                }
+                Some(other) => fail(format!("approval `{other}` is not known; use `director` or `build-stage (R2)` (exact words)")),
             }
         }
-        if !gate_reasons.is_empty() {
-            return rejected(403, "approval", None, Value::Array(gate_reasons), "seating needs an approval (R2)".into());
+        if !gate.is_empty() {
+            return rejected(403, "authority", Some("1"), Value::Array(gate), "seating needs a granted approval (Axioms: authority is granted, never claimed; R2)".into());
         }
         let out = validate(&self.world, &proposal, at);
         let book = proposal.ops.first().and_then(|r| Address::parse_full_page(&r.addr).ok()).and_then(|p| p.book_id());
@@ -711,7 +887,7 @@ impl Store {
                 Some("conflict") => (409, "conflict"),
                 Some("missing") => (404, "missing"),
                 Some("invalid") => (422, "invalid"),
-                Some("elevate") => (300, "elevate"),
+                Some("elevate") => (409, "elevate"),
                 _ => (422, "rejected"),
             };
             body["error"] = json!(err);
@@ -721,28 +897,107 @@ impl Store {
         }
         let book = book.expect("approved proposals name a book");
         let entries = out.entries.clone();
-        let path = match self.paths.get(&book) {
-            Some(p) => p.clone(),
-            None => {
-                let p = self.cfg.write_dir.join(book.file_name());
-                if let Err(e) = std::fs::create_dir_all(&self.cfg.write_dir).map_err(|e| e.to_string()).and_then(|_| log::file::create(&p, book).map_err(|e| e.detail())) {
-                    return (500, json!({"status": "rejected", "error": "io", "detail": format!("could not create {}: {e}", p.display()), "reasons": [], "entries": []}));
-                }
-                p
-            }
-        };
-        if let Err(e) = log::file::append(&path, &entries) {
+        if let Err(e) = self.append(book, &entries) {
             // Nothing adopted: memory keeps the prior state (kernel-design 7.6).
-            let (c, mut v) = err_json(&e);
-            v["status"] = json!("rejected");
-            return (if c == 200 { 500 } else { c.max(500) }, v);
+            return (500, json!({"status": "rejected", "error": "io", "detail": e, "reasons": [], "entries": []}));
         }
-        self.paths.insert(book, path);
         let lg = self.logs.entry(book).or_insert_with(|| BookLog::new(book));
         lg.entries.extend(entries);
         self.world.insert(out.state.clone().unwrap());
         (200, body)
     }
+
+    /// Append whole lines at the known end of the book file and fsync (TRIAL-X #15):
+    /// no re-read of the book. A partly written tail left by a crash is cut first;
+    /// a file shorter than expected was changed outside the compute and is refused.
+    fn append(&mut self, book: BookId, entries: &[Entry]) -> Result<(), String> {
+        use std::io::{Seek, SeekFrom, Write};
+        for e in entries {
+            e.check_plain().map_err(|e| e.detail())?;
+        }
+        let path = match self.paths.get(&book) {
+            Some(p) => p.clone(),
+            None => {
+                let p = self.cfg.write_dir.join(book.file_name());
+                std::fs::create_dir_all(&self.cfg.write_dir).map_err(|e| e.to_string())?;
+                log::file::create(&p, book).map_err(|e| format!("could not create {}: {}", p.display(), e.detail()))?;
+                let len = std::fs::metadata(&p).map_err(|e| e.to_string())?.len();
+                self.paths.insert(book, p.clone());
+                self.file_len.insert(book, len);
+                p
+            }
+        };
+        let want = *self.file_len.get(&book).ok_or("book length unknown")?;
+        let mut f = std::fs::OpenOptions::new().write(true).open(&path).map_err(|e| e.to_string())?;
+        let have = f.metadata().map_err(|e| e.to_string())?.len();
+        if have < want {
+            return Err(format!("{} is shorter than the compute wrote it ({have} < {want} bytes); changed outside the compute, refusing to write", path.display()));
+        }
+        if have > want {
+            f.set_len(want).map_err(|e| e.to_string())?; // cut a partial tail (format 3.1)
+        }
+        let mut buf = String::new();
+        if want > 0 {
+            // a whole last line with its newline cut off still counts (format 3.1): end it first
+            use std::io::Read;
+            let mut last = [0u8; 1];
+            f.seek(SeekFrom::Start(want - 1)).map_err(|e| e.to_string())?;
+            let mut r = std::fs::File::open(&path).map_err(|e| e.to_string())?;
+            r.seek(SeekFrom::Start(want - 1)).map_err(|e| e.to_string())?;
+            r.read_exact(&mut last).map_err(|e| e.to_string())?;
+            if last[0] != b'\n' {
+                buf.push('\n');
+            }
+        }
+        for e in entries {
+            buf.push_str(&e.to_line());
+            buf.push('\n');
+        }
+        f.seek(SeekFrom::Start(want)).map_err(|e| e.to_string())?;
+        f.write_all(buf.as_bytes()).map_err(|e| e.to_string())?;
+        f.sync_data().map_err(|e| e.to_string())?;
+        self.file_len.insert(book, want + buf.len() as u64);
+        Ok(())
+    }
+
+    /// POST /close {addr, outcome}: only the compute closes a review (workflow-loop.003 6;
+    /// core `compute_only_steps`). The compute closes it for the counter's reviewer (7).
+    pub fn close(&mut self, raw: &Value, by: &str) -> Answer {
+        let (Some(addr), Some(outcome)) = (raw.get("addr").and_then(|v| v.as_str()), raw.get("outcome").and_then(|v| v.as_str())) else {
+            return (400, json!({"error": "invalid", "detail": "send {\"addr\": counter address, \"outcome\": passed|failed|blocked|needs-authority}"}));
+        };
+        let p = match Address::parse_full_page(addr) {
+            Ok(p) => p,
+            Err(e) => return err_json(&e),
+        };
+        let (Some(b), Some(fp)) = (p.book_id(), p.face.as_ref()) else { return bad("name a counter DD.SS.BB.PPPP.FF.NN") };
+        let Some(c) = fp.counter.and_then(|nn| self.world.get(b).and_then(|st| st.counter(p.page, fp.face, nn))) else {
+            return missing(format!("no counter {addr}"), json!({}));
+        };
+        if c.reviewer.as_deref() != Some(by) {
+            return (403, json!({"status": "rejected", "error": "authority", "axiom": "1", "detail": format!("only the reviewer ({:?}) may ask the compute to close {addr}", c.reviewer)}));
+        }
+        let name = self.cfg.policy.compute_name.clone();
+        self.propose(json!({"ops": [{"op": "tail", "addr": addr, "from": "review", "outcome": outcome}], "for": by}), &name)
+    }
+}
+
+fn load_queue(path: &Path, keep: usize) -> (VecDeque<Value>, u64) {
+    let mut q = VecDeque::new();
+    let mut seq = 0;
+    if let Ok(text) = std::fs::read_to_string(path) {
+        for l in text.lines() {
+            let Ok(v) = serde_json::from_str::<Value>(l) else { continue };
+            if let Some(n) = v["id"].as_str().and_then(|s| s.strip_prefix('q')).and_then(|s| s.parse::<u64>().ok()) {
+                seq = seq.max(n);
+            }
+            if q.len() >= keep.max(1) {
+                q.pop_front();
+            }
+            q.push_back(v);
+        }
+    }
+    (q, seq)
 }
 
 type LoadErr = (&'static str, String);

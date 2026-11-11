@@ -51,7 +51,6 @@ fn held_default_listen_is_loopback() {
 /// Finding 14 (minor): `--listen` / COMPUTE_LISTEN take any address; the
 /// compute serves unauthenticated writes on every interface without a word.
 #[test]
-#[ignore = "finding 14"]
 fn f14_non_loopback_listen_accepted() {
     let a = first_line(&["--listen", "0.0.0.0:0"], &[]);
     let b = first_line(&[], &[("COMPUTE_LISTEN", "0.0.0.0:0")]);

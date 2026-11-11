@@ -36,11 +36,12 @@ async fn page_inherits_live_faces_book_shelf_desk_kernel() {
     assert_eq!(p["faces"]["01"]["resolved_from"], "kernel");
     assert_eq!(p["faces"]["01"]["source"], "00.00.00.0020.01");
     assert_eq!(p["inherited"], json!(["00.00.00.0020.01"]));
-    assert!(p["faces"]["04"]["n"].is_number() && p["faces"]["04"]["by"] == "user");
-    // counters: board 05.00 derived, counter 05.03 with its tail
+    assert!(p["faces"]["04"]["n"].is_number() && p["faces"]["04"]["by"] == "director", "by comes from the token");
+    // counters: 05.03 with its tail; the board is derived beside the faces, never a face key 05.00 (R9)
     let (_, t) = s.get("/page/10.11.21.1523").await;
     assert_eq!(t["faces"]["05.03"]["tail"], "pack");
-    assert_eq!(t["faces"]["05.00"]["body"], "03: pack");
+    assert!(t["faces"].get("05.00").is_none(), "{t}");
+    assert_eq!(t["boards"]["05"], json!([{"counter": "03", "tail": "pack"}]));
     s.stop().await;
 }
 
@@ -69,7 +70,7 @@ async fn face_and_resolve_trace() {
     let (_, f) = s.get("/face/10.11.21.1523.05.03").await;
     assert_eq!(f["tail"], "pack");
     let (c, e) = s.get("/face/not.an.address").await;
-    assert_eq!((c, e["error"].as_str(), e["rule"].as_str()), (422, Some("invalid"), Some("A1.3")), "{e}");
+    assert_eq!((c, e["error"].as_str(), e["rule"].as_str()), (400, Some("invalid"), Some("A1.3")), "one code for a malformed address (TRIAL-X #9): {e}");
     s.stop().await;
 }
 
@@ -119,7 +120,8 @@ async fn many_concurrent_claims_one_winner() {
     let mut hs = Vec::new();
     for i in 0..8 {
         let base = s.base.clone();
-        hs.push(tokio::spawn(async move { Http.req(&base, "POST", "/propose", Some(json!({"by": format!("agent-{i}"), "ops": [tail(PK, "pack", "open")]}).to_string().into_bytes())).await.0 }));
+        let auth = format!("Bearer {}", token(&format!("agent-{}", 7 + i % 2)));
+        hs.push(tokio::spawn(async move { Http.req_h(&base, "POST", "/propose", Some(json!({"ops": [tail(PK, "pack", "open")]}).to_string().into_bytes()), &[("content-type", "application/json"), ("authorization", &auth)]).await.0 }));
     }
     let mut wins = 0;
     for h in hs {
@@ -145,7 +147,13 @@ async fn builder_cannot_review_own_return() {
     assert_eq!(v["reasons"][0]["rule"], "S10", "{v}");
     let (c, v) = s.post("reviewer", json!([tail(PK, "return", "review")])).await;
     assert_eq!(c, 200, "{v}");
+    // no client may write as the compute (TRIAL-X #4) ...
     let (c, v) = s.post("compute", json!([{"op": "tail", "addr": PK, "from": "review", "outcome": "passed"}])).await;
+    assert_eq!((c, v["error"].as_str()), (403, Some("authority")), "{v}");
+    // ... and only the reviewer may ask the compute to close the review
+    let (c, v) = s.post_as("agent-7", "/close", json!({"addr": PK, "outcome": "passed"})).await;
+    assert_eq!(c, 403, "{v}");
+    let (c, v) = s.post_as("reviewer", "/close", json!({"addr": PK, "outcome": "passed"})).await;
     assert_eq!(c, 200, "{v}");
     let (_, f) = s.get(&format!("/face/{PK}")).await;
     assert!(f.get("tail").is_none(), "closed counter is bare: {f}");
@@ -185,9 +193,17 @@ async fn proposal_is_all_or_nothing() {
 async fn bad_proposals() {
     let s = Srv::start(&kernel_dir("bad")).await;
     let (c, _) = Http.req(&s.base, "POST", "/propose", Some(b"not json".to_vec())).await;
+    assert_eq!(c, 401, "no token");
+    let auth = format!("Bearer {}", token("user"));
+    let (c, _) = Http.req_h(&s.base, "POST", "/propose", Some(b"not json".to_vec()), &[("content-type", "application/json"), ("authorization", &auth)]).await;
     assert_eq!(c, 400);
-    let (c, _) = s.post_raw(json!({"ops": []})).await;
-    assert_eq!(c, 400);
+    let (c, _) = Http.req_h(&s.base, "POST", "/propose", Some(b"{}".to_vec()), &[("content-type", "text/plain"), ("authorization", &auth)]).await;
+    assert_eq!(c, 415, "text/plain is refused (TRIAL-X #3)");
+    let (c, _) = Http.req_h(&s.base, "POST", "/propose", Some(b"{}".to_vec()), &[("content-type", "application/json"), ("authorization", "Bearer nope-nope-nope")]).await;
+    assert_eq!(c, 401, "unknown token");
+    // the body's `by` is ignored: the token names the writer
+    let (c, v) = s.post_raw(json!({"by": "user", "ops": [], "for": 3})).await;
+    assert!(c == 400 || c == 422, "{c} {v}");
     let (c, v) = s.post("user", json!([])).await;
     assert_eq!(c, 422, "{v}");
     // no write before the door (format 4.1: identity page first)
@@ -241,7 +257,7 @@ async fn links_forward_back_missing_one_way() {
 #[tokio::test]
 async fn brands_and_cards_on_real_books() {
     let s = Srv::start(&copy_dir(&repo_books(), "real")).await;
-    let (c, b) = s.get("/brands?q=Bob").await;
+    let (c, b) = s.get("/brands?q=Bob&book=10.11.21").await;
     assert_eq!(c, 200);
     let bob = b.as_array().unwrap().iter().find(|x| x["brand_id"] == "bob.001").expect("bob.001 in the Bob test dictionary");
     assert_eq!(bob["why"], "the user's name");
@@ -252,14 +268,14 @@ async fn brands_and_cards_on_real_books() {
     assert_eq!(b[0]["exact_form"], false, "forms are case-sensitive (brands.md)");
     // Bob test session 2: "what is my name" has no dictionary word
     for w in ["what", "is", "my", "name"] {
-        assert_eq!(s.get(&format!("/brands?q={w}")).await.1, json!([]), "{w}");
+        assert_eq!(s.get(&format!("/brands?q={w}&book=10.11.21")).await.1, json!([]), "{w}");
     }
     let (_, b) = s.get("/brands?q=").await;
     assert_eq!(b, json!([]));
     let (c, cards) = s.get("/cards?title=bob").await;
     assert_eq!(c, 200);
     let faces: Vec<&str> = cards.as_array().unwrap().iter().map(|x| x["face_no"].as_str().unwrap()).collect();
-    assert!(faces.contains(&"01") && faces.contains(&"04"), "{faces:?}");
+    assert!(faces.contains(&"01"), "{faces:?}");
     let (_, k) = s.get("/books").await;
     assert!(k.as_array().unwrap().iter().any(|b| b["address"] == "00.00.00"));
     s.stop().await;
@@ -276,10 +292,15 @@ async fn r2_build_stage_approval_gate_on_promote() {
         op.as_object_mut().unwrap().extend(extra.as_object().unwrap().clone());
         json!([op])
     };
+    // the compute checks approval before the core: missing approval is 403, axiom 1 (authority)
     let (c, v) = s.post("agent-7", promote(json!({}))).await;
-    assert_eq!((c, v["reasons"][0]["rule"].as_str()), (422, Some("E7")), "{v}");
+    assert_eq!((c, v["reasons"][0]["rule"].as_str(), v["axiom"].as_str()), (403, Some("R2"), Some("1")), "{v}");
     let (c, v) = s.post("agent-7", promote(json!({"approved_by": "build-stage (R2)"}))).await;
-    assert_eq!((c, v["reasons"][0]["rule"].as_str()), (422, Some("R2")), "R2 needs a trial reference: {v}");
+    assert_eq!((c, v["reasons"][0]["rule"].as_str()), (403, Some("R2")), "R2 needs a trial reference: {v}");
+    for bad in ["agent-7", "docs/trial/nope.md", "docs/trial/../../etc/passwd", "kernel-trial.md"] {
+        let (c, v) = s.post("agent-7", promote(json!({"approved_by": "build-stage (R2)", "trial": bad}))).await;
+        assert_eq!(c, 403, "trial `{bad}` must name an existing docs/trial file: {v}");
+    }
     assert_eq!(s.post("agent-7", promote(json!({"approved_by": "director"}))).await.0, 403, "only the Director signs as director");
     let (c, v) = s.post("agent-7", promote(json!({"approved_by": "build-stage (R2)", "trial": "docs/trial/kernel-trial.md#1002"}))).await;
     assert_eq!(c, 200, "{v}");

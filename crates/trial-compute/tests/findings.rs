@@ -17,14 +17,18 @@ fn promote(addr: &str, extra: Value) -> Value {
 /// Finding 1 (blocker): any HTTP client can sign as the Director. `by` is
 /// self-declared, so `by: "user"` + `approved_by: "director"` seats a face.
 #[tokio::test]
-#[ignore = "finding 1"]
 async fn f01_director_approval_is_forgeable() {
     let s = Srv::start(&kernel_dir("f01")).await;
     seed(&s).await;
     draft_page(&s, "1002", "agent-7").await;
     let before = s.book("10.11.21");
     // an agent (not the Director) simply types the Director's name
-    let (c, v) = s.post("user", promote("10.11.21.1002.04.draft", json!({"approved_by": "director"}))).await;
+    // (fix pass: names come from tokens; the agent holds agent-7's token and types the Director's name in the body)
+    let body = json!({"by": "director", "ops": promote("10.11.21.1002.04.draft", json!({"approved_by": "director"}))}).to_string();
+    let auth = format!("Bearer {}", token("agent-7"));
+    let r = req(&s.host, "POST", "/propose", &[("content-type", "application/json"), ("authorization", &auth)], body.as_bytes()).await;
+    let (c, v) = (r.code, r.json());
+    assert_eq!(c, 403, "{v}");
     assert_ne!(c, 200, "Director approval was accepted from an unauthenticated client: {v}");
     assert_eq!(s.book("10.11.21"), before);
     s.stop().await;
@@ -36,7 +40,6 @@ async fn f01_director_approval_is_forgeable() {
 /// the CORE fix pass's gate it needs only the words `approved_by: director`,
 /// which the core accepts from any author. Either way an agent seats a face.
 #[tokio::test]
-#[ignore = "finding 2"]
 async fn f02_seating_put_skips_compute_gate() {
     let s = Srv::start(&kernel_dir("f02")).await;
     seed(&s).await;
@@ -51,7 +54,6 @@ async fn f02_seating_put_skips_compute_gate() {
 /// /propose ignores content-type, so any web page open in the Director's
 /// browser can POST a `text/plain` "simple request" (no CORS preflight) and write.
 #[tokio::test]
-#[ignore = "finding 3"]
 async fn f03_cross_site_simple_post_writes() {
     let s = Srv::start(&kernel_dir("f03")).await;
     seed(&s).await;
@@ -66,7 +68,6 @@ async fn f03_cross_site_simple_post_writes() {
 /// Finding 4 (major): any client may write as `compute` and so gets the
 /// compute-only powers (C8.7 `use` records, meters, `abandoned`).
 #[tokio::test]
-#[ignore = "finding 4"]
 async fn f04_clients_can_impersonate_the_compute() {
     let s = Srv::start(&kernel_dir("f04")).await;
     seed(&s).await;
@@ -81,7 +82,6 @@ async fn f04_clients_can_impersonate_the_compute() {
 /// maker". The gate takes any non-empty string as `trial`, including the
 /// maker's own name and references to nothing.
 #[tokio::test]
-#[ignore = "finding 5"]
 async fn f05_r2_trial_reference_is_not_checked() {
     let s = Srv::start(&kernel_dir("f05")).await;
     seed(&s).await;
@@ -96,7 +96,6 @@ async fn f05_r2_trial_reference_is_not_checked() {
 /// Finding 6 (major): S10 "builder cannot review its own return" compares raw
 /// strings, so the builder passes by adding a space (or changing case).
 #[tokio::test]
-#[ignore = "finding 6"]
 async fn f06_self_review_by_alias() {
     let s = Srv::start(&kernel_dir("f06")).await;
     seed(&s).await;
@@ -113,7 +112,6 @@ async fn f06_self_review_by_alias() {
 /// finds it. Every real kernel face is a draft, so /page of a book inherits nothing
 /// and the two endpoints disagree about the same face.
 #[tokio::test]
-#[ignore = "finding 7"]
 async fn f07_r5_inherited_drafts_not_found() {
     let d = kernel_dir("f07");
     let mut k = KERNEL.to_string();
@@ -132,7 +130,6 @@ async fn f07_r5_inherited_drafts_not_found() {
 /// Finding 8 (minor): `elevate` is answered HTTP 300 Multiple Choices, a
 /// redirect class with no Location; the contract defines no 300.
 #[tokio::test]
-#[ignore = "finding 8"]
 async fn f08_elevate_is_http_300() {
     let s = Srv::start(&kernel_dir("f09")).await;
     seed(&s).await;
@@ -145,7 +142,6 @@ async fn f08_elevate_is_http_300() {
 /// Finding 9 (minor): the same mistake (a malformed address) gets 400 on
 /// /book but 422 on /page, /face, /links, /resolve.
 #[tokio::test]
-#[ignore = "finding 9"]
 async fn f09_bad_address_codes_disagree() {
     let s = Srv::start(&kernel_dir("f10")).await;
     let mut codes = vec![];
@@ -161,7 +157,6 @@ async fn f09_bad_address_codes_disagree() {
 /// and the titled form of a real page (`PPPP.title`) finds nothing although
 /// the core's own history ignores titles (log.rs `history_key`).
 #[tokio::test]
-#[ignore = "finding 10"]
 async fn f10_history_unvalidated_and_title_blind() {
     let s = Srv::start(&kernel_dir("f11")).await;
     seed(&s).await;
@@ -175,7 +170,6 @@ async fn f10_history_unvalidated_and_title_blind() {
 /// Finding 11 (minor): /queue ids restart at q1 after a restart and the queue
 /// is not kept, so a `queue_id` handed to a writer is ambiguous and lost.
 #[tokio::test]
-#[ignore = "finding 11"]
 async fn f11_queue_ids_reused_after_restart() {
     let d = kernel_dir("f13");
     let s = Srv::start(&d).await;
@@ -192,7 +186,6 @@ async fn f11_queue_ids_reused_after_restart() {
 /// Finding 12 (minor): a retired face 08 still counts as a link, forward and
 /// back. Retired is "awaiting removal", not a lawful written connection.
 #[tokio::test]
-#[ignore = "finding 12"]
 async fn f12_retired_links_still_count() {
     let s = Srv::start(&kernel_dir("f14")).await;
     seed(&s).await;
@@ -209,7 +202,6 @@ async fn f12_retired_links_still_count() {
 /// Finding 13 (minor): /brands without `book=` reads every book's dictionary,
 /// so a word defined only in desk 20 answers a reader on desk 10.
 #[tokio::test]
-#[ignore = "finding 13"]
 async fn f13_brands_cross_desk_leak() {
     let s = Srv::start(&kernel_dir("f15")).await;
     seed(&s).await;
@@ -228,7 +220,6 @@ async fn f13_brands_cross_desk_leak() {
 /// a book's life). format.md 3.4 expects a long log and plans snapshots for
 /// replay, not for every write.
 #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-#[ignore = "finding 15"]
 async fn f15_write_cost_grows_with_book_size() {
     let s = Srv::start(&kernel_dir("f15")).await;
     seed(&s).await;
@@ -258,7 +249,6 @@ async fn f15_write_cost_grows_with_book_size() {
 /// (store.rs:149-150 `face_items`, store.rs:427 `Found::Board`): /page lists
 /// `05.00` and /face answers `...05.00` with 200.
 #[tokio::test]
-#[ignore = "finding 16"]
 async fn f16_r9_compute_serves_face_sentinel_00() {
     let s = Srv::start(&kernel_dir("f16")).await;
     seed(&s).await;

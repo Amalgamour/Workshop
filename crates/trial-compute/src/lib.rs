@@ -23,6 +23,7 @@ pub fn repo() -> PathBuf {
 /// Copy every `.book` of the repo's books/ into a fresh temp dir.
 pub fn real_books(name: &str) -> PathBuf {
     let d = tmp(name);
+    identities(&d);
     for e in std::fs::read_dir(repo().join("books")).unwrap() {
         let e = e.unwrap();
         if e.file_name().to_string_lossy().ends_with(".book") {
@@ -44,8 +45,41 @@ pub const KERNEL: &str = concat!(
 
 pub fn kernel_dir(name: &str) -> PathBuf {
     let d = tmp(name);
+    identities(&d);
     std::fs::write(d.join("00.00.00.book"), KERNEL).unwrap();
     d
+}
+
+/// Writers the trial servers know (compute fix pass: every write carries a token).
+/// `compute` is listed so a client presenting its token can be shown refused.
+pub const WRITERS: &[&str] = &["director", "agent-7", "agent-8", "agent-9", "reviewer", "trial-x", "compute"];
+
+/// The token for a writer name. "user" (the round-2 trials) writes as the Director.
+/// Any other name gets a token no server knows (so `agent-7 ` is refused 401).
+pub fn token(by: &str) -> String {
+    let n = if by == "user" { "director" } else { by };
+    format!("tok-{n}-0123456789")
+}
+
+/// Write `<dir>/.identities` (NAME TOKEN per line) if it is missing.
+pub fn identities(dir: &Path) {
+    let p = dir.join(".identities");
+    if !p.exists() {
+        let mut t: String = WRITERS.iter().map(|w| format!("{w} {}\n", token(w))).collect();
+        for i in 0..64 {
+            if !WRITERS.contains(&format!("agent-{i}").as_str()) {
+                t.push_str(&format!("agent-{i} {}\n", token(&format!("agent-{i}"))));
+            }
+        }
+        std::fs::write(p, t).unwrap();
+    }
+}
+
+/// The book files of a dir: compute state files (`.identities`, `.queue`) are dotfiles.
+pub fn listing(dir: &Path) -> Vec<String> {
+    let mut v: Vec<String> = std::fs::read_dir(dir).unwrap().map(|e| e.unwrap().file_name().to_string_lossy().to_string()).filter(|n| !n.starts_with('.')).collect();
+    v.sort();
+    v
 }
 
 pub fn read(dir: &Path, book: &str) -> String {
@@ -93,10 +127,17 @@ pub async fn raw(host: &str, bytes: &[u8]) -> Resp {
     Resp { code, head, body }
 }
 
+/// One request. A POST with a JSON body naming `by` and no `authorization`
+/// header gets that writer's token added (the compute ignores the body's `by`).
 pub async fn req(host: &str, method: &str, path: &str, headers: &[(&str, &str)], body: &[u8]) -> Resp {
     let mut h = format!("{method} {path} HTTP/1.1\r\nhost: {host}\r\nconnection: close\r\ncontent-length: {}\r\n", body.len());
     for (k, v) in headers {
         h.push_str(&format!("{k}: {v}\r\n"));
+    }
+    if method == "POST" && !headers.iter().any(|(k, _)| k.eq_ignore_ascii_case("authorization")) {
+        if let Some(by) = serde_json::from_slice::<Value>(body).ok().and_then(|v| v.get("by").and_then(|b| b.as_str()).map(|b| b.to_string())) {
+            h.push_str(&format!("authorization: Bearer {}\r\n", token(&by)));
+        }
     }
     h.push_str("\r\n");
     let mut b = h.into_bytes();
@@ -111,10 +152,15 @@ pub struct Srv {
 }
 
 impl Srv {
+    /// The reader's book is 10.11.21 (as scripts/dev.sh passes `--book`), so a
+    /// request naming no book reads that chain only (fix pass, finding 13).
     pub async fn start(dir: &Path) -> Srv {
-        Self::start_cfg(Config::for_dirs(vec![dir.to_path_buf()]), dir).await
+        let mut cfg = Config::for_dirs(vec![dir.to_path_buf()]);
+        cfg.default_book = seqaddr_core::BookId::parse("10.11.21").ok();
+        Self::start_cfg(cfg, dir).await
     }
     pub async fn start_cfg(cfg: Config, dir: &Path) -> Srv {
+        identities(dir);
         let store = Store::boot(cfg).expect("boot");
         let l = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
         let host = l.local_addr().unwrap().to_string();

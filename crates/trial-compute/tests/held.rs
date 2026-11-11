@@ -81,7 +81,8 @@ async fn held_r4_refusals_are_4xx_and_leave_the_book_unchanged() {
     assert_eq!(c, 200, "{v}");
     assert_eq!(v["entries"], json!([n0, n0 + 1]), "numbering stays contiguous after refusals");
     let (_, q) = s.get("/queue").await;
-    assert!(q["proposals"].as_array().unwrap().iter().skip(1).take(40).all(|p| p["status"] == "rejected"));
+    // (fix pass: a bad `by` is now a bad token, refused 401 at the door before the queue: 30 queued refusals, not 40)
+    assert!(q["proposals"].as_array().unwrap().iter().skip(1).take(30).all(|p| p["status"] == "rejected"));
     s.stop().await;
 }
 
@@ -133,7 +134,8 @@ async fn held_malformed_and_huge_bodies() {
         assert!((400..500).contains(&c), "{:?} -> {c} {v}", String::from_utf8_lossy(&b[..b.len().min(30)]));
     }
     assert_eq!(req(&s.host, "GET", "/propose", &[], b"").await.code, 405);
-    let r = raw(&s.host, b"POST /propose HTTP/1.1\r\nhost: x\r\ncontent-length: 5\r\nconnection: close\r\n\r\n{\"by\":\"user\",\"ops\":[]}").await;
+    // (fix pass: a write now carries its media type and a token; the point here is the short length)
+    let r = raw(&s.host, format!("POST /propose HTTP/1.1\r\nhost: x\r\ncontent-type: application/json\r\nauthorization: Bearer {}\r\ncontent-length: 5\r\nconnection: close\r\n\r\n{{\"by\":\"user\",\"ops\":[]}}", token("user")).as_bytes()).await;
     assert_eq!(r.code, 400, "short content-length is cut, not over-read");
     let r = raw(&s.host, b"\x00\x01GARBAGE\r\n\r\n").await;
     assert!(r.code == 400 || r.code == 0);
@@ -163,9 +165,8 @@ async fn held_path_traversal_in_addr_and_book_params() {
     let mut files: Vec<String> = std::fs::read_dir(&root).unwrap().map(|e| e.unwrap().file_name().to_string_lossy().to_string()).collect();
     files.sort();
     assert_eq!(files, ["books", "secret.book"], "nothing written outside books/");
-    let mut files: Vec<String> = std::fs::read_dir(&d).unwrap().map(|e| e.unwrap().file_name().to_string_lossy().to_string()).collect();
-    files.sort();
-    assert_eq!(files, ["00.00.00.book", "10.11.21.book"]);
+    // (fix pass: the compute's own dotfiles .identities and .queue live beside the books)
+    assert_eq!(listing(&d), ["00.00.00.book", "10.11.21.book"]);
     s.stop().await;
 }
 
@@ -296,7 +297,7 @@ async fn held_brand_and_card_lookup_edges() {
         let (c, v) = s.get(&format!("/brands?q={q}")).await;
         assert_eq!((c, v.clone()), (200, json!([])), "{q:.20}");
     }
-    assert_eq!(s.get("/brands?q=bob&book=zz").await.0, 422);
+    assert_eq!(s.get("/brands?q=bob&book=zz").await.0, 400, "fix pass #9: a malformed address is 400 everywhere");
     assert_eq!(s.get("/brands?q=bob&book=20.11.21").await.1, json!([]), "book= limits to that lookup chain");
     let (_, cards) = s.get("/cards?title=Bob").await;
     let faces: BTreeSet<&str> = cards.as_array().unwrap().iter().map(|x| x["face_no"].as_str().unwrap()).collect();
