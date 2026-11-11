@@ -6,7 +6,8 @@ Section A: spec file against spec file. Section B: workflow-loop `.002` against 
 
 ## A. Between spec files
 
-### K01. What `00` / `0000` is called: owner, identity, sentinel, board
+### K01. What `00` / `0000` is called: owner, identity, sentinel, board — RESOLVED by R1
+**Resolved:** `DIRECTOR-RULINGS.md:4-5` (R1, 2026-11-11): "a 00seq is the door 00 and 0000 are the same as a full zero sequence." ... "Older spec wording that calls it owner, identity, or board refers to this same location; use the word "door"." Kernel faces now say "door" (each change is a recorded merge in the page's 06.01 note). R1 renames the location only; whether the board's job (listing counters and tails) stays at `FF.00` is not ruled (QUESTIONS.md Q5). Quotes kept as history:
 - `seqAddr.md:29` — "`00` / `0000` | the owner of the level above, itself [A4.1]"
 - `seqAddr.md:64` — "A page is identified by its face 00, which holds the page stamp (address, title, state)."
 - `decisions.md:119` — "`0000` | book identity (sentinel) |"
@@ -20,6 +21,7 @@ Section A: spec file against spec file. Section B: workflow-loop `.002` against 
 - `decisions.md:196` — "A face is counted **if and only if `FF.00` exists**. The board's presence is the check."
 - `seqAddr.md:198` — "A counter without a board is invalid."
 - `format.md:102` — "Boards (`FF.00`), contents lists and ancestor path lists are derived from the log and never written as entries (A4.4, A5.4)."
+- `format.md:123` (same file) — "the target exists, or the write creates it legally (identity page first, board before counters)"
 - Effect here: kernel 06 counters and the sample dictionary counters have no written board (build finding on each).
 
 ### K03. `03.00` on the dictionary: menu or board
@@ -75,7 +77,7 @@ Section A: spec file against spec file. Section B: workflow-loop `.002` against 
 
 ### K12. Where a return lives: settled or proposed
 - `workflow-loop.md:170` (.002) — "This settles where a return lives."
-- `decisions.md:611` (E9, "Proposals awaiting the Director") — "Where a return lives: on its counter"
+- `decisions.md:612` (E9, "Proposals awaiting the Director") — "Where a return lives: on its counter"
 - `workflow-loop.003.md:181` — "`7`: seat the E9 placement"
 
 ### K13. Pack-lint predecessor sits in a band the workflow does not use
@@ -90,6 +92,22 @@ Section A: spec file against spec file. Section B: workflow-loop `.002` against 
 ### K15. `.003` cites decision codes that are not recorded
 - `workflow-loop.003.md:53,79,150,199,206,224,260` cite F02–F10 ("**F08.**", "**F06–F07.**", "**F10.**" ...).
 - `decisions.md` section F has only F.1 (`:619`) and F.2 (`:640`). F02–F10 have no record (`7.8`). `workflow-loop.003-notes.md`, linked at `workflow-loop.003.md:16`, is not in docs/spec.
+
+### K16. "door" in `.002` means a band head, not the zero sequence
+- `workflow-loop.md:52` (.002) — "`N?00` is the door of each hundred-page band (for example `0400` or `1500`)"
+- `workflow-loop.md:42` (.002) — "not a universal doors band"
+- `DIRECTOR-RULINGS.md:5` (R1) — "on any axis, the full-zero sentinel (`00` for a 2-digit axis, `0000` for the page axis) is the **door**." `0400` is not all zeros. `.003:51` says "band head" instead. Raised, not resolved (QUESTIONS.md Q9).
+
+### K17. Does page 0000 have a title?
+- `seqAddr.md:115` — "Page 0000 has none."
+- `seqAddr.md:56` — "Every container is identified by a page 0000, whose stamp holds its title."
+- `decisions.md:132` — "Page 0000 has none (it holds the book's title in its stamp)." The kernel door stamp carries `title: kernel` under this reading.
+
+### K18. Are drafts live?
+- `seqAddr.md:133` — "| `draft` | being written; not active |"
+- `seqAddr.md:164` — "Draft faces count and are allowed on any page. A new page may start with only drafts."
+- `decisions.md:128` — "Anything a book does not override is found through the A1.8 lookup (book -> shelf -> desk -> kernel), so a kernel change reaches every book that has not overridden it."
+- The builder reads `seqAddr.md:133` literally: a draft is not found by the lookup (QUESTIONS.md Q2).
 
 ## B. workflow-loop `.002` (`workflow-loop.md`) vs `.003` (`workflow-loop.003.md`)
 

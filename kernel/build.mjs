@@ -14,13 +14,19 @@ const BY = 'prima-kernel-seed';
 // 7: format.md gives no rule for the time of a seed write. A fixed time keeps the build deterministic.
 const AT = '2026-11-11T19:30:00Z';
 
-// seqAddr.md §4 / §8. Face 00 takes no tail here (7: spec silent on a draft stamp; see MAP.md).
+// seqAddr.md §4 / §8. Face 00 is the door face (DIRECTOR-RULINGS.md R1); like any face it may be `draft` (seqAddr.md:283).
 const FACE_TAILS = ['draft', 'retired'];
 const COUNTER_TAILS = ['draft', 'pack', 'open', 'return', 'review'];
 const CONTENT_FACES = ['01', '02', '03', '04', '05', '06', '08']; // C1.1
 // decisions.md C8.9 card types, and face defaults (seqAddr.md §5.3). `work` from workflow-loop.003 §5.2 (draft).
 const CARD_TYPES = ['rule', 'schema', 'menu', 'why', 'task', 'note', 'link', 'brand', 'index', 'work'];
 const FACE_DEFAULT = { '01': 'rule', '02': 'schema', '03': 'menu', '04': 'why', '05': 'task', '06': 'note', '08': 'link' };
+const TAIL_WORDS = ['draft', 'retired', 'pack', 'open', 'return', 'review']; // seqAddr.md:283
+const CARD_KEY = /^[a-z][a-z0-9-]*$/; // seqAddr.md:280 `card = LOWER *( LOWER / DIGIT / "-" )   ; not a tail word`
+// R1 (DIRECTOR-RULINGS.md:5): copied spec text says "door" where it said identity/board/owner. Used only to check
+// that a `why:` still matches its cited line after the R1 merges recorded in each page's 06.01 note.
+const R1 = [['identity page', 'door page'], ['only an identity has', 'only a door has'], ['board', 'door'], ['identity', 'door']];
+const SPEC = join(ROOT, 'docs', 'spec');
 const NAME = /^(\d{2})\.(\d{2})\.(\d{2})\.(\d{4})\.(\d{2})(?:\.(\d{2}))?(?:\.([a-z]+))?\.md$/;
 
 const errors = [], findings = [];
@@ -68,10 +74,9 @@ function loadBook(dir) {
     const [, dd, ss, bb, pppp, ff, nn, tail] = m;
     if (`${dd}.${ss}.${bb}` !== book) err(file, `belongs to book ${dd}.${ss}.${bb}, found in ${book}`);
     if (nn) {
-      if (nn === '00') err(file, 'FF.00 is a board; boards are derived and never written (format.md §3.3)');
+      if (nn === '00') err(file, 'FF.00 is a door; format.md:102 says it is derived and never written (CONFLICTS.md K02, QUESTIONS.md)');
       if (tail && !COUNTER_TAILS.includes(tail)) err(file, `tail ${tail} not allowed on a counter`);
     } else if (tail) {
-      if (ff === '00') err(file, 'face 00 written with a tail (7: not used in this build)');
       if (!FACE_TAILS.includes(tail)) err(file, `tail ${tail} not allowed on a face`);
     }
     const page = `${book}.${pppp}`;
@@ -85,15 +90,15 @@ function loadBook(dir) {
 function validate({ book, faces }) {
   const byPage = new Map();
   for (const f of faces) (byPage.get(f.page) || byPage.set(f.page, []).get(f.page)).push(f);
-  if (!byPage.has(`${book}.0000`)) err(book, 'container has no identity page 0000 (A3.1)');
+  if (!byPage.has(`${book}.0000`)) err(book, 'container has no door page 0000 (A3.1, R1)');
   for (const [page, fs] of byPage) {
     const stamp = fs.find((f) => f.ff === '00' && !f.nn);
-    if (!stamp) { err(page, 'no face 00 (C1.1)'); continue; }
+    if (!stamp) { err(page, 'no door face 00 (C1.1, R1)'); continue; }
     const st = Object.fromEntries([...stamp.body.matchAll(/^(\w+):\s*(.*)$/gm)].map((m) => [m[1], m[2]]));
     if (st.address !== page) err(stamp.file, `stamp address ${st.address} != ${page}`);
     if (Number(page.slice(-4)) >= 1000 && !st.title) err(stamp.file, 'pages 1000 and up need a title (A2.8)');
     if (!fs.some((f) => CONTENT_FACES.includes(f.ff))) {
-      if (page.endsWith('.0000')) find(page, 'identity page has no content face; C1.1 vs A3.1 (CONFLICTS.md)');
+      if (page.endsWith('.0000')) find(page, 'door page has no content face; C1.1 vs A3.1 (CONFLICTS.md K10, QUESTIONS.md)');
       else err(page, 'needs a content face 01-06 or 08 (C1.1)');
     }
     // C3.2 hard: every 01/02 card key has a 04 card with why: and a body, in this book.
@@ -103,6 +108,9 @@ function validate({ book, faces }) {
       const seen = new Set();
       for (const c of f.cards) {
         if (seen.has(c.key)) err(f.file, `card key ${c.key} repeats in one face (C2)`);
+        if (!CARD_KEY.test(c.key) || TAIL_WORDS.includes(c.key)) err(f.file, `card key ${c.key} breaks the card grammar or is a tail word (seqAddr.md:280)`);
+        if (!f.tail && f.ff !== '00' && !f.nn && !/R2/.test(c.fields['approved-by'] || '')) err(f.file, `seated card ${c.key} has no approved-by (DIRECTOR-RULINGS.md R2); write the face as FF.draft`);
+        if (f.ff === '04' && c.fields.why && c.fields.why.trim() !== '4.7') checkWhy(f.file, c);
         seen.add(c.key);
         const type = c.fields.type || FACE_DEFAULT[f.ff];
         if (type && !CARD_TYPES.includes(type)) err(f.file, `card ${c.key}: type ${type} is not a kernel card type (C8.9)`);
@@ -118,7 +126,54 @@ function validate({ book, faces }) {
         if (f.ff === '04' && !c.fields.why) err(f.file, `04 card ${c.key} has no why: (C3.2)`);
       }
     }
-    for (const f of fs.filter((f) => f.nn)) find(f.file, `counter without a written ${f.ff}.00 board; boards are derived (CONFLICTS.md)`);
+    for (const f of fs.filter((f) => f.nn)) find(f.file, `counter without a written ${f.ff}.00 door; format.md:102 vs :123 (CONFLICTS.md K02, QUESTIONS.md)`);
+  }
+}
+
+// A why must be copied from the line its source names: `why: docs/spec/FILE:LINE`. Text outside docs/spec cannot be checked here.
+function checkWhy(file, c) {
+  const m = /why: docs\/spec\/([\w.\-]+):(\d+)/.exec(c.fields.source || '');
+  if (!m) { err(file, `04 card ${c.key}: why: has no cited line (source: ... why: docs/spec/FILE:LINE)`); return; }
+  const p = join(SPEC, m[1]);
+  if (!existsSync(p)) { err(file, `04 card ${c.key}: cited file ${m[1]} is missing`); return; }
+  let line = readFileSync(p, 'utf8').split('\n')[Number(m[2]) - 1] || '';
+  const w = c.fields.why.trim();
+  if (line.includes(w)) return;
+  for (const [a, b] of R1) line = line.split(a).join(b);
+  if (!line.includes(w)) err(file, `04 card ${c.key}: why is not on ${m[1]}:${m[2]}`);
+}
+
+// Lookup across books (seqAddr.md:101): book -> shelf -> desk -> kernel, first match per face.
+// A draft is "being written; not active" (seqAddr.md:133), so a draft face is not found (QUESTIONS.md asks whether it should be).
+function lookupReport(books) {
+  const by = new Map(books.map((b) => [b.book, b]));
+  for (const b of books) {
+    const [dd, ss] = b.book.split('.');
+    const chainAll = [b.book, `${dd}.${ss}.00`, `${dd}.00.00`, '00.00.00'].filter((x, i, a) => a.indexOf(x) === i && by.has(x));
+    const pages = new Set(b.faces.map((f) => f.pppp));
+    for (const pppp of [...pages].sort()) {
+      // Page 0000 is each container's own door page; it is not inherited (seqAddr.md:56-62).
+      const chain = pppp === '0000' ? [b.book] : chainAll;
+      const facesSeen = new Set();
+      for (const bk of chain) for (const f of by.get(bk).faces) if (f.pppp === pppp && !f.nn) facesSeen.add(f.ff);
+      for (const ff of [...facesSeen].sort()) {
+        let got = null, draftAt = null;
+        for (const bk of chain) {
+          const f = by.get(bk).faces.find((x) => x.pppp === pppp && x.ff === ff && !x.nn);
+          if (!f) continue;
+          if (f.tail === 'draft') { draftAt = draftAt || f.addr; continue; }
+          got = f.addr; break;
+        }
+        if (b.book !== '00.00.00' && !got) find(`${b.book}.${pppp}.${ff}`, `lookup: missing; only a draft exists (${draftAt}), not active (seqAddr.md:133)`);
+      }
+      // C3.2 on the resolved page, per face, drafts included (shows what a per-face override would hide).
+      if (b.book === '00.00.00') continue;
+      const resolved = new Map();
+      for (const bk of chain) for (const f of by.get(bk).faces) if (f.pppp === pppp && !f.nn && !resolved.has(f.ff)) resolved.set(f.ff, f);
+      const k04 = new Set((resolved.get('04')?.cards || []).map((c) => c.key));
+      for (const ff of ['01', '02']) for (const c of resolved.get(ff)?.cards || []) if (!k04.has(c.key))
+        find(`${b.book}.${pppp}`, `per-face lookup hides 04 card ${c.key} for ${resolved.get(ff).addr} (C3.2; QUESTIONS.md per face or per card)`);
+    }
   }
 }
 
@@ -138,6 +193,7 @@ function render({ book, faces }) {
 const check = process.argv.includes('--check');
 const books = sources().map(loadBook);
 books.forEach(validate);
+lookupReport(books);
 for (const f of findings) console.log('finding  ' + f);
 for (const e of errors) console.error('ERROR    ' + e);
 if (errors.length) { console.error(`${errors.length} errors; nothing written`); process.exit(1); }

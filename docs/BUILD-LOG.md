@@ -44,3 +44,8 @@ Every build choice, its why, and the spec line it follows. A choice the spec doe
 [CORE] Finding: decisions.md:432 calls `0012.03.00` the dictionary menu (content), but format.md:102 says FF.00 is derived and never written. Core treats it as derived.
 [CORE] Finding: wl.003:175 says review starts "on a valid reviewer claim" but gives no claim shape; core uses the tail op author as reviewer.
 [CORE] wasm32: core has no fs/clock without feature `fs`; `cargo check --target wasm32-unknown-unknown --no-default-features` fails only because the wasm32 std is not installed on the box (no rustup). Not verified. No wasm-bindgen glue yet.
+[KERNEL] Fix pass on TRIAL-K (docs/trial/kernel-trial.md "Fix pass"): 2 blockers and 8 majors fixed or raised, 11 minors handled. New kernel/QUESTIONS.md (Q1-Q14), none answered.
+[KERNEL] R1 applied: kernel faces and builder messages say "door"; each text change is a merge line in the page 06.01 note; CONFLICTS K01 resolved by R1; K16-K18 added.
+[KERNEL] All door faces now 00.draft (seqAddr.md:201). R2 checked: no face qualifies (open questions or 4.7 findings on each); nothing seated. Builder rejects a seated face without approved-by (R2).
+[KERNEL] 7: draft face booked as addr PPPP.FF + tail "draft" (kept for other lanes); spec silent between this and addr PPPP.FF.draft (QUESTIONS Q4).
+[KERNEL] Builder lookup reads seqAddr.md:133 literally: drafts are not found, so sample lookups print as missing (QUESTIONS Q2).

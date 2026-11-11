@@ -1,78 +1,106 @@
 # Kernel map
 
-What is seated in `kernel/`, at which page number, and why. Paths in sources are under `docs/spec/`. Generated card rows come from the seed script; the text is copied from the spec, never written from memory.
+What is in `kernel/`, at which page number, and why. Paths in sources are under `docs/spec/`. The card rows below come from the seed script. Text is copied from the spec, never written from memory. The only change to copied text is R1's word "door" (see Door wording).
 
-## Status: everything is draft
+## Status: everything is draft, door faces included
 
-Every content face is written `FF.draft`. None is seated.
-- Why: `drafting.md:20` — "A brand-new face has nothing to copy. It starts as an empty draft and still goes through notes and merges."
-- Why: `Axioms.md:29` — "Before anything is promoted, it faces a hostile pass from another view". No face here has had that pass, and the Director has approved none of them.
-- Why: `seqAddr.md:133` — "`draft` | being written; not active".
-- Face 00 (the stamp) is written bare, with `state: draft` inside it. `7`: the spec does not say whether a stamp itself takes the `draft` tail, or what values `state:` holds. Chosen: the page's state lives in its stamp (`decisions.md:176` "`PPPP.00` holds the page's stamp: address, title, state"), so the stamp file has no tail.
-- Promotion of any face needs the Director and a trial (axiom 9, E7). The builder writes the `draft` tail on every entry so the compute can tell.
+Every face, including every door face 00, is written `FF.draft`. None is seated.
+- `drafting.md:20`: "A brand-new face has nothing to copy. It starts as an empty draft and still goes through notes and merges."
+- `seqAddr.md:201`: "`FF.draft` is its unseated draft." This applies to face 00 too (grammar `seqAddr.md:283`). Trial finding 1 is fixed.
+- The stamp also says `state: draft`. Whether state lives in the stamp, the file tail, or both is QUESTIONS Q8.
+
+### Seated under R2: none
+R2 (`DIRECTOR-RULINGS.md:7-9`) lets a face be seated during the build stage once it has passed a hostile trial, recorded as `approved-by: build-stage (R2)`. I checked every face against TRIAL-K (`docs/trial/kernel-trial.md`) and QUESTIONS.md. No face qualifies yet:
+- Door faces 00: the stamp's `state` and `type` values are open (Q8, hole 4). Door pages 0000 also have Q6 open.
+- 0050 (all faces): the page number is open (Q1, `decisions.md:598`).
+- 0051.01/02, 0052.01/02, 0054.02, 0055.01: their cards are named in open conflicts and questions (Q5, Q11-Q14, K05, K11).
+- 0053, 0057: copied from `workflow-loop.003.md`, which says "state: draft — Director review required; not live" (`:3`).
+- 0054.01: C1.4 has an open question (`decisions.md:292`).
+- 0056.01: 2 of its 3 cards (`new-face`, `exceptions`) still have a missing why (`4.7`) and a hole body on 04, which is an unresolved finding.
+- 0056.02: the mechanism is proposed (`decisions.md:320`).
+- Every 04 face: holds `why: 4.7` or `7` hole bodies, except 0050.04 (page number open, Q1).
+- Q10 (seated face under a draft door) is open as well.
+
+The builder rejects a seated (no-tail) face whose cards lack `approved-by: ... (R2)`, so a later seat has to be recorded.
+
+## Door wording (R1)
+`DIRECTOR-RULINGS.md:5`: "Older spec wording that calls it owner, identity, or board refers to this same location; use the word 'door'."
+- Copied text was changed phrase by phrase. Each change is recorded as a merge line in that page's `06.01` note (drafting.md: notes, then merges).
+- Only the zero-sequence sense was changed. Other senses stay as written: "part of identity" (a title), "reviewer identity", "Counter identity", "original identities", "owner, claim ID", `owner: kernel-only`, and "like a kanban board" (a comparison).
+- Card headings that were my own choice were renamed: Identity Page -> Door Page, Owner Rule -> Door Rule, Face Identity -> Door Face.
+- R1 renames the location only. Whether the counter list stays the door's job is Q5.
 
 ## Page numbers chosen
 
-`seqAddr.md:223` — "`0050-0099` | structural pages, mostly in the kernel or templates". `decisions.md:287` — "Each type is a card on a kernel structural page (0050-0099)". The kernel's own rule pages are structural, so they go in 0050-0099. The order inside that range is not in the spec (`7`); chosen: the order the brief and `review.md:150-159` list the pages, starting at the first number of the range.
+`seqAddr.md:223`: "`0050-0099` | structural pages, mostly in the kernel or templates". `decisions.md:287`: "Each type is a card on a kernel structural page (0050-0099)". The order inside that range is not in the spec (`7`). Chosen: the order the brief lists the pages, starting at 0050.
 
 | Page | Title | Faces | Source of the number |
 |---|---|---|---|
-| `0000` | kernel | 00, 04 | `decisions.md:258` — "`00.00.00` is its own book, `00.00.00.0000` its identity page." |
-| `0050` | axioms | 00, 01, 02, 03, 04, 06.01 | `7`: `decisions.md:598` lists "The axioms' own page number." as open. Provisional: first structural page. |
-| `0051` | seqaddr | 00, 01, 02, 04, 06.01 | `7` order; range from `seqAddr.md:223` |
-| `0052` | faces | 00, 01, 02, 04, 06.01 | `7` order; range from `seqAddr.md:223` |
-| `0053` | tails | 00, 01, 02, 04, 06.01 | `7` order; range from `seqAddr.md:223` |
-| `0054` | types | 00, 01, 02, 04, 06.01 | `decisions.md:287` (page types) and `decisions.md:510` (card types "on a structural page") |
-| `0055` | brands | 00, 01, 02, 04, 06.01 | `7` order; range from `seqAddr.md:223` |
-| `0056` | drafting | 00, 01, 02, 04, 06.01 | `7` order; range from `seqAddr.md:223` |
-| `0057` | workflow-loop | 00, 01, 02, 04, 06.01 | `7` order. `workflow-loop.003.md:232` puts the templates in the kernel "as card types under C8.9" (a structural page). Not a band head: the workflow bands `0300/0400/0500/0700` are proposed (F.2). |
+| `0000` | kernel | 00, 04 | `decisions.md:258`: "`00.00.00` is its own book, `00.00.00.0000` its identity page." (door page under R1) |
+| `0050` | axioms | 00, 01, 02, 03, 04, 06.01 | `7`, Q1: `decisions.md:598` |
+| `0051` | seqaddr | 00, 01, 02, 04, 06.01 | `7` order |
+| `0052` | faces | 00, 01, 02, 04, 06.01 | `7` order |
+| `0053` | tails | 00, 01, 02, 04, 06.01 | `7` order |
+| `0054` | types | 00, 01, 02, 04, 06.01 | `decisions.md:287`, `:510` |
+| `0055` | brands | 00, 01, 02, 04, 06.01 | `7` order |
+| `0056` | drafting | 00, 01, 02, 04, 06.01 | `7` order |
+| `0057` | workflow-loop | 00, 01, 02, 04, 06.01 | `7` order. Templates are kernel card types (`workflow-loop.003.md:232`). |
 
-Not seated, on purpose:
-- `0012` dictionary. `decisions.md:443` — "The kernel supplies a small base dictionary that books inherit." No words are listed, so there is nothing to copy (`7`). A page with no content face is invalid (`decisions.md:274`).
-- `0001-0009`, `0010-0019` (except 0012), `0020-0049`: the spec names no kernel content for them (`7`).
-- `9999`, `PP99`, face 08: no continuation and no links yet. "Missing is a valid state" (`decisions.md:205`). Face 08 design is open (C4).
-- Band heads `0100`-`0900`: their definitions are not in the spec (`7`).
+Not written, on purpose:
+- `0012` dictionary: no base words are listed (`decisions.md:443`), so it stays `7`.
+- `0001-0049` and band heads: no kernel content is named for them (`7`).
+- Face 08 (C4 open) and `9999`/`PP99` ("Missing is a valid state", `decisions.md:205`).
+- 03 menu entries, derived (`decisions.md:516`; `drafting.md:40` "calculated and never drafted"). The derived Menu card was removed (trial 16).
 
 ## Face choices
-- 01 cards copy the decision text (`decisions.md`) or, where no decision text exists, `seqAddr.md` / `workflow-loop.003.md`.
-- 04 cards copy the person-facing text from `seqAddr.md`, `brands.md`, `drafting.md`, `kernel-design.md`, or the F.1 approval table. Each has `source:` and `why:`.
-- `why:` copies a reason sentence from the spec when one is written. When none is written, it is `4.7` (a why that is missing; `Axioms.md:25` "A bare `7` warns, and a chain names what is missing: `4.7` a why"). It is never invented.
-- Where no person-facing text exists, the 04 body is a `7` hole saying so. C3.2 requires the card, so each is a required absence: reported, not filled.
-- Axioms page: 01 "agent form" = the Holds column of `decisions.md` E1 (`:538-546`); 02 "cite card" = E3 chain grammar; 03 "menu" = derived menu (hole) + cold set; 04 "full explanation" = each axiom's paragraph in `Axioms.md`, why = `Design.md` "Gives" column; 06.01 = notes.
-- Only face 00 carries a stamp. `decisions.md:176` — "Faces carry no stamp of their own; the page stamp is stored once." The brief asked for a stamp header on each face; the spec wins (CONTRACT.md: "Where this contract and the spec disagree, the spec wins").
-- 03 menu entries are "derived by the compute" (`decisions.md:516`); not written.
-- 06 notes: one counter, `06.01`, this session (`seqAddr.md:155` "one counter per session"). Note fields are open (C7), so notes carry none. Boards `06.00` are not written (CONFLICTS K02).
+- **01 cards** copy the decision text, or `seqAddr.md` / `workflow-loop.003.md` where no decision text exists. Their lineage is kept in the book: each matching 04 card's `source:` names the 01 lines first (trial 9).
+- **04 cards** copy person-facing text from `seqAddr.md`, `brands.md`, `drafting.md`, `kernel-design.md` or the F.1 table.
+  - `source:` gives `[FF / Card] 01-lines; 04 text: lines; why: docs/spec/FILE:LINE`.
+  - The builder checks that each `why:` sits on its cited line (trial 7, 21).
+  - `why: 4.7` means no reason is written in the spec. I removed three borrowed whys: `which-pages-need-a-title`, `finding` and `risk-and-governing-targets`.
+  - Axioms 04 whys now use their recorded why, `decisions.md:548` (trial 19).
+  - Where no person-facing text exists, the body is a `7` hole: a required absence, reported. This includes `roles` and `bound-bands`, which no longer borrow `.002` notes (trial 17).
+- **Card keys** follow `seqAddr.md:280` and are never a tail word. `## Review` became `## Review (filled)`, the `.003` section heading (`workflow-loop.003.md:195`), giving key `review-filled` (trial 2).
+- **Stamps:** only face 00 carries one (`decisions.md:176`).
+- **Notes:** 06 is counter `06.01`, this session. Note fields are open (C7).
 
 ## Workflow-loop page source
-Page 0057 copies `workflow-loop.003.md` (state: draft, revision `.003`). `.002` (`workflow-loop.md`) is kept as lineage and not copied, except two 04 bodies that quote `workflow-loop.002-notes.md` (lines 40 and 48), because `.003`'s own notes file is not in docs/spec. Differences that matter are in CONFLICTS.md section B (W01-W15).
+Page 0057 copies `workflow-loop.003.md`. `.002` is lineage only. The differences are in CONFLICTS section B. The 04 text for `return-placement` is `decisions.md:612`; the first build cited :611 by mistake, which the fix pass caught.
 
 ## Samples (`kernel/samples/`)
-Test fixtures, not kernel content, also all draft.
-- Desk `10` "personal" (`10.00.00`), shelf `10.11` "me" (`10.11.00`), book `10.11.21` "about-me". Identity pages are face 00 only (CONFLICTS K10).
-- Inheritance: `10.11.21.0056` overrides kernel face `00.00.00.0056.04` with a local 04 card `Never From Memory` (the Director's own words: "Copy it then update don't create from memory."). Faces 01, 02 and 06 are missing locally, so the lookup `book -> shelf -> desk -> kernel` (`decisions.md:55`) finds them at `00.00.00.0056`. `seqAddr.md:228` — "A page in `0001-0099` that exists in a book is a local override of the inherited environment." `7`: the named override form (C5.4, proposed) is not designed, so the card carries none.
-- Bob test: page `10.11.21.1001` "bob" holds brand cards `bob` (bob.001, "the user's name") and `cats` (cats.001, "animals the user likes") on face 01, each with a 04 card quoting session 1, "My name is Bob and I like cats". The dictionary `10.11.21.0012`, face 03, counted, has section counters `03.14` (bi-bq: `bob`) and `03.16` (ca-cg: `cats`) per `decisions.md:459-460`. `7`: there is no "fact" card type in C8.9, so the fact lives on brand cards. Meters are compute-only (C8.7) and none are recorded, so none are written.
-- `7`: whether a draft face is found by the lookup is not in the spec. The compute decides; every entry carries its tail.
+Test fixtures, not kernel content, and all draft.
+- Desk `10` "personal", shelf `10.11` "me", book `10.11.21` "about-me". Their door pages are face 00 only (K10, Q6).
+- **Lookup today:** every kernel face is a draft, and a draft is "not active" (`seqAddr.md:133`). So every lookup from the sample comes back missing. The builder prints each one as a `lookup: missing` finding. Whether drafts should be found is Q2 (trial 5).
+- **Override:** `10.11.21.0056.04` holds a local `Never From Memory` 04 card, in the Director's words from Prima chat t42u ("Copy it then update don't create from memory."). Those words are not in docs/spec, and the card says so (trial 18). If lookup goes face by face, this hides the kernel's other 04 cards and breaks C3.2. The builder prints that as a finding (trial 6). Per face or per card, and how a named override is written, is Q3.
+- **Bob test:** page `10.11.21.1001` holds brand cards `bob` and `cats`, and dictionary counters `03.14` / `03.16` (`decisions.md:458-460`).
+  - Session 2 ("what is my name") has **no route** to `bob`, so it stays `7` (Q7). The invented route was removed (trial 4).
+  - There is no "fact" card type, and no meters (they are compute-only).
+- The shelf and desk steps of the lookup have no sample faces. Adding some would need content the spec doesn't give, and with drafts not found they would show nothing (trial 20, left).
 
 ## Holes left as `7`
-1. Axioms page number (E8 open).
-2. Order of pages inside 0050-0099.
-3. Stamp `state:` values, and whether a stamp takes a tail.
-4. Page `type` for kernel pages: chosen `system` from the C1.4 list; the list gives no meaning per type.
-5. Kernel base dictionary words (C8.5).
-6. 03 menu entries (derived).
-7. Missing whys: 04 cards with `why: 4.7` (count in the builder's findings).
-8. Missing person-facing 04 bodies (hole text).
-9. Note fields (C7). Face 08 links (C4). Lineage on 00/08, kept by the compute (E6).
-10. Content face of an identity page (K10).
-11. A "fact" card type.
-12. Whether drafts resolve through inheritance.
-13. Named override form (C5.4).
-14. Seed timestamp: fixed `2026-11-11T19:30:00Z` for a deterministic build.
-15. Whether band head `1000` must exist before page `1001` in the sample.
-16. `7.8`: `axioms/` folder, `axioms/06.01.md`, `workflow-loop.003-notes.md`, decision codes F02-F10.
+1. Axioms page number (Q1).
+2. Page order in 0050-0099.
+3. Stamp state (Q8).
+4. Page `type` values for kernel pages (C1.4 lists types without their meanings).
+5. Base dictionary.
+6. 03 menus (derived).
+7. `why: 4.7` cards and hole bodies (counted in the builder's findings).
+8. Note fields (C7), face 08 (C4), lineage on 00/08 (E6).
+9. Door page content face (Q6).
+10. "Fact" card type.
+11. Draft lookup (Q2).
+12. Override form (Q3).
+13. Draft entry shape in books (Q4).
+14. Door `FF.00` written or derived (Q5).
+15. Seed timestamp, fixed for determinism.
+16. Band head 1000 before 1001.
+17. Bob session 2 (Q7).
+18. `7.8`: the `axioms/` folder, `workflow-loop.003-notes.md`, decisions F02-F10.
 
 ## Build
-`node kernel/build.mjs` writes `books/00.00.00.book`, `books/10.00.00.book`, `books/10.11.00.book`, `books/10.11.21.book` (JSON Lines, `docs/CONTRACT.md`), `by: prima-kernel-seed`, one proposal id per page. `--check` rebuilds and fails if `books/` differs. Hard checks (grammar of names, tails, face 00, content face, C3.2 04 cards, card types) stop the build; findings print.
+`node kernel/build.mjs` writes `books/00.00.00.book`, `10.00.00.book`, `10.11.00.book` and `10.11.21.book`. `--check` fails if `books/` differs. The build is deterministic: sorted input, fixed time and author.
+- **Hard checks:** name grammar, tails, door face, content face, C3.2, card types, card keys, `why:` on its cited line, and `approved-by` on any seated face.
+- **Findings:** missing whys, doors not written, door pages without a content face, lookup results, and C3.2 across the lookup.
 
 ## Card sources
 
@@ -108,7 +136,6 @@ Test fixtures, not kernel content, also all draft.
 | 01 | `cite` | decisions.md:552-554 |  |
 | 02 | `cite` | decisions.md:560-564 |  |
 | 04 | `cite` | Axioms.md:5, Axioms.md:7, decisions.md:566 |  |
-| 03 | `menu` | decisions.md:516 | hole: derived |
 | 03 | `cold-set` | Axioms.md:9 | 03 default type is menu; whether an operation card needs another type is 7 |
 | 06.01 | `seed-session` | see body | session note |
 
@@ -131,7 +158,7 @@ Test fixtures, not kernel content, also all draft.
 | 01 | `short-form` | decisions.md:51 |  |
 | 04 | `short-form` | seqAddr.md:95 | why missing: 4.7 |
 | 01 | `finding` | decisions.md:54-56 |  |
-| 04 | `finding` | seqAddr.md:98-104 |  |
+| 04 | `finding` | seqAddr.md:98-104 | why missing: 4.7 |
 | 01 | `live-inheritance` | decisions.md:128 |  |
 | 04 | `live-inheritance` | seqAddr.md:104 |  |
 | 01 | `title-position` | decisions.md:69 |  |
@@ -143,13 +170,13 @@ Test fixtures, not kernel content, also all draft.
 | 01 | `titles-are-labels` | decisions.md:78 |  |
 | 04 | `titles-are-labels` | seqAddr.md:114 |  |
 | 01 | `which-pages-need-a-title` | decisions.md:131-134 |  |
-| 04 | `which-pages-need-a-title` | seqAddr.md:115-116 |  |
-| 01 | `identity-page` | decisions.md:143-149 |  |
-| 04 | `identity-page` | seqAddr.md:56-62 | why missing: 4.7 |
+| 04 | `which-pages-need-a-title` | seqAddr.md:115-116 | why missing: 4.7 |
+| 01 | `door-page` | decisions.md:143-149 |  |
+| 04 | `door-page` | seqAddr.md:56-62 | why missing: 4.7 |
 | 01 | `checked-labels` | decisions.md:152 |  |
 | 04 | `checked-labels` | seqAddr.md:116 | why missing: 4.7 |
-| 01 | `owner-rule` | decisions.md:161-173 |  |
-| 04 | `owner-rule` | seqAddr.md:44-53 | why missing: 4.7 |
+| 01 | `door-rule` | decisions.md:161-173 |  |
+| 04 | `door-rule` | seqAddr.md:44-53 | why missing: 4.7 |
 | 01 | `missing-is-valid` | decisions.md:205 |  |
 | 04 | `missing-is-valid` | seqAddr.md:254 |  |
 | 01 | `pointer` | decisions.md:214-224 |  |
@@ -178,8 +205,8 @@ Test fixtures, not kernel content, also all draft.
 
 | Face | Card | Copied from | Note |
 |---|---|---|---|
-| 01 | `face-identity` | decisions.md:176 |  |
-| 04 | `face-identity` | seqAddr.md:64 | why missing: 4.7 |
+| 01 | `door-face` | decisions.md:176 |  |
+| 04 | `door-face` | seqAddr.md:64 | why missing: 4.7 |
 | 01 | `face-ranges` | decisions.md:179-184 |  |
 | 04 | `face-ranges` |  | why missing: 4.7 |
 | 01 | `face-jobs` | seqAddr.md:147-160 |  |
@@ -295,7 +322,7 @@ Test fixtures, not kernel content, also all draft.
 | 01 | `band-design` | workflow-loop.003.md:38-53 |  |
 | 04 | `band-design` | decisions.md:644-645 |  |
 | 01 | `bound-bands` | workflow-loop.003.md:59-64 |  |
-| 04 | `bound-bands` | workflow-loop.002-notes.md:40 |  |
+| 04 | `bound-bands` |  |  |
 | 01 | `code-in-the-repo` | workflow-loop.003.md:70-81 |  |
 | 04 | `code-in-the-repo` |  |  |
 | 01 | `n4-approval` | workflow-loop.003.md:87-93 |  |
@@ -303,13 +330,13 @@ Test fixtures, not kernel content, also all draft.
 | 01 | `packs` | workflow-loop.003.md:99 |  |
 | 04 | `packs` |  | why missing: 4.7 |
 | 01 | `risk-and-governing-targets` | workflow-loop.003.md:150-154 |  |
-| 04 | `risk-and-governing-targets` |  |  |
+| 04 | `risk-and-governing-targets` |  | why missing: 4.7 |
 | 01 | `the-loop` | workflow-loop.003.md:160-177 |  |
 | 04 | `the-loop` | workflow-loop.002-notes.md:37-38 | why missing: 4.7 |
 | 01 | `return-placement` | workflow-loop.003.md:181-183 |  |
-| 04 | `return-placement` | decisions.md:611 | why missing: 4.7 |
-| 01 | `review` | workflow-loop.003.md:199-202 |  |
-| 04 | `review` |  |  |
+| 04 | `return-placement` | decisions.md:612 | why missing: 4.7 |
+| 01 | `review-filled` | workflow-loop.003.md:199-202 |  |
+| 04 | `review-filled` |  |  |
 | 01 | `open-while-gone` | workflow-loop.003.md:206-208 |  |
 | 04 | `open-while-gone` |  |  |
 | 01 | `lead-pass` | workflow-loop.003.md:214-220 |  |

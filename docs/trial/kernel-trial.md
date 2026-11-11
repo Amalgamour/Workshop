@@ -120,3 +120,33 @@ It treats every `why:` other than `4.7` as valid.
 - The copy check is `docs/trial/kernel-trial-copycheck.mjs`. It splits every card body into sentences and searches for each one in the lines its card cites (from `MAP.md` and `source:`), then in all of `docs/spec/`.
 - The CONFLICTS quotes were checked line by line.
 - Replay was checked by mapping each entry to its file. Determinism was checked by two clean builds and `diff -r`.
+
+## Fix pass (lane KERNEL, 2026-11-11)
+
+By the kernel's maker, so it doesn't count as a trial. Every fix below still needs its own hostile pass (axiom 9). Rulings applied: R1 (door) and R2 (build-stage seating). Open items are in `kernel/QUESTIONS.md`; none were answered.
+
+| # | Finding | Result | What and why |
+|---|---|---|---|
+| 1 | door faces seated | fixed | All 15 door faces are now `00.draft` (`seqAddr.md:201,283`). The builder allows `draft` on face 00. Stamp state is raised as Q8. |
+| 2 | `review` card key | fixed | Heading is now `Review (filled)`, the `.003` section heading (`workflow-loop.003.md:195`), giving key `review-filled`. The builder now rejects keys that break `seqAddr.md:280` or are tail words. |
+| 3 | R1 wording | fixed | Copied text says "door" in the zero-sequence sense only. Each change is a merge line in the page's 06.01 note. Headings renamed, builder messages say door, K01 marked resolved by R1. Whether the counter list stays the door's job is raised as Q5. |
+| 4 | Bob session 2 | fixed + raised | Invented route removed. The card now says `7`: no route from "what is my name" to `bob`. Raised as Q7. |
+| 5 | drafts treated as active | fixed + raised | The builder's lookup treats drafts as not active (`seqAddr.md:133`) and prints each missing lookup. MAP says the sample resolves to missing today. Raised as Q2 (CONFLICTS K18). |
+| 6 | override breaks C3.2 | raised | The builder now checks C3.2 across the lookup and prints the 3 hidden 04 cards. Per face or per card, and the named override form, are raised as Q3. |
+| 7 | whys without line / borrowed | fixed | Every `why:` cites `docs/spec/FILE:LINE`, and the builder checks the text is on that line. The borrowed whys on `which-pages-need-a-title`, `finding` and `risk-and-governing-targets` are now `4.7`. The kernel 0000 why cites `kernel-design.md:13` and notes its proposed status. |
+| 8 | draft entry shape | raised | Spec silent. Shape kept so other lanes are not broken. Logged `7` in BUILD-LOG and raised as Q4. |
+| 9 | 01 lineage not in book | fixed | Each 04 card's `source:` now names its 01/02 spec lines, so the lineage travels in the `.book`. |
+| 10 | books fail compute checks | raised | Doors not written and door pages without content are spec conflicts (K02, K10). Raised as Q5 and Q6. Still builder findings. |
+| 11 | K12 wrong line | fixed | Now `decisions.md:612`. The same wrong line was also used as the 04 text of `return-placement`; fixed too. |
+| 12 | "door" in `.002` | raised | Added as CONFLICTS K16 and Q9. |
+| 13 | page 0000 title | fixed (listed) | Added as K17. The kernel stamp follows `decisions.md:132`. |
+| 14 | drafts live | fixed (listed) | Added as K18 and linked to Q2. |
+| 15 | K02 missing quote | fixed | Added `format.md:123`. |
+| 16 | derived Menu card | fixed | Removed from 0050.03. |
+| 17 | `.002` notes as 04 text | fixed | `roles` and `bound-bands` 04 bodies are now `7` holes. |
+| 18 | chat quote | fixed | The card's `source:` names Prima chat t42u and says it is not in docs/spec. Adding it to DIRECTOR-RULINGS is outside this lane. |
+| 19 | axioms whys | fixed | All nine now use `decisions.md:548`. |
+| 20 | shelf/desk lookup untested | left | It would need sample content the spec doesn't give. With drafts not found it would show nothing anyway. |
+| 21 | builder gaps | fixed | Added checks for card key grammar, a `why:` on its cited line, C3.2 across the lookup (finding), and `approved-by` on seated faces. |
+
+**R2:** no face qualifies yet. Each one has an open question or an unresolved finding (MAP.md "Seated under R2"). Nothing was seated.
