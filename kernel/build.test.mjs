@@ -450,22 +450,23 @@ run('Q59: an orphan root commit adding an edited trial copy is refused, not a cr
   const root = commitTree(d, putTree(d, sh(d, ['mktree'], { input: '' }), [['100644', tb, path]]), [], 'orphan: trial copy');
   sh(d, ['update-ref', 'HEAD', commitTree(d, putTree(d, 'HEAD', [['100644', tb, path]]), ['HEAD', root], 'merge the orphan, taking its trial copy')]);
 }, { match: /trial docs\/trial\/kernel-trial-3\.md is added more than once on HEAD's full history with different blobs/ });
-// Q59 (decided): a root commit that adds only a trial file is an origin like any other first add. A new trial in an orphan root
-// commit, merged in, passes the draft 0013.05.02; the seat is committed and builds.
+// Q59 (decided): a root commit that adds only a trial file is an origin like any other first add. A new 05 counter (a copy of the
+// seated 0013.05.01 as 0013.05.03) is passed by a trial in an orphan root commit, merged in; the seat is committed and builds.
 run('Q59: a trial added by an orphan root commit (trial only) is a valid origin', (d) => {
-  const draft = S(d, '10.11.21', '10.11.21.0013.05.02.draft.md');
-  const fb = blob(readFileSync(draft, 'utf8'));
-  const t = `# orphan trial\n\n**PASS list, eligible for an R2 seat**\n- \`10.11.21.0013.05.02\` (blob \`${fb}\`)\n`;
+  const face = S(d, '10.11.21', '10.11.21.0013.05.03.md');
+  cpSync(S(d, '10.11.21', '10.11.21.0013.05.01.md'), face);
+  appendFileSync(face, '\norphan trial fixture\n');
+  const fb = blob(readFileSync(face, 'utf8'));
+  const t = `# orphan trial\n\n**PASS list, eligible for an R2 seat**\n- \`10.11.21.0013.05.03\` (blob \`${fb}\`)\n`;
   const path = 'docs/trial/orphan.md';
   writeFileSync(join(d, path), t);
   const tb = hashText(d, t);
   const root = commitTree(d, putTree(d, sh(d, ['mktree'], { input: '' }), [['100644', tb, path]]), [], 'orphan: trial only');
   sh(d, ['update-ref', 'HEAD', commitTree(d, putTree(d, 'HEAD', [['100644', tb, path]]), ['HEAD', root], 'merge the orphan trial')]);
-  renameSync(draft, S(d, '10.11.21', '10.11.21.0013.05.02.md'));
   const r = S(d, '10.11.21', '10.11.21.0013.00.draft.md');
-  edit(r, '05.02 draft', '05.02 seated');
-  edit(r, /^why-05\.02: .*\n/m.exec(readFileSync(r, 'utf8'))[0], `seat-05.02: approved-by: build-stage (R2); trial: ${path} blob ${tb}; blob: ${fb}\n`);
-  commitWork(d, 'seat 0013.05.02 from the orphan trial');
+  edit(r, '05.01 seated,', '05.01 seated, 05.03 seated,');
+  edit(r, '\n## Registry\n', `\n## Registry\nseat-05.03: approved-by: build-stage (R2); trial: ${path} blob ${tb}; blob: ${fb}\n`);
+  commitWork(d, 'seat 0013.05.03 from the orphan trial');
 }, { ok: true });
 
 if (failed) { console.log(`${failed} failed`); process.exit(1); }
