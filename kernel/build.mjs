@@ -3,7 +3,8 @@
 // Deterministic: files sorted by address, fixed timestamp, fixed author. No dependencies. Self-checking:
 // hard checks stop the build; findings print. Rulings applied: docs/spec/DIRECTOR-RULINGS.md R1-R22
 // (R19 face 00 layout follows docs/spec/face00.md, a DRAFT; R22 lets a counter such as 05.NN be seated, Q41 open).
-// Seat records are checked, not trusted (TRIAL-K3 findings 1, 2, 11). Tests: node kernel/build.test.mjs
+// Seat records are checked, not trusted (TRIAL-K3 findings 1, 2, 11; TRIAL-K4 findings 1, 2, 4-6: full blobs, rulings and
+// past seats read from HEAD, trial commits on the branch, no git is an error). Tests: node kernel/build.test.mjs
 // Usage: node kernel/build.mjs          write books/
 //        node kernel/build.mjs --check  rebuild in memory and fail if books/ differs
 import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync, statSync } from 'node:fs';
@@ -16,7 +17,6 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, '..');
 const OUT = join(ROOT, 'books');
 const SPEC = join(ROOT, 'docs', 'spec');
-const RULINGS = join(SPEC, 'DIRECTOR-RULINGS.md');
 const BY = 'prima-kernel-seed';
 // 7: format.md gives no rule for the time of a seed write. A fixed time keeps the build deterministic.
 const AT = '2026-11-11T19:30:00Z';
@@ -126,8 +126,9 @@ function blobOf(text) {
 }
 // R2 (DIRECTOR-RULINGS.md:7-9) seat record, kept on the registry line of face 00 (7: where it lives, QUESTIONS Q34).
 // Face 00 itself keeps its record in the stamp as `seat-00:` (TRIAL-K3 finding 1). Two forms:
-//   "seated; approved-by: build-stage (R2); trial: docs/trial/<file>.md@<commit>; blob: <prefix>"
-//   "seated; approved-by: director; ruling: R<n>; blob: <prefix>"   (the ruling must name the face, TRIAL-K3 finding 2)
+//   "seated; approved-by: build-stage (R2); trial: docs/trial/<file>.md@<commit>; blob: <40 hex>"
+//   "seated; approved-by: director; ruling: R<n>; blob: <40 hex>"   (the ruling must name the face, TRIAL-K3 finding 2)
+// The blob is the full 40-hex git blob, compared for equality; a short prefix is an error (TRIAL-K4 finding 1, Q52 a).
 const SEAT_LINE = /^seated; approved-by: (build-stage \(R2\)|director); (trial|ruling): (\S+); blob: ([0-9a-f]{7,40})$/;
 const spotKey = (f) => `${f.ff}${f.nn ? '.' + f.nn : ''}`;
 function seatOf(reg, f) {
@@ -138,12 +139,26 @@ function seatOf(reg, f) {
 // TRIAL-K3 finding 2: a seat is checked, not trusted. A build-stage seat must cite a trial file that exists (at the
 // cited commit when git is there) and whose PASS list names this face at this blob. A director seat must cite a ruling
 // in DIRECTOR-RULINGS.md that names this face. Anything that cannot be verified blocks the seat (an error).
+// TRIAL-K4 findings 2, 4, 5, 6 (Q52 b-d): rulings and past seats are read from git at HEAD, never the working tree;
+// a cited trial commit must be an ancestor of HEAD; with no git a seat cannot be verified, so it is an error.
 let gitOk = null;
+const git = (...a) => spawnSync('git', ['-C', ROOT, ...a], { encoding: 'utf8', maxBuffer: 1 << 28 });
+function hasGit() {
+  if (gitOk === null) gitOk = git('rev-parse', '--show-toplevel').stdout?.trim() === ROOT && git('rev-parse', '--verify', '-q', 'HEAD').status === 0;
+  return gitOk;
+}
 function gitShow(commit, path) {
-  if (gitOk === null) gitOk = spawnSync('git', ['-C', ROOT, 'rev-parse', '--show-toplevel'], { encoding: 'utf8' }).stdout?.trim() === ROOT;
-  if (!gitOk) return undefined; // no repo here (for example a scratch copy): only the working file can be read
-  const r = spawnSync('git', ['-C', ROOT, 'show', `${commit}:${path}`], { encoding: 'utf8' });
+  if (!hasGit()) return undefined; // no repo here: nothing can be verified, and the caller makes that an error
+  const r = git('show', `${commit}:${path}`);
   return r.status === 0 ? r.stdout : null;
+}
+const isAncestor = (commit) => git('merge-base', '--is-ancestor', commit, 'HEAD').status === 0;
+// A trial PASS list written before TRIAL-K4 names a short blob prefix (kernel-trial-2.md:25-26). A prefix alone can be
+// forged (TRIAL-K4 HM), so the full seat blob must also be the blob of this face's file in the trial commit's tree.
+function inTrialTree(commit, spot, blob) {
+  const r = git('ls-tree', '-r', commit);
+  if (r.status !== 0) return false;
+  return r.stdout.split('\n').some((l) => { const m = /^\d+ blob ([0-9a-f]{40})\t(?:.*\/)?([^/]+)$/.exec(l); return m && m[1] === blob && (m[2] === `${spot}.md` || m[2].startsWith(`${spot}.`) && /^[a-z]+\.md$/.test(m[2].slice(spot.length + 1))); });
 }
 export function passList(text) {
   const out = new Map(); let inPass = false;
@@ -158,13 +173,16 @@ export function passList(text) {
 }
 function verifySeat(f, seat) {
   const blob = blobOf(f.body);
-  if (!blob.startsWith(seat.blob)) return `seated face changed since its trial: blob ${blob.slice(0, 8)} is not ${seat.blob} (R2, axiom 9); write it as FF.draft and re-trial`;
+  if (seat.blob.length !== 40) return `seat blob ${seat.blob} is a short prefix; a seat pins the full 40-hex git blob (${blob} for this file now) and a prefix can be forged (TRIAL-K4 finding 1, Q52 a)`;
+  if (blob !== seat.blob) return `seated face changed since its trial: blob ${blob} is not ${seat.blob} (R2, axiom 9); write it as FF.draft and re-trial`;
+  if (!hasGit()) return `no git repo at ${ROOT}, so this seat cannot be verified; the seat is blocked (TRIAL-K4 finding 5, Q52 d)`;
   if (seat.by === 'director') {
     if (seat.kind !== 'ruling' || !/^R\d+$/.test(seat.ref)) return `seat says approved-by: director but gives no ruling id (ruling: R<n>); only the Director approves, and this cannot be verified, so the seat is blocked (R2; TRIAL-K3 finding 2)`;
-    const text = existsSync(RULINGS) ? readFileSync(RULINGS, 'utf8') : '';
+    // TRIAL-K4 finding 2: the committed rulings file at HEAD, not the working tree, and a line that names the face and a seat.
+    const text = gitShow('HEAD', 'docs/spec/DIRECTOR-RULINGS.md') || '';
     const sec = text.split(/^## /m).find((x) => new RegExp(`^${seat.ref}\\b|\\b${seat.ref} to R\\d+\\b|\\*\\*${seat.ref} `).test(x));
-    if (!sec) return `seat cites ${seat.ref}, which is not in DIRECTOR-RULINGS.md; the seat is blocked (TRIAL-K3 finding 2)`;
-    if (!sec.includes(f.spot)) return `seat cites ${seat.ref}, but that ruling does not name ${f.spot}; a director seat cannot be verified, so it is blocked (TRIAL-K3 finding 2)`;
+    if (!sec) return `seat cites ${seat.ref}, which is not in DIRECTOR-RULINGS.md as committed at HEAD; the seat is blocked (TRIAL-K3 finding 2, TRIAL-K4 finding 2)`;
+    if (!sec.split('\n').some((l) => l.includes(f.spot) && /\bseat/i.test(l))) return `seat cites ${seat.ref}, but that ruling does not name ${f.spot} in a seat approval; a director seat cannot be verified, so it is blocked (TRIAL-K3 finding 2, TRIAL-K4 finding 2)`;
     return null;
   }
   if (seat.kind !== 'trial') return `a build-stage (R2) seat must cite trial: docs/trial/<file>.md@<commit> (R2)`;
@@ -172,24 +190,26 @@ function verifySeat(f, seat) {
   if (!m) return `seat trial ${seat.ref} is not docs/trial/<file>.md@<commit> (R2; TRIAL-K3 finding 2)`;
   const file = join(ROOT, m[1]);
   if (!existsSync(file)) return `seat cites trial ${m[1]}, which does not exist; the seat is blocked (R2; TRIAL-K3 finding 2)`;
-  let text = gitShow(m[2], m[1]);
+  const text = gitShow(m[2], m[1]);
   if (text === null) return `seat cites trial ${m[1]} at commit ${m[2]}, which git cannot find; the seat is blocked (R2; TRIAL-K3 finding 2)`;
-  if (text === undefined) { find(f.file, `seat trial ${m[1]}: no git here, so commit ${m[2]} was not checked; the working file was read`); text = readFileSync(file, 'utf8'); }
+  if (!isAncestor(m[2])) return `seat cites trial ${m[1]} at commit ${m[2]}, which is not an ancestor of HEAD; a trial must be on this branch's history (TRIAL-K4 finding 4, Q52 c)`;
   const passed = passList(text).get(f.spot);
   if (!passed) return `seat cites trial ${seat.ref}, but its PASS list does not name ${f.spot}; the seat is blocked (R2; TRIAL-K3 finding 2)`;
-  if (!blob.startsWith(passed)) return `trial ${seat.ref} passed ${f.spot} at blob ${passed}, not this blob ${blob.slice(0, 8)}; re-trial (R2, axiom 9)`;
-  if (!passed.startsWith(seat.blob) && !seat.blob.startsWith(passed)) return `seat blob ${seat.blob} is not the blob ${passed} the trial passed (R2)`;
+  if (passed.length === 40) { if (passed !== blob) return `trial ${seat.ref} passed ${f.spot} at blob ${passed}, not this blob ${blob}; re-trial (R2, axiom 9)`; }
+  else if (!blob.startsWith(passed) || !inTrialTree(m[2], f.spot, blob)) return `trial ${seat.ref} lists ${f.spot} by the short prefix ${passed}, and blob ${blob} is not this face's file in commit ${m[2]}; a prefix alone can be forged, re-trial (R2, axiom 9; TRIAL-K4 finding 1)`;
   return null;
 }
 
 // TRIAL-K3 finding 11: a face seated in the last build (books/) that is no longer seated needs an un-seat record:
 // `unseat-NN:` on the registry (face 00 itself: `unseat-00:` in the stamp), giving the reason and the old blob.
 // 7: the last build in books/ is the record of past seats (where an un-seat record lives is the build's own choice, Q34).
+// TRIAL-K4 finding 6: read as committed at HEAD (git show HEAD:books/...), so deleting or editing books/ hides nothing.
 function priorSeats() {
   const out = [];
-  if (!existsSync(OUT)) return out;
-  for (const n of readdirSync(OUT).filter((x) => x.endsWith('.book') || x === AXIOMS_FILE).sort())
-    for (const l of readFileSync(join(OUT, n), 'utf8').split('\n')) {
+  if (!hasGit()) { err('books', `no git repo at ${ROOT}, so past seats cannot be read from HEAD:books/ and un-seats cannot be checked (TRIAL-K4 findings 5, 6; Q52 b, d)`); return out; }
+  const ls = git('ls-tree', '--name-only', 'HEAD', 'books/');
+  for (const n of (ls.status === 0 ? ls.stdout.split('\n') : []).map((x) => x.replace(/^books\//, '')).filter((x) => x.endsWith('.book') || x === AXIOMS_FILE).sort())
+    for (const l of (gitShow('HEAD', `books/${n}`) || '').split('\n')) {
       if (!l.trim()) continue;
       let e; try { e = JSON.parse(l); } catch { continue; }
       if (e.addr && e['approved-by']) out.push({ addr: e.addr, by: e['approved-by'], blob: (/blob ([0-9a-f]+)/.exec(e.trial || e.ruling || '') || [])[1] || '' });

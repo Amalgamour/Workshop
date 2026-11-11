@@ -282,3 +282,4 @@ Proposed, for the KERNEL lane to choose and the next trial to check:
 - (c) the cited trial commit must be an ancestor of HEAD;
 - (d) no git means the seat is an error, not a finding.
 `7` until a lane takes it.
+Taken by KERNEL pass 6 (step 1): (a)-(d) built in `kernel/build.mjs` (`verifySeat`, `priorSeats`), with tests in `kernel/build.test.mjs`; the two seats re-pinned with full blobs. An older trial whose PASS list has a short prefix (kernel-trial-2.md) still seats only if the full seat blob is this face's file in that trial's commit. Left for the next trial to check. Not taken: a ruling must name the face in a seat line (a simple check is built; the exact wording is the Director's).

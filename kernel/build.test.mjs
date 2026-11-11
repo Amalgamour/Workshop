@@ -1,6 +1,8 @@
 #!/usr/bin/env node
-// Tests for kernel/build.mjs. Each test copies kernel/, docs/spec/, docs/trial/ and books/ into a scratch folder, adds one hostile
-// change, runs the builder there, and checks the result. The repo is never written. Usage: node kernel/build.test.mjs
+// Tests for kernel/build.mjs. Each test makes a scratch git clone of HEAD (no checkout; it shares history, so seat checks
+// can reach trial commits, rulings and books at HEAD, TRIAL-K4 Q52), copies the working kernel/, docs/spec/, docs/trial/ and
+// books/ into it, adds one hostile change, runs the builder there, and checks the result. The repo is never written.
+// Usage: node kernel/build.test.mjs
 import { mkdtempSync, cpSync, writeFileSync, readFileSync, rmSync, appendFileSync, renameSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { join, dirname } from 'node:path';
@@ -12,8 +14,14 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, '..');
 let failed = 0;
 
+const sh = (d, args, opts = {}) => {
+  const r = spawnSync('git', ['-C', d, ...args], { encoding: 'utf8', ...opts });
+  if (r.status !== 0) throw new Error(`git ${args.join(' ')}: ${r.stderr}`);
+  return r.stdout.trim();
+};
 function scratch() {
   const d = mkdtempSync(join(tmpdir(), 'kbuild-'));
+  sh(ROOT, ['clone', '-q', '--shared', '--no-checkout', ROOT, d]);
   cpSync(HERE, join(d, 'kernel'), { recursive: true });
   cpSync(join(ROOT, 'docs', 'spec'), join(d, 'docs', 'spec'), { recursive: true });
   cpSync(join(ROOT, 'docs', 'trial'), join(d, 'docs', 'trial'), { recursive: true }); // seat records cite trials (TRIAL-K3 finding 2)
@@ -105,7 +113,7 @@ const seat0013 = (d, rec) => {
   renameSync(S(d, '10.11.21', '10.11.21.0013.01.draft.md'), f);
   const r = S(d, '10.11.21', '10.11.21.0013.00.draft.md');
   edit(r, '01 draft', '01 seated');
-  edit(r, '\n## Registry\n', `\n## Registry\nseat-01: ${rec(blob(readFileSync(f, 'utf8')).slice(0, 8))}\n`);
+  edit(r, '\n## Registry\n', `\n## Registry\nseat-01: ${rec(blob(readFileSync(f, 'utf8')))}\n`);
 };
 run('R2: a seat citing a trial file that does not exist is refused (H2)', (d) => {
   seat0013(d, (b) => `approved-by: build-stage (R2); trial: docs/trial/does-not-exist.md@0000000; blob: ${b}`);
@@ -142,6 +150,54 @@ run('R2: retiring a seated face with an unseat record builds', (d) => {
   const r = unseat(d);
   edit(r, '\n## Registry\n', '\n## Registry\nunseat-01: test fixture retirement; was blob 5415cef2 (TRIAL-K2)\n');
 }, { ok: true });
+
+// TRIAL-K4 finding 1 (Q52 a): a seat pins the full blob. A short prefix in a seat line is refused ...
+run('R2: a seat line with a short blob prefix is refused (K4 finding 1)', (d) => {
+  edit(S(d, '10.11.21', '10.11.21.1001.00.draft.md'), 'blob: 5415cef2dd0a37f3c2ba4c9b6d2652262f0ef82d', 'blob: 5415cef2');
+}, { match: /seat blob 5415cef2 is a short prefix; a seat pins the full 40-hex git blob/ });
+// ... and a prefix collision forge (HM) fails: the seated law is changed and its seat re-pinned to the new full blob, and a
+// trial committed on the branch lists the new blob by its 8-hex prefix, as a forged collision would match the old prefix.
+// The full blob is not this face's file in that trial's commit, so the seat is refused.
+const commitOnHead = (d, path, text) => {
+  const env = { ...process.env, GIT_INDEX_FILE: join(d, '.git', 'k6-index'), GIT_AUTHOR_NAME: 't', GIT_AUTHOR_EMAIL: 't@t', GIT_COMMITTER_NAME: 't', GIT_COMMITTER_EMAIL: 't@t' };
+  const b = sh(d, ['hash-object', '-w', '--stdin'], { input: text, env });
+  sh(d, ['read-tree', 'HEAD'], { env });
+  sh(d, ['update-index', '--add', '--cacheinfo', `100644,${b},${path}`], { env });
+  const c = sh(d, ['commit-tree', sh(d, ['write-tree'], { env }), '-p', 'HEAD', '-m', 'forged'], { env });
+  return c;
+};
+run('R2: a prefix-collision forge of a seated face is refused (K4 HM)', (d) => {
+  const f = join(d, 'kernel', '00.00.00', '00.00.00.0056.01.md');
+  edit(f, 'is calculated and never drafted.', 'may be rewritten from memory when a model is confident.');
+  const nb = blob(readFileSync(f, 'utf8'));
+  const trial = `# forged\n\n**PASS list:**\n- \`00.00.00.0056.01\` (blob \`${nb.slice(0, 8)}\`)\n`;
+  writeFileSync(join(d, 'docs', 'trial', 'forged.md'), trial);
+  const c = commitOnHead(d, 'docs/trial/forged.md', trial);
+  sh(d, ['update-ref', 'HEAD', c]);
+  edit(join(d, 'kernel', '00.00.00', '00.00.00.0056.00.draft.md'), 'kernel-trial-2.md@ed82086; blob: 112c169ccd06d54c6d9ab607fee6c2d16004cc62', `forged.md@${c}; blob: ${nb}`);
+}, { match: /lists 00\.00\.00\.0056\.01 by the short prefix [0-9a-f]{8}, and blob [0-9a-f]{40} is not this face's file in commit/ });
+// TRIAL-K4 finding 2 (HG, Q52 b): a ruling appended to the working-tree rulings file and never committed does not seat.
+run('R2: a director seat citing an uncommitted ruling is refused (K4 HG)', (d) => {
+  appendFileSync(join(d, 'docs', 'spec', 'DIRECTOR-RULINGS.md'), '\n## R23 - fake\nDirector approves the seat of 10.11.21.0013.01.\n');
+  seat0013(d, (b) => `approved-by: director; ruling: R23; blob: ${b}`);
+}, { match: /seat cites R23, which is not in DIRECTOR-RULINGS\.md as committed at HEAD/ });
+// TRIAL-K4 finding 4 (HA, Q52 c): a trial committed off the branch (not an ancestor of HEAD) does not seat.
+run('R2: a seat citing a trial commit not on the branch is refused (K4 finding 4)', (d) => {
+  const t = (b) => `# forged\n\n**PASS list:**\n- \`10.11.21.0013.01\` (blob \`${b}\`)\n`;
+  const b = blob(readFileSync(S(d, '10.11.21', '10.11.21.0013.01.draft.md'), 'utf8'));
+  writeFileSync(join(d, 'docs', 'trial', 'forged.md'), t(b));
+  const c = commitOnHead(d, 'docs/trial/forged.md', t(b)); // a child of HEAD; HEAD is not moved
+  seat0013(d, (bb) => `approved-by: build-stage (R2); trial: docs/trial/forged.md@${c}; blob: ${bb}`);
+}, { match: /which is not an ancestor of HEAD/ });
+// TRIAL-K4 finding 5 (HC, Q52 d): with no git, a seat cannot be verified, so it is an error, not a finding.
+run('R2: with no git a seat is an error (K4 finding 5)', (d) => {
+  rmSync(join(d, '.git'), { recursive: true, force: true });
+}, { match: /00\.00\.00\.0056\.01\.md: no git repo at .*so this seat cannot be verified/ });
+// TRIAL-K4 finding 6 (HI, Q52 b): past seats come from HEAD:books/, so deleting books/ does not hide an un-seat.
+run('R2: retiring a seated face after deleting books/ is still refused (K4 HI)', (d) => {
+  rmSync(join(d, 'books'), { recursive: true, force: true });
+  unseat(d);
+}, { match: /10\.11\.21\.1001\.01 was seated \(build-stage \(R2\)\) in the last build but is not now/ });
 
 if (failed) { console.log(`${failed} failed`); process.exit(1); }
 console.log('all passed');
