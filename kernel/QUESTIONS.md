@@ -348,3 +348,23 @@ Evidence: `docs/trial/kernel-trial-6.md` part C3.
 - Option C: leave it as is and rely on the explicit push command. `7` until a lane takes it. Report only: nothing was deleted.
 
 Noted by KERNEL pass 8: Prima already handled this in the publish copy (this lane did not touch it). The push is limited to `prima/build` (`git push origin build:refs/heads/prima/build` only), the leftover refs that held the original `target/` history were removed, and `branch.build.merge` was retargeted to `refs/heads/prima/build`. Left for the next trial to confirm.
+
+**Q58. [TRIAL-K7] (builder lane, not a Director question) Should the builder refuse symlinks under its sources, and check each seated face against the committed blob?**
+Evidence: `docs/trial/kernel-trial-7.md` finding 1 (T18, T18b, T18c).
+- The builder follows symlinks (`build.mjs:93`, `:101`), but `historySeats` reads only face 00 blobs committed under `kernel/` and skips `/parked/` (`:305`, `:310`). A symlinked face 00 is committed as link text, so a seat added and later removed through the link leaves no trace the guard reads. The un-seat with no record builds clean, also in a fresh clone.
+- A symlinked book folder into `kernel/parked/` does the same for a whole book. A seated face can be a link to an untracked file, so its bytes are not in git.
+- Option A: refuse any symlink (`lstatSync`) among book folders and face files, with a test like T18.
+- Option B: also require, for every seated face, `git ls-tree HEAD <path>` mode `100644` with blob equal to the seat blob.
+- Option C: both. `7` until a lane takes it.
+
+**Q59. [TRIAL-K7] (builder lane, not a Director question) How should `trialOrigin` read a root commit?**
+Evidence: `docs/trial/kernel-trial-7.md` finding 2 (T11).
+- `--format=C %H %P` (`build.mjs:200`) gives `C <sha> ` with a trailing space for a root commit, which the regex at `:205` does not match. An add in a root commit is filed under the wrong commit or `null`; T11 (an orphan branch merged in) crashes at `:211` with a TypeError. It fails closed.
+- Proposed: allow trailing space or `trim()` the line, give a clear error, and add a test like T11. `7` until a lane takes it.
+
+**Q60. [TRIAL-K7] (builder lane, not a Director question) Should `incoming` stay in the publish copy between rounds?**
+Evidence: `docs/trial/kernel-trial-7.md` part C3, finding 4.
+- After the Q57 cleanup, a bare `git push` goes only to `prima/build`, and `refs/original` and the stale `origin/build` are gone. `refs/heads/incoming` (`2db15dd`) still reaches commits that touch `target/`, so `git push --all`, `--mirror` or `git push origin incoming` would publish them. The Q57 note says the leftover refs were removed.
+- Option A: delete `incoming` after each cherry-pick (it is re-fetched each round).
+- Option B: keep it, and set `remote.origin.mirror=false` plus a pre-push hook that refuses any ref but `build`.
+- Option C: keep it as is and correct the Q57 note. Report only: nothing was changed. `7` until a lane takes it.
