@@ -77,6 +77,6 @@ trial, like other lasting pages.
 ## Status
 
 Working path, pending Director review. Not a ruling. Recorded in
-[DECISIONS-LOG.md](DECISIONS-LOG.md) as D334, and on QD01 in
+[DECISIONS-LOG.md](DECISIONS-LOG.md) as D337, and on QD01 in
 [QUESTIONS-FOR-DIRECTOR.md](QUESTIONS-FOR-DIRECTOR.md). Kernel Q35
 was not edited.

@@ -67,5 +67,5 @@ not built.
 ## Status
 
 Working path, pending Director review. Not a ruling. Recorded in
-[DECISIONS-LOG.md](DECISIONS-LOG.md) as D335. Kernel Q42 was not
+[DECISIONS-LOG.md](DECISIONS-LOG.md) as D338. Kernel Q42 was not
 edited. The parked door packs were not moved.
