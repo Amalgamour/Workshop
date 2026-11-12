@@ -383,6 +383,7 @@ why: R22 "make every design choice recorded" (DIRECTOR-RULINGS.md:86-88). One ro
 | D323 | WORKING PATH (Tester), not a ruling: face 00's fingerprint is the git blob of its file. Name it. The book does not hold this today. Pending Director review. | working-path (Tester), pending Director review — not a ruling | docs/design/WORKING-PATH-LINEAGE.md; docs/design/R23-R25-lineage.md F9 | 00.counter; seats |
 | D324 | WORKING PATH (Tester), not a ruling: if a 00.counter and git history disagree about face 00's past, neither silently wins; halt and raise it (axiom 1). Pending Director review. | working-path (Tester), pending Director review — not a ruling | docs/design/WORKING-PATH-LINEAGE.md; docs/design/R23-R25-lineage.md F9; axiom 1 | 00.counter; builder checks |
 | D325 | WORKING PATH (Tester), not a ruling: allow `0000.00.CC` on a door page as an exception to R10, so the line lives next to the face 00 it measures. This does not decide Q42 (a door's 05 pack). Pending Director review. | working-path (Tester), pending Director review — not a ruling - R10 | docs/design/WORKING-PATH-LINEAGE.md; docs/design/R23-R25-lineage.md F10; R10, R25 | door pages; 00.counter |
+| D326 | WORKING PATH (Tester), not a ruling: nobody writes a `faces:` list into face 00. The computer works the list out from the faces that exist (files and book), and still checks it against seat lines, `why-NN` reasons, and book entries. A leftover written `faces:` line is a finding if it disagrees, not the source of truth. Pending Director review. | working-path (Tester), pending Director review — not a ruling - QD03 | docs/design/WORKING-PATH-QD03.md; Tester 2026-11-11 evening; R10, R25, F7 | every face 00; kernel builder; .seq checker; core |
 
 ## Totals
 
@@ -391,11 +392,11 @@ Counted from the tables above by the first words of each Status cell. A row whos
 - **settled-by-ruling:** 53
 - **settled-by-spec:** 113
 - **provisional 7:** 103
-- **working-path (pending Director review):** 7
+- **working-path (pending Director review):** 8
 - **superseded (in whole or part):** 22
 - **open:** 23
 - **held (do not re-ask):** 4
-- **all:** 325
+- **all:** 326
 
 By area: addressing 61, faces 51, drafts 55, storage 32, compute 25, ask 19, app 16, process 59.
 
@@ -406,3 +407,4 @@ DIRECTOR-RULINGS.md R1-R22; docs/BUILD-LOG.md (every `7` and every choice, lines
 Updated 2026-11-11 evening (Designer): DIRECTOR-RULINGS.md R23-R25; docs/design/00-counter.md (draft proposal, not law); QUESTIONS-FOR-DIRECTOR.md QD66, QD67 (QD05 answered by R25). D312-D318 added. D53, D183, D203, D225 status updated from those rulings. Kernel QUESTIONS.md was not edited (KERNEL lane).
 Updated 2026-11-11 7:15 PM EST (Prima): D319 added — Tester working path for QD02, not a ruling. See docs/design/WORKING-PATH-QD02.md.
 Updated 2026-11-11 7:20 PM EST (Prima): D320–D325 added — Tester working path for R23–R25 lineage (not rulings). See docs/design/WORKING-PATH-LINEAGE.md and docs/design/R23-R25-lineage.md.
+Updated 2026-11-11 7:25 PM EST (Prima): D326 added — Tester working path for QD03 (derive the face list, still check it), not a ruling. See docs/design/WORKING-PATH-QD03.md.

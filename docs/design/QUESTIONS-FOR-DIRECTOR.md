@@ -14,7 +14,7 @@ what: every open question from the build, saved in one place. Each one appears o
 - Prima asks you one at a time. Nothing here needs an answer today.
 - Questions you already answered are listed at the end, so nothing is asked twice.
 
-Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, D12, D13, D14 and D16 are still open, as QD25, QD10, QD13, QD26 and QD24.) Updated 2026-11-11 evening (Designer): R23-R25 recorded; QD05 answered by R25; QD66 and QD67 saved. Updated 2026-11-11 7:15 PM EST (Prima): QD02 has a Tester working path (D319), still open, pending Director review. Updated 2026-11-11 7:20 PM EST (Prima): QD01 has a Tester working path on reseating (D320–D325), still open; see WORKING-PATH-LINEAGE.md.
+Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, D12, D13, D14 and D16 are still open, as QD25, QD10, QD13, QD26 and QD24.) Updated 2026-11-11 evening (Designer): R23-R25 recorded; QD05 answered by R25; QD66 and QD67 saved. Updated 2026-11-11 7:15 PM EST (Prima): QD02 has a Tester working path (D319), still open, pending Director review. Updated 2026-11-11 7:20 PM EST (Prima): QD01 has a Tester working path on reseating (D320–D325), still open; see WORKING-PATH-LINEAGE.md. Updated 2026-11-11 7:25 PM EST (Prima): QD03 has a Tester working path (D326), still open, pending Director review.
 
 ---
 
@@ -49,9 +49,9 @@ Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, 
 - Option A: the computer writes the list and checks it. A mismatch is flagged.
 - Option B: nobody writes it. It is always worked out from the faces that exist.
 - Blocks: every face 00, the kernel builder, the .seq checker and the core.
-- Now: `7`. The kernel writes it and checks it. The .seq file flags a mismatch. The core does not check.
+- Now: `7`. Working path (Tester, 2026-11-11 evening), not a ruling: nobody writes a `faces:` list into face 00. The computer works the list out from the faces that exist (the files, and the book), and still checks it against seat lines, `why-NN` reasons, and book entries. A leftover written `faces:` line is a finding if it disagrees, and is not the source of truth. This is Option B for where the list lives, plus the check from Option A. Writing the list into 00 would change 00's fingerprint every time a face is added (F7), the same reason R25 moved the fingerprint list off 00. Full write-up: [WORKING-PATH-QD03.md](WORKING-PATH-QD03.md). Pending Director review. The builder has not been changed.
 - Raised: [kernel Q27](../../kernel/QUESTIONS.md) line 136; [face00.md F2](../spec/face00.md) line 466; [CONFLICTS D5](../../kernel/CONFLICTS.md) line 152; [seqpage S8](../spec/seqpage-QUESTIONS.md) line 34.
-- Log: D83, D158, D159, D160.
+- Log: D83, D158, D159, D160, D326.
 
 ### QD04. Is face 00 itself in its own face list?
 - The face list leaves out face 00 itself.
