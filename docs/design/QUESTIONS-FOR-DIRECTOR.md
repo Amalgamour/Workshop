@@ -14,7 +14,7 @@ what: every open question from the build, saved in one place. Each one appears o
 - Prima asks you one at a time. Nothing here needs an answer today.
 - Questions you already answered are listed at the end, so nothing is asked twice.
 
-Counts: 65 open, 1 held (do not re-ask), 39 answered or closed. (CONFLICTS D11, D12, D13, D14 and D16 are still open, as QD25, QD10, QD13, QD26 and QD24.)
+Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, D12, D13, D14 and D16 are still open, as QD25, QD10, QD13, QD26 and QD24.) Updated 2026-11-11 evening (Designer): R23-R25 recorded; QD05 answered by R25; QD66 and QD67 saved.
 
 ---
 
@@ -27,8 +27,8 @@ Counts: 65 open, 1 held (do not re-ask), 39 answered or closed. (CONFLICTS D11, 
 - Option B: face 05 stays a task list. One summary card is seated, and the tasks stay numbered (05.01 to 05.98).
 - Also: may notes (06) and dictionary sections be seated? (part of kernel Q35)
 - Blocks: the work pack on every page, plus 5 held faces.
-- Now: `7`. R22 is followed; the clash is only recorded. (At about 4:00 PM EST the kernel lane was writing, not yet committed, numbered drafts 05.01 and 05.02 on each kernel page, which is close to option B.)
-- Raised: [kernel Q35](../../kernel/QUESTIONS.md) line 181; [R22](../spec/DIRECTOR-RULINGS.md) line 86; [OPEN O44](OPEN.md) line 250 (tasks and tickets).
+- Now: `7`. R23 and R24 go further: we climb 05.01 through 05.06, then seat 05 as the best pack. If the page's work grows, we start 05.07 from that seated pack, and later reseat an update. The older seated 05 stays in the line. This is close to option B's numbered counters, with face 05 itself seated (option A). The leftover question is whether notes (06) and dictionary sections may be seated.
+- Raised: [kernel Q35](../../kernel/QUESTIONS.md) line 181; [R22](../spec/DIRECTOR-RULINGS.md) line 86; [R23](../spec/DIRECTOR-RULINGS.md) line 90; [R24](../spec/DIRECTOR-RULINGS.md) line 94; [OPEN O44](OPEN.md) line 250 (tasks and tickets).
 - Log: D53, D183, D225.
 
 ### QD02. Which page types are there?
@@ -63,15 +63,25 @@ Counts: 65 open, 1 held (do not re-ask), 39 answered or closed. (CONFLICTS D11, 
 - Raised: [kernel Q38](../../kernel/QUESTIONS.md) line 196.
 - Log: D158.
 
-### QD05. Where is a seat written down?
-- R2 says: record "approved-by: build-stage (R2)" and the trial.
-- Option A: on the write in the book only.
-- Option B: as a line in face 00, next to that face.
-- Option C: both.
-- Blocks: every seat, including the R22 work packs.
-- Now: `7`. Both are used (option C). The seated file is not changed.
-- Raised: [kernel Q34](../../kernel/QUESTIONS.md) line 174.
-- Log: D203, D204.
+### QD66. Are 00.counter faces seated the normal way?
+- You said (R25): face 00 is not seated the same way. A 00.counter lists 00's fingerprint before each change.
+- If we seat a 00.counter the normal way, that seat is written onto face 00 (R25: seat records may still go there). That is another change to 00, so we would need another 00.counter snapshot, and if we seat that one too, the same thing happens again.
+- Option A: no. A 00.counter is write-once evidence. It is not seated the same way as other faces. (The design draft recommends this.)
+- Option B: yes. A 00.counter is seated after a trial, like any other face. Then we need a rule that stops the cascade.
+- Blocks: building the 00.counter, and any future seat of face 00.
+- Now: `7`. Draft proposal in [00-counter.md](00-counter.md).
+- Raised: [R25](../spec/DIRECTOR-RULINGS.md) line 99 (held 7); [kernel Q51](../../kernel/QUESTIONS.md) line 266.
+- Log: D318.
+
+### QD67. How does the 00.counter list climb when a new fingerprint is added?
+- You said (R25): the list lives on its own face, not inside 00.
+- Option A: each snapshot is a new counter, 00.01 then 00.02 and so on. Once written, that face is not edited. The list is the series of faces. This matches how 05 climbs (R24) and axiom 6 (the past is not rewritten). (The design draft recommends this.)
+- Option B: one 00.counter face holds the whole list, and a new line is added to it each time. That would change that face's fingerprint each time.
+- Also: after counter 98, what happens is the same open question as QD16.
+- Blocks: building the 00.counter.
+- Now: `7`. Draft proposal in [00-counter.md](00-counter.md) (option A).
+- Raised: [R25](../spec/DIRECTOR-RULINGS.md) line 99 (held 7).
+- Log: D317.
 
 ### QD06. Is the sign-in design right?
 - Today every write needs a personal token (a secret key).
@@ -446,6 +456,8 @@ Counts: 65 open, 1 held (do not re-ask), 39 answered or closed. (CONFLICTS D11, 
 
 | Question | Answer | Where |
 |---|---|---|
+| Kernel Q51, QD05 (where is a seat written down?) | R25: seat records may still be written onto 00; the line of 00 itself is kept on a 00.counter face. How that counter climbs, and whether it is seated, are QD66 and QD67. | DIRECTOR-RULINGS.md:99 |
+| R22 leftover on how 05 is seated (part of QD01) | R23: the seated 05 is the best pack. R24: climb 05.CC, then seat 05; later climb from the seat and reseat an update. The older 05 stays in the line. QD01 leftover is notes (06) and dictionary sections. | DIRECTOR-RULINGS.md:90, 94 |
 | Kernel Q1 (axioms page number) | R6: on the desk as 00.axioms. Exact address is QD09. | DIRECTOR-RULINGS.md:25 |
 | Kernel Q2, OPEN O3 (are drafts found?) | R5: yes, and show why. | DIRECTOR-RULINGS.md:18, 28 |
 | Kernel Q3, OPEN O8 (override form) | R7: its own page in 0001-0009. Then R21: no override pages for now. | DIRECTOR-RULINGS.md:31, 82 |
@@ -471,7 +483,7 @@ Counts: 65 open, 1 held (do not re-ask), 39 answered or closed. (CONFLICTS D11, 
 | CONFLICTS D4 (who approves an override?) | Deferred by R21 until child desks. | DIRECTOR-RULINGS.md:82 |
 | CONFLICTS D15 (R21 vs R7) | R21 governs while the app is built. | DIRECTOR-RULINGS.md:82 |
 | CONFLICTS D10 (R18 vs axiom 8, F.2 links) | R18 governs; shown for checking only. | DIRECTOR-RULINGS.md:71 |
-| Kernel Q35 (seat a task list?) | Partly answered by R22: face 05 is seated. The rest is QD01. | DIRECTOR-RULINGS.md:86 |
+| Kernel Q35 (seat a task list?) | R22, R23, R24: face 05 is seated as the best pack, after climbing 05.CC. QD01 leftover is notes (06) and dictionary sections. | DIRECTOR-RULINGS.md:86, 90, 94 |
 | face00.md F12 (no reason field) | Closed: the core request now has a `reason` field. | BUILD-LOG:118 |
 | Workshop clash 1 | Dismissed by you. Held as H1. | OPEN.md:229 |
 | CONFLICTS K01 (door word) | R1. | DIRECTOR-RULINGS.md:3 |

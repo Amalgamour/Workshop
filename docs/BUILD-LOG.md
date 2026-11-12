@@ -268,3 +268,9 @@ Every build choice, its why, and the spec line it follows. A choice the spec doe
 - No seats this pass; 26 seats verify. No face edits.
 - Tests: `node kernel/build.test.mjs` 67/67; `CARGO_TARGET_DIR=target/k11 cargo test --workspace --no-fail-fast` (fresh clone) 411 passed, 0 failed, 2 ignored (38 result lines, all ok), exit 0.
 - Next trial targets: the Q63 structured seat read and the books/ join, the live face 00 seat rules, the Q64 mode rules, the -z walks, the Q66 un-seat-only face 00, and the 26 seats.
+
+## [DESIGN] R25 00.counter proposal, QD66 and QD67 saved - 2026-11-11 7:10 PM EST
+- Draft `docs/design/00-counter.md` (not law): how a 00.counter should climb, and whether those faces are seated. Recommended: each snapshot is a new write-once face (`00.01`, then `00.02`, ...); do not seat them the normal way, because that seat would be written back onto face 00 and cascade. Aligns with R24 and axiom 6.
+- Recorded R23-R25 in `docs/design/DECISIONS-LOG.md` as D312-D316 (settled by those rulings) and D317-D318 (proposed 7, QD67 and QD66). Updated D53, D183, D203, D225 from the same rulings.
+- `docs/design/QUESTIONS-FOR-DIRECTOR.md`: QD05 answered by R25; QD66 and QD67 saved (R25's held 7); QD01 updated for R23 and R24 (leftover: notes and dictionary).
+- Kernel `QUESTIONS.md` (Q51) was not edited (KERNEL lane). No faces seated, un-seated, or changed. No builder or core code changed.

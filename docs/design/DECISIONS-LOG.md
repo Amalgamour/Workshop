@@ -48,7 +48,7 @@ why: R22 "make every design choice recorded" (DIRECTOR-RULINGS.md:86-88). One ro
 | D50 | Desk door `DD.00` and shelf door `DD.SS.00`, written as nested pages `DD.00.00.0000` and `DD.SS.00.0000`. | open - QD41 (O14) | v2:105,108, seqAddr.md:58-62, decisions.md:145-149; rv21-22 [DECISIONS-INDEX.md] | crates/seqaddr-core addr/state; kernel 0051, 0052 |
 | D51 | `DD.00.BB` is a desk book with no shelf. | settled-by-spec v2:27 | v2:27, seqAddr.md:49, decisions.md:166 [DECISIONS-INDEX.md] | crates/seqaddr-core addr/state; kernel 0051, 0052 |
 | D52 | A face is counted only if `FF.00` exists. 05 and 06 are always counted, and others by page type. | superseded by R9 (no FF.00); counted set provisional 7 CORE - QD11 | seqAddr.md:197-200, decisions.md:196-199; rv25 [DECISIONS-INDEX.md] | crates/seqaddr-core addr/state; kernel 0051, 0052 |
-| D53 | A counted face is never seated, and plain `FF` means `FF.00`. | 'plain FF means FF.00' superseded by R9; 'never seated' in tension with R22 - QD01 | seqAddr.md:199, decisions.md:198; rv26 [DECISIONS-INDEX.md] | crates/seqaddr-core addr/state; kernel 0051, 0052 |
+| D53 | A counted face is never seated, and plain `FF` means `FF.00`. | 'plain FF means FF.00' superseded by R9; 'never seated' superseded for face 05 by R22, R23, R24 (climb 05.CC, then seat 05); leftover (notes and dictionary) - QD01 | seqAddr.md:199, decisions.md:198; rv26 [DECISIONS-INDEX.md]; R22-R24 | crates/seqaddr-core addr/state; kernel 0051, 0052 |
 | D54 | `99` at every level is a pointer, never content. It lists every path onward in face 08, and many targets are allowed. | settled-by-spec v2:106 | v2:106,109, seqAddr.md:249-250, decisions.md:213-227; rv28 [DECISIONS-INDEX.md] | crates/seqaddr-core addr/state; kernel 0051, 0052 |
 | D55 | Every target links back, and a one-way link is invalid. | settled-by-spec v2:106 | v2:106, seqAddr.md:251, decisions.md:230; rv28 [DECISIONS-INDEX.md] | crates/seqaddr-core addr/state; kernel 0051, 0052 |
 | D56 | Direct links are the truth. Ancestor lists are derived and never hand-edited. | settled-by-spec seqAddr.md:252 | seqAddr.md:252, decisions.md:237; rv29 [DECISIONS-INDEX.md] | crates/seqaddr-core addr/state; kernel 0051, 0052 |
@@ -139,7 +139,7 @@ why: R22 "make every design choice recorded" (DIRECTOR-RULINGS.md:86-88). One ro
 | D180 | A question card is type: question with forms: and answer: (or 7 plus hole:); the builder accepts the question type. | provisional 7 (COMPUTE, KERNEL) - QD26 | BUILD-LOG:128, 139; CONFLICTS.md D14 | crates/ask QuestionCard; kernel/build.mjs; 10.11.21.0013 |
 | D181 | The dictionary's 03.00 is a door (R16). This clashes with R9, so the kernel keeps the copied 03.00 menu text and builds nothing on it. | open - QD10 (R16 vs R9 held 7) | DIRECTOR-RULINGS.md:65-66; BUILD-LOG:131; CONFLICTS.md K03, D12 | kernel 0055.01/02/04; 10.11.21.0012.03 |
 | D182 | Dictionary 0012.03.00 is treated as derived (format.md:102), not as written menu content. | provisional 7 (CORE) - QD10 | BUILD-LOG:44 | crates/seqaddr-core |
-| D183 | Each page gets a face 05 that says what was learned and holds the work pack to reach that page's MVP, linking back to docs/design. That 05 is seated. | settled-by-ruling R22 (tension with 'a counted face is never seated' - QD01) | DIRECTOR-RULINGS.md:86-88; seqAddr.md:199 | every page; kernel; core counted-face rules |
+| D183 | Each page gets a face 05 that says what was learned and holds the work pack to reach that page's MVP, linking back to docs/design. That 05 is seated. | settled-by-ruling R22, R23, R24 (notes and dictionary leftover - QD01) | DIRECTOR-RULINGS.md:86-97; seqAddr.md:199 | every page; kernel; core counted-face rules |
 
 ## 3. Drafts, state and seating
 
@@ -177,7 +177,7 @@ why: R22 "make every design choice recorded" (DIRECTOR-RULINGS.md:86-88). One ro
 | D200 | An R2 trial reference must be docs/trial/NAME.md[#x], exist, and its author line must differ from the face's maker. | provisional 7 (COMPUTE) | BUILD-LOG:141; CONTRACT.md:42 | crates/compute |
 | D201 | The compute's own bare puts (doors, derived pages) are exempt from seat approval; promote never is. | provisional 7 (CORE) - QD21 | BUILD-LOG:94 | crates/seqaddr-core validate |
 | D202 | The app's seat screen asks the person to tick that the trial came from a different view. | provisional 7 (APP) | BUILD-LOG:80 | app /seat |
-| D203 | An R2 seat is recorded as a seat-NN: line in face 00 (approved-by, trial, blob) and also on the book entry. | provisional 7 (KERNEL) - QD05 | BUILD-LOG:149; kernel/QUESTIONS.md Q34 | kernel registry; books |
+| D203 | An R2 seat is recorded as a seat-NN: line in face 00 (approved-by, trial, blob) and also on the book entry. | settled-by-ruling R25 (also on the book entry is provisional 7 KERNEL) | DIRECTOR-RULINGS.md:99-101; BUILD-LOG:149; kernel/QUESTIONS.md Q34, Q51 | kernel registry; books; 00.counter |
 | D204 | First seats: 00.00.00.0056.01 (blob 112c169c) and 10.11.21.1001.01 (blob 5415cef2), under R2 + R20 after TRIAL-K2. | settled-by-ruling R2, R20 | 42ffbc9; BUILD-LOG:149; kernel-trial-2.md:24-28 | kernel 0056.01; 10.11.21.1001.01 |
 | D205 | The kernel builder checks a seated face's git blob and refuses to build if a seated face changes. | provisional 7 (KERNEL) | 42ffbc9; BUILD-LOG:149 | kernel/build.mjs |
 | D206 | Draft reason: an optional reason field on the request, stored on the entry; read only from the entry that opens a draft (copy or put FF.draft). | provisional 7 (CORE) | BUILD-LOG:118 | core OpRequest.reason, Entry.reason, why_draft.reason |
@@ -199,7 +199,7 @@ why: R22 "make every design choice recorded" (DIRECTOR-RULINGS.md:86-88). One ro
 | D222 | The section 8 workflow lint template is not built; draft->pack is offered with a note saying so. | provisional 7 (CORE, APP) | core-trial.md:163; BUILD-LOG:83 | core; app /work |
 | D223 | A new job number is the highest existing 05.NN + 1; the compute validates. | provisional 7 (APP) | BUILD-LOG:83 | app /work |
 | D224 | Counters and boards of counted faces inherit down the chain like any face (current core). | provisional 7 (CORE) - QD17 | core-trial.md:165; kernel/QUESTIONS.md Q15 | crates/seqaddr-core resolver |
-| D225 | A counted face (05, 06, dictionary sections) is not seated by R2 while 'a counted face is never seated' stands; R22 asks for a seated 05. | open - QD01 (Q35 partly answered by R22) | kernel/QUESTIONS.md Q35; DIRECTOR-RULINGS.md:86-88 | kernel 0053.06.01, 0054.06.01, 0056.06.01, 0012.03.14/16; every 05 |
+| D225 | A counted face (05, 06, dictionary sections) is not seated by R2 while 'a counted face is never seated' stands; R22 asks for a seated 05. | settled-by-ruling R22, R23, R24 (leftover notes 06 and dictionary open - QD01) | kernel/QUESTIONS.md Q35; DIRECTOR-RULINGS.md:86-97 | kernel 0053.06.01, 0054.06.01, 0056.06.01, 0012.03.14/16; every 05 |
 
 ## 4. Storage and the .seq page file
 
@@ -369,21 +369,30 @@ why: R22 "make every design choice recorded" (DIRECTOR-RULINGS.md:86-88). One ro
 | D309 | An override is its own page in 0001-0009 stating what it changes, why it is there, why it is needed and what it should achieve; it may target a face, a behavior (0020-0049) or a structure (0050-0099). | settled-by-ruling R7; on hold by R21 | DIRECTOR-RULINGS.md:31-32 | core validate::override_pages (finding only); seqpage kind := override |
 | D310 | An in-place face over an inherited face with no override page naming it is an R7 finding, not a rejection. | provisional 7 (CORE); on hold by R21 | BUILD-LOG:99 | crates/seqaddr-core |
 | D311 | The sample override page 10.11.21.0001 (fields changing/there/needed/achieve) is parked; the in-place 0056.04 override was removed. | settled-by-ruling R21 | BUILD-LOG:115, 150; kernel-trial-2.md:251 | kernel/parked; books/10.11.21.book |
+| D312 | The seated 05 is the best version of that page's pack. During a pass the pack may change to cover fixes; when the page is done, we seat the pack that already solves issues models run into. | settled-by-ruling R23 | DIRECTOR-RULINGS.md:90-92; chat t79u | every page face 05 |
+| D313 | We climb the 05 counter (05.CC). The first stretch is 05.01 through 05.06; when that work is finished, we seat 05. If the page's scope or MVP then grows, we start 05.07 from that seated pack plus the new changes, and later reseat an update. The older seated 05 stays in the line. The past is not rewritten (axiom 6). The "05.01-06" and "3 more passes" are the shape of the climb, not a fixed count. | settled-by-ruling R24 | DIRECTOR-RULINGS.md:94-97; chat t80u, t81u; Axioms.md:23 | every page face 05 |
+| D314 | Face 00 is the registry root, so it is not seated in the same manner as other faces. Changes are still recorded onto 00. | settled-by-ruling R25 | DIRECTOR-RULINGS.md:99-101; chat t82u | every face 00; kernel builder; core |
+| D315 | Seat records may still be written onto face 00. The line of 00 itself is kept on a 00.counter face (00.CC), which lists 00's fingerprint as it was just before each change. This answers Q51 and QD05. | settled-by-ruling R25 | DIRECTOR-RULINGS.md:99-101; kernel/QUESTIONS.md Q51 | every face 00; seat records; 00.counter |
+| D316 | The 00.counter steps are: snapshot 00's fingerprint first, then make the change, then count and compare (the old fingerprint, the change, and what 00 is now). The list must be its own face, not lines inside 00. | settled-by-ruling R25 | DIRECTOR-RULINGS.md:99-101; Axioms.md:23 | every face 00; 00.counter |
+| D317 | PROPOSED: the 00.counter list climbs as 00.01, then 00.02, and so on. Each 00.CC face is write-once (fingerprint-before, the coming change, and a prior link). The "after" fingerprint is the next 00.CC's fingerprint-before. This matches R24 and axiom 6. | provisional 7 (DESIGN, Designer draft) - QD67 | docs/design/00-counter.md; R25 held 7; R24 | 00.counter; kernel builder (not built) |
+| D318 | PROPOSED: 00.counter faces are not seated the normal way. They are write-once evidence. Seating them would write a seat record back onto face 00, which is another change and would cascade. | provisional 7 (DESIGN, Designer draft) - QD66 | docs/design/00-counter.md; R25 held 7 | 00.counter; kernel builder (not built) |
 
 ## Totals
 
 Counted from the tables above by the first words of each Status cell. A row whose status has a settled part and an open part is counted by its first words; the open part is asked in QUESTIONS-FOR-DIRECTOR.md.
 
-- **settled-by-ruling:** 46
+- **settled-by-ruling:** 53
 - **settled-by-spec:** 113
-- **provisional 7:** 102
+- **provisional 7:** 103
 - **superseded (in whole or part):** 22
-- **open:** 24
+- **open:** 23
 - **held (do not re-ask):** 4
-- **all:** 311
+- **all:** 318
 
-By area: addressing 61, faces 51, drafts 55, storage 32, compute 25, ask 19, app 16, process 52.
+By area: addressing 61, faces 51, drafts 55, storage 32, compute 25, ask 19, app 16, process 59.
 
 ## Sources mined
 
 DIRECTOR-RULINGS.md R1-R22; docs/BUILD-LOG.md (every `7` and every choice, lines 1-164); docs/CONTRACT.md and its two addenda; crates/seqaddr-core/API.md; docs/spec/face00.md; docs/spec/seqpage.md; docs/spec/seqpage-QUESTIONS.md; docs/spec/SEQ-GUIDE.md; kernel/QUESTIONS.md; kernel/CONFLICTS.md; docs/trial/kernel-trial.md, kernel-trial-2.md, core-trial.md, compute-trial.md; docs/design/DECISIONS-INDEX.md and OPEN.md; git log of branch build (3291593 to 8b2e909).
+
+Updated 2026-11-11 evening (Designer): DIRECTOR-RULINGS.md R23-R25; docs/design/00-counter.md (draft proposal, not law); QUESTIONS-FOR-DIRECTOR.md QD66, QD67 (QD05 answered by R25). D312-D318 added. D53, D183, D203, D225 status updated from those rulings. Kernel QUESTIONS.md was not edited (KERNEL lane).
