@@ -390,6 +390,7 @@ why: R22 "make every design choice recorded" (DIRECTOR-RULINGS.md:86-88). One ro
 | D330 | PROPOSED: notes (06) are not seated. They are session records and climb 06.CC. Lasting content in a note is merged into a content face and seated there. | provisional 7 (DESIGN, Designer draft) - QD01 leftover | docs/design/notes-and-dictionary-seating.md; kernel Q35; v2:83; drafting.md | every 06; kernel builder (not changed) |
 | D331 | PROPOSED: a dictionary section may be seated after a hostile trial, like other lasting content. This is the dictionary half of Q35 option B. | provisional 7 (DESIGN, Designer draft) - QD01 leftover | docs/design/notes-and-dictionary-seating.md; kernel Q35; R2, R20; axiom 9 | dictionary 03.NN sections; kernel builder (not changed) |
 | D332 | WORKING PATH (Tester), not a ruling: the axioms' exact address is `00.axioms` (desk 00, titled axioms). Keep `00.00.axioms` as a findable prior name during the move; do not silently rewrite the old address. Pending Director review. | working-path (Tester), pending Director review — not a ruling - QD09 | docs/design/WORKING-PATH-QD09.md; Tester 2026-11-11 evening; R6; CONFLICTS D3 | 7 held axiom faces; core and builder AXIOMS special case (not renamed) |
+| D333 | WORKING PATH (Tester), not a ruling: there is no dictionary `03.00` file. The menu of sections is derived from the sections that exist, not written as a face-00 counter. Faces still have no doors (R9). R16 is read as an entrance, not as an exception that brings sentinels back. Pending Director review. | working-path (Tester), pending Director review — not a ruling - QD10 | docs/design/WORKING-PATH-QD10.md; Tester 2026-11-11 evening; R16, R9, R1; QD03 | kernel 0055; dictionary 0012; CONFLICTS K03, D12; face00 F4 |
 
 
 ## Totals
@@ -399,11 +400,11 @@ Counted from the tables above by the first words of each Status cell. A row whos
 - **settled-by-ruling:** 53
 - **settled-by-spec:** 113
 - **provisional 7:** 107
-- **working-path (pending Director review):** 10
+- **working-path (pending Director review):** 11
 - **superseded (in whole or part):** 22
 - **open:** 23
 - **held (do not re-ask):** 4
-- **all:** 332
+- **all:** 333
 
 By area: addressing 61, faces 53, drafts 57, storage 32, compute 25, ask 19, app 16, process 59.
 
@@ -418,3 +419,4 @@ Updated 2026-11-11 7:25 PM EST (Prima): D326 added — Tester working path for Q
 Updated 2026-11-11 7:30 PM EST (Prima): D327 added — Tester working path for Q30 / QD13 (four sections below 0100), not a ruling. See docs/design/WORKING-PATH-Q30.md.
 Updated 2026-11-11 7:16 PM EST, after D327 (Designer): docs/design/page-types.md (QD02 draft, agrees with D319, not law) and docs/design/notes-and-dictionary-seating.md (QD01 leftover, not law). D328-D331 added as provisional 7. Kernel files were not edited (Pass 12).
 Updated 2026-11-11 7:35 PM EST (Prima): D332 added — Tester working path for QD09 (axioms address is 00.axioms), not a ruling. See docs/design/WORKING-PATH-QD09.md. Nothing was renamed.
+Updated 2026-11-11 7:40 PM EST (Prima): D333 added — Tester working path for QD10 (no 03.00; derive the dictionary menu), not a ruling. See docs/design/WORKING-PATH-QD10.md.

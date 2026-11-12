@@ -14,7 +14,7 @@ what: every open question from the build, saved in one place. Each one appears o
 - Prima asks you one at a time. Nothing here needs an answer today.
 - Questions you already answered are listed at the end, so nothing is asked twice.
 
-Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, D12, D13, D14 and D16 are still open, as QD25, QD10, QD13, QD26 and QD24.) Updated 2026-11-11 evening (Designer): R23-R25 recorded; QD05 answered by R25; QD66 and QD67 saved. Updated 2026-11-11 7:15 PM EST (Prima): QD02 has a Tester working path (D319), still open, pending Director review. Updated 2026-11-11 7:20 PM EST (Prima): QD01 has a Tester working path on reseating (D320–D325), still open; see WORKING-PATH-LINEAGE.md. Updated 2026-11-11 7:25 PM EST (Prima): QD03 has a Tester working path (D326), still open, pending Director review. Updated 2026-11-11 7:30 PM EST (Prima): QD13 / Q30 has a Tester working path (D327), still open, pending Director review. Updated 2026-11-11 7:35 PM EST (Prima): QD09 has a Tester working path (D332), still open, pending Director review.
+Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, D12, D13, D14 and D16 are still open, as QD25, QD10, QD13, QD26 and QD24.) Updated 2026-11-11 evening (Designer): R23-R25 recorded; QD05 answered by R25; QD66 and QD67 saved. Updated 2026-11-11 7:15 PM EST (Prima): QD02 has a Tester working path (D319), still open, pending Director review. Updated 2026-11-11 7:20 PM EST (Prima): QD01 has a Tester working path on reseating (D320–D325), still open; see WORKING-PATH-LINEAGE.md. Updated 2026-11-11 7:25 PM EST (Prima): QD03 has a Tester working path (D326), still open, pending Director review. Updated 2026-11-11 7:30 PM EST (Prima): QD13 / Q30 has a Tester working path (D327), still open, pending Director review. Updated 2026-11-11 7:35 PM EST (Prima): QD09 has a Tester working path (D332), still open, pending Director review. Updated 2026-11-11 7:40 PM EST (Prima): QD10 has a Tester working path (D333), still open, pending Director review.
 
 ---
 
@@ -131,9 +131,9 @@ Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, 
 - Option A: the dictionary is the one exception.
 - Option B: no 03.00. The dictionary menu becomes a card on face 03.
 - Blocks: 5 held faces (kernel 0055 and the dictionary).
-- Now: `7`. The old text stays. Nothing is built on 03.00.
+- Now: `7`. Working path (Tester, 2026-11-11 evening), not a ruling: there is no `03.00` file. The dictionary still has a way in — a menu of its sections — but that menu is worked out from the sections that exist, not written as a face-00 counter. A card on face 03 may explain this to a person, but the list itself is derived (same shape as QD03). This is option B, plus derive-the-list. Full write-up: [WORKING-PATH-QD10.md](WORKING-PATH-QD10.md). Pending Director review. Nothing was renamed. The C8.6 and brands.md tables have not been rewritten.
 - Raised: [kernel Q29](../../kernel/QUESTIONS.md) line 144; [face00.md F4](../spec/face00.md) line 468; [CONFLICTS K03](../../kernel/CONFLICTS.md) line 28, D12 line 159.
-- Log: D64, D181, D182.
+- Log: D64, D181, D182, D333.
 
 ### QD11. Which faces are task lists, on which page types?
 - Option A: each page type says which of its faces are task lists.
