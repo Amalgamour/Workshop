@@ -467,20 +467,22 @@ why: R22 "make every design choice recorded" (DIRECTOR-RULINGS.md:86-88). One ro
 
 | D384 | WORKING PATH (Tester), not a ruling: adopt Designer's D378 fold-in of D374-D376 into DESIGN.md as a faithful fold-in, with one small improvement. In the carry-on "may not" list, restore two phrases from D376 that were shortened: the draft says "widen scope" (D376: widen scope, grant, or frame) and "accept a pack or promote" (D376 / S04: accept a pack, mark the MVP done, or promote). The rest of D374, D375, and both halves of D376 landed in the right DESIGN.md sections, still marked 7 and not law. 00-counter.md, book-layout.md, and page-types.md were correctly left unchanged. This was not a reason to rewrite before recording; Designer will update the draft. Pending Director review. | working-path (Tester), pending Director review — not a ruling - D378, D374-D376 | docs/design/WORKING-PATH-D378-EVAL.md; Tester 2026-11-11 10:09 PM EST; DESIGN.md (74bf268) | DESIGN.md (not rewritten here); QD61, QD12 (still 7) |
 
+| D385 | PROPOSED (Designer, aligns with D384): restore two phrases in the DESIGN.md carry-on "may not" list that D378 shortened. Change "widen scope" to "widen scope, grant, or frame". Change "accept a pack or promote" to "accept a pack, mark the MVP done, or promote". The rest of the D374, D375, and D376 text is unchanged. Still 7, not law. QD61, QD12, and QD67 stay for Matthew. Q41, Q43, and Q34 were not marked. This draft does not edit 00-counter.md, book-layout.md, page-types.md, the kernel, the core, or WORKING-PATH, and it does not write a 00.counter or a new 05 counter. | provisional 7 (DESIGN, Designer draft) - D384, D378, D376 | docs/design/DESIGN.md; WORKING-PATH-D378-EVAL.md; D384 | DESIGN.md (not law); QD61, QD12 (still 7) |
+
 ## Totals
 
 Counted from the tables above by the first words of each Status cell. A row whose status has a settled part and an open part is counted by its first words; the open part is asked in QUESTIONS-FOR-DIRECTOR.md.
 
 - **settled-by-ruling:** 53
 - **settled-by-spec:** 113
-- **provisional 7:** 125
+- **provisional 7:** 126
 - **working-path (pending Director review):** 44
 - **superseded (in whole or part):** 22
 - **open:** 23
 - **held (do not re-ask):** 4
-- **all:** 384
+- **all:** 385
 
-By area: addressing 62, faces 79, drafts 64, storage 32, compute 27, ask 19, app 16, process 67.
+By area: addressing 62, faces 79, drafts 65, storage 32, compute 27, ask 19, app 16, process 67.
 
 ## Sources mined
 
@@ -518,3 +520,4 @@ Updated 2026-11-11 9:00 PM EST (Prima): D374-D376 added — Tester working paths
 Updated 2026-11-11 9:03 PM EST (Prima): D377 added — Tester evaluation of Designer's D373 fold-in of D363-D369, not a ruling. Adopt D373 as a faithful fold-in; no further improvements. See docs/design/WORKING-PATH-D373-EVAL.md. Numbered after Prima's D376. The Designer drafts and the kernel were not rewritten. QD67 stays for Matthew. Q41, Q43 and Q34 were not marked. No 00.counter was written.
 Updated 2026-11-11 10:00 PM EST, after D377 (Designer): docs/design/DESIGN.md updated for D374-D376 (a written abandoned decision, not a silent time-out; a rejected face draft returns with reviewer notes, or ends in a logged withdraw; a default outcome order, and what "carry on" may and may not do). D378 added as provisional 7. 00-counter.md, book-layout.md, and page-types.md are not the home for these paths and were left unchanged. QD22, QD54 and QD62 stay `7`. QD61 and QD12 stay `7`. QD67 stays for Matthew. Q41, Q43, and Q34 were not marked. Kernel, core, and WORKING-PATH were not edited. No 00.counter and no new 05 counter were written. No seated face was edited.
 Updated 2026-11-11 10:12 PM EST (Prima): D379-D384 added — Tester working paths, not rulings, on QD04, QD06, QD07, QD14 and QD15 (D379-D383), and Tester's evaluation of Designer's D378 fold-in (D384). D379: face 00 is the list, so it is not in it; stamp `state:` is the page's state; face 00's standing is a separate registry value (D322). D380: keep the token sign-in as built for this stage; offer a later split of secret from grant; levels 02, 03 and 05-09 stay for Matthew; D286 is out of date. D381: only level 00 may change what is live in the kernel; anyone may propose a draft; retiring needs the same approval as seating. D382: R14 meant the page's own face 00; both behaviours stay allowed; the 0052.01 wording fix is a new draft and a new seat. D383: a task starts at draft; only the computer moves it to pack after the lint; creating straight at pack is a bypass; build a minimal lint before switching that gate. D384: adopt D378 as a faithful fold-in of D374-D376, with one small improvement: restore two shortened phrases in the carry-on "may not" list (Designer will update; the draft was not rewritten here). See docs/design/WORKING-PATH-QD04-QD15.md and WORKING-PATH-D378-EVAL.md. Numbered after Designer's D378 and Tester's file commit 2777937. Those questions stay open and marked `7`. QD61, QD12, QD66 and QD67 stay for Matthew. Kernel Q40 has no QD home and was not given one. Q41, Q43 and Q34 were not marked. The kernel and the core were not edited. No 00.counter was written.
+Updated 2026-11-11 10:14 PM EST, after D384 (Designer): docs/design/DESIGN.md only: restored two phrases in the carry-on "may not" list (widen scope, grant, or frame; accept a pack, mark the MVP done, or promote). D385 added as provisional 7. The rest of the D374, D375, and D376 text was left as it is. QD61, QD12, and QD67 stay for Matthew. Q41, Q43, and Q34 were not marked. 00-counter.md, book-layout.md, page-types.md, the kernel, the core, and WORKING-PATH were not edited. No 00.counter and no new 05 counter were written. No seated face was edited.
