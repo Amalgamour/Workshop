@@ -6,7 +6,9 @@ proposal. Anything marked `7` is open.
 
 Lane: DESIGN (Designer). Source ruling: R25 in `docs/spec/DIRECTOR-RULINGS.md`.
 Related: axiom 6 (`Axioms.md:23`), R24 (how 05 climbs), kernel Q51, QD05,
-QD66, QD67, QD03, QD16, D323, D324, D346, D347, F9, A4.4 (`crates/seqaddr-core/src/state.rs:420`).
+QD66, QD67, QD03, QD16, D323, D324, D346, D347, D349, D350,
+D357, D358, F9, A4.4 (`crates/seqaddr-core/src/state.rs:420`,
+`state.rs:460`, `resolve.rs:182`, `face.rs:83-84`).
 
 This file was first written as a proposal for how 00.counter climbs and
 whether those faces are seated (QD67, QD66). Tester's hostile pass found
@@ -35,6 +37,12 @@ adds the 00.CC. The builder should check it; a mismatch halts
 (D324). Section 11 addresses this. F9 is related: a real-but-wrong
 prior blob, and an all-zero blob, both pass `--check` today. There
 is still no implementation. This is a working path, not a ruling.
+
+Before anyone implements the A4.4 agreement: do not solve it by
+making face 00 a counted face (D357). Section 10 records this.
+Section 11 also folds in two smaller notes (D358): the stored
+value is the blob, never a commit id; and the before-field check
+is only half of R25. These are working paths, not rulings.
 
 QD67 stays for Matthew, with both climb options. This draft recommends
 one of them. That is not an answer. [F13] [WORKING-PATH-LINEAGE.md]
@@ -134,10 +142,11 @@ It names:
   the face 00 it measures. [D325]
 - `prior:` the previous counter (`00.01` has none; it starts the line)
 - `fingerprint-before:` face 00's git blob (the full 40-hex) at the
-  parent of the commit that adds this 00.CC. In plain words: the
-  exact bytes of face 00 as git held them in the commit just before
-  the one that adds this file. That is "just before the change"
-  once the snapshot is committed. [D347, which sharpens D323]
+  parent of the commit that adds this 00.CC, never a commit id. In
+  plain words: the exact bytes of face 00 as git held them in the
+  commit just before the one that adds this file. That is "just
+  before the change" once the snapshot is committed. [D347, which
+  sharpens D323] [D358]
 - `change:` what is about to be written onto face 00, and why (for
   example a new `seat-05:` line). A void (section 9) says the named
   change was not made.
@@ -166,7 +175,10 @@ which option A does not allow.
 4. Then count and compare: old fingerprint, the change, and what 00
    is now. The builder should check that `fingerprint-before` equals
    face 00's git blob at that parent. A mismatch halts. [D347] [D324]
-   There is still no such check today (F9; section 11).
+   That before-field check is only half of R25. The after-compare
+   (old fingerprint, the named change, and what 00 is now) should
+   stay visible when KERNEL builds the check. [D358] There is still
+   no such check today (F9; section 11).
 
 If the change is refused before it is made, do not rewrite the 00.CC.
 Write a void, as in section 9.
@@ -250,6 +262,16 @@ halts. [D347] [D324] There is still no such check: a real-but-wrong
 prior blob, and an all-zero blob, both pass `--check` today (F9).
 This draft does not edit the builder.
 
+When the A4.4 agreement is implemented, do not solve it by making
+face 00 a counted face. Do not add it to `always_counted`, and do
+not put `(page, 0)` into `Policy.extra_counted`. Allow `00.CC` as
+a special case without `is_counted(page, 0)` being true, so plain
+face 00 stays the registry. [D357]
+
+The stored fingerprint is the blob, never a commit id. The
+before-field check is only half of R25; the after-compare should
+stay visible when the check is built. [D358]
+
 The address, standing, and void rules in sections 7-9 are also `7`.
 
 ---
@@ -268,6 +290,11 @@ The address, standing, and void rules in sections 7-9 are also `7`.
 - D347 is a working path, not a ruling. It sharpens when the
   fingerprint is taken (section 11). The builder check it asks for
   has no implementation yet (F9).
+- D357 is a working path, not a ruling. When the A4.4 agreement
+  is implemented, do not make face 00 a counted face (section 10).
+- D358 is a working path, not a ruling. Smaller notes on the
+  fingerprint check (section 11): the stored value is the blob,
+  never a commit id; the after-compare is still unimplemented.
 
 ---
 
@@ -330,7 +357,9 @@ in the 05/06 sense: there is no separate board at `00.00`, because
 `00.00` is the registry itself. The 00.CC counters are a special
 case, allowed so the line lives next to the face 00 it measures. The
 series is just the 00.CC files that exist, derived the same way as
-the face list. [D326]
+the face list. [D326] The implementation must allow `00.CC` as that
+special case without `is_counted(page, 0)` being true. Do not make
+face 00 a counted face to solve A4.4. See section 10. [D357]
 
 The core's "no counter on face 00" and the builder's "bare means
 seated" would need this exception. That change is KERNEL and CORE
@@ -424,6 +453,31 @@ to the registry) is still the recommended shape. It cannot be used
 until KERNEL and CORE implement that agreement. This draft does not
 edit the builder or the core, and it does not write a 00.counter.
 
+**PROPOSED, aligned with D357.** When that agreement is implemented,
+do not solve A4.4 by making face 00 a counted face. In plain words:
+do not treat face 00 as the kind of face that holds a list of
+counters, the way 05 and 06 do. If you did, two bad things would
+follow. A bare put of face 00 would be refused, and opening plain
+face 00 would show a list of counters instead of the registry. That
+would hide the registry. [D357]
+[WORKING-PATH-00-COUNTER-EVAL.md]
+
+Do not add face 00 to `always_counted` (today only 05 and 06,
+`crates/seqaddr-core/src/face.rs:83-84`). Do not put `(page, 0)`
+into `Policy.extra_counted` (today only the dictionary's face 03,
+`state.rs:54`). That would let `00.CC` through at `state.rs:420`,
+then break the registry: a bare put of face 00 would be refused
+at `state.rs:460`, and resolve of plain face 00 would return a
+derived listing of counters, not the registry (`resolve.rs:182`).
+That is the same family as D351, in the other direction: there,
+plain `0012.03` is already the derived menu, so an explanation
+cannot live at that address; here, plain face 00 is already the
+registry, and must stay that way.
+
+The implementation must allow `00.CC` as a special case without
+`is_counted(page, 0)` being true. F8 already says this. This is
+a working path, not a ruling. This draft does not edit the core.
+
 The F7 listing cascade is a separate point. The QD03 path is meant
 to break it; the builder has not been changed. [D326] [section 7]
 
@@ -447,8 +501,9 @@ Tester's test 4 (F9) confirmed there is still no such check. A
 `00.CC.draft` naming a real but wrong earlier blob, and then one
 naming an all-zero blob (a blob git does not hold), both pass
 `--check`. The word "fingerprint" does not appear in the builder,
-the core, the app, or the scripts. It is only in the docs. The
-"count and compare" step R25 asks for has no implementation.
+the core, the app, or the scripts. It appears in the docs, and in
+prose in `kernel/QUESTIONS.md`. The "count and compare" step R25
+asks for has no implementation.
 
 **PROPOSED, aligned with D347.** Use that parent-commit timing.
 The builder should check it. A mismatch halts (D324). This is a
@@ -456,18 +511,35 @@ working path, not a ruling. KERNEL would implement the check.
 This draft does not edit the builder, and it does not write a
 00.counter.
 
+**Also, aligned with D358 (smaller notes, not disagreements).**
+The stored value is the blob, never a commit id (test 5, D348).
+After a publish rewrite the commit SHA will change, as it did for
+`fae009a`. The check should walk to the commit that introduced
+the 00.CC file, then read face 00's blob at that commit's parent
+tree. Blob cites survive; commit cites do not.
+
+The before-field check (`fingerprint-before` equals that parent
+blob) is only half of R25. The after-compare (old fingerprint,
+the named change, and what 00 is now) is still unimplemented.
+It should stay visible when KERNEL builds the check, so the
+before-timing is not taken as the whole of R25. [D358]
+[WORKING-PATH-00-COUNTER-EVAL.md]
+
 ---
 
 ## 12. Status
 
 Still a draft, still `7`, not law. Sections 2 and 3 (QD67, QD66) are
-unchanged in their recommendations. The only wording change in
-section 2 is when the blob is taken (D347). QD67 stays for Matthew.
-Sections 7-9 align F7 with the QD03 working path, and propose
-standing (F8) and void (F12). Section 10 aligns with D346: do not
-write a 00.counter in the shared repo until the A4.4 hole is
-solved. Section 11 aligns with D347: the fingerprint is face 00's
-git blob at the parent of the commit that adds the 00.CC; the
-builder should check it, and a mismatch halts; there is still no
-implementation (F9). Tester's notes and the WORKING-PATH files
-were not rewritten. The kernel and the core were not edited.
+unchanged in their recommendations. QD67 stays for Matthew. Sections
+7-9 align F7 with the QD03 working path, and propose standing (F8)
+and void (F12). Section 10 aligns with D346 and D357: do not write
+a 00.counter in the shared repo until the A4.4 hole is solved, and
+do not solve it by making face 00 a counted face. Section 11 aligns
+with D347 and D358: the fingerprint is face 00's git blob at the
+parent of the commit that adds the 00.CC; the stored value is the
+blob, never a commit id; the before-field check is only half of
+R25, and the after-compare should stay visible when KERNEL builds
+the check; there is still no implementation (F9). The F8 standing
+stays the recommended shape. Tester's notes and the WORKING-PATH
+files were not rewritten. The kernel and the core were not edited.
+Q41, Q43, and Q34 were not marked. No 00.counter was written.
