@@ -497,6 +497,8 @@ why: R22 "make every design choice recorded" (DIRECTOR-RULINGS.md:86-88). One ro
 
 | D401 | PROPOSED (Designer, aligns with D396-D400): fold those working paths into DESIGN.md, still 7, not law. Face 00 is a stamp at the top, then exactly one Registry card; stored stamp fields are only the ones a person or a proposal decides, and derived values are shown as `:=`, not stored (D396, QD29). The lineage line is the chain up only, and it is derived, never stored (D397, QD30). A workflow approval is a write-once note on the N4 page's face 06; face 00 shows only a derived pointer (D398, QD31). Owner class lives on law cards, not on the system page's face 00 (D399, QD32). The code type means the 3.1 laws already decided, and N3 pages stay workflow (D400, QD33). Offers stay offers and were not adopted (move why-NN off 00 onto the entry's reason; a derived trail view; a new approve operation, or a dedicated page; add shelf-local; pin file links by blob as well as commit). QD29, QD30, QD31, QD32 and QD33 stay `7`. F8, F10, QD34, QD41, QD43, QD12, QD50, QD61, QD66 and QD67 stay `7` and were not answered. Q41, Q43, and Q34 were not marked. Kernel Q45 was not given a QD home. Do not decide whether seat-NN belongs in face 00 (kernel Q34 stays for Matthew). This draft does not edit 00-counter.md, book-layout.md, page-types.md, the kernel, the core, or WORKING-PATH, and it does not write a 00.counter or a new 05 counter. The carry-on may-not list was not reopened. Findings were not implemented. | provisional 7 (DESIGN, Designer draft) - D396, D397, D398, D399, D400 | docs/design/DESIGN.md; WORKING-PATH-QD29-QD33.md; D396-D400 | DESIGN.md (not law); 00-counter.md, book-layout.md, page-types.md (unchanged); kernel and core (not edited); F8, F10, QD34, QD41, QD43, QD12, QD50, QD61, QD66, QD67 (still 7) |
 
+| D402 | WORKING PATH (Tester), not a ruling: adopt Designer's D401 fold-in of D396-D400 into DESIGN.md as a faithful fold-in. No further substance is missing. No further improvements. All five paths are in, still 7, not law. Offers stay offers. Findings were not implemented. The carry-on may-not list was not reopened. Pending Director review. | working-path (Tester), pending Director review — not a ruling - D401, D396-D400 | docs/design/WORKING-PATH-D401-EVAL.md; Tester 2026-11-12 12:24 AM EST; DESIGN.md (83eade6) | DESIGN.md (not rewritten again); F8, F10, QD34, QD41, QD43, QD12, QD50, QD61, QD66, QD67 (still 7) |
+
 ## Totals
 
 Counted from the tables above by the first words of each Status cell. A row whose status has a settled part and an open part is counted by its first words; the open part is asked in QUESTIONS-FOR-DIRECTOR.md.
@@ -504,13 +506,13 @@ Counted from the tables above by the first words of each Status cell. A row whos
 - **settled-by-ruling:** 53
 - **settled-by-spec:** 113
 - **provisional 7:** 129
-- **working-path (pending Director review):** 57
+- **working-path (pending Director review):** 58
 - **superseded (in whole or part):** 22
 - **open:** 23
 - **held (do not re-ask):** 4
-- **all:** 401
+- **all:** 402
 
-By area: addressing 63, faces 85, drafts 72, storage 32, compute 28, ask 19, app 16, process 68.
+By area: addressing 63, faces 85, drafts 73, storage 32, compute 28, ask 19, app 16, process 68.
 
 ## Sources mined
 
@@ -557,3 +559,4 @@ Updated 2026-11-11 11:08 PM EST, after D393 (Designer): docs/design/DESIGN.md on
 Updated 2026-11-11 11:12 PM EST (Prima): D395 added — Tester evaluation of Designer's D394 fold-in of D389-D393, not a ruling. Adopt D394 as a faithful fold-in; no further substance is missing. No further improvements. See docs/design/WORKING-PATH-D394-EVAL.md. Numbered after Designer's D394. The Designer draft was not rewritten again. QD61, QD12, QD66 and QD67 stay for Matthew. Q41, Q43 and Q34 were not marked. No 00.counter was written.
 Updated 2026-11-12 12:14 AM EST (Prima): D396-D400 added — Tester working paths for QD29, QD30, QD31, QD32, and QD33, not rulings. Face 00 is a stamp then one Registry card, made exact, with derived values shown not stored; the lineage line is the chain up only and is derived; a workflow approval is a write-once note on N4 face 06; owner class lives on law cards; and the code type means the 3.1 laws, with N3 pages staying workflow. See docs/design/WORKING-PATH-QD29-QD33.md. Numbered after Tester's file (d4f1e68). The Tester file was not rewritten. Offers stay offers. Findings were not implemented. F8 and F10 were not answered. QD34, QD41, QD43, QD12, QD61, QD66 and QD67 stay for Matthew. Q41, Q43 and Q34 were not marked. Kernel Q45 was not given a QD home. No 00.counter was written.
 Updated 2026-11-12 12:20 AM EST, after D400 (Designer): docs/design/DESIGN.md only: folded in D396-D400 (face 00 is a stamp then one Registry card, with derived values shown not stored; the lineage line is the chain up only and is derived; a workflow approval is a write-once note on N4 face 06; owner class lives on law cards; and the code type means the 3.1 laws, with N3 pages staying workflow). D401 added as provisional 7. Offers stay offers and were not adopted. Findings were not implemented. The carry-on may-not list was not reopened. QD29, QD30, QD31, QD32 and QD33 stay `7`. F8, F10, QD34, QD41, QD43, QD12, QD50, QD61, QD66 and QD67 stay `7`. Q41, Q43, and Q34 were not marked. Kernel Q45 was not given a QD home. 00-counter.md, book-layout.md, page-types.md, the kernel, the core, and WORKING-PATH were not edited. No 00.counter and no new 05 counter were written. No seated face was edited.
+Updated 2026-11-12 12:26 AM EST (Prima): D402 added — Tester evaluation of Designer's D401 fold-in of D396-D400, not a ruling. Adopt D401 as a faithful fold-in; no further substance is missing. No further improvements. See docs/design/WORKING-PATH-D401-EVAL.md. Numbered after Designer's D401. The Designer draft was not rewritten again. F8, F10, QD34, QD41, QD43, QD12, QD50, QD61, QD66 and QD67 stay for Matthew. Q41, Q43 and Q34 were not marked. Kernel Q45 was not given a QD home. No 00.counter was written.
