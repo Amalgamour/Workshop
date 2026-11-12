@@ -496,12 +496,15 @@ function historySeats() {
   }
   const text = catBlobs([...new Set(seen.map((x) => x[1]))]);
   if (!text) return fail();
-  // Q63: log is newest first, so the first blob that holds a structured seat for an address gives its last seat (every blob that
-  // blob's fields name for it). A newer blob with only prose or a stamp `seat-NN:` line gives none, so it cannot set the blob.
+  // Q63: a seat is read only from a blob's structured fields; a blob with only prose or a stamp `seat-NN:` line gives none.
+  // TRIAL-K10 finding 1, Q67 (decided by KERNEL pass 12, builder lane: option C): `git log` prints by commit date, so "the first
+  // blob printed" is not the last seat (DO: a future-dated merge parent; F1: one never-built commit). Every distinct seat blob
+  // any face 00 version names for an address is kept, so the order of the walk no longer matters.
   for (const [page, b] of seen)
     for (const [key, v] of blobSeats(text.get(b))) {
       const addr = `${page}.${key}`;
-      if (!out.has(addr)) out.set(addr, { addr, by: v.by, blobs: [...v.blobs].map((x) => [x, 'face 00 history']) });
+      const h = out.get(addr) || out.set(addr, { addr, by: v.by, blobs: [] }).get(addr);
+      for (const x of v.blobs) if (!h.blobs.some(([y]) => y === x)) h.blobs.push([x, 'face 00 history']);
     }
   return out;
 }
@@ -532,23 +535,41 @@ function priorSeats() {
   const order = [...new Set(ids)];
   const texts = catBlobs(order);
   if (!texts) { err('books', 'git cat-file could not read the books/ history, so un-seats cannot be checked (TRIAL-K8 finding 2, Q62)'); return [...hist.values()]; }
-  // Q63: the newest book line with `approved-by` for an address (HEAD's books first, then newest first) gives its last built
-  // seat. It is always read, not only when face 00 history has none, and joined to the face 00 history seat: an un-seat record
-  // must name every one of these blobs, so a made-up seat line cannot replace the real one.
+  // Q63: book lines with `approved-by` for an address are always read, not only when face 00 history has none, and joined to
+  // the face 00 history seats: an un-seat record must name every one of these blobs, so a made-up seat line cannot replace
+  // the real one. Q67 (KERNEL pass 12, option C): every distinct blob of every such line in every book version is kept, not
+  // the first one printed, so a future-dated merge (DO) or a book line rewritten in a never-built commit (F1) hides no seat.
   const got = new Map();
   for (const id of order)
     for (const l of texts.get(id).split('\n')) {
       if (!l.trim()) continue;
       let e; try { e = JSON.parse(l); } catch { continue; }
       const ref = e.trial || e.ruling || '';
-      if (typeof e.addr === 'string' && e['approved-by'] && !got.has(e.addr)) got.set(e.addr, { by: e['approved-by'], blob: (/face blob ([0-9a-f]+)/.exec(ref) || /blob ([0-9a-f]+)/.exec(ref) || [])[1] || '' });
+      if (typeof e.addr !== 'string' || !e['approved-by']) continue;
+      const g = got.get(e.addr) || got.set(e.addr, { by: e['approved-by'], blobs: [] }).get(e.addr);
+      const b = (/face blob ([0-9a-f]+)/.exec(ref) || /blob ([0-9a-f]+)/.exec(ref) || [])[1] || '';
+      if (b && !g.blobs.includes(b)) g.blobs.push(b);
     }
-  for (const [addr, b] of got) {
+  for (const [addr, g] of got) {
     const h = hist.get(addr);
-    if (!h) out.push({ addr, by: b.by, blobs: b.blob ? [[b.blob, 'books/ history']] : [] });
-    else if (b.blob && !h.blobs.some(([x]) => x === b.blob)) h.blobs.push([b.blob, 'books/ history']);
+    if (!h) out.push({ addr, by: g.by, blobs: g.blobs.map((b) => [b, 'books/ history']) });
+    else for (const b of g.blobs) if (!h.blobs.some(([x]) => x === b)) h.blobs.push([b, 'books/ history']);
   }
   return [...hist.values(), ...out];
+}
+// TRIAL-K10 finding 3, Q67 (KERNEL pass 12, option C): a past seat blob counts only if it is reachable from HEAD (a blob in
+// some committed tree on HEAD's history). `git cat-file -e` also accepts an unreachable loose object (`git hash-object -w`),
+// which a fresh clone does not have (F1b). Read once: every object `git rev-list --objects HEAD` lists.
+let headObjs;
+function reachable(b) {
+  if (headObjs === undefined) {
+    const r = git('rev-list', '--objects', '--no-object-names', 'HEAD');
+    headObjs = r.status === 0 ? new Set(r.stdout.split('\n').filter(Boolean)) : null;
+  }
+  if (!headObjs) return false; // fail closed
+  if (b.length === 40) return headObjs.has(b);
+  for (const x of headObjs) if (x.startsWith(b)) return true;
+  return false;
 }
 function unseatChecks(books, prior) {
   const all = books.flatMap((b) => b.faces);
@@ -564,13 +585,15 @@ function unseatChecks(books, prior) {
     if (!rec || !rec.trim()) err(f00 ? f00.file : p.addr, `${p.addr} was seated (${p.by}) in the last build but is not now; write unseat-${key}: <reason>; was blob ${blobs.join(', blob ') || '(unknown)'} (R2: every seat can be found and re-reviewed; TRIAL-K3 finding 11)`);
     else {
       // TRIAL-K5 finding 5, Q54 d (taken by KERNEL pass 7): the record names the full old blob and gives a reason besides it.
-      // TRIAL-K9 finding 1, Q63 (KERNEL pass 11): the old blob is the last real seat, from the structured seat fields of face 00
-      // history and from books/ history; when they differ the record names each, so a made-up blob never satisfies it.
-      // A last-seat blob that git does not hold as a blob was never a seated face (every seat is checked against the committed
-      // face, Q58), so the seat line that gave it is made up; the un-seat cannot be checked and is refused (fail closed).
-      for (const [b, src] of p.blobs) if (hasGit() && git('cat-file', '-e', `${b}^{blob}`).status !== 0) err(f00.file, `the last seat of ${p.addr} in ${src} names blob ${b}, which git does not hold, so that seat line is made up and the un-seat cannot be checked (TRIAL-K9 finding 1, Q63)`);
+      // TRIAL-K9 finding 1, Q63 (KERNEL pass 11): the old blob comes from the structured seat fields of face 00 history and from
+      // books/ history; when they differ the record names each, so a made-up blob never satisfies it.
+      // TRIAL-K10 findings 1 and 3, Q67 (KERNEL pass 12, option C): the record names every distinct past seat blob of the face
+      // in both histories (re-seats included, R24), not only the first one `git log` prints. A past seat blob that is not a
+      // blob reachable from HEAD was never a committed seated face (every seat is checked against the committed face, Q58), so
+      // the seat line that gave it is made up; the un-seat cannot be checked and is refused (fail closed).
+      for (const [b, src] of p.blobs) if (hasGit() && (git('cat-file', '-e', `${b}^{blob}`).status !== 0 || !reachable(b))) err(f00.file, `a past seat of ${p.addr} in ${src} names blob ${b}, which git does not hold as a blob reachable from HEAD, so that seat line is made up and the un-seat cannot be checked (TRIAL-K9 finding 1, Q63; TRIAL-K10 finding 3, Q67)`);
       const miss = p.blobs.filter(([b]) => !rec.includes(b));
-      for (const [b, src] of miss) err(f00.file, `unseat-${key}: must name the full old blob ${b} (the last seat of ${p.addr} in ${src}; TRIAL-K3 finding 11; TRIAL-K5 finding 5; TRIAL-K9 finding 1, Q63)`);
+      for (const [b, src] of miss) err(f00.file, `unseat-${key}: must name the full old blob ${b} (a past seat of ${p.addr} in ${src}; every past seat blob is named; TRIAL-K3 finding 11; TRIAL-K5 finding 5; TRIAL-K9 finding 1, Q63; TRIAL-K10 finding 1, Q67)`);
       if (!miss.length && !/[a-z]{3,}/i.test(blobs.reduce((t, b) => t.split(b).join(' '), rec).replace(/\b(was|blob|and)\b/gi, ' '))) err(f00.file, `unseat-${key}: gives no reason; write unseat-${key}: <reason>; was blob ${blobs.join(', blob ')} (R2 re-review needs the reason; TRIAL-K5 finding 5)`);
     }
   }
@@ -646,6 +669,11 @@ function validate({ book, isAx, faces }) {
     const sf = seatFields(stamp.body), sk = new Set();
     const unseats = new Set(sf.filter(([w]) => w.startsWith('unseat')).map(([, k]) => k));
     for (const [where, key] of sf) {
+      // TRIAL-K10 finding 2, Q68 (decided by KERNEL pass 12, builder lane: option A): an `unseat-NN:` for a face still listed as
+      // seated (or a stamp `unseat-00:` in a seated face 00) is an error. Face 00 history reads a version holding it as the
+      // retiring one and skips that face's seat line, so while it stays the history would miss that seat and any re-seat (U1).
+      if (where === 'unseat' && key !== '00' && reg && reg.has(key) && reg.get(key).startsWith('seated;')) err(stamp.file, `registry has unseat-${key}:, but ${key} is still listed as seated in faces:; an un-seat record sits only beside a face that is no longer seated (TRIAL-K10 finding 2, Q68)`);
+      else if (where === 'unseat-stamp' && key === '00' && !stamp.tail) err(stamp.file, `stamp has unseat-00:, but face 00 is still seated (no tail); an un-seat record sits only beside a face that is no longer seated (TRIAL-K10 finding 2, Q68)`);
       if (where.startsWith('unseat')) continue;
       if (where === 'stamp' && key !== '00') err(stamp.file, `stamp has seat-${key}:; a seat record for face ${key} lives on the registry, only seat-00: lives in the stamp (TRIAL-K9 finding 1, Q63)`);
       else if (where === 'registry' && key === '00') err(stamp.file, `registry has seat-00:; face 00's own seat record lives in the stamp (TRIAL-K9 finding 1, Q63)`);

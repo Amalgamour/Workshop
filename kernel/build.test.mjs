@@ -202,10 +202,12 @@ run('R2: a prefix-collision forge of a seated face is refused (K4 HM)', (d) => {
   edit(join(d, 'kernel', '00.00.00', '00.00.00.0056.00.draft.md'), `kernel-trial-2.md blob ${T2}; blob: 112c169ccd06d54c6d9ab607fee6c2d16004cc62`, `forged.md blob ${blob(trial)}; blob: ${nb}`);
 }, { match: /lists 00\.00\.00\.0056\.01 by the short prefix [0-9a-f]{8}, and blob [0-9a-f]{40} is not this face's file in the commit that added the trial/ });
 // TRIAL-K4 finding 2 (HG, Q52 b): a ruling appended to the working-tree rulings file and never committed does not seat.
+// TRIAL-K10 finding 4, Q69 (decided by KERNEL pass 12, builder lane: option A): the fake ruling is R9999, a number no real
+// ruling will take (R23 became real in 5f2f43d, which broke the test).
 run('R2: a director seat citing an uncommitted ruling is refused (K4 HG)', (d) => {
-  appendFileSync(join(d, 'docs', 'spec', 'DIRECTOR-RULINGS.md'), '\n## R23 - fake\nDirector approves the seat of 10.11.21.0013.01.\n');
-  seat0013(d, (b) => `approved-by: director; ruling: R23; blob: ${b}`);
-}, { match: /seat cites R23, which is not in DIRECTOR-RULINGS\.md as committed at HEAD/ });
+  appendFileSync(join(d, 'docs', 'spec', 'DIRECTOR-RULINGS.md'), '\n## R9999 - fake\nDirector approves the seat of 10.11.21.0013.01.\n');
+  seat0013(d, (b) => `approved-by: director; ruling: R9999; blob: ${b}`);
+}, { match: /seat cites R9999, which is not in DIRECTOR-RULINGS\.md as committed at HEAD/ });
 // TRIAL-K4 finding 4 (HA, Q52 c): a trial committed off the branch (not an ancestor of HEAD) does not seat.
 run('R2: a seat citing a trial commit not on the branch is refused (K4 finding 4)', (d) => {
   const t = (b) => `# forged\n\n**PASS list:**\n- \`10.11.21.0013.01\` (blob \`${b}\`)\n`;
@@ -623,6 +625,98 @@ run('Q66: a face 00 holding only un-seat records must be the bytes git holds (K9
   sh(d, ['reset', '-q', 'HEAD', '--', F]); // face 00 left out of the commit
   sh(d, ['commit', '-q', '--no-verify', '-m', 'faces and books, face 00 uncommitted'], { env: { ...process.env, ...ID } });
 }, { match: /face 00 kernel\/samples\/10\.11\.21\/10\.11\.21\.0012\.00\.draft\.md is blob [0-9a-f]{40} in git \(HEAD\), not the bytes on disk/ }, { args: ['--check'] });
+
+// ---- KERNEL pass 12: TRIAL-K10 findings 1-3 (Q67, Q68); finding 4 (Q69) is the K4 HG test above ----
+// A trial passing one face blob, committed alone on HEAD (a docs-only commit, as K10 DO made its seats) and written to disk too.
+const trialFor = (d, name, addr, fb) => {
+  const path = `docs/trial/${name}.md`, t = `# ${name}\n\n**PASS list, eligible for an R2 seat**\n- \`${addr}\` (blob \`${fb}\`)\n`;
+  writeFileSync(join(d, path), t);
+  sh(d, ['update-ref', 'HEAD', commitTree(d, putTree(d, 'HEAD', [['100644', hashText(d, t), path]]), ['HEAD'], `docs only: ${name}`)]);
+  return `trial: ${path} blob ${blob(t)}`;
+};
+// Stage the work, run the write build (it must pass), stage the books it wrote; `edit` may change files after the build.
+// Then commit on HEAD, or (with `parents`) as a merge of those parents. Returns the new commit.
+const commitBuilt = (d, msg, { parents, after } = {}) => {
+  const env = { ...process.env, ...ID };
+  const add = () => { sh(d, ['read-tree', 'HEAD'], { env }); sh(d, ['add', '-A', '--', 'kernel', 'docs/spec', 'docs/trial', 'books'], { env }); };
+  add();
+  const w = spawnSync(process.execPath, [join(d, 'kernel', 'build.mjs')], { encoding: 'utf8' });
+  if (w.status !== 0) throw new Error(`fixture: write mode failed: ${w.stdout}${w.stderr}`);
+  if (after) after();
+  add();
+  const c = sh(d, ['commit-tree', sh(d, ['write-tree'], { env }), ...(parents || ['HEAD']).flatMap((x) => ['-p', x]), '-m', msg], { env });
+  sh(d, ['update-ref', 'HEAD', c]);
+  return c;
+};
+// 0013.01 is seated at B1 (C1), then updated and re-seated at B2 (C2), each from its own trial (R24: reseat an update).
+const reseat0013 = (d) => {
+  const f = S(d, '10.11.21', '10.11.21.0013.01.md'), r = join(d, R0013);
+  renameSync(S(d, '10.11.21', '10.11.21.0013.01.draft.md'), f);
+  const B1 = blob(readFileSync(f, 'utf8'));
+  const tr1 = trialFor(d, 'k10-seat-1', '10.11.21.0013.01', B1);
+  const t1 = sh(d, ['rev-parse', 'HEAD']);
+  edit(r, '01 draft', '01 seated');
+  edit(r, '\n## Registry\n', `\n## Registry\nseat-01: approved-by: build-stage (R2); ${tr1}; blob: ${B1}\n`);
+  const C1 = commitBuilt(d, 'seat 0013.01 at B1');
+  appendFileSync(f, '\nre-seat fixture: an update (R24)\n');
+  const B2 = blob(readFileSync(f, 'utf8'));
+  const tr2 = trialFor(d, 'k10-seat-2', '10.11.21.0013.01', B2);
+  edit(r, `${tr1}; blob: ${B1}`, `${tr2}; blob: ${B2}`);
+  const C2 = commitBuilt(d, 're-seat 0013.01 at B2');
+  return { f, r, B1, B2, t1, C1, C2 };
+};
+// Pull 0013.01 back to a draft with an un-seat record naming `named`.
+const pull01 = (d, x, named) => {
+  renameSync(x.f, S(d, '10.11.21', '10.11.21.0013.01.draft.md'));
+  edit(x.r, '01 seated', '01 draft');
+  edit(x.r, /^seat-01: .*\n/m.exec(readFileSync(x.r, 'utf8'))[0], `unseat-01: pulled back for review; was blob ${named}\n`);
+};
+// Q67 (control): after a real re-seat, an un-seat naming both past seat blobs builds.
+run('Q67: after a re-seat, an un-seat naming every past seat blob builds (control)', (d) => {
+  const x = reseat0013(d);
+  pull01(d, x, `${x.B1}, blob ${x.B2}`);
+  commitWork(d, 'un-seat 0013.01 naming B1 and B2');
+}, { ok: true });
+// Q67: every past seat blob is named, the older one too, so naming only the newest seat is refused.
+run('Q67: after a re-seat, an un-seat naming only the newest seat blob is refused', (d) => {
+  const x = reseat0013(d);
+  pull01(d, x, x.B2);
+  commitWork(d, 'un-seat 0013.01 naming B2 only');
+}, { match: /unseat-01: must name the full old blob [0-9a-f]{40} \(a past seat of 10\.11\.21\.0013\.01 in face 00 history/ });
+// Q67 / K10 DO: after the re-seat, S is a copy of C1 (C1's tree, parent t1) dated 2030, and M merges C2 and S, un-seating 0013.01
+// with a record naming only the older B1; M's books are written by a build that named both, then the record is cut to B1.
+// `git log` prints S first, so before pass 12 both walks gave B1 as "the newest seat" and M built, also in a fresh clone.
+run('Q67: an un-seat after a future-dated merge naming only the older seat is refused (K10 DO)', (d) => {
+  const x = reseat0013(d);
+  const date = '2030-01-01T00:00:00Z';
+  const s = sh(d, ['commit-tree', `${x.C1}^{tree}`, '-p', x.t1, '-m', 'copy of C1, future-dated'], { env: { ...tmpIdx(d), GIT_AUTHOR_DATE: date, GIT_COMMITTER_DATE: date } });
+  pull01(d, x, `${x.B1}, blob ${x.B2}`);
+  commitBuilt(d, 'merge C2 and S; un-seat 0013.01 naming B1 only', { parents: [x.C2, s], after: () => edit(x.r, `${x.B1}, blob ${x.B2}`, x.B1) });
+  if (sh(d, ['log', '--format=%H', '-1', 'HEAD^2']) !== s) throw new Error('fixture: S is not the second parent');
+}, { match: /unseat-01: must name the full old blob [0-9a-f]{40} \(a past seat of 10\.11\.21\.0013\.01 in face 00 history/ });
+// Q67 / K10 F1: one never-built commit A rewrites face 00's seat-05.02 blob AND the book line's face blob to X, the blob of a
+// committed file (0013.04.draft.md); B un-seats naming X. Before pass 12 both walks gave X and B built, also in a fresh clone.
+const BOOK = join('books', '10.11.21.book');
+const rewrite0502 = (d, X) => {
+  edit(join(d, R0013), `blob: ${REAL_0502}`, `blob: ${X}`);
+  if (readFileSync(join(d, BOOK), 'utf8').split(`face blob ${REAL_0502}`).length !== 2) throw new Error('fixture: book line not found once');
+  edit(join(d, BOOK), `face blob ${REAL_0502}`, `face blob ${X}`);
+  commitWork(d, 'rewrite face 00 and the book line to X (never built)');
+  pull0502(d, X);
+  commitWork(d, 'un-seat 0013.05.02 naming X');
+};
+run('Q67: a seat line and its book line rewritten to another committed blob before the un-seat are refused (K10 F1)', (d) => {
+  rewrite0502(d, sh(d, ['rev-parse', 'HEAD:kernel/samples/10.11.21/10.11.21.0013.04.draft.md']));
+}, { match: NAME_REAL });
+// Q67 / K10 F1b: F1 with Y, an unreachable loose object (`git hash-object -w`). Before pass 12 `cat-file -e` accepted it locally.
+run('Q67: F1 with an unreachable loose object as the blob is refused (K10 F1b)', (d) => {
+  rewrite0502(d, hashText(d, 'made up face\n'));
+}, { match: /a past seat of 10\.11\.21\.0013\.05\.02 in face 00 history names blob [0-9a-f]{40}, which git does not hold as a blob reachable from HEAD/ });
+// Q68 / K10 U1: an `unseat-05.02:` beside the still-seated 0013.05.02 (books rebuilt and committed) is refused.
+run('Q68: an unseat-NN record beside a face still listed as seated is refused (K10 U1)', (d) => {
+  edit(join(d, R0013), `blob: ${REAL_0502}\n`, `blob: ${REAL_0502}\nunseat-05.02: not really; was blob ${REAL_0502}\n`);
+  commitWork(d, 'unseat line beside a live seat');
+}, { match: /registry has unseat-05\.02:, but 05\.02 is still listed as seated in faces:/ });
 
 if (failed) { console.log(`${failed} failed`); process.exit(1); }
 console.log('all passed');
