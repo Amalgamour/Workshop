@@ -387,3 +387,6 @@ Every build choice, its why, and the spec line it follows. A choice the spec doe
 
 ## [WORKING PATH] Tester agrees Designer's D394 is a faithful fold-in of D389-D393 (D395) - 2026-11-11 11:12 PM EST
 - Tester evaluated the D394 fold-in of D389-D393 into DESIGN.md, read-only, and agrees: it is a faithful fold-in; no further substance is missing; no further improvements. Recorded as D395, still working path, not a ruling. See WORKING-PATH-D394-EVAL.md. The Designer draft was not rewritten again. QD61, QD12, QD66 and QD67 stay for Matthew. Q41, Q43 and Q34 were not marked. No 00.counter was written. Not pushed.
+
+## [WORKING PATH] Tester working paths for QD29, QD30, QD31, QD32, and QD33 (D396-D400) - 2026-11-12 12:14 AM EST
+- Tester wrote working paths for QD29 (face 00 layout), QD30 (lineage line), QD31 (workflow approval record), QD32 (system-page owner kinds), and QD33 (the code page type), still 7, not rulings. Recorded as D396-D400. See WORKING-PATH-QD29-QD33.md. The Tester file was not rewritten. Offers stay offers. Findings were not implemented. F8 and F10 were not answered. QD34, QD41, QD43, QD12, QD61, QD66 and QD67 stay for Matthew. Q41, Q43 and Q34 were not marked. Kernel Q45 was not given a QD home. No 00.counter was written. Not pushed.
