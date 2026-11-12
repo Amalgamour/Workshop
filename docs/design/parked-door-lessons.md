@@ -17,8 +17,9 @@ rewritten.
 This draft does not decide Q26 or Q33. QD67 stays for Matthew.
 
 Related: R10, R22, R25; Q26, Q31, Q33, Q42, Q44, Q45, Q51 (answered
-by R25); O14, O34 (held); D44, D49, D50; kernel-trial.md findings 10
-and 20; kernel-trial-4.md findings 3 and 17.
+by R25); O14, O34 (held); D44, D49, D50, D341, D342, D345, D346,
+D348, D352; kernel-trial.md findings 10 and 20; kernel-trial-4.md
+findings 3 and 17.
 
 ---
 
@@ -62,10 +63,11 @@ the seat (kernel-trial-4.md, H1). Axiom 6: a change is a new step;
 the past is not rewritten.
 
 So the fold should be new 05 counters on 0051 and 0052, drafted and
-later trialed, citing the parked files as the source. Do not edit
-the seated 05.01 or 05.02. Do not unseat them. Do not copy the same
-steps four times -- write them once, and name the level-specific
-bits.
+later trialed, citing the parked files as the source, by path plus
+blob, not by commit id (D348, as Q53 did for trials). New counters
+should not add more local-only commit cites. Do not edit the seated
+05.01 or 05.02. Do not unseat them. Do not copy the same steps four
+times -- write them once, and name the level-specific bits. [D352]
 
 Recommended shape, following the existing 05.01 (lessons) and 05.02
 (pack) split. Q44 (whether "what we learned" lives on 05 or 06)
@@ -78,9 +80,21 @@ stays open; this draft stays with R22 and uses 05:
   face 00 registry
 - `0052.05.04` -- remaining door-related work on 0052
 
+`0051.05.04` and `0052.05.04` are the next packs. They should name
+the seated 05.02 they follow (`supersedes:`, or an equivalent), and
+the core should eventually read that (D345). `05.03` is lessons,
+like `05.01`: keep it out of the "which pack is current" rule. Q44
+stays open; this is only so the climb has a reader. [D352]
+
 Those files are not written here. KERNEL or PACKS would write them,
 still as `7`, after this note. This draft only says what should go
 into them.
+
+These counters are the door-lessons slice of the climb. D348's
+stale-card work (close the already-done w01 cards, fix broken
+counts, re-point 0052 w02) is a separate set of cards, on these
+new counters or a later one. This draft does not mix that in; it
+should not be forgotten. [D352]
 
 ---
 
@@ -157,6 +171,8 @@ the lookup already stated on 0051.
   Q42 path already says face 00 is handled under R25, not by a 05
   pack (D338). The useful lesson is: do not revive that seating
   step. Record the line of face 00 on the 00.counter, as R25 says.
+  Do not write a 00.counter into the shared repo until the A4.4
+  hole is solved (D346). The lesson itself is still right. [D352]
 - Each of the four doors already carries a `level:` field (kernel,
   desk, shelf, or book), which the parked notes call "the build's
   own." That is practice, not a ruling. Q33 stays open. When Q33
@@ -197,5 +213,8 @@ the lookup already stated on 0051.
 
 ## 6. Status
 
-Still a draft, still `7`, not law. Aligns with D338. The parked
-files were left in place. The working path file was not rewritten.
+Still a draft, still `7`, not law. Aligns with D338 and D352
+(D341 and D342 stand; the notes above are smaller improvements,
+not disagreements). The parked files were left in place. The
+WORKING-PATH files were not rewritten. The new counters were not
+written. No 00.counter was written.
