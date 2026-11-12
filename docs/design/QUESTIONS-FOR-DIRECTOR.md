@@ -131,9 +131,9 @@ Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, 
 - Option A: the dictionary is the one exception.
 - Option B: no 03.00. The dictionary menu becomes a card on face 03.
 - Blocks: 5 held faces (kernel 0055 and the dictionary).
-- Now: `7`. Working path (Tester, 2026-11-11 evening), not a ruling: there is no `03.00` file. The dictionary still has a way in — a menu of its sections — but that menu is worked out from the sections that exist, not written as a face-00 counter. A card on face 03 may explain this to a person, but the list itself is derived (same shape as QD03). This is option B, plus derive-the-list. Full write-up: [WORKING-PATH-QD10.md](WORKING-PATH-QD10.md). Pending Director review. Nothing was renamed. The C8.6 and brands.md tables have not been rewritten.
-- Raised: [kernel Q29](../../kernel/QUESTIONS.md) line 144; [face00.md F4](../spec/face00.md) line 468; [CONFLICTS K03](../../kernel/CONFLICTS.md) line 28, D12 line 159.
-- Log: D64, D181, D182, D333.
+- Now: `7`. Working path (Tester, 2026-11-11 evening), not a ruling: there is no `03.00` file. The dictionary still has a way in — a menu of its sections — but that menu is worked out from the sections that exist, not written as a face-00 counter. A card on face 03 may explain this to a person, but the list itself is derived (same shape as QD03). This is option B, plus derive-the-list. Full write-up: [WORKING-PATH-QD10.md](WORKING-PATH-QD10.md). Pending Director review. Nothing was renamed. The C8.6 and brands.md tables have not been rewritten. Designer draft in [dictionary-menu.md](dictionary-menu.md) proposes how that appears: the menu is a derived view (only sections that exist, with letter range and state); an optional explanation card may live at `PPPP.03`, not `03.00`, and must not be the source of truth for the list. Not law.
+- Raised: [kernel Q29](../../kernel/QUESTIONS.md) line 144; [face00.md F4](../spec/face00.md) line 468; [CONFLICTS K03](../../kernel/CONFLICTS.md) line 28, D12 line 159; [dictionary-menu.md](dictionary-menu.md).
+- Log: D64, D181, D182, D333, D339, D340.
 
 ### QD11. Which faces are task lists, on which page types?
 - Option A: each page type says which of its faces are task lists.

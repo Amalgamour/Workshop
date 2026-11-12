@@ -300,3 +300,7 @@ Every build choice, its why, and the spec line it follows. A choice the spec doe
 ## [DESIGN] 00-counter F7/F8/F12 decisions are D334-D336 - 2026-11-11 7:20 PM EST
 - Correction to the 7:19 PM EST DESIGN line: D333 was already Tester's QD10 working path. The F7, F8 and F12 proposals in `docs/design/00-counter.md` (commit 3f30562) are recorded here as D334, D335 and D336 (provisional 7, not law). The 7:19 line itself is left as written (append only).
 - The 00-counter draft was not rewritten in this step. QD67 is still for Matthew. WORKING-PATH and kernel files were not edited.
+
+## [DESIGN] Dictionary menu on face 03 (QD10) - 2026-11-11 7:22 PM EST
+- Draft `docs/design/dictionary-menu.md` (not law), filling in the QD10 working path (D333): how a derived dictionary menu appears on face 03. There is no `03.00` file. The live list is a computed view from the sections that exist (letter range and state). An optional person-facing explanation card may live at `PPPP.03` (face 03 itself, not `03.00`) and must not be the source of truth for which sections exist. Uses the kernel's existing `menu` card type (entries derived by the compute).
+- Recorded as D339-D340 (provisional 7, DESIGN). QUESTIONS-FOR-DIRECTOR QD10 Now points at the draft. QD10 is not closed. WORKING-PATH and kernel files were not edited. Not pushed.
