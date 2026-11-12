@@ -393,20 +393,24 @@ why: R22 "make every design choice recorded" (DIRECTOR-RULINGS.md:86-88). One ro
 | D333 | WORKING PATH (Tester), not a ruling: there is no dictionary `03.00` file. The menu of sections is derived from the sections that exist, not written as a face-00 counter. Faces still have no doors (R9). R16 is read as an entrance, not as an exception that brings sentinels back. Pending Director review. | working-path (Tester), pending Director review — not a ruling - QD10 | docs/design/WORKING-PATH-QD10.md; Tester 2026-11-11 evening; R16, R9, R1; QD03 | kernel 0055; dictionary 0012; CONFLICTS K03, D12; face00 F4 |
 
 
+
+| D334 | PROPOSED (Designer, aligns with D326): writing a 00.counter does not change face 00, because the face list is derived from the files and the book, not written as a faces: line in 00. This is the working answer to F7. The kernel builder has not been changed to match yet. | provisional 7 (DESIGN, Designer draft) - F7, QD03 | docs/design/00-counter.md section 7; WORKING-PATH-QD03.md; D326; R23-R25-lineage.md F7 | 00.counter; every face 00; kernel builder (not changed here) |
+| D335 | PROPOSED: a 00.counter lives at PPPP.00.CC (on a door, 0000.00.CC, D325). It is bare, and for 00.CC only bare means write-once evidence: not a draft, not a seat, and it does not need a seat-00.NN line. Face 00 is not a 05/06-style counted face; 00.00 stays the registry, not a board. | provisional 7 (DESIGN, Designer draft) - F8, QD66 | docs/design/00-counter.md section 8; R23-R25-lineage.md F8; D322, D325 | 00.counter; core and kernel builder (not changed here) |
+| D336 | PROPOSED: if a 00.counter snapshot is written and the change is then refused, do not rewrite or delete the snapshot. Write the next 00.CC as a visible void (the change was not made; face 00's fingerprint is unchanged). A change that was made and fails compare is a defect, not a void. | provisional 7 (DESIGN, Designer draft) - F12 | docs/design/00-counter.md section 9; R23-R25-lineage.md F12; axiom 6 | 00.counter |
 ## Totals
 
 Counted from the tables above by the first words of each Status cell. A row whose status has a settled part and an open part is counted by its first words; the open part is asked in QUESTIONS-FOR-DIRECTOR.md.
 
 - **settled-by-ruling:** 53
 - **settled-by-spec:** 113
-- **provisional 7:** 107
+- **provisional 7:** 110
 - **working-path (pending Director review):** 11
 - **superseded (in whole or part):** 22
 - **open:** 23
 - **held (do not re-ask):** 4
-- **all:** 333
+- **all:** 336
 
-By area: addressing 61, faces 53, drafts 57, storage 32, compute 25, ask 19, app 16, process 59.
+By area: addressing 61, faces 56, drafts 57, storage 32, compute 25, ask 19, app 16, process 59.
 
 ## Sources mined
 
@@ -420,3 +424,4 @@ Updated 2026-11-11 7:30 PM EST (Prima): D327 added — Tester working path for Q
 Updated 2026-11-11 7:16 PM EST, after D327 (Designer): docs/design/page-types.md (QD02 draft, agrees with D319, not law) and docs/design/notes-and-dictionary-seating.md (QD01 leftover, not law). D328-D331 added as provisional 7. Kernel files were not edited (Pass 12).
 Updated 2026-11-11 7:35 PM EST (Prima): D332 added — Tester working path for QD09 (axioms address is 00.axioms), not a ruling. See docs/design/WORKING-PATH-QD09.md. Nothing was renamed.
 Updated 2026-11-11 7:40 PM EST (Prima): D333 added — Tester working path for QD10 (no 03.00; derive the dictionary menu), not a ruling. See docs/design/WORKING-PATH-QD10.md.
+Updated 2026-11-11 7:20 PM EST, after D333 (Designer): 00-counter F7/F8/F12 proposals recorded as D334-D336 (provisional 7). The earlier BUILD-LOG line that said D333-D335 was a numbering slip: D333 is Tester's QD10 path.

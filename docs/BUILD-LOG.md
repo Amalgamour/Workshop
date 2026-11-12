@@ -296,3 +296,7 @@ Every build choice, its why, and the spec line it follows. A choice the spec doe
 - F8 (no address or state for write-once, not-seated 00.CC): proposed address `PPPP.00.CC` (doors: `0000.00.CC`, D325); bare standing means write-once evidence, not a draft and not a seat. Face 00 is not a 05/06-style counted face.
 - F12 (snapshot of a refused change): proposed a visible void on the next 00.CC; do not rewrite or delete the snapshot. A failed compare after a change that was made is a defect, not a void.
 - QD67 left for Matthew (both climb options stay; Option A still recommended, not an answer). D333-D335 recorded as provisional 7. Tester's note and WORKING-PATH files were not rewritten. Kernel files were not edited.
+
+## [DESIGN] 00-counter F7/F8/F12 decisions are D334-D336 - 2026-11-11 7:20 PM EST
+- Correction to the 7:19 PM EST DESIGN line: D333 was already Tester's QD10 working path. The F7, F8 and F12 proposals in `docs/design/00-counter.md` (commit 3f30562) are recorded here as D334, D335 and D336 (provisional 7, not law). The 7:19 line itself is left as written (append only).
+- The 00-counter draft was not rewritten in this step. QD67 is still for Matthew. WORKING-PATH and kernel files were not edited.
