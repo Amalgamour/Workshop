@@ -207,9 +207,25 @@ Tester later reviewed Designer's D359 update of that draft and
 agreed it is a faithful fill-in of D357 and D358, with no further
 improvements (D360).
 
+## Sharpened after Tester's later notes (D362, D370)
+
+D346 is sharpened in
+[WORKING-PATH-CHECK-CORE.md](WORKING-PATH-CHECK-CORE.md) (D362):
+the core is the only judge of whether a book is readable;
+`--check` must run the core's replay and fail closed; do not
+copy core rules into JavaScript.
+
+Tester evaluated Designer's assembly of these paths
+(`six-tests-answer.md`, D361) and agrees, with one improvement
+(D370): keep plain face 05 as the derived listing, and mark
+which pack is current; do not replace the listing with one pack
+body. See
+[WORKING-PATH-SIX-TESTS-ANSWER.md](WORKING-PATH-SIX-TESTS-ANSWER.md).
+This is not a ruling. The Designer draft was not rewritten.
+
 ## Status
 
 Working path, pending Director review. Not a ruling. Recorded in
 [DECISIONS-LOG.md](DECISIONS-LOG.md) as D344–D348, filled in by
-D357-D358 and D360. The full results stay in
+D357-D358, D360, D362, and D370. The full results stay in
 [R23-R25-six-tests.md](R23-R25-six-tests.md).

@@ -14,7 +14,7 @@ what: every open question from the build, saved in one place. Each one appears o
 - Prima asks you one at a time. Nothing here needs an answer today.
 - Questions you already answered are listed at the end, so nothing is asked twice.
 
-Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, D12, D13, D14 and D16 are still open, as QD25, QD10, QD13, QD26 and QD24.) Updated 2026-11-11 evening (Designer): R23-R25 recorded; QD05 answered by R25; QD66 and QD67 saved. Updated 2026-11-11 7:15 PM EST (Prima): QD02 has a Tester working path (D319), still open, pending Director review. Updated 2026-11-11 7:20 PM EST (Prima): QD01 has a Tester working path on reseating (D320–D325), still open; see WORKING-PATH-LINEAGE.md. Updated 2026-11-11 7:25 PM EST (Prima): QD03 has a Tester working path (D326), still open, pending Director review. Updated 2026-11-11 7:30 PM EST (Prima): QD13 / Q30 has a Tester working path (D327), still open, pending Director review. Updated 2026-11-11 7:35 PM EST (Prima): QD09 has a Tester working path (D332), still open, pending Director review. Updated 2026-11-11 7:40 PM EST (Prima): QD10 has a Tester working path (D333), still open, pending Director review. Updated 2026-11-11 7:45 PM EST (Prima): QD01 leftover Q35 has a Tester working path (D337), still open; kernel Q42 has a Tester working path (D338 / WORKING-PATH-Q42.md), pending Director review. Updated 2026-11-11 7:30 PM EST (Prima): six-test results and R24/Q67 confirms recorded as D344–D348, still working path, not rulings. See WORKING-PATH-SIX-TESTS.md. Q41, Q43 and Q34 were not marked. Updated 2026-11-11 7:40 PM EST (Prima): Tester evaluation of three Designer drafts recorded as D351–D353, still working path, not rulings. See WORKING-PATH-DRAFT-EVAL.md. QD10, QD13 and QD27 stay open and marked `7`. Q41, Q43 and Q34 were not marked. Updated 2026-11-11 7:45 PM EST (Prima): Tester evaluation of the two 00-counter updates recorded as D357–D358, still working path, not rulings. See WORKING-PATH-00-COUNTER-EVAL.md. The one addition: do not make face 00 a counted face. QD66 and QD67 stay open and marked `7`. Q41, Q43 and Q34 were not marked. Updated 2026-11-11 7:50 PM EST (Prima): Tester evaluated Designer's D359 update of 00-counter.md and agrees; recorded as D360, still working path, not a ruling. No further improvements. QD66 and QD67 stay open and marked `7`. Q41, Q43 and Q34 were not marked.
+Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, D12, D13, D14 and D16 are still open, as QD25, QD10, QD13, QD26 and QD24.) Updated 2026-11-11 evening (Designer): R23-R25 recorded; QD05 answered by R25; QD66 and QD67 saved. Updated 2026-11-11 7:15 PM EST (Prima): QD02 has a Tester working path (D319), still open, pending Director review. Updated 2026-11-11 7:20 PM EST (Prima): QD01 has a Tester working path on reseating (D320–D325), still open; see WORKING-PATH-LINEAGE.md. Updated 2026-11-11 7:25 PM EST (Prima): QD03 has a Tester working path (D326), still open, pending Director review. Updated 2026-11-11 7:30 PM EST (Prima): QD13 / Q30 has a Tester working path (D327), still open, pending Director review. Updated 2026-11-11 7:35 PM EST (Prima): QD09 has a Tester working path (D332), still open, pending Director review. Updated 2026-11-11 7:40 PM EST (Prima): QD10 has a Tester working path (D333), still open, pending Director review. Updated 2026-11-11 7:45 PM EST (Prima): QD01 leftover Q35 has a Tester working path (D337), still open; kernel Q42 has a Tester working path (D338 / WORKING-PATH-Q42.md), pending Director review. Updated 2026-11-11 7:30 PM EST (Prima): six-test results and R24/Q67 confirms recorded as D344–D348, still working path, not rulings. See WORKING-PATH-SIX-TESTS.md. Q41, Q43 and Q34 were not marked. Updated 2026-11-11 7:40 PM EST (Prima): Tester evaluation of three Designer drafts recorded as D351–D353, still working path, not rulings. See WORKING-PATH-DRAFT-EVAL.md. QD10, QD13 and QD27 stay open and marked `7`. Q41, Q43 and Q34 were not marked. Updated 2026-11-11 7:45 PM EST (Prima): Tester evaluation of the two 00-counter updates recorded as D357–D358, still working path, not rulings. See WORKING-PATH-00-COUNTER-EVAL.md. The one addition: do not make face 00 a counted face. QD66 and QD67 stay open and marked `7`. Q41, Q43 and Q34 were not marked. Updated 2026-11-11 7:50 PM EST (Prima): Tester evaluated Designer's D359 update of 00-counter.md and agrees; recorded as D360, still working path, not a ruling. No further improvements. QD66 and QD67 stay open and marked `7`. Q41, Q43 and Q34 were not marked. Updated 2026-11-11 8:05 PM EST (Prima): Tester working paths recorded as D362-D370, still open, still `7`, not rulings. See WORKING-PATH-CHECK-CORE.md (D362), WORKING-PATH-OPEN-QUESTIONS.md (D363-D369), and WORKING-PATH-SIX-TESTS-ANSWER.md (D370). QD16, QD08, QD11, QD26, QD28, QD23 and QD59 stay open. QD66 and QD67 stay for Matthew. Q41, Q43 and Q34 were not marked.
 
 ---
 
@@ -110,9 +110,9 @@ Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, 
 - Option C: the name ending decides; the stamp copies it.
 - Also: when the written state and the real state differ, which wins?
 - Blocks: kernel page 0053, every face 00, the core and the .seq file.
-- Now: `7`. Both are written. A mismatch is flagged, never refused.
+- Now: `7`. Both are written. A mismatch is flagged, never refused. Working path (Tester, D364), not a ruling: the stamp is the only source of truth (R12, Option A); a file-name ending, if kept, is derived; a leftover disagreement is a finding, same shape as QD03. See [WORKING-PATH-OPEN-QUESTIONS.md](WORKING-PATH-OPEN-QUESTIONS.md). Still for Matthew.
 - Raised: [kernel Q31](../../kernel/QUESTIONS.md) line 157; [OPEN O5](OPEN.md) line 48; [BUILD-LOG](../BUILD-LOG.md) line 121.
-- Log: D44, D154.
+- Log: D44, D154, D364.
 
 ### QD09. What is the exact address of the axioms?
 - You said (R6): the axioms sit on the desk as 00.axioms.
@@ -139,9 +139,9 @@ Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, 
 - Option A: each page type says which of its faces are task lists.
 - Option B: keep a fixed list: 05, 06 and the dictionary 0012.03.
 - Blocks: 2 held faces, and the core rule.
-- Now: `7`. Option B.
+- Now: `7`. Option B. Working path (Tester, D365), not a ruling: counted-ness is law (05, 06, and dictionary 0012.03), not a switch a page type can flip; a new counted face is a Director question, because it changes what plain FF means (D351). See [WORKING-PATH-OPEN-QUESTIONS.md](WORKING-PATH-OPEN-QUESTIONS.md). Still for Matthew.
 - Raised: [kernel Q22](../../kernel/QUESTIONS.md) line 116; [OPEN O29](OPEN.md) line 199.
-- Log: D52, D172.
+- Log: D52, D172, D365.
 
 ### QD12. Is workflow loop .003 the law for this build? Where are F02-F10?
 - .003 cites decisions F02 to F10. They are not in the repo.
@@ -181,9 +181,9 @@ Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, 
 - Faces have no slot 99 now (R9).
 - Option A: the face is full; new work goes on a next page.
 - Option B: closed tasks are archived.
-- Now: `7`. Task 99 is refused.
+- Now: `7`. Task 99 is refused. Working path (Tester, D363), not a ruling: after 98, do not reuse a number and do not invent slot 99; counter 98 writes a connection (`pointer`) to a continuation page that starts a new 01-98 series. See [WORKING-PATH-OPEN-QUESTIONS.md](WORKING-PATH-OPEN-QUESTIONS.md). Still for Matthew.
 - Raised: [kernel Q25](../../kernel/QUESTIONS.md) line 128.
-- Log: D58, D174.
+- Log: D58, D174, D363.
 
 ### QD17. Does a book see the kernel's tasks and notes?
 - Option A: yes, like any face (today).
@@ -228,9 +228,9 @@ Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, 
 - A door page holds only face 00 (R10), so it has no face 08.
 - Option A: a line in face 00.
 - Option B: pointers never aim at a door page.
-- Now: `7`. Option A.
+- Now: `7`. Option A. Working path (Tester, D368), not a ruling: the return link is a line on the door's face 00; do not add face 08 to a door (R10). See [WORKING-PATH-OPEN-QUESTIONS.md](WORKING-PATH-OPEN-QUESTIONS.md). Still for Matthew.
 - Raised: [kernel Q26](../../kernel/QUESTIONS.md) line 132.
-- Log: D142.
+- Log: D142, D368.
 
 ### QD24. Same CC, different title: do you want to be told?
 - R18 matches pages by CC and title.
@@ -251,9 +251,9 @@ Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, 
 ### QD26. Add a "question" card type to the kernel?
 - The common questions cards use type "question".
 - The kernel's card type table has no such type.
-- Now: `7`. Accepted anyway.
+- Now: `7`. Accepted anyway. Working path (Tester, D366), not a ruling: yes, add `question` as a named card type with the fields already in use. QD27 stays `7`. See [WORKING-PATH-OPEN-QUESTIONS.md](WORKING-PATH-OPEN-QUESTIONS.md). Still for Matthew.
 - Raised: [CONFLICTS D14](../../kernel/CONFLICTS.md) line 161.
-- Log: D36, D180.
+- Log: D36, D180, D366.
 
 ### QD27. Is page 0013 the right home for the common questions list?
 - It sits next to the dictionary on 0012.
@@ -262,9 +262,9 @@ Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, 
 - Log: D147, D290, D353.
 
 ### QD28. Which face 00 problems should stop a write, not just be flagged?
-- Now: `7`. All are flagged only.
+- Now: `7`. All are flagged only. Working path (Tester, D367), not a ruling: halt when the book would be unreadable to the core, when two live claims disagree, when a fingerprint mismatches, or when a seat names a blob that is not a real past seat; flag leftover derived fields. See [WORKING-PATH-OPEN-QUESTIONS.md](WORKING-PATH-OPEN-QUESTIONS.md) and [WORKING-PATH-CHECK-CORE.md](WORKING-PATH-CHECK-CORE.md). Still for Matthew.
 - Raised: [face00.md F3](../spec/face00.md) line 467.
-- Log: D161.
+- Log: D161, D367.
 
 ### QD29. What is the exact layout of face 00?
 - Now: `7`. A stamp at the top, then a Registry card.
@@ -407,8 +407,9 @@ Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, 
 - Log: D127.
 
 ### QD59. Should small "patch and strike" edits be allowed on a seated face?
+- Now: `7`. Working path (Tester, D369), not a ruling: no. A fix is a new draft and a new seat, or a new 05 counter (R24), not a patch on the seated body (axiom 6, D344). See [WORKING-PATH-OPEN-QUESTIONS.md](WORKING-PATH-OPEN-QUESTIONS.md). Still for Matthew.
 - Raised: [OPEN O45](OPEN.md) line 251.
-- Log: D127.
+- Log: D127, D369.
 
 ### QD60. What hardware?
 - Raised: [OPEN O46](OPEN.md) line 252.
