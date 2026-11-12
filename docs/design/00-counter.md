@@ -6,7 +6,7 @@ proposal. Anything marked `7` is open.
 
 Lane: DESIGN (Designer). Source ruling: R25 in `docs/spec/DIRECTOR-RULINGS.md`.
 Related: axiom 6 (`Axioms.md:23`), R24 (how 05 climbs), kernel Q51, QD05,
-QD66, QD67, QD03, QD16.
+QD66, QD67, QD03, QD16, D346, A4.4 (`crates/seqaddr-core/src/state.rs:420`).
 
 This file was first written as a proposal for how 00.counter climbs and
 whether those faces are seated (QD67, QD66). Tester's hostile pass found
@@ -19,6 +19,15 @@ is the working answer to F7: the face list is derived, not written into
 face 00, so adding a 00.counter no longer forces a registry edit. That
 path is not a ruling. The kernel builder has not been changed to match
 it yet.
+
+Tester's six scratch-clone tests
+([WORKING-PATH-SIX-TESTS.md](WORKING-PATH-SIX-TESTS.md), D346; full
+results in [R23-R25-six-tests.md](R23-R25-six-tests.md)) confirmed F7
+and F8 in the live code, and found a new hole: a `00.CC.draft` that
+`--check` accepts makes the whole `00.00.00` book unreadable to the
+core (A4.4). That hole must be solved before any 00.counter is written
+in the shared repo. Section 10 addresses it. The F7 listing cascade is
+a separate point (section 7). This is a working path, not a ruling.
 
 QD67 stays for Matthew, with both climb options. This draft recommends
 one of them. That is not an answer. [F13] [WORKING-PATH-LINEAGE.md]
@@ -213,6 +222,10 @@ not a reason to write `faces:` back into 00. The working path is:
 derive the list, and treat a leftover `faces:` line as a finding if it
 disagrees. [D326] [WORKING-PATH-QD03.md]
 
+Do not write a 00.counter in the shared repo until the A4.4 hole in
+section 10 is solved. A `--check` exit of 0 is not proof the books
+are readable to the core. [D346]
+
 The address, standing, and void rules in sections 7-9 are also `7`.
 
 ---
@@ -226,6 +239,8 @@ The address, standing, and void rules in sections 7-9 are also `7`.
   00.CC, and is urgent for face 00. [F11]
 - QD03 is a working path (D326), not a ruling. The F7 alignment in
   section 7 depends on it.
+- D346 is a working path, not a ruling. The A4.4 hole in section 10
+  must be solved before any 00.counter is written in the shared repo.
 
 ---
 
@@ -255,6 +270,14 @@ This is a working path, not a ruling. The kernel builder has not been
 changed: it still requires a written `faces:` line. Until that changes,
 the cascade is still real in the code. This draft does not edit the
 builder (Pass 12 owns that lane).
+
+Test 3 confirmed the cascade in numbers, on today's builder: a
+snapshot named face 00 blob `0430347c...`, but the face 00 committed
+with it (after listing `00.01 draft` and `why-00.01`) was
+`14ce04b8...`. The snapshot never matches any face 00 that lived
+beside it. The QD03 path is meant to break that cascade; the builder
+has not been changed. This is separate from the A4.4 hole in section
+10. [D346] [R23-R25-six-tests.md test 3]
 
 QD04 (is face 00 itself in the list) is, on this path, a display
 question. It is not reopened here. [WORKING-PATH-QD03.md]
@@ -295,6 +318,15 @@ Option A). This is the same kind of "neither draft nor trial-seated"
 standing the lineage working path already proposes for face 00
 itself. [D322]
 
+Test 3 confirmed that no form works in the live code today. A bare
+`00.01` is refused by the builder ("a 00 counter may not be seated").
+A `00.01.draft` that `--check` accepts is then refused by the core
+(A4.4), and that refusal makes every book unreadable (section 10).
+The core's `propose` refuses both bare and `.draft`. The grammar can
+parse the address; the state rule refuses it. The recommended
+standing above is unchanged. It cannot be used until the builder and
+the core agree on that address and that standing. [D346]
+
 A new tail word (`record`, or similar) is an alternative, if a
 visible tail is wanted. It would need a grammar change. This draft
 does not recommend inventing one unless the Director wants it. `7`.
@@ -332,9 +364,50 @@ void. It is a defect: halt and raise it. [axiom 1] [section 2]
 
 ---
 
-## 10. Status
+## 10. Test 3 / D346: a 00.CC.draft the core cannot read
+
+Tester's test 3 confirmed F8, and found a new hole, separate from
+the F7 listing cascade. [WORKING-PATH-SIX-TESTS.md] [D346]
+[R23-R25-six-tests.md test 3]
+
+A `00.CC.draft` that `--check` accepts makes the whole `00.00.00`
+book unreadable to the core. The core's rule is A4.4: face 00 is not
+a counted face; counters live on counted faces only
+(`crates/seqaddr-core/src/state.rs:420`). Every resolve then fails,
+even an address in another book (for example `10.11.21.1001.01`),
+because `load_world` loads every book. The core's `repo_books` test
+catches this. The builder's `--check` does not. A `--check` exit of
+0 is not proof the books are readable.
+
+A bare `00.01` is refused by the builder ("a 00 counter may not be
+seated"). So today, neither bare nor `.draft` can live in the shared
+repo without breaking the books for the core, or failing the
+builder.
+
+**PROPOSED, aligned with D346.** Do not write a 00.counter in the
+shared repo until the address and the standing are agreed with the
+core. The working path is: `--check` should replay written books
+with the core's rules, or refuse counters on faces the core does not
+count; and the core's `repo_books` test should be in the pre-commit
+set. [D346]
+
+The F8 standing in section 8 (bare means write-once evidence; face
+00 is not a 05/06 counted face; the counters are a special case next
+to the registry) is still the recommended shape. It cannot be used
+until KERNEL and CORE implement that agreement. This draft does not
+edit the builder or the core, and it does not write a 00.counter.
+
+The F7 listing cascade is a separate point. The QD03 path is meant
+to break it; the builder has not been changed. [D326] [section 7]
+
+---
+
+## 11. Status
 
 Still a draft, still `7`, not law. Sections 2 and 3 (QD67, QD66) are
-unchanged in their recommendations. Sections 7-9 align F7 with the
-QD03 working path, and propose standing (F8) and void (F12). Tester's
-note and the WORKING-PATH files were not rewritten.
+unchanged in their recommendations. QD67 stays for Matthew. Sections
+7-9 align F7 with the QD03 working path, and propose standing (F8)
+and void (F12). Section 10 aligns with D346: do not write a
+00.counter in the shared repo until the A4.4 hole is solved. Tester's
+notes and the WORKING-PATH files were not rewritten. The kernel and
+the core were not edited.
