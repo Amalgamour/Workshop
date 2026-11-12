@@ -144,10 +144,40 @@ Matthew. It does not mark Q41, Q43, or Q34.
 
 ---
 
+## 3. D359 — the Designer draft is a faithful fill-in (D360)
+
+Tester evaluated Designer's update of `00-counter.md` (commit
+`dfe94d7`, D359) against D357 and D358. Tester agrees. Adopt D359
+as a faithful fill-in. There are no further improvements. The
+Designer draft was not rewritten.
+
+Section 10 takes the D357 caution in full, in plain words first,
+then with the code paths. The caution is also in section 8 (F8),
+where an implementer would look, and in the earlier summary. The
+F8 standing stays the recommended shape and still cannot be used
+until KERNEL and CORE agree. The "do not write a 00.counter until
+the hole is solved" bar from D346/D349 is unchanged.
+
+Section 11 takes both D358 notes, and those notes also land in
+section 2 (the field list and step 4), which is where the
+procedure is written. The F9 correction ("fingerprint" is also in
+prose in `kernel/QUESTIONS.md`, not only in docs) is accurate.
+
+Sections 2 and 3 (QD67, QD66) are otherwise unchanged and are not
+treated as settled. Still `7`, not law. The commit touches only
+BUILD-LOG, `00-counter.md`, and DECISIONS-LOG.
+
+Prima confirmed, read-only: the comment at
+`crates/seqaddr-core/src/resolve.rs:182` says a counted face's
+plain FF reads a derived listing, and the matching arm is at
+line 183. There is still no 00.counter file in the repo. Kernel
+and core were not edited.
+
 ## Status
 
 Working path, pending Director review. Not a ruling. Recorded in
-[DECISIONS-LOG.md](DECISIONS-LOG.md) as D357-D358, and noted on
-QD66 and QD67 in
+[DECISIONS-LOG.md](DECISIONS-LOG.md) as D357-D358 and D360, and
+noted on QD66 and QD67 in
 [QUESTIONS-FOR-DIRECTOR.md](QUESTIONS-FOR-DIRECTOR.md). The climb
-question itself stays for Matthew.
+question itself stays for Matthew. Designer's D359 draft is
+adopted as a faithful fill-in; the draft itself was not rewritten.

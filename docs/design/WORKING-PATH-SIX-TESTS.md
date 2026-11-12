@@ -203,9 +203,13 @@ of R25). Full write-up:
 This is not a ruling. The Designer draft was not rewritten. QD67
 stays for Matthew.
 
+Tester later reviewed Designer's D359 update of that draft and
+agreed it is a faithful fill-in of D357 and D358, with no further
+improvements (D360).
+
 ## Status
 
 Working path, pending Director review. Not a ruling. Recorded in
 [DECISIONS-LOG.md](DECISIONS-LOG.md) as D344–D348, filled in by
-D357-D358. The full results stay in
+D357-D358 and D360. The full results stay in
 [R23-R25-six-tests.md](R23-R25-six-tests.md).

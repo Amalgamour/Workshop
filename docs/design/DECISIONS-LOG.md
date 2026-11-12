@@ -428,6 +428,8 @@ why: R22 "make every design choice recorded" (DIRECTOR-RULINGS.md:86-88). One ro
 
 
 | D359 | PROPOSED (Designer, aligns with D357 and D358): adopt D349 and D350 as written. When the A4.4 agreement is implemented, do not make face 00 a counted face: do not add it to always_counted, and do not put (page, 0) into Policy.extra_counted. Allow 00.CC as a special case without is_counted(page, 0) being true, so plain face 00 stays the registry (same family as D351, in the other direction). The stored fingerprint is the blob, never a commit id (walk to the commit that introduced the 00.CC file, then read face 00's blob at that commit's parent tree). The before-field check is only half of R25; the after-compare should stay visible when KERNEL builds the check. The F8 standing stays the recommended shape. This draft does not edit the kernel or the core, and it does not write a 00.counter. | provisional 7 (DESIGN, Designer draft) - D357, D358, D349, D350 | docs/design/00-counter.md sections 10 and 11; WORKING-PATH-00-COUNTER-EVAL.md; D357, D358; crates/seqaddr-core/src/face.rs:83-84, state.rs:54,420,460, resolve.rs:182 | 00.counter (not written); kernel and core (not edited); face 00 registry |
+| D360 | WORKING PATH (Tester), not a ruling: adopt D359 as a faithful fill-in of D357 and D358. Designer's 00-counter.md update (commit dfe94d7) records the counted-face caution and the fingerprint notes in full; there are no further improvements. Sections 2 and 3 (QD67, QD66) are otherwise unchanged and are not treated as settled. Still 7. Pending Director review. | working-path (Tester), pending Director review — not a ruling - D359, D357, D358 | docs/design/WORKING-PATH-00-COUNTER-EVAL.md; Tester 2026-11-11 evening; docs/design/00-counter.md (dfe94d7); D359 | 00.counter (not written); kernel and core (not edited) |
+
 ## Totals
 
 Counted from the tables above by the first words of each Status cell. A row whose status has a settled part and an open part is counted by its first words; the open part is asked in QUESTIONS-FOR-DIRECTOR.md.
@@ -435,13 +437,13 @@ Counted from the tables above by the first words of each Status cell. A row whos
 - **settled-by-ruling:** 53
 - **settled-by-spec:** 113
 - **provisional 7:** 121
-- **working-path (pending Director review):** 23
+- **working-path (pending Director review):** 24
 - **superseded (in whole or part):** 22
 - **open:** 23
 - **held (do not re-ask):** 4
-- **all:** 359
+- **all:** 360
 
-By area: addressing 62, faces 66, drafts 58, storage 32, compute 25, ask 19, app 16, process 63.
+By area: addressing 62, faces 67, drafts 58, storage 32, compute 25, ask 19, app 16, process 63.
 
 ## Sources mined
 
@@ -469,3 +471,4 @@ Updated 2026-11-11 7:44 PM EST, after D354 (Designer): docs/design/parked-door-l
 Updated 2026-11-11 7:44 PM EST, after D355 (Designer): docs/design/book-layout.md updated for D353 (after a ruling, merge into draft 0051.01 and 0051.04, not seated 0051.05.02; 0013 stays a sample; QD27 stays 7). D356 added as provisional 7. D343 stands. Q30 stays open. Kernel, seqAddr, and WORKING-PATH were not edited.
 Updated 2026-11-11 7:45 PM EST (Prima): D357-D358 added — Tester evaluation of Designer's 00-counter updates (D349 / section 10 and D350 / section 11), not rulings. The one addition before anyone implements the A4.4 agreement is D357: do not make face 00 a counted face. D358 records smaller fingerprint notes (blob, not commit id; the before-check is only half of R25). See docs/design/WORKING-PATH-00-COUNTER-EVAL.md. Numbered after Designer's D356 (book-layout D353 fill-in). The Designer draft and the kernel were not rewritten. QD67 stays for Matthew. Q41, Q43 and Q34 were not marked. No 00.counter was written.
 Updated 2026-11-11 7:48 PM EST, after D358 (Designer): docs/design/00-counter.md updated for D357 and D358 (do not make face 00 a counted face to solve A4.4; the stored fingerprint is the blob, never a commit id; the before-field check is only half of R25). D359 added as provisional 7. D349 and D350 stand. F8 standing stays the recommended shape. QD67 stays for Matthew. Q41, Q43, and Q34 were not marked. Kernel, core, and WORKING-PATH were not edited. No 00.counter was written.
+Updated 2026-11-11 7:50 PM EST (Prima): D360 added — Tester evaluation of Designer's D359 00-counter update, not a ruling. Adopt D359 as a faithful fill-in of D357 and D358; no further improvements. See docs/design/WORKING-PATH-00-COUNTER-EVAL.md. Numbered after Designer's D359. The Designer draft and the kernel were not rewritten. QD67 stays for Matthew. Q41, Q43 and Q34 were not marked. No 00.counter was written.
