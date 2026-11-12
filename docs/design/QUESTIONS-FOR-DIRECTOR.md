@@ -14,7 +14,7 @@ what: every open question from the build, saved in one place. Each one appears o
 - Prima asks you one at a time. Nothing here needs an answer today.
 - Questions you already answered are listed at the end, so nothing is asked twice.
 
-Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, D12, D13, D14 and D16 are still open, as QD25, QD10, QD13, QD26 and QD24.) Updated 2026-11-11 evening (Designer): R23-R25 recorded; QD05 answered by R25; QD66 and QD67 saved. Updated 2026-11-11 7:15 PM EST (Prima): QD02 has a Tester working path (D319), still open, pending Director review.
+Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, D12, D13, D14 and D16 are still open, as QD25, QD10, QD13, QD26 and QD24.) Updated 2026-11-11 evening (Designer): R23-R25 recorded; QD05 answered by R25; QD66 and QD67 saved. Updated 2026-11-11 7:15 PM EST (Prima): QD02 has a Tester working path (D319), still open, pending Director review. Updated 2026-11-11 7:20 PM EST (Prima): QD01 has a Tester working path on reseating (D320–D325), still open; see WORKING-PATH-LINEAGE.md.
 
 ---
 
@@ -27,9 +27,9 @@ Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, 
 - Option B: face 05 stays a task list. One summary card is seated, and the tasks stay numbered (05.01 to 05.98).
 - Also: may notes (06) and dictionary sections be seated? (part of kernel Q35)
 - Blocks: the work pack on every page, plus 5 held faces.
-- Now: `7`. R23 and R24 go further: we climb 05.01 through 05.06, then seat 05 as the best pack. If the page's work grows, we start 05.07 from that seated pack, and later reseat an update. The older seated 05 stays in the line. This is close to option B's numbered counters, with face 05 itself seated (option A). The leftover question is whether notes (06) and dictionary sections may be seated.
+- Now: `7`. R23 and R24 go further: we climb 05.01 through 05.06, then seat 05 as the best pack. If the page's work grows, we start 05.07 from that seated pack, and later reseat an update. The older seated 05 stays in the line. This is close to option B's numbered counters, with face 05 itself seated (option A). Working path (Tester, 2026-11-11 evening), not a ruling: the update is a new counter (05.07 beside 05.02); the builder should not silently replace the same address. See [WORKING-PATH-LINEAGE.md](WORKING-PATH-LINEAGE.md). Leftover: whether notes (06) and dictionary sections may be seated.
 - Raised: [kernel Q35](../../kernel/QUESTIONS.md) line 181; [R22](../spec/DIRECTOR-RULINGS.md) line 86; [R23](../spec/DIRECTOR-RULINGS.md) line 90; [R24](../spec/DIRECTOR-RULINGS.md) line 94; [OPEN O44](OPEN.md) line 250 (tasks and tickets).
-- Log: D53, D183, D225.
+- Log: D53, D183, D225, D320.
 
 ### QD02. Which page types are there?
 - You said (R19): each page type can have its own registry fields.

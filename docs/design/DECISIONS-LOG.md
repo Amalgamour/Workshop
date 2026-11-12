@@ -377,6 +377,12 @@ why: R22 "make every design choice recorded" (DIRECTOR-RULINGS.md:86-88). One ro
 | D317 | PROPOSED: the 00.counter list climbs as 00.01, then 00.02, and so on. Each 00.CC face is write-once (fingerprint-before, the coming change, and a prior link). The "after" fingerprint is the next 00.CC's fingerprint-before. This matches R24 and axiom 6. | provisional 7 (DESIGN, Designer draft) - QD67 | docs/design/00-counter.md; R25 held 7; R24 | 00.counter; kernel builder (not built) |
 | D318 | PROPOSED: 00.counter faces are not seated the normal way. They are write-once evidence. Seating them would write a seat record back onto face 00, which is another change and would cascade. | provisional 7 (DESIGN, Designer draft) - QD66 | docs/design/00-counter.md; R25 held 7 | 00.counter; kernel builder (not built) |
 | D319 | WORKING PATH (Tester), not a ruling: add a page type only when the page lives under different laws; otherwise use a registry field (`kind`). Add `door`, `override`, and `axioms`. Keep the common questions page as `system` with `kind: questions`. Continuation pages use `pointer` with `kind: continuation`. Pending Director review. | working-path (Tester), pending Director review — not a ruling - QD02 | docs/design/WORKING-PATH-QD02.md; Tester 2026-11-11 evening | face 00 types; face 00 checker; held face 00s |
+| D320 | WORKING PATH (Tester), not a ruling: when a page's 05 is reseated as an update, the new pack goes on a new counter (05.07 beside 05.02). The builder should not silently replace the same address. Pending Director review. | working-path (Tester), pending Director review — not a ruling - QD01 | docs/design/WORKING-PATH-LINEAGE.md; docs/design/R23-R25-lineage.md F1; R24; axiom 6 | 05 packs; kernel builder |
+| D321 | WORKING PATH (Tester), not a ruling: the newer seated pack carries a write-once `supersedes:` (or `prior:`) pointing at the older one. A reader walks to the pack that nothing later supersedes. The old pack is not rewritten. Pending Director review. | working-path (Tester), pending Director review — not a ruling | docs/design/WORKING-PATH-LINEAGE.md; docs/design/R23-R25-lineage.md F4 | 05 packs; core resolve |
+| D322 | WORKING PATH (Tester), not a ruling: face 00 is the live registry — neither a draft that needs a trial, nor trial-seated. Stamp `state:` stays the page's state, separate from face 00's standing. Pending Director review. | working-path (Tester), pending Director review — not a ruling | docs/design/WORKING-PATH-LINEAGE.md; docs/design/R23-R25-lineage.md F6; R25 | every face 00; builder states |
+| D323 | WORKING PATH (Tester), not a ruling: face 00's fingerprint is the git blob of its file. Name it. The book does not hold this today. Pending Director review. | working-path (Tester), pending Director review — not a ruling | docs/design/WORKING-PATH-LINEAGE.md; docs/design/R23-R25-lineage.md F9 | 00.counter; seats |
+| D324 | WORKING PATH (Tester), not a ruling: if a 00.counter and git history disagree about face 00's past, neither silently wins; halt and raise it (axiom 1). Pending Director review. | working-path (Tester), pending Director review — not a ruling | docs/design/WORKING-PATH-LINEAGE.md; docs/design/R23-R25-lineage.md F9; axiom 1 | 00.counter; builder checks |
+| D325 | WORKING PATH (Tester), not a ruling: allow `0000.00.CC` on a door page as an exception to R10, so the line lives next to the face 00 it measures. This does not decide Q42 (a door's 05 pack). Pending Director review. | working-path (Tester), pending Director review — not a ruling - R10 | docs/design/WORKING-PATH-LINEAGE.md; docs/design/R23-R25-lineage.md F10; R10, R25 | door pages; 00.counter |
 
 ## Totals
 
@@ -385,11 +391,11 @@ Counted from the tables above by the first words of each Status cell. A row whos
 - **settled-by-ruling:** 53
 - **settled-by-spec:** 113
 - **provisional 7:** 103
-- **working-path (pending Director review):** 1
+- **working-path (pending Director review):** 7
 - **superseded (in whole or part):** 22
 - **open:** 23
 - **held (do not re-ask):** 4
-- **all:** 319
+- **all:** 325
 
 By area: addressing 61, faces 51, drafts 55, storage 32, compute 25, ask 19, app 16, process 59.
 
@@ -399,3 +405,4 @@ DIRECTOR-RULINGS.md R1-R22; docs/BUILD-LOG.md (every `7` and every choice, lines
 
 Updated 2026-11-11 evening (Designer): DIRECTOR-RULINGS.md R23-R25; docs/design/00-counter.md (draft proposal, not law); QUESTIONS-FOR-DIRECTOR.md QD66, QD67 (QD05 answered by R25). D312-D318 added. D53, D183, D203, D225 status updated from those rulings. Kernel QUESTIONS.md was not edited (KERNEL lane).
 Updated 2026-11-11 7:15 PM EST (Prima): D319 added — Tester working path for QD02, not a ruling. See docs/design/WORKING-PATH-QD02.md.
+Updated 2026-11-11 7:20 PM EST (Prima): D320–D325 added — Tester working path for R23–R25 lineage (not rulings). See docs/design/WORKING-PATH-LINEAGE.md and docs/design/R23-R25-lineage.md.
