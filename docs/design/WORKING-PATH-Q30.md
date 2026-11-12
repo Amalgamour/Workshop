@@ -77,9 +77,20 @@ are structure.
 
 ---
 
+## Filled in after the Designer draft (D353)
+
+Tester agrees with D343: the proposed 01 and 04 text is this path
+in card form. After a ruling, merge that text into the draft cards
+`0051.01` and `0051.04`, not into the seated `0051.05.02` (D353).
+QD27 stays `7`: 0013 is a sample, not a ruling that every book must
+have 0013. Full write-up:
+[WORKING-PATH-DRAFT-EVAL.md](WORKING-PATH-DRAFT-EVAL.md). This is
+not a ruling. The Designer draft was not rewritten here. The Q30
+hold on the kernel stays.
+
 ## Status
 
 Working path, pending Director review. Not a ruling. Recorded in
-[DECISIONS-LOG.md](DECISIONS-LOG.md) as D327, and on QD13 in
-[QUESTIONS-FOR-DIRECTOR.md](QUESTIONS-FOR-DIRECTOR.md). Kernel Q30
-was not edited (Pass 12 is on that file).
+[DECISIONS-LOG.md](DECISIONS-LOG.md) as D327, filled in by D353, and
+on QD13 in [QUESTIONS-FOR-DIRECTOR.md](QUESTIONS-FOR-DIRECTOR.md).
+Kernel Q30 was not edited (Pass 12 is on that file).

@@ -64,8 +64,19 @@ not built.
 
 ---
 
+## Filled in after the Designer draft (D352)
+
+Tester agrees with D341 and D342: fold once onto new 05 counters,
+not by rewriting seated 05.01 or 05.02; do not revive seating the
+door's face 00 as a step. Smaller notes (D352): the 05.04 packs
+should name the 05.02 they follow; cite parked files by path plus
+blob; do not write a 00.counter until the A4.4 hole is solved; keep
+D348's stale-card work in view, on a separate set of cards. Full
+write-up: [WORKING-PATH-DRAFT-EVAL.md](WORKING-PATH-DRAFT-EVAL.md).
+This is not a ruling. The Designer draft was not rewritten here.
+
 ## Status
 
 Working path, pending Director review. Not a ruling. Recorded in
-[DECISIONS-LOG.md](DECISIONS-LOG.md) as D338. Kernel Q42 was not
-edited. The parked door packs were not moved.
+[DECISIONS-LOG.md](DECISIONS-LOG.md) as D338, filled in by D352.
+Kernel Q42 was not edited. The parked door packs were not moved.

@@ -75,8 +75,16 @@ exist, not written as 03.00, because faces have no doors.
 
 ---
 
+## Sharpened after the Designer draft (D351)
+
+Tester agrees with D339, and with D340 except the address. The
+optional explanation card does not live at `PPPP.03`. It belongs on
+face 01 or face 04. Face 03 is only the derived menu. Full write-up:
+[WORKING-PATH-DRAFT-EVAL.md](WORKING-PATH-DRAFT-EVAL.md). This is
+not a ruling. The Designer draft was not rewritten here.
+
 ## Status
 
 Working path, pending Director review. Not a ruling. Recorded in
-[DECISIONS-LOG.md](DECISIONS-LOG.md) as D333, and on QD10 in
-[QUESTIONS-FOR-DIRECTOR.md](QUESTIONS-FOR-DIRECTOR.md).
+[DECISIONS-LOG.md](DECISIONS-LOG.md) as D333, sharpened by D351, and
+on QD10 in [QUESTIONS-FOR-DIRECTOR.md](QUESTIONS-FOR-DIRECTOR.md).
