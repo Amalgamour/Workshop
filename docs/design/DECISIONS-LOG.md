@@ -473,6 +473,8 @@ why: R22 "make every design choice recorded" (DIRECTOR-RULINGS.md:86-88). One ro
 
 | D387 | PROPOSED (Designer, aligns with D386): in the DESIGN.md carry-on "may not" list, use semicolons between the may-not groups so two families stay distinct. The list now reads: "It may not reset the gravity count; widen scope, grant, or frame; accept a pack, mark the MVP done, or promote [S04]; or lift a separate axiom-1 halt." The rest of the D374, D375, and D376 text is unchanged. Still 7, not law. QD61, QD12, and QD67 stay for Matthew. Q41, Q43, and Q34 were not marked. This draft does not edit 00-counter.md, book-layout.md, page-types.md, the kernel, the core, or WORKING-PATH, and it does not write a 00.counter or a new 05 counter. | provisional 7 (DESIGN, Designer draft) - D386, D385, D376 | docs/design/DESIGN.md; WORKING-PATH-D385-EVAL.md; D386 | DESIGN.md (not law); QD61, QD12 (still 7) |
 
+| D388 | WORKING PATH (Tester), not a ruling: adopt Designer's D387 semicolon grouping in the DESIGN.md carry-on "may not" list as a faithful fill-in of the further improvement in D386. No further improvements. The wording matches the D386 suggestion character for character. The rest of the D374, D375, and D376 text is unchanged. Still 7, not law. Pending Director review. | working-path (Tester), pending Director review — not a ruling - D387, D386, D376 | docs/design/WORKING-PATH-D387-EVAL.md; Tester 2026-11-11 10:20 PM EST; DESIGN.md (6b0c5c1) | DESIGN.md (not rewritten again); QD61, QD12 (still 7) |
+
 ## Totals
 
 Counted from the tables above by the first words of each Status cell. A row whose status has a settled part and an open part is counted by its first words; the open part is asked in QUESTIONS-FOR-DIRECTOR.md.
@@ -480,13 +482,13 @@ Counted from the tables above by the first words of each Status cell. A row whos
 - **settled-by-ruling:** 53
 - **settled-by-spec:** 113
 - **provisional 7:** 127
-- **working-path (pending Director review):** 45
+- **working-path (pending Director review):** 46
 - **superseded (in whole or part):** 22
 - **open:** 23
 - **held (do not re-ask):** 4
-- **all:** 387
+- **all:** 388
 
-By area: addressing 62, faces 79, drafts 67, storage 32, compute 27, ask 19, app 16, process 67.
+By area: addressing 62, faces 79, drafts 68, storage 32, compute 27, ask 19, app 16, process 67.
 
 ## Sources mined
 
@@ -527,3 +529,4 @@ Updated 2026-11-11 10:12 PM EST (Prima): D379-D384 added — Tester working path
 Updated 2026-11-11 10:14 PM EST, after D384 (Designer): docs/design/DESIGN.md only: restored two phrases in the carry-on "may not" list (widen scope, grant, or frame; accept a pack, mark the MVP done, or promote). D385 added as provisional 7. The rest of the D374, D375, and D376 text was left as it is. QD61, QD12, and QD67 stay for Matthew. Q41, Q43, and Q34 were not marked. 00-counter.md, book-layout.md, page-types.md, the kernel, the core, and WORKING-PATH were not edited. No 00.counter and no new 05 counter were written. No seated face was edited.
 Updated 2026-11-11 10:17 PM EST (Prima): D386 added — Tester evaluation of Designer's D385 fill-in of the D384 improvement, not a ruling. Adopt D385 as a faithful fill-in; no further substance is missing. One further improvement, not a reason to hold recording: use semicolons between the may-not groups so they stay distinct. See docs/design/WORKING-PATH-D385-EVAL.md. Numbered after Designer's D385. The Designer draft was not rewritten here. QD67 stays for Matthew. Q41, Q43 and Q34 were not marked. No 00.counter was written.
 Updated 2026-11-11 10:18 PM EST, after D386 (Designer): docs/design/DESIGN.md only: in the carry-on "may not" list, the may-not groups are now joined with semicolons so two families stay distinct. D387 added as provisional 7. The rest of the D374, D375, and D376 text was left as it is. QD61, QD12, and QD67 stay for Matthew. Q41, Q43, and Q34 were not marked. 00-counter.md, book-layout.md, page-types.md, the kernel, the core, and WORKING-PATH were not edited. No 00.counter and no new 05 counter were written. No seated face was edited.
+Updated 2026-11-11 10:20 PM EST (Prima): D388 added — Tester evaluation of Designer's D387 fill-in of the D386 semicolon grouping, not a ruling. Adopt D387 as a faithful fill-in; no further improvements. The wording matches the D386 suggestion character for character. See docs/design/WORKING-PATH-D387-EVAL.md. Numbered after Designer's D387. The Designer draft was not rewritten again. QD67 stays for Matthew. Q41, Q43 and Q34 were not marked. No 00.counter was written.
