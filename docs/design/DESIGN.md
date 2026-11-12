@@ -74,13 +74,15 @@ why: the Director asked that "The decisions are to update into a more concise de
 - 08 map: "where all the links for a page goes" [v2:91].
 - 00: the door [R1]. The spec puts the page stamp here (address, title, state) [seqAddr.md:64]. *Open: v2 asks for a stamp header on every face [v2:58] [O2].*
 
+**A book's own work.** *Open: does a book see the kernel's tasks and notes [QD17]. Working path (D389), not a ruling: a book's tasks and notes are its own [R22] [R24]. The kernel's are found at the kernel address. Inherited kernel work must not become the book's own board [Axioms.md:27]. A book may still read them there: the problem is adoption, not visibility. A separate "inherited, kernel-owned" list is an offer, not the path. Do not write a "do not inherit counted faces" rule that would catch a future 00.counter.*
+
 **Counted faces.** As built, the core's fixed list is faces 05 and 06 everywhere, and the dictionary's 0012.03 [D172]. *Open: which faces are counted, on which page types [QD11]. Working path (D365), not a ruling: which faces hold counters is a fixed law, not a switch a page type can flip. A new counted face is a Director question, because it changes what you see when you open the face itself, and a direct write is refused [D351].*
 
 **What a page needs.** It needs face 00 and at least one of 01-06 or 08 [seqAddr.md:163]. Draft faces count [seqAddr.md:164].
 
 **Cards.** Cards "are like kamban cards" [v2:60]. "Cards titles are to be matched across faces" [v2:61]. In the spec, a card is a `##` heading, and "The same key on two faces is the same card" [seqAddr.md:168].
 
-**Face 04 holds the why.** "The cards of face 01 and 02 must have a representation on face 04" [v2:75]. The compute rejects a write if the 04 card, its `why:` line or its body is missing [seqAddr.md:184].
+**Face 04 holds the why.** "The cards of face 01 and 02 must have a representation on face 04" [v2:75]. The compute rejects a write if the 04 card, its `why:` line or its body is missing [seqAddr.md:184]. *Open: does this rule apply to task lists [QD20]. Working path (D392), not a ruling: no. Task lists are faces 05 and 06. The rule is only about faces 01 and 02. Under [D365], faces 01 and 02 are never counted, so a question about counted 01 and 02 is moot. Do not adopt a skip for counted 01 and 02 as the path. Following the card type, not the face, is an offer, not the path.*
 
 **Card types.** Each face has a default card type, defined in the kernel [seqAddr.md:171]. *Open: the kernel's card type table has no `question` type, but those cards are already in use [QD26]. Working path (D366), not a ruling: add `question` as a named card type, with the fields already written (`forms`, `answer`, and the rest). QD27 (whether 0013 is the right home) stays `7`.*
 
@@ -118,13 +120,13 @@ why: the Director asked that "The decisions are to update into a more concise de
 
 **Two sentinels on every axis.** "Its a full sequence of 0 and of 9" [v2:98]. "Those addresses with a seq00 or seq99 are special locations and cannot be normal pages" [v2:100]. "it's the alpha and omega for the axis" [v2:101].
 
-**Page 0000.** "Page 0000 must exist for a book to be a legal space" [v2:102].
+**Page 0000.** "Page 0000 must exist for a book to be a legal space" [v2:102]. *Open: when a book retires its own door, does lookup go on to the parent [QD18]. Working path (D390), not a ruling: no. The door is the book's identity [R1]. It must never fall through to the shelf's door. A retired book answers "retired" for its own door, and refuses further writes except un-retiring.*
 
 **Page 9999.** "Page 9999 must exist if the book is refenencing a sequence of a continuation of a book" [v2:103].
 
 **Desks and shelves.** "A desk must also have it's sentinal as DD.00" [v2:105]. "A shelf must also have a .00 as DD.SS.00" [v2:108]. *Open: the spec writes these as nested pages `DD.00.00.0000` and `DD.SS.00.0000` [seqAddr.md:61-62], which is v2 clash 4 [O14].*
 
-**99 points onward.** "if a DD.99 exists it means it's linking to a child desk" [v2:106]. The child "must have it's .00 linking back" [v2:106]. In the spec, "A one-way link is invalid" [seqAddr.md:251].
+**99 points onward.** "if a DD.99 exists it means it's linking to a child desk" [v2:106]. The child "must have it's .00 linking back" [v2:106]. In the spec, "A one-way link is invalid" [seqAddr.md:251]. *Open: can a draft be the return link for a pointer [QD19]. Working path (D391), not a ruling: a draft may hold a return link while the pointer is also still a draft (staging). A seated pointer needs a seated return link: they go live together [Axioms.md:27] [Axioms.md:29]. When a seated return link already exists, check the seated body [R5]. For a door, a written `target:` line on face 00 counts [D368] [D322]. This does not answer [QD66] or [QD67].*
 
 **Missing is valid.** No `FF.99`, `PP99` or `9999` just means no continuation [seqAddr.md:254].
 
@@ -182,7 +184,7 @@ why: the Director asked that "The decisions are to update into a more concise de
 
 **Never guess.** "Anything the compute cannot resolve goes to the user and is never guessed" [format.md:131].
 
-**The split of jobs.** "People authorize, models reason and propose, compute validates and executes" [AGENTS.md:42].
+**The split of jobs.** "People authorize, models reason and propose, compute validates and executes" [AGENTS.md:42]. *Open: does the computer's own write need a seat approval [QD21]. Working path (D393), not a ruling: remove the exemption. Every seat carries `approved-by`, whoever writes it, including the computer [Axioms.md:13]. Promote stays gated. Compute-only steps that do not seat a face stay as they are: the lint move from draft to pack, the close from review to bare, and a recovery return [D383] [D374]. Derived listings are never written as entries, so they need no exemption [format.md:102]. A door written as part of an already-approved proposal is an offer, not the path. Who may confirm a recovery return stays `7` on [QD61].*
 
 **A small fixed start.** The compute needs "a minimal, stable bootstrap contract that works before the kernel has loaded" [kernel-design.md:111]. *That file calls itself proposed [kernel-design.md:4].*
 
@@ -206,7 +208,7 @@ why: the Director asked that "The decisions are to update into a more concise de
 
 **A local override.** A page in `0001-0099` in a book is "a local override of the inherited environment" [seqAddr.md:228]. Axiom 2 says a contradicting difference "needs a named override, approved by the authority above it" [Axioms.md:15].
 
-**As built.** The core, compute and app all walk the four levels [BUILD-LOG:9] [core-trial:142]. Drafts are not inherited, so today the books inherit nothing from the kernel [BUILD-LOG:57]. *Open: are drafts found [O3]? Does an override replace a whole face or only its cards [O8]? What does a retired page answer [O21]?*
+**As built.** The core, compute and app all walk the four levels [BUILD-LOG:9] [core-trial:142]. Drafts are not inherited, so today the books inherit nothing from the kernel [BUILD-LOG:57]. *Open: are drafts found [O3]? Does an override replace a whole face or only its cards [O8]? What does a retired page answer [O21] [QD18]. Working path (D390), not a ruling: when a book retires its own copy of a page, lookup goes on to the parent. Retiring an override means "I no longer have my own copy," not "hide the parent" [Axioms.md:15] [R21]. The retired body stays readable at `.retired` [Axioms.md:23]. A second kind of retire that hides the parent is an offer, not the path now.*
 
 ---
 
