@@ -6,7 +6,7 @@ proposal. Anything marked `7` is open.
 
 Lane: DESIGN (Designer). Source ruling: R25 in `docs/spec/DIRECTOR-RULINGS.md`.
 Related: axiom 6 (`Axioms.md:23`), R24 (how 05 climbs), kernel Q51, QD05,
-QD66, QD67, QD03, QD16, D346, A4.4 (`crates/seqaddr-core/src/state.rs:420`).
+QD66, QD67, QD03, QD16, D323, D324, D346, D347, F9, A4.4 (`crates/seqaddr-core/src/state.rs:420`).
 
 This file was first written as a proposal for how 00.counter climbs and
 whether those faces are seated (QD67, QD66). Tester's hostile pass found
@@ -28,6 +28,13 @@ and F8 in the live code, and found a new hole: a `00.CC.draft` that
 core (A4.4). That hole must be solved before any 00.counter is written
 in the shared repo. Section 10 addresses it. The F7 listing cascade is
 a separate point (section 7). This is a working path, not a ruling.
+
+The same tests (test 4, D347) sharpened when that fingerprint is
+taken: it is face 00's git blob at the parent of the commit that
+adds the 00.CC. The builder should check it; a mismatch halts
+(D324). Section 11 addresses this. F9 is related: a real-but-wrong
+prior blob, and an all-zero blob, both pass `--check` today. There
+is still no implementation. This is a working path, not a ruling.
 
 QD67 stays for Matthew, with both climb options. This draft recommends
 one of them. That is not an answer. [F13] [WORKING-PATH-LINEAGE.md]
@@ -78,9 +85,12 @@ R25 solves this without moving the seat records off face 00, and without
 pretending those lines are not part of 00's bytes. Face 00 may change.
 The 00.counter keeps the earlier fingerprints, so the line is visible.
 
-The fingerprint is the git blob of face 00's file. [D323] If a 00.counter
+The fingerprint is face 00's git blob at the parent of the commit
+that adds the 00.CC. [D347, which sharpens D323] The builder should
+check that `fingerprint-before` equals that blob. If a 00.counter
 and git history disagree about face 00's past, neither silently wins:
-halt and raise it. [D324] [axiom 1]
+halt and raise it. [D324] [axiom 1] There is still no such check in
+the live code (F9; section 11). This is a working path, not a ruling.
 
 ---
 
@@ -123,8 +133,11 @@ It names:
   `0000.00.CC`, as an exception to R10 so the line can live next to
   the face 00 it measures. [D325]
 - `prior:` the previous counter (`00.01` has none; it starts the line)
-- `fingerprint-before:` the git blob of face 00's file (the full
-  40-hex), taken just before the change. [D323]
+- `fingerprint-before:` face 00's git blob (the full 40-hex) at the
+  parent of the commit that adds this 00.CC. In plain words: the
+  exact bytes of face 00 as git held them in the commit just before
+  the one that adds this file. That is "just before the change"
+  once the snapshot is committed. [D347, which sharpens D323]
 - `change:` what is about to be written onto face 00, and why (for
   example a new `seat-05:` line). A void (section 9) says the named
   change was not made.
@@ -142,14 +155,18 @@ which option A does not allow.
 
 ### The steps, in order
 
-1. Read face 00's current fingerprint (the git blob of its file).
+1. Read face 00's current fingerprint: the git blob of its file at
+   HEAD. Once this 00.CC is committed, that HEAD is the parent of
+   the commit that adds the 00.CC. [D347]
 2. Write a new 00.CC face that stores that fingerprint and the coming
    change. Under the QD03 working path (D326), this write does not
    change face 00, because the face list is not stored as bytes in 00.
    See section 7.
 3. Then make the change to face 00.
 4. Then count and compare: old fingerprint, the change, and what 00
-   is now.
+   is now. The builder should check that `fingerprint-before` equals
+   face 00's git blob at that parent. A mismatch halts. [D347] [D324]
+   There is still no such check today (F9; section 11).
 
 If the change is refused before it is made, do not rewrite the 00.CC.
 Write a void, as in section 9.
@@ -174,8 +191,9 @@ is a cascade.
 
 A 00.CC face is final because it is never rewritten, not because a
 seat line is added to face 00. A trial can still check that the
-fingerprint it names really was face 00's bytes just before the named
-change. [axiom 9]
+fingerprint it names really was face 00's bytes at the parent of
+the commit that adds this 00.CC (just before the named change).
+[axiom 9] [D347]
 
 **Option B.** Yes, a 00.counter is seated after a trial, like any other
 face. Then we need a rule that stops the cascade. That rule is not
@@ -226,6 +244,12 @@ Do not write a 00.counter in the shared repo until the A4.4 hole in
 section 10 is solved. A `--check` exit of 0 is not proof the books
 are readable to the core. [D346]
 
+The builder should also check the fingerprint against face 00's git
+blob at the parent of the commit that adds the 00.CC. A mismatch
+halts. [D347] [D324] There is still no such check: a real-but-wrong
+prior blob, and an all-zero blob, both pass `--check` today (F9).
+This draft does not edit the builder.
+
 The address, standing, and void rules in sections 7-9 are also `7`.
 
 ---
@@ -241,6 +265,9 @@ The address, standing, and void rules in sections 7-9 are also `7`.
   section 7 depends on it.
 - D346 is a working path, not a ruling. The A4.4 hole in section 10
   must be solved before any 00.counter is written in the shared repo.
+- D347 is a working path, not a ruling. It sharpens when the
+  fingerprint is taken (section 11). The builder check it asks for
+  has no implementation yet (F9).
 
 ---
 
@@ -402,12 +429,45 @@ to break it; the builder has not been changed. [D326] [section 7]
 
 ---
 
-## 11. Status
+## 11. Test 4 / D347: when the fingerprint is taken
+
+The six-test working path sharpens D323. The fingerprint is face
+00's git blob at the parent of the commit that adds the 00.CC.
+In plain words: it is the exact bytes of face 00 as git held them
+in the commit just before the one that adds this 00.CC file. The
+builder should check that the `fingerprint-before` field equals
+that blob. If they disagree, halt and raise it. [D324] [D347]
+[WORKING-PATH-SIX-TESTS.md] [R23-R25-six-tests.md test 4]
+
+This is the same idea this draft already had ("taken just before
+the change"), said more precisely, so a computer can check it
+after the fact.
+
+Tester's test 4 (F9) confirmed there is still no such check. A
+`00.CC.draft` naming a real but wrong earlier blob, and then one
+naming an all-zero blob (a blob git does not hold), both pass
+`--check`. The word "fingerprint" does not appear in the builder,
+the core, the app, or the scripts. It is only in the docs. The
+"count and compare" step R25 asks for has no implementation.
+
+**PROPOSED, aligned with D347.** Use that parent-commit timing.
+The builder should check it. A mismatch halts (D324). This is a
+working path, not a ruling. KERNEL would implement the check.
+This draft does not edit the builder, and it does not write a
+00.counter.
+
+---
+
+## 12. Status
 
 Still a draft, still `7`, not law. Sections 2 and 3 (QD67, QD66) are
-unchanged in their recommendations. QD67 stays for Matthew. Sections
-7-9 align F7 with the QD03 working path, and propose standing (F8)
-and void (F12). Section 10 aligns with D346: do not write a
-00.counter in the shared repo until the A4.4 hole is solved. Tester's
-notes and the WORKING-PATH files were not rewritten. The kernel and
-the core were not edited.
+unchanged in their recommendations. The only wording change in
+section 2 is when the blob is taken (D347). QD67 stays for Matthew.
+Sections 7-9 align F7 with the QD03 working path, and propose
+standing (F8) and void (F12). Section 10 aligns with D346: do not
+write a 00.counter in the shared repo until the A4.4 hole is
+solved. Section 11 aligns with D347: the fingerprint is face 00's
+git blob at the parent of the commit that adds the 00.CC; the
+builder should check it, and a mismatch halts; there is still no
+implementation (F9). Tester's notes and the WORKING-PATH files
+were not rewritten. The kernel and the core were not edited.

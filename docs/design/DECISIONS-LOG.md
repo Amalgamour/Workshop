@@ -411,20 +411,22 @@ why: R22 "make every design choice recorded" (DIRECTOR-RULINGS.md:86-88). One ro
 | D348 | WORKING PATH (Tester), not a ruling: use the R24 climb (a new 05 counter, not an edit of the seated pack) to re-cite lineage by address plus blob, never by commit id (as Q53 did for trials); to close already-done w01 cards; to fix broken counts; and to re-point 0052 w02 at a 0052.04.draft re-trial. A trial of a pack should run those mechanical done-tests before the seat. The new counters were not written here. Pending Director review. | working-path (Tester), pending Director review — not a ruling - F2, F3 | docs/design/WORKING-PATH-SIX-TESTS.md; Tester 2026-11-11 evening; R24; Q53 | seated 05 packs (not edited) |
 
 | D349 | PROPOSED (Designer, aligns with D346): do not write a 00.counter in the shared repo until the address and standing are agreed with the core. A 00.CC.draft that --check accepts today makes the 00.00.00 book unreadable to the core (A4.4), and every resolve then fails, even in another book, because load_world loads every book. The F8 standing (bare means write-once evidence) is unchanged as a proposal and cannot be used until then. The F7 listing cascade is a separate point (D326). | provisional 7 (DESIGN, Designer draft) - D346, F8 | docs/design/00-counter.md section 10; WORKING-PATH-SIX-TESTS.md; D346; crates/seqaddr-core/src/state.rs:420 | 00.counter (not written); kernel --check and core (not edited) |
+
+| D350 | PROPOSED (Designer, aligns with D347): the fingerprint on a 00.CC is face 00's git blob at the parent of the commit that adds that 00.CC (sharpens D323). The builder should check that fingerprint-before equals that blob; a mismatch halts (D324). F9 is confirmed: a real-but-wrong prior blob, and an all-zero blob, both pass --check today. There is still no implementation. This draft does not edit the builder. | provisional 7 (DESIGN, Designer draft) - D347, F9, D323, D324 | docs/design/00-counter.md section 11; WORKING-PATH-SIX-TESTS.md; D347; R23-R25-six-tests.md test 4 | 00.counter (not written); kernel builder (not edited) |
 ## Totals
 
 Counted from the tables above by the first words of each Status cell. A row whose status has a settled part and an open part is counted by its first words; the open part is asked in QUESTIONS-FOR-DIRECTOR.md.
 
 - **settled-by-ruling:** 53
 - **settled-by-spec:** 113
-- **provisional 7:** 116
+- **provisional 7:** 117
 - **working-path (pending Director review):** 18
 - **superseded (in whole or part):** 22
 - **open:** 23
 - **held (do not re-ask):** 4
-- **all:** 349
+- **all:** 350
 
-By area: addressing 62, faces 60, drafts 57, storage 32, compute 25, ask 19, app 16, process 60.
+By area: addressing 62, faces 61, drafts 57, storage 32, compute 25, ask 19, app 16, process 60.
 
 ## Sources mined
 
@@ -445,3 +447,4 @@ Updated 2026-11-11 7:26 PM EST, after D340 (Designer): docs/design/parked-door-l
 Updated 2026-11-11 7:29 PM EST, after D342 (Designer): docs/design/book-layout.md (Q30 draft, how the four-section cut would appear on the 0051 Book Layout card, not law). D343 added as provisional 7. Q30 stays open. Kernel, seqAddr, and WORKING-PATH were not edited. QD67 was not touched.
 Updated 2026-11-11 7:30 PM EST (Prima): D344–D348 added — Tester working paths from the six scratch-clone tests, the Q67 confirm, and the R24 design-versus-actual pass, not rulings. Numbered after Designer's D343 (Book Layout). See docs/design/WORKING-PATH-SIX-TESTS.md and R23-R25-six-tests.md. The builder and the seated packs were not changed. Q41, Q43 and Q34 were not marked.
 Updated 2026-11-11 7:32 PM EST, after D348 (Designer): docs/design/00-counter.md updated for Tester's test 3 / D346 (A4.4 hole: a 00.CC.draft that --check accepts makes the books unreadable to the core). D349 added as provisional 7. Do not write a 00.counter in the shared repo until the address and standing are agreed with the core. F8 standing unchanged as a proposal. QD67 stays for Matthew. Kernel, core, and WORKING-PATH were not edited.
+Updated 2026-11-11 7:37 PM EST, after D349 (Designer): docs/design/00-counter.md updated for D347 (the fingerprint is face 00's git blob at the parent of the commit that adds the 00.CC; the builder should check it; a mismatch halts). D350 added as provisional 7. F9 confirmed: a real-but-wrong prior blob, and an all-zero blob, both pass --check today; there is still no implementation. QD67 stays for Matthew; sections 2-3 recommendations unchanged except the timing of the blob. Kernel, core, and WORKING-PATH were not edited. No 00.counter was written.
