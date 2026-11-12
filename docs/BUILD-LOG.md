@@ -274,3 +274,9 @@ Every build choice, its why, and the spec line it follows. A choice the spec doe
 - Recorded R23-R25 in `docs/design/DECISIONS-LOG.md` as D312-D316 (settled by those rulings) and D317-D318 (proposed 7, QD67 and QD66). Updated D53, D183, D203, D225 from the same rulings.
 - `docs/design/QUESTIONS-FOR-DIRECTOR.md`: QD05 answered by R25; QD66 and QD67 saved (R25's held 7); QD01 updated for R23 and R24 (leftover: notes and dictionary).
 - Kernel `QUESTIONS.md` (Q51) was not edited (KERNEL lane). No faces seated, un-seated, or changed. No builder or core code changed.
+
+## [DESIGN] QD02 page-types proposal, and QD01 leftover sketch - 2026-11-11 7:16 PM EST
+- Draft `docs/design/page-types.md` (not law): Designer agrees with Tester's QD02 working path (D319): add `door`, `override`, and `axioms`; no new type for common questions; continuation uses `pointer` with `kind: continuation`. Adds how the face00.md field sets attach to those types, and how existing `system` stamps change through drafting (C1.4, axiom 6). One small correction: the sample questions page `10.11.21.0013` is already `general`, not `system`; proposed keep `general` with `kind: questions`.
+- Draft `docs/design/notes-and-dictionary-seating.md` (not law): notes (06) are not seated (session records; lasting content is merged into a content face). Dictionary sections may be seated after a trial (Q35 option B, dictionary half). The 05-update path stays with Tester's WORKING-PATH-LINEAGE.md.
+- Recorded as D328-D331 (provisional 7, DESIGN). QUESTIONS-FOR-DIRECTOR QD02 and QD01 Now lines point at the drafts. QD02 is not closed. D319-D327 were left as Prima recorded them.
+- Kernel files were not edited (Pass 12). No faces seated, un-seated, or changed. Not pushed.

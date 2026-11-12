@@ -27,9 +27,9 @@ Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, 
 - Option B: face 05 stays a task list. One summary card is seated, and the tasks stay numbered (05.01 to 05.98).
 - Also: may notes (06) and dictionary sections be seated? (part of kernel Q35)
 - Blocks: the work pack on every page, plus 5 held faces.
-- Now: `7`. R23 and R24 go further: we climb 05.01 through 05.06, then seat 05 as the best pack. If the page's work grows, we start 05.07 from that seated pack, and later reseat an update. The older seated 05 stays in the line. This is close to option B's numbered counters, with face 05 itself seated (option A). Working path (Tester, 2026-11-11 evening), not a ruling: the update is a new counter (05.07 beside 05.02); the builder should not silently replace the same address. See [WORKING-PATH-LINEAGE.md](WORKING-PATH-LINEAGE.md). Leftover: whether notes (06) and dictionary sections may be seated.
-- Raised: [kernel Q35](../../kernel/QUESTIONS.md) line 181; [R22](../spec/DIRECTOR-RULINGS.md) line 86; [R23](../spec/DIRECTOR-RULINGS.md) line 90; [R24](../spec/DIRECTOR-RULINGS.md) line 94; [OPEN O44](OPEN.md) line 250 (tasks and tickets).
-- Log: D53, D183, D225, D320.
+- Now: `7`. R23 and R24 go further: we climb 05.01 through 05.06, then seat 05 as the best pack. If the page's work grows, we start 05.07 from that seated pack, and later reseat an update. The older seated 05 stays in the line. This is close to option B's numbered counters, with face 05 itself seated (option A). Working path (Tester, 2026-11-11 evening), not a ruling: the update is a new counter (05.07 beside 05.02); the builder should not silently replace the same address. See [WORKING-PATH-LINEAGE.md](WORKING-PATH-LINEAGE.md). Leftover: whether notes (06) and dictionary sections may be seated. A design sketch in [notes-and-dictionary-seating.md](notes-and-dictionary-seating.md) proposes: do not seat notes; dictionary sections may be seated after a trial. It is a proposal, not law.
+- Raised: [kernel Q35](../../kernel/QUESTIONS.md) line 181; [R22](../spec/DIRECTOR-RULINGS.md) line 86; [R23](../spec/DIRECTOR-RULINGS.md) line 90; [R24](../spec/DIRECTOR-RULINGS.md) line 94; [OPEN O44](OPEN.md) line 250 (tasks and tickets); [notes-and-dictionary-seating.md](notes-and-dictionary-seating.md).
+- Log: D53, D183, D225, D320, D330, D331.
 
 ### QD02. Which page types are there?
 - You said (R19): each page type can have its own registry fields.
@@ -39,9 +39,9 @@ Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, 
 - Option B: keep six types, and put the role in a registry field.
 - Also: do continuation pages (99, 9999, PP99) count as pointer, or get their own type?
 - Blocks: 17 held faces (every face 00), and the face 00 checker.
-- Now: `7`. Working path (Tester, 2026-11-11 evening), not a ruling: add a new type only when the page lives under different laws; when pages share the same laws and only differ in details, use a registry field (`kind`). Add `door` (page 0000), `override` (0001-0009), and `axioms` (desk-level, R6). Do not add a type for the common questions page yet (`system` plus `kind: questions`). Continuation pages use `pointer` with `kind: continuation`. Full write-up: [WORKING-PATH-QD02.md](WORKING-PATH-QD02.md). Pending Director review.
-- Raised: [kernel Q33](../../kernel/QUESTIONS.md) line 169; [face00.md F10](../spec/face00.md) line 474; face00.md gaps line 150; [OPEN O35](OPEN.md) line 241.
-- Log: D37, D152, D156, D319.
+- Now: `7`. Working path (Tester, 2026-11-11 evening), not a ruling: add a new type only when the page lives under different laws; when pages share the same laws and only differ in details, use a registry field (`kind`). Add `door` (page 0000), `override` (0001-0009), and `axioms` (desk-level, R6). Do not add a type for the common questions page yet (`system` plus `kind: questions`). Continuation pages use `pointer` with `kind: continuation`. Full write-up: [WORKING-PATH-QD02.md](WORKING-PATH-QD02.md). Pending Director review. Designer draft in [page-types.md](page-types.md) agrees with that path and adds how the field sets attach and how existing stamps change. It also notes the sample questions page is already `general`, not `system`, and proposes keeping `general` with `kind: questions`. Not law.
+- Raised: [kernel Q33](../../kernel/QUESTIONS.md) line 169; [face00.md F10](../spec/face00.md) line 474; face00.md gaps line 150; [OPEN O35](OPEN.md) line 241; [page-types.md](page-types.md).
+- Log: D37, D152, D156, D319, D328, D329.
 
 ### QD03. Is the face list in face 00 written by hand, or worked out by the computer?
 - You said (R10): face 00 lists the page's faces.

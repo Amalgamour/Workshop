@@ -385,6 +385,11 @@ why: R22 "make every design choice recorded" (DIRECTOR-RULINGS.md:86-88). One ro
 | D325 | WORKING PATH (Tester), not a ruling: allow `0000.00.CC` on a door page as an exception to R10, so the line lives next to the face 00 it measures. This does not decide Q42 (a door's 05 pack). Pending Director review. | working-path (Tester), pending Director review — not a ruling - R10 | docs/design/WORKING-PATH-LINEAGE.md; docs/design/R23-R25-lineage.md F10; R10, R25 | door pages; 00.counter |
 | D326 | WORKING PATH (Tester), not a ruling: nobody writes a `faces:` list into face 00. The computer works the list out from the faces that exist (files and book), and still checks it against seat lines, `why-NN` reasons, and book entries. A leftover written `faces:` line is a finding if it disagrees, not the source of truth. Pending Director review. | working-path (Tester), pending Director review — not a ruling - QD03 | docs/design/WORKING-PATH-QD03.md; Tester 2026-11-11 evening; R10, R25, F7 | every face 00; kernel builder; .seq checker; core |
 | D327 | WORKING PATH (Tester), not a ruling: the four sections below 0100 are `0000` (door), `0001-0009` (overrides), `0010-0019` (required static pages), and `0020-0099` (working pages, with kinds `0020-0049` behavior and `0050-0099` structure). "0000-0019 are static" is a property of the first three together. Pending Director review. | working-path (Tester), pending Director review — not a ruling - QD13 / Q30 | docs/design/WORKING-PATH-Q30.md; Tester 2026-11-11 evening; R17, R7, R21 | kernel 0051 Book Layout; CONFLICTS D13; seqAddr table |
+| D328 | PROPOSED (Designer, agrees with D319): the face00.md field sets for door and override attach to the new door and override types, not to a page number. Existing 0000 stamps that say system change to door through drafting (C1.4). Until then, a type and address that disagree is a finding, not a hard error. This is a new step; the past is not rewritten. | provisional 7 (DESIGN, Designer draft) - QD02 | docs/design/page-types.md; WORKING-PATH-QD02.md; face00.md:232-254; C1.4; axiom 6 | every 0000.00; face 00 checker; kernel 0054 (not edited here) |
+| D329 | PROPOSED: the sample common questions page is already type general (10.11.21.0013), not system. Until unique laws exist, keep general and use kind: questions if a field is needed. No new type. This is a small correction to D319's "keep as system." | provisional 7 (DESIGN, Designer draft) - QD02 | docs/design/page-types.md; kernel/samples/10.11.21/10.11.21.0013.00.draft.md; D319; R11 | 10.11.21.0013; ask / common questions |
+| D330 | PROPOSED: notes (06) are not seated. They are session records and climb 06.CC. Lasting content in a note is merged into a content face and seated there. | provisional 7 (DESIGN, Designer draft) - QD01 leftover | docs/design/notes-and-dictionary-seating.md; kernel Q35; v2:83; drafting.md | every 06; kernel builder (not changed) |
+| D331 | PROPOSED: a dictionary section may be seated after a hostile trial, like other lasting content. This is the dictionary half of Q35 option B. | provisional 7 (DESIGN, Designer draft) - QD01 leftover | docs/design/notes-and-dictionary-seating.md; kernel Q35; R2, R20; axiom 9 | dictionary 03.NN sections; kernel builder (not changed) |
+
 
 ## Totals
 
@@ -392,14 +397,14 @@ Counted from the tables above by the first words of each Status cell. A row whos
 
 - **settled-by-ruling:** 53
 - **settled-by-spec:** 113
-- **provisional 7:** 103
+- **provisional 7:** 107
 - **working-path (pending Director review):** 9
 - **superseded (in whole or part):** 22
 - **open:** 23
 - **held (do not re-ask):** 4
-- **all:** 327
+- **all:** 331
 
-By area: addressing 61, faces 51, drafts 55, storage 32, compute 25, ask 19, app 16, process 59.
+By area: addressing 61, faces 53, drafts 57, storage 32, compute 25, ask 19, app 16, process 59.
 
 ## Sources mined
 
@@ -410,3 +415,4 @@ Updated 2026-11-11 7:15 PM EST (Prima): D319 added — Tester working path for Q
 Updated 2026-11-11 7:20 PM EST (Prima): D320–D325 added — Tester working path for R23–R25 lineage (not rulings). See docs/design/WORKING-PATH-LINEAGE.md and docs/design/R23-R25-lineage.md.
 Updated 2026-11-11 7:25 PM EST (Prima): D326 added — Tester working path for QD03 (derive the face list, still check it), not a ruling. See docs/design/WORKING-PATH-QD03.md.
 Updated 2026-11-11 7:30 PM EST (Prima): D327 added — Tester working path for Q30 / QD13 (four sections below 0100), not a ruling. See docs/design/WORKING-PATH-Q30.md.
+Updated 2026-11-11 7:16 PM EST, after D327 (Designer): docs/design/page-types.md (QD02 draft, agrees with D319, not law) and docs/design/notes-and-dictionary-seating.md (QD01 leftover, not law). D328-D331 added as provisional 7. Kernel files were not edited (Pass 12).
