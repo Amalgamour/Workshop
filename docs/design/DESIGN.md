@@ -101,7 +101,7 @@ why: the Director asked that "The decisions are to update into a more concise de
 - bare `05.MM`: "closed" [v2:51].
 
 **Face tails, with no counter.**
-- `FF.draft`: "Draft of a face not seated so not to be used as active" [v2:53].
+- `FF.draft`: "Draft of a face not seated so not to be used as active" [v2:53]. *Open: what happens when review rejects a draft [QD54] [O40]. Working path (D375), not a ruling: a rejection is, by default, the reviewer's notes on the draft (those already block promote until every note is struck). The draft goes back to the drafter, then a fresh review from a different view [R20]. When the draft should not be seated at all, a logged withdraw (who, why, trial reference) ends it; the body stays in the log, the seated face is untouched [Axioms.md:23] [D344], and the slot is free for a later fresh copy [R8]. Today's promote-only end is not the answer: one draft per face would then block every later copy. Do not overwrite the draft with `put` [D0]. For workflow counters, a failed review already closes `failed` and rework is a new counter; do not invent a second rule there.*
 - `FF.retired`: "A previously seated face turned into retired before it can be removed" [v2:54].
 
 **Seated.** "Seated face exists only as FF no tail or counter" [v2:38]. "Seated face only legal formate DD.SS.BB.PPPP.FF" [v2:39]. *Open: should small "patch and strike" edits be allowed on a seated face [QD59]. Working path (D369), not a ruling: no. A seated face is not edited [Axioms.md:23]. A fix is a new draft, then a new seat; for a pack, a new 05 counter [R24]. Struck notes on a draft during writing stay on the draft, not on the seated body.*
@@ -218,7 +218,9 @@ why: the Director asked that "The decisions are to update into a more concise de
 
 **The loop.** `draft -> pack -> open -> return -> review -> closed` [workflow-loop.003.md:163]. "`closed` is the board label for the bare `05.NN` counter" [workflow-loop.003.md:166].
 
-**How it ends.** The outcome is recorded apart from the tail: passed, failed, blocked, needs-authority or abandoned [decisions.md:629].
+**How it ends.** The outcome is recorded apart from the tail: passed, failed, blocked, needs-authority or abandoned [decisions.md:629]. *Open: when results are mixed, which outcome wins [QD62] [O48]. Working path (D376), not a ruling: a default order, with every reason always recorded, and a reviewer override only with a why. For blockers and missing authority together, needs-authority wins (a raise to the person). If failed also applies, failed is the headline: a violation is not dressed as a request. Abandoned is exclusive and only through recovery [D374]. Passed only if nothing else applies [S03]. This recommendation needs a why and a reasons list on close.*
+
+**Abandoned.** Silence alone leaves the claim unresolved [S11]. *Open: what record lets the computer take back someone's abandoned task [QD22]. Working path (D374), not a ruling: a written "abandoned" decision with an approval, not a time-out that takes the task back on its own [S11]. The authority writes the decision under their own identity, naming the counter, the claim id, and the why, preferably as a separate note the return can cite. The compute refuses the system return unless it cites that decision. Then the old owner's further writes are refused, the counter may close only as abandoned, and replacement is a new counter with an explicit predecessor [Axioms.md:23] [D344]. A time-out may only raise the question. Who may confirm stays `7` on [QD61]. Turning recovery on, by itself, is not the record.*
 
 **Roles.** A person approves, a lead writes packs, a builder claims and builds, a reviewer from another view checks, and the compute records [workflow-loop.003.md:26-30]. "A lead is not authority" [workflow-loop.003.md:32].
 
@@ -228,7 +230,7 @@ why: the Director asked that "The decisions are to update into a more concise de
 
 **Code lives in the repo.** "code lives in the repo, not in the book" [workflow-loop.003.md:70].
 
-**Limits on loops.** "1-3 passes is normal" [workflow-loop.003.md:258]. Pass 6 halts and goes to the authority [workflow-loop.003.md:267].
+**Limits on loops.** "1-3 passes is normal" [workflow-loop.003.md:258]. Pass 6 halts and goes to the authority [workflow-loop.003.md:267]. *Open: what may "carry on" do after a halt [QD62] [O48]. Working path (D376), not a ruling: a "carry on" from the frame's authority, tied to the recorded halt, may grant a further allowance inside the same approved frame, N4 revision, and grant. Unrelated talk does not lift the halt. It may not reset the gravity count, widen scope, accept a pack or promote [S04], or lift a separate axiom-1 halt. The default count and unit stay `7` until F05 or [QD12]. Do not treat a bare "carry on" as unlimited.*
 
 **As built.** The core has claims, and the first claim wins (HTTP 409) [BUILD-LOG:37] [BUILD-LOG:64]. A builder cannot review its own return [BUILD-LOG:64]. The trial found that anyone can do the compute-only steps, lint and close [core-trial:38-41]. That is a fix, because the spec is clear [workflow-loop.003.md:171] [workflow-loop.003.md:176].
 

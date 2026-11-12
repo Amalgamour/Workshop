@@ -453,20 +453,22 @@ why: R22 "make every design choice recorded" (DIRECTOR-RULINGS.md:86-88). One ro
 
 | D377 | WORKING PATH (Tester), not a ruling: adopt Designer's D373 fold-in of D363-D369 into the design drafts as a faithful fold-in. No further improvements. Each path landed in the draft that owns it; questions stay 7. book-layout.md was already a match and was right to leave unchanged. The scoped DESIGN.md sentence under D368 ("a door page does not need a content face for that link") answers only the return-link case and does not close the rest of O9. Pending Director review. | working-path (Tester), pending Director review — not a ruling - D373, D363-D369 | docs/design/WORKING-PATH-D373-EVAL.md; Tester 2026-11-11 9:02 PM EST; 00-counter.md, page-types.md, DESIGN.md (22d42df) | Designer drafts (not rewritten again); book-layout.md (unchanged) |
 
+| D378 | PROPOSED (Designer, aligns with D374-D376): fold those workflow working paths into the design draft that owns them, still 7, not law. DESIGN.md: a written abandoned decision with an approval, not a silent time-out (D374, QD22); a rejected face draft returns with reviewer notes, or ends in a logged withdraw, and today's promote-only end is not the answer (D375, QD54); a default outcome order with every reason recorded, and "carry on" may grant a further allowance in the same frame but may not reset gravity or promote (D376, QD62). 00-counter.md, book-layout.md, and page-types.md are not the home for these paths, so they were left unchanged. QD22, QD54 and QD62 stay `7`. QD61 and QD12 stay `7` and were not answered. QD67 stays for Matthew. Q41, Q43, and Q34 were not marked. This draft does not edit the kernel, the core, or WORKING-PATH, and it does not write a 00.counter or a new 05 counter. | provisional 7 (DESIGN, Designer draft) - D374, D375, D376 | docs/design/DESIGN.md; WORKING-PATH-WORKFLOW.md; D374-D376 | DESIGN.md (not law); 00-counter.md, book-layout.md, page-types.md (unchanged); kernel and core (not edited); QD61, QD12 (still 7) |
+
 ## Totals
 
 Counted from the tables above by the first words of each Status cell. A row whose status has a settled part and an open part is counted by its first words; the open part is asked in QUESTIONS-FOR-DIRECTOR.md.
 
 - **settled-by-ruling:** 53
 - **settled-by-spec:** 113
-- **provisional 7:** 124
+- **provisional 7:** 125
 - **working-path (pending Director review):** 38
 - **superseded (in whole or part):** 22
 - **open:** 23
 - **held (do not re-ask):** 4
-- **all:** 377
+- **all:** 378
 
-By area: addressing 62, faces 77, drafts 62, storage 32, compute 25, ask 19, app 16, process 66.
+By area: addressing 62, faces 77, drafts 63, storage 32, compute 25, ask 19, app 16, process 66.
 
 ## Sources mined
 
@@ -502,3 +504,4 @@ Updated 2026-11-11 8:08 PM EST (Prima): D372 added — Tester evaluation of Desi
 Updated 2026-11-11 8:57 PM EST, after D372 (Designer): docs/design/00-counter.md, docs/design/page-types.md, and docs/design/DESIGN.md updated for D363-D369 (after 98, a continuation page and no reused number; state lives only in the stamp; which faces hold counters is a fixed law; add the question card type; which face 00 problems halt versus which are findings; a door's return link lives on face 00; a seated face is not patched). D373 added as provisional 7. book-layout.md already matched and was left unchanged. QD16, QD08, QD11, QD26, QD28, QD23 and QD59 stay `7`. QD67 stays for Matthew. Q41, Q43, and Q34 were not marked. Kernel, core, and WORKING-PATH were not edited. No 00.counter and no new 05 counter were written. No seated face was edited.
 Updated 2026-11-11 9:00 PM EST (Prima): D374-D376 added — Tester working paths, not rulings, on QD22, QD54 and QD62. D374: a written abandoned decision with an approval, not a silent time-out (S11). D375: a rejected face draft returns with reviewer notes, or ends in a logged withdraw; today's promote-only end is not the answer. D376: a default outcome order with every reason recorded; "carry on" may grant a further allowance in the same frame and may not reset gravity or promote; the default count stays 7 until F05 or QD12. See docs/design/WORKING-PATH-WORKFLOW.md. Numbered after Designer's D373. Those questions stay open and marked `7`. QD61 and QD12 were not answered. QD67 stays for Matthew. Q41, Q43 and Q34 were not marked. The kernel and the core were not edited. No 00.counter was written.
 Updated 2026-11-11 9:03 PM EST (Prima): D377 added — Tester evaluation of Designer's D373 fold-in of D363-D369, not a ruling. Adopt D373 as a faithful fold-in; no further improvements. See docs/design/WORKING-PATH-D373-EVAL.md. Numbered after Prima's D376. The Designer drafts and the kernel were not rewritten. QD67 stays for Matthew. Q41, Q43 and Q34 were not marked. No 00.counter was written.
+Updated 2026-11-11 10:00 PM EST, after D377 (Designer): docs/design/DESIGN.md updated for D374-D376 (a written abandoned decision, not a silent time-out; a rejected face draft returns with reviewer notes, or ends in a logged withdraw; a default outcome order, and what "carry on" may and may not do). D378 added as provisional 7. 00-counter.md, book-layout.md, and page-types.md are not the home for these paths and were left unchanged. QD22, QD54 and QD62 stay `7`. QD61 and QD12 stay `7`. QD67 stays for Matthew. Q41, Q43, and Q34 were not marked. Kernel, core, and WORKING-PATH were not edited. No 00.counter and no new 05 counter were written. No seated face was edited.
