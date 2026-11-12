@@ -14,7 +14,7 @@ what: every open question from the build, saved in one place. Each one appears o
 - Prima asks you one at a time. Nothing here needs an answer today.
 - Questions you already answered are listed at the end, so nothing is asked twice.
 
-Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, D12, D13, D14 and D16 are still open, as QD25, QD10, QD13, QD26 and QD24.) Updated 2026-11-11 evening (Designer): R23-R25 recorded; QD05 answered by R25; QD66 and QD67 saved. Updated 2026-11-11 7:15 PM EST (Prima): QD02 has a Tester working path (D319), still open, pending Director review. Updated 2026-11-11 7:20 PM EST (Prima): QD01 has a Tester working path on reseating (D320–D325), still open; see WORKING-PATH-LINEAGE.md. Updated 2026-11-11 7:25 PM EST (Prima): QD03 has a Tester working path (D326), still open, pending Director review. Updated 2026-11-11 7:30 PM EST (Prima): QD13 / Q30 has a Tester working path (D327), still open, pending Director review.
+Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, D12, D13, D14 and D16 are still open, as QD25, QD10, QD13, QD26 and QD24.) Updated 2026-11-11 evening (Designer): R23-R25 recorded; QD05 answered by R25; QD66 and QD67 saved. Updated 2026-11-11 7:15 PM EST (Prima): QD02 has a Tester working path (D319), still open, pending Director review. Updated 2026-11-11 7:20 PM EST (Prima): QD01 has a Tester working path on reseating (D320–D325), still open; see WORKING-PATH-LINEAGE.md. Updated 2026-11-11 7:25 PM EST (Prima): QD03 has a Tester working path (D326), still open, pending Director review. Updated 2026-11-11 7:30 PM EST (Prima): QD13 / Q30 has a Tester working path (D327), still open, pending Director review. Updated 2026-11-11 7:35 PM EST (Prima): QD09 has a Tester working path (D332), still open, pending Director review.
 
 ---
 
@@ -121,9 +121,9 @@ Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, 
 - Option A: a new form, two numbers plus a title.
 - Option B: a short name for a fixed page in the kernel book.
 - Blocks: 7 held axiom faces.
-- Now: `7`. Stored as 00.00.axioms; the core doesn't model it.
+- Now: `7`. Working path (Tester, 2026-11-11 evening), not a ruling: the exact address is `00.axioms` (desk 00, titled axioms), Option A. Keep `00.00.axioms` as a findable prior name during the move; do not silently rewrite the old address (axiom 6 and 8). Full write-up: [WORKING-PATH-QD09.md](WORKING-PATH-QD09.md). Pending Director review. Nothing has been renamed.
 - Raised: [kernel Q28](../../kernel/QUESTIONS.md) line 140; [CONFLICTS D3](../../kernel/CONFLICTS.md) line 150.
-- Log: D124, D144.
+- Log: D124, D144, D332.
 
 ### QD10. Is the dictionary's 03.00 a door?
 - You said "door" (R16).
