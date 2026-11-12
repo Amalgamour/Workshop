@@ -483,6 +483,8 @@ why: R22 "make every design choice recorded" (DIRECTOR-RULINGS.md:86-88). One ro
 
 | D394 | PROPOSED (Designer, aligns with D389-D393): fold those working paths into DESIGN.md, still 7, not law. A book's tasks and notes are its own; the kernel's are found at the kernel address, and must not become the book's own board (D389, QD17). When a book retires its own copy of a page, lookup goes on to the parent; the door must never fall through (D390, QD18). A draft may hold a return link only while the pointer is also a draft; a seated pointer needs a seated return link (D391, QD19). The 04 rule does not apply to task lists (D392, QD20). Every seat carries approved-by, including the computer's; compute-only steps that do not seat a face stay as they are (D393, QD21). Offers stay offers and were not adopted. QD17, QD18, QD19, QD20 and QD21 stay `7`. QD61, QD12, QD66 and QD67 stay `7` and were not answered. Q41, Q43, and Q34 were not marked. This draft does not edit 00-counter.md, book-layout.md, page-types.md, the kernel, the core, or WORKING-PATH, and it does not write a 00.counter or a new 05 counter. Findings were not implemented. | provisional 7 (DESIGN, Designer draft) - D389, D390, D391, D392, D393 | docs/design/DESIGN.md; WORKING-PATH-QD17-QD21.md; D389-D393 | DESIGN.md (not law); 00-counter.md, book-layout.md, page-types.md (unchanged); kernel and core (not edited); QD61, QD12, QD66, QD67 (still 7) |
 
+| D395 | WORKING PATH (Tester), not a ruling: adopt Designer's D394 fold-in of D389-D393 into DESIGN.md as a faithful fold-in. No further substance is missing. No further improvements. All five paths are in, still 7, not law. Offers stay offers. Findings were not implemented. D390 is split correctly (door vs ordinary page). The carry-on may-not list was not reopened. Pending Director review. | working-path (Tester), pending Director review — not a ruling - D394, D389-D393 | docs/design/WORKING-PATH-D394-EVAL.md; Tester 2026-11-11 11:12 PM EST; DESIGN.md (ff05d7b) | DESIGN.md (not rewritten again); QD61, QD12, QD66, QD67 (still 7) |
+
 ## Totals
 
 Counted from the tables above by the first words of each Status cell. A row whose status has a settled part and an open part is counted by its first words; the open part is asked in QUESTIONS-FOR-DIRECTOR.md.
@@ -490,13 +492,13 @@ Counted from the tables above by the first words of each Status cell. A row whos
 - **settled-by-ruling:** 53
 - **settled-by-spec:** 113
 - **provisional 7:** 128
-- **working-path (pending Director review):** 51
+- **working-path (pending Director review):** 52
 - **superseded (in whole or part):** 22
 - **open:** 23
 - **held (do not re-ask):** 4
-- **all:** 394
+- **all:** 395
 
-By area: addressing 63, faces 81, drafts 70, storage 32, compute 28, ask 19, app 16, process 67.
+By area: addressing 63, faces 81, drafts 71, storage 32, compute 28, ask 19, app 16, process 67.
 
 ## Sources mined
 
@@ -540,3 +542,4 @@ Updated 2026-11-11 10:18 PM EST, after D386 (Designer): docs/design/DESIGN.md on
 Updated 2026-11-11 10:20 PM EST (Prima): D388 added — Tester evaluation of Designer's D387 fill-in of the D386 semicolon grouping, not a ruling. Adopt D387 as a faithful fill-in; no further improvements. The wording matches the D386 suggestion character for character. See docs/design/WORKING-PATH-D387-EVAL.md. Numbered after Designer's D387. The Designer draft was not rewritten again. QD67 stays for Matthew. Q41, Q43 and Q34 were not marked. No 00.counter was written.
 Updated 2026-11-11 11:05 PM EST (Prima): D389-D393 added — Tester working paths for QD17, QD18, QD19, QD20, and QD21, not rulings. A book's tasks are its own; retiring an override walks on to the parent but the door must not; a draft return link stages only, and a seated pointer needs a seated link; the 04 rule does not apply to task lists; the computer's seats need approval (remove the exemption). See docs/design/WORKING-PATH-QD17-QD21.md. Numbered after Tester's file (e99bf95). The Tester file was not rewritten. Offers stay offers. Findings were not implemented. QD61, QD12, QD66 and QD67 stay for Matthew. Q41, Q43 and Q34 were not marked. No 00.counter was written.
 Updated 2026-11-11 11:08 PM EST, after D393 (Designer): docs/design/DESIGN.md only: folded in D389-D393 (a book's tasks and notes are its own; retiring an override walks on to the parent, but the door must not; a draft return link stages only, and a seated pointer needs a seated return link; the 04 rule does not apply to task lists; the computer's seats need approval). D394 added as provisional 7. Offers stay offers and were not adopted. Findings were not implemented. QD17, QD18, QD19, QD20 and QD21 stay `7`. QD61, QD12, QD66 and QD67 stay `7`. Q41, Q43, and Q34 were not marked. 00-counter.md, book-layout.md, page-types.md, the kernel, the core, and WORKING-PATH were not edited. No 00.counter and no new 05 counter were written. No seated face was edited.
+Updated 2026-11-11 11:12 PM EST (Prima): D395 added — Tester evaluation of Designer's D394 fold-in of D389-D393, not a ruling. Adopt D394 as a faithful fold-in; no further substance is missing. No further improvements. See docs/design/WORKING-PATH-D394-EVAL.md. Numbered after Designer's D394. The Designer draft was not rewritten again. QD61, QD12, QD66 and QD67 stay for Matthew. Q41, Q43 and Q34 were not marked. No 00.counter was written.
