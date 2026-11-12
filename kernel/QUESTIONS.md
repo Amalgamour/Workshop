@@ -468,12 +468,25 @@ Evidence: `docs/trial/kernel-trial-10.md` finding 1 (DO, F1) and finding 3 (F1b)
 - F1b: the "git does not hold it" test (`:571`) accepts an unreachable loose object locally (a fresh clone refuses).
 - Option A: the record names every distinct seat blob ever seen for that address in face 00 history and in `books/` history (Q63 option A, fully). Option B: take the last seat from a `--first-parent --topo-order` walk, and still name every `books/` blob. Option C: both; and a held blob must be reachable from HEAD. `7` until a lane takes it.
 
+Decided by KERNEL pass 12 (84d6bd9, 2026-11-11 7:18 PM EST), builder lane: option C, stated as the Prima brief put it.
+- An un-seat record names every distinct past seat blob of the face: every blob any face 00 version's structured seat field gives for that address (face 00 history), and every `face blob` of every `approved-by` book line for it in every book version (`books/` history). Re-seats (R24) included. The order `git log` prints in no longer matters, so a future-dated merge parent (DO) cannot hide the newer seat, and a never-built commit rewriting both the face 00 line and the book line (F1) cannot replace the real seat: the older versions still hold it. Option B's "last seat" is subsumed: every seat is named, the last one too.
+- Each past seat blob must be a blob reachable from HEAD (listed by `git rev-list --objects HEAD`), not only a blob `git cat-file -e` finds; an unreachable loose object (F1b) is reported as made up (fail closed).
+- Pass 11 rules kept: past seats only from the registry `seat-NN:` field block and the stamp `seat-00:`; prose ignored; the retiring version skipped; `books/` history read in any mode except 160000; a current book must be 100644; `unseat-NN:` counts as a seat record; the four live face 00 rules.
+- Tests: re-seat control (names both blobs, builds); re-seat naming only the newest blob, refused; K10 DO (future-dated merge, names only the older seat), refused; K10 F1, refused; K10 F1b, refused. The four refusals fail on the pass 11 builder; the control passes on both.
+
 **Q68. [TRIAL-K10] (builder lane, not a Director question) May a live face 00 hold `unseat-NN:` for a face that is still seated?**
 Evidence: `docs/trial/kernel-trial-10.md` finding 2 (U1).
 - The live rules (`build.mjs:643-655`) refuse a `seat-NN:` for a non-seated face unless an `unseat-NN:` sits beside it, but nothing refuses an `unseat-NN:` beside a seated face. U1: `unseat-05.02: not really; was blob 24a27e08...` beside the live `seat-05.02:` builds clean (`seats 26`). `blobSeats` treats each such version as retiring and skips its seat line (`:405-411`), so the face 00 history does not record that seat (or a re-seat made meanwhile) while the line stays; only `books/` history does.
 - Option A: refuse an `unseat-NN:` for a face listed as seated. Option B: refuse it only when a `seat-NN:` for the same face is also live. `7` until a lane takes it.
 
+Decided by KERNEL pass 12 (84d6bd9, 2026-11-11 7:18 PM EST), builder lane: option A.
+- A registry `unseat-NN:` for a face listed as seated in `faces:` is an error. By the same rule, a stamp `unseat-00:` in a face 00 that is still seated (no tail) is an error.
+- Test: K10 U1 (`unseat-05.02:` beside the seated 0013.05.02), refused. It fails on the pass 11 builder.
+
 **Q69. [TRIAL-K10] (builder lane, not a Director question) Should test K4 HG use a ruling number that can never be real?**
 Evidence: `docs/trial/kernel-trial-10.md` finding 4.
 - `kernel/build.test.mjs:205-208` appends an uncommitted `## R23 - fake` and expects "R23, which is not in DIRECTOR-RULINGS.md as committed at HEAD". R23 is real since `5f2f43d`, so the builder now says "R23 does not name 10.11.21.0013.01" (still refused). Suite: 67/67 at `bbdc1a9`, 66/67 at `3092f7b` (which records 67/67), `10d6a70`, publish and GitHub `9e4e37b`. With `R99` the expected message comes back.
 - Option A: use a number that will never be written (for example `R9999`). Option B: compute the next free number from the file. `7` until a lane takes it.
+
+Decided by KERNEL pass 12 (84d6bd9, 2026-11-11 7:18 PM EST), builder lane: option A.
+- Test K4 HG appends an uncommitted `## R9999 - fake` and expects "seat cites R9999, which is not in DIRECTOR-RULINGS.md as committed at HEAD". The test is not weaker: the same guard, the same message. 73/73 at 84d6bd9.

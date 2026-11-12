@@ -280,3 +280,13 @@ Every build choice, its why, and the spec line it follows. A choice the spec doe
 - Draft `docs/design/notes-and-dictionary-seating.md` (not law): notes (06) are not seated (session records; lasting content is merged into a content face). Dictionary sections may be seated after a trial (Q35 option B, dictionary half). The 05-update path stays with Tester's WORKING-PATH-LINEAGE.md.
 - Recorded as D328-D331 (provisional 7, DESIGN). QUESTIONS-FOR-DIRECTOR QD02 and QD01 Now lines point at the drafts. QD02 is not closed. D319-D327 were left as Prima recorded them.
 - Kernel files were not edited (Pass 12). No faces seated, un-seated, or changed. Not pushed.
+
+## [KERNEL] pass 12, TRIAL-K10 findings 1-4 (Q67-Q69), no new seats - 2026-11-11 7:18 PM EST
+- Step 1 (84d6bd9): builder guard per Q67-Q69 (decided here, builder lane, as the Prima brief set them).
+  - Q67 (major, K10 findings 1 and 3), option C: face 00 history and `books/` history keep every distinct past seat blob per address, not the first one `git log` prints; an un-seat record must name each one (re-seats included), and each must be a blob reachable from HEAD (`git rev-list --objects HEAD`), so an unreachable loose object is "made up". K10 DO (future-dated merge), F1 (face 00 line and book line rewritten in one never-built commit) and F1b (loose object) now fail. Pass 11 rules kept (structured seat fields only, retiring version skipped, books any mode except 160000, current book 100644, `unseat-NN:` is a seat record, the four live face 00 rules).
+  - Q68 (K10 finding 2), option A: a registry `unseat-NN:` for a face still listed as seated, or a stamp `unseat-00:` in a seated face 00, is an error. K10 U1 now fails.
+  - Q69 (K10 finding 4), option A: test K4 HG uses the fake ruling `R9999`; same guard, same message.
+  - 6 new tests (73 total): Q67 re-seat control (names both blobs, builds), re-seat naming only the newest blob, DO, F1, F1b; Q68 U1. Against the pass 11 builder (fresh clone at 60b3dc9 with the new test file): 68 ok, 5 FAIL (the five refusals); now 73/73 (was 66/67 at HEAD before this pass).
+  - Not closed (admitted leftovers, TRIAL-K8 finding 3, TRIAL-K9 finding 5, TRIAL-K10 finding 5): a forged trial in a docs-only commit; a local gitfile swap.
+- `node kernel/build.mjs --check`: exit 0, `seats 26`, `48 findings, 0 errors`. No seats this pass; 26 seats verify. No face edits. Not pushed; publish copy not touched.
+- Next trial targets: the every-blob un-seat rule after a real re-seat, the HEAD-reachable test, the Q68 live rule, and the 26 seats.
