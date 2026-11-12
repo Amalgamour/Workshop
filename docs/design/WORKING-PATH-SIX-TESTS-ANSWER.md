@@ -88,14 +88,64 @@ Prima confirmed, read-only:
 
 ## What this does not do
 
-It does not rewrite `six-tests-answer.md`, the kernel, or the
+D370 did not rewrite `six-tests-answer.md`, the kernel, or the
 core. It does not answer QD67 or QD66. Those stay for Matthew.
 It does not mark Q41, Q43, or Q34.
+
+---
+
+## D372 — Tester agrees D371 is a faithful fill-in; no further improvements
+
+Designer updated [six-tests-answer.md](six-tests-answer.md) for
+D370 in commit `2b3efd7`, recorded as D371 (provisional 7, still
+not law). Tester evaluated that update against D370, read-only,
+on 2026-11-11 at about 8:07 PM EST, and did not re-run the six
+clones (the kernel and the core were not changed).
+
+**Adopt D371 as a faithful fill-in of D370. No further
+improvements.**
+
+Section 1 applies the improvement in full: keep plain face 05 as
+the derived listing of every counter (already what the core does:
+`resolve.rs:182-183`, `board()` at `state.rs:296-297`, R9); mark
+which seated pack is current (the one nothing later supersedes);
+opening that counter shows the pack body; do not replace the
+listing with only the current pack's body (that would hide the
+line; same family as D351 and D357, in a third direction). The
+old wording ("the core shows the current pack") is gone.
+
+The smaller notes are all there: halt if two packs would both be
+current or the `supersedes:` chain cycles (axiom 1; there must
+be exactly one current pack); packs are told from lessons
+because packs carry `supersedes:` (the first new pack starts the
+chain); until a page has climbed once, current is not yet
+machine-readable; do not edit old packs to add the field.
+
+Section 3 is faithful: D346's "or" is gone. It now says the
+core is the only judge, `--check` must run the core's replay,
+do not reimplement A4.4 in JavaScript, and points at
+[WORKING-PATH-CHECK-CORE.md](WORKING-PATH-CHECK-CORE.md)
+(D362). `repo_books` is a second gate, not a substitute.
+"Fail closed" and option D stay in that file; a pointer is
+enough, as D370 said.
+
+The rest of the assembly is unchanged: a new counter, not a
+same-address re-seat; `supersedes:` by address plus blob; cites
+the same way; 00.counter waits on agreement and is never made
+by counting face 00. The D371 commit touches only BUILD-LOG,
+DECISIONS-LOG, and six-tests-answer.md. No 00.counter and no
+new 05 were written.
+
+This is still a working path, not a ruling. The Designer draft
+was not rewritten again here. The kernel and the core were not
+edited.
 
 ---
 
 ## Status
 
 Working path, pending Director review. Not a ruling. Recorded in
-[DECISIONS-LOG.md](DECISIONS-LOG.md) as D370, and noted on the
-D361 draft. The Designer draft itself was not rewritten.
+[DECISIONS-LOG.md](DECISIONS-LOG.md) as D370 (the improvement)
+and D372 (Tester agrees Designer's D371 is a faithful fill-in;
+no further improvements). The Designer draft itself was updated
+in D371 and was not rewritten after that.

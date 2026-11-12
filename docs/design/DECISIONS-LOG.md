@@ -444,6 +444,8 @@ why: R22 "make every design choice recorded" (DIRECTOR-RULINGS.md:86-88). One ro
 
 
 | D371 | PROPOSED (Designer, aligns with D370): adopt D361 as a faithful assembly, with this improvement. When you open plain face 05, keep the derived listing of every counter, and mark which seated pack is current (the one nothing later supersedes). Do not replace that listing with only the current pack's body: face 05 is counted, and that would hide the line (same family as D351 and D357, in a third direction). If two packs would both count as current, or the supersedes: chain cycles, halt (axiom 1); there must be exactly one current pack. The computer tells packs from lessons because packs carry supersedes: (the first new pack starts the chain). Until a page has climbed once, current is not yet machine-readable; do not edit old packs to add the field. Section 3 points at WORKING-PATH-CHECK-CORE.md (D362: the core is the only judge; --check must run the core's replay; do not reimplement A4.4 in JavaScript) instead of restating D346's "or". QD67 stays for Matthew. This draft does not edit the kernel, the core, or WORKING-PATH, and it does not write a 00.counter or a new 05 counter. | provisional 7 (DESIGN, Designer draft) - D370, D361, D362, D345 | docs/design/six-tests-answer.md; WORKING-PATH-SIX-TESTS-ANSWER.md; D370; WORKING-PATH-CHECK-CORE.md; resolve.rs:182-183; state.rs:296-297 | face 05 resolve (not edited); 00.counter (not written); kernel and core (not edited) |
+| D372 | WORKING PATH (Tester), not a ruling: adopt Designer's D371 update of six-tests-answer.md as a faithful fill-in of D370. No further improvements. Section 1 keeps plain face 05 as the derived listing, marks the current pack, and does not replace the listing with one pack body. The smaller notes (halt on two-current or a cycle; packs told from lessons by `supersedes:`; do not edit old packs) and the section 3 pointer to D362 are faithful. Fail-closed and option D stay in WORKING-PATH-CHECK-CORE.md; a pointer is enough. Pending Director review. | working-path (Tester), pending Director review — not a ruling - D371, D370 | docs/design/WORKING-PATH-SIX-TESTS-ANSWER.md; Tester 2026-11-11 8:07 PM EST; six-tests-answer.md (2b3efd7) | face 05 resolve (not edited); Designer draft (not rewritten again) |
+
 ## Totals
 
 Counted from the tables above by the first words of each Status cell. A row whose status has a settled part and an open part is counted by its first words; the open part is asked in QUESTIONS-FOR-DIRECTOR.md.
@@ -451,13 +453,13 @@ Counted from the tables above by the first words of each Status cell. A row whos
 - **settled-by-ruling:** 53
 - **settled-by-spec:** 113
 - **provisional 7:** 123
-- **working-path (pending Director review):** 33
+- **working-path (pending Director review):** 34
 - **superseded (in whole or part):** 22
 - **open:** 23
 - **held (do not re-ask):** 4
-- **all:** 371
+- **all:** 372
 
-By area: addressing 62, faces 76, drafts 59, storage 32, compute 25, ask 19, app 16, process 64.
+By area: addressing 62, faces 77, drafts 59, storage 32, compute 25, ask 19, app 16, process 64.
 
 ## Sources mined
 
@@ -489,3 +491,4 @@ Updated 2026-11-11 7:50 PM EST (Prima): D360 added — Tester evaluation of Desi
 Updated 2026-11-11 7:58 PM EST, after D360 (Designer): docs/design/six-tests-answer.md is the design answer to Tester's six tests (05 climb and current-pack mark, lineage cites by address plus blob, and 00.counter as its own face the core can read). D361 added as provisional 7. QD67 stays for Matthew. Q41, Q43, and Q34 were not marked. Kernel, core, and WORKING-PATH were not edited. No new 05 counter and no 00.counter were written. No seated face was edited.
 Updated 2026-11-11 8:05 PM EST (Prima): D362-D370 added — Tester working paths, not rulings. D362 sharpens D346 (the core is the only judge; --check must run the core's replay and fail closed; do not copy A4.4 into JavaScript). D363-D369 are recommended options on QD16, QD08, QD11, QD26, QD28, QD23 and QD59 (WORKING-PATH-OPEN-QUESTIONS.md). D370 adopts Designer's D361 assembly with one improvement: keep plain face 05 as the derived listing, and mark which pack is current; do not replace the listing with one pack body. Numbered after Designer's D361 and Tester's 8f8e810. The Designer draft and the kernel were not rewritten. Those questions stay open and marked `7`. QD67 stays for Matthew. Q41, Q43 and Q34 were not marked. No 00.counter was written.
 Updated 2026-11-11 8:05 PM EST, after D370 (Designer): docs/design/six-tests-answer.md updated for D370 (keep plain face 05 as the derived listing and mark which pack is current; do not replace the listing with one pack body; halt if two packs would both be current or the supersedes chain cycles; section 3 points at D362). D371 added as provisional 7. D361 stands. QD67 stays for Matthew. Q41, Q43, and Q34 were not marked. Kernel, core, and WORKING-PATH were not edited. No 00.counter and no new 05 counter were written. No seated face was edited.
+Updated 2026-11-11 8:08 PM EST (Prima): D372 added — Tester evaluation of Designer's D371 six-tests-answer update, not a ruling. Adopt D371 as a faithful fill-in of D370; no further improvements. See docs/design/WORKING-PATH-SIX-TESTS-ANSWER.md. Numbered after Designer's D371. The Designer draft and the kernel were not rewritten. QD67 stays for Matthew. Q41, Q43 and Q34 were not marked. No 00.counter was written.

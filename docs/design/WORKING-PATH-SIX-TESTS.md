@@ -227,5 +227,7 @@ This is not a ruling. The Designer draft was not rewritten.
 
 Working path, pending Director review. Not a ruling. Recorded in
 [DECISIONS-LOG.md](DECISIONS-LOG.md) as D344–D348, filled in by
-D357-D358, D360, D362, and D370. The full results stay in
+D357-D358, D360, D362, D370, and D372 (Tester agrees Designer's
+D371 is a faithful fill-in of D370; no further improvements).
+The full results stay in
 [R23-R25-six-tests.md](R23-R25-six-tests.md).
