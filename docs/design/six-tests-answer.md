@@ -19,11 +19,21 @@ and 0052 door-lessons slice stays in
 does not rewrite those drafts, or any WORKING-PATH file.
 
 Related: R23, R24, R25, axiom 6, axiom 8, Q53, Q67, D320, D321,
-D344, D345, D346, D347, D348, D352, D355, D357, D358, D359, D360.
-QD67 stays for Matthew. Q41, Q43, and Q34 stay unmarked.
+D344, D345, D346, D347, D348, D352, D355, D357, D358, D359, D360,
+D361, D362, D370. QD67 stays for Matthew. Q41, Q43, and Q34 stay
+unmarked.
 
 This draft does not edit the kernel or the core. It does not write
 a new 05 counter, a 00.counter, or any seated face.
+
+Tester's evaluation of this draft is now a working path (D370).
+The one real improvement: when you open plain face 05, keep the
+derived listing of every counter, and mark which seated pack is
+current. Do not replace that listing with only the current pack's
+body. Section 1 records this. Section 3 also points at
+[WORKING-PATH-CHECK-CORE.md](WORKING-PATH-CHECK-CORE.md) (D362)
+instead of restating D346's "or". These are working paths, not
+rulings.
 
 ---
 
@@ -60,27 +70,44 @@ Today, a new seated 05.03 builds clean, but resolve shows 05.01,
 `predecessor:` is free text; no code reads it (test 2). So R24
 cannot work at resolve time yet.
 
-**PROPOSED, aligned with D321 and D345.** The new seated pack
-carries a write-once `supersedes:` field, naming the pack it
-follows by address plus blob (the full 40-hex), never by commit
-id. The builder and the core read that field. When you open the
-page's face 05 (resolve of `...05`), the core shows the current
-pack: the seated pack that nothing later supersedes. The older
+**PROPOSED, aligned with D321, D345, and D370.** The new seated
+pack carries a write-once `supersedes:` field, naming the pack
+it follows by address plus blob (the full 40-hex), never by
+commit id. The builder and the core read that field. The older
 pack stays in the line; it is not rewritten, and it is not
 un-seated.
 
+When you open plain face 05 (resolve of `...05`), keep the
+derived listing of every counter. That is already what the core
+does (`resolve.rs:182-183`, `state.rs:296-297` `board()`, R9:
+a counted face has no door). Mark which seated pack is current:
+the one nothing later supersedes. Opening that counter shows
+the pack body.
+
+Do not replace the listing with only the current pack's body.
+Face 05 is counted. Replacing the listing would hide the line.
+That is the same family as D351 and D357, in a third direction.
+[D370] [WORKING-PATH-SIX-TESTS-ANSWER.md]
+
 Use the word `supersedes:` for this, not `predecessor:` (unread)
 and not `prior:` (`prior:` already means the previous 00.CC on
-the 00.counter). Do not edit an already-seated pack to add this
-field. The new pack names the old one.
+the 00.counter).
 
-Notes and lessons stay out of the "which pack is current" rule
-(D345). Face 05.01 is notes, not a pack. On 0051 and 0052, the
-planned 05.03 is also lessons, so the next pack there is 05.04
-and it names 05.02 (D352,
+If two seated packs would both count as current, or the
+`supersedes:` chain cycles, halt (axiom 1). There must be
+exactly one current pack.
+
+The computer tells packs from lessons because packs carry
+`supersedes:` (the first new pack starts the chain). Notes and
+lessons stay out of the "which pack is current" rule (D345):
+they do not carry that field. Face 05.01 is notes, not a pack.
+On 0051 and 0052, the planned 05.03 is also lessons, so the
+next pack there is 05.04 and it names 05.02 (D352,
 [parked-door-lessons.md](parked-door-lessons.md)). On a page
 where 05.03 is the next work pack, 05.03 is the one that names
-05.02.
+05.02. Until a page has climbed once, current is not yet
+machine-readable. Do not edit old packs to add the field. The
+new pack names the old one. [D370]
 
 **Stale packs (test 6).** The same climb carries the stale-card
 work already picked in D348: close the already-done w01 cards,
@@ -135,12 +162,14 @@ Every resolve fails, even an address in another book, because
 `load_world` loads every book. The core's `repo_books` test
 catches this; `--check` does not.
 
-**PROPOSED, aligned with D346, D357, and D359.** Do not write a
-00.counter in the shared repo until the builder and the core
-agree on the address and the standing. `--check` should replay
-written books with the core's rules, or refuse counters on
-faces the core does not count. The `repo_books` test should be
-in the pre-commit set.
+**PROPOSED, aligned with D346, D357, D359, and D362.** Do not
+write a 00.counter in the shared repo until the builder and
+the core agree on the address and the standing. The core is
+the only judge; `--check` must run the core's replay; do not
+reimplement A4.4 in JavaScript. See
+[WORKING-PATH-CHECK-CORE.md](WORKING-PATH-CHECK-CORE.md)
+(D362). The `repo_books` test should be in the pre-commit set
+as a second gate, not a substitute.
 
 When that agreement is implemented, do not solve A4.4 by making
 face 00 a counted face. Do not add it to `always_counted`, and
@@ -166,7 +195,12 @@ does not answer them, and it does not write a 00.counter.
 
 Still a draft, still `7`, not law. This file assembles the
 working paths D320, D321, D344-D348, D352, and D357-D360 into
-one design answer. It does not rewrite 00-counter.md,
+one design answer, adopted as a faithful assembly (D370) with
+one improvement: keep plain face 05 as the derived listing of
+every counter, and mark which seated pack is current; do not
+replace the listing with one pack body. Section 3 points at
+WORKING-PATH-CHECK-CORE.md (D362) instead of restating D346's
+"or". It does not rewrite 00-counter.md,
 parked-door-lessons.md, or any WORKING-PATH file. The kernel
 and the core were not edited. Q41, Q43, and Q34 were not
 marked. QD67 stays for Matthew. No new 05 counter and no
