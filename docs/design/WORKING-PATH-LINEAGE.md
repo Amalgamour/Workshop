@@ -69,13 +69,19 @@ Other findings in the note were not re-run in this recording.
   draft recommends many write-once faces. That question stays
   neutral for the Director (F13).
 - F7 (writing a 00.counter changes face 00's face list, so the
-  snapshot is itself a change) is tied to QD03, which Tester is doing
-  next. F8, F12, and F3 are builder or design-lane problems first.
+  snapshot is itself a change) was confirmed with blob numbers in
+  test 3. The QD03 working path (D326) is meant to break that
+  cascade; the builder has not been changed to match. Test 3 also
+  found a new hole: a `00.CC.draft` that `--check` accepts makes the
+  books unreadable to the core (A4.4). See D346.
 - Q67 (Pass 12) still applies to faces without counters (01, 04).
   Under pick 1, counters would not re-seat in place, so that attack
   goes away for 05 (F15).
-- The six recommended tests in the research note were not run in this
-  recording. They are assigned as scratch-clone tests, with no seats.
+- The six recommended tests were later run by Tester (scratch clones
+  only, no seats). All six findings held; tests 3, 5 and 6 found more.
+  See [R23-R25-six-tests.md](R23-R25-six-tests.md) and the sharpened
+  picks in [WORKING-PATH-SIX-TESTS.md](WORKING-PATH-SIX-TESTS.md)
+  (D344–D348). Those picks do not replace D320–D325.
 
 ---
 
@@ -84,4 +90,6 @@ Other findings in the note were not re-run in this recording.
 Working path, pending Director review. Not a ruling. Recorded in
 [DECISIONS-LOG.md](DECISIONS-LOG.md) as D320–D325, and on QD01 in
 [QUESTIONS-FOR-DIRECTOR.md](QUESTIONS-FOR-DIRECTOR.md). The full
-findings stay in [R23-R25-lineage.md](R23-R25-lineage.md).
+findings stay in [R23-R25-lineage.md](R23-R25-lineage.md). The six
+tests and the sharpened picks are in
+[WORKING-PATH-SIX-TESTS.md](WORKING-PATH-SIX-TESTS.md).
