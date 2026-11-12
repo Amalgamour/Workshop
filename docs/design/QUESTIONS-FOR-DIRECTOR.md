@@ -157,9 +157,9 @@ Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, 
 - Option A: 0000-0009, 0010-0019, 0020-0049, 0050-0099.
 - Option B: another split.
 - Blocks: kernel 0051.
-- Now: `7`. Working path (Tester, 2026-11-11 evening), not a ruling: four sections, each with its own laws. `0000` the door; `0001-0009` overrides; `0010-0019` required static pages; `0020-0099` working pages, with two kinds inside (`0020-0049` behavior, `0050-0099` structure). "0000-0019 are static" is a property of the first three sections together, not a single section. This is Q30 option C, not option A (option A bundles the door with overrides, which have opposite laws). Full write-up: [WORKING-PATH-Q30.md](WORKING-PATH-Q30.md). Pending Director review. The Book Layout card and seqAddr table have not been rewritten.
-- Raised: [kernel Q30](../../kernel/QUESTIONS.md) line 151; [CONFLICTS D13](../../kernel/CONFLICTS.md) line 160.
-- Log: D60, D132, D327.
+- Now: `7`. Working path (Tester, 2026-11-11 evening), not a ruling: four sections, each with its own laws. `0000` the door; `0001-0009` overrides; `0010-0019` required static pages; `0020-0099` working pages, with two kinds inside (`0020-0049` behavior, `0050-0099` structure). "0000-0019 are static" is a property of the first three sections together, not a single section. This is Q30 option C, not option A (option A bundles the door with overrides, which have opposite laws). Full write-up: [WORKING-PATH-Q30.md](WORKING-PATH-Q30.md). Pending Director review. The Book Layout card and seqAddr table have not been rewritten. Designer draft in [book-layout.md](book-layout.md) proposes how that cut would appear on the 0051 Book Layout card: four section rows below 0100, with behavior and structure named inside the working-pages row, not as two extra sections. A matching seqAddr change is noted only; those files were not edited. Not law.
+- Raised: [kernel Q30](../../kernel/QUESTIONS.md) line 151; [CONFLICTS D13](../../kernel/CONFLICTS.md) line 160; [book-layout.md](book-layout.md).
+- Log: D60, D132, D327, D343.
 
 ### QD14. In R14, which "door" did you mean?
 - R14: a face may be seated while its page's door is a draft.
