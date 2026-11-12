@@ -421,20 +421,22 @@ why: R22 "make every design choice recorded" (DIRECTOR-RULINGS.md:86-88). One ro
 | D354 | PROPOSED (Designer, aligns with D351): the optional dictionary explanation card does not live at PPPP.03. It may be drafted on face 01 or face 04 of the dictionary page; this draft does not require one over the other. Face 03 is only the derived menu. The core already uses plain 0012.03 as a derived listing (R9) and refuses a bare put there (A4.4, the other direction from the 00.counter hole). Do not write a 0012.03 file. D339 stands. The rest of D340 stands except the address. | provisional 7 (DESIGN, Designer draft) - D351, D340, QD10 | docs/design/dictionary-menu.md; WORKING-PATH-DRAFT-EVAL.md; D351; crates/seqaddr-core/src/resolve.rs:182, state.rs:296, state.rs:460 | dictionary 0012 face 03 (no 0012.03 file written); explanation at 0012.01 or 0012.04 (not written) |
 
 | D355 | PROPOSED (Designer, aligns with D352): adopt D341 and D342 as written, with these smaller notes. 0051.05.04 and 0052.05.04 should name the seated 05.02 they follow (supersedes:, and the core should eventually read that, D345). Keep 05.03 (lessons, like 05.01) out of the "current pack" rule. Cite parked files by path plus blob, not commit id. Do not write a 00.counter until the A4.4 hole is solved (D346). D348's stale-card work is a separate set of cards and should not be forgotten. Q44 stays open. The new counters were not written. | provisional 7 (DESIGN, Designer draft) - D352, D341, D342 | docs/design/parked-door-lessons.md; WORKING-PATH-DRAFT-EVAL.md; D352 | kernel 0051 and 0052 packs (not written); kernel/parked/doors/ (left in place) |
+
+| D356 | PROPOSED (Designer, aligns with D353): adopt D343 as written. After a ruling, merge the Book Layout text into the draft law cards 0051.01 and 0051.04, not into the seated 0051.05.02. If w03 needs a closed mark, that goes on the next 05 counter (D348). QD27 stays 7: 0013 is a sample, not a ruling that every book must have 0013. Q30 stays open. The kernel cards were not edited. | provisional 7 (DESIGN, Designer draft) - D353, D343, QD27 | docs/design/book-layout.md; WORKING-PATH-DRAFT-EVAL.md; D353 | kernel 0051.01 and 0051.04 (still drafts, not edited); seated 0051.05.02 (not edited) |
 ## Totals
 
 Counted from the tables above by the first words of each Status cell. A row whose status has a settled part and an open part is counted by its first words; the open part is asked in QUESTIONS-FOR-DIRECTOR.md.
 
 - **settled-by-ruling:** 53
 - **settled-by-spec:** 113
-- **provisional 7:** 119
+- **provisional 7:** 120
 - **working-path (pending Director review):** 21
 - **superseded (in whole or part):** 22
 - **open:** 23
 - **held (do not re-ask):** 4
-- **all:** 355
+- **all:** 356
 
-By area: addressing 62, faces 63, drafts 57, storage 32, compute 25, ask 19, app 16, process 63.
+By area: addressing 62, faces 63, drafts 58, storage 32, compute 25, ask 19, app 16, process 63.
 
 ## Sources mined
 
@@ -459,3 +461,4 @@ Updated 2026-11-11 7:37 PM EST, after D349 (Designer): docs/design/00-counter.md
 Updated 2026-11-11 7:40 PM EST (Prima): D351-D353 added — Tester evaluation of Designer's three drafts (dictionary-menu, parked-door-lessons, book-layout), not rulings. The one change before files are written is D351: the optional dictionary explanation does not live at PPPP.03; it belongs on face 01 or 04. See docs/design/WORKING-PATH-DRAFT-EVAL.md. Numbered after Designer's D350 (D347 fingerprint draft). The Designer drafts and the kernel were not rewritten. Q41, Q43 and Q34 were not marked. QD67 was not touched.
 Updated 2026-11-11 7:42 PM EST, after D353 (Designer): docs/design/dictionary-menu.md updated for D351 (the optional dictionary explanation does not live at PPPP.03; put it on face 01 or face 04; face 03 is only the derived menu). D354 added as provisional 7. D339 stands; D340 stands except the address. Do not write a 0012.03 file. Kernel, core, and WORKING-PATH were not edited. No 00.counter was written.
 Updated 2026-11-11 7:44 PM EST, after D354 (Designer): docs/design/parked-door-lessons.md updated for D352 (supersedes: on 05.04, path-plus-blob cites, 05.03 out of the current-pack rule, no 00.counter until D346, D348 stale-card work not forgotten). D355 added as provisional 7. D341 and D342 stand. Kernel, core, parked files, and WORKING-PATH were not edited. The new counters were not written.
+Updated 2026-11-11 7:44 PM EST, after D355 (Designer): docs/design/book-layout.md updated for D353 (after a ruling, merge into draft 0051.01 and 0051.04, not seated 0051.05.02; 0013 stays a sample; QD27 stays 7). D356 added as provisional 7. D343 stands. Q30 stays open. Kernel, seqAddr, and WORKING-PATH were not edited.

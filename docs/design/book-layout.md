@@ -12,9 +12,9 @@ Kernel files were not edited, including `0051.01` and `0051.04` (both
 are still drafts; the Q30 hold stays). The seqAddr table was not
 edited. WORKING-PATH-Q30.md was not rewritten. QD67 was not touched.
 
-Related: R17, R7, R10, R21, R25; QD13; CONFLICTS D13; seqAddr.md
-section 6; decisions.md A2.7; 0051.05.02 w03 (write the four sections
-into Book Layout, blocked by Q30).
+Related: R17, R7, R10, R21, R25; QD13, QD27; CONFLICTS D13;
+seqAddr.md section 6; decisions.md A2.7; 0051.05.02 w03 (write the
+four sections into Book Layout, blocked by Q30); D343, D348, D353.
 
 ---
 
@@ -54,9 +54,12 @@ on the four sections and the two kinds (C3.2). The 04 card may say
 more, in plain words.
 
 Until Matthew rules, the kernel cards stay as they are (the Q30 hold
-stays). The proposed text below is for 0051.05.02 w03, after a
-ruling, written through drafting (copy, note, merge). It is not
-written into the kernel here.
+stays). After a ruling, merge this text into the draft law cards
+`0051.01` and `0051.04` (w03's own path already names those draft
+files), not into the seated `0051.05.02`. If w03 needs a closed
+mark, that goes on the next 05 counter (D348; D341 already plans
+`0051.05.04`). A seated pack is not edited. This text is not
+written into the kernel here. [D353]
 
 ---
 
@@ -99,6 +102,11 @@ locations."
 The last line of today's 01 card ("The exact four-way split is `7`")
 drops once this is ruled. Until then, if this text is used only as a
 proposed merge, that `7` line may stay.
+
+"The common questions sample at 0013" is the wording already on
+WORKING-PATH-Q30.md, and it is used in both proposed cards above
+and below. QD27 (is 0013 the right home) is still `7`. Keep 0013
+as a sample, not as a ruling that every book must have 0013. [D353]
 
 ---
 
@@ -175,10 +183,16 @@ already CONFLICTS D13. This draft does not rewrite `decisions.md`.
 
 ## 5. What this is not
 
-- Not a rewrite of 0051.01, 0051.04, seqAddr.md, or
-  WORKING-PATH-Q30.md. The Q30 hold on 0051 stays.
+- Not a rewrite of the kernel now: 0051.01 and 0051.04 stay drafts
+  (the Q30 hold stays), and seated `0051.05.02` is not edited.
+  After a ruling, merge into those two draft law cards, not into
+  the seated pack. [D353]
+- Not a rewrite of seqAddr.md or WORKING-PATH-Q30.md.
 - Not a decision on Q30 for the Director. It only shows how the
   working path would appear. Prima takes Q30 / QD13 to the Director.
+  Q30 stays open.
+- Not a ruling that every book must have 0013. 0013 stays a
+  sample. QD27 stays `7`. [D353]
 - Not a change to R21 or to R7's two target ranges.
 - Not a change to the Finding card (already aligned) or to rows
   above 0100. QD67 stays for Matthew and is not touched here.
@@ -187,4 +201,8 @@ already CONFLICTS D13. This draft does not rewrite `decisions.md`.
 
 ## 6. Status
 
-Still a draft, still `7`, not law. Aligns with D327. Q30 stays open.
+Still a draft, still `7`, not law. Aligns with D327 and D353
+(D343 stands; after a ruling, merge into draft `0051.01` and
+`0051.04`, not into seated `0051.05.02`; 0013 stays a sample).
+Q30 stays open. The kernel, seqAddr, and WORKING-PATH were not
+edited.
