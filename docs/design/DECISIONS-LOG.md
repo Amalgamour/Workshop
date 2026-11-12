@@ -376,6 +376,7 @@ why: R22 "make every design choice recorded" (DIRECTOR-RULINGS.md:86-88). One ro
 | D316 | The 00.counter steps are: snapshot 00's fingerprint first, then make the change, then count and compare (the old fingerprint, the change, and what 00 is now). The list must be its own face, not lines inside 00. | settled-by-ruling R25 | DIRECTOR-RULINGS.md:99-101; Axioms.md:23 | every face 00; 00.counter |
 | D317 | PROPOSED: the 00.counter list climbs as 00.01, then 00.02, and so on. Each 00.CC face is write-once (fingerprint-before, the coming change, and a prior link). The "after" fingerprint is the next 00.CC's fingerprint-before. This matches R24 and axiom 6. | provisional 7 (DESIGN, Designer draft) - QD67 | docs/design/00-counter.md; R25 held 7; R24 | 00.counter; kernel builder (not built) |
 | D318 | PROPOSED: 00.counter faces are not seated the normal way. They are write-once evidence. Seating them would write a seat record back onto face 00, which is another change and would cascade. | provisional 7 (DESIGN, Designer draft) - QD66 | docs/design/00-counter.md; R25 held 7 | 00.counter; kernel builder (not built) |
+| D319 | WORKING PATH (Tester), not a ruling: add a page type only when the page lives under different laws; otherwise use a registry field (`kind`). Add `door`, `override`, and `axioms`. Keep the common questions page as `system` with `kind: questions`. Continuation pages use `pointer` with `kind: continuation`. Pending Director review. | working-path (Tester), pending Director review — not a ruling - QD02 | docs/design/WORKING-PATH-QD02.md; Tester 2026-11-11 evening | face 00 types; face 00 checker; held face 00s |
 
 ## Totals
 
@@ -384,10 +385,11 @@ Counted from the tables above by the first words of each Status cell. A row whos
 - **settled-by-ruling:** 53
 - **settled-by-spec:** 113
 - **provisional 7:** 103
+- **working-path (pending Director review):** 1
 - **superseded (in whole or part):** 22
 - **open:** 23
 - **held (do not re-ask):** 4
-- **all:** 318
+- **all:** 319
 
 By area: addressing 61, faces 51, drafts 55, storage 32, compute 25, ask 19, app 16, process 59.
 
@@ -396,3 +398,4 @@ By area: addressing 61, faces 51, drafts 55, storage 32, compute 25, ask 19, app
 DIRECTOR-RULINGS.md R1-R22; docs/BUILD-LOG.md (every `7` and every choice, lines 1-164); docs/CONTRACT.md and its two addenda; crates/seqaddr-core/API.md; docs/spec/face00.md; docs/spec/seqpage.md; docs/spec/seqpage-QUESTIONS.md; docs/spec/SEQ-GUIDE.md; kernel/QUESTIONS.md; kernel/CONFLICTS.md; docs/trial/kernel-trial.md, kernel-trial-2.md, core-trial.md, compute-trial.md; docs/design/DECISIONS-INDEX.md and OPEN.md; git log of branch build (3291593 to 8b2e909).
 
 Updated 2026-11-11 evening (Designer): DIRECTOR-RULINGS.md R23-R25; docs/design/00-counter.md (draft proposal, not law); QUESTIONS-FOR-DIRECTOR.md QD66, QD67 (QD05 answered by R25). D312-D318 added. D53, D183, D203, D225 status updated from those rulings. Kernel QUESTIONS.md was not edited (KERNEL lane).
+Updated 2026-11-11 7:15 PM EST (Prima): D319 added — Tester working path for QD02, not a ruling. See docs/design/WORKING-PATH-QD02.md.

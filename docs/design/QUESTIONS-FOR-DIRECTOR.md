@@ -14,7 +14,7 @@ what: every open question from the build, saved in one place. Each one appears o
 - Prima asks you one at a time. Nothing here needs an answer today.
 - Questions you already answered are listed at the end, so nothing is asked twice.
 
-Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, D12, D13, D14 and D16 are still open, as QD25, QD10, QD13, QD26 and QD24.) Updated 2026-11-11 evening (Designer): R23-R25 recorded; QD05 answered by R25; QD66 and QD67 saved.
+Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, D12, D13, D14 and D16 are still open, as QD25, QD10, QD13, QD26 and QD24.) Updated 2026-11-11 evening (Designer): R23-R25 recorded; QD05 answered by R25; QD66 and QD67 saved. Updated 2026-11-11 7:15 PM EST (Prima): QD02 has a Tester working path (D319), still open, pending Director review.
 
 ---
 
@@ -39,9 +39,9 @@ Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, 
 - Option B: keep six types, and put the role in a registry field.
 - Also: do continuation pages (99, 9999, PP99) count as pointer, or get their own type?
 - Blocks: 17 held faces (every face 00), and the face 00 checker.
-- Now: `7`. The draft in face00.md proposes field sets for each type.
+- Now: `7`. Working path (Tester, 2026-11-11 evening), not a ruling: add a new type only when the page lives under different laws; when pages share the same laws and only differ in details, use a registry field (`kind`). Add `door` (page 0000), `override` (0001-0009), and `axioms` (desk-level, R6). Do not add a type for the common questions page yet (`system` plus `kind: questions`). Continuation pages use `pointer` with `kind: continuation`. Full write-up: [WORKING-PATH-QD02.md](WORKING-PATH-QD02.md). Pending Director review.
 - Raised: [kernel Q33](../../kernel/QUESTIONS.md) line 169; [face00.md F10](../spec/face00.md) line 474; face00.md gaps line 150; [OPEN O35](OPEN.md) line 241.
-- Log: D37, D152, D156.
+- Log: D37, D152, D156, D319.
 
 ### QD03. Is the face list in face 00 written by hand, or worked out by the computer?
 - You said (R10): face 00 lists the page's faces.
