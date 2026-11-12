@@ -458,3 +458,21 @@ Decided by KERNEL pass 11 (bbdc1a9), builder lane: option A (yes).
 - An `unseat-NN:` field, or a stamp `unseat-00:`, is a seat record. A face 00 that holds only un-seat records must be the bytes git holds, by the same rule as a face 00 with seats: HEAD under `--check`, the index (else HEAD) when writing.
 - Test: K9 Q9 (page 0012's two seats pulled, the records only in an uncommitted face 00) refused under `--check`. It fails on the pass 10 builder.
 - Not closed (as admitted, TRIAL-K8 finding 3, TRIAL-K9 finding 5): a forged trial in a docs-only commit, and a local gitfile swap to a made-up history.
+
+**Q67. [TRIAL-K10] (builder lane, not a Director question) Which past seat blobs must an un-seat record name, when "the newest seat" is only the first one `git log` prints?**
+Evidence: `docs/trial/kernel-trial-10.md` finding 1 (DO, F1) and finding 3 (F1b).
+- `historySeats` keeps the first face 00 blob in log output with a structured seat for the address (`build.mjs:499-506`); `priorSeats` keeps the first `books/` line with `approved-by` (`:538-544`); the record must name only those. `git log` orders by commit date, so a merge with a future-dated side parent is printed first.
+- DO: `0013.01` seated at `bc8cfc48...`, then re-seated at `c78b86e3...` (R24 makes re-seats normal); a merge with a future-dated copy of the first seat commit lets `unseat-01: ...; was blob bc8cfc48...` (the older seat only) build: `--check` exit 0, `seats 26`, also in a fresh clone; every commit's tree builds.
+- F1: one never-built commit rewrites the face 00 `seat-05.02` blob and the book line's `face blob` to `c82315cc...` (another file's blob); `unseat-05.02: ...; was blob c82315cc...` builds, also in a fresh clone; the real `24a27e08...` is never asked for.
+- F1b: the "git does not hold it" test (`:571`) accepts an unreachable loose object locally (a fresh clone refuses).
+- Option A: the record names every distinct seat blob ever seen for that address in face 00 history and in `books/` history (Q63 option A, fully). Option B: take the last seat from a `--first-parent --topo-order` walk, and still name every `books/` blob. Option C: both; and a held blob must be reachable from HEAD. `7` until a lane takes it.
+
+**Q68. [TRIAL-K10] (builder lane, not a Director question) May a live face 00 hold `unseat-NN:` for a face that is still seated?**
+Evidence: `docs/trial/kernel-trial-10.md` finding 2 (U1).
+- The live rules (`build.mjs:643-655`) refuse a `seat-NN:` for a non-seated face unless an `unseat-NN:` sits beside it, but nothing refuses an `unseat-NN:` beside a seated face. U1: `unseat-05.02: not really; was blob 24a27e08...` beside the live `seat-05.02:` builds clean (`seats 26`). `blobSeats` treats each such version as retiring and skips its seat line (`:405-411`), so the face 00 history does not record that seat (or a re-seat made meanwhile) while the line stays; only `books/` history does.
+- Option A: refuse an `unseat-NN:` for a face listed as seated. Option B: refuse it only when a `seat-NN:` for the same face is also live. `7` until a lane takes it.
+
+**Q69. [TRIAL-K10] (builder lane, not a Director question) Should test K4 HG use a ruling number that can never be real?**
+Evidence: `docs/trial/kernel-trial-10.md` finding 4.
+- `kernel/build.test.mjs:205-208` appends an uncommitted `## R23 - fake` and expects "R23, which is not in DIRECTOR-RULINGS.md as committed at HEAD". R23 is real since `5f2f43d`, so the builder now says "R23 does not name 10.11.21.0013.01" (still refused). Suite: 67/67 at `bbdc1a9`, 66/67 at `3092f7b` (which records 67/67), `10d6a70`, publish and GitHub `9e4e37b`. With `R99` the expected message comes back.
+- Option A: use a number that will never be written (for example `R9999`). Option B: compute the next free number from the file. `7` until a lane takes it.
