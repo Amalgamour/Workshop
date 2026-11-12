@@ -263,11 +263,12 @@ decisions.md C8.5: "The kernel supplies a small base dictionary that books inher
 - Option A: an empty base for now (books build their own).
 - Option B: you give a starting word list. `7`.
 
-**Q51. [TRIAL-K4] A face 00 keeps its own seat record (`seat-00:`) and every other seat record on its page (`seat-NN:`). Writing any of them changes face 00's blob. So face 00 can never match the blob a trial passed, and a seated face 00 would break at the next seat on its page. Where should seat records live?**
+**Q51. [ANSWERED by R25, DIRECTOR-RULINGS.md] [TRIAL-K4] A face 00 keeps its own seat record (`seat-00:`) and every other seat record on its page (`seat-NN:`). Writing any of them changes face 00's blob. So face 00 can never match the blob a trial passed, and a seated face 00 would break at the next seat on its page. Where should seat records live?**
 Evidence: `docs/trial/kernel-trial-4.md` finding 3 (hostile test HL: "blob 57d0389c is not 70cc70a8"). `kernel/build.mjs:128-129`, `:227-230`. The parked door packs plan "trial and seat 00.00.00.0000.00 ... its seat-00 stamp line" (`kernel/parked/doors/*.0000.05.02.draft.md`). R14 (`DIRECTOR-RULINGS.md:59-60`) and R22 (`:86-88`) assume face 00 can be seated some day. Linked: Q34 (where a seat is recorded), Q47 (does a registry edit need a new trial of face 00).
 - Option A: seat records leave face 00 and go to a seat ledger: a book entry field written by the compute at promote, or one file such as `kernel/SEATS.md`.
 - Option B: face 00's blob for trial and seat is computed without its `seat-` and `unseat-` lines, so those lines are bookkeeping (like Q47 option A).
 - Option C: face 00 is never seated during the build stage; only content faces and face 05 counters are. `7`.
+- **ANSWERED 2026-11-11 6:49 PM EST: R25: face 00 is the registry root and is not seated in the same manner. Changes are still recorded onto 00. A second 00.counter face lists 00's fingerprint before each change, so we can count and compare. This is not exactly A, B or C: seat records may still be written onto 00; the line of 00 itself is kept on the 00.counter face.**
 
 **Q52. [TRIAL-K4] (builder lane, not a Director question) How strong must the seat guard be?**
 Evidence: `docs/trial/kernel-trial-4.md` findings 1, 2, 4, 5, 6.
