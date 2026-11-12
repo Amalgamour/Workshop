@@ -399,20 +399,23 @@ why: R22 "make every design choice recorded" (DIRECTOR-RULINGS.md:86-88). One ro
 
 | D339 | PROPOSED (Designer, aligns with D333): the dictionary menu is a derived view on face 03, not a 03.00 file and not a hand-written list. The computer works it out from the section files and the book, and lists only sections that exist, with their C8.6 letter range and state. This is the same shape as the face list (D326) and as the kernel menu card type (entries derived by the compute). | provisional 7 (DESIGN, Designer draft) - QD10 | docs/design/dictionary-menu.md; WORKING-PATH-QD10.md; D333, D326; kernel 0054.02 | dictionary 0012 face 03; kernel 0055 (not edited) |
 | D340 | PROPOSED: a person-facing explanation card may live on face 03 itself at PPPP.03 (not 03.00). It may explain the dictionary and the fixed C8.6 layout. It is optional, and it must not be the source of truth for which sections exist. The derived menu still appears if no such card is written. | provisional 7 (DESIGN, Designer draft) - QD10 | docs/design/dictionary-menu.md; WORKING-PATH-QD10.md; R9 | dictionary 0012.03 |
+
+| D341 | PROPOSED (Designer, aligns with D338): useful lessons from the four parked door packs should be folded into 0051 and 0052 as new 05 counters (0051.05.03 and 05.04, 0052.05.03 and 05.04), not by rewriting the already seated 05.01 and 05.02 (axiom 6), and not as four copies. The parked files stay as history and are not built. Q26 and Q33 stay open. | provisional 7 (DESIGN, Designer draft) - Q42 | docs/design/parked-door-lessons.md; WORKING-PATH-Q42.md; D338; axiom 6 | kernel 0051 and 0052 packs (not edited); kernel/parked/doors/ (left in place) |
+| D342 | PROPOSED: do not fold the parked step "trial and seat the door's face 00" as a seating step. Q51 was answered by R25: face 00 is not seated the same way, and the Q42 path already handles face 00 under R25, not by a 05 pack (D338). That lesson belongs on 0052 as a note, so the step is not revived. | provisional 7 (DESIGN, Designer draft) - Q42, R25 | docs/design/parked-door-lessons.md; R25; D338; kernel-trial-4.md finding 3 | face 00 of door pages; 0052 (not edited) |
 ## Totals
 
 Counted from the tables above by the first words of each Status cell. A row whose status has a settled part and an open part is counted by its first words; the open part is asked in QUESTIONS-FOR-DIRECTOR.md.
 
 - **settled-by-ruling:** 53
 - **settled-by-spec:** 113
-- **provisional 7:** 112
+- **provisional 7:** 114
 - **working-path (pending Director review):** 13
 - **superseded (in whole or part):** 22
 - **open:** 23
 - **held (do not re-ask):** 4
-- **all:** 340
+- **all:** 342
 
-By area: addressing 61, faces 58, drafts 57, storage 32, compute 25, ask 19, app 16, process 59.
+By area: addressing 61, faces 59, drafts 57, storage 32, compute 25, ask 19, app 16, process 60.
 
 ## Sources mined
 
@@ -429,3 +432,4 @@ Updated 2026-11-11 7:40 PM EST (Prima): D333 added — Tester working path for Q
 Updated 2026-11-11 7:45 PM EST (Prima): D337–D338 added — Tester working paths for Q35 (do not seat notes; seat dictionary sections after a trial) and Q42 (a door page gets no face 05), not rulings. See docs/design/WORKING-PATH-Q35.md and WORKING-PATH-Q42.md. Numbered after Designer's D334–D336 (00-counter F7/F8/F12), so those rows keep their numbers.
 Updated 2026-11-11 7:20 PM EST, after D333 (Designer): 00-counter F7/F8/F12 proposals recorded as D334-D336 (provisional 7). The earlier BUILD-LOG line that said D333-D335 was a numbering slip: D333 is Tester's QD10 path.
 Updated 2026-11-11 7:22 PM EST, after D338 (Designer): docs/design/dictionary-menu.md (QD10 draft, how the derived menu appears on face 03, not law). D339-D340 added as provisional 7. WORKING-PATH and kernel files were not edited.
+Updated 2026-11-11 7:26 PM EST, after D340 (Designer): docs/design/parked-door-lessons.md (Q42 draft, useful lessons from the four parked door packs to fold into 0051 and 0052, not law). D341-D342 added as provisional 7. Parked files, kernel, and WORKING-PATH were not edited. Q26 and Q33 were not decided. QD67 was not touched.
