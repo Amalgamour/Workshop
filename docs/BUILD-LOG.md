@@ -290,3 +290,9 @@ Every build choice, its why, and the spec line it follows. A choice the spec doe
   - Not closed (admitted leftovers, TRIAL-K8 finding 3, TRIAL-K9 finding 5, TRIAL-K10 finding 5): a forged trial in a docs-only commit; a local gitfile swap.
 - `node kernel/build.mjs --check`: exit 0, `seats 26`, `48 findings, 0 errors`. No seats this pass; 26 seats verify. No face edits. Not pushed; publish copy not touched.
 - Next trial targets: the every-blob un-seat rule after a real re-seat, the HEAD-reachable test, the Q68 live rule, and the 26 seats.
+
+## [DESIGN] 00-counter draft aligned with QD03 (F7), plus F8 and F12 - 2026-11-11 7:19 PM EST
+- Updated `docs/design/00-counter.md` (still a draft, not law). F7 (listing cascade): aligned with the QD03 working path (D326) — the face list is derived, so writing a 00.counter does not edit face 00. The kernel builder has not been changed to match yet.
+- F8 (no address or state for write-once, not-seated 00.CC): proposed address `PPPP.00.CC` (doors: `0000.00.CC`, D325); bare standing means write-once evidence, not a draft and not a seat. Face 00 is not a 05/06-style counted face.
+- F12 (snapshot of a refused change): proposed a visible void on the next 00.CC; do not rewrite or delete the snapshot. A failed compare after a change that was made is a defect, not a void.
+- QD67 left for Matthew (both climb options stay; Option A still recommended, not an answer). D333-D335 recorded as provisional 7. Tester's note and WORKING-PATH files were not rewritten. Kernel files were not edited.
