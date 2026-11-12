@@ -14,7 +14,7 @@ what: every open question from the build, saved in one place. Each one appears o
 - Prima asks you one at a time. Nothing here needs an answer today.
 - Questions you already answered are listed at the end, so nothing is asked twice.
 
-Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, D12, D13, D14 and D16 are still open, as QD25, QD10, QD13, QD26 and QD24.) Updated 2026-11-11 evening (Designer): R23-R25 recorded; QD05 answered by R25; QD66 and QD67 saved. Updated 2026-11-11 7:15 PM EST (Prima): QD02 has a Tester working path (D319), still open, pending Director review. Updated 2026-11-11 7:20 PM EST (Prima): QD01 has a Tester working path on reseating (D320–D325), still open; see WORKING-PATH-LINEAGE.md. Updated 2026-11-11 7:25 PM EST (Prima): QD03 has a Tester working path (D326), still open, pending Director review. Updated 2026-11-11 7:30 PM EST (Prima): QD13 / Q30 has a Tester working path (D327), still open, pending Director review. Updated 2026-11-11 7:35 PM EST (Prima): QD09 has a Tester working path (D332), still open, pending Director review. Updated 2026-11-11 7:40 PM EST (Prima): QD10 has a Tester working path (D333), still open, pending Director review. Updated 2026-11-11 7:45 PM EST (Prima): QD01 leftover Q35 has a Tester working path (D337), still open; kernel Q42 has a Tester working path (D338 / WORKING-PATH-Q42.md), pending Director review. Updated 2026-11-11 7:30 PM EST (Prima): six-test results and R24/Q67 confirms recorded as D344–D348, still working path, not rulings. See WORKING-PATH-SIX-TESTS.md. Q41, Q43 and Q34 were not marked. Updated 2026-11-11 7:40 PM EST (Prima): Tester evaluation of three Designer drafts recorded as D351–D353, still working path, not rulings. See WORKING-PATH-DRAFT-EVAL.md. QD10, QD13 and QD27 stay open and marked `7`. Q41, Q43 and Q34 were not marked.
+Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, D12, D13, D14 and D16 are still open, as QD25, QD10, QD13, QD26 and QD24.) Updated 2026-11-11 evening (Designer): R23-R25 recorded; QD05 answered by R25; QD66 and QD67 saved. Updated 2026-11-11 7:15 PM EST (Prima): QD02 has a Tester working path (D319), still open, pending Director review. Updated 2026-11-11 7:20 PM EST (Prima): QD01 has a Tester working path on reseating (D320–D325), still open; see WORKING-PATH-LINEAGE.md. Updated 2026-11-11 7:25 PM EST (Prima): QD03 has a Tester working path (D326), still open, pending Director review. Updated 2026-11-11 7:30 PM EST (Prima): QD13 / Q30 has a Tester working path (D327), still open, pending Director review. Updated 2026-11-11 7:35 PM EST (Prima): QD09 has a Tester working path (D332), still open, pending Director review. Updated 2026-11-11 7:40 PM EST (Prima): QD10 has a Tester working path (D333), still open, pending Director review. Updated 2026-11-11 7:45 PM EST (Prima): QD01 leftover Q35 has a Tester working path (D337), still open; kernel Q42 has a Tester working path (D338 / WORKING-PATH-Q42.md), pending Director review. Updated 2026-11-11 7:30 PM EST (Prima): six-test results and R24/Q67 confirms recorded as D344–D348, still working path, not rulings. See WORKING-PATH-SIX-TESTS.md. Q41, Q43 and Q34 were not marked. Updated 2026-11-11 7:40 PM EST (Prima): Tester evaluation of three Designer drafts recorded as D351–D353, still working path, not rulings. See WORKING-PATH-DRAFT-EVAL.md. QD10, QD13 and QD27 stay open and marked `7`. Q41, Q43 and Q34 were not marked. Updated 2026-11-11 7:45 PM EST (Prima): Tester evaluation of the two 00-counter updates recorded as D357–D358, still working path, not rulings. See WORKING-PATH-00-COUNTER-EVAL.md. The one addition: do not make face 00 a counted face. QD66 and QD67 stay open and marked `7`. Q41, Q43 and Q34 were not marked.
 
 ---
 
@@ -69,9 +69,9 @@ Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, 
 - Option A: no. A 00.counter is write-once evidence. It is not seated the same way as other faces. (The design draft recommends this.)
 - Option B: yes. A 00.counter is seated after a trial, like any other face. Then we need a rule that stops the cascade.
 - Blocks: building the 00.counter, and any future seat of face 00.
-- Now: `7`. Draft proposal in [00-counter.md](00-counter.md).
+- Now: `7`. Draft proposal in [00-counter.md](00-counter.md). Working path fill-in (Tester, D357), not a ruling: do not write a 00.counter until the A4.4 hole is agreed with the core; when that agreement is implemented, do not make face 00 a counted face. See [WORKING-PATH-00-COUNTER-EVAL.md](WORKING-PATH-00-COUNTER-EVAL.md). QD66 itself (whether those faces are seated) stays for Matthew.
 - Raised: [R25](../spec/DIRECTOR-RULINGS.md) line 99 (held 7); [kernel Q51](../../kernel/QUESTIONS.md) line 266.
-- Log: D318.
+- Log: D318, D357.
 
 ### QD67. How does the 00.counter list climb when a new fingerprint is added?
 - You said (R25): the list lives on its own face, not inside 00.
@@ -79,9 +79,9 @@ Counts: 66 open, 1 held (do not re-ask), 40 answered or closed. (CONFLICTS D11, 
 - Option B: one 00.counter face holds the whole list, and a new line is added to it each time. That would change that face's fingerprint each time.
 - Also: after counter 98, what happens is the same open question as QD16.
 - Blocks: building the 00.counter.
-- Now: `7`. Draft proposal in [00-counter.md](00-counter.md) (option A).
+- Now: `7`. Draft proposal in [00-counter.md](00-counter.md) (option A). Working path fill-ins (Tester, D357-D358), not a ruling: adopt the Designer sections 10 and 11 (D349, D350); do not make face 00 a counted face (D357); the fingerprint is a blob at the parent commit, never a commit id, and the before-check is only half of R25 (D358). The climb options themselves are unchanged and stay for Matthew. See [WORKING-PATH-00-COUNTER-EVAL.md](WORKING-PATH-00-COUNTER-EVAL.md).
 - Raised: [R25](../spec/DIRECTOR-RULINGS.md) line 99 (held 7).
-- Log: D317.
+- Log: D317, D357, D358.
 
 ### QD06. Is the sign-in design right?
 - Today every write needs a personal token (a secret key).

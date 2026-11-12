@@ -423,6 +423,9 @@ why: R22 "make every design choice recorded" (DIRECTOR-RULINGS.md:86-88). One ro
 | D355 | PROPOSED (Designer, aligns with D352): adopt D341 and D342 as written, with these smaller notes. 0051.05.04 and 0052.05.04 should name the seated 05.02 they follow (supersedes:, and the core should eventually read that, D345). Keep 05.03 (lessons, like 05.01) out of the "current pack" rule. Cite parked files by path plus blob, not commit id. Do not write a 00.counter until the A4.4 hole is solved (D346). D348's stale-card work is a separate set of cards and should not be forgotten. Q44 stays open. The new counters were not written. | provisional 7 (DESIGN, Designer draft) - D352, D341, D342 | docs/design/parked-door-lessons.md; WORKING-PATH-DRAFT-EVAL.md; D352 | kernel 0051 and 0052 packs (not written); kernel/parked/doors/ (left in place) |
 
 | D356 | PROPOSED (Designer, aligns with D353): adopt D343 as written. After a ruling, merge the Book Layout text into the draft law cards 0051.01 and 0051.04, not into the seated 0051.05.02. If w03 needs a closed mark, that goes on the next 05 counter (D348). QD27 stays 7: 0013 is a sample, not a ruling that every book must have 0013. Q30 stays open. The kernel cards were not edited. | provisional 7 (DESIGN, Designer draft) - D353, D343, QD27 | docs/design/book-layout.md; WORKING-PATH-DRAFT-EVAL.md; D353 | kernel 0051.01 and 0051.04 (still drafts, not edited); seated 0051.05.02 (not edited) |
+| D357 | WORKING PATH (Tester), not a ruling: adopt D349 as a fill-in of D346. When the A4.4 agreement is implemented, do not make face 00 a counted face: do not add it to `always_counted`, and do not put `(page, 0)` into `Policy.extra_counted`. Allow `00.CC` as a special case without `is_counted(page, 0)` being true, so plain face 00 stays the registry. The F8 standing stays the recommended shape. Pending Director review. | working-path (Tester), pending Director review — not a ruling - D349, D346, F8 | docs/design/WORKING-PATH-00-COUNTER-EVAL.md; Tester 2026-11-11 evening; 00-counter.md section 10; D349; crates/seqaddr-core/src/face.rs:83-84; state.rs:54,420,460; resolve.rs:182 | 00.counter (not written); kernel and core (not edited); face 00 registry |
+| D358 | WORKING PATH (Tester), not a ruling: adopt D350 as a fill-in of D347. Smaller notes: the stored fingerprint is the blob, never a commit id; the check should walk to the commit that introduced the 00.CC file, then read face 00's blob at that commit's parent tree. The before-field check is only half of R25; the after-compare (old fingerprint, the named change, and what 00 is now) is still unimplemented and should stay visible when KERNEL builds the check. Pending Director review. | working-path (Tester), pending Director review — not a ruling - D350, D347, F9 | docs/design/WORKING-PATH-00-COUNTER-EVAL.md; Tester 2026-11-11 evening; 00-counter.md section 11; D348, D324; R25 | 00.counter (not written); kernel builder (not edited) |
+
 ## Totals
 
 Counted from the tables above by the first words of each Status cell. A row whose status has a settled part and an open part is counted by its first words; the open part is asked in QUESTIONS-FOR-DIRECTOR.md.
@@ -430,13 +433,13 @@ Counted from the tables above by the first words of each Status cell. A row whos
 - **settled-by-ruling:** 53
 - **settled-by-spec:** 113
 - **provisional 7:** 120
-- **working-path (pending Director review):** 21
+- **working-path (pending Director review):** 23
 - **superseded (in whole or part):** 22
 - **open:** 23
 - **held (do not re-ask):** 4
-- **all:** 356
+- **all:** 358
 
-By area: addressing 62, faces 63, drafts 58, storage 32, compute 25, ask 19, app 16, process 63.
+By area: addressing 62, faces 65, drafts 58, storage 32, compute 25, ask 19, app 16, process 63.
 
 ## Sources mined
 
@@ -462,3 +465,4 @@ Updated 2026-11-11 7:40 PM EST (Prima): D351-D353 added — Tester evaluation of
 Updated 2026-11-11 7:42 PM EST, after D353 (Designer): docs/design/dictionary-menu.md updated for D351 (the optional dictionary explanation does not live at PPPP.03; put it on face 01 or face 04; face 03 is only the derived menu). D354 added as provisional 7. D339 stands; D340 stands except the address. Do not write a 0012.03 file. Kernel, core, and WORKING-PATH were not edited. No 00.counter was written.
 Updated 2026-11-11 7:44 PM EST, after D354 (Designer): docs/design/parked-door-lessons.md updated for D352 (supersedes: on 05.04, path-plus-blob cites, 05.03 out of the current-pack rule, no 00.counter until D346, D348 stale-card work not forgotten). D355 added as provisional 7. D341 and D342 stand. Kernel, core, parked files, and WORKING-PATH were not edited. The new counters were not written.
 Updated 2026-11-11 7:44 PM EST, after D355 (Designer): docs/design/book-layout.md updated for D353 (after a ruling, merge into draft 0051.01 and 0051.04, not seated 0051.05.02; 0013 stays a sample; QD27 stays 7). D356 added as provisional 7. D343 stands. Q30 stays open. Kernel, seqAddr, and WORKING-PATH were not edited.
+Updated 2026-11-11 7:45 PM EST (Prima): D357-D358 added — Tester evaluation of Designer's 00-counter updates (D349 / section 10 and D350 / section 11), not rulings. The one addition before anyone implements the A4.4 agreement is D357: do not make face 00 a counted face. D358 records smaller fingerprint notes (blob, not commit id; the before-check is only half of R25). See docs/design/WORKING-PATH-00-COUNTER-EVAL.md. Numbered after Designer's D356 (book-layout D353 fill-in). The Designer draft and the kernel were not rewritten. QD67 stays for Matthew. Q41, Q43 and Q34 were not marked. No 00.counter was written.

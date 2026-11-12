@@ -192,8 +192,20 @@ working path, not law.
 
 ---
 
+## Filled in after the Designer 00-counter updates (D357-D358)
+
+Tester agrees with D349 and D350 as fill-ins of D346 and D347. The
+one addition before anyone implements the A4.4 agreement: do not
+make face 00 a counted face (D357). Smaller fingerprint notes are
+D358 (store a blob, not a commit id; the before-check is only half
+of R25). Full write-up:
+[WORKING-PATH-00-COUNTER-EVAL.md](WORKING-PATH-00-COUNTER-EVAL.md).
+This is not a ruling. The Designer draft was not rewritten. QD67
+stays for Matthew.
+
 ## Status
 
 Working path, pending Director review. Not a ruling. Recorded in
-[DECISIONS-LOG.md](DECISIONS-LOG.md) as D344–D348. The full results
-stay in [R23-R25-six-tests.md](R23-R25-six-tests.md).
+[DECISIONS-LOG.md](DECISIONS-LOG.md) as D344–D348, filled in by
+D357-D358. The full results stay in
+[R23-R25-six-tests.md](R23-R25-six-tests.md).
