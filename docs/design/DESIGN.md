@@ -14,6 +14,7 @@ why: the Director asked that "The decisions are to update into a more concise de
 - `[BUILD-LOG:31]` is `docs/BUILD-LOG.md`. A BUILD-LOG line tells you what was built, not what the law is.
 - `[Q2]` is a question in `kernel/QUESTIONS.md`. `[O2]` is a question in `docs/design/OPEN.md`.
 - The mark `7` means missing, and `9` means not yet trialled [Axioms.md:25] [Axioms.md:29].
+- A working path such as [D363] is a recommended option, not a ruling. It stays `7` until the Director rules.
 
 ## The pages
 
@@ -38,7 +39,7 @@ why: the Director asked that "The decisions are to update into a more concise de
 
 **Widths are exact.** "`4442.1` is invalid" [seqAddr.md:14]. Every axis is at least 2 digits [v2:12].
 
-**Counters.** A counter `NN` can follow a face, and it is "a climbing number" [v2:37]. Counters run "01-98" [v2:40]. A counter is not an axis [seqAddr.md:24].
+**Counters.** A counter `NN` can follow a face, and it is "a climbing number" [v2:37]. Counters run "01-98" [v2:40]. A counter is not an axis [seqAddr.md:24]. *Open: what happens after counter 98 [QD16]. Working path (D363), not a ruling: after 98, do not reuse a number and do not invent a slot 99. Counter 98 writes a connection to a continuation page (`pointer`) that starts a new 01-98 series for the same job. The old numbers stay as history [Axioms.md:23]. Raising the 98 cap would change R9 and is not recommended [R9].*
 
 **The page is the anchor.** The page is the only 4-digit group, so an address reads by position [seqAddr.md:71]. "Missing ancestors are taken from the active book" [seqAddr.md:79].
 
@@ -73,13 +74,15 @@ why: the Director asked that "The decisions are to update into a more concise de
 - 08 map: "where all the links for a page goes" [v2:91].
 - 00: the door [R1]. The spec puts the page stamp here (address, title, state) [seqAddr.md:64]. *Open: v2 asks for a stamp header on every face [v2:58] [O2].*
 
+**Counted faces.** As built, the core's fixed list is faces 05 and 06 everywhere, and the dictionary's 0012.03 [D172]. *Open: which faces are counted, on which page types [QD11]. Working path (D365), not a ruling: which faces hold counters is a fixed law, not a switch a page type can flip. A new counted face is a Director question, because it changes what you see when you open the face itself, and a direct write is refused [D351].*
+
 **What a page needs.** It needs face 00 and at least one of 01-06 or 08 [seqAddr.md:163]. Draft faces count [seqAddr.md:164].
 
 **Cards.** Cards "are like kamban cards" [v2:60]. "Cards titles are to be matched across faces" [v2:61]. In the spec, a card is a `##` heading, and "The same key on two faces is the same card" [seqAddr.md:168].
 
 **Face 04 holds the why.** "The cards of face 01 and 02 must have a representation on face 04" [v2:75]. The compute rejects a write if the 04 card, its `why:` line or its body is missing [seqAddr.md:184].
 
-**Card types.** Each face has a default card type, defined in the kernel [seqAddr.md:171].
+**Card types.** Each face has a default card type, defined in the kernel [seqAddr.md:171]. *Open: the kernel's card type table has no `question` type, but those cards are already in use [QD26]. Working path (D366), not a ruling: add `question` as a named card type, with the fields already written (`forms`, `answer`, and the rest). QD27 (whether 0013 is the right home) stays `7`.*
 
 **As built.** The core checks the 04 rule [BUILD-LOG:41]. The app shows an inherited 04 card instead of a false hole [BUILD-LOG:15]. The core still demands a local 04 card, which the trial flagged [core-trial:117-120]. *Open: [O8].*
 
@@ -101,11 +104,11 @@ why: the Director asked that "The decisions are to update into a more concise de
 - `FF.draft`: "Draft of a face not seated so not to be used as active" [v2:53].
 - `FF.retired`: "A previously seated face turned into retired before it can be removed" [v2:54].
 
-**Seated.** "Seated face exists only as FF no tail or counter" [v2:38]. "Seated face only legal formate DD.SS.BB.PPPP.FF" [v2:39].
+**Seated.** "Seated face exists only as FF no tail or counter" [v2:38]. "Seated face only legal formate DD.SS.BB.PPPP.FF" [v2:39]. *Open: should small "patch and strike" edits be allowed on a seated face [QD59]. Working path (D369), not a ruling: no. A seated face is not edited [Axioms.md:23]. A fix is a new draft, then a new seat; for a pack, a new 05 counter [R24]. Struck notes on a draft during writing stay on the draft, not on the seated body.*
 
 **Where state lives.** "Workflow state lives only on counters" [seqAddr.md:140]. A page can also be `draft` or `retired` [seqAddr.md:126]. A desk, shelf or book takes its state from its door page [seqAddr.md:129] [R1].
 
-**As built.** The core refuses workflow tails on faces that are not counted, and it refuses `retired` on counters [core-trial:16]. Every kernel face is a draft, and none is seated [BUILD-LOG:49]. *Open: is a draft found by a lookup [O3]? Where does a page keep its state [O5]? How is a draft written in the book [O11]?*
+**As built.** The core refuses workflow tails on faces that are not counted, and it refuses `retired` on counters [core-trial:16]. Every kernel face is a draft, and none is seated [BUILD-LOG:49]. *Open: is a draft found by a lookup [O3]? How is a draft written in the book [O11]? Where does a page keep its state [O5] [QD08]? Working path (D364), not a ruling: the state lives only in the stamp [R12]. If a file-name ending is kept, the computer derives it from the stamp; it is not a second authority. A leftover ending that disagrees is a finding, not a reason to refuse the whole book.*
 
 ---
 
@@ -125,7 +128,7 @@ why: the Director asked that "The decisions are to update into a more concise de
 
 **Missing is valid.** No `FF.99`, `PP99` or `9999` just means no continuation [seqAddr.md:254].
 
-**As built.** The core names the zero sentinel `Door` in its types and errors [BUILD-LOG:30]. A book takes no writes until its door `0000.00` exists [BUILD-LOG:39]. *Open: is the door of a counted face (`FF.00`) written or worked out [O6]? Does a door page need a content face [O9]? Is a band head (`0400`) also a door [O23]?*
+**As built.** The core names the zero sentinel `Door` in its types and errors [BUILD-LOG:30]. A book takes no writes until its door `0000.00` exists [BUILD-LOG:39]. *Open: is the door of a counted face (`FF.00`) written or worked out [O6]? Does a door page need a content face [O9]? Is a band head (`0400`) also a door [O23]? Where does a door page keep its return link [QD23]? Working path (D368), not a ruling: the return link is a line on the door's face 00. A door has no other face [R10]. Do not add a face 08 to the door to hold the link. As a working path, a door page does not need a content face for that link [O9].*
 
 ---
 
@@ -185,7 +188,7 @@ why: the Director asked that "The decisions are to update into a more concise de
 
 **Language.** The core and compute are in Rust, and the app is in TypeScript with Next.js [format.md:139-141].
 
-**As built.** The Rust compute runs one queue with one writer, validates every proposal with the core, and appends with fsync [BUILD-LOG:53]. It follows the bootstrap steps and refuses to start if the kernel is damaged [BUILD-LOG:54]. Promoting needs an `approved_by` value, and R2 counts only with a trial reference [BUILD-LOG:59]. The app reads only through the compute [BUILD-LOG:6]. The core is not yet built for the browser (WebAssembly), a `7` [BUILD-LOG:66]. *Open: who counts as "a different view" for R2 [O1]? Who is allowed to do what [O15]?*
+**As built.** The Rust compute runs one queue with one writer, validates every proposal with the core, and appends with fsync [BUILD-LOG:53]. It follows the bootstrap steps and refuses to start if the kernel is damaged [BUILD-LOG:54]. Promoting needs an `approved_by` value, and R2 counts only with a trial reference [BUILD-LOG:59]. The app reads only through the compute [BUILD-LOG:6]. The core is not yet built for the browser (WebAssembly), a `7` [BUILD-LOG:66]. *Open: who counts as "a different view" for R2 [O1]? Who is allowed to do what [O15]? Which face 00 problems should stop a write, not just be flagged [QD28]? Working path (D367), not a ruling: halt when the book would be unreadable to the core [D362], when two live claims disagree [Axioms.md:13], when a fingerprint does not match [D324], or when a seat names a blob that is not a real past seat. Flag, and do not halt, leftover derived fields (a written `faces:` line, or a file-name state ending that disagrees with the stamp [D364]).*
 
 ---
 

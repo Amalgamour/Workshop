@@ -5,7 +5,7 @@ Anything marked PROPOSED is a builder's proposal. Anything marked `7` is open.
 
 Lane: DESIGN (Designer). Related: R19, R1, R6, R7, R10, R11, R21, R25;
 kernel Q33; face00.md (F10 and the field sets); OPEN O35; D37, D152, D156;
-C1.4 (decisions.md:282-292).
+C1.4 (decisions.md:282-292); QD11, QD23, QD26; D363, D365, D366, D368.
 
 This file sits next to Tester's working path,
 [WORKING-PATH-QD02.md](WORKING-PATH-QD02.md) (D319). That path is already the
@@ -13,6 +13,13 @@ working path Prima will use until Matthew rules. It is not a ruling, and this
 file is not a second law. Designer agrees with it, and adds how the field
 sets attach, how existing stamps change, and one small correction about the
 common questions page.
+
+Tester's later working path on open questions
+([WORKING-PATH-OPEN-QUESTIONS.md](WORKING-PATH-OPEN-QUESTIONS.md),
+D363-D369) is folded in where it belongs: which faces hold
+counters is a fixed law, not a type switch (D365); the
+`question` card type should be named (D366); a door's return
+link lives on face 00 (D368). Still `7`, not rulings.
 
 A shorter related sketch, for the leftover part of QD01, is in
 [notes-and-dictionary-seating.md](notes-and-dictionary-seating.md).
@@ -78,7 +85,21 @@ The recommended list, which this draft also recommends:
 - **Continuation pages** (`99`, `9999`, `PP99`) use the existing `pointer`
   type with `kind: continuation` (already proposed in face00.md). A
   continuation is a pointer: it says where to look next. No new type.
-  This is also the recommended answer to O35.
+  This is also the recommended answer to O35. The same `pointer`
+  type is what D363 uses for the connection after counter 98 (a
+  new page that continues the line). [D363]
+
+**Which faces hold counters (D365).** A page type does not
+choose which faces hold counters. That is a fixed law, not a
+switch a type can flip. The fixed list is faces 05 and 06
+everywhere, and dictionary 0012.03. Adding a counted face
+changes what you see when you open the face itself (it becomes
+a derived listing) and refuses a direct write. That is the
+D351 lesson: an explanation card cannot live at `0012.03` because
+03 is already counted. A page type should not be able to hide a
+content face that way. If a new counted face is needed, that is a
+Director question, not a type field. This is a working path, not
+a ruling. [D365] [WORKING-PATH-OPEN-QUESTIONS.md] [QD11]
 
 Why not pure A (a new type for every missing name): the list would keep
 growing, and we would invent types where `kind` already works. [axiom 2]
@@ -110,7 +131,11 @@ The change of attachment, proposed here:
 
 - Type `door` carries the door fields already drafted: `level` (kernel,
   desk, shelf, or book), `parent` (back-link), `continues` (the book's
-  `9999`, if any). [face00.md:232-240]
+  `9999`, if any). [face00.md:232-240] The return link is also
+  a line on the door's face 00 (QD23, Option A). A door has
+  no other face to put it on [R10]. Do not add a face 08 to
+  the door to hold the link. This is a working path, not a
+  ruling. [D368]
 - Type `override` carries the R7 fields already drafted: `changes`,
   `why-here`, `why-needed`, `achieves`, and `authorized-by`.
   [face00.md:242-254] Whether those four statements sit in face 00 or on
@@ -175,6 +200,15 @@ range laws exist, keep the type already written: `general`. Use
 special behavior is already the card type `question` (forms, answer),
 not a page type. [R11] [QD26]
 
+**PROPOSED, aligned with D366.** Yes, add `question` as a named card
+type in the kernel's card type table, with the fields those cards
+already use (`forms`, `answer`, and the rest as already written).
+If a kind of card is in use and has its own fields, it should be
+on the table (axiom 8). This does not add a page type. QD27
+(whether 0013 is the right home) stays `7` and is a separate
+question. This is a working path, not a ruling. [D366]
+[WORKING-PATH-OPEN-QUESTIONS.md]
+
 Whether 0013 is the right page number stays QD27.
 
 This is a small correction to D319's "keep as `system`." It does not
@@ -194,6 +228,11 @@ using D319 as the working path. The recommended shape, so work can move:
   until its type is drafted to `door`.
 - The common questions sample stays `general`. A type not in the allowed
   list stays a finding, not a hard error. [face00.md:146]
+- A page type does not choose which faces are counted (D365).
+- The `question` card type may be named on the kernel table (D366);
+  that is KERNEL work, and this draft does not edit it.
+- A door's return link is a line on face 00; do not add face 08
+  (D368).
 - Do not build override pages during this build. [R21]
 - Do not rename existing face 00s in this lane, and do not edit the
   kernel type list, until a ruling says to.
@@ -212,6 +251,12 @@ new types).
 
 - QD02 itself: this file only proposes. D319 is the working path, not a
   ruling.
+- QD11 is a working path (D365), not a ruling: which faces hold
+  counters is a fixed law, not a type switch. Still `7`.
+- QD26 is a working path (D366), not a ruling: add `question` as a
+  named card type. Still `7`. This is a card type, not a page type.
+- QD23 is a working path (D368), not a ruling: a door's return
+  link is a line on face 00. Still `7`. Do not add face 08.
 - QD27: is page 0013 the right home for the common questions list?
 - QD09: what is the exact address of the axioms?
 - QD31, QD32, QD33: approval shape, system owner values, and what `code`

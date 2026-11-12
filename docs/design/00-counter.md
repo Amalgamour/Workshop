@@ -7,8 +7,9 @@ proposal. Anything marked `7` is open.
 Lane: DESIGN (Designer). Source ruling: R25 in `docs/spec/DIRECTOR-RULINGS.md`.
 Related: axiom 6 (`Axioms.md:23`), R24 (how 05 climbs), kernel Q51, QD05,
 QD66, QD67, QD03, QD16, D323, D324, D346, D347, D349, D350,
-D357, D358, F9, A4.4 (`crates/seqaddr-core/src/state.rs:420`,
-`state.rs:460`, `resolve.rs:182`, `face.rs:83-84`).
+D357, D358, D363, D365, D367, F9, A4.4
+(`crates/seqaddr-core/src/state.rs:420`, `state.rs:460`,
+`resolve.rs:182`, `face.rs:83-84`).
 
 This file was first written as a proposal for how 00.counter climbs and
 whether those faces are seated (QD67, QD66). Tester's hostile pass found
@@ -43,6 +44,15 @@ making face 00 a counted face (D357). Section 10 records this.
 Section 11 also folds in two smaller notes (D358): the stored
 value is the blob, never a commit id; and the before-field check
 is only half of R25. These are working paths, not rulings.
+
+Tester's recommended options on open questions that block the most
+work are now a working path (D363-D369). This draft folds in the
+ones that belong here. After counter 98, write a connection to a
+continuation page, and do not reuse a number (D363, section 2).
+Which face 00 problems halt, and which are only findings, is D367
+(section 10). Which faces are counted is law, not a page-type
+switch (D365, section 10). They are still `7`, not rulings.
+[WORKING-PATH-OPEN-QUESTIONS.md]
 
 QD67 stays for Matthew, with both climb options. This draft recommends
 one of them. That is not an answer. [F13] [WORKING-PATH-LINEAGE.md]
@@ -120,12 +130,21 @@ is a lean, not an answer. QD67 stays for Matthew, with both options
 shown. This draft still recommends Option A, and does not treat that as
 settled. [WORKING-PATH-LINEAGE.md]
 
-**After 98.** Counters run 01-98 only. [R9] [seqAddr.md:24]. What happens
-after 98 is already asked as QD16. The same question applies here. `7`.
-Face 00 changes more often than a pack, so the cap may arrive sooner
-for 00.CC than for 05. [F11] Under the QD03 path, F7's extra listing
-snapshot is no longer needed, which helps, but the cap is still urgent
-for face 00.
+**After 98.** Counters run 01-98 only. [R9] [seqAddr.md:24]. Face 00
+changes more often than a pack, so the cap may arrive sooner for
+00.CC than for 05. [F11] Under the QD03 path, F7's extra listing
+snapshot is no longer needed, which helps, but the cap is still
+urgent for face 00.
+
+**PROPOSED, aligned with D363.** After 98, do not reuse a number,
+and do not invent a slot 99. Counter 98 writes a connection to a
+continuation page (the `pointer` type already exists) that starts
+a new 01-98 series for the same job. The old numbers stay as
+history (axiom 6). The link is written (axiom 8), so a person and
+the computer can travel to the next series. Raising the 98 cap
+would change R9 and is not recommended. This is Option A, with
+the connection made explicit. QD16 stays `7`. This is a working
+path, not a ruling. [D363] [WORKING-PATH-OPEN-QUESTIONS.md]
 
 ### What each 00.CC face holds (PROPOSED)
 
@@ -272,6 +291,19 @@ The stored fingerprint is the blob, never a commit id. The
 before-field check is only half of R25; the after-compare should
 stay visible when the check is built. [D358]
 
+After counter 98, write a connection to a continuation page; do
+not reuse a number, and do not invent a slot 99. [D363]
+
+Which faces are counted is law, not a page-type switch. The
+fixed list is 05, 06, and dictionary 0012.03. [D365]
+
+Halt when the book would be unreadable to the core, when two
+live claims disagree, when a fingerprint does not match, or
+when a seat names a blob that is not a real past seat. Flag,
+and do not halt, leftover derived fields (a `faces:` line, as
+already above, or a file-name ending that disagrees with the
+stamp). [D367]
+
 The address, standing, and void rules in sections 7-9 are also `7`.
 
 ---
@@ -281,8 +313,11 @@ The address, standing, and void rules in sections 7-9 are also `7`.
 - QD66. Are 00.counter faces seated the normal way?
 - QD67. How does the 00.counter list climb when a new fingerprint is
   added? Both options stay; this draft recommends Option A.
-- QD16. What happens after counter 98? The same question applies to
-  00.CC, and is urgent for face 00. [F11]
+- QD16 is a working path (D363), not a ruling. After counter 98,
+  write a connection to a continuation page; do not reuse a
+  number, and do not invent a slot 99 (section 2). The same
+  question applies to 00.CC, and is urgent for face 00. [F11]
+  Still `7`.
 - QD03 is a working path (D326), not a ruling. The F7 alignment in
   section 7 depends on it.
 - D346 is a working path, not a ruling. The A4.4 hole in section 10
@@ -295,6 +330,10 @@ The address, standing, and void rules in sections 7-9 are also `7`.
 - D358 is a working path, not a ruling. Smaller notes on the
   fingerprint check (section 11): the stored value is the blob,
   never a commit id; the after-compare is still unimplemented.
+- D365 is a working path, not a ruling. Which faces are counted
+  is law, not a page-type switch (section 10).
+- D367 is a working path, not a ruling. Which face 00 problems
+  halt, and which are only findings (section 10).
 
 ---
 
@@ -481,6 +520,27 @@ a working path, not a ruling. This draft does not edit the core.
 The F7 listing cascade is a separate point. The QD03 path is meant
 to break it; the builder has not been changed. [D326] [section 7]
 
+**PROPOSED, aligned with D365.** Which faces are counted is law,
+not a switch a page type can flip. The fixed list is 05, 06, and
+dictionary 0012.03. A new counted face is a Director question,
+because it changes what you see when you open the face itself
+(it becomes a derived listing) and refuses a direct write. This
+is a working path, not a ruling. [D365] [WORKING-PATH-OPEN-QUESTIONS.md]
+
+**PROPOSED, aligned with D367.** Halt (the write is refused,
+`--check` fails) when the book would be unreadable to the core
+(this section; D362), when two live claims disagree and there
+is no lawful connection (axiom 1), when a fingerprint does not
+match (D324, D347, section 11), or when a seat or un-seat names
+a blob git does not hold as a real past seat (already Pass 12).
+Flag, and do not halt, leftover derived fields that are not the
+source of truth: a written `faces:` line that disagrees with
+the derived list (D326, section 7), or a file-name state ending
+that disagrees with the stamp (D364). Those are findings to
+clean up, not a reason to make the book unreadable. This is a
+working path, not a ruling. [D367]
+[WORKING-PATH-OPEN-QUESTIONS.md]
+
 ---
 
 ## 11. Test 4 / D347: when the fingerprint is taken
@@ -540,6 +600,12 @@ parent of the commit that adds the 00.CC; the stored value is the
 blob, never a commit id; the before-field check is only half of
 R25, and the after-compare should stay visible when KERNEL builds
 the check; there is still no implementation (F9). The F8 standing
-stays the recommended shape. Tester's notes and the WORKING-PATH
-files were not rewritten. The kernel and the core were not edited.
-Q41, Q43, and Q34 were not marked. No 00.counter was written.
+stays the recommended shape. Section 2 also aligns with D363:
+after 98, a connection to a continuation page, no reused number,
+no slot 99. Section 10 also aligns with D365 (which faces hold
+counters is a fixed law, not a page-type switch) and D367
+(which face 00 problems halt, and which are only findings).
+These are working paths, not rulings. QD16 stays `7`. Tester's
+notes and the WORKING-PATH files were not rewritten. The kernel
+and the core were not edited. Q41, Q43, and Q34 were not marked.
+No 00.counter was written.
