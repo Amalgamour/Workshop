@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 // Tests for kernel/build.mjs. Each test makes a scratch git clone of HEAD (no checkout; it shares history, so seat checks
-// can reach trial commits, rulings and books at HEAD, TRIAL-K4 Q52), copies the working kernel/, docs/spec/, docs/trial/ and
-// books/ into it, adds one hostile change, runs the builder there, and checks the result. The repo is never written.
+// can reach trial commits, rulings and books at HEAD, TRIAL-K4 Q52), copies the working kernel/, docs/spec/, docs/trial/,
+// books/ and export/ into it, adds one hostile change, runs the builder there, and checks the result. The repo is never written.
 // Usage: node kernel/build.test.mjs
-import { mkdtempSync, mkdirSync, cpSync, writeFileSync, readFileSync, rmSync, appendFileSync, renameSync, symlinkSync, chmodSync } from 'node:fs';
+import { existsSync, mkdtempSync, mkdirSync, cpSync, writeFileSync, readFileSync, rmSync, appendFileSync, renameSync, symlinkSync, chmodSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { join, dirname } from 'node:path';
 import { tmpdir } from 'node:os';
@@ -26,6 +26,7 @@ function scratch() {
   cpSync(join(ROOT, 'docs', 'spec'), join(d, 'docs', 'spec'), { recursive: true });
   cpSync(join(ROOT, 'docs', 'trial'), join(d, 'docs', 'trial'), { recursive: true }); // seat records cite trials (TRIAL-K3 finding 2)
   cpSync(join(ROOT, 'books'), join(d, 'books'), { recursive: true }); // the last build is the record of past seats (TRIAL-K3 finding 11)
+  if (existsSync(join(ROOT, 'export'))) cpSync(join(ROOT, 'export'), join(d, 'export'), { recursive: true }); // R33 item 1: builds go to export/
   return d;
 }
 const stamp = (addr, title, faces, whys) => `---\naddress: ${addr}\ntitle: ${title}\ntype: general\nstate: draft\nwhy-draft: test fixture\n---\n\n## Registry\nfaces: ${faces}\n${whys}\n`;
@@ -45,6 +46,23 @@ function run(name, setup, expect, opts = {}) {
 const S = (d, ...p) => join(d, 'kernel', 'samples', ...p);
 
 run('baseline: the real sources build', () => {}, { ok: true });
+
+// R33 item 1 (R26): the builder writes export/, never books/. A line the compute approved into books/ (through its gate) must
+// survive a write build byte for byte. Before R33 the builder rewrote books/10.11.21.book whole and this line was erased.
+{
+  const name = 'R33 item 1: a write build leaves books/ untouched (a compute line survives) and writes export/';
+  const d = scratch();
+  try {
+    const B = join(d, 'books', '10.11.21.book');
+    appendFileSync(B, JSON.stringify({ n: 16, at: '2026-11-16T16:55:49Z', by: 'agent-1', op: 'put', addr: '10.11.21.0077.00.draft', body: 'compute line' }) + '\n');
+    const before = readFileSync(B, 'utf8');
+    const r = spawnSync(process.execPath, [join(d, 'kernel', 'build.mjs')], { encoding: 'utf8' });
+    const ok = r.status === 0 && readFileSync(B, 'utf8') === before && existsSync(join(d, 'export', '10.11.21.book'))
+      && !readFileSync(join(d, 'export', '10.11.21.book'), 'utf8').includes('compute line') && !/wrote  books\//.test(r.stdout);
+    console.log(`${ok ? 'ok  ' : 'FAIL'}  ${name}`);
+    if (!ok) { failed++; console.log(r.stdout.split('\n').filter((l) => /wrote|ERROR|errors/.test(l)).join('\n') + r.stderr); }
+  } finally { rmSync(d, { recursive: true, force: true }); }
+}
 
 // TRIAL-K2 finding 8 (a): a book face at a spot the kernel fills replaces it in place (R7, R21).
 run('book face replacing a kernel face is flagged', (d) => {
@@ -621,7 +639,7 @@ run('Q66: a face 00 holding only un-seat records must be the bytes git holds (K9
   sh(d, ['add', '--', F]); // staged only for the write build
   const w = spawnSync(process.execPath, [join(d, 'kernel', 'build.mjs')], { encoding: 'utf8' });
   if (w.status !== 0) throw new Error(`fixture: write mode failed: ${w.stdout}${w.stderr}`);
-  sh(d, ['add', '-A', '--', 'kernel', 'books'], { env: { ...process.env, ...ID } });
+  sh(d, ['add', '-A', '--', 'kernel', 'books', 'export'], { env: { ...process.env, ...ID } });
   sh(d, ['reset', '-q', 'HEAD', '--', F]); // face 00 left out of the commit
   sh(d, ['commit', '-q', '--no-verify', '-m', 'faces and books, face 00 uncommitted'], { env: { ...process.env, ...ID } });
 }, { match: /face 00 kernel\/samples\/10\.11\.21\/10\.11\.21\.0012\.00\.draft\.md is blob [0-9a-f]{40} in git \(HEAD\), not the bytes on disk/ }, { args: ['--check'] });
@@ -638,7 +656,7 @@ const trialFor = (d, name, addr, fb) => {
 // Then commit on HEAD, or (with `parents`) as a merge of those parents. Returns the new commit.
 const commitBuilt = (d, msg, { parents, after } = {}) => {
   const env = { ...process.env, ...ID };
-  const add = () => { sh(d, ['read-tree', 'HEAD'], { env }); sh(d, ['add', '-A', '--', 'kernel', 'docs/spec', 'docs/trial', 'books'], { env }); };
+  const add = () => { sh(d, ['read-tree', 'HEAD'], { env }); sh(d, ['add', '-A', '--', 'kernel', 'docs/spec', 'docs/trial', 'books', 'export'], { env }); };
   add();
   const w = spawnSync(process.execPath, [join(d, 'kernel', 'build.mjs')], { encoding: 'utf8' });
   if (w.status !== 0) throw new Error(`fixture: write mode failed: ${w.stdout}${w.stderr}`);

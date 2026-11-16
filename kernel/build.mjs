@@ -16,8 +16,10 @@
 // the last real seat blob from structured registry and stamp fields in face 00 history and from books/ history, books are read
 // in any mode and a current book must be 100644, history walks read -z output, and un-seat records make face 00 git-checked).
 // Tests: node kernel/build.test.mjs
-// Usage: node kernel/build.mjs          write books/
-//        node kernel/build.mjs --check  rebuild in memory and fail if books/ differs
+// R33 item 1 and R26: the builder never writes books/. Books change only through the compute's gate (crates/compute
+// store.rs gated append). Whole books are an export, so the builder writes export/ (same file names as before).
+// Usage: node kernel/build.mjs          write export/ (never books/)
+//        node kernel/build.mjs --check  rebuild in memory and fail if export/ differs
 import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync, lstatSync, statSync } from 'node:fs';
 import { join, dirname, relative, isAbsolute, sep, posix } from 'node:path';
 import { createHash } from 'node:crypto';
@@ -26,7 +28,8 @@ import { fileURLToPath } from 'node:url';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, '..');
-const OUT = join(ROOT, 'books');
+const OUT = join(ROOT, 'export'); // R33 item 1: an export, never books/ (only the compute writes books/)
+const BOOKS = join(ROOT, 'books');
 const SPEC = join(ROOT, 'docs', 'spec');
 const BY = 'prima-kernel-seed';
 // 7: format.md gives no rule for the time of a seed write. A fixed time keeps the build deterministic.
@@ -513,8 +516,9 @@ function priorSeats() {
   if (!hasGit()) { err('books', `no git repo at ${ROOT}, so past seats cannot be read from HEAD:books/ and un-seats cannot be checked (TRIAL-K4 findings 5, 6; Q52 b, d)`); return out; }
   if (gitTrust()) { err('books', gitTrust()); return out; }
   // Q58: a symlink committed (or staged) anywhere the builder reads hides its target from git's view of these paths.
-  const isBook = (p) => /^books\/[^/]+$/.test(p) && (p.endsWith('.book') || p === `books/${AXIOMS_FILE}`);
-  for (const [where, r] of [['HEAD', git('ls-tree', '-r', '-z', '--full-tree', 'HEAD', '--', 'kernel', 'books', 'docs/trial', 'docs/spec')], ['index', git('ls-files', '-s', '-z', '--', 'kernel', 'books', 'docs/trial', 'docs/spec')]])
+  // R33 item 1: builds before R33 were committed to books/, builds after it to export/; both histories are read.
+  const isBook = (p) => /^(books|export)\/[^/]+$/.test(p) && (p.endsWith('.book') || p.endsWith(`/${AXIOMS_FILE}`));
+  for (const [where, r] of [['HEAD', git('ls-tree', '-r', '-z', '--full-tree', 'HEAD', '--', 'kernel', 'books', 'export', 'docs/trial', 'docs/spec')], ['index', git('ls-files', '-s', '-z', '--', 'kernel', 'books', 'export', 'docs/trial', 'docs/spec')]])
     for (const { meta, path } of lsZ(r)) {
       if (meta[0] === '120000') err(path, `is a symlink in git (${where}); the builder follows no link (R2; TRIAL-K7 finding 1, Q58)`);
       // TRIAL-K9 finding 2, Q64 (decided by KERNEL pass 11, builder lane: A and B): a current book is a regular file, 100644.
@@ -528,8 +532,8 @@ function priorSeats() {
   // Q64 (A): book blobs are read whatever their mode (100644, 100755, ...), only a gitlink (160000, not a blob) is skipped;
   // Q65: both lists are read with -z.
   const ids = [];
-  for (const { meta, path } of lsZ(git('ls-tree', '-z', '--full-tree', 'HEAD', 'books/'))) if (meta[1] === 'blob' && isBook(path)) ids.push(meta[2]);
-  const bh = git('--literal-pathspecs', 'log', ...HIST, '--raw', '-z', '--format=C %H', 'HEAD', '--', 'books');
+  for (const { meta, path } of lsZ(git('ls-tree', '-z', '--full-tree', 'HEAD', 'books/', 'export/'))) if (meta[1] === 'blob' && isBook(path)) ids.push(meta[2]);
+  const bh = git('--literal-pathspecs', 'log', ...HIST, '--raw', '-z', '--format=C %H', 'HEAD', '--', 'books', 'export');
   if (bh.status !== 0) { err('books', 'git log could not read the history of books/, so un-seats cannot be checked (TRIAL-K8 finding 2, Q62)'); return [...hist.values()]; }
   for (const x of rawZ(bh.stdout)) if ('AMT'.includes(x.status) && x.mode !== '160000' && isBook(x.path)) ids.push(x.blob);
   const order = [...new Set(ids)];
@@ -834,9 +838,12 @@ unseatChecks(books, priorSeats());
 lookupReport(books);
 for (const f of findings) console.log('finding  ' + f);
 for (const l of lookups) console.log('lookup   ' + l);
+// R33 item 1: refuse to run if the export folder is books/ or inside it (the builder must never write a book).
+if (relative(BOOKS, OUT) === '' || !relative(BOOKS, OUT).startsWith('..')) { console.error('ERROR    the builder must not write into books/ (R33 item 1, R26)'); process.exit(1); }
 const outputs = books.map((b) => [join(OUT, b.isAx ? AXIOMS_FILE : `${b.book}.book`), render(b.faces, b.book)]);
-// Q58: never read or write books/ through a link. Q64 (B): a book on disk with an exec bit is refused too, before git can stage it.
-for (const [out] of outputs) if (noLink(out) && there(out) && (statSync(out).mode & 0o111)) err(out.slice(ROOT.length + 1), `is executable on disk (mode ${(statSync(out).mode & 0o777).toString(8)}); a book file must be a regular 100644 file (TRIAL-K9 finding 2, Q64)`);
+// Q58: never read or write books/ or export/ through a link. Q64 (B): a book on disk with an exec bit is refused too, before git
+// can stage it; R33 item 1: the export and the matching books/ file are both checked (books/ is read, never written).
+for (const out of outputs.flatMap(([o]) => [o, join(BOOKS, relative(OUT, o))])) if (noLink(out) && there(out) && (statSync(out).mode & 0o111)) err(out.slice(ROOT.length + 1), `is executable on disk (mode ${(statSync(out).mode & 0o777).toString(8)}); a book file must be a regular 100644 file (TRIAL-K9 finding 2, Q64)`);
 for (const e of errors) console.error('ERROR    ' + e);
 if (errors.length) { console.error(`${errors.length} errors; nothing written`); process.exit(1); }
 if (!check) mkdirSync(OUT, { recursive: true });

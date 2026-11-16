@@ -107,7 +107,7 @@ Test fixtures, each registry line saying why. All are draft except `10.11.21.100
 17. Open questions Q15-Q35, Q37, Q38 (QUESTIONS.md); seat record place (Q34).
 
 ## Build
-`node kernel/build.mjs` writes `books/00.00.00.book`, `books/00.00.axioms.jsonl`, `books/10.00.00.book`, `books/10.11.00.book` and `books/10.11.21.book`. `--check` fails if any differ. The build is deterministic.
+`node kernel/build.mjs` writes an export (R26, R33 item 1): `export/00.00.00.book`, `export/00.00.axioms.jsonl`, `export/10.00.00.book`, `export/10.11.00.book` and `export/10.11.21.book`. It never writes `books/`; only the compute writes books, through its gate. `--check` fails if any export differs. The build is deterministic.
 - **Hard checks:** R4 ASCII; name grammar; tails; R9 counters 01-98; R10 registry matches the files, and page 0000 has only face 00; R5 draft lines give a reason; C1.1 content face (not on 0000); C3.2; card types; card keys; `why:` on its cited line; R2 `approved-by` on any seated face; R7 override fields; R15 no C3.2 for brand cards.
 - **Findings:** missing whys. **Lookup lines:** override targets.
 
