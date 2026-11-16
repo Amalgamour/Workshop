@@ -3,6 +3,16 @@
 For Matthew. By Designer. A concept, not a ruling. Nothing here is decided. Only you approve.
 created: Mon 16 Nov 2026, 4:58 PM EST (e6a0f39)
 
+## Change note (Mon 16 Nov 2026, 5:55 PM EST)
+
+Fixes from Tester's check (docs/review/WORK-BOOK-CONCEPT-CHECK.md, 093c64a). Only findings that checked out in the code or files:
+- The board already exists, tail only (crates/seqaddr-core/src/state.rs:296-300). w02 now adds columns to it.
+- Pack 1 is the first real use of the claim route on an open door. "No new way in" is gone.
+- Pack 1 is a named bootstrap exception: hand-written, entered as `pack` with no check, its sheet shape in code. Each needs your `7`.
+- W10: the claim holder sends the return, not the compute (state.rs:563-571). books/ is tracked in git today.
+- W8, W11: Tester's options and spec conflicts added; W11 holds proposed change-note text for seqAddr.md:197-198 and workflow-loop.003.md:160 (those files are not edited). W9-W13 now show Tester's check.
+The pack, sheet and return shapes are in docs/design/PACK-TEMPLATE.md.
+
 ## Change note (Mon 16 Nov 2026, 5:07 PM EST)
 
 Revised for your answers to the six changes (t226u, recorded at docs/review/DIRECTOR-WORDS-t226u.md, ceec44f), and for your t227u words on handing jobs to the compute (docs/review/DIRECTOR-WORDS-t227u.md, f52debb).
@@ -93,7 +103,7 @@ The tail is the status. Nobody types it. The old book shows why: pack 05.16 says
 
 **Not there yet.**
 - **draft -> pack.** Only the compute may make this move (state.rs:548), and the compute has no route to do it. Today a pack can be written straight in as "pack", which skips the check (crates/seqaddr-core/src/tail.rs:95-99).
-- **The board.** Nothing shows all the slots and their tails at once. The router has no such route (crates/compute/src/lib.rs:241-260).
+- **The board, in full.** A board already exists: the compute lists every slot on a face with its tail, built fresh, never stored (crates/seqaddr-core/src/state.rs:296-300). Asking for a plain 05 face returns it (crates/seqaddr-core/src/resolve.rs:182-188; test crates/seqaddr-core/tests/tails.rs:219-226). It shows the tail only: no claim, reviewer or outcome. (Found by Tester.)
 - **Prompting models.** Not built. This book is its forerunner, in your words.
 
 **The board must be a view.** seqAddr.md:197 calls "FF.00" the board. But you ruled "Faces do not have sentinels" (R9, DIRECTOR-RULINGS.md:37-38), and the code refuses FF.00 (state.rs:530). So the board cannot be a stored 05.00. Proposal (7): the compute shows it as a view, built from the log. (W11)
@@ -121,7 +131,7 @@ In plain words:
 
 **What exists and what is planned.**
 - EXISTS TODAY: the tail rules (crates/seqaddr-core/src/tail.rs:79-99). The claim and the one-step tail move, through the gate (state.rs:543-581; http.rs:134-139). The reviewer's close (store.rs:979-995).
-- PLANNED: the templates (seated as kernel card types, workflow-loop.003.md:232), the check step (draft -> pack), the handoff sheet, the board view, and printing the prompt box.
+- PLANNED: the templates (seated as kernel card types, workflow-loop.003.md:232), the check step (draft -> pack), the handoff sheet, the board's claim, reviewer and outcome columns, and printing the prompt box. The tail-only board EXISTS (state.rs:296-300).
 
 ## The first real work pack (proposal, 7)
 
@@ -131,8 +141,9 @@ One first pack, not two. It joins the t226u idea (show the board) and the t227u 
 
 **Pack 1: the handoff sheet and the board.** For Cursor or Grok Builder.
 - **w01, handoff sheet:** a read-only route that, for one pack slot, prints a fixed-shape sheet: the pack text, its tail, who holds the claim, the matching dev and lab pages, earlier returns on the slot, and the prompt box text. Any field the compute cannot fill yet (approved design, grant, start commit) says "not available". It is never guessed (R37: "Couldn't look" is kept separate from "isn't there", DIRECTOR-RULINGS.md:200).
-- **w02, board:** a read-only route that lists every slot on a jobs face, with its tail, claim, reviewer and outcome. It is built from the log, never stored (R9; W11).
-- **Crates and files:** crates/compute/src/lib.rs (two routes), crates/compute/src/store.rs (the reads), crates/compute/tests/ (one new test file). The sheet's fixed shape lives in code for now. It moves to a seated template later.
+- **w02, board:** add claim, reviewer and outcome to the board that already exists (state.rs:296-300). Still built from the log, never stored (R9; W11).
+- **Crates and files:** crates/compute/src/lib.rs (one route), crates/compute/src/store.rs (the reads), crates/seqaddr-core/src/state.rs (board columns), crates/compute/tests/ (one new test file).
+- **Bootstrap exception (needs your `7`).** Pack 1 cannot pass through the tool it builds. So: its text and AGENTS.md are written by hand; it goes in as `pack` with no check step (tail.rs:95-99); and the sheet's shape lives in code until the template is seated (W13). Proposal (7): one named, one-time override, ending when the templates are seated.
 - **Tests:** walk a pack draft -> pack -> open -> return -> review -> closed. The board shows the right tail at each step. The sheet shows the claim owner after the claim. The same slot always gives the same sheet. A missing dev page shows "not available". A face with no slots answers "missing".
 - **Done-check:** cargo test --workspace passes, with the new tests. The reviewer checks that no test was removed, and that the routes write nothing.
 - **AGENTS.md, short:** Goal: the compute prints the handoff sheet and the board. Why: t227u:5, t226u:9. May touch: the three paths above. Must not touch: books/, kernel/, docs/. Stop if: a field needs a stored 05.00 (R9), or a write. Hand back: per job, what was done and created, proof (commit, test output), what it did not do, what it noticed, then unprompted and overflow.
@@ -141,12 +152,13 @@ One first pack, not two. It joins the t226u idea (show the board) and the t227u 
 - Pack 2: seat the pack, work card and return templates as kernel card types (workflow-loop.003.md:232). (W13)
 - Pack 3: the check step, draft -> pack, by the compute (:171). It writes as the compute.
 
-**Risks from the open door** (CORE-AND-TOOLS-SPEC.md B1, B6). Pack 1 reads only, so it adds no new way in. But the sheet and the board will show what is in the books, and today the books can be faked:
+**Risks from the open door** (CORE-AND-TOOLS-SPEC.md B1, B6). Pack 1's routes only read. But Pack 1 is the first real use of the claim route while the door is open (found by Tester). And the sheet and the board will show what is in the books, and today the books can be faked:
 - The token file sits in books/ (crates/compute/src/store.rs:297). Anyone with a shell on the box can add a token and claim a pack.
 - A line written straight into a book is loaded at start. A forged claim would show on the board as real (CORE-AND-TOOLS-SPEC.md B1).
 - A lost reply can double a change (CORE-AND-TOOLS-SPEC.md:342). For a claim, a retry is refused, but the caller cannot tell "mine" from "someone else's".
+- Proposal (7), from Tester: label every sheet and board "door open: not proof" until K8 step 1 lands.
 
-**Wait for K8 step 1, or go first?** Proposal (7): Pack 1 goes first, because it only reads. Packs 2 and 3 wait for K8 step 1, because Pack 3 writes as the compute. (W12)
+**Wait for K8 step 1, or go first?** Proposal (7): Pack 1 goes first, because its routes only read, with the label above and the bootstrap exception. Packs 2 and 3 wait for K8 step 1, because Pack 3 writes as the compute. (W12)
 
 ## What a return must say
 
@@ -187,39 +199,42 @@ Proposed answers only. The top three are W8, W9 and W10. W8 must be ruled before
 
 ### W8 (TOP). Is a work page a system page?
 1. **Question.** System pages freeze once linked (R34, DIRECTOR-RULINGS.md:170). Is a work page one?
-2. **Proposed answer (Designer and Tester).** No. You read work pages. System pages are not for users (DIRECTOR-RULINGS.md:169).
+2. **Proposed answer (Designer and Tester).** No. You read work pages. Tester's added option: seqAddr.md:192 already lists a page type `workflow`. It is not system, so the R34 freeze would not apply, but no ruling says whether it locks (7) (WORK-BOOK-CONCEPT-CHECK.md:39-44). System pages are not for users (DIRECTOR-RULINGS.md:169).
 3. **Why.** A wrong pack can then be fixed in place. Who gets hurt otherwise: you.
 4. **Axioms checked (AX:31-32).** 1 [Axioms.md:13] pass. 2 [Axioms.md:15] pass. 7 [Axioms.md:25] pass. 9 [Axioms.md:29] tension. The spec also marks 6 [Axioms.md:23] pass (SPEC:394).
 
 ### W9 (TOP). Is the return a step on the same slot, or a separate file?
 1. **Question.** You said yes to pack and return side by side (t226u:7). Should the return live on the same counter as the pack, as its "return" step, or as its own 05.NN.return file?
-2. **Proposed answer (Designer, 7).** The same counter. That is how the workflow plans it (workflow-loop.003.md:181) and how the code does it today (state.rs:575). An export can still show it as two files side by side. Seating this placement is still open in the workflow (:181, "`7`").
+2. **Proposed answer (Designer, 7).** The same counter. That is how the workflow plans it (workflow-loop.003.md:181) and how the code does it today (state.rs:575). The return body is written on the same tail move as open -> return, so it is one change (state.rs:575; R37 item 2, DIRECTOR-RULINGS.md:196). An export can still show it as two files side by side. Seating this placement is still open in the workflow (:181, "`7`").
 3. **Why.** One slot, one history. A return and its pack cannot drift apart. Who gets hurt otherwise: a reviewer matching files by hand.
-4. **Axioms checked (Designer's marks; Tester has not checked this, 9).** 2 [Axioms.md:15] pass: no second copy. 6 [Axioms.md:23] pass: the pack stays in the log below the return. 8 [Axioms.md:27] pass. 9 [Axioms.md:29] tension: the placement is not yet seated.
+4. **Axioms checked (Designer's marks; Tester checked, WORK-BOOK-CONCEPT-CHECK.md).** 2 [Axioms.md:15] pass: no second copy. 6 [Axioms.md:23] pass: the pack stays in the log below the return. 8 [Axioms.md:27] pass. 9 [Axioms.md:29] tension: the placement is not yet seated.
 
 ### W10 (TOP). Does a pushed return count as a book change?
 1. **Question.** You said the model will "commit and push" (t223u:10). R33 says "books change through compute not by models" (DIRECTOR-RULINGS.md:159). Does a push count as a book change?
-2. **Proposed answer (Designer, 7).** No, as long as the push holds only code, exports and the return text, never books/. The compute books the return through the gate (open -> return, which exists today), naming the commit.
+2. **Proposed answer (Designer, 7).** No, as long as the push holds only code and proof, never books/ and never the return text. The model that holds the claim sends the return once, through the gate (open -> return, which exists today), naming the commit. The compute returns only in recovery (state.rs:563-571). Git keeps only the commit hash. Today books/ is tracked in git, so "never books/" needs a check that refuses such a push (7) (found by Tester).
 3. **Why.** It keeps your push-and-check flow and R33 both. Who gets hurt otherwise: you, if a push quietly changes a book.
-4. **Axioms checked (Designer's marks; Tester has not checked this, 9).** 1 [Axioms.md:13] pass. 6 [Axioms.md:23] pass. 8 [Axioms.md:27] pass. 2 [Axioms.md:15] tension: the return text sits in git and in the book.
+4. **Axioms checked (Designer's marks; Tester checked, WORK-BOOK-CONCEPT-CHECK.md).** 1 [Axioms.md:13] pass. 6 [Axioms.md:23] pass. 8 [Axioms.md:27] pass. 2 [Axioms.md:15] pass: one copy of the return. 1 [Axioms.md:13] tension (Tester): no check on push yet. 6 [Axioms.md:23] tension (Tester): a relayed return names the wrong builder.
 
 ### W11. Is the board a view, not a stored 05.00?
 1. **Question.** seqAddr.md:197 calls FF.00 the board, but R9 says faces have no doors (DIRECTOR-RULINGS.md:37-38). Is the board a view the compute builds?
 2. **Proposed answer (Designer, 7).** Yes. Never stored. Built from the log each time.
-3. **Why.** It keeps R9 and still shows status. Who gets hurt otherwise: you, if a stored board and the slots disagree.
+3. **Why.** It keeps R9 and still shows status. It is already built that way, tail only (state.rs:296-300). Spec conflict to write down, not leave silent (Tester): seqAddr.md:197-198 and workflow-loop.003.md:160 still name a 05.00 board; R9 governs. Who gets hurt otherwise: you, if a stored board and the slots disagree.
 4. **Axioms checked (Designer's marks, 9).** 2 [Axioms.md:15] pass: no copy. 8 [Axioms.md:27] pass: "a menu ... never becomes what it points to". 1 [Axioms.md:13] pass: your R9 stands.
+   **Proposed change-note text (7), for the spec owners to add after your yes. This file does not edit either spec:**
+   - For docs/spec/seqAddr.md:197-198: "Change note. R9 (DIRECTOR-RULINGS.md:37-38): faces have no sentinels, so FF.00 does not exist. A face is counted by kernel rule (policy), not by FF.00. The board is a view the compute builds from the counters; it is never stored. A counter on a counted face is valid without a board entry."
+   - For docs/spec/workflow-loop.003.md:160: "Change note. Read "the N5 05.00 board" as the board view of N5 face 05. Per R9 there is no 05.00. The compute builds the view from the counters and their recorded handoffs (crates/seqaddr-core/src/state.rs:296-300)."
 
 ### W12. Which piece goes first, and does it wait for K8 step 1?
 1. **Question.** Should the first pack be the read-only handoff sheet and board, ahead of the template check, and ahead of K8 step 1?
 2. **Proposed answer (Designer, 7).** Yes. The claim route already exists. The templates are not seated. The sheet and the board only read. The template check comes after the templates and after K8 step 1.
-3. **Why.** You get a compute-made prompt box first (t227u:5), with no new way in. Who gets hurt otherwise: you, waiting on templates for status you could have now; or you, if a writing route opens before the door narrows.
-4. **Axioms checked (Designer's marks; Tester has not checked this, 9).** 1 [Axioms.md:13] tension: the door is still open for the claim route that exists. 2 [Axioms.md:15] pass: the sheet is derived, not a copy. 7 [Axioms.md:25] pass: missing fields say "not available". 9 [Axioms.md:29] pass: each pack gets its own review.
+3. **Why.** You get a compute-made prompt box first (t227u:5). Its routes add no write path, but it is the first real use of the claim route on an open door (Tester). Who gets hurt otherwise: you, waiting on templates for status you could have now; or you, if a writing route opens before the door narrows.
+4. **Axioms checked (Designer's marks; Tester checked, WORK-BOOK-CONCEPT-CHECK.md).** 1 [Axioms.md:13] tension: the door is still open for the claim route that exists. 2 [Axioms.md:15] pass: the sheet is derived, not a copy. 7 [Axioms.md:25] pass: missing fields say "not available". 9 [Axioms.md:29] pass: each pack gets its own review.
 
 ### W13. Are the templates seated in the kernel before the check step?
 1. **Question.** The pack, work card and return templates are proposed as kernel card types, still `7` (workflow-loop.003.md:232). Seat them before building the check step?
-2. **Proposed answer (Designer, 7).** Yes. Seat them through the kernel's drafting path first. The check step then reads the seated template, not a copy in code.
+2. **Proposed answer (Designer, 7).** Yes. Seat them through the kernel's drafting path first, with the handoff sheet shape in the same set (Tester). Pack 1's code shape is the one named exception above. The check step then reads the seated template, not a copy in code.
 3. **Why.** A template in code is a second copy that can drift, which is what you warned about (t227u:5). Who gets hurt otherwise: every worker, checked against a shape nobody approved.
-4. **Axioms checked (Designer's marks; Tester has not checked this, 9).** 2 [Axioms.md:15] pass: one shape, inherited. 1 [Axioms.md:13] pass: you approve the template. 9 [Axioms.md:29] tension: untried.
+4. **Axioms checked (Designer's marks; Tester checked, WORK-BOOK-CONCEPT-CHECK.md).** 2 [Axioms.md:15] pass: one shape, inherited. 1 [Axioms.md:13] pass: you approve the template. 9 [Axioms.md:29] tension: untried.
 
 ## Answered in t226u (your words, not rulings)
 
