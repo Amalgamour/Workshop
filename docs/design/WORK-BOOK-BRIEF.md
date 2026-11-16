@@ -49,4 +49,4 @@ Axioms: 1 who decides, 2 no copies, 3 leads, 4 why, 6 history, 7 missing, 8 link
 - Check: 1 pass, 6 pass, 7 pass; 2 tension (a full copy); 8 tension (AX:70-74).
 - Tester's option: make it a child desk with a written link. That needs your yes first, because child desks are on hold (R21; AX:75-77).
 
-**Conflicts Tester found.** W7: axiom 2 was wrongly marked pass. The spec is now fixed (6bcc1c0). W2: a full sheet in face 01 is a new use of face 01 (R33 item 2). No break with R1-R37.
+**Conflicts Tester found.** W7: axiom 2 was wrongly marked pass. The spec is now fixed (6bcc1c0). W2: a full sheet in face 01 is a new use of face 01 (R33 item 2). Every other ruling Tester checked passed.
