@@ -184,3 +184,7 @@ Read: not ruled; he questioned the premise. Prima answered (t197s757) that it sh
 ## R35 note — 2026-11-16 12:23 PM EST — how the face 03 menu is used (t198u)
 Director's words: "Yes the menu is how the compute handles giving information to a model. If a model has a general query about "Jim" for example. The compute might have "jim" as a key word in 4 pages. instead of handing the model all the data in those pages it hands it the menu. So the model can decide what it should request first."
 Read: for a general query, the compute finds the pages holding the key word and hands the model their face 03 menus, not their data. The model then asks for the sections it needs first.
+
+## R36 — 2026-11-16 12:25 PM EST — face 00 is like a registry: locked fields and open fields (t200u, answering C22 after Prima's t198s761)
+Director's words: "Ok so on face 00 think of it like windows registry. We have fields that nevere change and lock, like it's address, it's title, it's page type. Others could change. We can have a split on this."
+Read: face 00 is split into two kinds of fields. Locked fields (address, title, page type, and any others named later) are set once and never change. Open fields may change, so R25's records on 00 can continue. "Once the 00 is done it's locked" (R32) applies to the locked fields. Which fields fall in which group beyond the three named is open. C22 is closed.
