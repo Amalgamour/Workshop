@@ -263,7 +263,50 @@ pub fn router(app: App) -> Router {
 }
 
 /// Serve on a bound listener until the future ends (used by main and the tests).
+/// The Host check (R33 item 4) allows the listener's own address.
 pub async fn serve(store: Store, listener: tokio::net::TcpListener) -> std::io::Result<()> {
+    let hosts = allowed_hosts(listener.local_addr()?, &[]);
     let app = App::new(store);
-    axum::serve(listener, router(app)).await
+    axum::serve(listener, guarded(router(app), hosts)).await
+}
+
+/// R33 item 4: the Host names a request may carry. A loopback (or unspecified)
+/// listener answers to 127.0.0.1:PORT, localhost:PORT and [::1]:PORT; any other
+/// listener to its own address. `extra` adds configured names (`--listen` as
+/// typed, `--host NAME:PORT`). Compared without case.
+pub fn allowed_hosts(local: std::net::SocketAddr, extra: &[String]) -> Vec<String> {
+    let p = local.port();
+    let mut v = vec![local.to_string()];
+    if local.ip().is_loopback() || local.ip().is_unspecified() {
+        v.extend([format!("127.0.0.1:{p}"), format!("localhost:{p}"), format!("[::1]:{p}")]);
+    }
+    v.extend(extra.iter().cloned());
+    // port 80 may be left out of a Host header (RFC 9110 7.2)
+    if p == 80 {
+        let bare: Vec<String> = v.iter().filter_map(|h| h.strip_suffix(":80").map(str::to_string)).collect();
+        v.extend(bare);
+    }
+    let mut v: Vec<String> = v.into_iter().map(|h| h.to_ascii_lowercase()).collect();
+    v.sort();
+    v.dedup();
+    v
+}
+
+/// Wrap a router so a request whose Host is missing or not in `hosts` is refused
+/// with 421 before any route runs (R33 item 4: closes reads to DNS rebinding).
+pub fn guarded(r: Router, hosts: Vec<String>) -> Router {
+    let hosts = Arc::new(hosts);
+    r.layer(axum::middleware::from_fn(move |req: axum::extract::Request, next: axum::middleware::Next| {
+        let hosts = hosts.clone();
+        async move {
+            let got = req.headers().get("host").and_then(|v| v.to_str().ok()).map(|h| h.trim().to_ascii_lowercase());
+            match got {
+                Some(h) if hosts.iter().any(|x| x == &h) => next.run(req).await,
+                got => {
+                    let what = got.map(|h| format!("Host `{h}` is not this compute's address")).unwrap_or_else(|| "the request has no Host header".into());
+                    reply((421, json!({"status": "rejected", "error": "host", "rule": "R33 item 4", "detail": format!("{what}; use one of: {} (a wrong Host is refused so another site cannot read through DNS rebinding)", hosts.join(", "))})))
+                }
+            }
+        }
+    }))
 }

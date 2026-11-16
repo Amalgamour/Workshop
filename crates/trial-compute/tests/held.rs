@@ -135,7 +135,8 @@ async fn held_malformed_and_huge_bodies() {
     }
     assert_eq!(req(&s.host, "GET", "/propose", &[], b"").await.code, 405);
     // (fix pass: a write now carries its media type and a token; the point here is the short length)
-    let r = raw(&s.host, format!("POST /propose HTTP/1.1\r\nhost: x\r\ncontent-type: application/json\r\nauthorization: Bearer {}\r\ncontent-length: 5\r\nconnection: close\r\n\r\n{{\"by\":\"user\",\"ops\":[]}}", token("user")).as_bytes()).await;
+    // (R33 item 4: the Host must be the compute's own address, or the request is refused 421 before the body is read)
+    let r = raw(&s.host, format!("POST /propose HTTP/1.1\r\nhost: {}\r\ncontent-type: application/json\r\nauthorization: Bearer {}\r\ncontent-length: 5\r\nconnection: close\r\n\r\n{{\"by\":\"user\",\"ops\":[]}}", s.host, token("user")).as_bytes()).await;
     assert_eq!(r.code, 400, "short content-length is cut, not over-read");
     let r = raw(&s.host, b"\x00\x01GARBAGE\r\n\r\n").await;
     assert!(r.code == 400 || r.code == 0);

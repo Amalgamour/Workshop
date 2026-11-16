@@ -1,4 +1,5 @@
-//! `compute [--books DIR]... [--listen ADDR] [--book DD.SS.BB] [--no-r2] [--allow-remote]`
+//! `compute [--books DIR]... [--listen ADDR] [--book DD.SS.BB] [--no-r2] [--allow-remote] [--host NAME:PORT]...`
+//! R33 item 4: a request whose Host is not the listen address (or a `--host` name) is refused, 421.
 //! Writes need a token from `<first books dir>/.identities` (scripts/dev.sh makes one).
 //! A non-loopback --listen is refused unless --allow-remote (TRIAL-X #12).
 //! Defaults: books/ then kernel/ under WORKSHOP_ROOT (or the current folder); 127.0.0.1:7700.
@@ -12,6 +13,7 @@ async fn main() {
     let mut r2 = true;
     let mut remote = false;
     let mut book: Option<String> = None;
+    let mut hosts: Vec<String> = Vec::new();
     let mut args = std::env::args().skip(1);
     while let Some(a) = args.next() {
         match a.as_str() {
@@ -20,8 +22,9 @@ async fn main() {
             "--no-r2" => r2 = false,
             "--allow-remote" => remote = true,
             "--book" => book = Some(args.next().expect("--book DD.SS.BB")),
+            "--host" => hosts.push(args.next().expect("--host NAME:PORT")),
             "-h" | "--help" => {
-                println!("compute [--books DIR]... [--listen 127.0.0.1:7700] [--book 10.11.21] [--no-r2] [--allow-remote]");
+                println!("compute [--books DIR]... [--listen 127.0.0.1:7700] [--book 10.11.21] [--no-r2] [--allow-remote] [--host NAME:PORT]...");
                 return;
             }
             other => {
@@ -74,8 +77,13 @@ async fn main() {
         std::process::exit(4)
     });
     println!("compute on http://{listen}  ({n} books)");
+    let local = listener.local_addr().unwrap_or_else(|e| {
+        eprintln!("cannot read the listen address: {e}");
+        std::process::exit(4)
+    });
+    hosts.push(listen.clone());
     let app = compute::App::new(store);
-    let server = axum::serve(listener, compute::router(app)).with_graceful_shutdown(async {
+    let server = axum::serve(listener, compute::guarded(compute::router(app), compute::allowed_hosts(local, &hosts))).with_graceful_shutdown(async {
         let _ = tokio::signal::ctrl_c().await;
     });
     if let Err(e) = server.await {
