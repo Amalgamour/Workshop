@@ -164,3 +164,11 @@ Read: not yet approved. A section is a piece of work in face 04. Cards live in f
 Read: approved. Refuse a line dated earlier than the line above it.
 4. Host check: "I agree."
 Read: approved. Refuse requests that arrive with the wrong Host header.
+
+## R34 — 2026-11-16 12:16 PM EST — system pages freeze; titles may be reused (t195u, answering Designer's C21 and C23 via Prima's t193s748)
+1. C21: "yes I think we freeze system pages. They are backend and designed for control not for user to access."
+Read: system pages freeze once linked (faces 00-04). They are back end, built for control, and not for users to access.
+2. C22: "I need more explaination on this one."
+Read: not ruled. Prima explained in t195s752. Held 7.
+3. C23: "So we don't lock words in books. if you look at workflow you already know that titles can be reused."
+Read: Designer's proposal is rejected. A retired page does not block its title. Titles may be reused, as the existing workflow already allows. Note: R31 item 1 fixes the address-title pairing, not the title alone.
