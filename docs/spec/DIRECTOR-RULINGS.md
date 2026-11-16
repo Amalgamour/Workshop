@@ -172,3 +172,11 @@ Read: system pages freeze once linked (faces 00-04). They are back end, built fo
 Read: not ruled. Prima explained in t195s752. Held 7.
 3. C23: "So we don't lock words in books. if you look at workflow you already know that titles can be reused."
 Read: Designer's proposal is rejected. A retired page does not block its title. Titles may be reused, as the existing workflow already allows. Note: R31 item 1 fixes the address-title pairing, not the title alone.
+
+## R35 — 2026-11-16 12:20 PM EST — copy check uses elevation; every page may have a face 03 menu (t197u, answering Designer's sections-and-cards Q1-Q3 via Prima's t194s750; design at 3c7401f)
+1. Refuse or flag copies: "Yes this is where the elevate comes in. If the comp can't solve according to it's code, it gives it to the model, if the model can't solve to a high degree of certainty. then it goes to the person."
+Read: the proposal stands (refuse exact and unmarked copies, flag partial overlap, allow links, key words, and cited quotes), and anything uncertain is elevated: compute first by its code, then the model, then a person if the model is not highly certain.
+2. Face 03 menu on every page: "Yes of course, a page might contain the piece of a story. As such it might be broken into a number of sections perhaps dozens or more. So instead of the model eating everything it only gets what it needs."
+Read: approved. Any page may have a compute-written face 03 menu of its sections, so a model loads only the sections it needs. This updates the pages 0001-0099 limit in decisions.md:404 for the menu card.
+3. Section reusing another page's card: "Why would a section reuse a card?"
+Read: not ruled; he questioned the premise. Prima answered (t197s757) that it shouldn't: a section links to the page (R32), and the compute serves only the needed piece. Held 7.
