@@ -2,7 +2,7 @@
 
 state: draft plan, `7` (open). Not a ruling. Nothing here is law.
 made: Mon 16 Nov 2026, Designer (design partner for Prima). Director: Matthew, the only approver.
-revised: Mon 16 Nov 2026, after Director answers t171u (11:16 AM EST) and t172u (11:17 AM EST), Tester's stress test (50fdfac), and Director rulings t175u (11:24 AM EST), all relayed by Prima. See "Changes since 29ec433".
+revised: Mon 16 Nov 2026, after Director answers t171u (11:16 AM EST) and t172u (11:17 AM EST), Tester's stress test (50fdfac), Director rulings t175u (11:24 AM EST), and Tester's stress test 2 (e99665e), all relayed by Prima. See "Changes since 29ec433".
 why: Matthew asked today (16 Nov 2026, 11:04 AM EST, passed on by Prima) for a design plan for the book file. He said a book is a .seq file, it is basically a self-contained database file, and it should work like a pyramid.
 status of every idea below: Matthew's first ideas from today are marked "Matthew's idea, 16 Nov 2026". His later answers are marked "Director answer, t171u (relayed by Prima)" or "t172u". His rulings of 11:24 AM EST are marked "Director ruling, t175u (relayed by Prima)". Prima entered them in DIRECTOR-RULINGS.md as R26-R30 (commit e1a60aa); this plan cites those entries and does not number or edit rulings. Anything not found in a Workshop source is marked "New (not in any source)". Rulings R1-R25 are quoted only where they already exist.
 does not: edit DESIGN.md, DIRECTOR-RULINGS.md, the kernel, the core, or any spec file; close any QD question; write a 00.counter; seat anything.
@@ -17,6 +17,10 @@ The real copy is kept in small files. Matthew ruled: "yes change R3". So the sto
 
 The pyramid is the shape of that exported file. The top loads fast and tells you where everything is. You open only the deeper parts you need. The computer also keeps the same signposts over the small files, so finding any page is quick. The signposts are never the real copy. They can always be rebuilt.
 
+Each signpost carries a check number (the *chain*) built from the one before it. When the computer starts, it checks every chain once. Until that check is done, it marks answers "not yet checked" (`9`) and refuses to write.
+
+Only the computer may write the stored files. It holds a lock on its folder so no other tool can write there at the same time. The tool that builds the kernel will write its exports to a different folder.
+
 Face 04 is the person's face. It stays plain text a person can read. Matthew ruled: "Update R4." So every other face may be stored as true compact computer code (binary), for speed.
 
 Addresses, titles and card keys stay plain ASCII. They are how people and computers find things. His words do not say this either way, so it is listed as a small detail to confirm.
@@ -24,6 +28,8 @@ Addresses, titles and card keys stay plain ASCII. They are how people and comput
 Face 04 keeps its history the way Google Docs does. Each edit is stored as a small change, with a full copy every so often. The current view is the latest version. Every old version is kept.
 
 Finished work is locked. Matthew ruled: once a page is linked to and registered with the book, it should not change. Once a book is complete, its pages should not change. To rework something, you make a new copy. So links never break.
+
+What a lock freezes is not yet ruled. Tester's suggestion: the title and the main faces (00 to 04) freeze. The computer can still add new work packs (face 05), notes (face 06), back-links (face 08) and log lines (face 09), because adding is not changing. Matthew's earlier ruling R24 says work packs keep climbing, so this needs his word.
 
 That fits face 04 editing if editing happens before a page is locked. This plan tests that reading. It holds only if "registered" means something that happens later than when a page is first made. That is a new question for Matthew.
 
@@ -37,13 +43,13 @@ Links point to a page, never to a face. A link is the page address and its title
 
 The real thing should be written in Rust, like the core and the compute today. The person still checks it in plain words, not in code.
 
-Three choices matter most now. What exactly locks a page? Can people still edit face 04 on a locked page, or only in a new copy? And which small files exactly: one per book, per page, or per face? They are at the top of the open choices list.
+Three choices matter most now. What exactly locks a page? What does a lock freeze? And can people still edit face 04 on a locked page, or only in a new copy? They are at the top of the open choices list. Tester has suggested an answer for each; those are suggestions, not rulings.
 
 ---
 
 ## Changes since 29ec433
 
-29ec433 was the first version of this plan. f6296ba added Step 17 (face 04, t172u). d034948 added Matthew's t171u answers. c077d0c folded in Tester's stress test. This version adds his t175u rulings. Old commits are not changed; this is a new step on top (axiom 6) [Axioms.md:23].
+29ec433 was the first version of this plan. f6296ba added Step 17 (face 04, t172u). d034948 added Matthew's t171u answers. c077d0c folded in Tester's stress test. e41300d added his t175u rulings. This version folds in Tester's stress test 2. Old commits are not changed; this is a new step on top (axiom 6) [Axioms.md:23].
 
 - **A1 (t171u), faces as code.** New in Step 3, Step 7, Step 11 and Step 14. Face 04 stays readable; other faces may be compact code. At d034948 this was a pending narrowing of R4; it is now settled by t175u, 2 (see below). C3 is updated.
 - **A2 (t171u), small files stored, books exported.** Steps 1, 2, 4, 5, 6, 9, 10 and 15 are reframed: the pyramid and book signpost are now the export format, and possibly a derived signpost over the small files. The stored form is the small files. C1 is updated, and the git-blob fingerprint flag in Step 10 is updated.
@@ -52,8 +58,9 @@ Three choices matter most now. What exactly locks a page? Can people still edit 
 - **A5 (t171u), links name pages, not faces.** Step 13 is rewritten and checked against seqAddr.md.
 - **Open choices.** C1, C3, C6, C7 and C8 are marked "updated by t171u". C2 is updated by t171u (A3). The top 3 are recomputed. A "Still open" list is added.
 - **Summary.** Rewritten above.
-- **Tester's stress test folded in** (docs/design/SEQ-FILE-PLAN-TEST.md, commit 50fdfac; Tester's file not edited). Fix 1: a running chain hash on every signpost line, checked once at compute start; answers `7` until then; a mismatch halts (D324); D414 kept (Steps 5, 10, C4). Fix 2: signpost lines hold only changed rows, with a full line every K writes (Steps 5, 9). Fix 3: the compute checks a hash of earlier bytes before each append, and the builder writes elsewhere or appends instead of rewriting whole files (Steps 11, 15). Cite notes: the builder's whole-file write is now cited at `kernel/build.mjs:846`; D326 is cited in Step 6; the example signpost line now has the book `addr`.
+- **Tester's stress test folded in** (docs/design/SEQ-FILE-PLAN-TEST.md, commit 50fdfac; Tester's file not edited). Fix 1: a running chain hash on every signpost line, checked once at compute start; answers `7` until then (corrected to `9` in this revision, Step 10); a mismatch halts (D324); D414 kept (Steps 5, 10, C4). Fix 2: signpost lines hold only changed rows, with a full line every K writes (Steps 5, 9). Fix 3: the compute checks a hash of earlier bytes before each append, and the builder writes elsewhere or appends instead of rewriting whole files (Steps 11, 15). Cite notes: the builder's whole-file write is now cited at `kernel/build.mjs:846`; D326 is cited in Step 6; the example signpost line now has the book `addr`.
 - **Director rulings t175u (11:24 AM EST) folded in.** R3 and R4 are updated by t175u (entered by Prima as R26 and R27). C1 and C3 are settled. The lock ruling (t175u, 3) rewrites Step 13 with a rename rule, squares Step 17 with it, and marks C9 likely answered, pending Prima's confirmation. New choices C11 (what locks a page), C12 (face 04 on a locked page) and C13 (grammar stays ASCII). Top 3 recomputed. Summary rewritten again.
+- **Tester's stress test 2 folded in** (SEQ-FILE-PLAN-TEST-2.md, commit e99665e; Tester's file not edited). Lock scope: the title and seated 00-04 text freeze; new 05/06 counters, 08 back-links and 09 log lines go on, compute-only (working path, Tester); the R24 against R30 clash is named (Step 13, new C14). Chain defined: hash(previous chain + new bytes), checked before each write against the copy in memory; reads `9` and writes refused until the start-up check ends (corrects the earlier `7`, with the reason). store.rs:941 described correctly (refuses shorter files, cuts longer ones at every append today; Tester's fix: refuse at runtime, cut only at start-up repair). OS file lock added; builder output moved out of `books/` (Step 11). K = 64 per band, with Tester's measured numbers (Step 5). Tester's picks recorded for C11, C12, C1a and C13 (working paths, still open). Stale wording fixed in Steps 8, 15 and 17. format.md cites fixed (:60 for the append-only heading; :18 for "only the compute writes"). Face 09 build gap listed. Sources rebuilt from every cite in the file. Top 3 recomputed (C11, C14, C12).
 - **Rename: "map" is now "signpost".** "Map" is face 08's name [seqAddr.md:157] and "index" is used for the dictionary [seqAddr.md:230], so the plan's book map, band map and page index are now the book, band and page signposts.
 
 ---
@@ -95,7 +102,7 @@ Matthew's words are quoted exactly as recorded by Prima in `docs/spec/DIRECTOR-R
 
 - Until 16 Nov 2026 the book was the real stored copy, and a `.seq` file a view of one page, exported from a book and imported back [R3] [DIRECTOR-RULINGS.md:12] [seqpage.md:11] [seqpage.md:13]. **R3 is updated by t175u**: small files are stored, whole books are an export [DIRECTOR-RULINGS.md:105] [DIRECTOR-RULINGS.md:106].
 - A book is one file [format.md:21]. Book files are named like `10.11.21.book` [format.md:25].
-- A book is an append-only log of approved writes. Nothing is edited in place. The current state comes from replaying every entry in order [format.md:61].
+- A book is an append-only log of approved writes. Nothing is edited in place. The current state comes from replaying every entry in order [format.md:60] [format.md:61].
 - Each entry is one JSON line [format.md:70]. Line 1 is the header: format name, version and book address [format.md:79]. An example header in the repo is `{"seqbook":1,"address":"10.11.21"}` (books/10.11.21.book line 1).
 - A `snapshot` entry lets replay start late; older entries stay [format.md:88] [format.md:105]. Working path D414, not a ruling: a snapshot is never trusted over the log and is checked on every open [DESIGN.md:165].
 - One compute owns every book; only it writes to disk [format.md:15] [format.md:18]. It runs one queue with one writer and appends with fsync [BUILD-LOG:53]. A cut-off last line is dropped on load [BUILD-LOG:54]. A cut-off multi-op proposal is dropped whole [BUILD-LOG:38].
@@ -227,7 +234,7 @@ To open a book, the compute reads line 1, then reads backward from the end of th
 
 The book signpost has one row per band that has pages: the band (`PP`), where that band's newest band signpost sits (byte offset and length), and that band signpost's fingerprint (Step 10). Each signpost line also names the offset of the signpost before it, so older signposts can be walked back.
 
-A signpost line is a book-level entry written only by the compute, like a `snapshot` [format.md:88]. Book-level entries belong to no page and stay in the book on export [seqpage.md:206]. So the `.seq` page view does not change, and the R3 round trip stays lossless [DIRECTOR-RULINGS.md:12].
+A signpost line is a book-level entry written only by the compute, like a `snapshot` [format.md:88]. Book-level entries belong to no page and stay in the book on export [seqpage.md:206]. So the `.seq` page view does not change. R3's round-trip rule [DIRECTOR-RULINGS.md:12] still stands after R26: R26 changes which copy is stored, not the rule that an export and its import must be lossless [DIRECTOR-RULINGS.md:106]; the round trip is now small files to export to small files.
 
 Example (new, for illustration only):
 
@@ -235,9 +242,9 @@ Example (new, for illustration only):
 {"n":42,"at":"2026-11-16T16:30:00Z","by":"compute","op":"signpost","addr":"10.11.21","level":"book","chain":"sha256:...","prev":20480,"bands":[["00",18800,412,"fp:..."],["10",22010,388,"fp:..."]]}
 ```
 
-**Tester fix 2 (signpost growth), folded in from SEQ-FILE-PLAN-TEST.md:** a book or band signpost line holds **only the rows that changed**, plus `prev`, the offset of the signpost line before it. Every K writes the compute writes a **full** signpost line with every row. A reader walks back at most K signpost lines to put the full picture together. Tester measured that full lines on a full book would add about 20 KB per write and about 200 MB per 10,000 writes; changed-rows-only lines remove that (SEQ-FILE-PLAN-TEST.md section b). K is a builder setting, recorded with its why [AGENTS.md:45].
+**Tester fix 2 (signpost growth), folded in from SEQ-FILE-PLAN-TEST.md:** a book or band signpost line holds **only the rows that changed**, plus `prev`, the offset of the signpost line before it. **Defined by Tester's test 2 (working path, not a ruling): each band gets its own full signpost line every K = 64 of its own writes**, and the book signpost gets a full line every 64 book writes. K is written in the header, so a reader knows the bound. Tester's simulation (20,000 writes; a full line on every write is about 20 KB) gave, quoted from SEQ-FILE-PLAN-TEST-2.md section 2: "64 | bands touched | 8,331" bytes per write with 71 worst reads; "64 | each band, own count | 1,075" bytes per write with 129 worst reads; K = 16 for all 100 bands cost 63,883 bytes per write; K = 256 per band cost 832 bytes with 490 worst reads. "Worst case reads: K book lines back, plus up to K band lines, plus page signpost and face. About 2K + 3." "Warm cache, 129 reads is about 1.3 ms. Cold disk not measured." So per band, K = 64: about 1.1 KB of signposts per write, worst case about 129 short reads. Tester measured that full lines on a full book would add about 20 KB per write and about 200 MB per 10,000 writes; changed-rows-only lines remove that (SEQ-FILE-PLAN-TEST.md section b). K = 64 is a builder setting, recorded with its why [AGENTS.md:45]; it can change with a version bump.
 
-**Tester fix 1 (the open check), folded in:** every signpost line carries a **running chain hash** of every byte of the file before it (`chain` in the example). See Step 10.
+**Tester fix 1 (the open check), folded in, defined by test 2:** every signpost line carries a **chain**: chain = hash(previous chain + the new bytes since the previous signpost line) (`chain` in the example). So any signpost can be checked from the one before it, and the chain covers every byte of the file. See Step 10.
 
 A signpost is derived from the entries. It is never written by a person or a model, and never proposed. Boards, contents lists and path lists are already "derived from the log and never written as entries" [format.md:102]. The signpost is the same kind of thing, written down only so the compute can find it fast. Whether writing a derived line into the book is allowed at all is the same question as for snapshots (QD46, working path D414); this plan names it, and does not close it.
 
@@ -297,7 +304,7 @@ Seated, draft and counted faces work as today. A draft is found by lookup and sh
 
 **Director answer, t171u (relayed by Prima), recorded by Prima as R28; the short-log part is held 7 until Matthew sees this plan's answer [DIRECTOR-RULINGS.md:115] (A3):** "agreed 09 is log, we keep a short log in 00 if you think that is a superiour design."
 
-**Where face 09 stood.** Face 09 was unassigned: "01-09 system faces (01-08 defined, 07 reserved, 09 unassigned)" [decisions.md:182]; the review list says the same [review.md:53]; the face table says "reserved, unassigned" [seqAddr.md:158]. Retiring is done with the tail word `retired` [seqAddr.md:127] [seqAddr.md:138]. (The brief says an older ".09 retired" tail existed and is gone; no source line still uses it, so that history is not verified here.) A3 gives face 09 its job. The face table still says "unassigned" until A3 is a numbered ruling and the spec is changed by whoever is allowed to change it.
+**Where face 09 stood.** Face 09 was unassigned: "01-09 system faces (01-08 defined, 07 reserved, 09 unassigned)" [decisions.md:182]; the review list says the same [review.md:53]; the face table says "reserved, unassigned" [seqAddr.md:158]. Retiring is done with the tail word `retired` [seqAddr.md:127] [seqAddr.md:138]. (The brief says an older ".09 retired" tail existed and is gone; no source line still uses it, so that history is not verified here.) A3 gives face 09 its job. A3 is now entered by Prima as R28 [DIRECTOR-RULINGS.md:113]. The spec's face table still says "unassigned" [seqAddr.md:158], and the core still refuses writes to face 09: it allows only faces 00-06 and 08 (`crates/seqaddr-core/src/face.rs:72`; the refusal is at `crates/seqaddr-core/src/validate.rs:232-233`). Changing them is build work, listed as an open gap; this plan does not edit them.
 
 **What the face 09 log holds (plan, new).** One line per approved write to the page: entry number, time, who, operation, address, proposal, and the reason where there is one. It is written only by the compute. Nobody proposes to face 09. Writing face 09 never creates another face 09 line, so the log does not log itself (the same trap R25 avoids for face 00 [DIRECTOR-RULINGS.md:101]).
 
@@ -331,11 +338,11 @@ So: face 09 holds the log. Face 00 holds no log. The compute keeps a "last chang
 
 New (not in any source), building on what exists: one approved proposal is written in this order, all at the end of the file.
 
-0. Check the hash of the earlier bytes; if they changed outside the compute, refuse and raise (Tester fix 3, Step 11).
+0. Hold the OS file lock on the stored folder; check the file's length and last chain against the copy held in memory; if anything changed outside the compute, refuse and raise (Step 11). Refuse all writes until the start-up check has ended (Step 10).
 1. The proposal's entries, as today: one or more JSON lines, all or nothing [format.md:100] [BUILD-LOG:38].
 2. A new page signpost line for each page the proposal touched.
-3. A new band signpost line for each band the proposal touched, holding only the changed rows (a full line every K writes; Tester fix 2).
-4. One new book signpost line, changed rows only (full every K writes), carrying the running chain hash (Tester fix 1).
+3. A new band signpost line for each band the proposal touched, holding only the changed rows (a full line every 64 of that band's own writes).
+4. One new book signpost line, changed rows only (full every 64 book writes), carrying the chain: hash(previous chain + the new bytes).
 5. One fsync, as today [BUILD-LOG:53].
 
 Nothing earlier in the file is changed. Old blocks and old page, band and book signposts all stay. This is Prima's sketch ("changes appended at the end and a new signpost written, with old blocks kept"), with the two extra levels.
@@ -346,7 +353,7 @@ A reseat follows the existing rules: the R24 climb uses a new counter, built fro
 
 Two copies of a book changed apart are never merged by mixing lines (working path D427 [DECISIONS-LOG:550] [DESIGN.md:167]). The signposts help here without deciding QD57: two copies whose book signposts have the same fingerprint are the same state, and where they differ, comparing band signposts shows which bands changed (new, not in any source).
 
-**Axioms:** Fits axiom 6: "add the new step after it" [Axioms.md:23]. Fits axiom 1: only the compute appends, one proposal at a time, through the queue [Axioms.md:13] [format.md:42]. Fits axiom 8: every new signpost points at real entries [Axioms.md:27].
+**Axioms:** Fits axiom 6: "add the new step after it" [Axioms.md:23]. Fits axiom 1: only the compute appends, one proposal at a time, through the queue; only the compute writes to disk [Axioms.md:13] [format.md:18]. Fits axiom 8: every new signpost points at real entries [Axioms.md:27].
 
 **Better:** Better than today because the next reader does not replay; better than rewriting the file, which format.md set aside ("Every write rewrites the file. Does not scale") [format.md:51]. Where we fall short: the file grows by three derived lines per write. A book with many small writes gets a lot of signpost lines. Writing signposts only every so many writes would save space, but then a reader must replay the entries since the last signpost; that is a builder setting, not a ruling.
 
@@ -369,13 +376,17 @@ Which hash (C7, updated by t171u): git's blob hash for stored small files and fo
 
 **When to check (Tester fix 1, folded in).** Working path D414 says a snapshot is never trusted over the log, is checked on every open, and only the compute takes one [DESIGN.md:165] [DECISIONS-LOG:524]. Signposts are the same kind of thing. Per-line fingerprints alone cannot prove that nothing was cut out between lines; a running chain hash can (SEQ-FILE-PLAN-TEST.md section c). So, new (not in any source):
 
-- Every signpost line carries a running chain hash of every byte of the file before it.
+- Every signpost line carries a chain: chain = hash(previous chain + the new bytes since the previous signpost line). Defined by Tester's test 2 (SEQ-FILE-PLAN-TEST-2.md section 1).
 - "Open" means compute start, once per process, not every request. Today the compute already reads every book at start and serves from memory (`crates/compute/src/store.rs:1009-1023`).
-- At start the compute checks the chain in one pass over the file, and runs the R4 byte check (or, for code faces, the strict decoder check) in the same pass.
-- Until that pass ends, every answer is marked `7` (not yet checked). Tester's file uses `9` for the same state; this plan follows Prima's wording, `7`.
+- At start the compute checks the chain in one pass over the file, runs the R4 byte check on face 04 text (and the strict decoder check on code faces) in the same pass, and then replays the entries to rebuild the signposts and compare them. A forged signpost with a right-looking chain but wrong rows passes the chain check; only the replay-compare catches it (SEQ-FILE-PLAN-TEST-2.md section 1). Tester measured replay at 1.3 s for 183 MB (release build).
+- **Until that check ends, every read is marked `9`, and every write is refused.** Why `9`, not `7`: `7` "marks what is not complete", a hole [Axioms.md:25]; `9` "marks what has not yet faced its trial: do not trust it as it stands" [Axioms.md:29]. An answer read before the check is not missing; it is there but not yet checked, so `9` fits. Earlier versions of this plan said `7` (following Prima's wording); this corrects it, as Tester suggested (SEQ-FILE-PLAN-TEST-2.md, "What the revision fixed").
+- The compute keeps the last chain and the file length in memory. Before each write it checks the file against that memory copy, not against the file's own last line (a rewritten file would carry its own good last line) (SEQ-FILE-PLAN-TEST-2.md section 3).
+- If a crash cut the last signpost, its `prev` is lost with it. The compute scans back for the signpost before (at most one proposal back), then replays after it.
 - Any mismatch halts and is raised; neither side silently wins (working path D324 [DECISIONS-LOG:384]; D367 [DECISIONS-LOG:440]). A full replay can then rebuild the signposts, with the person's approval.
+- The chain has no secret. Anyone who rewrites the file can write new, matching chains. So it catches damage and accidents, not a forger; the OS file lock and the memory check (Step 11) are what stop other writers.
+- Under small files (S3), a per-file fingerprint does not show a whole file that was deleted. So the page's face 09 log lists each piece with its fingerprint, and the face 09 log has its own chain.
 
-This keeps D414 ("checked on every open", "never trusted over the log") and still serves the top fast. Tester measured one hash pass at about 0.4 s per 500 MB in Python. For stored small files, the same rule applies per file: each file's fingerprint is checked at start. This touches QD46 and does not close it (C4).
+This keeps D414 ("checked on every open", "never trusted over the log") [DECISIONS-LOG:524], and still serves the top fast, marked `9` until checked. Tester measured one hash pass at about 0.4 s per 500 MB in Python. For stored small files, the same rule applies per file: each file's fingerprint is checked at start. This touches QD46 and does not close it (C4).
 
 **Axioms:** Fits axiom 8: a pointer whose fingerprint does not match is missing (`7.8`) and is not repaired from memory [Axioms.md:27]. Fits axiom 9: check before trusting [Axioms.md:29]. Fits axiom 1: a mismatch halts and is raised [Axioms.md:13]. Fits axiom 2: one kind of fingerprint (the git blob) where the existing design already uses it [Axioms.md:15].
 
@@ -399,10 +410,14 @@ The worst case is always: ignore every signpost and replay the whole book, exact
 
 **Updated by A1 and A2 (t171u), new:** with small files, each write puts the new piece in a new file (or new lines), fsyncs it, and only then appends the face 09 log line; a piece with no log line is ignored as unfinished. Old pieces are never overwritten. Today's safety leans on whole lines: a cut-off last line is dropped [BUILD-LOG:54]. A raw-bytes face (allowed by t175u, 2) has no lines to lean on, so its log line must carry its length and fingerprint, and a piece that fails either is treated as not written. The one storage failure seen so far was a crash cutting inside an accented letter, and R4 fixed it by refusal, not by repair code [DESIGN.md:173]; working path D432 asks for a hostile crash test before any widening [DECISIONS-LOG:560]. The same is needed before raw-bytes faces.
 
-**Tester fix 3 (outside writers), folded in; plan text only, no code changed:** today the compute, before it appends, cuts any bytes past the length it last wrote as a "partial tail" (`crates/compute/src/store.rs:941`), but it does not check that the earlier bytes are unchanged. Its write folder is `books/` (`store.rs:59`), the same folder the kernel builder rewrites whole (`kernel/build.mjs:846`). So a rebuild while the compute runs could mix two files silently, and every signpost offset would then point at the wrong bytes. The fix in this plan:
+**Outside writers (Tester fix 3, defined by test 2); plan text only, no code changed.** What the code does today, corrected: in the compute's append (`crates/compute/src/store.rs:917`), a file **shorter** than the compute last wrote is refused as "changed outside the compute" (`store.rs:937-939`); a file **longer** than that has the extra bytes cut as a "partial tail" (`store.rs:940-941`). That cut runs at every append, not only at start-up, and nothing checks that the earlier bytes are unchanged. The first Tester fold-in (c077d0c) said the compute "cuts any bytes past the length it last wrote" without a check; that was right for longer files but missed the refusal for shorter ones. (Prima's brief said "store.rs:941 refuses at runtime and only cuts during boot repair"; the code at HEAD does not do that yet. It is Tester's fix, below.) The compute's write folder is `books/` (`store.rs:59`), and the kernel builder writes its output to the same folder (`kernel/build.mjs:29`, the whole-file write at `kernel/build.mjs:846`). So a rebuild while the compute runs could mix two files, and every signpost offset would point at the wrong bytes.
 
-- Before each append, the compute checks a hash of the earlier bytes (the chain hash on the last signpost line, Step 10). If they changed, it refuses to write, halts and raises it (D324).
-- The builder writes somewhere else, or appends through the same rules, instead of rewriting whole files in the compute's folder.
+The fix in this plan (working path from Tester's test 2, not a ruling):
+
+- **Refuse at runtime, cut only at start-up repair.** At runtime, any length change the compute did not make is refused and raised (D324). Cutting a partial tail happens only during the start-up repair, after a crash.
+- **Check against memory.** Before each write, the compute checks the file's length and last chain against the copy it holds in memory (Step 10).
+- **OS file lock.** The compute holds an operating-system file lock on its stored folder while it runs. Any other tool that would write there, including the builder, refuses to run while the lock is held. This closes the gap between "check" and "write".
+- **Move the builder's output out of `books/`.** Under R26 a whole book is an export, so the builder writes its exports to their own folder, never the compute's stored folder.
 
 **Axioms:** Fits axiom 6: recovery only adds; it never rewrites an earlier line [Axioms.md:23]. Fits axiom 7: a damaged signpost is treated as missing, not guessed [Axioms.md:25]. Fits axiom 1: a damaged signpost is raised, not silently replaced [Axioms.md:13].
 
@@ -445,10 +460,16 @@ Whether K2 may ever be done, and who approves it, is Matthew's choice (choice C5
 
 **The lock (t175u, 3).** A page is **locked** when it is registered with the book and linked to, or when its book is complete. A locked page does not change: no new text, no new title. To rework it, make a **new copy** and work on that. The original stays as it was. So every link to it keeps pointing at the same thing.
 
+**What a lock freezes (working path, Tester, pending Director review, not a ruling; SEQ-FILE-PLAN-TEST-2.md section 4 and C11).** Frozen: the page's title, and the seated text of faces 00, 01, 02, 03 and 04. Not frozen, and written **only by the compute**: new face 05 and 06 counters (the R24 climb [DIRECTOR-RULINGS.md:97] and session notes [seqAddr.md:155]), back-link lines on face 08, and log lines on face 09. Nothing already written is ever changed.
+
+**The R24 against R30 clash, said plainly.** R24 says face 05 keeps climbing after the seat, and an update is reseated when the page's scope grows [DIRECTOR-RULINGS.md:97]. R30 says a registered, linked page "shouldn't change" [DIRECTOR-RULINGS.md:124]. Face 06 notes keep coming too [seqAddr.md:155]. And the rename rule below writes a back-link on the locked original's face 08. Read word for word, R30 forbids all of these on a locked page. Tester's pick lets them go on, because they add new steps and change nothing written (axiom 6 [Axioms.md:23]). Only Matthew can say whether that is what "shouldn't change" means (C14).
+
+**The lock itself (working path, Tester, not a ruling).** Locking is a face 09 log line written by the compute: who, when, why. A lock is not undone: R30 says "shouldn't change", and R21 says no override pages during this build [DIRECTOR-RULINGS.md:84]; a new copy is the only way to rework. A rework copy's face 00 lineage names the original by address, title and fingerprint. If the book is complete, the copy may have to go in another book; the sources do not say.
+
 **The rename rule (new, built on t175u, 3, A5 and axiom 6):**
 
 1. **A locked page cannot be renamed.** The compute refuses a title change on a locked page, and says why (the lock).
-2. **To change a locked page's title (or anything else), make a new copy.** The copy is a new page at a new address, with the new title. Its face 08 links back to the original, and the original gets the matching back-link, so the line is written both ways [seqAddr.md:251] [Axioms.md:23]. Old links still reach the original, unchanged. New links may point at the copy.
+2. **To change a locked page's title (or anything else), make a new copy.** The copy is a new page at a new address, with the new title. Its face 08 links back to the original, and the original gets the matching back-link, written by the compute as an added line on face 08 (allowed by the lock scope above, pending C14), so the line is written both ways [seqAddr.md:251] [Axioms.md:23]. Old links still reach the original, unchanged. New links may point at the copy.
 3. **A page that is not locked may be renamed.** The rename is a new step in face 09 (who, when, old title, new title, why), never a silent edit [Axioms.md:23]. Because the page is not locked, it is not yet both registered and linked, so the rename breaks no lawful link.
 4. **A link whose title does not match** the target's face 00 is raised to the person, never followed silently and never fixed by guessing [seqAddr.md:116]. Under rules 1-3 this should only happen through damage or a write outside the compute.
 
@@ -501,9 +522,9 @@ What exists: books are version 1 JSON-line logs [format.md:60] [BUILD-LOG:54]. T
 **Updated by A2 (t171u):** the move depends on what "small files" means (C1).
 
 - Under S1 (one log file per book): nothing about the stored form moves. The only new things are the signpost and the export. The export is a new version 2 file: a new header, then every version 1 entry copied **byte for byte**, with the same entry numbers, then the signposts. The stored book file is not touched.
-- Under S2 or S3 (one file per page, or per face): each book is split into small files, one entry history per piece, copied byte for byte. The old book file is kept, frozen, as history, and the new files name it by fingerprint. This changes R3 and waits for a numbered ruling.
+- Under S2 or S3 (one file per page, or per face): each book is split into small files, one entry history per piece, copied byte for byte. The old book file is kept, frozen, as history, and the new files name it by fingerprint. R3 is already changed by t175u (R26 [DIRECTOR-RULINGS.md:106]); which small files is C1a.
 
-Before any move, two things must be true: the round trip book to `.seq` to book still gives back the same entries [DIRECTOR-RULINGS.md:12] [seqpage.md:208]; and the kernel builder stops rewriting whole files in the compute's folder: it writes somewhere else, or appends (Tester fix 3, Step 11), or the kernel's history keeps being lost [R23-R25-lineage.md:94] (the whole-file write is now at `kernel/build.mjs:846`; the lineage note cites `build.mjs:818`, which has since moved). Neither is done. This plan does not do them; they are build work after Matthew approves.
+Before any move, two things must be true: the round trip book to `.seq` to book still gives back the same entries [DIRECTOR-RULINGS.md:12] [seqpage.md:208]; and the kernel builder's output moves out of `books/` into its own export folder (Tester fix 3, Step 11), or the kernel's history keeps being lost [R23-R25-lineage.md:94] (the whole-file write is now at `kernel/build.mjs:846`; the lineage note cites `build.mjs:818`, which has since moved). Neither is done. This plan does not do them; they are build work after Matthew approves.
 
 **Axioms:** Fits axiom 6: entries are copied unchanged; the old file is kept [Axioms.md:23]. Fits axiom 9: before replacing the old form, open it and test the new one against it [Axioms.md:29]. Fits axiom 1: S2 and S3 wait for Matthew [Axioms.md:13].
 
@@ -540,6 +561,14 @@ Added from Tester's stress test (SEQ-FILE-PLAN-TEST.md, Step 16):
 15. A fork with the same address must be told apart, or raised.
 16. A hand edit to face 04 outside the compute must be found and taken in as a new step, never halted forever.
 
+Added from Tester's stress test 2:
+
+17. A file rewritten with its own matching chains must still be refused at the next write (memory check), and its signposts caught by the start-up replay-compare.
+18. A write sent before the start-up check ends must be refused; reads in that window must show `9`.
+19. A second process writing the stored folder while the compute holds its OS lock must be refused.
+20. On a locked page, a title change and a face 01 change must be refused; a new 05 counter, a 06 note, an 08 back-link and a 09 log line written by the compute must be accepted (if C14 confirms Tester's pick).
+21. With K = 64 per band, no lookup may take more than 2K + 3 reads.
+
 **Axioms:** Fits axiom 9: a hostile pass from another view before promotion [Axioms.md:29]. Fits axiom 1: Matthew approves. R2's build-stage approval lets a face be seated after a trial [DIRECTOR-RULINGS.md:9]; it does not speak of changing the file format, so this plan reads that change as Matthew's to approve [Axioms.md:13].
 
 **Better:** Better than building first and testing after. Where we fall short: these tests are a list, not code; none of them exist yet.
@@ -568,9 +597,11 @@ What it means for the book file:
 - Drafting already works in small steps: copy the face to a draft, add notes, merge one change at a time, then promote [format.md:94] [format.md:95] [format.md:96] [format.md:97] [drafting.md:12] [drafting.md:14]. A merge "applies one change to a draft" [format.md:96]. Small stored changes fit that shape.
 - In the pyramid (Step 2), the page signpost points at face 04's latest full copy and the small changes after it. Reading the current view is one full copy plus a short run of changes. Reading an old version walks back through the page's history (Step 8).
 - Each full copy and each small change carries a fingerprint (Step 10). A rebuilt version can be checked against the full copy that follows it.
-- Everything stays printable ASCII under R4 [DIRECTOR-RULINGS.md:16]. A small change is written as plain text lines.
+- Face 04 stays printable ASCII: R4 [DIRECTOR-RULINGS.md:16], as updated by t175u, keeps face 04 plain readable text [DIRECTOR-RULINGS.md:111]. A small change is written as plain text lines.
+- Where it is stored under small files (working path, Tester's test 2 section 5, not a ruling): under S3, the page's folder holds face 04's change files and full copies, all plain text, written only by the compute.
+- A face 04 full copy is a snapshot of the face. So D414's rule applies: the change log is the source; a full copy is checked against it and never wins; a mismatch halts (D324) [DECISIONS-LOG:524] [DECISIONS-LOG:384].
 
-New (not in any source), for the builders: how often a full copy is stored (for example every so many changes, or when the run of changes grows past a size) is a builder setting, recorded with its why [AGENTS.md:45]. The face 04 full copy is not the same thing as a book `snapshot` entry; working path D414 on book snapshots [DESIGN.md:165] is not changed or closed by this step. Whether the same "small changes plus full copy" way should later apply to other faces is not decided here; Matthew's answer was about face 04.
+New (not in any source), for the builders: how often a full copy is stored (for example every so many changes, or when the run of changes grows past a size) is a builder setting, recorded with its why [AGENTS.md:45]. The face 04 full copy is not a book `snapshot` entry, but it is checked by the same rule (above); working path D414 [DESIGN.md:165] is followed, not changed or closed. Whether the same "small changes plus full copy" way should later apply to other faces is not decided here; Matthew's answer was about face 04.
 
 **"So they can't be changed" (likely answered by t175u, pending Prima's confirmation).** Matthew's phrase was held 7 [DIRECTOR-RULINGS.md:120]. The provisional reading in f6296ba was: old versions can't be changed. His t175u, 3 ruling says "the original work shouldn't changed" and a registered, linked page "shouldn't change" [DIRECTOR-RULINGS.md:124]. That matches the provisional reading and goes further: once a page locks, its current version can't be changed either. So C9 is marked likely answered by t175u, pending Prima's confirmation. A stored small change or full copy is never edited; a correction is a new change after it [Axioms.md:23].
 
@@ -586,24 +617,26 @@ New (not in any source), for the builders: how often a full copy is stored (for 
 
 ## Open choices only Matthew can decide
 
-Each is a plain question, with the options and what each would mean. The top three are marked **TOP**. "Updated by t171u" or "settled by t175u" marks a choice his answers or rulings changed.
+Each is a plain question, with the options and what each would mean. The top three are marked **TOP**. "Updated by t171u" or "settled by t175u" marks a choice his answers or rulings changed. A "Tester's pick" is a working path from Tester's stress tests, not a ruling; every such choice stays open for Matthew.
 
 **C11 (TOP). New, from t175u, 3. What exactly locks a page?**
 You ruled: "Once a page is linked to and registered with the book it shouldn't change", and once a book is complete its pages should not change.
-- What is "registered"? Every page has face 00, its registry, from the start [decisions.md:274] [DIRECTOR-RULINGS.md:41]. If that counts, every page locks the moment it is made and nobody could edit a draft. Option A: "registered" means seated (or listed as live in the book). Option B: something else you have in mind.
-- What is "linked to"? Option A: a written face 08 link, and only to a registered page; a link to a draft is a finding, not a lock. Option B: any link, even to a draft, locks it (then anyone could freeze someone else's draft).
-- Does it take both (linked **and** registered), as your words say, or either one?
-- What makes a book "complete", and who says so? Nothing in the sources defines it.
+- Tester's pick (working path, Tester, not a ruling): a page locks when it is seated (registered as live) AND it is the target of a seated, written face 08 link from another page; OR when the book is marked complete by a compute-written entry that you approve. Why: face 04 stays free before the lock; nobody can freeze a draft by linking to it; "complete" needs a written act.
+- Other options: having face 00 at birth locks (every page is locked when made, and nobody could edit a draft [decisions.md:274] [DIRECTOR-RULINGS.md:41]); any link locks, even to a draft; either one alone (linked, or registered) locks.
+- Also: what makes a book "complete", and who says so? Nothing in the sources defines it.
+
+**C14 (TOP). New, from test 2. What does a lock freeze? (R24 against R30)**
+- Tester's pick (working path, Tester, pending Director review, not a ruling): the title and the seated text of faces 00-04 freeze. New 05 and 06 counters (R24), back-links on face 08, and log lines on face 09 keep coming, written only by the compute.
+- Option B: everything freezes, word for word. Then face 05 cannot climb (R24), notes stop, and a rework copy cannot be linked back from the original.
 
 **C12 (TOP). New, from t175u, 3 and t171u, answer 4. Can people still edit face 04 on a locked page?**
 You said "A user should be able to modify and change their documents in 04" and also that a registered, linked page "shouldn't change".
-- Option A (Prima's reading, this plan's default): face 04 is edited freely, Google-style, while the page is a draft. Once the page locks, changes go into a new copy.
-- Option B: face 04 stays editable even on a locked page, because every old version is kept and a link names the page, not a version. This bends "it shouldn't change".
+- Tester's pick and Prima's reading (working path, not a ruling): Option A. No; face 04 is edited freely, Google-style, before the lock; after it, people edit a rework copy whose face 04 starts from the original's latest version. This works only if C11 picks a late lock.
+- Option B: face 04 stays editable even on a locked page, with every version kept. This bends "it shouldn't change".
 
-**C1a (TOP). New detail under C1. Which small files exactly?**
-- Option S1: one log file per book, as today.
-- Option S2: one file per page (Tester's pick).
-- Option S3: one file per face, like the kernel sources today (this plan's lean; fits face 04 history, code faces and the face 09 log best).
+**C1a. New detail under C1. Which small files exactly?**
+- Tester's pick (working path, Tester, not a ruling): S3 inside a folder per page: one file per face, plus face 04 change files and the face 09 log, with a compute-only book journal for writes that touch several files. The journal has a precedent: the compute's `.queue` file (`crates/compute/src/store.rs:307`). It is not a page. This matches the plan's lean.
+- Other options: S1 one log file per book (least change); S2 one file per page (Tester's test-1 pick, weaker after R27-R29).
 
 **C1. Settled by t175u, 1 ("yes change R3"). Updated by t171u (A2).** Small files are stored; whole books are an export. Left over: names. The exported whole book is a `.seq` file; what are the one-page view and the small files called? (lesser)
 
@@ -615,13 +648,13 @@ Settled: face 09 is the page log; face 00 keeps no short log (Step 8; Prima hold
 **C3. Settled by t175u, 2 ("Update R4."). Updated by t171u (A1).** Face 04 stays plain text; other faces may be compact code (binary).
 
 **C13. New detail under C3. Do addresses, titles and card keys stay plain ASCII?**
-Your words do not say. This plan keeps them ASCII (grammar, file names, D432).
-- Option A (plan): yes, always.
-- Option B: they may widen too (would touch the grammar and every lookup).
+Your words do not say.
+- Tester's pick and this plan (working path, not a ruling): Option A, yes, always. Why: the grammar [seqAddr.md:112] [seqAddr.md:280] [seqAddr.md:281]; file names come from addresses under S3; R30 links carry the title, so it must match byte for byte; D432 says so [DECISIONS-LOG:560].
+- Option B: widen them too (touches the grammar and every lookup).
 
 **C4. How much should the compute trust the signposts when it opens a book?**
 Related to QD46 (working path D414).
-- Plan's pick now (Tester fix 1): a running chain hash on every signpost line, checked once at compute start in one pass; answers marked `7` until the pass ends; any mismatch halts (D324). This keeps D414.
+- Plan's pick now (Tester fix 1): a running chain hash on every signpost line, checked once at compute start in one pass; chain = hash(previous chain + new bytes); reads marked `9` and writes refused until the pass and the replay-compare end; any mismatch halts (D324). This keeps D414.
 - Option A: full replay on every open (slow for big books).
 - Option B: check each piece only as it is read (fast, but damage in unread parts is found late).
 
@@ -632,7 +665,7 @@ Related to QD46 (working path D414).
 
 **C6. Updated by t171u (A2). Is a band level wanted in the export and the signposts?**
 Now about the export file and the signposts only. This plan suggests it becomes a builder choice, recorded with its why.
-- Option A (plan's pick): band signposts of up to 100 pages [seqAddr.md:240], changed rows only, full every K writes.
+- Option A (plan's pick): band signposts of up to 100 pages [seqAddr.md:240], changed rows only, each band full every 64 of its own writes (Tester's measured pick).
 - Option B: one flat signpost with a row per page.
 
 **C7. Updated by t171u (A2). Which fingerprint?** (lesser)
@@ -657,14 +690,16 @@ Settled, not a choice: how face 04 edits are stored. Matthew answered "go with G
 
 ## Still open
 
-- C11, C12 and C1a (the top three), then C2, C13, C4-C8, C10, and the C1 naming detail.
+- C11, C14 and C12 (the top three; Tester has picks for each, not rulings), then C1a, C13, C2, C4-C8, C10, and the C1 naming detail.
 - C9: likely answered by t175u, pending Prima's confirmation.
 - Prima's entries R28 (short log in 00), R29 ("So they can't be changed") and R30 (how the lock fits face 04 edits) are held 7 in DIRECTOR-RULINGS.md [DIRECTOR-RULINGS.md:115] [DIRECTOR-RULINGS.md:120] [DIRECTOR-RULINGS.md:125]. This plan gives its answers (Steps 8, 13, 17) for Matthew to see; it does not close them.
-- The spec's face table still says face 09 is unassigned [seqAddr.md:158]; the core refuses writes to face 09 today (SEQ-FILE-PLAN-TEST.md, Step 8). Changing them is build work after this plan is accepted.
-- How a write that spans several pages is made all or nothing under small files. Page 0000 may hold only face 00 [DIRECTOR-RULINGS.md:41], so a book-wide log cannot sit on the door page. Build detail, raised so it is not lost.
+- **Build gap, face 09.** The spec's face table still says face 09 is unassigned [seqAddr.md:158], and the core refuses writes to face 09 (`crates/seqaddr-core/src/validate.rs:232-233`; only faces 00-06 and 08 are active, `crates/seqaddr-core/src/face.rs:72`). R28 needs both changed. This plan does not edit them; it is build work.
+- **Build gap, outside writers.** store.rs still cuts a longer file at every append (`crates/compute/src/store.rs:940-941`); there is no OS file lock; the builder still writes to `books/` (`kernel/build.mjs:29`, `:846`). The fixes are in Step 11; no code is changed by this plan.
+- How a write that spans several pages is made all or nothing under small files. Page 0000 may hold only face 00 [DIRECTOR-RULINGS.md:41], so a book-wide log cannot sit on the door page. Tester's pick: a compute-only book journal, like the `.queue` file (C1a).
 - The kernel builder's whole-file rewrite [R23-R25-lineage.md:94] (the whole-file write is now at `kernel/build.mjs:846`; the lineage note cites `build.mjs:818`, which has since moved).
-- Two copies of one book with the same address (a fork, D427) cannot be told apart by a link; a book fingerprint or a new address is needed (SEQ-FILE-PLAN-TEST.md section e).
-- How a hand edit to a face 04 file made outside the compute is found and taken in as a new step (SEQ-FILE-PLAN-TEST.md, new holes). Only the compute writes [format.md:18].
+- Two copies of one book with the same address (a fork, D427). Tester's pick (working path, not a ruling): the compute halts if two files claim one address (axiom 1 [Axioms.md:13]); a copy that changed apart gets a new address before it comes back. Locked pages are the same in both copies, so links to them stay true (SEQ-FILE-PLAN-TEST-2.md section 7a).
+- Hand edits to a face 04 file made outside the compute. Tester's pick (working path, not a ruling): the compute keeps a current-view 04 file and compares its fingerprint at start or before a read; if changed, the logged 04 stays live, the edit shows as a draft (R5), and it is booked as a small change once who made it is known, else the person is asked; on a locked page the edit goes to a rework copy (SEQ-FILE-PLAN-TEST-2.md section 7b). Only the compute writes [format.md:18].
+- How a face 04 change is written down (by line, by card, or by letter) is not designed.
 - QD65 stays with Matthew.
 
 ---
@@ -684,24 +719,25 @@ Settled, not a choice: how face 04 edits are stored. Matthew answered "go with G
 
 ## Sources
 
-- `docs/spec/Axioms.md` (the nine axioms): lines 13, 15, 17, 19, 21, 23, 25, 27, 29.
-- `docs/spec/DIRECTOR-RULINGS.md`: R3 (:12), R4 (:15-16), R5 (:20, :29), R9 (:38), R10 (:41), R19 (:76), R2 (:9), R24 (:97), R25 (:101).
-- `docs/spec/AGENTS.md` (the brief): lines 10, 41, 44, 45.
-- `docs/spec/format.md` (book format): lines 12, 15, 18, 21, 25, 28, 42, 51, 54, 60, 61, 66, 70, 74, 79, 81, 86, 88, 94-97, 100, 102, 105, 139-149, 157.
-- `docs/spec/seqAddr.md` (addresses): lines 7, 95, 101, 104, 127, 138, 150, 152, 153, 155, 157, 158, 168, 240, 251.
-- `docs/spec/seqpage.md` (the page view): lines 11, 13, 84, 199, 206, 208.
-- `docs/spec/face00.md` (face 00 draft): lines 146, 177, 179.
-- `docs/spec/decisions.md`: lines 128, 182, 285.
-- `docs/spec/review.md`: line 53.
-- `docs/spec/drafting.md`: lines 7, 12, 14.
-- `docs/design/DESIGN.md`: lines 17, 165, 167, 189.
-- `docs/design/DECISIONS-LOG.md` (working paths, not rulings): D320 (:380), D321 (:381), D324 (:384), D344 (:407), D345 (:408), D347 (:410), D348 (:411), D350 (:415), D358 (:427), D367 (:440), D426 (:548), D427 (:550), D431 (:558).
-- `docs/design/R23-R25-lineage.md`: line 94.
-- `docs/design/QUESTIONS-FOR-DIRECTOR.md`: QD16, QD34, QD46, QD57, QD60, QD63, QD66, QD67.
-- `docs/BUILD-LOG.md`: lines 3, 6, 38, 53, 54, 66.
-- Matthew's words, 16 Nov 2026 (passed on by Prima): ideas, not rulings.
-- Director answers t171u (11:16 AM EST, A1-A5) and rulings t175u (11:24 AM EST), relayed by Prima, 16 Nov 2026; entered by Prima as R26-R30 in `docs/spec/DIRECTOR-RULINGS.md` (commit e1a60aa), lines 103-125.
-- `docs/design/SEQ-FILE-PLAN-TEST.md` (Tester's stress test, commit 50fdfac).
-- Director answer, t172u (relayed by Prima), 16 Nov 2026, 11:17 AM EST: "go with Google's approach" for face 04 edits (Prima's R29). "So they can't be changed" is likely answered by t175u (C9).
+Every bracket cite in this file, by file and line (169 distinct; 54 are new since 29ec433: the 52 Tester counted and checked at e41300d, plus 2 added in this revision, DIRECTOR-RULINGS.md:84 and :113). Each was checked against the file at the time of writing.
 
----
+- `docs/spec/Axioms.md` (the nine axioms): lines 13, 15, 17, 19, 21, 23, 25, 27, 29.
+- `docs/spec/DIRECTOR-RULINGS.md` (rulings R1-R30; R26-R30 entered by Prima (e1a60aa), lines 103-125): lines 1, 9, 12, 15, 16, 20, 29, 35, 38, 41, 76, 84, 97, 101, 103, 104, 105, 106, 108, 109, 110, 111, 113, 114, 115, 118, 119, 120, 123, 124, 125.
+- `docs/spec/AGENTS.md` (the brief): lines 10, 41, 42, 44, 45.
+- `docs/spec/format.md` (book format): lines 12, 15, 18, 21, 25, 41, 42, 50, 51, 54, 60, 61, 66, 70, 74, 79, 81, 86, 88, 94, 95, 96, 97, 100, 102, 105, 139, 140, 141, 145, 146, 147, 149, 157.
+- `docs/spec/seqAddr.md` (addresses): lines 7, 14, 18, 19, 20, 21, 24, 89, 101, 104, 110, 111, 112, 114, 115, 116, 127, 138, 150, 152, 153, 155, 157, 158, 168, 175, 184, 230, 240, 251, 269, 271, 280, 281.
+- `docs/spec/seqpage.md` (the page view): lines 11, 13, 14, 84, 199, 206, 208.
+- `docs/spec/face00.md` (face 00 draft): lines 146, 177, 179.
+- `docs/spec/decisions.md`: lines 128, 182, 274, 285.
+- `docs/spec/review.md`: lines 53.
+- `docs/spec/drafting.md`: lines 7, 12, 14.
+- `docs/design/DESIGN.md`: lines 17, 157, 165, 167, 173, 189.
+- `docs/design/DECISIONS-LOG.md` (working paths, not rulings): lines 380, 381, 383, 384, 386, 407, 408, 410, 411, 415, 427, 440, 524, 548, 550, 558, 560.
+- `docs/design/R23-R25-lineage.md`: lines 94.
+- `docs/design/QUESTIONS-FOR-DIRECTOR.md`: lines 66, 76, 180, 298, 360, 414, 430, 446.
+- `docs/BUILD-LOG.md`: lines 3, 6, 38, 53, 54, 66.
+- Code read, not changed: `crates/compute/src/store.rs:1009-1023`, `crates/compute/src/store.rs:307`, `crates/compute/src/store.rs:917`, `crates/compute/src/store.rs:940-941`, `crates/seqaddr-core/src/face.rs:72`, `crates/seqaddr-core/src/validate.rs:232-233`, `kernel/build.mjs:29`, `kernel/build.mjs:846`.
+- `docs/design/SEQ-FILE-PLAN-TEST.md` (Tester's stress test, commit 50fdfac) and `docs/design/SEQ-FILE-PLAN-TEST-2.md` (Tester's stress test 2, commit e99665e). Working paths, not rulings.
+- Matthew's words, 16 Nov 2026 (passed on by Prima): first ideas, not rulings.
+- Director answers t171u (11:16 AM EST) and t172u (11:17 AM EST), and Director rulings t175u (11:24 AM EST), relayed by Prima; entered by Prima as R26-R30 in `docs/spec/DIRECTOR-RULINGS.md` (commit e1a60aa). This plan quotes them and does not number or edit them.
+- `docs/design/QUESTIONS-FOR-DIRECTOR.md` headings cited: QD16, QD34, QD46, QD57, QD60, QD63, QD66, QD67.
