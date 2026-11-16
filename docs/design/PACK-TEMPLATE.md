@@ -3,6 +3,15 @@
 For Matthew. By Designer. A proposal (7), not a ruling. Nothing here is decided. Only you approve.
 created: Mon 16 Nov 2026, 5:54 PM EST
 
+## Change note (Mon 16 Nov 2026, 5:56 PM EST)
+
+Made consistent with Tester's check (docs/review/WORK-BOOK-CONCEPT-CHECK.md, 093c64a) and the concept fix (54b737d). It landed just after the first version of this file.
+- The board exists, tail only (crates/seqaddr-core/src/state.rs:296-300). w02 adds columns.
+- Pack 1 is a bootstrap exception: hand-written, entered as `pack` with no check. Needs your `7`.
+- Every sheet and prompt box says "door open: not proof" until K8 step 1.
+- Only the claim holder sends a return (state.rs:563-567). Git keeps only the commit hash.
+- The sheet shape joins the W13 set (P5).
+
 ## Change note (Mon 16 Nov 2026, 5:54 PM EST)
 
 New file. It holds the pack template, the handoff sheet, the return template and the AGENTS.md slot, for the first pack in docs/design/WORK-BOOK-CONCEPT.md (08625be). Tester's check (docs/review/WORK-BOOK-CONCEPT-CHECK.md) had not landed when this was written, so nothing from it is folded in.
@@ -84,12 +93,13 @@ In plain words: before each handoff the compute reads the live records and print
 
 | Field | Filled by | From |
 |---|---|---|
+| door label: "door open: not proof" until K8 step 1 lands | compute | WORK-BOOK-CONCEPT-CHECK.md:126 |
 | sheet made at, and the last log line read | compute | the log |
 | pack text (fields 1-24) | compute | the pack counter |
 | tail | compute | the counter |
 | claim holder, or "not claimed" | compute | state.rs:561 |
 | dev page 04NN and lab page 07NN | compute | matching NN, WL:59 |
-| earlier returns on this slot and its predecessor | compute | return bodies on the counter, state.rs:575 |
+| earlier returns on this slot and its predecessor: "none" only if looked and empty; "not available" if it could not look; a stale review is marked stale | compute | state.rs:575; R37 items 4, 6 |
 | repo, branch, start commit | compute | GitHub; "not available" if not reached |
 | approved design revision and grant | compute | WL:220; "not available" until built |
 | AGENTS.md version and hash | compute | part 4 |
@@ -100,6 +110,7 @@ In plain words: before each handoff the compute reads the live records and print
 ```
 === WORKSHOP JOB <page>.05.<NN> ===
 Sheet: made <time EST> from log line <n>. Pack hash <hash>.
+Door: open (K8 step 1 not done). Records are not proof.
 You are: <builder>. Claim: <claim owner | not claimed>.
 Repo: Amalgamour/Workshop  Branch: prima/build  Start: <commit>
 Read first: AGENTS.md (version <v>, hash <hash>)
@@ -131,6 +142,8 @@ In plain words, in order:
 | 7 | unprompted | builder | t226u:11; WL:193 |
 | 8 | overflow | builder | t226u:11; WL:193 |
 
+**Who sends it.** Only the model that holds the claim (crates/seqaddr-core/src/state.rs:563-567). The compute returns only in recovery (:566-571). Prima does not relay it. The return text goes in once, through the gate. Git holds the code and the commit hash, never the return text and never books/ (W10).
+
 Parts 7 and 8 come last, after the job items. Each may be empty, with a why (WL:245).
 
 **What the compute adds or checks** (all planned, 7):
@@ -150,17 +163,20 @@ W2 is still open. This is a proposal only.
 
 ## 5. Filled example: the first pack
 
-The first pack from the concept: the handoff sheet and the board, read-only (docs/design/WORK-BOOK-CONCEPT.md:126-149). Values in <...> are placeholders. No real SHA is shown.
+The first pack from the concept: the handoff sheet and the board, read-only. Values in <...> are placeholders. No real SHA is shown.
+
+**Bootstrap exception (proposal, 7; the approval is yours).** Pack 1 cannot pass through the tool it builds. Prima writes its text and AGENTS.md by hand, and it goes in as `pack` with no check (crates/seqaddr-core/src/tail.rs:95-99). It is the first real use of the claim route while the K8 door is open. One time only.
 
 ```
 address:     <page>.05.<NN>                      (compute)
-tail:        draft                               (compute)
+tail:        pack (entered unchecked: bootstrap exception) (compute)
 by:          <Prima's token name>                (compute)
 made at:     <time EST>                          (compute)
 pack hash:   <not available: no hashing yet>     (compute)
 claim:       not claimed                         (compute)
 baseline:    Amalgamour/Workshop prima/build <commit>   (compute)
 pull:        crates/compute/src/lib.rs, crates/compute/src/store.rs,
+             crates/seqaddr-core/src/state.rs,
              crates/compute/tests/               (compute)
 predecessor: none                                (compute)
 matched:     <04NN.keyword>, <07NN.keyword>      (compute)
@@ -168,13 +184,14 @@ authorized:  <approval id, after your 7 to go>   (Prima; compute checks)
 lead:        <lead letters>                      (Prima)
 outcome:     the compute prints the handoff sheet and the board (Prima)
 overview:    t227u:5, t226u:9                    (Prima)
-may touch:   the three paths above               (Prima)
+may touch:   the four paths above                (Prima)
 must not:    books/, kernel/, docs/              (Prima)
 stop if:     a field needs a stored 05.00 (R9), or any write (Prima)
-grant:       read-only; add two routes and one test file (Prima)
+grant:       read-only; add one route, board columns, one test file (Prima)
 risk:        proposed <low>; floor <compute>; effective <compute>
 w01:         handoff sheet route, one slot, fixed shape (Prima)
-w02:         board route, every slot on a jobs face, from the log (Prima)
+w02:         add claim, reviewer, outcome to the existing board
+             (state.rs:296-300), still from the log (Prima)
 checks:      cargo test --workspace; reviewer: no test removed,
              routes write nothing                (Prima)
 read first:  docs/design/PACK-TEMPLATE.md; WL:160, :220 (Prima)
@@ -183,8 +200,8 @@ hand back:   return by part 3                    (compute)
 
 ## 6. Exists today, and planned
 
-- **Exists today:** the tail rules (crates/seqaddr-core/src/tail.rs:79-99). The claim and one-step tail move through the gate, with first claim wins, claim recorded, the return on the same counter, and no builder reviewing its own return (crates/seqaddr-core/src/state.rs:543-581; crates/compute/tests/http.rs:134, :139).
-- **Planned, not seated:** every template in this file; the check step (WL:171, :236-245); the handoff sheet; the prompt box; hashes; delivery ids; the commit check; the AGENTS.md copy. WL:232 still says `7`. No hash or delivery-id code exists in crates/compute or crates/seqaddr-core today.
+- **Exists today:** the tail rules (crates/seqaddr-core/src/tail.rs:79-99). The claim and one-step tail move through the gate, with first claim wins, claim recorded, the return on the same counter, and no builder reviewing its own return (crates/seqaddr-core/src/state.rs:543-581; crates/compute/tests/http.rs:134, :139). A board of tails, built from the counters, never stored (crates/seqaddr-core/src/state.rs:296-300; crates/seqaddr-core/src/resolve.rs:182-188).
+- **Planned, not seated:** every template in this file; the check step (WL:171, :236-245); the handoff sheet; the board's claim, reviewer and outcome columns; the prompt box; hashes; delivery ids; the commit check; the AGENTS.md copy. WL:232 still says `7`. No hash or delivery-id code exists in crates/compute or crates/seqaddr-core today.
 
 ## 7. Open questions, top three first
 
@@ -214,11 +231,11 @@ Carried, not repeated: W2 (AGENTS.md slot), W9 (return on the same counter), W11
 3. **Why.** A review must match what it read (R37 item 4). Who gets hurt: you, approving a page that changed after review.
 4. **Axioms checked.** 6 [Axioms.md:23] pass. 9 [Axioms.md:29] pass: review binds to a version. 7 [Axioms.md:25] tension: method not chosen.
 
-### P5. Does the template live in code first?
-1. **Question.** The first pack needs the sheet shape before templates are seated (W13). Put it in code for now?
-2. **Proposed answer (Designer, 7).** Yes, in code, marked as a copy of this file, until the kernel template is seated.
-3. **Why.** You get the prompt box sooner. Who gets hurt otherwise: you, waiting; or every worker, if the code copy outlives the seated one.
-4. **Axioms checked.** 2 [Axioms.md:15] tension: a second copy. 8 [Axioms.md:27] pass: it names this file. 7 [Axioms.md:25] pass: marked `7`.
+### P5. Where does the sheet shape live?
+1. **Question.** The sheet shape belongs with the seated templates (W13; Tester, WORK-BOOK-CONCEPT-CHECK.md:137-138). Pack 1 needs it before they are seated. What then?
+2. **Proposed answer (Designer, 7).** Seat it in the W13 set. For Pack 1 only, a code copy that names this file, as part of the bootstrap exception, ending the day the template is seated (Tester's option, WORK-BOOK-CONCEPT-CHECK.md:155-156).
+3. **Why.** You get the prompt box sooner, and the copy has an end. Who gets hurt otherwise: every worker, if the code copy outlives the seated one.
+4. **Axioms checked.** 2 [Axioms.md:15] tension: a second copy, for a time. 1 [Axioms.md:13] pass: you approve the exception. 8 [Axioms.md:27] pass: it names this file. 7 [Axioms.md:25] pass: marked `7`.
 
 ## Differences from Prima's list
 
@@ -228,3 +245,4 @@ Carried, not repeated: W2 (AGENTS.md slot), W9 (return on the same counter), W11
 - Risk is shared: Prima proposes, the compute records the floor (WL:114). It is the one field with two writers, as WL says.
 - Hashes: no hash code exists today. They are planned.
 - The return order Prima gave matches your sentence, but not the concept's list (P1).
+- Prima's add-on says the sheet shape goes in a seated template, not code. Agreed as the goal. For Pack 1 only, I keep Tester's option of a named code copy with an end date (WORK-BOOK-CONCEPT-CHECK.md:155-156), since nothing is seated yet (P5).
