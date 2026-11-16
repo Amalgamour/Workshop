@@ -188,3 +188,17 @@ Read: for a general query, the compute finds the pages holding the key word and 
 ## R36 — 2026-11-16 12:25 PM EST — face 00 is like a registry: locked fields and open fields (t200u, answering C22 after Prima's t198s761)
 Director's words: "Ok so on face 00 think of it like windows registry. We have fields that nevere change and lock, like it's address, it's title, it's page type. Others could change. We can have a split on this."
 Read: face 00 is split into two kinds of fields. Locked fields (address, title, page type, and any others named later) are set once and never change. Open fields may change, so R25's records on 00 can continue. "Once the 00 is done it's locked" (R32) applies to the locked fields. Which fields fall in which group beyond the three named is open. C22 is closed.
+
+## R37 — 2026-11-16 12:56 PM EST — what we carry forward from the Codex Librarian tools (t204u, answering Prima's ranked list in t203s778; review at 65cac98)
+Director's words: "1. I agree 2. I agree 3. I agree 4. Yes, that is good 5. I agree 6. It's good 7. good 8. good 9. Design with a min and a max, so we can shift the amount of logging we do up or down, we don't really know how much information we should be capturing in a log yet. 10. That is good."
+Read: all ten are adopted:
+1. One append-only log is the only source of truth, so a fresh process can rebuild from it.
+2. A return and its next step are saved together, and a delivery id can't change its content.
+3. The compute fills templates, bindings, and hashes, and the model writes only the judgment.
+4. A review is tied to the exact version it read and goes stale when the page changes. A review is a record, not a link (R32).
+5. Selected, pending, and accepted are separate states.
+6. "Couldn't look" is kept separate from "isn't there".
+7. A check before each run confirms every needed file and the expected state.
+8. Refuse with a handback, and stop rather than invent a meaning.
+9. An operation journal, designed with a minimum and maximum level so the amount of logging can be turned up or down. Where it lives (face 09 or a system log) is still open.
+10. Every packet says what it gathered and what it didn't.
