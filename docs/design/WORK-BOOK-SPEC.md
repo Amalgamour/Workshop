@@ -3,12 +3,25 @@
 Draft by Designer, for Matthew (Director). Not a ruling. Nothing here closes a question.
 created: Mon 16 Nov 2026, 2:56 PM EST (Designer)
 
+## Change note (Mon 16 Nov 2026, 4:04 PM EST)
+
+Folds in Tester's hostile pass on a990738 (docs/review/WORK-BOOK-HOSTILE-PASS.md, a32fd7c; verdict "holds with fixes", :8). Each finding was checked against the code and rulings first. All were taken. One was taken in part: `.queue` is tracked by git (`git ls-files books`), so only `.identities` is invisible to a diff.
+- Part C is retitled "narrowing" the door. Its frame now covers every file that holds the token-file path. Its done-check is split into a machine part and a reviewer part.
+- States now use the tail steps the code already has (crates/seqaddr-core/src/tail.rs:80).
+- W1's interim answer now writes state through today's gate, not by hand.
+- B3 adds the `.identities` hash, R37 item 2 in full, and the lost-reply risk.
+- W6 follows R20. W2 says which face-01 rule applies, and fixes the option-A cite. "16 returns" is now 19.
+- The stale "no recorded version" lines are fixed: t212u is at docs/review/DIRECTOR-WORDS-t212u.md (f460153).
+- Added: W8 (is a work page a system page?), "What we need from you" in Part A, and Tester's recommendations on W1 and W3-W6. Nothing is decided.
+- Top three are now W1, W2, W8, because W8 decides whether W2's stored face can change.
+- C2 checked against the same faults and fixed (see C2).
+
 ## Change note (Mon 16 Nov 2026, 3:00 PM EST)
 
 Add-on from Prima (2:59 PM EST), committed on top of 8b75b43:
 - Built on Tester's research, now at 877bc1e (Tester revised it after ab152b6). All research cites below are to 877bc1e.
 - B2 now uses Tester's eight fixed sections and size budget, as proposals (7). The name `AGENTS.md`, the per-job printout from faces 01 + 05, and one fresh worktree per job are also proposals (7). Each was checked against the research file's own lines (B2).
-- Matthew's t212u words (as relayed by Prima; no recorded version in the repo) are in Part A. His idea (AGENTS.md in the page) and Tester's (made fresh per job) are now W2, a top-3 question. Not decided.
+- Matthew's t212u words are in Part A. (At 3:00 PM no recorded version existed; Prima recorded it at docs/review/DIRECTOR-WORDS-t212u.md, f460153.) His idea (AGENTS.md in the page) and Tester's (made fresh per job) are now W2, a top-3 question. Not decided.
 - The "no remote" claim is removed from B4. See the differences line in Part D.
 
 ## Change note (Mon 16 Nov 2026, 2:56 PM EST)
@@ -29,11 +42,17 @@ New file. Asked in Prima's relay at 2:55 PM EST. It describes a book for giving 
 
 > the workflow system is set up as a book for giving out work. Each work page is one piece of work he can hand to Cursor or to Grok Builder. Each work page carries an agents.md saying what the model needs to know and which files to read for that page. Grok Builder is built back into the Workshop design because it is cheap.
 
-**His words in t212u, as relayed by Prima** (grep for "t212u" finds no recorded version in the repo, so this is Prima's relay, not a quote from a file):
+**His words in t212u**, recorded verbatim by Prima (docs/review/DIRECTOR-WORDS-t212u.md:10, f460153; spacing normalised):
 
 > When you build a page you'll include an agents.md in it for explaining what it needs to know. What files it should reference for that page of work.
 
 He puts the agents.md **in the page**. Tester proposes the compute **makes it fresh for each job** (docs/review/WORK-BOOK-RESEARCH.md:17-19). Both are kept; which one is W2.
+
+**What we need from you** (he asked: "Tell me what you need from me to make this possible", docs/review/DIRECTOR-WORDS-t212u.md:10). NEW (proposal, 7):
+1. Answers to the top three: W1, W2, W8.
+2. Who may release pages, and a spending cap (W3).
+3. Where "my local space" is (W7).
+4. Your OK before any push, paid plan, or cloud run (Tester's Q2, WORK-BOOK-RESEARCH.md:189-203).
 
 **His own earlier words that come close** (from the earlier Workshop, quoted exactly, spelling kept):
 - On cheap models: "Yes that is where cheap models come it. We don't have to just haev compute. I see it executing prompts on it's own before handing work back. Likely we can get the cheap models to over perform once the compute is working right. ... You can give compute work, the compute gets the cheap compute to do it, if it's wrong it does it again. We need to start a page on this. How we plan to break up work." [LIB:W/0413.assistants/06.01.md:11]. He does not name Grok here.
@@ -47,7 +66,7 @@ He puts the agents.md **in the page**. Tester proposes the compute **makes it fr
 4. The builder works in the code, not in the books. Books change only through the compute.
 5. The builder hands back a return. A different view checks it before anything is accepted.
 
-**Grok Builder has been here before.** The earlier Workshop had a work book called `00.00.10.work`. Its first job was "Work-book first use and Grok Builder onboarding" [LIB:W/0118.workflow-start-0501/return.md:1]. Grok 4.7 sat as Builder for a scoped job [LIB:W/0408.seats/01.md:19]. 16 returns there name Grok Builder (git grep, LIB at 960d20c). In this repo, Prima's review notes the old desk core was built by the "grok.com builder" (CODEX-LIBRARIAN-TOOLS-REVIEW.md:211). So this design brings it back. It is not new.
+**Grok Builder has been here before.** The earlier Workshop had a work book called `00.00.10.work`. Its first job was "Work-book first use and Grok Builder onboarding" [LIB:W/0118.workflow-start-0501/return.md:1]. Grok 4.7 sat as Builder for a scoped job [LIB:W/0408.seats/01.md:19]. 19 files named `return.md` there name Grok Builder (`git grep -l`, LIB at 960d20c; Tester's count, docs/review/WORK-BOOK-HOSTILE-PASS.md:112-114, which reproduces; my earlier 16 does not). In this repo, Prima's review notes the old desk core was built by the "grok.com builder" (CODEX-LIBRARIAN-TOOLS-REVIEW.md:211). So this design brings it back. It is not new.
 
 ---
 
@@ -61,7 +80,7 @@ He puts the agents.md **in the page**. Tester proposes the compute **makes it fr
 
 **EXISTED BEFORE (LIB).** Each old work page had an assignment, a scope, a release, a claim and a return [LIB:W/0118.workflow-start-0501/return.md:14-80]. Files it was expected to make were listed in `reservation.json` (`expected_outputs`) [LIB:W/0118.workflow-start-0501/reservation.json]. The return was "Did / Blocked / Need" [LIB:W/0101.app-entry-0506/return.md:34-38].
 
-**NEW (proposal, 7).** A work page is an ordinary page in the work book. Its face 04 is the job in plain words. Its faces 01 and 05 are printed as the job's `AGENTS.md` (B2). Its face 05 holds the returns, one counter each (05.01, 05.02). Its face 09 holds who claimed it and when. The book's address is not chosen here (W1).
+**NEW (proposal, 7).** A work page is an ordinary page in the work book. Its face 04 is the job in plain words. Its faces 01 and 05 are printed as the job's `AGENTS.md` (B2). Its face 05 holds the returns, one counter each (05.01, 05.02). Its face 09 holds who claimed it and when. Its page type is a locked face 00 field (R36 [DIRECTOR-RULINGS.md:190]); the type's name is `7`, and whether it is a system page is W8. The book's address is not chosen here (W1).
 
 **Three checks (claims, 9).**
 - **Axioms:** 2 [Axioms.md:15] pass: a work page is the same shape as any page. 5 [Axioms.md:21] pass: the page frames the job: what, why, where to stop, what done is.
@@ -91,7 +110,7 @@ He puts the agents.md **in the page**. Tester proposes the compute **makes it fr
 | 3 | Why | 2-3 lines, then a link to face 04 | goal |
 | 4 | Frame | may touch (exact paths), must not touch, stop if [workflow-loop.003.md:111-112] | files it may touch, stop if |
 | 5 | Work cards | w01, w02 ... [workflow-loop.003.md:122] | (new) |
-| 6 | Checks | exact test commands; says yes or no | done-check |
+| 6 | Checks | exact commands that say pass or fail; any part no command can show (for example "no test removed") is listed separately for the reviewer | done-check |
 | 7 | Hand back | Did / Blocked / Need, commit SHA, check output; through the gate as a proposal; what was gathered and what was not (R37 items 6, 10 [DIRECTOR-RULINGS.md:200, :204]) | hand back |
 | 8 | Links | rulings, axioms and files to read, by address or exact path, opened when needed, not pasted in | must-know rules, files to read |
 
@@ -113,14 +132,14 @@ One change from my first draft: I had "quote the ruling". Tester says link, do n
 - R26: whole books are an export [DIRECTOR-RULINGS.md:103].
 - R37 item 8: "Refuse with a handback, and stop rather than invent a meaning." [DIRECTOR-RULINGS.md:202].
 - R37 item 10: "Every packet says what it gathered and what it didn't." [DIRECTOR-RULINGS.md:204].
-- R37 item 2: "a delivery id can't change its content." [DIRECTOR-RULINGS.md:196].
+- R37 item 2: "A return and its next step are saved together, and a delivery id can't change its content." [DIRECTOR-RULINGS.md:196]. So a return and the page's next step go in as one change (NEW, 7).
 
 **What this means for a work page.**
 - "Files it may touch" never lists `books/`. If a job needs a book changed, the return holds a proposal for the compute. The compute decides (CORE-AND-TOOLS-SPEC.md B1, B12, at 9b555a2).
 - If the builder cannot do the job, it refuses with a handback: what stopped it, and what it would need. It does not guess.
 - The return says what it read and what it did not read. That is R37 item 10 applied to a return.
 
-**The honest gap (EXISTS TODAY).** Today the rule is not a lock. Any program on the box can still write `books/` directly, and the token file sits in `books/` too (CORE-AND-TOOLS-SPEC.md B1; crates/compute/src/store.rs:59, :297). So a builder could break the rule and the compute might not notice. Until K8 step 1 is built, the review must check each return's diff for `books/` paths. That is why the worked example (Part C) is that job.
+**The honest gap (EXISTS TODAY).** Today the rule is not a lock. Any program on the box can still write `books/` directly, and the token file sits in `books/` too (CORE-AND-TOOLS-SPEC.md B1; crates/compute/src/store.rs:59, :297). So a builder could break the rule and the compute might not notice. Until K8 step 1 is built, the review checks each return's diff for `books/` paths. A diff cannot see everything: `books/.identities` is ignored by git (.gitignore:5), so a builder that adds a director token leaves no diff (docs/review/WORK-BOOK-HOSTILE-PASS.md:29-34). NEW (proposal, 7): the compute records the sha256 of `books/.identities` before and after each job, and the review compares them. `books/.queue` is tracked by git, so the diff shows it; it also changes on every compute write (crates/compute/src/store.rs:744-749), so a hash of it alone proves nothing. Returns also go through the gate, and a retried proposal books twice today (CORE-AND-TOOLS-SPEC.md:342, K4). That is why the worked example (Part C) is that job.
 
 **Three checks (claims, 9).**
 - **Axioms:** 1 [Axioms.md:13] tension: "Compute enforces it" is true only through the gate today (CORE-SPEC-HOSTILE-PASS.md:212). 3 [Axioms.md:17] pass: code work goes to a model; book writes stay with compute.
@@ -145,8 +164,8 @@ One change from my first draft: I had "quote the ruling". Tester says link, do n
 | Measured as better or worse | No. "No general assistance benefit or model ranking can be measured from this first delivery." [LIB:W/0703.prime-replay/REPORT.md:5-6] | Same |
 
 **NEW (proposal, 7): how to pick.** Pick by the page:
-1. If the done-check is a command the compute can run (a test, a build), the page can go to the cheaper builder first. Matthew's own words fit this: "if it's wrong it does it again" [LIB:W/0413.assistants/06.01.md:11].
-2. If it fails the done-check twice, stop. Raise it to Prima, who may give it to the other builder. No endless retries (the old design said the same: "not infinite reruns" [LIB:W/0413.assistants/06.01.md:19]).
+1. If the whole done-check is a command the compute can run (a test, a build), the page can go to the cheaper builder first. A check that is partly judgment counts as judgment (Tester, docs/review/WORK-BOOK-HOSTILE-PASS.md:151-152). Matthew's own words fit this: "if it's wrong it does it again" [LIB:W/0413.assistants/06.01.md:11].
+2. The second try carries the first failure. If it fails twice, stop. Raise it to Prima, who may give it to the other builder. The old design: "Retry wrong outputs with diagnostic evidence, not infinite reruns" [LIB:W/0413.assistants/06.01.md:19].
 3. If the job needs judgment that no command can check (design, wording, a ruling's meaning), it does not go to either builder alone. It goes to a lead with a review.
 4. Cheapness never moves a decision. The old page said: "Cheapness alone is not grounds to move semantic authority" [LIB:W/0413.assistants/01.md:34-35].
 
@@ -164,7 +183,7 @@ Tester's option D is close: small bounded cards to Grok Build, jobs that need a 
 **EXISTED BEFORE (LIB).** Matthew released a page in his own words, for example: "Read and execute: ... I release this batch. ... Return on that page for Codex Prime review." [LIB:W/0101.app-entry-0506/return.md:21-29]. The claim named the model, session, date and commit [LIB:W/0101.app-entry-0506/return.md:14]. "No other Builder may edit this batch while a claim is active. There is no automatic claim enforcement." [LIB:W/0118.workflow-start-0501/return.md:79-80].
 
 **NEW (proposal, 7).**
-- States, kept apart (R37 item 5 [DIRECTOR-RULINGS.md:199]): drafted, released, claimed, returned, accepted.
+- States, kept apart (R37 item 5 [DIRECTOR-RULINGS.md:199]): use the tail steps the code already has, "draft -> pack -> open -> return -> review -> closed" (crates/seqaddr-core/src/tail.rs:80), not new names (axiom 2, "do not reinvent what already exists" [Axioms.md:15]). NEW (7): a release is the line that moves a pack to `open`; a claim is a face 09 line on an `open` page, not a state. How these map to core B15's selected, pending and accepted is CORE-AND-TOOLS-SPEC.md B15.
 - The compute enforces one claim at a time, which the old book could not.
 - A return is tied to the exact version of the page it worked from. If the page changes, the return goes stale (R37 item 4 [DIRECTOR-RULINGS.md:198]).
 - Who may release is W3.
@@ -176,23 +195,24 @@ Tester's option D is close: small bounded cards to Grok Build, jobs that need a 
 
 ---
 
-## Part C. Worked example: K8 step 1, closing the direct-write door
+## Part C. Worked example: K8 step 1, narrowing the direct-write door
 
-**This is an example of a proposal (7), not a ruling.** K8 is open (CORE-AND-TOOLS-SPEC.md, K8). Tester's answer to K8 is a recommendation, not a ruling (CORE-SPEC-HOSTILE-PASS.md:243-256). The page shows the shape only. It is not released.
+**This is an example of a proposal (7), not a ruling.** K8 is open (CORE-AND-TOOLS-SPEC.md, K8). Tester's answer to K8 is a recommendation, not a ruling (CORE-SPEC-HOSTILE-PASS.md:243-256). The page shows the shape only. It is not released. It **narrows** the door; it does not close it. Only OS permissions close it (CORE-AND-TOOLS-SPEC.md:236), and that needs the box, not code, so it is a later page (docs/review/WORK-BOOK-HOSTILE-PASS.md:15-22).
 
 ```text
-work page: (address not chosen, W1)        title: close-the-door
-state: drafted (example only; K8 is open)
-builder: either (done-check is a test, B4 rule 1)
+work page: (address not chosen, W1)        title: narrow-the-door
+state: draft (example only; K8 is open)
+builder: not chosen (part of the done-check is judgment, B4 rule 1)
 
 ## AGENTS.md (sections per B2; where it lives is W2)
-1. Header: page (not chosen).close-the-door, pack 05.01, approval
+1. Header: page (not chosen).narrow-the-door, pack 05.01, approval
    (none: K8 open), base hash (filled by compute), lead 3MC (example)
    stamp: Designer, Mon 16 Nov 2026, version 001
 
 2. Done looks like
-   All tests pass, none removed, and each card w01-w04 has a new
-   test that failed before the fix and passes after it.
+   machine: all tests pass; each card w01-w04 has a new test.
+   reviewer: no test removed; each new test failed before the fix
+   (the test command shows neither: HOSTILE-PASS:64-69).
 
 3. Why
    A forged "director" line written straight into a book is loaded
@@ -200,7 +220,11 @@ builder: either (done-check is a test, B4 rule 1)
 
 4. Frame
    may touch: crates/compute/src/store.rs, crates/compute/src/identity.rs,
-              crates/compute/src/main.rs, crates/compute/tests/ (new files)
+              crates/compute/src/main.rs, crates/compute/src/lib.rs,
+              crates/trial-compute/src/lib.rs, scripts/dev.sh
+              (all hold the token-file path: lib.rs:94, :117;
+              trial-compute lib.rs:64-66; dev.sh:14),
+              crates/compute/tests/ (new files)
    must not touch: books/, kernel/, docs/spec/, docs/design/
    stop if: the fix needs a new OS account or file permissions on the
             box (docs/design/SEQ-FILE-PLAN.md:596). Hand back.
@@ -216,8 +240,9 @@ builder: either (done-check is a test, B4 rule 1)
 
 7. Hand back
    Did / Blocked / Need. Commit SHA. Check output. Which cards it
-   did not do, and why. Anything found changed in books/: say it,
-   do not fix it. What it read and what it did not.
+   did not do, and why. sha256 of books/.identities before and
+   after (never its contents). Anything found changed in books/:
+   say it, do not fix it. What it read and what it did not.
 
 8. Links (open when needed)
    docs/spec/DIRECTOR-RULINGS.md:159 (R33 item 1); docs/spec/Axioms.md:13
@@ -246,7 +271,7 @@ builder: either (done-check is a test, B4 rule 1)
 
 ```text
 work page: (address not chosen, W1)        title: local-workshop
-state: drafted (example only)       builder: Cursor (his words, t212u:6)
+state: draft (example only)       builder: Cursor (his words, t212u:6)
 
 ## AGENTS.md (sections per B2; where it lives is W2)
 1. Header: page (not chosen).local-workshop, pack 05.01, approval (none),
@@ -254,10 +279,10 @@ state: drafted (example only)       builder: Cursor (his words, t212u:6)
    lead 3MC (example). stamp: Designer, Mon 16 Nov 2026, version 001
 
 2. Done looks like (NEW)
-   In <LOCAL-SPACE>: all tests pass; the compute starts and its boot
-   report lists every book it loaded or refused; one test change goes
-   in through /propose and is read back; the kernel builder writes to
-   export/ and refuses books/.
+   machine, in <LOCAL-SPACE>: all tests pass; /health answers; the
+   w05 change reads back; the kernel builder writes export/.
+   reviewer: the boot report lists every book as loaded or refused,
+   and none refused without a reason.
 
 3. Why
    He asked for it: t212u:6. Books change only through the compute
@@ -272,11 +297,15 @@ state: drafted (example only)       builder: Cursor (his words, t212u:6)
      kernel/parked/, target/, export/ from the source repo (NEW:
      history and reviews, not needed to run)
    stop if: <LOCAL-SPACE> is not named; a step needs a book written
-     by hand; a step needs the token file shared from our box. Hand back.
+     by hand; a step needs the token file shared from our box; a tool
+     (Rust, Node) or a download cache must be written outside
+     <LOCAL-SPACE> (cargo and npm caches live there; needs his OK,
+     W7). Hand back.
 
 5. Work cards (NEW)
    w01 get the code at the named commit into <LOCAL-SPACE>
-   w02 build and test: cargo test --workspace --offline
+   w02 build and test: cargo test --workspace (--offline works only
+       once the crates are already fetched)
    w03 start it with scripts/dev.sh (makes its own books/.identities;
        known gap: that file sits in books/, CORE-AND-TOOLS-SPEC.md B1)
    w04 run the kernel builder to export/ (kernel/build.mjs:31, :842)
@@ -291,7 +320,8 @@ state: drafted (example only)       builder: Cursor (his words, t212u:6)
    Refusal: if it cannot go on, it stops and says what stopped it and
    what it needs. It does not guess a path or a meaning.
    Packet: what it read, what it left out (the list in 4, and anything
-   else), what it did not run, and what it found but did not fix.
+   else), what it did not run, and what it found but did not fix;
+   that books/.identities was made, and its sha256, never its contents.
 
 8. Links (open when needed)
    README.md; docs/spec/AGENTS.md; docs/spec/format.md;
@@ -300,7 +330,7 @@ state: drafted (example only)       builder: Cursor (his words, t212u:6)
    scripts/dev.sh; kernel/build.mjs:31, :842
 ```
 
-**R33 check.** Cursor builds code and runs the exporter. It never writes a book. The only book writes are the local compute's own, through `/propose`. The one honest gap is B1's: the local compute's door is no more closed than ours until K8 step 1 is built.
+**R33 check.** Cursor builds code and runs the exporter. It never writes a book. The tracked books arrive with the code as a byte-for-byte copy (`git ls-files books`), which changes nothing. The only book writes are the local compute's own, through `/propose`. The one honest gap is B1's: the local compute's door is no more closed than ours until K8 step 1 is built.
 
 **Three checks (claims, 9).**
 - **Axioms:** 2 [Axioms.md:15] pass: the local books inherit the kernel and write only the difference. 7 [Axioms.md:25] pass: the unnamed place stays `7`, not guessed. 8 [Axioms.md:27] tension: a second copy of the kernel on his machine is a copy; how it stays in step is not designed (W7).
@@ -322,7 +352,8 @@ Tester's file is `docs/review/WORK-BOOK-RESEARCH.md` (ab152b6, revised at 877bc1
 Tester's own questions are carried by reference, not answered: Q1 (stored or printout, :182-187) is part of W2 here. Q2 (should Cursor cloud agents work from prima/build, :189-203) is a separate Director question: pushes, merges and the paid plan are Matthew's call. Tester's "No source found" list (:205-215) stays open.
 
 **Differences.**
-- t212u is now recorded verbatim at docs/review/DIRECTOR-WORDS-t212u.md:6-10 (Prima, f460153). Parts A and the 3:00 PM change note, which say no recorded version exists, predate it; C2 quotes the file.
+- t212u is recorded verbatim at docs/review/DIRECTOR-WORDS-t212u.md:6-10 (Prima, f460153). Part A and the 3:00 PM change note now cite it.
+- Tester's hostile pass (docs/review/WORK-BOOK-HOSTILE-PASS.md, a32fd7c) tested a990738, not C2 or W7. Its own inputs (research, B2 table, W2's fresh side) were "Not trialed here" and need another view (:173-186).
 - Remote: at ab152b6 the research said "Our build branch has no remote" (docs/review/WORK-BOOK-RESEARCH.md:21 at ab152b6). Prima says the code is on GitHub at Amalgamour/Workshop, branch prima/build. Tester fixed it at 877bc1e (:20-23: "Only the local copy has no remote"). This file does not repeat the no-remote claim. The local clone has no remote set (`git remote -v` is empty), which fits Tester's fix.
 - Where AGENTS.md lives: Matthew (t212u, relayed) says in the page; Tester says made fresh per job (:17-19, :112-113). Held as W2.
 - Name: Prima's relay and Matthew write "agents.md"; Tester proposes `AGENTS.md` (:15-16). Same file; the case is a proposal (7).
@@ -331,28 +362,38 @@ Tester's own questions are carried by reference, not answered: Q1 (stored or pri
 
 ## Part E. Open questions
 
-Matthew's four-part form (t189u). Proposed answers only. Top three first.
+Matthew's four-part form (t189u). Proposed answers only. Top three first: W1, W2, W8 (re-ranked after Tester's pass; W8 decides whether W2's stored face can change). Then W3-W7.
 
 ### W1 (TOP). Is the work book a real book, written through the compute?
 
 1. **Question.** Should work pages be real pages in a real book, changed only through the compute, like every other book?
-2. **Proposed answer.** Yes. Give it its own book. Until the compute can write it safely (K8 step 1), keep drafts as export files marked draft, and let Prima keep the state by hand.
+2. **Proposed answer.** Yes. Give it its own book, and write its state lines through today's gate from day one. The open door is the same risk for every book; keeping state by hand would put a memory above the log (R37 item 1, "One append-only log is the only source of truth" [DIRECTOR-RULINGS.md:195]; docs/review/WORK-BOOK-HOSTILE-PASS.md:43-49).
+   **Tester's recommendation (docs/review/WORK-BOOK-HOSTILE-PASS.md:122-129):** yes, through today's gate; one work book per build, retired to the shelf when done (R31 item 6, a book is "a working journal" [DIRECTOR-RULINGS.md:139]).
 3. **Why.** R33 item 1: books change through compute [DIRECTOR-RULINGS.md:159]. Who gets hurt otherwise: you, if two builders both think they hold the same job.
 4. **Axioms checked.** 1 [Axioms.md:13] tension: the gate is not a lock yet. 2 [Axioms.md:15] pass: same shape as any book. 6 [Axioms.md:23] pass: claims and returns become lines. 7 [Axioms.md:25] pass.
 
 ### W2 (TOP). Does the AGENTS.md live in the page, or is it made fresh for each job?
 
 1. **Question.** You said a page should "include an agents.md in it" (t212u, as relayed by Prima). Tester proposes the compute makes it fresh for each job from faces 01 and 05, and nothing is stored (docs/review/WORK-BOOK-RESEARCH.md:17-19, :182-187). Which should it be?
-2. **Proposed answer (serves both; a proposal, 7).** Both, with one source. The page stores its `AGENTS.md` as face 01, written only through the compute, as you said. That fits the workflow, which already has "an agents.md-style face 01" [workflow-loop.003.md:87]. For each job, the compute writes a copy into that job's worktree: face 01 plus the job's face 05 pack, with the page's version and a hash in the header (Tester option A, :160-162). The builder never edits either. If the page changes, old copies go stale (R37 item 4 [DIRECTOR-RULINGS.md:198]).
-3. **Why.** You can open the page and read what the builder was told. The builder gets the job's part only. Who gets hurt otherwise: you, if the only copy is a file that is gone after the job (stored nowhere); or the builder, if it reads a stored file that has gone out of date (stored only).
+2. **Proposed answer (serves both; a proposal, 7).** Both, with one source. The page stores its `AGENTS.md` as face 01, written only through the compute, as you said. That fits the workflow, which already has "an agents.md-style face 01" on an N4 page [workflow-loop.003.md:87]. It does not fit a normal page, where "faces 01 and 02 usually hold only key words" (R33 item 2 Read, held 7 [DIRECTOR-RULINGS.md:162]), nor the research's face 01, "the page's meaning, in model cards" (WORK-BOOK-RESEARCH.md:116). So this answer treats a work page as a workflow page. For each job, the compute writes a copy into that job's worktree: face 01 plus the job's face 05 pack, with the page's version and a hash in the header. (Tester's option A keeps the hash in the hand back and face 09, WORK-BOOK-RESEARCH.md:160-162; the header is mine, NEW.) If W8 makes a work page a system page, face 01 freezes once linked [DIRECTOR-RULINGS.md:170].
+   **Tester's option, not an answer (docs/review/WORK-BOOK-HOSTILE-PASS.md:131-139):** keep the brief in the face 05 pack, "an agents.md-style build list" [workflow-loop.003.md:99], which gives "an agents.md in it" without touching face 01. Tester gave no answer to W2, because one side of it is Tester's own research. The builder never edits either. If the page changes, old copies go stale (R37 item 4 [DIRECTOR-RULINGS.md:198]).
+3. **Why.** You can open the page, by its title, and read what the builder was told; the address stays back end (R31 item 8 [DIRECTOR-RULINGS.md:143-144]). The builder gets the job's part only. Who gets hurt otherwise: you, if the only copy is a file that is gone after the job (stored nowhere); or the builder, if it reads a stored file that has gone out of date (stored only).
 4. **Axioms checked.** 1 [Axioms.md:13] pass: the stored face governs; the copy never outranks it. 2 [Axioms.md:15] tension: a copy is what axiom 2 warns about; the hash and the no-edit rule limit the drift but do not remove it. 6 [Axioms.md:23] pass: each copy names the page version it came from. 8 [Axioms.md:27] pass: "a copy ... never becomes what it points to". 9 [Axioms.md:29] tension: untried on either builder.
 
-### W3 (TOP). Who may release a work page to a builder?
+### W8 (TOP). Is a work page a system page?
+
+1. **Question.** System pages "freeze once linked (faces 00-04)" (R34 [DIRECTOR-RULINGS.md:170]), and page type is a locked face 00 field (R36 [DIRECTOR-RULINGS.md:190]). Is a work page a system page? (Raised by Tester, docs/review/WORK-BOOK-HOSTILE-PASS.md:55-58; Tester gave no answer.)
+2. **Proposed answer (Designer's, 7).** No. A work page is persistent work in a book (kernel-design.md:83), and you read it, while system pages are "backend and designed for control not for user to access" [DIRECTOR-RULINGS.md:169]. Its type gets its own locked name (`7`). Its brief can change until a pack is released; each return is bound to the version it read (R37 item 4 [DIRECTOR-RULINGS.md:198]).
+3. **Why.** If it were a system page, a stored face 01 brief (W2) would freeze once linked, and "if the page changes" could not happen. Who gets hurt: you, unable to fix a wrong brief except by a new page.
+4. **Axioms checked.** 1 [Axioms.md:13] pass: you decide the type. 2 [Axioms.md:15] pass: same shape as other content pages. 6 [Axioms.md:23] pass: returns bind to versions. 7 [Axioms.md:25] pass: the type name stays `7`. 9 [Axioms.md:29] tension: untried.
+
+### W3. Who may release a work page to a builder?
 
 1. **Question.** Do you release every work page yourself, or may Prima release pages inside a scope you approve?
 2. **Proposed answer.** You release the first few yourself. After that, Prima may release pages inside an approved scope, as delegation already allows ("only to the extent delegated" [workflow-loop.003.md:89]). Every release is a line with who and when.
 3. **Why.** Authority is granted, never claimed [Axioms.md:13]. Who gets hurt otherwise: you, if every small job waits on you; or you, if a job goes out you did not mean to send.
 4. **Axioms checked.** 1 [Axioms.md:13] pass. 6 [Axioms.md:23] pass. 3 [Axioms.md:17] tension: "A lead is not authority", so Prima releasing needs a written grant.
+5. **Tester's recommendation (docs/review/WORK-BOOK-HOSTILE-PASS.md:141-148):** you release the first few; then Prima, inside a written grant that names the scope and a spending cap, because a release spends money. Option: a cap per page (turns or dollars) set by you.
 
 ### W4. What decides Cursor or Grok Builder for a page?
 
@@ -360,6 +401,7 @@ Matthew's four-part form (t189u). Proposed answers only. Top three first.
 2. **Proposed answer.** Yes, as a starting rule, written on each page with its reason.
 3. **Why.** Your words: "if it's wrong it does it again" [LIB:W/0413.assistants/06.01.md:11]. Who gets hurt otherwise: you, paying more, or getting a weaker job with no check.
 4. **Axioms checked.** 3 [Axioms.md:17] pass. 4 [Axioms.md:19] pass: the reason is written. 9 [Axioms.md:29] tension: "cheaper" is untried.
+5. **Tester's recommendation (docs/review/WORK-BOOK-HOSTILE-PASS.md:150-156):** the B4 rule, plus: a check that is partly judgment counts as judgment, and the second try carries the first failure. (Both are now in B4.)
 
 ### W5. Do we record cost per job?
 
@@ -367,13 +409,15 @@ Matthew's four-part form (t189u). Proposed answers only. Top three first.
 2. **Proposed answer.** Yes, when the builder can report it. "Unknown" is a fine answer; never a guess.
 3. **Why.** No source has a cost today [LIB:W/0173.prime-replay-grok-02/return.md:17]. Who gets hurt: you, choosing builders on a feeling.
 4. **Axioms checked.** 7 [Axioms.md:25] pass: unknown stays unknown. 9 [Axioms.md:29] pass.
+5. **Tester's recommendation (docs/review/WORK-BOOK-HOSTILE-PASS.md:158-163):** yes: time, tries, tokens, dollars; keep "not reported" apart from "zero" (R37 item 6 [DIRECTOR-RULINGS.md:200]).
 
 ### W6. Who reviews a return?
 
-1. **Question.** Should every return get a hostile pass from a different model before it is accepted?
-2. **Proposed answer.** Yes. Tester by default. The builder's own done-check is not enough.
+1. **Question.** Should every return get a hostile pass from a different view before it is accepted?
+2. **Proposed answer.** Yes, by a different view as R20 defines it: "a fresh session of the same model counts as a different view" [DIRECTOR-RULINGS.md:79]. Tester by default. The builder's own done-check is not enough.
 3. **Why.** The old replay: two builders missed files "because their top-level artifact checks passed" [LIB:W/0703.prime-replay/REPORT.md:15-16].
 4. **Axioms checked.** 9 [Axioms.md:29] pass. 1 [Axioms.md:13] pass.
+5. **Tester's recommendation (docs/review/WORK-BOOK-HOSTILE-PASS.md:165-171):** yes, by a different view as R20 defines it, not only Tester, since one reviewer is a queue. Option: the reviewer must not be the page's writer.
 
 ### W7. What is "my local space", and does it stay in step with ours?
 
@@ -386,10 +430,10 @@ Matthew's four-part form (t189u). Proposed answers only. Top three first.
 
 ## Part F. Marked NEW or 9, because no source says it
 
-- Grok Builder is cheap: Prima's relay of Matthew; the only prices are Tester's dated snapshot (docs/review/WORK-BOOK-RESEARCH.md:87-91), not re-checked here. Cheap per accepted job: **9.**
+- Grok Builder is cheap: Prima's relay of Matthew; the only prices are Tester's dated snapshot (docs/review/WORK-BOOK-RESEARCH.md:90-94), not re-checked here. Cheap per accepted job: **9.**
 - Grok Builder is cheaper than Cursor per accepted job: **9.**
 - Either builder is better at a kind of work: no source measures it [LIB:W/0703.prime-replay/REPORT.md:5-6]. **9.**
-- The eight sections, size budget, per-job printout and worktree (Tester's proposals); the stored face 01 plus copy (W2); the pick rule, the two-fail stop, the states list, compute-enforced claims: **NEW (7).**
+- The eight sections, size budget, per-job printout and worktree (Tester's proposals); the stored face 01 plus copy (W2); the pick rule, the two-fail stop, the release and claim lines on the tail steps, compute-enforced claims, the `.identities` hash, "What we need from you", W8's answer: **NEW (7).**
 - The work book's address: not chosen. **7.**
 
 ## Sources
