@@ -162,3 +162,27 @@ Not a conflict: Cursor keeps every face as readable text. Your t171u answer says
 - Whether our code has a "face 04 copies face 01" warning. A grep found none; not a full read.
 - Our test count (359) is a grep of `#[test]`; I did not run our tests in this review.
 - Who answered Cursor's four questions on 11 Nov. Its book says "the person". (cursor:cursor/temp.book line 40.) I did not confirm it was you.
+
+## Cursor's answers to our 10 questions (relayed by Matthew, t186u, 2026-11-16 11:50 AM EST)
+
+These are summarized from Cursor's reply. Its file:line cites point into cursor/build and were not re-checked here.
+
+1. Stale faces: a seated face can be created only once (core/src/book.rs:245). The revise steps in format.md (~:94) were still marked proposed, so Cursor didn't build them, and new truth went into face 06 notes (cursor/temp.book:105). What it would build now: re-seating for 05, a change log plus snapshots for 04, and locked linked pages with rework done as a new copy. That matches R24, R29, R30, and R31.
+2. Draft and final slot: one address holds one body, and the tail is a field on the face (book.rs:148). Work counters walk draft, pack, open, return, review, closed (book.rs:426). Content faces can only go to retired (book.rs:437). A draft could never become the seated body, because promote was never built.
+3. Times: they were typed-in constants (core/examples/record_pass2.rs:8, record_seq_design.rs:8), chosen so the notes would read in pass order, which made n 143 earlier than n 142. Cursor would have the writer read the clock and refuse a time earlier than the line above, leave the old lines, and add a note that n 143's clock is wrong.
+4. Gate: writes are tried on a copy, and the file changes only if no NEW hard gap appears (compute/src/lib.rs:186, :222; core/src/check.rs:32). The hard gaps are a missing why, an empty why, or a bad page shape. Findings such as a copied why (check.rs:54) are ignored, so a face 04 that repeats 01 would pass. The record programs wrote through Writer and skipped the gate entirely.
+5. A new page all at once: one proposal carries the stamp, the first content face, and the 04 why. It's applied on a copy, and either all of it is appended or none (format.md:100). Under R26, the small page file appears whole or not at all.
+6. Face 09: it's unassigned in seqpage/src/lib.rs:393, so history went into 06. Pass reports and stale notes would move to 09, while a person's working notes stay in 06.
+7. Every read reloads and replays the whole file (book.rs:43). That would get slow somewhere past a few tens of thousands of lines (Cursor's estimate). Cursor's first fix: keep the book in memory, plus a snapshot line (format.md:104).
+8. A real catch: a page saved from PowerShell gained a carriage return on every line, and the seq check refused it (temp.book:145). The tool was then fixed to write plain newlines.
+9. What Cursor would change after reading our rulings: face 00 becomes a registry, 05 gets re-seated, faces other than 04 become compact, small page files become the stored form, history moves to 09, 04 gets a change log and snapshots, links name the page plus title (Cursor's point at faces, temp.book:119), and registered, linked pages lock.
+10. Server: it sends Access-Control-Allow-Origin: * (compute/src/http.rs:235) but listens only on 127.0.0.1 (:83), so any page in this machine's browser can call it. Cursor's view: the person (through the Workshop page) and models may propose, the compute decides, and other sites are refused.
+
+### Lessons for our build (Prima, 2026-11-16)
+- L1. Unbuilt "proposed" steps turn into stale data. Every rule a face relies on (revise, promote, reseat) must be built before that face is seated.
+- L2. Every write goes through one gate. Cursor's record programs skipped its gate, so check that our kernel builder and any tools also go through the compute.
+- L3. Clocks come from the system, and a time earlier than the line above is refused. Never type times in by hand (honesty, t180u).
+- L4. The gate should also refuse a copied why, such as a face 04 that repeats 01, not just note it.
+- L5. Line-ending and encoding checks catch real mistakes. Keep the carriage-return refusal.
+- L6. Our compute server must refuse calls from other sites. Check whether ours allows any origin.
+- L7. Moving notes into face 09 means splitting person notes (06) from system history (09). Our plan should say which is which.
