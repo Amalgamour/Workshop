@@ -2,7 +2,7 @@
 
 state: draft plan, `7` (open). Not a ruling. Nothing here is law.
 made: Mon 16 Nov 2026, Designer (design partner for Prima). Director: Matthew, the only approver.
-revised: Mon 16 Nov 2026, after Director answers t171u (11:16 AM EST) and t172u (11:17 AM EST), Tester's stress test (50fdfac), Director rulings t175u (11:24 AM EST), and Tester's stress test 2 (e99665e), Director ruling R31 (t184u, 11:47 AM EST, entered by Prima in f2c8459), Tester's prototype results (SEQ-PROTO-RESULTS.md, 7697815), Director ruling R32 (t191u, 12:02 PM EST, entered by Prima in ff60c28, time fixed in 7289c45), Director ruling R33 items 1, 3 and 4 (t192u, 12:06 PM EST, entered by Prima in 865b880), and Director ruling R34 (t195u, 12:16 PM EST, entered by Prima in a8e8dd3), all relayed by Prima. See "Changes since 29ec433".
+revised: Mon 16 Nov 2026, after Director answers t171u (11:16 AM EST) and t172u (11:17 AM EST), Tester's stress test (50fdfac), Director rulings t175u (11:24 AM EST), and Tester's stress test 2 (e99665e), Director ruling R31 (t184u, 11:47 AM EST, entered by Prima in f2c8459), Tester's prototype results (SEQ-PROTO-RESULTS.md, 7697815), Director ruling R32 (t191u, 12:02 PM EST, entered by Prima in ff60c28, time fixed in 7289c45), Director ruling R33 items 1, 3 and 4 (t192u, 12:06 PM EST, entered by Prima in 865b880), Director ruling R34 (t195u, 12:16 PM EST, entered by Prima in a8e8dd3), and Director ruling R35 (t197u, 12:20 PM EST, entered by Prima in 8f6e9a7), all relayed by Prima. See "Changes since 29ec433".
 why: Matthew asked today (16 Nov 2026, 11:04 AM EST, passed on by Prima) for a design plan for the book file. He said a book is a .seq file, it is basically a self-contained database file, and it should work like a pyramid.
 status of every idea below: Matthew's first ideas from today are marked "Matthew's idea, 16 Nov 2026". His later answers are marked "Director answer, t171u (relayed by Prima)" or "t172u". His rulings of 11:24 AM EST are marked "Director ruling, t175u (relayed by Prima)". His answers of 11:47 AM EST are marked "R31, n" and those of 12:02 PM EST "R32, n" (item n of Prima's entry). Every question for Matthew follows his standing rule (t189u): the question, a proposed answer, the why, and the axiom lines checked, each marked pass or tension. Prima entered them in DIRECTOR-RULINGS.md as R26-R30 (commit e1a60aa) R31 (commit f2c8459), R32 (commits ff60c28, 7289c45), R33 (commit 865b880) and R34 (commit a8e8dd3); this plan cites those entries and does not number or edit rulings. Anything not found in a Workshop source is marked "New (not in any source)". Rulings R1-R25 are quoted only where they already exist.
 does not: edit DESIGN.md, DIRECTOR-RULINGS.md, the kernel, the core, or any spec file; close any QD question; write a 00.counter; seat anything.
@@ -27,6 +27,8 @@ Each page's log and each signpost carries a check number (the *chain*), starting
 
 Face 04 is the person's face and stays plain text. Other faces may be compact computer code. Addresses are back end only; people see titles. A book is a working journal, retired to the shelf when its work is done, possibly partly complete. Face 09 is the page's log; face 00 keeps no log.
 
+Any page may have a menu on face 03, written by the computer, listing its sections. The model reads the menu first and loads only the sections it needs (R35). Copied text is checked in order: the computer first, by its rules; then the model; then a person if the model is not highly sure. The details are in `docs/design/SECTIONS-AND-CARDS.md`.
+
 Matthew asked that every question come with a proposed answer, the reason, and the axioms it was checked against. The open choices are written that way. The top three: when is face 00 "done", and where do later records go once it is locked (held for more explanation)? When an address lookup reaches a retired page, does it stop there or fall through to the shelf's page with the same number? And when several pages share a title, how does a title search avoid picking the wrong one?
 
 ---
@@ -50,6 +52,7 @@ Matthew asked that every question come with a proposed answer, the reason, and t
 - **Director ruling R32 (t191u, 12:02 PM EST) folded in** (entered by Prima at [DIRECTOR-RULINGS.md:150]-[DIRECTOR-RULINGS.md:156], commits ff60c28 and 7289c45; not edited). C15, C16 and C17 are closed, each with what it now is. R32, 1 narrows R30 and R31, 1: a link gives the current page; what is fixed forever is the address-title pairing and the page's existence. Every place that assumed a link freezes a version is fixed or flagged (Steps 1, 6, 10, 13, 16, 17; C10, C11, C14; Still open; the list is under the R32 block). New tensions are named (C21-C23). The open choices are rewritten in Matthew's four-part form (t189u). Summary, still-open list and top 3 recomputed (C21, C22, C23).
 - **Director ruling R33, items 1, 3 and 4 (t192u, 12:06 PM EST) folded in as approved** (entered by Prima at [DIRECTOR-RULINGS.md:158]-[DIRECTOR-RULINGS.md:166], commit 865b880; not edited; Prima confirmed, and Tester is building them in code). Item 1 approves Tester's fix to move the builder's output out of `books/` (Step 11, Step 15, Still open). Item 3 approves refusing a line dated earlier than the line above (Step 10). Item 4 approves refusing requests with the wrong Host header (Step 11, noted; it is a server check, not a file rule). Item 2 (refuse copied text) is held 7 and designed separately in `docs/design/SECTIONS-AND-CARDS.md` (commit 3c7401f). C21-C23 are not touched.
 - **Director ruling R34 (t195u, 12:16 PM EST) folded in** (entered by Prima at [DIRECTOR-RULINGS.md:168]-[DIRECTOR-RULINGS.md:174], commit a8e8dd3; not edited). C21 closed (system pages freeze 00-04 once linked). C23 closed: this plan's proposal is rejected; titles may be reused and a retired page does not block its title. C22 is held 7 and unchanged. Every place that assumed titles are unique is fixed or flagged (list under the R34 block). New questions C25-C27 in the four-part form. Summary, still-open list and top 3 recomputed (C22, C25, C26).
+- **Director ruling R35 (t197u, 12:20 PM EST) folded in** (entered by Prima at [DIRECTOR-RULINGS.md:176]-[DIRECTOR-RULINGS.md:182], commit 8f6e9a7; not edited). It answers SECTIONS-AND-CARDS.md Q1-Q3, not this plan's open choices. Places touched: the summary; Step 7 (the face 03 menu and loading sections one at a time); Step 8 (copy-check steps in the face 09 log, a tension with C2); Step 13's limit on face 03 noted; C2 and C10 notes; the still-open list. The decisions.md:404 update for the menu card is pending in the spec; this plan does not edit decisions.md. C25-C27 are unchanged (Prima is holding them). Top 3 unchanged (C22, C25, C26).
 - **Rename: "map" is now "signpost".** "Map" is face 08's name [seqAddr.md:157] and "index" is used for the dictionary [seqAddr.md:230], so the plan's book map, band map and page index are now the book, band and page signposts.
 
 ---
@@ -57,6 +60,27 @@ Matthew asked that every question come with a proposed answer, the reason, and t
 ## Director answers and rulings today
 
 Matthew's words are quoted exactly as recorded by Prima in `docs/spec/DIRECTOR-RULINGS.md` (R26-R30 in commit e1a60aa; R31 in commit f2c8459; R32 in commits ff60c28 and 7289c45). This plan does not number or edit rulings; it cites Prima's entries. Where Prima's entry says "Held 7", this plan keeps it held.
+
+**Director ruling R35, t197u (relayed by Prima), 12:20 PM EST** [DIRECTOR-RULINGS.md:176]. It answers SECTIONS-AND-CARDS.md Q1-Q3 (Prima answered item 3 in t197s757). Quoted exactly from the file:
+
+- **R35, 1, refuse or flag copies:** "Yes this is where the elevate comes in. If the comp can't solve according to it's code, it gives it to the model, if the model can't solve to a high degree of certainty. then it goes to the person." [DIRECTOR-RULINGS.md:177]. Read: "the proposal stands (refuse exact and unmarked copies, flag partial overlap, allow links, key words, and cited quotes), and anything uncertain is elevated: compute first by its code, then the model, then a person if the model is not highly certain." [DIRECTOR-RULINGS.md:178]
+- **R35, 2, a face 03 menu on every page:** "Yes of course, a page might contain the piece of a story. As such it might be broken into a number of sections perhaps dozens or more. So instead of the model eating everything it only gets what it needs." [DIRECTOR-RULINGS.md:179]. Read: "approved. Any page may have a compute-written face 03 menu of its sections, so a model loads only the sections it needs. This updates the pages 0001-0099 limit in decisions.md:404 for the menu card." [DIRECTOR-RULINGS.md:180]
+- **R35, 3, a section reusing another page's card:** "Why would a section reuse a card?" [DIRECTOR-RULINGS.md:181]. Read: "not ruled; he questioned the premise. Prima answered (t197s757) that it shouldn't: a section links to the page (R32), and the compute serves only the needed piece. Held 7." [DIRECTOR-RULINGS.md:182]
+
+**Where Prima's relayed summary differs from her R35 entry** (checked line by line; R35 governs):
+
+- Item 1: the summary gives only the order (compute, model, person). The Read also says "the proposal stands": refuse exact and unmarked copies, flag partial overlap, allow links, key words and cited quotes [DIRECTOR-RULINGS.md:178]. In Matthew's words the model is used only when the compute "can't solve according to it's code" [DIRECTOR-RULINGS.md:177].
+- Item 2: the summary says it "updates decisions.md:404". The Read limits that to "the menu card" [DIRECTOR-RULINGS.md:180]; other face 03 cards keep the 0001-0099 rule. The summary also leaves out his reason: a page may hold part of a story in "dozens or more" sections [DIRECTOR-RULINGS.md:179].
+- Item 3: matches (held 7). Matthew asked a question [DIRECTOR-RULINGS.md:181]; "it shouldn't" is Prima's answer, not his [DIRECTOR-RULINGS.md:182].
+
+**Places changed by R35, and why:**
+
+- Summary: one paragraph on the menu and the copy check (both now approved in outline).
+- Step 7: the page signpost also points at each section inside face 04, and the compute serves sections one at a time through the face 03 menu (R35, 2).
+- Step 8: copy-check refusals and elevation steps are proposed as face 09 lines (SECTIONS-AND-CARDS.md Q8); this rubs against C2's "plain refusals no".
+- Step 7 also notes that the face 03 limit of pages 0001-0099 [decisions.md:404] no longer applies to the menu card; the spec update is pending. It names a new tension: a page whose face 00 list is locked without face 03 (C22).
+- C2: a note on the copy-check tension. C10: cross-page card cites are dropped in the sections design (held 7), so cards on another page are reached by a link, not a cite.
+- Still open: the R33, 2 bullet now says the outline is approved by R35 and Q3 is held 7.
 
 **Director ruling R34, t195u (relayed by Prima), 12:16 PM EST** [DIRECTOR-RULINGS.md:168]. It answers this plan's C21 and C23 (via Prima's t193s748). Quoted exactly from the file:
 
@@ -367,11 +391,13 @@ Block size: no fixed block size. A block is as long as it needs to be. The page 
 
 Seated, draft and counted faces work as today. A draft is found by lookup and shows that it is a draft and why [R5] [DIRECTOR-RULINGS.md:20] [DIRECTOR-RULINGS.md:29]. A counted face has counters 01-98 only; faces have no sentinels [R9] [DIRECTOR-RULINGS.md:38]. A new counter is never a silent in-place replace (working path D320, D344 [DECISIONS-LOG:380] [DECISIONS-LOG:407]). The page signpost points at whichever pieces those rules say are current.
 
+**Sections loaded one at a time (R35, 2).** Matthew: "So instead of the model eating everything it only gets what it needs." [DIRECTOR-RULINGS.md:179]. Any page may have a compute-written face 03 menu of its sections [DIRECTOR-RULINGS.md:180]. New (not in any source): the page signpost also records where each `##` section starts inside the face 04 block, and how long it is. The model asks for the page and gets the menu; it then asks for sections by key, and the compute reads only those byte ranges. The menu is derived (never typed), rebuilt after each write, and is not the real copy [decisions.md:301] [decisions.md:516]. Full design: `docs/design/SECTIONS-AND-CARDS.md`, Part 2. R35, 2 updates the face 03 limit of reserved pages 0001-0099 [decisions.md:404] for the menu card only [DIRECTOR-RULINGS.md:180]; that spec update is pending, and this plan does not edit decisions.md. Tension (named, not resolved): face 00 holds the face list and locks once done (R32, 3; C22, held 7). A page locked before it had a menu has no face 03 in its list; whether the compute may add the menu later is part of C22's question. This answers "one very large face is still read whole" for face 04; other large faces are still read whole.
+
 **Axioms:** Fits axiom 6: blocks are never edited; a change is a new block [Axioms.md:23]. Fits axiom 5 in spirit: the model is handed only the framed piece it needs [Axioms.md:21].
 
-**Better:** Better than today: today the whole book is replayed to serve one face [format.md:61]. Better than one big file being rewritten: each piece is its own block. Where we fall short: one very large face is still read whole, and a code face must be decoded before a person or model can read it.
+**Better:** Better than today: today the whole book is replayed to serve one face [format.md:61]. Better than one big file being rewritten: each piece is its own block. Where we fall short: a very large face other than 04 is still read whole; section offsets in the signpost are one more thing to rebuild and check; and a code face must be decoded before a person or model can read it.
 
-**Three leads:** The person needs face 04 to look the same as today: Markdown with `##` cards. The model needs exactly the face (or card) it asked for, as text, with its address and source [AGENTS.md:44]. The compute needs one lookup and one read per face, plus a decoder for code faces.
+**Three leads:** The person needs face 04 to look the same as today: Markdown with `##` cards. The model needs exactly the face (or card) it asked for, as text, with its address and source [AGENTS.md:44]; on a long page it reads the face 03 menu first and asks only for the sections it needs (R35, 2). The compute needs one lookup and one read per face or section, plus a decoder for code faces, and it writes the menu.
 
 ---
 
@@ -398,6 +424,8 @@ So: face 09 holds the log. Face 00 holds no log. The compute keeps a "last chang
 **R31, 9.** Matthew: "I agree, where do we place those short logs?" [DIRECTOR-RULINGS.md:145]. Read: "no log in face 00. Prima's answer (t184s714): a "last change" note in the page index, which only the compute writes. Held 7 until he confirms." [DIRECTOR-RULINGS.md:146]. Prima's "page index" is what this plan calls the page signpost (renamed because "index" is the dictionary's word [seqAddr.md:230]). So the plan's answer above is Prima's answer. It stays held 7 until Matthew confirms.
 
 **Still open (C2):** should face 09 also record attempts that were refused or halted? Today a refused proposal writes nothing ("Rejected = reasons, nothing written") [BUILD-LOG:53]. Under S2 or S3, face 09 is a stored file, so it could hold them; under S1 it could not without a new kind of book entry. Only Matthew can say whether he wants them logged.
+
+**Copy-check steps (R35, 1).** The copy check now elevates: compute by its code, then the model, then a person if the model is not highly certain [DIRECTOR-RULINGS.md:178]. New (not in any source), from SECTIONS-AND-CARDS.md Part 4 and Q8: each refusal and each elevation step gets a face 09 line (who decided: compute, model or person; the rule; the reason). Tension (named, not resolved): C2 proposes that plain refusals are not logged. Both cannot stand as written; Matthew's answer to Q8 or C2 decides. While a case is elevated, the write waits as a draft (R5 [DIRECTOR-RULINGS.md:29]).
 
 **Disagreement halts.** If face 09, the page signpost or the "last change" pointer ever disagrees with the pieces it describes, the compute does not pick one. It halts and raises it, following working path D324, "neither silently wins; halt and raise it (axiom 1)" [DECISIONS-LOG:384], and working path D367, which halts on a fingerprint mismatch [DECISIONS-LOG:440].
 
@@ -926,6 +954,8 @@ Matthew's standing rule (t189u): every question comes as (1) the question in pla
 3. **Why.** A halt means something disagreed on this page, and the next reader needs to know (who gets hurt: a person trusting a page that once failed its check). Refusals are many and say more about the proposal than the page.
 4. **Axioms checked.** Axiom 7 [Axioms.md:25]: pass (a halt is a known gap, kept visible). Axiom 6 [Axioms.md:23]: pass. Axiom 2 [Axioms.md:15]: pass.
 
+*R35 note.* The copy check now elevates through compute, model and person [DIRECTOR-RULINGS.md:178]. SECTIONS-AND-CARDS.md Q8 proposes logging copy-check refusals and every elevation step on face 09, which goes against this answer's "plain refusals no". Tension named, not resolved; the two questions should be answered together.
+
 **C4. Related to QD46 (D414). How much should the compute trust the signposts when it opens a book?**
 1. **Question.** Should the compute fully check every chain at start-up, check each piece only when read, or replay everything on every open?
 2. **Proposed answer.** Check every chain once at start-up, then replay-compare; until then answers are marked `9` and writes are refused; any mismatch halts (D324). This is Tester fix 1 and keeps D414.
@@ -959,7 +989,7 @@ Matthew's standing rule (t189u): every question comes as (1) the question in pla
 **C10. From t171u (A5), sharpened by R32, 1. Do references other than links also name only pages?**
 1. **Question.** Links name only a page and give the current page [DIRECTOR-RULINGS.md:152]. May cites and work-card references still name a face or counter and pin a version, for example a seated pack `05.02` with its blob?
 2. **Proposed answer.** Yes. Links name pages and follow the current page; cites name exactly what was relied on, version included (working path D348 [DECISIONS-LOG:411]).
-3. **Why.** A cite records what a decision rested on; if it followed the current page, the reason for an old decision would silently change (who gets hurt: anyone checking why a choice was made). A link is for finding; a cite is for proof.
+3. **Why.** A cite records what a decision rested on; if it followed the current page, the reason for an old decision would silently change (who gets hurt: anyone checking why a choice was made). A link is for finding; a cite is for proof. R35, 3 (held 7 [DIRECTOR-RULINGS.md:182]): in the sections design, a section no longer cites another page's card; it links the page, and the compute serves the needed piece. So a card-level reference across pages is only ever a cite of what was relied on, never a reuse.
 4. **Axioms checked.** Axiom 6 [Axioms.md:23]: pass (the past a decision rested on stays visible). Axiom 4 [Axioms.md:19]: pass (the why keeps its evidence). Axiom 8 [Axioms.md:27]: pass.
 
 **C1, leftover. Names (lesser).**
@@ -998,7 +1028,8 @@ Matthew's standing rule (t189u): every question comes as (1) the question in pla
 - Tensions still open from R31: link-alone locking of system pages against Tester's "seated AND linked" (R34, 1 confirms the freeze once linked; Tester's draft-freezing risk remains for system pages); a retired book against editable general pages (C20); office kinds against R27 (C18); developer-only promotion (C19); hidden addresses and same titles (C13a).
 - **Build gap, face 09.** The spec's face table still says face 09 is unassigned [seqAddr.md:158], and the core refuses writes to face 09 (`crates/seqaddr-core/src/validate.rs:232-233`; only faces 00-06 and 08 are active, `crates/seqaddr-core/src/face.rs:72`). R28 needs both changed. This plan does not edit them; it is build work.
 - **Build gap, outside writers.** At HEAD, store.rs still cuts a longer file at every append (`crates/compute/src/store.rs:940-941`), there is no OS file lock, and the builder still writes to `books/` (`kernel/build.mjs:29`, `:846`). Moving the builder's output is now approved by R33, 1 [DIRECTOR-RULINGS.md:160], and Tester is building it, along with the time-order check (R33, 3 [DIRECTOR-RULINGS.md:164]) and the Host check (R33, 4 [DIRECTOR-RULINGS.md:166]). The cut-at-append fix and the OS lock are still Tester's working paths, not approved. No code is changed by this plan.
-- R33, 2 (refuse copied text) is held 7 [DIRECTOR-RULINGS.md:162]; its design is in `docs/design/SECTIONS-AND-CARDS.md`.
+- R33, 2 (refuse copied text) was held 7 [DIRECTOR-RULINGS.md:162]. R35, 1 approves the outline with elevation (compute, model, person) [DIRECTOR-RULINGS.md:178] and R35, 2 approves a face 03 menu on any page [DIRECTOR-RULINGS.md:180]. Still open in `docs/design/SECTIONS-AND-CARDS.md`: what "highly certain" means (Q7), face 09 logging of copy-check steps (Q8, against C2), and cross-page card reuse (Q3, held 7 by R35, 3 [DIRECTOR-RULINGS.md:182]). The decisions.md:404 update for the menu card is pending in the spec.
+- New tensions from R35: copy-check logging against C2; a locked face 00 list without face 03 against a menu on any page (C22).
 - How a write that spans several pages is made all or nothing under small files. Page 0000 may hold only face 00 [DIRECTOR-RULINGS.md:41], so a book-wide log cannot sit on the door page. Tester's pick: a compute-only book journal, like the `.queue` file (C1a).
 - The kernel builder's whole-file rewrite [R23-R25-lineage.md:94] (the whole-file write is now at `kernel/build.mjs:846`; the lineage note cites `build.mjs:818`, which has since moved).
 - Two copies of one book with the same address (a fork, D427). The page and book seeds (Step 10) now catch a copy moved to a new address, but not a byte-exact copy at the same address [SEQ-PROTO-RESULTS.md:108]. Tester's pick (working path, not a ruling): the compute halts if two files claim one address (axiom 1 [Axioms.md:13]); a copy that changed apart gets a new address before it comes back. Locked pages are the same in both copies (SEQ-FILE-PLAN-TEST-2.md section 7a); but a link gives each copy's current page (R32, 1), so links to general pages would read differently in each, which is why the fork rule must halt. Two pages with the same title at different addresses are not a fork (R34, 3); only two files claiming one address are.
@@ -1024,16 +1055,16 @@ Matthew's standing rule (t189u): every question comes as (1) the question in pla
 
 ## Sources
 
-Every bracket cite in this file, by file and line (270 distinct; 8 new in this revision against db17f8a). Each was checked against the file at the time of writing.
+Every bracket cite in this file, by file and line (280 distinct; 10 new in this revision against 68e5147). Each was checked against the file at the time of writing.
 
 - `docs/spec/Axioms.md` (the nine axioms): lines 13, 15, 17, 19, 21, 23, 25, 27, 29.
-- `docs/spec/DIRECTOR-RULINGS.md` (rulings R1-R34; R26-R30 entered by Prima in e1a60aa, R31 in f2c8459, R32 in ff60c28 and 7289c45, R33 in 865b880, R34 in a8e8dd3): lines 1, 9, 12, 15, 16, 20, 29, 38, 41, 76, 97, 100, 101, 103, 104, 105, 106, 108, 109, 110, 111, 113, 114, 115, 118, 119, 120, 123, 124, 125, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 150, 151, 152, 153, 154, 155, 156, 158, 159, 160, 162, 163, 164, 165, 166, 168, 169, 170, 171, 172, 173, 174.
+- `docs/spec/DIRECTOR-RULINGS.md` (rulings R1-R35; R26-R30 entered by Prima in e1a60aa, R31 in f2c8459, R32 in ff60c28 and 7289c45, R33 in 865b880, R34 in a8e8dd3, R35 in 8f6e9a7): lines 1, 9, 12, 15, 16, 20, 29, 38, 41, 76, 97, 100, 101, 103, 104, 105, 106, 108, 109, 110, 111, 113, 114, 115, 118, 119, 120, 123, 124, 125, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 150, 151, 152, 153, 154, 155, 156, 158, 159, 160, 162, 163, 164, 165, 166, 168, 169, 170, 171, 172, 173, 174, 176, 177, 178, 179, 180, 181, 182.
 - `docs/spec/AGENTS.md` (the brief): lines 10, 41, 42, 44, 45.
 - `docs/spec/format.md` (book format): lines 12, 15, 18, 21, 25, 41, 42, 50, 51, 54, 60, 61, 66, 70, 74, 79, 81, 86, 88, 94, 95, 96, 97, 100, 102, 105, 139, 140, 141, 145, 146, 147, 149, 157.
 - `docs/spec/seqAddr.md` (addresses): lines 7, 14, 18, 19, 20, 21, 24, 89, 101, 104, 110, 111, 112, 114, 115, 116, 127, 138, 150, 152, 153, 155, 157, 158, 168, 175, 184, 230, 240, 243, 251, 269, 271, 280, 281.
 - `docs/spec/seqpage.md` (the page view): lines 11, 13, 14, 84, 199, 206, 208.
 - `docs/spec/face00.md` (face 00 draft): lines 137, 138, 146, 177, 179, 214.
-- `docs/spec/decisions.md`: lines 128, 182, 285, 286, 287, 288.
+- `docs/spec/decisions.md`: lines 128, 182, 285, 286, 287, 288, 301, 404, 516.
 - `docs/spec/review.md`: lines 53.
 - `docs/spec/drafting.md`: lines 7, 12, 14.
 - `docs/spec/workflow-loop.003.md`: lines 38.
@@ -1044,7 +1075,7 @@ Every bracket cite in this file, by file and line (270 distinct; 8 new in this r
 - `docs/BUILD-LOG.md`: lines 3, 6, 38, 53, 54, 66.
 - `docs/design/SEQ-PROTO-RESULTS.md` (Tester prototype, commit 7697815; working paths, not rulings): lines 5, 13, 14, 15, 27, 31, 35, 37, 63, 76, 82, 86, 87, 89, 90, 95, 96, 97, 103, 104, 108, 109, 111, 114, 117, 118, 119, 120, 127, 128, 129, 130, 131, 134, 135, 137, 138, 139, 146, 147, 148, 149, 150, 151, 152, 154, 155, 158, 160, 162, 169.
 - Code read, not changed: `crates/compute/src/store.rs:1009-1023`, `crates/compute/src/store.rs:307`, `crates/compute/src/store.rs:917`, `crates/compute/src/store.rs:940-941`, `crates/seqaddr-core/src/face.rs:72`, `crates/seqaddr-core/src/validate.rs:232-233`, `kernel/build.mjs:29`, `kernel/build.mjs:846`.
-- `docs/design/SEQ-FILE-PLAN-TEST.md` (Tester's stress test, commit 50fdfac), `docs/design/SEQ-FILE-PLAN-TEST-2.md` (Tester's stress test 2, commit e99665e), `docs/review/OUR-CODE-VS-CURSOR-LESSONS.md` (Tester's code review, commit 7e67b97) and `docs/design/SECTIONS-AND-CARDS.md` (Designer plan, commit 3c7401f). Working paths, not rulings.
+- `docs/design/SEQ-FILE-PLAN-TEST.md` (Tester's stress test, commit 50fdfac), `docs/design/SEQ-FILE-PLAN-TEST-2.md` (Tester's stress test 2, commit e99665e), `docs/review/OUR-CODE-VS-CURSOR-LESSONS.md` (Tester's code review, commit 7e67b97) and `docs/design/SECTIONS-AND-CARDS.md` (Designer plan, commit 3c7401f, revised for R35 in b12dc00). Working paths, not rulings.
 - Matthew's words, 16 Nov 2026 (passed on by Prima): first ideas, not rulings.
 - Director answers t171u (11:16 AM EST) and t172u (11:17 AM EST), Director rulings t175u (11:24 AM EST), and Director ruling t184u (11:47 AM EST), relayed by Prima; entered by Prima as R26-R30 (commit e1a60aa) and R31 (commit f2c8459) in `docs/spec/DIRECTOR-RULINGS.md`. This plan quotes them and does not number or edit them.
 - `docs/design/QUESTIONS-FOR-DIRECTOR.md` headings cited: QD16, QD34, QD46, QD57, QD60, QD63, QD66, QD67.
