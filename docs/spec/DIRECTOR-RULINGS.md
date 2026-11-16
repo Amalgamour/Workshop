@@ -154,3 +154,13 @@ Read: Prima's proposal (a link locks the version it points to) is rejected, and 
 Read: at creation a page gets its properties, title, and address. Once face 00 is done, face 00 is locked; the other faces may still change. Once a page exists and is linked, it can't be deleted, only retired. A retired page stays on record but leaves active searches.
 3. Face list (C17): "I agree"
 Read: face 00 holds the page type and its face list. Where each face sits is kept in the page index, so face 00 doesn't change on every write.
+
+## R33 — 2026-11-16 12:06 PM EST — Tester's four fixes from the code-vs-lessons check (t192u, answering Prima's t190s736; review at 7e67b97)
+1. Builder: "Yes, books change through compute not by models. Models can be wrong and having them answer a question correctly 100% of the time can be an issue."
+Read: approved. The book builder stops writing into books/ and makes an export instead (R26). Books change only through the compute's gate.
+2. Copied text: "So this is where sections and cards come in. A section is a piece of work in 04. cards exist in 01,02,03. So a menu from 03 can say what lives in small pieces on a page. Normally 01,02 aren't going to exist on normal pages othen then for key words. I think this might need some dev time."
+Read: not yet approved. A section is a piece of work in face 04. Cards live in faces 01, 02, and 03, and a face 03 menu can say what small pieces live on a page. On normal pages, faces 01 and 02 usually hold only key words. The copy check needs design work against this before it is built. Held 7.
+3. Clocks: "I agree"
+Read: approved. Refuse a line dated earlier than the line above it.
+4. Host check: "I agree."
+Read: approved. Refuse requests that arrive with the wrong Host header.
