@@ -99,3 +99,27 @@ Read: We climb the 05 counter (05.CC) as work proceeds. The first stretch is 05.
 ## R25 — 2026-11-11 6:49 PM EST — face 00 is the registry root; a 00.counter lists prior fingerprints (t82u, answers Q51)
 Director's words (t82u): "So I can see we have an exception for 00 it's special by being this registry root concept. That we don't seat 00 in the same manner. We record the changes onto 00 but we might need a 2nd 00.counter  Where its a list of the previous fingerprint before the changes  are made.  We count and compare the change.  Does that work?"
 Read: Yes. Face 00 is special because it is the registry root, so it is not seated in the same manner as other faces. Changes are still recorded onto 00. A second face, a 00 counter (00.CC), holds a list of 00's fingerprint as it was just before each change. We snapshot that fingerprint first, then make the change, then count and compare: the old fingerprint, the change, and what 00 is now. This keeps the line (axiom 6) without needing face 00's own fingerprint to stay frozen. The list must be its own face, not lines inside 00, or writing the list would again change 00's fingerprint. This answers Q51 / QD05 (where the seat record lives): seat records may still be written onto 00; the line of 00 itself is kept on the 00.counter face. Held 7: whether those 00.counter faces are themselves seated in the normal way, and how the list climbs (00.01, 00.02, ...) when a new fingerprint is added.
+
+## R26 — 2026-11-16 11:24 AM EST — R3 updated: small files are stored; whole books are an export (t171u, t175u)
+Director's words (t171u, answer 2): "Yes we can keep small files then have the ability to export books later."
+Director's words (t175u, 1): "yes change R3"
+Read: this updates R3 (above, not rewritten, axiom 6). The stored form is today's small files. A whole-book .seq file is an export made from them, not the stored copy.
+
+## R27 — 2026-11-16 11:24 AM EST — R4 updated: only face 04 must be human-readable (t171u, t175u)
+Director's words (t171u, answer 1): "Our systems design needs to be understandable by our tech documentation But we want it fast for models and compute to work. Hench the multi faced design. So no it doesn't need to be. It can just be code. for every face other then 04."
+Director's words (t175u, 2): "Update R4."
+Read: this updates R4. Face 04, the person's face, stays plain readable text. Every other face may be stored as compact computer code (binary), for model and compute speed.
+
+## R28 — 2026-11-16 11:16 AM EST — face 09 is the page's log (t171u)
+Director's words (t171u, answer 3): "agreed 09 is log, we keep a short log in 00 if you think that is a superiour design."
+Read: face 09 is the page's log. A short log in 00 is allowed only if shown to be better. Prima's view: it is not better, because 00 must stay small and rarely rewritten (R25). Held 7 until the Director sees the plan's answer.
+
+## R29 — 2026-11-16 11:17 AM EST — people edit face 04 the Google Docs way (t171u, t172u)
+Director's words (t171u, answer 4): "A user should be able to modify and change their documents in 04."
+Director's words (t172u): "go with Google's approach."
+Read: edits to face 04 are kept as a log of small changes plus full snapshots now and then. The current view is the latest, and old versions are never changed (axiom 6). Held 7: the t171u words "So they can't be changed" were asked back to the Director.
+
+## R30 — 2026-11-16 11:24 AM EST — links use the page address and title; registered pages lock (t171u, t175u)
+Director's words (t171u, answer 5): "We use the seqaddr system. our 2.2.2.4.title we don't include the face its a sub group of the page."
+Director's words (t175u, 3): "Once a book is complete, changing pages shouldn't be possible anymore. A new copy can be made and reworked. But the original work shouldn't changed. Once a page is linked to and registered with the book it shouldn't change."
+Read: a link points to a page's address plus its title (for example 2.2.2.4.title), never to a face. Once a page is registered and linked in a book, or the book is complete, that page is locked: no rename, no change. Rework goes into a new copy. So links never break. Held 7: how this fits face 04 edits (R29). Prima's reading: edits happen while a page is a draft, and registration locks it.
