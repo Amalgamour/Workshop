@@ -1,0 +1,148 @@
+:root {
+  color: #1c1915;
+  background: #f6f3ee;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+main {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+h1 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin: 0 0 0.4rem;
+}
+
+.lead {
+  margin: 0 0 1.6rem;
+  color: #5c564e;
+}
+
+form {
+  display: flex;
+  gap: 0.6rem;
+  align-items: end;
+}
+
+label {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+}
+
+h2 {
+  margin: 2rem 0 0.4rem;
+  font-size: 1.15rem;
+}
+
+.book-line {
+  margin: 0 0 1rem;
+  font-weight: 600;
+}
+
+.error {
+  color: #8a2b1b;
+}
+
+.browser {
+  display: grid;
+  grid-template-columns: 16rem 1fr;
+  gap: 1.4rem;
+  align-items: start;
+}
+
+.menu {
+  max-height: calc(100vh - 9rem);
+  overflow: auto;
+  padding-right: 0.2rem;
+}
+
+.nest {
+  margin-left: 0.75rem;
+}
+
+.choice.face {
+  margin-left: 0.75rem;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.85rem;
+}
+
+.empty {
+  margin: 0.2rem 0 0.6rem 0.75rem;
+  color: #5c564e;
+  font-size: 0.85rem;
+}
+
+.file-body {
+  min-height: 70vh;
+  margin-top: 0.8rem;
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.page-title {
+  margin: 0 0 0.45rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.choice {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+  margin: 0 0 0.35rem;
+  text-align: left;
+  background: white;
+  color: #1c1915;
+  border: 1px solid #d9d2c8;
+}
+
+.choice[aria-pressed="true"] {
+  background: #1c1915;
+  color: #f6f3ee;
+}
+
+@media (max-width: 800px) {
+  .browser {
+    grid-template-columns: 1fr;
+  }
+}
+
+input,
+textarea {
+  font: inherit;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid #d9d2c8;
+  border-radius: 8px;
+  background: white;
+}
+
+button {
+  font: inherit;
+  padding: 0.55rem 0.9rem;
+  border: 0;
+  border-radius: 8px;
+  background: #1c1915;
+  color: #f6f3ee;
+  cursor: pointer;
+}
+
+pre {
+  margin-top: 1.4rem;
+  padding: 1rem;
+  white-space: pre-wrap;
+  background: white;
+  border: 1px solid #d9d2c8;
+  border-radius: 10px;
+  min-height: 8rem;
+}

@@ -1,0 +1,9 @@
+[package]
+name = "seqpage"
+version = "0.1.0"
+edition = "2021"
+publish = false
+description = "Export one page of a book as a .seq view, and check that view against the book."
+
+[dependencies]
+seqbook = { path = "../core" }

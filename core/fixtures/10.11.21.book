@@ -1,0 +1,7 @@
+{"seqbook":1,"address":"10.11.21"}
+{"n":1,"at":"2026-11-11T19:13:00Z","by":"cursor","op":"put","addr":"10.11.21.0000.00","body":"title: tools\nstate: draft\ntype: system\naxioms: 4\n"}
+{"n":2,"at":"2026-11-11T19:13:00Z","by":"cursor","op":"put","addr":"10.11.21.0000.01","body":"## book\ntype: rule\naxioms: 4\n\nThis book holds the timer page.\n"}
+{"n":3,"at":"2026-11-11T19:13:00Z","by":"cursor","op":"put","addr":"10.11.21.0000.04","body":"## book\ntype: why\nsource: [01 / book]\naxioms: 4\nwhy: The identity page needs a why a person can read, or the book is only a stamp.\n\nThe book is the timer fixture. Page 1001 is the page under test.\n"}
+{"n":4,"at":"2026-11-11T19:13:00Z","by":"cursor","op":"put","addr":"10.11.21.1001.00","body":"address: 1001\ntitle: timer\nstate: draft\ntype: general\naxioms: 4\n"}
+{"n":5,"at":"2026-11-11T19:13:00Z","by":"cursor","op":"put","addr":"10.11.21.1001.01","body":"## purpose\ntype: rule\naxioms: 4\n\nA timer page is the first fixture.\n"}
+{"n":6,"at":"2026-11-11T19:13:00Z","by":"cursor","op":"put","addr":"10.11.21.1001.04","body":"## purpose\ntype: why\nsource: [01 / purpose]\naxioms: 4\nwhy: The first fixture has to show a why in the file itself, so a person can check the record without a reader program.\n\nThis page is the timer example. The why is the line above. The law card on face 01 is only the brief.\n"}

@@ -1,0 +1,10 @@
+[package]
+name = "compute"
+version = "0.1.0"
+edition = "2021"
+publish = false
+description = "One local compute over the seqbook core. It reads, and it refuses a bad write before the book changes."
+
+[dependencies]
+seqbook = { path = "../core" }
+seqpage = { path = "../seqpage" }
