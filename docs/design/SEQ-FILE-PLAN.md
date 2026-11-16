@@ -30,6 +30,10 @@ Everything stays plain text (printable ASCII). A person can open the file in any
 
 The signposts can always be rebuilt from the list of changes. So if a signpost is lost or damaged, nothing real is lost.
 
+Matthew has also answered how face 04 edits are kept (Director answer, t172u, relayed by Prima, 16 Nov 2026; not yet a numbered ruling). He said "go with Google's approach". So face 04 is stored as a list of small changes, plus a full copy every so often. The current view is the latest version. Every old version is kept. See Step 17.
+
+One of his phrases, "So they can't be changed", is still unclear. Prima has asked him. For now this plan reads it as "old versions can't be changed". That reading is provisional.
+
 The real thing should be written in Rust, like the core and the compute today. The person still checks it in plain words, not in code.
 
 There are open choices that only Matthew can make. They are listed near the end. The top three are marked.
@@ -432,6 +436,40 @@ This plan is `9`: it has not faced a hostile trial [Axioms.md:29]. Before anythi
 
 ---
 
+## Step 17. Face 04 edits: small changes plus a full copy every so often
+
+**Director answer, t172u (relayed by Prima), 16 Nov 2026, 11:17 AM EST; not yet a numbered ruling.** Matthew said: "go with Google's approach." This is built in here as his answer, not as a choice.
+
+What it means for the book file:
+
+- Face 04 edits are stored as a log of small changes (each change says what was changed in the face, not the whole face again).
+- Every so often the compute also stores a full copy of face 04 (a *snapshot* of that face).
+- The current view of face 04 is the latest version: the last full copy plus the small changes after it.
+- Every old version is kept. Any old version can be rebuilt from the full copy before it plus the small changes up to it.
+
+**The reason, not a choice.** The comparison behind this answer is Google Docs against Word. In the Google Docs way, a document keeps a history of small edits and you can open any earlier version. In the Word way, each save is a whole new file, and what came before is only kept if someone keeps the old file. Matthew chose the Google way. The comparison is kept here only as the reason; it is no longer an open choice.
+
+**How it fits what already exists.**
+
+- Face 04 is the person's face: "the why of the page, long form, for inspection" [seqAddr.md:153].
+- The book already only grows, and already has full-state snapshots that let replay start late [format.md:61] [format.md:88] [format.md:105]. Step 17 applies the same idea at the size of one face.
+- Drafting already works in small steps: copy the face to a draft, add notes, merge one change at a time, then promote [format.md:94] [format.md:95] [format.md:96] [format.md:97] [drafting.md:12] [drafting.md:14]. A merge "applies one change to a draft" [format.md:96]. Small stored changes fit that shape.
+- In the pyramid (Step 2), the page index points at face 04's latest full copy and the small changes after it. Reading the current view is one full copy plus a short run of changes. Reading an old version walks back through the page's history (Step 8).
+- Each full copy and each small change carries a fingerprint (Step 10). A rebuilt version can be checked against the full copy that follows it.
+- Everything stays printable ASCII under R4 [DIRECTOR-RULINGS.md:16]. A small change is written as plain text lines.
+
+New (not in any source), for the builders: how often a full copy is stored (for example every so many changes, or when the run of changes grows past a size) is a builder setting, recorded with its why [AGENTS.md:45]. The face 04 full copy is not the same thing as a book `snapshot` entry; working path D414 on book snapshots [DESIGN.md:165] is not changed or closed by this step. Whether the same "small changes plus full copy" way should later apply to other faces is not decided here; Matthew's answer was about face 04.
+
+**"So they can't be changed" (provisional reading).** Matthew also said "So they can't be changed". What he meant is still unclear, and Prima has asked him. **Provisional reading, until he says otherwise: old versions can't be changed.** A stored small change or full copy is never edited; a correction is a new change after it. This reading fits axiom 6, "The past is not rewritten" [Axioms.md:23]. It is listed as an open question (C9). If he meant something else (for example that the current face 04 may not be changed by a model, or may not be changed without his approval), this step must be revisited.
+
+**Axioms:** Fits axiom 6: every old version is kept, and a change is a new step after the old one [Axioms.md:23]. Fits axiom 1: this is Matthew's answer, recorded as his, not invented by the builders [Axioms.md:13]. Fits axiom 4: the why (the Google Docs against Word comparison) is recorded with the choice [Axioms.md:19]. Fits axiom 7: the unclear phrase stays open, with a reading marked provisional, not a guess presented as fact [Axioms.md:25].
+
+**Better:** Better than storing a whole new face 04 on every edit: much smaller, and the difference between two versions is visible directly. Better than keeping only the latest version, which would lose the past. Where we fall short: rebuilding an old version means applying a run of changes, so a bad change or a bug in applying changes could give a wrong old version; the fingerprint on each full copy is the check against that. How a small change is written down (by line, by card, or by character) is not designed yet, and it must survive the R3 round trip to the `.seq` page view without loss [DIRECTOR-RULINGS.md:12].
+
+**Three leads:** The person needs to read the current face 04 as one clean text, and to open any earlier version and see what changed and when. The model needs to propose small changes against the latest version, never a rewrite from memory [drafting.md:7]. The compute needs to store each change and the full copies, rebuild any version on request, check fingerprints, and refuse any attempt to edit a stored version.
+
+---
+
 ## Open choices only Matthew can decide
 
 Each is a plain question, with the options and what each would mean. The top three are marked **TOP**. None of these is answered here.
@@ -477,6 +515,12 @@ Related to QD46 (working path D414 says a snapshot is checked on every open).
 - Option A (as designed): a book holds its own pages only; inherited faces come from the shelf, desk and kernel files [decisions.md:128].
 - Option B: an export option that bundles the inherited faces, as a view, for sending one file to someone.
 
+**C9. What did "So they can't be changed" mean?** (still open; Prima has asked Matthew)
+- Provisional reading used in Step 17, until he says otherwise: old versions of face 04 can't be changed.
+- If he meant something else, Step 17 is revisited.
+
+Settled, not a choice: how face 04 edits are stored. Matthew answered "go with Google's approach" (Director answer, t172u, relayed by Prima; not yet a numbered ruling). See Step 17.
+
 ---
 
 ## Related open questions (named, not closed)
@@ -497,16 +541,17 @@ Related to QD46 (working path D414 says a snapshot is checked on every open).
 - `docs/spec/Axioms.md` (the nine axioms): lines 13, 15, 17, 19, 21, 23, 25, 27, 29.
 - `docs/spec/DIRECTOR-RULINGS.md`: R3 (:12), R4 (:15-16), R5 (:20, :29), R9 (:38), R10 (:41), R19 (:76), R2 (:9), R24 (:97), R25 (:101).
 - `docs/spec/AGENTS.md` (the brief): lines 10, 41, 44, 45.
-- `docs/spec/format.md` (book format): lines 12, 15, 18, 21, 25, 28, 42, 51, 54, 60, 61, 66, 70, 74, 79, 81, 86, 88, 100, 102, 105, 139-149, 157.
+- `docs/spec/format.md` (book format): lines 12, 15, 18, 21, 25, 28, 42, 51, 54, 60, 61, 66, 70, 74, 79, 81, 86, 88, 94-97, 100, 102, 105, 139-149, 157.
 - `docs/spec/seqAddr.md` (addresses): lines 7, 95, 101, 104, 127, 138, 150, 152, 153, 155, 157, 158, 168, 240, 251.
 - `docs/spec/seqpage.md` (the page view): lines 11, 13, 84, 199, 206, 208.
 - `docs/spec/face00.md` (face 00 draft): lines 146, 177, 179.
 - `docs/spec/decisions.md`: lines 128, 182, 285.
 - `docs/spec/review.md`: line 53.
-- `docs/spec/drafting.md`: line 7.
+- `docs/spec/drafting.md`: lines 7, 12, 14.
 - `docs/design/DESIGN.md`: lines 17, 165, 167, 189.
 - `docs/design/DECISIONS-LOG.md` (working paths, not rulings): D320 (:380), D321 (:381), D324 (:384), D344 (:407), D345 (:408), D347 (:410), D348 (:411), D350 (:415), D358 (:427), D367 (:440), D426 (:548), D427 (:550), D431 (:558).
 - `docs/design/R23-R25-lineage.md`: line 94.
 - `docs/design/QUESTIONS-FOR-DIRECTOR.md`: QD16, QD34, QD46, QD57, QD60, QD63, QD66, QD67.
 - `docs/BUILD-LOG.md`: lines 3, 6, 38, 53, 54, 66.
 - Matthew's words, 16 Nov 2026 (passed on by Prima): ideas, not rulings.
+- Director answer, t172u (relayed by Prima), 16 Nov 2026, 11:17 AM EST: "go with Google's approach" for face 04 edits. Not yet a numbered ruling. The phrase "So they can't be changed" is still open (C9).
