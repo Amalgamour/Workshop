@@ -2,7 +2,7 @@
 
 state: draft plan, `7` (open), `9` (not trialled). Not a ruling.
 made: Mon 16 Nov 2026, Designer (design partner for Prima). Director: Matthew, the only approver.
-revised: Mon 16 Nov 2026, after Director ruling R35 (t197u, 12:20 PM EST, entered by Prima in 8f6e9a7). See "Changes since 3c7401f".
+revised: Mon 16 Nov 2026, after Director ruling R35 (t197u, 12:20 PM EST, entered by Prima in 8f6e9a7) and its R35 note (t198u, 12:23 PM EST, entered by Prima in 9717698), and R36 (t200u, 12:25 PM EST, entered by Prima in 71e45ee) where it touches face 00. See "Changes since 3c7401f".
 why: Matthew held "refuse copied text" (fix 2) for design time [DIRECTOR-RULINGS.md:161] [DIRECTOR-RULINGS.md:162]. This plan is that design.
 labels: "New" marks anything not in a Workshop source. Rulings are quoted, never made. Every question for Matthew uses his four-part form (t189u).
 does not: edit any other file, change the core or the compute, or number a ruling. R35 updates decisions.md:404 for the menu card; that spec update is pending and is not made here.
@@ -25,6 +25,8 @@ Any page may have a **menu** on face 03. Matthew approved this. The menu lists e
 
 The menu saves work. The model reads the menu first, then loads only the sections it needs, instead of eating the whole page.
 
+The menu is also how the computer answers a general question. If the model asks about "Jim", and "jim" is a key word on 4 pages, the computer hands over the menus of those 4 pages, not all their data. The model then decides what to ask for first.
+
 A section does not reuse another page's card. If it needs something from another page, it links to that page. The computer then serves just the piece that is needed. Matthew asked why a section would ever reuse a card; Prima said it should not. That is waiting for his word.
 
 Copying is the problem Matthew held back. Some copying is honest. Some is not.
@@ -35,7 +37,7 @@ Not honest: pasting the same words again and passing them off as new work. For e
 
 Who decides, in order: first the computer, by its rules. If its rules cannot decide, the model. If the model is not highly sure, a person. Every step is written in the page's log (face 09).
 
-The open questions that matter most: what counts as "highly sure" for the model, whether every copy-check step goes in the page log, and whether a section ever needs anything from another page beyond a link.
+The open questions that matter most: what counts as "highly sure" for the model (Q7), whether every copy-check step goes in the page log (Q8), and whether faces 01 and 02 on normal pages hold only key words (Q4). Whether a section ever needs more from another page than a link is waiting on Matthew (Q3, held).
 
 ---
 
@@ -44,6 +46,8 @@ The open questions that matter most: what counts as "highly sure" for the model,
 - R35 folded in (quoted below). Q1 (refuse or flag) and Q2 (a face 03 menu on any page) are settled by R35.
 - The copy check is rewritten around elevation: compute by its code first, then the model, then a person. Each case says who decides and what face 09 records.
 - Cross-page card reuse is dropped, as Prima proposed (R35 item 3, held 7). A section links to the page by address plus title (R32); the compute serves just the needed piece through the face 03 menu. The `source:` line now names only cards on the same page; it is no longer used to cite another page's card. The copy-check row "card reuse by pointing" and the menu example's card cite are rewritten.
+- R35 note (t198u) folded in: for a general query, the compute hands the model the menus of the pages holding the key word, not their data (Part 2, Part 3). New open point Q9: how the compute finds which pages hold a key word.
+- R36 folded in where face 00 is mentioned: face 00 has locked fields (address, title, page type) and open fields; the face list is open, so adding a face 03 menu to an existing page is a logged open-field change (What exists today; Part 2). The full field split is in SEQ-FILE-PLAN.md Step 1 and C28.
 - New questions Q7 ("highly certain") and Q8 (face 09 logging of copy-check steps). Old Q3 is now held, not open; Q4-Q6 are unchanged.
 
 ---
@@ -62,12 +66,14 @@ Quoted exactly from `docs/spec/DIRECTOR-RULINGS.md`.
 - **R35, 1, refuse or flag copies:** "Yes this is where the elevate comes in. If the comp can't solve according to it's code, it gives it to the model, if the model can't solve to a high degree of certainty. then it goes to the person." [DIRECTOR-RULINGS.md:177]. Read: "the proposal stands (refuse exact and unmarked copies, flag partial overlap, allow links, key words, and cited quotes), and anything uncertain is elevated: compute first by its code, then the model, then a person if the model is not highly certain." [DIRECTOR-RULINGS.md:178]
 - **R35, 2, face 03 menu on every page:** "Yes of course, a page might contain the piece of a story. As such it might be broken into a number of sections perhaps dozens or more. So instead of the model eating everything it only gets what it needs." [DIRECTOR-RULINGS.md:179]. Read: "approved. Any page may have a compute-written face 03 menu of its sections, so a model loads only the sections it needs. This updates the pages 0001-0099 limit in decisions.md:404 for the menu card." [DIRECTOR-RULINGS.md:180]
 - **R35, 3, a section reusing another page's card:** "Why would a section reuse a card?" [DIRECTOR-RULINGS.md:181]. Read: "not ruled; he questioned the premise. Prima answered (t197s757) that it shouldn't: a section links to the page (R32), and the compute serves only the needed piece. Held 7." [DIRECTOR-RULINGS.md:182]
+- **R35 note, t198u, 12:23 PM EST (commit 9717698)** [DIRECTOR-RULINGS.md:184], how the menu is used: "Yes the menu is how the compute handles giving information to a model. If a model has a general query about "Jim" for example. The compute might have "jim" as a key word in 4 pages. instead of handing the model all the data in those pages it hands it the menu. So the model can decide what it should request first." [DIRECTOR-RULINGS.md:185]. Read: "for a general query, the compute finds the pages holding the key word and hands the model their face 03 menus, not their data. The model then asks for the sections it needs first." [DIRECTOR-RULINGS.md:186]
 
 **Where Prima's short versions differ from the file.**
 
 - R33: her version (and the Read [DIRECTOR-RULINGS.md:162]) says faces 01 and 02 "usually hold only key words". Matthew's words are stronger: they "aren't going to exist on normal pages" other than for key words [DIRECTOR-RULINGS.md:161]. Her version also left out "I think this might need some dev time" and that the item was held 7.
 - R35, 1: her summary gives only the elevation order. The Read also says "the proposal stands": refuse exact and unmarked copies, flag partial overlap, allow links, key words and cited quotes [DIRECTOR-RULINGS.md:178]. And in Matthew's words elevation starts only when the compute "can't solve according to it's code" [DIRECTOR-RULINGS.md:177]; her summary says the compute "decides first", which matches.
 - R35, 2: her summary says this "updates decisions.md:404". The Read limits it: it updates that limit "for the menu card" [DIRECTOR-RULINGS.md:180]; other face 03 cards keep the 0001-0099 rule. Her summary also leaves out his reason, a page holding "the piece of a story" in "dozens or more" sections [DIRECTOR-RULINGS.md:179].
+- R35 note: the Read matches his words in outline. Three small gaps. (a) His words say the compute "hands it the menu", one menu; the Read and Prima's summary say the menus of the pages, plural, and "face 03" is the Read's word, not his. With 4 pages, plural is the plain sense. (b) He says the model decides "what it should request first": an order, and not only sections (it could be a page or a key word's brand card). Prima's summary says it "picks which sections to request", which drops "first" and narrows to sections; the Read keeps "first" but also says "sections". (c) He says the compute "might have" jim in 4 pages; how it knows is not said (see Q9).
 - R35, 3: matches. Matthew's words are only the question [DIRECTOR-RULINGS.md:181]; "it shouldn't" is Prima's answer, held 7 [DIRECTOR-RULINGS.md:182].
 
 ---
@@ -86,6 +92,7 @@ Quoted exactly from `docs/spec/DIRECTOR-RULINGS.md`.
 - Face 00 is "the registry, the place that lists the page's faces" [seqpage.md:81]; its `type` field names the page type [face00.md:61].
 - Borrowed content is shown from its source as a derived line, never copied in (working path D403, not a ruling) [DESIGN.md:189].
 - R31 layout: one folder per page, one file per face [DIRECTOR-RULINGS.md:142]. Face 00 holds the face list; the page index holds where each face sits [DIRECTOR-RULINGS.md:156].
+- R36: face 00 is like a registry. Matthew: "Ok so on face 00 think of it like windows registry. We have fields that nevere change and lock, like it's address, it's title, it's page type. Others could change. We can have a split on this." [DIRECTOR-RULINGS.md:189]. Read: locked fields "are set once and never change"; open fields "may change" [DIRECTOR-RULINGS.md:190]. Which fields beyond the three named are locked is open (SEQ-FILE-PLAN.md C28).
 - Links name a page (address plus title), never a face, and give the current page [DIRECTOR-RULINGS.md:123] [DIRECTOR-RULINGS.md:152]. Every link has a back-link [seqAddr.md:251]. Titles may repeat at other addresses; the address tells pages apart [DIRECTOR-RULINGS.md:174].
 - Tester (L4): the copy check is "a finding (a note), not a refusal", exact match only, face 01 only; nothing "compares one why with another" (docs/review/OUR-CODE-VS-CURSOR-LESSONS.md:86-88). A copied 04 and a reused why were approved and then seated by the Director token (same file, :103-118). The check is `crates/seqaddr-core/src/validate.rs:440-441`.
 
@@ -132,13 +139,17 @@ chapter-3 04 why    the walk home                  4.8 KB  quotes page 10.11.21.
 
 **How a model loads a page (lazy loading).** New: the model asks for the page; the compute returns the menu; the model asks for the sections it needs by key; the compute returns only those. A page with dozens of sections costs the model one menu plus a few sections, not the whole face.
 
+**General queries: menus, not data (R35 note).** Matthew: "instead of handing the model all the data in those pages it hands it the menu. So the model can decide what it should request first." [DIRECTOR-RULINGS.md:185]. Read: the compute "hands the model their face 03 menus, not their data" [DIRECTOR-RULINGS.md:186]. So: the model asks about a key word (for example `jim`); the compute finds the pages where that key word appears (Part 3, Q9); it returns one menu per page, each tagged with the page's address plus title (R32 [DIRECTOR-RULINGS.md:152]); the model chooses what to ask for first; the compute serves only that. The model never receives a page's sections until it asks for them by key. New: if the menus together are still too long, the compute returns them in pages of results, in a stable order, and says how many remain (not in any source).
+
+**Adding a menu to an existing page.** The face list in face 00 is an open field (R36 [DIRECTOR-RULINGS.md:190]; proposed in SEQ-FILE-PLAN.md Step 1). So the compute adds `03` to `faces` as a logged step: face 00's old fingerprint on the 00 counter, then a face 09 line (R25 [DIRECTOR-RULINGS.md:101]). Nobody types it.
+
 **Spec update pending.** R35, 2 updates the 0001-0099 limit in decisions.md:404 for the menu card only [DIRECTOR-RULINGS.md:180]. Other face 03 cards keep today's rule. This plan does not edit decisions.md.
 
-**Axioms:** Fits axiom 8: "a menu, a copy or a link never becomes what it points to" [Axioms.md:27]. Fits axiom 1: Matthew approved it; the compute writes it [Axioms.md:13]. Fits axiom 5: the model works inside a frame of only the pieces it needs [Axioms.md:21].
+**Axioms:** Fits axiom 8: "a menu, a copy or a link never becomes what it points to" [Axioms.md:27]. Fits axiom 1: Matthew approved it; the compute writes it [Axioms.md:13]. Fits axiom 5: the model works inside a frame of only the pieces it needs, and on a general query it chooses its own first step from the menus [Axioms.md:21]. Fits axiom 3: the compute does the finding, the model does the choosing [Axioms.md:17].
 
-**Better:** Better than a hand-kept table of contents, which drifts. Better than giving the model the whole page. Where we fall short: a menu on every page is one more piece per page (Tester measured 3 to 7 times disk use for small files, SEQ-PROTO-RESULTS.md), and the size column must be kept honest by the compute.
+**Better:** Better than a hand-kept table of contents, which drifts. Better than giving the model the whole page, or every page that mentions a word. Where we fall short: a menu on every page is one more piece per page (Tester measured 3 to 7 times disk use for small files, SEQ-PROTO-RESULTS.md); the size column must be kept honest by the compute; and a common key word on hundreds of pages still means many menus (paging is new and untested).
 
-**Three leads:** The person sees what is on a page at a glance. The model reads the menu first and opens only the pieces it needs. The compute derives the menu, refuses any hand edit to it, and serves pieces by key.
+**Three leads:** The person sees what is on a page at a glance. The model reads the menu first, or the menus of every page holding a key word, and asks first for what it judges most useful. The compute derives each menu, refuses any hand edit to it, finds the pages for a key word, hands over menus not data, and serves pieces by key.
 
 ---
 
@@ -148,17 +159,19 @@ chapter-3 04 why    the walk home                  4.8 KB  quotes page 10.11.21.
 
 **How a key word points (existing rule).** A key word is a brand, `word.NNN` [decisions.md:360]. The dictionary maps it to its brand card [decisions.md:424]. The brand card holds the meaning, on face 01 of the page that explains it [decisions.md:435]. So a key word never carries its meaning with it; it points to one place. This is not card reuse: the dictionary is the one lawful index for meanings.
 
+**Key word lookup for a query (R35 note).** A key word does two jobs. It points to its meaning (the brand card, above). And it lets the compute find every page that uses it, so a general query can be answered with those pages' menus [DIRECTOR-RULINGS.md:185] [DIRECTOR-RULINGS.md:186]. Today the dictionary maps a word to its brand cards "and nothing more" [decisions.md:424]; it does not list the pages that use the word. New (not in any source): the compute keeps a derived, rebuildable list from each brand to the pages whose 01 cards use it, outside the dictionary, so the dictionary keeps its one job. Open as Q9.
+
 **On a normal page (new).** Each section may have one 01 card with the same key. That card holds only key words, each written as its brand, for example `friend.003, work.001`. No body text. The section keeps the full explanation in face 04.
 
 **On system and kernel pages (new).** Faces 01 and 02 keep full cards (rules and schemas), as today [decisions.md:514].
 
 **Tension.** Today a 01 card may be "a brief of how a model should understand it" [decisions.md:405]. Matthew's words narrow that on normal pages to key words only. Not settled until R33, 2 is approved (Q4).
 
-**Axioms:** Fits axiom 2: a meaning is written once and reused, never copied [Axioms.md:15]. Fits axiom 8: each key word points to its brand card [Axioms.md:27]. Fits axiom 7: an unknown meaning is asked for, not guessed [Axioms.md:25] [decisions.md:440].
+**Axioms:** Fits axiom 2: a meaning is written once and reused, never copied [Axioms.md:15]. Fits axiom 8: each key word points to its brand card [Axioms.md:27]. Fits axiom 7: an unknown meaning is asked for, not guessed [Axioms.md:25] [decisions.md:440]. Fits axiom 8: the brand-to-pages list is derived and points; it is never the real copy [Axioms.md:27].
 
-**Better:** Better than a 01 brief that repeats face 04 in short form, which is exactly the copy Tester found (L4). Where we fall short: the model loses its short brief on normal pages and must read face 04 or the key words' brand cards.
+**Better:** Better than a 01 brief that repeats face 04 in short form, which is exactly the copy Tester found (L4). Better than searching every page's text for "Jim": key words are written on purpose, so the lookup finds what the writer meant. Where we fall short: the model loses its short brief on normal pages; and a page that mentions Jim without the key word is not found.
 
-**Three leads:** The person writes face 04 only. The model proposes key words; it does not write meanings on normal pages. The compute stores each key word as a brand and links it to its brand card.
+**Three leads:** The person writes face 04 only. The model proposes key words; it does not write meanings on normal pages; on a query it gets menus for the pages holding the key word. The compute stores each key word as a brand, links it to its brand card, and keeps the brand-to-pages list current after each write.
 
 ---
 
@@ -254,11 +267,17 @@ Each uses his four-part form. The top three are marked **TOP**.
 3. Why: A repeated number is not a copied reason. Refusing it would block normal sheets.
 4. Axioms checked: axiom 4 [Axioms.md:19] pass; axiom 9 [Axioms.md:29] tension (untried on real sheets).
 
+**Q9. How does the compute know which pages hold a key word?**
+1. Question: For a general query, the compute hands over the menus of the pages that hold the key word. The dictionary lists only meanings, "and nothing more" [decisions.md:424]. Where does the list of pages for each key word live?
+2. Proposed answer: A derived list kept by the compute, from each brand to the pages whose 01 cards use it, rebuilt from the pages whenever needed. Not stored in the dictionary, not typed by anyone.
+3. Why: The dictionary keeps one job. A derived list cannot drift for long, because it can be rebuilt from the pages. Who gets hurt otherwise: a model handed the wrong pages, or a dictionary that changes every time any page is written.
+4. Axioms checked: axiom 8 [Axioms.md:27] pass (it points, never governs); axiom 2 [Axioms.md:15] pass (no second copy of meanings); axiom 9 [Axioms.md:29] tension (untried; speed with many pages unknown).
+
 ---
 
 ## Sources
 
-- `docs/spec/DIRECTOR-RULINGS.md`: lines 29, 35, 119, 123, 134, 142, 152, 156, 159, 161, 162, 163, 165, 174, 176, 177, 178, 179, 180, 181, 182.
+- `docs/spec/DIRECTOR-RULINGS.md`: lines 29, 35, 101, 119, 123, 134, 142, 152, 156, 159, 161, 162, 163, 165, 174, 176, 177, 178, 179, 180, 181, 182, 184, 185, 186, 189, 190.
 - `docs/spec/decisions.md`: lines 298, 299, 300, 301, 353, 354, 355, 360, 404, 405, 424, 435, 440, 514, 516.
 - `docs/spec/seqAddr.md`: lines 152, 184, 185, 186, 251.
 - `docs/spec/seqpage.md`: line 81. `docs/spec/face00.md`: line 61. `docs/design/DESIGN.md`: line 189.
