@@ -295,3 +295,43 @@ mod files {
         assert_eq!(file::read(&p).unwrap().entries.len(), 4);
     }
 }
+
+// R33 item 3: a line dated earlier than the line above it is refused on read
+// (replay and boot) and on append. Equal times are allowed.
+const BACKWARD: &str = r###"{"seqbook":1,"address":"10.11.21"}
+{"n":1,"at":"2026-11-09T14:02:11Z","by":"user","op":"put","addr":"10.11.21.0000.00","body":"---\ntitle: tools\n---"}
+{"n":2,"at":"2020-01-01T00:00:00Z","by":"user","op":"put","addr":"10.11.21.0020.00","body":"---\ntitle: x\n---"}
+"###;
+#[test]
+fn r33_backward_time_is_corrupt_on_read() {
+    let e = BookLog::parse(BACKWARD).unwrap_err();
+    assert_eq!(e.code(), "corrupt", "{e}");
+    assert!(e.to_string().contains("earlier than the line above"), "{e}");
+    // equal times pass (the kernel build stamps one time on every line)
+    let same = BACKWARD.replace("2020-01-01T00:00:00Z", "2026-11-09T14:02:11Z");
+    assert_eq!(BookLog::parse(&same).unwrap().entries.len(), 2);
+}
+#[test]
+fn r33_time_order_compares_fractions_as_time() {
+    use seqaddr_core::log::check_time_order;
+    assert!(check_time_order("2026-11-09T14:02:11Z", "2026-11-09T14:02:11.000Z").is_ok());
+    assert!(check_time_order("2026-11-09T14:02:11.5Z", "2026-11-09T14:02:11Z").is_err());
+    assert!(check_time_order("2026-11-09T14:02:11Z", "2026-11-09T14:02:11.5Z").is_ok());
+    assert!(check_time_order("2026-11-09T14:02:11Z", "2026-11-09T14:02:10.999Z").is_err());
+}
+#[test]
+fn r33_backward_time_is_refused_on_append() {
+    use seqaddr_core::log::file;
+    let d = std::env::temp_dir().join(format!("r33-append-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&d);
+    std::fs::create_dir_all(&d).unwrap();
+    let p = d.join("10.11.21.book");
+    let first = BACKWARD.lines().take(2).collect::<Vec<_>>().join("\n") + "\n";
+    std::fs::write(&p, &first).unwrap();
+    let back = Entry::new(2, "2020-01-01T00:00:00Z", "user", Op::Put, "10.11.21.0020.00");
+    assert!(file::append(&p, &[back]).is_err());
+    assert_eq!(std::fs::read_to_string(&p).unwrap(), first, "nothing written");
+    let ok = Entry::new(2, "2026-11-09T14:02:11Z", "user", Op::Put, "10.11.21.0020.00");
+    file::append(&p, &[ok]).unwrap();
+    let _ = std::fs::remove_dir_all(&d);
+}

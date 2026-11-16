@@ -223,6 +223,26 @@ pub fn check_timestamp(s: &str) -> Result<()> {
     }
 }
 
+/// Compare two checked timestamps (`check_timestamp`) by the time they name.
+/// The first 19 bytes are fixed width; a fraction is compared as a decimal, so
+/// `...:05Z` equals `...:05.000Z` and is earlier than `...:05.5Z`.
+pub fn cmp_timestamp(a: &str, b: &str) -> std::cmp::Ordering {
+    let frac = |s: &str| -> String { s.get(19..s.len().saturating_sub(1)).unwrap_or("").trim_start_matches('.').trim_end_matches('0').to_string() };
+    let (fa, fb) = (frac(a), frac(b));
+    let w = fa.len().max(fb.len());
+    a.get(..19).cmp(&b.get(..19)).then_with(|| format!("{fa:0<w$}").cmp(&format!("{fb:0<w$}")))
+}
+
+/// R33 item 3: a line may not be dated earlier than the line above it. Equal times
+/// are allowed (one proposal shares one time); strictly earlier is refused.
+pub fn check_time_order(above: &str, line: &str) -> Result<()> {
+    if cmp_timestamp(line, above) == std::cmp::Ordering::Less {
+        Err(SeqError::invalid("R33 item 3", format!("time `{line}` is earlier than the line above (`{above}`); a log never runs backwards")))
+    } else {
+        Ok(())
+    }
+}
+
 /// Format seconds since the Unix epoch as ISO 8601 UTC.
 pub fn format_utc(secs: i64) -> String {
     let days = secs.div_euclid(86_400);
@@ -283,7 +303,7 @@ impl BookLog {
             return Err(SeqError::Corrupt { line: 1, detail: format!("unknown seqbook version {}", header.seqbook) });
         }
         BookId::parse(&header.address).map_err(|e| SeqError::Corrupt { line: 1, detail: e.to_string() })?;
-        let mut entries = Vec::with_capacity(lines.len());
+        let mut entries: Vec<Entry> = Vec::with_capacity(lines.len());
         for (i, line) in lines.iter().enumerate().skip(1) {
             if line.trim().is_empty() {
                 return Err(SeqError::Corrupt { line: i + 1, detail: "blank line inside the log".into() });
@@ -294,6 +314,9 @@ impl BookLog {
                 return Err(SeqError::Corrupt { line: i + 1, detail: format!("entry n={} out of order; expected {expect}", e.n) });
             }
             check_timestamp(&e.at).map_err(|err| SeqError::Corrupt { line: i + 1, detail: err.to_string() })?;
+            if let Some(prev) = entries.last() {
+                check_time_order(&prev.at, &e.at).map_err(|err| SeqError::Corrupt { line: i + 1, detail: format!("entry n={}: {}", e.n, err.detail()) })?;
+            }
             // R4 also covers JSON escapes (`\u00e9`, `\t`) that decode to a non-plain character.
             e.check_plain().map_err(|err| SeqError::Corrupt { line: i + 1, detail: format!("damaged: {} (Director ruling R4)", err.detail()) })?;
             entries.push(e);
@@ -447,6 +470,15 @@ pub mod file {
             e.check_plain()?;
         }
         repair_tail(path)?;
+        // R33 item 3: refuse a line dated earlier than the line above it (in the file or in this batch).
+        let mut above = read(path)?.entries.last().map(|e| e.at.clone());
+        for e in entries {
+            check_timestamp(&e.at)?;
+            if let Some(a) = &above {
+                check_time_order(a, &e.at)?;
+            }
+            above = Some(e.at.clone());
+        }
         let mut buf = String::new();
         let existing = fs::read(path).map_err(io)?;
         if !existing.is_empty() && !existing.ends_with(b"\n") {

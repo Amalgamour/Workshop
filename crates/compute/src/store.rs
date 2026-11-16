@@ -901,6 +901,16 @@ impl Store {
         }
         let book = book.expect("approved proposals name a book");
         let entries = out.entries.clone();
+        // R33 item 3: a line dated earlier than the line above it is refused (equal is allowed).
+        let mut above = self.logs.get(&book).and_then(|l| l.entries.last()).map(|e| e.at.clone());
+        for e in &entries {
+            if let Some(a) = &above {
+                if let Err(err) = log::check_time_order(a, &e.at) {
+                    return (409, json!({"status": "rejected", "error": "clock", "rule": "R33 item 3", "detail": err.detail(), "book": book.to_string(), "reasons": [], "entries": []}));
+                }
+            }
+            above = Some(e.at.clone());
+        }
         if let Err(e) = self.append(book, &entries) {
             // Nothing adopted: memory keeps the prior state (kernel-design 7.6).
             return (500, json!({"status": "rejected", "error": "io", "detail": e, "reasons": [], "entries": []}));
