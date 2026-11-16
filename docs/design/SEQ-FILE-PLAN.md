@@ -2,44 +2,38 @@
 
 state: draft plan, `7` (open). Not a ruling. Nothing here is law.
 made: Mon 16 Nov 2026, Designer (design partner for Prima). Director: Matthew, the only approver.
-revised: Mon 16 Nov 2026, after Director answers t171u (11:16 AM EST) and t172u (11:17 AM EST), Tester's stress test (50fdfac), Director rulings t175u (11:24 AM EST), and Tester's stress test 2 (e99665e), Director ruling R31 (t184u, 11:47 AM EST, entered by Prima in f2c8459), and Tester's prototype results (SEQ-PROTO-RESULTS.md, 7697815), all relayed by Prima. See "Changes since 29ec433".
+revised: Mon 16 Nov 2026, after Director answers t171u (11:16 AM EST) and t172u (11:17 AM EST), Tester's stress test (50fdfac), Director rulings t175u (11:24 AM EST), and Tester's stress test 2 (e99665e), Director ruling R31 (t184u, 11:47 AM EST, entered by Prima in f2c8459), Tester's prototype results (SEQ-PROTO-RESULTS.md, 7697815), and Director ruling R32 (t191u, 12:02 PM EST, entered by Prima in ff60c28, time fixed in 7289c45), all relayed by Prima. See "Changes since 29ec433".
 why: Matthew asked today (16 Nov 2026, 11:04 AM EST, passed on by Prima) for a design plan for the book file. He said a book is a .seq file, it is basically a self-contained database file, and it should work like a pyramid.
-status of every idea below: Matthew's first ideas from today are marked "Matthew's idea, 16 Nov 2026". His later answers are marked "Director answer, t171u (relayed by Prima)" or "t172u". His rulings of 11:24 AM EST are marked "Director ruling, t175u (relayed by Prima)". His answers of 11:47 AM EST are marked "R31, n" (item n of Prima's entry R31). Prima entered them in DIRECTOR-RULINGS.md as R26-R30 (commit e1a60aa) and R31 (commit f2c8459); this plan cites those entries and does not number or edit rulings. Anything not found in a Workshop source is marked "New (not in any source)". Rulings R1-R25 are quoted only where they already exist.
+status of every idea below: Matthew's first ideas from today are marked "Matthew's idea, 16 Nov 2026". His later answers are marked "Director answer, t171u (relayed by Prima)" or "t172u". His rulings of 11:24 AM EST are marked "Director ruling, t175u (relayed by Prima)". His answers of 11:47 AM EST are marked "R31, n" and those of 12:02 PM EST "R32, n" (item n of Prima's entry). Every question for Matthew follows his standing rule (t189u): the question, a proposed answer, the why, and the axiom lines checked, each marked pass or tension. Prima entered them in DIRECTOR-RULINGS.md as R26-R30 (commit e1a60aa) R31 (commit f2c8459) and R32 (commits ff60c28, 7289c45); this plan cites those entries and does not number or edit rulings. Anything not found in a Workshop source is marked "New (not in any source)". Rulings R1-R25 are quoted only where they already exist.
 does not: edit DESIGN.md, DIRECTOR-RULINGS.md, the kernel, the core, or any spec file; close any QD question; write a 00.counter; seat anything.
 
 ---
 
 ## Plain-words summary
 
-Matthew has now answered the open choices (R31, 11:47 AM EST, t184u). This summary says where the plan stands.
+Matthew has now ruled on the last three top choices (R32, 12:02 PM EST, t191u). This summary says where the plan stands.
 
-The real copy is kept in small files: one folder per page, and one file per face inside it. Matthew asked for a type that "contains and orders" the face files, so the reader can open a page and see what data is there. Prima's entry puts that type in face 00. A whole book as one `.seq` file is something you export, for example to send or back up.
+The real copy is kept in small files: one folder per page, and one file per face inside it. Face 00 holds the page's type and its list of faces. Where each face's file sits is kept in the page signpost (Prima's "page index"), so face 00 does not change on every write. A whole book as one `.seq` file is something you export.
 
-The pyramid is the shape of that exported file. The top loads fast and tells you where everything is. The computer also keeps the same signposts over the small files, so finding any page is quick. The signposts are never the real copy. They can always be rebuilt.
+The pyramid is the shape of that exported file. The computer keeps the same signposts over the small files, so finding any page is quick. Signposts are never the real copy; they can always be rebuilt.
 
-Each page's log and each signpost carries a check number (the *chain*) built from the one before it, starting from the page's own address, so a copied page cannot pass as another. When the computer starts, it checks every chain once. Until that check is done, it marks answers "not yet checked" (`9`) and refuses to write. Only the computer may write the stored files. Tester built a throwaway prototype: it is fast (one lookup in a book of 100,000 writes took 49 microseconds warm), and it found five things to fix, now in the plan as Tester's working paths.
+Each page's log and each signpost carries a check number (the *chain*), starting from the page's own address, so a copied page cannot pass as another. Until the start-up check is done, answers are marked "not yet checked" (`9`) and writes are refused. Only the computer may write the stored files. Tester's throwaway prototype is fast (one lookup in a book of 100,000 writes took 49 microseconds warm) and found five things to fix, now in the plan.
 
-Face 04 is the person's face. It stays plain text. Every other face may be compact computer code (binary), for speed.
+**A link points to the page, not to a version.** A link is the page's address and title. Following it always gives the page as it is now. Matthew's example: a page about "Jim" changes over time, and a link to it should let the computer find out about Jim, not some old wording. Old versions stay in the page's log.
 
-There are two kinds of page now. **System pages lock.** Once a system page is linked to, it is done, even if it is later retired. To improve it, a developer makes and promotes a new copy at a new address, linked both ways. A lock is never undone. **General pages stay editable** the Google Docs way: every edit is kept as a small change, with a full copy every so often, and old versions never change. Matthew wants pages to be able to hold office kinds too, such as a spreadsheet or a word document.
+**What never changes:** a page's address and title, once paired, and the fact that the page exists. **Face 00 locks once it is done**; the other faces may still change. A page that exists and is linked to can never be deleted, only retired: it stays on record but drops out of active searches.
 
-What a lock freezes is now settled: the title and faces 00 to 04 freeze. The computer may still add new work packs (05), notes (06), back-links (08) and log lines (09).
+**General pages stay editable** the Google Docs way: every edit is a small change, with a full copy every so often, and old versions never change. **System pages** lock their main faces (00 to 04) once linked (R31); the computer may still add work packs, notes, back-links and log lines. To improve a locked page, a developer makes and promotes a new copy at a new address, linked both ways. Pages may hold office kinds, such as a spreadsheet or a word document.
 
-Once a page address is given a title, that pair never changes, for any page. Addresses are for the back end only; people see titles.
+Face 04 is the person's face and stays plain text. Other faces may be compact computer code. Addresses are back end only; people see titles. A book is a working journal, retired to the shelf when its work is done, possibly partly complete. Face 09 is the page's log; face 00 keeps no log.
 
-A book is a working journal. When its work is done it is retired to the shelf as a reference. It may stay partly complete.
-
-Face 09 is the page's log. Face 00 keeps no log. Prima's answer for the short log is a "last change" note in the page signpost (her word is "page index"), written only by the computer. That is held until Matthew confirms it.
-
-Links point to a page, never to a face. A link is the page address and its title.
-
-Some new questions come with R31. The top three: does "once it's linked it's done" also cover general pages, or only system pages? What exactly is a system page? And how does face 00 hold and order the face files without changing on every write, which ruling R25 tries to avoid? They are at the top of the open choices list.
+Matthew asked that every question come with a proposed answer, the reason, and the axioms it was checked against. The open choices are now written that way. The top three: do system pages still freeze faces 01 to 04, or only face 00 like every page? When is face 00 "done", and where do later records go once it is locked? And how does a retired page drop out of searches without a lookup quietly finding a different page instead?
 
 ---
 
 ## Changes since 29ec433
 
-29ec433 was the first version of this plan. f6296ba added Step 17 (face 04, t172u). d034948 added Matthew's t171u answers. c077d0c folded in Tester's stress test. e41300d added his t175u rulings. 6dbe53c folded in Tester's stress test 2. This version folds in Director ruling R31 (t184u). Old commits are not changed; this is a new step on top (axiom 6) [Axioms.md:23].
+29ec433 was the first version of this plan. f6296ba added Step 17 (face 04, t172u). d034948 added Matthew's t171u answers. c077d0c folded in Tester's stress test. e41300d added his t175u rulings. 6dbe53c folded in Tester's stress test 2. f8ac4d9 folded in Director ruling R31 (t184u), and cad88d0 Tester's prototype. This version folds in Director ruling R32 (t191u). Old commits are not changed; this is a new step on top (axiom 6) [Axioms.md:23].
 
 - **A1 (t171u), faces as code.** New in Step 3, Step 7, Step 11 and Step 14. Face 04 stays readable; other faces may be compact code. At d034948 this was a pending narrowing of R4; it is now settled by t175u, 2 (see below). C3 is updated.
 - **A2 (t171u), small files stored, books exported.** Steps 1, 2, 4, 5, 6, 9, 10 and 15 are reframed: the pyramid and book signpost are now the export format, and possibly a derived signpost over the small files. The stored form is the small files. C1 is updated, and the git-blob fingerprint flag in Step 10 is updated.
@@ -53,13 +47,43 @@ Some new questions come with R31. The top three: does "once it's linked it's don
 - **Tester's stress test 2 folded in** (SEQ-FILE-PLAN-TEST-2.md, commit e99665e; Tester's file not edited). Lock scope: the title and seated 00-04 text freeze; new 05/06 counters, 08 back-links and 09 log lines go on, compute-only (working path, Tester); the R24 against R30 clash is named (Step 13, new C14). Chain defined: hash(previous chain + new bytes), checked before each write against the copy in memory; reads `9` and writes refused until the start-up check ends (corrects the earlier `7`, with the reason). store.rs:941 described correctly (refuses shorter files, cuts longer ones at every append today; Tester's fix: refuse at runtime, cut only at start-up repair). OS file lock added; builder output moved out of `books/` (Step 11). K = 64 per band, with Tester's measured numbers (Step 5). Tester's picks recorded for C11, C12, C1a and C13 (working paths, still open). Stale wording fixed in Steps 8, 15 and 17. format.md cites fixed (:60 for the append-only heading; :18 for "only the compute writes"). Face 09 build gap listed. Sources rebuilt from every cite in the file. Top 3 recomputed (C11, C14, C12).
 - **Director ruling R31 (t184u, 11:47 AM EST) folded in** (entered by Prima at [DIRECTOR-RULINGS.md:127]-[DIRECTOR-RULINGS.md:148], commit f2c8459; not edited). C11, C12, C14, C1a and C13 are marked settled by R31, each with what it now is. C9 is closed (R31, 10). Step 1 now has the per-page folder with one file per face, face 00's type that holds and orders them, and books as working journals. Step 3 adds office kinds. Step 8 records R31, 9 (no log in 00; the last-change note held 7). Step 13 is rebuilt: titles fixed for every page, system pages lock, general pages stay editable, developer-only promotion. Step 17 is squared with general pages. Tensions R31 creates with earlier rulings and with Tester's findings are listed in Step 13 and as new choices C15-C20; none is resolved here. Places where Prima's relayed summary differs from her R31 entry are listed under the R31 block. The summary, still-open list and top 3 are recomputed (C16, C15, C17).
 - **Tester's prototype results folded in** (SEQ-PROTO-RESULTS.md, commit 7697815; Tester's file not edited). Working paths (Tester), not rulings: the book line is the commit point, and band lines after the last book line are dropped at start-up (Steps 9, 11); face 04's current view is written after its face 09 line (Steps 9, 17); each page's face 09 chain is seeded with the page address plus a book birth id, and all signposts missing is a halt that asks a person (Step 10); the check-then-write gap (2 of 20 tries) and what closes it (Step 11). Plan gaps filled: the chain across many small files (Step 10); C7 split into the chain hash and the file fingerprint (Step 10, C7); face 04's current-view file, its write order, the small-change format and the full-copy cadence (Step 17); how a hand edit is booked and who made it (Step 17). Measured numbers quoted exactly in Step 16, with what was not measured.
+- **Director ruling R32 (t191u, 12:02 PM EST) folded in** (entered by Prima at [DIRECTOR-RULINGS.md:150]-[DIRECTOR-RULINGS.md:156], commits ff60c28 and 7289c45; not edited). C15, C16 and C17 are closed, each with what it now is. R32, 1 narrows R30 and R31, 1: a link gives the current page; what is fixed forever is the address-title pairing and the page's existence. Every place that assumed a link freezes a version is fixed or flagged (Steps 1, 6, 10, 13, 16, 17; C10, C11, C14; Still open; the list is under the R32 block). New tensions are named (C21-C23). The open choices are rewritten in Matthew's four-part form (t189u). Summary, still-open list and top 3 recomputed (C21, C22, C23).
 - **Rename: "map" is now "signpost".** "Map" is face 08's name [seqAddr.md:157] and "index" is used for the dictionary [seqAddr.md:230], so the plan's book map, band map and page index are now the book, band and page signposts.
 
 ---
 
 ## Director answers and rulings today
 
-Matthew's words are quoted exactly as recorded by Prima in `docs/spec/DIRECTOR-RULINGS.md` (R26-R30 in commit e1a60aa; R31 in commit f2c8459). This plan does not number or edit rulings; it cites Prima's entries. Where Prima's entry says "Held 7", this plan keeps it held.
+Matthew's words are quoted exactly as recorded by Prima in `docs/spec/DIRECTOR-RULINGS.md` (R26-R30 in commit e1a60aa; R31 in commit f2c8459; R32 in commits ff60c28 and 7289c45). This plan does not number or edit rulings; it cites Prima's entries. Where Prima's entry says "Held 7", this plan keeps it held.
+
+**Director ruling R32, t191u (relayed by Prima), 12:02 PM EST** [DIRECTOR-RULINGS.md:150]. It answers Prima's C16, C15 and C17 in t188s728 (the same labels as this plan's choices). His words and Prima's Read are quoted exactly from the file.
+
+- **R32, 1, Links (C16):** "Lets say we have a book about relationships... So say page 1024 is about "Jim" That might be changed and updated. We don't want to link to exact wordings of a page face. But be linked so the compute can find out about Jim. So I think your answer is wrong, if you disagree tell me why." [DIRECTOR-RULINGS.md:151]. Read: "Prima's proposal (a link locks the version it points to) is rejected, and Prima agrees. A link points to the page (address plus title), and following it gives the current page. Old versions stay in the log (R29). This narrows R30 and R31 item 1: what is fixed forever is the address-title pairing and the page's existence, not the wording of a general page's faces." [DIRECTOR-RULINGS.md:152]
+- **R32, 2, System pages and lock (C15):** "Yes, when a page is created, it gets its properties is assigned a title and seqaddr. Once the 00 is done it's locked the info might change on the faces but once a page exists and is linked it can only be retired, so the record is there, and not be in active searches." [DIRECTOR-RULINGS.md:153]. Read: "at creation a page gets its properties, title, and address. Once face 00 is done, face 00 is locked; the other faces may still change. Once a page exists and is linked, it can't be deleted, only retired. A retired page stays on record but leaves active searches." [DIRECTOR-RULINGS.md:154]
+- **R32, 3, Face list (C17):** "I agree" [DIRECTOR-RULINGS.md:155]. Read: "face 00 holds the page type and its face list. Where each face sits is kept in the page index, so face 00 doesn't change on every write." [DIRECTOR-RULINGS.md:156]
+
+**R32 narrows earlier rulings (their text is not rewritten, axiom 6 [Axioms.md:23]).** R30's Read said a registered, linked page is locked, "no rename, no change" [DIRECTOR-RULINGS.md:125]. R31, 1's Read said "Once a page is linked, it is done" [DIRECTOR-RULINGS.md:130]. R32, 1's Read: "This narrows R30 and R31 item 1: what is fixed forever is the address-title pairing and the page's existence, not the wording of a general page's faces." [DIRECTOR-RULINGS.md:152]. R32, 2 adds that face 00 locks once done for every page [DIRECTOR-RULINGS.md:154], which R25's "We record the changes onto 00" [DIRECTOR-RULINGS.md:100] did not foresee (C22).
+
+**Where Prima's relayed summary differs from her R32 entry** (checked line by line; R32 governs):
+
+- Item 1: the summary says a link gives the current page and "This narrows R30 and R31 item 1". The Read adds "not the wording of a general page's faces" (the word "general" matters here) [DIRECTOR-RULINGS.md:152]: the narrowing is stated for general pages; system pages are not mentioned (C21). The summary also leaves out that Prima agrees, and Matthew's own "if you disagree tell me why" [DIRECTOR-RULINGS.md:151].
+- Item 1: the rejected proposal is described as "a link locks the version it points to" [DIRECTOR-RULINGS.md:152]. That was Prima's proposal in t188s728. This plan's C16 proposed answer (Option A, f8ac4d9) was already that a linked general page stays editable and a link may reach changed words, which is what R32 rules; this plan's Option C was the version-pinning one.
+- Item 2: labelled C15 (what is a system page). Neither Matthew's words nor the Read [DIRECTOR-RULINGS.md:153] [DIRECTOR-RULINGS.md:154] define a system page. The summary presents C15 as answered; only the lock part is. The summary also leaves out his first sentence, that at creation a page "gets its properties is assigned a title and seqaddr" [DIRECTOR-RULINGS.md:153].
+- Item 3: matches. The Read adds the reason, "so face 00 doesn't change on every write" [DIRECTOR-RULINGS.md:156].
+- "Old versions stay in the log (R29)" is in the Read [DIRECTOR-RULINGS.md:152], not in Matthew's words.
+
+**Places changed because they assumed a link freezes a version (R32, 1), and why:**
+
+- Summary: "Once a system page is linked to, it is done" read as if linking froze the page. Now: a link gives the current page; linking makes a page undeletable (retire only); system pages lock 00-04 under R31, not because a link pins them.
+- Step 1, face 00's role: said the face list is derived and not written in face 00. R32, 3 puts the face list in face 00 and the places in the page signpost. Rewritten.
+- Step 6, page signpost: now named as Prima's "page index" that holds where each face sits (R32, 3).
+- Step 10, Three leads: "cite a version by address plus fingerprint" kept for cites (D348), but marked as a cite, not a link; links carry no fingerprint (R32, 1; C10).
+- Step 13: "A system page locks once it is linked to" and "Once a page is linked, it is done" now carry R32's narrowing; the R31, 1 against R31, 3 tension and the "links may reach changed words" tension are marked settled by R32, 1; "live and as linked may differ (C16)" now says a link always follows the current page; the rework copy's lineage fingerprint is marked as a record of where the copy started, not a link; Better and Three leads updated.
+- Step 16: tests 28-32 added (a link follows edits; delete refused, retire allowed; retired pages leave search; face 00 refused once done; a link never carries a fingerprint).
+- Step 17: "Whether a linked general page is still editable is C16" replaced by R32, 1.
+- C11 and C14: C11 now records R32's narrowing; C14 stands for system pages, with C21 asking whether R32, 2 changes it. C10 sharpened: links never pin a version; cites may.
+- Still open: the fork note "links to them stay true" now says links give each copy's current page, which is why the fork rule must halt.
+- Checked and left as is: Step 12's K2 file generation names the old file by fingerprint; that is a pointer to a frozen old file, not a page link. Test 11 (title mismatch raised) still holds.
 
 **Director ruling R31, t184u (relayed by Prima), 11:47 AM EST** [DIRECTOR-RULINGS.md:127]. Each item is Matthew's reply to Prima's proposed answer (t183s712) [DIRECTOR-RULINGS.md:128]. His words and Prima's Read are quoted exactly from the file.
 
@@ -144,7 +168,7 @@ The levels match the existing design: books contain pages, pages contain faces, 
 
 **What a page folder holds (plan, new, not a ruling).** One file per face that exists: compact code files for faces other than 04 (R27), face 04 as plain text with its small-change log and full copies (Step 17), and face 09 as the page's log file (Step 8). Which faces exist on a page comes from its type (below). A write that touches several files or pages still needs to be all or nothing; Tester's pick is a compute-only book journal, like the compute's `.queue` file (`crates/compute/src/store.rs:307`). R31, 7 does not mention it, so it stays open (Still open).
 
-**Face 00's role: the type that holds and orders the face files (R31, 7, as Prima reads it).** Face 00 already holds the stamp, the page's type and a per-type registry [R19] [DIRECTOR-RULINGS.md:76], and the starting types include `system` and `general` [decisions.md:286]. A type can already carry rules such as required or forbidden faces and who may write it [decisions.md:288]. So the natural home for "a type that contains and orders this" is the page type in face 00: the type says which face files a page of that kind has and in what order the reader shows them. The page's actual list of files is then derived from the folder and the type, not written out in face 00 (new, not a ruling). **Tension, not resolved here:** if face 00 itself had to list every face file, then each new face file (a new 05 counter, a new 04 full copy, a new 09 piece) would change face 00. R25 says face 00 is the registry root and keeps its past as a list of fingerprints on its own counter face so that writes do not keep changing 00 [DIRECTOR-RULINGS.md:101]. And Matthew's words do not name face 00; only the Read does [DIRECTOR-RULINGS.md:141] [DIRECTOR-RULINGS.md:142]. Which way is C17.
+**Face 00's role: the type and the face list; the page signpost holds the places (R31, 7; settled by R32, 3, was C17).** Face 00 already holds the stamp, the page's type and a per-type registry [R19] [DIRECTOR-RULINGS.md:76], and the starting types include `system` and `general` [decisions.md:286]. A type can carry rules such as required or forbidden faces and who may write it [decisions.md:288]. R32, 3: Matthew: "I agree" [DIRECTOR-RULINGS.md:155]; Read: "face 00 holds the page type and its face list. Where each face sits is kept in the page index, so face 00 doesn't change on every write." [DIRECTOR-RULINGS.md:156]. So (plan detail, new, not a ruling): face 00's face list names which faces the page has, in the order the reader shows them (for example 00, 01, 02, 04, 05, 06, 08, 09). It names faces, not files: a new 05 counter, a new 04 full copy or a new 09 line is a new file or line inside a listed face and does not touch face 00. Prima's "page index" is this plan's page signpost (Step 6): it holds where each face's current file and pieces sit, and it changes on every write. R25's churn worry [DIRECTOR-RULINGS.md:101] is met. **New tension (C22):** R32, 2 locks face 00 once it is done [DIRECTOR-RULINGS.md:154]; a page that later needs a face its list does not name, or a seat record R25 wrote onto 00 [DIRECTOR-RULINGS.md:101], has nowhere to go in face 00.
 
 **A book is a working journal (R31, 6).** Matthew: "This of a book kind of like a working journal. In time each one is retired and put on a shelf as a refernce but once that piec of work is complete it's done. It could be used in the future or might only sit partly complete." [DIRECTOR-RULINGS.md:139]. Read: "a book is a working journal. When it's done it's retired to the shelf as a reference, and it may stay partly complete." [DIRECTOR-RULINGS.md:140]. What this means for the file: a book is opened, written to for a piece of work, then retired. Retiring is a new step (a face 09 line on the book's identity page, written by the compute), never a rewrite [Axioms.md:23]; the files stay where they are and stay readable. "Retired" already exists as a tail word for pages [seqAddr.md:127]. **Open, not resolved here:** R30 says that once a book is complete, changing its pages "shouldn't be possible anymore" [DIRECTOR-RULINGS.md:124]; R31, 6 says a retired book may be only partly complete. Whether retiring a book locks all its pages, or only its system pages, and what marks a book "complete" or "retired", are C20. "Put on a shelf" may be a figure of speech or may mean a shelf address (DD.SS) [seqAddr.md:14]; the sources do not say.
 
@@ -152,7 +176,7 @@ The levels match the existing design: books contain pages, pages contain faces, 
 
 **Axioms:** Fits axiom 2: the same shape at every scale; a page is "a small book", and the export is the same book in one file [Axioms.md:15]. Fits axiom 3: one face per lead [Axioms.md:17]. Fits axiom 8: the export is a copy, and "a copy ... never becomes what it points to" [Axioms.md:27]; the small files govern. R3 is changed by Matthew's own ruling (t175u), not by the builders [Axioms.md:13].
 
-**Better:** Better than making the big file the stored copy: small files are quick to write, each change touches only the file it changes, and git shows exactly which piece changed. The export still gives Matthew his "self-contained database file" when he wants one. Where we fall short: a page of six or so files costs more disk than its bytes (Tester measured 3 to 7 times, SEQ-PROTO-RESULTS.md); how face 00's type orders the files without churning face 00 is open (C17); and what retires or completes a book is open (C20).
+**Better:** Better than making the big file the stored copy: small files are quick to write, each change touches only the file it changes, and git shows exactly which piece changed. The export still gives Matthew his "self-contained database file" when he wants one. Where we fall short: a page of six or so files costs more disk than its bytes (Tester measured 3 to 7 times, SEQ-PROTO-RESULTS.md); what happens once face 00 is locked (a seat record, a newly needed face) is open (C22); and what retires or completes a book is open (C20).
 
 **Three leads:** The person needs one title per thing and a reader that opens a page and shows what data is there [DIRECTOR-RULINGS.md:142], never raw addresses or file names. The model needs to write only proposals, never an export and never a small file directly [AGENTS.md:42]. The compute needs one stored form it alone writes [format.md:18], and an export it can build from it on request.
 
@@ -281,7 +305,7 @@ A signpost is derived from the entries. It is never written by a person or a mod
 
 The page kind is copied into the row so the compute can route a request (system page, general page, a kind not yet invented) without opening the page. The `type` stays defined in face 00 [decisions.md:285] [R19]. The row is a derived copy for speed, never the source.
 
-**Page signpost (level 3).** New (not in any source): one line per page, written by the compute after any write to that page. It lists each face the page has: face number, its state (draft, seated, counted, retired), where its current block sits, its length, and its fingerprint. For a counted face it lists each counter and its tail. It also points to the page signpost before it (`prev`), so the page's past can be walked back (Step 8).
+**Page signpost (level 3); Prima's "page index" (R32, 3).** It holds where each face sits, so face 00 does not change on every write [DIRECTOR-RULINGS.md:156]. New (not in any source): one line per page, written by the compute after any write to that page. It lists each face the page has: face number, its state (draft, seated, counted, retired), where its current block sits, its length, and its fingerprint. For a counted face it lists each counter and its tail. It also points to the page signpost before it (`prev`), so the page's past can be walked back (Step 8).
 
 **Why not put this inside face 00.** Prima's sketch put "where each face sits" in face 00. This plan keeps it out, for a reason Matthew already gave. In R25 he said the 00 counter list "must be its own face, not lines inside 00, or writing the list would again change 00's fingerprint" [DIRECTOR-RULINGS.md:101]. The same is true here. If face 00 held face locations, face 00 would change every time any face changed. Face 00 would then have no stable fingerprint, and every write would look like a change to the registry.
 
@@ -433,7 +457,7 @@ This keeps D414 ("checked on every open", "never trusted over the log") [DECISIO
 
 **Better:** Better than today: today nothing inside a book says "this line is intact" except that it parses. Better than a new kind of fingerprint: under S2 or S3 the git blob is already used for seats. Where we fall short: a fingerprint shows damage; it cannot repair it. And git's default hash is SHA-1, which is old.
 
-**Three leads:** The person needs to check a fingerprint with a common tool (git), not trust the compute blindly [AGENTS.md:10]. The model needs to cite a version by address plus fingerprint, never by commit id, as working path D348 already does for packs [DECISIONS-LOG:411]. The compute needs fingerprints that are cheap on write and on read.
+**Three leads:** The person needs to check a fingerprint with a common tool (git), not trust the compute blindly [AGENTS.md:10]. The model needs to cite a version by address plus fingerprint, never by commit id, as working path D348 already does for packs [DECISIONS-LOG:411]. That is a cite, which may pin a version; a link never does: a link names address and title and gives the current page (R32, 1 [DIRECTOR-RULINGS.md:152]; C10). The compute needs fingerprints that are cheap on write and on read.
 
 ---
 
@@ -496,9 +520,9 @@ Whether K2 may ever be done, and who approves it, is Matthew's choice (choice C5
 
 ---
 
-## Step 13. Links point to pages; titles are fixed; system pages lock; general pages stay editable; developers promote copies
+## Step 13. Links give the current page; titles are fixed; face 00 locks; linked pages only retire; system pages lock; developers promote copies
 
-**Director answer, t171u, answer 5 (relayed by Prima), recorded by Prima as R30:** "We use the seqaddr system. our 2.2.2.4.title we don't include the face its a sub group of the page." [DIRECTOR-RULINGS.md:123]. **Director ruling R31, 1-5 (t184u), below.** **Director ruling, t175u, 3 (relayed by Prima):** "Once a book is complete, changing pages shouldn't be possible anymore. A new copy can be made and reworked. But the original work shouldn't changed. Once a page is linked to and registered with the book it shouldn't change." [DIRECTOR-RULINGS.md:124].
+**Director answer, t171u, answer 5 (relayed by Prima), recorded by Prima as R30:** "We use the seqaddr system. our 2.2.2.4.title we don't include the face its a sub group of the page." [DIRECTOR-RULINGS.md:123]. **Director rulings R32, 1-3 (t191u) and R31, 1-5 (t184u), below.** **Director ruling, t175u, 3 (relayed by Prima):** "Once a book is complete, changing pages shouldn't be possible anymore. A new copy can be made and reworked. But the original work shouldn't changed. Once a page is linked to and registered with the book it shouldn't change." [DIRECTOR-RULINGS.md:124].
 
 **Links name a page, checked against seqAddr.md.** "2.2.2.4" is the four address widths: desk, shelf and book are 2 digits, the page is 4 [seqAddr.md:14] [seqAddr.md:18] [seqAddr.md:19] [seqAddr.md:20] [seqAddr.md:21]. A word after the page is a title, and "Faces never have titles: a face is `PPPP.FF` or `PPPP.FF.NN`" [seqAddr.md:110]. The grammar allows a title right after the page [seqAddr.md:269]. Link targets are already page-level: "Every target's identity page links back" [seqAddr.md:251]. So a link reads like `10.11.21.1001.bob`. Points from seqAddr.md a link must respect:
 
@@ -509,19 +533,25 @@ Whether K2 may ever be done, and who approves it, is Matthew's choice (choice C5
 
 **Titles are fixed for every page (R31, 1).** Matthew: "Once a address is given a title it exists and doesn't change anymore. it would break too much to allow it to be open" [DIRECTOR-RULINGS.md:129]. Read: "once an address is given a title, that pairing is fixed forever." [DIRECTOR-RULINGS.md:130]. This holds for every page, system or general: an address and its title, once paired, never change and are never given to anything else, even after the page is retired ("Even if the page is retired. It never is rewritten." [DIRECTOR-RULINGS.md:129]). seqAddr.md already says a title is a label and the address is identity [seqAddr.md:114]; R31, 1 adds that the label, once given, is permanent. Pages 0001-0999 may have no title [seqAddr.md:115]; giving one later is the one time a title is set.
 
-**System pages lock; general pages stay editable (R31, 3).** Matthew: "So locked pages are for system pages, a normal page can be edited think our google document page." [DIRECTOR-RULINGS.md:133]. Read: "locking applies to system pages. General pages stay editable in the Google Docs way (R29)." [DIRECTOR-RULINGS.md:134]. And on when: "once it's linked it can't be used for anything else it's done. Even if the page is retired." [DIRECTOR-RULINGS.md:129]; Read: "Once a page is linked, it is done, even if it is later retired." [DIRECTOR-RULINGS.md:130]. So:
+**A link gives the current page, not a version (R32, 1; settled, was C16).** Matthew: "So say page 1024 is about "Jim" That might be changed and updated. We don't want to link to exact wordings of a page face. But be linked so the compute can find out about Jim." [DIRECTOR-RULINGS.md:151]. Read: "A link points to the page (address plus title), and following it gives the current page. Old versions stay in the log (R29)." [DIRECTOR-RULINGS.md:152]. So a link stores the target's address and title, nothing else: no fingerprint, no version number, no face. Following it always opens the page as it is now. Anyone who needs an old wording reads the page's face 09 log and face 04 history (Step 17). **This narrows R30 and R31, 1** (Prima's Read, [DIRECTOR-RULINGS.md:152]): what is fixed forever is the address-title pairing and the page's existence, not the wording of a general page's faces. R30's and R31's text is not rewritten [Axioms.md:23].
 
-- A **system page** locks once it is linked to. After that its title and faces 00-04 do not change (below).
-- A **general page** is not locked. Its face 04 is edited the Google Docs way, every old version kept (Step 17, R29). Its title still never changes (R31, 1).
-- What makes a page "system" is not defined in R31. The sources already have a face 00 type `system`, "a kernel or structural page" [face00.md:138] [decisions.md:286], and `general`, "an ordinary page; the default" [face00.md:137]. Reading Matthew's "system pages" as type `system` is a candidate (new, not a ruling); a type can carry "who may write it" [decisions.md:288], so the lock could be a type rule. That is C15.
-- R30 said "linked to and registered" [DIRECTOR-RULINGS.md:124]; R31, 1 says "once it's linked". Whether "registered" is still needed, and what counts as "linked" (this plan reads it as a written face 08 link, not a derived contents list [format.md:102]), stays part of C15.
+**Face 00 locks once done; a linked page can only be retired (R32, 2; settled, was C15 in part).** Matthew: "Yes, when a page is created, it gets its properties is assigned a title and seqaddr. Once the 00 is done it's locked the info might change on the faces but once a page exists and is linked it can only be retired, so the record is there, and not be in active searches." [DIRECTOR-RULINGS.md:153]. Read: "at creation a page gets its properties, title, and address. Once face 00 is done, face 00 is locked; the other faces may still change. Once a page exists and is linked, it can't be deleted, only retired. A retired page stays on record but leaves active searches." [DIRECTOR-RULINGS.md:154]. So, for every page:
 
-**What a lock freezes: settled by R31, 2 (was C14).** Matthew: "See above I think it answers it for you." [DIRECTOR-RULINGS.md:131]. Read: "Prima's answer stands. The title and the finished faces 00-04 freeze, and additions written only by the compute (05, 06, 08, 09) may continue. This also settles R24 against R30." [DIRECTOR-RULINGS.md:132]. So on a locked page: frozen are the title and the finished text of faces 00, 01, 02, 03 and 04. Still added, **only by the compute**, never changing anything written: new face 05 counters (the R24 climb [DIRECTOR-RULINGS.md:97]), face 06 notes [seqAddr.md:155], back-link lines on face 08, and log lines on face 09. The R24 against R30 clash named in 6dbe53c is settled by this.
+- At creation the page gets its type and properties, its title and its address.
+- Once face 00 is done, face 00 is locked. When "done" is, is not said (C22).
+- Once the page is linked to, it can never be deleted, only retired. Retiring is a face 09 line and the tail word `retired` [seqAddr.md:127]; the page and all its history stay; it leaves active searches. Its address and title are never reused (R31, 1 [DIRECTOR-RULINGS.md:129]). How it leaves search without a lookup falling through to another page is C23.
+
+**System pages lock faces 00-04 (R31, 3), and what is still open.** Matthew (R31, 3): "So locked pages are for system pages, a normal page can be edited think our google document page." [DIRECTOR-RULINGS.md:133]. Read: "locking applies to system pages. General pages stay editable in the Google Docs way (R29)." [DIRECTOR-RULINGS.md:134]. Under R31, a system page's title and faces 00-04 freeze once it is linked. R32 narrows only what a link fixes and "the wording of a general page's faces" [DIRECTOR-RULINGS.md:152]; it does not mention system pages. Whether R32, 2's "the info might change on the faces" also loosens the system-page freeze is C21. What a system page is remains undefined in R31 and R32; this plan keeps the candidate reading, face 00 type `system`, "a kernel or structural page" [face00.md:138] [decisions.md:286], with the lock as a rule of that type [decisions.md:288] (new, not a ruling; part of C21). `general` is "an ordinary page; the default" [face00.md:137].
+
+- A **general page**: face 00 locks once done; faces 01-09 stay editable, every version kept (Step 17, R29); links to it always give the current page.
+- A **system page**: as a general page, and once linked its title and faces 00-04 also freeze, with compute-only additions (R31, 2), unless C21 says otherwise. A link to it also gives the current page, which for frozen faces is the same words.
+
+**What a lock freezes: settled by R31, 2 (was C14).** Matthew: "See above I think it answers it for you." [DIRECTOR-RULINGS.md:131]. Read: "Prima's answer stands. The title and the finished faces 00-04 freeze, and additions written only by the compute (05, 06, 08, 09) may continue. This also settles R24 against R30." [DIRECTOR-RULINGS.md:132]. So on a locked page: frozen are the title and the finished text of faces 00, 01, 02, 03 and 04. Still added, **only by the compute**, never changing anything written: new face 05 counters (the R24 climb [DIRECTOR-RULINGS.md:97]), face 06 notes [seqAddr.md:155], back-link lines on face 08, and log lines on face 09. The R24 against R30 clash named in 6dbe53c is settled by this. Whether R32, 2 changes this for system pages is C21.
 
 **No undo; developers promote a new copy (R31, 4 and 5).** Matthew: "No that is correct, we update and promote when its time to improve our work. This is dev only ability." [DIRECTOR-RULINGS.md:135]. Read: "a lock is never undone. Improvement happens by updating and promoting a new copy, and only developers can do that." [DIRECTOR-RULINGS.md:136]. And R31, 5: "Correct" [DIRECTOR-RULINGS.md:137]; Read: "a rework copy gets a new address, with links both ways." [DIRECTOR-RULINGS.md:138]. So:
 
 1. A lock is never undone.
-2. To improve a locked page, a developer makes a new copy at a new address, works on it, and promotes it. Its face 08 links back to the original, and the compute adds the matching back-link to the original's face 08 (an addition allowed by R31, 2), so the line is written both ways [seqAddr.md:251] [Axioms.md:23]. The copy's face 00 lineage names the original by address, title and fingerprint (working path, Tester). Old links still reach the original, unchanged.
+2. To improve a locked page, a developer makes a new copy at a new address, works on it, and promotes it. Its face 08 links back to the original, and the compute adds the matching back-link to the original's face 08 (an addition allowed by R31, 2), so the line is written both ways [seqAddr.md:251] [Axioms.md:23]. The copy's face 00 lineage names the original by address, title and fingerprint (working path, Tester). That fingerprint is a record of where the copy started (history, axiom 6), not a link: it pins nothing, and the face 08 links both ways carry address and title only (R32, 1). Old links still reach the original, and give its current page.
 3. Locking and promoting are face 09 lines, written by the compute: who, when, why.
 4. Promotion is still a proposal the compute writes; only the compute writes to disk [format.md:18].
 
@@ -533,22 +563,30 @@ Not said, and not resolved here: who is a "developer". The sources have a `dev` 
 2. **A new title means a new page.** For a general page, the person makes a new page with the new title and links it to the old one; the old page keeps its title. For a locked system page, this is the developer's new copy above.
 3. **A link whose title does not match** the target's face 00 is raised to the person, never followed silently and never fixed by guessing [seqAddr.md:116]. Under rules 1-2 this happens only through damage or a write outside the compute.
 
-**Tensions R31 creates (named, not resolved; each needs Matthew).**
+**Tensions from R31, and what R32 did to them.**
 
-- **R31, 1 against R31, 3.** Item 1 says "once it's linked it can't be used for anything else it's done" [DIRECTOR-RULINGS.md:129], with no limit to system pages in his words. Item 3 says locking is for system pages and "a normal page can be edited" [DIRECTOR-RULINGS.md:133]. If a general page is linked to, is it done (item 1) or still editable (item 3)? R30 also said a linked, registered page "shouldn't change" [DIRECTOR-RULINGS.md:124], for any page. This plan reads item 1's "it's done" as "its address and title are done" for every page, and the full lock as system pages only, but that reading is new and not a ruling. C16.
-- **Editable general pages against links.** If a general page stays editable after it is linked, a link still reaches the same address and title (R31, 1), but not the same words. Links never break; what they point at can change. Whether that is acceptable is part of C16.
-- **Against Tester's C11 pick.** Tester picked "seated AND linked" so that nobody could freeze someone else's draft just by linking to it (SEQ-FILE-PLAN-TEST-2.md, C11). R31, 1 says "once it's linked". For system pages, a link alone may now lock, and that risk returns. Part of C15.
-- **Against R30's book rule.** R30: once a book is complete, its pages should not change [DIRECTOR-RULINGS.md:124]. R31, 3: general pages stay editable. Does a complete or retired book freeze its general pages too? C20.
-- **Addresses hidden (R31, 8) against links that name an address.** R30 links read `2.2.2.4.title` [DIRECTOR-RULINGS.md:123]. With addresses back end only [DIRECTOR-RULINGS.md:144], the person sees and picks a title; the stored link still carries the address. Then two pages with the same title must be told apart without showing addresses. Part of C13a.
-- **Developer-only promotion against "only Matthew approves" and "only the compute writes".** C19.
+- **R31, 1 against R31, 3: settled by R32, 1.** "It's done" means the address-title pairing and the page's existence are done; a general page's wording stays editable [DIRECTOR-RULINGS.md:152].
+- **Editable general pages against links: settled by R32, 1.** A link reaching changed words is what Matthew wants: "We don't want to link to exact wordings of a page face." [DIRECTOR-RULINGS.md:151].
+- **Against Tester's C11 pick.** Tester picked "seated AND linked" so nobody could freeze someone else's draft by linking to it (SEQ-FILE-PLAN-TEST-2.md, C11). Under R32 a link to a general page freezes no wording; it only makes the page undeletable. For system pages the freeze-on-link risk remains (C21).
+- **Against R30's book rule.** R30: once a book is complete, its pages should not change [DIRECTOR-RULINGS.md:124]. R31, 3 and R32, 1 keep general pages editable. Open in C20.
+- **Addresses hidden (R31, 8) against links that name an address.** The person picks a title; the stored link carries the address. Same-titled pages must be told apart without showing addresses. C13a.
+- **Developer-only promotion against granted authority.** C19.
 
-**Across books and files.** A book points to another book by address, never by byte offset or file position; offsets belong to one file and change if it is tidied or exported again (Step 12). Addresses are "ranked so it is stable to store" [Axioms.md:23]. Finding still looks up book, then shelf, then desk, then kernel; the first match wins [seqAddr.md:101] [seqAddr.md:104]. Books follow the kernel live [decisions.md:128]. Links live on face 08 and need a back-link [seqAddr.md:157] [seqAddr.md:251]. A link follows the live page. For a locked system page, "live" and "as linked" are the same. For a general page they may differ (C16). A borrowed face is shown from its source, at most as a derived line (working path D403 [DESIGN.md:189]); copying the parent is what axiom 2 forbids [Axioms.md:15].
+**New tensions from R32 (named, not resolved).**
 
-**Axioms:** Fits axiom 6: the original is never rewritten; rework is a new copy, a new step after it, linked back [Axioms.md:23]. Fits axiom 8: links are written both ways and name their target page; a mismatch is raised [Axioms.md:27]. Fits axiom 1: the lock, its scope and developer-only promotion are Matthew's rulings (R31); the compute enforces them and refuses, it does not choose [Axioms.md:13]. Fits axiom 7: what a system page is, who a developer is, and whether item 1 covers general pages are not invented; they are asked (C15, C16, C19) [Axioms.md:25].
+- **Face 00 locked (R32, 2) against R25.** R25: "We record the changes onto 00" [DIRECTOR-RULINGS.md:100] and "seat records may still be written onto 00" [DIRECTOR-RULINGS.md:101]. If face 00 is locked once done, later seat records and changes cannot go onto 00. C22.
+- **Face list in a locked face 00 (R32, 2 and 3).** A page that later needs a face its list does not name cannot add it. C22.
+- **R32, 2's "the info might change on the faces" against R31, 2's system-page freeze of 00-04.** C21.
+- **Retired pages leave active searches against lookup fall-through.** Finding looks up book, then shelf, then desk, then kernel; the first match wins [seqAddr.md:101] [seqAddr.md:104]. If a retired book page simply vanished from lookup, a title lookup would quietly find the shelf's or kernel's page of the same name instead. C23.
+- **Links follow the current page against axiom 8's "a copy never becomes what it points to"** [Axioms.md:27]: no tension found; a link is a pointer, and the current page is the source.
 
-**Better:** Better than letting titles change under links, which breaks them, and better than links to faces, which break when a page reorganises. Better than fixing links after a rename, because nothing has to be fixed. Better than locking every page, which would stop people working in their documents (R29). Where we fall short: until "system page", "linked" and "developer" are defined, the compute cannot enforce the lock (C15, C19); a link to a general page can now reach words that changed after it was made (C16); and a new copy means two pages about the same thing, so readers must be shown which is newer (the back-links do that, but only if people follow them).
+**Across books and files.** A book points to another book by address, never by byte offset or file position; offsets belong to one file and change if it is tidied or exported again (Step 12). Addresses are "ranked so it is stable to store" [Axioms.md:23]. Finding still looks up book, then shelf, then desk, then kernel; the first match wins [seqAddr.md:101] [seqAddr.md:104]. Books follow the kernel live [decisions.md:128]. Links live on face 08 and need a back-link [seqAddr.md:157] [seqAddr.md:251]. A link always follows the current page (R32, 1). For a locked system page the frozen faces read the same as when the link was made; for a general page they may not, and that is intended. Old wordings are in the log. A borrowed face is shown from its source, at most as a derived line (working path D403 [DESIGN.md:189]); copying the parent is what axiom 2 forbids [Axioms.md:15].
 
-**Three leads:** The person needs to see titles only, know which pages are system pages and locked, and keep editing their general pages freely. The model needs to propose edits only to unlocked pages, never a rename, and to leave rework of locked pages to a developer's new copy. The compute needs to know each page's type and lock state, refuse renames everywhere and changes to frozen faces on locked pages, accept only compute-written additions there, and write a copy's links both ways.
+**Axioms:** Fits axiom 6: the original is never rewritten; rework is a new copy, a new step after it, linked back [Axioms.md:23]. Fits axiom 8: links are written both ways and name their target page; a mismatch is raised [Axioms.md:27]. Fits axiom 1: the lock, its scope and developer-only promotion are Matthew's rulings (R31); the compute enforces them and refuses, it does not choose [Axioms.md:13]. Fits axiom 7: what a system page is, when face 00 is done, how retired pages leave search, and who a developer is are not invented; they are asked (C21, C22, C23, C19) [Axioms.md:25]. Fits axiom 6: retire, never delete; the record stays (R32, 2) [Axioms.md:23].
+
+**Better:** Better than letting titles change under links, which breaks them, and better than links to faces, which break when a page reorganises. Better than fixing links after a rename, because nothing has to be fixed. Better than locking every page, which would stop people working in their documents (R29). Better than links that pin a version, which would leave every link pointing at stale words about "Jim" (R32, 1). Where we fall short: until "system page", face 00 "done" and "developer" are defined, the compute cannot enforce the locks (C21, C22, C19); a reader who needs the words as they were when a link was made must open the page's history; and a new copy means two pages about the same thing, so readers must be shown which is newer (the back-links do that, but only if people follow them).
+
+**Three leads:** The person needs to see titles only, follow a link to the page as it is now, retire (never delete) a linked page, and keep editing general pages freely. The model needs to read the current page through a link, read the log when it needs an old wording, propose edits only where faces are unlocked, never a rename, and leave rework of locked pages to a developer's new copy. The compute needs to store links as address plus title only, refuse face 00 changes once done, refuse deleting a linked page, keep retired pages out of active searches, refuse changes to frozen faces on locked system pages, and write a copy's links both ways.
 
 ---
 
@@ -700,6 +738,14 @@ Added from Tester's prototype (to run on the real build):
 26. Repeat Tester's race test (20 tries, outside writer appending during writes) with the folder writable only by the compute's account and the confirm-before-OK step: 0 writes may be reported OK on a touched file.
 27. Power loss (not kill -9) during writes, on the real disk.
 
+Added from R32:
+
+28. Link to a general page, then edit its face 04: following the link must give the new text; the old text must be readable from the log.
+29. Delete a linked page: refused. Retire it: allowed, logged in face 09, and the page still opens by address.
+30. A retired page must not appear in active searches, and a title lookup must not quietly fall through to a same-named page elsewhere (C23).
+31. Change face 00 after it is done: refused (R32, 2).
+32. A stored link must hold only address and title: a link carrying a fingerprint or version is refused (R32, 1).
+
 Added from Tester's stress test 2:
 
 17. A file rewritten with its own matching chains must still be refused at the next write (memory check), and its signposts caught by the start-up replay-compare.
@@ -761,7 +807,7 @@ New (not in any source), for the builders: how often a full copy is stored (for 
 3. On a locked system page, taking it in is not allowed; a developer may carry it into a new copy (R31, 4).
 4. Until someone acts, the draft stays a draft, never live.
 
-**Squaring face 04 edits with the lock (R31, 3).** General pages: face 04 is edited the Google Docs way for as long as the page lives, every small change kept [DIRECTOR-RULINGS.md:134]. System pages: face 04 is edited the same way until the page is linked to; then it is frozen with faces 00-03 [DIRECTOR-RULINGS.md:132], and improvement is a developer's new copy whose face 04 starts from the original's latest version [DIRECTOR-RULINGS.md:136]. This settles C12. Office kinds (a sheet, a word document) keep the same rule; how their small changes are written down depends on C18. Whether a linked general page is still editable is C16.
+**Squaring face 04 edits with the lock (R31, 3; R32, 1).** General pages: face 04 is edited the Google Docs way for as long as the page lives, every small change kept [DIRECTOR-RULINGS.md:134]. System pages: face 04 is edited the same way until the page is linked to; then it is frozen with faces 00-03 [DIRECTOR-RULINGS.md:132], and improvement is a developer's new copy whose face 04 starts from the original's latest version [DIRECTOR-RULINGS.md:136]. This settles C12. Office kinds (a sheet, a word document) keep the same rule; how their small changes are written down depends on C18. A linked general page stays editable, and links to it give its current version (R32, 1 [DIRECTOR-RULINGS.md:152]).
 
 **Axioms:** Fits axiom 6: every old version is kept, and a change is a new step after the old one [Axioms.md:23]. Fits axiom 1: this is Matthew's answer, recorded as his, not invented by the builders [Axioms.md:13]. Fits axiom 4: the why (the Google Docs against Word comparison) is recorded with the choice [Axioms.md:19]. Fits axiom 7: the phrase was held until Matthew answered it (R31, 10); what office kinds need is asked, not guessed (C18) [Axioms.md:25].
 
@@ -773,107 +819,133 @@ New (not in any source), for the builders: how often a full copy is stored (for 
 
 ## Open choices only Matthew can decide
 
-Each is a plain question, with the options and what each would mean. The top three are marked **TOP**. "Updated by t171u" or "settled by t175u" marks a choice his answers or rulings changed. A "Tester's pick" is a working path from Tester's stress tests, not a ruling; every such choice stays open for Matthew. "Settled by R31" marks a choice his t184u answers closed; each says what it now is.
+Matthew's standing rule (t189u): every question comes as (1) the question in plain words, (2) a proposed answer, (3) the why, tied to a real reason (an axiom, a link, or who gets hurt), and (4) the Axioms.md lines it was checked against, each marked pass or tension. The top three are marked **TOP**. Proposed answers are this plan's or Tester's working paths, never rulings. Settled choices are listed after the open ones, each with what it now is.
 
-**C16 (TOP). New, from R31, 1 and 3. Does "once it's linked it's done" cover general pages too?**
-You said "once it's linked it can't be used for anything else it's done" [DIRECTOR-RULINGS.md:129] and "locked pages are for system pages, a normal page can be edited" [DIRECTOR-RULINGS.md:133].
-- Option A (this plan's reading, new, not a ruling): for every page, a link fixes the address and title forever; only system pages also freeze faces 00-04. A linked general page stays editable, so a link may reach words that changed after it was made.
-- Option B: a linked general page also freezes; only unlinked general pages stay editable.
-- Option C: a link to a general page points at the version that existed when the link was made (face 04 keeps every version, R29), while the page keeps changing.
+**C21 (TOP). New, from R32, 2 against R31, 2-3. Do system pages still freeze faces 01-04 once linked?**
+1. **Question.** R32, 2 says once face 00 is done it is locked and "the info might change on the faces" [DIRECTOR-RULINGS.md:153]. R31 said system pages freeze faces 00-04 once linked [DIRECTOR-RULINGS.md:132] [DIRECTOR-RULINGS.md:134]. Does a linked system page still freeze 01-04, or does it now lock only face 00, like every page? And is a system page a page of face 00 type `system`?
+2. **Proposed answer.** Yes. Every page locks face 00 once done (R32, 2). A system page, meaning a page of face 00 type `system`, "a kernel or structural page" [face00.md:138], also freezes its title and faces 01-04 once linked, with compute-only additions (R31, 2). Improvement is a developer's new copy (R31, 4).
+3. **Why.** R32's Read narrows only "the wording of a general page's faces" [DIRECTOR-RULINGS.md:152]; it does not mention system pages, and R31, 2 was explicit. Who gets hurt otherwise: system pages hold kernel and structural rules that every book inherits live [decisions.md:128]; if their wording drifted, every page under them would change meaning with no new copy and no promotion step. The type already carries "who may write it" [decisions.md:288], so the lock is a type rule, not a new mechanism.
+4. **Axioms checked.** Axiom 1 [Axioms.md:13]: pass (keeps his explicit R31 ruling until he says otherwise). Axiom 6 [Axioms.md:23]: pass (rework is a new copy). Axiom 2 [Axioms.md:15]: pass (inherited rules stay one source). Axiom 7 [Axioms.md:25]: tension ("system page" is still a candidate reading, not his word).
 
-**C15 (TOP). New, from R31, 3. What is a system page, and what exactly locks it?**
-- Option A (candidate, new, not a ruling): a page whose face 00 type is `system`, "a kernel or structural page" [face00.md:138] [decisions.md:286]; the lock is a rule of that type [decisions.md:288]; it locks when it is the target of a written face 08 link.
-- Option B: as A, but it locks only when seated AND linked (Tester's C11 pick), so nobody can freeze a draft by linking to it.
-- Option C: some other set (for example kernel pages, band heads, office kinds' templates). And does R30's "registered" still matter [DIRECTOR-RULINGS.md:124]?
+**C22 (TOP). New, from R32, 2 and 3 against R25. When is face 00 "done", and where do later records go once it is locked?**
+1. **Question.** R32, 2 locks face 00 "Once the 00 is done" [DIRECTOR-RULINGS.md:153], but does not say when that is. R25 says "We record the changes onto 00" and seat records may be written onto 00 [DIRECTOR-RULINGS.md:100] [DIRECTOR-RULINGS.md:101]. And R32, 3 puts the face list in face 00 [DIRECTOR-RULINGS.md:156]. When is face 00 done, and where do seat records and a newly needed face go after that?
+2. **Proposed answer.** Face 00 is done when the page is first seated or first linked to, whichever comes first. Before that it may change, each change on the 00 counter as R25 says. After that nothing in face 00 changes: seat records go to face 09 (the page log), and the 00 counter keeps the fingerprint face 00 was locked at. The face list names the faces the page's type allows, so a new 05 counter or 06 note never needs a change. A page that needs a face its list does not allow becomes a new page (a new copy) that links back.
+3. **Why.** Seated or linked is when other pages start relying on this page's stamp and type; changing them after that would change what every link and lookup finds (who gets hurt: every page that links to it). It keeps R25's aim, that face 00 "must be its own face" and not churn [DIRECTOR-RULINGS.md:101], and R32, 3's reason, "so face 00 doesn't change on every write" [DIRECTOR-RULINGS.md:156]. Moving seat records to face 09 keeps them in one log instead of two (axiom 2).
+4. **Axioms checked.** Axiom 6 [Axioms.md:23]: pass (nothing locked is rewritten; later facts are new steps). Axiom 2 [Axioms.md:15]: pass (one log, no copy). Axiom 1 [Axioms.md:13]: tension (R25's "record the changes onto 00" is a ruling; moving seat records off 00 after the lock needs his word). Axiom 7 [Axioms.md:25]: pass ("done" is asked, not assumed).
 
-**C17 (TOP). New, from R31, 7. How does face 00 "contain and order" the face files without churning face 00?**
-- Option A (this plan's pick, new, not a ruling): the page's face 00 names its type; the type (a kernel card) says which face files exist and in what order the reader shows them; the actual list of files is derived from the folder. Face 00 changes only when the stamp or type does (R25 [DIRECTOR-RULINGS.md:101]).
-- Option B: face 00 lists every face file. Then every new 04 copy, 05 counter or 09 piece changes face 00, and its 00 counter grows with them, which R25 tries to avoid.
-- Note: Matthew's words say "a type type" [DIRECTOR-RULINGS.md:141]; "written in face 00" is Prima's Read [DIRECTOR-RULINGS.md:142].
+**C23 (TOP). New, from R32, 2. How does a retired page leave active searches without a lookup quietly finding a different page?**
+1. **Question.** A retired page "leaves active searches" [DIRECTOR-RULINGS.md:154]. Finding looks up book, then shelf, then desk, then kernel, and the first match wins [seqAddr.md:101] [seqAddr.md:104]. If a retired page just disappears from lookup, a title lookup could fall through to a same-named page in the shelf or kernel. Should a retired page still stop that fall-through?
+2. **Proposed answer.** Yes. A retired page is left out of search results and lists, but a lookup by its address or title still finds it, shows it marked retired, and shows any successor named on its face 08. Lookup never falls through past a retired page. Links to it still open it.
+3. **Why.** Links never break (R32, 2: "so the record is there" [DIRECTOR-RULINGS.md:153]). A silent fall-through would hand a reader a different page under the same name; who gets hurt: everyone who followed a link or title to the retired page, and the model, which would draft from the wrong source. Showing "retired" keeps the unknown visible instead of filling it.
+4. **Axioms checked.** Axiom 8 [Axioms.md:27]: pass (the pointer still reaches its own source, never a look-alike). Axiom 7 [Axioms.md:25]: pass (retired is shown, not hidden or filled). Axiom 6 [Axioms.md:23]: pass (the record stays). Axiom 3 [Axioms.md:17]: pass (the person sees retired, the model is not misled, the compute does not guess).
 
-**C18. New, from R31, 3. Where do office kinds keep their content?**
-- Option A: in face 04 as plain text (rows of cells, or marked-up text), keeping R27 [DIRECTOR-RULINGS.md:111].
-- Option B: in a code face, with face 04 as a readable view made from it. This bends R27, which keeps the person's face plain text.
+**C20. From R31, 6 and R30. What retires or completes a book, and does it freeze its general pages?**
+1. **Question.** R30 says once a book is complete "changing pages shouldn't be possible anymore" [DIRECTOR-RULINGS.md:124]. R31, 6 says a book is a working journal, retired to the shelf, maybe partly complete [DIRECTOR-RULINGS.md:140]. R32 keeps general pages editable [DIRECTOR-RULINGS.md:152]. What marks a book retired, and does retiring stop edits to its general pages?
+2. **Proposed answer.** A compute-written entry on the book's identity page, approved by you, marks it retired. From then on all its pages are read-only in that book, general pages included; the book stays on record and leaves active searches like a retired page (C23). Work that continues goes into a new book that links back.
+3. **Why.** R30's book rule was not narrowed by R32, which speaks of links and pages [DIRECTOR-RULINGS.md:152]. A retired journal that keeps changing is not a reference; who gets hurt: anyone who relies on the shelf copy as it was when the work ended. A new book keeps the chain going, as R31, 1 says: "point to a new page to keep the chain going or write a new one" [DIRECTOR-RULINGS.md:129].
+4. **Axioms checked.** Axiom 6 [Axioms.md:23]: pass. Axiom 1 [Axioms.md:13]: pass (retiring needs your approval). Axiom 7 [Axioms.md:25]: pass (partly complete stays marked as such). Axiom 2 [Axioms.md:15]: tension (a general page edited in the new book is a second place for the same subject, joined only by links).
 
-**C19. New, from R31, 4. Who is a "developer" for promotion?**
-- Option A: people in a developer role, approved by you.
-- Option B: the `dev` band role (N4) [workflow-loop.003.md:38].
-- Option C: the builders, with your approval. In every case the compute still does the write [format.md:18].
+**C18. From R31, 3. Where do office kinds keep their content?**
+1. **Question.** Pages may hold office kinds, such as a cell-based sheet or a word document [DIRECTOR-RULINGS.md:134]. R27 keeps face 04 plain readable text [DIRECTOR-RULINGS.md:111]. Does a sheet or document live in face 04 as plain text, or in a code face?
+2. **Proposed answer.** In face 04 as plain text: a sheet as rows of cells (one row per line), a document as marked-up text. Each office kind is a face 00 type with its own rules. Formulas and layout are stored as text too.
+3. **Why.** Keeps R27 and keeps every person's content readable in any editor and checkable without a tool [AGENTS.md:10]. Small changes stay line ranges (Step 17), so history and the R3 round trip work unchanged. Who gets hurt otherwise: a person who cannot read their own sheet without the app.
+4. **Axioms checked.** Axiom 3 [Axioms.md:17]: pass (person reads face 04; model and compute read code faces). Axiom 4 [Axioms.md:19]: pass (the why stays readable). Axiom 2 [Axioms.md:15]: pass (one copy of the content). Axiom 9 [Axioms.md:29]: tension (plain-text sheets are untried; they need a trial before being trusted).
 
-**C20. New, from R31, 6 and R30. What retires or completes a book, and what does it lock?**
-- Option A: a compute-written entry, approved by you, marks a book retired; it locks its system pages only.
-- Option B: retiring locks every page in the book (R30's "changing pages shouldn't be possible anymore" [DIRECTOR-RULINGS.md:124]), even general pages and even if partly complete.
+**C19. From R31, 4. Who is a "developer" for updating and promoting a new copy?**
+1. **Question.** Promotion is "dev only ability" [DIRECTOR-RULINGS.md:135]. The sources have a `dev` band role (N4) [workflow-loop.003.md:38], and builders who are agents. Who may promote?
+2. **Proposed answer.** People you name as developers, each promotion approved by you; the builders may prepare the new copy as a proposal; the compute writes it.
+3. **Why.** Authority is granted, not taken: a promotion replaces what every link to the old page leads people to via the back-link, so it needs a named, approved person (who gets hurt: everyone using the old page). The `dev` band is a place for design work, not a permission. Only the compute writes to disk [format.md:18].
+4. **Axioms checked.** Axiom 1 [Axioms.md:13]: pass. Axiom 6 [Axioms.md:23]: pass (promotion is a new copy, the old stays). Axiom 9 [Axioms.md:29]: pass if each promotion passes a hostile trial first, as seats do [DIRECTOR-RULINGS.md:9].
 
-**C11. Settled by R31, 1 and 3 (what locks a page).** Now: locks are for system pages, and a system page is done once it is linked, even if later retired [DIRECTOR-RULINGS.md:130] [DIRECTOR-RULINGS.md:134]. Left over: what a system page is and whether "registered" still counts (C15), and whether item 1 covers general pages (C16). Tester's C11 pick (seated AND linked) is kept as option B of C15.
+**C13a. From R31, 8. Is "plain text" ASCII, and how are same-titled pages told apart with addresses hidden?**
+1. **Question.** R31, 8 says titles stay plain text and addresses are back end only [DIRECTOR-RULINGS.md:144]. Must titles (and card keys) be ASCII? And with addresses hidden, how does a person tell two pages with the same title apart?
+2. **Proposed answer.** Yes, titles, addresses and card keys stay ASCII. Where two pages share a title, the reader shows the title with its book's title and the page's kind beside it, never the address.
+3. **Why.** The grammar allows only lowercase letters, digits and hyphens [seqAddr.md:112] [seqAddr.md:280] [seqAddr.md:281]; links carry the title and must match byte for byte (R30, R32, 1); D432 says the same [DECISIONS-LOG:560]. Who gets hurt otherwise: a link that breaks because two spellings of one letter look alike.
+4. **Axioms checked.** Axiom 8 [Axioms.md:27]: pass (exact match). Axiom 7 [Axioms.md:25]: pass. Axiom 3 [Axioms.md:17]: tension (people who write in other alphabets cannot title pages in them).
 
-**C14. Settled by R31, 2 (what a lock freezes).** Now: the title and the finished faces 00-04 freeze; additions written only by the compute (05, 06, 08, 09) continue. This settles R24 against R30 [DIRECTOR-RULINGS.md:132].
+**C24. From R31, 9 (held 7 by Prima). Where does the "last change" note go?**
+1. **Question.** Matthew asked "where do we place those short logs?" [DIRECTOR-RULINGS.md:145]. Prima's answer is a last-change note in the page index, written only by the compute, held 7 [DIRECTOR-RULINGS.md:146]. Is that right?
+2. **Proposed answer.** Yes: the page signpost (Prima's page index) carries a last-change line for each page, derived from face 09 and written only by the compute. Face 00 holds no log.
+3. **Why.** Face 00 is locked once done (R32, 2) and should not churn (R25 [DIRECTOR-RULINGS.md:101]); the page signpost already changes on every write (R32, 3 [DIRECTOR-RULINGS.md:156]), so the note costs nothing extra and is one hop, as fast as face 00.
+4. **Axioms checked.** Axiom 2 [Axioms.md:15]: pass (derived, not a second log). Axiom 8 [Axioms.md:27]: pass (points to face 09, the source). Axiom 6 [Axioms.md:23]: pass.
 
-**C12. Settled by R31, 3 and 4 (face 04 on a locked page).** Now: a locked system page's face 04 does not change; a developer improves it through a new copy [DIRECTOR-RULINGS.md:136]. General pages stay editable the Google Docs way [DIRECTOR-RULINGS.md:134].
+**C2. From t171u (A3). Should face 09 also record attempts that were refused or halted?**
+1. **Question.** Today a refused proposal writes nothing [BUILD-LOG:53]. Should a page's face 09 log also list refused and halted attempts, with reasons?
+2. **Proposed answer.** Halted attempts yes (a halt is a fact about the page's safety); plain refusals no, they stay in the compute's reply to the proposer.
+3. **Why.** A halt means something disagreed on this page, and the next reader needs to know (who gets hurt: a person trusting a page that once failed its check). Refusals are many and say more about the proposal than the page.
+4. **Axioms checked.** Axiom 7 [Axioms.md:25]: pass (a halt is a known gap, kept visible). Axiom 6 [Axioms.md:23]: pass. Axiom 2 [Axioms.md:15]: pass.
 
-**C1a. Settled by R31, 7 (which small files).** Now: one folder per page, one file per face, plus a type that holds and orders them [DIRECTOR-RULINGS.md:142]. Left over: where the ordering lives (C17), and the book journal for writes across files (Still open).
-
-**C1. Settled by t175u, 1 ("yes change R3"). Updated by t171u (A2).** Small files are stored; whole books are an export. Left over: names. The exported whole book is a `.seq` file; what are the one-page view and the small files called? (lesser)
-
-**C2. Updated by t171u (A3). Should face 09 also record attempts that were refused or halted?**
-Settled: face 09 is the page log; face 00 keeps no short log (Step 8; Prima holds the short-log question 7 until you see this answer).
-- Option A: approved writes only.
-- Option B: also refused and halted attempts, with reasons. Possible if face 09 is its own stored file (S2 or S3).
-
-**C3. Settled by t175u, 2 ("Update R4."). Updated by t171u (A1).** Face 04 stays plain text; other faces may be compact code (binary).
-
-**C13. Settled in part by R31, 8 (titles and addresses).** Now: titles stay plain text; addresses are back end only, never shown to users [DIRECTOR-RULINGS.md:144].
-
-**C13a. Leftover detail (lesser). Is "plain text" ASCII, and do card keys stay ASCII?**
-- This plan and Tester (working path, not a ruling): yes, always ASCII, because of the grammar [seqAddr.md:112] [seqAddr.md:280] [seqAddr.md:281] and D432 [DECISIONS-LOG:560].
-- Option B: titles may use any readable text; addresses and card keys stay ASCII.
-- Also: with addresses hidden, how does the reader tell two pages with the same title apart?
-
-**C4. How much should the compute trust the signposts when it opens a book?**
-Related to QD46 (working path D414).
-- Plan's pick now (Tester fix 1): a running chain hash on every signpost line, checked once at compute start in one pass; chain = hash(previous chain + new bytes); reads marked `9` and writes refused until the pass and the replay-compare end; any mismatch halts (D324). This keeps D414.
-- Option A: full replay on every open (slow for big books).
-- Option B: check each piece only as it is read (fast, but damage in unread parts is found late).
+**C4. Related to QD46 (D414). How much should the compute trust the signposts when it opens a book?**
+1. **Question.** Should the compute fully check every chain at start-up, check each piece only when read, or replay everything on every open?
+2. **Proposed answer.** Check every chain once at start-up, then replay-compare; until then answers are marked `9` and writes are refused; any mismatch halts (D324). This is Tester fix 1 and keeps D414.
+3. **Why.** Damage in a part nobody has read yet is found at start, not months later (who gets hurt: the person reading that part). Tester measured start-up at 1.0 s warm and 2.5 s cold for 100k writes [SEQ-PROTO-RESULTS.md:129].
+4. **Axioms checked.** Axiom 9 [Axioms.md:29]: pass (nothing trusted before its check). Axiom 1 [Axioms.md:13]: pass (mismatch halts, not chosen). Axiom 8 [Axioms.md:27]: pass.
 
 **C5. May old lines ever be tidied away?**
-- Option K1 (plan's pick for now): never.
-- Option K2: a new file generation, with the old file frozen and linked. Then say who approves it.
-- Option K3 (set aside, breaks axiom 6): cut old lines out.
+1. **Question.** May the compute ever cut old lines, or start a new file generation with the old one frozen?
+2. **Proposed answer.** Never, for now (K1). Revisit only if a real book grows too slow, then use K2 (new generation, old file frozen and linked) with your approval.
+3. **Why.** Tester measured that speed is fine at 100k writes (SEQ-PROTO-RESULTS.md, Step 16). Cutting history would break the line back for everyone who cites an old version.
+4. **Axioms checked.** Axiom 6 [Axioms.md:23]: pass for K1 and K2; K3 (cutting) fails. Axiom 8 [Axioms.md:27]: pass for K2 only if linked both ways.
 
-**C6. Updated by t171u (A2). Is a band level wanted in the export and the signposts?**
-Now about the export file and the signposts only. This plan suggests it becomes a builder choice, recorded with its why.
-- Option A (plan's pick): band signposts of up to 100 pages [seqAddr.md:240], changed rows only, each band full every 64 of its own writes (Tester's measured pick).
-- Option B: one flat signpost with a row per page.
+**C6. From t171u (A2). Is a band level wanted in the export and the signposts?**
+1. **Question.** Should signposts have a band level of up to 100 pages, or one flat list of pages?
+2. **Proposed answer.** Band signposts of up to 100 pages [seqAddr.md:240], changed rows only, each band full every 64 of its own writes, as a builder setting recorded with its why.
+3. **Why.** Tester measured at most 99 reads against a bound of 131 [SEQ-PROTO-RESULTS.md:63]; a flat list would rewrite thousands of rows per write.
+4. **Axioms checked.** Axiom 2 [Axioms.md:15]: pass (same shape at every scale). Axiom 4 [Axioms.md:19]: pass (why recorded).
 
-**C7. Updated by t171u (A2) and by Tester's prototype. Which form of git blob for file fingerprints?** (lesser)
-Now: the chain hash is always SHA-256 over raw bytes (Step 10, not a choice). The file fingerprint is the git blob of each stored small file, the same kind the kernel builder already uses for seats. Only its form is open.
-- Option A: git's default blob hash (SHA-1, older).
-- Option B: git's SHA-256 form, or SHA-256 hex (Tester's pick).
+**C7. From t171u (A2) and Tester's prototype. Which form of git blob for file fingerprints? (lesser)**
+1. **Question.** The chain is always SHA-256 over raw bytes. Should file fingerprints use git's default blob hash (SHA-1) or git's SHA-256 form?
+2. **Proposed answer.** Git's SHA-256 form.
+3. **Why.** SHA-1 is old and has known collisions; a fingerprint that can be forged protects nobody. The SHA-256 form can still be checked with git.
+4. **Axioms checked.** Axiom 9 [Axioms.md:29]: pass. Axiom 2 [Axioms.md:15]: tension (the kernel builder's existing seat pins use the repo's current blob form; two forms would live side by side until moved).
 
-**C8. Updated by t171u (A2, A5). Should an exported book carry what it inherits?**
-- Option A (as designed): the export holds the book's own pages only.
-- Option B (Tester's pick): an export option that also bundles the inherited pages, as a marked view.
+**C8. From t171u (A2, A5). Should an exported book carry what it inherits?**
+1. **Question.** When a book is exported as one file, should it also bundle the inherited pages it relies on?
+2. **Proposed answer.** As an option, yes, marked as a view of the inherited pages, never as the book's own pages (Tester's pick).
+3. **Why.** A reader on another machine cannot follow links into a kernel they do not have (who gets hurt: the person opening the export). Marking them as a view keeps the copy from becoming what it points to.
+4. **Axioms checked.** Axiom 8 [Axioms.md:27]: pass (marked as a copy). Axiom 2 [Axioms.md:15]: tension (a bundled copy is a second copy, even if marked).
 
-**C9. Closed by R31, 10.** Old versions can't be changed; the R29 hold is closed [DIRECTOR-RULINGS.md:148].
+**C10. From t171u (A5), sharpened by R32, 1. Do references other than links also name only pages?**
+1. **Question.** Links name only a page and give the current page [DIRECTOR-RULINGS.md:152]. May cites and work-card references still name a face or counter and pin a version, for example a seated pack `05.02` with its blob?
+2. **Proposed answer.** Yes. Links name pages and follow the current page; cites name exactly what was relied on, version included (working path D348 [DECISIONS-LOG:411]).
+3. **Why.** A cite records what a decision rested on; if it followed the current page, the reason for an old decision would silently change (who gets hurt: anyone checking why a choice was made). A link is for finding; a cite is for proof.
+4. **Axioms checked.** Axiom 6 [Axioms.md:23]: pass (the past a decision rested on stays visible). Axiom 4 [Axioms.md:19]: pass (the why keeps its evidence). Axiom 8 [Axioms.md:27]: pass.
 
-**C10. New (t171u, A5). Do links-name-pages-only also cover cites and work-card references?**
-- Option A: only links (face 08 and cross-book links). Cites may still name a face or counter, for example a seated pack `05.02` with its blob.
-- Option B: every reference names a page only.
+**C1, leftover. Names (lesser).**
+1. **Question.** The exported whole book is a `.seq` file. What are the one-page view and the stored small files called?
+2. **Proposed answer.** The one-page view stays `.seq` with a `page` marker in its header; the stored files are named by face number inside the page folder (back end only, R31, 8).
+3. **Why.** People never see the stored names (addresses are back end only), so only the two `.seq` shapes need telling apart, which the header does.
+4. **Axioms checked.** Axiom 2 [Axioms.md:15]: pass. Axiom 8 [Axioms.md:27]: pass (the header says what the file is).
 
-Settled, not a choice: how face 04 edits are stored. Matthew answered "go with Google's approach" (t172u, recorded by Prima as R29). See Step 17.
+**Settled choices, and what each now is:**
+
+- **C16. Settled by R32, 1.** A link names a page (address plus title) and gives the current page; old versions stay in the log [DIRECTOR-RULINGS.md:152]. This plan's proposed answer (Option A) matched.
+- **C15. Settled in part by R32, 2.** Face 00 locks once done, for every page; a linked page can only be retired, never deleted; a retired page stays on record and leaves active searches [DIRECTOR-RULINGS.md:154]. Not answered: what a system page is (C21).
+- **C17. Settled by R32, 3.** Face 00 holds the page type and its face list; the page index (this plan's page signpost) holds where each face sits [DIRECTOR-RULINGS.md:156]. Left over: what happens once face 00 is locked (C22).
+- **C11. Settled by R31, 1 and 3; narrowed by R32, 1 and 2.** Locks are for system pages [DIRECTOR-RULINGS.md:134]. What a link fixes for every page is the address-title pairing and existence [DIRECTOR-RULINGS.md:152]; face 00 locks once done [DIRECTOR-RULINGS.md:154]. Left over: C21.
+- **C14. Settled by R31, 2.** On a locked system page the title and finished faces 00-04 freeze; compute-only additions continue [DIRECTOR-RULINGS.md:132]. R32 does not mention it; C21 asks whether it still stands.
+- **C12. Settled by R31, 3 and 4.** A locked system page's face 04 changes only through a developer's new copy [DIRECTOR-RULINGS.md:136]; general pages stay editable [DIRECTOR-RULINGS.md:134].
+- **C1a. Settled by R31, 7.** One folder per page, one file per face [DIRECTOR-RULINGS.md:142].
+- **C1. Settled by t175u, 1.** Small files stored; whole books exported. Names leftover above.
+- **C3. Settled by t175u, 2.** Face 04 plain text; other faces may be compact code.
+- **C13. Settled in part by R31, 8.** Titles plain text; addresses back end only [DIRECTOR-RULINGS.md:144]. Leftover: C13a.
+- **C9. Closed by R31, 10.** Old versions can't be changed [DIRECTOR-RULINGS.md:148].
+- How face 04 edits are stored: R29 ("go with Google's approach"); Step 17.
 
 ---
 
 ## Still open
 
-- C16, C15 and C17 (the top three, new from R31), then C18, C19, C20, C13a, C2, C4-C8, C10, and the C1 naming detail.
-- Settled by R31: C11, C12, C14, C1a, and C13 in part. C9 closed.
-- Prima's entry R28 (short log in 00) is still held 7: R31, 9 says no log in face 00, and Prima's answer (a last-change note in the page index, this plan's page signpost) is held 7 until Matthew confirms [DIRECTOR-RULINGS.md:146]. R29's hold is closed [DIRECTOR-RULINGS.md:148]. R30's hold (how the lock fits face 04 edits) [DIRECTOR-RULINGS.md:125] appears to be answered by R31, 3 [DIRECTOR-RULINGS.md:134], but Prima has not marked it closed; this plan does not close it.
-- Tensions R31 creates (Step 13): item 1 against item 3 (C16); a link alone locking a system page, against Tester's "seated AND linked" (C15); face 00 holding the file order against R25 (C17); office kinds against R27 (C18); developer-only promotion against granted authority (C19); a partly complete retired book against R30 (C20); hidden addresses against links and same-titled pages (C13a).
+- C21, C22 and C23 (the top three, new from R32), then C20, C18, C19, C13a, C24, C2, C4-C8, C10, and the C1 naming leftover. All are in Matthew's four-part form.
+- Settled by R32: C16, C17, and C15 in part. Settled by R31: C11 (narrowed by R32), C12, C14 (C21 asks whether it still stands), C1a, C13 in part. C9 closed.
+- Prima's entry R28 (short log in 00) is still held 7: R31, 9 says no log in face 00; Prima's answer is held 7 until Matthew confirms [DIRECTOR-RULINGS.md:146] (C24). R29's hold is closed [DIRECTOR-RULINGS.md:148]. R30's hold [DIRECTOR-RULINGS.md:125] appears answered by R31, 3 and R32, 1 [DIRECTOR-RULINGS.md:134] [DIRECTOR-RULINGS.md:152], but Prima has not marked it closed; this plan does not close it.
+- New tensions from R32 (Step 13): face 00 locked against R25's records onto 00 (C22); a fixed face list against a later-needed face (C22); "the info might change on the faces" against the system-page freeze (C21); retired pages leaving search against lookup fall-through (C23).
+- Tensions still open from R31: link-alone locking of system pages against Tester's "seated AND linked" (C21); a retired book against editable general pages (C20); office kinds against R27 (C18); developer-only promotion (C19); hidden addresses and same titles (C13a).
 - **Build gap, face 09.** The spec's face table still says face 09 is unassigned [seqAddr.md:158], and the core refuses writes to face 09 (`crates/seqaddr-core/src/validate.rs:232-233`; only faces 00-06 and 08 are active, `crates/seqaddr-core/src/face.rs:72`). R28 needs both changed. This plan does not edit them; it is build work.
 - **Build gap, outside writers.** store.rs still cuts a longer file at every append (`crates/compute/src/store.rs:940-941`); there is no OS file lock; the builder still writes to `books/` (`kernel/build.mjs:29`, `:846`). The fixes are in Step 11; no code is changed by this plan.
 - How a write that spans several pages is made all or nothing under small files. Page 0000 may hold only face 00 [DIRECTOR-RULINGS.md:41], so a book-wide log cannot sit on the door page. Tester's pick: a compute-only book journal, like the `.queue` file (C1a).
 - The kernel builder's whole-file rewrite [R23-R25-lineage.md:94] (the whole-file write is now at `kernel/build.mjs:846`; the lineage note cites `build.mjs:818`, which has since moved).
-- Two copies of one book with the same address (a fork, D427). The page and book seeds (Step 10) now catch a copy moved to a new address, but not a byte-exact copy at the same address [SEQ-PROTO-RESULTS.md:108]. Tester's pick (working path, not a ruling): the compute halts if two files claim one address (axiom 1 [Axioms.md:13]); a copy that changed apart gets a new address before it comes back. Locked pages are the same in both copies, so links to them stay true (SEQ-FILE-PLAN-TEST-2.md section 7a).
+- Two copies of one book with the same address (a fork, D427). The page and book seeds (Step 10) now catch a copy moved to a new address, but not a byte-exact copy at the same address [SEQ-PROTO-RESULTS.md:108]. Tester's pick (working path, not a ruling): the compute halts if two files claim one address (axiom 1 [Axioms.md:13]); a copy that changed apart gets a new address before it comes back. Locked pages are the same in both copies (SEQ-FILE-PLAN-TEST-2.md section 7a); but a link gives each copy's current page (R32, 1), so links to general pages would read differently in each, which is why the fork rule must halt.
 - Hand edits to a face 04 file made outside the compute. Now designed in Step 17 (taken in by a named person, typist not known). Earlier, Tester's pick (working path, not a ruling): the compute keeps a current-view 04 file and compares its fingerprint at start or before a read; if changed, the logged 04 stays live, the edit shows as a draft (R5), and it is booked as a small change once who made it is known, else the person is asked; on a locked page the edit goes to a rework copy (SEQ-FILE-PLAN-TEST-2.md section 7b). Only the compute writes [format.md:18].
 - Face 04's small-change format (line ranges, Step 17) is designed for plain text only; office kinds wait on C18.
 - Not measured by the prototype: power loss, a real cold disk, books over 100k writes or 10,000 pages, many readers at once, the export file, git blob hashing [SEQ-PROTO-RESULTS.md:162]-[SEQ-PROTO-RESULTS.md:169]; and the race fix (Step 11).
@@ -896,10 +968,10 @@ Settled, not a choice: how face 04 edits are stored. Matthew answered "go with G
 
 ## Sources
 
-Every bracket cite in this file, by file and line (246 distinct; 51 new in this revision against f8ac4d9). Each was checked against the file at the time of writing.
+Every bracket cite in this file, by file and line (254 distinct; 8 new in this revision against cad88d0). Each was checked against the file at the time of writing.
 
 - `docs/spec/Axioms.md` (the nine axioms): lines 13, 15, 17, 19, 21, 23, 25, 27, 29.
-- `docs/spec/DIRECTOR-RULINGS.md` (rulings R1-R31; R26-R30 entered by Prima in e1a60aa, R31 in f2c8459): lines 1, 9, 12, 15, 16, 20, 29, 38, 41, 76, 97, 101, 103, 104, 105, 106, 108, 109, 110, 111, 113, 114, 115, 118, 119, 120, 123, 124, 125, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148.
+- `docs/spec/DIRECTOR-RULINGS.md` (rulings R1-R32; R26-R30 entered by Prima in e1a60aa, R31 in f2c8459, R32 in ff60c28 and 7289c45): lines 1, 9, 12, 15, 16, 20, 29, 38, 41, 76, 97, 100, 101, 103, 104, 105, 106, 108, 109, 110, 111, 113, 114, 115, 118, 119, 120, 123, 124, 125, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 150, 151, 152, 153, 154, 155, 156.
 - `docs/spec/AGENTS.md` (the brief): lines 10, 41, 42, 44, 45.
 - `docs/spec/format.md` (book format): lines 12, 15, 18, 21, 25, 41, 42, 50, 51, 54, 60, 61, 66, 70, 74, 79, 81, 86, 88, 94, 95, 96, 97, 100, 102, 105, 139, 140, 141, 145, 146, 147, 149, 157.
 - `docs/spec/seqAddr.md` (addresses): lines 7, 14, 18, 19, 20, 21, 24, 89, 101, 104, 110, 111, 112, 114, 115, 116, 127, 138, 150, 152, 153, 155, 157, 158, 168, 175, 184, 230, 240, 251, 269, 271, 280, 281.
