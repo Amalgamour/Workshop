@@ -236,6 +236,79 @@ builder: either (done-check is a test, B4 rule 1)
 
 ---
 
+## Part C2. Worked example: a local Workshop, built by Cursor
+
+**This whole example is an example of a proposal (7), not a ruling.** It is not released. W1-W6 stay open.
+
+**His words** (recorded verbatim by Prima, docs/review/DIRECTOR-WORDS-t212u.md:6): "I want cursor to build a localized version of this in my local  space." Nothing in the repo says what "my local space" is. It is `7` here, written `<LOCAL-SPACE>`, a placeholder for a place he names. No path on his machine is guessed (W7).
+
+**What "localized" may mean.** In our address words, a book is a "localized environment" [seqAddr.md:20], and "anything not overridden locally is found in the kernel" [seqAddr.md:104]. So NEW (proposal, 7): a local Workshop runs its own compute and its own books, and reads the kernel from its export.
+
+```text
+work page: (address not chosen, W1)        title: local-workshop
+state: drafted (example only)       builder: Cursor (his words, t212u:6)
+
+## AGENTS.md (sections per B2; where it lives is W2)
+1. Header: page (not chosen).local-workshop, pack 05.01, approval (none),
+   base: a named commit on Amalgamour/Workshop prima/build (NEW),
+   lead 3MC (example). stamp: Designer, Mon 16 Nov 2026, version 001
+
+2. Done looks like (NEW)
+   In <LOCAL-SPACE>: all tests pass; the compute starts and its boot
+   report lists every book it loaded or refused; one test change goes
+   in through /propose and is read back; the kernel builder writes to
+   export/ and refuses books/.
+
+3. Why
+   He asked for it: t212u:6. Books change only through the compute
+   (R33 item 1, docs/spec/DIRECTOR-RULINGS.md:159-160).
+
+4. Frame
+   may touch: files inside <LOCAL-SPACE> only (placeholder, 7).
+   must not touch: books/ by hand, ever; the source repo; any remote.
+     No push, no merge, no pull request (pushes are his call).
+   leave out (do not read or copy):
+     docs/trial/, docs/review/, docs/design/WORKING-PATH-*.md,
+     kernel/parked/, target/, export/ from the source repo (NEW:
+     history and reviews, not needed to run)
+   stop if: <LOCAL-SPACE> is not named; a step needs a book written
+     by hand; a step needs the token file shared from our box. Hand back.
+
+5. Work cards (NEW)
+   w01 get the code at the named commit into <LOCAL-SPACE>
+   w02 build and test: cargo test --workspace --offline
+   w03 start it with scripts/dev.sh (makes its own books/.identities;
+       known gap: that file sits in books/, CORE-AND-TOOLS-SPEC.md B1)
+   w04 run the kernel builder to export/ (kernel/build.mjs:31, :842)
+   w05 send one test change through /propose; read it back
+
+6. Checks
+   cargo test --workspace --offline; the compute's /health answers;
+   the boot report; the w05 read-back
+
+7. Hand back (R37 items 8 and 10, DIRECTOR-RULINGS.md:202, :204)
+   Did / Blocked / Need, with the start commit and check output.
+   Refusal: if it cannot go on, it stops and says what stopped it and
+   what it needs. It does not guess a path or a meaning.
+   Packet: what it read, what it left out (the list in 4, and anything
+   else), what it did not run, and what it found but did not fix.
+
+8. Links (open when needed)
+   README.md; docs/spec/AGENTS.md; docs/spec/format.md;
+   docs/design/CORE-AND-TOOLS-SPEC.md (Part A, B1, B11, B12);
+   docs/spec/DIRECTOR-RULINGS.md:159-160, :195-204; docs/spec/seqAddr.md:20, :104;
+   scripts/dev.sh; kernel/build.mjs:31, :842
+```
+
+**R33 check.** Cursor builds code and runs the exporter. It never writes a book. The only book writes are the local compute's own, through `/propose`. The one honest gap is B1's: the local compute's door is no more closed than ours until K8 step 1 is built.
+
+**Three checks (claims, 9).**
+- **Axioms:** 2 [Axioms.md:15] pass: the local books inherit the kernel and write only the difference. 7 [Axioms.md:25] pass: the unnamed place stays `7`, not guessed. 8 [Axioms.md:27] tension: a second copy of the kernel on his machine is a copy; how it stays in step is not designed (W7).
+- **Better:** better than Cursor's 11 Nov build, made "without your rulings" (CURSOR-BUILD-REVIEW.md:17): this page links them.
+- **Three leads:** Person: names the place and releases the page. Model (Cursor): builds and tests. Compute: the only writer of the local books.
+
+---
+
 ## Part D. Tester's research
 
 Tester's file is `docs/review/WORK-BOOK-RESEARCH.md` (ab152b6, revised at 877bc1e; "Working path, not a ruling", :3). Folded in above: the name, the per-job printout, eight sections, size budget, worktree (all B2, as proposals); prices and limits (B4); option D (B4). Not folded in as design, listed here as options for Matthew (Tester's, :160-178):
@@ -249,6 +322,7 @@ Tester's file is `docs/review/WORK-BOOK-RESEARCH.md` (ab152b6, revised at 877bc1
 Tester's own questions are carried by reference, not answered: Q1 (stored or printout, :182-187) is part of W2 here. Q2 (should Cursor cloud agents work from prima/build, :189-203) is a separate Director question: pushes, merges and the paid plan are Matthew's call. Tester's "No source found" list (:205-215) stays open.
 
 **Differences.**
+- t212u is now recorded verbatim at docs/review/DIRECTOR-WORDS-t212u.md:6-10 (Prima, f460153). Parts A and the 3:00 PM change note, which say no recorded version exists, predate it; C2 quotes the file.
 - Remote: at ab152b6 the research said "Our build branch has no remote" (docs/review/WORK-BOOK-RESEARCH.md:21 at ab152b6). Prima says the code is on GitHub at Amalgamour/Workshop, branch prima/build. Tester fixed it at 877bc1e (:20-23: "Only the local copy has no remote"). This file does not repeat the no-remote claim. The local clone has no remote set (`git remote -v` is empty), which fits Tester's fix.
 - Where AGENTS.md lives: Matthew (t212u, relayed) says in the page; Tester says made fresh per job (:17-19, :112-113). Held as W2.
 - Name: Prima's relay and Matthew write "agents.md"; Tester proposes `AGENTS.md` (:15-16). Same file; the case is a proposal (7).
@@ -300,6 +374,13 @@ Matthew's four-part form (t189u). Proposed answers only. Top three first.
 2. **Proposed answer.** Yes. Tester by default. The builder's own done-check is not enough.
 3. **Why.** The old replay: two builders missed files "because their top-level artifact checks passed" [LIB:W/0703.prime-replay/REPORT.md:15-16].
 4. **Axioms checked.** 9 [Axioms.md:29] pass. 1 [Axioms.md:13] pass.
+
+### W7. What is "my local space", and does it stay in step with ours?
+
+1. **Question.** "My local space" (t212u:6) is not defined. Is it a folder on your own machine with a fresh copy of the Workshop, and should its books ever flow back to ours?
+2. **Proposed answer (NEW, 7).** A folder you name, holding a copy of prima/build at a named commit, with its own compute and books. Kernel updates arrive only as new commits you pull. Nothing flows back except a return on the work page, as a proposal through our compute.
+3. **Why.** Books change only through the compute (R33 item 1, DIRECTOR-RULINGS.md:159). Who gets hurt otherwise: you, if two Workshops write the same book and drift apart.
+4. **Axioms checked.** 1 [Axioms.md:13] pass: you name the place and release it. 2 [Axioms.md:15] pass: local books inherit the kernel [seqAddr.md:104]. 6 [Axioms.md:23] pass: the start commit is named. 8 [Axioms.md:27] tension: two copies of the kernel; the link between them is a commit, not a lawful connection yet.
 
 ---
 
