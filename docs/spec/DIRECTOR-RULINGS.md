@@ -180,3 +180,7 @@ Read: the proposal stands (refuse exact and unmarked copies, flag partial overla
 Read: approved. Any page may have a compute-written face 03 menu of its sections, so a model loads only the sections it needs. This updates the pages 0001-0099 limit in decisions.md:404 for the menu card.
 3. Section reusing another page's card: "Why would a section reuse a card?"
 Read: not ruled; he questioned the premise. Prima answered (t197s757) that it shouldn't: a section links to the page (R32), and the compute serves only the needed piece. Held 7.
+
+## R35 note — 2026-11-16 12:23 PM EST — how the face 03 menu is used (t198u)
+Director's words: "Yes the menu is how the compute handles giving information to a model. If a model has a general query about "Jim" for example. The compute might have "jim" as a key word in 4 pages. instead of handing the model all the data in those pages it hands it the menu. So the model can decide what it should request first."
+Read: for a general query, the compute finds the pages holding the key word and hands the model their face 03 menus, not their data. The model then asks for the sections it needs first.
