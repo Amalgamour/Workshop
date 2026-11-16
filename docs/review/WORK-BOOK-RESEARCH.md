@@ -18,7 +18,9 @@ treat every number here as a dated snapshot (may go stale).
   faces 01 and 05, as an export, one per job. The page stays
   the source. The builder never edits the book.
 - Cursor cloud agents need the repo on a host (GitHub and
-  similar). Our build branch has no remote. [S3]
+  similar). [S3] We have one: Amalgamour/Workshop, branch
+  prima/build (per Prima, pushed 2026-11-16). Only the local
+  copy has no remote, so cloud sees only what was pushed.
 
 ## 1. Cursor
 
@@ -56,7 +58,8 @@ Cost (Cursor pricing page, 2026-11-16): [S9]
 Cheap at / weak at (sourced only):
 - Strong: many cloud agents in parallel, each with its own VM,
   tests, browser, screenshots as proof. [S3]
-- Weak for us: needs a hosted repo and Premium. [S3][S9]
+- Weak for us: needs Premium, and sees only pushed commits,
+  so it can lag the local build branch. [S3][S9]
 
 ## 2. Grok Build
 
@@ -183,12 +186,21 @@ a printout the compute makes for each job?
 builders read it; one source stops drift.
 (4) Axioms: 1 pass, 2 pass, 6 pass, 8 pass, 9 tension (untried).
 
-Q2. (1) Cursor cloud agents need the code on GitHub or a similar
-host. Our build branch has no remote. Do we host it?
-(2) Proposed: not yet. Use local Cursor and Grok Build first.
-Host only when you say so.
-(3) Why: pushing is your call; cloud costs Premium. [S3][S9]
-(4) Axioms: 1 pass (authority stays with you), 5 pass.
+Q2. (1) Should Cursor cloud agents work from prima/build on
+GitHub? Pushes there need your OK, and cloud needs the paid
+plan.
+(2) Proposed: yes, once you OK the plan. Each job starts from a
+pushed prima/build commit named in its AGENTS.md header. The
+agent works on its own branch and hands back as a pull request.
+It never pushes to prima/build. Nothing merges without you.
+Until then, use local Cursor and Grok Build.
+(3) Why: the code is already hosted, so nothing new is exposed.
+Naming the start commit keeps the line traceable. Pushes and
+spending stay your call. [S3][S9]
+(4) Axioms: 1 pass (push, merge, and plan stay with you);
+6 pass (start commit recorded); 8 pass (hand-back links to its
+job); 7 tension (local build can be ahead of prima/build, so a
+job sees old code until a push).
 
 ## 7. No source found
 
