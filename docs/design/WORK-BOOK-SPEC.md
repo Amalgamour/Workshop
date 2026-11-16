@@ -3,6 +3,12 @@
 Draft by Designer, for Matthew (Director). Not a ruling. Nothing here closes a question.
 created: Mon 16 Nov 2026, 2:56 PM EST (Designer)
 
+## Change note (Mon 16 Nov 2026, 4:55 PM EST)
+
+Fixes from Tester's axiom check of 6fbba08 (docs/review/WORK-BOOK-AXIOM-CHECK.md, c5cbf0d). Only these lines changed:
+- W7 and C2: axiom 2 is now tension, not pass. A full pinned copy is what axiom 2 warns against. seqAddr.md:104 says books follow the kernel "live", and a pinned copy does not, so that cite no longer backs the mark (:71-73). Tester's child-desk option is added to W7 (:75-77).
+- W3: the spending cap is now in the proposed answer, not only in Tester's note (:43).
+
 ## Change note (Mon 16 Nov 2026, 4:04 PM EST)
 
 Folds in Tester's hostile pass on a990738 (docs/review/WORK-BOOK-HOSTILE-PASS.md, a32fd7c; verdict "holds with fixes", :8). Each finding was checked against the code and rulings first. All were taken. One was taken in part: `.queue` is tracked by git (`git ls-files books`), so only `.identities` is invisible to a diff.
@@ -333,7 +339,7 @@ state: draft (example only)       builder: Cursor (his words, t212u:6)
 **R33 check.** Cursor builds code and runs the exporter. It never writes a book. The tracked books arrive with the code as a byte-for-byte copy (`git ls-files books`), which changes nothing. The only book writes are the local compute's own, through `/propose`. The one honest gap is B1's: the local compute's door is no more closed than ours until K8 step 1 is built.
 
 **Three checks (claims, 9).**
-- **Axioms:** 2 [Axioms.md:15] pass: the local books inherit the kernel and write only the difference. 7 [Axioms.md:25] pass: the unnamed place stays `7`, not guessed. 8 [Axioms.md:27] tension: a second copy of the kernel on his machine is a copy; how it stays in step is not designed (W7).
+- **Axioms:** 2 [Axioms.md:15] tension: a pinned full copy, not a live inheritance (Tester, docs/review/WORK-BOOK-AXIOM-CHECK.md:71-73). 7 [Axioms.md:25] pass: the unnamed place stays `7`, not guessed. 8 [Axioms.md:27] tension: a second copy of the kernel on his machine is a copy; how it stays in step is not designed (W7).
 - **Better:** better than Cursor's 11 Nov build, made "without your rulings" (CURSOR-BUILD-REVIEW.md:17): this page links them.
 - **Three leads:** Person: names the place and releases the page. Model (Cursor): builds and tests. Compute: the only writer of the local books.
 
@@ -390,7 +396,7 @@ Matthew's four-part form (t189u). Proposed answers only. Top three first: W1, W2
 ### W3. Who may release a work page to a builder?
 
 1. **Question.** Do you release every work page yourself, or may Prima release pages inside a scope you approve?
-2. **Proposed answer.** You release the first few yourself. After that, Prima may release pages inside an approved scope, as delegation already allows ("only to the extent delegated" [workflow-loop.003.md:89]). Every release is a line with who and when.
+2. **Proposed answer.** You release the first few yourself. After that, Prima may release pages inside an approved scope, as delegation already allows ("only to the extent delegated" [workflow-loop.003.md:89]). Every release is a line with who and when. The grant names the scope and a spending cap (Tester, docs/review/WORK-BOOK-AXIOM-CHECK.md:37-43).
 3. **Why.** Authority is granted, never claimed [Axioms.md:13]. Who gets hurt otherwise: you, if every small job waits on you; or you, if a job goes out you did not mean to send.
 4. **Axioms checked.** 1 [Axioms.md:13] pass. 6 [Axioms.md:23] pass. 3 [Axioms.md:17] tension: "A lead is not authority", so Prima releasing needs a written grant.
 5. **Tester's recommendation (docs/review/WORK-BOOK-HOSTILE-PASS.md:141-148):** you release the first few; then Prima, inside a written grant that names the scope and a spending cap, because a release spends money. Option: a cap per page (turns or dollars) set by you.
@@ -424,7 +430,8 @@ Matthew's four-part form (t189u). Proposed answers only. Top three first: W1, W2
 1. **Question.** "My local space" (t212u:6) is not defined. Is it a folder on your own machine with a fresh copy of the Workshop, and should its books ever flow back to ours?
 2. **Proposed answer (NEW, 7).** A folder you name, holding a copy of prima/build at a named commit, with its own compute and books. Kernel updates arrive only as new commits you pull. Nothing flows back except a return on the work page, as a proposal through our compute.
 3. **Why.** Books change only through the compute (R33 item 1, DIRECTOR-RULINGS.md:159). Who gets hurt otherwise: you, if two Workshops write the same book and drift apart.
-4. **Axioms checked.** 1 [Axioms.md:13] pass: you name the place and release it. 2 [Axioms.md:15] pass: local books inherit the kernel [seqAddr.md:104]. 6 [Axioms.md:23] pass: the start commit is named. 8 [Axioms.md:27] tension: two copies of the kernel; the link between them is a commit, not a lawful connection yet.
+4. **Axioms checked.** 1 [Axioms.md:13] pass: you name the place and release it. 2 [Axioms.md:15] tension: a full pinned copy is what axiom 2 warns against; seqAddr.md:104 says books follow the kernel "live", which a pinned copy does not (Tester, docs/review/WORK-BOOK-AXIOM-CHECK.md:71-73). 6 [Axioms.md:23] pass: the start commit is named. 8 [Axioms.md:27] tension: two copies of the kernel; the link between them is a commit, not a lawful connection yet.
+5. **Tester's option (docs/review/WORK-BOOK-AXIOM-CHECK.md:75-77):** make it a child desk with a written 99 link (decisions.md:218-232), which is a lawful connection. Child desks are deferred (R21 [DIRECTOR-RULINGS.md:84]), so you must say yes first.
 
 ---
 
