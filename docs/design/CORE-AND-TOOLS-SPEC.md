@@ -6,7 +6,37 @@ why: Matthew asked for "a design spec for how the rust core is going to work and
 built from: docs/design/SEQ-FILE-PLAN.md (at 6daa3a6), docs/design/SECTIONS-AND-CARDS.md (at ab19e04), docs/spec/DIRECTOR-RULINGS.md R26-R37 (R37 at 26a17be), docs/review/CODEX-LIBRARIAN-TOOLS-REVIEW.md (at 65cac98), docs/review/CURSOR-BUILD-REVIEW.md (L1-L7), docs/review/OUR-CODE-VS-CURSOR-LESSONS.md, Tester's R33 fixes (5e63ad8, d85d4f8, a150d03), and the crates/ code at 26a17be. Every claim is cited by file:line. Anything not in a source is marked **NEW (proposal)**.
 labels: **EXISTS TODAY** means the code does it now (cited by crates/ path:line). **PLANNED** means a design file or ruling says it should be built, and the code does not do it yet. **NEW (proposal)** means this spec is the first to say it.
 does not: edit any other file, change the core, the compute or the kernel, close any open question, or number a ruling. Open questions are proposed answers only. It also does not design how a model is held on task or how its return is checked for drift; that is out of scope here and still needs its own design file, which Prima has not yet assigned (`7`).
+changed: Mon 16 Nov 2026, 2:05 PM EST (Designer), folding in Tester's hostile pass on bcd5aac (docs/review/CORE-SPEC-HOSTILE-PASS.md, 60fe60b); see "Change note (hostile pass)" below.
 changed: Mon 16 Nov 2026, 1:43 PM EST (Designer), revising ad26dab after the two t210u reviews recorded in docs/review/CORE-SPEC-REVIEWS-t210u.md (341a63f). Each point was checked against crates/ and the sources first; see "Change note (t210u)" below. Old commits are not changed; this is a new step on top (axiom 6) [Axioms.md:23].
+
+---
+
+## Change note (hostile pass, Mon 16 Nov 2026, 2:05 PM EST)
+
+**Why.** Tester's hostile pass on bcd5aac (docs/review/CORE-SPEC-HOSTILE-PASS.md at 60fe60b) says "Holds with fixes" (:15). Each fix was checked against the code at 60fe60b (same code as 341a63f) before it was taken. None was rejected; the cites below are mine, from that check.
+
+| Fix (Tester line) | Taken | Check | Change |
+|---|---|---|---|
+| Door more open than B1 says; token file in books/ (:21-30, :350) | yes | `.identities` is read from the write folder, which is the first books folder (crates/compute/src/store.rs:59, :297; crates/compute/src/identity.rs:3); boot loads any book that parses (crates/compute/src/store.rs:270-284) | B1, Part A, Part D |
+| Lost reply doubles a change today (:31-38, :352) | yes | the reply send is ignored, so the write books even if the client is gone (crates/compute/src/lib.rs:66); no delivery id exists (crates/seqaddr-core/src/validate.rs:16-43); a retried full-body put is refused "never replaces" (crates/seqaddr-core/src/state.rs:475) | B6 EXISTS TODAY |
+| The write gate never checks titles (:39-47, :354) | yes | the address-title check is called only by `/page` reads (crates/compute/src/store.rs:364 is the only caller of crates/seqaddr-core/src/resolve.rs:293); the gate checks only a stamp title's shape (crates/seqaddr-core/src/validate.rs:296-298) | B8, B9 and its table, Part D |
+| Refused book reads "missing"; writes ignore it (:48-55, :355) | yes | a refused book is not put in the world (crates/compute/src/store.rs:285-290), so lookups fall through to "not found in book, shelf, desk or kernel" (crates/seqaddr-core/src/resolve.rs:140); a write to it has no known path and stops only at `create_new` (crates/compute/src/store.rs:932-937; crates/seqaddr-core/src/log.rs:418) | B11, T2 |
+| Queue ids can repeat (:56-62, :351) | yes | `.queue` is written after the book, with no fsync and a failed write ignored (crates/compute/src/store.rs:744-749); ids are restored from it at start (crates/compute/src/store.rs:999-1015) | B1 |
+| Part A says more than the rulings (:63-70, :180-185, :357) | yes | R35 was given for the copy check [DIRECTOR-RULINGS.md:177]; K3, Q8, K1 and R35 item 3 [DIRECTOR-RULINGS.md:182] are open | Part A, A2 caption, B4, B9, B14, T6, T7 marked as proposals (`7`) |
+| build.mjs:20-22 is comments; the refusal is :842 (:81-83, :358) | yes | kernel/build.mjs:841-842 | B1, T13 |
+| T13 says Q3; source says Q1 (:94-97, :358) | yes | OUR-CODE-VS-CURSOR-LESSONS.md:226-227 ("goes away with Q1"); the typed time is still at kernel/build.mjs:36 | T13 |
+| Cite the multi-op drop too (:100-102) | yes | crates/seqaddr-core/src/log.rs:324-333 | B6, Part D |
+| 401 is the token check itself (:103-104) | yes | crates/compute/src/lib.rs:86-97 | point-10 row and B14 reworded |
+| B6 plan gaps: renames need a folder fsync; move-aside of a shared face 04 file is copy-then-cut at start-up; use chain heads, not write order; a direct-writer tail should raise (:138-154, :352) | yes | shared face 04 file [SECTIONS-AND-CARDS.md:111]; cut only at start-up [SEQ-FILE-PLAN.md:592]; chain heads per page [SEQ-FILE-PLAN.md:553] | B3, B6 |
+| Delivery-id check before the rules; id index rebuilt from face 09 at start (:158-160) | yes | today `validate` runs first (crates/compute/src/store.rs:884) and no id index exists | B6, K4 |
+| B16 step 4: name /brands and /cards (:172-174, :356) | yes | crates/compute/src/store.rs:624, :701 | B16 |
+| B14 journal shape is part of K1's answer (:186-187) | yes | K1 is open | marked NEW (7) |
+| Q-A, the one log (:195-198, :338-346) | carried | R37 item 1 [DIRECTOR-RULINGS.md:195] | copied into Part E in Tester's four-part form; not answered |
+| Retag 10 knocked and 6 tension marks; 3 knocked Better lines (:202-240, :359) | yes | each against the code or Tester's runs | marked "FAILS TODAY" or changed to tension; knocked Better lines marked |
+
+**Not in Prima's list, taken from Tester's file:** the multi-op cite, the 401 wording, the B6 plan gaps (renames, copy-then-cut, chain heads, raise), the delivery-id order and rebuild, B16 step 4, the B14 NEW mark, the T6 `source:` line (R35 item 3 held), the 3 knocked Better lines, and Q-A.
+
+**Not changed.** K8-K15 stay open. Tester's own answers and unlisted options for them are at docs/review/CORE-SPEC-HOSTILE-PASS.md:243-334; they are recommendations, carried by reference, not folded in as decisions. Tester's "not checked" items (:361-369) stay unchecked; power cuts stay `9`.
 
 ---
 
@@ -29,7 +59,7 @@ changed: Mon 16 Nov 2026, 1:43 PM EST (Designer), revising ad26dab after the two
 | 7. Clock step-back | partly | a backwards clock does not produce a bad line: the write is refused 409 before append (crates/compute/src/store.rs:904-913); but writes to that book stay refused until the clock passes the last line, with no raise | B2 item 6 says so; NEW: raise once to the journal and `/health` |
 | 8. ASCII only | partly | the ruling exists: R4 [DIRECTOR-RULINGS.md:15]-[DIRECTOR-RULINGS.md:16]; whether "plain" must stay ASCII on face 04 is already open as C13a [SEQ-FILE-PLAN.md:994] | B2 item 7 cites R4 and C13a; no new question |
 | 9. Menu stored on face 03 | partly | R35, 2's Read says "a compute-written face 03 menu" [DIRECTOR-RULINGS.md:180]; storing it would be a second piece that can disagree | B10 says how it is booked; stored or derived asked as K12 |
-| 10. Journal floor flood | yes | refusals before identity (421, 415, 401) happen before any token check (crates/compute/src/lib.rs:184-192, :297-312) | B14 and K2 summarise unidentified refusals by count |
+| 10. Journal floor flood | yes | Host (421) and media-type (415) refusals happen before any token check, and a 401 is the token check failing, so none of them has a known writer (crates/compute/src/lib.rs:184-192, :86-97, :297-312) | B14 and K2 summarise unidentified refusals by count |
 | 11. build-stage (R2) path | partly | the compute does check: the trial file must exist under docs/trial/ and its author line must not be the maker (crates/compute/src/store.rs:808-828); but the author line is typed text, the trial file's fingerprint is not recorded, and the same model under another token passes | B2 item 4 says so; asked as K13 |
 | 12. Delivery id | yes | K4 gave no scope or retention | K4 amended |
 | 13. Names and records | partly | DIRECTOR-RULINGS.md never names him; it says "Director" (for example [DIRECTOR-RULINGS.md:4]); no commit in this repo is his (authors: Prima, Designer, Tester, one "t"); in the Librarian repo his account is "Mathias" [CODEX-LIBRARIAN-TOOLS-REVIEW.md:23]. "Matthew" is how the review file and BUILD-LOG name him (CORE-SPEC-REVIEWS-t210u.md:1; BUILD-LOG.md:298), so it is not wrong | a note in "What Matthew said"; verbatim recording asked as K14 |
@@ -49,7 +79,7 @@ This is the one page to read first. Each line is one idea.
 
 **What the core is.** The core is one program. It is the only thing that writes the books. Its side label is "the compute".
 
-**Today that is a rule, not a lock.** Any program on the same machine could still write the files directly. Locking that door is planned (B1).
+**Today that is a rule, not a lock.** Any program on the same machine can still write the files directly, and the compute may not notice. Even the file of who may write sits in the same folder as the books. Locking that door is planned (B1).
 
 **Why only one writer.** If two things write the same book, one can wipe out the other. That really happened in our own build: the old book builder erased 8 lines the compute had written (OUR-CODE-VS-CURSOR-LESSONS.md:56-75). Now the builder writes somewhere else (Tester, 5e63ad8).
 
@@ -57,7 +87,7 @@ This is the one page to read first. Each line is one idea.
 
 **The gate checks first.** It checks who is asking. It checks the request is well formed. It checks the rules.
 
-**Who decides, in order.** First the compute decides by its rules. If its rules cannot decide, a model judges. If the model is not highly sure, a person decides. This order is your ruling (R35). Its side label is "the elevation chain". Which kinds of case a model may settle is still your choice (K10).
+**Who decides, in order.** First the compute decides by its rules. If its rules cannot decide, a model judges. If the model is not highly sure, a person decides. Its side label is "the elevation chain". You ruled this order for checking copied text (R35). Using it for other kinds of change is a proposal, not yet ruled (`7`, K10).
 
 **A "no" always says why.** When the gate says no, it says why, what is allowed, and what to do next. Its side label is "a refusal with a handback" (R37, item 8).
 
@@ -77,7 +107,7 @@ This is the one page to read first. Each line is one idea.
 
 **After a crash.** A change that was not finished is set aside, not half-kept. You see the page as it was before. Whether that is the rule is your choice (K9).
 
-**Menus.** A model does not get whole pages dumped on it. It gets a short menu of what is on the page, and asks for the parts it needs (R35, R35 note).
+**Menus.** For a general question, a model gets short menus of the pages, not all their data, and asks for the parts it needs (R35 note). A long page can have a menu too (R35). Giving menus first on every read is a proposal, not yet ruled (`7`, K3).
 
 **Books as one file.** We store small files. A whole book as one file is something we export when you want it (R26).
 
@@ -117,9 +147,9 @@ flowchart TD
     OK -.-> J
 ```
 
-How to read it: solid arrows always happen. The model's "allow" arrow applies only to case types you delegate (K10). Dotted arrows go to the journal, whose place and amount are open (K1, K2). Whether a refusal also gets a face 09 line is open (C2, Q8). The write order in steps 1 to 4 is Tester's working path, not a ruling (SEQ-FILE-PLAN.md:496-502).
+How to read it: solid arrows always happen. The model and person boxes are ruled only for the copy check (R35); for any other case they are a proposal (`7`, K10). The model's "allow" arrow applies only to case types you delegate (K10). Dotted arrows go to the journal, whose place and amount are open (K1, K2). Whether a refusal also gets a face 09 line is open (C2, Q8). The write order in steps 1 to 4 is Tester's working path, not a ruling (SEQ-FILE-PLAN.md:496-502).
 
-**Axioms (claim, 9):** 1 [Axioms.md:13] pass: "Compute enforces it. A model works within it." and a person holds final say. 6 [Axioms.md:23] pass: every booked change is a new log line; nothing is rewritten. 8 [Axioms.md:27] pass: "Before a write: authority, missing, connection (`1.7.8`)" is the gate's order. 7 [Axioms.md:25] tension: when the model and the person are both unavailable, the draft waits with no deadline (K6).
+**Axioms (claim, 9):** 1 [Axioms.md:13] pass: "Compute enforces it. A model works within it." and a person holds final say. 6 [Axioms.md:23] FAILS TODAY: a same-length edit to an old line was served after a restart (Tester T3, docs/review/CORE-SPEC-HOSTILE-PASS.md:119, :211); may pass once B1's lock is built. 8 [Axioms.md:27] pass: "Before a write: authority, missing, connection (`1.7.8`)" is the gate's order (backed by Tester: crates/compute/src/lib.rs:184-192, then crates/compute/src/store.rs:851-913). 7 [Axioms.md:25] tension: when the model and the person are both unavailable, the draft waits with no deadline (K6).
 
 **Better (claim, 9):** Better than today, where the gate gives a plain yes or no and cannot hand a hard case to a model or a person (crates/compute/src/store.rs:888-900). Better than Cursor's build, whose record programs skipped its gate (CURSOR-BUILD-REVIEW.md:183). Better than Codex's Brand Clerk, where "the gate only works if the model calls it" (CODEX-LIBRARIAN-TOOLS-REVIEW.md:217).
 
@@ -189,9 +219,9 @@ Added for the t210u revision (Prima's message against docs/review/CORE-SPEC-REVI
 
 **In plain words.** Only one program writes the books. Every change waits its turn in one line.
 
-**EXISTS TODAY.** The compute starts one writer task. Every write (propose, a `.seq` page, ask/link, close) goes through one queue, in order (crates/compute/src/lib.rs:30-70). The store module says "Only this module writes book files." (crates/compute/src/store.rs:1-2). The spec rule is "Only the compute writes to disk." [format.md:18]. Each request gets a queue id, kept on disk in `.queue` so ids never repeat after a restart (crates/compute/src/store.rs:735-753).
+**EXISTS TODAY.** The compute starts one writer task. Every write (propose, a `.seq` page, ask/link, close) goes through one queue, in order (crates/compute/src/lib.rs:30-70). The store module says "Only this module writes book files." (crates/compute/src/store.rs:1-2). The spec rule is "Only the compute writes to disk." [format.md:18]. Each request gets a queue id, kept on disk in `.queue` (crates/compute/src/store.rs:735-753). Ids can repeat after a crash: `.queue` is written after the book, with no fsync, and a failed write is ignored (crates/compute/src/store.rs:744-749); ids are restored from it at start (crates/compute/src/store.rs:999-1015). Tester deleted the last `.queue` line and restarted, and id q8 was used twice (docs/review/CORE-SPEC-HOSTILE-PASS.md:56-62).
 
-**EXISTS TODAY (R33, 1).** The kernel builder no longer writes `books/`. It writes `export/` and refuses to run if its output is inside `books/` (Tester, 5e63ad8; kernel/build.mjs:20-22, :31).
+**EXISTS TODAY (R33, 1).** The kernel builder no longer writes `books/`. It writes `export/` and refuses to run if its output is inside `books/` (Tester, 5e63ad8; kernel/build.mjs:31, :842).
 
 **PLANNED.** Only the compute's own OS account may write the stored folder; others get read-only access, and the compute holds an OS file lock [SEQ-FILE-PLAN.md:594]-[SEQ-FILE-PLAN.md:596]. Not built (build gap [SEQ-FILE-PLAN.md:1086]).
 
@@ -199,14 +229,15 @@ Added for the t210u revision (Prima's message against docs/review/CORE-SPEC-REVI
 
 - A file **shorter** than the compute wrote is refused at the next write (crates/compute/src/store.rs:947-948).
 - A file **longer** than the compute wrote has the extra bytes cut at the next write, with no report (crates/compute/src/store.rs:950-951). So a direct append is erased, not detected.
-- An edit that keeps the same length is not noticed while the compute runs.
-- At boot, any book that parses is loaded (crates/compute/src/store.rs:270-284). Nothing tells a direct write from a compute write.
+- An edit that keeps the same length is not noticed while the compute runs, and after a restart the edited text is served as the seated face (Tester T3, docs/review/CORE-SPEC-HOSTILE-PASS.md:29-30).
+- At boot, any book that parses is loaded (crates/compute/src/store.rs:270-284). Nothing tells a direct write from a compute write. Tester wrote a line signed "director" straight into a book; it loaded at the next start with no warning (docs/review/CORE-SPEC-HOSTILE-PASS.md:22-23).
+- **The token file sits with the books.** `.identities` is read from the write folder, which is the first books folder (crates/compute/src/store.rs:59, :297; crates/compute/src/identity.rs:3). So anyone who can write `books/` can add a director token (docs/review/CORE-SPEC-HOSTILE-PASS.md:24-26).
 
-What will prevent it (PLANNED): the OS account and file permissions [SEQ-FILE-PLAN.md:596], and refuse-not-cut at runtime [SEQ-FILE-PLAN.md:592]. The chain hash will not: it "has no secret", so a process that can write the files can also rewrite the chain [SEQ-FILE-PLAN.md:546]. Only the OS permission stops that. A keyed chain would not help while the key sits on the same machine under the same account (NEW, not proposed). Where this sits in the build order: K8 proposes it first, because it is small and every later proof depends on it.
+What will prevent it (PLANNED): the OS account and file permissions [SEQ-FILE-PLAN.md:596], refuse-not-cut at runtime [SEQ-FILE-PLAN.md:592], and NEW (proposal, from Tester's K8 answer, docs/review/CORE-SPEC-HOSTILE-PASS.md:249-251): the token file kept outside `books/`, and fsync on `.queue` and on new folders. The chain hash will not: it "has no secret", so a process that can write the files can also rewrite the chain [SEQ-FILE-PLAN.md:546]. Only the OS permission stops that. A keyed chain would not help while the key sits on the same machine under the same account (NEW, not proposed). Where this sits in the build order: K8 proposes it first, because it is small and every later proof depends on it.
 
-**Axioms (claim, 9):** 1 [Axioms.md:13] pass: "Compute enforces it." 6 [Axioms.md:23] pass: one writer cannot erase another's lines. 3 [Axioms.md:17] pass: storage is compute-led work.
+**Axioms (claim, 9):** 1 [Axioms.md:13] FAILS TODAY: "Compute enforces it" does not hold while files and the token file can be written directly (Tester T4, docs/review/CORE-SPEC-HOSTILE-PASS.md:212); may pass once the lock is built. 6 [Axioms.md:23] FAILS TODAY: a direct append is cut at the next write (Tester T2, :213). 3 [Axioms.md:17] pass: storage is compute-led work.
 
-**Better (claim, 9):** Better than our own build before 5e63ad8, where two writers existed and "the builder wins" (OUR-CODE-VS-CURSOR-LESSONS.md:74-75). Better than Cursor, which checked on a copy and wrote later with no lock (CURSOR-BUILD-REVIEW.md:137).
+**Better (claim, 9; knocked by Tester: "one writer" is not true today, docs/review/CORE-SPEC-HOSTILE-PASS.md:238):** Better than our own build before 5e63ad8, where two writers existed and "the builder wins" (OUR-CODE-VS-CURSOR-LESSONS.md:74-75). Better than Cursor, which checked on a copy and wrote later with no lock (CURSOR-BUILD-REVIEW.md:137).
 
 **Three leads:** Person: never edits stored files by hand. Model: sends requests, never files. Compute: the only writer, in strict order.
 
@@ -233,9 +264,9 @@ What will prevent it (PLANNED): the OS account and file permissions [SEQ-FILE-PL
 - **Delivery id (R37, 2).** "A return and its next step are saved together, and a delivery id can't change its content." [DIRECTOR-RULINGS.md:196]. NEW (proposal): the caller sends a delivery id with each proposal; the same id with the same content gets the first answer back and writes nothing new; the same id with different content is refused. Asked as K4.
 - **Receipt (F6).** The gate's answer names the content fingerprint, the actor and the pack, written by the compute (CODEX-LIBRARIAN-TOOLS-REVIEW.md:224).
 
-**Axioms (claim, 9):** 1 [Axioms.md:13] pass: "Authority is granted, never claimed"; the token, not the body, names the writer. 8 [Axioms.md:27] pass: the gate runs authority, missing, connection before a write. 9 [Axioms.md:29] pass: seating needs a hostile trial (R2). 2 [Axioms.md:15] tension: the copy refusal must not hit inherited text (OUR-CODE-VS-CURSOR-LESSONS.md:222-223).
+**Axioms (claim, 9):** 1 [Axioms.md:13] pass: "Authority is granted, never claimed"; the token, not the body, names the writer. 8 [Axioms.md:27] pass: the gate runs authority, missing, connection before a write. 9 [Axioms.md:29] FAILS TODAY: the trial check is a typed name in any docs/trial file (crates/compute/src/store.rs:818-825; docs/review/CORE-SPEC-HOSTILE-PASS.md:214-215). 2 [Axioms.md:15] tension: the copy refusal must not hit inherited text (OUR-CODE-VS-CURSOR-LESSONS.md:222-223).
 
-**Better (claim, 9):** Better than Cursor's open server ("Access-Control-Allow-Origin: *", CURSOR-BUILD-REVIEW.md:138). Better than Brand Clerk, whose receipt "binds no content and no actor" and whose gate is optional (CODEX-LIBRARIAN-TOOLS-REVIEW.md:217). Better than today once copies are refused, not noted.
+**Better (claim, 9; partly backed: no CORS, crates/compute/src/lib.rs:9; the receipt is only planned):** Better than Cursor's open server ("Access-Control-Allow-Origin: *", CURSOR-BUILD-REVIEW.md:138). Better than Brand Clerk, whose receipt "binds no content and no actor" and whose gate is optional (CODEX-LIBRARIAN-TOOLS-REVIEW.md:217). Better than today once copies are refused, not noted.
 
 **Three leads:** Person: grants tokens and approvals; never types times or names. Model: sends a proposal and reads the answer. Compute: runs every check, in a fixed order, and fills `by` and `at` itself.
 
@@ -249,9 +280,9 @@ What will prevent it (PLANNED): the OS account and file permissions [SEQ-FILE-PL
 
 **EXISTS TODAY.** Not this layout. Today each book is one JSON Lines file, an append-only log, header on line 1 (crates/seqaddr-core/src/log.rs:1-4). The compute loads every book at boot and serves from memory (crates/compute/src/store.rs:233-309).
 
-**PLANNED.** The page folder holds one file per face that exists; face 04 as plain text with its small-change log and full copies (Step 17); face 09 as the page log [SEQ-FILE-PLAN.md:253]. Face 04 edits are small changes plus a full copy now and then (R29 [DIRECTOR-RULINGS.md:120]). A hand edit to face 04 made outside the compute is never booked by itself; it stays a draft until a person takes it in or discards it [SEQ-FILE-PLAN.md:927]-[SEQ-FILE-PLAN.md:930]. Folder and file names are built from the address and are back end only [SEQ-FILE-PLAN.md:274]. A write across several pages needs a compute-only book journal, so it lands all or nothing [SEQ-FILE-PLAN.md:253] [SEQ-FILE-PLAN.md:554]. NEW (proposal, point 1): when the compute makes a new page folder or face file, it fsyncs the parent directory before writing the face 09 line. Today it does not: a new book file is fsynced, but its folder is not (crates/seqaddr-core/src/log.rs:417-423; crates/compute/src/store.rs:936-937).
+**PLANNED.** The page folder holds one file per face that exists; face 04 as plain text with its small-change log and full copies (Step 17); face 09 as the page log [SEQ-FILE-PLAN.md:253]. Face 04 edits are small changes plus a full copy now and then (R29 [DIRECTOR-RULINGS.md:120]). A hand edit to face 04 made outside the compute is never booked by itself; it stays a draft until a person takes it in or discards it [SEQ-FILE-PLAN.md:927]-[SEQ-FILE-PLAN.md:930]. Folder and file names are built from the address and are back end only [SEQ-FILE-PLAN.md:274]. A write across several pages needs a compute-only book journal, so it lands all or nothing [SEQ-FILE-PLAN.md:253] [SEQ-FILE-PLAN.md:554]. NEW (proposal, point 1): when the compute makes a new page folder or face file, it fsyncs the parent directory before writing the face 09 line, and also after every rename: the step 3 view file and boot's move-aside (docs/review/CORE-SPEC-HOSTILE-PASS.md:140-143). Today it does not: a new book file is fsynced, but its folder is not (crates/seqaddr-core/src/log.rs:417-423; crates/compute/src/store.rs:936-937).
 
-**Axioms (claim, 9):** 2 [Axioms.md:15] pass: the same shape at every scale. 3 [Axioms.md:17] pass: one face per lead. 6 [Axioms.md:23] pass: pieces are added, never overwritten [SEQ-FILE-PLAN.md:586]. 9 [Axioms.md:29] tension: Tester's prototype is throwaway; the layout is untried in the real compute.
+**Axioms (claim, 9):** 2 [Axioms.md:15] pass: the same shape at every scale. 3 [Axioms.md:17] pass: one face per lead. 6 [Axioms.md:23] tension: pieces are added, never overwritten [SEQ-FILE-PLAN.md:586], but step 3 replaces the face 04 view file (docs/review/CORE-SPEC-HOSTILE-PASS.md:225). 9 [Axioms.md:29] tension: Tester's prototype is throwaway; the layout is untried in the real compute.
 
 **Better (claim, 9):** Better than one big file: a write touches only its own file, and git shows exactly what changed [SEQ-FILE-PLAN.md:278]. Better than Cursor's single file that "replays the whole book" on every read (CURSOR-BUILD-REVIEW.md:105). Where we fall short: 3 to 7 times more disk for small files [SEQ-FILE-PLAN.md:278].
 
@@ -267,11 +298,11 @@ What will prevent it (PLANNED): the OS account and file permissions [SEQ-FILE-PL
 
 **EXISTS TODAY.** Not yet. The core still treats face 09 as reserved: only faces 00-06 and 08 are active (crates/seqaddr-core/src/face.rs:72-75), and a write to face 09 is refused (crates/seqaddr-core/src/validate.rs:229-234). Today a page's history is worked out from the book log (crates/seqaddr-core/src/log.rs:365; crates/compute/src/store.rs:542).
 
-**PLANNED.** One line per approved write: entry number, time, who, operation, address, proposal, reason [SEQ-FILE-PLAN.md:453]. Written only by the compute; nobody proposes to face 09; the log never logs itself [SEQ-FILE-PLAN.md:453]. Each line names the face piece it books, with its length and fingerprint [SEQ-FILE-PLAN.md:552]. If face 09, the page index or the "last change" note ever disagree, the compute halts and raises it [SEQ-FILE-PLAN.md:473]. NEW (proposal, point 1): this halt applies only to records that the last book line already covers. Pieces and lines written after the last book line are an unfinished write, not a disagreement, and follow the recovery rule in B6. Without this, every crash between steps 2 and 4 would halt the compute. Copy-check steps get lines (Q8 [SECTIONS-AND-CARDS.md:246]). Whether plain refusals get lines is open (C2 [SEQ-FILE-PLAN.md:1006]).
+**PLANNED.** One line per approved write: entry number, time, who, operation, address, proposal, reason [SEQ-FILE-PLAN.md:453]. Written only by the compute; nobody proposes to face 09; the log never logs itself [SEQ-FILE-PLAN.md:453]. Each line names the face piece it books, with its length and fingerprint [SEQ-FILE-PLAN.md:552]. If face 09, the page index or the "last change" note ever disagree, the compute halts and raises it [SEQ-FILE-PLAN.md:473]. NEW (proposal, point 1): this halt applies only to records that the last book line already covers. Pieces and lines written after the last book line are an unfinished write, not a disagreement, and follow the recovery rule in B6. Without this, every crash between steps 2 and 4 would halt the compute. Copy-check steps would get lines if Q8 is answered yes; that is a proposal, not ruled (`7`, Q8 [SECTIONS-AND-CARDS.md:246]). Whether plain refusals get lines is open (C2 [SEQ-FILE-PLAN.md:1006]).
 
 **Person notes stay apart.** Face 06 holds model notes; face 09 says what happened (L7 [CURSOR-BUILD-REVIEW.md:188]; [SEQ-FILE-PLAN.md:457]).
 
-**Axioms (claim, 9):** 6 [Axioms.md:23] pass: "A change that is not recorded did not happen." 2 [Axioms.md:15] pass: one log, no copy in face 00. 1 [Axioms.md:13] pass: a disagreement is raised, not chosen.
+**Axioms (claim, 9):** 6 [Axioms.md:23] pass: "A change that is not recorded did not happen." 2 [Axioms.md:15] pass: one log, no copy in face 00. 1 [Axioms.md:13] tension: the compute itself sorts "unfinished" from "damage" without a halt, and axiom 1 says "Do not choose" (docs/review/CORE-SPEC-HOSTILE-PASS.md:226-227).
 
 **Better (claim, 9):** Better than Cursor, which kept page history in face 06 notes (CURSOR-BUILD-REVIEW.md:132). Better than replaying a whole book to see one page's past.
 
@@ -306,13 +337,15 @@ What will prevent it (PLANNED): the OS account and file permissions [SEQ-FILE-PL
 
 **In plain words.** A write happens in a fixed order. It only counts once the last step is done. A crash before that leaves nothing half-booked.
 
-**EXISTS TODAY.** All or nothing per proposal; whole lines appended at the known end; one fsync (crates/compute/src/store.rs:924-975). A partly written last line is dropped on load (crates/seqaddr-core/src/log.rs:282-300). Memory is updated only after the file write succeeds (crates/compute/src/store.rs:914-921).
+**EXISTS TODAY.** All or nothing per proposal; whole lines appended at the known end; one fsync (crates/compute/src/store.rs:924-975). A partly written last line is dropped on load (crates/seqaddr-core/src/log.rs:282-300), and a cut-short multi-op group is dropped whole (crates/seqaddr-core/src/log.rs:324-333). Dropped bytes are not kept anywhere (docs/review/CORE-SPEC-HOSTILE-PASS.md:114-116). Memory is updated only after the file write succeeds (crates/compute/src/store.rs:914-921).
+
+**EXISTS TODAY: a lost reply doubles a change.** There is no delivery id (crates/seqaddr-core/src/validate.rs:16-43). The write books even if the client has gone, because the reply send is ignored (crates/compute/src/lib.rs:66). Tester sent the same `note` twice, as a retry would, and both were booked (entries 19 and 20, docs/review/CORE-SPEC-HOSTILE-PASS.md:32-33). A retried full-body `put` is refused "never replaces" (crates/seqaddr-core/src/state.rs:475), so the caller cannot tell "booked" from "refused" (docs/review/CORE-SPEC-HOSTILE-PASS.md:36-37). A new book file is fsynced but its folder is not, so a first write that was acknowledged could vanish with the file after a power cut (crates/seqaddr-core/src/log.rs:422; crates/compute/src/store.rs:936-937; read, not tested).
 
 **PLANNED (Tester's working path, not a ruling).** 0: hold the OS lock and check each file against memory. 1: the face piece, fsynced. 2: the face 09 line that books it, fsynced. 3: face 04 only, the current-view file, after the 09 line. 4: page signpost, band line, book line. "The book line is the commit point" [SEQ-FILE-PLAN.md:496]-[SEQ-FILE-PLAN.md:502]. After the fsync the compute re-reads length and chain; only then does it say "booked" [SEQ-FILE-PLAN.md:597].
 
 **Fix still to build.** Today a file longer than expected has its extra bytes cut at every append (crates/compute/src/store.rs:950-951). The plan: refuse at runtime; cut only during the start-up repair [SEQ-FILE-PLAN.md:592].
 
-**Recovery after a crash, step by step (NEW, proposal; points 1 and Codex B6; untried, `9`).** The rule: a write exists only if the last book line covers it. Everything after the last book line is an unfinished write. It is never booked at boot. It is moved aside into a recovery folder, kept, and listed in the journal, so nothing is lost and nothing old is rewritten. Readers always see the last committed page. This differs from the file plan, which rebuilds signposts from face 09 lines after the last book line [SEQ-FILE-PLAN.md:580] and so would book a write whose caller was never told "booked". Roll back (this proposal) or roll forward (the plan) is K9.
+**Recovery after a crash, step by step (NEW, proposal; points 1 and Codex B6; untried, `9`).** The rule: a write exists only if the last book line covers it. Everything after the last book line is an unfinished write. It is never booked at boot. It is moved aside into a recovery folder, kept, listed in the journal, and raised once to a person, so nothing is lost and nothing booked is rewritten. Where the piece sits in a shared file (all sections share one face 04 file [SECTIONS-AND-CARDS.md:111]), "move aside" means copy to recovery, then cut, only during the start-up repair [SEQ-FILE-PLAN.md:592], then a folder fsync (docs/review/CORE-SPEC-HOSTILE-PASS.md:144-147). Tester's unlisted option for K9, keeping it as a waiting draft a person can take in, is at docs/review/CORE-SPEC-HOSTILE-PASS.md:269-270. Readers always see the last committed page. This differs from the file plan, which rebuilds signposts from face 09 lines after the last book line [SEQ-FILE-PLAN.md:580] and so would book a write whose caller was never told "booked". Roll back (this proposal) or roll forward (the plan) is K9.
 
 | Crash after | On disk | What boot does | What the caller was told |
 |---|---|---|---|
@@ -323,17 +356,17 @@ What will prevent it (PLANNED): the OS account and file permissions [SEQ-FILE-PL
 | step 4a (page or band line) | as above, plus signpost lines after the last book line | drops those signpost lines as an unfinished tail [SEQ-FILE-PLAN.md:580]; moves the piece and 09 line aside | nothing; retry |
 | step 4b (book line written, before re-read) | a complete committed write | keeps it; it is booked | maybe nothing (the reply was lost); the retry with the same delivery id gets the original answer back (K4) |
 
-**How boot tells an unfinished write from damage.** Unfinished: only at the tail, after the last book line, in write order, and each piece matches the length and fingerprint its own 09 line names (or has no 09 line yet). Damage: any mismatch in records the last book line covers, any gap in the chain, or a tail out of write order. Damage halts and is raised [SEQ-FILE-PLAN.md:545].
+**How boot tells an unfinished write from damage.** Files have no shared order, so boot does not use write order. It uses the last book line's chain head for each page [SEQ-FILE-PLAN.md:553] (docs/review/CORE-SPEC-HOSTILE-PASS.md:148-151). Unfinished: records past a page's committed chain head, where each piece matches the length and fingerprint its own 09 line names (or has no 09 line yet). Damage: any mismatch in records a committed chain head covers, or any gap in the chain. Damage halts and is raised [SEQ-FILE-PLAN.md:545]. An unfinished tail is also raised, not only journaled, because a direct writer can leave one (docs/review/CORE-SPEC-HOSTILE-PASS.md:152-154).
 
-**Which records prove a commit.** The book line, whose chain covers each band line, each page's latest 09 line, and through them each piece [SEQ-FILE-PLAN.md:552]-[SEQ-FILE-PLAN.md:553]. NEW: the face 09 line also carries the delivery id and the receipt fingerprint, so a lost reply can be answered from the commit itself (Codex, CORE-SPEC-REVIEWS-t210u.md:11).
+**Which records prove a commit.** The book line, whose chain covers each band line, each page's latest 09 line, and through them each piece [SEQ-FILE-PLAN.md:552]-[SEQ-FILE-PLAN.md:553]. NEW: the face 09 line also carries the delivery id and the receipt fingerprint, so a lost reply can be answered from the commit itself (Codex, CORE-SPEC-REVIEWS-t210u.md:11). For that to work, the delivery-id check runs before the rules (today `validate` runs first, crates/compute/src/store.rs:884), and the id index is rebuilt at start from the face 09 lines (docs/review/CORE-SPEC-HOSTILE-PASS.md:158-160).
 
 **Face 04 view (Codex).** At runtime, readers are served from memory, and memory changes only after the write is booked (today: crates/compute/src/store.rs:914-921). At boot, the current-view file is trusted only if its fingerprint matches the latest committed 04 change; otherwise it is rebuilt from the log. A view newer than the log that no unfinished write explains is a hand edit and stays a draft [SEQ-FILE-PLAN.md:927].
 
 **Power loss stays `9`.** Tester's crash tests used kill -9, which "is not a power cut" [SEQ-FILE-PLAN.md:604]. What would clear the mark (NEW): a test that hard-resets a virtual machine at random points during a loop of writes, many times, then boots and finds only committed writes or cleanly set-aside tails, and no halt from an unfinished write. It must run on a disk that honours fsync (D431 [SEQ-FILE-PLAN.md:572]).
 
-**Axioms (claim, 9):** 6 [Axioms.md:23] pass: "add the new step after it." 1 [Axioms.md:13] pass: an outside change is refused and raised. 9 [Axioms.md:29] tension: kill -9 "is not a power cut"; power loss is untested [SEQ-FILE-PLAN.md:604].
+**Axioms (claim, 9):** 6 [Axioms.md:23] tension: moving tail bytes out of an append-only file is a cut, even if they were never booked (docs/review/CORE-SPEC-HOSTILE-PASS.md:223-224). 1 [Axioms.md:13] FAILS TODAY: an outside change is cut or loaded, not refused and raised (Tester T2, T4, :216). 9 [Axioms.md:29] tension: kill -9 "is not a power cut"; power loss is untested [SEQ-FILE-PLAN.md:604].
 
-**Better (claim, 9):** Better than Cursor, which used flush without fsync (CURSOR-BUILD-REVIEW.md:136). The worst case is a full replay, "exactly as today", so never less safe [SEQ-FILE-PLAN.md:584].
+**Better (claim, 9; the "never less safe" part is knocked by Tester: untested, more states, docs/review/CORE-SPEC-HOSTILE-PASS.md:239):** Better than Cursor, which used flush without fsync (CURSOR-BUILD-REVIEW.md:136). The worst case is a full replay, "exactly as today", so never less safe [SEQ-FILE-PLAN.md:584].
 
 **Three leads:** Person: told plainly if a write did not book. Model: gets "booked" or "not booked", never a maybe. Compute: follows the order, and recovers by it after a crash.
 
@@ -365,13 +398,13 @@ What will prevent it (PLANNED): the OS account and file permissions [SEQ-FILE-PL
 
 **Rulings.** R30: "our 2.2.2.4.title we don't include the face" [DIRECTOR-RULINGS.md:123]. R32, 1: "following it gives the current page. Old versions stay in the log" [DIRECTOR-RULINGS.md:152]. R32, 2: a linked page "can only be retired" [DIRECTOR-RULINGS.md:153]. R34, 3: titles may be reused [DIRECTOR-RULINGS.md:174].
 
-**EXISTS TODAY.** Lookup walks book, shelf, desk, kernel; the first match wins (crates/seqaddr-core/src/resolve.rs:1-3, :223). A title written in an address is checked against face 00; a mismatch is elevated (crates/seqaddr-core/src/resolve.rs:292-305). Not found is elevated to the user, never guessed (crates/seqaddr-core/src/resolve.rs:140). Several active pages: "ask the user which one" (crates/seqaddr-core/src/addr.rs:657-665). Links are read at `/links/:addr` (crates/compute/src/store.rs:581).
+**EXISTS TODAY.** Lookup walks book, shelf, desk, kernel; the first match wins (crates/seqaddr-core/src/resolve.rs:1-3, :223). A title written in an address is checked against face 00, and a mismatch is elevated, but only on `/page` reads (crates/seqaddr-core/src/resolve.rs:292-305; its one caller is crates/compute/src/store.rs:364). The write gate does not check it: it checks only a stamp title's shape (crates/seqaddr-core/src/validate.rs:296-298). Tester retired page 10.11.21.0501 through `/propose` with the address title "wrongtitle" while the stamp says "retry", and it was booked (docs/review/CORE-SPEC-HOSTILE-PASS.md:42-44). PLANNED (NEW): the gate runs the same title check on every write address. Not found is elevated to the user, never guessed (crates/seqaddr-core/src/resolve.rs:140). Several active pages: "ask the user which one" (crates/seqaddr-core/src/addr.rs:657-665). Links are read at `/links/:addr` (crates/compute/src/store.rs:581).
 
 **PLANNED.** The compute follows the address; the title is only a check [SEQ-FILE-PLAN.md:669]. No page is ever renamed; a new title means a new page, linked [SEQ-FILE-PLAN.md:676]-[SEQ-FILE-PLAN.md:677]. Every link has a back-link [seqAddr.md:251]. A title search returns every live match with context, never picks one silently [SEQ-FILE-PLAN.md:671]. A retired page leaves title search [SEQ-FILE-PLAN.md:672]. Open: what an address lookup does at a retired page (C25), and same-title searches (C26).
 
 **A review is not a link.** R37, 4: "A review is tied to the exact version it read ... A review is a record, not a link (R32)." [DIRECTOR-RULINGS.md:198]. So a review pins a fingerprint; a link never does.
 
-**Axioms (claim, 9):** 8 [Axioms.md:27] pass: "A connection is lawful only when it is written", both ways. 6 [Axioms.md:23] pass: old versions stay in the log. 1 [Axioms.md:13] pass: a mismatch is raised, not fixed by guessing.
+**Axioms (claim, 9):** 8 [Axioms.md:27] pass: "A connection is lawful only when it is written", both ways. 6 [Axioms.md:23] pass: old versions stay in the log. 1 [Axioms.md:13] FAILS TODAY on writes: a mismatched title is booked, not raised (Tester T6, docs/review/CORE-SPEC-HOSTILE-PASS.md:217); passes on `/page` reads.
 
 **Better (claim, 9):** Better than links to faces, which break when a page changes; better than links that pin a version, which leave every link pointing at stale words [SEQ-FILE-PLAN.md:702].
 
@@ -385,9 +418,9 @@ What will prevent it (PLANNED): the OS account and file permissions [SEQ-FILE-PL
 
 **Ruling.** R35, 1 [DIRECTOR-RULINGS.md:177]-[DIRECTOR-RULINGS.md:178], given for the copy check.
 
-**EXISTS TODAY.** Only the first rung and the word. The core has an `Elevate` error (crates/seqaddr-core/src/error.rs:22-23, :45-46) and the gate maps it to 409 (crates/compute/src/store.rs:894). It is used for a title mismatch and for several active pages (crates/seqaddr-core/src/resolve.rs:304-305; crates/seqaddr-core/src/addr.rs:665). Nothing routes the case to a model or a person; the caller just gets 409.
+**EXISTS TODAY.** Only the first rung and the word. The core has an `Elevate` error (crates/seqaddr-core/src/error.rs:22-23, :45-46) and the gate maps it to 409 (crates/compute/src/store.rs:894). It is used for a title mismatch on `/page` reads only, not on writes (crates/seqaddr-core/src/resolve.rs:304-305; crates/compute/src/store.rs:364; see B8), and for several active pages (crates/seqaddr-core/src/addr.rs:665). Nothing routes the case to a model or a person; the caller just gets 409.
 
-**PLANNED (for the copy check).** The compute decides every case its rules can settle; it elevates partial overlap and unresolved quotes [SECTIONS-AND-CARDS.md:184]-[SECTIONS-AND-CARDS.md:196]. The model gets both texts and the overlap; it answers allow, refuse, or "add a cite", with the rule named [SECTIONS-AND-CARDS.md:199]. The person sees both texts, the compute's measure and the model's reason [SECTIONS-AND-CARDS.md:201]. The write waits as a draft (R5, R8 [SECTIONS-AND-CARDS.md:203]). Each step is logged (Q8).
+**PLANNED (for the copy check).** The compute decides every case its rules can settle; it elevates partial overlap and unresolved quotes [SECTIONS-AND-CARDS.md:184]-[SECTIONS-AND-CARDS.md:196]. The model gets both texts and the overlap; it answers allow, refuse, or "add a cite", with the rule named [SECTIONS-AND-CARDS.md:199]. The person sees both texts, the compute's measure and the model's reason [SECTIONS-AND-CARDS.md:201]. The write waits as a draft (R5, R8 [SECTIONS-AND-CARDS.md:203]). Each step would be logged on face 09 if Q8 is answered yes (proposal, `7`).
 
 **NEW (proposal): one elevation path for the whole gate.** Every `Elevate` result, not only the copy check, follows the same three rungs. The compute writes an elevation record (the case, the rule, both sides, what it could not settle). A model may take it only if the case type allows a model; otherwise it goes straight to a person. A title mismatch is one such case: it goes to a person, because seqAddr.md says "elevated to the user" [seqAddr.md:116].
 
@@ -399,7 +432,7 @@ What will prevent it (PLANNED): the OS account and file permissions [SEQ-FILE-PL
 |---|---|---|---|
 | Copy check: partial overlap | measures | allow, refuse, or "add a cite" (delegated) | if the model is not highly certain |
 | Copy check: quote whose cite does not resolve | finds it | refuse or "add a cite"; not allow | to allow |
-| Title in an address does not match face 00 | finds it | nothing | decides [seqAddr.md:116] |
+| Title in an address does not match face 00 | finds it on `/page` reads today; on writes PLANNED (B8) | nothing | decides [seqAddr.md:116] |
 | Several active pages for one address | finds them | nothing | decides (crates/seqaddr-core/src/addr.rs:665) |
 | Not found in book, shelf, desk or kernel | finds it | nothing | decides (crates/seqaddr-core/src/resolve.rs:140) |
 | Anything not on this list | elevates | nothing | decides |
@@ -414,9 +447,9 @@ Which case types go on the list, and whether a model may ever allow, is K10.
 
 **A waiting draft has a base (point 3; NEW, proposal).** Every proposal carries the fingerprint of the page version it was made against. Today there is no such field (crates/seqaddr-core/src/validate.rs:16-43). If the page changes while a draft waits, the draft goes stale and is handed back, the same way a review goes stale (R37, 4 [DIRECTOR-RULINGS.md:198]). A waiting draft is stored state, not a job in the queue, so it never blocks the single write queue (today each queue job runs to the end, crates/compute/src/lib.rs:54-67). Asked as K11.
 
-**Axioms (claim, 9):** 1 [Axioms.md:13] pass: "Compute enforces it. A model works within it. That is the order." 3 [Axioms.md:17] pass: each lead does what it does best. 9 [Axioms.md:29] pass with Q7's hostile pass. 5 [Axioms.md:21] pass: "At the edge of the frame, stop, state the issue, record it, and raise it." 7 [Axioms.md:25] tension: a case can wait with nobody to take it (K6).
+**Axioms (claim, 9):** 1 [Axioms.md:13] pass: "Compute enforces it. A model works within it. That is the order." 3 [Axioms.md:17] pass: each lead does what it does best. 9 [Axioms.md:29] tension: rests on Q7, which is open (docs/review/CORE-SPEC-HOSTILE-PASS.md:228). 5 [Axioms.md:21] pass: "At the edge of the frame, stop, state the issue, record it, and raise it." 7 [Axioms.md:25] tension: a case can wait with nobody to take it (K6).
 
-**Better (claim, 9):** Better than today's dead-end 409. Better than sending every hard case to a person: most end at the compute [SECTIONS-AND-CARDS.md:224]. Better than Codex's clerk lab, where the "fix" was picked by attempt number, not by reading the review (CODEX-LIBRARIAN-TOOLS-REVIEW.md:134).
+**Better (claim, 9; "most end at the compute" is knocked by Tester: no count exists, docs/review/CORE-SPEC-HOSTILE-PASS.md:240):** Better than today's dead-end 409. Better than sending every hard case to a person: most end at the compute [SECTIONS-AND-CARDS.md:224]. Better than Codex's clerk lab, where the "fix" was picked by attempt number, not by reading the review (CODEX-LIBRARIAN-TOOLS-REVIEW.md:134).
 
 **Three leads:** Person: decides only what is left, with the full trail. Model: judges, names its rule, says when it is not sure. Compute: settles clear cases, holds the draft, routes the rest, logs each step.
 
@@ -436,7 +469,7 @@ Which case types go on the list, and whether a model may ever allow, is K10.
 
 **R37, 10: say what was gathered and what was not.** "Every packet says what it gathered and what it didn't." [DIRECTOR-RULINGS.md:204]. NEW (proposal): every menu answer ends with a coverage line: pages matched, menus sent, pages skipped and why (retired, refused at boot, could not read).
 
-**Axioms (claim, 9):** 8 [Axioms.md:27] pass: "a menu ... never becomes what it points to." 5 [Axioms.md:21] pass: the model works inside a frame of only what it needs. 2 [Axioms.md:15] pass: the menu is derived, never typed. 9 [Axioms.md:29] tension: untried on large pages.
+**Axioms (claim, 9):** 8 [Axioms.md:27] pass: "a menu ... never becomes what it points to." 5 [Axioms.md:21] pass: the model works inside a frame of only what it needs. 2 [Axioms.md:15] tension: the menu is derived, never typed, but a stored menu is a copy until K12 is answered (docs/review/CORE-SPEC-HOSTILE-PASS.md:229). 9 [Axioms.md:29] tension: untried on large pages.
 
 **Better (claim, 9):** Better than giving a model whole pages, or every page that mentions a word. Better than Codex's prime cycle, where a default packet was treated as the whole review (CODEX-LIBRARIAN-TOOLS-REVIEW.md:302, :404-407).
 
@@ -450,13 +483,15 @@ Which case types go on the list, and whether a model may ever allow, is K10.
 
 **EXISTS TODAY.** Boot finds the kernel first and refuses to start without it (crates/compute/src/store.rs:259-262). It loads each book; a bad book is listed as refused and left as it is (crates/compute/src/store.rs:270-292). "Nothing is written during boot" (crates/compute/src/store.rs:236). No identities file means "reads only, every write is refused" (crates/compute/src/store.rs:296-302). A line dated earlier than the line above makes the book refused at boot (Tester, d85d4f8). The compute only opens its port after boot ends (crates/compute/src/main.rs:59-79), so today nothing is served during the check.
 
+**EXISTS TODAY: a refused book reads as "missing", and the gate forgets it.** A refused book is not put in the world (crates/compute/src/store.rs:285-290). So a read into it answers 404 "not found in book, shelf, desk or kernel" (crates/seqaddr-core/src/resolve.rs:140; Tester T7, docs/review/CORE-SPEC-HOSTILE-PASS.md:49-50), which R37 item 6 says must not happen [DIRECTOR-RULINGS.md:200]. A write to it passes every rule and stops only because the file already exists, with 500 "File exists" (crates/compute/src/store.rs:932-937; crates/seqaddr-core/src/log.rs:418; Tester T8, docs/review/CORE-SPEC-HOSTILE-PASS.md:53-55).
+
 **PLANNED.** One pass checks the chain, the R4 byte check on face 04 and the decoder check on code faces, then replays to rebuild and compare the signposts [SEQ-FILE-PLAN.md:540]. "Until that check ends, every read is marked `9`, and every write is refused." [SEQ-FILE-PLAN.md:541]. If every signpost is missing, halt and ask a person; do not quietly rebuild [SEQ-FILE-PLAN.md:558]. Any mismatch halts and is raised [SEQ-FILE-PLAN.md:545].
 
 **R37, 7: preflight.** "A check before each run confirms every needed file and the expected state." [DIRECTOR-RULINGS.md:201]. NEW (proposal): boot ends with one line per book (pass, refused, halted) and a list of expected files that were not found. "Exit 0" alone never counts as a pass (CODEX-LIBRARIAN-TOOLS-REVIEW.md:194).
 
 **R37, 6: "couldn't look" is not "isn't there".** [DIRECTOR-RULINGS.md:200]. NEW (proposal): a book that failed to load is reported "could not read", and lookups into it answer "could not read", never "missing".
 
-**Axioms (claim, 9):** 9 [Axioms.md:29] pass: "`9` marks what has not yet faced its trial: do not trust it as it stands." 7 [Axioms.md:25] pass: "A required absence is a defect: report it, and raise it." 1 [Axioms.md:13] pass: no writes before the live record is checked.
+**Axioms (claim, 9):** 9 [Axioms.md:29] pass: "`9` marks what has not yet faced its trial: do not trust it as it stands." 7 [Axioms.md:25] FAILS TODAY: a refused book is reported as absent (Tester T7, docs/review/CORE-SPEC-HOSTILE-PASS.md:218). 1 [Axioms.md:13] FAILS TODAY: a write into a refused book passes the rules (Tester T8, :219). Both may pass once B11's plan is built.
 
 **Better (claim, 9):** Better than Codex's replay smoke check, which "accepted exit 1 without checking the state" (CODEX-LIBRARIAN-TOOLS-REVIEW.md:273). Better than Tester's prototype boot, which quietly rebuilt forged signposts [SEQ-FILE-PLAN.md:558].
 
@@ -519,8 +554,8 @@ Which case types go on the list, and whether a model may ever allow, is K10.
 | max | normal, plus every read and menu served, with its coverage line, and per-step timings |
 
 - The floor can never be lowered below "min". Changing the level is itself a journal line, with who and why.
-- **Refusals before identity is known (point 10).** A Host, media-type or token refusal happens before the compute knows who is asking (crates/compute/src/lib.rs:184-192, :297-312). These are summarised: one line per source, per refusal kind, per minute, with a count and the first and last time. Every refusal is still counted, so the floor holds, but a faulty or hostile client cannot fill the disk. Refusals from a known token are kept one line each.
-- The journal is compute-written, append-only, chained like face 09 (B5), and stored as small files.
+- **Refusals before identity is known (point 10).** Host and media-type refusals happen before the token is read, and a token refusal (401) is the token check failing, so none of them has a known writer (crates/compute/src/lib.rs:184-192, :86-97, :297-312). These are summarised: one line per source, per refusal kind, per minute, with a count and the first and last time. Every refusal is still counted, so the floor holds, but a faulty or hostile client cannot fill the disk. Refusals from a known token are kept one line each.
+- NEW (proposal, part of K1's proposed answer, `7`): the journal is compute-written, append-only, chained like face 09 (B5), and stored as small files.
 - It points to face 09 lines by address and entry number; it never copies them.
 - Where it lives and what the floor holds are asked as K1 and K2.
 
@@ -569,7 +604,7 @@ flowchart TD
 | 1. The query arrives (`POST /ask`; no token needed to read) | EXISTS TODAY | crates/compute/src/lib.rs:202-210 |
 | 2. Words are picked out: key, link and question words; filler dropped | EXISTS TODAY | crates/ask/src/lib.rs:6-8, :83 |
 | 3. Words are matched to question cards and brand cards, ranked, 1-3 pieces or a probe | EXISTS TODAY | crates/ask/src/lib.rs:9-14, :278; crates/compute/src/askq.rs:34-103 |
-| 4. Pages that use the key words are found | PLANNED; where the list lives is Q9 | [SECTIONS-AND-CARDS.md:162] [SECTIONS-AND-CARDS.md:270] |
+| 4. Pages that use the key words are found | PLANNED; where the list lives is Q9. Parts EXIST TODAY: `/brands` maps a word to card addresses, and `/cards` finds cards by title in every book | crates/compute/src/store.rs:624, :701; [SECTIONS-AND-CARDS.md:162] [SECTIONS-AND-CARDS.md:270] |
 | 5. Their face 03 menus are served, not their data | PLANNED (R35 note) | [SECTIONS-AND-CARDS.md:142] |
 | 6. The model asks for sections by key; only those are sent | PLANNED | [SECTIONS-AND-CARDS.md:140] |
 | 7. Coverage: what was gathered, what was not, and why | NEW (R37, 10) | B10 |
@@ -577,7 +612,7 @@ flowchart TD
 
 **Out of scope here.** Holding a model on task, and checking its return for drift, are not designed in this spec (see the "does not" line).
 
-**Axioms (claim, 9):** 8 [Axioms.md:27] pass: menus point, pages govern. 5 [Axioms.md:21] pass: the model gets a frame of only what it needs. 7 [Axioms.md:25] pass: "could not read" is not "missing". 9 [Axioms.md:29] tension: steps 4-8 are unbuilt and untried.
+**Axioms (claim, 9):** 8 [Axioms.md:27] pass: menus point, pages govern. 5 [Axioms.md:21] pass: the model gets a frame of only what it needs. 7 [Axioms.md:25] FAILS TODAY: a refused book reads as "missing" (Tester T7, docs/review/CORE-SPEC-HOSTILE-PASS.md:220); passes once step 8 is built. 9 [Axioms.md:29] tension: steps 4-8 are unbuilt and untried.
 
 **Better (claim, 9):** today a query returns cards or a probe question, and never a page's menu (crates/ask/src/lib.rs:12-14). No measured result yet.
 
@@ -607,7 +642,7 @@ Each tool below gives: job, inputs, outputs, what the compute fills, what the mo
 - **Refuses:** wrong Host 421, wrong media type 415, no token 401, no granted approval 403, rule failure 409/404/422, earlier clock 409 (B2). PLANNED: handback fields (B12); delivery id with changed content (K4).
 - **Status:** EXISTS TODAY; handbacks, delivery id and receipt PLANNED.
 
-**Axioms (claim, 9):** 1 [Axioms.md:13] pass. 8 [Axioms.md:27] pass. **Better (claim, 9):** the writer's name and time can no longer be typed (OUR-CODE-VS-CURSOR-LESSONS.md:171-177), unlike Cursor's typed times (CURSOR-BUILD-REVIEW.md:135). **Three leads:** P grants the token; M writes the change; C fills every field and decides.
+**Axioms (claim, 9):** 1 [Axioms.md:13] FAILS TODAY: true through the gate, false through direct file writes (Tester T4, docs/review/CORE-SPEC-HOSTILE-PASS.md:220). 8 [Axioms.md:27] pass. **Better (claim, 9; partly backed: true through the gate, false through files, docs/review/CORE-SPEC-HOSTILE-PASS.md:236):** the writer's name and time can no longer be typed (OUR-CODE-VS-CURSOR-LESSONS.md:171-177), unlike Cursor's typed times (CURSOR-BUILD-REVIEW.md:135). **Three leads:** P grants the token; M writes the change; C fills every field and decides.
 
 ---
 
@@ -618,7 +653,7 @@ Each tool below gives: job, inputs, outputs, what the compute fills, what the mo
 - **Outputs:** JSON views built from memory.
 - **Compute fills:** the resolution trace, the state of each face, whether a face is local or inherited (crates/compute/src/store.rs:458-489).
 - **Model writes:** nothing.
-- **Refuses:** wrong Host 421 (crates/compute/src/lib.rs:297-312). Not found answers `missing` with axiom 7, never a guess (crates/seqaddr-core/src/resolve.rs:140).
+- **Refuses:** wrong Host 421 (crates/compute/src/lib.rs:297-312). Not found answers `missing` with axiom 7, never a guess (crates/seqaddr-core/src/resolve.rs:140). But a page in a book refused at boot also answers `missing` today (B11).
 - **Status:** EXISTS TODAY. PLANNED: answers marked `9` before the start-up check ends (K5); "could not read" kept apart from "missing" (R37, 6); people see titles only (R31, 8).
 
 **Axioms (claim, 9):** 7 [Axioms.md:25] pass: "unknown stays unknown." 8 [Axioms.md:27] pass. **Better (claim, 9):** reads are closed to other sites by the Host check (a150d03), which Tester found open before (OUR-CODE-VS-CURSOR-LESSONS.md:157-160). **Three leads:** P reads by title; M reads by address; C resolves and marks.
@@ -672,9 +707,9 @@ Each tool below gives: job, inputs, outputs, what the compute fills, what the mo
 - **Job:** stop copied text, and let honest reuse through (R35, 1).
 - **Inputs:** a proposed section or card, the page, the book's section fingerprints.
 - **Outputs:** allow, refuse with a handback ("link it or quote it"), or elevate [SECTIONS-AND-CARDS.md:184]-[SECTIONS-AND-CARDS.md:197].
-- **Compute fills:** the clean-up and compare, the overlap measure, the rule that fired, the face 09 lines [SECTIONS-AND-CARDS.md:182] [SECTIONS-AND-CARDS.md:205]-[SECTIONS-AND-CARDS.md:212].
+- **Compute fills:** the clean-up and compare, the overlap measure, the rule that fired, and the face 09 lines if Q8 is answered yes (proposal, `7`) [SECTIONS-AND-CARDS.md:182] [SECTIONS-AND-CARDS.md:205]-[SECTIONS-AND-CARDS.md:212].
 - **Model writes:** for elevated cases only, allow, refuse or "add a cite", with the rule named [SECTIONS-AND-CARDS.md:199].
-- **Refuses:** a section the same as its own 01 or 02 body; the same why on two cards; an unmarked exact copy; a `source:` line naming another page's card [SECTIONS-AND-CARDS.md:192]-[SECTIONS-AND-CARDS.md:195]. Re-run on promote [SECTIONS-AND-CARDS.md:216].
+- **Refuses:** a section the same as its own 01 or 02 body; the same why on two cards; an unmarked exact copy; a `source:` line naming another page's card (proposal only: R35 item 3 is held `7` [DIRECTOR-RULINGS.md:182]) [SECTIONS-AND-CARDS.md:192]-[SECTIONS-AND-CARDS.md:195]. Re-run on promote [SECTIONS-AND-CARDS.md:216].
 - **Status:** PLANNED. Today only a finding (crates/seqaddr-core/src/validate.rs:440-441).
 
 **Axioms (claim, 9):** 2 [Axioms.md:15] pass: "Do not copy the parent." 4 [Axioms.md:19] pass. 8 [Axioms.md:27] pass: "Agreement is not connection." **Better (claim, 9):** closes L4 (CURSOR-BUILD-REVIEW.md:185), which Tester showed failing (OUR-CODE-VS-CURSOR-LESSONS.md:18-20). **Three leads:** P decides what is left; M judges overlaps; C settles clear cases.
@@ -686,7 +721,7 @@ Each tool below gives: job, inputs, outputs, what the compute fills, what the mo
 - **Job:** hold every case the compute could not settle, pass it to a model, then to a person, and record each step (R35, 1; B9).
 - **Inputs:** an elevation record from the gate.
 - **Outputs:** the case, routed; when decided, the held draft is booked or refused.
-- **Compute fills:** the case record (rule, both sides, what it could not settle), the draft state ("elevated, copy check" [SECTIONS-AND-CARDS.md:203]), who holds it now, each face 09 line.
+- **Compute fills:** the case record (rule, both sides, what it could not settle), the draft state ("elevated, copy check" [SECTIONS-AND-CARDS.md:203]), who holds it now, and a face 09 line per step if Q8 is answered yes (proposal, `7`).
 - **Model writes:** its answer and its named rule, or "not highly certain".
 - **Person writes:** allow or refuse, and why.
 - **Refuses:** a model answer with no named rule; a decision from someone without authority over the page (axiom 1); a decision on a case already closed; a model decision on a case type not delegated to models (B9); a judgment from the proposing model (B9); a decision on a case whose proposal, evidence or page base has changed since it was judged (stale, handed back).
@@ -769,7 +804,7 @@ Each tool below gives: job, inputs, outputs, what the compute fills, what the mo
 ### T13. Address tool (`seqaddr` CLI) and kernel builder
 
 - **`seqaddr`:** parse, validate, replay, history, resolve, and a dry-run propose that "writes nothing" (crates/seqaddr-core/src/bin/seqaddr.rs:1-11). EXISTS TODAY. Compute fills everything; model writes nothing; refuses bad addresses with the rule named.
-- **Kernel builder:** builds books from kernel Markdown into `export/`, never `books/`, and refuses to run if its output is inside `books/` (kernel/build.mjs:20-22, :31; Tester, 5e63ad8). EXISTS TODAY. PLANNED: its fixed typed time (OUR-CODE-VS-CURSOR-LESSONS.md:187-189) goes away with Tester's Q3 [OUR-CODE-VS-CURSOR-LESSONS.md:226-227].
+- **Kernel builder:** builds books from kernel Markdown into `export/`, never `books/`, and refuses to run if its output is inside `books/` (kernel/build.mjs:31, :842; Tester, 5e63ad8). EXISTS TODAY. Its fixed typed time (OUR-CODE-VS-CURSOR-LESSONS.md:187-189) was to go away with Tester's Q1 [OUR-CODE-VS-CURSOR-LESSONS.md:226-227]. Q1 has shipped (5e63ad8), but the typed time is still there (kernel/build.mjs:36); it now reaches `export/` only. PLANNED: remove it.
 
 **Axioms (claim, 9):** 1 [Axioms.md:13] pass: neither writes the stored books. 6 [Axioms.md:23] tension: the builder still stamps a typed time. **Better (claim, 9):** the builder can no longer erase compute lines (5e63ad8). **Three leads:** P runs them; M reads their reports; C (the core library) does the checking.
 
@@ -779,22 +814,22 @@ Each tool below gives: job, inputs, outputs, what the compute fills, what the mo
 
 | Part | Exists in code today | Planned |
 |---|---|---|
-| One writer, one queue | yes (lib.rs:30-70); but any local program can still write `books/`, so the gate is optional today (B1) | OS account and file lock; refuse, not cut, at runtime |
+| One writer, one queue | yes (lib.rs:30-70); but any local program can still write `books/`, including the token file `.identities` there (store.rs:297), so the gate can be bypassed today (B1); queue ids can repeat after a crash (store.rs:744-749) | OS account and file lock; refuse, not cut, at runtime |
 | Gate: Host, media, token, R2, rules, clock, ASCII | yes (B2) | copy refusal, handbacks, delivery id, receipt |
 | Book storage | one JSON Lines file per book (log.rs:1-4) | folder per page, file per face (R31, 7) |
 | Face 09 log | refused as reserved (face.rs:72-75) | page log (R28) |
 | Page index and chain hash | no | yes (B5) |
 | Write order and commit point | append + fsync (store.rs:924-975) | five-step order, re-read before OK |
 | Face 00 locked and open fields | read only (cards.rs:147-160) | lock rule; split open as C28 |
-| Links | resolve walk, title check (resolve.rs) | back-links enforced, retire-aware lookup |
-| Elevation | `Elevate` returns 409 (store.rs:894) | compute, model, person (B9, T7) |
+| Links | resolve walk; title check on `/page` reads only (resolve.rs:293, store.rs:364) | back-links enforced, retire-aware lookup |
+| Elevation | `Elevate` returns 409 (store.rs:894); title mismatch is elevated on `/page` reads only, never on writes (store.rs:364) | compute, model, person (B9, T7) |
 | Menus | no (face 03 limited, validate.rs:352-354) | face 03 menu on any page (T3) |
-| Boot check | loads, refuses bad books (store.rs:233-309) | chain check, `9` marking, per-book report |
+| Boot check | loads, refuses bad books (store.rs:233-309); a refused book then reads as "missing" (B11) | chain check, `9` marking, per-book report |
 | Refusals | JSON reasons (store.rs:844-900) | handback fields (B12) |
 | Export | one-page `.seq` (write.rs:141); builder to export/ | whole-book export (T11) |
 | Journal | `.queue` only (store.rs:740-749) | min-to-max journal (B14, T9) |
 | Review | `/close` by reviewer (store.rs:977-996) | bound, stale-aware reviews (T5) |
-| Crash recovery | one append, one fsync; partial last line dropped (log.rs:282-300) | step-by-step rule (B6); directory fsync; power-cut test (`9`) |
+| Crash recovery | one append, one fsync; partial last line and cut multi-op group dropped (log.rs:282-300, :324-333); a lost reply doubles a change (lib.rs:66) | step-by-step rule (B6); directory fsync; power-cut test (`9`) |
 | Base fingerprint on proposals | no (validate.rs:16-43) | yes; stale drafts handed back (B9) |
 | Read path for a query | words and cards (ask/src/lib.rs) | pages, menus, sections, coverage (B16) |
 
@@ -844,7 +879,7 @@ Each uses Matthew's four-part form (t189u). These are proposed answers, not ruli
 1. **Question.** If the compute stops after writing a change's face piece and face 09 line, but before its book line, should start-up set the change aside, or finish it?
 2. **Proposed answer.** Set it aside: move it into a recovery folder, keep it, list it in the journal, and show the page as it was before. The caller, who was never told "booked", retries with the same delivery id (B6).
 3. **Why.** The book line is the commit point. Finishing a change at start-up would book something nobody was told about, and readers could see a page that was never confirmed. Who gets hurt otherwise: a model or person who retries and gets a doubled change, or who acts on a change that later turns out half-made.
-4. **Axioms checked.** 6 [Axioms.md:23] pass: nothing booked is rewritten, and the set-aside bytes are kept. 1 [Axioms.md:13] pass: only a committed write is the live record. 7 [Axioms.md:25] pass: an unfinished write is treated as not there, not guessed complete. 9 [Axioms.md:29] tension: untried; differs from the file plan's rebuild [SEQ-FILE-PLAN.md:580].
+4. **Axioms checked.** 6 [Axioms.md:23] tension: nothing booked is rewritten and the set-aside bytes are kept, but cutting them from an append-only file is still a cut (Tester, docs/review/CORE-SPEC-HOSTILE-PASS.md:267). 1 [Axioms.md:13] pass: only a committed write is the live record. 7 [Axioms.md:25] pass: an unfinished write is treated as not there, not guessed complete. 9 [Axioms.md:29] tension: untried; differs from the file plan's rebuild [SEQ-FILE-PLAN.md:580].
 
 ### K10 (TOP). Which cases may a model settle, and may it ever say yes?
 
@@ -914,7 +949,7 @@ Each uses Matthew's four-part form (t189u). These are proposed answers, not ruli
 ### K4. Does a repeated request with the same delivery id write twice?
 
 1. **Question.** R37, 2 says "a delivery id can't change its content" [DIRECTOR-RULINGS.md:196]. When a tool sends the same request twice (for example after a crash), what happens?
-2. **Proposed answer.** Same id and same content: the compute returns the first answer and writes nothing new. Same id with different content: refused, with the first content's fingerprint handed back. An id belongs to one token name, so two writers cannot collide. For a booked write, the id and the receipt live in its face 09 line, under the chain, so they are kept as long as the page (B6) and a retry can always get the first answer. For a refused request, nothing was written, so a retry after the journal record is gone is simply checked again.
+2. **Proposed answer.** Same id and same content: the compute returns the first answer and writes nothing new. Same id with different content: refused, with the first content's fingerprint handed back. An id belongs to one token name, so two writers cannot collide. For a booked write, the id and the receipt live in its face 09 line, under the chain, so they are kept as long as the page (B6) and a retry can always get the first answer. For a refused request, nothing was written, so a retry after the journal record is gone is simply checked again. The id check runs before the rules, and the id index is rebuilt at start from the face 09 lines (B6).
 3. **Why.** A crash can make a tool unsure whether its write landed, or the reply can be lost after the commit (Codex, CORE-SPEC-REVIEWS-t210u.md:11). Without this, a retry writes a second copy. Who gets hurt otherwise: anyone reading a page with a doubled change.
 4. **Axioms checked.** 6 [Axioms.md:23] pass. 8 [Axioms.md:27] pass. 1 [Axioms.md:13] pass.
 
@@ -939,7 +974,18 @@ Each uses Matthew's four-part form (t189u). These are proposed answers, not ruli
 3. **Why.** Without it, nobody can tell later which version of a tool made a change. Who gets hurt otherwise: a reviewer who cannot repeat a result.
 4. **Axioms checked.** 6 [Axioms.md:23] pass. 9 [Axioms.md:29] pass: a second reviewer can repeat the run. 2 [Axioms.md:15] pass.
 
+### Q-A (Tester). Which log is the one source of truth?
+
+Copied from Tester's file in its four-part form (docs/review/CORE-SPEC-HOSTILE-PASS.md:338-346). Tester's proposed answer, not a ruling; not answered here.
+
+1. **Question.** R37 item 1 says one log is the only truth. The plan has page logs, book lines and a journal. Which one is it?
+2. **Proposed answer (Tester).** The book's chained lines, with each page's 09 lines tied into that chain. The journal and index are views.
+3. **Why.** A fresh start must rebuild from one place [DIRECTOR-RULINGS.md:195]. Hurt: a rebuild that picks the wrong record.
+4. **Axioms checked.** 1 [Axioms.md:13] pass; 2 [Axioms.md:15] pass; 6 [Axioms.md:23] pass; 8 [Axioms.md:27] pass.
+
 ### Carried over, not repeated here
+
+- Tester's recommended answers and unlisted options for K8-K15: docs/review/CORE-SPEC-HOSTILE-PASS.md:243-334 (recommendations, not rulings).
 
 These are open in the two design files. They are not answered here.
 
@@ -993,6 +1039,8 @@ What it needs first: a face 09 view (K8 proposes a derived view on today's log),
 - `docs/review/OUR-CODE-VS-CURSOR-LESSONS.md` (Tester, not a ruling): lines 18-20, 56-75, 157-160, 171-177, 187-189, 222-223, 226-227.
 - Tester's R33 fixes: 5e63ad8 (builder writes export/), d85d4f8 (clock order), a150d03 (Host check), all 2026-11-16 12:19 PM EST.
 - `docs/spec/format.md`: line 18. `docs/spec/seqAddr.md`: lines 116, 127, 251. `docs/spec/decisions.md`: line 516.
+- `docs/review/CORE-SPEC-HOSTILE-PASS.md` (60fe60b, Tester, working path): lines 15, 22-62, 81-104, 114-160, 172-174, 186-187, 202-240, 243-334, 338-346, 350-359, 361-369.
+- Added for the hostile pass: `crates/compute/src/store.rs:59, :285-290, :297, :364, :744-749, :999-1015`; `crates/compute/src/lib.rs:9, :66, :86-97`; `crates/compute/src/identity.rs:3`; `crates/seqaddr-core/src/state.rs:475`; `crates/seqaddr-core/src/log.rs:324-333, :418, :422`; `crates/seqaddr-core/src/validate.rs:296-298`; `kernel/build.mjs:36, :842`.
 - `docs/review/CORE-SPEC-REVIEWS-t210u.md` (341a63f): lines 1, 6, 9, 11-13, 19-24, 68, 73.
 - Added for t210u: `docs/spec/DIRECTOR-RULINGS.md` lines 1, 4, 12, 15-16; `docs/spec/format.md` lines 20, 60; `docs/spec/seqAddr.md` line 158; `docs/spec/decisions.md` line 404; `docs/design/SEQ-FILE-PLAN.md` lines 572, 580, 994; `docs/BUILD-LOG.md` line 298; `crates/trial-compute/tests/crash.rs`.
 - Code (read, not changed), at 26a17be and re-read at 341a63f: `crates/compute/src/lib.rs`, `store.rs`, `main.rs`, `identity.rs`, `askq.rs`; `crates/seqaddr-core/src/validate.rs`, `face.rs`, `log.rs`, `resolve.rs`, `addr.rs`, `error.rs`, `cards.rs`, `tail.rs`, `bin/seqaddr.rs`; `crates/seqpage/src/lib.rs`, `write.rs`, `derive.rs`, `face00.rs`, `bin/seqpage.rs`; `crates/ask/src/lib.rs`; `kernel/build.mjs`. Line numbers are cited in place.
