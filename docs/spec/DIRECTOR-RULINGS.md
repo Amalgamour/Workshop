@@ -123,3 +123,26 @@ Read: edits to face 04 are kept as a log of small changes plus full snapshots no
 Director's words (t171u, answer 5): "We use the seqaddr system. our 2.2.2.4.title we don't include the face its a sub group of the page."
 Director's words (t175u, 3): "Once a book is complete, changing pages shouldn't be possible anymore. A new copy can be made and reworked. But the original work shouldn't changed. Once a page is linked to and registered with the book it shouldn't change."
 Read: a link points to a page's address plus its title (for example 2.2.2.4.title), never to a face. Once a page is registered and linked in a book, or the book is complete, that page is locked: no rename, no change. Rework goes into a new copy. So links never break. Held 7: how this fits face 04 edits (R29). Prima's reading: edits happen while a page is a draft, and registration locks it.
+
+## R31 — 2026-11-16 11:47 AM EST — answers to the .seq lock and page questions (t184u, answering Prima's t183s712)
+Each answer below replies to Prima's proposed answer with a why (t183s712). His words are quoted, and the reading follows.
+1. Lock: "I agree, once it's linked it can't be used for anything else it's done. Even if the page is retired. It never is rewritten. OUr design is made so you can point to a new page to keep the chain going or write a new one. Once a address is given a title it exists and doesn't change anymore. it would break too much to allow it to be open"
+Read: once an address is given a title, that pairing is fixed forever. Once a page is linked, it is done, even if it is later retired. To continue the work, point to a new page or write a new one.
+2. What a lock freezes: "See above I think it answers it for you."
+Read: Prima's answer stands. The title and the finished faces 00-04 freeze, and additions written only by the compute (05, 06, 08, 09) may continue. This also settles R24 against R30.
+3. "So locked pages are for system pages, a normal page can be edited think our google document page. Our page design is to basically allow us to hold a full office suite inside of it as pages. So we could have pages that are cel based file system, a word file."
+Read: locking applies to system pages. General pages stay editable in the Google Docs way (R29). Pages may hold office kinds, such as a cell-based sheet or a word document.
+4. "No that is correct, we update and promote when its time to improve our work. This is dev only ability."
+Read: a lock is never undone. Improvement happens by updating and promoting a new copy, and only developers can do that.
+5. "Correct"
+Read: a rework copy gets a new address, with links both ways.
+6. "This of a book kind of like a working journal. In time each one is retired and put on a shelf as a refernce but once that piec of work is complete it's done. It could be used in the future or might only sit partly complete."
+Read: a book is a working journal. When it's done it's retired to the shelf as a reference, and it may stay partly complete.
+7. "Well yes, but we should have a type type that contains and orders this. With our reader able to open and see what data is there."
+Read: one folder per page and one file per face, plus a type, written in face 00, that holds and orders the face files. The reader can open a page and show what data is there.
+8. "Titles do, we keep addresses hidden from users it's back end only."
+Read: titles stay plain text. Addresses are back end only and never shown to users.
+9. "I agree, where do we place those short logs?"
+Read: no log in face 00. Prima's answer (t184s714): a "last change" note in the page index, which only the compute writes. Held 7 until he confirms.
+10. "I agree"
+Read: R29's "So they can't be changed" means old versions can't be changed. The R29 hold is closed.
