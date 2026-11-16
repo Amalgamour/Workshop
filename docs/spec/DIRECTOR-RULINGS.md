@@ -146,3 +146,11 @@ Read: titles stay plain text. Addresses are back end only and never shown to use
 Read: no log in face 00. Prima's answer (t184s714): a "last change" note in the page index, which only the compute writes. Held 7 until he confirms.
 10. "I agree"
 Read: R29's "So they can't be changed" means old versions can't be changed. The R29 hold is closed.
+
+## R32 — 2026-11-16 11:02 AM EST — links point to the page, not a version; face 00 locks; linked pages only retire (t191u, answering Prima's C16, C15, C17 in t188s728)
+1. Links (C16): "Lets say we have a book about relationships... So say page 1024 is about "Jim" That might be changed and updated. We don't want to link to exact wordings of a page face. But be linked so the compute can find out about Jim. So I think your answer is wrong, if you disagree tell me why."
+Read: Prima's proposal (a link locks the version it points to) is rejected, and Prima agrees. A link points to the page (address plus title), and following it gives the current page. Old versions stay in the log (R29). This narrows R30 and R31 item 1: what is fixed forever is the address-title pairing and the page's existence, not the wording of a general page's faces.
+2. System pages and lock (C15): "Yes, when a page is created, it gets its properties is assigned a title and seqaddr. Once the 00 is done it's locked the info might change on the faces but once a page exists and is linked it can only be retired, so the record is there, and not be in active searches."
+Read: at creation a page gets its properties, title, and address. Once face 00 is done, face 00 is locked; the other faces may still change. Once a page exists and is linked, it can't be deleted, only retired. A retired page stays on record but leaves active searches.
+3. Face list (C17): "I agree"
+Read: face 00 holds the page type and its face list. Where each face sits is kept in the page index, so face 00 doesn't change on every write.
