@@ -2,7 +2,7 @@
 
 state: draft plan, `7` (open). Not a ruling. Nothing here is law.
 made: Mon 16 Nov 2026, Designer (design partner for Prima). Director: Matthew, the only approver.
-revised: Mon 16 Nov 2026, after Director answers t171u (11:16 AM EST) and t172u (11:17 AM EST), Tester's stress test (50fdfac), Director rulings t175u (11:24 AM EST), and Tester's stress test 2 (e99665e), and Director ruling R31 (t184u, 11:47 AM EST, entered by Prima in f2c8459), all relayed by Prima. See "Changes since 29ec433".
+revised: Mon 16 Nov 2026, after Director answers t171u (11:16 AM EST) and t172u (11:17 AM EST), Tester's stress test (50fdfac), Director rulings t175u (11:24 AM EST), and Tester's stress test 2 (e99665e), Director ruling R31 (t184u, 11:47 AM EST, entered by Prima in f2c8459), and Tester's prototype results (SEQ-PROTO-RESULTS.md, 7697815), all relayed by Prima. See "Changes since 29ec433".
 why: Matthew asked today (16 Nov 2026, 11:04 AM EST, passed on by Prima) for a design plan for the book file. He said a book is a .seq file, it is basically a self-contained database file, and it should work like a pyramid.
 status of every idea below: Matthew's first ideas from today are marked "Matthew's idea, 16 Nov 2026". His later answers are marked "Director answer, t171u (relayed by Prima)" or "t172u". His rulings of 11:24 AM EST are marked "Director ruling, t175u (relayed by Prima)". His answers of 11:47 AM EST are marked "R31, n" (item n of Prima's entry R31). Prima entered them in DIRECTOR-RULINGS.md as R26-R30 (commit e1a60aa) and R31 (commit f2c8459); this plan cites those entries and does not number or edit rulings. Anything not found in a Workshop source is marked "New (not in any source)". Rulings R1-R25 are quoted only where they already exist.
 does not: edit DESIGN.md, DIRECTOR-RULINGS.md, the kernel, the core, or any spec file; close any QD question; write a 00.counter; seat anything.
@@ -17,7 +17,7 @@ The real copy is kept in small files: one folder per page, and one file per face
 
 The pyramid is the shape of that exported file. The top loads fast and tells you where everything is. The computer also keeps the same signposts over the small files, so finding any page is quick. The signposts are never the real copy. They can always be rebuilt.
 
-Each signpost carries a check number (the *chain*) built from the one before it. When the computer starts, it checks every chain once. Until that check is done, it marks answers "not yet checked" (`9`) and refuses to write. Only the computer may write the stored files.
+Each page's log and each signpost carries a check number (the *chain*) built from the one before it, starting from the page's own address, so a copied page cannot pass as another. When the computer starts, it checks every chain once. Until that check is done, it marks answers "not yet checked" (`9`) and refuses to write. Only the computer may write the stored files. Tester built a throwaway prototype: it is fast (one lookup in a book of 100,000 writes took 49 microseconds warm), and it found five things to fix, now in the plan as Tester's working paths.
 
 Face 04 is the person's face. It stays plain text. Every other face may be compact computer code (binary), for speed.
 
@@ -52,6 +52,7 @@ Some new questions come with R31. The top three: does "once it's linked it's don
 - **Director rulings t175u (11:24 AM EST) folded in.** R3 and R4 are updated by t175u (entered by Prima as R26 and R27). C1 and C3 are settled. The lock ruling (t175u, 3) rewrites Step 13 with a rename rule, squares Step 17 with it, and marks C9 likely answered, pending Prima's confirmation. New choices C11 (what locks a page), C12 (face 04 on a locked page) and C13 (grammar stays ASCII). Top 3 recomputed. Summary rewritten again.
 - **Tester's stress test 2 folded in** (SEQ-FILE-PLAN-TEST-2.md, commit e99665e; Tester's file not edited). Lock scope: the title and seated 00-04 text freeze; new 05/06 counters, 08 back-links and 09 log lines go on, compute-only (working path, Tester); the R24 against R30 clash is named (Step 13, new C14). Chain defined: hash(previous chain + new bytes), checked before each write against the copy in memory; reads `9` and writes refused until the start-up check ends (corrects the earlier `7`, with the reason). store.rs:941 described correctly (refuses shorter files, cuts longer ones at every append today; Tester's fix: refuse at runtime, cut only at start-up repair). OS file lock added; builder output moved out of `books/` (Step 11). K = 64 per band, with Tester's measured numbers (Step 5). Tester's picks recorded for C11, C12, C1a and C13 (working paths, still open). Stale wording fixed in Steps 8, 15 and 17. format.md cites fixed (:60 for the append-only heading; :18 for "only the compute writes"). Face 09 build gap listed. Sources rebuilt from every cite in the file. Top 3 recomputed (C11, C14, C12).
 - **Director ruling R31 (t184u, 11:47 AM EST) folded in** (entered by Prima at [DIRECTOR-RULINGS.md:127]-[DIRECTOR-RULINGS.md:148], commit f2c8459; not edited). C11, C12, C14, C1a and C13 are marked settled by R31, each with what it now is. C9 is closed (R31, 10). Step 1 now has the per-page folder with one file per face, face 00's type that holds and orders them, and books as working journals. Step 3 adds office kinds. Step 8 records R31, 9 (no log in 00; the last-change note held 7). Step 13 is rebuilt: titles fixed for every page, system pages lock, general pages stay editable, developer-only promotion. Step 17 is squared with general pages. Tensions R31 creates with earlier rulings and with Tester's findings are listed in Step 13 and as new choices C15-C20; none is resolved here. Places where Prima's relayed summary differs from her R31 entry are listed under the R31 block. The summary, still-open list and top 3 are recomputed (C16, C15, C17).
+- **Tester's prototype results folded in** (SEQ-PROTO-RESULTS.md, commit 7697815; Tester's file not edited). Working paths (Tester), not rulings: the book line is the commit point, and band lines after the last book line are dropped at start-up (Steps 9, 11); face 04's current view is written after its face 09 line (Steps 9, 17); each page's face 09 chain is seeded with the page address plus a book birth id, and all signposts missing is a halt that asks a person (Step 10); the check-then-write gap (2 of 20 tries) and what closes it (Step 11). Plan gaps filled: the chain across many small files (Step 10); C7 split into the chain hash and the file fingerprint (Step 10, C7); face 04's current-view file, its write order, the small-change format and the full-copy cadence (Step 17); how a hand edit is booked and who made it (Step 17). Measured numbers quoted exactly in Step 16, with what was not measured.
 - **Rename: "map" is now "signpost".** "Map" is face 08's name [seqAddr.md:157] and "index" is used for the dictionary [seqAddr.md:230], so the plan's book map, band map and page index are now the book, band and page signposts.
 
 ---
@@ -363,6 +364,14 @@ New (not in any source), building on what exists: one approved proposal is writt
 4. One new book signpost line, changed rows only (full every 64 book writes), carrying the chain: hash(previous chain + the new bytes).
 5. One fsync, as today [BUILD-LOG:53].
 
+**Under small files (R31, 7), the write order (working path, Tester, not a ruling).** The prototype wrote: "memory. Write order: face piece, 09 line, page, band, book." [SEQ-PROTO-RESULTS.md:27]. With Tester's fixes:
+
+0. Hold the OS lock; check each file's length and last chain against memory (Step 11).
+1. The face piece, in its face file, fsynced. Its length and fingerprint are known.
+2. The face 09 line that books it (naming the piece, its length and fingerprint), fsynced.
+3. Face 04 only: the current-view file, written **after** the 09 line (fix 3, [SEQ-PROTO-RESULTS.md:134] [SEQ-PROTO-RESULTS.md:135]; Step 17).
+4. The page signpost, then the band line, then the book line. **The book line is the commit point** (fix 2, [SEQ-PROTO-RESULTS.md:130]): a write is booked when its book line is down and fsynced.
+
 Nothing earlier in the file is changed. Old blocks and old page, band and book signposts all stay. This is Prima's sketch ("changes appended at the end and a new signpost written, with old blocks kept"), with the two extra levels.
 
 The cost of one write is the entries plus three small derived lines (one page signpost, one band signpost of at most 100 rows, one book signpost of at most 100 rows).
@@ -390,7 +399,10 @@ New (not in any source): every pointer carries the fingerprint of what it points
 - In the export, each row can carry the same git blob id of the small file it was built from. Then a person can check an exported piece against the stored file with standard git tools.
 - Under S1 (one log file per book), the git blob covers the whole book file only, so the export rows still need hashes of their own lines.
 
-Which hash (C7, updated by t171u): git's blob hash for stored small files and for export rows that copy them. Git's default hash is the older SHA-1; git also has a SHA-256 form. Which one is a lesser choice.
+**Two hashes, kept apart (fixes the C7 mismatch Tester found).** The plan said the fingerprint is the git blob (C7), while its example signpost says `"chain":"sha256:..."`; Tester notes the mismatch and used "SHA-256 of the bytes" [SEQ-PROTO-RESULTS.md:149] [SEQ-PROTO-RESULTS.md:150]. They are two different things (working path, building on Tester; new, not a ruling):
+
+- **The chain hash** is always SHA-256 over raw bytes: chain = SHA-256(previous chain + new bytes). This is what the `sha256:` in the example means. It is not a choice.
+- **The file fingerprint** of a stored face file is its git blob id, so a person can check it with git [AGENTS.md:10]. Which form of git blob (SHA-1, git's default, or git's SHA-256 form) stays the lesser choice C7.
 
 **When to check (Tester fix 1, folded in).** Working path D414 says a snapshot is never trusted over the log, is checked on every open, and only the compute takes one [DESIGN.md:165] [DECISIONS-LOG:524]. Signposts are the same kind of thing. Per-line fingerprints alone cannot prove that nothing was cut out between lines; a running chain hash can (SEQ-FILE-PLAN-TEST.md section c). So, new (not in any source):
 
@@ -403,6 +415,17 @@ Which hash (C7, updated by t171u): git's blob hash for stored small files and fo
 - Any mismatch halts and is raised; neither side silently wins (working path D324 [DECISIONS-LOG:384]; D367 [DECISIONS-LOG:440]). A full replay can then rebuild the signposts, with the person's approval.
 - The chain has no secret. Anyone who rewrites the file can write new, matching chains. So it catches damage and accidents, not a forger; the OS file lock and the memory check (Step 11) are what stop other writers.
 - Under small files (S3), a per-file fingerprint does not show a whole file that was deleted. So the page's face 09 log lists each piece with its fingerprint, and the face 09 log has its own chain.
+
+**The chain across many small files (R31, 7; new, building on Tester; not a ruling).** Tester: "Chain: defined for one file. With small files there are many files. I chained signposts.log and each 09.log apart. A chain over the whole book is not defined." [SEQ-PROTO-RESULTS.md:146] [SEQ-PROTO-RESULTS.md:147] [SEQ-PROTO-RESULTS.md:148]. Defined here:
+
+1. **Book birth id.** When a book is made, the compute writes a random 128-bit birth id once, in the stamp on face 00 of the book's identity page (page 0000 holds only face 00 [DIRECTOR-RULINGS.md:41]). It is written once and never changes, so it adds no face 00 churn (R25). It is back end only (R31, 8).
+2. **Page chain.** Each page's face 09 log starts from seed = SHA-256("page" + birth id + page address) (fix 4, [SEQ-PROTO-RESULTS.md:137] [SEQ-PROTO-RESULTS.md:138]). Each 09 line: chain = SHA-256(previous chain + line bytes). Each 09 line names the face piece it books, with its length and fingerprint, so every face file is covered by its page's chain.
+3. **Book chain.** The signpost log (band and book lines) starts from seed = SHA-256("book" + birth id + book address). Each band row carries its page's latest 09 chain head; each book line carries the chain of each band line it points to. So the last book line covers every page's 09 head, and through them every face file.
+4. **Book journal** (writes across pages, Still open) is chained the same way, from its own seed.
+
+What this catches: a page folder copied to a new page number (Tester saw "ACCEPTED as page 0950. No file inside a page names its address." [SEQ-PROTO-RESULTS.md:111]) now fails its seed and halts; a book copied to a new address fails too. What it does not catch: a byte-exact copy of a whole book at the same address. Tester: "Copy the whole book, write to both: both boot fine. Nothing tells them apart." [SEQ-PROTO-RESULTS.md:108] [SEQ-PROTO-RESULTS.md:109]. The two copies are told apart only once both reach the same compute, where the fork rule halts (Still open, forks).
+
+**All signposts missing is a halt (fix 4).** Tester emptied the signposts after a forge, and the result was "ACCEPTED": boot rebuilt every signpost and reported 250 quiet crash findings [SEQ-PROTO-RESULTS.md:103] [SEQ-PROTO-RESULTS.md:104]. So: if every signpost (all band and book lines and every page signpost) is missing, the compute halts and asks a person; it does not quietly rebuild [SEQ-PROTO-RESULTS.md:139]. A missing tail after a crash is still repaired at start-up, as before.
 
 This keeps D414 ("checked on every open", "never trusted over the log") [DECISIONS-LOG:524], and still serves the top fast, marked `9` until checked. Tester measured one hash pass at about 0.4 s per 500 MB in Python. For stored small files, the same rule applies per file: each file's fingerprint is checked at start. This touches QD46 and does not close it (C4).
 
@@ -424,7 +447,11 @@ New (not in any source): with the write order in Step 9, a crash can only leave 
 - Whole entries with no new signpost after them (the crash came before step 4). The compute finds the last good book signpost, then replays only the entries after it, and writes a fresh signpost. Nothing is lost, because the entries are complete and the signposts are derived.
 - A signpost whose fingerprints do not match. It is not used; the compute walks back to the signpost before it (`prev`), and raises it.
 
-The worst case is always: ignore every signpost and replay the whole book, exactly as today. So the new layout can never be less safe than today's.
+**The book line is the commit point (fix 2, working path, Tester, not a ruling).** Tester's prototype: "Crash after the band line, before the book line: boot PASSED, but the next read raised a false alarm" [SEQ-PROTO-RESULTS.md:86] [SEQ-PROTO-RESULTS.md:87]; "A crash between band and book lines leaves a stale path that boot does not see." [SEQ-PROTO-RESULTS.md:130] [SEQ-PROTO-RESULTS.md:131]. So a write is booked only when its book line is down. At start-up, any band lines (and page signposts) written after the last book line are an unfinished tail: they are dropped, like a cut-off last line, and the compute rebuilds them from the face 09 lines, which are complete. Dropping happens only in the start-up repair, never at runtime.
+
+**Face 04's current view after its 09 line (fix 3).** Tester: "Crash after 04.md, before the 09 line: boot called it a HAND EDIT and parked the text as 04.pending. A false alarm." [SEQ-PROTO-RESULTS.md:89] [SEQ-PROTO-RESULTS.md:90]. With the order in Step 9, a current view newer than the log can only come from outside the compute; a current view older than the log (crash before the view was written) is rewritten from the log at start-up, not called a hand edit (Step 17).
+
+The worst case is always: ignore every signpost and replay the whole book, exactly as today. So the new layout can never be less safe than today's. The one exception is new: if **every** signpost is missing, the compute halts and asks a person (Step 10), because that is what a forger who re-chains a page and deletes the signposts leaves behind.
 
 **Updated by A1 and A2 (t171u), new:** with small files, each write puts the new piece in a new file (or new lines), fsyncs it, and only then appends the face 09 log line; a piece with no log line is ignored as unfinished. Old pieces are never overwritten. Today's safety leans on whole lines: a cut-off last line is dropped [BUILD-LOG:54]. A raw-bytes face (allowed by t175u, 2) has no lines to lean on, so its log line must carry its length and fingerprint, and a piece that fails either is treated as not written. The one storage failure seen so far was a crash cutting inside an accented letter, and R4 fixed it by refusal, not by repair code [DESIGN.md:173]; working path D432 asks for a hostile crash test before any widening [DECISIONS-LOG:560]. The same is needed before raw-bytes faces.
 
@@ -434,12 +461,16 @@ The fix in this plan (working path from Tester's test 2, not a ruling):
 
 - **Refuse at runtime, cut only at start-up repair.** At runtime, any length change the compute did not make is refused and raised (D324). Cutting a partial tail happens only during the start-up repair, after a crash.
 - **Check against memory.** Before each write, the compute checks the file's length and last chain against the copy it holds in memory (Step 10).
-- **OS file lock.** The compute holds an operating-system file lock on its stored folder while it runs. Any other tool that would write there, including the builder, refuses to run while the lock is held. This closes the gap between "check" and "write".
+- **OS file lock.** The compute holds an operating-system file lock on its stored folder while it runs. Any other tool that would write there, including the builder, refuses to run while the lock is held. Tester's prototype: "Second writer while the compute runs: REFUSED (folder lock)." [SEQ-PROTO-RESULTS.md:114].
+- **The lock alone does not close the check-then-write gap (fix 5).** Tester measured it: "Race between check and write: in 2 of 20 tries the compute's line went in after an outside line. The write was reported OK. It was caught only at the next write or boot. The OS lock is advisory: a tool that ignores it is not stopped." [SEQ-PROTO-RESULTS.md:117] [SEQ-PROTO-RESULTS.md:118] [SEQ-PROTO-RESULTS.md:119] [SEQ-PROTO-RESULTS.md:120]. What closes it (new, building on Tester; not a ruling; **not yet measured**):
+  1. **Only the compute's own OS account may write the stored folder.** Other tools and people get read-only access. File permissions are enforced by the operating system, unlike the advisory lock, so a tool that ignores the lock still cannot write. This is what closes the gap; the lock stays as a polite signal for tools that cooperate.
+  2. **Write at the expected place, then confirm before saying OK.** The compute writes each piece at the byte offset it expects (the length it holds in memory), not "at the end, wherever that is"; after the fsync it re-reads the length and the last chain. Only if both match does it report the write as booked; otherwise it reports "not booked", halts that page and raises it (D324). This turns a silent mix into a refusal at once, instead of at the next write or boot. On its own it narrows the gap but cannot close it (an outside write could land after the re-read), which is why point 1 is needed.
+  3. The memory check before each write and the full check at start-up stay as they are.
 - **Move the builder's output out of `books/`.** Under R26 a whole book is an export, so the builder writes its exports to their own folder, never the compute's stored folder.
 
 **Axioms:** Fits axiom 6: recovery only adds; it never rewrites an earlier line [Axioms.md:23]. Fits axiom 7: a damaged signpost is treated as missing, not guessed [Axioms.md:25]. Fits axiom 1: a damaged signpost is raised, not silently replaced [Axioms.md:13].
 
-**Better:** As safe as today, and faster to recover after the common case (a crash after the entries but before the signpost). Better than an edit-in-place signpost, which can be half-written in the middle of the file. Where we fall short: it still needs a disk that honours fsync (D431). On a disk that lies about fsync, no file layout is safe, and this plan does not fix that.
+**Better:** As safe as today, and faster to recover after the common case (a crash after the entries but before the signpost). Better than an edit-in-place signpost, which can be half-written in the middle of the file. Where we fall short: it still needs a disk that honours fsync (D431); Tester's crash tests used kill -9, which "is not a power cut" [SEQ-PROTO-RESULTS.md:82], so power loss is untested. On a disk that lies about fsync, no file layout is safe, and this plan does not fix that.
 
 **Three leads:** The person needs to know that a crash cannot eat old work, and to be told plainly when a signpost was damaged. The model needs its proposal to be either fully booked or clearly not booked after a restart. The compute needs a recovery rule that is short, tested, and always falls back to full replay.
 
@@ -590,6 +621,85 @@ Added from Tester's stress test (SEQ-FILE-PLAN-TEST.md, Step 16):
 15. A fork with the same address must be told apart, or raised.
 16. A hand edit to face 04 outside the compute must be found and taken in as a new step, never halted forever.
 
+**Measured by Tester's throwaway prototype (SEQ-PROTO-RESULTS.md, commit 7697815; working path, Tester, not a ruling).** "Code: /workspace/seq-proto (not in the repo). 316 lines of Rust." [SEQ-PROTO-RESULTS.md:5]. Quoted exactly [SEQ-PROTO-RESULTS.md:37]-[SEQ-PROTO-RESULTS.md:76]:
+
+```
+Book sizes used:
+
+| book | writes  | pages | files  | real size | on disk |
+|------|---------|-------|--------|-----------|---------|
+| 1k   | 1,000   | 250   | 1,502  | 1.1 MB    | 7.2 MB  |
+| 10k  | 10,000  | 2,500 | 15,002 | 11 MB     | 72 MB   |
+| 100k | 100,000 | 9,000 | 54,173 | 89 MB     | 284 MB  |
+
+Boot (full chain check, every file read), seconds:
+
+| book | warm (3 runs)       | cold (3 runs)       |
+|------|---------------------|---------------------|
+| 1k   | 0.015, 0.014, 0.012 | 0.077, 0.066, 0.137 |
+| 10k  | 0.182, 0.130, 0.149 | 0.637, 0.619, 0.592 |
+| 100k | 1.046, 1.058, 1.007 | 2.455, 2.483, 2.452 |
+
+One lookup (book -> band -> page -> face), microseconds:
+
+| book | warm p50/p99 | cold first 200 | cold single x40 | reads |
+|      | (20,000)     | p50 / p99      | p50 / max       | max   |
+|------|--------------|----------------|-----------------|-------|
+| 1k   | 21 / 36      | 92 / 329       | 325 / 468       | 24    |
+| 10k  | 31 / 63      | 100 / 573      | 622 / 5,071     | 82    |
+| 100k | 49 / 90      | 215 / 1,047    | 251 / 641       | 99    |
+
+- "Cold single": caches dropped before each one lookup.
+- Most reads seen: 99. The plan's bound is 2K + 3 = 131. Holds.
+
+Append (one face write plus log and signposts), microseconds:
+
+| book | no fsync p50/p99 | fsync p50/p99 | after cold boot |
+|      | (3,000 writes)   | (300 writes)  | no fsync p50/p99|
+|------|------------------|---------------|-----------------|
+| 1k   | 55 / 108         | 422 / 818     | 54 / 94         |
+| 10k  | 61 / 163         | 449 / 3,055   | 65 / 102        |
+| 100k | 74 / 154         | 479 / 2,081   | 80 / 150        |
+
+- A cold append does not exist here: the boot check reads every
+  file first, so the first append is already warm.
+- Signposts cost about 380 bytes per write (38 MB per 100k).
+```
+
+Machine and method, quoted exactly [SEQ-PROTO-RESULTS.md:31]-[SEQ-PROTO-RESULTS.md:35]:
+
+```
+Machine: 8 vCPU "Intel Xeon Processor" (virtual machine).
+Disk: virtio /dev/vdb, ext4, 128 GB; disk type not known.
+Cold = guest page cache dropped (sync; drop_caches, with sudo).
+The host may still cache; that cannot be seen from inside.
+Release build. Times are best of a few runs, or p50/p99 as named.
+```
+
+Most reads seen, 99, against this plan's bound of 2K + 3 = 131: "Holds." [SEQ-PROTO-RESULTS.md:63]. Tester's summary: "1. Speed is fine. 100k writes, 9,000 pages: lookup 49 us warm, under 1.1 ms cold (p99); append 74 us, or 479 us with fsync; boot 1.0 s warm, 2.5 s cold." [SEQ-PROTO-RESULTS.md:127] [SEQ-PROTO-RESULTS.md:128] [SEQ-PROTO-RESULTS.md:129].
+
+**Not measured (Tester's list, quoted exactly)** [SEQ-PROTO-RESULTS.md:162]-[SEQ-PROTO-RESULTS.md:169]:
+
+```
+- Power loss. kill -9 is not a power cut; fsync order is not
+  tested by it.
+- Real cold disk: the host's cache could not be dropped.
+- Disk type: virtio reports "rotational", which says nothing.
+- Books over 100k writes or 10,000 pages.
+- Many readers at once; the export file; git blob hashing.
+```
+
+Also not measured: the race fix in Step 11, the full-copy cadence in Step 17, locks, exports, links and C11-C14, which the prototype did not build [SEQ-PROTO-RESULTS.md:160].
+
+Added from Tester's prototype (to run on the real build):
+
+22. Crash between the band line and the book line: start-up must drop the band lines after the last book line, and the next read must raise no false alarm.
+23. Crash after a face 04 09 line but before the current view: start-up must rewrite the view from the log, not call it a hand edit.
+24. Copy a page folder to a new page number, and a whole book to a new address: both must halt (seed mismatch).
+25. Re-chain a page and empty every signpost: must halt and ask a person, not rebuild quietly.
+26. Repeat Tester's race test (20 tries, outside writer appending during writes) with the folder writable only by the compute's account and the confirm-before-OK step: 0 writes may be reported OK on a touched file.
+27. Power loss (not kill -9) during writes, on the real disk.
+
 Added from Tester's stress test 2:
 
 17. A file rewritten with its own matching chains must still be refused at the next write (memory check), and its signposts caught by the start-up replay-compare.
@@ -634,11 +744,28 @@ New (not in any source), for the builders: how often a full copy is stored (for 
 
 **"So they can't be changed": closed by R31, 10 (was C9).** Matthew: "I agree" [DIRECTOR-RULINGS.md:147]. Read: "R29's "So they can't be changed" means old versions can't be changed. The R29 hold is closed." [DIRECTOR-RULINGS.md:148]. A stored small change or full copy is never edited; a correction is a new change after it [Axioms.md:23].
 
+**The files and the write order (working path, Tester, plus new detail; not a ruling).** Tester's prototype kept face 04 as three files: "04.chg: a log of small changes (replace lines a..b)." [SEQ-PROTO-RESULTS.md:13], "04.snap: a full copy every 16 changes." [SEQ-PROTO-RESULTS.md:14], and "04.md: the current view, for people to read." [SEQ-PROTO-RESULTS.md:15]. This plan takes that shape:
+
+- **The change log** (Tester's `04.chg`): append-only, written only by the compute.
+- **Full copies** (Tester's `04.snap`): append-only, each with its fingerprint.
+- **The current view** (Tester's `04.md`): plain text, the latest version, for people to read in any editor. It is derived: rebuilt from the last full copy plus the changes after it. Written only by the compute, and always **after** the face 09 line that books the change (Step 9, fix 3). The 09 line carries the fingerprint the view must have. At start-up and before a read, the compute compares the view's fingerprint with the one the last 09 line names. Tester flagged the view file as "not in the plan" and its write order as "not defined" [SEQ-PROTO-RESULTS.md:151] [SEQ-PROTO-RESULTS.md:152]; this defines both.
+
+**The small-change format (new, building on Tester; not a ruling).** Tester used "a line range" [SEQ-PROTO-RESULTS.md:154]: "replace lines a..b" [SEQ-PROTO-RESULTS.md:13]. This plan takes that as the format for plain text: one change says "in the version with fingerprint F, replace lines a to b with these lines" (an insert is an empty range; a delete has no new lines). Naming the base fingerprint means a change can never be applied to the wrong version. It is plain text, so it survives the R3 round trip to the page view [DIRECTOR-RULINGS.md:12]. Office kinds (a sheet's cells) may need a cell-based change instead (C18).
+
+**How often a full copy is taken (new, building on Tester; not a ruling).** Tester used "a builder setting; I used 16" [SEQ-PROTO-RESULTS.md:155]: a full copy every 16 changes [SEQ-PROTO-RESULTS.md:14]. This plan uses 16 as the starting builder setting, plus a full copy whenever a system page locks and when a developer's new copy starts, so each of those starts from one clean text. Reading the current view is then at most one full copy plus 15 changes. The effect of 16 against other values on rebuild time was **not measured**.
+
+**How a hand edit is booked, and who made it (new, building on Tester; not a ruling).** Tester: "Hand edit to 04.md: found at boot, and at read time. The logged version stays live; the edit is kept as 04.pending (a draft). Not booked: who made it is unknown." [SEQ-PROTO-RESULTS.md:95] [SEQ-PROTO-RESULTS.md:96] [SEQ-PROTO-RESULTS.md:97]; "Taking in a hand edit: who made it has no source. Parked only." [SEQ-PROTO-RESULTS.md:158]. So:
+
+1. The compute never books a hand edit by itself. The logged version stays live; the edit is kept as a draft (R5), shown in the reader beside the live text.
+2. A person who can edit the page opens the reader and either **takes it in** or **discards** it. Taking it in makes a normal proposal in that person's name, through the queue; it is booked as one small change, and its face 09 line says: taken in by that person, typed outside the compute, typist not known. Discarding is a face 09 line too. Nothing is guessed: who typed it stays unknown unless someone says so (axiom 7 [Axioms.md:25]).
+3. On a locked system page, taking it in is not allowed; a developer may carry it into a new copy (R31, 4).
+4. Until someone acts, the draft stays a draft, never live.
+
 **Squaring face 04 edits with the lock (R31, 3).** General pages: face 04 is edited the Google Docs way for as long as the page lives, every small change kept [DIRECTOR-RULINGS.md:134]. System pages: face 04 is edited the same way until the page is linked to; then it is frozen with faces 00-03 [DIRECTOR-RULINGS.md:132], and improvement is a developer's new copy whose face 04 starts from the original's latest version [DIRECTOR-RULINGS.md:136]. This settles C12. Office kinds (a sheet, a word document) keep the same rule; how their small changes are written down depends on C18. Whether a linked general page is still editable is C16.
 
 **Axioms:** Fits axiom 6: every old version is kept, and a change is a new step after the old one [Axioms.md:23]. Fits axiom 1: this is Matthew's answer, recorded as his, not invented by the builders [Axioms.md:13]. Fits axiom 4: the why (the Google Docs against Word comparison) is recorded with the choice [Axioms.md:19]. Fits axiom 7: the phrase was held until Matthew answered it (R31, 10); what office kinds need is asked, not guessed (C18) [Axioms.md:25].
 
-**Better:** Better than storing a whole new face 04 on every edit: much smaller, and the difference between two versions is visible directly. Better than keeping only the latest version, which would lose the past. Where we fall short: rebuilding an old version means applying a run of changes, so a bad change or a bug in applying changes could give a wrong old version; the fingerprint on each full copy is the check against that. Office kinds may need a change format other than lines (C18). How a small change is written down (by line, by card, or by character) is not designed yet, and it must survive the R3 round trip to the `.seq` page view without loss [DIRECTOR-RULINGS.md:12].
+**Better:** Better than storing a whole new face 04 on every edit: much smaller, and the difference between two versions is visible directly. Better than keeping only the latest version, which would lose the past. Where we fall short: rebuilding an old version means applying a run of changes, so a bad change or a bug in applying changes could give a wrong old version; the fingerprint on each full copy is the check against that. Office kinds may need a change format other than lines (C18). The line-range format above is new and untested against real documents.
 
 **Three leads:** The person needs to read the current face 04 as one clean text, and to open any earlier version and see what changed and when. The model needs to propose small changes against the latest version, never a rewrite from memory [drafting.md:7]. The compute needs to store each change and the full copies, rebuild any version on request, check fingerprints, and refuse any attempt to edit a stored version.
 
@@ -717,8 +844,8 @@ Now about the export file and the signposts only. This plan suggests it becomes 
 - Option A (plan's pick): band signposts of up to 100 pages [seqAddr.md:240], changed rows only, each band full every 64 of its own writes (Tester's measured pick).
 - Option B: one flat signpost with a row per page.
 
-**C7. Updated by t171u (A2). Which fingerprint?** (lesser)
-Now: the git blob of each stored small file, the same kind the kernel builder already uses for seats.
+**C7. Updated by t171u (A2) and by Tester's prototype. Which form of git blob for file fingerprints?** (lesser)
+Now: the chain hash is always SHA-256 over raw bytes (Step 10, not a choice). The file fingerprint is the git blob of each stored small file, the same kind the kernel builder already uses for seats. Only its form is open.
 - Option A: git's default blob hash (SHA-1, older).
 - Option B: git's SHA-256 form, or SHA-256 hex (Tester's pick).
 
@@ -746,9 +873,10 @@ Settled, not a choice: how face 04 edits are stored. Matthew answered "go with G
 - **Build gap, outside writers.** store.rs still cuts a longer file at every append (`crates/compute/src/store.rs:940-941`); there is no OS file lock; the builder still writes to `books/` (`kernel/build.mjs:29`, `:846`). The fixes are in Step 11; no code is changed by this plan.
 - How a write that spans several pages is made all or nothing under small files. Page 0000 may hold only face 00 [DIRECTOR-RULINGS.md:41], so a book-wide log cannot sit on the door page. Tester's pick: a compute-only book journal, like the `.queue` file (C1a).
 - The kernel builder's whole-file rewrite [R23-R25-lineage.md:94] (the whole-file write is now at `kernel/build.mjs:846`; the lineage note cites `build.mjs:818`, which has since moved).
-- Two copies of one book with the same address (a fork, D427). Tester's pick (working path, not a ruling): the compute halts if two files claim one address (axiom 1 [Axioms.md:13]); a copy that changed apart gets a new address before it comes back. Locked pages are the same in both copies, so links to them stay true (SEQ-FILE-PLAN-TEST-2.md section 7a).
-- Hand edits to a face 04 file made outside the compute. Tester's pick (working path, not a ruling): the compute keeps a current-view 04 file and compares its fingerprint at start or before a read; if changed, the logged 04 stays live, the edit shows as a draft (R5), and it is booked as a small change once who made it is known, else the person is asked; on a locked page the edit goes to a rework copy (SEQ-FILE-PLAN-TEST-2.md section 7b). Only the compute writes [format.md:18].
-- How a face 04 change is written down (by line, by card, or by letter) is not designed.
+- Two copies of one book with the same address (a fork, D427). The page and book seeds (Step 10) now catch a copy moved to a new address, but not a byte-exact copy at the same address [SEQ-PROTO-RESULTS.md:108]. Tester's pick (working path, not a ruling): the compute halts if two files claim one address (axiom 1 [Axioms.md:13]); a copy that changed apart gets a new address before it comes back. Locked pages are the same in both copies, so links to them stay true (SEQ-FILE-PLAN-TEST-2.md section 7a).
+- Hand edits to a face 04 file made outside the compute. Now designed in Step 17 (taken in by a named person, typist not known). Earlier, Tester's pick (working path, not a ruling): the compute keeps a current-view 04 file and compares its fingerprint at start or before a read; if changed, the logged 04 stays live, the edit shows as a draft (R5), and it is booked as a small change once who made it is known, else the person is asked; on a locked page the edit goes to a rework copy (SEQ-FILE-PLAN-TEST-2.md section 7b). Only the compute writes [format.md:18].
+- Face 04's small-change format (line ranges, Step 17) is designed for plain text only; office kinds wait on C18.
+- Not measured by the prototype: power loss, a real cold disk, books over 100k writes or 10,000 pages, many readers at once, the export file, git blob hashing [SEQ-PROTO-RESULTS.md:162]-[SEQ-PROTO-RESULTS.md:169]; and the race fix (Step 11).
 - QD65 stays with Matthew.
 
 ---
@@ -768,7 +896,7 @@ Settled, not a choice: how face 04 edits are stored. Matthew answered "go with G
 
 ## Sources
 
-Every bracket cite in this file, by file and line (195 distinct; 29 new in this revision against 6dbe53c). Each was checked against the file at the time of writing.
+Every bracket cite in this file, by file and line (246 distinct; 51 new in this revision against f8ac4d9). Each was checked against the file at the time of writing.
 
 - `docs/spec/Axioms.md` (the nine axioms): lines 13, 15, 17, 19, 21, 23, 25, 27, 29.
 - `docs/spec/DIRECTOR-RULINGS.md` (rulings R1-R31; R26-R30 entered by Prima in e1a60aa, R31 in f2c8459): lines 1, 9, 12, 15, 16, 20, 29, 38, 41, 76, 97, 101, 103, 104, 105, 106, 108, 109, 110, 111, 113, 114, 115, 118, 119, 120, 123, 124, 125, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148.
@@ -786,8 +914,9 @@ Every bracket cite in this file, by file and line (195 distinct; 29 new in this 
 - `docs/design/R23-R25-lineage.md`: lines 94.
 - `docs/design/QUESTIONS-FOR-DIRECTOR.md`: lines 66, 76, 180, 298, 360, 414, 430, 446.
 - `docs/BUILD-LOG.md`: lines 3, 6, 38, 53, 54, 66.
+- `docs/design/SEQ-PROTO-RESULTS.md` (Tester prototype, commit 7697815; working paths, not rulings): lines 5, 13, 14, 15, 27, 31, 35, 37, 63, 76, 82, 86, 87, 89, 90, 95, 96, 97, 103, 104, 108, 109, 111, 114, 117, 118, 119, 120, 127, 128, 129, 130, 131, 134, 135, 137, 138, 139, 146, 147, 148, 149, 150, 151, 152, 154, 155, 158, 160, 162, 169.
 - Code read, not changed: `crates/compute/src/store.rs:1009-1023`, `crates/compute/src/store.rs:307`, `crates/compute/src/store.rs:917`, `crates/compute/src/store.rs:940-941`, `crates/seqaddr-core/src/face.rs:72`, `crates/seqaddr-core/src/validate.rs:232-233`, `kernel/build.mjs:29`, `kernel/build.mjs:846`.
-- `docs/design/SEQ-FILE-PLAN-TEST.md` (Tester's stress test, commit 50fdfac), `docs/design/SEQ-FILE-PLAN-TEST-2.md` (Tester's stress test 2, commit e99665e) and `docs/design/SEQ-PROTO-RESULTS.md` (Tester's prototype, commit 7697815). Working paths, not rulings.
+- `docs/design/SEQ-FILE-PLAN-TEST.md` (Tester's stress test, commit 50fdfac) and `docs/design/SEQ-FILE-PLAN-TEST-2.md` (Tester's stress test 2, commit e99665e). Working paths, not rulings.
 - Matthew's words, 16 Nov 2026 (passed on by Prima): first ideas, not rulings.
 - Director answers t171u (11:16 AM EST) and t172u (11:17 AM EST), Director rulings t175u (11:24 AM EST), and Director ruling t184u (11:47 AM EST), relayed by Prima; entered by Prima as R26-R30 (commit e1a60aa) and R31 (commit f2c8459) in `docs/spec/DIRECTOR-RULINGS.md`. This plan quotes them and does not number or edit them.
 - `docs/design/QUESTIONS-FOR-DIRECTOR.md` headings cited: QD16, QD34, QD46, QD57, QD60, QD63, QD66, QD67.
