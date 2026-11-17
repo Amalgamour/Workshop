@@ -15,3 +15,14 @@ Recorded: 2026-11-17 12:48 PM EST.
 Verbatim: "Sorry no the checker is different from an observer"
 
 Prima's mapping (not his words): the observer and the checker are separate roles. The mapping above ("It does the per-pass review (the checker role ...)") is withdrawn. Still from his T6 answer: the observer is the lead's assistant, handed work by the compute, so the lead isn't stuck reviewing every return. Not yet clear: exactly what the observer does with a return versus what the checker does.
+
+## Clarification, t266u
+
+Recorded: 2026-11-17 12:49 PM EST. Asked (t264s984) whether checker = tool checks pass/fail and observer = summarizer for the lead. He answered in his own words.
+
+Verbatim:
+
+"The checker, is the assistant to the lead.
+The observer is to check that the lead isn't drifting from the goals and MVP.  Also makign sure the lead isn't stuck in a loop and stalled."
+
+Prima's mapping (not his words): the T6 answer ("assistant to the lead ... handed off by the compute ... not stuck reviewing all the returns") describes the CHECKER, not the observer. The checker is the lead's assistant: the compute hands it returns, it confirms the work with tools (t245u), so the lead isn't reviewing every return. The OBSERVER watches the lead: drift from the face 04 goals and the MVP, and loops or stalls. Prima's t264s983 proposal (observer summarizes for the lead) is withdrawn.
