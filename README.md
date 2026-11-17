@@ -55,7 +55,7 @@ Add `--as <your name>` to every command that writes.
 | Widen the grant | `wf grant <page> --paths "a,b" --ref tNNNu [--answers <entry>]` |
 | Write a face | `wf face-write <page> 01\|02\|04\|06\|08 --text "..."` (04 needs `--section goals`, `decisions` or `responses`) |
 | Draft a pass | `wf draft <page> --file plan.txt` |
-| Release it | `wf pack <page> <NN>` |
+| Release it | `wf pack <page> <NN> [--overlap-ok NN]` |
 | Claim it | `wf claim <page> <NN>` |
 | Hand it back | `wf return <page> <NN> --branch B --commit SHA --file PATH` |
 | Check it | `wf check <page> <NN>` |

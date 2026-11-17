@@ -81,6 +81,13 @@ pub fn inside(path: &str, scope: &[String]) -> bool {
     scope.iter().any(|g| g == path || (g.ends_with('/') && path.starts_with(g.as_str())))
 }
 
+/// Same file, or one is a folder prefix of the other (`src/` vs `src/a.rs`).
+pub fn paths_overlap(a: &str, b: &str) -> bool {
+    let a = a.trim_end_matches('/');
+    let b = b.trim_end_matches('/');
+    a == b || a.starts_with(&format!("{b}/")) || b.starts_with(&format!("{a}/"))
+}
+
 pub fn check_addr(a: &str) -> Res<()> {
     let ok = !a.is_empty() && !a.contains("..") && a.chars().all(|c| c.is_ascii_alphanumeric() || ".-_".contains(c));
     if ok { Ok(()) } else { Err(format!("bad page address '{a}': use letters, digits, dots, - or _")) }
@@ -227,5 +234,14 @@ mod tests {
         let g = vec!["src/".to_string(), "tests/steer.rs".to_string()];
         assert!(inside("src/a/b.rs", &g) && inside("tests/steer.rs", &g));
         assert!(!inside("tests/other.rs", &g) && !inside("srcx/a.rs", &g));
+    }
+
+    #[test]
+    fn paths_overlap_file_and_folder() {
+        assert!(paths_overlap("src/a.rs", "src/a.rs"));
+        assert!(paths_overlap("src/", "src/a.rs") && paths_overlap("src/a.rs", "src/"));
+        assert!(paths_overlap("src", "src/a.rs"));
+        assert!(!paths_overlap("src/foo", "src/foobar"));
+        assert!(!paths_overlap("src/a.rs", "src/b.rs") && !paths_overlap("src/", "tests/"));
     }
 }

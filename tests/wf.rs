@@ -170,6 +170,37 @@ fn may_touch_outside_grant_is_refused() {
 }
 
 #[test]
+fn pack_refuses_overlapping_may_touch() {
+    let e = Env::ready("ov-ref");
+    e.open("src/a.rs", "true");
+    e.draft("src/", "true");
+    let (ok, out) = e.wf(&["pack", PG, "2", "--as", "pri"]);
+    assert!(!ok, "{out}");
+    assert!(out.contains("overlaps open pass 05.01") && out.contains("src/") && out.contains("src/a.rs"), "{out}");
+}
+
+#[test]
+fn pack_allows_overlap_with_flag() {
+    let e = Env::ready("ov-ok");
+    e.open("src/a.rs", "true");
+    e.draft("src/a.rs", "true");
+    e.ok(&["pack", PG, "2", "--overlap-ok", "1", "--as", "pri"]);
+    assert!(e.log().contains("\"overlap_ok\":1"), "{}", e.log());
+    e.draft("src/a.rs", "true");
+    e.no(&["pack", PG, "3", "--overlap-ok", "1", "--as", "pri"], "overlaps open pass 05.02");
+}
+
+#[test]
+fn pack_allows_overlap_after_other_closes() {
+    let e = Env::checked("ov-close");
+    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
+    e.ok(&["close", PG, "1", "--as", "pri"]);
+    e.ok(&["face-write", PG, "06", "--text", "read 04 and closed 05.01", "--as", "pri"]);
+    e.draft("src/a.rs", "true");
+    e.ok(&["pack", PG, "2", "--as", "pri"]);
+}
+
+#[test]
 fn only_prime_drafts_and_packs() {
     let e = Env::ready("roles");
     e.draft("src/a.rs", "true");

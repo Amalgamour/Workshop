@@ -2,7 +2,7 @@
 
 use crate::git;
 use crate::log::{sha, short, Res};
-use crate::page::{check_addr, inside, list, s, split_list, Page, Pass};
+use crate::page::{check_addr, inside, list, paths_overlap, s, split_list, Page, Pass};
 use crate::render::{self, fill, jobs, pass_name, AXIOMS, DESIGN, T_CLOSE, T_PACK};
 use crate::Args;
 use serde_json::{json, Map, Value};
@@ -145,6 +145,37 @@ fn pin_text(v: &Value) -> String {
     }
 }
 
+/// Packed, claimed, returned, or in review - not draft or closed.
+fn open_packed(x: &Pass) -> bool {
+    matches!(x.tail.as_str(), "pack" | "open" | "return" | "review")
+}
+
+fn overlap_ok_flag(a: &Args) -> Res<Option<u32>> {
+    match a.flag("overlap-ok") {
+        None => Ok(None),
+        Some(v) => v.trim_start_matches("05.").parse().map(Some)
+            .map_err(|_| "give --overlap-ok a pass number, like 3 or 05.03".into()),
+    }
+}
+
+fn refuse_overlap(p: &Page, n: u32, mine: &[String], allow: Option<u32>) -> Res<()> {
+    let mut hits = Vec::new();
+    for x in p.passes.values() {
+        if x.nn == n || !open_packed(x) || allow == Some(x.nn) {
+            continue;
+        }
+        let theirs = split_list(x.fields.get("may touch").and_then(|v| v.as_str()).unwrap_or(""));
+        let pairs: Vec<String> = mine
+            .iter()
+            .flat_map(|a| theirs.iter().filter(move |b| paths_overlap(a, b)).map(move |b| format!("{a} and {b}")))
+            .collect();
+        if !pairs.is_empty() {
+            hits.push(format!("05.{:02} ({})", x.nn, pairs.join(", ")));
+        }
+    }
+    need(hits.is_empty(), format!("refused: may touch overlaps open pass {}", hits.join("; ")))
+}
+
 pub fn pack(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     must_be(p, who, "prime")?;
     let n = nn(a, 1)?;
@@ -156,9 +187,12 @@ pub fn pack(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
         need(!g(k).is_empty(), format!("refused: pack field '{k}' is empty"))?;
     }
     need(!jobs(f).is_empty(), "refused: the pack has no jobs (w01: ...)")?;
-    for path in split_list(&g("may touch")) {
-        need(inside(&path, &p.grant), format!("refused: may touch '{path}' is outside the grant ({})", p.grant.join(", ")))?;
+    let mine = split_list(&g("may touch"));
+    for path in &mine {
+        need(inside(path, &p.grant), format!("refused: may touch '{path}' is outside the grant ({})", p.grant.join(", ")))?;
     }
+    let allow = overlap_ok_flag(a)?;
+    refuse_overlap(p, n, &mine, allow)?;
     for (k, now) in [("04", pin(p, "04")), ("06", pin(p, "06")), ("05", pin05(p))] {
         need(x.pins[k] == now, format!("refused: stale pin {k}: drafted against {}, now {}. Re-read it, then wf draft {} --pass {n} --file ...",
             pin_text(&x.pins[k]), pin_text(&now), p.addr))?;
@@ -178,9 +212,12 @@ pub fn pack(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
         ("pin04", pin_text(&x.pins["04"])), ("pin06", pin_text(&x.pins["06"])), ("pin05", pin_text(&x.pins["05"])),
         ("src01", src01.clone()), ("src_axioms", sax.clone()), ("src_design", sds.clone())])?;
     let seq = p.events.len() as u64 + 1;
-    let d = json!({"pass": n, "pack_text": text, "pack_hash": sha(&text), "branch": branch, "return_file": rfile, "start": start,
+    let mut d = json!({"pass": n, "pack_text": text, "pack_hash": sha(&text), "branch": branch, "return_file": rfile, "start": start,
         "seq": seq, "time": crate::log::iso(crate::log::now()), "face01": f01.text,
         "sources": {"01": src01, "axioms": sax, "design": sds}});
+    if let Some(okn) = allow {
+        d["overlap_ok"] = json!(okn);
+    }
     p.add(who, "prime", "pack", d)?;
     print!("{}", render::prompt(p, p.pass(n)?)?);
     Ok(())
