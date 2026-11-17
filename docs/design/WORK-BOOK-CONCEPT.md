@@ -3,6 +3,14 @@
 For Matthew. By Designer. A concept, not a ruling. Nothing here is decided. Only you approve.
 created: Mon 16 Nov 2026, 4:58 PM EST (e6a0f39)
 
+## Change note (2026-11-16, 9:10 PM EST, Designer)
+
+Settles cross-file disagreements. The newer, checked file wins. Old text is kept, marked superseded (axiom 6).
+- Pack 1 (bootstrap): follows PACK-TEMPLATE.md P8 (7d11343, 351fe49): a script fills it, an outside view checks it.
+- W10: rewritten to fit PACK-TEMPLATE.md P6 (7d11343). Still needs your yes. Two axiom marks change (see W10).
+- Return order: marked open, per PACK-TEMPLATE.md P1 (7d11343).
+- W4: shown beside WORK-BOOK-SPEC.md W4. They are the same rule (SPEC B4).
+
 ## Change note (Mon 16 Nov 2026, 5:55 PM EST)
 
 Fixes from Tester's check (docs/review/WORK-BOOK-CONCEPT-CHECK.md, 093c64a). Only findings that checked out in the code or files:
@@ -143,7 +151,8 @@ One first pack, not two. It joins the t226u idea (show the board) and the t227u 
 - **w01, handoff sheet:** a read-only route that, for one pack slot, prints a fixed-shape sheet: the pack text, its tail, who holds the claim, the matching dev and lab pages, earlier returns on the slot, and the prompt box text. Any field the compute cannot fill yet (approved design, grant, start commit) says "not available". It is never guessed (R37: "Couldn't look" is kept separate from "isn't there", DIRECTOR-RULINGS.md:200).
 - **w02, board:** add claim, reviewer and outcome to the board that already exists (state.rs:296-300). Still built from the log, never stored (R9; W11).
 - **Crates and files:** crates/compute/src/lib.rs (one route), crates/compute/src/store.rs (the reads), crates/seqaddr-core/src/state.rs (board columns), crates/compute/tests/ (one new test file).
-- **Bootstrap exception (needs your `7`).** Pack 1 cannot pass through the tool it builds. So: its text and AGENTS.md are written by hand; it goes in as `pack` with no check step (tail.rs:95-99); and the sheet's shape lives in code until the template is seated (W13). Proposal (7): one named, one-time override, ending when the templates are seated.
+- **Bootstrap exception (needs your `7`).** Changed 2026-11-16 (Designer) to follow PACK-TEMPLATE.md P8 (7d11343, 351fe49): Pack 1 cannot pass through the tool it builds. A one-off script fills it from the pack template's field rows; Prima fills only the judgment rows; a different view checks it field by field before it goes in as `pack` with no check step (tail.rs:95-97). Your one-time yes is recorded, not an override (R21). The sheet's shape lives in code until the template is seated (W13; end set in PACK-TEMPLATE.md P5). Waits on W8.
+  - (superseded 2026-11-16 by PACK-TEMPLATE.md P8) **Bootstrap exception (needs your `7`).** Pack 1 cannot pass through the tool it builds. So: its text and AGENTS.md are written by hand; it goes in as `pack` with no check step (tail.rs:95-99); and the sheet's shape lives in code until the template is seated (W13). Proposal (7): one named, one-time override, ending when the templates are seated.
 - **Tests:** walk a pack draft -> pack -> open -> return -> review -> closed. The board shows the right tail at each step. The sheet shows the claim owner after the claim. The same slot always gives the same sheet. A missing dev page shows "not available". A face with no slots answers "missing".
 - **Done-check:** cargo test --workspace passes, with the new tests. The reviewer checks that no test was removed, and that the routes write nothing.
 - **AGENTS.md, short:** Goal: the compute prints the handoff sheet and the board. Why: t227u:5, t226u:9. May touch: the three paths above. Must not touch: books/, kernel/, docs/. Stop if: a field needs a stored 05.00 (R9), or a write. Hand back: per job, what was done and created, proof (commit, test output), what it did not do, what it noticed, then unprompted and overflow.
@@ -164,7 +173,7 @@ One first pack, not two. It joins the t226u idea (show the board) and the t227u 
 
 Your words: "Yes returns, must state what was done, what was created, what the model noticed, an unprompted and overflow from the model should be captured for review at the end of the return. After the job items." (t226u:11)
 
-Our workflow already has most of this (workflow-loop.003.md:189-193). A return, in order:
+Our workflow already has most of this (workflow-loop.003.md:189-193). The order is open (changed 2026-11-16, Designer, per PACK-TEMPLATE.md P1, 7d11343): your words fix only that unprompted and overflow come after the job items. The full list of parts is PACK-TEMPLATE.md part 3. The list below was written as "in order"; that is superseded:
 1. Each job: done, blocked, or needs something. (:189)
 2. What was done.
 3. What was created: exact file paths.
@@ -211,9 +220,14 @@ Proposed answers only. The top three are W8, W9 and W10. W8 must be ruled before
 
 ### W10 (TOP). Does a pushed return count as a book change?
 1. **Question.** You said the model will "commit and push" (t223u:10). R33 says "books change through compute not by models" (DIRECTOR-RULINGS.md:159). Does a push count as a book change?
-2. **Proposed answer (Designer, 7).** No, as long as the push holds only code and proof, never books/ and never the return text. The model that holds the claim sends the return once, through the gate (open -> return, which exists today), naming the commit. The compute returns only in recovery (state.rs:563-571). Git keeps only the commit hash. Today books/ is tracked in git, so "never books/" needs a check that refuses such a push (7) (found by Tester).
-3. **Why.** It keeps your push-and-check flow and R33 both. Who gets hurt otherwise: you, if a push quietly changes a book.
-4. **Axioms checked (Designer's marks; Tester checked, WORK-BOOK-CONCEPT-CHECK.md).** 1 [Axioms.md:13] pass. 6 [Axioms.md:23] pass. 8 [Axioms.md:27] pass. 2 [Axioms.md:15] pass: one copy of the return. 1 [Axioms.md:13] tension (Tester): no check on push yet. 6 [Axioms.md:23] tension (Tester): a relayed return names the wrong builder.
+2. **Proposed answer (Designer, 7; rewritten 2026-11-16 to fit PACK-TEMPLATE.md P6, 7d11343; NEEDS YOUR YES).** No. The push holds code and proof, plus one return file at a fixed path outside books/. That file is only the carrier. The compute reads it, checks the one-job pass and the claim, and records the return through the gate, once. The return in the book is the record; the file in git is not. Never books/: today books/ is tracked in git, so this needs a check that refuses such a push (7) (found by Tester). Two things here you have not said yes to: the return text now travels in git, and today only the claim holder's own token may return (state.rs:563-571).
+3. **Why.** It keeps your push-and-check flow and R33 both, and the builder on your machine can hand back (PACK-TEMPLATE.md P6). Who gets hurt otherwise: you, if a push quietly changes a book; or you, queueing a model that can never hand back.
+4. **Axioms checked (re-taken 2026-11-16 from Axioms.md).** 1 [Axioms.md:13] pass: the compute records; a push grants nothing. 1 [Axioms.md:13] tension (Tester): no check on push yet. 3 [Axioms.md:17] pass: the compute leads the transfer. 6 [Axioms.md:23] pass: the return names its claim and commit. 6 [Axioms.md:23] tension (Tester): a relayed return names the wrong builder; the one-job pass is meant to answer this, untried. 2 [Axioms.md:15] tension (changed from pass): the carrier file is a second copy of the return text for a time. 8 [Axioms.md:27] tension (changed from pass): the return travels through git, then the book. 9 [Axioms.md:29] tension: untried.
+5. **Superseded 2026-11-16 (Designer), by PACK-TEMPLATE.md P6:**
+   (superseded) 1. **Question.** You said the model will "commit and push" (t223u:10). R33 says "books change through compute not by models" (DIRECTOR-RULINGS.md:159). Does a push count as a book change?
+   (superseded) 2. **Proposed answer (Designer, 7).** No, as long as the push holds only code and proof, never books/ and never the return text. The model that holds the claim sends the return once, through the gate (open -> return, which exists today), naming the commit. The compute returns only in recovery (state.rs:563-571). Git keeps only the commit hash. Today books/ is tracked in git, so "never books/" needs a check that refuses such a push (7) (found by Tester).
+   (superseded) 3. **Why.** It keeps your push-and-check flow and R33 both. Who gets hurt otherwise: you, if a push quietly changes a book.
+   (superseded) 4. **Axioms checked (Designer's marks; Tester checked, WORK-BOOK-CONCEPT-CHECK.md).** 1 [Axioms.md:13] pass. 6 [Axioms.md:23] pass. 8 [Axioms.md:27] pass. 2 [Axioms.md:15] pass: one copy of the return. 1 [Axioms.md:13] tension (Tester): no check on push yet. 6 [Axioms.md:23] tension (Tester): a relayed return names the wrong builder.
 
 ### W11. Is the board a view, not a stored 05.00?
 1. **Question.** seqAddr.md:197 calls FF.00 the board, but R9 says faces have no doors (DIRECTOR-RULINGS.md:37-38). Is the board a view the compute builds?
@@ -257,6 +271,7 @@ Proposed answers only. The top three are W8, W9 and W10. W8 must be ruled before
 ### W4. Cursor or Grok Builder for a page?
 1. **Question.** You queue up the model (t223u:6). Who picks which one?
 2. **Proposed answer.** If a test can check the job, the cheaper builder goes first. Two fails: stop and hand back (SPEC B4).
+   Side by side (2026-11-16, Designer): WORK-BOOK-SPEC.md W4 answers "Yes, as a starting rule, written on each page with its reason" to the same B4 rule. The two answers say the same thing; SPEC adds "written on each page with its reason". You can take either wording.
 3. **Why.** A test lets a cheap try fail safely. Who gets hurt otherwise: you, paying twice for one miss.
 4. **Axioms checked (AX:49-50).** 3 [Axioms.md:17] pass. 4 [Axioms.md:19] pass. 9 [Axioms.md:29] tension. R37 item 8 pass.
 

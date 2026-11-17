@@ -3,6 +3,11 @@
 Draft by Designer, for Matthew (Director). Not a ruling. Nothing here closes a question.
 created: Mon 16 Nov 2026, 2:56 PM EST (Designer)
 
+## Change note (2026-11-16, 9:10 PM EST, Designer)
+
+- W8: adds Tester's `workflow` page-type option, from WORK-BOOK-CONCEPT.md W8 (54b737d; WORK-BOOK-CONCEPT-CHECK.md:39-44). The rest of W8 is unchanged.
+- W4: notes that WORK-BOOK-CONCEPT.md W4 gives the same B4 rule in other words.
+
 ## Change note (Mon 16 Nov 2026, 4:55 PM EST)
 
 Fixes from Tester's axiom check of 6fbba08 (docs/review/WORK-BOOK-AXIOM-CHECK.md, c5cbf0d). Only these lines changed:
@@ -389,7 +394,7 @@ Matthew's four-part form (t189u). Proposed answers only. Top three first: W1, W2
 ### W8 (TOP). Is a work page a system page?
 
 1. **Question.** System pages "freeze once linked (faces 00-04)" (R34 [DIRECTOR-RULINGS.md:170]), and page type is a locked face 00 field (R36 [DIRECTOR-RULINGS.md:190]). Is a work page a system page? (Raised by Tester, docs/review/WORK-BOOK-HOSTILE-PASS.md:55-58; Tester gave no answer.)
-2. **Proposed answer (Designer's, 7).** No. A work page is persistent work in a book (kernel-design.md:83), and you read it, while system pages are "backend and designed for control not for user to access" [DIRECTOR-RULINGS.md:169]. Its type gets its own locked name (`7`). Its brief can change until a pack is released; each return is bound to the version it read (R37 item 4 [DIRECTOR-RULINGS.md:198]).
+2. **Proposed answer (Designer's, 7).** No. A work page is persistent work in a book (kernel-design.md:83), and you read it, while system pages are "backend and designed for control not for user to access" [DIRECTOR-RULINGS.md:169]. Its type gets its own locked name (`7`). Tester's added option (2026-11-16, from WORK-BOOK-CONCEPT.md W8): seqAddr.md:192 already lists a page type `workflow`. It is not system, so the R34 freeze would not apply, but no ruling says whether it locks (7) (WORK-BOOK-CONCEPT-CHECK.md:39-44). Its brief can change until a pack is released; each return is bound to the version it read (R37 item 4 [DIRECTOR-RULINGS.md:198]).
 3. **Why.** If it were a system page, a stored face 01 brief (W2) would freeze once linked, and "if the page changes" could not happen. Who gets hurt: you, unable to fix a wrong brief except by a new page.
 4. **Axioms checked.** 1 [Axioms.md:13] pass: you decide the type. 2 [Axioms.md:15] pass: same shape as other content pages. 6 [Axioms.md:23] pass: returns bind to versions. 7 [Axioms.md:25] pass: the type name stays `7`. 9 [Axioms.md:29] tension: untried.
 
@@ -404,7 +409,7 @@ Matthew's four-part form (t189u). Proposed answers only. Top three first: W1, W2
 ### W4. What decides Cursor or Grok Builder for a page?
 
 1. **Question.** Should the rule in B4 decide (a runnable done-check goes to the cheaper builder first; two fails, stop and raise)?
-2. **Proposed answer.** Yes, as a starting rule, written on each page with its reason.
+2. **Proposed answer.** Yes, as a starting rule, written on each page with its reason. (2026-11-16, Designer: WORK-BOOK-CONCEPT.md W4 says the same rule in other words: "If a test can check the job, the cheaper builder goes first. Two fails: stop and hand back." You can take either wording.)
 3. **Why.** Your words: "if it's wrong it does it again" [LIB:W/0413.assistants/06.01.md:11]. Who gets hurt otherwise: you, paying more, or getting a weaker job with no check.
 4. **Axioms checked.** 3 [Axioms.md:17] pass. 4 [Axioms.md:19] pass: the reason is written. 9 [Axioms.md:29] tension: "cheaper" is untried.
 5. **Tester's recommendation (docs/review/WORK-BOOK-HOSTILE-PASS.md:150-156):** the B4 rule, plus: a check that is partly judgment counts as judgment, and the second try carries the first failure. (Both are now in B4.)

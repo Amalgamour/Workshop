@@ -4,12 +4,15 @@ For Matthew. By Designer, Mon 16 Nov 2026, 4:55 PM EST. Nothing here is decided.
 Marks come from Tester's check (AX = docs/review/WORK-BOOK-AXIOM-CHECK.md, c5cbf0d), or the spec where Tester is silent (SPEC = docs/design/WORK-BOOK-SPEC.md, 6bcc1c0).
 Axioms: 1 who decides, 2 no copies, 3 leads, 4 why, 6 history, 7 missing, 8 links, 9 test it.
 
+Change note (2026-11-16, 9:10 PM EST, Designer): W8 gets Tester's `workflow` page-type option, from WORK-BOOK-CONCEPT.md W8 (54b737d). Nothing else changed.
+
 **Two things to know first.**
 - W8 must be ruled before the first work page exists. Page type is locked once set (R36; AX:33-34).
 - W7 asks you to name your local space: the folder. We will not guess it.
 
 ## W8. Is a work page a system page? (rule this first)
 - Answer (both, mine and Tester's): no. You read work pages; system pages are not for users (R34).
+- Tester's option (added 2026-11-16, Designer, from WORK-BOOK-CONCEPT.md W8): use the page type `workflow` (seqAddr.md:192). It is not system, but no ruling says if it locks (7).
 - Why: a wrong brief can then be fixed in place. Who gets hurt otherwise: you.
 - Check: 1 pass, 2 pass, 7 pass, 9 tension (untried); R32 item 2 pass (AX:31-32). The spec also marks 6 pass (SPEC:394).
 

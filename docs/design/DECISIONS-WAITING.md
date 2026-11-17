@@ -19,8 +19,8 @@ Each file has its own top three. I picked the three that block the most other qu
 1. **W8. Is a work page a system page?**
    - Answer: no. You read work pages.
    - Unblocks: the first work page; P8; D3.
-   - Waits on: none. Rule it first (WC:198).
-   - Full form: WC:200.
+   - Waits on: none. Rule it first (WC:207).
+   - Full form: WC:209.
 2. **D6. What does face 05 hold?**
    - Answer: one meaning on every page: that page's own passes, best one seated. Questions become jobs in a design pass. (Tester's "B with I"; still your choice.)
    - Unblocks: D1; D5. Needs a seqAddr.md step and a code change first.
@@ -29,26 +29,26 @@ Each file has its own top three. I picked the three that block the most other qu
 3. **P6. How does the builder hand back?**
    - Answer: a one-job pass, and a return file in the push that the compute reads.
    - Unblocks: pack 1 can finish.
-   - Waits on: none (PT:242). It needs a change to W10.
+   - Waits on: none (PT:242). W10 is now written to fit it; both need your yes.
    - Full form: PT:244.
 
 ## The work book (WC)
 
 - **W9. Does the return sit on the same slot as its pack?**
   - Answer: yes, the same slot.
-  - Unblocks: D1; D5; the return template. Waits on: none marked. Full form: WC:206.
+  - Unblocks: D1; D5; the return template. Waits on: none marked. Full form: WC:215.
 - **W10. Is a pushed return a book change?**
-  - Answer: no, if the push holds only code and proof.
-  - Unblocks: P6. Waits on: none marked. Full form: WC:212.
+  - Answer: no. The pushed file only carries the return to the compute, which records it once. Needs your yes.
+  - Unblocks: P6. Waits on: none marked. Full form: WC:221.
 - **W11. Is the board only a view, never stored?**
   - Answer: yes, built from the log each time.
-  - Unblocks: the board columns in pack 1. Waits on: none marked. Full form: WC:218.
+  - Unblocks: the board columns in pack 1. Waits on: none marked. Full form: WC:232.
 - **W12. Does the read-only sheet and board go first?**
   - Answer: yes, ahead of the template check and K8 step 1.
-  - Unblocks: pack 1. Waits on: none marked. Full form: WC:227.
+  - Unblocks: pack 1. Waits on: none marked. Full form: WC:241.
 - **W13. Seat the templates before the check step?**
   - Answer: yes.
-  - Unblocks: the check step; D5; P5. Waits on: none marked. Full form: WC:233.
+  - Unblocks: the check step; D5; P5. Waits on: none marked. Full form: WC:247.
 
 ## The pack template (PT)
 
@@ -93,21 +93,22 @@ Each file has its own top three. I picked the three that block the most other qu
 
 ## Also open (found in these files, not in the list above)
 
-- **W1-W7.** Full forms in SPEC: W1 :373, W2 :381, W3 :396, W4 :404, W5 :412, W6 :420, W7 :428.
-  - WC lists W1, W2, W3, W6, W7 as "still open for you to confirm" (WC:246-251).
-  - WC has its own full forms for W4 (WC:257) and W5 (WC:263).
-- **"6" and "8".** WC asks what you meant by "6 framing the work, with 8 returning" (WC:253).
+- **W1-W7.** Full forms in SPEC: W1 :378, W2 :386, W3 :401, W4 :409, W5 :417, W6 :425, W7 :433.
+  - WC lists W1, W2, W3, W6, W7 as "still open for you to confirm" (WC:262-266).
+  - WC has its own full forms for W4 (WC:271) and W5 (WC:278). W4 says the same rule as SPEC W4, in other words.
+- **"6" and "8".** WC asks what you meant by "6 framing the work, with 8 returning" (WC:267).
   - It has no proposed answer and no axiom marks.
 - **K8.** "In what order should we build?" Full form: docs/design/CORE-AND-TOOLS-SPEC.md:870.
   - W12 and PT both wait on its step 1 for the door label.
 - **R37 item 5.** Where "selected, pending, accepted" show is marked open (7) at PT:109.
   - It has no full form yet.
 
-## Where the files disagree
+## Disagreements settled (2026-11-16)
 
-- **Pack 1.** WC:146 says pack 1 is hand-written. PT P8 (PT:256) says a script fills it and an outside view checks it.
-- **The return in git.** W10 (WC:212) says the return text never goes in git. P6 (PT:244) puts it in a pushed file. P6 says so.
-- **Return order.** WC:167-174 lists the job items first, as settled. PT P1 (PT:250) leaves the order open.
-- **Dev face 05.** D:58 lists design questions on dev face 05 (WL S12). D6's proposed answer turns them into jobs in design passes there.
-- **W4.** SPEC:404 answers "yes, as a starting rule". WC:257 answers "the cheaper builder goes first if a test can check it".
-- **W8.** docs/design/WORK-BOOK-BRIEF.md:11 and SPEC:389 say only "no". WC:200 adds Tester's `workflow` page-type option.
+The newer, checked file won. Old text is kept, marked superseded.
+- **Pack 1.** WC:154 now follows PT P8 (PT:256).
+- **The return in git.** W10 (WC:221) now fits P6 (PT:244). Still needs your yes.
+- **Return order.** WC:176 now marks the order open, per PT P1 (PT:250).
+- **Dev face 05.** D:58 now says what D6's proposed answer would mean there.
+- **W4.** Not a real disagreement: SPEC:409 and WC:271 give the same rule in other words. Both are shown side by side.
+- **W8.** docs/design/WORK-BOOK-BRIEF.md:13 and SPEC:394 now carry Tester's `workflow` option, as WC:209 does.
