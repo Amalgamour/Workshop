@@ -3,6 +3,13 @@
 For Matthew. By Designer. Started as a PROPOSAL (7). Parts are now answered by you (t245u, t246u). Answered, not ruled.
 created: Tue 17 Nov 2026, 11:45 AM EST
 
+## Change note (2026-11-17, 12:20 PM EST, Designer)
+
+Folds your t249u (docs/review/DIRECTOR-WORDS-t249u.md, 95e58bf) and t250u (3aa8b3a). Adds SAMPLE-PAGE.md.
+- E2 answered: "Prime signs off the compute closes it." (t249u:6). Tail table and code-change note updated.
+- O5: yes, pending your look at SAMPLE-PAGE.md (t249u:7). E1: you asked for more (t249u:5).
+- New questions S1-S4, from the sample.
+
 ## Change note (2026-11-17, 12:00 PM EST, Designer)
 
 Folds your t245u and t246u answers (docs/review/DIRECTOR-WORDS-t245u.md, f2b2ede; DIRECTOR-WORDS-t246u.md, db1fbae).
@@ -94,8 +101,12 @@ Based on his two named triggers (t245u:8): "a deliverable isn't possible under t
 
 **How a pass closes without his review.**
 - The checker takes the review step and records its checks. It must not be the builder (crates/seqaddr-core/src/state.rs:579-581).
-- Prima closes after a passing review, keeping his "prime" last step (t239u:10).
-- Code change: today only the reviewer may close (crates/compute/src/store.rs:991-992). Allow the pack's lead to close too, but only after a passing review by a non-builder is recorded (E2).
+- (Superseded 2026-11-17 by t249u:6, below.) Prima closes after a passing review, keeping his "prime" last step (t239u:10).
+- (Superseded 2026-11-17 by t249u:6, below.) Code change: today only the reviewer may close (crates/compute/src/store.rs:991-992). Allow the pack's lead to close too, but only after a passing review by a non-builder is recorded (E2).
+- Now (t249u:6): "Prime signs off the compute closes it." Prima signs off; the compute writes the close.
+- What exists: the compute already writes the close itself, under its own name (store.rs:994-995, `compute_name`), and records who asked in `for` (:995). The request must name a counter on `review` (:995, `"from": "review"`).
+- What changes, exactly: the check at store.rs:991-992 asks "is the caller the reviewer?". It becomes "is the caller the pass's lead (Prima), and is a review by a non-builder recorded?" The non-builder part already holds at the review step (state.rs:579-583).
+- Also needed: the pass has no lead field today (state.rs:110-121). See S1.
 
 ## The checker (proposal, Designer, 7)
 
@@ -157,7 +168,9 @@ Superseded 2026-11-17 by "The tail after t245u" below. Kept as history.
 | open | worker claims and works | 05 | worker can't solve: `need` or `blocked`, to Prima (t245u:8) |
 | return | worker hands back; Prima reads (a read, not the review) | 05 | Prima can't solve with a better frame or authority: to you (t245u:8) |
 | review | the checker, not the builder, runs its tool checks; a face 07 trial for dev work when risk calls for one | 05; 07 | failed check: worker reworks; a second fail goes to Prima |
-| closed | Prima closes after a passing review (E2); a note on 06; any decision on 04 | 05, 06, 04 | a conflict at any step: halt that pass and raise it |
+| closed | Prima signs off; the compute closes (t249u:6; not built yet); a note on 06; any decision on 04 | 05, 06, 04 | a conflict at any step: halt that pass and raise it |
+
+- Row "closed" changed 2026-11-17 (t249u:6). Was: "Prima closes after a passing review (E2)".
 
 - You review as it goes, from the feed and the board (E3). You are not a step.
 
@@ -228,7 +241,8 @@ Top three, picked by what blocks most (superseded 2026-11-17: you answered these
 4. **Axioms checked.** 9 [Axioms.md:29] pass. 1 [Axioms.md:13] pass: you allowed a review bot (t223u:12). 7 [Axioms.md:25] tension: the code checks only reviewer is not builder (crates/seqaddr-core/src/state.rs:579-581); not "not Prima", and nothing for 07 yet.
 
 ### O5. The 01 card is the one AGENTS.md source (F4, critique 6b)
-- **Status: Prima proposal sent, awaiting his OK** (t245u:14, "6. How would you fix it?"; Prima's answer t245u:16). His t246u yes to O4 does not clearly cover this or the "first real pack" offer. t245u:12 says 01 is "stripped down" for the agent.
+- **Status: yes, pending his look at SAMPLE-PAGE.md** (t249u:7, "3. Yes we need a sample as done up.  I want to see it laid out because I think we are close."). His "3." maps to O5 by the order of Prima's t248s923 (t249u:3). Sample: SAMPLE-PAGE.md. Open detail: S4.
+- (Superseded 2026-11-17.) **Status: Prima proposal sent, awaiting his OK** (t245u:14, "6. How would you fix it?"; Prima's answer t245u:16). His t246u yes to O4 does not clearly cover this or the "first real pack" offer. t245u:12 says 01 is "stripped down" for the agent.
 1. **Question.** Is the 01 card the one stored AGENTS.md, with the per-job file only a compute copy (PACK-TEMPLATE part 4)?
 2. **Proposed (Prima).** Yes. The compute prints the file from the card, with version and hash.
 3. **Why.** The builder reads files on your machine (t223u:6). One source stops drift. Who gets hurt otherwise: a builder reading a stale file.
@@ -266,12 +280,14 @@ Top three, picked by what blocks most (superseded 2026-11-17: you answered these
 ### New questions from t245u (Designer, 7)
 
 ### E1 (TOP). Are these the signals that send work up?
+- **Status: still open.** You asked for more: "1. Tell me more." (t249u:5). Prima answered with the trigger list (per Prima, t249u:15; not his words).
 1. **Question.** You named two triggers: "When a deliverable isn't possible under the current design.  A conflict is found.  That kind of thing." (DIRECTOR-WORDS-t245u.md:8). Are the signals in the elevation table the right ones, and does each go to the right place?
 2. **Proposed (Designer, 7).** Yes, as in the table. Worker to Prima for `need`, `blocked` and a second failed check. Prima to you for a design change on 02 or 04, pass 6, a conflict between records or rulings, and any governing change. Two live claims halt and go up, never picked.
 3. **Why.** You asked to be involved only for big issues (t245u:8). Each signal is something the compute or checker can see, so nothing depends on a model's mood. Who gets hurt otherwise: you, pulled in for small things, or not told about a big one.
 4. **Axioms checked.** 1 [Axioms.md:13] pass: "raise it to whoever holds more. Do not choose." 5 [Axioms.md:21] pass: each signal frames when to stop. 3 [Axioms.md:17] pass: each signal names who raises it. 7 [Axioms.md:25] tension: "That kind of thing" leaves the list open, and the risk levels are still `7` (workflow-loop.003.md:154).
 
 ### E2 (TOP). Who closes a pass you did not review?
+- **Status: answered** (t249u:6, "2. Prime signs off the compute closes it."). Not the proposal below: Prima signs off, and the compute closes. Code change: see "How a pass closes". Open detail: S1.
 1. **Question.** You said work should keep moving "with me reviewing as the work is on going" (t245u:8). Today only the reviewer may ask the compute to close (crates/compute/src/store.rs:991-992). Who closes a routine pass?
 2. **Proposed (Designer, 7).** The checker takes the review step. Prima closes after a passing review, as the last "prime" in your hand-off (t239u:10). Code change: allow the pack's lead to close too, only once a passing review by a non-builder is recorded.
 3. **Why.** Work keeps moving without you on every pass. The close still rests on a recorded review. Who gets hurt otherwise: you, if every pass waits; or the book, if a pass closes with no check.
@@ -295,6 +311,32 @@ Top three, picked by what blocks most (superseded 2026-11-17: you answered these
 2. **Proposed (Designer, 7).** Set by page type. On pages of the work it is labs. On every other type it stays reserved until you name a use.
 3. **Why.** One face, one meaning per page type, so no builder reads it two ways. Who gets hurt otherwise: a builder guessing what a flex face holds.
 4. **Axioms checked.** 2 [Axioms.md:15] pass: a type carries its rule. 1 [Axioms.md:13] pass: you name each use. 7 [Axioms.md:25] tension: page types for the work are not settled (W8 type part, O4).
+
+### New questions from SAMPLE-PAGE.md (Designer, 7)
+
+### S1 (TOP). How does the compute know who may sign off?
+1. **Question.** You said "Prime signs off the compute closes it." (DIRECTOR-WORDS-t249u.md:6). The compute keeps a claim and a reviewer on each pass, but no lead (crates/seqaddr-core/src/state.rs:110-121). How does it know Prima is the one who may sign off?
+2. **Proposed (Designer, 7).** The compute copies the pack's `lead` field (PACK-TEMPLATE row 12) onto the pass when it moves draft -> pack, like the claim. Only that lead may sign off. Prima may sign off only the outcome the checker's record supports; anything else is a conflict and goes up.
+3. **Why.** A sign-off from the wrong name, or a "passed" over a failed check, would close a pass nobody checked. Who gets hurt otherwise: you, trusting a closed pass.
+4. **Axioms checked.** 1 [Axioms.md:13] pass: the compute enforces who may ask. 9 [Axioms.md:29] pass: the check stands before the close. 7 [Axioms.md:25] tension: no lead field in the code yet.
+
+### S2. Face 00 `role` and `set` under one page per piece
+1. **Question.** A `workflow` page's stamp has `role` (build, dev, jobs, colab) and `set` (the cross-band key, R18) (docs/spec/face00.md:200-201). One page per piece has no bands to cross. What goes in them?
+2. **Proposed (Designer, 7).** Drop `set` for piece pages; `role` becomes `work`. Both through the kernel's drafting path, and only if W8's type part goes that way.
+3. **Why.** A stamp field that means nothing is a field someone will fill with a guess. Who gets hurt otherwise: the compute, matching pages that are no longer split.
+4. **Axioms checked.** 2 [Axioms.md:15] pass: no dead fields. 1 [Axioms.md:13] tension: R18 is your ruling; only you narrow it. 7 [Axioms.md:25] tension: page types for work pages are open (E5).
+
+### S3. Where does 02 drift go in the return?
+1. **Question.** O9 says each return notes where the 02 pseudo code no longer matches the code. The return template has no part for it (PACK-TEMPLATE.md part 3). Where does it go?
+2. **Proposed (Designer, 7).** A short "02 drift" line after notes; "none" is allowed. The sample shows it.
+3. **Why.** A part with no place is skipped. Who gets hurt otherwise: the next builder, trusting a stale 02.
+4. **Axioms checked.** 2 [Axioms.md:15] pass: one place. 8 [Axioms.md:27] pass: drift points at code. 7 [Axioms.md:25] tension: P1 order is open, so its slot is too.
+
+### S4. Is AGENTS.md the 01 card, or the pack's fields?
+1. **Question.** O5 prints AGENTS.md from the 01 card. PACK-TEMPLATE part 4 says the copy "is the pack's fields in SPEC B2 order". Which is it?
+2. **Proposed (Designer, 7).** The 01 card only, as in the sample. The pack's fields go in the handoff sheet and prompt box. Part 4 gets a dated note.
+3. **Why.** Two sources for one file drift (t227u:5). Who gets hurt otherwise: a builder reading a file that disagrees with its prompt box.
+4. **Axioms checked.** 2 [Axioms.md:15] pass: one source. 8 [Axioms.md:27] pass. 1 [Axioms.md:13] tension: O5 waits on your look at the sample.
 
 ### Moot if yes (kept, not deleted)
 

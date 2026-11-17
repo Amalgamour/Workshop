@@ -1,7 +1,7 @@
 # Decisions waiting for you
 
 For Matthew. By Designer. An index, not a ruling. Only you approve.
-made: Mon 16 Nov 2026, 9:00 PM EST. Updated: Tue 17 Nov 2026, 12:00 PM EST (your t245u and t246u answers).
+made: Mon 16 Nov 2026, 9:00 PM EST. Updated: Tue 17 Nov 2026, 12:20 PM EST (your t249u and t250u; SAMPLE-PAGE.md).
 
 How to read this:
 - One line for the question. One line for the answer we propose.
@@ -12,41 +12,51 @@ How to read this:
 Files: WC = docs/design/WORK-BOOK-CONCEPT.md. PT = docs/design/PACK-TEMPLATE.md.
 D = docs/design/DEV-WORK-LAB-PAGES.md. SPEC = docs/design/WORK-BOOK-SPEC.md.
 OPW = docs/design/ONE-PAGE-WORK.md (one page per piece; O1 answered yes, t246u:6).
+SP = docs/design/SAMPLE-PAGE.md (EXAMPLE car steering page, three passes).
 
 ## Top three
 
-From your t245u answer: work keeps moving, and you come in for big issues. Picked by what blocks most.
+Picked by what blocks most.
 
-1. **E1. Are these the signals that send work up?**
-   - Answer (Designer): yes, as in the elevation table (OPW:73): `need`, a design change, pass 6, conflicts and governing changes go up.
-   - Why top: no pass can move without you until the triggers are set.
-   - Unblocks: the ladder in t245u:8. Waits on: none marked. Full form: OPW:268.
-2. **E2. Who closes a pass you did not review?**
-   - Answer (Designer): the checker reviews; Prima closes. Needs a code change (store.rs:991-992).
-   - Why top: every routine pass ends here.
-   - Unblocks: closing without you. Waits on: E1. Full form: OPW:274.
-3. **O5. The 01 card is the one AGENTS.md; a compute copy per job?**
-   - Prima proposal sent, awaiting your OK (t245u:14, :16). Prima offered it as the first real pack.
-   - Why top: it is the first real pack.
-   - Unblocks: pack 1; W2; PT part 4. Waits on: your OK. Full form: OPW:230.
+1. **Check the sample page (O5 and the whole layout).**
+   - You asked: "What I want is the designer to layout a sample for me.  So I can check it before we build it." (t249u:11). Three passes, as you asked (t250u:5).
+   - O5 status: yes, pending your look at the sample (t249u:7).
+   - Why top: nothing gets built until you have checked it.
+   - Unblocks: pack 1; the workflow branch. Waits on: none. Sample: SP:1. O5 full form: OPW:243.
+2. **E1. Which signals send work up?**
+   - You asked for more: "1. Tell me more." (t249u:5). Prima answered with the trigger list (per Prima, t249u:15).
+   - Why top: the ladder (t245u:8) can't run without its triggers.
+   - Unblocks: elevation. Waits on: none marked. Table: OPW:80. Full form: OPW:282.
+3. **S1. How does the compute know who may sign off?**
+   - Answer (Designer): the pack's `lead` is copied onto the pass at draft -> pack; only that lead signs off, and only what the checks support.
+   - Why top: your "Prime signs off the compute closes it" (t249u:6) needs it in the code.
+   - Unblocks: the close change at store.rs:991-992. Waits on: none marked. Full form: OPW:317.
 
 ## Still open (OPW)
 
-- **E3. How you review as it goes; does your comment stop work?** Answer: a feed and the board; a comment halts only if you call it a conflict. Full form: OPW:281.
-- **E4. Prima's "occasional checks"?** Answer: the work and the checker, picked by a written rule, noted on 06. Full form: OPW:287.
-- **E5. What "flex" means for 07 outside dev work?** Answer: set by page type; reserved elsewhere. Full form: OPW:293.
-- **O3 (partly answered, t245u:10).** Open part: who runs a face 07 trial. Full form: OPW:223.
-- **O9 (partly answered, t245u:13).** Open part: each return noting mismatches. Full form: OPW:258.
-- **O6. Best pass seated on plain 05?** Still open. Full form: OPW:237.
-- **O7. Decisions on 04, notes on 06?** Still open; t245u:12 puts MVP goals on 04. Full form: OPW:244.
-- **O8. The completing page?** Still open. Full form: OPW:251.
+- **S2. Face 00 `role` and `set` with no bands?** Answer: drop `set`; `role` becomes `work`. Full form: OPW:323.
+- **S3. Where 02 drift goes in the return?** Answer: a short line after notes. Full form: OPW:329.
+- **S4. AGENTS.md: the 01 card or the pack fields?** Answer: the 01 card only. Full form: OPW:335.
+- **E3. How you review as it goes; does your comment stop work?** Answer: a feed and the board; a comment halts only if you call it a conflict. Full form: OPW:297.
+- **E4. Prima's "occasional checks"?** Answer: the work and the checker, picked by a written rule, noted on 06. Full form: OPW:303.
+- **E5. What "flex" means for 07 outside dev work?** Answer: set by page type; reserved elsewhere. Full form: OPW:309.
+- **O3 (partly answered, t245u:10).** Open part: who runs a face 07 trial. Full form: OPW:236.
+- **O9 (partly answered, t245u:13).** Open part: each return noting mismatches (S3). Full form: OPW:272.
+- **O6. Best pass seated on plain 05?** Still open. Full form: OPW:251.
+- **O7. Decisions on 04, notes on 06?** Still open; t245u:12 puts MVP goals on 04. Full form: OPW:258.
+- **O8. The completing page?** Still open. Full form: OPW:265.
 - F1-F7 (WC:266-308) are merged into O1-O8. Their full forms stay as history.
+
+## Next (not started)
+
+- Workflow branch for tools and templates (not started). Your words: "Then once it's good we'll start by setting up a branch for our workflow.  Where the tools and templates exist so I can pull them for future work any time for any model to use." (t249u:13)
 
 ## Follow-on work (not questions; not done)
 
 - Face 07 as labs: seqAddr.md 5.1, 5.2, 5.7; decisions.md A4.3; face.rs:72-85; validate.rs:229-234.
 - Face 03 per R35: seqAddr.md:189; validate.rs:352-354.
-- Dated "superseded" notes in each file on the list at OPW:181.
+- Prima signs off, the compute closes: store.rs:991-992, plus a lead field on the pass (S1). See OPW:102.
+- Dated "superseded" notes in each file on the list at OPW:194.
 
 ## The work book (WC)
 
@@ -89,7 +99,7 @@ From your t245u answer: work keeps moving, and you come in for big issues. Picke
 
 ## Dev, work and lab pages (D)
 
-Moot: you said yes to O1 (t246u:6). D2 stays (OPW:299). Kept, not deleted.
+Moot: you said yes to O1 (t246u:6). D2 stays (OPW:341). Kept, not deleted.
 
 - **D1. What is the lab page for?**
   - Answer: trying to break risky work only. Made only when needed.
@@ -106,12 +116,18 @@ Moot: you said yes to O1 (t246u:6). D2 stays (OPW:299). Kept, not deleted.
   - Answer: yes, but only after an earlier pack has closed.
   - Unblocks: the check before each new pack. Waits on: W13, W9, O7 (was F6; D:174-175). Full form: D:207.
 
+## Answered by you, t249u
+
+Answered, not ruled.
+- **E2.** "2. Prime signs off the compute closes it." (DIRECTOR-WORDS-t249u.md:6). Full form: OPW:289.
+- **One-page design.** "I liked the one-page work design.  it looks good." (t249u:9).
+
 ## Answered by you, t246u and t245u
 
 Answered, not ruled. Full forms stay, marked answered.
-- **O1.** "1. Yes I agree" (DIRECTOR-WORDS-t246u.md:6). One page per piece, faces 01-08. Face 07: "07 is a flex location, for dev work it's going to become labs." (DIRECTOR-WORDS-t245u.md:5). Full form: OPW:202.
-- **O2.** "2. See previous response." (t246u:8). Read by Prima as t245u item 1: "If the worker can't solve it comes to you, if prime can't solve by giving improved frame and authority.  It comes to the person." (t245u:8). Full form: OPW:209.
-- **O4.** "3. Yes I agree" (t246u:10). Face 03 per R35. Does not clearly cover O5. Full form: OPW:216.
+- **O1.** "1. Yes I agree" (DIRECTOR-WORDS-t246u.md:6). One page per piece, faces 01-08. Face 07: "07 is a flex location, for dev work it's going to become labs." (DIRECTOR-WORDS-t245u.md:5). Full form: OPW:215.
+- **O2.** "2. See previous response." (t246u:8). Read by Prima as t245u item 1: "If the worker can't solve it comes to you, if prime can't solve by giving improved frame and authority.  It comes to the person." (t245u:8). Full form: OPW:222.
+- **O4.** "3. Yes I agree" (t246u:10). Face 03 per R35. Does not clearly cover O5. Full form: OPW:229.
 
 ## Answered by you, t239u (docs/review/DIRECTOR-WORDS-t239u.md)
 
