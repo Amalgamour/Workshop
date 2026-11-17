@@ -13,6 +13,7 @@ use page::Page;
 use std::collections::BTreeMap;
 use std::fs;
 use std::path::{Path, PathBuf};
+use std::time::{Duration, Instant};
 
 const HELP: &str = "wf - Workshop workflow tool (see README.md)
 Every command that writes needs --as <name> (or set WF_AS).
@@ -62,19 +63,45 @@ impl Args {
     }
 }
 
-/// One writer at a time per page.
-struct Lock(PathBuf);
+/// One writer at a time per page. A lock file; `take` retries for up to 5 seconds.
+#[derive(Debug)]
+pub(crate) struct Lock(PathBuf);
 impl Lock {
-    fn take(dir: &Path) -> log::Res<Lock> {
+    pub(crate) fn take(dir: &Path) -> log::Res<Lock> {
+        Lock::acquire(dir, Duration::from_secs(5))
+    }
+
+    fn acquire(dir: &Path, wait: Duration) -> log::Res<Lock> {
         let p = dir.join(".wf-lock");
-        fs::OpenOptions::new().write(true).create_new(true).open(&p)
-            .map_err(|_| format!("another wf command is writing this page ({} exists). If none is running, remove that file.", p.display()))?;
-        Ok(Lock(p))
+        let start = Instant::now();
+        loop {
+            match fs::OpenOptions::new().write(true).create_new(true).open(&p) {
+                Ok(_) => return Ok(Lock(p)),
+                Err(_) if start.elapsed() < wait => std::thread::sleep(Duration::from_millis(20)),
+                Err(_) => {
+                    return Err(format!(
+                        "another wf command is writing this page ({} exists). If none is running, remove that file.",
+                        p.display()
+                    ))
+                }
+            }
+        }
     }
 }
 impl Drop for Lock {
     fn drop(&mut self) {
         let _ = fs::remove_file(&self.0);
+    }
+}
+
+/// Commands that append to the log or reprint views. The rest only read.
+fn writes(c: &str, a: &Args) -> bool {
+    match c {
+        "status" | "help" | "--help" => false,
+        "verify" => a.flag("fix").is_some(),
+        "observe" => a.flag("record").is_some(),
+        "check" => a.flag("dry-run").is_none(),
+        _ => true,
     }
 }
 
@@ -89,7 +116,7 @@ fn run(raw: &[String]) -> log::Res<()> {
     }
     if c == "init-page" {
         need_who(&who)?;
-        let dir = cmd::init_page(&root, &a, &who)?;
+        let (dir, _l) = cmd::init_page(&root, &a, &who)?;
         render::write(&Page::load(&dir)?)?;
         println!("page {} started. Next: Prime writes 01 and 04 goals.", a.pos[0]);
         return Ok(());
@@ -100,6 +127,7 @@ fn run(raw: &[String]) -> log::Res<()> {
     if !dir.join("log.jsonl").exists() {
         return Err(format!("no page {addr} under {}", dir.display()));
     }
+    let _l = if writes(c, &a) { Some(Lock::take(&dir)?) } else { None };
     let mut p = Page::load(&dir)?;
     let edited = render::edited(&p)?;
     match c {
@@ -136,12 +164,10 @@ fn run(raw: &[String]) -> log::Res<()> {
         if who == p.prime {
             return Err("refused: the observer watches Prime, so Prime cannot file observer findings".into());
         }
-        let _l = Lock::take(&dir)?;
         p.add(&who, "observer", "finding", serde_json::json!({"text": text, "evidence": found}))?;
         return render::write(&p);
     }
     need_who(&who)?;
-    let _l = Lock::take(&dir)?;
     match c {
         "set-prime" => cmd::set_prime(&mut p, &a, &who),
         "grant" => cmd::grant(&mut p, &a, &who),
@@ -174,5 +200,55 @@ fn main() {
     if let Err(e) = run(&raw) {
         eprintln!("wf: {e}");
         std::process::exit(1);
+    }
+}
+
+#[cfg(test)]
+mod lock_tests {
+    use super::*;
+
+    fn tmp(name: &str) -> PathBuf {
+        let d = std::env::temp_dir().join(format!("wf-lock-{}-{name}", std::process::id()));
+        let _ = fs::remove_dir_all(&d);
+        fs::create_dir_all(&d).unwrap();
+        d
+    }
+
+    #[test]
+    fn acquire_succeeds_when_free() {
+        let d = tmp("free");
+        let l = Lock::acquire(&d, Duration::from_secs(1)).unwrap();
+        assert!(d.join(".wf-lock").exists());
+        drop(l);
+        assert!(!d.join(".wf-lock").exists());
+        let _ = fs::remove_dir_all(&d);
+    }
+
+    #[test]
+    fn acquire_waits_then_succeeds() {
+        let d = tmp("wait");
+        fs::write(d.join(".wf-lock"), "").unwrap();
+        let dir = d.clone();
+        let h = std::thread::spawn(move || {
+            std::thread::sleep(Duration::from_millis(40));
+            fs::remove_file(dir.join(".wf-lock")).unwrap();
+        });
+        let start = Instant::now();
+        let l = Lock::acquire(&d, Duration::from_millis(400)).unwrap();
+        assert!(start.elapsed() >= Duration::from_millis(40));
+        drop(l);
+        h.join().unwrap();
+        let _ = fs::remove_dir_all(&d);
+    }
+
+    #[test]
+    fn acquire_refuses_after_the_wait() {
+        let d = tmp("busy");
+        fs::write(d.join(".wf-lock"), "").unwrap();
+        let start = Instant::now();
+        let err = Lock::acquire(&d, Duration::from_millis(60)).unwrap_err();
+        assert!(start.elapsed() >= Duration::from_millis(60));
+        assert!(err.contains("another wf command is writing"));
+        let _ = fs::remove_dir_all(&d);
     }
 }

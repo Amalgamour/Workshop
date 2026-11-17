@@ -497,3 +497,74 @@ fn check_stores_at_most_last_40_lines_of_output() {
     assert!(!stored.contains("L001") && !stored.contains("L010"), "{stored}");
     assert_eq!(stored.lines().count(), 41);
 }
+
+
+fn spawn_wf(root: &PathBuf, args: &[&str]) -> std::process::Child {
+    Command::new(env!("CARGO_BIN_EXE_wf"))
+        .env("WF_ROOT", root)
+        .args(args)
+        .stdout(std::process::Stdio::piped())
+        .stderr(std::process::Stdio::piped())
+        .spawn()
+        .unwrap()
+}
+
+fn wait_out(child: std::process::Child) -> (bool, String) {
+    let o = child.wait_with_output().unwrap();
+    (o.status.success(), format!("{}{}", String::from_utf8_lossy(&o.stdout), String::from_utf8_lossy(&o.stderr)))
+}
+
+#[test]
+fn eight_init_page_runs_leave_one_init() {
+    let e = Env::new("init8");
+    let args = ["init-page", PG, "--title", "t", "--person", "mat", "--prime", "pri", "--grant", "src/", "--grant-ref", "t1", "--as", "mat"];
+    let kids: Vec<_> = (0..8).map(|_| spawn_wf(&e.root, &args)).collect();
+    let results: Vec<_> = kids.into_iter().map(wait_out).collect();
+    let wins = results.iter().filter(|(ok, _)| *ok).count();
+    assert_eq!(wins, 1, "{results:?}");
+    for (ok, out) in &results {
+        if !*ok {
+            assert!(out.contains("already exists") || out.contains("another wf command is writing"), "{out}");
+        }
+    }
+    let log = e.log();
+    assert_eq!(log.lines().filter(|l| l.contains("\"kind\":\"init\"")).count(), 1, "{log}");
+    assert_eq!(log.lines().count(), 1, "{log}");
+    assert!(e.ok(&["verify", PG]).contains("ok: log chain holds"));
+    assert!(!e.page().join(".wf-lock").exists());
+}
+
+#[test]
+fn eight_claim_runs_leave_one_claim() {
+    let e = Env::ready("claim8");
+    e.draft("src/a.rs", "true");
+    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    let names: Vec<String> = (0..8).map(|i| format!("b{i}")).collect();
+    let kids: Vec<_> = names.iter().map(|n| spawn_wf(&e.root, &["claim", PG, "1", "--as", n])).collect();
+    let results: Vec<_> = kids.into_iter().map(wait_out).collect();
+    let wins = results.iter().filter(|(ok, _)| *ok).count();
+    assert_eq!(wins, 1, "{results:?}");
+    for (ok, out) in &results {
+        if !*ok {
+            assert!(out.contains("already claimed") || out.contains("another wf command is writing"), "{out}");
+        }
+    }
+    let log = e.log();
+    assert_eq!(log.lines().filter(|l| l.contains("\"kind\":\"claim\"")).count(), 1, "{log}");
+    assert!(e.ok(&["verify", PG]).contains("ok: log chain holds"));
+    assert!(!e.page().join(".wf-lock").exists());
+}
+
+#[test]
+fn read_only_commands_run_while_a_lock_file_exists() {
+    let e = Env::ready("nolock");
+    e.draft("src/a.rs", "true");
+    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    fs::write(e.page().join(".wf-lock"), "").unwrap();
+    assert!(e.ok(&["status", PG]).contains("05.01"));
+    assert!(e.ok(&["verify", PG]).contains("ok: log chain holds"));
+    let (ok, out) = e.wf(&["observe", PG]);
+    assert!(ok, "{out}");
+    fs::remove_file(e.page().join(".wf-lock")).unwrap();
+    e.ok(&["claim", PG, "1", "--as", "bob"]);
+}

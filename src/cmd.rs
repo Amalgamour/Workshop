@@ -59,18 +59,23 @@ fn repo(root: &Path, x: &Pass) -> PathBuf {
     root.join(x.fields.get("repo").and_then(|v| v.as_str()).unwrap_or("."))
 }
 
-pub fn init_page(root: &Path, a: &Args, who: &str) -> Res<PathBuf> {
+pub fn init_page(root: &Path, a: &Args, who: &str) -> Res<(PathBuf, crate::Lock)> {
     let addr = a.pos.first().ok_or("give a page address")?;
     check_addr(addr)?;
-    let dir = root.join("pages").join(addr);
-    need(!dir.join("log.jsonl").exists(), format!("refused: page {addr} already exists"))?;
     let person = a.req("person")?;
     need(who == person, "refused: the person starts their own page (--as must match --person)")?;
+    let title = a.req("title")?;
+    let prime = a.req("prime")?;
+    let grant = split_list(a.req("grant")?);
+    let grant_ref = a.req("grant-ref")?;
+    let dir = root.join("pages").join(addr);
     fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
-    let data = json!({"address": addr, "title": a.req("title")?, "person": person, "prime": a.req("prime")?,
-                      "grant": split_list(a.req("grant")?), "grant_ref": a.req("grant-ref")?});
+    let lock = crate::Lock::take(&dir)?;
+    need(!dir.join("log.jsonl").exists(), format!("refused: page {addr} already exists"))?;
+    let data = json!({"address": addr, "title": title, "person": person, "prime": prime,
+                      "grant": grant, "grant_ref": grant_ref});
     crate::log::append(&dir.join("log.jsonl"), "0", 1, who, "person", "init", data)?;
-    Ok(dir)
+    Ok((dir, lock))
 }
 
 pub fn set_prime(p: &mut Page, a: &Args, who: &str) -> Res<()> {
