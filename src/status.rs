@@ -1,0 +1,102 @@
+//! Read-only views built fresh from the log: status (now strip, board, feed) and observe.
+
+use crate::log::{iso, now, short};
+use crate::page::{s, Page};
+use crate::render::cards_text;
+
+fn next_step(p: &Page) -> String {
+    let open = p.passes.values().filter(|x| x.tail != "closed").max_by_key(|x| x.nn);
+    match open {
+        None => format!("Prime writes a 06 note, then wf draft {}", p.addr),
+        Some(x) => {
+            let n = x.nn;
+            match x.tail.as_str() {
+                "draft" => format!("Prime releases it: wf pack {} {n}", p.addr),
+                "pack" => format!("a builder claims it: wf claim {} {n}", p.addr),
+                "open" => format!("{} pushes the work, then wf return {} {n}", x.claim.as_deref().unwrap_or("?"), p.addr),
+                "return" => format!("a checker (not the builder) runs wf check {} {n}", p.addr),
+                _ if x.signoff.is_some() => format!("wf close {} {n}", p.addr),
+                _ => format!("Prime ({}) reads the check report, then wf signoff {} {n}", p.prime, p.addr),
+            }
+        }
+    }
+}
+
+pub fn status(p: &Page) -> String {
+    let mut o = format!("NOW  page {} ({})  prime: {}  person: {}\n", p.addr, p.title, p.prime, p.person);
+    let open: Vec<String> = p.passes.values().filter(|x| x.tail != "closed")
+        .map(|x| format!("05.{:02} {} {}", x.nn, x.tail, x.claim.as_deref().map(|c| format!("(held by {c})")).unwrap_or_default())).collect();
+    o += &format!("  active:  {}\n", if open.is_empty() { "none".into() } else { open.join("; ") });
+    let waiting: Vec<String> = p.elevs.iter().filter(|e| e.answer.is_none()).map(|e| format!("entry {} 05.{:02} {} -> {}: {}", e.seq, e.pass, e.by, e.to, e.item)).collect();
+    o += &format!("  waiting: {}\n", if waiting.is_empty() { "nothing".into() } else { waiting.join("\n           ") });
+    o += &format!("  next:    {}\n", next_step(p));
+    o += &format!("  log:     {} entries, last {}, head {}\n", p.events.len(), p.events.last().map(|e| iso(e.time)).unwrap_or_default(), short(&p.head));
+    if !p.findings.is_empty() {
+        o += &format!("  observer findings: {} (latest: {})\n", p.findings.len(), p.findings.last().unwrap().2);
+    }
+    o += "\nBOARD\n  pass   tail     outcome          claim        checker      cards\n";
+    for x in p.passes.values() {
+        let outcome = x.close.as_ref().map(|c| s(c, "outcome")).unwrap_or("-".into());
+        let cards = x.close.as_ref().map(|c| cards_text(&c["cards"])).unwrap_or("-".into());
+        let checker = x.check.as_ref().map(|c| c.0.clone()).unwrap_or("-".into());
+        o += &format!("  05.{:02}  {:<8} {:<16} {:<12} {:<12} {}\n", x.nn, x.tail, outcome, x.claim.as_deref().unwrap_or("-"), checker, cards);
+    }
+    o += "\nFEED (newest first)\n";
+    for e in p.events.iter().rev().take(10) {
+        let pass = e.data["pass"].as_u64().map(|n| format!(" 05.{n:02}")).unwrap_or_default();
+        o += &format!("  {:>3} {} {:<14}{} by {} ({})\n", e.seq, iso(e.time), e.kind, pass, e.actor, e.role);
+    }
+    o
+}
+
+/// Signals that the lead may be drifting, looping or stalled. Read only.
+pub fn observe(p: &Page, stall_hours: u64) -> Vec<String> {
+    let mut f = vec![];
+    let n = p.passes.len();
+    if n >= 6 {
+        f.push(format!("{n} passes on this page: halt advised before the next release (the observer stops nothing)"));
+    } else if n >= 4 {
+        f.push(format!("{n} passes on this page: ask the why questions"));
+    }
+    let mut seen: Vec<(String, u32)> = vec![];
+    for x in p.passes.values() {
+        for (k, v) in x.ret.as_ref().and_then(|r| r["jobs"].as_object().cloned()).unwrap_or_default() {
+            let v = v.as_str().unwrap_or("").to_lowercase();
+            if v.starts_with("done") {
+                continue;
+            }
+            let item = v.splitn(2, ' ').nth(1).unwrap_or("").trim_start_matches(['-', ' ']).to_string();
+            if let Some((_, first)) = seen.iter().find(|(i, _)| *i == item) {
+                f.push(format!("same blocker again: 05.{first:02} and 05.{:02} {k}: {item}", x.nn));
+            }
+            seen.push((item, x.nn));
+        }
+    }
+    let outs: Vec<String> = p.passes.values().filter_map(|x| x.close.as_ref().map(|c| s(c, "outcome"))).collect();
+    if outs.len() >= 2 && outs[outs.len() - 2..].iter().all(|o| o != "passed") {
+        f.push(format!("loop: the last two closed passes ended {} and {}", outs[outs.len() - 2], outs[outs.len() - 1]));
+    }
+    if let Some(last) = p.events.last() {
+        let h = now().saturating_sub(last.time) / 3600;
+        if h >= stall_hours && p.passes.values().any(|x| x.tail != "closed") {
+            f.push(format!("stalled: nothing has moved for {h} hours (entry {})", last.seq));
+        }
+    }
+    for x in p.passes.values().filter(|x| x.tail != "closed" && x.pack.is_some()) {
+        for face in ["04"] {
+            let now = p.faces.get(face).map(|g| g.seq).unwrap_or(0);
+            let pinned = x.pins[face]["entry"].as_u64().unwrap_or(0);
+            if now != pinned {
+                f.push(format!("drift: 05.{:02} was packed against face {face} entry {pinned}; face {face} is now entry {now}", x.nn));
+            }
+        }
+        let v01 = p.faces.get("01").map(|g| format!("v{} entry {}", g.version, g.seq)).unwrap_or_default();
+        if !s(&x.pack.as_ref().unwrap()["sources"], "01").starts_with(&v01) {
+            f.push(format!("drift: 05.{:02} was packed against an older face 01 (now {v01})", x.nn));
+        }
+    }
+    for e in p.elevs.iter().filter(|e| e.answer.is_none()) {
+        f.push(format!("unanswered: entry {} to {}: {}", e.seq, e.to, e.item));
+    }
+    f
+}

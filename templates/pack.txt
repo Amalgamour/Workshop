@@ -1,0 +1,28 @@
+WORKSHOP PACK {{pass}}
+Printed by wf from templates/pack.txt. Do not edit.
+
+page:        {{addr}} ({{title}})
+prime:       {{prime}}
+predecessor: {{predecessor}}
+repo:        {{repo}}
+start:       {{start}}
+branch:      {{branch}}
+return file: {{return_file}}
+grant:       {{grant}}
+axioms:      {{axioms}}
+outcome:     {{outcome}}
+overview:    {{overview}}
+jobs:
+{{jobs}}
+may touch:   {{may_touch}}
+must not:    anything outside may touch (the return check refuses it)
+checks:      {{checks}}   (one command each, split by ;)
+stop if:     {{stop_if}}
+pins (Prime read these before drafting; checked again at release):
+  face 04:        {{pin04}}
+  face 06:        {{pin06}}
+  last closed 05: {{pin05}}
+sources:
+  face 01:        {{src01}}
+  docs/AXIOMS.md: {{src_axioms}}
+  docs/DESIGN.md: {{src_design}}

@@ -1,0 +1,17 @@
+[package]
+name = "wf"
+version = "0.1.0"
+edition = "2021"
+description = "Workshop workflow kit: one page per piece of work, every write through the tool"
+publish = false
+
+[[bin]]
+name = "wf"
+path = "src/main.rs"
+
+[dependencies]
+serde_json = "1"
+sha2 = "0.10"
+
+[profile.release]
+opt-level = "s"
