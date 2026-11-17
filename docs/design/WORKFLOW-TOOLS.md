@@ -3,8 +3,17 @@
 For Matthew. By Designer. A PROPOSAL (7) for how to build the tools. Only you approve.
 created: Tue 17 Nov 2026, 12:30 PM EST
 Updated: Tue 17 Nov 2026, 12:45 PM EST (your drawings t261u, t262u: Shape, no direct writes, several models, T5-T6).
+Updated again: Tue 17 Nov 2026, 12:55 PM EST (your t263, t264u, t266u: checker and observer are two roles; T6 answered; step 7; T7, T8).
 
 In one line: the compute does the checking and the record keeping; the lead (Prime) signs; the worker builds on its own branch.
+
+## v-note (2026-11-17, 12:55 PM EST, Designer)
+
+Folds docs/review/DIRECTOR-WORDS-t263-T6.md (2a9b165, e8f9a90, a8814ff). Nothing was renamed.
+- The checker and the observer are two roles (t264u, :15).
+- Checker: the lead's assistant (:25). Step 3 updated.
+- Observer: watches the lead for drift, loops and stalls (:26). New step 7, build order 9.
+- T6 answered: no. Designer's proposed "yes" was wrong; kept as asked. New questions T7, T8. T5 gains a note.
 
 ## Shape (your drawings t261u, t262u)
 
@@ -22,6 +31,11 @@ The rule this design takes from t262u (Designer reading, 7):
 1. The page holds the compute.
 2. A face is reached only through the compute.
 3. People and models stay outside the page. Several models may work one page at once.
+
+Roles (t266u, v-note 12:55):
+- "The checker, is the assistant to the lead." and "The observer is to check that the lead isn't drifting from the goals and MVP.  Also makign sure the lead isn't stuck in a loop and stalled." (DIRECTOR-WORDS-t263-T6.md:25-26)
+- The checker is not drawn in t261u or t262u. Read (Designer, 7): it works for the lead, outside the page, through the compute like the others.
+- The page role "observer" is not the Observer bot that watches this build. Nothing in his words joins them.
 
 ## His words (t259u)
 
@@ -53,6 +67,7 @@ From docs/review/DIRECTOR-WORDS-t259u.md (c2a291c), lines 7-12. Answered, not ru
 | 4 Sign-off | Prime | checks signer, writes close record, closes, merges | close by reviewer only; no merge | 7 |
 | 5 Status | anyone, any time (read-only) | builds Now strip and board from history | /history, /page boards | 1 |
 | 6 Going up | compute (triggers) | routes to Prime or to you | nothing | 8 |
+| 7 Observer | compute (signals), then observer | builds the signals from history | history, board, outcomes only | 9 |
 
 Overall build order (plain list):
 1. Status view: Now strip, board, tail feed. Read-only. (His 2.5; W12, still open, proposes the read-only sheet and board go first.)
@@ -63,6 +78,7 @@ Overall build order (plain list):
 6. Check: tool checks, then the checker's review.
 7. Sign-off: the close change, close record, merge.
 8. Going up: trigger routing (waits on E1).
+9. Observer: first the signal view (reads only, so it can ride with order 1), then findings and where they go (waits on T8; the drift signal waits on the T4 pins).
 
 ## Step 1. Issue
 
@@ -135,6 +151,14 @@ Overall build order (plain list):
 - **Order.** 6.
 - S13 (Prime reads after the checker): answered in direction (t259u:9).
 
+**The checker (t266u; v-note 12:55).**
+- His words: "The checker, is the assistant to the lead." (DIRECTOR-WORDS-t263-T6.md:25). And: "It's a assistant to the lead.  Handed off by the compute.  So the lead which works directly with the person is able to not be stuck reviewing all the returns." (:7)
+- He gave :7 when asked about the observer (:3). That it describes the checker is Prima's mapping (:28). It fits :15 and :25.
+- So: the compute hands the checker each return. The checker confirms the work with tools ("a checker using tools to confirm the work was done correctly", t245u:10). The lead signs off (t259u:10; t249u:6).
+- "Reports to the lead" is Prima's mapping, not his words. His words: assistant to the lead; the lead signs.
+- Never the builder: state.rs:578-583 (refusal S10). Not in code: any rule that the checker is not the lead (7).
+- Tension: 2.3 agreed the lead reads last (t259u:9). t263 says the lead should not be "stuck reviewing all the returns" (:7). S13 and S15 proposed the lead reads the whole return. See T7.
+
 ## Step 4. Sign-off (his 2.4: the lead signs)
 
 - **What it does.** Prime signs. The compute checks the signer is face 00's `prime` at that log entry (by log order, not clock), writes the close record (S6), closes the pass, and merges the accepted work.
@@ -166,6 +190,27 @@ Overall build order (plain list):
 - **Exists today.** Nothing. Outcomes `blocked` and `needs-authority` exist as close words (store.rs:981).
 - **To build.** Trigger watch and routing, after E1 is answered.
 - **Order.** 8. Not answered by t259u (see below).
+
+## Step 7. Observer (t266u; v-note 12:55)
+
+- **His words.** "The observer is to check that the lead isn't drifting from the goals and MVP.  Also makign sure the lead isn't stuck in a loop and stalled." (DIRECTOR-WORDS-t263-T6.md:26)
+- **What it does.** Watches the lead, not the work. Two questions: is the lead drifting from the goals and MVP? Is the lead stuck in a loop, or stalled? It does not review returns (the checker does). It does not sign (the lead does).
+- **Measured against.** His words name "the goals and MVP", no face. MVP goals sit on 04, stripped down on 01 for the agent (t245u:12). Prima's brief says "face 04 goals and face 01 MVP"; the record's mapping says "the face 04 goals and the MVP" (:28). Not picked here (7).
+- **Who triggers it.** The compute builds the signals from the history. The observer reads them, read-only, through the compute.
+- **Signals it could read.**
+
+| Signal | Exists today | To build |
+|---|---|---|
+| passes on one frame | each pass is its own 05 counter (state.rs:110-121); the board lists them (state.rs:296-300); the spec rule: why questions at pass 4, halt at 6 (workflow-loop.003.md:258-267) | no frame field or count in code (searched crates/: no `frame`) |
+| same blocker again | close outcome `blocked` (state.rs:14) | blocker identity (workflow-loop.003.md:260 marks it 7) |
+| rework loops | close outcome `failed` (state.rs:14) | card fates (S7), to see the same card fail again |
+| time since the last move | every entry has a number and a clock (log.rs:64-66); /history sorts by clock (store.rs:542-569); each counter lists its entries (state.rs:120-121) and claim time (state.rs:105) | a "time since" view and a limit; nothing exists |
+| drift from goals and MVP | nothing | the 04 and 01 pins (T4) set against each pass's cards and touched files; the compute gives evidence, a model judges meaning |
+
+- **When it finds something (proposal, Designer, 7).** It writes one finding: the signal, the entry numbers as evidence, one plain line. It hands that to the compute, which files it (no direct face writes). It stops nothing; the only automatic stop stays the pass-6 halt (workflow-loop.003.md:267). Where the finding goes: T8, not decided.
+- **Not the lead (proposal, 7).** The observer is never the lead of the page it watches: a lead cannot catch its own drift (axiom 9). Nothing in code enforces this.
+- **Face 06.** t261u put the observer on 06. Whether it reads 06 to judge drift is open (T5 note).
+- **Order.** 9.
 
 ## No role writes a face directly (t262u check)
 
@@ -229,6 +274,13 @@ Rule: a role may hand the compute a file, but only the compute files it on a fac
 6. Prima's description of t262u matches the drawing. One thing not in her description or reading: the drawing says "observer", while step 3 here says "checker". Whether they are the same role is T6.
 7. The t262u relay matches the recorded words; the record has a line break after "better." (t262u:5-7).
 
+From t263, t264u, t266u (v-note 12:55):
+8. His t263 words (:7) answered a question about the observer (:3). Applying them to the checker is Prima's mapping (:28).
+9. "Reports to the lead" is Prima's mapping. His words: "assistant to the lead" (:25); the lead signs (t259u:10).
+10. Prima's brief: "face 04 goals and face 01 MVP". His words: "the goals and MVP" (:26). The record's mapping: "the face 04 goals and the MVP" (:28).
+11. The t266u relay matches the record, except a line break after "lead." (:25-26). t264u is recorded in the same file (:15), not its own file.
+12. The record's t264u mapping (:17) still calls the observer the lead's assistant. The t266u mapping (:28) withdraws that. This file follows :25-26.
+
 ## New open questions (rule t189u)
 
 ### T1. Branch name and who merges
@@ -260,12 +312,26 @@ Rule: a role may hand the compute a file, but only the compute files it on a fac
 2. **Proposed (Designer, 7).** Keep it only as "mostly reads or feeds", never as "writes": lead feeds 01, Builder 05, person 04. Hold 06 open: you called 06 "prime notes" (t243u), and t261u put the observer there.
 3. **Why.** t262u ends every role at the compute, so no role owns a face. Who gets hurt otherwise: a model that reads "builder: 05" as leave to write face 05.
 4. **Axioms checked.** 1 [Axioms.md:13] pass: the compute enforces. 3 [Axioms.md:17] pass: each role leads its part. 7 [Axioms.md:25] tension: 06 unclear. 2 [Axioms.md:15] tension: two drawings, one replaced.
+- **Note (12:55, t266u).** The observer now watches the lead (:26). 06 holds prime notes (t243u), so 06 may be what the observer reads to judge drift. Open; not decided here.
 
 ### T6. Is the "observer" the checker?
+- **Status: answered (t263, t264u, t266u): no.** "Sorry no the checker is different from an observer" (DIRECTOR-WORDS-t263-T6.md:15). The checker is the lead's assistant (:25); the observer watches the lead (:26). Designer's proposed "yes" below was wrong. The four parts stay as asked.
 1. **Question.** Both drawings name an "observer". Step 3 names a checker that reviews against "done when". Same role?
 2. **Proposed (Designer, 7).** Yes: the observer is the other view that checks the work, and it is never the builder.
 3. **Why.** Only four roles are drawn, and step 3 needs a checker that is not the builder (state.rs:578-583). Who gets hurt otherwise: a pass with no one able to review it.
 4. **Axioms checked.** 9 [Axioms.md:29] pass: another view tries to break it. 3 [Axioms.md:17] pass. 7 [Axioms.md:25] tension: your word, not yet defined.
+
+### T7. What the checker hands the lead; may the lead skip the full return?
+1. **Question.** You agreed the lead reads last (2.3, t259u:9). You also said the checker is there so the lead is "not stuck reviewing all the returns" (t263-T6.md:7). What does the checker hand back? When the checker passes a return, may the lead sign from that report without reading the whole return?
+2. **Proposed (Designer, 7).** The checker hands back a short report: each check, pass or fail, with its commit; each "done when" line, met or not; anything outside the frame. If all pass and nothing is `need` or `blocked`, the lead reads the report and signs; the full return stays one click away. The lead reads in full when a check fails, the return says `need` or `blocked`, or "done when" changed. Occasional full reads follow a written rule (E4). This changes the S13 and S15 proposals ("reads the whole return").
+3. **Why.** Your t263 reason: the lead "works directly with the person" (:7). Who gets hurt otherwise: you, waiting on a lead buried in returns.
+4. **Axioms checked.** 9 [Axioms.md:29] pass: another view (never the builder) tries to break it first. 1 [Axioms.md:13] pass: the lead still signs; the compute enforces. 3 [Axioms.md:17] pass: each leads its part. 7 [Axioms.md:25] tension: the report's fields are not designed.
+
+### T8. Where does the observer report, and can it stop work?
+1. **Question.** When the observer sees the lead drifting, looping or stalled, who does it tell? Can it stop anything?
+2. **Proposed (Designer, 7).** It tells you, the person, on the Now strip (which you asked for, 2.5), with a copy to the lead. It sends you a direct note only at pass 4 on one frame, or the same blocker twice. It stops nothing; the pass-6 halt (workflow-loop.003.md:267) stays the only automatic stop.
+3. **Why.** Your ladder sends what the lead cannot solve to the person (t245u:8). The observer watches the lead, so telling only the lead would let a stuck lead hide it. But you want to be "involved when it comes to the big issues" only (t245u:8), hence the strip first. Who gets hurt otherwise: you, finding a stalled page late.
+4. **Axioms checked.** 5 [Axioms.md:21] pass: "An observation outside the frame is permission to report, not to act". 1 [Axioms.md:13] pass: the observer holds no authority; it raises. 9 [Axioms.md:29] pass: another view watches the lead. 7 [Axioms.md:25] tension: where the finding is filed (06, or a view) is open (T5).
 
 ## Ties
 
@@ -274,3 +340,4 @@ Rule: a role may hand the compute a file, but only the compute files it on a fac
 - PACK-TEMPLATE.md P6 and WORK-BOOK-CONCEPT.md W10: the return file in the commit.
 - DECISIONS-WAITING.md: the sheet.
 - docs/review/DIRECTOR-WORDS-t261u.md, DIRECTOR-WORDS-t262u.md and their drawings: Shape.
+- docs/review/DIRECTOR-WORDS-t263-T6.md: the checker (step 3), the observer (step 7), T6.

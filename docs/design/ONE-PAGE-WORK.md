@@ -3,6 +3,10 @@
 For Matthew. By Designer. Started as a PROPOSAL (7). Parts are now answered by you (t245u, t246u). Answered, not ruled.
 created: Tue 17 Nov 2026, 11:45 AM EST
 
+## Change note (2026-11-17, 12:55 PM EST, Designer)
+
+Folds your t263, t264u and t266u (docs/review/DIRECTOR-WORDS-t263-T6.md, a8814ff). T6 answered: the checker and the observer are two roles. The checker is the lead's assistant ("The checker" below). The observer watches the lead: WORKFLOW-TOOLS.md, step 7.
+
 ## Change note (2026-11-17, 12:45 PM EST, Designer; second note at this time)
 
 Folds your drawings t261u and t262u (docs/review/DIRECTOR-WORDS-t261u.md, -t262u.md). t262u replaces t261u.
@@ -136,6 +140,7 @@ Based on his two named triggers (t245u:8): "a deliverable isn't possible under t
 - Each check result is recorded on the review step with the commit it ran against.
 - The checker is not the builder (state.rs:579-581). A fresh session counts as another view (R20, DIRECTOR-RULINGS.md:79).
 - Prima's occasional checks: picked by a rule written down before the passes run, not by feel (E4). Each check is a 06 note linking the pass it checked and what was found.
+- (2026-11-17, 12:55 PM EST) "The checker, is the assistant to the lead." (DIRECTOR-WORDS-t263-T6.md:25). It is not the observer (:15). What it hands the lead: WORKFLOW-TOOLS.md, T7.
 
 ## Face 07: flex (his word, t245u:5)
 

@@ -10,6 +10,12 @@ Folds two reviews relayed by Matthew: Codex (t252u) and Claude (t253u), in docs/
 - Changed: Prime labels (t254u:7); lead fields on face 00 (t255u:7); Prime's read after the checker; prompt box and AGENTS.md built from the released pack; cost figures from records; "modify" not "created"; links by name and commit; face 01 holds no scope; branch per pass (proposed).
 - The full point-by-point table is in ONE-PAGE-WORK.md, "SAMPLE-PAGE v2 reviews". Harder paths: SAMPLE-PAGE-PATHS.md.
 
+## Change note, v2.1 (2026-11-17, 12:55 PM EST, Designer)
+
+Folds your t263, t264u and t266u (docs/review/DIRECTOR-WORDS-t263-T6.md). Nothing renamed.
+- Checker C is the lead's assistant: the compute hands it each return, it checks with tools, Prime signs (WORKFLOW-TOOLS.md, step 3).
+- The observer is a separate role that watches Prime for drift, loops and stalls. Added as "Observer (EXAMPLE)" below (WORKFLOW-TOOLS.md, step 7).
+
 ## Now (a view the compute builds from the log, never stored; W11; not built yet)
 
 ```
@@ -46,6 +52,7 @@ next:         model A returns 05.03 to the return file (P6)
 - Now: Prime is the team lead role, and on this work Prima holds it (t254u:7). Prime signs off; the compute closes (t249u:6).
 - The return order is still open (P1). This sample uses order B (job items first, a one-line summary on top). Labelled, not chosen.
 - Names used: builder = "model A" (EXAMPLE). Checker = "checker C" (EXAMPLE). Lab model = "model B" (EXAMPLE).
+- (v2.1, t266u) Checker C is Prime's assistant, never the builder (state.rs:578-583). Observer = "observer O" (EXAMPLE), a separate role that watches Prime.
 
 ## Face 00: stamp
 
@@ -439,6 +446,18 @@ Hand back: one return, in the return template order, in
 
 - v1 left out may touch, the checks and the return path, so the worker could not know it may edit src/input.rs (Claude A3).
 
+## Observer (EXAMPLE; not built yet; WORKFLOW-TOOLS.md step 7)
+
+```
+watching:     Prime (Prima) on 10.20.30.1201 (EXAMPLE)
+passes:       3 on this page (no frame count yet; pass 4 asks the why questions, WL:258-267)
+same blocker: none twice (05.02's w02 blocker solved by a wider frame)
+goals:        04 pin current; 05.03 works on smoothing, a 04 goal
+finding:      none                                  [observer]
+```
+
+- Where a finding goes is open (WORKFLOW-TOOLS.md, T8). Whether it reads 06 is open (T5).
+
 ## Not built yet (what this sample depends on)
 
 - Face 03 menu off pages 0001-0099: seqAddr.md:189, validate.rs:352-354 (O4).
@@ -456,5 +475,6 @@ All in ONE-PAGE-WORK.md as four-part questions:
 - S1 answered (t255u:7); the sign-off detail is S14, S15.
 - S2 (face 00 role and set), S3 (02 drift in the return), S4 (AGENTS.md, proposed this way by Codex).
 - S5 face 09; S6 close record; S7 card words; S8 face 01 approval; S9 scope rule; S10 cost figures; S11 face 02 design or description; S12 branch per pass; S13 Prime's read after the checker.
+- (v2.1) T7 what checker C hands Prime; T8 where the observer reports: WORKFLOW-TOOLS.md.
 
 Harder paths: SAMPLE-PAGE-PATHS.md.
