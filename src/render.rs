@@ -6,6 +6,8 @@ use crate::page::{s, Page, Pass, FACES};
 use serde_json::Value;
 use std::collections::BTreeMap;
 use std::fs;
+use std::io::Write;
+use std::path::Path;
 
 pub const T_PACK: &str = include_str!("../templates/pack.txt");
 pub const T_PROMPT: &str = include_str!("../templates/prompt.txt");
@@ -213,25 +215,65 @@ impl ViewDiff {
     }
 }
 
+/// The first symlink on `rel` below `dir`, as a path relative to `dir`.
+/// Missing components are not links. Does not follow any symlink it finds.
+fn symlink_on_path(dir: &Path, rel: &str) -> std::io::Result<Option<String>> {
+    let mut cur = dir.to_path_buf();
+    let mut acc = String::new();
+    for part in Path::new(rel).components() {
+        let std::path::Component::Normal(name) = part else {
+            continue;
+        };
+        cur.push(name);
+        if !acc.is_empty() {
+            acc.push('/');
+        }
+        acc.push_str(&name.to_string_lossy());
+        match fs::symlink_metadata(&cur) {
+            Err(e) if e.kind() == std::io::ErrorKind::NotFound => return Ok(None),
+            Err(e) => return Err(e),
+            Ok(meta) if meta.file_type().is_symlink() => return Ok(Some(acc)),
+            Ok(_) => {}
+        }
+    }
+    Ok(None)
+}
+
+/// Write `text` to a temp file in the same folder, sync it, then rename over `path`.
+/// A hard-linked or symlinked view is replaced; the other name or target is left alone.
+fn write_atomic(path: &Path, text: &str) -> Res<()> {
+    let dir = path.parent().ok_or_else(|| format!("no parent for {}", path.display()))?;
+    let name = path.file_name().ok_or_else(|| format!("no name for {}", path.display()))?;
+    let tmp = dir.join(format!(".{}.wf-tmp", name.to_string_lossy()));
+    let _ = fs::remove_file(&tmp);
+    let write = (|| -> std::io::Result<()> {
+        let mut f = fs::File::create(&tmp)?;
+        f.write_all(text.as_bytes())?;
+        f.sync_all()?;
+        fs::rename(&tmp, path)?;
+        Ok(())
+    })();
+    if write.is_err() {
+        let _ = fs::remove_file(&tmp);
+    }
+    write.map_err(|e| format!("cannot write {}: {e}", path.display()))
+}
+
 /// Compare the view files on disk with the log.
 pub fn edited(p: &Page) -> Res<ViewDiff> {
     let mut d = ViewDiff::default();
     for (rel, text) in views(p)? {
         let path = p.dir.join(&rel);
-        match fs::symlink_metadata(&path) {
-            Err(e) if e.kind() == std::io::ErrorKind::NotFound => {
-                d.missing.push(rel);
+        match symlink_on_path(&p.dir, &rel) {
+            Ok(Some(_)) => {
+                d.changed.push(rel);
                 continue;
             }
             Err(_) => {
                 d.unreadable.push(rel);
                 continue;
             }
-            Ok(meta) if meta.file_type().is_symlink() => {
-                d.changed.push(rel);
-                continue;
-            }
-            Ok(_) => {}
+            Ok(None) => {}
         }
         match fs::read_to_string(&path) {
             Ok(disk) => {
@@ -252,7 +294,32 @@ pub fn write(p: &Page) -> Res<()> {
 
 /// Reprint views from the log, skipping the named relative paths.
 pub fn write_except(p: &Page, skip: &[String]) -> Res<()> {
-    for (rel, text) in views(p)? {
+    let all = views(p)?;
+    let mut linked = Vec::new();
+    for rel in all.keys() {
+        if skip.iter().any(|s| s == rel) {
+            continue;
+        }
+        match symlink_on_path(&p.dir, rel) {
+            Ok(Some(link)) if link != *rel => {
+                if !linked.contains(&link) {
+                    linked.push(link);
+                }
+            }
+            Err(e) => {
+                return Err(format!("cannot read {}: {e}", p.dir.join(rel).display()));
+            }
+            _ => {}
+        }
+    }
+    if !linked.is_empty() {
+        return Err(format!(
+            "linked folder{}: {}; nothing was changed",
+            if linked.len() == 1 { "" } else { "s" },
+            linked.join(", ")
+        ));
+    }
+    for (rel, text) in all {
         if skip.iter().any(|s| s == &rel) {
             continue;
         }
@@ -260,14 +327,7 @@ pub fn write_except(p: &Page, skip: &[String]) -> Res<()> {
         if let Some(d) = path.parent() {
             fs::create_dir_all(d).map_err(|e| e.to_string())?;
         }
-        // Replace a symlink with a regular file; never write through it.
-        let symlink = path.is_symlink();
-        if symlink {
-            fs::remove_file(&path).map_err(|e| format!("cannot replace symlink {}: {e}", path.display()))?;
-        }
-        if symlink || fs::read_to_string(&path).ok().as_deref() != Some(text.as_str()) {
-            fs::write(&path, text).map_err(|e| e.to_string())?;
-        }
+        write_atomic(&path, &text)?;
     }
     Ok(())
 }

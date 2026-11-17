@@ -1,7 +1,7 @@
 //! End-to-end tests: each one runs the wf binary against a temp folder and a temp git repo.
 
 use std::fs;
-use std::os::unix::fs::{self as unix_fs, PermissionsExt};
+use std::os::unix::fs::{self as unix_fs, MetadataExt, PermissionsExt};
 use std::path::PathBuf;
 use std::process::Command;
 
@@ -952,4 +952,57 @@ fn return_accepts_git_paths_with_spaces_tabs_newlines_and_non_ascii() {
     assert!(log.contains("src/a\\tb.rs"), "{log}");
     assert!(log.contains("src/a\\nb.rs"), "{log}");
     assert!(log.contains("src/é.rs"), "{log}");
+}
+
+#[test]
+fn verify_reports_a_symlinked_pass_folder_and_fix_refuses_without_writing_through() {
+    let e = Env::ready("symdir");
+    e.open("src/a.rs", "true");
+    let page = e.page();
+    let outside = e.root.join("ext-0501");
+    fs::rename(page.join("05.01"), &outside).unwrap();
+    unix_fs::symlink(&outside, page.join("05.01")).unwrap();
+    assert!(page.join("05.01").is_symlink());
+
+    let pack = outside.join("PACK.md");
+    let original = fs::read_to_string(&pack).unwrap();
+
+    let (ok, out) = e.wf(&["verify", PG]);
+    assert!(!ok, "{out}");
+    assert!(out.contains("view files differ from the log (hand edit or a failed reprint):"), "{out}");
+    assert!(out.contains("05.01/PACK.md"), "{out}");
+    assert!(out.contains("05.01/AGENTS.md"), "{out}");
+
+    let (ok, out) = e.wf(&["verify", PG, "--fix"]);
+    assert!(!ok, "{out}");
+    assert!(out.contains("linked folder: 05.01"), "{out}");
+    assert!(out.contains("nothing was changed"), "{out}");
+    assert_eq!(fs::read_to_string(&pack).unwrap(), original, "must not write through the linked folder");
+    assert!(page.join("05.01").is_symlink(), "must not replace the linked folder");
+
+    e.no(
+        &["face-write", PG, "06", "--text", "x", "--as", "pri"],
+        "view files differ from the log (hand edit or a failed reprint):",
+    );
+    assert_eq!(fs::read_to_string(&pack).unwrap(), original, "a write must not touch the outside folder");
+    assert_eq!(fs::read_to_string(outside.join("PACK.md")).unwrap(), original);
+}
+
+#[test]
+fn reprint_replaces_a_hardlinked_view_without_writing_through() {
+    let e = Env::ready("hardlink");
+    let page = e.page();
+    let view = page.join("06.md");
+    let outside = e.root.join("hard-06.md");
+    let original = fs::read_to_string(&view).unwrap();
+    fs::hard_link(&view, &outside).unwrap();
+    assert_eq!(fs::metadata(&view).unwrap().nlink(), 2);
+
+    e.ok(&["face-write", PG, "06", "--text", "new note", "--as", "pri"]);
+
+    assert_eq!(fs::read_to_string(&outside).unwrap(), original, "must not write through the hard link");
+    assert!(view.is_file() && !view.is_symlink(), "06.md should stay a regular file");
+    assert_eq!(fs::metadata(&view).unwrap().nlink(), 1, "the hard link should be replaced");
+    assert!(fs::read_to_string(&view).unwrap().contains("new note"), "the view should have the new text");
+    assert!(!fs::read_to_string(&outside).unwrap().contains("new note"));
 }
