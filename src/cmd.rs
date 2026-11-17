@@ -60,6 +60,17 @@ fn nn(a: &Args, i: usize) -> Res<u32> {
     a.pos.get(i).and_then(|x| x.trim_start_matches("05.").parse().ok()).ok_or("give the pass number, like 3 or 05.03".into())
 }
 
+/// Pass numbers are 01-98 (R9). 00 is not a pass; after 98 is open (QD16).
+fn pass_number_ok(n: u32) -> Res<()> {
+    if n == 0 {
+        return Err("refused: pass 0 is not allowed (R9)".into());
+    }
+    if n > 98 {
+        return Err("counter 98 reached: after 98 is open (QD16); ask Prime".into());
+    }
+    Ok(())
+}
+
 fn text_arg(a: &Args) -> Res<String> {
     match (a.flag("text"), a.flag("file")) {
         (Some(t), _) => Ok(t.to_string()),
@@ -157,10 +168,15 @@ pub fn draft(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     let n = match a.flag("pass") {
         Some(v) => {
             let n: u32 = v.trim_start_matches("05.").parse().map_err(|_| "bad --pass".to_string())?;
+            pass_number_ok(n)?;
             tail_is(p.pass(n)?, &["draft"])?;
             n
         }
-        None => p.passes.keys().max().unwrap_or(&0) + 1,
+        None => {
+            let n = p.passes.keys().max().unwrap_or(&0) + 1;
+            pass_number_ok(n)?;
+            n
+        }
     };
     if !f.contains_key("predecessor") {
         let pre = if n > 1 { format!("05.{:02}", n - 1) } else { "none".into() };
@@ -470,7 +486,7 @@ pub fn check(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
         p.add("wf", "tool", "elevate", json!({"pass": n, "to": "prime", "item": format!("second failed check on 05.{n:02}")}))?;
     }
     print!("check 05.{n:02}: {verdict}\n{rep}");
-    render::write(p)
+    render::write_after_append(p)
 }
 
 pub fn signoff(p: &mut Page, a: &Args, who: &str) -> Res<()> {
@@ -588,5 +604,20 @@ mod tests {
         assert_eq!(super::nonblank(" t275u ", "ref").unwrap(), "t275u");
         assert!(super::nonblank(" ", "ref").unwrap_err().contains("--ref must have non-blank text"));
         assert!(super::nonblank("\t", "text").unwrap_err().contains("--text must have non-blank text"));
+    }
+
+    #[test]
+    fn pass_number_ok_allows_01_to_98_and_refuses_0_and_99() {
+        assert!(super::pass_number_ok(1).is_ok());
+        assert!(super::pass_number_ok(98).is_ok());
+        assert_eq!(super::pass_number_ok(0).unwrap_err(), "refused: pass 0 is not allowed (R9)");
+        assert_eq!(
+            super::pass_number_ok(99).unwrap_err(),
+            "counter 98 reached: after 98 is open (QD16); ask Prime"
+        );
+        assert_eq!(
+            super::pass_number_ok(100).unwrap_err(),
+            "counter 98 reached: after 98 is open (QD16); ask Prime"
+        );
     }
 }

@@ -247,7 +247,7 @@ fn write_atomic(path: &Path, text: &str) -> Res<()> {
     let tmp = dir.join(format!(".{}.wf-tmp", name.to_string_lossy()));
     let _ = fs::remove_file(&tmp);
     let write = (|| -> std::io::Result<()> {
-        let mut f = fs::File::create(&tmp)?;
+        let mut f = fs::OpenOptions::new().write(true).create_new(true).open(&tmp)?;
         f.write_all(text.as_bytes())?;
         f.sync_all()?;
         fs::rename(&tmp, path)?;
@@ -290,6 +290,15 @@ pub fn edited(p: &Page) -> Res<ViewDiff> {
 
 pub fn write(p: &Page) -> Res<()> {
     write_except(p, &[])
+}
+
+/// Reprint views after the log was appended. If the reprint fails, name the
+/// new log entry so a retry is not mistaken for a no-op (and does not double-log).
+pub fn write_after_append(p: &Page) -> Res<()> {
+    write(p).map_err(|_| {
+        let n = p.events.last().map(|e| e.seq).unwrap_or(0);
+        format!("logged as entry {n}; views not reprinted; run wf verify --fix")
+    })
 }
 
 /// Reprint views from the log, skipping the named relative paths.

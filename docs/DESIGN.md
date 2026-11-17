@@ -12,6 +12,8 @@ Sources are on Amalgamour/Workshop, branch prima/build. Cites read
   They reach a face only through the tool (DIRECTOR-WORDS-t262u.md:5-7;
   WORKFLOW-TOOLS.md:30-33 @9ac8d58).
 - Several models may work one page at once (t262u, same lines).
+- wf v0 page ids are temporary labels, not checked as SeqAddr. A SeqAddr
+  check comes later through seqaddr-core.
 
 ## 2. The faces (DIRECTOR-WORDS-t243u.md; ONE-PAGE-WORK.md:151-165 @9ac8d58)
 | Face | Holds | Written by (through wf) |

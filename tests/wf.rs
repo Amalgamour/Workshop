@@ -1006,3 +1006,86 @@ fn reprint_replaces_a_hardlinked_view_without_writing_through() {
     assert!(fs::read_to_string(&view).unwrap().contains("new note"), "the view should have the new text");
     assert!(!fs::read_to_string(&outside).unwrap().contains("new note"));
 }
+
+#[test]
+fn draft_refuses_pass_0() {
+    let e = Env::ready("pass0");
+    let f = e.root.join("pack.txt");
+    fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: src/a.rs\nchecks: true\nstop if: b must change\n").unwrap();
+    let file = f.to_str().unwrap();
+    e.no(&["draft", PG, "--pass", "0", "--file", file, "--as", "pri"], "refused: pass 0 is not allowed (R9)");
+    e.no(&["draft", PG, "--pass", "00", "--file", file, "--as", "pri"], "refused: pass 0 is not allowed (R9)");
+    e.no(&["draft", PG, "--pass", "05.00", "--file", file, "--as", "pri"], "refused: pass 0 is not allowed (R9)");
+    assert!(!e.log().contains("\"kind\":\"draft\""), "pass 0 must not be logged");
+}
+
+#[test]
+fn draft_refuses_a_99th_pass() {
+    let e = Env::ready("pass98");
+    let f = e.root.join("pack.txt");
+    fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: src/a.rs\nchecks: true\nstop if: b must change\n").unwrap();
+    let file = f.to_str().unwrap();
+    for i in 1..=98 {
+        e.ok(&["draft", PG, "--file", file, "--as", "pri"]);
+        assert!(e.log().contains(&format!("\"pass\":{i}")), "expected draft of pass {i}");
+    }
+    let before = e.log();
+    e.no(
+        &["draft", PG, "--file", file, "--as", "pri"],
+        "counter 98 reached: after 98 is open (QD16); ask Prime",
+    );
+    assert_eq!(e.log(), before, "a refused 99th draft must not append");
+    e.no(
+        &["draft", PG, "--pass", "99", "--file", file, "--as", "pri"],
+        "counter 98 reached: after 98 is open (QD16); ask Prime",
+    );
+    e.no(
+        &["draft", PG, "--pass", "05.99", "--file", file, "--as", "pri"],
+        "counter 98 reached: after 98 is open (QD16); ask Prime",
+    );
+}
+
+#[test]
+fn reprint_failure_after_append_says_logged_as() {
+    let e = Env::ready("loggedas");
+    e.draft("src/a.rs", "true");
+    let page = e.page();
+    let outside = e.root.join("ext-0501");
+    fs::create_dir_all(&outside).unwrap();
+    unix_fs::symlink(&outside, page.join("05.01")).unwrap();
+    let n = e.log().lines().count() + 1;
+    let (ok, out) = e.wf(&["pack", PG, "1", "--as", "pri"]);
+    assert!(!ok, "{out}");
+    assert!(
+        out.contains(&format!("logged as entry {n}; views not reprinted; run wf verify --fix")),
+        "{out}"
+    );
+    assert!(!out.contains("nothing was changed"), "{out}");
+    assert_eq!(e.log().lines().count(), n, "the pack must have been logged");
+    assert!(e.log().contains("\"kind\":\"pack\""), "{}", e.log());
+    assert!(page.join("05.01").is_symlink(), "must not replace the pre-made link");
+    assert!(fs::read_dir(&outside).unwrap().next().is_none(), "must not write through the linked folder");
+}
+
+#[test]
+fn reprint_failure_when_temp_path_is_a_directory_says_logged_as() {
+    let e = Env::ready("tmptmp");
+    fs::create_dir(e.page().join(".06.md.wf-tmp")).unwrap();
+    let n = e.log().lines().count() + 1;
+    let (ok, out) = e.wf(&["face-write", PG, "06", "--text", "x", "--as", "pri"]);
+    assert!(!ok, "{out}");
+    assert!(
+        out.contains(&format!("logged as entry {n}; views not reprinted; run wf verify --fix")),
+        "{out}"
+    );
+    assert!(!out.contains("nothing was changed"), "{out}");
+    assert_eq!(e.log().lines().count(), n, "the face write must have been logged");
+}
+
+#[test]
+fn write_atomic_source_opens_temp_with_create_new() {
+    let src = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/render.rs"));
+    let body = src.split("fn write_atomic").nth(1).and_then(|s| s.split("pub fn edited").next()).unwrap_or("");
+    assert!(body.contains("create_new(true)"), "write_atomic should open the temp file with create_new");
+    assert!(!body.contains("File::create"), "write_atomic must not use File::create (it follows a symlink at the temp path)");
+}

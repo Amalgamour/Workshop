@@ -118,3 +118,4 @@ stop if: the turn needs a physics change
 - No labs (face 07) and no face 09 history view.
 - The observer reads signals. Judging drift in meaning is still the observer's job.
 - The log chain shows the log is consistent, not that it was never rewritten. Anyone who can write `log.jsonl` can rewrite and rehash it.
+- wf v0 page ids are temporary labels, not checked as SeqAddr. A SeqAddr check comes later through seqaddr-core.

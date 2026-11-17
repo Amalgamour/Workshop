@@ -117,7 +117,7 @@ fn run(raw: &[String]) -> log::Res<()> {
     if c == "init-page" {
         need_who(&who)?;
         let (dir, _l) = cmd::init_page(&root, &a, &who)?;
-        render::write(&Page::load(&dir)?)?;
+        render::write_after_append(&Page::load(&dir)?)?;
         println!("page {} started. Next: Prime writes 01 and 04 goals.", a.pos[0]);
         return Ok(());
     }
@@ -178,7 +178,7 @@ fn run(raw: &[String]) -> log::Res<()> {
             return Err("refused: the observer watches Prime, so Prime cannot file observer findings".into());
         }
         p.add(&who, "observer", "finding", serde_json::json!({"text": text, "evidence": found}))?;
-        return render::write(&p);
+        return render::write_after_append(&p);
     }
     need_who(&who)?;
     match c {
@@ -200,7 +200,7 @@ fn run(raw: &[String]) -> log::Res<()> {
         let _ = render::write(&p);
         e
     })?;
-    render::write(&p)
+    render::write_after_append(&p)
 }
 
 fn need_who(who: &str) -> log::Res<()> {
