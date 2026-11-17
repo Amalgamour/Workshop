@@ -3,6 +3,17 @@
 For Matthew. By Designer. A proposal (7), not a ruling. Nothing here is decided. Only you approve.
 created: Mon 16 Nov 2026, 5:54 PM EST
 
+## Change note (Mon 16 Nov 2026, 7:10 PM EST)
+
+Folds Tester's check (docs/review/PACK-TEMPLATE-CHECK.md, 3078e0f, "holds, with fixes"). Every cite in it was opened; see "Cites in Tester's check" at the end.
+- New P6 (TOP): the builder has no road back to the compute (crates/compute/src/main.rs:4, :12).
+- P1 reopened: your words fix only that unprompted and overflow come after the job items. Both orders are shown.
+- The return gets the approved parts it lacked: deviations and their why, questions and permission asked, notes, and cost (W5).
+- Matched pages: by written link both ways, not by number alone (new P7; R18, WL:60, axiom 8).
+- Bootstrap: Tester's A (a script fills it) then B (an outside check), recorded as its own override page (new P8). Waits on W8.
+- P3: start commit pinned at claim. P4: two more hashes. P5: the code copy ends at a pack, not "the day".
+- Smaller: a refusal row (R37 item 8), two-writer rows named, branch filled as a value, example says "no book writes".
+
 ## Change note (Mon 16 Nov 2026, 5:56 PM EST)
 
 Made consistent with Tester's check (docs/review/WORK-BOOK-CONCEPT-CHECK.md, 093c64a) and the concept fix (54b737d). It landed just after the first version of this file.
@@ -39,7 +50,7 @@ You also ruled it: "The compute fills templates, bindings, and hashes, and the m
 1. **The pack.** The job. Prima writes what to do and why. The compute adds where it lives, its step, and the start point in the code.
 2. **The handoff sheet.** What the builder gets. The compute makes it fresh from the records. Nobody types it. (Side label: S06 manifest, WL:220.)
 3. **The prompt box.** The part of the handoff sheet you paste into Cursor or Grok Builder.
-4. **The return.** What the builder hands back, in the order you set (t226u:11).
+4. **The return.** What the builder hands back. Your words put unprompted and overflow last (t226u:11). The rest of the order is open (P1).
 
 One rule for all four: if the compute cannot find a value, it writes "not available". It never guesses. ("Couldn't look" is kept separate from "isn't there", R37 item 6, DIRECTOR-RULINGS.md:200.)
 
@@ -56,7 +67,7 @@ One rule for all four: if the compute cannot find a value, it writes "not availa
 
 ## 1. The pack template
 
-In plain words: Prima fills the left part (what and why). The compute fills the right part (where, when, from which code). Each field has one owner.
+In plain words: Prima fills the left part (what and why). The compute fills the right part (where, when, from which code). Most fields have one owner. Rows 11, 18 and 20 have two: Prima writes, the compute checks.
 
 | # | Field | Filled by | Why that owner | Source | SPEC B2 section |
 |---|---|---|---|---|---|
@@ -64,12 +75,12 @@ In plain words: Prima fills the left part (what and why). The compute fills the 
 | 2 | tail | compute | only the compute moves draft -> pack and review -> closed | crates/seqaddr-core/src/state.rs:548-556 | 1 Header |
 | 3 | by (who made it) | compute | the gate knows who is calling; a model cannot claim to be someone else | WL:105 | 1 Header |
 | 4 | made at | compute | real clock, not typed | proposal (7) | 1 Header |
-| 5 | pack hash | compute | a hash is a binding (R37 item 3) | DIRECTOR-RULINGS.md:197 | 1 Header |
+| 5 | pack hash | compute | a hash is a binding (R37 item 3). Taken at draft -> pack; pack 1 skips that step, so it is hashed when it is put (P4) | DIRECTOR-RULINGS.md:197 | 1 Header |
 | 6 | claim owner | compute | first claim wins, recorded at pack -> open | state.rs:543, :561 | 1 Header |
-| 7 | repository baseline: repo, branch, start commit | compute | read from GitHub at pack time: Amalgamour/Workshop, prima/build | WL:116 (`7` on format) | 1 Header |
+| 7 | repository baseline: repo, branch, start commit | compute | repo and branch are values the compute fills, not fixed text. The start commit is pinned at claim, not at pack time (P3) | WL:116 (`7` on format) | 1 Header |
 | 8 | files to pull from GitHub | compute | taken from the frame paths (field 15), checked to exist | R37 item 7, DIRECTOR-RULINGS.md:201 | 8 Links |
 | 9 | predecessor (earlier pack or return) | compute | it is in the records | WL:115 | 8 Links |
-| 10 | matched pages: dev 04NN, lab 07NN | compute | same NN; the compute finds them (W11 board, concept) | WL:59 | 8 Links |
+| 10 | linked pages: dev 04NN, lab 07NN | compute | the compute finds them by number and title (R18), then follows face 08 links both ways. Only a page linked both ways is shown as linked. Otherwise "found, not linked" (`7.8`), never a lookalike (P7) | WL:59-61; DIRECTOR-RULINGS.md:71-72; Axioms.md:27 | 8 Links |
 | 11 | authorized (the approval the job rests on) | Prima names it; compute checks it | only you grant authority; the compute refuses a name that does not resolve | WL:106, :239; Axioms.md:13 | 1 Header |
 | 12 | lead | Prima | a judgment | WL:107 | 1 Header |
 | 13 | axioms | Prima | a judgment | WL:108 | 1 Header |
@@ -84,8 +95,11 @@ In plain words: Prima fills the left part (what and why). The compute fills the 
 | 22 | checks (commands that say pass or fail) | Prima | a judgment; the reviewer-only items are listed apart | SPEC B2 row 6 | 6 Checks |
 | 23 | read first (rulings, files) | Prima | a judgment; the compute checks each link opens | SPEC B2 row 8; R37 item 7 | 8 Links |
 | 24 | hand back | compute | fixed text: "return by the return template (part 3)" | t226u:11 | 7 Hand back |
+| 25 | refusal | compute | a pack that fails its check stays draft. The compute hands back the rule, the field, and why (R37 item 8: refuse with a handback) | DIRECTOR-RULINGS.md:202; WL:171 | 7 Hand back |
 
-All 24 rows are a proposal (7). Rows 4, 5, 7, 8, 22, 23, 24 add to Prima's list (see Differences).
+All 25 rows are a proposal (7). Rows 4, 5, 7, 8, 22, 23, 24, 25 add to Prima's list (see Differences).
+
+Not yet in the table: R37 item 5, "Selected, pending, and accepted are separate states" (DIRECTOR-RULINGS.md:199). The board shows outcome only. Where those states show is open (7).
 
 ## 2. The handoff sheet template
 
@@ -98,11 +112,12 @@ In plain words: before each handoff the compute reads the live records and print
 | pack text (fields 1-24) | compute | the pack counter |
 | tail | compute | the counter |
 | claim holder, or "not claimed" | compute | state.rs:561 |
-| dev page 04NN and lab page 07NN | compute | matching NN, WL:59 |
+| dev page 04NN and lab page 07NN: "linked" or "found, not linked" | compute | row 10; P7 |
 | earlier returns on this slot and its predecessor: "none" only if looked and empty; "not available" if it could not look; a stale review is marked stale | compute | state.rs:575; R37 items 4, 6 |
-| repo, branch, start commit | compute | GitHub; "not available" if not reached |
+| repo, branch, start commit (pinned at claim) | compute | P3; "not available" if not reached |
 | approved design revision and grant | compute | WL:220; "not available" until built |
 | AGENTS.md version and hash | compute | part 4 |
+| sheet hash: the sheet as given | compute | P4 |
 | prompt box text | compute | this template |
 
 **The prompt box.** You paste this as it is. Nothing in it is typed by Prima. Angle brackets show what the compute fills.
@@ -112,16 +127,17 @@ In plain words: before each handoff the compute reads the live records and print
 Sheet: made <time EST> from log line <n>. Pack hash <hash>.
 Door: open (K8 step 1 not done). Records are not proof.
 You are: <builder>. Claim: <claim owner | not claimed>.
-Repo: Amalgamour/Workshop  Branch: prima/build  Start: <commit>
+Repo: <repo>  Branch: <branch>  Start: <commit pinned at claim>
 Read first: AGENTS.md (version <v>, hash <hash>)
 Pack: <page>.05.<NN>  Tail: <tail>
-Dev page: <04NN.keyword>  Lab page: <07NN.keyword>
+Dev page: <04NN.keyword> <linked | found, not linked>
+Lab page: <07NN.keyword> <linked | found, not linked>
 Earlier returns: <list | none>
 Jobs: <w01 title>; <w02 title>
 Stop if: <stop if>
 Not available: <fields | none>
 Hand back: one return, in the return template order,
-as a proposal through the gate. Do not edit AGENTS.md.
+by the road back in P6 (not settled). Do not edit AGENTS.md.
 === END JOB ===
 ```
 
@@ -129,28 +145,33 @@ as a proposal through the gate. Do not edit AGENTS.md.
 
 Your words: "Yes returns, must state what was done, what was created, what the model noticed, an unprompted and overflow from the model should be captured for review at the end of the return. After the job items." (t226u:11)
 
-In plain words, in order:
+What your words fix: unprompted and overflow come at the end, after the job items. They do not say where done, created and noticed go. So the order is open (P1). Both orders are shown. Every part is in both.
 
-| # | Part | Filled by | Source |
-|---|---|---|---|
-| 1 | what was done | builder | t226u:11 |
-| 2 | what was created: exact file paths | builder | t226u:11; WL:189 |
-| 3 | what the model noticed | builder | t226u:11 |
-| 4 | job items: w01, w02 ... each done, blocked or need, with its evidence | builder | WL:189-191 |
-| 5 | proof: commit SHA(s) and test output | builder | your yes on change 3 (t226u:11); WL:189 |
-| 6 | what it did not do | builder | R37 item 10, DIRECTOR-RULINGS.md:204 |
-| 7 | unprompted | builder | t226u:11; WL:193 |
-| 8 | overflow | builder | t226u:11; WL:193 |
+| Part | Filled by | Source | Order A (earlier) | Order B (Tester) |
+|---|---|---|---|---|
+| what was done | builder | t226u:11 | 1 | inside each job item |
+| what was created: exact file paths | builder | t226u:11; WL:189 | 2 | inside each job item |
+| what the model noticed | builder | t226u:11 | 3 | 3 |
+| job items: w01, w02 ... each done, blocked or need, with its evidence, and any deviation with its why | builder | WL:189-191 (deviations: S02, WL:189) | 4 | 1 |
+| proof: commit SHA(s) and test output | builder | your yes on change 3 (t226u:11); WL:189 | 5 | inside each job item |
+| questions, permission asked, solutions proposed to what blocked it | builder | WL:192 | 6 | 2 |
+| what it did not do | builder | R37 item 10, DIRECTOR-RULINGS.md:204 | 7 | 4 |
+| notes, with a why | builder | WL:193 | 8 | 5 |
+| cost: time, tries, tokens, dollars; "not reported" is not zero | builder | W5, WORK-BOOK-CONCEPT.md:263-267 (still open) | 9 | 6 |
+| unprompted | builder | t226u:11; WL:193 | 10 | 7 |
+| overflow | builder | t226u:11; WL:193 | 11 | 8 |
 
-**Who sends it.** Only the model that holds the claim (crates/seqaddr-core/src/state.rs:563-567). The compute returns only in recovery (:566-571). Prima does not relay it. The return text goes in once, through the gate. Git holds the code and the commit hash, never the return text and never books/ (W10).
+Order B option (Tester): a one-line summary on top, made by the compute from the job results, not typed.
 
-Parts 7 and 8 come last, after the job items. Each may be empty, with a why (WL:245).
+**Who sends it.** Only the model that holds the claim (crates/seqaddr-core/src/state.rs:563-567). Today that model cannot reach the compute (P6). The compute returns only in recovery (:566-571). Prima does not relay it. The return text goes in once, through the gate. Git holds the code and the commit hash, never the return text and never books/ (W10).
+
+Unprompted and overflow come last, after the job items. Notes, unprompted and overflow may each be empty, with a why (WL:245).
 
 **What the compute adds or checks** (all planned, 7):
 - **delivery id:** the builder sends one. A retry with the same id gets the first answer back, and the id can never carry new content (R37 item 2, DIRECTOR-RULINGS.md:196; docs/design/CORE-AND-TOOLS-SPEC.md:264).
 - **return hash:** the compute hashes the return when it moves open -> return. A review is tied to that hash (R37 item 4, DIRECTOR-RULINGS.md:198).
 - **commit exists:** the compute checks each SHA in part 5 is on Amalgamour/Workshop. A missing one blocks acceptance (WL:244).
-- **shape:** all eight parts present, in order (WL:244-245).
+- **shape:** all eleven parts present, in the order you pick (P1) (WL:244-245).
 
 ## 4. The AGENTS.md slot per work page (W2, proposal 7)
 
@@ -165,29 +186,33 @@ W2 is still open. This is a proposal only.
 
 The first pack from the concept: the handoff sheet and the board, read-only. Values in <...> are placeholders. No real SHA is shown.
 
-**Bootstrap exception (proposal, 7; the approval is yours).** Pack 1 cannot pass through the tool it builds. Prima writes its text and AGENTS.md by hand, and it goes in as `pack` with no check (crates/seqaddr-core/src/tail.rs:95-99). It is the first real use of the claim route while the K8 door is open. One time only.
+**Bootstrap exception (proposal, 7; the approval is yours; waits on W8).** Pack 1 cannot pass through the tool it builds. It goes in as `pack` with no check (crates/seqaddr-core/src/tail.rs:95-97). To keep hand-typed shape out (t227u:5), Tester's way (P8):
+- A. A one-off script reads the field rows of part 1 as its only shape. It fills the compute rows from real sources and leaves Prima's rows empty for Prima.
+- B. A different view (not Prima, Designer or Tester) checks it field by field against WL:238-250, and the check is recorded before it goes in.
+- The exception is written as its own override page (R7 form), linked from the pack.
+- It is the first real use of the claim route while the K8 door is open. One time only.
 
 ```
 address:     <page>.05.<NN>                      (compute)
-tail:        pack (entered unchecked: bootstrap exception) (compute)
+tail:        pack (bootstrap: filled by script A, checked by B, P8) (compute)
 by:          <Prima's token name>                (compute)
 made at:     <time EST>                          (compute)
-pack hash:   <not available: no hashing yet>     (compute)
+pack hash:   <taken when put; not available: no hashing yet> (compute)
 claim:       not claimed                         (compute)
-baseline:    Amalgamour/Workshop prima/build <commit>   (compute)
+baseline:    <repo> <branch> <commit pinned at claim>   (compute)
 pull:        crates/compute/src/lib.rs, crates/compute/src/store.rs,
              crates/seqaddr-core/src/state.rs,
              crates/compute/tests/               (compute)
 predecessor: none                                (compute)
-matched:     <04NN.keyword>, <07NN.keyword>      (compute)
-authorized:  <approval id, after your 7 to go>   (Prima; compute checks)
+linked:      <04NN.keyword>, <07NN.keyword> (by link only, P7) (compute)
+authorized:  <a fresh t-number from you, P2>     (Prima; compute checks)
 lead:        <lead letters>                      (Prima)
 outcome:     the compute prints the handoff sheet and the board (Prima)
 overview:    t227u:5, t226u:9                    (Prima)
 may touch:   the four paths above                (Prima)
 must not:    books/, kernel/, docs/              (Prima)
-stop if:     a field needs a stored 05.00 (R9), or any write (Prima)
-grant:       read-only; add one route, board columns, one test file (Prima)
+stop if:     a field needs a stored 05.00 (R9), or any book write (Prima)
+grant:       no book writes; code edits in the four paths only: one route, board columns, one test file (Prima)
 risk:        proposed <low>; floor <compute>; effective <compute>
 w01:         handoff sheet route, one slot, fixed shape (Prima)
 w02:         add claim, reviewer, outcome to the existing board
@@ -200,42 +225,62 @@ hand back:   return by part 3                    (compute)
 
 ## 6. Exists today, and planned
 
-- **Exists today:** the tail rules (crates/seqaddr-core/src/tail.rs:79-99). The claim and one-step tail move through the gate, with first claim wins, claim recorded, the return on the same counter, and no builder reviewing its own return (crates/seqaddr-core/src/state.rs:543-581; crates/compute/tests/http.rs:134, :139). A board of tails, built from the counters, never stored (crates/seqaddr-core/src/state.rs:296-300; crates/seqaddr-core/src/resolve.rs:182-188).
+- **Exists today:** the tail rules (crates/seqaddr-core/src/tail.rs:79-99). The compute answers only on its own machine, 127.0.0.1, unless started with --allow-remote (crates/compute/src/main.rs:4, :12). The claim and one-step tail move through the gate, with first claim wins, claim recorded, the return on the same counter, and no builder reviewing its own return (crates/seqaddr-core/src/state.rs:543-581; crates/compute/tests/http.rs:134, :139). A board of tails, built from the counters, never stored (crates/seqaddr-core/src/state.rs:296-300; crates/seqaddr-core/src/resolve.rs:182-188).
 - **Planned, not seated:** every template in this file; the check step (WL:171, :236-245); the handoff sheet; the board's claim, reviewer and outcome columns; the prompt box; hashes; delivery ids; the commit check; the AGENTS.md copy. WL:232 still says `7`. No hash or delivery-id code exists in crates/compute or crates/seqaddr-core today.
 
 ## 7. Open questions, top three first
 
-Carried, not repeated: W2 (AGENTS.md slot), W9 (return on the same counter), W11 (board is a view), W12 (which piece first), W13 (seat templates first), all in docs/design/WORK-BOOK-CONCEPT.md and docs/design/WORK-BOOK-SPEC.md.
+Carried, not repeated: W2 (AGENTS.md slot), W8 (page type), W9 (return on the same counter), W10 (a push is not a book change), W11 (board is a view), W12 (which piece first), W13 (seat templates first), all in docs/design/WORK-BOOK-CONCEPT.md and docs/design/WORK-BOOK-SPEC.md. D1-D5 in docs/design/DEV-WORK-LAB-PAGES.md.
+
+Which wait on W8: P8 waits on W8 (pack 1 needs a page, and its type locks once set: R36, DIRECTOR-RULINGS.md:189-190). The others do not.
+
+### P6 (TOP). How does the builder hand back?
+1. **Question.** The builder runs on your computer. The compute answers only on its own machine (127.0.0.1), unless started with --allow-remote (crates/compute/src/main.rs:4, :12). The builder also has no writer token (crates/compute/src/identity.rs:3-7). So it cannot claim or return. How does the return get back?
+2. **Proposed answer (Designer, 7).** Now: when the compute records the claim, it makes a one-job pass (a single-use code) and prints it in the prompt box. The builder puts its return in one file at a fixed path in its pushed commit, outside books/. After Prima pulls, the compute (not Prima) reads that file, checks the pass and the claim, and records it as the claim holder's return. The pass then dies. Later: once the local Workshop runs on your machine (t212u:6), the builder hands back to that compute directly. Not proposed: opening the compute to the network with --allow-remote.
+3. **Why.** No new door to the network (your Host check, R33 item 4, DIRECTOR-RULINGS.md:165-166). Who gets hurt otherwise: you, queueing a model that can never hand back (Tester); or, with an open port, anyone who finds it. Two changes this needs, both for your yes: W10 said the return text never goes in git; and today only the claim holder's own token may return (crates/seqaddr-core/src/state.rs:563-571).
+4. **Axioms checked.** 1 [Axioms.md:13] pass: no new network grant; the compute grants one job only. 3 [Axioms.md:17] pass: the compute leads the transfer. 6 [Axioms.md:23] pass: the return names its claim and commit. 8 [Axioms.md:27] tension: the return travels through git, then the book; two places for a time. 9 [Axioms.md:29] tension: untried.
 
 ### P1 (TOP). Which order does a return use?
-1. **Question.** Your sentence lists done, created, noticed, then unprompted and overflow "After the job items" (t226u:11). The concept lists the job items first (docs/design/WORK-BOOK-CONCEPT.md:155-162). Which order?
-2. **Proposed answer (Designer, 7).** Your sentence order, as in part 3. Then fix the concept to match, so there is one order.
-3. **Why.** You read what was done before the detail. Two orders would drift (t227u:5). Who gets hurt otherwise: you, reading two return shapes.
-4. **Axioms checked.** 2 [Axioms.md:15] pass: one shape. 5 [Axioms.md:21] pass. 9 [Axioms.md:29] tension: untried.
+1. **Question.** Your words: "what was done, what was created, what the model noticed, an unprompted and overflow from the model should be captured for review at the end of the return. After the job items." (t226u:11). They fix one thing: unprompted and overflow go last, after the job items. Do done, created and noticed go before the job items (order A), or inside and after them (order B)?
+2. **Proposed answer (Designer, 7, now with Tester).** Order B, with a one-line summary on top made by the compute from the job results, not typed. You still read "what was done" first, and each done-line sits next to its job. Earlier this file said order A was your order. That was too strong: your sentence does not place done, created or noticed. You pick. Tester's way to pick: see both orders filled for one small job.
+3. **Why.** WL:189-193 and the concept (WORK-BOOK-CONCEPT.md:167-174) put job items first. Who gets hurt otherwise: the reviewer, matching a done-line to its job by hand; or you, reading two shapes.
+4. **Axioms checked.** 2 [Axioms.md:15] pass: one order, once picked. 4 [Axioms.md:19] pass: the why is recorded. 5 [Axioms.md:21] pass. 9 [Axioms.md:29] tension: untried.
 
-### P2 (TOP). Who fills "authorized"?
+### P8 (TOP). How is pack 1 made, if not by the tool? (waits on W8)
+1. **Question.** Pack 1 cannot pass through the tool it builds. Hand-writing it is the drift you warned about (t227u:5), and it goes in with no check (crates/seqaddr-core/src/tail.rs:95-97). How do we make it safely?
+2. **Proposed answer (Designer, 7, Tester's A then B).** A: a one-off script reads the field rows of part 1 as its only shape. It fills the compute rows from real sources (token name, clock, git SHA, the next free slot) and leaves Prima's rows empty for Prima. B: a different view (not Prima, Designer or Tester) checks it field by field against WL:238-250, and the check is recorded before it goes in as `pack`. The exception is its own override page in R7 form (what it changes, why it is there, why it is needed, what it should achieve; DIRECTOR-RULINGS.md:31-32), linked from the pack. It is hashed when put (P4). Its `authorized` is a fresh t-number from you (P2). Which page range holds the override is open (7): R7's reading puts it in 0001-0009; Tester names 0020-0049.
+3. **Why.** The script is not a second template: it reads this one. Who gets hurt otherwise: every later pack that copies a bad first one.
+4. **Axioms checked.** 2 [Axioms.md:15] pass: one shape, read not copied. 6 [Axioms.md:23] pass: the override links back to who authorized it. 9 [Axioms.md:29] pass: an outside check before it goes in. 1 [Axioms.md:13] tension: needs your yes, and `authorized` cannot resolve until approval ids exist. 7 [Axioms.md:25] tension: the override's page range is unclear.
+
+### P7. Are pages linked by number, or by a written link?
+1. **Question.** You ruled pages "are matched by the CC and the title" (R18, DIRECTOR-RULINGS.md:71). The workflow draft adds: a set needs face 08 links both ways (WL:60, proposed F.2). Which does the compute use?
+2. **Proposed answer (Designer, 7).** Both, in order. The number and title find the pages (R18). Only face 08 links both ways make them "linked". A page found but not linked is shown as "found, not linked" and raised (`7.8`), never used as if linked. Tester's version says "not available"; I keep "found" so you can see the page exists. This narrows R18, so it needs your yes.
+3. **Why.** Axiom 8: "two pieces that match are not connected by matching" (Axioms.md:27). Who gets hurt otherwise: a builder handed the wrong design page because it shared a number.
+4. **Axioms checked.** 8 [Axioms.md:27] pass. 6 [Axioms.md:23] pass: "Travel by written connections (8), not by what matches." 7 [Axioms.md:25] pass: an unlinked page is reported, not guessed. 1 [Axioms.md:13] tension: it narrows your R18. 2 [Axioms.md:15] tension: seqAddr.md:243 still makes a set by number; F.2 is not seated.
+
+### P2. Who fills "authorized"?
 1. **Question.** Prima's list gives authority to Prima. Should Prima write the approval, or only name it?
-2. **Proposed answer (Designer, 7).** Prima names the approval id. The compute resolves it to your approved revision, and keeps the pack at draft if it does not resolve (WL:239).
+2. **Proposed answer (Designer, 7).** Prima names the approval id. The compute resolves it to your approved revision, and keeps the pack at draft if it does not resolve (WL:239). Until approval ids exist, Prima names the ruling or your t-number, and the compute checks the text exists in DIRECTOR-RULINGS.md or docs/review (Tester). Weak, but not a guess. Pack 1 needs a fresh t-number, not an old one stretched.
 3. **Why.** Authority is granted, never claimed (Axioms.md:13). Who gets hurt otherwise: you, if a model writes its own authority.
-4. **Axioms checked.** 1 [Axioms.md:13] pass. 6 [Axioms.md:23] pass: the pack names its approval. 7 [Axioms.md:25] tension: no approval ids exist yet.
+4. **Axioms checked.** 1 [Axioms.md:13] pass. 6 [Axioms.md:23] pass: the pack names its approval. 7 [Axioms.md:25] tension: no approval ids exist yet. 8 [Axioms.md:27] tension (Tester): the name points to a file, not a book line.
 
-### P3 (TOP). Where does the start commit come from?
-1. **Question.** Prima's list says the start commit is on Amalgamour/Workshop prima/build. The compute has no GitHub read today. What does the sheet show?
-2. **Proposed answer (Designer, 7).** The compute reads the tip of prima/build at pack time and records it in the pack. Until it can, the sheet says "not available".
-3. **Why.** A builder starting from the wrong commit builds on the wrong code. Who gets hurt: the reviewer, comparing against the wrong base.
-4. **Axioms checked.** 6 [Axioms.md:23] pass: the start is recorded. 7 [Axioms.md:25] pass: "not available", not a guess. 1 [Axioms.md:13] tension: the compute needs a read grant to GitHub.
+### P3. Where does the start commit come from, and when?
+1. **Question.** The compute cannot read GitHub. What does the sheet show for the start commit?
+2. **Proposed answer (Designer, 7, with Tester).** Prima's push step sends the SHA it pushed through the gate. The compute checks that SHA exists in the local repo, then pins it at claim time, not pack time, because the branch may move in between. The builder's return states the commit it really started from. A mismatch blocks acceptance (WL:244). Until then, "not available".
+3. **Why.** No new outside door for the compute (R33 item 4, DIRECTOR-RULINGS.md:165-166). Who gets hurt otherwise: the reviewer, comparing against the wrong base.
+4. **Axioms checked.** 6 [Axioms.md:23] pass: the start is recorded. 7 [Axioms.md:25] pass: "not available", not a guess. 1 [Axioms.md:13] pass: no new grant. 8 [Axioms.md:27] tension: git and the book hold different halves.
 
 ### P4. What is hashed, and when?
 1. **Question.** Which hashes does the compute keep?
-2. **Proposed answer (Designer, 7).** Three: the pack at draft -> pack, the AGENTS.md copy, and the return at open -> return. The method is `7`.
-3. **Why.** A review must match what it read (R37 item 4). Who gets hurt: you, approving a page that changed after review.
-4. **Axioms checked.** 6 [Axioms.md:23] pass. 9 [Axioms.md:29] pass: review binds to a version. 7 [Axioms.md:25] tension: method not chosen.
+2. **Proposed answer (Designer, 7).** Five: the pack at draft -> pack; the pack when put, for pack 1, which skips that step; the handoff sheet as given; the AGENTS.md copy; and the return at open -> return. The method is `7`. Tester's larger option, each log line carrying the hash of the one above, is its own later pack.
+3. **Why.** A review must match what it read (R37 item 4, DIRECTOR-RULINGS.md:198). The builder reads the sheet, not the pack. Who gets hurt: you, approving work done from a sheet nobody can replay.
+4. **Axioms checked.** 6 [Axioms.md:23] pass. 9 [Axioms.md:29] pass: review binds to a version. 2 [Axioms.md:15] pass: a hash is not a copy. 7 [Axioms.md:25] tension: method not chosen.
 
-### P5. Where does the sheet shape live?
-1. **Question.** The sheet shape belongs with the seated templates (W13; Tester, WORK-BOOK-CONCEPT-CHECK.md:137-138). Pack 1 needs it before they are seated. What then?
-2. **Proposed answer (Designer, 7).** Seat it in the W13 set. For Pack 1 only, a code copy that names this file, as part of the bootstrap exception, ending the day the template is seated (Tester's option, WORK-BOOK-CONCEPT-CHECK.md:155-156).
-3. **Why.** You get the prompt box sooner, and the copy has an end. Who gets hurt otherwise: every worker, if the code copy outlives the seated one.
-4. **Axioms checked.** 2 [Axioms.md:15] tension: a second copy, for a time. 1 [Axioms.md:13] pass: you approve the exception. 8 [Axioms.md:27] pass: it names this file. 7 [Axioms.md:25] pass: marked `7`.
+### P5. Where does the sheet shape live, and when does the code copy end?
+1. **Question.** The sheet shape belongs with the seated templates (W13). Pack 1 needs it first. "Ends the day the template is seated" has no date, because nothing is seated (WL:232 is still `7`). When does the code copy end?
+2. **Proposed answer (Designer, 7).** Seat it in the W13 set. For pack 1 only, a code copy that names this file. It ends when pack 2 closes passed; pack 2 seats the templates (WORK-BOOK-CONCEPT.md:152). If pack 2 does not pass, the copy stays and is raised, not left quietly.
+3. **Why.** You get the prompt box sooner, and the copy has a real end. Who gets hurt otherwise: every worker, if the code copy outlives the seated one.
+4. **Axioms checked.** 2 [Axioms.md:15] tension: a second copy, for a time. 1 [Axioms.md:13] pass: you approve the exception. 8 [Axioms.md:27] pass: it names this file. 7 [Axioms.md:25] pass: marked `7`, with a stated end.
 
 ## Differences from Prima's list
 
@@ -244,5 +289,12 @@ Carried, not repeated: W2 (AGENTS.md slot), W9 (return on the same counter), W11
 - Prima's list gives "scope" to Prima. Kept, as frame, stop if and grant; the compute checks the grant (WL:241).
 - Risk is shared: Prima proposes, the compute records the floor (WL:114). It is the one field with two writers, as WL says.
 - Hashes: no hash code exists today. They are planned.
-- The return order Prima gave matches your sentence, but not the concept's list (P1).
-- Prima's add-on says the sheet shape goes in a seated template, not code. Agreed as the goal. For Pack 1 only, I keep Tester's option of a named code copy with an end date (WORK-BOOK-CONCEPT-CHECK.md:155-156), since nothing is seated yet (P5).
+- The return order Prima gave is one reading of your sentence. Your sentence fixes only that unprompted and overflow come after the job items (P1).
+- Prima's add-on says the sheet shape goes in a seated template, not code. Agreed as the goal. For Pack 1 only, I keep Tester's option of a named code copy (WORK-BOOK-CONCEPT-CHECK.md:155-156), ending when pack 2 closes (P5).
+
+## Cites in Tester's check, opened
+
+- Pass: crates/compute/src/main.rs:4 (non-loopback refused unless --allow-remote) and :12 (default 127.0.0.1:7700). WL:189, :192, :193. WORK-BOOK-CONCEPT.md:167-174 (jobs first). R18 (DIRECTOR-RULINGS.md:71-72). R33 item 4 (:165-166). tail.rs:95-97. WL:238-250.
+- Close: store.rs:731-733 for `by` from the token; the comment is at :730, the code at :731-733. W5 is at WORK-BOOK-CONCEPT.md:263-267 (Tester wrote 264-267).
+- Differs: Tester places the R7 override page in the behavior range 0020-0049. R7's own reading (DIRECTOR-RULINGS.md:32) says the override page sits in 0001-0009 and its target may be a behavior (0020-0049). Left open in P8.
+- Not here: Tester's note that WORK-BOOK-CONCEPT.md says "three paths" where four are listed is a fix for that file, not this one.
