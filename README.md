@@ -58,7 +58,7 @@ Add `--as <your name>` to every command that writes.
 | Release it | `wf pack <page> <NN> [--overlap-ok NN]` |
 | Claim it | `wf claim <page> <NN>` |
 | Hand it back | `wf return <page> <NN> --branch B --commit SHA --file PATH` |
-| Check it | `wf check <page> <NN>` |
+| Check it | `wf check <page> <NN> [--note T] [--fail T] [--dry-run]` |
 | Sign off | `wf signoff <page> <NN> --outcome passed\|failed\|blocked\|needs-authority` |
 | Close it | `wf close <page> <NN>` |
 | Send it up | `wf elevate <page> <NN> --to prime\|person --item "..."` |
@@ -68,6 +68,10 @@ Add `--as <your name>` to every command that writes.
 | Check nothing was tampered | `wf verify <page>` (`--fix` reprints page files from the log) |
 
 `wf status` is the "where are we" view. It is always built fresh from the log.
+
+Pass numbers may be written `1` or `01`. Hashes are sha256; views show a 12-character prefix.
+
+A pass holds its files while its tail is pack, open (claimed), return, or review. `wf pack` refuses a second pass that would touch the same files, unless Prime names the other pass with `--overlap-ok`. That flag is refused if the named pass is not open.
 
 ## A plan file (for `wf draft`)
 ```

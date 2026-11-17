@@ -2,7 +2,7 @@
 
 use crate::git;
 use crate::log::{sha, short, Res};
-use crate::page::{check_addr, inside, list, paths_overlap, s, split_list, Page, Pass};
+use crate::page::{check_addr, done_when_lines, inside, list, paths_overlap, s, split_list, Page, Pass};
 use crate::render::{self, fill, jobs, pass_name, AXIOMS, DESIGN, T_CLOSE, T_PACK};
 use crate::Args;
 use serde_json::{json, Map, Value};
@@ -139,29 +139,33 @@ pub fn draft(p: &mut Page, a: &Args, who: &str) -> Res<()> {
 
 fn pin_text(v: &Value) -> String {
     match v {
-        Value::Object(m) if m.contains_key("pass") => format!("05.{:02} closed at entry {}", m["pass"], m["entry"]),
+        Value::Object(m) if m.contains_key("pass") => {
+            format!("05.{:02} closed at entry {}", m["pass"].as_u64().unwrap_or(0), m["entry"].as_u64().unwrap_or(0))
+        }
         Value::Object(m) => format!("entry {}, hash {}", m["entry"], short(m["hash"].as_str().unwrap_or(""))),
         _ => "none".into(),
     }
 }
 
-/// Packed, claimed, returned, or in review - not draft or closed.
-fn open_packed(x: &Pass) -> bool {
-    matches!(x.tail.as_str(), "pack" | "open" | "return" | "review")
-}
-
-fn overlap_ok_flag(a: &Args) -> Res<Option<u32>> {
+fn overlap_ok_flag(p: &Page, a: &Args) -> Res<Option<u32>> {
     match a.flag("overlap-ok") {
         None => Ok(None),
-        Some(v) => v.trim_start_matches("05.").parse().map(Some)
-            .map_err(|_| "give --overlap-ok a pass number, like 3 or 05.03".into()),
+        Some(v) => {
+            let n: u32 = v.trim_start_matches("05.").parse()
+                .map_err(|_| "give --overlap-ok a pass number, like 3 or 05.03".to_string())?;
+            match p.passes.get(&n) {
+                Some(x) if x.is_open_tail() => Ok(Some(n)),
+                Some(x) => Err(format!("refused: --overlap-ok 05.{n:02} is not open (tail is {})", x.tail)),
+                None => Err(format!("refused: --overlap-ok 05.{n:02} is not open (no such pass)")),
+            }
+        }
     }
 }
 
 fn refuse_overlap(p: &Page, n: u32, mine: &[String], allow: Option<u32>) -> Res<()> {
     let mut hits = Vec::new();
     for x in p.passes.values() {
-        if x.nn == n || !open_packed(x) || allow == Some(x.nn) {
+        if x.nn == n || !x.is_open_tail() || allow == Some(x.nn) {
             continue;
         }
         let theirs = split_list(x.fields.get("may touch").and_then(|v| v.as_str()).unwrap_or(""));
@@ -191,11 +195,11 @@ pub fn pack(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     for path in &mine {
         need(inside(path, &p.grant), format!("refused: may touch '{path}' is outside the grant ({})", p.grant.join(", ")))?;
     }
-    let allow = overlap_ok_flag(a)?;
+    let allow = overlap_ok_flag(p, a)?;
     refuse_overlap(p, n, &mine, allow)?;
     for (k, now) in [("04", pin(p, "04")), ("06", pin(p, "06")), ("05", pin05(p))] {
-        need(x.pins[k] == now, format!("refused: stale pin {k}: drafted against {}, now {}. Re-read it, then wf draft {} --pass {n} --file ...",
-            pin_text(&x.pins[k]), pin_text(&now), p.addr))?;
+        need(x.pins[k] == now, format!("refused: stale pin {k}: drafted against {}, now {}. Write a new 06 note and redraft (wf face-write {} 06, then wf draft {} --pass {n} --file ...)",
+            pin_text(&x.pins[k]), pin_text(&now), p.addr, p.addr))?;
     }
     let f01 = p.faces.get("01").ok_or("refused: face 01 (the agents card) is empty")?.clone();
     let start = git::commit(&repo(root, &x), &g("start"))?;
@@ -208,12 +212,12 @@ pub fn pack(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
         ("predecessor", g("predecessor")), ("repo", g("repo")), ("start", start.clone()), ("branch", branch.clone()),
         ("return_file", rfile.clone()), ("grant", format!("{} ({})", p.grant.join(", "), p.grant_refs.join(", "))),
         ("axioms", g("axioms")), ("outcome", g("outcome")), ("overview", g("overview")), ("jobs", jobs_txt),
-        ("may_touch", g("may touch")), ("checks", g("checks")), ("stop_if", g("stop if")),
+        ("may_touch", g("may touch")), ("checks", g("checks")), ("done_when", done_when_lines(&f01.text)), ("stop_if", g("stop if")),
         ("pin04", pin_text(&x.pins["04"])), ("pin06", pin_text(&x.pins["06"])), ("pin05", pin_text(&x.pins["05"])),
         ("src01", src01.clone()), ("src_axioms", sax.clone()), ("src_design", sds.clone())])?;
     let seq = p.events.len() as u64 + 1;
     let mut d = json!({"pass": n, "pack_text": text, "pack_hash": sha(&text), "branch": branch, "return_file": rfile, "start": start,
-        "seq": seq, "time": crate::log::iso(crate::log::now()), "face01": f01.text,
+        "seq": seq, "time": crate::log::iso(crate::log::now()), "face01": f01.text, "done_when": done_when_lines(&f01.text),
         "sources": {"01": src01, "axioms": sax, "design": sds}});
     if let Some(okn) = allow {
         d["overlap_ok"] = json!(okn);
@@ -302,8 +306,11 @@ pub fn check(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     let x = p.pass(n)?.clone();
     tail_is(&x, &["return", "review"])?;
     need(x.claim.as_deref() != Some(who), "refused: the builder may not check its own work")?;
-    if let Some((_, c)) = &x.check {
-        need(s(c, "verdict") == "fail", "refused: this pass already passed its check")?;
+    let dry = a.flag("dry-run").is_some();
+    if !dry {
+        if let Some((_, c)) = &x.check {
+            need(s(c, "verdict") == "fail", "refused: this pass already passed its check")?;
+        }
     }
     let r = x.ret.clone().unwrap();
     let commit = s(&r, "commit");
@@ -313,8 +320,12 @@ pub fn check(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     let frame_ok = list(&r["changed"]).iter().all(|f| *f == s(&r, "file") || inside(f, &scope));
     let mut rep = String::new();
     for (c, (ok, out)) in &results {
-        let out = if out.is_empty() { String::new() } else { format!("  ({out})") };
-        rep += &format!("  check {}: {c}{out}\n", if *ok { "ok" } else { "FAIL" });
+        rep += &format!("  check {}: {c}\n", if *ok { "ok" } else { "FAIL" });
+        if !out.is_empty() {
+            for line in out.lines() {
+                rep += &format!("    {line}\n");
+            }
+        }
     }
     rep += &format!("  frame {}: changed {}\n", if frame_ok { "ok" } else { "FAIL" }, list(&r["changed"]).join(", "));
     for (k, v) in r["jobs"].as_object().cloned().unwrap_or_default() {
@@ -331,6 +342,10 @@ pub fn check(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
         rep += &format!("  checker fail: {f}\n");
     }
     let verdict = if pass { "pass" } else { "fail" };
+    if dry {
+        print!("check 05.{n:02}: {verdict} (dry-run: nothing written)\n{rep}");
+        return Ok(());
+    }
     p.add(who, "checker", "check", json!({"pass": n, "commit": commit, "verdict": verdict, "report": rep,
         "results": results.iter().map(|(c, (ok, out))| json!({"cmd": c, "ok": ok, "out": out})).collect::<Vec<_>>()}))?;
     let fails = p.events.iter().filter(|e| e.kind == "check" && e.data["pass"] == n && s(&e.data, "verdict") == "fail").count();
@@ -404,5 +419,11 @@ mod tests {
         let f = super::fields("w01: one\n  two\nChecks: a; b\n");
         assert_eq!(f["w01"], "one\ntwo");
         assert_eq!(f["checks"], "a; b");
+    }
+
+    #[test]
+    fn pin_text_pads_pass_number() {
+        let v = serde_json::json!({"pass": 1, "entry": 11});
+        assert_eq!(super::pin_text(&v), "05.01 closed at entry 11");
     }
 }

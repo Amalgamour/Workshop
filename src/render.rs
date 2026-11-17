@@ -60,6 +60,7 @@ fn pass_vals(p: &Page, x: &Pass) -> Vec<(&'static str, String)> {
         ("may_touch", g("may touch")),
         ("checks", g("checks")),
         ("stop_if", g("stop if")),
+        ("done_when", s(&pk, "done_when")),
         ("axioms", g("axioms")),
         ("src01", s(&pk["sources"], "01")),
         ("src_axioms", s(&pk["sources"], "axioms")),

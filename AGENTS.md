@@ -11,7 +11,6 @@ Check every choice against these axioms:
 - **5 Frame**: know the goal and why before you start.
 - **7 Missing**: a gap is reported, never invented or quietly filled.
 - **9 Trial**: your own work is checked by another view, never by you.
-Before any write, run the cold set `1.7.8`.
 
 ## The one rule
 Never edit anything under `pages/` by hand. Only `wf` writes there.
@@ -28,10 +27,14 @@ A hand edit is caught and refused. Say who you are on every command: `--as <name
 
 Anyone may run `status`, `observe` and `verify`.
 
+Pass numbers may be written `1` or `01`. Hashes are sha256; a 12-character prefix is shown.
+
 ## As a builder
 1. `wf claim <page> <NN> --as <you>`. The first claim wins.
-2. Work only on branch `pass/<page>.05.<NN>`, from the start commit in the prompt.
-3. Touch only the "may touch" files. Anything else gets the return refused.
+2. Commit on your pass branch, created from the start commit; push only where your setup says.
+   The branch is `pass/<page>.05.<NN>`.
+3. Touch only the "may touch" files. The return file under `.workshop/returns/` is always
+   allowed and must be listed in `changed`. Anything else gets the return refused.
 4. Copy `pages/<page>/05.<NN>/RETURN-TEMPLATE.md` to the return path in the prompt.
    Fill every line, in this order:
    - `pack:` the pack hash (already filled)
@@ -43,15 +46,20 @@ Anyone may run `status`, `observe` and `verify`.
    - `not done:` what you did not do, and why
    - `unprompted:` anything done that was not asked
    - `overflow:` ideas past this job
-5. Commit the work and the return file. Push the branch.
+5. Commit the work and the return file. Push only where your setup says.
 6. Ping: `wf return <page> <NN> --branch pass/<page>.05.<NN> --commit <sha> --file <return path> --as <you>`
 7. Stuck, or need something outside your frame? Do not fix it. End that job `need`
    or `blocked` and say why. The tool sends it to Prime.
 
 ## As a checker
-`wf check <page> <NN> --as <you> [--note "..."] [--fail "why"]`.
-The tool runs the pack's checks on the returned commit and writes your report.
-Add `--fail` if a "done when" line is not met, even when the commands pass.
+`wf check <page> <NN> --as <you> [--note "..."] [--fail "why"] [--dry-run]`.
+`--dry-run` runs the checks and prints the full output, and writes nothing.
+The tool runs the pack's checks on the returned commit.
+Before you file, read the return file (in the returned commit) and the diff
+(from the pack's start commit to the return commit).
+"Done when" lives on face 01, and is copied into the pack and the printed job at release.
+Judge those lines yourself; add `--fail` if a "done when" line is not met, even when the commands pass.
+Then run without `--dry-run` to write your report.
 
 ## As an observer
 `wf observe <page>` lists signals: many passes, the same blocker again,

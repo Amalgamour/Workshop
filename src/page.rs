@@ -93,6 +93,20 @@ pub fn check_addr(a: &str) -> Res<()> {
     if ok { Ok(()) } else { Err(format!("bad page address '{a}': use letters, digits, dots, - or _")) }
 }
 
+/// Lines that start with "done when" (any case), joined; or "none".
+pub fn done_when_lines(text: &str) -> String {
+    let lines: Vec<&str> = text.lines().filter(|l| l.to_lowercase().starts_with("done when")).collect();
+    if lines.is_empty() { "none".into() } else { lines.join("
+") }
+}
+
+impl Pass {
+    /// Pack, open (claimed), return, and review all hold the pack's files.
+    pub fn is_open_tail(&self) -> bool {
+        matches!(self.tail.as_str(), "pack" | "open" | "return" | "review")
+    }
+}
+
 impl Page {
     pub fn log_path(&self) -> PathBuf {
         self.dir.join("log.jsonl")
@@ -243,5 +257,19 @@ mod tests {
         assert!(paths_overlap("src", "src/a.rs"));
         assert!(!paths_overlap("src/foo", "src/foobar"));
         assert!(!paths_overlap("src/a.rs", "src/b.rs") && !paths_overlap("src/", "tests/"));
+    }
+
+    #[test]
+    fn open_tails_hold_files() {
+        for (tail, hold) in [("pack", true), ("open", true), ("return", true), ("review", true), ("draft", false), ("closed", false)] {
+            let x = Pass { tail: tail.into(), ..Default::default() };
+            assert_eq!(x.is_open_tail(), hold, "{tail}");
+        }
+    }
+
+    #[test]
+    fn done_when_lines_reads_face_01() {
+        assert_eq!(done_when_lines("Goal: a.\nDone when: checks pass.\n"), "Done when: checks pass.");
+        assert_eq!(done_when_lines("Goal: a.\n"), "none");
     }
 }

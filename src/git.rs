@@ -46,14 +46,13 @@ pub fn in_worktree<T>(repo: &Path, sha: &str, f: impl FnOnce(&Path) -> T) -> Res
     Ok(out)
 }
 
-/// Run one check command in `dir`. Returns (passed, last lines of output).
+/// Run one check command in `dir`. Returns (passed, full output).
 pub fn run(dir: &Path, cmd: &str) -> (bool, String) {
     let mut c = if cfg!(windows) { let mut c = Command::new("cmd"); c.arg("/C"); c } else { let mut c = Command::new("sh"); c.arg("-c"); c };
     match c.arg(cmd).current_dir(dir).output() {
         Ok(o) => {
             let all = format!("{}{}", String::from_utf8_lossy(&o.stdout), String::from_utf8_lossy(&o.stderr));
-            let tail: Vec<&str> = all.lines().rev().take(3).collect();
-            (o.status.success(), tail.into_iter().rev().collect::<Vec<_>>().join(" | "))
+            (o.status.success(), all.trim().to_string())
         }
         Err(e) => (false, format!("could not run: {e}")),
     }

@@ -21,10 +21,10 @@ Every command that writes needs --as <name> (or set WF_AS).
   grant <page> --paths \"a,b\" --ref t301u [--answers <entry>]   person
   face-write <page> <01|02|04|06|08> --text T | --file F [--section goals|decisions|responses]
   draft <page> --file pack.txt [--pass NN]      prime; pins 04, 06, last closed 05
-  pack <page> <NN>                              prime; checks, then prints the prompt box
+  pack <page> <NN> [--overlap-ok NN]            prime; checks, then prints the prompt box
   claim <page> <NN>                             builder; first claim wins
   return <page> <NN> --branch B --commit SHA --file PATH   the claim holder's ping
-  check <page> <NN> [--note T] [--fail T]       checker (never the builder)
+  check <page> <NN> [--note T] [--fail T] [--dry-run]   checker (never the builder); --dry-run writes nothing
   signoff <page> <NN> --outcome passed|failed|blocked|needs-authority [--cards w01=accepted,..] [--note T]
   close <page> <NN>                             writes the close record
   elevate <page> <NN> --to prime|person --item T
@@ -119,6 +119,10 @@ fn run(raw: &[String]) -> log::Res<()> {
     }
     if !edited.is_empty() {
         return Err(format!("refused: hand-edited page files: {}. Nobody writes page files directly. Run wf verify {addr} --fix to reprint them from the log.", edited.join(", ")));
+    }
+    if c == "check" && a.flag("dry-run").is_some() {
+        need_who(&who)?;
+        return cmd::check(&mut p, &root, &a, &who);
     }
     if c == "observe" {
         let found = status::observe(&p, a.flag("stall-hours").and_then(|h| h.parse().ok()).unwrap_or(24));

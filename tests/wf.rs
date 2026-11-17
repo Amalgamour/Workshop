@@ -139,8 +139,12 @@ fn pack_prints_prompt_and_pins_axioms_and_design() {
     let agents = fs::read_to_string(e.page().join("05.01/AGENTS.md")).unwrap();
     assert!(agents.contains("docs/AXIOMS.md: hash ") && agents.contains("docs/DESIGN.md: hash "));
     assert!(agents.contains("Goal: a."));
+    assert!(agents.contains("Done when (face 01): Done when: checks pass."), "{agents}");
+    assert!(!agents.contains("cold set") && !agents.contains("Axioms named by this pack"), "{agents}");
     let pack = fs::read_to_string(e.page().join("05.01/PACK.md")).unwrap();
     assert!(pack.contains("face 04:        entry 2") && pack.contains("last closed 05: none"));
+    assert!(pack.contains("done when:   Done when: checks pass."), "{pack}");
+    assert!(out.contains("Done when (face 01): Done when: checks pass."), "{out}");
 }
 
 #[test]
@@ -158,6 +162,7 @@ fn stale_pin_is_refused_until_redrafted() {
     e.draft("src/a.rs", "true");
     e.ok(&["face-write", PG, "04", "--section", "responses", "--text", "too slow", "--as", "mat"]);
     e.no(&["pack", PG, "1", "--as", "pri"], "stale pin 04");
+    e.no(&["pack", PG, "1", "--as", "pri"], "Write a new 06 note and redraft");
     e.ok(&["draft", PG, "--pass", "1", "--file", e.root.join("pack.txt").to_str().unwrap(), "--as", "pri"]);
     e.ok(&["pack", PG, "1", "--as", "pri"]);
 }
@@ -198,6 +203,57 @@ fn pack_allows_overlap_after_other_closes() {
     e.ok(&["face-write", PG, "06", "--text", "read 04 and closed 05.01", "--as", "pri"]);
     e.draft("src/a.rs", "true");
     e.ok(&["pack", PG, "2", "--as", "pri"]);
+}
+
+#[test]
+fn overlap_ok_refuses_a_pass_that_is_not_open() {
+    let e = Env::ready("ov-bad");
+    e.draft("src/a.rs", "true");
+    e.no(&["pack", PG, "1", "--overlap-ok", "9", "--as", "pri"], "--overlap-ok 05.09 is not open (no such pass)");
+    let e = Env::checked("ov-closed");
+    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
+    e.ok(&["close", PG, "1", "--as", "pri"]);
+    e.ok(&["face-write", PG, "06", "--text", "read 04 and closed 05.01", "--as", "pri"]);
+    e.draft("src/a.rs", "true");
+    e.no(&["pack", PG, "2", "--overlap-ok", "1", "--as", "pri"], "--overlap-ok 05.01 is not open (tail is closed)");
+}
+
+#[test]
+fn pin_text_in_pack_is_05_01() {
+    let e = Env::checked("pin-pad");
+    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
+    e.ok(&["close", PG, "1", "--as", "pri"]);
+    e.ok(&["face-write", PG, "06", "--text", "read 04 and closed 05.01", "--as", "pri"]);
+    e.draft("src/a.rs", "true");
+    e.ok(&["pack", PG, "2", "--as", "pri"]);
+    let pack = fs::read_to_string(e.page().join("05.02/PACK.md")).unwrap();
+    assert!(pack.contains("last closed 05: 05.01 closed at entry"), "{pack}");
+}
+
+#[test]
+fn check_dry_run_prints_full_output_and_writes_nothing() {
+    let e = Env::ready("dry");
+    e.open("src/a.rs", "printf '%s\\n' 'running 2 tests' 'test result: ok. 2 passed' 'running 23 tests' 'test result: ok. 23 passed'");
+    let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a");
+    assert!(e.ret(1, &sha, "bob").0);
+    let before = e.log();
+    let out = e.ok(&["check", PG, "1", "--dry-run", "--as", "cat"]);
+    assert!(out.contains("running 2 tests") && out.contains("running 23 tests"), "{out}");
+    assert!(out.contains("test result: ok. 2 passed") && out.contains("test result: ok. 23 passed"), "{out}");
+    assert!(out.contains("dry-run: nothing written"), "{out}");
+    assert_eq!(e.log(), before);
+    assert!(!before.contains("\"kind\":\"check\""));
+    let filed = e.ok(&["check", PG, "1", "--as", "cat"]);
+    assert!(filed.contains("running 2 tests") && filed.contains("running 23 tests"), "{filed}");
+    assert!(e.log().contains("\"kind\":\"check\""));
+}
+
+#[test]
+fn help_lists_overlap_ok_and_check_flags() {
+    let e = Env::new("help");
+    let out = e.ok(&["help"]);
+    assert!(out.contains("pack <page> <NN> [--overlap-ok NN]"), "{out}");
+    assert!(out.contains("check <page> <NN> [--note T] [--fail T] [--dry-run]"), "{out}");
 }
 
 #[test]
