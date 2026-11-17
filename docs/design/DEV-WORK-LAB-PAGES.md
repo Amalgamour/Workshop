@@ -2,6 +2,7 @@
 
 For Matthew. By Designer. A proposal (7), not a ruling. Nothing here is decided. Only you approve.
 created: Mon 16 Nov 2026, 7:00 PM EST
+2026-11-17 (Designer): proposed superseded by ONE-PAGE-WORK.md if Matthew says yes.
 
 ## Change note (2026-11-17, 11:30 AM EST, Designer)
 

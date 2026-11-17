@@ -2,6 +2,7 @@
 
 For Matthew. By Designer. A concept, not a ruling. Nothing here is decided. Only you approve.
 created: Mon 16 Nov 2026, 4:58 PM EST (e6a0f39)
+2026-11-17 (Designer): proposed superseded by ONE-PAGE-WORK.md if Matthew says yes.
 
 ## Change note (2026-11-17, 11:30 AM EST, Designer)
 
