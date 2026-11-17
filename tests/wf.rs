@@ -67,8 +67,11 @@ impl Env {
         e
     }
     fn draft(&self, may: &str, checks: &str) {
+        self.draft_jobs(may, checks, "w01: set a to 2");
+    }
+    fn draft_jobs(&self, may: &str, checks: &str, jobs: &str) {
         let f = self.root.join("pack.txt");
-        fs::write(&f, format!("repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: {may}\nchecks: {checks}\nstop if: b must change\n")).unwrap();
+        fs::write(&f, format!("repo: game\nstart: main\noutcome: a = 2\n{jobs}\nmay touch: {may}\nchecks: {checks}\nstop if: b must change\n")).unwrap();
         self.ok(&["draft", PG, "--file", f.to_str().unwrap(), "--as", "pri"]);
     }
     /// Draft, pack, claim pass 1 as bob.
@@ -189,10 +192,10 @@ fn pack_allows_overlap_with_flag() {
     let e = Env::ready("ov-ok");
     e.open("src/a.rs", "true");
     e.draft("src/a.rs", "true");
-    e.ok(&["pack", PG, "2", "--overlap-ok", "1", "--as", "pri"]);
-    assert!(e.log().contains("\"overlap_ok\":1"), "{}", e.log());
+    e.ok(&["pack", PG, "2", "--overlap-ok", "1", "--why", "shared files (t275u)", "--as", "pri"]);
+    assert!(e.log().contains("\"overlap_ok\":1") && e.log().contains("shared files (t275u)"), "{}", e.log());
     e.draft("src/a.rs", "true");
-    e.no(&["pack", PG, "3", "--overlap-ok", "1", "--as", "pri"], "overlaps open pass 05.02");
+    e.no(&["pack", PG, "3", "--overlap-ok", "1", "--why", "shared files (t275u)", "--as", "pri"], "overlaps open pass 05.02");
 }
 
 #[test]
@@ -209,13 +212,13 @@ fn pack_allows_overlap_after_other_closes() {
 fn overlap_ok_refuses_a_pass_that_is_not_open() {
     let e = Env::ready("ov-bad");
     e.draft("src/a.rs", "true");
-    e.no(&["pack", PG, "1", "--overlap-ok", "9", "--as", "pri"], "--overlap-ok 05.09 is not open (no such pass)");
+    e.no(&["pack", PG, "1", "--overlap-ok", "9", "--why", "none yet (t275u)", "--as", "pri"], "--overlap-ok 05.09 is not open (no such pass)");
     let e = Env::checked("ov-closed");
     e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
     e.ok(&["close", PG, "1", "--as", "pri"]);
     e.ok(&["face-write", PG, "06", "--text", "read 04 and closed 05.01", "--as", "pri"]);
     e.draft("src/a.rs", "true");
-    e.no(&["pack", PG, "2", "--overlap-ok", "1", "--as", "pri"], "--overlap-ok 05.01 is not open (tail is closed)");
+    e.no(&["pack", PG, "2", "--overlap-ok", "1", "--why", "none yet (t275u)", "--as", "pri"], "--overlap-ok 05.01 is not open (tail is closed)");
 }
 
 #[test]
@@ -252,7 +255,8 @@ fn check_dry_run_prints_full_output_and_writes_nothing() {
 fn help_lists_overlap_ok_and_check_flags() {
     let e = Env::new("help");
     let out = e.ok(&["help"]);
-    assert!(out.contains("pack <page> <NN> [--overlap-ok NN]"), "{out}");
+    assert!(out.contains("pack <page> <NN> [--overlap-ok NN --why T]"), "{out}");
+    assert!(out.contains("set-prime <page> <name> --ref tNNNu"), "{out}");
     assert!(out.contains("check <page> <NN> [--note T] [--fail T] [--dry-run]"), "{out}");
 }
 
@@ -349,7 +353,7 @@ fn non_prime_cannot_sign_off_and_close_needs_signoff() {
 #[test]
 fn prime_change_is_kept_and_old_prime_cannot_sign() {
     let e = Env::checked("handover");
-    e.ok(&["set-prime", PG, "neo", "--as", "mat"]);
+    e.ok(&["set-prime", PG, "neo", "--ref", "t275u", "--as", "mat"]);
     e.no(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"], "only the prime (neo)");
     e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "neo"]);
     e.ok(&["close", PG, "1", "--as", "neo"]);
@@ -567,4 +571,123 @@ fn read_only_commands_run_while_a_lock_file_exists() {
     assert!(ok, "{out}");
     fs::remove_file(e.page().join(".wf-lock")).unwrap();
     e.ok(&["claim", PG, "1", "--as", "bob"]);
+}
+
+#[test]
+fn check_reads_done_when_from_the_pack_and_notes_drift() {
+    let e = Env::ready("dwpack");
+    e.open("src/a.rs", "true");
+    e.ok(&["face-write", PG, "01", "--text", "Goal: a.\nDone when: a is 3 and b is 9.", "--as", "pri"]);
+    let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2");
+    assert!(e.ret(1, &sha, "bob").0);
+    let out = e.ok(&["check", PG, "1", "--as", "cat"]);
+    assert!(out.contains("done when (01): Done when: checks pass. -> checks ok; the checker judges the rest"), "{out}");
+    assert!(!out.contains("Done when: a is 3 and b is 9."), "{out}");
+    assert!(out.contains("drift: face 01 changed since pack (now v2 entry "), "{out}");
+    let obs = e.ok(&["observe", PG]);
+    assert!(obs.contains("packed against an older face 01 (now v2 entry "), "{obs}");
+}
+
+#[test]
+fn check_lists_jobs_not_done_apart_from_checks_ok() {
+    let e = Env::ready("notdone");
+    e.draft_jobs("src/a.rs", "true", "w01: set a to 2\nw02: leave b alone");
+    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    e.ok(&["claim", PG, "1", "--as", "bob"]);
+    let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2\nw02: blocked - b is outside may touch");
+    assert!(e.ret(1, &sha, "bob").0);
+    let out = e.ok(&["check", PG, "1", "--as", "cat"]);
+    assert!(out.contains("check 05.01: pass"), "{out}");
+    assert!(out.contains("job w01: done - a is 2"), "{out}");
+    assert!(out.contains("job w02: blocked - b is outside may touch"), "{out}");
+    assert!(out.contains("jobs not done: w02"), "{out}");
+}
+
+#[test]
+fn signoff_passed_refuses_unfinished_jobs_until_named() {
+    let e = Env::ready("so-jobs");
+    e.draft_jobs("src/a.rs", "true", "w01: set a to 2\nw02: leave b alone");
+    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    e.ok(&["claim", PG, "1", "--as", "bob"]);
+    let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2\nw02: blocked - b is outside may touch");
+    assert!(e.ret(1, &sha, "bob").0);
+    e.ok(&["check", PG, "1", "--as", "cat"]);
+    e.no(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"], "jobs not done: w02");
+    e.no(&["signoff", PG, "1", "--outcome", "passed", "--cards", "w02=carried", "--as", "pri"], "--note needs a reason and a (ref)");
+    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--cards", "w02=carried", "--note", "carry b (t275u)", "--as", "pri"]);
+    let rec = e.ok(&["close", PG, "1", "--as", "pri"]);
+    assert!(rec.contains("w01 accepted") && rec.contains("w02 carried"), "{rec}");
+}
+
+#[test]
+fn signoff_passed_refuses_unanswered_person_elevation_and_drift() {
+    let e = Env::ready("so-elev");
+    e.open("src/a.rs", "true");
+    let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2");
+    assert!(e.ret(1, &sha, "bob").0);
+    e.ok(&["check", PG, "1", "--as", "cat"]);
+    e.ok(&["elevate", PG, "1", "--to", "person", "--item", "may we accept this?", "--as", "pri"]);
+    e.no(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"], "to person has no answer");
+    let seq = e.log().lines().enumerate().find(|(_, l)| l.contains("\"to\":\"person\"")).map(|(i, _)| i + 1).unwrap();
+    e.ok(&["answer", PG, &seq.to_string(), "--text", "yes", "--as", "mat"]);
+    // face 01 drift still blocks a passed signoff without a note
+    e.ok(&["face-write", PG, "01", "--text", "Goal: a.\nDone when: something new.", "--as", "pri"]);
+    e.no(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"], "face 01 has changed since pack");
+    e.no(&["signoff", PG, "1", "--outcome", "passed", "--note", "no ref here", "--as", "pri"], "--note needs a reason and a (ref)");
+    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--note", "same goal (t275u)", "--as", "pri"]);
+}
+
+#[test]
+fn overlap_ok_needs_why_and_set_prime_needs_ref() {
+    let e = Env::ready("whyref");
+    e.open("src/a.rs", "true");
+    e.draft("src/a.rs", "true");
+    e.no(&["pack", PG, "2", "--overlap-ok", "1", "--as", "pri"], "missing --why");
+    e.no(&["pack", PG, "2", "--overlap-ok", "1", "--why", "no ref", "--as", "pri"], "--why needs a reason and a (ref)");
+    e.ok(&["pack", PG, "2", "--overlap-ok", "1", "--why", "shared files (t275u)", "--as", "pri"]);
+    assert!(e.log().contains("\"overlap_why\":\"shared files (t275u)\""), "{}", e.log());
+    let e = Env::checked("setref");
+    e.no(&["set-prime", PG, "neo", "--as", "mat"], "missing --ref");
+    e.ok(&["set-prime", PG, "neo", "--ref", "t275u", "--as", "mat"]);
+    // changing a default card on a fully done passed pass needs --note
+    e.no(&["signoff", PG, "1", "--outcome", "passed", "--cards", "w01=carried", "--as", "neo"], "--note needs a reason and a (ref)");
+    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--cards", "w01=carried", "--note", "hold for later (t275u)", "--as", "neo"]);
+}
+
+#[test]
+fn check_commands_run_without_holding_the_page_lock() {
+    let e = Env::ready("ckunlock");
+    e.open("src/a.rs", "sleep 1");
+    let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a");
+    assert!(e.ret(1, &sha, "bob").0);
+    let slow = spawn_wf(&e.root, &["check", PG, "1", "--as", "cat"]);
+    std::thread::sleep(std::time::Duration::from_millis(200));
+    let start = std::time::Instant::now();
+    assert!(e.ok(&["status", PG]).contains("05.01"));
+    e.ok(&["face-write", PG, "06", "--text", "note during check", "--as", "pri"]);
+    assert!(start.elapsed() < std::time::Duration::from_secs(2), "a writer was blocked by the check");
+    let (ok, out) = wait_out(slow);
+    assert!(ok, "{out}");
+    assert!(out.contains("check 05.01: pass"), "{out}");
+    assert!(e.log().contains("\"kind\":\"check\""));
+}
+
+#[test]
+fn check_refuses_if_another_check_is_filed_first() {
+    let e = Env::ready("ckrace");
+    e.open("src/a.rs", "sleep 1");
+    let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a");
+    assert!(e.ret(1, &sha, "bob").0);
+    let a = spawn_wf(&e.root, &["check", PG, "1", "--as", "cat"]);
+    let b = spawn_wf(&e.root, &["check", PG, "1", "--as", "kit"]);
+    let results = vec![wait_out(a), wait_out(b)];
+    let wins = results.iter().filter(|(ok, _)| *ok).count();
+    assert_eq!(wins, 1, "{results:?}");
+    for (ok, out) in &results {
+        if !*ok {
+            assert!(out.contains("no longer in return with the same pack and return") || out.contains("already passed its check"), "{out}");
+        }
+    }
+    let log = e.log();
+    assert_eq!(log.lines().filter(|l| l.contains("\"kind\":\"check\"")).count(), 1, "{log}");
 }

@@ -1,7 +1,7 @@
 //! Read-only views built fresh from the log: status (now strip, board, feed) and observe.
 
 use crate::log::{iso, now, short};
-use crate::page::{s, Page};
+use crate::page::{face01_drift, s, Page};
 use crate::render::cards_text;
 
 fn next_step(p: &Page) -> String {
@@ -90,8 +90,7 @@ pub fn observe(p: &Page, stall_hours: u64) -> Vec<String> {
                 f.push(format!("drift: 05.{:02} was packed against face {face} entry {pinned}; face {face} is now entry {now}", x.nn));
             }
         }
-        let v01 = p.faces.get("01").map(|g| format!("v{} entry {}", g.version, g.seq)).unwrap_or_default();
-        if !s(&x.pack.as_ref().unwrap()["sources"], "01").starts_with(&v01) {
+        if let Some(v01) = face01_drift(p, x.pack.as_ref().unwrap()) {
             f.push(format!("drift: 05.{:02} was packed against an older face 01 (now {v01})", x.nn));
         }
     }

@@ -18,11 +18,11 @@ use std::time::{Duration, Instant};
 const HELP: &str = "wf - Workshop workflow tool (see README.md)
 Every command that writes needs --as <name> (or set WF_AS).
   init-page <page> --title T --person P --prime L --grant \"src/,tests/x.rs\" --grant-ref t300u
-  set-prime <page> <name>                     person or current prime
+  set-prime <page> <name> --ref tNNNu         person or current prime
   grant <page> --paths \"a,b\" --ref t301u [--answers <entry>]   person
   face-write <page> <01|02|04|06|08> --text T | --file F [--section goals|decisions|responses]
   draft <page> --file pack.txt [--pass NN]      prime; pins 04, 06, last closed 05
-  pack <page> <NN> [--overlap-ok NN]            prime; checks, then prints the prompt box
+  pack <page> <NN> [--overlap-ok NN --why T]    prime; checks, then prints the prompt box
   claim <page> <NN>                             builder; first claim wins
   return <page> <NN> --branch B --commit SHA --file PATH   the claim holder's ping
   check <page> <NN> [--note T] [--fail T] [--dry-run]   checker (never the builder); --dry-run writes nothing
@@ -100,7 +100,7 @@ fn writes(c: &str, a: &Args) -> bool {
         "status" | "help" | "--help" => false,
         "verify" => a.flag("fix").is_some(),
         "observe" => a.flag("record").is_some(),
-        "check" => a.flag("dry-run").is_none(),
+        "check" => false, // commands run unlocked; check takes the lock itself before it appends
         _ => true,
     }
 }
@@ -148,7 +148,7 @@ fn run(raw: &[String]) -> log::Res<()> {
     if !edited.is_empty() {
         return Err(format!("refused: hand-edited page files: {}. Nobody writes page files directly. Run wf verify {addr} --fix to reprint them from the log.", edited.join(", ")));
     }
-    if c == "check" && a.flag("dry-run").is_some() {
+    if c == "check" {
         need_who(&who)?;
         return cmd::check(&mut p, &root, &a, &who);
     }
@@ -176,7 +176,6 @@ fn run(raw: &[String]) -> log::Res<()> {
         "pack" => cmd::pack(&mut p, &root, &a, &who),
         "claim" => cmd::claim(&mut p, &a, &who),
         "return" => cmd::ret(&mut p, &root, &a, &who),
-        "check" => cmd::check(&mut p, &root, &a, &who),
         "signoff" => cmd::signoff(&mut p, &a, &who),
         "close" => cmd::close(&mut p, &a, &who),
         "elevate" => cmd::elevate(&mut p, &a, &who),

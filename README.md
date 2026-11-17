@@ -55,15 +55,15 @@ Add `--as <your name>` to every command that writes.
 | Step | Command |
 |---|---|
 | Start a page | `wf init-page <page> --title T --person P --prime L --grant "a,b" --grant-ref tNNNu` |
-| Change Prime | `wf set-prime <page> <name>` |
+| Change Prime | `wf set-prime <page> <name> --ref tNNNu` |
 | Widen the grant | `wf grant <page> --paths "a,b" --ref tNNNu [--answers <entry>]` |
 | Write a face | `wf face-write <page> 01\|02\|04\|06\|08 --text "..."` (04 needs `--section goals`, `decisions` or `responses`) |
 | Draft a pass | `wf draft <page> --file plan.txt` |
-| Release it | `wf pack <page> <NN> [--overlap-ok NN]` |
+| Release it | `wf pack <page> <NN> [--overlap-ok NN --why "... (ref)"]` |
 | Claim it | `wf claim <page> <NN>` |
 | Hand it back | `wf return <page> <NN> --branch B --commit SHA --file PATH` |
 | Check it | `wf check <page> <NN> [--note T] [--fail T] [--dry-run]` |
-| Sign off | `wf signoff <page> <NN> --outcome passed\|failed\|blocked\|needs-authority` |
+| Sign off | `wf signoff <page> <NN> --outcome passed\|failed\|blocked\|needs-authority [--cards w01=accepted,...] [--note "... (ref)"]` |
 | Close it | `wf close <page> <NN>` |
 | Send it up | `wf elevate <page> <NN> --to prime\|person --item "..."` |
 | Answer | `wf answer <page> <entry> --text "..."` |
@@ -75,7 +75,10 @@ Add `--as <your name>` to every command that writes.
 
 Pass numbers may be written `1` or `01`. Hashes are sha256; views show a 12-character prefix.
 
-A pass holds its files while its tail is pack, open (claimed), return, or review. `wf pack` refuses a second pass that would touch the same files, unless Prime names the other pass with `--overlap-ok`. That flag is refused if the named pass is not open.
+A pass holds its files while its tail is pack, open (claimed), return, or review. `wf pack` refuses a second pass that would touch the same files, unless Prime names the other pass with `--overlap-ok` and gives `--why` with a reason and a (ref). That flag is refused if the named pass is not open.
+
+`wf signoff --outcome passed` is refused while a job is need or blocked and `--cards` does not name it, a question to the person on this pass has no answer, or face 01 changed since the pack. Naming a not-done job, signing off over drift, or changing a default card needs `--note` with a reason and a (ref). `wf set-prime` needs `--ref`.
+
 
 ## A plan file (for `wf draft`)
 ```

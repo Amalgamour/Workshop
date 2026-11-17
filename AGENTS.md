@@ -29,8 +29,8 @@ that judges the work.
 | Builder | `claim`, `return`, `elevate --to prime`, `status` |
 | Checker | `check`, `status` (never on a pass you built) |
 | Observer | `observe`, `observe --record "finding"`, `status` (never if you are Prime) |
-| Prime | `face-write 01 02 04 06 08`, `draft`, `pack`, `signoff`, `close`, `elevate --to person`, `answer`, `set-prime` |
-| Person | `init-page`, `face-write 04 --section responses`, `grant`, `answer`, `set-prime` |
+| Prime | `face-write 01 02 04 06 08`, `draft`, `pack [--overlap-ok NN --why "... (ref)"]`, `signoff --outcome ... [--cards ...] [--note "... (ref)"]`, `close`, `elevate --to person`, `answer`, `set-prime --ref` |
+| Person | `init-page`, `face-write 04 --section responses`, `grant`, `answer`, `set-prime --ref` |
 
 Anyone may run `status`, `observe` and `verify`.
 
@@ -65,6 +65,7 @@ The tool runs the pack's checks on the returned commit.
 Before you file, read the return file (in the returned commit) and the diff
 (from the pack's start commit to the return commit).
 "Done when" lives on face 01, and is copied into the pack and the printed job at release.
+The check report uses the packed done-when. If face 01 changed since the pack, the report notes the drift.
 Judge those lines yourself; add `--fail` if a "done when" line is not met, even when the commands pass.
 Then run without `--dry-run` to write your report.
 

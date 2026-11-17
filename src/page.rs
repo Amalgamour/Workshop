@@ -108,6 +108,16 @@ pub fn done_when_lines(text: &str) -> String {
     if found.is_empty() { "none".into() } else { found.join("\n") }
 }
 
+/// If face 01 no longer matches the pack's pinned source, `Some("vN entry E")`.
+pub fn face01_drift(p: &Page, pack: &Value) -> Option<String> {
+    let now = p.faces.get("01").map(|g| format!("v{} entry {}", g.version, g.seq)).unwrap_or_default();
+    if now.is_empty() || s(&pack["sources"], "01").starts_with(&now) {
+        None
+    } else {
+        Some(now)
+    }
+}
+
 impl Pass {
     /// Pack, open (claimed), return, and review all hold the pack's files.
     pub fn is_open_tail(&self) -> bool {
@@ -286,5 +296,15 @@ mod tests {
             "Done when: cargo test passes and the new behaviour has a test. Source: t267u, t268u, t270u."
         );
         assert_eq!(done_when_lines("GOAL and then DONE WHEN: Yes."), "DONE WHEN: Yes.");
+    }
+
+    #[test]
+    fn face01_drift_compares_pack_source_to_current_face() {
+        let mut p = Page::default();
+        p.faces.insert("01".into(), Face { version: 2, seq: 9, text: "Goal: a.".into() });
+        let same = serde_json::json!({"sources": {"01": "v2 entry 9 hash abc"}});
+        let older = serde_json::json!({"sources": {"01": "v1 entry 3 hash def"}});
+        assert_eq!(face01_drift(&p, &same), None);
+        assert_eq!(face01_drift(&p, &older).as_deref(), Some("v2 entry 9"));
     }
 }
