@@ -3,6 +3,10 @@
 For Matthew. By Designer. A proposal (7), not a ruling. Nothing here is decided. Only you approve.
 created: Mon 16 Nov 2026, 7:00 PM EST
 
+## Change note (Mon 16 Nov 2026, 9:05 PM EST)
+
+Folds Tester's D6 options (docs/review/FACE-05-D6-CHECK.md, e94668e). D6 stays open for you. Its proposed answer changes to Tester's "B with I", with the reason given there. D1, D5 and the dev face 05 line note what B with I would mean.
+
 ## Change note (Mon 16 Nov 2026, 8:05 PM EST)
 
 Folds Tester's check (docs/review/DEV-WORK-LAB-PAGES-CHECK.md, 2f06fd3, "holds, with fixes").
@@ -51,7 +55,7 @@ All from WL:40-49 and WL:87-93 unless marked proposal (7).
 **Dev page (04NN).**
 - Face 04: the design, long form, for you. What the work is, its first goal, what we are trying to prove (WL:45, :87).
 - Face 01: a short brief of the same thing, for models (WL:87).
-- Face 05: design questions, as slots (WL:92, approved S12). This clashes with your R22 (DR:88): see D6.
+- Face 05: design questions, as slots (WL:92, approved S12). This clashes with your R22 (DR:88): see D6. Under D6's proposed answer, face 05 here would hold the dev page's own design passes, and each question would be a job in a pass.
 - Face 06: Prima's notes after each return. Each note names the return it read (WL:93).
 - Face 08: links to the work page and the lab page, both ways (WL:60).
 - Your approval is of one version of this page (WL:88, approved S01). Proposal (7): it covers faces 01 and 04, the design (D3).
@@ -165,14 +169,14 @@ Carried, not repeated: W8 (page type locks once set), W9 (return on the same slo
 Which wait: D1 waits on W9. D3 waits on W8. D5 waits on W13 and W9. D1 and D5 also wait on D6. D4 and D6 wait on none.
 
 ### D6 (TOP). What does face 05 hold?
-1. **Question.** You ruled that every page's face 05 holds "the work pack to reach that page's MVP", and is seated when the page is done (R22, DR:88; R23-R24, DR:90-97). The workflow puts design questions on dev face 05 (WL:92, S12), and this file puts trials on lab face 05. seqAddr says a counted face is never seated (SA:199). These cannot all hold. Which one stands?
-2. **Proposed answer (Designer, 7).** Your choice; I do not pick between your words (axiom 1). My lean: R22 governs face 05 on every page, as your ruling. Then: work-page face 05 is the job packs, climbing 05.01, 05.02, and seated as the best pack when done (R23-R24). A trial is the lab page's own pack, so it fits face 05 there too. Design questions leave dev face 05: until a book holds them, they stay in the docs question lists, as now. The rule "a counted face is never seated" (SA:199) needs your word on how it meets R22-R24.
-3. **Why.** "Two live claims with no lawful connection: halt, and raise it to whoever holds more. Do not choose." (Axioms.md:13). Who gets hurt otherwise: every builder, reading one face two ways.
-4. **Axioms checked.** 1 [Axioms.md:13] tension: two of your directions disagree, so this is raised, not chosen. 2 [Axioms.md:15] tension: one face, two shapes, until ruled. 6 [Axioms.md:23] pass: R24 keeps old packs in the line. 7 [Axioms.md:25] pass: the clash is reported, not filled.
+1. **Question.** You ruled that every page's face 05 holds that page's own work pack, seated when done (R22, DR:88; R23-R24, DR:90-97). The workflow puts design questions on dev face 05 (WL:92, S12). Should face 05 mean the same thing on every page?
+2. **Proposed answer (Tester, FACE-05-D6-CHECK.md; Designer agrees, 7).** Yes. Face 05 is always the page's own passes, with the best pass seated on top. Design questions become jobs inside a design pass on the dev page; one that needs you ends `need` and is raised (WL:191). Trials become passes on the lab page. S12's line about dev face 05 is replaced, which needs your yes. Seating face 05 is not possible today: SA:199 ("A counted face is never seated") and the code (crates/seqaddr-core/src/state.rs:459-460) must change first. Other options in the check: A, questions stay in docs lists (my earlier lean); C, all on the work page; D, questions on dev face 06; E, a new face; F, a page per question; G, R22 per set, not per page; H, face 05 set by page type (waits on W8). I (plain 05 holds the seated best pack; 05.01-98 are the passes) goes with every R22 option.
+3. **Why.** One face, one meaning, so no builder reads it two ways. Your R22-R24 stay as you said them. Questions and their answers stay in the one record (R37 item 1, DR:195); under A they would live in docs lists. Who gets hurt otherwise: every builder, and you, reading two shapes. This is raised, not chosen: "Do not choose." (Axioms.md:13).
+4. **Axioms checked (Tester's marks, FACE-05-D6-CHECK.md).** 1 [Axioms.md:13] pass: your ruling stands. 2 [Axioms.md:15] pass: one shape. 6 [Axioms.md:23] pass: questions keep their line. 9 [Axioms.md:29] pass: trials are reviewed passes. 7 [Axioms.md:25] tension: seating face 05 needs a spec step (SA:199) and a code change first. Designer's earlier mark kept until you rule: 1 [Axioms.md:13] tension: it retires part of S12, a direction you approved.
 
 ### D1 (TOP). What is the lab page for, and when is it used? (waits on W9 and D6)
 1. **Question.** Is the lab page for trials that try to break a return (WL:48), or for showing the work running, like the old book's "inspect" page (OWB 00.md:36)? And does every return get one?
-2. **Proposed answer (Designer, 7).** Trials that try to break it, as WL says. Only for governing or higher-risk work (WL:29, :200). Routine work is checked by a separate reviewer on the work slot. Each trial names the exact return version it tried. A demo, run with you, can be one kind of trial. The lab page is made only when the first trial is needed.
+2. **Proposed answer (Designer, 7).** Trials that try to break it, as WL says. Only for governing or higher-risk work (WL:29, :200). Routine work is checked by a separate reviewer on the work slot. Each trial names the exact return version it tried. A demo, run with you, can be one kind of trial. The lab page is made only when the first trial is needed. If D6 goes Tester's way: each trial is a pass on lab face 05, claimed, returned and reviewed like a pack, and the best trial is seated on plain lab 05 and re-run on the next return.
 3. **Why.** The maker is the easiest one to convince (axiom 9), but WL asks for a lab trial only where risk calls for it. Who gets hurt otherwise: you, paying a second model for every small job (Tester).
 4. **Axioms checked.** 9 [Axioms.md:29] pass: a trial from another view where it is required. 2 [Axioms.md:15] pass: the return stays in one place. 8 [Axioms.md:27] pass: the trial links to the return it tried. 7 [Axioms.md:25] tension: no spec says which face holds a trial (D6), and the risk levels beyond governing are still `7` (WL:200).
 
@@ -193,7 +197,7 @@ Now PACK-TEMPLATE.md P7, not repeated here. In short: number and title find the 
 
 ### D5. Must Prima's dev note come before the next pack? (waits on W13, W9 and D6)
 1. **Question.** WL:216-217 has the lead read the return and write a dev face 06 note before each new pack. Should the compute refuse a new pack until that note exists?
-2. **Proposed answer (Designer, 7).** Yes, but narrowly. Only when an earlier pack on the same work page has closed; pack 1 has nothing to note, and packs running side by side do not block each other. The compute fills the note's frame (links, return hash, outcome). Prima writes one judgment line. "Nothing learned" is allowed, with a why.
+2. **Proposed answer (Designer, 7).** Yes, but narrowly. Only when an earlier pack on the same work page has closed; pack 1 has nothing to note, and packs running side by side do not block each other. The compute fills the note's frame (links, return hash, outcome). Prima writes one judgment line. "Nothing learned" is allowed, with a why. If D6 goes Tester's way: the note stays on dev face 06, and a question it raises becomes a job in the next design pass on dev face 05.
 3. **Why.** The loop closes on the dev page, so the next pack starts from what was learned (WL:217). A forced note with no room for "nothing" invites empty filler. Who gets hurt otherwise: you, reading notes that say nothing; or packs repeating the same detail (WL:280).
 4. **Axioms checked.** 6 [Axioms.md:23] pass: each note links to the exact return it read. 5 [Axioms.md:21] pass: the next pack is framed by the note. 4 [Axioms.md:19] pass: "nothing learned" keeps its why. 9 [Axioms.md:29] tension: untried.
 

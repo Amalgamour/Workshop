@@ -22,10 +22,10 @@ Each file has its own top three. I picked the three that block the most other qu
    - Waits on: none. Rule it first (WC:198).
    - Full form: WC:200.
 2. **D6. What does face 05 hold?**
-   - Answer: your choice. Our lean: your R22 rule, on every page.
-   - Unblocks: D1; D5.
-   - Waits on: none (D:165).
-   - Full form: D:167.
+   - Answer: one meaning on every page: that page's own passes, best one seated. Questions become jobs in a design pass. (Tester's "B with I"; still your choice.)
+   - Unblocks: D1; D5. Needs a seqAddr.md step and a code change first.
+   - Waits on: none (D:169).
+   - Full form: D:171.
 3. **P6. How does the builder hand back?**
    - Answer: a one-job pass, and a return file in the push that the compute reads.
    - Unblocks: pack 1 can finish.
@@ -78,18 +78,18 @@ Each file has its own top three. I picked the three that block the most other qu
 
 - **D1. What is the lab page for?**
   - Answer: trying to break risky work only. Made only when needed.
-  - Unblocks: the lab page. Waits on: W9, D6 (D:165). Full form: D:173.
+  - Unblocks: the lab page. Waits on: W9, D6 (D:169). Full form: D:177.
 - **D3. Who makes the pages and links, and when?**
   - Answer: the compute, before you approve the dev page.
-  - Unblocks: making a set of pages. Waits on: W8 (D:165). Full form: D:179.
+  - Unblocks: making a set of pages. Waits on: W8 (D:169). Full form: D:183.
 - **D2. When is a page linked?**
-  - Same question as P7. Full form: PT:262 (pointer at D:185).
+  - Same question as P7. Full form: PT:262 (pointer at D:189).
 - **D4. Is 05NN "jobs" or "build"?**
   - Answer: jobs. 03NN is build. seqAddr.md is fixed later.
-  - Unblocks: the seqAddr.md:243 fix. Waits on: none (D:165). Full form: D:188.
+  - Unblocks: the seqAddr.md:243 fix. Waits on: none (D:169). Full form: D:192.
 - **D5. Must Prima's note come before the next pack?**
   - Answer: yes, but only after an earlier pack has closed.
-  - Unblocks: the check before each new pack. Waits on: W13, W9, D6 (D:165). Full form: D:194.
+  - Unblocks: the check before each new pack. Waits on: W13, W9, D6 (D:169). Full form: D:198.
 
 ## Also open (found in these files, not in the list above)
 
@@ -108,6 +108,6 @@ Each file has its own top three. I picked the three that block the most other qu
 - **Pack 1.** WC:146 says pack 1 is hand-written. PT P8 (PT:256) says a script fills it and an outside view checks it.
 - **The return in git.** W10 (WC:212) says the return text never goes in git. P6 (PT:244) puts it in a pushed file. P6 says so.
 - **Return order.** WC:167-174 lists the job items first, as settled. PT P1 (PT:250) leaves the order open.
-- **Dev face 05.** D:54 still lists design questions on dev face 05 (WL S12). The lean in D6 moves them off.
+- **Dev face 05.** D:58 lists design questions on dev face 05 (WL S12). D6's proposed answer turns them into jobs in design passes there.
 - **W4.** SPEC:404 answers "yes, as a starting rule". WC:257 answers "the cheaper builder goes first if a test can check it".
 - **W8.** docs/design/WORK-BOOK-BRIEF.md:11 and SPEC:389 say only "no". WC:200 adds Tester's `workflow` page-type option.
