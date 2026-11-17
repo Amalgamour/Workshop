@@ -3,6 +3,13 @@
 For Matthew. By Designer. A proposal (7), not a ruling. Nothing here is decided. Only you approve.
 created: Mon 16 Nov 2026, 7:00 PM EST
 
+## Change note (Mon 16 Nov 2026, 7:12 PM EST)
+
+Made consistent with the PACK-TEMPLATE fold of Tester's check (7d11343; docs/review/PACK-TEMPLATE-CHECK.md, 3078e0f).
+- Your R18 is now quoted: pages "are matched by the CC and the title" (DIRECTOR-RULINGS.md:71). Number and title find a page; only face 08 links both ways make it "linked".
+- D2 now points to PACK-TEMPLATE P7 instead of repeating it.
+- The return order is open (PACK-TEMPLATE P1); this file no longer calls one order yours.
+
 ## Cite key
 
 - "t226u:7": docs/review/DIRECTOR-WORDS-t226u.md, line 7 (your recorded words).
@@ -67,7 +74,9 @@ Back, each step points home:
 - Each page's face 08 links to the other two, both ways (WL:60; axiom 8).
 - A link points to the page, address plus title, not to a version (R32, DR:151-152).
 
-One rule to remember: **the same number helps you find a page. Only a written link connects it.** "Matching counter numbers may help a reader but are never evidence of connection" (WL:93). Axiom 8: "two pieces that match are not connected by matching" (Axioms.md:27).
+Your rule for finding a set: "They are matched by the CC and the title." (R18, DIRECTOR-RULINGS.md:71)
+
+One rule to remember: **the same number and title help you find a page. Only a written link connects it.** "Matching counter numbers may help a reader but are never evidence of connection" (WL:93). Axiom 8: "two pieces that match are not connected by matching" (Axioms.md:27).
 
 ## Where each sits in seqaddr
 
@@ -92,13 +101,13 @@ In plain words:
 - Prima writes only the judgment: the why, the jobs, the stop point (PT rows 12-23).
 
 Where the three pages show up:
-- PT row 10, "matched pages: dev 04NN, lab 07NN", filled by the compute. This file keeps that. It adds one rule: show a page as matched only when face 08 links it both ways. A page that only shares the number is shown as "found by number, not linked" (D2). PT is not changed here; that waits for Tester's PACK-TEMPLATE-CHECK.
+- PT row 10, "linked pages: dev 04NN, lab 07NN", filled by the compute. It finds them by number and title (R18), and shows them as linked only when face 08 links them both ways. Otherwise "found, not linked" (`7.8`). Same rule here (PT P7).
 - The handoff sheet and prompt box already print "Dev page" and "Lab page" (PT part 2). Same rule.
 - The check step (draft -> pack) is the compute's (WL:171). Proposal (7): it also checks the dev page link opens, else `7.8` (WL:61).
 - The handoff sheet is a view, made fresh from the records (WL:220, approved S06).
 - The templates are not seated yet (WL:232, "`7`"). See W13.
 
-The return, in your order (t226u:11; PT part 3): what was done, what was created, what the model noticed, the job items, proof, what it did not do, unprompted, overflow. The order is still P1.
+The return (PT part 3): what was done, what was created, what the model noticed, the job items, proof, questions, what it did not do, notes, cost, unprompted, overflow. Your words fix only that unprompted and overflow come after the job items (t226u:11). The rest of the order is open (PT P1).
 
 The return stays on the work page. The lab page tests it. It does not hold it.
 
@@ -116,7 +125,7 @@ EXAMPLE 0442.sheet   dev page
 
 EXAMPLE 0542.sheet   work page
   05.01.pack    the compute writes it from Prima's judgment fields (PT part 1)
-                authorized: <your approval of 0442 version N>  matched: 0442.sheet, 0742.sheet
+                authorized: <your approval of 0442 version N>  linked: 0442.sheet, 0742.sheet
   05.01.open    claimed by the builder (compute records who and when)
   05.01.return  the return, in t226u order, on the same slot (W9)
   05.01.review  a reviewer, not the builder, takes it
@@ -133,7 +142,7 @@ Reading it: you approve 0442. The compute writes the pack on 0542. The builder r
 ## Exists today, and planned
 
 - **Exists today:** tail rules and one-step moves (crates/seqaddr-core/src/tail.rs:79-99); claim, return on the same slot, and no self-review (crates/seqaddr-core/src/state.rs:543-581); a tail-only board view (state.rs:296-300). These work on any page's slots.
-- **Planned:** the three-page set made in one step; face 08 links checked both ways; "matched" in the sheet; lab trials on slots; the templates (WL:232). No code creates or checks a set today, as far as I read.
+- **Planned:** the three-page set made in one step; face 08 links checked both ways; "linked" or "found, not linked" in the sheet; lab trials on slots; the templates (WL:232). No code creates or checks a set today, as far as I read.
 
 ## Where Prima's ask differs from your recorded words
 
@@ -151,11 +160,8 @@ Carried, not repeated: W8 (is a work page a system page; page type locks once se
 3. **Why.** The maker is the easiest one to convince (axiom 9). Keeping the return in one place stops two copies drifting. Who gets hurt otherwise: you, reading a return in two places that disagree.
 4. **Axioms checked.** 9 [Axioms.md:29] pass: a trial from another view. 2 [Axioms.md:15] pass: one copy of the return. 8 [Axioms.md:27] pass: the trial links to the return it tried. 7 [Axioms.md:25] tension: no spec says which face holds a trial; this fills the hole by proposal only.
 
-### D2 (TOP). When is a page "matched"?
-1. **Question.** PT row 10 says the compute finds matched dev and lab pages by the same number. Is the same number enough?
-2. **Proposed answer (Designer, 7).** No. The compute uses the number to find a page. It shows it as matched only when face 08 links it both ways. Otherwise the sheet says "found by number, not linked" and raises `7.8`. Fold into PT row 10 after Tester's PACK-TEMPLATE-CHECK.
-3. **Why.** WL:93 says matching numbers are "never evidence of connection". Who gets hurt otherwise: a builder handed the wrong design page because it shared a number.
-4. **Axioms checked.** 8 [Axioms.md:27] pass: "two pieces that match are not connected by matching". 6 [Axioms.md:23] pass: "Travel by written connections (8), not by what matches." 7 [Axioms.md:25] pass: an unlinked page is reported, not guessed. 2 [Axioms.md:15] tension: SA:243 still says same-number pages "form a set"; the both-ways rule is the proposed F.2 change (WL:60), not yet seated.
+### D2 (TOP). When is a page linked?
+Now PACK-TEMPLATE.md P7 (7d11343), not repeated here. In short: number and title find the page (R18, DIRECTOR-RULINGS.md:71); only face 08 links both ways make it linked; otherwise "found, not linked" (`7.8`). It narrows R18, so it needs your yes. Axiom marks are in P7.
 
 ### D3 (TOP). Who makes the three pages and their links, and when?
 1. **Question.** Who creates the work and lab pages and writes the links between all three?
