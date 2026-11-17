@@ -3,6 +3,13 @@
 For Matthew. By Designer. Started as a PROPOSAL (7). Parts are now answered by you (t245u, t246u). Answered, not ruled.
 created: Tue 17 Nov 2026, 11:45 AM EST
 
+## Change note (2026-11-17, 12:45 PM EST, Designer)
+
+Folds the SAMPLE-PAGE reviews (Codex t252u, Claude t253u; relayed by Matthew, not his approval) and your t254u and t255u.
+- S1 answered (t255u:7): the lead sits on face 00. Who Prime is: t254u:7.
+- S4 proposed this way (Codex, t252u). Still open for you.
+- The close record, the sign-off check and face 09 updated. New questions S5-S15. Review table added.
+
 ## Change note (2026-11-17, 12:20 PM EST, Designer)
 
 Folds your t249u (docs/review/DIRECTOR-WORDS-t249u.md, 95e58bf) and t250u (3aa8b3a). Adds SAMPLE-PAGE.md.
@@ -106,7 +113,8 @@ Based on his two named triggers (t245u:8): "a deliverable isn't possible under t
 - Now (t249u:6): "Prime signs off the compute closes it." Prima signs off; the compute writes the close.
 - What exists: the compute already writes the close itself, under its own name (store.rs:994-995, `compute_name`), and records who asked in `for` (:995). The request must name a counter on `review` (:995, `"from": "review"`).
 - What changes, exactly: the check at store.rs:991-992 asks "is the caller the reviewer?". It becomes "is the caller the pass's lead (Prima), and is a review by a non-builder recorded?" The non-builder part already holds at the review step (state.rs:579-583).
-- Also needed: the pass has no lead field today (state.rs:110-121). See S1.
+- (Superseded 2026-11-17 by t255u:7.) Also needed: the pass has no lead field today (state.rs:110-121). See S1.
+- Now (t255u:7, "That should be a field for 00.  Current lead, along with previous leads."): the check becomes "is the caller face 00's `prime` as of this log entry, and is a non-builder review recorded?" No per-pass field. The close event carries the record in S6.
 
 ## The checker (proposal, Designer, 7)
 
@@ -202,6 +210,38 @@ Nothing here is deleted. Each item gets a dated "superseded" note through its ow
 - WORK-BOOK-CONCEPT.md: F1's "Lab pages stay only for risky trials" (WC:268); F7's "dev band (04NN)" candidate (WC:304); the tail table's "linked pages" (WC:231).
 - Also found: DESIGN.md:265 ("one identified N4 revision"); WORK-BOOK-SPEC.md:94 (N4 shape); seqAddr.md:243 (a set by number across bands). Your R18 (DIRECTOR-RULINGS.md:71-72) matches pages across bands; it would have less use, but only you change a ruling.
 - Spec and code to change, not superseded: seqAddr.md:156, :163, :200; face.rs:72-85; validate.rs:229-234.
+
+## SAMPLE-PAGE v2 reviews (Codex t252u, Claude t253u)
+
+Both reviews were relayed by Matthew. They are not his approval. His own words there: "codex's review of the sample page." (SAMPLE-PAGE-CODEX-REVIEW-t252u.md:3); "I have the response from claude now for you to review as well." (SAMPLE-PAGE-CLAUDE-REVIEW-t253u.md:3).
+
+| Point | Taken? | What changed, or why not |
+|---|---|---|
+| A1 partial work (Codex t252u:10) | yes | cards column; 05.02 close record; live commit; word list S7 |
+| A2 sign-off bound to versions (t252u:11) | yes | close record on each closed pass; fields S6 |
+| A3 prompt from released pack (t252u:12) | yes | prompt box: frame, checks, stop if, return path, 01 pin |
+| A4 trial findings (t252u:13) | yes | 07.01 per-check results; "held" defined |
+| A5 now strip, a compute view (t252u:14; t253u:23) | yes | "Now" strip, tagged view and not built yet |
+| A6 face 09 example (t252u:15) | yes | face 09 section; gap raised as S5 |
+| B7 face 01 changed with no approval | partly | version history and 06.04 note shown; approval asked in S8, not decided |
+| B8 scope in four places | yes, as a proposal | 01 "Do not touch" removed; `must not` derived; S9 |
+| B9 who Prime is | answered by Matthew (t254u:7) | Prime = team lead role, here Prima; labels changed |
+| B10 cost self-reported | partly | figures from records, worker note only (S10); "every number" overstates R37 item 3 (DIRECTOR-RULINGS.md:197) |
+| B11 created or changed | yes | "Changed (modify)"; commit check compares it |
+| B12 face 02 ahead of code | yes, as a question | tagged as the design; S11 |
+| B13 links by line range | yes | each link has its commit and a function or test name |
+| B14 workers commit to main | yes, as a question | branch per pass shown as proposed; S12 |
+| B15 lead reads before checker | yes, as a question | Prime's read after review; compute routes `need`/`blocked`; S13. Cite note: the "before the builder's conclusions" wording is proposed R2 (WL:200), not S10 (WL:29) |
+| B16 axioms commas | partly | written `1,2,3,6,8,9`, "six separate pieces"; per E3 a comma does split pieces (decisions.md:560), so a list with commas is right, minus the spaces |
+| B17 one page replaces bands | already done | recorded in "SUPERSEDES" above; page type open in S2, E5 |
+| Codex t252u:12 (01 gives the goal, the pack the edges) | yes | AGENTS.md sources split that way |
+| Codex t252u:16 (S4) | yes, as a proposal | S4 proposed this way |
+| Codex t252u:17 (first fixture; fresh-worker test) | noted | "Next" in DECISIONS-WAITING; the "Now" strip and close records serve the fresh-worker test |
+| Claude C (harder paths) | yes | SAMPLE-PAGE-PATHS.md |
+
+Where the two reviews differ:
+- Codex: starting 05.03 from 05.02's commit "establishes continuity" (t252u:10). Claude: it makes 05.02's work live before its fate was decided (t253u:34). v2 does both: w01 is accepted at close, then 05.03 starts from live main.
+- Claude raises eleven points Codex did not (B7-B17) and the harder paths.
 
 ## Questions (one list; F1-F7 and Prima's six merged)
 
@@ -315,6 +355,15 @@ Top three, picked by what blocks most (superseded 2026-11-17: you answered these
 ### New questions from SAMPLE-PAGE.md (Designer, 7)
 
 ### S1 (TOP). How does the compute know who may sign off?
+- **Status: answered (t255u:7).** His words: "That should be a field for 00.  Current lead, along with previous leads." (DIRECTOR-WORDS-t255u.md:7). Who Prime is: "Sorry I ment you.  It's actually the team lead, I have called that position prime.  It seemed to work well with models." (DIRECTOR-WORDS-t254u.md:7). The proposal below is superseded and kept.
+- Designer note: the proposal below copied the pack's `lead`, but that field holds lead letters (workflow-loop.003.md:107), not a name. That was wrong.
+- **Designer reading, how it ties (7):**
+  - Field names: `prime` (current) and `previous-primes`. `lead` is taken: lead letters in the pack (workflow-loop.003.md:107) and the band registry (docs/spec/face00.md:205), and the test token "lead" (crates/trial-core/tests/rules_hostile.rs:18). `prime` appears in no field or token in crates/ or docs/spec.
+  - Where: registry fields, common to every page (face00.md 3.1, :166-171). Added by a new step there, through the kernel's drafting path. Both are open fields under your R36 (DIRECTOR-RULINGS.md:190): they change over time.
+  - How a change is kept: each change of Prime is one face 00 write in the book's log, with its entry number, time and who did it (log.rs:64-68). "When it took effect" is that entry number. Old values are never lost (axiom 6).
+  - `previous-primes` is compute-only, built from those log events (like `faces:`, face00.md:183-189). It is not a second copy kept by hand (axiom 2).
+  - Sign-off: the compute finds the Prime in effect at the sign-off entry by log order, not by clock, and refuses anyone else. This fits face 09 as a view of the log (S5).
+  - Leftovers: S14 (who may change it), S15 (a pass open across a change).
 1. **Question.** You said "Prime signs off the compute closes it." (DIRECTOR-WORDS-t249u.md:6). The compute keeps a claim and a reviewer on each pass, but no lead (crates/seqaddr-core/src/state.rs:110-121). How does it know Prima is the one who may sign off?
 2. **Proposed (Designer, 7).** The compute copies the pack's `lead` field (PACK-TEMPLATE row 12) onto the pass when it moves draft -> pack, like the claim. Only that lead may sign off. Prima may sign off only the outcome the checker's record supports; anything else is a conflict and goes up.
 3. **Why.** A sign-off from the wrong name, or a "passed" over a failed check, would close a pass nobody checked. Who gets hurt otherwise: you, trusting a closed pass.
@@ -333,10 +382,82 @@ Top three, picked by what blocks most (superseded 2026-11-17: you answered these
 4. **Axioms checked.** 2 [Axioms.md:15] pass: one place. 8 [Axioms.md:27] pass: drift points at code. 7 [Axioms.md:25] tension: P1 order is open, so its slot is too.
 
 ### S4. Is AGENTS.md the 01 card, or the pack's fields?
+- **Status: proposed this way (Codex, t252u). Still open for you.** Codex: "generate each job's AGENTS.md from its released pack together with the pinned Face 01 card and applicable governing instructions. Record the source revisions so an old assignment remains reproducible as the page evolves." (SAMPLE-PAGE-CODEX-REVIEW-t252u.md:16, apostrophe made ASCII). New proposed answer: AGENTS.md = the released pack + the pinned face 01 card + the governing instructions that apply, each with its revision. The answer below ("the 01 card only") is superseded and kept. Shown in SAMPLE-PAGE.md.
 1. **Question.** O5 prints AGENTS.md from the 01 card. PACK-TEMPLATE part 4 says the copy "is the pack's fields in SPEC B2 order". Which is it?
 2. **Proposed (Designer, 7).** The 01 card only, as in the sample. The pack's fields go in the handoff sheet and prompt box. Part 4 gets a dated note.
 3. **Why.** Two sources for one file drift (t227u:5). Who gets hurt otherwise: a builder reading a file that disagrees with its prompt box.
 4. **Axioms checked.** 2 [Axioms.md:15] pass: one source. 8 [Axioms.md:27] pass. 1 [Axioms.md:13] tension: O5 waits on your look at the sample.
+
+### New questions from SAMPLE-PAGE v2 (Designer, 7; from Codex t252u, Claude t253u, your t255u)
+
+Top three first: S9, S6, S12. S9 sets every pack's edges and the commit check; S6 makes every close readable later; S12 decides what is live.
+
+### S9 (TOP). One rule for scope
+1. **Question.** Scope is written in four places: the pack's `may touch`, `must not` and `grant`, and face 01's "Do not touch" (Claude, t253u:28). Which one rules?
+2. **Proposed (Claude, relayed t253u; Prima agrees; Designer tested).** Your grant is the ceiling. `may touch` is the pack's frame, set by Prime, and the compute checks it sits inside the grant. `must not` is derived: everything outside `may touch`. Face 01 holds no scope.
+3. **Why.** The grant is already the ceiling the compute checks (PACK-TEMPLATE row 16, row 18; WL:241). Two lists of edges drift: 05.01's grant has src/input.rs and its `may touch` does not, which is right only if the grant is a ceiling. Who gets hurt otherwise: a worker reading two different edges.
+4. **Axioms checked.** 1 [Axioms.md:13] pass: you set the ceiling. 2 [Axioms.md:15] pass: one list, one derived. 5 [Axioms.md:21] pass: the frame is clear. 7 [Axioms.md:25] tension: PACK-TEMPLATE row 16 still has `must not` written by Prime.
+
+### S6 (TOP). What the close record holds, and where
+1. **Question.** Codex asked that the close record "the pack revision, return revision, source commit, review evidence, and disposition of unresolved items" (SAMPLE-PAGE-CODEX-REVIEW-t252u.md:11). A log entry today has no fields for these (crates/seqaddr-core/src/log.rs:64-96). Where do they go?
+2. **Proposed (Designer, 7).** On the close event itself, as new fields: `pack` hash, `return` hash, `commit`, `review` (the entry numbers of the checks), and a `cards` list with each card's disposition. The compute fills all of it. A refused return records only the refusal (SAMPLE-PAGE-PATHS.md, Path 2).
+3. **Why.** One event, read later, says exactly what was signed off. Who gets hurt otherwise: anyone reading a closed pass after the page changed.
+4. **Axioms checked.** 6 [Axioms.md:23] pass: the close names what it came from. 8 [Axioms.md:27] pass. 2 [Axioms.md:15] pass: no second copy. 7 [Axioms.md:25] tension: new log fields need a format step.
+
+### S12 (TOP). One branch per pass?
+1. **Question.** In v1, 05.03 started from 05.02's commit, so that work was live before anyone decided its fate (Claude, t253u:34). Should each pass work on its own branch, merged only when the pass closes with the card accepted?
+2. **Proposed (Claude, relayed t253u; Designer agrees).** Yes. Branch `pass/<page>.05.<NN>`. The compute merges accepted cards at close. A failed or discarded card is never merged.
+3. **Why.** "What is live" then has one answer: main. Codex: "readers also need to see which commit is live" (t252u:10). Who gets hurt otherwise: the next worker, building on work nobody accepted.
+4. **Axioms checked.** 9 [Axioms.md:29] pass: nothing goes live before its review. 6 [Axioms.md:23] pass. 3 [Axioms.md:17] tension: who merges (the compute, or Prime, or the builder's tool) is open. 7 [Axioms.md:25] tension: not built.
+
+### S5. Face 09: a stored face, or a view of the log?
+1. **Question.** Your R28: "agreed 09 is log" (DIRECTOR-RULINGS.md:114). R31 lists 09 among faces "written only by the compute" (:132). But seqAddr says 09 is "unassigned" (seqAddr.md:158), the code refuses it (face.rs:28-29, :72-75; validate.rs:229-234), and R37 item 9 leaves open whether the journal lives on 09 or a system log (:203). What is 09?
+2. **Proposed (Designer, 7).** 09 is a view the compute builds from the book's log, for this page only. Nothing is stored twice. seqAddr.md 5.1 and the code change through their own paths.
+3. **Why.** The log already holds every event (log.rs:64-96). A stored 09 would be a second copy. Who gets hurt otherwise: anyone reading two histories that disagree.
+4. **Axioms checked.** 1 [Axioms.md:13] pass: your R28 holds. 2 [Axioms.md:15] pass. 6 [Axioms.md:23] pass. 7 [Axioms.md:25] tension: spec and code say "unassigned".
+- Designer note: Prima's brief said R34 names 09. It does not; R31 item 2 (DIRECTOR-RULINGS.md:132) and R28 (:113-115) do.
+
+### S7. Words for what happens to each card
+1. **Question.** A pass has one outcome (WL:166), but its cards can differ: 05.02's w01 was accepted while the pass closed `blocked`. Your R37 item 5: "Selected, pending, and accepted are separate states." (DIRECTOR-RULINGS.md:199). Codex used accepted, candidate, discarded (t252u:10). Which words?
+2. **Proposed (Designer, 7).** Per card at close: `accepted` (merged, live), `pending` (a candidate, not merged), `discarded` (never merged), `carried` (not done, moved to a named pass). R37's `selected` is for choosing between candidates.
+3. **Why.** The board keeps accepted work visible under a `blocked` pass. Who gets hurt otherwise: you, thinking nothing in 05.02 landed.
+4. **Axioms checked.** 2 [Axioms.md:15] pass: one word list. 6 [Axioms.md:23] pass. 1 [Axioms.md:13] tension: adds words beside your R37 item 5.
+
+### S8. May Prime change face 01?
+1. **Question.** Face 01 went v1 to v3 from Prime's decisions D-a and D-b, with no approval on record (Claude, t253u:27). May Prime's decisions inside the grant change 01? Does a change to "Done when" always need you?
+2. **Proposed (Designer, 7).** Prime may change 01 inside the grant, with a 06 note naming the decision. Any change to "Done when" comes to you, because it is the acceptance line (WL:249, material change).
+3. **Why.** Small steps keep moving (t245u:8); the finish line stays yours. Who gets hurt otherwise: you, if "done" moves without you.
+4. **Axioms checked.** 1 [Axioms.md:13] pass. 6 [Axioms.md:23] pass. 7 [Axioms.md:25] tension: "material" is still `7` (WL:288).
+
+### S10. Cost figures come from records
+1. **Question.** v1 had the worker write minutes, tries, tokens and dollars (Claude, t253u:30). Who fills them?
+2. **Proposed (Claude, relayed t253u; Designer partly).** The compute fills time and tries from the log. Tokens and dollars come from an API record; until one exists they read "not available". The worker may add a note only.
+3. **Why.** A worker's own figures are self-report (axiom 9). Note: R37 item 3 says the compute fills "templates, bindings, and hashes" (DIRECTOR-RULINGS.md:197), not "every number" as Claude and Prima put it. Who gets hurt otherwise: you, trusting cost a worker guessed.
+4. **Axioms checked.** 9 [Axioms.md:29] pass. 7 [Axioms.md:25] pass: "not available", not a guess. 1 [Axioms.md:13] tension: W5 (cost) is still yours to answer.
+
+### S11. Is face 02 the design, or a description of the code?
+1. **Question.** v1's face 02 said "05.03 adds smoothing" while 05.03 was open (Claude, t253u:32). Is 02 ahead of the code (the design) or behind it (a description)?
+2. **Proposed (Designer, 7).** The design, ahead of the code, as you said "02 psedo code" for the dev space (DIRECTOR-WORDS-t243u.md:21). The drift line says both ways: what the code does that 02 does not say, and what 02 says the code does not do yet.
+3. **Why.** The drift check means opposite things in each case. Who gets hurt otherwise: a builder who can't tell plan from fact.
+4. **Axioms checked.** 2 [Axioms.md:15] pass: one meaning. 8 [Axioms.md:27] pass. 9 [Axioms.md:29] tension: untried.
+
+### S13. Prime reads after the checker
+1. **Question.** In v1 Prime read the return before the checker (Claude, t253u:35). Should Prime read after?
+2. **Proposed (Designer, 7).** Yes. At return, the compute routes only `need` and `blocked` items to Prime, so the ladder still works (t245u:8). The checker starts from the pack and the commit. Prime reads the whole return after review.
+3. **Why.** The checker then starts from the criteria, not the builder's story. Note: Claude cites S10 for this; the "before the builder's conclusions" wording is the proposed review class R2 (WL:200), not approved S10 (WL:29). Who gets hurt otherwise: a checker led by the summary.
+4. **Axioms checked.** 9 [Axioms.md:29] pass. 3 [Axioms.md:17] pass. 1 [Axioms.md:13] tension: your hand-off "prime > worker > prime > person > prime" (t239u:10) put Prime's read before review.
+
+### S14. Who may change the Prime on a page?
+1. **Question.** You put "Current lead, along with previous leads" on face 00 (DIRECTOR-WORDS-t255u.md:7). Who may change it?
+2. **Proposed (Designer, 7).** Only you, or someone you grant it to, by a recorded t-number. The compute writes the change as one face 00 event.
+3. **Why.** The Prime signs off every pass; that is authority. Who gets hurt otherwise: you, if a model names itself lead.
+4. **Axioms checked.** 1 [Axioms.md:13] pass: "Authority is granted, never claimed". 6 [Axioms.md:23] pass. 7 [Axioms.md:25] tension: not built.
+
+### S15. A pass open across a change of Prime
+1. **Question.** If the Prime changes while a pass is open, who signs it off?
+2. **Proposed (Designer, 7).** The Prime at the moment of sign-off. The new Prime reads the return in full first and writes a 06 note. The pack written by the old Prime stands.
+3. **Why.** The sign-off check uses the Prime at that log entry (S1). Who gets hurt otherwise: a pass with no one able to close it.
+4. **Axioms checked.** 1 [Axioms.md:13] pass. 6 [Axioms.md:23] pass: the pack keeps its author. 9 [Axioms.md:29] pass: the new Prime reads before signing.
 
 ### Moot if yes (kept, not deleted)
 
