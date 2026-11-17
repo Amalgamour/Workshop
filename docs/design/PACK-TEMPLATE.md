@@ -3,6 +3,13 @@
 For Matthew. By Designer. A proposal (7), not a ruling. Nothing here is decided. Only you approve.
 created: Mon 16 Nov 2026, 5:54 PM EST
 
+## Change note (Mon 16 Nov 2026, 8:05 PM EST)
+
+Folds the parts of Tester's check of the dev, work and lab pages (docs/review/DEV-WORK-LAB-PAGES-CHECK.md, 2f06fd3) that touch this file.
+- P8: the override page is withdrawn. Your R21 says "No overrides for now" (DIRECTOR-RULINGS.md:83). Pack 1 is recorded instead as a one-time grant from you, plus the outside check's note.
+- Lab page: shown as "not yet made" until a trial is needed (DEV-WORK-LAB-PAGES.md D1, D3).
+- Face 05 clash with R22-R24 is raised there as D6; the packs here sit on work-page face 05 either way.
+
 ## Change note (Mon 16 Nov 2026, 7:10 PM EST)
 
 Folds Tester's check (docs/review/PACK-TEMPLATE-CHECK.md, 3078e0f, "holds, with fixes"). Every cite in it was opened; see "Cites in Tester's check" at the end.
@@ -10,7 +17,7 @@ Folds Tester's check (docs/review/PACK-TEMPLATE-CHECK.md, 3078e0f, "holds, with 
 - P1 reopened: your words fix only that unprompted and overflow come after the job items. Both orders are shown.
 - The return gets the approved parts it lacked: deviations and their why, questions and permission asked, notes, and cost (W5).
 - Matched pages: by written link both ways, not by number alone (new P7; R18, WL:60, axiom 8).
-- Bootstrap: Tester's A (a script fills it) then B (an outside check), recorded as its own override page (new P8). Waits on W8.
+- Bootstrap: Tester's A (a script fills it) then B (an outside check) (new P8). Waits on W8. (The override page first proposed here was withdrawn at 8:05 PM: R21.)
 - P3: start commit pinned at claim. P4: two more hashes. P5: the code copy ends at a pack, not "the day".
 - Smaller: a refusal row (R37 item 8), two-writer rows named, branch filled as a value, example says "no book writes".
 
@@ -80,7 +87,7 @@ In plain words: Prima fills the left part (what and why). The compute fills the 
 | 7 | repository baseline: repo, branch, start commit | compute | repo and branch are values the compute fills, not fixed text. The start commit is pinned at claim, not at pack time (P3) | WL:116 (`7` on format) | 1 Header |
 | 8 | files to pull from GitHub | compute | taken from the frame paths (field 15), checked to exist | R37 item 7, DIRECTOR-RULINGS.md:201 | 8 Links |
 | 9 | predecessor (earlier pack or return) | compute | it is in the records | WL:115 | 8 Links |
-| 10 | linked pages: dev 04NN, lab 07NN | compute | the compute finds them by number and title (R18), then follows face 08 links both ways. Only a page linked both ways is shown as linked. Otherwise "found, not linked" (`7.8`), never a lookalike (P7) | WL:59-61; DIRECTOR-RULINGS.md:71-72; Axioms.md:27 | 8 Links |
+| 10 | linked pages: dev 04NN, lab 07NN | compute | the compute finds them by number and title (R18), then follows face 08 links both ways. Only a page linked both ways is shown as linked. Otherwise "found, not linked" (`7.8`), never a lookalike (P7). A lab page made only when a trial is needed shows "not yet made" until then | WL:59-61; DIRECTOR-RULINGS.md:71-72; Axioms.md:27 | 8 Links |
 | 11 | authorized (the approval the job rests on) | Prima names it; compute checks it | only you grant authority; the compute refuses a name that does not resolve | WL:106, :239; Axioms.md:13 | 1 Header |
 | 12 | lead | Prima | a judgment | WL:107 | 1 Header |
 | 13 | axioms | Prima | a judgment | WL:108 | 1 Header |
@@ -112,7 +119,7 @@ In plain words: before each handoff the compute reads the live records and print
 | pack text (fields 1-24) | compute | the pack counter |
 | tail | compute | the counter |
 | claim holder, or "not claimed" | compute | state.rs:561 |
-| dev page 04NN and lab page 07NN: "linked" or "found, not linked" | compute | row 10; P7 |
+| dev page 04NN and lab page 07NN: "linked", "found, not linked", or for the lab "not yet made" | compute | row 10; P7 |
 | earlier returns on this slot and its predecessor: "none" only if looked and empty; "not available" if it could not look; a stale review is marked stale | compute | state.rs:575; R37 items 4, 6 |
 | repo, branch, start commit (pinned at claim) | compute | P3; "not available" if not reached |
 | approved design revision and grant | compute | WL:220; "not available" until built |
@@ -131,7 +138,7 @@ Repo: <repo>  Branch: <branch>  Start: <commit pinned at claim>
 Read first: AGENTS.md (version <v>, hash <hash>)
 Pack: <page>.05.<NN>  Tail: <tail>
 Dev page: <04NN.keyword> <linked | found, not linked>
-Lab page: <07NN.keyword> <linked | found, not linked>
+Lab page: <07NN.keyword> <linked | found, not linked | not yet made>
 Earlier returns: <list | none>
 Jobs: <w01 title>; <w02 title>
 Stop if: <stop if>
@@ -189,7 +196,7 @@ The first pack from the concept: the handoff sheet and the board, read-only. Val
 **Bootstrap exception (proposal, 7; the approval is yours; waits on W8).** Pack 1 cannot pass through the tool it builds. It goes in as `pack` with no check (crates/seqaddr-core/src/tail.rs:95-97). To keep hand-typed shape out (t227u:5), Tester's way (P8):
 - A. A one-off script reads the field rows of part 1 as its only shape. It fills the compute rows from real sources and leaves Prima's rows empty for Prima.
 - B. A different view (not Prima, Designer or Tester) checks it field by field against WL:238-250, and the check is recorded before it goes in.
-- The exception is written as its own override page (R7 form), linked from the pack.
+- No override page (R21, DIRECTOR-RULINGS.md:83). The exception is recorded as your one-time grant (a t-number) and B's check note, both named in the pack (P8).
 - It is the first real use of the claim route while the K8 door is open. One time only.
 
 ```
@@ -204,7 +211,7 @@ pull:        crates/compute/src/lib.rs, crates/compute/src/store.rs,
              crates/seqaddr-core/src/state.rs,
              crates/compute/tests/               (compute)
 predecessor: none                                (compute)
-linked:      <04NN.keyword>, <07NN.keyword> (by link only, P7) (compute)
+linked:      <04NN.keyword>; lab: not yet made (by link only, P7) (compute)
 authorized:  <a fresh t-number from you, P2>     (Prima; compute checks)
 lead:        <lead letters>                      (Prima)
 outcome:     the compute prints the handoff sheet and the board (Prima)
@@ -248,9 +255,9 @@ Which wait on W8: P8 waits on W8 (pack 1 needs a page, and its type locks once s
 
 ### P8 (TOP). How is pack 1 made, if not by the tool? (waits on W8)
 1. **Question.** Pack 1 cannot pass through the tool it builds. Hand-writing it is the drift you warned about (t227u:5), and it goes in with no check (crates/seqaddr-core/src/tail.rs:95-97). How do we make it safely?
-2. **Proposed answer (Designer, 7, Tester's A then B).** A: a one-off script reads the field rows of part 1 as its only shape. It fills the compute rows from real sources (token name, clock, git SHA, the next free slot) and leaves Prima's rows empty for Prima. B: a different view (not Prima, Designer or Tester) checks it field by field against WL:238-250, and the check is recorded before it goes in as `pack`. The exception is its own override page in R7 form (what it changes, why it is there, why it is needed, what it should achieve; DIRECTOR-RULINGS.md:31-32), linked from the pack. It is hashed when put (P4). Its `authorized` is a fresh t-number from you (P2). Which page range holds the override is open (7): R7's reading puts it in 0001-0009; Tester names 0020-0049.
+2. **Proposed answer (Designer, 7, Tester's A then B).** A: a one-off script reads the field rows of part 1 as its only shape. It fills the compute rows from real sources (token name, clock, git SHA, the next free slot) and leaves Prima's rows empty for Prima. B: a different view (not Prima, Designer or Tester) checks it field by field against WL:238-250, and the check is recorded before it goes in as `pack`. No override page: "No overrides for now" (R21, DIRECTOR-RULINGS.md:83). Pack 1 changes no rule. The code already lets a pack be put as `pack` (tail.rs:95-97); what it skips is a check step that is not built yet. So it is recorded as a one-time grant, in three parts: (1) your yes, in your words, recorded by Prima in docs/review/DIRECTOR-WORDS-tNNNu.md, naming pack 1 only and its end; (2) pack 1's `authorized` names that t-number (P2); (3) B's field-by-field check, recorded as a note on the work page's face 06 and named in pack 1's read-first. The compute's log line for the put says "bootstrap: unchecked, grant tNNNu". It is hashed when put (P4). The grant ends when pack 1 closes.
 3. **Why.** The script is not a second template: it reads this one. Who gets hurt otherwise: every later pack that copies a bad first one.
-4. **Axioms checked.** 2 [Axioms.md:15] pass: one shape, read not copied. 6 [Axioms.md:23] pass: the override links back to who authorized it. 9 [Axioms.md:29] pass: an outside check before it goes in. 1 [Axioms.md:13] tension: needs your yes, and `authorized` cannot resolve until approval ids exist. 7 [Axioms.md:25] tension: the override's page range is unclear.
+4. **Axioms checked.** 1 [Axioms.md:13] pass: granted by you and recorded, not claimed. 2 [Axioms.md:15] pass: one shape, read not copied; no override page (R21). 6 [Axioms.md:23] pass: the pack and the log line link back to your grant. 9 [Axioms.md:29] pass: an outside check before it goes in. 7 [Axioms.md:25] tension: no approval ids exist, so `authorized` names a t-number the compute can only check as text. 8 [Axioms.md:27] tension: the grant lives in a docs/review file, not a book line.
 
 ### P7. Are pages linked by number, or by a written link?
 1. **Question.** You ruled pages "are matched by the CC and the title" (R18, DIRECTOR-RULINGS.md:71). The workflow draft adds: a set needs face 08 links both ways (WL:60, proposed F.2). Which does the compute use?
@@ -296,5 +303,5 @@ Which wait on W8: P8 waits on W8 (pack 1 needs a page, and its type locks once s
 
 - Pass: crates/compute/src/main.rs:4 (non-loopback refused unless --allow-remote) and :12 (default 127.0.0.1:7700). WL:189, :192, :193. WORK-BOOK-CONCEPT.md:167-174 (jobs first). R18 (DIRECTOR-RULINGS.md:71-72). R33 item 4 (:165-166). tail.rs:95-97. WL:238-250.
 - Close: store.rs:731-733 for `by` from the token; the comment is at :730, the code at :731-733. W5 is at WORK-BOOK-CONCEPT.md:263-267 (Tester wrote 264-267).
-- Differs: Tester places the R7 override page in the behavior range 0020-0049. R7's own reading (DIRECTOR-RULINGS.md:32) says the override page sits in 0001-0009 and its target may be a behavior (0020-0049). Left open in P8.
+- Differs: Tester placed the R7 override page in the behavior range 0020-0049; R7's own reading (DIRECTOR-RULINGS.md:32) puts it in 0001-0009. Moot now: Tester withdrew the override page under R21 (DEV-WORK-LAB-PAGES-CHECK.md, 2f06fd3), and P8 no longer uses one.
 - Not here: Tester's note that WORK-BOOK-CONCEPT.md says "three paths" where four are listed is a fix for that file, not this one.

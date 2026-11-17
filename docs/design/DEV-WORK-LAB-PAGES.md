@@ -3,18 +3,20 @@
 For Matthew. By Designer. A proposal (7), not a ruling. Nothing here is decided. Only you approve.
 created: Mon 16 Nov 2026, 7:00 PM EST
 
-## Change note (Mon 16 Nov 2026, 7:12 PM EST)
+## Change note (Mon 16 Nov 2026, 8:05 PM EST)
 
-Made consistent with the PACK-TEMPLATE fold of Tester's check (7d11343; docs/review/PACK-TEMPLATE-CHECK.md, 3078e0f).
-- Your R18 is now quoted: pages "are matched by the CC and the title" (DIRECTOR-RULINGS.md:71). Number and title find a page; only face 08 links both ways make it "linked".
-- D2 now points to PACK-TEMPLATE P7 instead of repeating it.
-- The return order is open (PACK-TEMPLATE P1); this file no longer calls one order yours.
+Folds Tester's check (docs/review/DEV-WORK-LAB-PAGES-CHECK.md, 2f06fd3, "holds, with fixes").
+- New D6 (TOP): face 05 is used two ways, against your R22-R24.
+- Lab trials only for governing or higher-risk work (WL:29, :200). The lab page is made only when the first trial is needed.
+- D3: links are written before you approve, and the approval covers faces 01 and 04, so it does not go stale (R37 item 4).
+- D5 narrowed. Cite fixes: PT commit, WL:87-93, WL:200, "return template order".
+- Earlier note (7:12 PM): R18 quoted; D2 points to PT P7; return order open (PT P1).
 
 ## Cite key
 
 - "t226u:7": docs/review/DIRECTOR-WORDS-t226u.md, line 7 (your recorded words).
 - "WL": docs/spec/workflow-loop.003.md. "SA": docs/spec/seqAddr.md. "DR": docs/spec/DIRECTOR-RULINGS.md.
-- "PT": docs/design/PACK-TEMPLATE.md (7579788). "WC": docs/design/WORK-BOOK-CONCEPT.md (54b737d).
+- "PT": docs/design/PACK-TEMPLATE.md (7d11343 and the fold of 2f06fd3). "WC": docs/design/WORK-BOOK-CONCEPT.md (54b737d).
 - "OWB": old work book (zip from you), /tmp/oldwb/10.10.13.brand-clerk.
 
 ## Why this file
@@ -34,23 +36,25 @@ One piece of work gets three pages. They share one number.
 3. **The lab page.** Where another model tries to break the work. (Side label: N7 colab, 07NN.)
 
 The flow, one step at a time:
+- The compute makes the dev and work pages and links them, while the dev page is still a draft.
 - You approve the dev page.
 - Prima hands a job to the compute. The compute puts the pack on the work page.
 - A model does the job and hands back a return, on the same slot.
-- A second model tests that return on the lab page.
+- A reviewer, not the builder, checks it there.
+- Only for risky or rule-changing work: the compute makes the lab page, and a second model tries to break the return there.
 - Prima reads it all and writes a note back on the dev page.
 
 ## What each page holds
 
-All from WL:40-49 and WL:83-93 unless marked proposal (7).
+All from WL:40-49 and WL:87-93 unless marked proposal (7).
 
 **Dev page (04NN).**
 - Face 04: the design, long form, for you. What the work is, its first goal, what we are trying to prove (WL:45, :87).
 - Face 01: a short brief of the same thing, for models (WL:87).
-- Face 05: design questions, as slots (WL:92, approved S12).
+- Face 05: design questions, as slots (WL:92, approved S12). This clashes with your R22 (DR:88): see D6.
 - Face 06: Prima's notes after each return. Each note names the return it read (WL:93).
 - Face 08: links to the work page and the lab page, both ways (WL:60).
-- Your approval is of one version of this page (WL:88, approved S01).
+- Your approval is of one version of this page (WL:88, approved S01). Proposal (7): it covers faces 01 and 04, the design (D3).
 
 **Work page (05NN).**
 - Face 05: the packs. One pack per slot: 05.01, 05.02 ... (WL:99).
@@ -59,8 +63,9 @@ All from WL:40-49 and WL:83-93 unless marked proposal (7).
 
 **Lab page (07NN).**
 - Holds cold trials of the work: another model tries to break it (WL:48; axiom 9).
-- A trial is required before a governing change is promoted (WL:29, approved S10).
-- Which face holds a trial is not written anywhere. Proposal (7): face 05 slots, one trial per slot, each naming the exact return it tried (D1).
+- Not every return. N7 is for "required higher-risk trials" (WL:29). A governing change must have one before promotion (WL:200, approved S10). Routine work gets a separate reviewer on the work slot (WL:200, "R1"). Which risk levels beyond governing need a trial is still `7` (WL:200).
+- So the lab page is made only when the first trial is needed. Until then the link says "not yet made". A linked page can never be deleted, only retired (R32, DR:153-154), so an empty lab page would stay forever.
+- Which face holds a trial is not written anywhere. Proposal (7): face 05 slots, one trial per slot, each naming the exact return it tried (D1, D6).
 - Face 08: links back to the work page and the dev page.
 
 ## How they link
@@ -85,9 +90,10 @@ One rule to remember: **the same number and title help you find a page. Only a w
 - Status lives only on slots: "Workflow state lives only on counters." (SA:140)
 - A slot's steps (SA:128-137; WL:163): draft -> pack -> open -> return -> review -> closed (no tail word).
 - On the work page these are the pack's steps. On the lab page, proposal (7): a trial uses the same steps (D1).
+- Your R22-R24 add a seated face 05 on every page (DR:88-97). seqAddr says a counted face is never seated (SA:199). Both are raised in D6.
 - Pages carry only draft or retired (SA:126). A page itself never moves through pack or review.
 - The board is a view the compute builds, never a stored 05.00 (R9, DR:37-38; WC W11).
-- Spec conflict, not fixed here: SA:243 calls 0523 "build". WL names 05NN jobs and 03NN build (D4).
+- Spec conflict, not fixed here: SA:243 calls 0523 "build". WL names 05NN jobs and 03NN build. SA:243 needs a fix through its own drafting path (D4).
 
 ## How it fits the pack template and the work book concept
 
@@ -96,13 +102,13 @@ Your words: "But you should hand the jobs to the compute, It basically gives you
 
 In plain words:
 - Prima hands the job to the compute. The compute writes the pack in the fixed shape (PT part 1).
-- Packs are not hand-written after pack 1. Pack 1 is the one bootstrap exception (PT:10; WC:146).
+- Packs are not hand-written after pack 1. Pack 1 is the one bootstrap exception: a script fills it from the template, and an outside view checks it (PT part 5, PT P8; WC:146).
 - The compute fills the links between the three pages. They are bindings, so they are the compute's job.
 - Prima writes only the judgment: the why, the jobs, the stop point (PT rows 12-23).
 
 Where the three pages show up:
 - PT row 10, "linked pages: dev 04NN, lab 07NN", filled by the compute. It finds them by number and title (R18), and shows them as linked only when face 08 links them both ways. Otherwise "found, not linked" (`7.8`). Same rule here (PT P7).
-- The handoff sheet and prompt box already print "Dev page" and "Lab page" (PT part 2). Same rule.
+- The handoff sheet and prompt box already print "Dev page" and "Lab page" (PT part 2). Same rule. A lab page not yet made shows "not yet made".
 - The check step (draft -> pack) is the compute's (WL:171). Proposal (7): it also checks the dev page link opens, else `7.8` (WL:61).
 - The handoff sheet is a view, made fresh from the records (WL:220, approved S06).
 - The templates are not seated yet (WL:232, "`7`"). See W13.
@@ -119,30 +125,32 @@ Subject: a handoff sheet. Number 42. Title "sheet". All addresses are EXAMPLE.
 EXAMPLE 0442.sheet   dev page
   04  design: print one fixed-shape sheet per pack slot     (Prima drafts; you approve)
   01  brief for models                                      (Prima drafts; you approve)
-  05.01      question: should the sheet show the reviewer?  (design question)
-  06.01      note: read 0542.05.01 return and 0742.05.01 trial (Prima writes; compute fills the links)
-  08  links: 0542.sheet, 0742.sheet (both ways)             (compute)
+  05  (what face 05 holds here is D6)
+  06.01      note: read 0542.05.01 return (Prima writes one line; compute fills the links)
+  08  links: 0542.sheet (both ways), written before your approval;
+             lab: not yet made                              (compute)
 
 EXAMPLE 0542.sheet   work page
   05.01.pack    the compute writes it from Prima's judgment fields (PT part 1)
-                authorized: <your approval of 0442 version N>  linked: 0442.sheet, 0742.sheet
+                authorized: <your approval of 0442 version N>
+                linked: 0442.sheet; lab: not yet made
   05.01.open    claimed by the builder (compute records who and when)
-  05.01.return  the return, in t226u order, on the same slot (W9)
-  05.01.review  a reviewer, not the builder, takes it
+  05.01.return  the return, in the return template order, on the same slot (W9; order is PT P1)
+  05.01.review  a reviewer, not the builder, takes it (routine: no lab trial)
   05.01         closed, outcome: passed
-  08  links: 0442.sheet, 0742.sheet (both ways)             (compute)
+  08  links: 0442.sheet (both ways)                         (compute)
 
-EXAMPLE 0742.sheet   lab page (face 05 here is proposal 7, D1)
-  05.01         trial of 0542.05.01 return <hash>: tried to make the sheet guess a missing field
+EXAMPLE 0742.sheet   lab page: made only if a later pack is governing or higher-risk
+  05.01         trial of 0542.05.NN return <hash>: tries to break it (face 05 here is D1, D6)
   08  links: 0442.sheet, 0542.sheet (both ways)             (compute)
 ```
 
-Reading it: you approve 0442. The compute writes the pack on 0542. The builder returns on the same slot. A second model tries to break it on 0742. Prima writes a note on 0442 face 06. The next pack starts from that note.
+Reading it: the compute makes 0442 and 0542 and links them. You approve 0442. The compute writes the pack on 0542. The builder returns on the same slot, and a reviewer checks it there. This job is routine, so there is no lab page. Prima writes a note on 0442 face 06. The next pack starts from that note.
 
 ## Exists today, and planned
 
 - **Exists today:** tail rules and one-step moves (crates/seqaddr-core/src/tail.rs:79-99); claim, return on the same slot, and no self-review (crates/seqaddr-core/src/state.rs:543-581); a tail-only board view (state.rs:296-300). These work on any page's slots.
-- **Planned:** the three-page set made in one step; face 08 links checked both ways; "linked" or "found, not linked" in the sheet; lab trials on slots; the templates (WL:232). No code creates or checks a set today, as far as I read.
+- **Planned:** the dev and work pages made and linked in one step, before approval; the lab page made on the first trial; face 08 links checked both ways; "linked" or "found, not linked" in the sheet; lab trials on slots; the templates (WL:232). No code creates or checks a set today, as far as I read.
 
 ## Where Prima's ask differs from your recorded words
 
@@ -152,31 +160,43 @@ Reading it: you approve 0442. The compute writes the pack on 0542. The builder r
 
 ## Open questions, top three first
 
-Carried, not repeated: W8 (is a work page a system page; page type locks once set), W9 (return on the same slot), W11 (board is a view), W13 (seat templates first) in WC; P1 (return order), P5 (where the sheet shape lives) in PT.
+Carried, not repeated: W8 (page type locks once set), W9 (return on the same slot), W11 (board is a view), W13 (seat templates first) in WC; P1 (return order), P5 (sheet shape), P7 (linked pages), P8 (pack 1) in PT.
 
-### D1 (TOP). What is the lab page for, and where does a trial sit?
-1. **Question.** Is the lab page for cold trials that try to break a return (WL:48), or for showing it working, like the old book's "inspect" page (OWB 00.md:36)? And where does a trial go?
-2. **Proposed answer (Designer, 7).** Cold trials, as WL says. One trial per face 05 slot on the lab page, using the same steps as a pack. Each trial names the exact return version it tried. Returns stay on the work page (W9). A demo can be one kind of trial.
-3. **Why.** The maker is the easiest one to convince (axiom 9). Keeping the return in one place stops two copies drifting. Who gets hurt otherwise: you, reading a return in two places that disagree.
-4. **Axioms checked.** 9 [Axioms.md:29] pass: a trial from another view. 2 [Axioms.md:15] pass: one copy of the return. 8 [Axioms.md:27] pass: the trial links to the return it tried. 7 [Axioms.md:25] tension: no spec says which face holds a trial; this fills the hole by proposal only.
+Which wait: D1 waits on W9. D3 waits on W8. D5 waits on W13 and W9. D1 and D5 also wait on D6. D4 and D6 wait on none.
 
-### D2 (TOP). When is a page linked?
-Now PACK-TEMPLATE.md P7 (7d11343), not repeated here. In short: number and title find the page (R18, DIRECTOR-RULINGS.md:71); only face 08 links both ways make it linked; otherwise "found, not linked" (`7.8`). It narrows R18, so it needs your yes. Axiom marks are in P7.
+### D6 (TOP). What does face 05 hold?
+1. **Question.** You ruled that every page's face 05 holds "the work pack to reach that page's MVP", and is seated when the page is done (R22, DR:88; R23-R24, DR:90-97). The workflow puts design questions on dev face 05 (WL:92, S12), and this file puts trials on lab face 05. seqAddr says a counted face is never seated (SA:199). These cannot all hold. Which one stands?
+2. **Proposed answer (Designer, 7).** Your choice; I do not pick between your words (axiom 1). My lean: R22 governs face 05 on every page, as your ruling. Then: work-page face 05 is the job packs, climbing 05.01, 05.02, and seated as the best pack when done (R23-R24). A trial is the lab page's own pack, so it fits face 05 there too. Design questions leave dev face 05: until a book holds them, they stay in the docs question lists, as now. The rule "a counted face is never seated" (SA:199) needs your word on how it meets R22-R24.
+3. **Why.** "Two live claims with no lawful connection: halt, and raise it to whoever holds more. Do not choose." (Axioms.md:13). Who gets hurt otherwise: every builder, reading one face two ways.
+4. **Axioms checked.** 1 [Axioms.md:13] tension: two of your directions disagree, so this is raised, not chosen. 2 [Axioms.md:15] tension: one face, two shapes, until ruled. 6 [Axioms.md:23] pass: R24 keeps old packs in the line. 7 [Axioms.md:25] pass: the clash is reported, not filled.
 
-### D3 (TOP). Who makes the three pages and their links, and when?
-1. **Question.** Who creates the work and lab pages and writes the links between all three?
-2. **Proposed answer (Designer, 7).** The compute, in one change, when you approve the dev page version. It writes the work and lab pages and the face 08 links both ways. No model writes a link by hand. Page type waits for W8.
-3. **Why.** Links are bindings, and "The compute fills templates, bindings, and hashes" (R37 item 3, DR:197). "Yes, books change through compute not by models." (R33, DR:159). Who gets hurt otherwise: you, if a model writes a one-way link that breaks the chain.
-4. **Axioms checked.** 1 [Axioms.md:13] pass: you approve, the compute enforces. 3 [Axioms.md:17] pass: the compute leads the bindings. 8 [Axioms.md:27] pass: both ways, written. 7 [Axioms.md:25] tension: W8 (page type) is not ruled, and a set across separate books has no safe one-step write yet (WL:292).
+### D1 (TOP). What is the lab page for, and when is it used? (waits on W9 and D6)
+1. **Question.** Is the lab page for trials that try to break a return (WL:48), or for showing the work running, like the old book's "inspect" page (OWB 00.md:36)? And does every return get one?
+2. **Proposed answer (Designer, 7).** Trials that try to break it, as WL says. Only for governing or higher-risk work (WL:29, :200). Routine work is checked by a separate reviewer on the work slot. Each trial names the exact return version it tried. A demo, run with you, can be one kind of trial. The lab page is made only when the first trial is needed.
+3. **Why.** The maker is the easiest one to convince (axiom 9), but WL asks for a lab trial only where risk calls for it. Who gets hurt otherwise: you, paying a second model for every small job (Tester).
+4. **Axioms checked.** 9 [Axioms.md:29] pass: a trial from another view where it is required. 2 [Axioms.md:15] pass: the return stays in one place. 8 [Axioms.md:27] pass: the trial links to the return it tried. 7 [Axioms.md:25] tension: no spec says which face holds a trial (D6), and the risk levels beyond governing are still `7` (WL:200).
+
+### D3 (TOP). Who makes the pages and links, and when? (waits on W8)
+1. **Question.** Who creates the work and lab pages and writes the face 08 links, and at what point?
+2. **Proposed answer (Designer, 7).** The compute, never a model. It makes the dev and work pages and their links both ways while the dev page is still a draft, before you approve it. Your approval covers faces 01 and 04, the design (WL:87). Face 08 belongs to the compute, so a later link (the lab page, made on the first trial) does not change what you approved. Page type waits for W8.
+3. **Why.** You approve one version of the dev page (WL:88, S01). If the compute wrote links on it after that, your approval would go stale: a review "goes stale when the page changes" (R37 item 4, DR:198). Links are bindings: "The compute fills templates, bindings, and hashes" (R37 item 3, DR:197). "Yes, books change through compute not by models." (R33, DR:159). Who gets hurt otherwise: you, re-approving a page because a link was added.
+4. **Axioms checked.** 1 [Axioms.md:13] pass: you approve, the compute enforces. 3 [Axioms.md:17] pass: the compute leads the bindings. 8 [Axioms.md:27] pass: both ways, written. 6 [Axioms.md:23] tension: an approval that covers only some faces is new and needs your yes. 7 [Axioms.md:25] tension: W8 is not ruled, and a set across separate books has no safe one-step write yet (WL:292).
+
+### D2. When is a page linked?
+Now PACK-TEMPLATE.md P7, not repeated here. In short: number and title find the page (R18, DR:71); only face 08 links both ways make it linked; otherwise "found, not linked" (`7.8`). SA:243 still makes a set by number, and F.2 (WL:60) is not seated (WL:53). It narrows R18, so it needs your yes. Axiom marks are in P7.
 
 ### D4. Which number is the work page: 05NN "jobs" or "build"?
 1. **Question.** SA:243 calls 0523 "build". WL (approved S05) calls 05NN jobs and 03NN build. Which stands?
-2. **Proposed answer (Designer, 7).** WL's map. The spec owners fix SA:243 through its own drafting path (WL:53). This file does not edit seqAddr.md.
-3. **Why.** You approved S05. Who gets hurt otherwise: a model reading SA alone and putting packs in the wrong band.
-4. **Axioms checked.** 2 [Axioms.md:15] tension: the child map differs from the parent text until the named change is seated. 6 [Axioms.md:23] pass: the change is recorded as a new step, not a rewrite. 1 [Axioms.md:13] pass: your S05 approval.
+2. **Proposed answer (Designer, 7).** WL's map: 05NN jobs, 03NN build. SA:243 is fixed by a new step through its own drafting path (WL:53). This file does not edit seqAddr.md. One line from you would confirm it: your R18 names "a workflow from N3-N7" (DR:71) but not the band roles.
+3. **Why.** You approved S05 (WL:6). Who gets hurt otherwise: a model reading SA alone and putting packs in the build band. Note: review and trial of WL `.003` are still due (WL:6).
+4. **Axioms checked.** 2 [Axioms.md:15] tension: the child map differs from the parent text until SA is fixed. 6 [Axioms.md:23] pass: the fix is a new step, not a rewrite. 1 [Axioms.md:13] pass: your S05 approval.
 
-### D5. Does Prima's note on the dev page come before the next pack?
+### D5. Must Prima's dev note come before the next pack? (waits on W13, W9 and D6)
 1. **Question.** WL:216-217 has the lead read the return and write a dev face 06 note before each new pack. Should the compute refuse a new pack until that note exists?
-2. **Proposed answer (Designer, 7).** Yes, after the check step is built (W13). The compute fills the note's links. Prima writes only what the return taught.
-3. **Why.** The loop closes on the dev page, so the next pack starts from what was learned. Who gets hurt otherwise: you, if packs repeat the same detail (WL:280).
-4. **Axioms checked.** 6 [Axioms.md:23] pass: each pass links to what it read. 5 [Axioms.md:21] pass: the next pack is framed by the note. 9 [Axioms.md:29] tension: untried.
+2. **Proposed answer (Designer, 7).** Yes, but narrowly. Only when an earlier pack on the same work page has closed; pack 1 has nothing to note, and packs running side by side do not block each other. The compute fills the note's frame (links, return hash, outcome). Prima writes one judgment line. "Nothing learned" is allowed, with a why.
+3. **Why.** The loop closes on the dev page, so the next pack starts from what was learned (WL:217). A forced note with no room for "nothing" invites empty filler. Who gets hurt otherwise: you, reading notes that say nothing; or packs repeating the same detail (WL:280).
+4. **Axioms checked.** 6 [Axioms.md:23] pass: each note links to the exact return it read. 5 [Axioms.md:21] pass: the next pack is framed by the note. 4 [Axioms.md:19] pass: "nothing learned" keeps its why. 9 [Axioms.md:29] tension: untried.
+
+## Check points declined
+
+- None declined. One narrowed: Tester's D3 option of a set record in the band's door page is not taken, because it adds a second place for links (axiom 2); face 08 stays the one place.
