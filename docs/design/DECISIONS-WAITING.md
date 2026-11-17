@@ -1,7 +1,7 @@
 # Decisions waiting for you
 
 For Matthew. By Designer. An index, not a ruling. Only you approve.
-made: Mon 16 Nov 2026, 9:00 PM EST. Updated: Tue 17 Nov 2026, 12:45 PM EST (SAMPLE-PAGE v2 after the Codex and Claude reviews; your t254u, t255u).
+made: Mon 16 Nov 2026, 9:00 PM EST. Updated: Tue 17 Nov 2026, 12:30 PM EST (your t259u: tool steps; S12, S13 answered in direction). Earlier update: SAMPLE-PAGE v2, t254u, t255u.
 
 How to read this:
 - One line for the question. One line for the answer we propose.
@@ -13,6 +13,7 @@ Files: WC = docs/design/WORK-BOOK-CONCEPT.md. PT = docs/design/PACK-TEMPLATE.md.
 D = docs/design/DEV-WORK-LAB-PAGES.md. SPEC = docs/design/WORK-BOOK-SPEC.md.
 OPW = docs/design/ONE-PAGE-WORK.md (one page per piece; O1 answered yes, t246u:6).
 SP = docs/design/SAMPLE-PAGE.md (EXAMPLE car steering page, three passes; v2). SPP = docs/design/SAMPLE-PAGE-PATHS.md (harder paths).
+WT = docs/design/WORKFLOW-TOOLS.md (the six tool steps, build order, pre-draft check, finish ping; T1-T4).
 
 ## Top three
 
@@ -22,54 +23,59 @@ Picked by what blocks most.
    - You asked to "check it before we build it" (t249u:11), with three passes (t250u:5). v2 folds the Codex and Claude reviews.
    - O5 status: yes, pending your look at the sample (t249u:7).
    - Why top: nothing gets built until you have checked it.
-   - Unblocks: pack 1; the first fixture; the workflow branch. Sample: SP:1 ("Now" at SP:13). Harder paths: SPP:1. O5: OPW:283.
+   - Unblocks: pack 1; the first fixture; the workflow branch; the tool build (WT). Sample: SP:1 ("Now" at SP:13). Harder paths: SPP:1. O5: OPW:290.
 2. **S9. One rule for scope.**
    - Answer (Claude, relayed t253u): your grant is the ceiling; `may touch` is the frame, checked inside it; `must not` is derived; face 01 holds no scope.
-   - Why top: every pack's edges and the commit check depend on it.
-   - Unblocks: the prompt box; the frame check. Waits on: none marked. Full form: OPW:395.
-3. **S6. What the close record holds.**
-   - Answer (Designer): the close event carries pack hash, return hash, commit, review entries, and each card's fate.
-   - Why top: every close needs it to be readable later.
-   - Unblocks: the close change at store.rs:991-992. Waits on: S7 (card words). Full form: OPW:401.
+   - Why top: the Issue step's path check and the Check step's touched-file check both depend on it (WT, steps 1 and 3).
+   - Unblocks: the prompt box; the frame check. Waits on: none marked. Full form: OPW:402.
+3. **T4. Pre-draft pins: refuse a pack built on old 04, 06 or 05?**
+   - Answer (Designer): yes. The pack pins face 04, face 06 and the last closed 05 (entry number plus hash); Prime writes one 06 note citing them; the compute refuses a pack whose pins are not current.
+   - Why top: it is how your 2.1 "but" gets checked (t259u:7). Every pack needs it.
+   - Unblocks: the Issue step (WT build order 3). Waits on: T2 ("06 allow"). Full form: WT, "T4".
+
+Moved down from the top three: S6 (still open, below). S12 answered in direction (t259u:8).
 
 ## Still open (OPW)
 
-- **S12. One branch per pass, merged on accepted close?** Answer (Claude; Designer agrees): yes. Full form: OPW:407.
-- **E1. Which signals send work up?** You asked for more (t249u:5); Prima answered with the trigger list (per Prima, t249u:15). Table: OPW:87. Full form: OPW:322.
-- **S4. AGENTS.md sources?** Proposed this way (Codex, t252u): released pack + pinned 01 card + governing instructions, with revisions. Full form: OPW:384.
-- **S5. Face 09: stored, or a view of the log?** Answer: a view. Full form: OPW:413.
-- **S7. Words for each card's fate?** Answer: accepted, pending, discarded, carried. Full form: OPW:420.
-- **S8. May Prime change face 01?** Answer: inside the grant, yes; "Done when" comes to you. Full form: OPW:426.
-- **S10. Cost figures?** Answer: from records; worker note only. Full form: OPW:432.
-- **S11. Face 02: design or description?** Answer: the design. Full form: OPW:438.
-- **S13. Prime reads after the checker?** Answer: yes; `need`/`blocked` routed at return. Full form: OPW:444.
-- **S14. Who may change the Prime?** Answer: you, or by your grant. Full form: OPW:450.
-- **S15. A pass open across a change of Prime?** Answer: the Prime at sign-off signs, after reading in full. Full form: OPW:456.
-- **S2. Face 00 `role` and `set` with no bands?** Answer: drop `set`; `role` becomes `work`. Full form: OPW:372.
-- **S3. Where 02 drift goes in the return?** Answer: a short line after notes. Full form: OPW:378.
-- **E3. How you review as it goes?** Answer: a feed and the board. Full form: OPW:337.
-- **E4. Prima's "occasional checks"?** Answer: by a written rule, noted on 06. Full form: OPW:343.
-- **E5. What "flex" means for 07 outside dev work?** Answer: set by page type. Full form: OPW:349.
-- **O3 (partly answered, t245u:10).** Open part: who runs a face 07 trial. Full form: OPW:276.
-- **O9 (partly answered, t245u:13).** Open part: each return noting mismatches (S3). Full form: OPW:312.
-- **O6. Best pass seated on plain 05?** Full form: OPW:291.
-- **O7. Decisions on 04, notes on 06?** Full form: OPW:298.
-- **O8. The completing page?** Full form: OPW:305.
+- **S6. What the close record holds?** Answer (Designer): the close event carries pack hash, return hash, commit, review entries, and each card's fate. Unblocks: the close change at store.rs:991-992. Waits on: S7. Full form: OPW:408.
+- **T1. Branch name and who merges (open detail of S12).** Answer (Designer): `pass/<page>.05.<NN>`; the compute merges accepted cards at close, after Prime signs. Full form: WT, "T1".
+- **T2. "06 allow": did you mean "06 along"?** Answer (Prima's reading): yes. Full form: WT, "T2".
+- **T3. How the finish ping reaches the compute?** Answer (Designer): now, the push is the ping, checked when Prima pulls; later, direct to a local compute. Full form: WT, "T3".
+- **E1. Which signals send work up?** You asked for more (t249u:5); Prima answered with the trigger list (per Prima, t249u:15). Still open after t259u: your 2.6 covers the finish ping, not the triggers (WT, step 6). Table: OPW:94. Full form: OPW:329.
+- **S4. AGENTS.md sources?** Proposed this way (Codex, t252u): released pack + pinned 01 card + governing instructions, with revisions. Full form: OPW:391.
+- **S5. Face 09: stored, or a view of the log?** Answer: a view. Full form: OPW:421.
+- **S7. Words for each card's fate?** Answer: accepted, pending, discarded, carried. Full form: OPW:428.
+- **S8. May Prime change face 01?** Answer: inside the grant, yes; "Done when" comes to you. Full form: OPW:434.
+- **S10. Cost figures?** Answer: from records; worker note only. Full form: OPW:440.
+- **S11. Face 02: design or description?** Answer: the design. Full form: OPW:446.
+- **S14. Who may change the Prime?** Answer: you, or by your grant. Full form: OPW:459.
+- **S15. A pass open across a change of Prime?** Answer: the Prime at sign-off signs, after reading in full. Full form: OPW:465.
+- **S2. Face 00 `role` and `set` with no bands?** Answer: drop `set`; `role` becomes `work`. Full form: OPW:379.
+- **S3. Where 02 drift goes in the return?** Answer: a short line after notes. Full form: OPW:385.
+- **E3. How you review as it goes?** Answer: a feed and the board. Full form: OPW:344.
+- **E4. Prima's "occasional checks"?** Answer: by a written rule, noted on 06. Full form: OPW:350.
+- **E5. What "flex" means for 07 outside dev work?** Answer: set by page type. Full form: OPW:356.
+- **O3 (partly answered, t245u:10).** Open part: who runs a face 07 trial. Full form: OPW:283.
+- **O9 (partly answered, t245u:13).** Open part: each return noting mismatches (S3). Full form: OPW:319.
+- **O6. Best pass seated on plain 05?** Full form: OPW:298.
+- **O7. Decisions on 04, notes on 06?** Full form: OPW:305.
+- **O8. The completing page?** Full form: OPW:312.
 - F1-F7 (WC:266-308) are merged into O1-O8. Their full forms stay as history.
-- Review table (Codex t252u, Claude t253u): OPW:214.
+- Review table (Codex t252u, Claude t253u): OPW:221.
 
 ## Next (not started)
 
 - Next: make this sample the first workflow fixture (Codex suggestion, t252u:17). Not started.
+- Next: build the tools in the order in WT (status view first). Not started; waits on your look at the sample.
 - Next: workflow branch for tools and templates (not started). Your words: "Then once it's good we'll start by setting up a branch for our workflow.  Where the tools and templates exist so I can pull them for future work any time for any model to use." (t249u:13)
 
 ## Follow-on work (not questions; not done)
 
 - Face 07 as labs: seqAddr.md 5.1, 5.2, 5.7; decisions.md A4.3; face.rs:72-85; validate.rs:229-234.
 - Face 03 per R35: seqAddr.md:189; validate.rs:352-354.
-- Prime signs off, the compute closes: store.rs:991-992, checked against face 00 `prime` (S1). See OPW:109.
+- Prime signs off, the compute closes: store.rs:991-992, checked against face 00 `prime` (S1). See OPW:116.
 - Face 00 `prime` and `previous-primes`: a new step in docs/spec/face00.md 3.1 (S1).
-- Dated "superseded" notes in each file on the list at OPW:202.
+- Dated "superseded" notes in each file on the list at OPW:209.
 
 ## The work book (WC)
 
@@ -112,7 +118,7 @@ Picked by what blocks most.
 
 ## Dev, work and lab pages (D)
 
-Moot: you said yes to O1 (t246u:6). D2 stays (OPW:462). Kept, not deleted.
+Moot: you said yes to O1 (t246u:6). D2 stays (OPW:471). Kept, not deleted.
 
 - **D1. What is the lab page for?**
   - Answer: trying to break risky work only. Made only when needed.
@@ -129,24 +135,34 @@ Moot: you said yes to O1 (t246u:6). D2 stays (OPW:462). Kept, not deleted.
   - Answer: yes, but only after an earlier pack has closed.
   - Unblocks: the check before each new pack. Waits on: W13, W9, O7 (was F6; D:174-175). Full form: D:207.
 
+## Answered by you, t259u (docs/review/DIRECTOR-WORDS-t259u.md)
+
+Answered, not ruled. Tool steps in WT.
+- **Step 1, Issue.** "2.1. Yes, but we need to make sure lead is checking the 04 face and 06 allow with the previous completed 05" (:7). "06 along" is Prima's reading (T2). The check: WT, "The pre-draft check".
+- **S12, one branch per pass: answered in direction.** "2.2 I agree" (:8). Open detail: T1. Full form: OPW:414.
+- **S13, checker before the lead's read: answered in direction.** "2.3 I agree" (:9). Full form: OPW:452.
+- **Step 4, sign-off.** "2.4 Yes lead signed off on the work." (:10)
+- **Step 5, status view.** "2.5 Yes we need this to be part of it.  lead model and person need this part.  It's hard right now to keep in my mind everything that is going on. which is what we are doing." (:11). Built first (WT build order 1).
+- **Finish ping.** "2.6 That is right, when a model finishes it's work it pings the compute so the compute can file the completed 05." (:12). The step 6 triggers are not in these words; E1 stays open.
+
 ## Answered by you, t254u and t255u
 
 Answered, not ruled.
 - **Who Prime is.** "Sorry I ment you.  It's actually the team lead, I have called that position prime.  It seemed to work well with models." (DIRECTOR-WORDS-t254u.md:7). Prime is the team lead role; here Prima holds it.
-- **S1.** "That should be a field for 00.  Current lead, along with previous leads." (DIRECTOR-WORDS-t255u.md:7). Full form: OPW:357.
+- **S1.** "That should be a field for 00.  Current lead, along with previous leads." (DIRECTOR-WORDS-t255u.md:7). Full form: OPW:364.
 
 ## Answered by you, t249u
 
 Answered, not ruled.
-- **E2.** "2. Prime signs off the compute closes it." (DIRECTOR-WORDS-t249u.md:6). Full form: OPW:329.
+- **E2.** "2. Prime signs off the compute closes it." (DIRECTOR-WORDS-t249u.md:6). Full form: OPW:336.
 - **One-page design.** "I liked the one-page work design.  it looks good." (t249u:9).
 
 ## Answered by you, t246u and t245u
 
 Answered, not ruled. Full forms stay, marked answered.
-- **O1.** "1. Yes I agree" (DIRECTOR-WORDS-t246u.md:6). One page per piece, faces 01-08. Face 07: "07 is a flex location, for dev work it's going to become labs." (DIRECTOR-WORDS-t245u.md:5). Full form: OPW:255.
-- **O2.** "2. See previous response." (t246u:8). Read by Prima as t245u item 1: "If the worker can't solve it comes to you, if prime can't solve by giving improved frame and authority.  It comes to the person." (t245u:8). Full form: OPW:262.
-- **O4.** "3. Yes I agree" (t246u:10). Face 03 per R35. Does not clearly cover O5. Full form: OPW:269.
+- **O1.** "1. Yes I agree" (DIRECTOR-WORDS-t246u.md:6). One page per piece, faces 01-08. Face 07: "07 is a flex location, for dev work it's going to become labs." (DIRECTOR-WORDS-t245u.md:5). Full form: OPW:262.
+- **O2.** "2. See previous response." (t246u:8). Read by Prima as t245u item 1: "If the worker can't solve it comes to you, if prime can't solve by giving improved frame and authority.  It comes to the person." (t245u:8). Full form: OPW:269.
+- **O4.** "3. Yes I agree" (t246u:10). Face 03 per R35. Does not clearly cover O5. Full form: OPW:276.
 
 ## Answered by you, t239u (docs/review/DIRECTOR-WORDS-t239u.md)
 

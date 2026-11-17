@@ -3,6 +3,13 @@
 For Matthew. By Designer. Started as a PROPOSAL (7). Parts are now answered by you (t245u, t246u). Answered, not ruled.
 created: Tue 17 Nov 2026, 11:45 AM EST
 
+## Change note (2026-11-17, 12:30 PM EST, Designer)
+
+Folds your t259u (docs/review/DIRECTOR-WORDS-t259u.md, c2a291c). Tool steps: WORKFLOW-TOOLS.md.
+- S12 answered in direction: "2.2 I agree" (t259u:8). Exact branch name and who merges stay open (WORKFLOW-TOOLS.md, T1).
+- S13 answered in direction: "2.3 I agree" (t259u:9).
+- E1 stays open: t259u 2.6 covers the finish ping, not the triggers.
+
 ## Change note (2026-11-17, 12:45 PM EST, Designer)
 
 Folds the SAMPLE-PAGE reviews (Codex t252u, Claude t253u; relayed by Matthew, not his approval) and your t254u and t255u.
@@ -390,7 +397,7 @@ Top three, picked by what blocks most (superseded 2026-11-17: you answered these
 
 ### New questions from SAMPLE-PAGE v2 (Designer, 7; from Codex t252u, Claude t253u, your t255u)
 
-Top three first: S9, S6, S12. S9 sets every pack's edges and the commit check; S6 makes every close readable later; S12 decides what is live.
+Top three first: S9, S6, S12. S9 sets every pack's edges and the commit check; S6 makes every close readable later; S12 decides what is live. (Updated t259u: S12 and S13 answered in direction; S9 and S6 stay top.)
 
 ### S9 (TOP). One rule for scope
 1. **Question.** Scope is written in four places: the pack's `may touch`, `must not` and `grant`, and face 01's "Do not touch" (Claude, t253u:28). Which one rules?
@@ -405,6 +412,7 @@ Top three first: S9, S6, S12. S9 sets every pack's edges and the commit check; S
 4. **Axioms checked.** 6 [Axioms.md:23] pass: the close names what it came from. 8 [Axioms.md:27] pass. 2 [Axioms.md:15] pass: no second copy. 7 [Axioms.md:25] tension: new log fields need a format step.
 
 ### S12 (TOP). One branch per pass?
+- **Status: answered in direction (t259u:8), "2.2 I agree".** Open detail: the exact branch name and who merges (WORKFLOW-TOOLS.md, T1). The four parts below stay as asked.
 1. **Question.** In v1, 05.03 started from 05.02's commit, so that work was live before anyone decided its fate (Claude, t253u:34). Should each pass work on its own branch, merged only when the pass closes with the card accepted?
 2. **Proposed (Claude, relayed t253u; Designer agrees).** Yes. Branch `pass/<page>.05.<NN>`. The compute merges accepted cards at close. A failed or discarded card is never merged.
 3. **Why.** "What is live" then has one answer: main. Codex: "readers also need to see which commit is live" (t252u:10). Who gets hurt otherwise: the next worker, building on work nobody accepted.
@@ -442,6 +450,7 @@ Top three first: S9, S6, S12. S9 sets every pack's edges and the commit check; S
 4. **Axioms checked.** 2 [Axioms.md:15] pass: one meaning. 8 [Axioms.md:27] pass. 9 [Axioms.md:29] tension: untried.
 
 ### S13. Prime reads after the checker
+- **Status: answered in direction (t259u:9), "2.3 I agree".** Prima's step 3 put the checker first and the lead's read last. The four parts below stay as asked.
 1. **Question.** In v1 Prime read the return before the checker (Claude, t253u:35). Should Prime read after?
 2. **Proposed (Designer, 7).** Yes. At return, the compute routes only `need` and `blocked` items to Prime, so the ladder still works (t245u:8). The checker starts from the pack and the commit. Prime reads the whole return after review.
 3. **Why.** The checker then starts from the criteria, not the builder's story. Note: Claude cites S10 for this; the "before the builder's conclusions" wording is the proposed review class R2 (WL:200), not approved S10 (WL:29). Who gets hurt otherwise: a checker led by the summary.
