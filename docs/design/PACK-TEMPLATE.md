@@ -3,6 +3,11 @@
 For Matthew. By Designer. A proposal (7), not a ruling. Nothing here is decided. Only you approve.
 created: Mon 16 Nov 2026, 5:54 PM EST
 
+## Change note (2026-11-17, 11:30 AM EST, Designer)
+
+- P6 marked answered by Matthew, t239u (docs/review/DIRECTOR-WORDS-t239u.md:11). Not ruled. The four parts stay.
+- Part 4: his words put AGENTS.md on face 01 as a card; see WORK-BOOK-CONCEPT.md F4.
+
 ## Change note (Mon 16 Nov 2026, 8:05 PM EST)
 
 Folds the parts of Tester's check of the dev, work and lab pages (docs/review/DEV-WORK-LAB-PAGES-CHECK.md, 2f06fd3) that touch this file.
@@ -184,7 +189,7 @@ Unprompted and overflow come last, after the job items. Notes, unprompted and ov
 
 W2 is still open. This is a proposal only.
 
-- **Stored on the page.** The work page keeps one AGENTS.md, written only through the compute.
+- **Stored on the page.** The work page keeps one AGENTS.md, written only through the compute. Matthew, t239u: "01 holds the agents.md as a card." (DIRECTOR-WORDS-t239u.md:10). Whether the per-job file stays as a copy is WORK-BOOK-CONCEPT.md F4.
 - **A copy per job.** For each job, the compute writes a copy at the root of a fresh worktree. The copy carries the page version it came from and a hash (SPEC B2; docs/design/WORK-BOOK-SPEC.md:381-388).
 - **One shape.** The copy is the pack's fields in SPEC B2 order (the last column of part 1). AGENTS.md adds nothing the pack does not hold.
 - **No edits.** The builder never edits it. If the page changes, old copies go stale (R37 item 4).
@@ -241,7 +246,10 @@ Carried, not repeated: W2 (AGENTS.md slot), W8 (page type), W9 (return on the sa
 
 Which wait on W8: P8 waits on W8 (pack 1 needs a page, and its type locks once set: R36, DIRECTOR-RULINGS.md:189-190). The others do not.
 
-### P6 (TOP). How does the builder hand back?
+### P6 (TOP). How does the builder hand back? (ANSWERED, t239u)
+**Answered by Matthew, t239u (DIRECTOR-WORDS-t239u.md:11).** Answered, not ruled; no R-number.
+- His words: "3. Yes, see 2."
+- Designer reading (7): yes to P6 with WORK-BOOK-CONCEPT W10, per Prima's mapping (DIRECTOR-WORDS-t239u.md:13). "see 2" reads as: the return lands on the 05 pass he describes in item 2. The two changes named in part 2 are read as covered by this yes (7: confirm). The four parts below are kept as asked.
 1. **Question.** The builder runs on your computer. The compute answers only on its own machine (127.0.0.1), unless started with --allow-remote (crates/compute/src/main.rs:4, :12). The builder also has no writer token (crates/compute/src/identity.rs:3-7). So it cannot claim or return. How does the return get back?
 2. **Proposed answer (Designer, 7).** Now: when the compute records the claim, it makes a one-job pass (a single-use code) and prints it in the prompt box. The builder puts its return in one file at a fixed path in its pushed commit, outside books/. After Prima pulls, the compute (not Prima) reads that file, checks the pass and the claim, and records it as the claim holder's return. The pass then dies. Later: once the local Workshop runs on your machine (t212u:6), the builder hands back to that compute directly. Not proposed: opening the compute to the network with --allow-remote.
 3. **Why.** No new door to the network (your Host check, R33 item 4, DIRECTOR-RULINGS.md:165-166). Who gets hurt otherwise: you, queueing a model that can never hand back (Tester); or, with an open port, anyone who finds it. Two changes this needs, both for your yes: W10 said the return text never goes in git; and today only the claim holder's own token may return (crates/seqaddr-core/src/state.rs:563-571).

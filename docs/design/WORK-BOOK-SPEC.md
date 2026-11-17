@@ -3,6 +3,10 @@
 Draft by Designer, for Matthew (Director). Not a ruling. Nothing here closes a question.
 created: Mon 16 Nov 2026, 2:56 PM EST (Designer)
 
+## Change note (2026-11-17, 11:30 AM EST, Designer)
+
+- W8 marked answered by Matthew, t239u (docs/review/DIRECTOR-WORDS-t239u.md:9: "1. I agree"). Not ruled. The four parts stay.
+
 ## Change note (2026-11-16, 9:10 PM EST, Designer)
 
 - W8: adds Tester's `workflow` page-type option, from WORK-BOOK-CONCEPT.md W8 (54b737d; WORK-BOOK-CONCEPT-CHECK.md:39-44). The rest of W8 is unchanged.
@@ -391,7 +395,11 @@ Matthew's four-part form (t189u). Proposed answers only. Top three first: W1, W2
 3. **Why.** You can open the page, by its title, and read what the builder was told; the address stays back end (R31 item 8 [DIRECTOR-RULINGS.md:143-144]). The builder gets the job's part only. Who gets hurt otherwise: you, if the only copy is a file that is gone after the job (stored nowhere); or the builder, if it reads a stored file that has gone out of date (stored only).
 4. **Axioms checked.** 1 [Axioms.md:13] pass: the stored face governs; the copy never outranks it. 2 [Axioms.md:15] tension: a copy is what axiom 2 warns about; the hash and the no-edit rule limit the drift but do not remove it. 6 [Axioms.md:23] pass: each copy names the page version it came from. 8 [Axioms.md:27] pass: "a copy ... never becomes what it points to". 9 [Axioms.md:29] tension: untried on either builder.
 
-### W8 (TOP). Is a work page a system page?
+### W8 (TOP). Is a work page a system page? (ANSWERED, t239u)
+
+**Answered by Matthew, t239u (DIRECTOR-WORDS-t239u.md:9).** Answered, not ruled; no R-number.
+- His words: "1. I agree"
+- Designer reading (7): he agrees with the proposed answer below: a work page is not a system page. Prima's mapping (DIRECTOR-WORDS-t239u.md:13) adds "uses the workflow page type"; that part is not in his words (see WORK-BOOK-CONCEPT.md F3). The four parts below are kept as asked.
 
 1. **Question.** System pages "freeze once linked (faces 00-04)" (R34 [DIRECTOR-RULINGS.md:170]), and page type is a locked face 00 field (R36 [DIRECTOR-RULINGS.md:190]). Is a work page a system page? (Raised by Tester, docs/review/WORK-BOOK-HOSTILE-PASS.md:55-58; Tester gave no answer.)
 2. **Proposed answer (Designer's, 7).** No. A work page is persistent work in a book (kernel-design.md:83), and you read it, while system pages are "backend and designed for control not for user to access" [DIRECTOR-RULINGS.md:169]. Its type gets its own locked name (`7`). Tester's added option (2026-11-16, from WORK-BOOK-CONCEPT.md W8): seqAddr.md:192 already lists a page type `workflow`. It is not system, so the R34 freeze would not apply, but no ruling says whether it locks (7) (WORK-BOOK-CONCEPT-CHECK.md:39-44). Its brief can change until a pack is released; each return is bound to the version it read (R37 item 4 [DIRECTOR-RULINGS.md:198]).

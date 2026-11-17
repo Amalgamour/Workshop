@@ -3,6 +3,10 @@
 For Matthew. By Designer. A proposal (7), not a ruling. Nothing here is decided. Only you approve.
 created: Mon 16 Nov 2026, 7:00 PM EST
 
+## Change note (2026-11-17, 11:30 AM EST, Designer)
+
+D6 marked answered by Matthew, t239u (docs/review/DIRECTOR-WORDS-t239u.md:10). Not ruled. His face layout puts all faces on one page per piece; that may change the three-page split here (WORK-BOOK-CONCEPT.md F1, open).
+
 ## Change note (Mon 16 Nov 2026, 9:05 PM EST)
 
 Folds Tester's D6 options (docs/review/FACE-05-D6-CHECK.md, e94668e). D6 stays open for you. Its proposed answer changes to Tester's "B with I", with the reason given there. D1, D5 and the dev face 05 line note what B with I would mean.
@@ -55,7 +59,7 @@ All from WL:40-49 and WL:87-93 unless marked proposal (7).
 **Dev page (04NN).**
 - Face 04: the design, long form, for you. What the work is, its first goal, what we are trying to prove (WL:45, :87).
 - Face 01: a short brief of the same thing, for models (WL:87).
-- Face 05: design questions, as slots (WL:92, approved S12). This clashes with your R22 (DR:88): see D6. Under D6's proposed answer, face 05 here would hold the dev page's own design passes, and each question would be a job in a pass.
+- Face 05: design questions, as slots (WL:92, approved S12). This clashes with your R22 (DR:88): see D6 (answered t239u: face 05 is the page's own passes). Under D6's proposed answer, face 05 here would hold the dev page's own design passes, and each question would be a job in a pass.
 - Face 06: Prima's notes after each return. Each note names the return it read (WL:93).
 - Face 08: links to the work page and the lab page, both ways (WL:60).
 - Your approval is of one version of this page (WL:88, approved S01). Proposal (7): it covers faces 01 and 04, the design (D3).
@@ -167,8 +171,12 @@ Reading it: the compute makes 0442 and 0542 and links them. You approve 0442. Th
 Carried, not repeated: W8 (page type locks once set), W9 (return on the same slot), W11 (board is a view), W13 (seat templates first) in WC; P1 (return order), P5 (sheet shape), P7 (linked pages), P8 (pack 1) in PT.
 
 Which wait: D1 waits on W9. D3 waits on W8. D5 waits on W13 and W9. D1 and D5 also wait on D6. D4 and D6 wait on none.
+Update 2026-11-17: W8 and D6 are answered (t239u). D1 and D3 now wait on F1, D5 on F6 (WORK-BOOK-CONCEPT.md).
 
-### D6 (TOP). What does face 05 hold?
+### D6 (TOP). What does face 05 hold? (ANSWERED, t239u)
+**Answered by Matthew, t239u (DIRECTOR-WORDS-t239u.md:10).** Answered, not ruled; no R-number.
+- His words: "2.  Yes that is the purpose of 05.counter so we can track now many passes was done and what was learned." He goes on to describe each page's faces; that whole line is quoted in WORK-BOOK-CONCEPT.md, "Work-page faces".
+- Designer reading (7): yes to one meaning of face 05 on every page: that page's own passes, from 05.01. Seating the best pass (option I) is not in his words (WORK-BOOK-CONCEPT.md F5). His layout puts all faces on one page per piece, which affects this file's three-page split (F1). The four parts below are kept as asked.
 1. **Question.** You ruled that every page's face 05 holds that page's own work pack, seated when done (R22, DR:88; R23-R24, DR:90-97). The workflow puts design questions on dev face 05 (WL:92, S12). Should face 05 mean the same thing on every page?
 2. **Proposed answer (Tester, FACE-05-D6-CHECK.md; Designer agrees, 7).** Yes. Face 05 is always the page's own passes, with the best pass seated on top. Design questions become jobs inside a design pass on the dev page; one that needs you ends `need` and is raised (WL:191). Trials become passes on the lab page. S12's line about dev face 05 is replaced, which needs your yes. Seating face 05 is not possible today: SA:199 ("A counted face is never seated") and the code (crates/seqaddr-core/src/state.rs:459-460) must change first. Other options in the check: A, questions stay in docs lists (my earlier lean); C, all on the work page; D, questions on dev face 06; E, a new face; F, a page per question; G, R22 per set, not per page; H, face 05 set by page type (waits on W8). I (plain 05 holds the seated best pack; 05.01-98 are the passes) goes with every R22 option.
 3. **Why.** One face, one meaning, so no builder reads it two ways. Your R22-R24 stay as you said them. Questions and their answers stay in the one record (R37 item 1, DR:195); under A they would live in docs lists. Who gets hurt otherwise: every builder, and you, reading two shapes. This is raised, not chosen: "Do not choose." (Axioms.md:13).

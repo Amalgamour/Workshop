@@ -3,6 +3,12 @@
 For Matthew. By Designer. A concept, not a ruling. Nothing here is decided. Only you approve.
 created: Mon 16 Nov 2026, 4:58 PM EST (e6a0f39)
 
+## Change note (2026-11-17, 11:30 AM EST, Designer)
+
+Folds Matthew's t239u answers (docs/review/DIRECTOR-WORDS-t239u.md, a6ac459). Answered, not ruled.
+- W8 and W10 are marked answered, with his words. The four parts stay.
+- New section "Work-page faces": his layout, a tail-step table, impact, and new questions F1-F7.
+
 ## Change note (2026-11-16, 9:10 PM EST, Designer)
 
 Settles cross-file disagreements. The newer, checked file wins. Old text is kept, marked superseded (axiom 6).
@@ -202,11 +208,110 @@ Our workflow already has most of this (workflow-loop.003.md:189-193). The order 
 
 ---
 
+## Work-page faces, as you described them (t239u)
+
+**His words** (docs/review/DIRECTOR-WORDS-t239u.md:10, verbatim):
+> "If we build a driving game.  We would break it into pages, each on to achieve a different piece.  With a page for completing the work.  Maybe it's 50 pages of work.  01 holds the agents.md as a card.  02 holds the design schema for how we plan for it to work.  Basically a light pseudo code.  03 the menu of the pieces.  04 holds the concept of the page plus my responses on it along with my prime model's decisions following me.  05.counter holders the passes, going from draft > pack > open > return > review >closed as 05.NN each pass runs in ascending order starting at 05.01, So each 05 goes from prime > worker > prime > person > prime"
+
+**Designer reading (7).** Not his words; check each line.
+- Each piece of the work is one page. Its faces:
+  - 01: the agents.md, as one card (SA:150, "agents ... model-efficient cards").
+  - 02: the design schema, light pseudo code (SA:151, "exact processes").
+  - 03: the menu of the pieces (R35 item 2, DR:179-180).
+  - 04: the concept, his responses, and the prime's decisions after him (SA:153).
+  - 05: the passes, 05.01 upward (SA:154).
+- Face 06 and face 08 are not named in his words (7).
+- "prime" reads as Prima, the lead model. "person" reads as Matthew.
+
+**Tail steps (Designer reading, 7).** Six steps, five hand-offs. The first "prime" covers two steps.
+
+| Step | Who acts (his hand-off) | What the compute fills | Review |
+|---|---|---|---|
+| draft | prime (1st): writes the judgment fields | address, by, made at, repo baseline, files to pull, predecessor, linked pages, hand-back line (PT rows 1-10, 24) | none |
+| pack | prime (1st): releases | check against the template (WL:171, planned), pack hash (P4), refusal with why (PT row 25) | none |
+| open | worker: claims and works | claim owner and id (state.rs:561), start commit at claim (P3), one-job pass (P6), handoff sheet and prompt box (PT part 2) | none |
+| return | worker hands back; prime (2nd) receives and reads | reads the carrier file, checks pass and claim, records the return once, return hash, commit check, shape check (PT part 3; P6; W10) | prime's read: not the review (F2) |
+| review | person: you | reviewer recorded and not the builder (WL:246; state.rs:579-583); review tied to the return hash (R37 item 4, DR:198) | your review |
+| closed | prime (3rd): closes, plans the next pass | outcome on the bare counter (WL:166), tail-only board (state.rs:296-300), pass count (WL section 9) | none |
+
+Ambiguous, so raised in F2:
+- Is the prime's read at return a review?
+- Is the person in every pass? t223u:12 says "you check the work, or assign a review bot".
+- Who closes? Today only the reviewer may ask the compute to close (crates/compute/src/store.rs:991-992). Your words have the prime close.
+
+**Impact (Designer reading, 7).**
+- (a) **AGENTS.md as a face 01 card.**
+  - Fits SA:150, and SPEC W2's proposal to store it as face 01 (SPEC:386).
+  - PT part 4 still makes a per-job file copy with version and hash (P4), because the builder reads files on your machine (t223u:6).
+  - Reading: the card is the one source; the file is a compute-made view. P5 is unchanged. Raised as F4.
+- (b) **The dev / work / lab split.**
+  - Your layout puts the concept (04), the design (02) and the passes (05) on one page.
+  - DEV-WORK-LAB-PAGES splits design (dev 04NN) from passes (work 05NN), per WL:40-49 and t226u:7.
+  - This clashes. Raised as F1.
+- (c) **Face 03.** Not a kernel-only rule; "kernel-only" is a card-owner rule (validate.rs:389-397). But two places lag your R35:
+  - SA:189 allows face 03 in a normal book only on 0001-0099.
+  - The code refuses it elsewhere (validate.rs:352-354).
+  - R35 item 2 (DR:179-180) approved a compute-written face 03 menu on any page. Raised as F3.
+- (d) **R22-R24, SA:154-155, S12, D6.**
+  - The passes on 05 fit R22, "explain what you learned" (DR:88), and SA:154.
+  - Seating the best pass (R23-R24; D6 option I) is not in t239u. Raised as F5.
+  - S12's design questions on dev face 05 (WL:92) are replaced by your D6 yes. WL changes through its own path.
+  - Your 04 holds the prime's decisions, but WL:93 and WL:217 put the lead's notes on face 06 (SA:155). Raised as F6.
+- (e) **Driving game, 50 pages, "a page for completing the work"** (reading only).
+  - 50 pieces fit in one band: 100 pages, items 01-98 (SA:238-242).
+  - Under F1's proposal they are 50 work pages. Under the three-page split they are 150 pages.
+  - The completing page reads as the page that knows when the whole game is done. Raised as F7.
+
+### F1 (TOP). One page per piece, or three pages per piece?
+1. **Question.** In t239u you described each page of the work: 01 agents.md, 02 design, 03 menu, 04 concept with your responses and the prime's decisions, 05 the passes (DIRECTOR-WORDS-t239u.md:10). Our files split this into a dev page (design on 04) and a work page (passes on 05), plus a lab page (DEV-WORK-LAB-PAGES.md; workflow-loop.003.md:40-49). Does each piece now live on one page with all five faces?
+2. **Proposed answer (Designer, 7).** Yes. One page per piece, holding faces 01-05 as you said. That page's 04 does the dev page's job for the piece. Lab pages stay only for risky trials (D1). The dev band holds only the overall design, if any (F7). The workflow file changes through its own drafting path. Needs your yes.
+3. **Why.** One place per piece, so the concept, the design and the passes cannot drift apart. In t226u:7 you liked "a dev page, a work page and a lab page all linked together"; this keeps the links but uses fewer pages. Who gets hurt otherwise: every builder, reading one piece across three pages.
+4. **Axioms checked.** 2 [Axioms.md:15] pass: one page, no copied concept. 8 [Axioms.md:27] pass: piece pages still link to the completing page and to lab pages. 6 [Axioms.md:23] pass: a new step; old pages stay. 1 [Axioms.md:13] tension: t226u:7 and t239u:10 point two ways; raised, not chosen. 7 [Axioms.md:25] tension: which band holds a piece page is open (05NN per D4, or another).
+
+### F2 (TOP). Who acts at each step, and do you review every pass?
+1. **Question.** You wrote "each 05 goes from prime > worker > prime > person > prime" (DIRECTOR-WORDS-t239u.md:10). Six steps, five hand-offs. My mapping is in the table above: prime writes and releases; worker claims, works and hands back; prime reads the return; you review; prime closes. Is that right? Are you in every pass? Today only the reviewer may close (crates/compute/src/store.rs:991-992).
+2. **Proposed answer (Designer, 7).** Yes to the mapping. You review each pass, as you wrote. You may hand a pass's review to a review bot (t223u:12; W6), recorded as your grant. The prime's read at return is a read, not the review. After your review is recorded, the prime closes, which needs a code change.
+3. **Why.** Your words put you in every pass. The workflow lets routine review be delegated (workflow-loop.003.md:89, S04; :200, R1). The builder cannot review its own return (state.rs:579-581). Who gets hurt otherwise: you, if every small pass waits on you; or you, if a pass closes without your look.
+4. **Axioms checked.** 1 [Axioms.md:13] pass: you hold review, and may grant it on. 9 [Axioms.md:29] pass: you are another view. 3 [Axioms.md:17] pass: each step names who leads it. 6 [Axioms.md:23] pass: each hand-off is a logged tail move. 5 [Axioms.md:21] tension: five hand-offs on six steps is my reading.
+
+### F3 (TOP). Face 03 menus on work pages, and the workflow page type
+1. **Question.** You said "03 the menu of the pieces" (DIRECTOR-WORDS-t239u.md:10). In R35 you approved a compute-written face 03 menu on any page (DIRECTOR-RULINGS.md:179-180). seqAddr still allows face 03 only on 0001-0099 in a normal book (seqAddr.md:189), and the code refuses it (crates/seqaddr-core/src/validate.rs:352-354). Should the spec and the code follow R35? Does your "I agree" to W8 (t239u:9) include the `workflow` page type?
+2. **Proposed answer (Designer, 7).** Yes. The compute writes the 03 menu. seqAddr.md:189 and validate.rs:352-354 each get a new step through their own path, citing R35. The `workflow` page type lists the faces (seqAddr.md:193), if your W8 yes includes it.
+3. **Why.** Your ruling is newer than the spec text and the code. Who gets hurt otherwise: the first work page, refused for a face you approved.
+4. **Axioms checked.** 1 [Axioms.md:13] pass: your R35 governs; spec and code follow. 6 [Axioms.md:23] pass: a new step, not a rewrite. 2 [Axioms.md:15] tension: the spec and code contradict R35 until fixed. 7 [Axioms.md:25] tension: the page-type part of W8 is not in your words.
+
+### F4. Is the face 01 card the only stored AGENTS.md?
+1. **Question.** You said "01 holds the agents.md as a card" (DIRECTOR-WORDS-t239u.md:10). PACK-TEMPLATE part 4 also makes a per-job AGENTS.md file with version and hash (P4). Is the 01 card the one source, and the file only a copy?
+2. **Proposed answer (Designer, 7).** Yes. The 01 card is the one stored copy, written only through the compute. For each job the compute prints the file from it, with the card's version and hash. The builder never edits it. This answers W2's storage part (SPEC:386); P4 and P5 are unchanged.
+3. **Why.** The builder on your machine reads files (t223u:6). One source stops drift (t227u:5). Who gets hurt otherwise: a builder reading a stale file.
+4. **Axioms checked.** 2 [Axioms.md:15] pass: one source; the file is a view. 6 [Axioms.md:23] pass: the copy names its version. 8 [Axioms.md:27] pass: "a copy ... never becomes what it points to". 9 [Axioms.md:29] tension: untried.
+
+### F5. Is the best pass seated on plain 05?
+1. **Question.** Your yes to D6 (DIRECTOR-WORDS-t239u.md:10) says 05 holds the passes, from 05.01. It does not say whether the best pass is seated on plain 05 (R23-R24, DIRECTOR-RULINGS.md:90-97; D6 option I). Is it?
+2. **Proposed answer (Designer, 7).** Yes, as you ruled in R23-R24. That needs seqAddr.md:199 and state.rs:459-460 changed first.
+3. **Why.** The next model starts from the best pass, and the line is kept (R24). Who gets hurt otherwise: the next model, starting from a weak pass.
+4. **Axioms checked.** 1 [Axioms.md:13] pass: your R23-R24 stand. 6 [Axioms.md:23] pass: old passes stay. 7 [Axioms.md:25] tension: not in t239u.
+
+### F6. Decisions on 04, or notes on 06?
+1. **Question.** You put "my responses on it along with my prime model's decisions following me" on face 04 (DIRECTOR-WORDS-t239u.md:10). Our files put the prime's pass notes on face 06 (workflow-loop.003.md:93, :217; DEV-WORK-LAB-PAGES D5), and seqAddr calls face 06 "models leaving information" (seqAddr.md:155). Where does a decision go, and where does a note go?
+2. **Proposed answer (Designer, 7).** Decisions that follow you go on 04, as you said, each linked to the pass it came from. Session notes stay on 06. D5 becomes: the prime records the decision on 04 before the next pass.
+3. **Why.** You read 04 ("users: the why of the page", seqAddr.md:153). Who gets hurt otherwise: you, looking for a decision in two places.
+4. **Axioms checked.** 4 [Axioms.md:19] pass: the why is kept where you read. 6 [Axioms.md:23] pass: each decision links to its pass. 2 [Axioms.md:15] tension: two faces for what was learned, until settled.
+
+### F7. What is "a page for completing the work"?
+1. **Question.** In your driving-game example, the work is "Maybe it's 50 pages", "With a page for completing the work" (DIRECTOR-WORDS-t239u.md:10). What does that page hold, and where does it sit?
+2. **Proposed answer (Designer reading, 7).** One page per project. It links every piece page (face 08), holds the whole concept on 04, and closes only when every piece has passed. Its passes are the final assembly ("have cursor do the finally assembly", t223u:10). It records MVP completion (workflow-loop.003.md:219, S04 (b); the record is still `7`, :289). Its band is open; candidates are the dev band (04NN) or a band head (seqAddr.md:241).
+3. **Why.** Someone must know when the game is done. Who gets hurt otherwise: you, if 50 pages pass and nothing says the game works.
+4. **Axioms checked.** 8 [Axioms.md:27] pass: it links every piece. 5 [Axioms.md:21] pass: it says what done looks like. 7 [Axioms.md:25] tension: its band and the completion record are not designed. 9 [Axioms.md:29] tension: untried.
+
 ## Open questions, top three first
 
 Proposed answers only. The top three are W8, W9 and W10. W8 must be ruled before the first work page exists, because page type is locked once set (R36, DIRECTOR-RULINGS.md:190; AX:33-34).
 
-### W8 (TOP). Is a work page a system page?
+### W8 (TOP). Is a work page a system page? (ANSWERED, t239u)
+**Answered by Matthew, t239u (DIRECTOR-WORDS-t239u.md:9).** Answered, not ruled; no R-number.
+- His words: "1. I agree"
+- Designer reading (7): he agrees with the proposed answer below: a work page is not a system page. Prima's mapping (DIRECTOR-WORDS-t239u.md:13) adds "uses the workflow page type"; that part is not in his words (see F3). The four parts below are kept as asked.
 1. **Question.** System pages freeze once linked (R34, DIRECTOR-RULINGS.md:170). Is a work page one?
 2. **Proposed answer (Designer and Tester).** No. You read work pages. Tester's added option: seqAddr.md:192 already lists a page type `workflow`. It is not system, so the R34 freeze would not apply, but no ruling says whether it locks (7) (WORK-BOOK-CONCEPT-CHECK.md:39-44). System pages are not for users (DIRECTOR-RULINGS.md:169).
 3. **Why.** A wrong pack can then be fixed in place. Who gets hurt otherwise: you.
@@ -218,7 +323,10 @@ Proposed answers only. The top three are W8, W9 and W10. W8 must be ruled before
 3. **Why.** One slot, one history. A return and its pack cannot drift apart. Who gets hurt otherwise: a reviewer matching files by hand.
 4. **Axioms checked (Designer's marks; Tester checked, WORK-BOOK-CONCEPT-CHECK.md).** 2 [Axioms.md:15] pass: no second copy. 6 [Axioms.md:23] pass: the pack stays in the log below the return. 8 [Axioms.md:27] pass. 9 [Axioms.md:29] tension: the placement is not yet seated.
 
-### W10 (TOP). Does a pushed return count as a book change?
+### W10 (TOP). Does a pushed return count as a book change? (ANSWERED, t239u)
+**Answered by Matthew, t239u (DIRECTOR-WORDS-t239u.md:11).** Answered, not ruled; no R-number.
+- His words: "3. Yes, see 2."
+- Designer reading (7): yes to W10 with PACK-TEMPLATE P6, per Prima's mapping (DIRECTOR-WORDS-t239u.md:13). "see 2" reads as: the return lands on the 05 pass he describes in item 2. The two changes named in part 2 are read as covered by this yes (7: confirm). The four parts below are kept as asked.
 1. **Question.** You said the model will "commit and push" (t223u:10). R33 says "books change through compute not by models" (DIRECTOR-RULINGS.md:159). Does a push count as a book change?
 2. **Proposed answer (Designer, 7; rewritten 2026-11-16 to fit PACK-TEMPLATE.md P6, 7d11343; NEEDS YOUR YES).** No. The push holds code and proof, plus one return file at a fixed path outside books/. That file is only the carrier. The compute reads it, checks the one-job pass and the claim, and records the return through the gate, once. The return in the book is the record; the file in git is not. Never books/: today books/ is tracked in git, so this needs a check that refuses such a push (7) (found by Tester). Two things here you have not said yes to: the return text now travels in git, and today only the claim holder's own token may return (state.rs:563-571).
 3. **Why.** It keeps your push-and-check flow and R33 both, and the builder on your machine can hand back (PACK-TEMPLATE.md P6). Who gets hurt otherwise: you, if a push quietly changes a book; or you, queueing a model that can never hand back.

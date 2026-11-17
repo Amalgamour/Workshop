@@ -10,7 +10,8 @@ Change note (2026-11-16, 9:10 PM EST, Designer): W8 gets Tester's `workflow` pag
 - W8 must be ruled before the first work page exists. Page type is locked once set (R36; AX:33-34).
 - W7 asks you to name your local space: the folder. We will not guess it.
 
-## W8. Is a work page a system page? (rule this first)
+## W8. Is a work page a system page? (ANSWERED, t239u)
+- Answered by Matthew, t239u (docs/review/DIRECTOR-WORDS-t239u.md:9): "1. I agree". Reading (7): yes to "not a system page"; the `workflow` type is not in his words (WORK-BOOK-CONCEPT.md F3).
 - Answer (both, mine and Tester's): no. You read work pages; system pages are not for users (R34).
 - Tester's option (added 2026-11-16, Designer, from WORK-BOOK-CONCEPT.md W8): use the page type `workflow` (seqAddr.md:192). It is not system, but no ruling says if it locks (7).
 - Why: a wrong brief can then be fixed in place. Who gets hurt otherwise: you.
