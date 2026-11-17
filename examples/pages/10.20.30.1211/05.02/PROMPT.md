@@ -1,8 +1,8 @@
 === WORKSHOP JOB 10.20.30.1211.05.02 ===
-Pack hash: fb9a09b73d702d15888aeb8285b71b3bb6c771f6d9602e9ec5c3558dbe22c01e (log entry 16, 2026-11-23T16:59:00Z)
+Pack hash: 45703723ae7e66a96cae8fa20fc1a4663f1fe02c3fd3a7e3c6fd56a515f5505e (log entry 16, 2026-11-23T16:59:00Z)
 You are: the builder. Claim first:
   wf claim 10.20.30.1211 02 --as <your-name>
-Repo: driving-game   Branch: pass/10.20.30.1211.05.02   Start: 9218cb60fdcb5fe6f23ced381c9f991a6dfc50a2
+Repo: driving-game   Branch: pass/10.20.30.1211.05.02   Start: 268f31dc6296f464e84357a5b27501f7990b22fa
 Read first: pages/10.20.30.1211/05.02/AGENTS.md, docs/AXIOMS.md, docs/DESIGN.md
 Jobs:
   w01: make the turn rate ease in

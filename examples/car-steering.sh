@@ -7,6 +7,7 @@ KIT="$(cd "$(dirname "$0")/.." && pwd)"
 WF="$(realpath "${1:-$KIT/target/release/wf}")"
 WORK="$(mktemp -d)"; trap 'rm -rf "$WORK"' EXIT
 export WF_ROOT="$WORK" WF_NOW=1795449600   # Mon 23 Nov 2026 16:00 UTC (EXAMPLE clock)
+export GIT_AUTHOR_DATE="@1795449600 +0000" GIT_COMMITTER_DATE="@1795449600 +0000"
 export GIT_AUTHOR_NAME="model A" GIT_AUTHOR_EMAIL=a@example GIT_COMMITTER_NAME="model A" GIT_COMMITTER_EMAIL=a@example
 wf() { WF_NOW=$((WF_NOW += 60)); export GIT_AUTHOR_DATE="@$WF_NOW +0000" GIT_COMMITTER_DATE="@$WF_NOW +0000"; echo "\$ wf $*"; "$WF" "$@"; }
 try() { if wf "$@"; then echo "!! expected a refusal"; exit 1; else echo "   (refused, as the example expects)"; fi; }

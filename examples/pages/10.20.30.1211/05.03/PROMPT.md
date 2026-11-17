@@ -1,8 +1,8 @@
 === WORKSHOP JOB 10.20.30.1211.05.03 ===
-Pack hash: 53ecc79bd914981f0c11c6c7ed501a3e3b93576f0820380a142283646e9857f3 (log entry 24, 2026-11-23T17:07:00Z)
+Pack hash: c7f88bcf414861cf02c93a4b27b72c6e8091b124f5e6f324e97095e91c4afd58 (log entry 24, 2026-11-23T17:07:00Z)
 You are: the builder. Claim first:
   wf claim 10.20.30.1211 03 --as <your-name>
-Repo: driving-game   Branch: pass/10.20.30.1211.05.03   Start: 9218cb60fdcb5fe6f23ced381c9f991a6dfc50a2
+Repo: driving-game   Branch: pass/10.20.30.1211.05.03   Start: 268f31dc6296f464e84357a5b27501f7990b22fa
 Read first: pages/10.20.30.1211/05.03/AGENTS.md, docs/AXIOMS.md, docs/DESIGN.md
 Jobs:
   w01: turns stay smooth at speed

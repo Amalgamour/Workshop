@@ -1,8 +1,8 @@
 === WORKSHOP JOB 10.20.30.1201.05.03 ===
-Pack hash: bdfde313c9ebfdb5d8bd33cfece39dbd0afa25acb1cb3975b63e3015e365cc83 (log entry 36, 2026-11-23T16:41:00Z)
+Pack hash: 343e49adfe56162cea7d3b85c10ace1c01917967b163d3ded393969fab64926e (log entry 36, 2026-11-23T16:41:00Z)
 You are: the builder. Claim first:
   wf claim 10.20.30.1201 03 --as <your-name>
-Repo: driving-game   Branch: pass/10.20.30.1201.05.03   Start: 9218cb60fdcb5fe6f23ced381c9f991a6dfc50a2
+Repo: driving-game   Branch: pass/10.20.30.1201.05.03   Start: 268f31dc6296f464e84357a5b27501f7990b22fa
 Read first: pages/10.20.30.1201/05.03/AGENTS.md, docs/AXIOMS.md, docs/DESIGN.md
 Jobs:
   w01: smooth the key input in src/input.rs

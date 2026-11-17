@@ -2,7 +2,7 @@
 Printed by wf from templates/agents.txt. Do not edit.
 
 Sources (pinned):
-- pack 10.20.30.1211.05.01: 9bdfa9c5f4309709b395c9eb4111f0ceae5ff42ac97b7723a0d8048c20e8e790
+- pack 10.20.30.1211.05.01: aefed1072d7fb089ca7bf62051255aeb926d95c1b907a8ff5c9187d0724555b5
 - face 01 card: v1 entry 2 hash dabe1860431f
 - docs/AXIOMS.md: hash 552014964d27
 - docs/DESIGN.md: hash 010dd8b72a43

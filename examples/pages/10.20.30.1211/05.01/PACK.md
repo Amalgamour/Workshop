@@ -5,7 +5,7 @@ page:        10.20.30.1211 (steering hard paths)
 prime:       prima
 predecessor: none
 repo:        driving-game
-start:       9218cb60fdcb5fe6f23ced381c9f991a6dfc50a2
+start:       268f31dc6296f464e84357a5b27501f7990b22fa
 branch:      pass/10.20.30.1211.05.01
 return file: .workshop/returns/10.20.30.1211.05.01.md
 grant:       src/steer.rs, src/input.rs, tests/steer.rs (t300u)
