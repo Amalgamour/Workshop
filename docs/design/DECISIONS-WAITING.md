@@ -1,7 +1,7 @@
 # Decisions waiting for you
 
 For Matthew. By Designer. An index, not a ruling. Only you approve.
-made: Mon 16 Nov 2026, 9:00 PM EST. Updated: Tue 17 Nov 2026, 11:50 AM EST (one-page proposal after your t243u).
+made: Mon 16 Nov 2026, 9:00 PM EST. Updated: Tue 17 Nov 2026, 12:00 PM EST (your t245u and t246u answers).
 
 How to read this:
 - One line for the question. One line for the answer we propose.
@@ -11,34 +11,42 @@ How to read this:
 
 Files: WC = docs/design/WORK-BOOK-CONCEPT.md. PT = docs/design/PACK-TEMPLATE.md.
 D = docs/design/DEV-WORK-LAB-PAGES.md. SPEC = docs/design/WORK-BOOK-SPEC.md.
-OPW = docs/design/ONE-PAGE-WORK.md (a proposal; waits on your yes).
+OPW = docs/design/ONE-PAGE-WORK.md (one page per piece; O1 answered yes, t246u:6).
 
 ## Top three
 
-From your t243u idea: one page per piece, faces 01-08 (OPW). Picked by what blocks most.
+From your t245u answer: work keeps moving, and you come in for big issues. Picked by what blocks most.
 
-1. **O1. One page per piece, faces 01-08, labs on face 07?**
-   - Answer (Prima): yes. Face 07 is "not active" today (seqAddr.md:156), so it needs your yes, a spec step and code.
-   - Why top: every page's shape waits on it.
-   - Unblocks: the first piece page; makes D1, D3, D4, D5 moot. Waits on: none marked. Full form: OPW:91.
-2. **O2. Do you review every pass?**
-   - Answer (Prima): you review at seat, or when the work is risky or new. A review bot does routine passes.
-   - Why top: every pass's review step waits on it. It changes your own hand-off (t239u:10).
-   - Unblocks: the tail steps; who closes. Waits on: O3 for the bot. Full form: OPW:97.
-3. **O4. Face 03 follows your R35?**
-   - Answer (Prima): yes; fix seqAddr.md:189 and the code.
-   - Why top: the code refuses the 03 menu, so no page can be written whole.
-   - Unblocks: a page the code accepts. Waits on: none marked. Full form: OPW:103.
+1. **E1. Are these the signals that send work up?**
+   - Answer (Designer): yes, as in the elevation table (OPW:73): `need`, a design change, pass 6, conflicts and governing changes go up.
+   - Why top: no pass can move without you until the triggers are set.
+   - Unblocks: the ladder in t245u:8. Waits on: none marked. Full form: OPW:268.
+2. **E2. Who closes a pass you did not review?**
+   - Answer (Designer): the checker reviews; Prima closes. Needs a code change (store.rs:991-992).
+   - Why top: every routine pass ends here.
+   - Unblocks: closing without you. Waits on: E1. Full form: OPW:274.
+3. **O5. The 01 card is the one AGENTS.md; a compute copy per job?**
+   - Prima proposal sent, awaiting your OK (t245u:14, :16). Prima offered it as the first real pack.
+   - Why top: it is the first real pack.
+   - Unblocks: pack 1; W2; PT part 4. Waits on: your OK. Full form: OPW:230.
 
-## The rest of the one-page list (OPW)
+## Still open (OPW)
 
-- **O3. A review bot reviews, not Prima; a different model runs trials?** Answer (Prima): yes. Unblocks: O2; face 07 trials. Waits on: O1 for trials. Full form: OPW:109.
-- **O5. The 01 card is the one AGENTS.md?** Answer (Prima): yes; the file is a compute copy. Unblocks: W2; PT part 4. Full form: OPW:115.
-- **O6. Best pass seated on plain 05?** Answer: yes, after a spec and code change. Unblocks: O2's "review at seat". Full form: OPW:121.
-- **O7. Decisions on 04, notes on 06?** Answer: yes; partly in your t243u words. Unblocks: D5's replacement. Full form: OPW:127.
-- **O8. The completing page?** Answer (Prima): the band head. Waits on: O1, W11. Full form: OPW:133.
-- **O9. 02 pseudo code drift?** Answer (Prima): 08 links the code; each return notes mismatches. Waits on: O1. Full form: OPW:139.
+- **E3. How you review as it goes; does your comment stop work?** Answer: a feed and the board; a comment halts only if you call it a conflict. Full form: OPW:281.
+- **E4. Prima's "occasional checks"?** Answer: the work and the checker, picked by a written rule, noted on 06. Full form: OPW:287.
+- **E5. What "flex" means for 07 outside dev work?** Answer: set by page type; reserved elsewhere. Full form: OPW:293.
+- **O3 (partly answered, t245u:10).** Open part: who runs a face 07 trial. Full form: OPW:223.
+- **O9 (partly answered, t245u:13).** Open part: each return noting mismatches. Full form: OPW:258.
+- **O6. Best pass seated on plain 05?** Still open. Full form: OPW:237.
+- **O7. Decisions on 04, notes on 06?** Still open; t245u:12 puts MVP goals on 04. Full form: OPW:244.
+- **O8. The completing page?** Still open. Full form: OPW:251.
 - F1-F7 (WC:266-308) are merged into O1-O8. Their full forms stay as history.
+
+## Follow-on work (not questions; not done)
+
+- Face 07 as labs: seqAddr.md 5.1, 5.2, 5.7; decisions.md A4.3; face.rs:72-85; validate.rs:229-234.
+- Face 03 per R35: seqAddr.md:189; validate.rs:352-354.
+- Dated "superseded" notes in each file on the list at OPW:181.
 
 ## The work book (WC)
 
@@ -81,7 +89,7 @@ From your t243u idea: one page per piece, faces 01-08 (OPW). Picked by what bloc
 
 ## Dev, work and lab pages (D)
 
-Moot if you say yes to O1, except D2 (OPW:146). Kept, not deleted.
+Moot: you said yes to O1 (t246u:6). D2 stays (OPW:299). Kept, not deleted.
 
 - **D1. What is the lab page for?**
   - Answer: trying to break risky work only. Made only when needed.
@@ -97,6 +105,13 @@ Moot if you say yes to O1, except D2 (OPW:146). Kept, not deleted.
 - **D5. Must Prima's note come before the next pack?**
   - Answer: yes, but only after an earlier pack has closed.
   - Unblocks: the check before each new pack. Waits on: W13, W9, O7 (was F6; D:174-175). Full form: D:207.
+
+## Answered by you, t246u and t245u
+
+Answered, not ruled. Full forms stay, marked answered.
+- **O1.** "1. Yes I agree" (DIRECTOR-WORDS-t246u.md:6). One page per piece, faces 01-08. Face 07: "07 is a flex location, for dev work it's going to become labs." (DIRECTOR-WORDS-t245u.md:5). Full form: OPW:202.
+- **O2.** "2. See previous response." (t246u:8). Read by Prima as t245u item 1: "If the worker can't solve it comes to you, if prime can't solve by giving improved frame and authority.  It comes to the person." (t245u:8). Full form: OPW:209.
+- **O4.** "3. Yes I agree" (t246u:10). Face 03 per R35. Does not clearly cover O5. Full form: OPW:216.
 
 ## Answered by you, t239u (docs/review/DIRECTOR-WORDS-t239u.md)
 
