@@ -418,3 +418,82 @@ fn page_needs_its_person_to_start_it() {
     e.no(&["init-page", "../x", "--as", "mat"], "bad page address");
     e.no(&["status", PG], "no page");
 }
+
+/// The value of the first JSON string field `"key":"..."` in a log line, with escapes undone.
+fn json_str(line: &str, key: &str) -> String {
+    let pat = format!("\"{key}\":\"");
+    let start = line.find(&pat).unwrap_or_else(|| panic!("no {key} in {line}")) + pat.len();
+    let mut out = String::new();
+    let mut chars = line[start..].chars();
+    while let Some(c) = chars.next() {
+        if c == '\\' {
+            match chars.next() {
+                Some('n') => out.push('\n'),
+                Some('t') => out.push('\t'),
+                Some(n) => out.push(n),
+                None => break,
+            }
+        } else if c == '"' {
+            break;
+        } else {
+            out.push(c);
+        }
+    }
+    out
+}
+
+const REAL_FACE_01: &str = "Goal: the workflow kit (wf) any model can pull and run. MVP: every step of a pass runs through wf; refusals hold; README and AGENTS.md are enough for a fresh model. Done when: cargo test passes and the new behaviour has a test. Source: t267u, t268u, t270u.";
+const REAL_DONE_WHEN: &str = "Done when: cargo test passes and the new behaviour has a test. Source: t267u, t268u, t270u.";
+
+#[test]
+fn pack_reads_inline_done_when_from_real_face_01() {
+    let e = Env::new("dw-inline");
+    e.ok(&["init-page", PG, "--title", "t", "--person", "mat", "--prime", "pri", "--grant", "src/", "--grant-ref", "t1", "--as", "mat"]);
+    e.ok(&["face-write", PG, "04", "--section", "goals", "--text", "a works", "--as", "pri"]);
+    e.ok(&["face-write", PG, "01", "--text", REAL_FACE_01, "--as", "pri"]);
+    e.ok(&["face-write", PG, "06", "--text", "read 04", "--as", "pri"]);
+    e.draft("src/a.rs", "true");
+    let out = e.ok(&["pack", PG, "1", "--as", "pri"]);
+    assert!(out.contains(&format!("Done when (face 01): {REAL_DONE_WHEN}")), "{out}");
+    let pack = fs::read_to_string(e.page().join("05.01/PACK.md")).unwrap();
+    assert!(pack.contains(&format!("done when:   {REAL_DONE_WHEN}")), "{pack}");
+    let agents = fs::read_to_string(e.page().join("05.01/AGENTS.md")).unwrap();
+    assert!(agents.contains(&format!("Done when (face 01): {REAL_DONE_WHEN}")), "{agents}");
+}
+
+#[test]
+fn pack_warns_on_stderr_when_face_01_has_no_done_when() {
+    let e = Env::new("dw-none");
+    e.ok(&["init-page", PG, "--title", "t", "--person", "mat", "--prime", "pri", "--grant", "src/", "--grant-ref", "t1", "--as", "mat"]);
+    e.ok(&["face-write", PG, "04", "--section", "goals", "--text", "a works", "--as", "pri"]);
+    e.ok(&["face-write", PG, "01", "--text", "Goal: a works.", "--as", "pri"]);
+    e.ok(&["face-write", PG, "06", "--text", "read 04", "--as", "pri"]);
+    e.draft("src/a.rs", "true");
+    let mut c = Command::new(env!("CARGO_BIN_EXE_wf"));
+    c.env("WF_ROOT", &e.root).args(["pack", PG, "1", "--as", "pri"]);
+    let o = c.output().unwrap();
+    let stdout = String::from_utf8_lossy(&o.stdout);
+    let stderr = String::from_utf8_lossy(&o.stderr);
+    assert!(o.status.success(), "pack failed: {stdout}{stderr}");
+    assert!(stderr.contains("warning: face 01 has no done-when"), "stderr={stderr}");
+    assert!(!stdout.contains("warning: face 01 has no done-when"), "warning leaked to stdout: {stdout}");
+    assert!(stdout.contains("=== WORKSHOP JOB"), "{stdout}");
+    let pack = fs::read_to_string(e.page().join("05.01/PACK.md")).unwrap();
+    assert!(pack.contains("done when:   none"), "{pack}");
+}
+
+#[test]
+fn check_stores_at_most_last_40_lines_of_output() {
+    let e = Env::ready("clip40");
+    e.open("src/a.rs", "seq -f L%03g 1 50");
+    let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a");
+    assert!(e.ret(1, &sha, "bob").0);
+    let filed = e.ok(&["check", PG, "1", "--as", "cat"]);
+    assert!(filed.contains("L001") && filed.contains("L050"), "printed report should keep full output: {filed}");
+    let line = e.log().lines().find(|l| l.contains("\"kind\":\"check\"")).expect("check event").to_string();
+    let stored = json_str(&line, "out");
+    assert!(stored.starts_with("(10 lines cut)\nL011\n"), "{stored}");
+    assert!(stored.ends_with("L050"), "{stored}");
+    assert!(!stored.contains("L001") && !stored.contains("L010"), "{stored}");
+    assert_eq!(stored.lines().count(), 41);
+}

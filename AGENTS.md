@@ -16,6 +16,13 @@ Check every choice against these axioms:
 Never edit anything under `pages/` by hand. Only `wf` writes there.
 A hand edit is caught and refused. Say who you are on every command: `--as <name>`.
 
+## The tool you run
+The `wf` you run must be a pinned build of the last merged commit, kept apart from
+where builders build. README setup is two steps: build once, then copy the binary.
+When you build or test, set your own `CARGO_TARGET_DIR` (for example `target-builder`)
+and never build into the pinned copy. A builder build must not overwrite the tool
+that judges the work.
+
 ## Your role, and what you may run
 | Role | You may run |
 |---|---|

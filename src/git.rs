@@ -57,3 +57,35 @@ pub fn run(dir: &Path, cmd: &str) -> (bool, String) {
         Err(e) => (false, format!("could not run: {e}")),
     }
 }
+
+/// Keep at most the last `max` lines of a check command's output, and note how many were cut.
+pub fn clip_check_out(out: &str, max: usize) -> String {
+    let lines: Vec<&str> = out.lines().collect();
+    if lines.len() <= max {
+        out.to_string()
+    } else {
+        let cut = lines.len() - max;
+        format!("({cut} lines cut)\n{}", lines[lines.len() - max..].join("\n"))
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::clip_check_out;
+
+    #[test]
+    fn clip_check_out_keeps_short_output() {
+        assert_eq!(clip_check_out("a\nb\nc", 40), "a\nb\nc");
+        assert_eq!(clip_check_out("", 40), "");
+    }
+
+    #[test]
+    fn clip_check_out_keeps_last_40_and_notes_the_cut() {
+        let src: Vec<String> = (1..=50).map(|i| format!("L{i:03}")).collect();
+        let out = clip_check_out(&src.join("\n"), 40);
+        assert!(out.starts_with("(10 lines cut)\nL011\n"), "{out}");
+        assert!(out.ends_with("L050"), "{out}");
+        assert!(!out.contains("L001") && !out.contains("L010"), "{out}");
+        assert_eq!(out.lines().count(), 41);
+    }
+}

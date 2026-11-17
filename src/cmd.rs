@@ -208,16 +208,20 @@ pub fn pack(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     let src01 = format!("v{} entry {} hash {}", f01.version, f01.seq, short(&f01.hash()));
     let (sax, sds) = (render::version_of(AXIOMS), render::version_of(DESIGN));
     let jobs_txt = jobs(f).iter().map(|(k, v)| format!("  {k}: {v}")).collect::<Vec<_>>().join("\n");
+    let done_when = done_when_lines(&f01.text);
+    if done_when == "none" {
+        eprintln!("warning: face 01 has no done-when");
+    }
     let text = fill(T_PACK, &[("pass", name.clone()), ("addr", p.addr.clone()), ("title", p.title.clone()), ("prime", p.prime.clone()),
         ("predecessor", g("predecessor")), ("repo", g("repo")), ("start", start.clone()), ("branch", branch.clone()),
         ("return_file", rfile.clone()), ("grant", format!("{} ({})", p.grant.join(", "), p.grant_refs.join(", "))),
         ("axioms", g("axioms")), ("outcome", g("outcome")), ("overview", g("overview")), ("jobs", jobs_txt),
-        ("may_touch", g("may touch")), ("checks", g("checks")), ("done_when", done_when_lines(&f01.text)), ("stop_if", g("stop if")),
+        ("may_touch", g("may touch")), ("checks", g("checks")), ("done_when", done_when.clone()), ("stop_if", g("stop if")),
         ("pin04", pin_text(&x.pins["04"])), ("pin06", pin_text(&x.pins["06"])), ("pin05", pin_text(&x.pins["05"])),
         ("src01", src01.clone()), ("src_axioms", sax.clone()), ("src_design", sds.clone())])?;
     let seq = p.events.len() as u64 + 1;
     let mut d = json!({"pass": n, "pack_text": text, "pack_hash": sha(&text), "branch": branch, "return_file": rfile, "start": start,
-        "seq": seq, "time": crate::log::iso(crate::log::now()), "face01": f01.text, "done_when": done_when_lines(&f01.text),
+        "seq": seq, "time": crate::log::iso(crate::log::now()), "face01": f01.text, "done_when": done_when,
         "sources": {"01": src01, "axioms": sax, "design": sds}});
     if let Some(okn) = allow {
         d["overlap_ok"] = json!(okn);
@@ -331,8 +335,11 @@ pub fn check(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     for (k, v) in r["jobs"].as_object().cloned().unwrap_or_default() {
         rep += &format!("  job {k}: {}\n", v.as_str().unwrap_or(""));
     }
-    for l in p.faces.get("01").map(|f| f.text.clone()).unwrap_or_default().lines().filter(|l| l.to_lowercase().starts_with("done when")) {
-        rep += &format!("  done when (01): {} -> {}\n", l, if results.iter().all(|r| r.1 .0) { "checks ok; the checker judges the rest" } else { "not met" });
+    let dw = done_when_lines(&p.faces.get("01").map(|f| f.text.clone()).unwrap_or_default());
+    if dw != "none" {
+        for l in dw.lines() {
+            rep += &format!("  done when (01): {} -> {}\n", l, if results.iter().all(|r| r.1 .0) { "checks ok; the checker judges the rest" } else { "not met" });
+        }
     }
     if let Some(note) = a.flag("note") {
         rep += &format!("  checker note: {note}\n");
@@ -347,7 +354,7 @@ pub fn check(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
         return Ok(());
     }
     p.add(who, "checker", "check", json!({"pass": n, "commit": commit, "verdict": verdict, "report": rep,
-        "results": results.iter().map(|(c, (ok, out))| json!({"cmd": c, "ok": ok, "out": out})).collect::<Vec<_>>()}))?;
+        "results": results.iter().map(|(c, (ok, out))| json!({"cmd": c, "ok": ok, "out": git::clip_check_out(out, 40)})).collect::<Vec<_>>()}))?;
     let fails = p.events.iter().filter(|e| e.kind == "check" && e.data["pass"] == n && s(&e.data, "verdict") == "fail").count();
     if fails >= 2 {
         p.add("wf", "tool", "elevate", json!({"pass": n, "to": "prime", "item": format!("second failed check on 05.{n:02}")}))?;

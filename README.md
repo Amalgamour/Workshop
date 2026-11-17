@@ -36,9 +36,13 @@ If a builder is stuck, it goes up to Prime. If Prime is stuck, it goes up to you
 ## Set it up (once)
 1. Install Rust: https://rustup.rs (one installer, any computer).
 2. Get the kit: `git clone -b workflow https://github.com/Amalgamour/Workshop.git workflow`
-3. Build it: `cd workflow` then `cargo build --release`
-4. The tool is now at `target/release/wf` (on Windows, `target\release\wf.exe`).
-5. Test it: `cargo test`
+3. Build the tool once, from that last merged commit: `cd workflow` then `cargo build --release`
+4. Copy the binary out, so later builds cannot overwrite the tool you run:
+   `mkdir -p ../wf-bin && cp target/release/wf ../wf-bin/wf`
+   (on Windows, copy `target\release\wf.exe` to `..\wf-bin\wf.exe`).
+5. Run that pinned copy: `../wf-bin/wf` (or add `wf-bin` to your PATH).
+6. When you build or test as a builder, set your own `CARGO_TARGET_DIR` so you never
+   write into the pinned copy: `CARGO_TARGET_DIR=target-builder cargo test`
 
 ## Start a page (one command)
 ```

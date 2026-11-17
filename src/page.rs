@@ -93,11 +93,19 @@ pub fn check_addr(a: &str) -> Res<()> {
     if ok { Ok(()) } else { Err(format!("bad page address '{a}': use letters, digits, dots, - or _")) }
 }
 
-/// Lines that start with "done when" (any case), joined; or "none".
+/// Text from "done when:" (any case) to the end of each line that has it, joined; or "none".
 pub fn done_when_lines(text: &str) -> String {
-    let lines: Vec<&str> = text.lines().filter(|l| l.to_lowercase().starts_with("done when")).collect();
-    if lines.is_empty() { "none".into() } else { lines.join("
-") }
+    const NEEDLE: &str = "done when:";
+    let mut found = Vec::new();
+    for line in text.lines() {
+        let lower = line.to_lowercase();
+        if let Some(pos) = lower.find(NEEDLE) {
+            let start = lower[..pos].chars().count();
+            let byte = line.char_indices().nth(start).map(|(i, _)| i).unwrap_or(line.len());
+            found.push(&line[byte..]);
+        }
+    }
+    if found.is_empty() { "none".into() } else { found.join("\n") }
 }
 
 impl Pass {
@@ -271,5 +279,12 @@ mod tests {
     fn done_when_lines_reads_face_01() {
         assert_eq!(done_when_lines("Goal: a.\nDone when: checks pass.\n"), "Done when: checks pass.");
         assert_eq!(done_when_lines("Goal: a.\n"), "none");
+        // This page's real one-line face 01: "Done when:" sits mid-line, not at the start.
+        let real = "Goal: the workflow kit (wf) any model can pull and run. MVP: every step of a pass runs through wf; refusals hold; README and AGENTS.md are enough for a fresh model. Done when: cargo test passes and the new behaviour has a test. Source: t267u, t268u, t270u.";
+        assert_eq!(
+            done_when_lines(real),
+            "Done when: cargo test passes and the new behaviour has a test. Source: t267u, t268u, t270u."
+        );
+        assert_eq!(done_when_lines("GOAL and then DONE WHEN: Yes."), "DONE WHEN: Yes.");
     }
 }
