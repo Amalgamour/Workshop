@@ -77,7 +77,7 @@ Pass numbers may be written `1` or `01`. Hashes are sha256; views show a 12-char
 
 A pass holds its files while its tail is pack, open (claimed), return, or review. `wf pack` refuses a second pass that would touch the same files, unless Prime names the other pass with `--overlap-ok` and gives `--why` with a reason and a (ref). That flag is refused if the named pass is not open.
 
-`wf signoff --outcome passed` is refused while a job is need or blocked and `--cards` does not name it, a question to the person on this pass has no answer, or face 01 changed since the pack. Naming a not-done job, signing off over drift, or changing a default card needs `--note` with a reason and a (ref). `wf set-prime` needs `--ref`.
+`wf signoff --outcome passed` is refused while a job is need or blocked and `--cards` does not name it, a question to the person on this pass has no answer, or face 01 changed since the pack. Naming a not-done job, signing off over drift, or changing a default card needs `--note` with a reason and a (ref). Both the reason and the ref must be non-blank. `wf close` re-runs those same refusals when the outcome is passed, so a question or a face 01 change after signoff stops the close. `wf set-prime --ref` and `wf answer --text` refuse blank or spaces.
 
 
 ## A plan file (for `wf draft`)

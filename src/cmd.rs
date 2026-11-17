@@ -18,11 +18,18 @@ fn need(ok: bool, msg: impl Into<String>) -> Res<()> {
     if ok { Ok(()) } else { Err(msg.into()) }
 }
 
-/// A required why: a reason plus a parenthetical ref, e.g. "shared files (t275u)".
+/// Text that is not empty after trimming. Used for --ref and --text, and by why_ref.
+fn nonblank<'a>(text: &'a str, flag: &str) -> Res<&'a str> {
+    let t = text.trim();
+    need(!t.is_empty(), format!("--{flag} must have non-blank text"))?;
+    Ok(t)
+}
+
+/// A valid "<why> (ref)": both the why and the ref have non-blank text after trimming.
 fn why_ref<'a>(text: &'a str, flag: &str) -> Res<&'a str> {
     let t = text.trim();
     let ok = match (t.find('('), t.rfind(')')) {
-        (Some(i), Some(j)) if j > i + 1 => !t[..i].trim().is_empty(),
+        (Some(i), Some(j)) if j > i => !t[..i].trim().is_empty() && nonblank(&t[i + 1..j], flag).is_ok(),
         _ => false,
     };
     need(ok, format!("--{flag} needs a reason and a (ref), like \"why (t275u)\""))?;
@@ -103,7 +110,7 @@ pub fn init_page(root: &Path, a: &Args, who: &str) -> Res<(PathBuf, crate::Lock)
 pub fn set_prime(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     need(who == p.person || who == p.prime, "refused: only the person or the current prime may set prime")?;
     let name = a.pos.get(1).ok_or("give the new prime's name")?;
-    p.add(who, "person", "prime", json!({"name": name, "ref": a.req("ref")?}))
+    p.add(who, "person", "prime", json!({"name": name, "ref": nonblank(a.req("ref")?, "ref")?}))
 }
 
 pub fn grant(p: &mut Page, a: &Args, who: &str) -> Res<()> {
@@ -334,6 +341,61 @@ pub fn ret(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     }
 }
 
+fn refuse_passed(p: &Page, n: u32, ret: &Value, named: &[String], has_note: bool) -> Res<()> {
+    let not_done = jobs_not_done(ret);
+    let missing: Vec<&String> = not_done.iter().filter(|j| !named.contains(j)).collect();
+    need(missing.is_empty(), format!(
+        "refused: cannot sign off 'passed' while jobs not done: {}. Name each in --cards and give --note \"<why> (ref)\"",
+        missing.iter().map(|s| s.as_str()).collect::<Vec<_>>().join(", ")
+    ))?;
+    let open: Vec<String> = p.elevs.iter()
+        .filter(|e| e.pass == n && e.to == "person" && e.answer.is_none())
+        .map(|e| e.seq.to_string())
+        .collect();
+    need(open.is_empty(), format!(
+        "refused: cannot sign off 'passed' while elevation {} to person has no answer",
+        open.join(", ")
+    ))?;
+    let drifted = face01_drift(p, p.pass(n)?.pack.as_ref().ok_or("refused: this pass has no pack")?).is_some();
+    need(!drifted || has_note, "refused: cannot sign off 'passed' while face 01 has changed since pack; give --note \"<why> (ref)\"")
+}
+
+fn check_report(p: &Page, pk: &Value, r: &Value, results: &[(String, (bool, String))], frame_ok: bool, note: Option<&str>, fail: Option<&str>) -> String {
+    let mut rep = String::new();
+    for (c, (ok, out)) in results {
+        rep += &format!("  check {}: {c}\n", if *ok { "ok" } else { "FAIL" });
+        if !out.is_empty() {
+            for line in out.lines() {
+                rep += &format!("    {line}\n");
+            }
+        }
+    }
+    rep += &format!("  frame {}: changed {}\n", if frame_ok { "ok" } else { "FAIL" }, list(&r["changed"]).join(", "));
+    for (k, v) in r["jobs"].as_object().cloned().unwrap_or_default() {
+        rep += &format!("  job {k}: {}\n", v.as_str().unwrap_or(""));
+    }
+    let not_done = jobs_not_done(r);
+    if !not_done.is_empty() {
+        rep += &format!("  jobs not done: {}\n", not_done.join(", "));
+    }
+    let dw = s(pk, "done_when");
+    if dw != "none" && !dw.is_empty() {
+        for l in dw.lines() {
+            rep += &format!("  done when (01): {} -> {}\n", l, if results.iter().all(|r| r.1 .0) { "checks ok; the checker judges the rest" } else { "not met" });
+        }
+    }
+    if let Some(now) = face01_drift(p, pk) {
+        rep += &format!("  drift: face 01 changed since pack (now {now})\n");
+    }
+    if let Some(note) = note {
+        rep += &format!("  checker note: {note}\n");
+    }
+    if let Some(f) = fail {
+        rep += &format!("  checker fail: {f}\n");
+    }
+    rep
+}
+
 pub fn check(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     let n = nn(a, 1)?;
     let x = p.pass(n)?.clone();
@@ -356,41 +418,10 @@ pub fn check(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     let results = git::in_worktree(&repo(root, &x), &commit, |dir| cmds.iter().map(|c| (c.clone(), git::run(dir, c))).collect::<Vec<_>>())?;
     let scope = split_list(x.fields["may touch"].as_str().unwrap_or(""));
     let frame_ok = list(&r["changed"]).iter().all(|f| *f == s(&r, "file") || inside(f, &scope));
-    let mut rep = String::new();
-    for (c, (ok, out)) in &results {
-        rep += &format!("  check {}: {c}\n", if *ok { "ok" } else { "FAIL" });
-        if !out.is_empty() {
-            for line in out.lines() {
-                rep += &format!("    {line}\n");
-            }
-        }
-    }
-    rep += &format!("  frame {}: changed {}\n", if frame_ok { "ok" } else { "FAIL" }, list(&r["changed"]).join(", "));
-    for (k, v) in r["jobs"].as_object().cloned().unwrap_or_default() {
-        rep += &format!("  job {k}: {}\n", v.as_str().unwrap_or(""));
-    }
-    let not_done = jobs_not_done(&r);
-    if !not_done.is_empty() {
-        rep += &format!("  jobs not done: {}\n", not_done.join(", "));
-    }
-    let dw = s(&pk, "done_when");
-    if dw != "none" && !dw.is_empty() {
-        for l in dw.lines() {
-            rep += &format!("  done when (01): {} -> {}\n", l, if results.iter().all(|r| r.1 .0) { "checks ok; the checker judges the rest" } else { "not met" });
-        }
-    }
-    if let Some(now) = face01_drift(p, &pk) {
-        rep += &format!("  drift: face 01 changed since pack (now {now})\n");
-    }
-    if let Some(note) = a.flag("note") {
-        rep += &format!("  checker note: {note}\n");
-    }
     let pass = results.iter().all(|r| r.1 .0) && frame_ok && a.flag("fail").is_none();
-    if let Some(f) = a.flag("fail") {
-        rep += &format!("  checker fail: {f}\n");
-    }
     let verdict = if pass { "pass" } else { "fail" };
     if dry {
+        let rep = check_report(p, &pk, &r, &results, frame_ok, a.flag("note"), a.flag("fail"));
         print!("check 05.{n:02}: {verdict} (dry-run: nothing written)\n{rep}");
         return Ok(());
     }
@@ -409,6 +440,9 @@ pub fn check(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
         need(s(c, "verdict") == "fail", "refused: this pass already passed its check")?;
     }
     need(x2.claim.as_deref() != Some(who), "refused: the builder may not check its own work")?;
+    let pk = x2.pack.as_ref().unwrap();
+    let r = x2.ret.as_ref().unwrap();
+    let rep = check_report(p, pk, r, &results, frame_ok, a.flag("note"), a.flag("fail"));
     p.add(who, "checker", "check", json!({"pass": n, "commit": commit, "verdict": verdict, "report": rep,
         "results": results.iter().map(|(c, (ok, out))| json!({"cmd": c, "ok": ok, "out": git::clip_check_out(out, 40)})).collect::<Vec<_>>()}))?;
     let fails = p.events.iter().filter(|e| e.kind == "check" && e.data["pass"] == n && s(&e.data, "verdict") == "fail").count();
@@ -437,22 +471,7 @@ pub fn signoff(p: &mut Page, a: &Args, who: &str) -> Res<()> {
         .collect();
     let drifted = face01_drift(p, x.pack.as_ref().unwrap()).is_some();
     if outcome == "passed" {
-        let missing: Vec<&String> = not_done.iter().filter(|j| !named.contains(j)).collect();
-        need(missing.is_empty(), format!(
-            "refused: cannot sign off 'passed' while jobs not done: {}. Name each in --cards and give --note \"<why> (ref)\"",
-            missing.iter().map(|s| s.as_str()).collect::<Vec<_>>().join(", ")
-        ))?;
-        let open: Vec<String> = p.elevs.iter()
-            .filter(|e| e.pass == n && e.to == "person" && e.answer.is_none())
-            .map(|e| e.seq.to_string())
-            .collect();
-        need(open.is_empty(), format!(
-            "refused: cannot sign off 'passed' while elevation {} to person has no answer",
-            open.join(", ")
-        ))?;
-        if drifted && a.flag("note").is_none() {
-            return Err("refused: cannot sign off 'passed' while face 01 has changed since pack; give --note \"<why> (ref)\"".into());
-        }
+        refuse_passed(p, n, ret, &named, a.flag("note").is_some())?;
     }
     let mut cards = Map::new();
     for (k, v) in ret["jobs"].as_object().cloned().unwrap_or_default() {
@@ -485,6 +504,10 @@ pub fn close(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     let (signer, seq, d) = x.signoff.clone().ok_or("refused: Prime has not signed off this pass")?;
     need(p.prime_at(seq) == signer, format!("refused: {signer} was not prime at entry {seq}"))?;
     let (pk, r, (checker, c)) = (x.pack.clone().unwrap(), x.ret.clone().unwrap(), x.check.clone().unwrap());
+    if s(&d, "outcome") == "passed" {
+        let named: Vec<String> = d["cards"].as_object().map(|m| m.keys().cloned().collect()).unwrap_or_default();
+        refuse_passed(p, n, &r, &named, why_ref(&s(&d, "note"), "note").is_ok())?;
+    }
     let sum = c["results"].as_array().map(|v| v.iter().map(|r| format!("{} {}", s(r, "cmd"), if r["ok"] == true { "ok" } else { "FAIL" })).collect::<Vec<_>>().join("; ")).unwrap_or_default();
     let record = fill(T_CLOSE, &[("pass", pass_name(p, n)), ("pack_hash", s(&pk, "pack_hash")), ("return_hash", s(&r, "hash")),
         ("commit", s(&r, "commit")), ("branch", s(&r, "branch")), ("checker", checker), ("check_summary", format!("{} ({sum})", s(&c, "verdict"))),
@@ -506,7 +529,7 @@ pub fn answer(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     let seq: u64 = a.pos.get(1).and_then(|x| x.parse().ok()).ok_or("give the elevation's entry number")?;
     let e = p.elevs.iter().find(|e| e.seq == seq).ok_or(format!("no elevation at entry {seq}"))?.clone();
     must_be(p, who, &e.to)?;
-    p.add(who, &e.to, "answer", json!({"elevation": seq, "text": a.req("text")?}))
+    p.add(who, &e.to, "answer", json!({"elevation": seq, "text": nonblank(a.req("text")?, "text")?}))
 }
 
 #[cfg(test)]
@@ -531,5 +554,10 @@ mod tests {
         assert!(super::why_ref("(t275u)", "note").unwrap_err().contains("--note needs a reason"));
         assert!(super::why_ref("shared files", "why").unwrap_err().contains("--why needs a reason and a (ref)"));
         assert!(super::why_ref("shared files ()", "why").is_err());
+        assert!(super::why_ref("ok ( )", "why").is_err());
+        assert!(super::why_ref("ok (\t)", "note").is_err());
+        assert_eq!(super::nonblank(" t275u ", "ref").unwrap(), "t275u");
+        assert!(super::nonblank(" ", "ref").unwrap_err().contains("--ref must have non-blank text"));
+        assert!(super::nonblank("\t", "text").unwrap_err().contains("--text must have non-blank text"));
     }
 }

@@ -644,10 +644,12 @@ fn overlap_ok_needs_why_and_set_prime_needs_ref() {
     e.draft("src/a.rs", "true");
     e.no(&["pack", PG, "2", "--overlap-ok", "1", "--as", "pri"], "missing --why");
     e.no(&["pack", PG, "2", "--overlap-ok", "1", "--why", "no ref", "--as", "pri"], "--why needs a reason and a (ref)");
+    e.no(&["pack", PG, "2", "--overlap-ok", "1", "--why", "ok ( )", "--as", "pri"], "--why needs a reason and a (ref)");
     e.ok(&["pack", PG, "2", "--overlap-ok", "1", "--why", "shared files (t275u)", "--as", "pri"]);
     assert!(e.log().contains("\"overlap_why\":\"shared files (t275u)\""), "{}", e.log());
     let e = Env::checked("setref");
     e.no(&["set-prime", PG, "neo", "--as", "mat"], "missing --ref");
+    e.no(&["set-prime", PG, "neo", "--ref", " ", "--as", "mat"], "--ref must have non-blank text");
     e.ok(&["set-prime", PG, "neo", "--ref", "t275u", "--as", "mat"]);
     // changing a default card on a fully done passed pass needs --note
     e.no(&["signoff", PG, "1", "--outcome", "passed", "--cards", "w01=carried", "--as", "neo"], "--note needs a reason and a (ref)");
@@ -657,19 +659,65 @@ fn overlap_ok_needs_why_and_set_prime_needs_ref() {
 #[test]
 fn check_commands_run_without_holding_the_page_lock() {
     let e = Env::ready("ckunlock");
-    e.open("src/a.rs", "sleep 1");
+    e.open("src/a.rs", "sleep 2");
     let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a");
     assert!(e.ret(1, &sha, "bob").0);
     let slow = spawn_wf(&e.root, &["check", PG, "1", "--as", "cat"]);
     std::thread::sleep(std::time::Duration::from_millis(200));
+    assert!(!e.page().join(".wf-lock").exists(), "check held .wf-lock while its command was running");
     let start = std::time::Instant::now();
     assert!(e.ok(&["status", PG]).contains("05.01"));
     e.ok(&["face-write", PG, "06", "--text", "note during check", "--as", "pri"]);
-    assert!(start.elapsed() < std::time::Duration::from_secs(2), "a writer was blocked by the check");
+    assert!(
+        start.elapsed() < std::time::Duration::from_millis(800),
+        "a writer took {:?} during a check; expected well under 1s",
+        start.elapsed()
+    );
     let (ok, out) = wait_out(slow);
     assert!(ok, "{out}");
     assert!(out.contains("check 05.01: pass"), "{out}");
     assert!(e.log().contains("\"kind\":\"check\""));
+}
+
+#[test]
+fn answer_text_must_be_nonblank() {
+    let e = Env::checked("ansblank");
+    e.ok(&["elevate", PG, "1", "--to", "person", "--item", "may we accept this?", "--as", "pri"]);
+    let seq = e.log().lines().enumerate().find(|(_, l)| l.contains("\"to\":\"person\"")).map(|(i, _)| i + 1).unwrap();
+    e.no(&["answer", PG, &seq.to_string(), "--text", " ", "--as", "mat"], "--text must have non-blank text");
+    e.no(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"], "to person has no answer");
+    e.ok(&["answer", PG, &seq.to_string(), "--text", "yes", "--as", "mat"]);
+    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
+}
+
+#[test]
+fn close_passed_reruns_signoff_refusals() {
+    let e = Env::checked("close-re");
+    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
+    e.ok(&["elevate", PG, "1", "--to", "person", "--item", "a late question", "--as", "pri"]);
+    e.no(&["close", PG, "1", "--as", "pri"], "to person has no answer");
+    let seq = e.log().lines().enumerate().find(|(_, l)| l.contains("\"to\":\"person\"")).map(|(i, _)| i + 1).unwrap();
+    e.ok(&["answer", PG, &seq.to_string(), "--text", "yes", "--as", "mat"]);
+    e.ok(&["face-write", PG, "01", "--text", "Goal: a.\nDone when: something new.", "--as", "pri"]);
+    e.no(&["close", PG, "1", "--as", "pri"], "face 01 has changed since pack");
+    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--note", "same goal (t275u)", "--as", "pri"]);
+    let rec = e.ok(&["close", PG, "1", "--as", "pri"]);
+    assert!(rec.contains("cards:      w01 accepted"), "{rec}");
+}
+
+#[test]
+fn check_report_includes_drift_that_happens_during_the_check() {
+    let e = Env::ready("ckdrift");
+    e.open("src/a.rs", "sleep 2");
+    let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a");
+    assert!(e.ret(1, &sha, "bob").0);
+    let slow = spawn_wf(&e.root, &["check", PG, "1", "--as", "cat"]);
+    std::thread::sleep(std::time::Duration::from_millis(200));
+    e.ok(&["face-write", PG, "01", "--text", "Goal: a.\nDone when: something new.", "--as", "pri"]);
+    let (ok, out) = wait_out(slow);
+    assert!(ok, "{out}");
+    assert!(out.contains("drift: face 01 changed since pack (now v2 entry "), "{out}");
+    assert!(e.log().contains("drift: face 01 changed since pack (now v2 entry "), "{}", e.log());
 }
 
 #[test]

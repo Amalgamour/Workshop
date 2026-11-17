@@ -66,8 +66,12 @@ Before you file, read the return file (in the returned commit) and the diff
 (from the pack's start commit to the return commit).
 "Done when" lives on face 01, and is copied into the pack and the printed job at release.
 The check report uses the packed done-when. If face 01 changed since the pack, the report notes the drift.
+A filed report is built after the check takes the lock and reloads, so a face 01 change during the check is included.
 Judge those lines yourself; add `--fail` if a "done when" line is not met, even when the commands pass.
 Then run without `--dry-run` to write your report.
+
+`--why` and `--note` need a reason and a (ref), both non-blank. `set-prime --ref` and `answer --text` refuse blank or spaces.
+`wf close` re-runs the passed-signoff refusals, so a question or face 01 change after signoff stops the close.
 
 ## As an observer
 `wf observe <page>` lists signals: many passes, the same blocker again,
