@@ -1,7 +1,7 @@
 //! End-to-end tests: each one runs the wf binary against a temp folder and a temp git repo.
 
 use std::fs;
-use std::os::unix::fs::PermissionsExt;
+use std::os::unix::fs::{self as unix_fs, PermissionsExt};
 use std::path::PathBuf;
 use std::process::Command;
 
@@ -102,6 +102,17 @@ impl Env {
     fn ret(&self, nn: u32, sha: &str, who: &str) -> (bool, String) {
         let name = format!("{PG}.05.{nn:02}");
         self.wf(&["return", PG, &nn.to_string(), "--branch", &format!("pass/{name}"), "--commit", sha, "--file", &format!(".workshop/returns/{name}.md"), "--as", who])
+    }
+    /// Run wf with a git config env override (this box sets core.quotePath=false via GIT_CONFIG_*).
+    fn wf_git(&self, args: &[&str], key: &str, val: &str) -> (bool, String) {
+        let mut c = Command::new(env!("CARGO_BIN_EXE_wf"));
+        c.env("WF_ROOT", &self.root)
+            .env("GIT_CONFIG_COUNT", "1")
+            .env("GIT_CONFIG_KEY_0", key)
+            .env("GIT_CONFIG_VALUE_0", val)
+            .args(args);
+        let o = c.output().unwrap();
+        (o.status.success(), format!("{}{}", String::from_utf8_lossy(&o.stdout), String::from_utf8_lossy(&o.stderr)))
     }
     /// A full pass up to a passing check.
     fn checked(name: &str) -> Env {
@@ -816,8 +827,8 @@ fn torn_last_log_line_is_named_and_left_alone() {
     let before = e.log();
     let n = before.lines().count();
     let cut = before.rfind(',').expect("comma in last line");
-    fs::write(&log, &before[..cut]).unwrap();
-    let torn = fs::read(&log).unwrap();
+    let torn = format!("{}\n", &before[..cut]).into_bytes();
+    fs::write(&log, &torn).unwrap();
     let msg = format!("last line is half written: entry {n}; nothing was changed");
     e.no(&["verify", PG], &msg);
     e.no(&["verify", PG, "--fix"], &msg);
@@ -843,4 +854,102 @@ fn grant_ref_must_be_nonblank() {
     e.no(&["grant", PG, "--paths", "lib/", "--ref", " ", "--as", "mat"], "--ref must have non-blank text");
     e.ok(&["grant", PG, "--paths", "lib/", "--ref", "t275u", "--as", "mat"]);
     assert!(e.log().contains("\"ref\":\"t275u\""));
+}
+
+#[test]
+fn log_without_trailing_newline_is_named_and_left_alone() {
+    let e = Env::ready("nonewline");
+    let log = e.page().join("log.jsonl");
+    let before = e.log();
+    let n = before.lines().count();
+    assert!(before.ends_with('\n'), "{before:?}");
+    let stripped = before.trim_end_matches('\n');
+    fs::write(&log, stripped).unwrap();
+    let msg = format!("last line has no newline: entry {n}; nothing was changed");
+    e.no(&["verify", PG], &msg);
+    e.no(&["verify", PG, "--fix"], &msg);
+    e.no(&["status", PG], &msg);
+    e.no(&["face-write", PG, "06", "--text", "x", "--as", "pri"], &msg);
+    assert_eq!(fs::read_to_string(&log).unwrap(), stripped);
+}
+
+#[test]
+fn log_append_source_writes_one_record_and_syncs_new_dir() {
+    let src = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/log.rs"));
+    let append = src.split("pub fn append").nth(1).and_then(|s| s.split("fn write_record").next()).unwrap_or("");
+    assert!(!src.contains("writeln!(f"), "append must not use writeln! (it writes the line and the newline separately)");
+    assert!(append.contains("write_record") && src.contains("write_all"), "append should write the JSON line and its newline in one write");
+    assert!(append.contains("sync_all"), "append should sync the log file");
+    assert!(
+        append.contains("sync_dir") || append.contains("parent()"),
+        "when append creates log.jsonl it should sync the page folder"
+    );
+}
+
+#[test]
+fn verify_reports_a_view_symlink_and_fix_replaces_it_without_writing_through() {
+    let e = Env::ready("symlink");
+    let page = e.page();
+    let outside = e.root.join("outside-01.md");
+    let original = fs::read_to_string(page.join("01.md")).unwrap();
+    fs::write(&outside, &original).unwrap();
+    fs::remove_file(page.join("01.md")).unwrap();
+    unix_fs::symlink(&outside, page.join("01.md")).unwrap();
+    assert!(page.join("01.md").is_symlink());
+
+    let dangling_target = e.root.join("missing-06.md");
+    fs::remove_file(page.join("06.md")).unwrap();
+    unix_fs::symlink(&dangling_target, page.join("06.md")).unwrap();
+    assert!(!dangling_target.exists());
+
+    let (ok, out) = e.wf(&["verify", PG]);
+    assert!(!ok, "{out}");
+    assert!(out.contains("view files differ from the log (hand edit or a failed reprint): 01.md"), "{out}");
+    assert!(out.contains("06.md"), "{out}");
+
+    e.no(&["face-write", PG, "06", "--text", "x", "--as", "pri"], "view files differ from the log (hand edit or a failed reprint): 01.md");
+
+    let out = e.ok(&["verify", PG, "--fix"]);
+    assert!(out.contains("reprinted from the log: 01.md"), "{out}");
+    assert!(out.contains("06.md"), "{out}");
+    assert!(page.join("01.md").is_file() && !page.join("01.md").is_symlink(), "01.md should be a regular file");
+    assert!(page.join("06.md").is_file() && !page.join("06.md").is_symlink(), "06.md should be a regular file");
+    assert_eq!(fs::read_to_string(&outside).unwrap(), original, "must not write through the symlink");
+    assert!(!dangling_target.exists(), "must not create a file at the dangling target");
+    assert!(e.ok(&["verify", PG]).contains("every view matches the log"));
+}
+
+#[test]
+fn return_accepts_git_paths_with_spaces_tabs_newlines_and_non_ascii() {
+    let e = Env::ready("qpath");
+    e.git(&["config", "core.quotepath", "true"]);
+    e.open("src/", "true");
+    let name = format!("{PG}.05.01");
+    let prompt = fs::read_to_string(e.page().join("05.01/PROMPT.md")).unwrap();
+    let hash = prompt.lines().find_map(|l| l.strip_prefix("Pack hash: ")).unwrap().split(' ').next().unwrap().to_string();
+    e.git(&["checkout", "-q", "-B", &format!("pass/{name}"), "main"]);
+    let game = e.root.join("game");
+    fs::write(game.join("src/a space.rs"), "space\n").unwrap();
+    fs::write(game.join("src/a\tb.rs"), "tab\n").unwrap();
+    fs::write(game.join("src/a\nb.rs"), "newline\n").unwrap();
+    fs::write(game.join("src/é.rs"), "eacute\n").unwrap();
+    fs::create_dir_all(game.join(".workshop/returns")).unwrap();
+    let ret = format!("pack: {hash}\ndone: unusual names\nchanged: create src/a space.rs\nnoticed: none\nw01: done - names\nproof: tests\nnot done: none\nunprompted: none\noverflow: none\n");
+    fs::write(game.join(format!(".workshop/returns/{name}.md")), ret).unwrap();
+    e.git(&["add", "-A"]);
+    e.git(&["commit", "-q", "-m", "work"]);
+    let sha = e.git(&["rev-parse", "HEAD"]);
+    e.git(&["checkout", "-q", "main"]);
+    let name_ret = format!("{PG}.05.01");
+    let (ok, out) = e.wf_git(
+        &["return", PG, "1", "--branch", &format!("pass/{name_ret}"), "--commit", &sha, "--file", &format!(".workshop/returns/{name_ret}.md"), "--as", "bob"],
+        "core.quotePath",
+        "true",
+    );
+    assert!(ok, "{out}");
+    let log = e.log();
+    assert!(log.contains("src/a space.rs"), "{log}");
+    assert!(log.contains("src/a\\tb.rs"), "{log}");
+    assert!(log.contains("src/a\\nb.rs"), "{log}");
+    assert!(log.contains("src/é.rs"), "{log}");
 }

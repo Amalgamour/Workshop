@@ -218,6 +218,21 @@ pub fn edited(p: &Page) -> Res<ViewDiff> {
     let mut d = ViewDiff::default();
     for (rel, text) in views(p)? {
         let path = p.dir.join(&rel);
+        match fs::symlink_metadata(&path) {
+            Err(e) if e.kind() == std::io::ErrorKind::NotFound => {
+                d.missing.push(rel);
+                continue;
+            }
+            Err(_) => {
+                d.unreadable.push(rel);
+                continue;
+            }
+            Ok(meta) if meta.file_type().is_symlink() => {
+                d.changed.push(rel);
+                continue;
+            }
+            Ok(_) => {}
+        }
         match fs::read_to_string(&path) {
             Ok(disk) => {
                 if sha(&disk) != sha(&text) {
@@ -225,8 +240,7 @@ pub fn edited(p: &Page) -> Res<ViewDiff> {
                 }
             }
             Err(e) if e.kind() == std::io::ErrorKind::NotFound => d.missing.push(rel),
-            Err(_) if path.exists() => d.unreadable.push(rel),
-            Err(_) => d.missing.push(rel),
+            Err(_) => d.unreadable.push(rel),
         }
     }
     Ok(d)
@@ -246,7 +260,12 @@ pub fn write_except(p: &Page, skip: &[String]) -> Res<()> {
         if let Some(d) = path.parent() {
             fs::create_dir_all(d).map_err(|e| e.to_string())?;
         }
-        if fs::read_to_string(&path).ok().as_deref() != Some(text.as_str()) {
+        // Replace a symlink with a regular file; never write through it.
+        let symlink = path.is_symlink();
+        if symlink {
+            fs::remove_file(&path).map_err(|e| format!("cannot replace symlink {}: {e}", path.display()))?;
+        }
+        if symlink || fs::read_to_string(&path).ok().as_deref() != Some(text.as_str()) {
             fs::write(&path, text).map_err(|e| e.to_string())?;
         }
     }

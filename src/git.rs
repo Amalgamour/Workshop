@@ -47,6 +47,7 @@ impl Change {
 }
 
 /// Parse `git diff --name-status` output. A rename is two lines (D old, A new) when --no-renames is set.
+#[cfg(test)]
 pub fn parse_name_status(text: &str) -> Res<Vec<Change>> {
     let mut out = Vec::new();
     for line in text.lines().filter(|l| !l.is_empty()) {
@@ -60,8 +61,39 @@ pub fn parse_name_status(text: &str) -> Res<Vec<Change>> {
     Ok(out)
 }
 
+/// Parse `git diff -z --name-status` output: STATUS\\0PATH\\0, paths kept exact.
+pub fn parse_name_status_z(bytes: &[u8]) -> Res<Vec<Change>> {
+    let mut parts: Vec<&[u8]> = bytes.split(|b| *b == 0).collect();
+    if parts.last().is_some_and(|p| p.is_empty()) {
+        parts.pop();
+    }
+    if parts.len() % 2 != 0 {
+        return Err("git name-status -z output is truncated".into());
+    }
+    let mut out = Vec::new();
+    for chunk in parts.chunks(2) {
+        let st = std::str::from_utf8(chunk[0]).map_err(|_| "git name-status status is not UTF-8".to_string())?;
+        let path = std::str::from_utf8(chunk[1]).map_err(|_| "git name-status path is not UTF-8".to_string())?;
+        let letter = st.chars().next().ok_or_else(|| "git name-status entry has no status".to_string())?;
+        if path.is_empty() {
+            return Err("git name-status entry has no path".into());
+        }
+        out.push(Change { letter, path: path.to_string() });
+    }
+    Ok(out)
+}
+
+fn git_raw(repo: &Path, args: &[&str]) -> Res<Vec<u8>> {
+    let out = Command::new("git").arg("-C").arg(repo).args(args).output().map_err(|e| format!("cannot run git: {e}"))?;
+    if out.status.success() {
+        Ok(out.stdout)
+    } else {
+        Err(format!("git {}: {}", args.join(" "), String::from_utf8_lossy(&out.stderr).trim()))
+    }
+}
+
 pub fn changed(repo: &Path, from: &str, to: &str) -> Res<Vec<Change>> {
-    parse_name_status(&git(repo, &["diff", "--name-status", "--no-renames", from, to])?)
+    parse_name_status_z(&git_raw(repo, &["diff", "--name-status", "--no-renames", "-z", from, to])?)
 }
 
 /// Check out `sha` in a throwaway worktree, run `f` in it, then remove it.
@@ -98,7 +130,7 @@ pub fn clip_check_out(out: &str, max: usize) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::{clip_check_out, parse_name_status};
+    use super::{clip_check_out, parse_name_status, parse_name_status_z};
 
     #[test]
     fn parse_name_status_keeps_letters_and_splits_a_rename() {
@@ -129,5 +161,28 @@ mod tests {
         assert!(out.ends_with("L050"), "{out}");
         assert!(!out.contains("L001") && !out.contains("L010"), "{out}");
         assert_eq!(out.lines().count(), 41);
+    }
+
+    #[test]
+    fn parse_name_status_z_keeps_spaces_tabs_newlines_and_non_ascii() {
+        let mut raw = Vec::new();
+        for (st, path) in [
+            ("A", "src/a space.rs"),
+            ("A", "src/a\tb.rs"),
+            ("A", "src/a\nb.rs"),
+            ("M", "src/é.rs"),
+        ] {
+            raw.extend_from_slice(st.as_bytes());
+            raw.push(0);
+            raw.extend_from_slice(path.as_bytes());
+            raw.push(0);
+        }
+        let cs = parse_name_status_z(&raw).unwrap();
+        assert_eq!(
+            cs.iter().map(|c| c.tag()).collect::<Vec<_>>(),
+            ["A src/a space.rs", "A src/a\tb.rs", "A src/a\nb.rs", "M src/é.rs"]
+        );
+        assert!(parse_name_status_z(b"").unwrap().is_empty());
+        assert!(parse_name_status_z(b"A").unwrap_err().contains("truncated"));
     }
 }

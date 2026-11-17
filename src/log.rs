@@ -61,6 +61,10 @@ pub fn iso(t: u64) -> String {
 /// Read and check the whole log. Refuses on a broken chain or a bad sequence.
 pub fn read(path: &Path) -> Res<(Vec<Event>, String)> {
     let text = fs::read_to_string(path).map_err(|e| format!("cannot read {}: {e}", path.display()))?;
+    if !text.is_empty() && !text.ends_with('\n') {
+        let n = text.lines().count();
+        return Err(format!("last line has no newline: entry {n}; nothing was changed"));
+    }
     let mut prev = "0".to_string();
     let mut out = Vec::new();
     let lines: Vec<&str> = text.lines().collect();
@@ -93,10 +97,38 @@ pub fn append(path: &Path, head: &str, seq: u64, actor: &str, role: &str, kind: 
     let t = now();
     let line = json!({"seq": seq, "time": iso(t), "time_s": t, "actor": actor, "role": role,
                       "kind": kind, "data": data, "prev": head}).to_string();
+    let created = !path.exists();
     let mut f = OpenOptions::new().create(true).append(true).open(path).map_err(|e| e.to_string())?;
-    writeln!(f, "{line}").map_err(|e| e.to_string())?;
+    write_record(&mut f, &line).map_err(|e| e.to_string())?;
     f.sync_all().map_err(|e| e.to_string())?;
+    if created {
+        if let Some(dir) = path.parent() {
+            if !dir.as_os_str().is_empty() {
+                sync_dir(dir)?;
+            }
+        }
+    }
     Ok((Event { seq, time: t, actor: actor.into(), role: role.into(), kind: kind.into(), data }, sha(&line)))
+}
+
+/// The JSON line and its trailing newline, as one buffer, so a short write cannot split them.
+fn write_record(w: &mut impl Write, line: &str) -> std::io::Result<()> {
+    let mut rec = String::with_capacity(line.len() + 1);
+    rec.push_str(line);
+    rec.push('\n');
+    w.write_all(rec.as_bytes())
+}
+
+fn sync_dir(dir: &Path) -> Res<()> {
+    #[cfg(test)]
+    SYNC_DIR_COUNT.with(|n| n.set(n.get() + 1));
+    let f = fs::File::open(dir).map_err(|e| format!("cannot sync {}: {e}", dir.display()))?;
+    f.sync_all().map_err(|e| format!("cannot sync {}: {e}", dir.display()))
+}
+
+#[cfg(test)]
+thread_local! {
+    static SYNC_DIR_COUNT: std::cell::Cell<u32> = const { std::cell::Cell::new(0) };
 }
 
 #[cfg(test)]
@@ -121,10 +153,63 @@ mod tests {
         // cut the last line in half, the way an interrupted append looks
         let text = String::from_utf8(before.clone()).unwrap();
         let cut = text.rfind(',').unwrap();
-        fs::write(&path, &text[..cut]).unwrap();
+        let torn = format!("{}\n", &text[..cut]);
+        fs::write(&path, &torn).unwrap();
         let err = read(&path).unwrap_err();
         assert!(err.contains("last line is half written: entry 2; nothing was changed"), "{err}");
-        assert_eq!(fs::read(&path).unwrap(), text[..cut].as_bytes());
+        assert_eq!(fs::read(&path).unwrap(), torn.as_bytes());
+        let _ = fs::remove_dir_all(&d);
+    }
+
+    #[test]
+    fn read_names_a_last_line_with_no_newline_and_leaves_the_file() {
+        let d = std::env::temp_dir().join(format!("wf-log-nonewline-{}", std::process::id()));
+        let _ = fs::remove_dir_all(&d);
+        fs::create_dir_all(&d).unwrap();
+        let path = d.join("log.jsonl");
+        let (e, head) = append(&path, "0", 1, "mat", "person", "init", serde_json::json!({"address": "p"})).unwrap();
+        assert_eq!(e.seq, 1);
+        let _ = append(&path, &head, 2, "pri", "prime", "face", serde_json::json!({"face": "01", "text": "Goal"})).unwrap();
+        let text = fs::read_to_string(&path).unwrap();
+        assert!(text.ends_with('\n'), "{text:?}");
+        let stripped = text.trim_end_matches('\n');
+        fs::write(&path, stripped).unwrap();
+        let err = read(&path).unwrap_err();
+        assert!(err.contains("last line has no newline: entry 2; nothing was changed"), "{err}");
+        assert_eq!(fs::read_to_string(&path).unwrap(), stripped);
+        let _ = fs::remove_dir_all(&d);
+    }
+
+    #[test]
+    fn write_record_sends_the_line_and_newline_in_one_write() {
+        struct Count { buf: Vec<u8>, n: usize }
+        impl Write for Count {
+            fn write(&mut self, b: &[u8]) -> std::io::Result<usize> {
+                self.n += 1;
+                self.buf.extend_from_slice(b);
+                Ok(b.len())
+            }
+            fn flush(&mut self) -> std::io::Result<()> { Ok(()) }
+        }
+        let mut c = Count { buf: vec![], n: 0 };
+        write_record(&mut c, r#"{"seq":1}"#).unwrap();
+        assert_eq!(c.n, 1);
+        assert_eq!(c.buf, b"{\"seq\":1}\n");
+    }
+
+    #[test]
+    fn append_syncs_the_page_folder_when_it_creates_the_log() {
+        let d = std::env::temp_dir().join(format!("wf-log-dirsync-{}", std::process::id()));
+        let _ = fs::remove_dir_all(&d);
+        fs::create_dir_all(&d).unwrap();
+        let path = d.join("log.jsonl");
+        SYNC_DIR_COUNT.with(|n| n.set(0));
+        let (_, head) = append(&path, "0", 1, "mat", "person", "init", serde_json::json!({"address": "p"})).unwrap();
+        assert_eq!(SYNC_DIR_COUNT.with(|n| n.get()), 1);
+        append(&path, &head, 2, "pri", "prime", "face", serde_json::json!({"face": "01", "text": "Goal"})).unwrap();
+        assert_eq!(SYNC_DIR_COUNT.with(|n| n.get()), 1, "an existing log must not sync the folder again");
+        let text = fs::read_to_string(&path).unwrap();
+        assert!(text.ends_with('\n') && text.matches('\n').count() == 2, "{text:?}");
         let _ = fs::remove_dir_all(&d);
     }
 }
