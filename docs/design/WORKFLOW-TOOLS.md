@@ -2,8 +2,26 @@
 
 For Matthew. By Designer. A PROPOSAL (7) for how to build the tools. Only you approve.
 created: Tue 17 Nov 2026, 12:30 PM EST
+Updated: Tue 17 Nov 2026, 12:45 PM EST (your drawings t261u, t262u: Shape, no direct writes, several models, T5-T6).
 
 In one line: the compute does the checking and the record keeping; the lead (Prime) signs; the worker builds on its own branch.
+
+## Shape (your drawings t261u, t262u)
+
+His words: "Thinking about it I think this is better." and "The page is the what the compute sits in.  person, model sit outside, sometimes multiple models can sit at this." (docs/review/DIRECTOR-WORDS-t262u.md:5-7). The record marks t262u as replacing t261u (:3, a recording note, not his words).
+
+What t262u shows (docs/review/DIRECTOR-DRAWING-t262u.png, checked by eye):
+- A hexagon: the page. "compute" in the middle.
+- Black lines from the compute to each face, 01 to 06.
+- Four coloured lines start outside the page and end at the compute: lead (green), observer (purple), Builder (blue), person (red). None ends at a face.
+- Not drawn: faces 00, 07, 08, 09.
+
+What t261u showed (DIRECTOR-DRAWING-t261u.png): the same hexagon and compute, no black lines. The four coloured lines ran from the compute to the page edge at one face each: lead 01, observer 06, Builder 05, person 04. 02 and 03 had none. Labels sat outside; lines stopped at the edge.
+
+The rule this design takes from t262u (Designer reading, 7):
+1. The page holds the compute.
+2. A face is reached only through the compute.
+3. People and models stay outside the page. Several models may work one page at once.
 
 ## His words (t259u)
 
@@ -149,6 +167,52 @@ Overall build order (plain list):
 - **To build.** Trigger watch and routing, after E1 is answered.
 - **Order.** 8. Not answered by t259u (see below).
 
+## No role writes a face directly (t262u check)
+
+Rule: a role may hand the compute a file, but only the compute files it on a face.
+
+**What already holds in code.**
+- Every write over HTTP needs a token; the body's `by` is not trusted (crates/compute/src/lib.rs:85-94).
+- Writes queue one at a time (lib.rs:74-84; the store sits behind one lock, lib.rs:42, :50).
+- Every write goes through one path: `propose` (crates/compute/src/store.rs:731), which validates, then `append` (store.rs:914, :927). `/close` (:995), `/ask/link` (askq.rs:181) and a `.seq` page (store.rs:759-766) all go through `propose`.
+- A `.seq` page file is already "input, filed by the compute": import turns it into a proposal and writes nothing (crates/seqpage/src/import.rs:1-4).
+- While the compute runs, a book changed outside it is refused (store.rs:946-948) or its extra bytes are cut as a partial line (:950-951).
+
+**Spots where a face can be written without the compute.**
+1. **Book files in git.** books/*.book are tracked (git ls-files books/). A model can edit one in a commit. At start the compute reads books from disk and replays them (store.rs:1019-1033). Replay re-applies the tail rules, but `by` is only text in the file; no token is checked (state.rs:548 compares `e.by` to the compute's name). So a hand-written line naming `compute` would pass. Fits by: a check that refuses any push touching books/ (W10 already asks for it, 7), and the book read at start compared with the compute's own last length (7).
+2. **Edits while the compute is stopped.** Same as 1, without git. Fits the same way.
+3. **Kernel draft files.** kernel/00.00.00/*.draft.md are face drafts written as plain files. The compute does not read them; it loads only `DD.SS.BB.book` files (store.rs:123-130). They are input, not faces, until filed through `propose`. Not mine to change (kernel).
+4. **Exported pages.** `seqpage` writes a page to a file (crates/seqpage/src/bin/seqpage.rs:72). That is a view out. Edits come back only as a `.seq` proposal (above). Holds.
+
+**Each step against the rule.**
+- Issue: Prime's draft goes in by `propose`. The pre-draft 06 note is a proposal to face 06; the compute files it. Holds once written that way.
+- Work: the worker writes code and one return file in git. Code is not a face. The return file is input (P6).
+- Ping: the compute reads the return file and files it on 05.NN itself. Holds; needs the state.rs:563-571 change named above.
+- Check: check results are filed by the compute on the review step. The checker's review goes in by `propose`. Holds.
+- Sign-off: Prime asks; the compute writes the close (store.rs:994-995). Holds.
+- Status: reads only. Holds.
+- Going up: the compute routes; any answer from you goes on 04 by `propose`. Holds.
+
+## Several models on one page (t262u: "sometimes multiple models can sit at this")
+
+**Already there.**
+- Each pass is its own counter, 05.01, 05.02 and up (state.rs:110-121).
+- The first claim on a pack wins; a second is refused (state.rs:541-543, :560-561).
+- Only the claim holder may return (state.rs:563-571).
+- The builder may not review its own return (state.rs:578-583).
+- A tail move whose `from` is out of date is refused (state.rs:545).
+- A face has only one draft at a time (state.rs:484-486), and a full `put` never replaces a seated face (:474-476).
+- Writes are taken one at a time (lib.rs:74-84).
+- Many names can hold tokens (crates/compute/src/identity.rs:3-4).
+
+**Missing (7).**
+- No lock on files: two open passes may both list src/steer.rs in `may touch`. Nothing warns.
+- No branch conflict handling: two accepted passes may not merge cleanly. Who resolves is open (T1).
+- No owner on a face draft: any token holder may note or promote it.
+- Workers off this machine have no token and no road in (main.rs:4, :12; T3).
+- The Now strip shows one open pass. It must list every open claim, with its worker and its `may touch`.
+- Proposed (Designer, 7): at release, the compute refuses a pack whose `may touch` overlaps another open pass on the page, unless Prime names the overlap in the pack.
+
 ## S12 and S13
 
 - **S12 (one branch per pass): answered in direction (t259u:8).** Open detail: exact branch name, and who merges (T1).
@@ -161,6 +225,9 @@ Overall build order (plain list):
 3. Prima's relay of 2.5 drops his why ("It's hard right now to keep in my mind everything..."). Prima's mapping in the file keeps it.
 4. Prima labels 2.6 "Up path / finish". His words cover the finish ping only. The trigger routing of step 6 is not in them. E1 stays open.
 5. 2.2 and 2.3 are "I agree" only. They answer direction, not the branch name or who merges.
+
+6. Prima's description of t262u matches the drawing. One thing not in her description or reading: the drawing says "observer", while step 3 here says "checker". Whether they are the same role is T6.
+7. The t262u relay matches the recorded words; the record has a line break after "better." (t262u:5-7).
 
 ## New open questions (rule t189u)
 
@@ -188,9 +255,22 @@ Overall build order (plain list):
 3. **Why.** It is the only proof a machine can give that the pack was built on the latest 04, 06 and 05 (t259u:7). Who gets hurt otherwise: you, when a pass ignores your newest response on 04.
 4. **Axioms checked.** 6 [Axioms.md:23] pass: the pack names what it came from. 1 [Axioms.md:13] pass: the live record decides. 9 [Axioms.md:29] tension: pins show versions, not that they were read. 7 [Axioms.md:25] tension: new fields need a format step.
 
+### T5. Does the t261u face pairing still hold?
+1. **Question.** In t261u each role touched one face: lead 01, observer 06, Builder 05, person 04. In t262u every role ends at the compute. Does the pairing still say which face each role mostly reads or feeds, or is it gone?
+2. **Proposed (Designer, 7).** Keep it only as "mostly reads or feeds", never as "writes": lead feeds 01, Builder 05, person 04. Hold 06 open: you called 06 "prime notes" (t243u), and t261u put the observer there.
+3. **Why.** t262u ends every role at the compute, so no role owns a face. Who gets hurt otherwise: a model that reads "builder: 05" as leave to write face 05.
+4. **Axioms checked.** 1 [Axioms.md:13] pass: the compute enforces. 3 [Axioms.md:17] pass: each role leads its part. 7 [Axioms.md:25] tension: 06 unclear. 2 [Axioms.md:15] tension: two drawings, one replaced.
+
+### T6. Is the "observer" the checker?
+1. **Question.** Both drawings name an "observer". Step 3 names a checker that reviews against "done when". Same role?
+2. **Proposed (Designer, 7).** Yes: the observer is the other view that checks the work, and it is never the builder.
+3. **Why.** Only four roles are drawn, and step 3 needs a checker that is not the builder (state.rs:578-583). Who gets hurt otherwise: a pass with no one able to review it.
+4. **Axioms checked.** 9 [Axioms.md:29] pass: another view tries to break it. 3 [Axioms.md:17] pass. 7 [Axioms.md:25] tension: your word, not yet defined.
+
 ## Ties
 
 - ONE-PAGE-WORK.md: S1, S4, S6, S7, S9, S10, S12, S13; E1 (Elevation table).
 - SAMPLE-PAGE.md: Now strip, board, pack, prompt box, AGENTS.md. SAMPLE-PAGE-PATHS.md: refused return, rework, blocker.
 - PACK-TEMPLATE.md P6 and WORK-BOOK-CONCEPT.md W10: the return file in the commit.
 - DECISIONS-WAITING.md: the sheet.
+- docs/review/DIRECTOR-WORDS-t261u.md, DIRECTOR-WORDS-t262u.md and their drawings: Shape.

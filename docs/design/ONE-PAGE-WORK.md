@@ -3,6 +3,13 @@
 For Matthew. By Designer. Started as a PROPOSAL (7). Parts are now answered by you (t245u, t246u). Answered, not ruled.
 created: Tue 17 Nov 2026, 11:45 AM EST
 
+## Change note (2026-11-17, 12:45 PM EST, Designer; second note at this time)
+
+Folds your drawings t261u and t262u (docs/review/DIRECTOR-WORDS-t261u.md, -t262u.md). t262u replaces t261u.
+- The page holds the compute; faces are reached only through it; people and models stay outside (WORKFLOW-TOOLS.md, "Shape").
+- The face table below is about what each face holds, not who writes it. Only the compute files a face.
+- New questions T5 (does the t261u face pairing hold?) and T6 (is the observer the checker?): WORKFLOW-TOOLS.md.
+
 ## Change note (2026-11-17, 12:30 PM EST, Designer)
 
 Folds your t259u (docs/review/DIRECTOR-WORDS-t259u.md, c2a291c). Tool steps: WORKFLOW-TOOLS.md.
@@ -137,6 +144,8 @@ Based on his two named triggers (t245u:8): "a deliverable isn't possible under t
 - What "flex" means for pages that are not dev work is open (E5).
 
 ## What each face holds (proposal)
+
+Shape note (t262u): roles reach these faces only through the compute. t261u paired lead 01, observer 06, Builder 05, person 04; whether that pairing still holds is T5 (WORKFLOW-TOOLS.md).
 
 | Face | His word | Holds | Spec today |
 |---|---|---|---|
