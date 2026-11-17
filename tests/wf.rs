@@ -1,6 +1,7 @@
 //! End-to-end tests: each one runs the wf binary against a temp folder and a temp git repo.
 
 use std::fs;
+use std::os::unix::fs::PermissionsExt;
 use std::path::PathBuf;
 use std::process::Command;
 
@@ -376,8 +377,8 @@ fn hand_edited_face_is_refused_then_reprinted() {
     let e = Env::ready("edit");
     let f = e.page().join("01.md");
     fs::write(&f, "Goal: something else\n").unwrap();
-    e.no(&["face-write", PG, "06", "--text", "x", "--as", "pri"], "hand-edited page files: 01.md");
-    e.no(&["verify", PG], "hand-edited view files: 01.md");
+    e.no(&["face-write", PG, "06", "--text", "x", "--as", "pri"], "view files differ from the log (hand edit or a failed reprint): 01.md");
+    e.no(&["verify", PG], "view files differ from the log (hand edit or a failed reprint): 01.md");
     e.ok(&["verify", PG, "--fix"]);
     assert!(fs::read_to_string(&f).unwrap().contains("Goal: a."));
     e.ok(&["face-write", PG, "06", "--text", "x", "--as", "pri"]);
@@ -399,7 +400,7 @@ fn last_line_tamper_shows_in_the_stamp() {
     let log = e.page().join("log.jsonl");
     let t = e.log().replace("read 04", "read nothing");
     fs::write(&log, t).unwrap();
-    e.no(&["verify", PG], "hand-edited view files");
+    e.no(&["verify", PG], "view files differ from the log (hand edit or a failed reprint)");
 }
 
 #[test]
@@ -738,4 +739,108 @@ fn check_refuses_if_another_check_is_filed_first() {
     }
     let log = e.log();
     assert_eq!(log.lines().filter(|l| l.contains("\"kind\":\"check\"")).count(), 1, "{log}");
+}
+
+#[test]
+fn verify_reports_missing_unreadable_and_changed_views() {
+    let e = Env::ready("views");
+    let page = e.page();
+    fs::remove_file(page.join("01.md")).unwrap();
+    fs::write(page.join("06.md"), "hand edited\n").unwrap();
+    let un = page.join("04.md");
+    let mut perms = fs::metadata(&un).unwrap().permissions();
+    perms.set_mode(0o000);
+    fs::set_permissions(&un, perms).unwrap();
+
+    let (ok, out) = e.wf(&["verify", PG]);
+    assert!(!ok, "{out}");
+    assert!(out.contains("missing view files: 01.md"), "{out}");
+    assert!(out.contains("unreadable view files: 04.md"), "{out}");
+    assert!(out.contains("view files differ from the log (hand edit or a failed reprint): 06.md"), "{out}");
+
+    e.no(&["face-write", PG, "06", "--text", "x", "--as", "pri"], "missing view files: 01.md");
+    e.no(&["face-write", PG, "06", "--text", "x", "--as", "pri"], "unreadable view files: 04.md");
+    e.no(&["face-write", PG, "06", "--text", "x", "--as", "pri"], "view files differ from the log (hand edit or a failed reprint): 06.md");
+
+    let (ok, out) = e.wf(&["verify", PG, "--fix"]);
+    assert!(!ok, "{out}");
+    assert!(out.contains("reprinted from the log: 01.md, 06.md"), "{out}");
+    assert!(out.contains("unreadable view files: 04.md"), "{out}");
+    assert!(page.join("01.md").is_file());
+    assert!(fs::read_to_string(page.join("06.md")).unwrap().contains("read 04"));
+
+    let mut perms = fs::metadata(&un).unwrap().permissions();
+    perms.set_mode(0o644);
+    fs::set_permissions(&un, perms).unwrap();
+    let out = e.ok(&["verify", PG]);
+    assert!(out.contains("every view matches the log"), "{out}");
+}
+
+#[test]
+fn return_refuses_a_rename_out_of_scope() {
+    let e = Env::ready("ren");
+    e.open("src/a.rs,src/c.rs", "true");
+    let name = format!("{PG}.05.01");
+    let prompt = fs::read_to_string(e.page().join("05.01/PROMPT.md")).unwrap();
+    let hash = prompt.lines().find_map(|l| l.strip_prefix("Pack hash: ")).unwrap().split(' ').next().unwrap().to_string();
+    e.git(&["checkout", "-q", "-B", &format!("pass/{name}"), "main"]);
+    e.git(&["mv", "src/b.rs", "src/c.rs"]);
+    fs::write(e.root.join("game/src/a.rs"), "a = 2\n").unwrap();
+    fs::create_dir_all(e.root.join("game/.workshop/returns")).unwrap();
+    let ret = format!("pack: {hash}\ndone: renamed b to c\nchanged: create src/c.rs, modify src/a.rs\nnoticed: none\nw01: done - a is 2\nproof: tests\nnot done: none\nunprompted: none\noverflow: none\n");
+    fs::write(e.root.join(format!("game/.workshop/returns/{name}.md")), ret).unwrap();
+    e.git(&["add", "-A"]);
+    e.git(&["commit", "-q", "-m", "work"]);
+    let sha = e.git(&["rev-parse", "HEAD"]);
+    e.git(&["checkout", "-q", "main"]);
+    let (ok, out) = e.ret(1, &sha, "bob");
+    assert!(!ok && out.contains("src/b.rs outside may touch"), "{out}");
+    assert!(e.log().contains("\"kind\":\"return-refused\""));
+}
+
+#[test]
+fn return_keeps_git_letters_and_prints_them_as_evidence() {
+    let e = Env::checked("gitlist");
+    let face05 = fs::read_to_string(e.page().join("05.md")).unwrap();
+    assert!(face05.contains("git: A .workshop/returns/1.2.3.4.05.01.md, M src/a.rs"), "{face05}");
+    assert!(face05.contains("changed: modify src/a.rs"), "{face05}");
+    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--as", "pri"]);
+    let rec = e.ok(&["close", PG, "1", "--as", "pri"]);
+    assert!(rec.contains("git: A .workshop/returns/1.2.3.4.05.01.md, M src/a.rs"), "{rec}");
+}
+
+#[test]
+fn torn_last_log_line_is_named_and_left_alone() {
+    let e = Env::ready("torn");
+    let log = e.page().join("log.jsonl");
+    let before = e.log();
+    let n = before.lines().count();
+    let cut = before.rfind(',').expect("comma in last line");
+    fs::write(&log, &before[..cut]).unwrap();
+    let torn = fs::read(&log).unwrap();
+    let msg = format!("last line is half written: entry {n}; nothing was changed");
+    e.no(&["verify", PG], &msg);
+    e.no(&["verify", PG, "--fix"], &msg);
+    e.no(&["status", PG], &msg);
+    e.no(&["face-write", PG, "06", "--text", "x", "--as", "pri"], &msg);
+    assert_eq!(fs::read(&log).unwrap(), torn);
+}
+
+#[test]
+fn close_passed_refuses_face_01_change_after_signoff_even_with_a_stored_note() {
+    let e = Env::checked("close-after");
+    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--cards", "w01=carried", "--note", "hold for later (t275u)", "--as", "pri"]);
+    e.ok(&["face-write", PG, "01", "--text", "Goal: a.\nDone when: something new.", "--as", "pri"]);
+    e.no(&["close", PG, "1", "--as", "pri"], "face 01 changed after the signoff entry");
+    e.ok(&["signoff", PG, "1", "--outcome", "passed", "--cards", "w01=carried", "--note", "same goal (t275u)", "--as", "pri"]);
+    let rec = e.ok(&["close", PG, "1", "--as", "pri"]);
+    assert!(rec.contains("w01 carried"), "{rec}");
+}
+
+#[test]
+fn grant_ref_must_be_nonblank() {
+    let e = Env::ready("grantref");
+    e.no(&["grant", PG, "--paths", "lib/", "--ref", " ", "--as", "mat"], "--ref must have non-blank text");
+    e.ok(&["grant", PG, "--paths", "lib/", "--ref", "t275u", "--as", "mat"]);
+    assert!(e.log().contains("\"ref\":\"t275u\""));
 }

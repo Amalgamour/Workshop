@@ -63,8 +63,16 @@ pub fn read(path: &Path) -> Res<(Vec<Event>, String)> {
     let text = fs::read_to_string(path).map_err(|e| format!("cannot read {}: {e}", path.display()))?;
     let mut prev = "0".to_string();
     let mut out = Vec::new();
-    for (i, line) in text.lines().enumerate() {
-        let v: Value = serde_json::from_str(line).map_err(|e| format!("log line {} is not JSON: {e}", i + 1))?;
+    let lines: Vec<&str> = text.lines().collect();
+    let last = lines.len();
+    for (i, line) in lines.iter().enumerate() {
+        let v: Value = match serde_json::from_str(line) {
+            Ok(v) => v,
+            Err(_) if i + 1 == last => {
+                return Err(format!("last line is half written: entry {}; nothing was changed", i + 1));
+            }
+            Err(e) => return Err(format!("log line {} is not JSON: {e}", i + 1)),
+        };
         let n = i as u64 + 1;
         if v["prev"].as_str() != Some(prev.as_str()) {
             return Err(format!("log chain broken at line {n}: it does not match the line before (tampered?)"));
@@ -87,6 +95,7 @@ pub fn append(path: &Path, head: &str, seq: u64, actor: &str, role: &str, kind: 
                       "kind": kind, "data": data, "prev": head}).to_string();
     let mut f = OpenOptions::new().create(true).append(true).open(path).map_err(|e| e.to_string())?;
     writeln!(f, "{line}").map_err(|e| e.to_string())?;
+    f.sync_all().map_err(|e| e.to_string())?;
     Ok((Event { seq, time: t, actor: actor.into(), role: role.into(), kind: kind.into(), data }, sha(&line)))
 }
 
@@ -97,5 +106,25 @@ mod tests {
     fn iso_known_dates() {
         assert_eq!(iso(0), "1970-01-01T00:00:00Z");
         assert_eq!(iso(1_795_456_800), "2026-11-23T18:00:00Z");
+    }
+
+    #[test]
+    fn read_names_a_torn_last_line_and_leaves_the_file() {
+        let d = std::env::temp_dir().join(format!("wf-log-torn-{}", std::process::id()));
+        let _ = fs::remove_dir_all(&d);
+        fs::create_dir_all(&d).unwrap();
+        let path = d.join("log.jsonl");
+        let (e, head) = append(&path, "0", 1, "mat", "person", "init", serde_json::json!({"address": "p"})).unwrap();
+        assert_eq!(e.seq, 1);
+        let _ = append(&path, &head, 2, "pri", "prime", "face", serde_json::json!({"face": "01", "text": "Goal"})).unwrap();
+        let before = fs::read(&path).unwrap();
+        // cut the last line in half, the way an interrupted append looks
+        let text = String::from_utf8(before.clone()).unwrap();
+        let cut = text.rfind(',').unwrap();
+        fs::write(&path, &text[..cut]).unwrap();
+        let err = read(&path).unwrap_err();
+        assert!(err.contains("last line is half written: entry 2; nothing was changed"), "{err}");
+        assert_eq!(fs::read(&path).unwrap(), text[..cut].as_bytes());
+        let _ = fs::remove_dir_all(&d);
     }
 }

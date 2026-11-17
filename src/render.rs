@@ -114,6 +114,10 @@ fn face05(p: &Page) -> String {
         }
         if let Some(r) = &x.ret {
             o += &format!("return: {} at {} (hash {})\n", s(r, "file"), s(r, "commit"), short(&s(r, "hash")));
+            let git = git_changed_text(r);
+            if !git.is_empty() {
+                o += &format!("git: {git}\n");
+            }
             o += &format!("```\n{}\n```\n", s(r, "text").trim_end());
         }
         if let Some((who, c)) = &x.check {
@@ -177,21 +181,67 @@ pub fn views(p: &Page) -> Res<BTreeMap<String, String>> {
     Ok(m)
 }
 
-/// Compare the view files on disk with the log. Returns the files that differ.
-pub fn edited(p: &Page) -> Res<Vec<String>> {
-    let mut bad = vec![];
+/// Views on disk that do not match the log, split by kind.
+#[derive(Default, Debug, PartialEq, Eq)]
+pub struct ViewDiff {
+    pub missing: Vec<String>,
+    pub unreadable: Vec<String>,
+    pub changed: Vec<String>,
+}
+
+impl ViewDiff {
+    pub fn is_empty(&self) -> bool {
+        self.missing.is_empty() && self.unreadable.is_empty() && self.changed.is_empty()
+    }
+
+    /// "missing view files: a; unreadable view files: b; view files differ from the log (hand edit or a failed reprint): c"
+    pub fn report(&self) -> String {
+        let mut parts = Vec::new();
+        if !self.missing.is_empty() {
+            parts.push(format!("missing view files: {}", self.missing.join(", ")));
+        }
+        if !self.unreadable.is_empty() {
+            parts.push(format!("unreadable view files: {}", self.unreadable.join(", ")));
+        }
+        if !self.changed.is_empty() {
+            parts.push(format!(
+                "view files differ from the log (hand edit or a failed reprint): {}",
+                self.changed.join(", ")
+            ));
+        }
+        parts.join("; ")
+    }
+}
+
+/// Compare the view files on disk with the log.
+pub fn edited(p: &Page) -> Res<ViewDiff> {
+    let mut d = ViewDiff::default();
     for (rel, text) in views(p)? {
-        if let Ok(disk) = fs::read_to_string(p.dir.join(&rel)) {
-            if sha(&disk) != sha(&text) {
-                bad.push(rel);
+        let path = p.dir.join(&rel);
+        match fs::read_to_string(&path) {
+            Ok(disk) => {
+                if sha(&disk) != sha(&text) {
+                    d.changed.push(rel);
+                }
             }
+            Err(e) if e.kind() == std::io::ErrorKind::NotFound => d.missing.push(rel),
+            Err(_) if path.exists() => d.unreadable.push(rel),
+            Err(_) => d.missing.push(rel),
         }
     }
-    Ok(bad)
+    Ok(d)
 }
 
 pub fn write(p: &Page) -> Res<()> {
+    write_except(p, &[])
+}
+
+/// Reprint views from the log, skipping the named relative paths.
+pub fn write_except(p: &Page, skip: &[String]) -> Res<()> {
     for (rel, text) in views(p)? {
+        if skip.iter().any(|s| s == &rel) {
+            continue;
+        }
         let path = p.dir.join(&rel);
         if let Some(d) = path.parent() {
             fs::create_dir_all(d).map_err(|e| e.to_string())?;
@@ -201,6 +251,27 @@ pub fn write(p: &Page) -> Res<()> {
         }
     }
     Ok(())
+}
+
+/// The return event's git change list, as "A path, M path, D path".
+pub fn git_changed_text(r: &Value) -> String {
+    r["changed"]
+        .as_array()
+        .map(|a| {
+            a.iter()
+                .filter_map(|v| {
+                    if let Some(s) = v.as_str() {
+                        Some(s.to_string())
+                    } else {
+                        let letter = s(v, "letter");
+                        let path = s(v, "path");
+                        if path.is_empty() { None } else { Some(format!("{letter} {path}")) }
+                    }
+                })
+                .collect::<Vec<_>>()
+                .join(", ")
+        })
+        .unwrap_or_default()
 }
 
 pub fn version_of(text: &str) -> String {

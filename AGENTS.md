@@ -41,12 +41,13 @@ Pass numbers may be written `1` or `01`. Hashes are sha256; a 12-character prefi
 2. Commit on your pass branch, created from the start commit; push only where your setup says.
    The branch is `pass/<page>.05.<NN>`.
 3. Touch only the "may touch" files. The return file under `.workshop/returns/` is always
-   allowed and must be listed in `changed`. Anything else gets the return refused.
+   allowed. The tool takes the changed-file list from git (create, modify, delete); the
+   `changed:` line is your summary. Anything outside may touch gets the return refused.
 4. Copy `pages/<page>/05.<NN>/RETURN-TEMPLATE.md` to the return path in the prompt.
    Fill every line, in this order:
    - `pack:` the pack hash (already filled)
    - `done:` what you did
-   - `changed:` each file, as `create path` or `modify path`
+   - `changed:` your summary of creates, modifies and deletes; the tool takes the list from git
    - `noticed:` what you noticed
    - one line per job: `w01: done - ...`, `w02: need - ...` or `w02: blocked - ...`
    - `proof:` commits, tests and what they showed
@@ -70,8 +71,8 @@ A filed report is built after the check takes the lock and reloads, so a face 01
 Judge those lines yourself; add `--fail` if a "done when" line is not met, even when the commands pass.
 Then run without `--dry-run` to write your report.
 
-`--why` and `--note` need a reason and a (ref), both non-blank. `set-prime --ref` and `answer --text` refuse blank or spaces.
-`wf close` re-runs the passed-signoff refusals, so a question or face 01 change after signoff stops the close.
+`--why` and `--note` need a reason and a (ref), both non-blank. `set-prime --ref`, `grant --ref` and `answer --text` refuse blank or spaces.
+`wf close` re-runs the passed-signoff refusals, and a passed close is refused if face 01 changed after the signoff entry (a note stored for something else does not cover it).
 
 ## As an observer
 `wf observe <page>` lists signals: many passes, the same blocker again,

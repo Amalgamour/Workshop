@@ -33,8 +33,35 @@ pub fn show(repo: &Path, sha: &str, path: &str) -> Res<String> {
     git(repo, &["show", &format!("{sha}:{path}")]).map_err(|_| format!("{path} is not in commit {sha}"))
 }
 
-pub fn changed(repo: &Path, from: &str, to: &str) -> Res<Vec<String>> {
-    Ok(git(repo, &["diff", "--name-only", from, to])?.lines().map(String::from).collect())
+/// One path from `git diff --name-status --no-renames`, with its letter (A, M, D).
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct Change {
+    pub letter: char,
+    pub path: String,
+}
+
+impl Change {
+    pub fn tag(&self) -> String {
+        format!("{} {}", self.letter, self.path)
+    }
+}
+
+/// Parse `git diff --name-status` output. A rename is two lines (D old, A new) when --no-renames is set.
+pub fn parse_name_status(text: &str) -> Res<Vec<Change>> {
+    let mut out = Vec::new();
+    for line in text.lines().filter(|l| !l.is_empty()) {
+        let (st, path) = line.split_once('\t').ok_or_else(|| format!("git name-status line has no tab: {line}"))?;
+        let letter = st.chars().next().ok_or_else(|| format!("git name-status line has no status: {line}"))?;
+        if path.is_empty() {
+            return Err(format!("git name-status line has no path: {line}"));
+        }
+        out.push(Change { letter, path: path.to_string() });
+    }
+    Ok(out)
+}
+
+pub fn changed(repo: &Path, from: &str, to: &str) -> Res<Vec<Change>> {
+    parse_name_status(&git(repo, &["diff", "--name-status", "--no-renames", from, to])?)
 }
 
 /// Check out `sha` in a throwaway worktree, run `f` in it, then remove it.
@@ -71,7 +98,22 @@ pub fn clip_check_out(out: &str, max: usize) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::clip_check_out;
+    use super::{clip_check_out, parse_name_status};
+
+    #[test]
+    fn parse_name_status_keeps_letters_and_splits_a_rename() {
+        let text = "A\t.workshop/returns/p.md\nD\tsrc/b.rs\nA\tsrc/c.rs\nM\tsrc/a.rs\n";
+        let cs = parse_name_status(text).unwrap();
+        assert_eq!(
+            cs.iter().map(|c| c.tag()).collect::<Vec<_>>(),
+            ["A .workshop/returns/p.md", "D src/b.rs", "A src/c.rs", "M src/a.rs"]
+        );
+    }
+
+    #[test]
+    fn parse_name_status_rejects_a_bad_line() {
+        assert!(parse_name_status("src/a.rs").unwrap_err().contains("no tab"));
+    }
 
     #[test]
     fn clip_check_out_keeps_short_output() {

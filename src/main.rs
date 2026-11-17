@@ -136,17 +136,30 @@ fn run(raw: &[String]) -> log::Res<()> {
             if edited.is_empty() {
                 println!("ok: log chain holds ({} entries, head {}); every view matches the log", p.events.len(), log::short(&p.head));
             } else if a.flag("fix").is_some() {
-                render::write(&p)?;
-                println!("reprinted from the log: {}", edited.join(", "));
+                render::write_except(&p, &edited.unreadable)?;
+                let mut reprinted = edited.missing.clone();
+                reprinted.extend(edited.changed.iter().cloned());
+                if !reprinted.is_empty() {
+                    println!("reprinted from the log: {}", reprinted.join(", "));
+                }
+                if !edited.unreadable.is_empty() {
+                    return Err(format!(
+                        "unreadable view files: {}. Make them readable, then run wf verify {addr} --fix if they still differ.",
+                        edited.unreadable.join(", ")
+                    ));
+                }
             } else {
-                return Err(format!("hand-edited view files: {}. The log is the truth; run wf verify {addr} --fix to reprint them.", edited.join(", ")));
+                return Err(format!("{}. The log is the truth; run wf verify {addr} --fix to reprint missing and changed views.", edited.report()));
             }
             return Ok(());
         }
         _ => {}
     }
     if !edited.is_empty() {
-        return Err(format!("refused: hand-edited page files: {}. Nobody writes page files directly. Run wf verify {addr} --fix to reprint them from the log.", edited.join(", ")));
+        return Err(format!(
+            "refused: {}. Nobody writes page files directly. Run wf verify {addr} --fix to reprint missing and changed views from the log.",
+            edited.report()
+        ));
     }
     if c == "check" {
         need_who(&who)?;

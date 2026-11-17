@@ -69,7 +69,7 @@ Add `--as <your name>` to every command that writes.
 | Answer | `wf answer <page> <entry> --text "..."` |
 | See where things stand | `wf status <page>` |
 | Observer check | `wf observe <page> [--record "finding"]` |
-| Check nothing was tampered | `wf verify <page>` (`--fix` reprints page files from the log) |
+| Check the log chain and views | `wf verify <page>` (`--fix` reprints missing and changed views from the log) |
 
 `wf status` is the "where are we" view. It is always built fresh from the log.
 
@@ -77,7 +77,7 @@ Pass numbers may be written `1` or `01`. Hashes are sha256; views show a 12-char
 
 A pass holds its files while its tail is pack, open (claimed), return, or review. `wf pack` refuses a second pass that would touch the same files, unless Prime names the other pass with `--overlap-ok` and gives `--why` with a reason and a (ref). That flag is refused if the named pass is not open.
 
-`wf signoff --outcome passed` is refused while a job is need or blocked and `--cards` does not name it, a question to the person on this pass has no answer, or face 01 changed since the pack. Naming a not-done job, signing off over drift, or changing a default card needs `--note` with a reason and a (ref). Both the reason and the ref must be non-blank. `wf close` re-runs those same refusals when the outcome is passed, so a question or a face 01 change after signoff stops the close. `wf set-prime --ref` and `wf answer --text` refuse blank or spaces.
+`wf signoff --outcome passed` is refused while a job is need or blocked and `--cards` does not name it, a question to the person on this pass has no answer, or face 01 changed since the pack. Naming a not-done job, signing off over drift, or changing a default card needs `--note` with a reason and a (ref). Both the reason and the ref must be non-blank. `wf close` re-runs those same refusals when the outcome is passed, and a passed close is refused if face 01 changed after the signoff entry (a note stored for something else does not cover it). `wf set-prime --ref`, `wf grant --ref` and `wf answer --text` refuse blank or spaces.
 
 
 ## A plan file (for `wf draft`)
@@ -117,3 +117,4 @@ stop if: the turn needs a physics change
 - `wf` does not merge accepted work. Merging waits on question T1.
 - No labs (face 07) and no face 09 history view.
 - The observer reads signals. Judging drift in meaning is still the observer's job.
+- The log chain shows the log is consistent, not that it was never rewritten. Anyone who can write `log.jsonl` can rewrite and rehash it.

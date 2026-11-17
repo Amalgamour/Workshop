@@ -2,7 +2,7 @@
 
 use crate::git;
 use crate::log::{sha, short, Res};
-use crate::page::{check_addr, done_when_lines, face01_drift, inside, list, paths_overlap, s, split_list, Page, Pass};
+use crate::page::{check_addr, done_when_lines, face01_drift, inside, paths_overlap, s, split_list, Page, Pass};
 use crate::render::{self, fill, jobs, pass_name, AXIOMS, DESIGN, T_CLOSE, T_PACK};
 use crate::Args;
 use serde_json::{json, Map, Value};
@@ -116,9 +116,10 @@ pub fn set_prime(p: &mut Page, a: &Args, who: &str) -> Res<()> {
 pub fn grant(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     must_be(p, who, "person")?;
     let ans = a.flag("answers").and_then(|x| x.parse::<u64>().ok());
-    p.add(who, "person", "grant", json!({"paths": split_list(a.req("paths")?), "ref": a.req("ref")?}))?;
+    let grant_ref = nonblank(a.req("ref")?, "ref")?;
+    p.add(who, "person", "grant", json!({"paths": split_list(a.req("paths")?), "ref": grant_ref}))?;
     if let Some(seq) = ans {
-        p.add(who, "person", "answer", json!({"elevation": seq, "text": format!("grant {} widened", a.req("ref")?)}))?;
+        p.add(who, "person", "answer", json!({"elevation": seq, "text": format!("grant {grant_ref} widened")}))?;
     }
     Ok(())
 }
@@ -279,6 +280,24 @@ pub fn claim(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     Ok(())
 }
 
+fn ret_change_paths(r: &Value) -> Vec<String> {
+    r["changed"]
+        .as_array()
+        .map(|a| {
+            a.iter()
+                .filter_map(|v| {
+                    if let Some(s) = v.as_str() {
+                        Some(s.to_string())
+                    } else {
+                        let path = s(v, "path");
+                        if path.is_empty() { None } else { Some(path) }
+                    }
+                })
+                .collect()
+        })
+        .unwrap_or_default()
+}
+
 /// Check a return file's text. Returns the job lines (w01 -> "done ...").
 pub fn parse_return(text: &str, x: &Pass, pack_hash: &str) -> Res<Map<String, Value>> {
     let f = fields(text);
@@ -304,7 +323,7 @@ pub fn ret(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     need(x.claim.as_deref() == Some(who), format!("refused: only the claim holder ({}) may return", x.claim.clone().unwrap_or_default()))?;
     let pk = x.pack.clone().unwrap();
     let (branch, file, sha_in) = (a.req("branch")?.to_string(), a.req("file")?.to_string(), a.req("commit")?.to_string());
-    let checked = (|| -> Res<(String, String, Vec<String>, Map<String, Value>)> {
+    let checked = (|| -> Res<(String, String, Vec<git::Change>, Map<String, Value>)> {
         need(branch == s(&pk, "branch"), format!("branch must be {}", s(&pk, "branch")))?;
         need(file == s(&pk, "return_file"), format!("return file must be {}", s(&pk, "return_file")))?;
         let r = repo(root, &x);
@@ -315,9 +334,9 @@ pub fn ret(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
         let text = git::show(&r, &c, &file)?;
         let scope = split_list(x.fields["may touch"].as_str().unwrap_or(""));
         let changed = git::changed(&r, &s(&pk, "start"), &c)?;
-        let out: Vec<&String> = changed.iter().filter(|f| **f != file && !inside(f, &scope)).collect();
+        let out: Vec<String> = changed.iter().filter(|ch| ch.path != file && !inside(&ch.path, &scope)).map(|ch| ch.tag()).collect();
         need(out.is_empty(), format!("{} outside may touch. Send a new commit without it, or end the job `need` and say why",
-            out.iter().map(|s| s.as_str()).collect::<Vec<_>>().join(", ")))?;
+            out.join(", ")))?;
         let jobs = parse_return(&text, &x, &s(&pk, "pack_hash"))?;
         Ok((c, text, changed, jobs))
     })();
@@ -327,8 +346,9 @@ pub fn ret(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
             Err(format!("return refused (recorded): {why}"))
         }
         Ok((c, text, changed, jobs)) => {
+            let git_changed: Vec<Value> = changed.iter().map(|ch| json!({"letter": ch.letter.to_string(), "path": ch.path})).collect();
             p.add(who, "builder", "return", json!({"pass": n, "branch": branch, "commit": c, "file": file, "hash": sha(&text),
-                "text": text, "changed": changed, "jobs": jobs}))?;
+                "text": text, "changed": git_changed, "jobs": jobs}))?;
             for (k, v) in &jobs {
                 let v = v.as_str().unwrap_or("");
                 if !v.starts_with("done") {
@@ -370,7 +390,7 @@ fn check_report(p: &Page, pk: &Value, r: &Value, results: &[(String, (bool, Stri
             }
         }
     }
-    rep += &format!("  frame {}: changed {}\n", if frame_ok { "ok" } else { "FAIL" }, list(&r["changed"]).join(", "));
+    rep += &format!("  frame {}: changed {}\n", if frame_ok { "ok" } else { "FAIL" }, render::git_changed_text(r));
     for (k, v) in r["jobs"].as_object().cloned().unwrap_or_default() {
         rep += &format!("  job {k}: {}\n", v.as_str().unwrap_or(""));
     }
@@ -417,7 +437,7 @@ pub fn check(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     let cmds: Vec<String> = x.fields["checks"].as_str().unwrap_or("").split(';').map(|c| c.trim().to_string()).filter(|c| !c.is_empty()).collect();
     let results = git::in_worktree(&repo(root, &x), &commit, |dir| cmds.iter().map(|c| (c.clone(), git::run(dir, c))).collect::<Vec<_>>())?;
     let scope = split_list(x.fields["may touch"].as_str().unwrap_or(""));
-    let frame_ok = list(&r["changed"]).iter().all(|f| *f == s(&r, "file") || inside(f, &scope));
+    let frame_ok = ret_change_paths(&r).iter().all(|f| *f == s(&r, "file") || inside(f, &scope));
     let pass = results.iter().all(|r| r.1 .0) && frame_ok && a.flag("fail").is_none();
     let verdict = if pass { "pass" } else { "fail" };
     if dry {
@@ -428,7 +448,7 @@ pub fn check(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     let _l = crate::Lock::take(&p.dir)?;
     *p = Page::load(&p.dir)?;
     let edited = render::edited(p)?;
-    need(edited.is_empty(), format!("refused: hand-edited page files: {}. Nobody writes page files directly. Run wf verify {} --fix to reprint them from the log.", edited.join(", "), p.addr))?;
+    need(edited.is_empty(), format!("refused: {}. Nobody writes page files directly. Run wf verify {} --fix to reprint missing and changed views from the log.", edited.report(), p.addr))?;
     let x2 = p.pass(n)?.clone();
     let still = x2.tail == tail0
         && x2.signoff.is_none()
@@ -507,11 +527,20 @@ pub fn close(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     if s(&d, "outcome") == "passed" {
         let named: Vec<String> = d["cards"].as_object().map(|m| m.keys().cloned().collect()).unwrap_or_default();
         refuse_passed(p, n, &r, &named, why_ref(&s(&d, "note"), "note").is_ok())?;
+        let f01 = p.faces.get("01").map(|f| f.seq).unwrap_or(0);
+        need(f01 <= seq, "refused: cannot close 'passed' while face 01 changed after the signoff entry")?;
     }
     let sum = c["results"].as_array().map(|v| v.iter().map(|r| format!("{} {}", s(r, "cmd"), if r["ok"] == true { "ok" } else { "FAIL" })).collect::<Vec<_>>().join("; ")).unwrap_or_default();
-    let record = fill(T_CLOSE, &[("pass", pass_name(p, n)), ("pack_hash", s(&pk, "pack_hash")), ("return_hash", s(&r, "hash")),
+    let mut record = fill(T_CLOSE, &[("pass", pass_name(p, n)), ("pack_hash", s(&pk, "pack_hash")), ("return_hash", s(&r, "hash")),
         ("commit", s(&r, "commit")), ("branch", s(&r, "branch")), ("checker", checker), ("check_summary", format!("{} ({sum})", s(&c, "verdict"))),
         ("signer", signer), ("sign_seq", seq.to_string()), ("outcome", s(&d, "outcome")), ("cards", render::cards_text(&d["cards"])), ("note", s(&d, "note"))])?;
+    let git = render::git_changed_text(&r);
+    if !git.is_empty() {
+        if !record.ends_with('\n') {
+            record.push('\n');
+        }
+        record.push_str(&format!("git: {git}\n"));
+    }
     p.add(who, "tool", "close", json!({"pass": n, "outcome": s(&d, "outcome"), "cards": d["cards"], "record": record, "record_hash": sha(&record)}))?;
     print!("{record}");
     Ok(())
