@@ -1,5 +1,6 @@
 //! The commands that write. Each one checks the role, then appends to the log.
 
+use crate::chars::{self, check_text, check_text_nl};
 use crate::git;
 use crate::log::{sha, short, Res};
 use crate::page::{check_addr, done_when_lines, face01_drift, inside, paths_overlap, s, split_list, Page, Pass};
@@ -22,17 +23,26 @@ fn need(ok: bool, msg: impl Into<String>) -> Res<()> {
 fn nonblank<'a>(text: &'a str, flag: &str) -> Res<&'a str> {
     let t = text.trim();
     need(!t.is_empty(), format!("--{flag} must have non-blank text"))?;
+    check_text(text, flag)?;
     Ok(t)
+}
+
+pub(crate) fn no_ctrl(text: &str, flag: &str) -> Res<()> {
+    check_text(text, flag)
 }
 
 /// A valid "<why> (ref)": both the why and the ref have non-blank text after trimming.
 fn why_ref<'a>(text: &'a str, flag: &str) -> Res<&'a str> {
+    no_ctrl(text, flag)?;
     let t = text.trim();
     let ok = match (t.find('('), t.rfind(')')) {
         (Some(i), Some(j)) if j > i => !t[..i].trim().is_empty() && nonblank(&t[i + 1..j], flag).is_ok(),
         _ => false,
     };
     need(ok, format!("--{flag} needs a reason and a (ref), like \"why (t275u)\""))?;
+    if let (Some(i), _) = (t.find('('), t.rfind(')')) {
+        check_text(t[..i].trim(), flag)?;
+    }
     Ok(t)
 }
 
@@ -91,8 +101,17 @@ fn tail_is(x: &Pass, want: &[&str]) -> Res<()> {
     need(want.contains(&x.tail.as_str()), format!("refused: 05.{:02} is at '{}', this needs {}", x.nn, x.tail, want.join(" or ")))
 }
 
+/// Digits, or 05.NN. Refuses signed forms like +1.
+fn parse_pass(v: &str, err: &str) -> Res<u32> {
+    let v = v.strip_prefix("05.").unwrap_or(v);
+    if v.is_empty() || !v.bytes().all(|b| b.is_ascii_digit()) {
+        return Err(err.into());
+    }
+    v.parse().map_err(|_| err.to_string())
+}
+
 fn nn(a: &Args, i: usize) -> Res<u32> {
-    a.pos.get(i).and_then(|x| x.trim_start_matches("05.").parse().ok()).ok_or("give the pass number, like 3 or 05.03".into())
+    parse_pass(a.pos.get(i).map(|s| s.as_str()).unwrap_or(""), "give the pass number, like 3 or 05.03")
 }
 
 /// Pass numbers are 01-98 (R9). 00 is not a pass; after 98 is open (QD16).
@@ -138,11 +157,17 @@ pub fn init_page(root: &Path, a: &Args, who: &str) -> Res<(PathBuf, crate::Lock)
     let addr = a.pos.first().ok_or("give a page address")?;
     check_addr(addr)?;
     let person = a.req("person")?;
+    check_text(person, "person")?;
     need(who == person, "refused: the person starts their own page (--as must match --person)")?;
     let title = a.req("title")?;
+    check_text(title, "title")?;
     let prime = a.req("prime")?;
-    let grant = split_list(a.req("grant")?);
+    check_text(prime, "prime")?;
+    let grant_raw = a.req("grant")?;
+    check_text(grant_raw, "grant")?;
+    let grant = split_list(grant_raw);
     let grant_ref = a.req("grant-ref")?;
+    check_text(grant_ref, "grant-ref")?;
     let dir = root.join("pages").join(addr);
     fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
     let lock = crate::Lock::take(&dir)?;
@@ -156,6 +181,7 @@ pub fn init_page(root: &Path, a: &Args, who: &str) -> Res<(PathBuf, crate::Lock)
 pub fn set_prime(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     need(who == p.person || who == p.prime, "refused: only the person or the current prime may set prime")?;
     let name = a.pos.get(1).ok_or("give the new prime's name")?;
+    check_text(name, "name")?;
     p.add(who, "person", "prime", json!({"name": name, "ref": nonblank(a.req("ref")?, "ref")?}))
 }
 
@@ -163,7 +189,9 @@ pub fn grant(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     must_be(p, who, "person")?;
     let ans = a.flag("answers").and_then(|x| x.parse::<u64>().ok());
     let grant_ref = nonblank(a.req("ref")?, "ref")?;
-    p.add(who, "person", "grant", json!({"paths": split_list(a.req("paths")?), "ref": grant_ref}))?;
+    let paths = a.req("paths")?;
+    check_text(paths, "paths")?;
+    p.add(who, "person", "grant", json!({"paths": split_list(paths), "ref": grant_ref}))?;
     if let Some(seq) = ans {
         p.add(who, "person", "answer", json!({"elevation": seq, "text": format!("grant {grant_ref} widened")}))?;
     }
@@ -173,6 +201,11 @@ pub fn grant(p: &mut Page, a: &Args, who: &str) -> Res<()> {
 pub fn face_write(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     let face = a.pos.get(1).map(|x| x.as_str()).unwrap_or("");
     let text = text_arg(a)?;
+    if a.flag("file").is_some() {
+        check_text_nl(&text, "file")?;
+    } else {
+        check_text_nl(&text, "text")?;
+    }
     let (mode, section, role) = match (face, a.flag("section").unwrap_or("")) {
         ("01" | "02" | "08", _) => ("replace", "", "prime"),
         ("04", "responses") => ("append", "responses", "person"),
@@ -198,9 +231,15 @@ pub fn draft(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     must_be(p, who, "prime")?;
     not_halted(p)?;
     let mut f = fields(&text_arg(a)?);
+    for (k, v) in &f {
+        check_text(k, "field")?;
+        if let Some(s) = v.as_str() {
+            check_text_nl(s, k)?;
+        }
+    }
     let n = match a.flag("pass") {
         Some(v) => {
-            let n: u32 = v.trim_start_matches("05.").parse().map_err(|_| "bad --pass".to_string())?;
+            let n = parse_pass(v, "bad --pass")?;
             pass_number_ok(n)?;
             tail_is(p.pass(n)?, &["draft"])?;
             n
@@ -211,8 +250,13 @@ pub fn draft(p: &mut Page, a: &Args, who: &str) -> Res<()> {
             n
         }
     };
-    // A pass that is not closed would make this draft's pins stale when it closes.
-    if let Some(x) = p.passes.values().find(|x| x.nn != n && x.tail != "closed") {
+    let allow = overlap_ok_flag(p, a)?;
+    // A pass at draft cannot be overlapped. An open pass (pack, open, return, review)
+    // may, when Prime names it with --overlap-ok and a why.
+    for x in p.passes.values().filter(|x| x.nn != n && x.tail != "closed") {
+        if allow.as_ref().map(|(okn, _)| *okn) == Some(x.nn) {
+            continue;
+        }
         let redo = if x.tail == "draft" { format!(", or redraft it: wf draft {} --pass {}", p.addr, x.nn) } else { String::new() };
         return Err(format!("refused: 05.{:02} is at '{}' and not closed. Draft the next pass after it closes. Next for 05.{:02}: {}{redo}",
             x.nn, x.tail, x.nn, crate::status::pass_next(p, x)));
@@ -225,7 +269,12 @@ pub fn draft(p: &mut Page, a: &Args, who: &str) -> Res<()> {
         f.insert("predecessor".into(), pre.into());
     }
     let pins = json!({"04": pin(p, "04"), "06": pin(p, "06"), "05": pin05(p)});
-    p.add(who, "prime", "draft", json!({"pass": n, "fields": f, "pins": pins}))?;
+    let mut d = json!({"pass": n, "fields": f, "pins": pins});
+    if let Some((okn, why)) = &allow {
+        d["overlap_ok"] = json!(okn);
+        d["overlap_why"] = json!(why);
+    }
+    p.add(who, "prime", "draft", d)?;
     println!("drafted 05.{n:02}. Next: wf pack {} {n} --as {who}", p.addr);
     Ok(())
 }
@@ -245,8 +294,7 @@ fn overlap_ok_flag(p: &Page, a: &Args) -> Res<Option<(u32, String)>> {
         None => Ok(None),
         Some(v) => {
             let why = why_ref(a.req("why")?, "why")?.to_string();
-            let n: u32 = v.trim_start_matches("05.").parse()
-                .map_err(|_| "give --overlap-ok a pass number, like 3 or 05.03".to_string())?;
+            let n = parse_pass(v, "give --overlap-ok a pass number, like 3 or 05.03")?;
             match p.passes.get(&n) {
                 Some(x) if x.is_open_tail() => Ok(Some((n, why))),
                 Some(x) => Err(format!("refused: --overlap-ok 05.{n:02} is not open (tail is {})", x.tail)),
@@ -317,6 +365,7 @@ pub fn pack(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     let seq = p.events.len() as u64 + 1;
     let mut d = json!({"pass": n, "pack_text": text, "pack_hash": sha(&text), "branch": branch, "return_file": rfile, "start": start,
         "seq": seq, "time": crate::log::iso(crate::log::now()), "face01": f01.text, "done_when": done_when,
+        "templates": render::TEMPLATE_VER,
         "sources": {"01": src01, "axioms": sax, "design": sds}});
     if let Some((okn, why)) = allow {
         d["overlap_ok"] = json!(okn);
@@ -452,7 +501,7 @@ fn check_report(p: &Page, pk: &Value, r: &Value, results: &[(String, (bool, Stri
     }
     rep += &format!("  frame {}: changed {}\n", if frame_ok { "ok" } else { "FAIL" }, render::git_changed_text(r));
     for (k, v) in r["jobs"].as_object().cloned().unwrap_or_default() {
-        rep += &format!("  job {k}: {}\n", v.as_str().unwrap_or(""));
+        rep += &format!("  job {k}: {}\n", chars::escape_line(v.as_str().unwrap_or("")));
     }
     let not_done = jobs_not_done(r);
     if !not_done.is_empty() {
@@ -468,16 +517,22 @@ fn check_report(p: &Page, pk: &Value, r: &Value, results: &[(String, (bool, Stri
         rep += &format!("  drift: face 01 changed since pack (now {now})\n");
     }
     if let Some(note) = note {
-        rep += &format!("  checker note: {note}\n");
+        rep += &format!("  checker note: {}\n", chars::escape_line(note));
     }
     if let Some(f) = fail {
-        rep += &format!("  checker fail: {f}\n");
+        rep += &format!("  checker fail: {}\n", chars::escape_line(f));
     }
     rep
 }
 
 pub fn check(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     let n = nn(a, 1)?;
+    if let Some(note) = a.flag("note") {
+        check_text(note, "note")?;
+    }
+    if let Some(fail) = a.flag("fail") {
+        check_text(fail, "fail")?;
+    }
     let x = p.pass(n)?.clone();
     tail_is(&x, &["return", "review"])?;
     need(x.claim.as_deref() != Some(who), "refused: the builder may not check its own work")?;
@@ -570,7 +625,9 @@ pub fn signoff(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     let note = if need_note {
         why_ref(a.flag("note").unwrap_or(""), "note")?
     } else {
-        a.flag("note").unwrap_or("none")
+        let n = a.flag("note").unwrap_or("none");
+        check_text(n, "note")?;
+        n
     };
     p.add(who, "prime", "signoff", json!({"pass": n, "outcome": outcome, "cards": cards, "note": note}))?;
     println!("signed off 05.{n:02} {outcome}. Next: wf close {} {n}", p.addr);
@@ -611,7 +668,9 @@ pub fn elevate(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     p.pass(n)?;
     let to = a.req("to")?;
     need(to == "prime" || (to == "person" && who == p.prime), "refused: --to prime (anyone), or --to person (only Prime sends it up)")?;
-    p.add(who, if who == p.prime { "prime" } else { "builder" }, "elevate", json!({"pass": n, "to": to, "item": a.req("item")?}))
+    let item = a.req("item")?;
+    no_ctrl(item, "item")?;
+    p.add(who, if who == p.prime { "prime" } else { "builder" }, "elevate", json!({"pass": n, "to": to, "item": item}))
 }
 
 pub fn answer(p: &mut Page, a: &Args, who: &str) -> Res<()> {
@@ -648,6 +707,47 @@ mod tests {
         assert_eq!(super::nonblank(" t275u ", "ref").unwrap(), "t275u");
         assert!(super::nonblank(" ", "ref").unwrap_err().contains("--ref must have non-blank text"));
         assert!(super::nonblank("\t", "text").unwrap_err().contains("--text must have non-blank text"));
+    }
+
+    #[test]
+    fn check_text_refuses_each_class_and_keeps_newlines_only_when_asked() {
+        use crate::chars::{check_text, check_text_nl};
+        assert!(check_text("ok name", "as").is_ok());
+        assert!(check_text("wait for Matthew (t301u)", "note").is_ok());
+        for (name, ch) in [
+            ("C0 ESC", '\u{001B}'),
+            ("C0 tab", '\t'),
+            ("C0 newline", '\n'),
+            ("C0 CR", '\r'),
+            ("DEL", '\u{007F}'),
+            ("C1 NEL", '\u{0085}'),
+            ("U+2028", '\u{2028}'),
+            ("U+2029", '\u{2029}'),
+            ("bidi RLO", '\u{202E}'),
+            ("bidi FSI", '\u{2066}'),
+            ("LTR mark", '\u{200E}'),
+            ("RTL mark", '\u{200F}'),
+            ("ALM", '\u{061C}'),
+            ("soft hyphen", '\u{00AD}'),
+            ("function application", '\u{2061}'),
+            ("language tag", '\u{E0001}'),
+            ("Hangul filler", '\u{3164}'),
+            ("zero-width space", '\u{200B}'),
+            ("word joiner", '\u{2060}'),
+            ("BOM", '\u{FEFF}'),
+        ] {
+            let s = format!("x{ch}y");
+            let err = check_text(&s, "as").unwrap_err();
+            assert!(err.contains("--as cannot contain control characters"), "{name}: {err}");
+            if ch == '\n' {
+                assert!(check_text_nl(&s, "file").is_ok(), "{name}");
+            } else {
+                assert!(check_text_nl(&s, "file").is_err(), "{name} should fail multiline");
+            }
+        }
+        assert!(check_text_nl("Goal: a.\nDone when: checks pass.", "file").is_ok());
+        assert!(check_text("Goal: a.\nDone when: checks pass.", "text").is_err());
+        assert!(check_text("\u{0301}\u{0301}", "as").unwrap_err().contains("only combining marks"));
     }
 
     #[test]

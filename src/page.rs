@@ -143,7 +143,13 @@ impl Page {
     }
 
     pub fn pass(&self, nn: u32) -> Res<&Pass> {
-        self.passes.get(&nn).ok_or(format!("no pass 05.{nn:02} on this page"))
+        self.passes.get(&nn).ok_or_else(|| {
+            if (1..=98).contains(&nn) {
+                format!("no pass 05.{nn:02} on this page")
+            } else {
+                format!("no pass {nn} on this page")
+            }
+        })
     }
 
     /// The newest closed pass, if any.

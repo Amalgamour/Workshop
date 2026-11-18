@@ -1,8 +1,8 @@
 # AGENTS.md: for any model working with this kit
 
 ## Read first
-1. `docs/AXIOMS.md`: the nine axioms.
-2. `docs/DESIGN.md`: the page, the faces, the pass, the roles.
+1. In the kit folder (this folder: the one with this file, `src/`, and `docs/`): `docs/AXIOMS.md`: the nine axioms.
+2. Same folder: `docs/DESIGN.md`: the page, the faces, the pass, the roles.
 3. If you hold a pass: `pages/<page>/05.<NN>/AGENTS.md` and `PROMPT.md`.
    They pin the hash of AXIOMS.md and DESIGN.md. If yours differ, stop and tell Prime.
 
@@ -21,7 +21,9 @@ The `wf` you run must be a pinned build of the last merged commit, kept apart fr
 where builders build. README setup is two steps: build once, then copy the binary.
 When you build or test, set your own `CARGO_TARGET_DIR` (for example `target-builder`)
 and never build into the pinned copy. A builder build must not overwrite the tool
-that judges the work.
+that judges the work. When an old and a new build share a `CARGO_TARGET_DIR`, run
+`cargo clean -p wf` and touch the sources between them, or the new tests may run
+against the old binary.
 
 ## Your role, and what you may run
 | Role | You may run |
@@ -29,7 +31,7 @@ that judges the work.
 | Builder | `claim`, `return`, `elevate --to prime`, `status` |
 | Checker | `check`, `status` (never on a pass you built) |
 | Observer | `observe`, `observe --record "finding"`, `status` (never if you are Prime) |
-| Prime | `face-write 01 02 04 06 08`, `draft`, `pack [--overlap-ok NN --why "... (ref)"]`, `signoff --outcome ... [--cards ...] [--note "... (ref)"]`, `close`, `elevate --to person`, `answer`, `set-prime --ref` |
+| Prime | `face-write 01 02 04 06 08`, `draft [--overlap-ok NN --why "... (ref)"]`, `pack [--overlap-ok NN --why "... (ref)"]` (Director t262u: "sometimes multiple models can sit at this"), `signoff --outcome ... [--cards ...] [--note "... (ref)"]`, `close`, `elevate --to person`, `answer`, `set-prime --ref` |
 | Person | `init-page`, `face-write 04 --section responses`, `grant`, `answer`, `set-prime --ref` |
 
 Anyone may run `status`, `observe` and `verify`.
@@ -38,6 +40,12 @@ Anyone may run `status`, `observe` and `verify`.
 `wf resume <page> --note "why (ref)"`: Prime or the person lets work go on again.
 
 Pass numbers may be written `1` or `01`. Hashes are sha256; a 12-character prefix is shown.
+
+A pack stores the template version it was printed with. Packs with no version reprint from the v1 (8eb1fdb) text kept in the binary, so a later template change does not rewrite past job boxes (axiom 6). New packs record version 2.
+
+Command flags and pack fields are checked in one place. Refused: every character whose Unicode general category is Cc, Cf, Zl, Zp, Co or Cn, plus the Hangul fillers U+3164, U+115F and U+1160, and a field that is only combining marks. CR is refused everywhere. A newline is kept only in face text (`--file` or `--text`) and in pack field values. Draft field keys are checked too.
+
+Text that came from a builder (return file job lines, notes, elevation items made from them, and changed file names from git) is shown escaped, for example `\u{1b}`, in status, observe and the 05 views when it contains a refused character. A hostile return can still be logged as evidence. The escape is a no-op when the text has no refused character, so past views stay the same.
 
 ## As a builder
 1. `wf claim <page> <NN> --as <you>`. The first claim wins.

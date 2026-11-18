@@ -43,6 +43,8 @@ If a builder is stuck, it goes up to Prime. If Prime is stuck, it goes up to you
 5. Run that pinned copy: `../wf-bin/wf` (or add `wf-bin` to your PATH).
 6. When you build or test as a builder, set your own `CARGO_TARGET_DIR` so you never
    write into the pinned copy: `CARGO_TARGET_DIR=target-builder cargo test`
+   When an old and a new build share a `CARGO_TARGET_DIR`, run `cargo clean -p wf`
+   and touch the sources between them, or the new tests may run against the old binary.
 
 ## Start a page (one command)
 ```
@@ -58,7 +60,7 @@ Add `--as <your name>` to every command that writes.
 | Change Prime | `wf set-prime <page> <name> --ref tNNNu` |
 | Widen the grant | `wf grant <page> --paths "a,b" --ref tNNNu [--answers <entry>]` |
 | Write a face | `wf face-write <page> 01\|02\|04\|06\|08 --text "..."` (04 needs `--section goals`, `decisions` or `responses`) |
-| Draft a pass | `wf draft <page> --file plan.txt` |
+| Draft a pass | `wf draft <page> --file plan.txt [--overlap-ok NN --why "... (ref)"]` |
 | Release it | `wf pack <page> <NN> [--overlap-ok NN --why "... (ref)"]` |
 | Claim it | `wf claim <page> <NN>` |
 | Hand it back | `wf return <page> <NN> --branch B --commit SHA --file PATH` |
@@ -79,7 +81,13 @@ Pass numbers may be written `1` or `01`. Hashes are sha256; views show a 12-char
 
 A pass holds its files while its tail is pack, open (claimed), return, or review. `wf pack` refuses a second pass that would touch the same files, unless Prime names the other pass with `--overlap-ok` and gives `--why` with a reason and a (ref). That flag is refused if the named pass is not open.
 
-`wf draft` is refused while another pass on the page is not closed (draft, pack, open, return or review). The message names that pass and its next step, so a new draft never goes stale when that pass closes. A draft that is not packed yet can be redrafted with `--pass NN`.
+`wf draft` is refused while another pass on the page is not closed (draft, pack, open, return or review), unless Prime names an already-packed open pass with `--overlap-ok NN` and `--why` with a reason and a (ref). A pass that still sits at draft (not packed) cannot be overlapped. Without the flag the refusal stands. The message names that pass and its next step. A draft that is not packed yet can be redrafted with `--pass NN`. The authority for `--overlap-ok` is Director t262u ("sometimes multiple models can sit at this").
+
+Packed job boxes (AGENTS.md, PROMPT.md, and the return template) reprint from the template version stored in the pack entry. Packs with no version use the v1 text from 8eb1fdb, kept in the binary, so a later template change does not rewrite the past (axiom 6). New packs record version 2.
+
+Command flags and pack fields are checked in one place. These are refused: every character whose Unicode general category is Cc, Cf, Zl, Zp, Co or Cn, plus the Hangul fillers U+3164, U+115F and U+1160, and a field that is only combining marks. CR is refused everywhere. A newline is kept only in face text (`--file` or `--text`) and in pack field values. Draft field keys are checked too. The check covers `--as` names, `--title`, `--person`, `--prime`, the set-prime name, notes, `--why`, `--item`, `--record`, `--text`, grant refs and the other flags that land on those views.
+
+Text that came from a builder (return file job lines, notes, elevation items made from them, and changed file names from git) is shown escaped, for example `\u{1b}`, in status, observe and the 05 views when it contains a refused character. A hostile return can still be logged as evidence. The escape is a no-op when the text has no refused character, so past views stay the same.
 
 `wf signoff --outcome passed` is refused while a job is need or blocked and `--cards` does not name it, a question to the person on this pass has no answer, or face 01 changed since the pack. Naming a not-done job, signing off over drift, or changing a default card needs `--note` with a reason and a (ref). Both the reason and the ref must be non-blank. `wf close` re-runs those same refusals when the outcome is passed, and a passed close is refused if face 01 changed after the signoff entry (a note stored for something else does not cover it). `wf set-prime --ref`, `wf grant --ref` and `wf answer --text` refuse blank or spaces.
 
@@ -105,7 +113,9 @@ stop if: the turn needs a physics change
 
 ## Files
 - `AGENTS.md`: what any model must do.
-- `docs/AXIOMS.md`, `docs/DESIGN.md`: the rules and the design, inside the kit.
+- `docs/AXIOMS.md`, `docs/DESIGN.md`: the rules and the design, inside the kit folder
+  (the folder with `src/` and `AGENTS.md`). From a run folder that only holds `pages/`,
+  open them from the kit, not from the run folder.
 - `src/`: the tool. `templates/`: the fixed text it prints. `tests/`: the tests.
 
 ## Design sources
