@@ -1,0 +1,10 @@
+repo: driving-game
+start: main
+axioms: 2,8,9
+outcome: the angle is clamped at -30 and +30, and both edges are tested
+overview: clamp the angle at -30 and +30, and test both edges
+w01: clamp the angle at -30 and +30
+w02: test both edges
+may touch: src/steer.rs, tests/steer.rs
+checks: grep -q clamp src/steer.rs; grep -q 30 src/steer.rs
+stop if: the turn needs a physics change

@@ -1,0 +1,10 @@
+--- a/src/steer.rs
++++ b/src/steer.rs
+@@ -1 +1,2 @@
+ rate = 1
++clamp(+30)
+--- a/tests/steer.rs
++++ b/tests/steer.rs
+@@ -1 +1 @@
+-test steer_turns
++test clamp_plus_30
