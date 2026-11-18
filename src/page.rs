@@ -128,6 +128,11 @@ const KINDS: [&str; 17] = ["init", "prime", "grant", "face", "draft", "pack", "c
 /// Kinds that belong to one pass (data.pass, 01-98).
 const PASS_KINDS: [&str; 9] = ["draft", "pack", "claim", "return-refused", "return", "check", "signoff", "close", "elevate"];
 
+/// A full git commit hash as wf writes it: 40 lowercase hex characters.
+pub fn is_full_hash(c: &str) -> bool {
+    c.len() == 40 && c.bytes().all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))
+}
+
 fn missing_pass(seq: u64, kind: &str, nn: u32) -> String {
     format!("log entry {seq} is a {kind} for 05.{nn:02}, which was never drafted")
 }
@@ -241,8 +246,8 @@ impl Page {
                 }
                 _ => {}
             }
-            if !d["commit"].as_str().is_some_and(|c| !c.is_empty()) {
-                return Err(format!("a check for 05.{nn:02} with no commit (missing, empty or not text)"));
+            if !d["commit"].as_str().is_some_and(is_full_hash) {
+                return Err(format!("a check for 05.{nn:02} whose commit is not a 40-character lowercase hex hash"));
             }
             // Same as wf check: a re-check only after a failed check, and never after a signoff.
             if let Some((_, c)) = &x.check {

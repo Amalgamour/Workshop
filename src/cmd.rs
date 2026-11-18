@@ -547,6 +547,10 @@ pub fn check(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     tail_is(&x, &["return", "review"])?;
     need(x.claim.as_deref() != Some(who), "refused: the builder may not check its own work")?;
     let dry = a.flag("dry-run").is_some();
+    if let (false, Some((who, at, d))) = (dry, &x.signoff) {
+        return Err(format!("refused: 05.{n:02} was signed off by {who} at entry {at} (outcome {}), so it cannot be checked again; nothing was written. Next: wf close {} {n}",
+            s(d, "outcome"), p.addr));
+    }
     if !dry {
         if let Some((_, c)) = &x.check {
             need(s(c, "verdict") == "fail", "refused: this pass already passed its check")?;
@@ -580,7 +584,12 @@ pub fn check(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
         && s(x2.pack.as_ref().unwrap_or(&Value::Null), "pack_hash") == pack_hash
         && s(x2.ret.as_ref().unwrap_or(&Value::Null), "hash") == return_hash
         && x2.check == check0;
-    need(still, format!("refused: 05.{n:02} is no longer in return with the same pack and return"))?;
+    if let Some((who, at, d)) = &x2.signoff {
+        return Err(format!("refused: 05.{n:02} was signed off by {who} at entry {at} (outcome {}), so it cannot be checked again; nothing was written. Next: wf close {} {n}",
+            s(d, "outcome"), p.addr));
+    }
+    need(still, format!("refused: 05.{n:02} changed while the checks ran (it is now at '{}', last entry {}); nothing was written. Run wf check {} {n} again",
+        x2.tail, x2.last_seq, p.addr))?;
     if let Some((_, c)) = &x2.check {
         need(s(c, "verdict") == "fail", "refused: this pass already passed its check")?;
     }

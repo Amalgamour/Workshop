@@ -162,8 +162,8 @@ fn closed_chain(nn: u32, outcome: &str) -> Vec<(&'static str, &'static str, &'st
         ("pri", "prime", "draft", serde_json::json!({"pass": nn, "fields": {}, "pins": {}})),
         ("pri", "prime", "pack", seed_pack(nn)),
         ("bob", "builder", "claim", serde_json::json!({"pass": nn})),
-        ("bob", "builder", "return", serde_json::json!({"pass": nn, "commit": "c", "file": "f", "jobs": {}})),
-        ("cat", "checker", "check", serde_json::json!({"pass": nn, "commit": "c", "verdict": "pass", "report": ""})),
+        ("bob", "builder", "return", serde_json::json!({"pass": nn, "commit": "ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12", "file": "f", "jobs": {}})),
+        ("cat", "checker", "check", serde_json::json!({"pass": nn, "commit": "ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12", "verdict": "pass", "report": ""})),
         ("pri", "prime", "signoff", serde_json::json!({"pass": nn, "outcome": outcome, "cards": {}})),
         ("pri", "tool", "close", serde_json::json!({"pass": nn, "outcome": outcome})),
     ]
@@ -771,7 +771,7 @@ fn check_refuses_if_another_check_is_filed_first() {
     assert_eq!(wins, 1, "{results:?}");
     for (ok, out) in &results {
         if !*ok {
-            assert!(out.contains("no longer in return with the same pack and return") || out.contains("already passed its check"), "{out}");
+            assert!(out.contains("changed while the checks ran (it is now at 'review'") || out.contains("already passed its check"), "{out}");
         }
     }
     let log = e.log();
@@ -1959,8 +1959,8 @@ fn ev(kind: &'static str, nn: u64) -> (&'static str, serde_json::Value, Option<u
     let d = match kind {
         "draft" => serde_json::json!({"pass": nn, "fields": {"outcome": "o", "repo": "game", "start": "main", "w01": "x", "may touch": "src/a.rs", "checks": "true", "stop if": "none"}, "pins": {}}),
         "pack" => serde_json::json!({"pass": nn, "pack_text": "p", "pack_hash": "h", "branch": "b", "return_file": "f", "start": "0", "templates": "2", "sources": {}}),
-        "return" => serde_json::json!({"pass": nn, "commit": "c", "file": "f", "hash": "h", "jobs": {"w01": "done - x"}}),
-        "check" => serde_json::json!({"pass": nn, "commit": "c", "verdict": "pass", "report": ""}),
+        "return" => serde_json::json!({"pass": nn, "commit": "ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12", "file": "f", "hash": "h", "jobs": {"w01": "done - x"}}),
+        "check" => serde_json::json!({"pass": nn, "commit": "ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12", "verdict": "pass", "report": ""}),
         "signoff" => serde_json::json!({"pass": nn, "outcome": "passed", "cards": {}, "note": "none"}),
         "close" => serde_json::json!({"pass": nn, "outcome": "passed"}),
         "halt" | "resume" => serde_json::json!({"note": "why (t1)"}),
@@ -2133,14 +2133,15 @@ fn check_with_no_verdict_makes_the_page_unreadable() {
         assert!(code == Some(1) && out.contains("a check for 05.01 with a verdict that is not pass or fail"), "{out}");
     }
     evs[5].1["verdict"] = serde_json::json!("pass");
-    for bad in [None, Some(serde_json::json!("")), Some(serde_json::json!(7))] {
+    for bad in [None, Some(serde_json::json!("")), Some(serde_json::json!(7)), Some(serde_json::json!(" ")), Some(serde_json::json!("\t\n")),
+                Some(serde_json::json!("not-a-hash")), Some(serde_json::json!("AB12CD34EF56AB12CD34EF56AB12CD34EF56AB12")), Some(serde_json::json!("ab12cd34"))] {
         match bad {
             None => { evs[5].1.as_object_mut().unwrap().remove("commit"); }
             Some(v) => evs[5].1["commit"] = v,
         }
         write_log(&dir, &evs);
         let (code, out) = run_code(&e, &["board", "6.0.0.2"]);
-        assert!(code == Some(1) && out.contains("a check for 05.01 with no commit (missing, empty or not text)"), "{out}");
+        assert!(code == Some(1) && out.contains("a check for 05.01 whose commit is not a 40-character lowercase hex hash"), "{out}");
     }
 }
 
@@ -2173,4 +2174,19 @@ fn recheck_only_after_a_failed_check_and_resignoff_still_loads() {
     write_log(&e.root.join("pages/6.1.0.3"), &evs);
     let (code, out) = run_code(&e, &["status", "6.1.0.3"]);
     assert!(code == Some(1) && out.contains("log entry 9 is out of order: a check of 05.01 after its signoff"), "{out}");
+}
+
+/// R2: a check after a signoff says what state the pass is in and what to do next.
+#[test]
+fn check_after_a_signoff_says_signed_off_and_next_close() {
+    let e = Env::ready("check-after-sign");
+    e.open("src/a.rs", "false");
+    let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a");
+    assert!(e.ret(1, &sha, "bob").0);
+    e.ok(&["check", PG, "1", "--as", "cat"]);
+    e.ok(&["signoff", PG, "1", "--outcome", "failed", "--as", "pri"]);
+    let before = e.log();
+    e.no(&["check", PG, "1", "--as", "cat"], "refused: 05.01 was signed off by pri at entry 10 (outcome failed), so it cannot be checked again; nothing was written. Next: wf close 1.2.3.4 1");
+    assert_eq!(e.log(), before);
+    assert!(!e.page().join(".wf-lock").exists());
 }
