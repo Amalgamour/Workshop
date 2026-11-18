@@ -115,7 +115,7 @@ pub fn observe(p: &Page, stall_hours: u64) -> Vec<String> {
     }
     let outs: Vec<String> = p.passes.values().filter_map(|x| x.close.as_ref().map(|c| s(c, "outcome"))).collect();
     if outs.len() >= 2 && outs[outs.len() - 2..].iter().all(|o| o != "passed") {
-        f.push(format!("loop: the last two closed passes ended {} and {}", outs[outs.len() - 2], outs[outs.len() - 1]));
+        f.push(format!("loop: the last two closed passes ended {} and {}", escape_line(&outs[outs.len() - 2]), escape_line(&outs[outs.len() - 1])));
     }
     if let Some(last) = p.events.last() {
         let h = now().saturating_sub(last.time) / 3600;

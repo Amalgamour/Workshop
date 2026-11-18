@@ -2377,3 +2377,21 @@ fn observe_escapes_a_forged_prime_and_elevation_target() {
     assert!(out.contains(&format!("unanswered: entry 3 to {esc}: q")), "{out}");
     assert!(!out.contains('\u{1b}') && !out.contains('\r') && !out.contains('\u{202e}'), "{out}");
 }
+
+/// wf observe escapes forged close outcomes in its 'loop' line (no load rule for close outcomes: parked).
+#[test]
+fn observe_escapes_forged_close_outcomes_in_the_loop_line() {
+    let e = Env::ready("loop-esc");
+    let bad = "f\u{1b}[2K\rail\u{202e}";
+    let mut evs = vec![];
+    for nn in 1..=2 {
+        let mut c = closed_chain(nn, "failed");
+        c[6].3["outcome"] = serde_json::json!(bad);
+        evs.extend(c);
+    }
+    seed(&e, PG, &evs);
+    let out = e.ok(&["observe", PG]);
+    let esc = "f\\u{1b}[2K\\u{d}ail\\u{202e}";
+    assert!(out.contains(&format!("loop: the last two closed passes ended {esc} and {esc}")), "{out}");
+    assert!(!out.contains('\u{1b}') && !out.contains('\r') && !out.contains('\u{202e}'), "{out}");
+}
