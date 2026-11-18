@@ -19,3 +19,8 @@ Already answered (do not re-ask): Researcher's M2 Q3 = the three safety rules, a
 
 Added 3:56 PM EST:
 13. `wf board` (read-only kanban view) is built on branch board-dev; Tester's check found two narrow fixes, now being fixed. Its AGENTS.md/README lines use the proposed answers to question 8 and are marked "build stage, pending Director answer". Tester flags ax1: with no ruling yet, those lines should not merge into the workflow branch's AGENTS.md. Proposed: answer question 8, then Prima merges board-dev into workflow.
+
+Added 4:16 PM EST:
+14. Log order check (branch harden-dev, 385452a): wf now refuses to read a page whose log has steps in the wrong order. Tester passed it. One test page made with two different wf versions (halted by the new one, then packed by an old one with no halt) is now stuck: every write is refused, resume included. No real page has this. Why it matters: axiom 6 says the past should not block the next step for good. Proposed: new writes must always follow the order; a page that already has an out-of-order entry still loads, shows "out of rule at entry N" on status and board, and allows only resume or a Prime note. The order rules have no Director ruling yet, so they are marked build stage.
+15. The old wf binary (wf-bin/wf-8eb1fdb) can still write pages and does not know about halt. Proposed: rename it to wf-8eb1fdb.old-do-not-write (a rename, not a delete) so nobody runs it by accident.
+16. Merge harden-dev into workflow together with board-dev, after question 14.
