@@ -19,13 +19,13 @@ Contract body: `{"error": e.code(), "axiom": e.axiom(), "rule": e.rule(), "detai
 - Classifiers: `sentinel(value, width) -> Option<Sentinel::{Door, Pointer}>`, `is_door`, `axis_role` (`Door/Reserved/Normal/Pointer`), `desk_kind`, `page_kind` (`Door`, `BandHead`, `BandContinuation`, ...), `band_of`, `band_head`, `set_key`, `counter_role` (`Door/Item/Continuation`), `check_title`, `is_tail_word`.
 
 ## Faces, cards, axioms
-- `face::face_job(ff)` (`Door, Law, Schema, Operate, User, Tasks, Notes, ...`), `is_content_face`, `always_counted`, `default_card_type`, `card_type(name)`, `is_page_type`.
+- `face::face_job(ff)` (`Registry, Law, Schema, Operate, User, Tasks, Notes, ...`), `is_content_face`, `always_counted`, `default_card_type`, `card_type(name)`, `is_page_type`.
 - `cards::parse_face(body) -> FaceDoc { preamble, cards: Vec<Card{heading,key,fields,body}> }`; `FaceDoc::contents()`; `Card::field`, `Card::card_type(face)`; `title_form(heading)`; `parse_stamp(body) -> Stamp` (`title()`, `page_type()`, `get()`).
 - `axioms::AxiomChain::parse("1.7.8,3MC")`, `describe()`, `COLD_SET`.
 
 ## Book file — `log`
 - `BookLog::parse(text)`: header + entries; drops a cut-off last line and a cut-off trailing proposal (`dropped_partial`); damage earlier is `Corrupt`. `to_text()`, `next_n()`, `latest_snapshot()`, `history(addr)`.
-- `Entry { n, at, by, op, addr, tail?, from?, to?, body?, proposal?, cites?, outcome?, of?, state?, extra }` — `cites`, `outcome`, `of`, `state` are provisional fields (BUILD-LOG `7`). Unknown fields round-trip in `extra`.
+- `Entry { n, at, by, op, addr, tail?, from?, to?, body?, proposal?, cites?, outcome?, of?, state?, extra }` — `cites`, `outcome`, `of`, `state` are provisional fields (BUILD-LOG `7`). Unknown fields round-trip in `extra`. Methods: `reason()`, `delivery_id()` (draft field `delivery_id`, alias `delivery-id`, marked 7).
 - `Op::{Put, Tail, Snapshot, Copy, Note, Merge, Promote, Use}`; `is_proposed()`.
 - `log::file::{read, create, append, repair_tail}` (feature `fs`): `append` repairs a partial tail, writes whole lines, fsyncs. `log::now_utc()`, `format_utc(secs)`, `check_timestamp`.
 
@@ -47,7 +47,8 @@ Counter rules applied in `apply`: first `pack -> open` claims (second gets `Conf
 - `Resolution { address, source, origin: Origin::{Local, Shelf, Desk, Kernel, Missing}, found: Option<Found>, trace: Vec<Step{step, checked, found, note}> }`; `state: Option<String>` ("seated", "draft", "retired", "counter", "door"; `Found::state()`); `into_result()` turns Missing into a 404 error. **R5:** at each spot a seated face wins, else a draft is returned as `Found::Draft` (state "draft"), and drafts are inherited book > shelf > desk > kernel. Retired faces are skipped (note "retired"); a retired page, or any page of a book whose door 0000 is retired, is skipped (note "retired page").
 
 ## Proposals — `validate`
-- `validate(&World, &Proposal, at) -> Outcome`. `Proposal { by, ops: Vec<OpRequest{op, addr, tail?, from?, to?, body?, cites?, outcome?}> }`.
+- `validate(&World, &Proposal, at) -> Outcome`. `Proposal { by, ops: Vec<OpRequest{op, addr, tail?, from?, to?, body?, cites?, outcome?, approved_by?, trial?, reason?, delivery_id?}> }`.
+- `OpRequest.delivery_id` (optional, serde also `delivery-id`, marked 7) is R4-checked and, when non-empty after trim, stored on the book entry as `delivery_id` (`Entry::delivery_id()`). `validate` does not enforce write-once; replay, 409, and the 400 id limits are the compute's (docs/CONTRACT.md delivery-id addendum).
 - `Outcome { status: Approved|Rejected, reasons: Vec<Reason{code, rule, axiom?, detail, op?}>, findings, entries, entry_numbers, state }`. Serializes as `{"status","reasons","findings","entries":[n...]}`.
 - On approval the compute appends `outcome.entries` with `log::file::append` and replaces the book's state with `outcome.state`. The world is never changed by `validate`. Queue proposals one at a time per book.
 
@@ -58,7 +59,7 @@ Counter rules applied in `apply`: first `pack -> open` claims (second gets `Conf
 
 | Change | Migration |
 |---|---|
-| **R4** plain ASCII: `log::check_plain`, `Entry::check_plain`; `validate` rejects (rule `R4`) any by/addr/tail/from/to/body/outcome/approved_by/trial holding a byte outside 0x20-0x7E + newline; `file::append` refuses; `BookLog::parse`/`file::read` return `Corrupt` ("damaged ... R4") for such a byte or a JSON escape that decodes to one; `repair_tail` refuses to cut it away. | Replace non-ASCII in books (e.g. em dash -> `--`, section sign -> `sec.`). A boot that loads a damaged book must refuse it or report it. |
+| **R4** plain ASCII: `log::check_plain`, `Entry::check_plain`; `validate` rejects (rule `R4`) any by/addr/tail/from/to/body/outcome/approved_by/trial/reason/delivery_id holding a byte outside 0x20-0x7E + newline; `file::append` refuses; `BookLog::parse`/`file::read` return `Corrupt` ("damaged ... R4") for such a byte or a JSON escape that decodes to one; `repair_tail` refuses to cut it away. | Replace non-ASCII in books (e.g. em dash -> `--`, section sign -> `sec.`). A boot that loads a damaged book must refuse it or report it. |
 | **R2** seating needs approval: `OpRequest.approved_by` (serde also `approved-by`) and `OpRequest.trial`. A `promote`, or a bare `put` of a non-counter face, by anyone but `compute_name`, needs `approved_by: "director"`, or `"build-stage (R2)"` plus `trial`. Else rule `E7` (none) / `R2` (bad record). Both are copied into `entry.extra`. Consts `APPROVED_BY_DIRECTOR`, `APPROVED_BY_BUILD_STAGE`. | Pass the record through, or set `Policy.seat_needs_approval = false`. OpRequest literals need `..Default::default()`. |
 | `draft -> pack` and `review -> closed` only by `compute_name` (rule `workflow-loop.003 6`). | Have the compute do lint and close, or `compute_only_steps = false`. |
 | Compute `open -> return` on another's claim is refused (S11) unless `compute_recovery_return = true`. | Set the flag only in an authorized recovery. |
@@ -79,7 +80,7 @@ Counter rules applied in `apply`: first `pack -> open` claims (second gets `Conf
 | **R9** faces have no sentinels: `FF.00` and `FF.99` fail to parse (rule `R9`); counters run 01-98. `CounterRole` is now `{Item, NotACounter}` (was `{Door, Item, Continuation}`). `sentinel(v, 3)` returns None (brands are not an axis). A counted face is still 05, 06 and `Policy.extra_counted`; nothing depends on an `FF.00`. Plain `FF` on a counted face still resolves to the derived `Found::Board` listing (state `"board"`, was `"door"`; provisional 7). | Drop any `FF.00`/`FF.99` addresses; match `CounterRole::NotACounter`. |
 | **R10** face 00 is the registry: `FaceJob::Door` -> `FaceJob::Registry` (name `"registry"`). `validate` rejects any face but 00 on page 0000 (rule `R10`). `Policy.c1_on_door_pages` defaults to false. A pointer that targets a door page finds its back-link as a `target:` line in the door's face 00 (provisional 7). | Write doors as `0000.00` only; retire existing `0000.NN` faces. |
 | **R7** overrides: a face written over an inherited face, outside 0001-0009, with no override page in 0001-0009 naming it on a `target:` line, gives an `R7` finding (not a rejection; format 7). New `validate::override_pages(&BookState, target) -> Vec<u16>`. | Write overrides as reserved pages that name their target. |
-| **R5 follow-up / R8** `Resolution.why_draft: Option<DraftWhy { opened_by_entry, has_seated, open_notes: Vec<DraftNote{n, by, text}>, merged_notes }>` when a draft is found. Drafts are addressed `...PPPP.FF.draft` and end on promote (R8; unchanged). | Read `why_draft` to show why a face is a draft. |
+| **R5 follow-up / R8** `Resolution.why_draft: Option<DraftWhy { opened_by_entry, reason?, has_seated, open_notes: Vec<DraftNote{n, by, text}>, merged_notes }>` when a draft is found. Drafts are addressed `...PPPP.FF.draft` and end on promote (R8; unchanged). | Read `why_draft` to show why a face is a draft. |
 | **R6** axioms at `00.00.axioms` on the kernel desk: not modelled (address form 7, kernel Q28). | None. |
 | **R5 follow-up `reason`** `OpRequest.reason: Option<String>` (optional, R4-checked) is stored as entry field `reason` (`Entry::reason()`); the entry that opens a draft (`copy`, or `put FF.draft` of a new face) puts it in `Draft.reason` (serde default, so old snapshots load) and `DraftWhy.reason`. | Optional: send `reason` when opening a draft. |
 
