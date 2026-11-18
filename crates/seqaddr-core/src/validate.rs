@@ -40,6 +40,10 @@ pub struct OpRequest {
     /// or `put FF.draft` of a new face); stored as entry field `reason`.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub reason: Option<String>,
+    /// Optional delivery id (R37 item 2, K4). Draft name, marked 7 in BUILD-LOG:
+    /// `delivery_id`, also accepted as `delivery-id`. Stored on the book entry.
+    #[serde(default, alias = "delivery-id", skip_serializing_if = "Option::is_none")]
+    pub delivery_id: Option<String>,
 }
 
 /// Approval values accepted for seating a face.
@@ -176,7 +180,7 @@ pub fn validate(world: &World, proposal: &Proposal, at: &str) -> Outcome {
             reasons.push(Reason::from_error(&SeqError::invalid("format 3.3", "op is missing"), Some(i)));
         }
         // R4: plain ASCII only.
-        let fields = [("by", Some(&proposal.by)), ("addr", Some(&r.addr)), ("tail", r.tail.as_ref()), ("from", r.from.as_ref()), ("to", r.to.as_ref()), ("body", r.body.as_ref()), ("outcome", r.outcome.as_ref()), ("approved_by", r.approved_by.as_ref()), ("trial", r.trial.as_ref()), ("reason", r.reason.as_ref())];
+        let fields = [("by", Some(&proposal.by)), ("addr", Some(&r.addr)), ("tail", r.tail.as_ref()), ("from", r.from.as_ref()), ("to", r.to.as_ref()), ("body", r.body.as_ref()), ("outcome", r.outcome.as_ref()), ("approved_by", r.approved_by.as_ref()), ("trial", r.trial.as_ref()), ("reason", r.reason.as_ref()), ("delivery_id", r.delivery_id.as_ref())];
         for (k, v) in fields {
             if let Some(v) = v {
                 if let Err(e) = crate::log::check_plain(k, v) {
@@ -221,6 +225,9 @@ pub fn validate(world: &World, proposal: &Proposal, at: &str) -> Outcome {
         }
         if let Some(t) = &r.reason {
             e.extra.insert("reason".into(), serde_json::Value::String(t.clone()));
+        }
+        if let Some(id) = r.delivery_id.as_deref().map(str::trim).filter(|s| !s.is_empty()) {
+            e.extra.insert("delivery_id".into(), serde_json::Value::String(id.to_string()));
         }
         if multi {
             e.proposal = Some(pid.clone());

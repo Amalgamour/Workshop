@@ -89,6 +89,16 @@ pub struct Store {
     pub ids: crate::identity::Identities,
     /// Known-good length of each book file: appends go straight to the end (TRIAL-X #15).
     pub file_len: BTreeMap<BookId, u64>,
+    /// In-memory index: (writer, delivery id) -> first booked answer (R37 item 2, K4).
+    /// Rebuilt from the book log at start-up is pass 05.03.
+    deliveries: BTreeMap<(String, String), DeliveryHit>,
+}
+
+/// First answer for a delivery id, keyed with the writer.
+struct DeliveryHit {
+    content: String,
+    code: u16,
+    body: Value,
 }
 
 /// One HTTP-ready answer: status code and JSON body.
@@ -305,7 +315,7 @@ impl Store {
         };
         let file_len = logs.iter().map(|(b, lg): (&BookId, &BookLog)| (*b, lg.valid_len as u64)).collect();
         let (queue, queue_seq) = load_queue(&cfg.write_dir.join(".queue"), keep);
-        Ok(Store { cfg, world, logs, paths, warnings, refused, queue, queue_seq, boot, ids, file_len })
+        Ok(Store { cfg, world, logs, paths, warnings, refused, queue, queue_seq, boot, ids, file_len, deliveries: BTreeMap::new() })
     }
 
     fn st(&self, b: BookId) -> Option<&BookState> {
@@ -732,11 +742,17 @@ impl Store {
         if let Some(m) = raw.as_object_mut() {
             m.insert("by".into(), json!(by));
         }
+        if let Some(hit) = self.delivery_replay(&raw, by) {
+            return hit;
+        }
         self.queue_seq += 1;
         let qid = format!("q{}", self.queue_seq);
         let at = log::now_utc();
         let (code, mut body) = self.propose_inner(&raw, &at);
         body["queue_id"] = json!(qid);
+        if code == 200 {
+            self.remember_delivery(&raw, by, (code, body.clone()));
+        }
         let rec = json!({
             "id": qid, "at": at, "by": by, "ops": raw.get("ops").and_then(|o| o.as_array()).map(|a| a.len()).unwrap_or(0),
             "book": body.get("book"), "status": body.get("status"), "reasons": body.get("reasons"), "entries": body.get("entries"), "http": code,
@@ -993,6 +1009,58 @@ impl Store {
         }
         let name = self.cfg.policy.compute_name.clone();
         self.propose(json!({"ops": [{"op": "tail", "addr": addr, "from": "review", "outcome": outcome}], "for": by}), &name)
+    }
+}
+
+/// One delivery id for a proposal: every present id must be the same (trimmed).
+/// Mixed ids are left alone (not a replay). Empty or missing is no id.
+fn proposal_delivery(p: &Proposal) -> Option<String> {
+    let mut found: Option<String> = None;
+    for r in &p.ops {
+        let id = r.delivery_id.as_deref().map(str::trim).filter(|s| !s.is_empty());
+        if let Some(id) = id {
+            match &found {
+                None => found = Some(id.to_string()),
+                Some(x) if x == id => {}
+                Some(_) => return None,
+            }
+        }
+    }
+    found
+}
+
+/// Content fingerprint: the ops without the delivery id field.
+fn proposal_content(p: &Proposal) -> String {
+    let ops: Vec<Value> = p.ops
+        .iter()
+        .map(|r| {
+            let mut v = serde_json::to_value(r).unwrap_or(Value::Null);
+            if let Some(m) = v.as_object_mut() {
+                m.remove("delivery_id");
+            }
+            v
+        })
+        .collect();
+    serde_json::to_string(&ops).unwrap_or_default()
+}
+
+impl Store {
+    fn delivery_replay(&self, raw: &Value, by: &str) -> Option<Answer> {
+        let p: Proposal = serde_json::from_value(raw.clone()).ok()?;
+        let id = proposal_delivery(&p)?;
+        let hit = self.deliveries.get(&(by.to_string(), id))?;
+        if hit.content == proposal_content(&p) {
+            Some((hit.code, hit.body.clone()))
+        } else {
+            // same id, other content: refusal is pass 05.02
+            None
+        }
+    }
+
+    fn remember_delivery(&mut self, raw: &Value, by: &str, ans: Answer) {
+        let Ok(p) = serde_json::from_value::<Proposal>(raw.clone()) else { return };
+        let Some(id) = proposal_delivery(&p) else { return };
+        self.deliveries.entry((by.to_string(), id)).or_insert(DeliveryHit { content: proposal_content(&p), code: ans.0, body: ans.1 });
     }
 }
 

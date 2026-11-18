@@ -174,6 +174,10 @@ impl Entry {
     pub fn reason(&self) -> Option<&str> {
         self.extra.get("reason").and_then(|v| v.as_str())
     }
+    /// Optional delivery id (R37 item 2, K4). Draft field name `delivery_id` (alias `delivery-id`), marked 7.
+    pub fn delivery_id(&self) -> Option<&str> {
+        self.extra.get("delivery_id").or_else(|| self.extra.get("delivery-id")).and_then(|v| v.as_str())
+    }
     /// R4: every stored string of the entry is plain ASCII.
     pub fn check_plain(&self) -> Result<()> {
         check_plain("by", &self.by)?;
