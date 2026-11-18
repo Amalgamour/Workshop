@@ -2357,3 +2357,23 @@ fn board_card_shows_full_commits_on_return_and_check() {
     assert!(line("return:").contains(&format!("commit {sha};")), "{card}");
     assert!(line("check:").contains(&format!("commit {sha};")), "{card}");
 }
+
+/// wf observe escapes the Prime name and an elevation target read from a forged log.
+#[test]
+fn observe_escapes_a_forged_prime_and_elevation_target() {
+    let e = Env::ready("observe-esc");
+    let dir = e.root.join("pages/5.0.0.5");
+    let bad = "p\u{1b}[2K\rri\u{202e}";
+    let mut init = init_data("5.0.0.5");
+    init["prime"] = serde_json::json!(bad);
+    let evs = vec![("init", init, Some(1)), ev("draft", 1),
+                   ("elevate", serde_json::json!({"pass": 1, "to": bad, "item": "q"}), Some(1))];
+    write_log(&dir, &evs);
+    run_code(&e, &["verify", "5.0.0.5", "--fix"]); // print the views from the log
+    let (code, out) = run_code(&e, &["observe", "5.0.0.5"]);
+    assert_eq!(code, Some(0), "{out}");
+    let esc = "p\\u{1b}[2K\\u{d}ri\\u{202e}";
+    assert!(out.contains(&format!("(prime: {esc})")), "{out}");
+    assert!(out.contains(&format!("unanswered: entry 3 to {esc}: q")), "{out}");
+    assert!(!out.contains('\u{1b}') && !out.contains('\r') && !out.contains('\u{202e}'), "{out}");
+}

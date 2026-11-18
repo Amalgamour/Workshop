@@ -132,7 +132,7 @@ pub fn observe(p: &Page, stall_hours: u64) -> Vec<String> {
         }
     }
     for e in p.elevs.iter().filter(|e| e.answer.is_none()) {
-        f.push(format!("unanswered: entry {} to {}: {}", e.seq, e.to, escape_line(&e.item)));
+        f.push(format!("unanswered: entry {} to {}: {}", e.seq, escape_line(&e.to), escape_line(&e.item)));
     }
     f
 }

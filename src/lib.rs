@@ -182,7 +182,7 @@ pub fn run(raw: &[String]) -> log::Res<()> {
     }
     if c == "observe" {
         let found = status::observe(&p, a.flag("stall-hours").and_then(|h| h.parse().ok()).unwrap_or(24));
-        println!("observer view of {addr} (prime: {})", p.prime);
+        println!("observer view of {addr} (prime: {})", chars::escape_line(&p.prime));
         found.iter().for_each(|f| println!("  - {f}"));
         if found.is_empty() {
             println!("  findings: none");
