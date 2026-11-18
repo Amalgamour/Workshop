@@ -1700,14 +1700,17 @@ fn board_marks_a_waiting_pass_and_drift_as_stale() {
 
 #[test]
 fn board_marks_a_check_on_another_commit_and_an_old_signoff() {
-    let e = Env::checked("board-oldcheck");
+    let e = Env::ready("board-oldcheck");
+    e.open("src/a.rs", "false");
+    let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2");
+    assert!(e.ret(1, &sha, "bob").0);
+    e.ok(&["check", PG, "1", "--as", "cat"]); // fails: entry 9
     let c = e.ok(&["board", PG, "--card", "1"]);
     assert!(c.contains("stale:      none found in the log"), "{c}");
-    // A later return on another commit: the commands cannot reach this today, so it is seeded.
-    // A re-check that names a commit no return names: the board shows the disagreement.
+    // A re-check after the failed check that names a commit no return names (seeded).
     seed(&e, PG, &[("cat", "checker", "check", serde_json::json!({"pass": 1, "commit": "d".repeat(40), "verdict": "pass", "report": ""}))]);
     let b = e.ok(&["board", PG]);
-    assert!(b.contains("check on another commit: check entry 10 names dddddddddddd, a commit no return names; the latest return (entry 8) is commit"), "{b}");
+    assert!(b.contains(&format!("check on another commit: check entry 10 names {}, a commit no return names; the latest return (entry 8) is commit {sha}", "d".repeat(40))), "{b}");
     assert!(!b.contains("old check"), "{b}");
     // Two returns on one pass (a check naming the earlier one) cannot load: the order
     // rules refuse a return after a check. The board unit test covers that wording.
@@ -2122,9 +2125,52 @@ fn check_with_no_verdict_makes_the_page_unreadable() {
     evs[5].1.as_object_mut().unwrap().remove("verdict");
     write_log(&dir, &evs);
     let (code, out) = run_code(&e, &["verify", "6.0.0.2"]);
-    assert!(code == Some(1) && out.contains("log entry 6 is out of order: a check for 05.01 with no verdict (pass or fail)"), "{out}");
-    evs[5].1["verdict"] = serde_json::json!("maybe");
-    write_log(&dir, &evs);
-    let (code, out) = run_code(&e, &["status", "6.0.0.2"]);
-    assert!(code == Some(1) && out.contains("with no verdict (pass or fail)"), "{out}");
+    assert!(code == Some(1) && out.contains("log entry 6 is out of order: a check for 05.01 with no verdict; the page"), "{out}");
+    for bad in [serde_json::json!("maybe"), serde_json::json!(true), serde_json::json!("")] {
+        evs[5].1["verdict"] = bad;
+        write_log(&dir, &evs);
+        let (code, out) = run_code(&e, &["status", "6.0.0.2"]);
+        assert!(code == Some(1) && out.contains("a check for 05.01 with a verdict that is not pass or fail"), "{out}");
+    }
+    evs[5].1["verdict"] = serde_json::json!("pass");
+    for bad in [None, Some(serde_json::json!("")), Some(serde_json::json!(7))] {
+        match bad {
+            None => { evs[5].1.as_object_mut().unwrap().remove("commit"); }
+            Some(v) => evs[5].1["commit"] = v,
+        }
+        write_log(&dir, &evs);
+        let (code, out) = run_code(&e, &["board", "6.0.0.2"]);
+        assert!(code == Some(1) && out.contains("a check for 05.01 with no commit (missing, empty or not text)"), "{out}");
+    }
+}
+
+/// G4: load matches wf check (a re-check only after a failed check, never after a signoff).
+/// A second signoff still loads: re-signing is how Prime answers a face 01 change before close.
+#[test]
+fn recheck_only_after_a_failed_check_and_resignoff_still_loads() {
+    let e = Env::ready("recheck");
+    let base: Vec<(&'static str, u64)> = vec![("draft", 1), ("pack", 1), ("claim", 1), ("return", 1), ("check", 1)];
+    let cases: Vec<(&str, Vec<(&'static str, u64)>, &str)> = vec![
+        ("6.1.0.1", [base.clone(), vec![("check", 1)]].concat(), "log entry 7 is out of order: a re-check of 05.01, whose last check passed"),
+    ];
+    forged(&e, "6.1.0.2", &[base.clone(), vec![("signoff", 1), ("signoff", 1), ("close", 1)]].concat());
+    let (code, out) = run_code(&e, &["status", "6.1.0.2"]);
+    assert!(code == Some(0) && out.contains("05.01  closed"), "{out}");
+    for (addr, kinds, want) in cases {
+        forged(&e, addr, &kinds);
+        let (code, out) = run_code(&e, &["verify", addr]);
+        assert!(code == Some(1) && out.contains(want), "{addr}: {out}");
+    }
+    // A re-check after a failed check loads; a check after a signoff does not.
+    let mut evs = vec![("init", init_data("6.1.0.3"), Some(1)), ev("draft", 1), ev("pack", 1), ev("claim", 1), ev("return", 1), ev("check", 1), ev("check", 1)];
+    evs[5].1["verdict"] = serde_json::json!("fail");
+    write_log(&e.root.join("pages/6.1.0.3"), &evs);
+    let (code, out) = run_code(&e, &["status", "6.1.0.3"]);
+    assert_eq!(code, Some(0), "{out}");
+    evs[6].1["verdict"] = serde_json::json!("fail");
+    evs.push(ev("signoff", 1));
+    evs.push(ev("check", 1));
+    write_log(&e.root.join("pages/6.1.0.3"), &evs);
+    let (code, out) = run_code(&e, &["status", "6.1.0.3"]);
+    assert!(code == Some(1) && out.contains("log entry 9 is out of order: a check of 05.01 after its signoff"), "{out}");
 }

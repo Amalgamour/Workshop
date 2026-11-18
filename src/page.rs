@@ -233,8 +233,26 @@ impl Page {
             let what = if kind == "draft" && x.tail == "closed" { "a re-draft".to_string() } else { format!("a {kind}") };
             return Err(format!("{what} for 05.{nn:02}, which is at '{}'; a {kind} needs {}", x.tail, want.join(" or ")));
         }
-        if kind == "check" && !matches!(d["verdict"].as_str(), Some("pass" | "fail")) {
-            return Err(format!("a check for 05.{nn:02} with no verdict (pass or fail)"));
+        if kind == "check" {
+            match d.get("verdict") {
+                None | Some(Value::Null) => return Err(format!("a check for 05.{nn:02} with no verdict")),
+                Some(v) if !matches!(v.as_str(), Some("pass" | "fail")) => {
+                    return Err(format!("a check for 05.{nn:02} with a verdict that is not pass or fail"))
+                }
+                _ => {}
+            }
+            if !d["commit"].as_str().is_some_and(|c| !c.is_empty()) {
+                return Err(format!("a check for 05.{nn:02} with no commit (missing, empty or not text)"));
+            }
+            // Same as wf check: a re-check only after a failed check, and never after a signoff.
+            if let Some((_, c)) = &x.check {
+                if s(c, "verdict") != "fail" {
+                    return Err(format!("a re-check of 05.{nn:02}, whose last check passed"));
+                }
+            }
+            if x.signoff.is_some() {
+                return Err(format!("a check of 05.{nn:02} after its signoff"));
+            }
         }
         if kind == "close" && x.signoff.is_none() {
             return Err(format!("a close for 05.{nn:02} with no signoff"));

@@ -195,9 +195,15 @@ pub fn stale(p: &Page, x: &Pass, stall_hours: u64, t: u64) -> Vec<String> {
                 Some(ev) => format!("the commit of an earlier return (entry {})", ev.seq),
                 None => "a commit no return names".into(),
             };
+            // Full commits: two 12-character prefixes could read as the same commit.
+            let prefix = if !checked.is_empty() && !latest.is_empty() && (latest.starts_with(&checked) || checked.starts_with(&latest)) {
+                "; one is a prefix of the other, not the same commit"
+            } else {
+                ""
+            };
             why.push(format!(
-                "check on another commit: check entry {} names {}, {whose}; the latest return (entry {}) is commit {}",
-                last_entry(p, x.nn, "check"), sh(&checked), last_entry(p, x.nn, "return"), sh(&latest)
+                "check on another commit: check entry {} names {}, {whose}; the latest return (entry {}) is commit {}{prefix}",
+                last_entry(p, x.nn, "check"), clip(&checked, 64), last_entry(p, x.nn, "return"), clip(&latest, 64)
             ));
         }
     }
@@ -624,10 +630,13 @@ mod tests {
         x.ret = Some(json!({"commit": "f".repeat(40)}));
         x.check = Some(("cat".into(), json!({"commit": "e".repeat(40)})));
         let why = stale(&p, &p.passes[&1], 24, T0);
-        assert_eq!(why, vec![format!("check on another commit: check entry {c} names eeeeeeeeeeee, the commit of an earlier return (entry 2); the latest return (entry 4) is commit ffffffffffff")]);
+        assert_eq!(why, vec![format!("check on another commit: check entry {c} names {}, the commit of an earlier return (entry 2); the latest return (entry 4) is commit {}", "e".repeat(40), "f".repeat(40))]);
         p.passes.get_mut(&1).unwrap().check = Some(("cat".into(), json!({"commit": "d".repeat(40)})));
         let why = stale(&p, &p.passes[&1], 24, T0);
-        assert!(why[0].contains("names dddddddddddd, a commit no return names"), "{why:?}");
+        assert!(why[0].contains(&format!("names {}, a commit no return names", "d".repeat(40))), "{why:?}");
+        p.passes.get_mut(&1).unwrap().check = Some(("cat".into(), json!({"commit": "f".repeat(12)})));
+        let why = stale(&p, &p.passes[&1], 24, T0);
+        assert!(why[0].ends_with("; one is a prefix of the other, not the same commit"), "{why:?}");
         p.passes.get_mut(&1).unwrap().check = Some(("cat".into(), json!({"commit": "f".repeat(40)})));
         assert!(stale(&p, &p.passes[&1], 24, T0).is_empty(), "a check on the latest return is not stale");
     }
