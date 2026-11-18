@@ -209,7 +209,11 @@ pub fn run(raw: &[String]) -> log::Res<()> {
 }
 
 fn need_who(who: &str) -> log::Res<()> {
-    if who.is_empty() { Err("say who you are: --as <name> (or set WF_AS)".into()) } else { Ok(()) }
+    if who.is_empty() {
+        Err("say who you are: --as <name> (or set WF_AS)".into())
+    } else {
+        cmd::check_text(who, "as")
+    }
 }
 
 #[cfg(test)]

@@ -14,8 +14,24 @@ pub const T_PROMPT: &str = include_str!("../templates/prompt.txt");
 pub const T_AGENTS: &str = include_str!("../templates/agents.txt");
 pub const T_RETURN: &str = include_str!("../templates/return.txt");
 pub const T_CLOSE: &str = include_str!("../templates/close.txt");
+/// v1: the 8eb1fdb text, used when a pack entry has no template version.
+pub const T_PROMPT_V1: &str = include_str!("../templates/v1/prompt.txt");
+pub const T_AGENTS_V1: &str = include_str!("../templates/v1/agents.txt");
+pub const T_RETURN_V1: &str = include_str!("../templates/v1/return.txt");
+/// Version written into new pack entries. Missing or "1" means v1 (8eb1fdb).
+pub const TEMPLATE_VER: &str = "2";
 pub const AXIOMS: &str = include_str!("../docs/AXIOMS.md");
 pub const DESIGN: &str = include_str!("../docs/DESIGN.md");
+
+/// Agents, prompt and return templates for one pack. Unknown versions are refused
+/// so a future change cannot silently reprint the past with the wrong text.
+pub fn packed_templates(pk: &Value) -> Res<(&'static str, &'static str, &'static str)> {
+    match s(pk, "templates").as_str() {
+        "" | "1" => Ok((T_AGENTS_V1, T_PROMPT_V1, T_RETURN_V1)),
+        "2" => Ok((T_AGENTS, T_PROMPT, T_RETURN)),
+        v => Err(format!("unknown template version {v}")),
+    }
+}
 
 /// Fill `{{key}}` slots. Refuses if a slot is left empty or unknown.
 pub fn fill(t: &str, vals: &[(&str, String)]) -> Res<String> {
@@ -72,18 +88,24 @@ fn pass_vals(p: &Page, x: &Pass) -> Vec<(&'static str, String)> {
 }
 
 pub fn prompt(p: &Page, x: &Pass) -> Res<String> {
-    fill(T_PROMPT, &pass_vals(p, x))
+    let pk = x.pack.as_ref().cloned().unwrap_or(Value::Null);
+    let (_, tmpl, _) = packed_templates(&pk)?;
+    fill(tmpl, &pass_vals(p, x))
 }
 
 pub fn agents(p: &Page, x: &Pass) -> Res<String> {
-    fill(T_AGENTS, &pass_vals(p, x))
+    let pk = x.pack.as_ref().cloned().unwrap_or(Value::Null);
+    let (tmpl, _, _) = packed_templates(&pk)?;
+    fill(tmpl, &pass_vals(p, x))
 }
 
 pub fn return_template(p: &Page, x: &Pass) -> Res<String> {
+    let pk = x.pack.as_ref().cloned().unwrap_or(Value::Null);
+    let (_, _, tmpl) = packed_templates(&pk)?;
     let mut v = pass_vals(p, x);
     let lines = jobs(&x.fields).iter().map(|(k, j)| format!("{k}: <done | need | blocked> - {j}")).collect::<Vec<_>>().join("\n");
     v.push(("job_lines", lines));
-    fill(T_RETURN, &v)
+    fill(tmpl, &v)
 }
 
 fn face_text(p: &Page, f: &str) -> String {
@@ -370,3 +392,33 @@ pub fn cards_text(v: &Value) -> String {
     v.as_object().map(|m| m.iter().map(|(k, v)| format!("{k} {}", v.as_str().unwrap_or(""))).collect::<Vec<_>>().join(", ")).unwrap_or_default()
 }
 
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use serde_json::json;
+
+    #[test]
+    fn missing_or_v1_selects_the_8eb1fdb_text() {
+        for pk in [json!({}), json!({"templates": "1"})] {
+            let (a, p, _) = packed_templates(&pk).unwrap();
+            assert!(a.contains("- docs/AXIOMS.md: {{src_axioms}}"), "{a}");
+            assert!(!a.contains("kit folder"), "{a}");
+            assert!(p.contains("Read first: {{dir}}/AGENTS.md, docs/AXIOMS.md, docs/DESIGN.md"), "{p}");
+            assert!(!p.contains("kit folder"), "{p}");
+        }
+    }
+
+    #[test]
+    fn v2_selects_the_current_text() {
+        let (a, p, _) = packed_templates(&json!({"templates": "2"})).unwrap();
+        assert!(a.contains("kit folder") && a.contains("cargo clean -p wf"), "{a}");
+        assert!(p.contains("kit folder"), "{p}");
+    }
+
+    #[test]
+    fn unknown_version_is_refused() {
+        let err = packed_templates(&json!({"templates": "9"})).unwrap_err();
+        assert!(err.contains("unknown template version 9"), "{err}");
+    }
+}

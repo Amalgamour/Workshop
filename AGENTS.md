@@ -31,7 +31,7 @@ against the old binary.
 | Builder | `claim`, `return`, `elevate --to prime`, `status` |
 | Checker | `check`, `status` (never on a pass you built) |
 | Observer | `observe`, `observe --record "finding"`, `status` (never if you are Prime) |
-| Prime | `face-write 01 02 04 06 08`, `draft [--overlap-ok NN --why "... (ref)"]`, `pack [--overlap-ok NN --why "... (ref)"]`, `signoff --outcome ... [--cards ...] [--note "... (ref)"]`, `close`, `elevate --to person`, `answer`, `set-prime --ref` |
+| Prime | `face-write 01 02 04 06 08`, `draft [--overlap-ok NN --why "... (ref)"]`, `pack [--overlap-ok NN --why "... (ref)"]` (Director t262u: "sometimes multiple models can sit at this"), `signoff --outcome ... [--cards ...] [--note "... (ref)"]`, `close`, `elevate --to person`, `answer`, `set-prime --ref` |
 | Person | `init-page`, `face-write 04 --section responses`, `grant`, `answer`, `set-prime --ref` |
 
 Anyone may run `status`, `observe` and `verify`.
@@ -40,6 +40,10 @@ Anyone may run `status`, `observe` and `verify`.
 `wf resume <page> --note "why (ref)"`: Prime or the person lets work go on again.
 
 Pass numbers may be written `1` or `01`. Hashes are sha256; a 12-character prefix is shown.
+
+A pack stores the template version it was printed with. Packs with no version reprint from the v1 (8eb1fdb) text kept in the binary, so a later template change does not rewrite past job boxes (axiom 6). New packs record version 2.
+
+Text that status, observe, close records or job boxes print is checked in one place: C0 controls, DEL, C1, U+2028, U+2029, bidi controls and zero-width characters are refused. Face text from `--file` may still contain newlines.
 
 ## As a builder
 1. `wf claim <page> <NN> --as <you>`. The first claim wins.

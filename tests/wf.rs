@@ -1207,19 +1207,19 @@ fn draft_overlap_ok_lets_prime_draft_while_a_pass_is_open() {
     e.no(&["draft", PG, "--file", file, "--as", "pri"], "refused: 05.01 is at 'open' and not closed");
     assert_eq!(e.log(), before, "a refused draft must not append");
     let out = e.ok(&[
-        "draft", PG, "--file", file, "--overlap-ok", "1", "--why", "several models can work one page (t285u)", "--as", "pri",
+        "draft", PG, "--file", file, "--overlap-ok", "1", "--why", "several models can work one page (t262u)", "--as", "pri",
     ]);
     assert!(out.contains("drafted 05.02"), "{out}");
-    assert!(e.log().contains("\"overlap_ok\":1") && e.log().contains("several models can work one page (t285u)"), "{}", e.log());
+    assert!(e.log().contains("\"overlap_ok\":1") && e.log().contains("several models can work one page (t262u)"), "{}", e.log());
     // a pass still at draft cannot be overlapped
     let f3 = e.root.join("p3.txt");
     fs::write(&f3, "repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: src/b.rs\nchecks: true\nstop if: b must change\n").unwrap();
     e.no(
-        &["draft", PG, "--file", f3.to_str().unwrap(), "--overlap-ok", "1", "--why", "again (t285u)", "--as", "pri"],
+        &["draft", PG, "--file", f3.to_str().unwrap(), "--overlap-ok", "1", "--why", "again (t262u)", "--as", "pri"],
         "refused: 05.02 is at 'draft' and not closed",
     );
     e.no(
-        &["draft", PG, "--file", f3.to_str().unwrap(), "--overlap-ok", "2", "--why", "again (t285u)", "--as", "pri"],
+        &["draft", PG, "--file", f3.to_str().unwrap(), "--overlap-ok", "2", "--why", "again (t262u)", "--as", "pri"],
         "--overlap-ok 05.02 is not open (tail is draft)",
     );
 
@@ -1230,14 +1230,14 @@ fn draft_overlap_ok_lets_prime_draft_while_a_pass_is_open() {
     let f = e.root.join("p2.txt");
     fs::write(&f, plan).unwrap();
     assert!(e.ok(&[
-        "draft", PG, "--file", f.to_str().unwrap(), "--overlap-ok", "1", "--why", "several models can work one page (t285u)", "--as", "pri",
+        "draft", PG, "--file", f.to_str().unwrap(), "--overlap-ok", "1", "--why", "several models can work one page (t262u)", "--as", "pri",
     ]).contains("drafted 05.02"));
 
     let e = Env::checked("draft-ov-rev");
     let f = e.root.join("p2.txt");
     fs::write(&f, plan).unwrap();
     assert!(e.ok(&[
-        "draft", PG, "--file", f.to_str().unwrap(), "--overlap-ok", "1", "--why", "several models can work one page (t285u)", "--as", "pri",
+        "draft", PG, "--file", f.to_str().unwrap(), "--overlap-ok", "1", "--why", "several models can work one page (t262u)", "--as", "pri",
     ]).contains("drafted 05.02"));
 }
 
@@ -1324,4 +1324,146 @@ fn job_box_names_axioms_in_the_kit_folder() {
     assert!(agents.contains("in the kit folder") && agents.contains("docs/AXIOMS.md") && agents.contains("not beside pages/"), "{agents}");
     let pack = fs::read_to_string(e.page().join("05.01/PACK.md")).unwrap();
     assert!(pack.contains("in the kit folder") && pack.contains("docs/DESIGN.md"), "{pack}");
+}
+
+
+fn real_pages_dir() -> PathBuf {
+    if let Ok(p) = std::env::var("WF_TEST_PAGES") {
+        return PathBuf::from(p);
+    }
+    for c in [
+        PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../pages"),
+        PathBuf::from("/workspace/workshop-build/wf-run/pages"),
+    ] {
+        if c.join("90.10.00.0001/log.jsonl").is_file() {
+            return c;
+        }
+    }
+    panic!("w01 test needs the real pages (90.10, 90.20, 90.30) beside the crate at ../pages or at /workspace/workshop-build/wf-run/pages");
+}
+
+fn copy_dir(src: &PathBuf, dst: &PathBuf) {
+    fs::create_dir_all(dst).unwrap();
+    for ent in fs::read_dir(src).unwrap() {
+        let ent = ent.unwrap();
+        let name = ent.file_name();
+        if name == ".wf-lock" {
+            continue;
+        }
+        let from = ent.path();
+        let to = dst.join(&name);
+        let meta = fs::symlink_metadata(&from).unwrap();
+        if meta.is_dir() {
+            copy_dir(&from, &to);
+        } else if meta.file_type().is_file() {
+            fs::copy(&from, &to).unwrap();
+        }
+    }
+}
+
+fn file_bytes(dir: &PathBuf) -> std::collections::BTreeMap<String, Vec<u8>> {
+    let mut out = std::collections::BTreeMap::new();
+    fn walk(base: &PathBuf, cur: &PathBuf, out: &mut std::collections::BTreeMap<String, Vec<u8>>) {
+        for ent in fs::read_dir(cur).unwrap() {
+            let ent = ent.unwrap();
+            let p = ent.path();
+            if p.is_dir() {
+                walk(base, &p, out);
+            } else if p.is_file() {
+                let rel = p.strip_prefix(base).unwrap().to_string_lossy().to_string();
+                out.insert(rel, fs::read(&p).unwrap());
+            }
+        }
+    }
+    walk(dir, dir, &mut out);
+    out
+}
+
+/// w01: copies of the three real pages still verify with the current templates.
+/// Past packs have no template version, so they must reprint from the v1 (8eb1fdb) text.
+#[test]
+fn past_packed_pages_still_verify() {
+    let src = real_pages_dir();
+    let root = std::env::temp_dir().join(format!("wf-test-{}-realpages", std::process::id()));
+    let _ = fs::remove_dir_all(&root);
+    fs::create_dir_all(root.join("pages")).unwrap();
+    let addrs = ["90.10.00.0001", "90.20.00.0001", "90.30.00.0001"];
+    for addr in addrs {
+        copy_dir(&src.join(addr), &root.join("pages").join(addr));
+    }
+    let bin = env!("CARGO_BIN_EXE_wf");
+    for addr in addrs {
+        let before = file_bytes(&root.join("pages").join(addr));
+        let v = Command::new(bin).env("WF_ROOT", &root).args(["verify", addr]).output().unwrap();
+        let out = format!("{}{}", String::from_utf8_lossy(&v.stdout), String::from_utf8_lossy(&v.stderr));
+        assert!(v.status.success(), "verify {addr} failed: {out}");
+        assert!(out.contains("ok: log chain holds"), "verify {addr}: {out}");
+        let fix = Command::new(bin).env("WF_ROOT", &root).args(["verify", addr, "--fix"]).output().unwrap();
+        let fout = format!("{}{}", String::from_utf8_lossy(&fix.stdout), String::from_utf8_lossy(&fix.stderr));
+        assert!(fix.status.success(), "verify --fix {addr} failed: {fout}");
+        assert!(fout.contains("ok: log chain holds"), "verify --fix {addr} should be a no-op: {fout}");
+        assert!(!fout.contains("reprinted"), "verify --fix {addr} must change no file: {fout}");
+        let after = file_bytes(&root.join("pages").join(addr));
+        assert_eq!(before, after, "verify --fix changed a file on {addr}");
+    }
+    let _ = fs::remove_dir_all(&root);
+}
+
+#[test]
+fn new_pack_records_template_version_2() {
+    let e = Env::ready("tmpl-ver");
+    e.draft("src/a.rs", "true");
+    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    let log = e.log();
+    assert!(log.contains("\"templates\":\"2\""), "{log}");
+    let agents = fs::read_to_string(e.page().join("05.01/AGENTS.md")).unwrap();
+    assert!(agents.contains("kit folder") && agents.contains("cargo clean -p wf"), "{agents}");
+}
+
+/// w02: plant each refused class through --as, --title and a note.
+#[test]
+fn printed_fields_refuse_every_unsafe_char_class() {
+    let e = Env::ready("safe-txt");
+    let classes: &[(&str, char)] = &[
+        ("C0 ESC", '\u{001B}'),
+        ("DEL", '\u{007F}'),
+        ("C1 NEL", '\u{0085}'),
+        ("U+2028", '\u{2028}'),
+        ("U+2029", '\u{2029}'),
+        ("bidi RLO", '\u{202E}'),
+        ("zero-width space", '\u{200B}'),
+    ];
+    let before = e.log();
+    for (name, ch) in classes {
+        let planted = format!("x{ch}y");
+        e.no(&["halt", PG, "--note", "wait (t1)", "--as", &planted], "--as cannot contain control characters");
+        e.no(
+            &["init-page", "9.9.9.9", "--title", &planted, "--person", "mat", "--prime", "pri", "--grant", "src/", "--grant-ref", "t1", "--as", "mat"],
+            "--title cannot contain control characters",
+        );
+        e.no(&["halt", PG, "--note", &format!("wait{ch} (t1)"), "--as", "pri"], "--note cannot contain control characters");
+        let _ = name;
+    }
+    assert_eq!(e.log(), before, "a refused command must not append");
+    // Face text from --file keeps newlines but refuses the rest.
+    let f = e.root.join("face01.txt");
+    fs::write(&f, "Goal: a.\nDone when: checks pass.\n").unwrap();
+    e.ok(&["face-write", PG, "01", "--file", f.to_str().unwrap(), "--as", "pri"]);
+    fs::write(&f, "Goal: a.\u{001B}hidden\nDone when: checks pass.\n").unwrap();
+    e.no(&["face-write", PG, "01", "--file", f.to_str().unwrap(), "--as", "pri"], "--file cannot contain control characters");
+}
+
+#[test]
+fn agents_overlap_line_cites_t262u() {
+    let t = include_str!("../AGENTS.md");
+    let line = t.lines().find(|l| l.contains("overlap-ok")).expect("overlap line");
+    assert!(line.contains("t262u"), "{line}");
+    assert!(line.contains("sometimes multiple models can sit at this"), "{line}");
+    assert!(!t.contains("(t285u)"), "{t}");
+}
+
+#[test]
+fn job_agents_template_has_clean_and_touch() {
+    let t = include_str!("../templates/agents.txt");
+    assert!(t.contains("cargo clean -p wf") && t.contains("touch the sources"), "{t}");
 }

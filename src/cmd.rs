@@ -22,12 +22,46 @@ fn need(ok: bool, msg: impl Into<String>) -> Res<()> {
 fn nonblank<'a>(text: &'a str, flag: &str) -> Res<&'a str> {
     let t = text.trim();
     need(!t.is_empty(), format!("--{flag} must have non-blank text"))?;
+    check_text(text, flag)?;
     Ok(t)
 }
 
-/// One-line fields that status prints must not contain C0 controls (newline, CR, tab, ...).
+/// True if `c` must not appear in a printed field. `allow_nl` keeps `\n` and `\r`
+/// for face text from --file and for multi-line pack fields.
+fn bad_char(c: char, allow_nl: bool) -> bool {
+    if allow_nl && (c == '\n' || c == '\r') {
+        return false;
+    }
+    let u = c as u32;
+    u < 0x20
+        || u == 0x7F
+        || (0x80..=0x9F).contains(&u)
+        || (0x202A..=0x202E).contains(&u)
+        || u == 0x2028
+        || u == 0x2029
+        || (0x200B..=0x200D).contains(&u)
+        || u == 0x2060
+        || u == 0xFEFF
+        || (0x2066..=0x2069).contains(&u)
+}
+
+/// Shared check for every field that status, observe, close records or job boxes print.
+pub(crate) fn check_text(text: &str, flag: &str) -> Res<()> {
+    check_chars(text, flag, false)
+}
+
+/// Like `check_text`, but newlines and CR are allowed (face --file, pack field values).
+pub(crate) fn check_text_nl(text: &str, flag: &str) -> Res<()> {
+    check_chars(text, flag, true)
+}
+
+fn check_chars(text: &str, flag: &str, allow_nl: bool) -> Res<()> {
+    need(!text.chars().any(|c| bad_char(c, allow_nl)), format!("--{flag} cannot contain control characters"))
+}
+
+/// One-line fields that status prints must not contain control or hidden characters.
 pub(crate) fn no_ctrl(text: &str, flag: &str) -> Res<()> {
-    need(!text.chars().any(|c| (c as u32) < 0x20), format!("--{flag} cannot contain control characters"))
+    check_text(text, flag)
 }
 
 /// A valid "<why> (ref)": both the why and the ref have non-blank text after trimming.
@@ -153,11 +187,17 @@ pub fn init_page(root: &Path, a: &Args, who: &str) -> Res<(PathBuf, crate::Lock)
     let addr = a.pos.first().ok_or("give a page address")?;
     check_addr(addr)?;
     let person = a.req("person")?;
+    check_text(person, "person")?;
     need(who == person, "refused: the person starts their own page (--as must match --person)")?;
     let title = a.req("title")?;
+    check_text(title, "title")?;
     let prime = a.req("prime")?;
-    let grant = split_list(a.req("grant")?);
+    check_text(prime, "prime")?;
+    let grant_raw = a.req("grant")?;
+    check_text(grant_raw, "grant")?;
+    let grant = split_list(grant_raw);
     let grant_ref = a.req("grant-ref")?;
+    check_text(grant_ref, "grant-ref")?;
     let dir = root.join("pages").join(addr);
     fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
     let lock = crate::Lock::take(&dir)?;
@@ -171,6 +211,7 @@ pub fn init_page(root: &Path, a: &Args, who: &str) -> Res<(PathBuf, crate::Lock)
 pub fn set_prime(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     need(who == p.person || who == p.prime, "refused: only the person or the current prime may set prime")?;
     let name = a.pos.get(1).ok_or("give the new prime's name")?;
+    check_text(name, "name")?;
     p.add(who, "person", "prime", json!({"name": name, "ref": nonblank(a.req("ref")?, "ref")?}))
 }
 
@@ -178,7 +219,9 @@ pub fn grant(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     must_be(p, who, "person")?;
     let ans = a.flag("answers").and_then(|x| x.parse::<u64>().ok());
     let grant_ref = nonblank(a.req("ref")?, "ref")?;
-    p.add(who, "person", "grant", json!({"paths": split_list(a.req("paths")?), "ref": grant_ref}))?;
+    let paths = a.req("paths")?;
+    check_text(paths, "paths")?;
+    p.add(who, "person", "grant", json!({"paths": split_list(paths), "ref": grant_ref}))?;
     if let Some(seq) = ans {
         p.add(who, "person", "answer", json!({"elevation": seq, "text": format!("grant {grant_ref} widened")}))?;
     }
@@ -188,6 +231,11 @@ pub fn grant(p: &mut Page, a: &Args, who: &str) -> Res<()> {
 pub fn face_write(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     let face = a.pos.get(1).map(|x| x.as_str()).unwrap_or("");
     let text = text_arg(a)?;
+    if a.flag("file").is_some() {
+        check_text_nl(&text, "file")?;
+    } else {
+        check_text_nl(&text, "text")?;
+    }
     let (mode, section, role) = match (face, a.flag("section").unwrap_or("")) {
         ("01" | "02" | "08", _) => ("replace", "", "prime"),
         ("04", "responses") => ("append", "responses", "person"),
@@ -213,6 +261,11 @@ pub fn draft(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     must_be(p, who, "prime")?;
     not_halted(p)?;
     let mut f = fields(&text_arg(a)?);
+    for (k, v) in &f {
+        if let Some(s) = v.as_str() {
+            check_text_nl(s, k)?;
+        }
+    }
     let n = match a.flag("pass") {
         Some(v) => {
             let n = parse_pass(v, "bad --pass")?;
@@ -341,6 +394,7 @@ pub fn pack(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     let seq = p.events.len() as u64 + 1;
     let mut d = json!({"pass": n, "pack_text": text, "pack_hash": sha(&text), "branch": branch, "return_file": rfile, "start": start,
         "seq": seq, "time": crate::log::iso(crate::log::now()), "face01": f01.text, "done_when": done_when,
+        "templates": render::TEMPLATE_VER,
         "sources": {"01": src01, "axioms": sax, "design": sds}});
     if let Some((okn, why)) = allow {
         d["overlap_ok"] = json!(okn);
@@ -502,6 +556,12 @@ fn check_report(p: &Page, pk: &Value, r: &Value, results: &[(String, (bool, Stri
 
 pub fn check(p: &mut Page, root: &Path, a: &Args, who: &str) -> Res<()> {
     let n = nn(a, 1)?;
+    if let Some(note) = a.flag("note") {
+        check_text(note, "note")?;
+    }
+    if let Some(fail) = a.flag("fail") {
+        check_text(fail, "fail")?;
+    }
     let x = p.pass(n)?.clone();
     tail_is(&x, &["return", "review"])?;
     need(x.claim.as_deref() != Some(who), "refused: the builder may not check its own work")?;
@@ -594,7 +654,9 @@ pub fn signoff(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     let note = if need_note {
         why_ref(a.flag("note").unwrap_or(""), "note")?
     } else {
-        a.flag("note").unwrap_or("none")
+        let n = a.flag("note").unwrap_or("none");
+        check_text(n, "note")?;
+        n
     };
     p.add(who, "prime", "signoff", json!({"pass": n, "outcome": outcome, "cards": cards, "note": note}))?;
     println!("signed off 05.{n:02} {outcome}. Next: wf close {} {n}", p.addr);
@@ -674,6 +736,33 @@ mod tests {
         assert_eq!(super::nonblank(" t275u ", "ref").unwrap(), "t275u");
         assert!(super::nonblank(" ", "ref").unwrap_err().contains("--ref must have non-blank text"));
         assert!(super::nonblank("\t", "text").unwrap_err().contains("--text must have non-blank text"));
+    }
+
+    #[test]
+    fn check_text_refuses_each_class_and_keeps_newlines_only_when_asked() {
+        assert!(super::check_text("ok name", "as").is_ok());
+        assert!(super::check_text("wait for Matthew (t301u)", "note").is_ok());
+        for (name, ch) in [
+            ("C0 ESC", '\u{001B}'),
+            ("C0 tab", '\t'),
+            ("C0 newline", '\n'),
+            ("DEL", '\u{007F}'),
+            ("C1 NEL", '\u{0085}'),
+            ("U+2028", '\u{2028}'),
+            ("U+2029", '\u{2029}'),
+            ("bidi RLO", '\u{202E}'),
+            ("bidi FSI", '\u{2066}'),
+            ("zero-width space", '\u{200B}'),
+            ("word joiner", '\u{2060}'),
+            ("BOM", '\u{FEFF}'),
+        ] {
+            let s = format!("x{ch}y");
+            let err = super::check_text(&s, "as").unwrap_err();
+            assert!(err.contains("--as cannot contain control characters"), "{name}: {err}");
+            assert!(super::check_text_nl(&s, "file").is_err() || ch == '\n' || ch == '\r', "{name} should fail multiline unless it is a newline");
+        }
+        assert!(super::check_text_nl("Goal: a.\nDone when: checks pass.", "file").is_ok());
+        assert!(super::check_text("Goal: a.\nDone when: checks pass.", "text").is_err());
     }
 
     #[test]
