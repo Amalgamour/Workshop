@@ -156,6 +156,8 @@ Small gaps too: short hashes could be cut in the middle of an escape; an entry w
 
 **Real pages:** copies in scratch/b18-real (90.10.00.0001 with 85 entries, 90.20.00.0001 with 49, 90.30.00.0001 with 37) verify ok on the new binary. The copies have the same hash as the real pages, and before and after. The old binary was not rebuilt after the restart, so only the new one was run this round.
 
+
+**Next round (commit 719d631, about 5:03 PM):** Tester passed bce5cb9 (ready, held for Matthew, questions file items 14-16) and found two older escape gaps, now fixed: `wf status` prints names from the log escaped (a forged signer with ESC, CR or U+202E), and `wf return --commit` shows a bad commit escaped in its "not found" error. The card now shows the check's commit in full, like the return line. 43 unit and 108 end-to-end tests, 0 failed; copies of the real pages still verify.
 ---
 
 ## Parked for Matthew
