@@ -2,7 +2,7 @@
 
 Pasted by Matthew in chat on Wed Nov 18, 2026, about 3:08 PM EST. Text verbatim.
 
-Security edit (Prima): every link originally pointed at commit 1f3c1fe98d2f4c0ca4a7a2e25cfa6c48486ef619, which held a live-looking token and was deleted from GitHub (t320u). To avoid republishing that commit id on a public branch, each link below is re-pointed to the clean tip cce5d257679cad8a9366cb4090483749d5800e0e (same paths). Mentions of "1f3c1fe" in the prose are his/Codex words and left as written.
+Security edit (Prima): every link originally pointed at commit 1f3c1fe98d2f4c0ca4a7a2e25cfa6c48486ef619, which held a live-looking token and was deleted from GitHub (t320u). To avoid republishing that commit id on a public branch, each link below is re-pointed to the clean tip cce5d257679cad8a9366cb4090483749d5800e0e (same paths). The one short commit id in the prose ("snapshot at ...") is also replaced with [deleted token commit] for the same reason; every other word is as written.
 
 ---
 
@@ -26,7 +26,7 @@ The workbook is useful precisely because it records both successful local behavi
 
 Method and limits
 
-I purposively sampled threads from the pinned reference snapshot at 1f3c1fe. I followed the original pass, review, and successor where present, then compared the project's own replay and orientation records. The sample includes favorable and adverse cases. Historical test outcomes are reported as claims in the archive, with independent reviews identified where available. This is an archival case study, with no new execution of the system, no representative sampling, and no causal estimate of model or human performance. It does not establish why the old project failed overall. [Reference snapshot](https://github.com/Amalgamour/Workshop/tree/cce5d257679cad8a9366cb4090483749d5800e0e)
+I purposively sampled threads from the pinned reference snapshot at [deleted token commit]. I followed the original pass, review, and successor where present, then compared the project's own replay and orientation records. The sample includes favorable and adverse cases. Historical test outcomes are reported as claims in the archive, with independent reviews identified where available. This is an archival case study, with no new execution of the system, no representative sampling, and no causal estimate of model or human performance. It does not establish why the old project failed overall. [Reference snapshot](https://github.com/Amalgamour/Workshop/tree/cce5d257679cad8a9366cb4090483749d5800e0e)
 
 What the workbook showed
 
