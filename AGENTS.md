@@ -1,8 +1,8 @@
 # AGENTS.md: for any model working with this kit
 
 ## Read first
-1. `docs/AXIOMS.md`: the nine axioms.
-2. `docs/DESIGN.md`: the page, the faces, the pass, the roles.
+1. In the kit folder (this folder: the one with this file, `src/`, and `docs/`): `docs/AXIOMS.md`: the nine axioms.
+2. Same folder: `docs/DESIGN.md`: the page, the faces, the pass, the roles.
 3. If you hold a pass: `pages/<page>/05.<NN>/AGENTS.md` and `PROMPT.md`.
    They pin the hash of AXIOMS.md and DESIGN.md. If yours differ, stop and tell Prime.
 
@@ -21,7 +21,9 @@ The `wf` you run must be a pinned build of the last merged commit, kept apart fr
 where builders build. README setup is two steps: build once, then copy the binary.
 When you build or test, set your own `CARGO_TARGET_DIR` (for example `target-builder`)
 and never build into the pinned copy. A builder build must not overwrite the tool
-that judges the work.
+that judges the work. When an old and a new build share a `CARGO_TARGET_DIR`, run
+`cargo clean -p wf` and touch the sources between them, or the new tests may run
+against the old binary.
 
 ## Your role, and what you may run
 | Role | You may run |
@@ -29,7 +31,7 @@ that judges the work.
 | Builder | `claim`, `return`, `elevate --to prime`, `status` |
 | Checker | `check`, `status` (never on a pass you built) |
 | Observer | `observe`, `observe --record "finding"`, `status` (never if you are Prime) |
-| Prime | `face-write 01 02 04 06 08`, `draft`, `pack [--overlap-ok NN --why "... (ref)"]`, `signoff --outcome ... [--cards ...] [--note "... (ref)"]`, `close`, `elevate --to person`, `answer`, `set-prime --ref` |
+| Prime | `face-write 01 02 04 06 08`, `draft [--overlap-ok NN --why "... (ref)"]`, `pack [--overlap-ok NN --why "... (ref)"]`, `signoff --outcome ... [--cards ...] [--note "... (ref)"]`, `close`, `elevate --to person`, `answer`, `set-prime --ref` |
 | Person | `init-page`, `face-write 04 --section responses`, `grant`, `answer`, `set-prime --ref` |
 
 Anyone may run `status`, `observe` and `verify`.

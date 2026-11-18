@@ -295,9 +295,9 @@ pub fn write(p: &Page) -> Res<()> {
 /// Reprint views after the log was appended. If the reprint fails, name the
 /// new log entry so a retry is not mistaken for a no-op (and does not double-log).
 pub fn write_after_append(p: &Page) -> Res<()> {
-    write(p).map_err(|_| {
-        let n = p.events.last().map(|e| e.seq).unwrap_or(0);
-        format!("logged as entry {n}; views not reprinted; run wf verify --fix")
+    write(p).map_err(|e| {
+        let n = p.events.last().map(|ev| ev.seq).unwrap_or(0);
+        format!("logged as entry {n}; views not reprinted ({e}); run wf verify {} --fix", p.addr)
     })
 }
 

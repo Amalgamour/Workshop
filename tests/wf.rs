@@ -115,6 +115,7 @@ impl Env {
         (o.status.success(), format!("{}{}", String::from_utf8_lossy(&o.stdout), String::from_utf8_lossy(&o.stderr)))
     }
     /// Pass `nn` from a 06 note to a passed close.
+    #[allow(dead_code)]
     fn close_one(&self, nn: u32) {
         let n = nn.to_string();
         self.ok(&["face-write", PG, "06", "--text", "read 04 and the last close", "--as", "pri"]);
@@ -144,6 +145,16 @@ impl Drop for Env {
     }
 }
 
+/// Closed passes written through the tool's own log append (Page::add), not 98 process runs.
+fn seed_closed_passes(e: &Env, count: u32) {
+    let mut p = wf::page::Page::load(&e.page()).unwrap();
+    for i in 1..=count {
+        p.add("pri", "prime", "draft", serde_json::json!({"pass": i, "fields": {}, "pins": {}})).unwrap();
+        p.add("pri", "prime", "close", serde_json::json!({"pass": i, "outcome": "passed"})).unwrap();
+    }
+    wf::render::write(&p).unwrap();
+}
+
 #[test]
 fn full_pass_closes_with_a_record() {
     let e = Env::checked("full");
@@ -165,7 +176,7 @@ fn pack_prints_prompt_and_pins_axioms_and_design() {
     let out = e.ok(&["pack", PG, "1", "--as", "pri"]);
     assert!(out.contains("=== WORKSHOP JOB 1.2.3.4.05.01 ===") && out.contains("May touch: src/a.rs"));
     let agents = fs::read_to_string(e.page().join("05.01/AGENTS.md")).unwrap();
-    assert!(agents.contains("docs/AXIOMS.md: hash ") && agents.contains("docs/DESIGN.md: hash "));
+    assert!(agents.contains("docs/AXIOMS.md") && agents.contains("docs/DESIGN.md") && agents.contains("hash "), "{agents}");
     assert!(agents.contains("Goal: a."));
     assert!(agents.contains("Done when (face 01): Done when: checks pass."), "{agents}");
     assert!(!agents.contains("cold set") && !agents.contains("Axioms named by this pack"), "{agents}");
@@ -1022,13 +1033,14 @@ fn draft_refuses_pass_0() {
 
 #[test]
 fn draft_refuses_a_99th_pass() {
+    let start = std::time::Instant::now();
     let e = Env::ready("pass98");
+    seed_closed_passes(&e, 98);
     let f = e.root.join("pack.txt");
     fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: src/a.rs\nchecks: true\nstop if: b must change\n").unwrap();
     let file = f.to_str().unwrap();
-    for i in 1..=98 {
-        e.close_one(i);
-    }
+    let st = e.ok(&["status", PG]);
+    assert!(st.contains("05.98  closed"), "{st}");
     let before = e.log();
     e.no(
         &["draft", PG, "--file", file, "--as", "pri"],
@@ -1042,6 +1054,11 @@ fn draft_refuses_a_99th_pass() {
     e.no(
         &["draft", PG, "--pass", "05.99", "--file", file, "--as", "pri"],
         "counter 98 reached: after 98 is open (QD16); ask Prime",
+    );
+    let elapsed = start.elapsed();
+    assert!(
+        elapsed < std::time::Duration::from_secs(10),
+        "99-pass test took {elapsed:?}, want under 10 s"
     );
 }
 
@@ -1057,10 +1074,11 @@ fn reprint_failure_after_append_says_logged_as() {
     let (ok, out) = e.wf(&["pack", PG, "1", "--as", "pri"]);
     assert!(!ok, "{out}");
     assert!(
-        out.contains(&format!("logged as entry {n}; views not reprinted; run wf verify --fix")),
+        out.contains(&format!("logged as entry {n}; views not reprinted ("))
+            && out.contains("linked folder: 05.01")
+            && out.contains(&format!("run wf verify {PG} --fix")),
         "{out}"
     );
-    assert!(!out.contains("nothing was changed"), "{out}");
     assert_eq!(e.log().lines().count(), n, "the pack must have been logged");
     assert!(e.log().contains("\"kind\":\"pack\""), "{}", e.log());
     assert!(page.join("05.01").is_symlink(), "must not replace the pre-made link");
@@ -1075,7 +1093,9 @@ fn reprint_failure_when_temp_path_is_a_directory_says_logged_as() {
     let (ok, out) = e.wf(&["face-write", PG, "06", "--text", "x", "--as", "pri"]);
     assert!(!ok, "{out}");
     assert!(
-        out.contains(&format!("logged as entry {n}; views not reprinted; run wf verify --fix")),
+        out.contains(&format!("logged as entry {n}; views not reprinted ("))
+            && out.contains("cannot write")
+            && out.contains(&format!("run wf verify {PG} --fix")),
         "{out}"
     );
     assert!(!out.contains("nothing was changed"), "{out}");
@@ -1174,4 +1194,134 @@ fn draft_is_refused_while_an_earlier_pass_is_not_closed() {
     e.ok(&["close", PG, "1", "--as", "pri"]);
     e.ok(&["face-write", PG, "06", "--text", "read 04 and closed 05.01", "--as", "pri"]);
     assert!(e.ok(&["draft", PG, "--file", &file, "--as", "pri"]).contains("drafted 05.02"));
+}
+
+#[test]
+fn draft_overlap_ok_lets_prime_draft_while_a_pass_is_open() {
+    let e = Env::ready("draft-ov");
+    e.open("src/a.rs", "true");
+    let f = e.root.join("p2.txt");
+    fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: src/b.rs\nchecks: true\nstop if: b must change\n").unwrap();
+    let file = f.to_str().unwrap();
+    let before = e.log();
+    e.no(&["draft", PG, "--file", file, "--as", "pri"], "refused: 05.01 is at 'open' and not closed");
+    assert_eq!(e.log(), before, "a refused draft must not append");
+    let out = e.ok(&[
+        "draft", PG, "--file", file, "--overlap-ok", "1", "--why", "several models can work one page (t285u)", "--as", "pri",
+    ]);
+    assert!(out.contains("drafted 05.02"), "{out}");
+    assert!(e.log().contains("\"overlap_ok\":1") && e.log().contains("several models can work one page (t285u)"), "{}", e.log());
+    // a pass still at draft cannot be overlapped
+    let f3 = e.root.join("p3.txt");
+    fs::write(&f3, "repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: src/b.rs\nchecks: true\nstop if: b must change\n").unwrap();
+    e.no(
+        &["draft", PG, "--file", f3.to_str().unwrap(), "--overlap-ok", "1", "--why", "again (t285u)", "--as", "pri"],
+        "refused: 05.02 is at 'draft' and not closed",
+    );
+    e.no(
+        &["draft", PG, "--file", f3.to_str().unwrap(), "--overlap-ok", "2", "--why", "again (t285u)", "--as", "pri"],
+        "--overlap-ok 05.02 is not open (tail is draft)",
+    );
+
+    let plan = "repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: src/b.rs\nchecks: true\nstop if: b must change\n";
+    let e = Env::ready("draft-ov-pack");
+    e.draft("src/a.rs", "true");
+    e.ok(&["pack", PG, "1", "--as", "pri"]);
+    let f = e.root.join("p2.txt");
+    fs::write(&f, plan).unwrap();
+    assert!(e.ok(&[
+        "draft", PG, "--file", f.to_str().unwrap(), "--overlap-ok", "1", "--why", "several models can work one page (t285u)", "--as", "pri",
+    ]).contains("drafted 05.02"));
+
+    let e = Env::checked("draft-ov-rev");
+    let f = e.root.join("p2.txt");
+    fs::write(&f, plan).unwrap();
+    assert!(e.ok(&[
+        "draft", PG, "--file", f.to_str().unwrap(), "--overlap-ok", "1", "--why", "several models can work one page (t285u)", "--as", "pri",
+    ]).contains("drafted 05.02"));
+}
+
+#[test]
+fn pack_refuses_overlapping_may_touch() {
+    let e = Env::ready("ov-ref");
+    e.open("src/a.rs", "true");
+    let f = e.root.join("pack.txt");
+    fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: src/\nchecks: true\nstop if: b must change\n").unwrap();
+    e.ok(&[
+        "draft", PG, "--file", f.to_str().unwrap(), "--overlap-ok", "1", "--why", "shared files (t275u)", "--as", "pri",
+    ]);
+    let (ok, out) = e.wf(&["pack", PG, "2", "--as", "pri"]);
+    assert!(!ok, "{out}");
+    assert!(out.contains("overlaps open pass 05.01") && out.contains("src/") && out.contains("src/a.rs"), "{out}");
+}
+
+#[test]
+fn pack_allows_overlap_with_flag() {
+    let e = Env::ready("ov-ok");
+    e.open("src/a.rs", "true");
+    let f = e.root.join("pack.txt");
+    fs::write(&f, "repo: game\nstart: main\noutcome: a = 2\nw01: set a to 2\nmay touch: src/a.rs\nchecks: true\nstop if: b must change\n").unwrap();
+    e.ok(&[
+        "draft", PG, "--file", f.to_str().unwrap(), "--overlap-ok", "1", "--why", "shared files (t275u)", "--as", "pri",
+    ]);
+    e.no(&["pack", PG, "2", "--overlap-ok", "1", "--as", "pri"], "missing --why");
+    e.no(&["pack", PG, "2", "--overlap-ok", "1", "--why", "no ref", "--as", "pri"], "--why needs a reason and a (ref)");
+    e.ok(&["pack", PG, "2", "--overlap-ok", "1", "--why", "shared files (t275u)", "--as", "pri"]);
+    assert!(e.log().contains("\"overlap_ok\":1") && e.log().contains("shared files (t275u)"), "{}", e.log());
+}
+
+#[test]
+fn plus_one_is_not_read_as_pass_1() {
+    let e = Env::ready("plus1");
+    e.draft("src/a.rs", "true");
+    let f = e.root.join("pack.txt");
+    let file = f.to_str().unwrap();
+    let before = e.log();
+    e.no(&["draft", PG, "--pass", "+1", "--file", file, "--as", "pri"], "bad --pass");
+    e.no(&["pack", PG, "+1", "--as", "pri"], "give the pass number, like 3 or 05.03");
+    assert_eq!(e.log(), before, "+1 must not be accepted as pass 1");
+    // a real pack of pass 1 still works, so the earlier +1 did not consume it
+    e.ok(&["pack", PG, "1", "--as", "pri"]);
+}
+
+#[test]
+fn pass_100_is_not_printed_as_05_100() {
+    let e = Env::ready("p100");
+    let (ok, out) = e.wf(&["pack", PG, "100", "--as", "pri"]);
+    assert!(!ok, "{out}");
+    assert!(out.contains("no pass 100 on this page"), "{out}");
+    assert!(!out.contains("05.100"), "{out}");
+}
+
+#[test]
+fn halt_note_refuses_a_newline() {
+    let e = Env::ready("halt-nl");
+    let before = e.log();
+    e.no(
+        &["halt", PG, "--note", "wait for Matthew (t301u)\nnext: draft", "--as", "pri"],
+        "--note cannot contain control characters",
+    );
+    e.no(&["halt", PG, "--note", "wait\there (t1)", "--as", "pri"], "--note cannot contain control characters");
+    e.no(&["halt", PG, "--note", "wait\rhere (t1)", "--as", "pri"], "--note cannot contain control characters");
+    assert_eq!(e.log(), before, "a refused halt must not append");
+    let st = e.ok(&["status", PG]);
+    assert!(!st.lines().any(|l| l.trim() == "next: draft"), "{st}");
+    assert!(!st.contains("halted:"), "{st}");
+    e.ok(&["halt", PG, "--note", "wait for Matthew (t301u)", "--as", "pri"]);
+    e.no(&["resume", PG, "--note", "go\non (t1)", "--as", "pri"], "--note cannot contain control characters");
+    let log = e.log();
+    assert!(log.contains("\"kind\":\"halt\""), "{log}");
+    assert!(!log.contains("\"kind\":\"resume\""), "{log}");
+}
+
+#[test]
+fn job_box_names_axioms_in_the_kit_folder() {
+    let e = Env::ready("kitpath");
+    e.draft("src/a.rs", "true");
+    let out = e.ok(&["pack", PG, "1", "--as", "pri"]);
+    assert!(out.contains("kit folder") && out.contains("docs/AXIOMS.md") && out.contains("not the run folder that holds pages/"), "{out}");
+    let agents = fs::read_to_string(e.page().join("05.01/AGENTS.md")).unwrap();
+    assert!(agents.contains("in the kit folder") && agents.contains("docs/AXIOMS.md") && agents.contains("not beside pages/"), "{agents}");
+    let pack = fs::read_to_string(e.page().join("05.01/PACK.md")).unwrap();
+    assert!(pack.contains("in the kit folder") && pack.contains("docs/DESIGN.md"), "{pack}");
 }

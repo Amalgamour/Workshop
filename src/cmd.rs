@@ -25,8 +25,14 @@ fn nonblank<'a>(text: &'a str, flag: &str) -> Res<&'a str> {
     Ok(t)
 }
 
+/// One-line fields that status prints must not contain C0 controls (newline, CR, tab, ...).
+pub(crate) fn no_ctrl(text: &str, flag: &str) -> Res<()> {
+    need(!text.chars().any(|c| (c as u32) < 0x20), format!("--{flag} cannot contain control characters"))
+}
+
 /// A valid "<why> (ref)": both the why and the ref have non-blank text after trimming.
 fn why_ref<'a>(text: &'a str, flag: &str) -> Res<&'a str> {
+    no_ctrl(text, flag)?;
     let t = text.trim();
     let ok = match (t.find('('), t.rfind(')')) {
         (Some(i), Some(j)) if j > i => !t[..i].trim().is_empty() && nonblank(&t[i + 1..j], flag).is_ok(),
@@ -91,8 +97,17 @@ fn tail_is(x: &Pass, want: &[&str]) -> Res<()> {
     need(want.contains(&x.tail.as_str()), format!("refused: 05.{:02} is at '{}', this needs {}", x.nn, x.tail, want.join(" or ")))
 }
 
+/// Digits, or 05.NN. Refuses signed forms like +1.
+fn parse_pass(v: &str, err: &str) -> Res<u32> {
+    let v = v.strip_prefix("05.").unwrap_or(v);
+    if v.is_empty() || !v.bytes().all(|b| b.is_ascii_digit()) {
+        return Err(err.into());
+    }
+    v.parse().map_err(|_| err.to_string())
+}
+
 fn nn(a: &Args, i: usize) -> Res<u32> {
-    a.pos.get(i).and_then(|x| x.trim_start_matches("05.").parse().ok()).ok_or("give the pass number, like 3 or 05.03".into())
+    parse_pass(a.pos.get(i).map(|s| s.as_str()).unwrap_or(""), "give the pass number, like 3 or 05.03")
 }
 
 /// Pass numbers are 01-98 (R9). 00 is not a pass; after 98 is open (QD16).
@@ -200,7 +215,7 @@ pub fn draft(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     let mut f = fields(&text_arg(a)?);
     let n = match a.flag("pass") {
         Some(v) => {
-            let n: u32 = v.trim_start_matches("05.").parse().map_err(|_| "bad --pass".to_string())?;
+            let n = parse_pass(v, "bad --pass")?;
             pass_number_ok(n)?;
             tail_is(p.pass(n)?, &["draft"])?;
             n
@@ -211,8 +226,13 @@ pub fn draft(p: &mut Page, a: &Args, who: &str) -> Res<()> {
             n
         }
     };
-    // A pass that is not closed would make this draft's pins stale when it closes.
-    if let Some(x) = p.passes.values().find(|x| x.nn != n && x.tail != "closed") {
+    let allow = overlap_ok_flag(p, a)?;
+    // A pass at draft cannot be overlapped. An open pass (pack, open, return, review)
+    // may, when Prime names it with --overlap-ok and a why.
+    for x in p.passes.values().filter(|x| x.nn != n && x.tail != "closed") {
+        if allow.as_ref().map(|(okn, _)| *okn) == Some(x.nn) {
+            continue;
+        }
         let redo = if x.tail == "draft" { format!(", or redraft it: wf draft {} --pass {}", p.addr, x.nn) } else { String::new() };
         return Err(format!("refused: 05.{:02} is at '{}' and not closed. Draft the next pass after it closes. Next for 05.{:02}: {}{redo}",
             x.nn, x.tail, x.nn, crate::status::pass_next(p, x)));
@@ -225,7 +245,12 @@ pub fn draft(p: &mut Page, a: &Args, who: &str) -> Res<()> {
         f.insert("predecessor".into(), pre.into());
     }
     let pins = json!({"04": pin(p, "04"), "06": pin(p, "06"), "05": pin05(p)});
-    p.add(who, "prime", "draft", json!({"pass": n, "fields": f, "pins": pins}))?;
+    let mut d = json!({"pass": n, "fields": f, "pins": pins});
+    if let Some((okn, why)) = &allow {
+        d["overlap_ok"] = json!(okn);
+        d["overlap_why"] = json!(why);
+    }
+    p.add(who, "prime", "draft", d)?;
     println!("drafted 05.{n:02}. Next: wf pack {} {n} --as {who}", p.addr);
     Ok(())
 }
@@ -245,8 +270,7 @@ fn overlap_ok_flag(p: &Page, a: &Args) -> Res<Option<(u32, String)>> {
         None => Ok(None),
         Some(v) => {
             let why = why_ref(a.req("why")?, "why")?.to_string();
-            let n: u32 = v.trim_start_matches("05.").parse()
-                .map_err(|_| "give --overlap-ok a pass number, like 3 or 05.03".to_string())?;
+            let n = parse_pass(v, "give --overlap-ok a pass number, like 3 or 05.03")?;
             match p.passes.get(&n) {
                 Some(x) if x.is_open_tail() => Ok(Some((n, why))),
                 Some(x) => Err(format!("refused: --overlap-ok 05.{n:02} is not open (tail is {})", x.tail)),
@@ -611,7 +635,9 @@ pub fn elevate(p: &mut Page, a: &Args, who: &str) -> Res<()> {
     p.pass(n)?;
     let to = a.req("to")?;
     need(to == "prime" || (to == "person" && who == p.prime), "refused: --to prime (anyone), or --to person (only Prime sends it up)")?;
-    p.add(who, if who == p.prime { "prime" } else { "builder" }, "elevate", json!({"pass": n, "to": to, "item": a.req("item")?}))
+    let item = a.req("item")?;
+    no_ctrl(item, "item")?;
+    p.add(who, if who == p.prime { "prime" } else { "builder" }, "elevate", json!({"pass": n, "to": to, "item": item}))
 }
 
 pub fn answer(p: &mut Page, a: &Args, who: &str) -> Res<()> {
