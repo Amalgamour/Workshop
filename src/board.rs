@@ -407,7 +407,7 @@ pub fn card(p: &Page, x: &Pass, stall_hours: u64, t: u64) -> String {
     }
     match &x.check {
         Some((who, c)) => {
-            l.push(format!("  check:      entry {}; checker {}; verdict {}; commit {}; failed checks {}", last_entry(p, n, "check"), e(who), e(&s(c, "verdict")), sh(&s(c, "commit")), failed_checks(p, n)));
+            l.push(format!("  check:      entry {}; checker {}; verdict {}; commit {}; failed checks {}", last_entry(p, n, "check"), e(who), e(&s(c, "verdict")), e(&s(c, "commit")), failed_checks(p, n)));
             l.push(format!("    report:   pages/{addr}/05.md section \"## 05.{n:02}\""));
         }
         None => l.push(format!("  check:      {none}")),

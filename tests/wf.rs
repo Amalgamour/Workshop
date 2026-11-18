@@ -2296,3 +2296,64 @@ fn sha256_repo_runs_a_full_pass_and_loads() {
     assert!(e.ok(&["status", PG]).contains("05.01  closed   passed"));
     assert!(e.ok(&["board", PG, "--card", "1"]).contains(&sha));
 }
+
+/// Rewrite the actor of every entry of one kind, then rechain the log (a forged log).
+fn set_actor(dir: &PathBuf, kind: &str, actor: &str) {
+    use sha2::{Digest, Sha256};
+    let text = fs::read_to_string(dir.join("log.jsonl")).unwrap();
+    let (mut out, mut prev) = (String::new(), "0".to_string());
+    for line in text.lines() {
+        let mut v: serde_json::Value = serde_json::from_str(line).unwrap();
+        v["prev"] = serde_json::json!(prev);
+        if v["kind"] == kind {
+            v["actor"] = serde_json::json!(actor);
+        }
+        let l = v.to_string();
+        prev = Sha256::digest(l.as_bytes()).iter().map(|b| format!("{b:02x}")).collect();
+        out += &l;
+        out.push('\n');
+    }
+    fs::write(dir.join("log.jsonl"), out).unwrap();
+}
+
+/// wf status escapes names from the log (a forged signer with ESC, CR and U+202E), like observe and board.
+#[test]
+fn status_escapes_a_forged_signer_name() {
+    let e = Env::ready("status-esc");
+    let dir = e.root.join("pages/5.0.0.4");
+    let evs = vec![("init", init_data("5.0.0.4"), Some(1)), ev("draft", 1), ev("pack", 1), ev("claim", 1), ev("return", 1), ev("check", 1), ev("signoff", 1)];
+    write_log(&dir, &evs);
+    let bad = "p\u{1b}[2K\rri\u{202e}";
+    set_actor(&dir, "signoff", bad);
+    set_actor(&dir, "check", bad);
+    let (code, out) = run_code(&e, &["status", "5.0.0.4"]);
+    assert_eq!(code, Some(0), "{out}");
+    assert!(out.contains("signoff        05.01 by p\\u{1b}[2K\\u{d}ri\\u{202e}"), "{out}");
+    assert!(!out.contains('\u{1b}') && !out.contains('\r') && !out.contains('\u{202e}'), "{out}");
+}
+
+/// wf return --commit with hostile input: the 'not found' error shows it escaped.
+#[test]
+fn return_escapes_a_hostile_commit_in_its_error() {
+    let e = Env::ready("ret-esc");
+    e.open("src/a.rs", "grep -q 2 src/a.rs");
+    e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2");
+    let (ok, out) = e.ret(1, "\u{1b}]0;title\u{7}\r\u{202e}x", "bob");
+    assert!(!ok, "{out}");
+    assert!(out.contains("commit \\u{1b}]0;title\\u{7}\\u{d}\\u{202e}x not found in"), "{out}");
+    assert!(!out.contains('\u{1b}') && !out.contains('\u{7}') && !out.contains('\r') && !out.contains('\u{202e}'), "{out}");
+}
+
+/// board --card shows the check's commit in full, like the return line above it.
+#[test]
+fn board_card_shows_full_commits_on_return_and_check() {
+    let e = Env::ready("card-full");
+    e.open("src/a.rs", "grep -q 2 src/a.rs");
+    let sha = e.work(1, &[("src/a.rs", "a = 2\n")], "w01: done - a is 2");
+    assert!(e.ret(1, &sha, "bob").0);
+    e.ok(&["check", PG, "1", "--as", "cat"]);
+    let card = e.ok(&["board", PG, "--card", "1"]);
+    let line = |k: &str| card.lines().find(|l| l.trim_start().starts_with(k)).unwrap_or_else(|| panic!("{k}: {card}")).to_string();
+    assert!(line("return:").contains(&format!("commit {sha};")), "{card}");
+    assert!(line("check:").contains(&format!("commit {sha};")), "{card}");
+}
