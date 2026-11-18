@@ -2,7 +2,7 @@
 
 Pasted by Matthew in chat on Wed Nov 18, 2026, about 3:08 PM EST. Text verbatim.
 
-Security edit (Prima): every link originally pointed at commit 1f3c1fe98d2f4c0ca4a7a2e25cfa6c48486ef619, which held a live-looking token and was deleted from GitHub (t320u). To avoid republishing that commit id on a public branch, each link below is re-pointed to the clean tip cce5d257679cad8a9366cb4090483749d5800e0e (same paths). The one short commit id in the prose ("snapshot at ...") is also replaced with [deleted token commit] for the same reason; every other word is as written.
+Security edit (Prima): every link originally pointed at commit [deleted token commit], which held a live-looking token and was deleted from GitHub (t320u). To avoid republishing that commit id on a public branch, each link below is re-pointed to the clean tip cce5d257679cad8a9366cb4090483749d5800e0e (same paths). The one short commit id in the prose ("snapshot at ...") is also replaced with [deleted token commit] for the same reason; every other word is as written.
 
 ---
 

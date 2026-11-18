@@ -3,7 +3,7 @@
 **What this is:** a map of the old "lib build", written so Prima can decide what to mine. It is a survey only. Nothing was mined, copied or ported.
 **Asked for by:** Matthew, t316u: "prep a researcher to mine this reference for useful pieces. Once it's surveyed what is there and turns that into a ref doc. Then you can authorize it to mine for things." (docs/review/DIRECTOR-WORDS-t316u.md:8)
 **Written by:** Grok Bot, as Prima's researcher. Wed 18 Nov 2026, about 2:55 PM EST.
-**Source read:** branch `reference/lib-build` on `Amalgamour/Workshop`, tip `1f3c1fe9`, read-only clone at `/workspace/workshop-build/lib-ref`. Nothing in it was changed.
+**Source read:** branch `reference/lib-build` on `Amalgamour/Workshop`, tip `[deleted token commit]`, read-only clone at `/workspace/workshop-build/lib-ref`. Nothing in it was changed.
 **Compared against:** this repo, branch `build` (at `17ad57f`), and the wf tool at `/workspace/workshop-build/wf-run/wfdev`.
 
 How to read the cites:
@@ -50,10 +50,10 @@ Other private details (lower risk): Matthew's email is in the git author lines a
 | First commit | 15 Oct 2026 | `bf5f04dc` |
 | Busiest day | 27 Oct 2026, 67 commits | `git log --date=short` |
 | Last real work commit | 31 Oct 2026 (`960d20c5`) | `git log` |
-| Snapshot commit | 18 Nov 2026, `1f3c1fe9`, "snapshot of uncommitted lib-build work (Director t314u)" | `git log -1` |
+| Snapshot commit | 18 Nov 2026, `[deleted token commit]`, "snapshot of uncommitted lib-build work (Director t314u)" | `git log -1` |
 | Newest dated page inside | 5 Nov 2026 (`date:` lines run 6 Oct to 5 Nov) | `rg '^date:'` |
 
-**The key fact for mining:** the snapshot commit `1f3c1fe9` adds **28,541 files** (about 5.3 million lines) that were never committed before (`git diff --shortstat 960d20c5 1f3c1fe9`). The committed part up to `960d20c` was already reviewed here on 16 Nov (docs/review/CODEX-LIBRARIAN-TOOLS-REVIEW.md:7,15), and Matthew ruled on what to carry forward from it (R37, docs/spec/DIRECTOR-RULINGS.md:192-203). So **the new, unreviewed material is the work from 31 Oct to 5 Nov**: pages 0416-0424, 0510-0526 and 0704-0710, most of `labs/`, `colab/` and `prima/`.
+**The key fact for mining:** the snapshot commit `[deleted token commit]` adds **28,541 files** (about 5.3 million lines) that were never committed before (`git diff --shortstat 960d20c5 [deleted token commit]`). The committed part up to `960d20c` was already reviewed here on 16 Nov (docs/review/CODEX-LIBRARIAN-TOOLS-REVIEW.md:7,15), and Matthew ruled on what to carry forward from it (R37, docs/spec/DIRECTOR-RULINGS.md:192-203). So **the new, unreviewed material is the work from 31 Oct to 5 Nov**: pages 0416-0424, 0510-0526 and 0704-0710, most of `labs/`, `colab/` and `prima/`.
 
 ---
 

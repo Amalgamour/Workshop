@@ -7,7 +7,7 @@ Source: Matthew, in chat.
 
 "I want to dump the old lib build into the workshop as a branch for reference.  Can you make a branch then the command for me to push it to git.  local path is D:\Git\lib-build"
 
-He pushed it himself as branch reference/lib-build on Amalgamour/Workshop (tip 1f3c1fe9 at 2:49 PM EST).
+He pushed it himself as branch reference/lib-build on Amalgamour/Workshop (tip [deleted token commit] at 2:49 PM EST).
 
 ## t316u (verbatim)
 
