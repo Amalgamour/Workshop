@@ -2,6 +2,7 @@
 //! The log (pages/<page>/log.jsonl) is the only truth; every other page file is a view
 //! printed from it. People and models never edit page files; they run wf.
 
+mod board;
 mod chars;
 mod cmd;
 mod git;
@@ -36,6 +37,8 @@ Every command that writes needs --as <name> (or set WF_AS).
   status <page>                                 now strip, board, feed (read only)
   observe <page> [--stall-hours 24] [--record T]   observer signals; --record files a finding
   verify <page> [--fix]                         check the log chain and every view file
+  board [<page>] [--all] [--card NN] [--stall-hours 24]   read-only work-order board from the log;
+                                                no page: one line per page (book board)
 Root folder: current folder, or WF_ROOT.";
 
 pub struct Args {
@@ -100,7 +103,7 @@ impl Drop for Lock {
 /// Commands that append to the log or reprint views. The rest only read.
 fn writes(c: &str, a: &Args) -> bool {
     match c {
-        "status" | "help" | "--help" => false,
+        "status" | "board" | "help" | "--help" => false,
         "verify" => a.flag("fix").is_some(),
         "observe" => a.flag("record").is_some(),
         "check" => false, // commands run unlocked; check takes the lock itself before it appends
@@ -116,6 +119,11 @@ pub fn run(raw: &[String]) -> log::Res<()> {
     if c == "help" || c == "--help" {
         println!("{HELP}");
         return Ok(());
+    }
+    if c == "board" {
+        // Read only: no lock, no view reprint, no log entry, no git (WF-BOARD.md).
+        debug_assert!(!writes(c, &a));
+        return board::run(&root, &a);
     }
     if c == "init-page" {
         need_who(&who)?;
@@ -226,6 +234,13 @@ mod lock_tests {
         let _ = fs::remove_dir_all(&d);
         fs::create_dir_all(&d).unwrap();
         d
+    }
+
+    #[test]
+    fn board_is_read_only() {
+        let a = Args::parse(&["1.2.3.4".into(), "--all".into()]);
+        assert!(!writes("board", &a) && !writes("status", &a));
+        assert!(writes("claim", &a));
     }
 
     #[test]
