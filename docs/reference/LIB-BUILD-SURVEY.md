@@ -1,7 +1,7 @@
 # Lib-build reference: survey
 
 **What this is:** a map of the old "lib build", written so Prima can decide what to mine. It is a survey only. Nothing was mined, copied or ported.
-**Asked for by:** Matthew, t316u: "prep a researcher to mine this reference for useful pieces. Once it's surveyed what is there and turns that into a ref doc. Then you can authorize it to mine for things." (docs/review/DIRECTOR-WORDS-t316u.md:8)
+**Asked for by:** Matthew, t316u: "prep a researcher to mine this reference for useful pieces. Once it's surveyed what is there and turns that into a ref doc. Then you can authorize it to mine for things." (docs/review/DIRECTOR-WORDS-t316u.md:14)
 **Written by:** Grok Bot, as Prima's researcher. Wed 18 Nov 2026, about 2:55 PM EST.
 **Source read:** branch `reference/lib-build` on `Amalgamour/Workshop`, tip `[deleted token commit]`, read-only clone at `/workspace/workshop-build/lib-ref`. Nothing in it was changed.
 **Compared against:** this repo, branch `build` (at `17ad57f`), and the wf tool at `/workspace/workshop-build/wf-run/wfdev`.
