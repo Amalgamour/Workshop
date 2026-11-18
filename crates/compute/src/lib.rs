@@ -11,6 +11,7 @@
 
 pub mod askq;
 pub mod identity;
+pub mod sha256;
 pub mod store;
 
 pub use identity::Identities;

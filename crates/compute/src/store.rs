@@ -90,13 +90,14 @@ pub struct Store {
     /// Known-good length of each book file: appends go straight to the end (TRIAL-X #15).
     pub file_len: BTreeMap<BookId, u64>,
     /// In-memory index: (writer, delivery id) -> first booked answer (R37 item 2, K4).
-    /// Rebuilt from the book log at start-up; the first booked entry wins.
+    /// Rebuilt from the book log at start-up; the first-written entry wins (05.03 w02).
     deliveries: BTreeMap<(String, String), DeliveryHit>,
 }
 
 /// First answer for a delivery id, keyed with the writer.
 struct DeliveryHit {
-    content: String,
+    /// sha256 hex of the first proposal's content (ops without the delivery id).
+    fingerprint: String,
     code: u16,
     body: Value,
 }
@@ -749,8 +750,8 @@ impl Store {
         if let Some(ans) = delivery_request_error(&raw) {
             return ans;
         }
-        if let Some(hit) = self.delivery_replay(&raw, by) {
-            return hit;
+        if let Some(ans) = self.delivery_replay(&raw, by) {
+            return ans; // the first answer (+0), or 409 for other content (05.03 w01)
         }
         self.queue_seq += 1;
         let qid = format!("q{}", self.queue_seq);
@@ -1020,12 +1021,17 @@ impl Store {
 }
 
 /// Refuse mixed, overlong, or control-bearing delivery ids (400) before replay.
+/// 05.03 w03(a), 7 draft choice: an id on some ops and none on others is refused (400).
 fn delivery_request_error(raw: &Value) -> Option<Answer> {
     let p: Proposal = serde_json::from_value(raw.clone()).ok()?;
     let mut found: Option<String> = None;
+    let mut bare = 0;
     for r in &p.ops {
         let id = r.delivery_id.as_deref().map(str::trim).filter(|s| !s.is_empty());
-        let Some(id) = id else { continue };
+        let Some(id) = id else {
+            bare += 1;
+            continue;
+        };
         if id.chars().count() > 128 || id.chars().any(|c| c.is_control()) {
             return Some((400, json!({"status": "rejected", "error": "invalid", "detail": "delivery id must be 1-128 characters with no control characters", "reasons": [], "entries": []})));
         }
@@ -1034,6 +1040,9 @@ fn delivery_request_error(raw: &Value) -> Option<Answer> {
             Some(x) if x == id => {}
             Some(_) => return Some((400, json!({"status": "rejected", "error": "invalid", "detail": "every op in a proposal must carry the same delivery id", "reasons": [], "entries": []}))),
         }
+    }
+    if found.is_some() && bare > 0 {
+        return Some((400, json!({"status": "rejected", "error": "invalid", "detail": "every op in a proposal must carry the same delivery id (some ops have none)", "reasons": [], "entries": []})));
     }
     None
 }
@@ -1071,74 +1080,120 @@ fn proposal_content(p: &Proposal) -> String {
     serde_json::to_string(&ops).unwrap_or_default()
 }
 
+/// The content fingerprint: sha256 hex of `proposal_content` (05.03 w01).
+fn proposal_fingerprint(p: &Proposal) -> String {
+    crate::sha256::hex(proposal_content(p).as_bytes())
+}
+
+/// Booked proposals: runs of entries sharing a `proposal` id (one entry if none).
+fn proposal_groups(lg: &BookLog) -> Vec<&[Entry]> {
+    let mut out = Vec::new();
+    let mut i = 0;
+    while i < lg.entries.len() {
+        let pid = &lg.entries[i].proposal;
+        let mut j = i + 1;
+        if pid.is_some() {
+            while j < lg.entries.len() && &lg.entries[j].proposal == pid {
+                j += 1;
+            }
+        }
+        out.push(&lg.entries[i..j]);
+        i = j;
+    }
+    out
+}
+
+/// queue_id of each approved proposal, keyed by (writer, book, entry numbers), from every
+/// record in `.queue` (05.03 w04). Read only; the first record wins.
+fn queue_ids(path: &Path) -> BTreeMap<(String, String, Vec<u64>), String> {
+    let mut out = BTreeMap::new();
+    let Ok(text) = std::fs::read_to_string(path) else { return out };
+    for l in text.lines() {
+        let Ok(v) = serde_json::from_str::<Value>(l) else { continue };
+        if v["http"].as_u64() != Some(200) {
+            continue;
+        }
+        let (Some(id), Some(by), Some(book), Some(es)) = (v["id"].as_str(), v["by"].as_str(), v["book"].as_str(), v["entries"].as_array()) else { continue };
+        let ns: Option<Vec<u64>> = es.iter().map(|e| e.as_u64()).collect();
+        if let Some(ns) = ns {
+            out.entry((by.to_string(), book.to_string(), ns)).or_insert_with(|| id.to_string());
+        }
+    }
+    out
+}
+
 impl Store {
+    /// Same writer + id: identical content replays the first answer; other content is
+    /// refused (409) naming the first fingerprint and book, and nothing is booked.
     fn delivery_replay(&self, raw: &Value, by: &str) -> Option<Answer> {
         let p: Proposal = serde_json::from_value(raw.clone()).ok()?;
         let id = proposal_delivery(&p)?;
-        let hit = self.deliveries.get(&(by.to_string(), id))?;
-        if hit.content == proposal_content(&p) {
-            Some((hit.code, hit.body.clone()))
-        } else {
-            // same id, other content: refusal is pass 05.03
-            None
+        let hit = self.deliveries.get(&(by.to_string(), id.clone()))?;
+        if hit.fingerprint == proposal_fingerprint(&p) {
+            return Some((hit.code, hit.body.clone()));
         }
+        Some((409, json!({
+            "status": "rejected", "error": "conflict", "rule": "K4",
+            "detail": format!("delivery id `{id}` was first used by this writer with other content; resend the same content or use a new id"),
+            "delivery_id": id, "first_fingerprint": hit.fingerprint, "first_book": hit.body.get("book"),
+            "reasons": [], "entries": [],
+        })))
     }
 
     fn remember_delivery(&mut self, raw: &Value, by: &str, ans: Answer) {
         let Ok(p) = serde_json::from_value::<Proposal>(raw.clone()) else { return };
         let Some(id) = proposal_delivery(&p) else { return };
-        self.deliveries.entry((by.to_string(), id)).or_insert(DeliveryHit { content: proposal_content(&p), code: ans.0, body: ans.1 });
+        self.deliveries.entry((by.to_string(), id)).or_insert(DeliveryHit { fingerprint: proposal_fingerprint(&p), code: ans.0, body: ans.1 });
     }
 
-    /// Rebuild the index from booked receipts. First entry wins if duplicates already exist.
+    /// Rebuild the index from booked receipts (05.03 w02). Within one book the first
+    /// line wins (append-only order). Across books the earlier `at` wins; on equal
+    /// `at` the lower book id wins. queue_id comes back from `.queue` when found (w04).
     fn rebuild_deliveries(&mut self) {
-        let groups: Vec<Vec<Entry>> = self
-            .logs
-            .values()
-            .flat_map(|lg| {
-                let mut out = Vec::new();
-                let mut i = 0;
-                while i < lg.entries.len() {
-                    let pid = lg.entries[i].proposal.clone();
-                    let mut j = i + 1;
-                    if pid.is_some() {
-                        while j < lg.entries.len() && lg.entries[j].proposal == pid {
-                            j += 1;
-                        }
-                    }
-                    out.push(lg.entries[i..j].to_vec());
-                    i = j;
+        let qids = queue_ids(&self.cfg.write_dir.join(".queue"));
+        let mut found: BTreeMap<(String, String), (String, DeliveryHit)> = BTreeMap::new();
+        for lg in self.logs.values() {
+            let mut local: BTreeMap<(String, String), (String, DeliveryHit)> = BTreeMap::new();
+            for group in proposal_groups(lg) {
+                if let Some((key, hit)) = delivery_group(group, &qids) {
+                    local.entry(key).or_insert((group[0].at.clone(), hit));
                 }
-                out
-            })
-            .collect();
-        for group in &groups {
-            self.index_delivery_group(group);
-        }
-    }
-
-    fn index_delivery_group(&mut self, group: &[Entry]) {
-        if group.is_empty() {
-            return;
-        }
-        let mut id: Option<String> = None;
-        for e in group {
-            let Some(d) = e.delivery_id().map(str::trim).filter(|s| !s.is_empty()) else { continue };
-            match &id {
-                None => id = Some(d.to_string()),
-                Some(x) if x == d => {}
-                Some(_) => return, // mixed ids in one proposal were never a replay
+            }
+            for (key, (at, hit)) in local {
+                match found.get(&key) {
+                    Some((first, _)) if log::check_time_order(first, &at).is_ok() => {}
+                    _ => {
+                        found.insert(key, (at, hit));
+                    }
+                }
             }
         }
-        let Some(id) = id else { return };
-        let by = group[0].by.clone();
-        let ops: Vec<OpRequest> = group.iter().map(entry_as_op).collect();
-        let content = proposal_content(&Proposal { by: by.clone(), ops });
-        let book = Address::parse_full_page(&group[0].addr).ok().and_then(|p| p.book_id()).map(|b| b.to_string());
-        let entries: Vec<u64> = group.iter().map(|e| e.n).collect();
-        let body = json!({"status": "approved", "reasons": [], "findings": [], "entries": entries, "book": book});
-        self.deliveries.entry((by, id)).or_insert(DeliveryHit { content, code: 200, body });
+        self.deliveries = found.into_iter().map(|(k, (_, h))| (k, h)).collect();
     }
+}
+
+/// The receipt of one booked proposal, if it carries one delivery id.
+fn delivery_group(group: &[Entry], qids: &BTreeMap<(String, String, Vec<u64>), String>) -> Option<((String, String), DeliveryHit)> {
+    let mut id: Option<String> = None;
+    for e in group {
+        let Some(d) = e.delivery_id().map(str::trim).filter(|s| !s.is_empty()) else { continue };
+        match &id {
+            None => id = Some(d.to_string()),
+            Some(x) if x == d => {}
+            Some(_) => return None, // mixed ids in one proposal were never a replay
+        }
+    }
+    let id = id?;
+    let by = group[0].by.clone();
+    let ops: Vec<OpRequest> = group.iter().map(entry_as_op).collect();
+    let fingerprint = proposal_fingerprint(&Proposal { by: by.clone(), ops });
+    let book = Address::parse_full_page(&group[0].addr).ok().and_then(|p| p.book_id()).map(|b| b.to_string());
+    let entries: Vec<u64> = group.iter().map(|e| e.n).collect();
+    let mut body = json!({"status": "approved", "reasons": [], "findings": [], "entries": entries, "book": book});
+    if let Some(q) = book.and_then(|b| qids.get(&(by.clone(), b, entries.clone()))) {
+        body["queue_id"] = json!(q);
+    }
+    Some(((by, id), DeliveryHit { fingerprint, code: 200, body }))
 }
 
 /// Rebuild an op from a booked line so the content fingerprint matches the original request.

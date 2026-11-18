@@ -198,3 +198,152 @@ async fn refuse_long_or_control_or_mixed_delivery_ids() {
     assert_eq!(s.lines("10.11.21"), before);
     s.stop().await;
 }
+
+// ---------------- pass 05.03 ----------------
+
+fn is_sha256_hex(v: &Value) -> bool {
+    v.as_str().map(|s| s.len() == 64 && s.chars().all(|c| c.is_ascii_hexdigit() && !c.is_ascii_uppercase())).unwrap_or(false)
+}
+
+/// w01: same writer + id + other content is refused (409) naming the first write's
+/// fingerprint and book; nothing new is booked; identical content still replays (+0).
+/// Checked before and after a restart.
+#[tokio::test]
+async fn other_content_same_id_is_refused_before_and_after_restart() {
+    let dir = kernel_dir("did-409");
+    let s = Srv::start(&dir).await;
+    seed(&s).await;
+    open_draft(&s).await;
+    let addr = "10.11.21.0020.01.draft";
+    let first = note(addr, "first body", Some("d-c"));
+    let (c1, v1) = s.post("user", json!([first.clone()])).await;
+    assert_eq!(c1, 200, "{v1}");
+    let before = s.lines("10.11.21");
+
+    let (c2, v2) = s.post("user", json!([note(addr, "other body", Some("d-c"))])).await;
+    assert_eq!(c2, 409, "other content, same id: {v2}");
+    assert_eq!(v2["error"], "conflict", "{v2}");
+    assert!(is_sha256_hex(&v2["first_fingerprint"]), "{v2}");
+    assert_eq!(v2["first_book"], "10.11.21", "{v2}");
+    assert_eq!(s.lines("10.11.21"), before, "a refused resend books nothing");
+    let fp = v2["first_fingerprint"].clone();
+    let (c3, v3) = s.post("user", json!([note(addr, "third body", Some("d-c"))])).await;
+    assert_eq!((c3, &v3["first_fingerprint"]), (409, &fp), "the fingerprint is the first write's, not the request's: {v3}");
+    let (c4, v4) = s.post("user", json!([first.clone()])).await;
+    assert_eq!((c4, &v4), (c1, &v1), "identical content replays the first answer");
+    assert_eq!(s.lines("10.11.21"), before, "+0");
+    s.stop().await;
+
+    let s = Srv::start(&dir).await;
+    let (c5, v5) = s.post("user", json!([note(addr, "other body", Some("d-c"))])).await;
+    assert_eq!(c5, 409, "after restart: {v5}");
+    assert_eq!(v5["first_fingerprint"], fp, "same fingerprint after restart: {v5}");
+    assert_eq!(v5["first_book"], "10.11.21", "{v5}");
+    assert_eq!(s.lines("10.11.21"), before, "after restart a refused resend books nothing");
+    let (c6, v6) = s.post("user", json!([first])).await;
+    assert_eq!(c6, 200, "{v6}");
+    assert_eq!(v6["entries"], v1["entries"], "after restart identical content replays: {v6}");
+    assert_eq!(s.lines("10.11.21"), before, "+0 after restart");
+    s.stop().await;
+}
+
+/// w02 (Tester 05.02 follow-up 1): the same writer and id in two books. The higher
+/// book id holds the earlier write. After a restart the first-written entry wins, and
+/// its resend gets its original 200.
+#[tokio::test]
+async fn first_written_wins_across_books_after_restart() {
+    let dir = kernel_dir("did-2book");
+    let s = Srv::start(&dir).await;
+    seed(&s).await;
+    open_draft(&s).await;
+    let mut a = put("10.11.22.0000.00", "---\ntitle: other-tools\n---");
+    a["delivery_id"] = json!("d-x");
+    let (ca, va) = s.post("user", json!([a.clone()])).await;
+    assert_eq!(ca, 200, "{va}");
+    tokio::time::sleep(std::time::Duration::from_millis(1100)).await; // a strictly later `at`
+    let (cb, vb) = s.post("user", json!([note("10.11.21.0020.01.draft", "later write", Some("d-y"))])).await;
+    assert_eq!(cb, 200, "{vb}");
+    s.stop().await;
+
+    // The compute now refuses this at write time (w01), so the old state is made by hand:
+    // the later line in the lower book takes the same id.
+    let f = dir.join("10.11.21.book");
+    let t = std::fs::read_to_string(&f).unwrap();
+    assert_eq!(t.matches("\"delivery_id\":\"d-y\"").count(), 1);
+    std::fs::write(&f, t.replace("\"delivery_id\":\"d-y\"", "\"delivery_id\":\"d-x\"")).unwrap();
+
+    let s = Srv::start(&dir).await;
+    let (l21, l22) = (s.lines("10.11.21"), s.lines("10.11.22"));
+    let (c1, v1) = s.post("user", json!([a])).await;
+    assert_eq!(c1, 200, "first write's resend gets its original 200: {v1}");
+    assert_eq!(v1["book"], "10.11.22", "{v1}");
+    assert_eq!(v1["entries"], va["entries"], "{v1}");
+    assert_eq!((s.lines("10.11.21"), s.lines("10.11.22")), (l21, l22), "nothing new booked");
+    let (c2, v2) = s.post("user", json!([note("10.11.21.0020.01.draft", "later write", Some("d-x"))])).await;
+    assert_eq!(c2, 409, "the later write is the other content now: {v2}");
+    assert_eq!(v2["first_book"], "10.11.22", "{v2}");
+    assert_eq!((s.lines("10.11.21"), s.lines("10.11.22")), (l21, l22), "nothing new booked");
+    s.stop().await;
+}
+
+/// w03(a), 7 draft choice: an id on some ops and none on others is refused (400) and
+/// books nothing. A proposal with no ids at all is booked as today.
+#[tokio::test]
+async fn partial_delivery_ids_are_refused() {
+    let s = Srv::start(&kernel_dir("did-part")).await;
+    seed(&s).await;
+    open_draft(&s).await;
+    let addr = "10.11.21.0020.01.draft";
+    let before = s.lines("10.11.21");
+    let (c, v) = s.post("user", json!([note(addr, "one", Some("d-p")), note(addr, "two", None)])).await;
+    assert_eq!(c, 400, "partial ids: {v}");
+    assert_eq!(s.lines("10.11.21"), before, "{v}");
+    let (c, v) = s.post("user", json!([note(addr, "one", None), note(addr, "two", None)])).await;
+    assert_eq!(c, 200, "no ids: as today: {v}");
+    assert_eq!(s.lines("10.11.21"), before + 2);
+    s.stop().await;
+}
+
+/// w03(b), 7 draft choice: a refused (non-200) answer is not remembered; the id stays
+/// free. Guard test: 800ea5e already behaves this way.
+#[tokio::test]
+async fn refused_answer_leaves_the_id_free() {
+    let s = Srv::start(&kernel_dir("did-free")).await;
+    seed(&s).await;
+    open_draft(&s).await;
+    let before = s.lines("10.11.21");
+    let bad = note("10.11.21.0099.01.draft", "no such draft", Some("d-f"));
+    let (c1, v1) = s.post("user", json!([bad.clone()])).await;
+    assert_ne!(c1, 200, "{v1}");
+    assert_eq!(s.lines("10.11.21"), before);
+    let (c2, v2) = s.post("user", json!([note("10.11.21.0020.01.draft", "good body", Some("d-f"))])).await;
+    assert_eq!(c2, 200, "the id is still free after a refusal: {v2}");
+    assert_eq!(s.lines("10.11.21"), before + 1);
+    s.stop().await;
+}
+
+/// w04: after a restart the replay carries the original queue_id, rebuilt from `.queue`.
+/// findings comes back [] (checked against the world at write time; not stored on disk).
+#[tokio::test]
+async fn queue_id_comes_back_after_restart() {
+    let dir = kernel_dir("did-qid");
+    let s = Srv::start(&dir).await;
+    seed(&s).await;
+    open_draft(&s).await;
+    let op = note("10.11.21.0020.01.draft", "queued thought", Some("d-q"));
+    let (c1, v1) = s.post("user", json!([op.clone()])).await;
+    assert_eq!(c1, 200, "{v1}");
+    assert!(v1["queue_id"].is_string(), "{v1}");
+    s.stop().await;
+
+    let s = Srv::start(&dir).await;
+    let (c2, v2) = s.post("user", json!([op])).await;
+    assert_eq!(c2, 200, "{v2}");
+    assert_eq!(v2["queue_id"], v1["queue_id"], "queue_id rebuilt from .queue: {v2}");
+    assert_eq!(v2["findings"], json!([]), "{v2}");
+    let (mut a, mut b) = (v1.clone(), v2.clone());
+    a.as_object_mut().unwrap().remove("findings");
+    b.as_object_mut().unwrap().remove("findings");
+    assert_eq!(b, a, "the replay matches the first answer except findings");
+    s.stop().await;
+}
