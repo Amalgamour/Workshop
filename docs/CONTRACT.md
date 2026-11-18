@@ -64,3 +64,16 @@ A write sent twice is booked once (R37 item 2, K4). Auth runs first, then the de
 - Auth first: a missing or unknown token is 401 `{"error":"identity"}`, not a replay, and writes nothing (`crates/compute/src/lib.rs:191-194`, `who` before the write). Pinned by `crates/compute/tests/delivery.rs:123` (`resend_with_wrong_or_missing_token_is_auth_refusal_not_replay`).
 
 Pinned status codes: 400 for a bad or mixed delivery id; 409 for the same id with other content; 200 for a replay of the same content.
+
+## Addendum (COMPUTE lane, 2026-11-18): delivery ids, 05.05 corrections
+
+Corrections and client gaps for the addendum above. That 2026-11-18 addendum was not rewritten. Cites below replace the stale ones in it: auth is `crates/compute/src/lib.rs:190-193` (not :191-194); `findings` after a restart is `crates/compute/src/store.rs:1192` (not :1193); the findings test line is `crates/compute/tests/delivery.rs:343` (not :342).
+
+- Non-ASCII: a delivery id holding a non-ASCII character (for example `é`) is refused with 422, rule `R4`, after the 400 shape checks. Control characters (newline, tab, DEL) are still 400. (`crates/seqaddr-core/src/validate.rs:183`, `crates/compute/src/store.rs:914-919`).
+- Ids are trimmed and case-sensitive: leading and trailing whitespace is stripped before the id is used (`crates/compute/src/store.rs:1030`, `:1056`, `:1179`); `Id` and `id` are different ids (no case folding).
+- 409 and 400 carry no `queue_id` and are not written to `.queue` (the id checks and the 409 return before a queue id is issued, `crates/compute/src/store.rs:750-755` and `:761`).
+- 400 body shape: `{"status":"rejected","error":"invalid","detail":...,"reasons":[],"entries":[]}`. The `detail` is `delivery id must be 1-128 characters with no control characters` for length or control characters; `every op in a proposal must carry the same delivery id` for mixed ids; `every op in a proposal must carry the same delivery id (some ops have none)` when some ops have an id and others have none (`crates/compute/src/store.rs:1025-1048`).
+- What to do on 409: do not resend the other content; the first write stands. To book new content, send a new delivery id. To get the first answer, resend the same content with the same id (`crates/compute/src/store.rs:1136-1141`; test `crates/compute/tests/delivery.rs:212`).
+- Auth first: a missing or unknown token is 401 `{"error":"identity"}`, not a replay (`crates/compute/src/lib.rs:190-193`). 128 characters is accepted; 129 is refused with 400.
+
+Pinned status codes: 400 for a bad or mixed delivery id; 409 for the same id with other content; 200 for a replay of the same content.
